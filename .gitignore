@@ -2,12 +2,51 @@
 *.slo
 *.lo
 *.o
+*.obj
 
 # Compiled Dynamic libraries
 *.so
 *.dylib
+*.dll
 
 # Compiled Static libraries
 *.lai
 *.la
 *.a
+*.dll.a
+
+# executables 
+seafile-client
+*.exe
+
+# backup file
+*#
+*~
+*.bak
+
+# other formats
+cscope*
+core
+*.pyc
+
+# CMake files goes here
+build/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+install_manifest.txt
+
+#### Qt files goes here
+### moc
+moc_*.cxx*
+*.moc
+
+### ui
+ui_*.h
+
+### qrc
+*.qrc.depends
+qrc_*.cxx

@@ -13,9 +13,9 @@ AccountManager* AccountManager::instance()
 
 AccountManager::AccountManager()
 {
-    Account fake_account(QUrl("https://fake.seafile.com"), "fake@fake.com", "__fake__token__");
-    accounts_.push_back(fake_account);
-    accounts_.push_back(fake_account);
+    // Account fake_account(QUrl("https://fake.seafile.com"), "fake@fake.com", "__fake__token__");
+    // accounts_.push_back(fake_account);
+    // accounts_.push_back(fake_account);
 }
 
 std::vector<Account> AccountManager::loadAccounts()

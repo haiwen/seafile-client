@@ -12,12 +12,9 @@ AccountView::AccountView(QWidget *parent) : QWidget(parent)
     connect(mAddAccountBtn, SIGNAL(clicked()),
             this, SLOT(showAddAccountDialog()));
 
-    refreshAccounts();
-}
+    mAccountList->setLayout(new QVBoxLayout);
 
-QVBoxLayout* AccountView::getLayout()
-{
-    return static_cast<QVBoxLayout*>(layout());
+    refreshAccounts();
 }
 
 void AccountView::showAddAccountDialog()
@@ -30,16 +27,22 @@ void AccountView::showAddAccountDialog()
 
 void AccountView::refreshAccounts()
 {
+    QVBoxLayout *layout = static_cast<QVBoxLayout*>(mAccountList->layout());
+    QLayoutItem *child;
+    while ((child = layout->takeAt(0)) != 0) {
+        delete child;
+    }
+
     std::vector<Account> accounts = AccountManager::instance()->loadAccounts();
     if (accounts.size() == 0) {
-        mNoAccountHint->show();
+        mNoAccountHint->setVisible(true);
         return;
     }
 
-    mNoAccountHint->hide();
+    mNoAccountHint->setVisible(false);
     std::vector<Account>::iterator iter;
     for (iter = accounts.begin(); iter != accounts.end(); iter++) {
         AccountItem *item = new AccountItem(this, *iter);
-        getLayout()->insertWidget(0, item);
+        layout->insertWidget(0, item);
     }
 }

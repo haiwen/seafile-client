@@ -6,7 +6,7 @@ AccountItem::AccountItem(QWidget *parent, const Account& account) : QWidget(pare
 {
     setupUi(this);
 
-    mAccountPicture->setPixmap(QPixmap(":/images/account.svg"));
+    mAccountPicture->setPixmap(QPixmap(":/images/account.png"));
     setAccount(account);
 }
 

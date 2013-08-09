@@ -1,7 +1,7 @@
 #include <QtGui>
 
 #include "login-dialog.h"
-#include "seaf-connection.h"
+#include "api-client.h"
 #include "account-mgr.h"
 
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
@@ -13,7 +13,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 
-    SeafConnection *conn = SeafConnection::instance();
+    SeafileApiClient *conn = SeafileApiClient::instance();
     connect(conn, SIGNAL(accountLoginSuccess(const Account&)),
             this, SLOT(loginSuccess(const Account&)));
 
@@ -32,7 +32,7 @@ void LoginDialog::doLogin()
     mPassword->setEnabled(false);
     mSubmitBtn->setEnabled(false);
 
-    SeafConnection *conn = SeafConnection::instance();
+    SeafileApiClient *conn = SeafileApiClient::instance();
     conn->accountLogin(url_, username_, password_);
 }
 

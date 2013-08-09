@@ -2,8 +2,7 @@
 #include <iostream>
 #include <QNetworkAccessManager>
 
-#include "seaf-connection.h"
-#include "seaf-connection.h"
+#include "api-client.h"
 
 #include <jansson.h>
 
@@ -14,19 +13,23 @@ const char *kContentTypeForm = "application/x-www-form-urlencoded";
 
 } // namespace
 
-SeafConnection::SeafConnection() {
+
+SeafileApiClient::SeafileApiClient() {
     network_access_mgr_ = new QNetworkAccessManager(this);
 }
 
-/**
- *
- QUrl serverUrl("https://192.168.1.101");
- QString username("test@test.com");
- QString password("test");
- SeafConnection::instance().accountLogin(serverUrl, username, password);
-*/
+SeafileApiClient* SeafileApiClient::singleton_ = NULL;
 
-void SeafConnection::accountLogin(const QUrl& serverUrl,
+SeafileApiClient* SeafileApiClient::instance()
+{
+    if (singleton_ == 0) {
+        singleton_ = new SeafileApiClient();
+    }
+
+    return singleton_;
+}
+
+void SeafileApiClient::accountLogin(const QUrl& serverUrl,
                                   const QString& username,
                                   const QString& password)
 {
@@ -45,6 +48,10 @@ void SeafConnection::accountLogin(const QUrl& serverUrl,
     current_login_account_.serverUrl = serverUrl;
     current_login_account_.username = username;
 
+    if (current_login_request_) {
+        delete current_login_request_;
+    }
+
     current_login_request_ = network_access_mgr_->post(request, params.encodedQuery());
     // ignore ssl error
     current_login_request_->ignoreSslErrors();
@@ -52,7 +59,7 @@ void SeafConnection::accountLogin(const QUrl& serverUrl,
     connect(current_login_request_, SIGNAL(finished()), this, SLOT(loginRequestFinished()));
 }
 
-void SeafConnection::loginRequestFinished()
+void SeafileApiClient::loginRequestFinished()
 {
     if (current_login_request_->error() != QNetworkReply::NoError) {
         qDebug("failed to send login request:%s\n",
@@ -87,13 +94,6 @@ void SeafConnection::loginRequestFinished()
     emit accountLoginSuccess(current_login_account_);
 }
 
-SeafConnection* SeafConnection::singleton_ = NULL;
-
-SeafConnection* SeafConnection::instance()
+void SeafileApiClient::getAccountRepos(const Account& account)
 {
-    if (singleton_ == 0) {
-        singleton_ = new SeafConnection();
-    }
-
-    return singleton_;
 }

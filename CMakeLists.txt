@@ -12,11 +12,13 @@ INCLUDE(${QT_USE_FILE})
 # MOC FILES
 SET(moc_headers
   src/account-mgr.h
-  src/seaf-connection.h
+  src/api-request.h
+  src/api-client.h
   src/ui/main-window.h
   src/ui/login-dialog.h
   src/ui/account-item.h
   src/ui/account-view.h
+  src/ui/get-account-repos-dialog.h
 )
 
 # UI FILES
@@ -24,6 +26,7 @@ SET(ui_files
   ui/account-item.ui
   ui/account-view.ui
   ui/login-dialog.ui
+  ui/get-account-repos-dialog.ui
 )
 
 # RESOURCES
@@ -59,11 +62,13 @@ PKG_CHECK_MODULES(JANSSON REQUIRED jansson>=2.0)
 SET(seafile_client_sources
   src/main.cpp
   src/account-mgr.cpp
-  src/seaf-connection.cpp
+  src/api-client.cpp
+  src/api-request.cpp
   src/ui/main-window.cpp
   src/ui/login-dialog.cpp
   src/ui/account-item.cpp
   src/ui/account-view.cpp
+  src/ui/get-account-repos-dialog.cpp
 )
 
 ADD_EXECUTABLE(seafile-client

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "ui_account-item.h"
 
-class Account;
+#include "account.h"
 
 class AccountItem : public QWidget,
                     public Ui::AccountItem
@@ -14,8 +14,11 @@ public:
     AccountItem(QWidget *parent, const Account& account);
     void setAccount(const Account& account);
 
+private slots:
+    void getAccountRepos();
+
 private:    
-    Account *account_;
+    Account account_;
 };
 
 

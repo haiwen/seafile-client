@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: IcoMoon.io -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="448"
+   height="448"
+   viewBox="0 0 448 448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="user.svg"
+   style="fill:#666666"
+   inkscape:export-filename="/data/seafile/seafile-dev/icons/android/user.png"
+   inkscape:export-xdpi="14.464286"
+   inkscape:export-ydpi="14.464286">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="0.52678571"
+     inkscape:cx="142.77966"
+     inkscape:cy="224"
+     inkscape:window-x="364"
+     inkscape:window-y="133"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="m 400,351.25 q 0,30 -18.25,47.375 Q 363.5,416 333.25,416 l -218.5,0 Q 84.5,416 66.25,398.625 48,381.25 48,351.25 48,338 48.875,325.375 49.75,312.75 52.375,298.125 55,283.5 59,271 63,258.5 69.75,246.625 76.5,234.75 85.25,226.375 94,218 106.625,213 q 12.625,-5 27.875,-5 2.25,0 10.5,5.375 8.25,5.375 18.625,12 10.375,6.625 27,12 16.625,5.375 33.375,5.375 16.75,0 33.375,-5.375 16.625,-5.375 27,-12 10.375,-6.625 18.625,-12 8.25,-5.375 10.5,-5.375 15.25,0 27.875,5 12.625,5 21.375,13.375 8.75,8.375 15.5,20.25 Q 385,258.5 389,271 q 4,12.5 6.625,27.125 2.625,14.625 3.5,27.25 Q 400,338 400,351.25 z M 320,128 q 0,39.75 -28.125,67.875 Q 263.75,224 224,224 184.25,224 156.125,195.875 128,167.75 128,128 128,88.25 156.125,60.125 184.25,32 224,32 263.75,32 291.875,60.125 320,88.25 320,128 z"
+     id="path4"
+     inkscape:connector-curvature="0" />
+</svg>

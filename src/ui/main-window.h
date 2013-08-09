@@ -28,11 +28,13 @@ private slots:
     void about();
     void showAccounts();
     void showRepos();
+    void refreshQss();
 
 private:
     QAction *about_action_;
     QAction *show_accounts_action_;
     QAction *show_repos_action_;
+    QAction *refresh_qss_action_;
 
     QMenu *help_menu_;
     QToolBar *tool_bar_;

@@ -1,7 +1,10 @@
 <RCC>
 <qresource>
     <file>images/seafile.png</file>
+    <file>images/account.svg</file>
+    <file>images/repo.svg</file>
+    <file>images/refresh.svg</file>
     <file>images/account.png</file>
-    <file>images/repos.png</file>
+    <file>images/repo.png</file>
 </qresource>
 </RCC>

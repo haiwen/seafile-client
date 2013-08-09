@@ -1,5 +1,7 @@
 <RCC>
 <qresource>
     <file>images/seafile.png</file>
+    <file>images/account.png</file>
+    <file>images/repos.png</file>
 </qresource>
 </RCC>

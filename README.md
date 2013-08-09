@@ -1,17 +1,19 @@
-== seafile-client ==
+## seafile-client ##
 
 New version of Seafile desktop client.
 
-== BUILD ==
+## BUILD ##
 
-=== Prerequisites ===
+### Prerequisites ###
 
 - Qt4
 - cmake
-- libsearpc
-- ccnet
+- [libsearpc](https://github.com/haiwen/libsearpc)
+- [ccnet](https://github.com/haiwen/ccnet)
+- [seafile](https://github.com/haiwen/seafile)
+- [jansson](https://github.com/akheron/jansson)
 
-=== INSTALL ===
+### INSTALL ###
 
 ```
 cmake .

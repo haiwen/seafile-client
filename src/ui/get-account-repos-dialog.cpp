@@ -1,7 +1,6 @@
 #include <QtGui>
 
 #include "get-account-repos-dialog.h"
-#include "api-client.h"
 #include "seaf-repo.h"
 
 GetAccountReposDialog::GetAccountReposDialog(const Account& account, QWidget *parent)
@@ -10,14 +9,14 @@ GetAccountReposDialog::GetAccountReposDialog(const Account& account, QWidget *pa
 {
     setupUi(this);
 
-    SeafileApiClient *sc = SeafileApiClient::instance();
+    // SeafileApiClient *sc = SeafileApiClient::instance();
 
-    sc->getAccountRepos(account);
+    // sc->getAccountRepos(account);
 
-    connect(sc, SIGNAL(getAccountReposSuccess(const std::vector<SeafRepo>&)),
-            this, SLOT(onRequestSuccess(const std::vector<SeafRepo>&)));
+    // connect(sc, SIGNAL(getAccountReposSuccess(const std::vector<SeafRepo>&)),
+    //         this, SLOT(onRequestSuccess(const std::vector<SeafRepo>&)));
 
-    connect(sc, SIGNAL(getAccountReposFailed()), this, SLOT(onRequestFailed()));
+    // connect(sc, SIGNAL(getAccountReposFailed()), this, SLOT(onRequestFailed()));
 }
 
 void GetAccountReposDialog::onRequestSuccess(const std::vector<SeafRepo>& repos)

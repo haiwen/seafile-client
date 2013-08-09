@@ -5,6 +5,7 @@
 #include <QString>
 
 class Account;
+class LoginRequest;
 
 class LoginDialog : public QDialog,
                     public Ui::LoginDialog
@@ -15,7 +16,7 @@ public:
 
 private slots:
     void doLogin();
-    void loginSuccess(const Account& account);
+    void loginSuccess(const QString& token);
     void loginFailed();
 
 private:
@@ -25,4 +26,5 @@ private:
     QUrl url_;
     QString username_;
     QString password_;
+    LoginRequest *request_;
 };

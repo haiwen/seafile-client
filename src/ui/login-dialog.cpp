@@ -1,23 +1,20 @@
 #include <QtGui>
 
 #include "login-dialog.h"
-#include "api-client.h"
 #include "account-mgr.h"
+#include "api/login-request.h"
 
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     setWindowTitle(tr("Add an account"));
 
+    request_ = NULL;
+
     mStatusText->setText("");
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 
-    SeafileApiClient *conn = SeafileApiClient::instance();
-    connect(conn, SIGNAL(accountLoginSuccess(const Account&)),
-            this, SLOT(loginSuccess(const Account&)));
-
-    connect(conn, SIGNAL(accountLoginFailed()), this, SLOT(loginFailed()));
 }
 
 void LoginDialog::doLogin()
@@ -32,8 +29,19 @@ void LoginDialog::doLogin()
     mPassword->setEnabled(false);
     mSubmitBtn->setEnabled(false);
 
-    SeafileApiClient *conn = SeafileApiClient::instance();
-    conn->accountLogin(url_, username_, password_);
+    if (request_) {
+        delete request_;
+    }
+
+    request_ = new LoginRequest(url_, username_, password_);
+
+    connect(request_, SIGNAL(success(const QString&)),
+            this, SLOT(loginSuccess(const QString&)));
+
+    connect(request_, SIGNAL(failed(int)),
+            this, SLOT(loginFailed()));
+
+    request_->send();
 }
 
 bool LoginDialog::validateInputs()
@@ -81,9 +89,10 @@ bool LoginDialog::validateInputs()
     return true;
 }
 
-void LoginDialog::loginSuccess(const Account& account)
+void LoginDialog::loginSuccess(const QString& token)
 {
     AccountManager *mgr = AccountManager::instance();
+    Account account(url_, username_, token);
     if (mgr->saveAccount(account) < 0) {
         QMessageBox::warning(this, tr("Seafile"),
                              tr("Internal Error"),

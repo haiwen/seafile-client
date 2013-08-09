@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.6)
 PROJECT(seafile-client)
 INCLUDE(FindPkgConfig)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 ####################
 ###### BEGIN: QT configuration
 ####################
@@ -12,8 +14,9 @@ INCLUDE(${QT_USE_FILE})
 # MOC FILES
 SET(moc_headers
   src/account-mgr.h
-  src/api-request.h
-  src/api-client.h
+  src/api/api-client.h
+  src/api/api-request.h
+  src/api/login-request.h
   src/ui/main-window.h
   src/ui/login-dialog.h
   src/ui/account-item.h
@@ -62,8 +65,9 @@ PKG_CHECK_MODULES(JANSSON REQUIRED jansson>=2.0)
 SET(seafile_client_sources
   src/main.cpp
   src/account-mgr.cpp
-  src/api-client.cpp
-  src/api-request.cpp
+  src/api/api-client.cpp
+  src/api/api-request.cpp
+  src/api/login-request.cpp
   src/ui/main-window.cpp
   src/ui/login-dialog.cpp
   src/ui/account-item.cpp

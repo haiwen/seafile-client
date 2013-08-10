@@ -11,13 +11,14 @@ class AccountItem : public QWidget,
 {
     Q_OBJECT
 public:
-    AccountItem(QWidget *parent, const Account& account);
+    AccountItem(const Account& account, QWidget *parent=0);
     void setAccount(const Account& account);
+    const Account& account() const { return account_; }
 
 private slots:
     void getAccountRepos();
 
-private:    
+private:
     Account account_;
 };
 

@@ -2,9 +2,9 @@
 
 #include "account-item.h"
 #include "account-mgr.h"
-#include "get-account-repos-dialog.h"
+#include "list-account-repos-dialog.h"
 
-AccountItem::AccountItem(QWidget *parent, const Account& account)
+AccountItem::AccountItem(const Account& account, QWidget *parent)
     : QWidget(parent),
       account_(account)
 {
@@ -24,6 +24,6 @@ void AccountItem::setAccount(const Account& account)
 
 void AccountItem::getAccountRepos()
 {
-    GetAccountReposDialog dialog(account_, this);
+    ListAccountReposDialog dialog(account_, this);
     dialog.exec();
 }

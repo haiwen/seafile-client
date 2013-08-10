@@ -25,24 +25,50 @@ void AccountView::showAddAccountDialog()
     }
 }
 
+bool AccountView::hasAccount(const Account& account)
+{
+    for (std::vector<AccountItem*>::iterator item_iter = accounts_list_.begin();
+         item_iter != accounts_list_.end(); item_iter++) {
+
+        AccountItem *item = *item_iter;
+        if (item->account() == account) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void AccountView::refreshAccounts()
 {
-    QVBoxLayout *layout = static_cast<QVBoxLayout*>(mAccountList->layout());
-    QLayoutItem *child;
-    while ((child = layout->takeAt(0)) != 0) {
-        delete child;
-    }
-
     std::vector<Account> accounts = AccountManager::instance()->loadAccounts();
-    if (accounts.size() == 0) {
-        mNoAccountHint->setVisible(true);
-        return;
-    }
 
+    mAccountList->setVisible(true);
     mNoAccountHint->setVisible(false);
+
+    // Add new account if not
     std::vector<Account>::iterator iter;
     for (iter = accounts.begin(); iter != accounts.end(); iter++) {
-        AccountItem *item = new AccountItem(this, *iter);
-        layout->insertWidget(0, item);
+        Account& account = *iter;
+        if (!hasAccount(account)) {
+            AccountItem *item = new AccountItem(account);
+            accounts_list_.push_back(item);
+        }
+    }
+
+    QVBoxLayout *layout = static_cast<QVBoxLayout*>(mAccountList->layout());
+
+    for (std::vector<AccountItem*>::iterator item_iter = accounts_list_.begin();
+         item_iter != accounts_list_.end(); item_iter++) {
+
+        AccountItem *item = *item_iter;
+        if (item->parent() == 0) {
+            layout->addWidget(*item_iter);
+        }
+    }
+
+    if (accounts.size() == 0) {
+        mAccountList->setVisible(false);
+        mNoAccountHint->setVisible(true);
     }
 }

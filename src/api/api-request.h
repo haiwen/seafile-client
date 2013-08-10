@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QUrl>
+#include <jansson.h>
 
 class QNetworkReply;
 class SeafileApiClient;
@@ -14,13 +15,6 @@ class SeafileApiRequest : public QObject {
     Q_OBJECT
 
 public:
-    enum Method {
-        METHOD_POST,
-        METHOD_GET
-    };
-    
-    SeafileApiRequest(const QUrl& url, const Method method, const QString& token = QString());
-
     virtual ~SeafileApiRequest();
 
     void setParam(const QString& name, const QString& value);
@@ -33,6 +27,23 @@ protected slots:
     virtual void requestSuccess(QNetworkReply& reply) = 0;
 
 protected:
+    enum Method {
+        METHOD_POST,
+        METHOD_GET
+    };
+
+    SeafileApiRequest(const QUrl& url,
+                      const Method method,
+                      const QString& token = QString());
+
+    json_t* parseJSON(QNetworkReply &reply, json_error_t *error);
+
+    // Used with QScopedPointer for json_t
+    struct JsonPointerCustomDeleter {
+        static inline void cleanup(json_t *json) {
+            json_decref(json);
+        }
+    };
 
 private:
     Q_DISABLE_COPY(SeafileApiRequest)

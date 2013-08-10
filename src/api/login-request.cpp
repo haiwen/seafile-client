@@ -1,5 +1,6 @@
 #include <QtNetwork>
 #include <jansson.h>
+#include <QScopedPointer>
 
 #include "login-request.h"
 
@@ -22,16 +23,17 @@ LoginRequest::LoginRequest(const QUrl& serverAddr,
 
 void LoginRequest::requestSuccess(QNetworkReply& reply)
 {
-    QByteArray raw = reply.readAll();
     json_error_t error;
-    json_t *root = json_loads(raw.data(), 0, &error);
+    json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("failed to parse json:%s\n", error.text);
         emit failed(0);
         return;
     }
 
-    const char *token = json_string_value(json_object_get(root, "token"));
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    const char *token = json_string_value(json_object_get(json.data(), "token"));
     if (token == NULL) {
         qDebug("failed to parse json:%s\n", error.text);
         emit failed(0);

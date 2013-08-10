@@ -6,5 +6,6 @@
     <file>images/refresh.svg</file>
     <file>images/account.png</file>
     <file>images/repo.png</file>
+    <file>images/loading.gif</file>
 </qresource>
 </RCC>

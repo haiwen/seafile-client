@@ -18,6 +18,7 @@ SET(moc_headers
   src/api/api-request.h
   src/api/login-request.h
   src/api/list-repos-request.h
+  src/rpc/rpc-client.h
   src/ui/main-window.h
   src/ui/login-dialog.h
   src/ui/account-item.h
@@ -45,20 +46,26 @@ QT4_WRAP_CPP(moc_output ${moc_headers})
 # resources files
 QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
 
-MESSAGE("moc output: ${moc_output}")
-MESSAGE("ui output: ${ui_output}")
+# MESSAGE("moc output: ${moc_output}")
+# MESSAGE("ui output: ${ui_output}")
 
 ####################
 ###### END: QT configuration
 ####################
 
 ####################
-###### BEGIN: JANSSON configuration
+###### BEGIN: other libraries configuration
 ####################
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(JANSSON REQUIRED jansson>=2.0)
+
+FIND_PACKAGE(PkgConfig)
+PKG_CHECK_MODULES(LIBCCNET REQUIRED libccnet>=1.3)
+
+FIND_PACKAGE(PkgConfig)
+PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
 ####################
-###### END: JANSSON configuration
+###### END: other libraries configuration
 ####################
 
 
@@ -71,6 +78,7 @@ SET(seafile_client_sources
   src/api/login-request.cpp
   src/api/list-repos-request.cpp
   src/api/seaf-repo.cpp
+  src/rpc/rpc-client.cpp
   src/ui/main-window.cpp
   src/ui/login-dialog.cpp
   src/ui/account-item.cpp
@@ -91,11 +99,18 @@ INCLUDE_DIRECTORIES(
   ${PROJECT_SOURCE_DIR}/src
   ${QT_INCLUDE_DIR}
   ${QT_QTNETWORK_INCLUDE_DIR}
-  ${JANSSON_CFLAGS}
+  ${JANSSON_INCLUDE_DIR}
+  ${LIBSEARPC_INCLUDE_DIRS}
+  ${LIBCCNET_INCLUDE_DIRS}
 )
+
+MESSAGE("${LIBSEARPC_INCLUDE_DIRS}")
+MESSAGE("${LIBCCNET_INCLUDE_DIRS}")
 
 TARGET_LINK_LIBRARIES(seafile-client
   ${QT_LIBRARIES}
   ${QT_QTNETWORK_LIBRARY}
   ${JANSSON_LIBRARIES}
+  ${LIBSEARPC_LIBRARIES}
+  ${LIBCCNET_LIBRARIES}
 )

@@ -14,7 +14,6 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mStatusText->setText("");
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
-
 }
 
 void LoginDialog::doLogin()

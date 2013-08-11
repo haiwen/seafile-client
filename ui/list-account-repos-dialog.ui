@@ -53,14 +53,20 @@
        <item>
         <widget class="QLabel" name="mLoadingMovie">
          <property name="text">
-          <string>TextLabel</string>
+          <string>loading movie</string>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="mErrorText">
          <property name="text">
-          <string>TextLabel</string>
+          <string>error message</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -140,15 +146,6 @@
     </widget>
    </item>
   </layout>
-  <zorder>buttonBox</zorder>
-  <zorder>mScrollArea</zorder>
-  <zorder>mLoadingMovie</zorder>
-  <zorder>mErrorText</zorder>
-  <zorder>verticalSpacer</zorder>
-  <zorder>verticalSpacer_2</zorder>
-  <zorder>mScrollArea</zorder>
-  <zorder>horizontalSpacer</zorder>
-  <zorder>horizontalSpacer_2</zorder>
  </widget>
  <resources/>
  <connections>
@@ -159,8 +156,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>257</x>
+     <y>413</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -175,8 +172,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>325</x>
+     <y>413</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

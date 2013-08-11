@@ -54,7 +54,7 @@
    <item>
     <widget class="QPushButton" name="mListRepoBtn">
      <property name="text">
-      <string>List Libraries</string>
+      <string>Libraries</string>
      </property>
     </widget>
    </item>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AccountView</class>
- <widget class="QWidget" name="AccountView">
+ <class>AccountsView</class>
+ <widget class="QWidget" name="AccountsView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QWidget" name="mAccountList" native="true"/>
+    <widget class="QWidget" name="mAccountsList" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout"/>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

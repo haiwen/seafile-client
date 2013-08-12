@@ -8,8 +8,10 @@ class QLabel;
 class QListWidget;
 class QToolBar;
 class QToolButton;
-class QStackedLayout;
-class AccountView;
+class QStackedWidget;
+
+class AccountsView;
+class ReposView;
 
 class MainWindow : public QMainWindow
 {
@@ -26,24 +28,30 @@ protected:
 
 private slots:
     void about();
-    void showAccounts();
-    void showRepos();
     void refreshQss();
+    void showAccountsView();
+    void showReposView();
 
 private:
+    // Actions
     QAction *about_action_;
     QAction *show_accounts_action_;
     QAction *show_repos_action_;
     QAction *refresh_qss_action_;
 
+    // Menus
     QMenu *help_menu_;
+
+    // ToolBar
     QToolBar *tool_bar_;
+
     QToolButton *show_accounts_btn_;
     QToolButton *show_repos_btn_;
 
-    QStackedLayout *stacked_layout_;
+    QStackedWidget *main_widget_;
 
-    AccountView *accounts_view_;
+    AccountsView *accounts_view_;
+    ReposView *repos_view_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

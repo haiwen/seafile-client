@@ -6,7 +6,7 @@
 #include "ui_list-account-repos-dialog.h"
 #include "account.h"
 
-class SeafRepo;
+class ServerRepo;
 class ListReposRequest;
 class QListWidget;
 
@@ -21,7 +21,7 @@ public:
     void setAccount(const Account& account) { account_ = account_; }
 
 private slots:
-    void onRequestSuccess(const std::vector<SeafRepo>& repos);
+    void onRequestSuccess(const std::vector<ServerRepo>& repos);
     void onRequestFailed(int);
 
 private:

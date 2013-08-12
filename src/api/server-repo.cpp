@@ -1,7 +1,7 @@
 #include <vector>
 #include <jansson.h>
 
-#include "seaf-repo.h"
+#include "server-repo.h"
 
 namespace {
 
@@ -12,9 +12,9 @@ QString getStringFromJson(const json_t *json, const char* key)
 
 } // namespace
 
-SeafRepo SeafRepo::fromJSON(const json_t *json, json_error_t *error)
+ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t *error)
 {
-    SeafRepo repo;
+    ServerRepo repo;
     repo.id = getStringFromJson(json, "id");
     repo.name = getStringFromJson(json, "name");
     repo.description = getStringFromJson(json, "desc");
@@ -29,11 +29,11 @@ SeafRepo SeafRepo::fromJSON(const json_t *json, json_error_t *error)
     return repo;
 }
 
-std::vector<SeafRepo> SeafRepo::listFromJSON(const json_t *json, json_error_t *error)
+std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_t *error)
 {
-    std::vector<SeafRepo> repos;
+    std::vector<ServerRepo> repos;
     for (int i = 0; i < json_array_size(json); i++) {
-        SeafRepo repo = fromJSON(json_array_get(json, i), error);
+        ServerRepo repo = fromJSON(json_array_get(json, i), error);
         repos.push_back(repo);
     }
 

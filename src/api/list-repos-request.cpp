@@ -29,6 +29,6 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
-    std::vector<SeafRepo> repos = SeafRepo::listFromJSON(json.data(), &error);
+    std::vector<ServerRepo> repos = ServerRepo::listFromJSON(json.data(), &error);
     emit success(repos);
 }

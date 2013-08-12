@@ -2,18 +2,19 @@
 #include <QWidget>
 
 #include "account-mgr.h"
-#include "ui_account-view.h"
+#include "ui_accounts-view.h"
 
 class AccountItem;
 class Account;
 
-class AccountView : public QWidget,
-                    public Ui::AccountView
+
+class AccountsView : public QWidget,
+                     public Ui::AccountsView
 {
     Q_OBJECT
 
 public:
-    AccountView(QWidget *parent=0);
+    AccountsView(QWidget *parent=0);
 
 private slots:
     void showAddAccountDialog();

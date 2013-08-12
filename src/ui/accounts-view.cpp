@@ -1,23 +1,21 @@
 #include <cstdio>
 #include <QtGui>
 
-#include "account-view.h"
+#include "accounts-view.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
 #include "account-item.h"
 
-AccountView::AccountView(QWidget *parent) : QWidget(parent)
+AccountsView::AccountsView(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
     connect(mAddAccountBtn, SIGNAL(clicked()),
             this, SLOT(showAddAccountDialog()));
 
-    mAccountList->setLayout(new QVBoxLayout);
-
     refreshAccounts();
 }
 
-void AccountView::showAddAccountDialog()
+void AccountsView::showAddAccountDialog()
 {
     LoginDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
@@ -25,7 +23,7 @@ void AccountView::showAddAccountDialog()
     }
 }
 
-bool AccountView::hasAccount(const Account& account)
+bool AccountsView::hasAccount(const Account& account)
 {
     for (std::vector<AccountItem*>::iterator item_iter = accounts_list_.begin();
          item_iter != accounts_list_.end(); item_iter++) {
@@ -39,11 +37,11 @@ bool AccountView::hasAccount(const Account& account)
     return false;
 }
 
-void AccountView::refreshAccounts()
+void AccountsView::refreshAccounts()
 {
     std::vector<Account> accounts = AccountManager::instance()->loadAccounts();
 
-    mAccountList->setVisible(true);
+    mAccountsList->setVisible(true);
     mNoAccountHint->setVisible(false);
 
     // Add new account if not
@@ -56,7 +54,7 @@ void AccountView::refreshAccounts()
         }
     }
 
-    QVBoxLayout *layout = static_cast<QVBoxLayout*>(mAccountList->layout());
+    QVBoxLayout *layout = static_cast<QVBoxLayout*>(mAccountsList->layout());
 
     for (std::vector<AccountItem*>::iterator item_iter = accounts_list_.begin();
          item_iter != accounts_list_.end(); item_iter++) {
@@ -68,7 +66,7 @@ void AccountView::refreshAccounts()
     }
 
     if (accounts.size() == 0) {
-        mAccountList->setVisible(false);
+        mAccountsList->setVisible(false);
         mNoAccountHint->setVisible(true);
     }
 }

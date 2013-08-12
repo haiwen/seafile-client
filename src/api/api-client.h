@@ -5,7 +5,7 @@
 #include <QObject>
 
 #include "account.h"
-#include "seaf-repo.h"
+#include "server-repo.h"
 
 class QNetworkAccessManager;
 class QByteArray;

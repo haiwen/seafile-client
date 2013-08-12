@@ -3,21 +3,54 @@
 #include <QFile>
 #include <QTextStream>
 
-#include "account-view.h"
+#include "accounts-view.h"
+#include "repos-view.h"
 #include "main-window.h"
+
+namespace {
+
+enum WIDGET_INDEX {
+    INDEX_ACCOUNTS_VIEW = 0,
+    INDEX_REPOS_VIEW
+};
+
+} // namespace
 
 MainWindow::MainWindow()
 {
-    createActions();
-    createToolBar();
-    createMenus();
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle("Seafile");
 
-    accounts_view_ = new AccountView(this);
-    setCentralWidget(accounts_view_);
+    accounts_view_ = new AccountsView;
+    repos_view_ = new ReposView;
+
+    main_widget_ = new QStackedWidget(this);
+    main_widget_->insertWidget(INDEX_ACCOUNTS_VIEW, accounts_view_);
+    main_widget_->insertWidget(INDEX_REPOS_VIEW, repos_view_);
+
+    setCentralWidget(main_widget_);
+
+    createActions();
+    createToolBar();
+    createMenus();
+
     centerInScreen();
     refreshQss();
+}
+
+
+void MainWindow::showAccountsView()
+{
+    main_widget_->setCurrentIndex(INDEX_ACCOUNTS_VIEW);
+    show_accounts_btn_->setChecked(true);
+    show_repos_btn_->setChecked(false);
+}
+
+void MainWindow::showReposView()
+{
+    main_widget_->setCurrentIndex(INDEX_REPOS_VIEW);
+    show_accounts_btn_->setChecked(false);
+    show_repos_btn_->setChecked(true);
 }
 
 void MainWindow::centerInScreen()
@@ -34,12 +67,13 @@ void MainWindow::createActions()
     show_accounts_action_ = new QAction(QIcon(":/images/account.svg"),
                                       tr("Accounts"), this);
     show_accounts_action_->setStatusTip(tr("Show accounts"));
-    connect(show_accounts_action_, SIGNAL(triggered()), this, SLOT(showAccounts()));
 
     show_repos_action_ = new QAction(QIcon(":/images/repo.svg"),
                                       tr("Libraries"), this);
     show_repos_action_->setStatusTip(tr("Show libraries"));
-    connect(show_repos_action_, SIGNAL(triggered()), this, SLOT(showRepos()));
+
+    connect(show_accounts_action_, SIGNAL(triggered()), this, SLOT(showAccountsView()));
+    connect(show_repos_action_, SIGNAL(triggered()), this, SLOT(showReposView()));
 
     refresh_qss_action_ = new QAction(QIcon(":/images/refresh.svg"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
@@ -73,18 +107,6 @@ void MainWindow::about()
     QMessageBox::about(this, tr("About Seafile"),
                        tr("<h2>Seafile Client 1.8</h2>"
                           "<p>Copyright &copy; 2008 Seafile Inc."));
-}
-
-void MainWindow::showAccounts()
-{
-    show_accounts_btn_->setChecked(true);
-    show_repos_btn_->setChecked(false);
-}
-
-void MainWindow::showRepos()
-{
-    show_accounts_btn_->setChecked(false);
-    show_repos_btn_->setChecked(true);
 }
 
 void MainWindow::refreshQss()

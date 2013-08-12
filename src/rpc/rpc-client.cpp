@@ -10,6 +10,7 @@ extern "C" {
 namespace {
 
 const int kReconnectIntervalMilli = 2000;
+
 } // namespace
 
 RpcClient::RpcClient(const QString& config_dir) :

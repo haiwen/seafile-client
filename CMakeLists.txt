@@ -21,17 +21,21 @@ SET(moc_headers
   src/rpc/rpc-client.h
   src/ui/main-window.h
   src/ui/login-dialog.h
-  src/ui/account-item.h
-  src/ui/account-view.h
   src/ui/list-account-repos-dialog.h
+  src/ui/account-item.h
+  src/ui/accounts-view.h
+  src/ui/repo-item.h
+  src/ui/repos-view.h
 )
 
 # UI FILES
 SET(ui_files
-  ui/account-item.ui
-  ui/account-view.ui
   ui/login-dialog.ui
   ui/list-account-repos-dialog.ui
+  ui/account-item.ui
+  ui/accounts-view.ui
+  ui/repo-item.ui
+  ui/repos-view.ui
 )
 
 # RESOURCES
@@ -77,13 +81,15 @@ SET(seafile_client_sources
   src/api/api-request.cpp
   src/api/login-request.cpp
   src/api/list-repos-request.cpp
-  src/api/seaf-repo.cpp
+  src/api/server-repo.cpp
   src/rpc/rpc-client.cpp
   src/ui/main-window.cpp
   src/ui/login-dialog.cpp
-  src/ui/account-item.cpp
-  src/ui/account-view.cpp
   src/ui/list-account-repos-dialog.cpp
+  src/ui/account-item.cpp
+  src/ui/accounts-view.cpp
+  src/ui/repo-item.cpp
+  src/ui/repos-view.cpp
 )
 
 ADD_EXECUTABLE(seafile-client

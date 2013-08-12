@@ -5,8 +5,10 @@
 #include <QString>
 #include <jansson.h>
 
-
-struct SeafRepo {
+/**
+ * Repo information from seahub api
+ */
+class ServerRepo {
 public:
     QString id;
     QString name;
@@ -21,8 +23,8 @@ public:
     qint64  size;
     QString root;
 
-    static SeafRepo fromJSON(const json_t*, json_error_t *error);
-    static std::vector<SeafRepo> listFromJSON(const json_t*, json_error_t *json);
+    static ServerRepo fromJSON(const json_t*, json_error_t *error);
+    static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);
 };
 
 #endif

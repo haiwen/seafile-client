@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "api-request.h"
-#include "seaf-repo.h"
+#include "server-repo.h"
 
 class QNetworkReply;
 class Account;
@@ -18,7 +18,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 signals:
-    void success(const std::vector<SeafRepo>& repos);
+    void success(const std::vector<ServerRepo>& repos);
 
 private:
     Q_DISABLE_COPY(ListReposRequest)

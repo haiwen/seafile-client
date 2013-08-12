@@ -1,3 +1,11 @@
+MainWindow {
+    min-width: 380px;
+    max-width: 380px;
+
+    min-height: 550px;
+    max-height: 550px;
+}
+
 AccountItem {
     min-height: 100px;
     max-height: 100px;
@@ -6,6 +14,9 @@ AccountItem {
 RepoItem {
     min-height: 70px;
     max-height: 70px;
+
+    min-width: 250px;
+    max-width: 250px;
 }
 
 QTabWidget {

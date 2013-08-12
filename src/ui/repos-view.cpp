@@ -35,9 +35,13 @@ void ReposView::updateRepos()
 
 void ReposView::addRepo(const LocalRepo& repo)
 {
-    RepoItem *item = new RepoItem(repo);
+    if (repos_map_.contains(repo.id)) {
+        return;
+    }
 
     QVBoxLayout *layout = static_cast<QVBoxLayout*>(repos_list_->layout());
+    RepoItem *item = new RepoItem(repo);
 
+    repos_map_[repo.id] = item;
     layout->addWidget(item);
 }

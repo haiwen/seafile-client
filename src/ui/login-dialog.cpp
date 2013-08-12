@@ -1,8 +1,9 @@
 #include <QtGui>
 
-#include "login-dialog.h"
 #include "account-mgr.h"
+#include "seafile-applet.h"
 #include "api/login-request.h"
+#include "login-dialog.h"
 
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 {
@@ -90,9 +91,8 @@ bool LoginDialog::validateInputs()
 
 void LoginDialog::loginSuccess(const QString& token)
 {
-    AccountManager *mgr = AccountManager::instance();
     Account account(url_, username_, token);
-    if (mgr->saveAccount(account) < 0) {
+    if (seafApplet->account_mgr->saveAccount(account) < 0) {
         QMessageBox::warning(this, tr("Seafile"),
                              tr("Internal Error"),
                              QMessageBox::Ok);

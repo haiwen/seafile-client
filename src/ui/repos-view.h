@@ -14,6 +14,7 @@ class ReposView : public QWidget,
 public:
     ReposView(QWidget *parent=0);
     void addRepo(const LocalRepo& repo);
+    void updateRepos();
 
 private:
     Q_DISABLE_COPY(ReposView)

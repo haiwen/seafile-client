@@ -13,6 +13,7 @@ INCLUDE(${QT_USE_FILE})
 
 # MOC FILES
 SET(moc_headers
+  src/seafile-applet.h
   src/account-mgr.h
   src/api/api-client.h
   src/api/api-request.h
@@ -76,6 +77,7 @@ PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
 # cpp sources
 SET(seafile_client_sources
   src/main.cpp
+  src/seafile-applet.cpp
   src/account-mgr.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
@@ -83,6 +85,7 @@ SET(seafile_client_sources
   src/api/list-repos-request.cpp
   src/api/server-repo.cpp
   src/rpc/rpc-client.cpp
+  src/rpc/local-repo.cpp
   src/ui/main-window.cpp
   src/ui/login-dialog.cpp
   src/ui/list-account-repos-dialog.cpp
@@ -110,13 +113,11 @@ INCLUDE_DIRECTORIES(
   ${LIBCCNET_INCLUDE_DIRS}
 )
 
-MESSAGE("${LIBSEARPC_INCLUDE_DIRS}")
-MESSAGE("${LIBCCNET_INCLUDE_DIRS}")
-
 TARGET_LINK_LIBRARIES(seafile-client
   ${QT_LIBRARIES}
   ${QT_QTNETWORK_LIBRARY}
   ${JANSSON_LIBRARIES}
   ${LIBSEARPC_LIBRARIES}
   ${LIBCCNET_LIBRARIES}
+  seafile
 )

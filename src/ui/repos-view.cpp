@@ -1,6 +1,8 @@
 #include <QtGui>
 
 #include "repo-item.h"
+#include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "repos-view.h"
 
 ReposView::ReposView(QWidget *parent) : QWidget(parent)
@@ -11,12 +13,24 @@ ReposView::ReposView(QWidget *parent) : QWidget(parent)
     repos_list_->setLayout(new QVBoxLayout);
 
     mScrollArea->setWidget(repos_list_);
+}
 
-    LocalRepo repo;
-    repo.name = "repo001";
-    repo.encrypted = true;
+void ReposView::updateRepos()
+{
+    RpcClient *rpc_client = seafApplet->rpc_client;
+    if (!rpc_client->connected()) {
+        return;
+    }
 
-    addRepo(repo);
+    std::vector<LocalRepo> repos;
+    if (rpc_client->listRepos(&repos) < 0) {
+        return;
+    }
+
+    int i, n = repos.size();
+    for (i = 0; i < n; i++) {
+        addRepo(repos[i]);
+    }
 }
 
 void ReposView::addRepo(const LocalRepo& repo)

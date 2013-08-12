@@ -11,11 +11,9 @@
 
 class AccountManager : public QObject {
     Q_OBJECT
-    Q_DISABLE_COPY(AccountManager)
-    AccountManager();
 
 public:
-    static AccountManager* instance();
+    AccountManager();
     std::vector<Account> loadAccounts();
     int saveAccount(const Account& account);
 
@@ -23,7 +21,8 @@ signals:
     void accountsChanged();
 
 private:
-    static AccountManager* singleton_;
+    Q_DISABLE_COPY(AccountManager)
+
     std::vector<Account> accounts_;
 };
 

@@ -4,6 +4,7 @@
 #include "accounts-view.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
+#include "seafile-applet.h"
 #include "account-item.h"
 
 AccountsView::AccountsView(QWidget *parent) : QWidget(parent)
@@ -39,7 +40,7 @@ bool AccountsView::hasAccount(const Account& account)
 
 void AccountsView::refreshAccounts()
 {
-    std::vector<Account> accounts = AccountManager::instance()->loadAccounts();
+    std::vector<Account> accounts = seafApplet->account_mgr->loadAccounts();
 
     mAccountsList->setVisible(true);
     mNoAccountHint->setVisible(false);

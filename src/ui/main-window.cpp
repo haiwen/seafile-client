@@ -5,6 +5,8 @@
 
 #include "accounts-view.h"
 #include "repos-view.h"
+#include "rpc/rpc-client.h"
+#include "seafile-applet.h"
 #include "main-window.h"
 
 namespace {
@@ -51,6 +53,8 @@ void MainWindow::showReposView()
     main_widget_->setCurrentIndex(INDEX_REPOS_VIEW);
     show_accounts_btn_->setChecked(false);
     show_repos_btn_->setChecked(true);
+
+    repos_view_->updateRepos();
 }
 
 void MainWindow::centerInScreen()

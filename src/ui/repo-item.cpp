@@ -9,6 +9,8 @@ RepoItem::RepoItem(const LocalRepo& repo, QWidget *parent)
 {
     setupUi(this);
     refresh();
+
+    setFixedHeight(70);
 }
 
 void RepoItem::refresh()

@@ -10,6 +10,8 @@ AccountItem::AccountItem(const Account& account, QWidget *parent)
 {
     setupUi(this);
 
+    setFixedHeight(70);
+
     mAccountPicture->setPixmap(QPixmap(":/images/account.png"));
     setAccount(account);
 

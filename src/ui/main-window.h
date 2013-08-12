@@ -8,7 +8,6 @@ class QLabel;
 class QListWidget;
 class QToolBar;
 class QToolButton;
-class QStackedWidget;
 
 class AccountsView;
 class ReposView;
@@ -20,6 +19,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
 
+    void keyPressEvent(QKeyEvent *event);
+
 protected:
     void createActions();
     void createMenus();
@@ -29,14 +30,11 @@ protected:
 private slots:
     void about();
     void refreshQss();
-    void showAccountsView();
-    void showReposView();
+    void onViewChanged(int);
 
 private:
     // Actions
     QAction *about_action_;
-    QAction *show_accounts_action_;
-    QAction *show_repos_action_;
     QAction *refresh_qss_action_;
 
     // Menus
@@ -45,10 +43,7 @@ private:
     // ToolBar
     QToolBar *tool_bar_;
 
-    QToolButton *show_accounts_btn_;
-    QToolButton *show_repos_btn_;
-
-    QStackedWidget *main_widget_;
+    QTabWidget *main_widget_;
 
     AccountsView *accounts_view_;
     ReposView *repos_view_;

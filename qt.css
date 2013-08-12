@@ -1,12 +1,29 @@
-QPushButton {
-}
-
-QLabel {
-}
-
 AccountItem {
-    border: 1px solid #444;
+    min-height: 100px;
+    max-height: 100px;
 }
 
-QLabel#mAccountPicture {
+RepoItem {
+    min-height: 70px;
+    max-height: 70px;
+}
+
+QTabWidget {
+    qproperty-tabPosition: West;
+}
+
+ReposView {
+    min-height: 550px;
+    max-height: 550px;
+
+    min-width: 350px;
+    max-width: 350px;
+}
+
+AccountsView {
+    min-height: 550px;
+    max-height: 550px;
+
+    min-width: 350px;
+    max-width: 350px;
 }

@@ -26,35 +26,27 @@ MainWindow::MainWindow()
     accounts_view_ = new AccountsView;
     repos_view_ = new ReposView;
 
-    main_widget_ = new QStackedWidget(this);
-    main_widget_->insertWidget(INDEX_ACCOUNTS_VIEW, accounts_view_);
-    main_widget_->insertWidget(INDEX_REPOS_VIEW, repos_view_);
+    main_widget_ = new QTabWidget(this);
+    main_widget_->insertTab(INDEX_ACCOUNTS_VIEW,
+                            accounts_view_,
+                            QIcon(":/images/account.svg"),
+                            "Accounts");
+
+    main_widget_->insertTab(INDEX_REPOS_VIEW,
+                            repos_view_,
+                            QIcon(":/images/repo.svg"),
+                            "Repos");
+
+    connect(main_widget_, SIGNAL(currentChanged(int)), this, SLOT(onViewChanged(int)));
 
     setCentralWidget(main_widget_);
 
     createActions();
-    createToolBar();
+    // createToolBar();
     createMenus();
 
     centerInScreen();
     refreshQss();
-}
-
-
-void MainWindow::showAccountsView()
-{
-    main_widget_->setCurrentIndex(INDEX_ACCOUNTS_VIEW);
-    show_accounts_btn_->setChecked(true);
-    show_repos_btn_->setChecked(false);
-}
-
-void MainWindow::showReposView()
-{
-    main_widget_->setCurrentIndex(INDEX_REPOS_VIEW);
-    show_accounts_btn_->setChecked(false);
-    show_repos_btn_->setChecked(true);
-
-    repos_view_->updateRepos();
 }
 
 void MainWindow::centerInScreen()
@@ -62,22 +54,18 @@ void MainWindow::centerInScreen()
     // TODO: center the window at startup
 }
 
+void MainWindow::onViewChanged(int index)
+{
+    if (index == INDEX_REPOS_VIEW) {
+        repos_view_->updateRepos();
+    }
+}
+
 void MainWindow::createActions()
 {
     about_action_ = new QAction(tr("&About"), this);
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
-
-    show_accounts_action_ = new QAction(QIcon(":/images/account.svg"),
-                                      tr("Accounts"), this);
-    show_accounts_action_->setStatusTip(tr("Show accounts"));
-
-    show_repos_action_ = new QAction(QIcon(":/images/repo.svg"),
-                                      tr("Libraries"), this);
-    show_repos_action_->setStatusTip(tr("Show libraries"));
-
-    connect(show_accounts_action_, SIGNAL(triggered()), this, SLOT(showAccountsView()));
-    connect(show_repos_action_, SIGNAL(triggered()), this, SLOT(showReposView()));
 
     refresh_qss_action_ = new QAction(QIcon(":/images/refresh.svg"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
@@ -88,16 +76,17 @@ void MainWindow::createToolBar()
     tool_bar_ = addToolBar(tr("&main"));
     tool_bar_->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
-    tool_bar_->addAction(show_accounts_action_);
-    tool_bar_->addAction(show_repos_action_);
     tool_bar_->addAction(refresh_qss_action_);
+}
 
-    show_accounts_btn_ = dynamic_cast<QToolButton *>(tool_bar_->widgetForAction(show_accounts_action_));
-    show_accounts_btn_->setCheckable(true);
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_F5) {
+        refreshQss();
+        return;
+    }
 
-    show_repos_btn_ = dynamic_cast<QToolButton *>(tool_bar_->widgetForAction(show_repos_action_));
-    show_repos_btn_->setCheckable(true);
-
+    QMainWindow::keyPressEvent(event);
 }
 
 void MainWindow::createMenus()

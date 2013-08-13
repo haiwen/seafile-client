@@ -19,7 +19,7 @@ class RpcClient : QObject {
     Q_OBJECT
 
 public:
-    RpcClient(const QString& config_dir);
+    explicit RpcClient(const QString& config_dir);
     void start();
     int listRepos(std::vector<LocalRepo> *result);
     bool connected();

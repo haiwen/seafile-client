@@ -13,7 +13,7 @@ class DaemonManager : public QObject {
     Q_OBJECT
 
 public:
-    DaemonManager(QObject *parent=0);
+    DaemonManager();
     void startCcnetDaemon();
     // void stopAll();
 
@@ -30,6 +30,7 @@ private slots:
     void tryConnCcnet();
 
 private:
+    Q_DISABLE_COPY(DaemonManager)
 
     QTimer *monitor_timer_;
     QTimer *conn_daemon_timer_;

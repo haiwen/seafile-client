@@ -18,9 +18,8 @@ const int kConnDaemonIntervalMilli = 1000;
 } // namespace
 
 
-DaemonManager::DaemonManager(QObject *parent)
-    : QObject(parent),
-      sync_client_(0)
+DaemonManager::DaemonManager()
+    : sync_client_(0)
 {
     monitor_timer_ = new QTimer(this);
     conn_daemon_timer_ = new QTimer(this);

@@ -18,6 +18,8 @@ public:
     const QString& seafileDir() const { return seafile_dir_; }
 
 private:
+    Q_DISABLE_COPY(Configurator)
+
     bool needInitConfig();
     void initConfig();
     void validateExistingConfig();

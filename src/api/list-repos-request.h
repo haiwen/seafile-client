@@ -12,7 +12,7 @@ class ListReposRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    ListReposRequest(const Account& account);
+    explicit ListReposRequest(const Account& account);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

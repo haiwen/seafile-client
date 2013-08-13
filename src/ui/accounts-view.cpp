@@ -39,7 +39,7 @@ bool AccountsView::hasAccount(const Account& account)
 
 void AccountsView::refreshAccounts()
 {
-    std::vector<Account> accounts = seafApplet->account_mgr->loadAccounts();
+    std::vector<Account> accounts = seafApplet->accountManager()->loadAccounts();
 
     mAccountsList->setVisible(true);
     mNoAccountHint->setVisible(false);

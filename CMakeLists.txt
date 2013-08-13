@@ -16,6 +16,7 @@ SET(moc_headers
   src/seafile-applet.h
   src/account-mgr.h
   src/configurator.h
+  src/daemon-mgr.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/login-request.h
@@ -85,6 +86,7 @@ SET(seafile_client_sources
   src/seafile-applet.cpp
   src/account-mgr.cpp
   src/ccnet-init.cpp
+  src/daemon-mgr.cpp
   src/configurator.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp

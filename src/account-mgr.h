@@ -4,11 +4,12 @@
 #include <vector>
 
 #include <QObject>
-#include <QUrl>
-#include <QString>
 
 #include "account.h"
 
+/**
+ * Load/Save seahub accounts
+ */
 class AccountManager : public QObject {
     Q_OBJECT
 

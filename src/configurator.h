@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QString>
 
+/**
+ * Handles ccnet/seafile configuration initialize
+ */
 class Configurator : public QObject {
     Q_OBJECT
 

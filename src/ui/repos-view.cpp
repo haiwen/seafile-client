@@ -17,7 +17,7 @@ ReposView::ReposView(QWidget *parent) : QWidget(parent)
 
 void ReposView::updateRepos()
 {
-    RpcClient *rpc_client = seafApplet->rpc_client;
+    RpcClient *rpc_client = seafApplet->rpcClient();
     if (!rpc_client->connected()) {
         return;
     }

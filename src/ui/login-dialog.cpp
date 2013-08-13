@@ -92,7 +92,7 @@ bool LoginDialog::validateInputs()
 void LoginDialog::loginSuccess(const QString& token)
 {
     Account account(url_, username_, token);
-    if (seafApplet->account_mgr->saveAccount(account) < 0) {
+    if (seafApplet->accountManager()->saveAccount(account) < 0) {
         QMessageBox::warning(this, tr("Seafile"),
                              tr("Internal Error"),
                              QMessageBox::Ok);

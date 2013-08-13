@@ -15,8 +15,6 @@ struct _CcnetClient;
 
 #include "local-repo.h"
 
-class QTimer;
-
 class RpcClient : QObject {
     Q_OBJECT
 
@@ -25,9 +23,7 @@ public:
     void start();
     int listRepos(std::vector<LocalRepo> *result);
     bool connected();
-
-private slots:
-    void connectCcnetDaemon();
+    void reconnect();
 
 private:
     Q_DISABLE_COPY(RpcClient)
@@ -37,8 +33,6 @@ private:
     _CcnetClient *sync_client_;
     SearpcClient *seafile_rpc_client_;
     SearpcClient *ccnet_rpc_client_;
-
-    QTimer *conn_daemon_timer_;
 };
 
 #endif

@@ -4,44 +4,26 @@ extern "C" {
 #include <seafile/seafile.h>
 }
 
-#include <QTimer>
 #include <QDir>
 
+#include "seafile-applet.h"
 #include "rpc-client.h"
 
 namespace {
 
-const int kReconnectIntervalMilli = 2000;
 const char *kSeafileRpcService = "seafile-rpcserver";
+const char *kCcnetRpcService = "ccnet-rpcserver";
 
 } // namespace
+
 
 RpcClient::RpcClient(const QString& config_dir)
     : config_dir_(config_dir),
       sync_client_(0),
       seafile_rpc_client_(0),
-      ccnet_rpc_client_(0),
-      conn_daemon_timer_(0)
+      ccnet_rpc_client_(0)
 {
     qDebug("config dir is %s\n", config_dir.toUtf8().data());
-    // the time is started in RpcClient::start
-    conn_daemon_timer_ = new QTimer(this);
-    connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(connectCcnetDaemon()));
-}
-
-void RpcClient::start()
-{
-    if (sync_client_ != 0) {
-        g_object_unref (sync_client_);
-    }
-    sync_client_ = ccnet_client_new();
-
-    const char *dir = config_dir_.toUtf8().data();
-    if (ccnet_client_load_confdir(sync_client_, dir) <  0) {
-        qCritical("failed to load ccnet config dir \"%s\"\n", dir);
-    }
-
-    conn_daemon_timer_->start(kReconnectIntervalMilli);
 }
 
 bool RpcClient::connected()
@@ -49,20 +31,33 @@ bool RpcClient::connected()
     return sync_client_ != 0 && sync_client_->connected;
 }
 
-void RpcClient::connectCcnetDaemon()
+void RpcClient::reconnect()
 {
+    if (sync_client_ != 0) {
+        g_object_unref (sync_client_);
+    }
+    if (seafile_rpc_client_ != 0) {
+        searpc_client_free(seafile_rpc_client_);
+        seafile_rpc_client_ = 0;
+    }
+    if (ccnet_rpc_client_ != 0) {
+        searpc_client_free(ccnet_rpc_client_);
+        ccnet_rpc_client_ = 0;
+    }
+
+    sync_client_ = ccnet_client_new();
+
+    const QByteArray path = config_dir_.toUtf8();
+    if (ccnet_client_load_confdir(sync_client_, path.data()) <  0) {
+        seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir_));
+    }
+
     if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {
         return;
     }
 
-    if (seafile_rpc_client_ != 0) {
-        searpc_client_free(seafile_rpc_client_);
-    }
-
     seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
-
-    // Now it's connected to daemon
-    conn_daemon_timer_->stop();
+    ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
 }
 
 int RpcClient::listRepos(std::vector<LocalRepo> *result)

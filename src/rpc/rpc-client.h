@@ -21,7 +21,7 @@ class RpcClient : QObject {
     Q_OBJECT
 
 public:
-    RpcClient(const QString& config_dir = defaultConfigDir());
+    RpcClient(const QString& config_dir);
     void start();
     int listRepos(std::vector<LocalRepo> *result);
     bool connected();
@@ -31,8 +31,6 @@ private slots:
 
 private:
     Q_DISABLE_COPY(RpcClient)
-
-    static const QString defaultConfigDir();
 
     QString config_dir_;
     

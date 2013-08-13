@@ -15,12 +15,14 @@ INCLUDE(${QT_USE_FILE})
 SET(moc_headers
   src/seafile-applet.h
   src/account-mgr.h
+  src/configurator.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/login-request.h
   src/api/list-repos-request.h
   src/rpc/rpc-client.h
   src/ui/main-window.h
+  src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
   src/ui/list-account-repos-dialog.h
   src/ui/account-item.h
@@ -32,6 +34,7 @@ SET(moc_headers
 # UI FILES
 SET(ui_files
   ui/login-dialog.ui
+  ui/init-seafile-dialog.ui
   ui/list-account-repos-dialog.ui
   ui/account-item.ui
   ui/accounts-view.ui
@@ -62,23 +65,27 @@ QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
 ###### BEGIN: other libraries configuration
 ####################
 FIND_PACKAGE(PkgConfig)
+
 PKG_CHECK_MODULES(JANSSON REQUIRED jansson>=2.0)
 
-FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(LIBCCNET REQUIRED libccnet>=1.3)
 
-FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
+
+PKG_CHECK_MODULES(OPENSSL REQUIRED openssl>=0.98)
+
 ####################
 ###### END: other libraries configuration
 ####################
 
 
-# cpp sources
+# c/cpp sources
 SET(seafile_client_sources
   src/main.cpp
   src/seafile-applet.cpp
   src/account-mgr.cpp
+  src/ccnet-init.cpp
+  src/configurator.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/login-request.cpp
@@ -87,12 +94,14 @@ SET(seafile_client_sources
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/ui/main-window.cpp
+  src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
   src/ui/list-account-repos-dialog.cpp
   src/ui/account-item.cpp
   src/ui/accounts-view.cpp
   src/ui/repo-item.cpp
   src/ui/repos-view.cpp
+  src/utils/rsa.cpp
 )
 
 ADD_EXECUTABLE(seafile-client
@@ -108,7 +117,8 @@ INCLUDE_DIRECTORIES(
   ${PROJECT_SOURCE_DIR}/src
   ${QT_INCLUDE_DIR}
   ${QT_QTNETWORK_INCLUDE_DIR}
-  ${JANSSON_INCLUDE_DIR}
+  ${OPEN_SSL_INCLUDE_DIRS}
+  ${JANSSON_INCLUDE_DIRS}
   ${LIBSEARPC_INCLUDE_DIRS}
   ${LIBCCNET_INCLUDE_DIRS}
 )
@@ -116,6 +126,7 @@ INCLUDE_DIRECTORIES(
 TARGET_LINK_LIBRARIES(seafile-client
   ${QT_LIBRARIES}
   ${QT_QTNETWORK_LIBRARY}
+  ${OPENSSL_LIBRARIES}
   ${JANSSON_LIBRARIES}
   ${LIBSEARPC_LIBRARIES}
   ${LIBCCNET_LIBRARIES}

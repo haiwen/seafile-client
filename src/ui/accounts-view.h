@@ -16,9 +16,11 @@ class AccountsView : public QWidget,
 public:
     AccountsView(QWidget *parent=0);
 
+public slots:
+    void refreshAccounts();
+
 private slots:
     void showAddAccountDialog();
-    void refreshAccounts();
 
 private:
     bool hasAccount(const Account& account);

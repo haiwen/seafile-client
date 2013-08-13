@@ -56,8 +56,13 @@ void MainWindow::centerInScreen()
 
 void MainWindow::onViewChanged(int index)
 {
-    if (index == INDEX_REPOS_VIEW) {
+    switch(index) {
+    case INDEX_REPOS_VIEW:
         repos_view_->updateRepos();
+        break;
+    case INDEX_ACCOUNTS_VIEW:
+        accounts_view_->refreshAccounts();
+        break;
     }
 }
 

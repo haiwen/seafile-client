@@ -13,7 +13,6 @@ AccountsView::AccountsView(QWidget *parent) : QWidget(parent)
     connect(mAddAccountBtn, SIGNAL(clicked()),
             this, SLOT(showAddAccountDialog()));
 
-    refreshAccounts();
 }
 
 void AccountsView::showAddAccountDialog()

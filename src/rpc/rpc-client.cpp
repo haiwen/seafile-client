@@ -14,12 +14,6 @@ namespace {
 const int kReconnectIntervalMilli = 2000;
 const char *kSeafileRpcService = "seafile-rpcserver";
 
-#if defined(Q_WS_WIN)
-const char *kCcnetConfDir = "ccnet";
-#else
-const char *kCcnetConfDir = ".ccnet";
-#endif
-
 } // namespace
 
 RpcClient::RpcClient(const QString& config_dir)
@@ -33,10 +27,6 @@ RpcClient::RpcClient(const QString& config_dir)
     // the time is started in RpcClient::start
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(connectCcnetDaemon()));
-}
-
-const QString RpcClient::defaultConfigDir() {
-    return QDir::home().filePath(kCcnetConfDir);
 }
 
 void RpcClient::start()
@@ -90,6 +80,8 @@ int RpcClient::listRepos(std::vector<LocalRepo> *result)
     }
 
     g_list_foreach (repos, (GFunc)g_object_unref, NULL);
+
+    g_list_free (repos);
 
     return 0;
 }

@@ -80,3 +80,12 @@ int RpcClient::listRepos(std::vector<LocalRepo> *result)
 
     return 0;
 }
+
+int RpcClient::setAutoSync(bool autoSync)
+{
+    if (autoSync) {        
+        
+    } else {
+        
+    }
+}

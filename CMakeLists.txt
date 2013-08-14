@@ -11,6 +11,11 @@ set(CMAKE_BUILD_TYPE Debug)
 FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork)
 INCLUDE(${QT_USE_FILE})
 
+IF(APPLE)
+        link_directories(/opt/local/lib)
+        link_directories(/usr/local/lib)
+ENDIF()
+
 # MOC FILES
 SET(moc_headers
   src/seafile-applet.h

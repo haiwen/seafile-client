@@ -22,6 +22,7 @@ public:
     explicit RpcClient(const QString& config_dir);
     void start();
     int listRepos(std::vector<LocalRepo> *result);
+    int setAutoSync(bool autoSync);
     bool connected();
     void reconnect();
 

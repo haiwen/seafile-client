@@ -1,5 +1,7 @@
 #include <glib-object.h>
 #include <QTimer>
+#include <QStringList>
+#include <QString>
 
 extern "C" {
 #include <ccnet/ccnet-client.h>
@@ -19,7 +21,9 @@ const int kConnDaemonIntervalMilli = 1000;
 
 
 DaemonManager::DaemonManager()
-    : sync_client_(0)
+    : ccnet_daemon_(0),
+      seaf_daemon_(0),
+      sync_client_(0)
 {
     monitor_timer_ = new QTimer(this);
     conn_daemon_timer_ = new QTimer(this);
@@ -31,6 +35,10 @@ void DaemonManager::startCcnetDaemon()
     if (sync_client_ != 0) {
         g_object_unref (sync_client_);
     }
+    if (ccnet_daemon_) {
+        ccnet_daemon_->terminate();
+        delete ccnet_daemon_;
+    }
     sync_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
@@ -39,8 +47,68 @@ void DaemonManager::startCcnetDaemon()
         seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir));
     }
 
-    // TODO: start ccnet processs using QProcess
-    conn_daemon_timer_->start(kConnDaemonIntervalMilli);
+    ccnet_daemon_ = new QProcess(this);
+    connect(ccnet_daemon_, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(ccnetStateChanged(QProcess::ProcessState)));
+    QStringList args;
+    args.push_back(QString("-c"));
+    args.push_back(config_dir);
+    args.push_back(QString("-D"));
+    args.push_back(QString("Peer,Message,Connection,Other"));
+    ccnet_daemon_->start(QString("ccnet"), args);
+}
+
+void DaemonManager::startSeafileDaemon()
+{
+    if (seaf_daemon_) {
+        seaf_daemon_->terminate();
+        delete seaf_daemon_;
+    }
+    const QString config_dir = seafApplet->configurator()->ccnetDir();
+    const QString seafile_dir = seafApplet->configurator()->seafileDir();
+    const QString worktree_dir = seafApplet->configurator()->worktreeDir();
+
+    seaf_daemon_ = new QProcess(this);
+    connect(seaf_daemon_, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(seafStateChanged(QProcess::ProcessState)));
+    QStringList args;
+    args.push_back(QString("-c"));
+    args.push_back(config_dir);
+    args.push_back(QString("-d"));
+    args.push_back(seafile_dir);
+    args.push_back(QString("-w"));
+    args.push_back(worktree_dir);
+    seaf_daemon_->start(QString("seaf-daemon"), args);
+}
+
+void DaemonManager::ccnetStateChanged(QProcess::ProcessState state)
+{
+    if (state == QProcess::Running) {
+        qDebug("ccnet Running");
+        conn_daemon_timer_->start(kConnDaemonIntervalMilli);
+    } else if (state == QProcess::NotRunning) {
+        qDebug("ccnet NotRunning");
+        startCcnetDaemon();
+        emit ccnetDaemonDisconnected();
+    }
+}
+
+void DaemonManager::seafStateChanged(QProcess::ProcessState state)
+{
+    if (state == QProcess::Running) {
+        qDebug("seaf-daemon Running");
+    } else if (state == QProcess::NotRunning) {
+        qDebug("seaf-daemon NotRunning");
+        if (ccnet_daemon_ && ccnet_daemon_->state() == QProcess::Running) {
+            startSeafileDaemon();
+        }
+    }
+}
+
+void DaemonManager::stopAll()
+{
+    if (seaf_daemon_)
+        seaf_daemon_->terminate();
+    if (ccnet_daemon_)
+        ccnet_daemon_->terminate();
 }
 
 void DaemonManager::tryConnCcnet()
@@ -52,6 +120,7 @@ void DaemonManager::tryConnCcnet()
     } else {
         qDebug("connected to ccnet daemon\n");
         conn_daemon_timer_->stop();
+        startSeafileDaemon();
         emit ccnetDaemonConnected();
     }
 }

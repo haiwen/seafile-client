@@ -29,21 +29,13 @@ void SeafileApplet::start()
 
     connect(daemon_mgr_, SIGNAL(ccnetDaemonConnected()),
             this, SLOT(onCcnetDaemonConnected()));
-
-    connect(daemon_mgr_, SIGNAL(ccnetDaemonDisconnected()), this,
-            SLOT(onCcnetDaemonDisconnected()));
 }
 
 void SeafileApplet::onCcnetDaemonConnected()
 {
-    rpc_client_->reconnect();
-    message_listener_->reconnect();
+    rpc_client_->connectDaemon();
+    message_listener_->connectDaemon();
     main_win_->show();
-}
-
-void SeafileApplet::onCcnetDaemonDisconnected()
-{
-    qDebug("disconnected from ccnet daemon\n");
 }
 
 void SeafileApplet::exit(int code)

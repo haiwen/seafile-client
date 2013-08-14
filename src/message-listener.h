@@ -17,7 +17,7 @@ class MessageListener : QObject {
 public:
     MessageListener();
 
-    void reconnect();
+    void connectDaemon();
     void handleMessage(_CcnetMessage *message);
 
 private slots:

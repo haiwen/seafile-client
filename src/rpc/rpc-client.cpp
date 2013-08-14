@@ -30,7 +30,7 @@ bool RpcClient::connected()
     return sync_client_ != 0 && sync_client_->connected;
 }
 
-void RpcClient::reconnect()
+void RpcClient::connectDaemon()
 {
     if (sync_client_ != 0) {
         g_object_unref (sync_client_);

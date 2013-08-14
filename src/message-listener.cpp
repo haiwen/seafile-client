@@ -29,7 +29,7 @@ MessageListener::MessageListener()
 {
 }
 
-void MessageListener::reconnect()
+void MessageListener::connectDaemon()
 {
     if (async_client_ != 0) {
         g_object_unref(async_client_);
@@ -93,6 +93,10 @@ void MessageListener::handleMessage(CcnetMessage *message)
 void MessageListener::readConnfd()
 {
     socket_notifier_->setEnabled(false);
-    ccnet_client_read_input(async_client_);
-    socket_notifier_->setEnabled(true);
+    if (ccnet_client_read_input(async_client_) <= 0) {
+        // network error
+        return;
+    } else {
+        socket_notifier_->setEnabled(true);
+    }
 }

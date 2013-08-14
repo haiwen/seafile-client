@@ -1,5 +1,6 @@
 #include <glib-object.h>
 #include <QTimer>
+#include <QSocketNotifier>
 
 extern "C" {
 #include <ccnet/ccnet-client.h>
@@ -19,7 +20,8 @@ const int kConnDaemonIntervalMilli = 1000;
 
 
 DaemonManager::DaemonManager()
-    : sync_client_(0)
+    : sync_client_(0),
+      socket_notifier_(0)
 {
     monitor_timer_ = new QTimer(this);
     conn_daemon_timer_ = new QTimer(this);
@@ -52,6 +54,28 @@ void DaemonManager::tryConnCcnet()
     } else {
         qDebug("connected to ccnet daemon\n");
         conn_daemon_timer_->stop();
+
+        startSocketNotifier();
         emit ccnetDaemonConnected();
     }
+}
+
+void DaemonManager::startSocketNotifier()
+{
+    if (socket_notifier_ != 0) {
+        delete socket_notifier_;
+    }
+    socket_notifier_ = new QSocketNotifier(sync_client_->connfd,
+                                           QSocketNotifier::Read);
+
+    // The socket notification is used to detect the disconnect of the sync
+    // client's socket. (Since we never use the sync client directly, the Read
+    // event must be an EOF)
+    connect(socket_notifier_, SIGNAL(activated(int)), this, SLOT(ccnetDaemonDown()));
+}
+
+void DaemonManager::ccnetDaemonDown()
+{
+    socket_notifier_->setEnabled(false);
+    seafApplet->errorAndExit(tr("Seafile client has encountered an internal error."));
 }

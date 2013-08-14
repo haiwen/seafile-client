@@ -36,7 +36,6 @@ public:
 
 private slots:
     void onCcnetDaemonConnected();
-    void onCcnetDaemonDisconnected();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)

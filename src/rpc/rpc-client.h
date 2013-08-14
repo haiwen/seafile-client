@@ -23,7 +23,7 @@ public:
     void start();
     int listRepos(std::vector<LocalRepo> *result);
     bool connected();
-    void reconnect();
+    void connectDaemon();
 
 private:
     Q_DISABLE_COPY(RpcClient)

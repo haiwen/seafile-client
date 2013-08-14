@@ -7,6 +7,7 @@ extern "C" {
 #include <QDir>
 
 #include "seafile-applet.h"
+#include "configurator.h"
 #include "rpc-client.h"
 
 namespace {
@@ -17,13 +18,11 @@ const char *kCcnetRpcService = "ccnet-rpcserver";
 } // namespace
 
 
-RpcClient::RpcClient(const QString& config_dir)
-    : config_dir_(config_dir),
-      sync_client_(0),
-      seafile_rpc_client_(0),
-      ccnet_rpc_client_(0)
+RpcClient::RpcClient()
+      : sync_client_(0),
+        seafile_rpc_client_(0),
+        ccnet_rpc_client_(0)
 {
-    qDebug("config dir is %s\n", config_dir.toUtf8().data());
 }
 
 bool RpcClient::connected()
@@ -47,9 +46,10 @@ void RpcClient::reconnect()
 
     sync_client_ = ccnet_client_new();
 
-    const QByteArray path = config_dir_.toUtf8();
+    const QString config_dir = seafApplet->configurator()->ccnetDir();
+    const QByteArray path = config_dir.toUtf8();
     if (ccnet_client_load_confdir(sync_client_, path.data()) <  0) {
-        seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir_));
+        seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir));
     }
 
     if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {

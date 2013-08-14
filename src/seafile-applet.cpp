@@ -5,6 +5,7 @@
 #include "daemon-mgr.h"
 #include "rpc/rpc-client.h"
 #include "ui/main-window.h"
+#include "message-listener.h"
 
 #include "seafile-applet.h"
 
@@ -14,9 +15,10 @@ SeafileApplet::SeafileApplet()
     : configurator_(new Configurator),
       account_mgr_(new AccountManager),
       main_win_(new MainWindow),
-      daemon_mgr_(new DaemonManager)
+      daemon_mgr_(new DaemonManager),
+      message_listener_(new MessageListener),
+      rpc_client_(new RpcClient)
 {
-    rpc_client_ = new RpcClient(configurator_->ccnetDir());
 }
 
 void SeafileApplet::start()
@@ -35,6 +37,7 @@ void SeafileApplet::start()
 void SeafileApplet::onCcnetDaemonConnected()
 {
     rpc_client_->reconnect();
+    message_listener_->reconnect();
     main_win_->show();
 }
 

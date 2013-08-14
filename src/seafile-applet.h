@@ -8,6 +8,7 @@ class DaemonManager;
 class RpcClient;
 class AccountManager;
 class MainWindow;
+class MessageListener;
 
 /**
  * The central class of seafile-client
@@ -45,6 +46,7 @@ private:
     MainWindow* main_win_;
     RpcClient *rpc_client_;
     AccountManager *account_mgr_;
+    MessageListener *message_listener_;
 };
 
 /**

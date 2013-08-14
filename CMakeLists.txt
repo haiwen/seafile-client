@@ -17,6 +17,7 @@ SET(moc_headers
   src/account-mgr.h
   src/configurator.h
   src/daemon-mgr.h
+  src/message-listener.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/login-request.h
@@ -65,7 +66,7 @@ QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
 ####################
 ###### BEGIN: other libraries configuration
 ####################
-FIND_PACKAGE(PkgConfig)
+FIND_PACKAGE(PkgConfig REQUIRED)
 
 PKG_CHECK_MODULES(JANSSON REQUIRED jansson>=2.0)
 
@@ -88,6 +89,7 @@ SET(seafile_client_sources
   src/ccnet-init.cpp
   src/daemon-mgr.cpp
   src/configurator.cpp
+  src/message-listener.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/login-request.cpp

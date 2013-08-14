@@ -19,7 +19,7 @@ class RpcClient : QObject {
     Q_OBJECT
 
 public:
-    explicit RpcClient(const QString& config_dir);
+    RpcClient();
     void start();
     int listRepos(std::vector<LocalRepo> *result);
     bool connected();
@@ -28,8 +28,6 @@ public:
 private:
     Q_DISABLE_COPY(RpcClient)
 
-    QString config_dir_;
-    
     _CcnetClient *sync_client_;
     SearpcClient *seafile_rpc_client_;
     SearpcClient *ccnet_rpc_client_;

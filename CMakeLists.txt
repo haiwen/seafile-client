@@ -83,6 +83,7 @@ PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
 
 PKG_CHECK_MODULES(OPENSSL REQUIRED openssl>=0.98)
 
+PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 ####################
 ###### END: other libraries configuration
 ####################
@@ -117,13 +118,6 @@ SET(seafile_client_sources
   src/utils/rsa.cpp
 )
 
-ADD_EXECUTABLE(seafile-client
-  ${seafile_client_sources}
-  ${moc_output}
-  ${ui_output}
-  ${resources_ouput}
-)
-
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -134,6 +128,22 @@ INCLUDE_DIRECTORIES(
   ${JANSSON_INCLUDE_DIRS}
   ${LIBSEARPC_INCLUDE_DIRS}
   ${LIBCCNET_INCLUDE_DIRS}
+  ${LIBSEAFILE_INCLUDE_DIRS}
+)
+
+LINK_DIRECTORIES(
+  ${QT_LIBRARY_DIR}
+  ${LIBCCNET_LIBRARY_DIRS}
+  ${LIBSEAFILE_LIBRARY_DIRS}
+  ${LIBSEARPC_LIBRARY_DIRS}
+  ${JANSSON_LIBRARRY_DIRS}
+)
+
+ADD_EXECUTABLE(seafile-client
+  ${seafile_client_sources}
+  ${moc_output}
+  ${ui_output}
+  ${resources_ouput}
 )
 
 TARGET_LINK_LIBRARIES(seafile-client
@@ -143,5 +153,5 @@ TARGET_LINK_LIBRARIES(seafile-client
   ${JANSSON_LIBRARIES}
   ${LIBSEARPC_LIBRARIES}
   ${LIBCCNET_LIBRARIES}
-  seafile
+  ${LIBSEAFILE_LIBRARIES}
 )

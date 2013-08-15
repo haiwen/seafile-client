@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_DAEMON_MANAGER_H
 
 #include <QObject>
+#include <QProcess>
 
 struct _CcnetClient;
 
@@ -17,6 +18,8 @@ class DaemonManager : public QObject {
 public:
     DaemonManager();
     void startCcnetDaemon();
+    void startSeafileDaemon();
+    void stopAll();
 
 signals:
     void ccnetDaemonConnected();
@@ -24,6 +27,8 @@ signals:
 private slots:
     void tryConnCcnet();
     void ccnetDaemonDown();
+    void ccnetStateChanged(QProcess::ProcessState state);
+    void seafStateChanged(QProcess::ProcessState state);
 
 private:
     Q_DISABLE_COPY(DaemonManager)
@@ -34,7 +39,8 @@ private:
 
     QTimer *monitor_timer_;
     QTimer *conn_daemon_timer_;
-
+    QProcess *ccnet_daemon_;
+    QProcess *seaf_daemon_;
     _CcnetClient *sync_client_;
 
     QSocketNotifier *socket_notifier_;

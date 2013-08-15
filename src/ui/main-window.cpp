@@ -66,6 +66,12 @@ void MainWindow::onViewChanged(int index)
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    event->ignore();
+    this->hide();
+}
+
 void MainWindow::createActions()
 {
     about_action_ = new QAction(tr("&About"), this);

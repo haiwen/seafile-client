@@ -31,6 +31,7 @@ private slots:
     void about();
     void refreshQss();
     void onViewChanged(int);
+    void closeEvent(QCloseEvent *event);
 
 private:
     // Actions

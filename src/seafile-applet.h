@@ -9,6 +9,20 @@ class RpcClient;
 class AccountManager;
 class MainWindow;
 class MessageListener;
+class QAction;
+class QIcon;
+class QSystemTrayIcon;
+
+
+enum TrayState {
+    TRAY_DAEMON_UP = 0,
+    TRAY_DAEMON_DOWN,
+    TRAY_DAEMON_AUTOSYNC_DISABLED,
+    TRAY_TRANSFER_1,
+    TRAY_TRANSFER_2,
+    TRAY_TRANSFER_3,
+    TRAY_TRANSFER_4,
+};
 
 /**
  * The central class of seafile-client
@@ -33,9 +47,17 @@ public:
     DaemonManager *daemonManager() { return daemon_mgr_; }
     Configurator *configurator() { return configurator_; }
     MainWindow *mainWindow() { return main_win_; }
+    QIcon getIcon(TrayState state);
+    void setTrayState(TrayState);
 
 private slots:
     void onCcnetDaemonConnected();
+    void onCcnetDaemonDisconnected();
+    void openAdmin();
+    void disableAutoSync();
+    void enableAutoSync();
+    void restartSeafile();
+    void quitSeafile();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)
@@ -46,6 +68,10 @@ private:
     RpcClient *rpc_client_;
     AccountManager *account_mgr_;
     MessageListener *message_listener_;
+    QSystemTrayIcon *systemTray;
+    QAction *disableAutoSyncAction_;
+    QAction *enableAutoSyncAction_;
+    bool autoSync_;
 };
 
 /**

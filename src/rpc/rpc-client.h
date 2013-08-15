@@ -22,6 +22,7 @@ public:
     RpcClient();
     void start();
     int listRepos(std::vector<LocalRepo> *result);
+    int setAutoSync(bool autoSync);
     bool connected();
     void connectDaemon();
 

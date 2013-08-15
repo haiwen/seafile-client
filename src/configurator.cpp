@@ -1,6 +1,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
+#include <QDebug>
 
 #include "seafile-applet.h"
 #include "ccnet-init.h"
@@ -34,11 +35,13 @@ void Configurator::checkInit()
         // first time use
         initConfig();
     } else {
+        readSeafileIni (&worktree_);
         validateExistingConfig();
     }
 }
 
-bool Configurator::needInitConfig() {
+bool Configurator::needInitConfig()
+{
     if (QDir(ccnet_dir_).exists()) {
         return false;
     }
@@ -68,7 +71,8 @@ void Configurator::initSeafile()
     }
 }
 
-void Configurator::validateExistingConfig() {
+void Configurator::validateExistingConfig()
+{
     QFile ccnet_conf(QDir(ccnet_dir_).filePath("ccnet.conf"));
     if (!ccnet_conf.exists()) {
         // TODO: init config here instead of exit

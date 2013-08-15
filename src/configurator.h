@@ -16,6 +16,7 @@ public:
 
     const QString& ccnetDir() const { return ccnet_dir_; }
     const QString& seafileDir() const { return seafile_dir_; }
+    const QString& worktreeDir() const { return worktree_; }
 
 private:
     Q_DISABLE_COPY(Configurator)
@@ -30,6 +31,7 @@ private:
 
     QString ccnet_dir_;
     QString seafile_dir_;
+    QString worktree_;
 };
 
 #endif // SEAFILE_CLIENT_CONFIGURATOR_H

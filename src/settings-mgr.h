@@ -16,6 +16,9 @@ public:
 
     bool autoSync() { return auto_sync_; }
 
+private slots:
+    void onSetAutoSyncFinished(bool);
+
 private:
     Q_DISABLE_COPY(SettingsManager)
 

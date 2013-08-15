@@ -43,9 +43,6 @@ void MessageListener::connectDaemon()
         return;
     }
 
-    if (socket_notifier_ != 0) {
-        delete socket_notifier_;
-    }
     socket_notifier_ = new QSocketNotifier(async_client_->connfd, QSocketNotifier::Read);
     connect(socket_notifier_, SIGNAL(activated(int)), this, SLOT(readConnfd()));
 
@@ -65,7 +62,7 @@ void MessageListener::startMqClient()
                                             this);
 
     static const char *topics[] = {
-        "seafile.heartbeat",
+        // "seafile.heartbeat",
         "seafile.notification",
     };
 

@@ -2,6 +2,7 @@
 #include <QTimer>
 #include <QStringList>
 #include <QString>
+#include <QDebug>
 
 extern "C" {
 #include <ccnet/ccnet-client.h>
@@ -72,6 +73,8 @@ void DaemonManager::startSeafileDaemon()
     QStringList args;
     args << "-c" << config_dir << "-d" << seafile_dir << "-w" << worktree_dir;
     seaf_daemon_->start(kSeafileDaemonExecutable, args);
+
+    qDebug() << "starting seaf-daemon: " << args;
 }
 
 void DaemonManager::onCcnetDaemonStarted()
@@ -81,8 +84,8 @@ void DaemonManager::onCcnetDaemonStarted()
 
 void DaemonManager::onSeafDaemonStarted()
 {
-    emit daemonStarted();
     qDebug("seafile daemon is now running");
+    emit daemonStarted();
 }
 
 void DaemonManager::onCcnetDaemonExited()

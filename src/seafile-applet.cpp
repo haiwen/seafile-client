@@ -19,7 +19,7 @@ SeafileApplet::SeafileApplet()
       main_win_(new MainWindow),
       daemon_mgr_(new DaemonManager),
       message_listener_(new MessageListener),
-      rpc_client_(new RpcClient),
+      rpc_client_(new SeafileRpcClient),
       settings_mgr_(new SettingsManager),
       in_exit_(false)
 {

@@ -5,7 +5,7 @@
 
 class Configurator;
 class DaemonManager;
-class RpcClient;
+class SeafileRpcClient;
 class AccountManager;
 class MainWindow;
 class MessageListener;
@@ -32,7 +32,7 @@ public:
     // accessors
     AccountManager *accountManager() { return account_mgr_; }
 
-    RpcClient *rpcClient() { return rpc_client_; }
+    SeafileRpcClient *rpcClient() { return rpc_client_; }
 
     DaemonManager *daemonManager() { return daemon_mgr_; }
 
@@ -58,7 +58,7 @@ private:
 
     MainWindow* main_win_;
 
-    RpcClient *rpc_client_;
+    SeafileRpcClient *rpc_client_;
 
     AccountManager *account_mgr_;
 

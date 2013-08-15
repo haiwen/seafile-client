@@ -1,8 +1,11 @@
+#include <vector>
 #include <QtGui>
 
-#include "repo-item.h"
 #include "seafile-applet.h"
-#include "rpc/rpc-client.h"
+#include "rpc/requests.h"
+#include "rpc/local-repo.h"
+#include "repo-item.h"
+
 #include "repos-view.h"
 
 ReposView::ReposView(QWidget *parent) : QWidget(parent)
@@ -17,16 +20,15 @@ ReposView::ReposView(QWidget *parent) : QWidget(parent)
 
 void ReposView::updateRepos()
 {
-    RpcClient *rpc_client = seafApplet->rpcClient();
-    if (!rpc_client->connected()) {
-        return;
-    }
+    ListLocalReposRequest *req = new ListLocalReposRequest;
+    req->send();
 
-    std::vector<LocalRepo> repos;
-    if (rpc_client->listRepos(&repos) < 0) {
-        return;
-    }
+    connect(req, SIGNAL(success(const std::vector<LocalRepo>&)),
+            this, SLOT(updateRepos(const std::vector<LocalRepo>&)));
+}
 
+void ReposView::updateRepos(const std::vector<LocalRepo>& repos)
+{
     int i, n = repos.size();
     for (i = 0; i < n; i++) {
         addRepo(repos[i]);

@@ -18,6 +18,9 @@ public:
     void addRepo(const LocalRepo& repo);
     void updateRepos();
 
+private slots:
+    void updateRepos(const std::vector<LocalRepo>&);
+
 private:
     Q_DISABLE_COPY(ReposView)
 

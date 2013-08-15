@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(seafile-client)
 INCLUDE(FindPkgConfig)
 
-set(CMAKE_BUILD_TYPE Debug)
+SET(CMAKE_BUILD_TYPE Debug)
 
 ####################
 ###### BEGIN: QT configuration
@@ -12,8 +12,8 @@ FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork)
 INCLUDE(${QT_USE_FILE})
 
 IF(APPLE)
-        link_directories(/opt/local/lib)
-        link_directories(/usr/local/lib)
+  LINK_DIRECTORIES(/opt/local/lib)
+  LINK_DIRECTORIES(/usr/local/lib)
 ENDIF()
 
 # MOC FILES
@@ -23,6 +23,7 @@ SET(moc_headers
   src/configurator.h
   src/daemon-mgr.h
   src/message-listener.h
+  src/settings-mgr.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/login-request.h
@@ -36,6 +37,7 @@ SET(moc_headers
   src/ui/accounts-view.h
   src/ui/repo-item.h
   src/ui/repos-view.h
+  src/ui/tray-icon.h
 )
 
 # UI FILES
@@ -95,6 +97,7 @@ SET(seafile_client_sources
   src/daemon-mgr.cpp
   src/configurator.cpp
   src/message-listener.cpp
+  src/settings-mgr.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/login-request.cpp
@@ -110,6 +113,7 @@ SET(seafile_client_sources
   src/ui/accounts-view.cpp
   src/ui/repo-item.cpp
   src/ui/repos-view.cpp
+  src/ui/tray-icon.cpp
   src/utils/rsa.cpp
 )
 

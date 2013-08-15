@@ -7,7 +7,6 @@
 struct _CcnetClient;
 
 class QTimer;
-class QSocketNotifier;
 
 /**
  * Start/Monitor ccnet/seafile daemon
@@ -18,32 +17,28 @@ class DaemonManager : public QObject {
 public:
     DaemonManager();
     void startCcnetDaemon();
-    void startSeafileDaemon();
     void stopAll();
 
 signals:
-    void ccnetDaemonConnected();
+    void daemonStarted();
 
 private slots:
     void tryConnCcnet();
-    void ccnetDaemonDown();
-    void ccnetStateChanged(QProcess::ProcessState state);
-    void seafStateChanged(QProcess::ProcessState state);
+    void onCcnetDaemonStarted();
+    void onCcnetDaemonExited();
+    void onSeafDaemonStarted();
+    void onSeafDaemonExited();
 
 private:
     Q_DISABLE_COPY(DaemonManager)
 
-    void startSocketNotifier();
-    // void startMonitor();
-    // void stopMonitor();
+    void startSeafileDaemon();
 
     QTimer *monitor_timer_;
     QTimer *conn_daemon_timer_;
     QProcess *ccnet_daemon_;
     QProcess *seaf_daemon_;
     _CcnetClient *sync_client_;
-
-    QSocketNotifier *socket_notifier_;
 };
 
 #endif // SEAFILE_CLIENT_DAEMON_MANAGER_H

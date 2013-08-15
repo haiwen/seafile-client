@@ -1,6 +1,5 @@
 #include <glib-object.h>
 #include <QTimer>
-#include <QSocketNotifier>
 #include <QStringList>
 #include <QString>
 
@@ -18,15 +17,21 @@ namespace {
 const int kCheckIntervalMilli = 5000;
 const int kConnDaemonIntervalMilli = 1000;
 
+#if defined(Q_WS_WIN)
+const char *kCcnetDaemonExecutable = "ccnet.exe";
+const char *kSeafileDaemonExecutable = "seaf-daemon.exe";
+#else
+const char *kCcnetDaemonExecutable = "ccnet";
+const char *kSeafileDaemonExecutable = "seaf-daemon";
+#endif
+
 } // namespace
 
 
 DaemonManager::DaemonManager()
     : sync_client_(0),
-      socket_notifier_(0),
       ccnet_daemon_(0),
-      seaf_daemon_(0),
-      sync_client_(0)
+      seaf_daemon_(0)
 {
     monitor_timer_ = new QTimer(this);
     conn_daemon_timer_ = new QTimer(this);
@@ -35,13 +40,6 @@ DaemonManager::DaemonManager()
 
 void DaemonManager::startCcnetDaemon()
 {
-    if (sync_client_ != 0) {
-        g_object_unref (sync_client_);
-    }
-    if (ccnet_daemon_) {
-        ccnet_daemon_->terminate();
-        delete ccnet_daemon_;
-    }
     sync_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
@@ -51,63 +49,63 @@ void DaemonManager::startCcnetDaemon()
     }
 
     ccnet_daemon_ = new QProcess(this);
-    connect(ccnet_daemon_, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(ccnetStateChanged(QProcess::ProcessState)));
+    connect(ccnet_daemon_, SIGNAL(started()), this, SLOT(onCcnetDaemonStarted()));
+    connect(ccnet_daemon_, SIGNAL(finished(int, QProcess::ExitStatus)),
+            this, SLOT(onCcnetDaemonExited()));
+
     QStringList args;
-    args.push_back(QString("-c"));
-    args.push_back(config_dir);
-    args.push_back(QString("-D"));
-    args.push_back(QString("Peer,Message,Connection,Other"));
-    ccnet_daemon_->start(QString("ccnet"), args);
+    args << "-c" << config_dir << "-D" << "Peer,Message,Connection,Other";
+    ccnet_daemon_->start(kCcnetDaemonExecutable, args);
 }
 
 void DaemonManager::startSeafileDaemon()
 {
-    if (seaf_daemon_) {
-        seaf_daemon_->terminate();
-        delete seaf_daemon_;
-    }
     const QString config_dir = seafApplet->configurator()->ccnetDir();
     const QString seafile_dir = seafApplet->configurator()->seafileDir();
     const QString worktree_dir = seafApplet->configurator()->worktreeDir();
 
     seaf_daemon_ = new QProcess(this);
-    connect(seaf_daemon_, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(seafStateChanged(QProcess::ProcessState)));
+    connect(seaf_daemon_, SIGNAL(started()), this, SLOT(onSeafDaemonStarted()));
+    connect(ccnet_daemon_, SIGNAL(finished(int, QProcess::ExitStatus)),
+            this, SLOT(onSeafDaemonExited()));
+
     QStringList args;
-    args.push_back(QString("-c"));
-    args.push_back(config_dir);
-    args.push_back(QString("-d"));
-    args.push_back(seafile_dir);
-    args.push_back(QString("-w"));
-    args.push_back(worktree_dir);
-    seaf_daemon_->start(QString("seaf-daemon"), args);
+    args << "-c" << config_dir << "-d" << seafile_dir << "-w" << worktree_dir;
+    seaf_daemon_->start(kSeafileDaemonExecutable, args);
 }
 
-void DaemonManager::ccnetStateChanged(QProcess::ProcessState state)
+void DaemonManager::onCcnetDaemonStarted()
 {
-    if (state == QProcess::Running) {
-        qDebug("ccnet Running");
-        conn_daemon_timer_->start(kConnDaemonIntervalMilli);
-    } else if (state == QProcess::NotRunning) {
-        qDebug("ccnet NotRunning");
-        startCcnetDaemon();
-        emit ccnetDaemonDisconnected();
-    }
+    conn_daemon_timer_->start(kConnDaemonIntervalMilli);
 }
 
-void DaemonManager::seafStateChanged(QProcess::ProcessState state)
+void DaemonManager::onSeafDaemonStarted()
 {
-    if (state == QProcess::Running) {
-        qDebug("seaf-daemon Running");
-    } else if (state == QProcess::NotRunning) {
-        qDebug("seaf-daemon NotRunning");
-        if (ccnet_daemon_ && ccnet_daemon_->state() == QProcess::Running) {
-            startSeafileDaemon();
-        }
+    emit daemonStarted();
+    qDebug("seafile daemon is now running");
+}
+
+void DaemonManager::onCcnetDaemonExited()
+{
+    if (seafApplet->inExit()) {
+        return;
     }
+
+    seafApplet->errorAndExit(tr("ccnet daemon has exited abnormally"));
+}
+
+void DaemonManager::onSeafDaemonExited()
+{
+    if (seafApplet->inExit()) {
+        return;
+    }
+
+    seafApplet->errorAndExit(tr("seafile daemon has exited abnormally"));
 }
 
 void DaemonManager::stopAll()
 {
+    qDebug("[Daemon Mgr] stopping ccnet/seafile daemon");
     if (seaf_daemon_)
         seaf_daemon_->terminate();
     if (ccnet_daemon_)
@@ -121,32 +119,10 @@ void DaemonManager::tryConnCcnet()
     if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {
         return;
     } else {
-        qDebug("connected to ccnet daemon\n");
         conn_daemon_timer_->stop();
 
-        startSocketNotifier();
+        qDebug("connected to ccnet daemon\n");
+
         startSeafileDaemon();
-
-        emit ccnetDaemonConnected();
     }
-}
-
-void DaemonManager::startSocketNotifier()
-{
-    if (socket_notifier_ != 0) {
-        delete socket_notifier_;
-    }
-    socket_notifier_ = new QSocketNotifier(sync_client_->connfd,
-                                           QSocketNotifier::Read);
-
-    // The socket notification is used to detect the disconnect of the sync
-    // client's socket. (Since we never use the sync client directly, the Read
-    // event must be an EOF)
-    connect(socket_notifier_, SIGNAL(activated(int)), this, SLOT(ccnetDaemonDown()));
-}
-
-void DaemonManager::ccnetDaemonDown()
-{
-    socket_notifier_->setEnabled(false);
-    seafApplet->errorAndExit(tr("Seafile client has encountered an internal error."));
 }

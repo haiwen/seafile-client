@@ -12,14 +12,10 @@
     <file>images/seafile_auto_sync_disabled.png</file>
     <file>images/seafile_transfer_1.png</file>
     <file>images/seafile_transfer_2.png</file>
-    <file>images/seafile_transfer_3.png</file>
-    <file>images/seafile_transfer_4.png</file>
-    <file>images/mac_daemon_up.png</file>
-    <file>images/mac_daemon_down.png</file>
-    <file>images/mac_auto_sync_disabled.png</file>
-    <file>images/mac_transfer_1.png</file>
-    <file>images/mac_transfer_2.png</file>
-    <file>images/mac_transfer_3.png</file>
-    <file>images/mac_transfer_4.png</file>
+    <file>images/mac/daemon_up.png</file>
+    <file>images/mac/daemon_down.png</file>
+    <file>images/mac/seafile_auto_sync_disabled.png</file>
+    <file>images/mac/seafile_transfer_1.png</file>
+    <file>images/mac/seafile_transfer_2.png</file>
 </qresource>
 </RCC>

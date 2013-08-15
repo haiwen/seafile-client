@@ -31,10 +31,6 @@ MessageListener::MessageListener()
 
 void MessageListener::connectDaemon()
 {
-    if (async_client_ != 0) {
-        g_object_unref(async_client_);
-    }
-
     async_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
@@ -60,10 +56,6 @@ void MessageListener::connectDaemon()
 
 void MessageListener::startMqClient()
 {
-    if (mqclient_proc_ != 0) {
-        g_object_unref(mqclient_proc_);
-    }
-
     mqclient_proc_ = (CcnetMqclientProc *)
         ccnet_proc_factory_create_master_processor
         (async_client_->proc_factory, "mq-client");

@@ -32,18 +32,6 @@ bool RpcClient::connected()
 
 void RpcClient::connectDaemon()
 {
-    if (sync_client_ != 0) {
-        g_object_unref (sync_client_);
-    }
-    if (seafile_rpc_client_ != 0) {
-        searpc_client_free(seafile_rpc_client_);
-        seafile_rpc_client_ = 0;
-    }
-    if (ccnet_rpc_client_ != 0) {
-        searpc_client_free(ccnet_rpc_client_);
-        ccnet_rpc_client_ = 0;
-    }
-
     sync_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();

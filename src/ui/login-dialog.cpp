@@ -2,7 +2,7 @@
 
 #include "account-mgr.h"
 #include "seafile-applet.h"
-#include "api/login-request.h"
+#include "api/requests.h"
 #include "login-dialog.h"
 
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)

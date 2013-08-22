@@ -3,7 +3,7 @@
 
 #include "list-account-repos-dialog.h"
 #include "api/server-repo.h"
-#include "api/list-repos-request.h"
+#include "api/requests.h"
 
 ListAccountReposDialog::ListAccountReposDialog(const Account& account,
                                                QWidget *parent)

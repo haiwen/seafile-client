@@ -6,7 +6,7 @@
 /**
  * Settings Manager handles seafile client user settings & preferences
  */
-class SettingsManager : QObject {
+class SettingsManager : public QObject {
     Q_OBJECT
 
 public:
@@ -17,7 +17,7 @@ public:
     bool autoSync() { return auto_sync_; }
 
 private slots:
-    void onSetAutoSyncFinished(bool);
+    void onSetAutoSyncFinished(bool, bool);
 
 private:
     Q_DISABLE_COPY(SettingsManager)

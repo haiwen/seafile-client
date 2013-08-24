@@ -5,6 +5,7 @@
 #include <QDialog>
 #include "ui_list-account-repos-dialog.h"
 #include "account.h"
+#include "api/server-repo.h"
 
 class ServerRepo;
 class ListReposRequest;
@@ -23,12 +24,14 @@ public:
 private slots:
     void onRequestSuccess(const std::vector<ServerRepo>& repos);
     void onRequestFailed(int);
+    void downloadRepos();
 
 private:
     void sendRequest();
 
     Account account_;
     ListReposRequest *request_;
+    std::vector<ServerRepo> repos_;
 
     QListWidget *list_widget_;
 };

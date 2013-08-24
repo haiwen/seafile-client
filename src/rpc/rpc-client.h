@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_RPC_CLIENT_H
 
 #include <QObject>
+#include <vector>
 
 extern "C" {
 
@@ -11,9 +12,10 @@ struct _CcnetClient;
 
 }
 
+class LocalRepo;
 class QSocketNotifier;
 
-class SeafileRpcClient : QObject {
+class SeafileRpcClient : public QObject {
     Q_OBJECT
 
 public:
@@ -23,6 +25,19 @@ public:
 
     SearpcClient* seafRpcClient() { return seafile_rpc_client_; }
     SearpcClient* ccnetRpcClient() { return ccnet_rpc_client_; }
+
+    void listLocalRepos();
+    void setAutoSync(bool autoSync);
+
+signals:
+    void listLocalReposSignal(const std::vector<LocalRepo> &repos, bool result);
+    void setAutoSyncSignal(bool autoSync, bool result);
+
+private:
+    static void listLocalReposCB(void *result, void *data, GError *error);
+    static void setAutoSyncCB(void *result, void *data, GError *error);
+    static void setNotAutoSyncCB(void *result, void *data, GError *error);
+
 
 private slots:
     void readConnfd();

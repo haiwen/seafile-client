@@ -2,7 +2,7 @@
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"
 
-#include "rpc/requests.h"
+#include "rpc/rpc-client.h"
 
 SettingsManager::SettingsManager()
     : auto_sync_(true)
@@ -11,18 +11,19 @@ SettingsManager::SettingsManager()
 
 void SettingsManager::setAutoSync(bool auto_sync)
 {
-    SetAutoSyncRequest *req = new SetAutoSyncRequest(auto_sync);
-    req->send();
-
-    connect(req, SIGNAL(success(bool)), this, SLOT(onSetAutoSyncFinished(bool)));
+    connect(seafApplet->rpcClient(), SIGNAL(setAutoSyncSignal(bool, bool)),
+            this, SLOT(onSetAutoSyncFinished(bool, bool)));
+    seafApplet->rpcClient()->setAutoSync(auto_sync);
 }
 
-void SettingsManager::onSetAutoSyncFinished(bool auto_sync)
+void SettingsManager::onSetAutoSyncFinished(bool auto_sync, bool result)
 {
-    qDebug("%s auto sync success", auto_sync ? "enable" : "disable");
-    auto_sync_ = auto_sync;
-    seafApplet->trayIcon()->setState(
-        auto_sync
-        ? SeafileTrayIcon::STATE_DAEMON_UP
-        : SeafileTrayIcon::STATE_DAEMON_AUTOSYNC_DISABLED);
+    if (result) {
+        qDebug("%s auto sync success", auto_sync ? "enable" : "disable");
+        auto_sync_ = auto_sync;
+        seafApplet->trayIcon()->setState(
+            auto_sync
+            ? SeafileTrayIcon::STATE_DAEMON_UP
+            : SeafileTrayIcon::STATE_DAEMON_AUTOSYNC_DISABLED);
+    }
 }

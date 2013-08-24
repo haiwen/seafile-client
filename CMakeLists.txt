@@ -24,8 +24,6 @@ SET(moc_headers
   src/api/api-request.h
   src/api/requests.h
   src/rpc/rpc-client.h
-  src/rpc/rpc-request.h
-  src/rpc/requests.h
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
@@ -35,6 +33,8 @@ SET(moc_headers
   src/ui/repo-item.h
   src/ui/repos-view.h
   src/ui/tray-icon.h
+  src/utils/rsa.h
+  src/utils/utils.h
 )
 
 # UI FILES
@@ -104,8 +104,6 @@ SET(seafile_client_sources
   src/api/server-repo.cpp
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
-  src/rpc/rpc-request.cpp
-  src/rpc/requests.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp

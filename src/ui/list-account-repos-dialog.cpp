@@ -2,7 +2,6 @@
 #include <QMovie>
 
 #include "list-account-repos-dialog.h"
-#include "api/server-repo.h"
 #include "api/requests.h"
 
 ListAccountReposDialog::ListAccountReposDialog(const Account& account,
@@ -20,10 +19,27 @@ ListAccountReposDialog::ListAccountReposDialog(const Account& account,
     mLoadingMovie->setMovie(new QMovie(":/images/loading.gif"));
 
     list_widget_ = new QListWidget;
+    list_widget_->setSelectionMode(QAbstractItemView::MultiSelection);
     mScrollArea->setWidget(list_widget_);
     mScrollArea->setVisible(false);
 
     sendRequest();
+
+    connect(downloadRepoBtn, SIGNAL(clicked()), this, SLOT(downloadRepos()));
+}
+
+void ListAccountReposDialog::downloadRepos()
+{
+    QList<QListWidgetItem *> selected = list_widget_->selectedItems();
+
+    qDebug("download %d repos ...\n", selected.count());
+
+    QListIterator<QListWidgetItem *> itr(selected);
+    while (itr.hasNext()) {
+        int row = list_widget_->row(itr.next());
+        ServerRepo &repo = repos_[row];
+        qDebug() << "download repo " << repo.id << repo.name ;
+    }
 }
 
 void ListAccountReposDialog::sendRequest()
@@ -42,6 +58,7 @@ void ListAccountReposDialog::onRequestSuccess(const std::vector<ServerRepo>& rep
 {
     qDebug("account repos dialog: %d repos\n", (int)repos.size());
     QIcon repo_icon(":/images/repo.png");
+    repos_ = repos;
     for (std::vector<ServerRepo>::const_iterator iter = repos.begin();
          iter != repos.end(); iter++) {
         const ServerRepo& repo = *iter;

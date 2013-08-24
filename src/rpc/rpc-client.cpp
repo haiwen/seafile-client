@@ -1,6 +1,11 @@
 extern "C" {
 #include <searpc-client.h>
 #include <ccnet.h>
+
+#include <searpc.h>
+#include <seafile/seafile.h>
+#include <seafile/seafile-object.h>
+
 }
 
 #include <QSocketNotifier>
@@ -8,6 +13,7 @@ extern "C" {
 #include "seafile-applet.h"
 #include "configurator.h"
 
+#include "local-repo.h"
 #include "rpc-client.h"
 
 
@@ -57,4 +63,64 @@ void SeafileRpcClient::readConnfd()
         return;
     }
     socket_notifier_->setEnabled(true);
+}
+
+void SeafileRpcClient::listLocalRepos()
+{
+    searpc_client_async_call__objlist (
+        seafile_rpc_client_,
+        "seafile_get_repo_list", (AsyncCallback)listLocalReposCB,
+        SEAFILE_TYPE_REPO, this, 0);
+}
+
+void SeafileRpcClient::setAutoSync(bool autoSync)
+{
+    if (autoSync)
+        seafile_enable_auto_sync_async (seafile_rpc_client_,
+                                        (AsyncCallback)setAutoSyncCB,
+                                        this);
+    else
+        seafile_disable_auto_sync_async (seafile_rpc_client_,
+                                         (AsyncCallback)setNotAutoSyncCB,
+                                         this);
+}
+
+void SeafileRpcClient::listLocalReposCB(void *result, void *data, GError *error)
+{
+    SeafileRpcClient *client = static_cast<SeafileRpcClient*>(data);
+    std::vector<LocalRepo> repos;
+
+    if (error == NULL) {
+        qDebug("list repos success");
+        GList *obj_list = (GList *)result;
+        for (GList *ptr = obj_list; ptr; ptr = ptr->next) {
+            GObject *obj = static_cast<GObject*>(ptr->data);
+            repos.push_back(LocalRepo::fromGObject((GObject*)obj));
+        }
+
+        emit client->listLocalReposSignal(repos, true);
+    } else {
+        qDebug("list repos failed %s", error->message);
+        emit client->listLocalReposSignal(repos, false);
+    }
+}
+
+void SeafileRpcClient::setAutoSyncCB(void *result, void *data, GError *error)
+{
+    SeafileRpcClient *client = static_cast<SeafileRpcClient*>(data);
+
+    if (error)
+        emit client->setAutoSyncSignal(true, false);
+    else
+        emit client->setAutoSyncSignal(true, true);
+}
+
+void SeafileRpcClient::setNotAutoSyncCB(void *result, void *data, GError *error)
+{
+    SeafileRpcClient *client = static_cast<SeafileRpcClient*>(data);
+
+    if (error)
+        emit client->setAutoSyncSignal(false, false);
+    else
+        emit client->setAutoSyncSignal(false, true);
 }

@@ -56,6 +56,7 @@ void MainWindow::centerInScreen()
 
 void MainWindow::onViewChanged(int index)
 {
+    qDebug("index=%d\n", index);
     switch(index) {
     case INDEX_REPOS_VIEW:
         repos_view_->updateRepos();
@@ -98,6 +99,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 
     QMainWindow::keyPressEvent(event);
+}
+
+void MainWindow::showWindow()
+{
+    this->show();
+    onViewChanged (main_widget_->currentIndex());
 }
 
 void MainWindow::createMenus()

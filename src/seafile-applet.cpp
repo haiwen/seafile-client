@@ -31,6 +31,7 @@ void SeafileApplet::start()
     tray_icon_->show();
     configurator_->checkInit();
 
+    account_mgr_->start();
     daemon_mgr_->startCcnetDaemon();
 
     connect(daemon_mgr_, SIGNAL(daemonStarted()),
@@ -40,7 +41,7 @@ void SeafileApplet::start()
 void SeafileApplet::onDaemonStarted()
 {
     // tray_icon_->showMessage("Seafile", "daemon is started");
-    main_win_->show();
+    main_win_->showWindow();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
     rpc_client_->connectDaemon();

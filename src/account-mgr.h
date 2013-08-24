@@ -7,6 +7,9 @@
 
 #include "account.h"
 
+struct sqlite3;
+struct sqlite3_stmt;
+
 /**
  * Load/Save seahub accounts
  */
@@ -17,6 +20,11 @@ public:
     AccountManager();
     std::vector<Account> loadAccounts();
     int saveAccount(const Account& account);
+    int start();
+
+private:
+    ~AccountManager();
+    static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
 
 signals:
     void accountsChanged();
@@ -24,6 +32,7 @@ signals:
 private:
     Q_DISABLE_COPY(AccountManager)
 
+    struct sqlite3 *db;
     std::vector<Account> accounts_;
 };
 

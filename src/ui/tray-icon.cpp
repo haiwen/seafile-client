@@ -131,7 +131,7 @@ void SeafileTrayIcon::toggleMainWindow()
 {
     MainWindow *main_win = seafApplet->mainWindow();
     if (!main_win->isVisible()) {
-        main_win->show();
+        main_win->showWindow();
         main_win->raise();
     } else {
         main_win->hide();

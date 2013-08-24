@@ -20,6 +20,7 @@ public:
     MainWindow();
 
     void keyPressEvent(QKeyEvent *event);
+    void showWindow();
 
 protected:
     void createActions();

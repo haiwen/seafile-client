@@ -1,4 +1,4 @@
-#include <glib/gerror.h>
+#include <glib.h>
 
 #include "seafile-applet.h"
 #include "rpc-client.h"

@@ -52,7 +52,6 @@ void SeafileRpcClient::connectDaemon()
 
 void SeafileRpcClient::readConnfd()
 {
-    qDebug("[XXXXXX]");
     socket_notifier_->setEnabled(false);
     if (ccnet_client_read_input(async_client_) <= 0) {
         return;

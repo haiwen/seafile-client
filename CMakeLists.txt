@@ -11,10 +11,6 @@ SET(CMAKE_BUILD_TYPE Debug)
 FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork)
 INCLUDE(${QT_USE_FILE})
 
-IF(APPLE)
-  LINK_DIRECTORIES(/opt/local/lib)
-  LINK_DIRECTORIES(/usr/local/lib)
-ENDIF()
 
 # MOC FILES
 SET(moc_headers

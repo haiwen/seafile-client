@@ -8,8 +8,8 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     char *desc = NULL;
     char *worktree = NULL;
 
-    bool encrypted;
-    bool auto_sync;
+    gboolean encrypted;
+    gboolean auto_sync;
     gint64 last_sync_time;
 
     g_object_get (obj,

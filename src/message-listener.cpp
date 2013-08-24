@@ -75,7 +75,7 @@ void MessageListener::startMqClient()
 
 void MessageListener::handleMessage(CcnetMessage *message)
 {
-    qDebug("got a message: %s %s\n", message->app, message->body);
+    qDebug("got a message: %s %s", message->app, message->body);
     // TODO: handle message
 }
 

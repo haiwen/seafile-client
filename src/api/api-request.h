@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QUrl>
+#include <QMap>
 #include <jansson.h>
 
 class QNetworkReply;

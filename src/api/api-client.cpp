@@ -51,6 +51,11 @@ void SeafileApiClient::get(const QUrl& url)
 void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
 {
     QNetworkRequest request(url);
+    if (token_.length() > 0) {
+        char buf[1024];
+        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
+        request.setRawHeader(kAuthHeader, buf);
+    }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
     reply_ = na_mgr_->post(request, encodedParams);
 
@@ -69,7 +74,7 @@ void SeafileApiClient::httpRequestFinished()
     }
 
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-    if (code != 200) {
+    if (code/100 != 2) {
         qDebug("request failed : status code %d\n", code);
         emit requestFailed(code);
     }

@@ -6,6 +6,7 @@
 #include "ui_list-account-repos-dialog.h"
 #include "account.h"
 #include "api/server-repo.h"
+#include "rpc/rpc-client.h"
 
 class ServerRepo;
 class ListReposRequest;
@@ -19,15 +20,23 @@ class ListAccountReposDialog : public QDialog,
 
 public:
     ListAccountReposDialog(const Account& account, QWidget *parent=0);
+    ~ListAccountReposDialog();
     void setAccount(const Account& account) { account_ = account_; }
 
 private slots:
-    void onRequestSuccess(const std::vector<ServerRepo>& repos);
-    void onRequestFailed(int);
-    void downloadRepos();
+    void onListApiSuccess(const std::vector<ServerRepo>& repos);
+    void onListApiFailed(int);
+    void onDownloadApiSuccess(const QMap<QString, QString> &dict, ServerRepo *repo);
+    void onDownloadApiFailed(int code, ServerRepo *repo);
+
+    void downloadRepoRequestFinished(QString &repoId, bool result);
+    void cloneRepoRequestFinished(QString &repoId, bool result);
+
+    void syncRepoAction();
+    void createRepoAction();
 
 private:
-    void sendRequest();
+    void sendListReposRequest();
 
     Account account_;
     ListReposRequest *request_;

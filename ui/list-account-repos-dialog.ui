@@ -138,9 +138,16 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QPushButton" name="downloadRepoBtn">
+      <widget class="QPushButton" name="syncRepoBtn">
        <property name="text">
-        <string>Download</string>
+        <string>Sync</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="createRepoBtn">
+       <property name="text">
+        <string>Create</string>
        </property>
       </widget>
      </item>

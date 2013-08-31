@@ -2,6 +2,7 @@
 #include <jansson.h>
 
 #include "server-repo.h"
+#include "requests.h"
 
 namespace {
 
@@ -11,6 +12,12 @@ QString getStringFromJson(const json_t *json, const char* key)
 }
 
 } // namespace
+
+ServerRepo:: ~ServerRepo()
+{
+    if (req)
+        delete req;
+}
 
 ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t *error)
 {
@@ -39,3 +46,4 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
 
     return repos;
 }
+

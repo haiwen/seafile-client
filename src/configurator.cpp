@@ -35,7 +35,6 @@ void Configurator::checkInit()
         // first time use
         initConfig();
     } else {
-        readSeafileIni (&worktree_);
         validateExistingConfig();
     }
 }
@@ -88,6 +87,9 @@ void Configurator::validateExistingConfig()
         // TODO: init config here instead of exit
         seafApplet->errorAndExit(tr("%1 does not exist").arg(seafile_dir_));
     }
+
+    QFileInfo finfo(seafile_dir_);
+    worktree_ = finfo.dir().path();
 }
 
 int Configurator::readSeafileIni(QString *content)

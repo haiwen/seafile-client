@@ -28,6 +28,9 @@ void ReposView::updateRepos()
 
 void ReposView::updateRepos(const std::vector<LocalRepo>& repos, bool result)
 {
+    disconnect(seafApplet->rpcClient(),
+               SIGNAL(listLocalReposSignal(const std::vector<LocalRepo>&, bool)),
+               this, SLOT(updateRepos(const std::vector<LocalRepo>&, bool)));
     if (result) {
         int i, n = repos.size();
         for (i = 0; i < n; i++) {

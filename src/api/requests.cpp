@@ -5,11 +5,26 @@
 #include "account.h"
 
 #include "requests.h"
+#include "server-repo.h"
 
 namespace {
 
 const char *kApiLoginUrl = "/api2/auth-token/";
 const char *kListReposUrl = "/api2/repos/";
+const char *kCreateRepoUrl = "/api2/repos/";
+
+static QMap<QString, QString> mapFromJSON(json_t *json, json_error_t *error)
+{
+    QMap<QString, QString> dict;
+    const char *key;
+    json_t *value;
+
+    json_object_foreach(json, key, value) {
+        qDebug() << "key:"<<key << " value:" << json_string_value(value);
+        dict[QString::fromUtf8(key)] = QString::fromUtf8(json_string_value(value));
+    }
+    return dict;
+}
 
 } // namespace
 
@@ -67,7 +82,7 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("failed to parse json:%s\n", error.text);
+        qDebug("ListReposRequest:failed to parse json:%s\n", error.text);
         emit failed(0);
         return;
     }
@@ -76,4 +91,67 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
 
     std::vector<ServerRepo> repos = ServerRepo::listFromJSON(json.data(), &error);
     emit success(repos);
+}
+
+
+/**
+ * DownloadRepoRequest
+ */
+DownloadRepoRequest::DownloadRepoRequest(const Account& account, ServerRepo *repo)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + "/api2/repos/" + repo->id + "/download-info/"),
+                         SeafileApiRequest::METHOD_GET, account.token),
+      repo_(repo)
+{
+    connect(this, SIGNAL(failed(int)), this, SLOT(requestFailed(int)));
+}
+
+void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QString> dict = mapFromJSON(json.data(), &error);
+    emit success(dict, repo_);
+}
+
+void DownloadRepoRequest::requestFailed(int error)
+{
+    emit fail(error, repo_);
+}
+
+
+/**
+ * CreateRepoRequest
+ */
+CreateRepoRequest::CreateRepoRequest(const Account& account, QString &name, QString &desc, QString &passwd)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kCreateRepoUrl),
+                         SeafileApiRequest::METHOD_POST, account.token)
+{
+    this->setParam(QString("name"), name);
+    this->setParam(QString("desc"), desc);
+    if (!passwd.isNull()) {
+        qDebug("Encrypted repo");
+        this->setParam(QString("passwd"), passwd);
+    }
+}
+
+void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QString> dict = mapFromJSON(json.data(), &error);
+    emit success(dict);
 }

@@ -28,15 +28,29 @@ public:
 
     void listLocalRepos();
     void setAutoSync(bool autoSync);
+    void downloadRepo(const QString &id, const QString &relayId,
+                      const QString &name, const QString &wt,
+                      const QString &token, const QString &passwd,
+                      const QString &magic, const QString &peerAddr,
+                      const QString &port, const QString &email);
+    void cloneRepo(const QString &id, const QString &relayId,
+                   const QString &name, const QString &wt,
+                   const QString &token, const QString &passwd,
+                   const QString &magic, const QString &peerAddr,
+                   const QString &port, const QString &email);
 
 signals:
     void listLocalReposSignal(const std::vector<LocalRepo> &repos, bool result);
     void setAutoSyncSignal(bool autoSync, bool result);
+    void downloadRepoSignal(QString &repoId, bool result);
+    void cloneRepoSignal(QString &repoId, bool result);
 
 private:
     static void listLocalReposCB(void *result, void *data, GError *error);
     static void setAutoSyncCB(void *result, void *data, GError *error);
     static void setNotAutoSyncCB(void *result, void *data, GError *error);
+    static void downloadRepoCB(void *result, void *data, GError *error);
+    static void cloneRepoCB(void *result, void *data, GError *error);
 
 
 private slots:

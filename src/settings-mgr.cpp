@@ -18,6 +18,8 @@ void SettingsManager::setAutoSync(bool auto_sync)
 
 void SettingsManager::onSetAutoSyncFinished(bool auto_sync, bool result)
 {
+    disconnect(seafApplet->rpcClient(), SIGNAL(setAutoSyncSignal(bool, bool)),
+               this, SLOT(onSetAutoSyncFinished(bool, bool)));
     if (result) {
         qDebug("%s auto sync success", auto_sync ? "enable" : "disable");
         auto_sync_ = auto_sync;

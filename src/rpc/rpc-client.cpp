@@ -9,7 +9,7 @@ extern "C" {
 }
 
 #include <QSocketNotifier>
-
+#include <QtDebug>
 #include "seafile-applet.h"
 #include "configurator.h"
 
@@ -19,11 +19,18 @@ extern "C" {
 
 namespace {
 
-const char *kSeafileRpcService = "seafile-rpcserver";
-const char *kCcnetRpcService = "ccnet-rpcserver";
+    const char *kSeafileRpcService = "seafile-rpcserver";
+    const char *kCcnetRpcService = "ccnet-rpcserver";
 
 } // namespace
 
+#define toCStr(_s)   (_s.isNull() ? NULL : _s.toUtf8().data())
+
+struct DownloadRepoData {
+    SeafileRpcClient *client;
+    QString repoId;
+    DownloadRepoData(SeafileRpcClient *cli, const QString &id):client(cli), repoId(id){};
+};
 
 SeafileRpcClient::SeafileRpcClient()
       : async_client_(0),
@@ -38,8 +45,7 @@ void SeafileRpcClient::connectDaemon()
     async_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
-    const QByteArray path = config_dir.toUtf8();
-    if (ccnet_client_load_confdir(async_client_, path.data()) <  0) {
+    if (ccnet_client_load_confdir(async_client_, toCStr(config_dir)) <  0) {
         seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir));
     }
 
@@ -85,6 +91,50 @@ void SeafileRpcClient::setAutoSync(bool autoSync)
                                          this);
 }
 
+void SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
+                                    const QString &name, const QString &wt,
+                                    const QString &token, const QString &passwd,
+                                    const QString &magic, const QString &peerAddr,
+                                    const QString &port, const QString &email)
+{
+    DownloadRepoData *data = new DownloadRepoData(this, id);
+    searpc_client_async_call__string (
+        seafile_rpc_client_,
+        "seafile_download", (AsyncCallback)downloadRepoCB,
+        data, 10, "string", toCStr(id),
+        "string", toCStr(relayId),
+        "string", toCStr(name),
+        "string", toCStr(wt),
+        "string", toCStr(token),
+        "string", toCStr(passwd),
+        "string", toCStr(magic),
+        "string", toCStr(peerAddr),
+        "string", toCStr(port),
+        "string", toCStr(email));
+}
+
+void SeafileRpcClient::cloneRepo(const QString &id, const QString &relayId,
+                                 const QString &name, const QString &wt,
+                                 const QString &token, const QString &passwd,
+                                 const QString &magic, const QString &peerAddr,
+                                 const QString &port, const QString &email)
+{
+    DownloadRepoData *data = new DownloadRepoData(this, id);
+    searpc_client_async_call__string (
+        seafile_rpc_client_,
+        "seafile_clone", (AsyncCallback)cloneRepoCB,
+        data, 10, "string", toCStr(id),
+        "string", toCStr(relayId),
+        "string", toCStr(name),
+        "string", toCStr(wt),
+        "string", toCStr(token),
+        "string", toCStr(passwd),
+        "string", toCStr(magic),
+        "string", toCStr(peerAddr),
+        "string", toCStr(port),
+        "string", toCStr(email));
+}
+
 void SeafileRpcClient::listLocalReposCB(void *result, void *data, GError *error)
 {
     SeafileRpcClient *client = static_cast<SeafileRpcClient*>(data);
@@ -123,4 +173,32 @@ void SeafileRpcClient::setNotAutoSyncCB(void *result, void *data, GError *error)
         emit client->setAutoSyncSignal(false, false);
     else
         emit client->setAutoSyncSignal(false, true);
+}
+
+void SeafileRpcClient::downloadRepoCB(void *result, void *data, GError *error)
+{
+    DownloadRepoData *repoData = (DownloadRepoData *)data;
+    SeafileRpcClient *client = static_cast<SeafileRpcClient*>(repoData->client);
+
+    if (error) {
+        qDebug() << __FUNCTION__ << " error:" << error->message;
+        emit client->downloadRepoSignal(repoData->repoId, false);
+    } else
+        emit client->downloadRepoSignal(repoData->repoId, true);
+
+    delete repoData;
+}
+
+void SeafileRpcClient::cloneRepoCB(void *result, void *data, GError *error)
+{
+    DownloadRepoData *repoData = (DownloadRepoData *)data;
+    SeafileRpcClient *client = static_cast<SeafileRpcClient*>(repoData->client);
+
+    if (error) {
+        qDebug() << __FUNCTION__ << " error:" << error->message;
+        emit client->cloneRepoSignal(repoData->repoId, false);
+    } else
+        emit client->cloneRepoSignal(repoData->repoId, true);
+
+    delete repoData;
 }

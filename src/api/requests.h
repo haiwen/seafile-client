@@ -8,6 +8,7 @@
 
 class QNetworkReply;
 class Account;
+class ServerRepo;
 
 class LoginRequest : public SeafileApiRequest {
     Q_OBJECT
@@ -42,6 +43,43 @@ signals:
 
 private:
     Q_DISABLE_COPY(ListReposRequest)
+};
+
+class DownloadRepoRequest : public SeafileApiRequest {
+    Q_OBJECT
+
+public:
+    explicit DownloadRepoRequest(const Account& account, ServerRepo *repo);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+    void requestFailed(int error);
+
+signals:
+    void success(const QMap<QString, QString> &map, ServerRepo *repo);
+    void fail(int code, ServerRepo *repo);
+
+private:
+    Q_DISABLE_COPY(DownloadRepoRequest)
+
+    ServerRepo *repo_;
+};
+
+class CreateRepoRequest : public SeafileApiRequest {
+    Q_OBJECT
+
+public:
+    explicit CreateRepoRequest(const Account& account, QString &name, QString &desc, QString &passwd);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success(const QMap<QString, QString> &dict);
+
+private:
+    Q_DISABLE_COPY(CreateRepoRequest)
+
 };
 
 

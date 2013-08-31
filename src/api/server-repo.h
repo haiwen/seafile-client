@@ -5,10 +5,16 @@
 #include <QString>
 #include <jansson.h>
 
+class DownloadRepoRequest;
+
 /**
  * Repo information from seahub api
  */
 class ServerRepo {
+public:
+    ServerRepo():req(NULL), passwd(QString::null){};
+    ~ServerRepo();
+
 public:
     QString id;
     QString name;
@@ -22,6 +28,11 @@ public:
 
     qint64  size;
     QString root;
+
+    bool download; // download or sync with local dir
+    QString passwd;
+    QString localdir;
+    DownloadRepoRequest *req;
 
     static ServerRepo fromJSON(const json_t*, json_error_t *error);
     static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);

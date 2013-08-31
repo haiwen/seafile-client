@@ -2,11 +2,16 @@
 #include <QMovie>
 
 #include "list-account-repos-dialog.h"
+#include "create-repo-dialog.h"
+#include "sync-repo-dialog.h"
 #include "api/requests.h"
+#include "seafile-applet.h"
+#include "configurator.h"
 
 ListAccountReposDialog::ListAccountReposDialog(const Account& account,
                                                QWidget *parent)
     : QDialog(parent),
+      request_(NULL),
       account_(account)
 {
     setupUi(this);
@@ -19,46 +24,76 @@ ListAccountReposDialog::ListAccountReposDialog(const Account& account,
     mLoadingMovie->setMovie(new QMovie(":/images/loading.gif"));
 
     list_widget_ = new QListWidget;
-    list_widget_->setSelectionMode(QAbstractItemView::MultiSelection);
+    //list_widget_->setSelectionMode(QAbstractItemView::MultiSelection);
     mScrollArea->setWidget(list_widget_);
     mScrollArea->setVisible(false);
 
-    sendRequest();
+    sendListReposRequest();
 
-    connect(downloadRepoBtn, SIGNAL(clicked()), this, SLOT(downloadRepos()));
+    connect(syncRepoBtn, SIGNAL(clicked()), this, SLOT(syncRepoAction()));
+    connect(createRepoBtn, SIGNAL(clicked()), this, SLOT(createRepoAction()));
 }
 
-void ListAccountReposDialog::downloadRepos()
+ListAccountReposDialog::~ListAccountReposDialog()
+{
+    if (request_)
+        delete request_;
+    delete list_widget_;
+}
+
+void ListAccountReposDialog::syncRepoAction()
 {
     QList<QListWidgetItem *> selected = list_widget_->selectedItems();
 
-    qDebug("download %d repos ...\n", selected.count());
-
+    qDebug("sync %d repos ...\n", selected.count());
     QListIterator<QListWidgetItem *> itr(selected);
     while (itr.hasNext()) {
         int row = list_widget_->row(itr.next());
         ServerRepo &repo = repos_[row];
-        qDebug() << "download repo " << repo.id << repo.name ;
+        SyncRepoDialog dialog(&repo, this);
+        if (dialog.exec() == QDialog::Accepted) {
+            qDebug() << "sync repo " << repo.id << repo.name ;
+            repo.req = new DownloadRepoRequest(account_, &repo);
+            connect(repo.req, SIGNAL(success(const QMap<QString, QString> &, ServerRepo *)),
+                    this, SLOT(onDownloadApiSuccess(const QMap<QString, QString> &, ServerRepo *)));
+            connect(repo.req, SIGNAL(fail(int, ServerRepo *)), this, SLOT(onDownloadApiFailed(int, ServerRepo *)));
+            repo.req->send();
+        }
     }
 }
 
-void ListAccountReposDialog::sendRequest()
+void ListAccountReposDialog::createRepoAction()
 {
+    CreateRepoDialog dialog(account_, this);
+    if (dialog.exec() == QDialog::Accepted) {
+        sendListReposRequest();
+    }
+}
+
+void ListAccountReposDialog::sendListReposRequest()
+{
+    if (!request_)
+        delete request_;
+
     request_ = new ListReposRequest(account_);
-
     connect(request_, SIGNAL(success(const std::vector<ServerRepo>&)),
-            this, SLOT(onRequestSuccess(const std::vector<ServerRepo>&)));
-
-    connect(request_, SIGNAL(failed(int)), this, SLOT(onRequestFailed(int)));
-
+            this, SLOT(onListApiSuccess(const std::vector<ServerRepo>&)));
+    connect(request_, SIGNAL(failed(int)), this, SLOT(onListApiFailed(int)));
     request_->send();
 }
 
-void ListAccountReposDialog::onRequestSuccess(const std::vector<ServerRepo>& repos)
+void ListAccountReposDialog::onListApiSuccess(const std::vector<ServerRepo>& repos)
 {
     qDebug("account repos dialog: %d repos\n", (int)repos.size());
     QIcon repo_icon(":/images/repo.png");
     repos_ = repos;
+
+    while (list_widget_->count() > 0) {
+        if (list_widget_->item(0) != NULL) {
+            QListWidgetItem *item = list_widget_->item(0);
+            delete item;
+        }
+    }
     for (std::vector<ServerRepo>::const_iterator iter = repos.begin();
          iter != repos.end(); iter++) {
         const ServerRepo& repo = *iter;
@@ -68,10 +103,49 @@ void ListAccountReposDialog::onRequestSuccess(const std::vector<ServerRepo>& rep
     mScrollArea->setVisible(true);
 }
 
-void ListAccountReposDialog::onRequestFailed(int code)
+void ListAccountReposDialog::onListApiFailed(int code)
 {
     mScrollArea->setVisible(false);
     mLoadingMovie->setVisible(false);
 
     mErrorText->setVisible(true);
+}
+
+void ListAccountReposDialog::onDownloadApiSuccess(const QMap<QString, QString> &dict, ServerRepo *repo)
+{
+    qDebug() <<"onDownloadApiSuccess repo " << repo->id << "localdir="<<repo->localdir << ", download:" << repo->download;
+    if (repo->download) {
+        connect(seafApplet->rpcClient(),
+                SIGNAL(downloadRepoSignal(QString &, bool)),
+                this, SLOT(downloadRepoRequestFinished(QString &, bool)));
+        seafApplet->rpcClient()->downloadRepo(dict["repo_id"], dict["relay_id"], dict["repo_name"], repo->localdir, dict["token"], repo->passwd, dict["magic"], dict["relay_addr"], dict["relay_port"], dict["email"]);
+    } else {
+        connect(seafApplet->rpcClient(),
+                SIGNAL(cloneRepoSignal(QString &, bool)),
+                this, SLOT(cloneRepoRequestFinished(QString &, bool)));
+        seafApplet->rpcClient()->cloneRepo(dict["repo_id"], dict["relay_id"], dict["repo_name"], repo->localdir, dict["token"], repo->passwd, dict["magic"], dict["relay_addr"], dict["relay_port"], dict["email"]);
+    }
+}
+
+void ListAccountReposDialog::onDownloadApiFailed(int code, ServerRepo *repo)
+{
+    qDebug() << __func__ << repo->name << "(" <<repo->id <<")";
+    delete repo->req;
+    repo->req = NULL;
+}
+
+void ListAccountReposDialog::downloadRepoRequestFinished(QString &repoId, bool result)
+{
+    qDebug() << __func__ << repoId << ", result:"<< result;
+    disconnect(seafApplet->rpcClient(),
+               SIGNAL(downloadRepoSignal(QString &, bool)),
+               this, SLOT(downloadRepoRequestFinished(QString &, bool)));
+}
+
+void ListAccountReposDialog::cloneRepoRequestFinished(QString &repoId, bool result)
+{
+    qDebug() << __func__ << repoId << ", result:"<< result;
+    disconnect(seafApplet->rpcClient(),
+               SIGNAL(cloneRepoSignal(QString &, bool)),
+               this, SLOT(cloneRepoRequestFinished(QString &, bool)));
 }

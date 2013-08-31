@@ -34,7 +34,6 @@ private:
 
     void startSeafileDaemon();
 
-    QTimer *monitor_timer_;
     QTimer *conn_daemon_timer_;
     QProcess *ccnet_daemon_;
     QProcess *seaf_daemon_;

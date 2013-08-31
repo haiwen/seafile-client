@@ -18,7 +18,6 @@ extern "C" {
 
 namespace {
 
-const int kCheckIntervalMilli = 5000;
 const int kConnDaemonIntervalMilli = 1000;
 
 #if defined(Q_WS_WIN)
@@ -38,7 +37,6 @@ DaemonManager::DaemonManager()
       ccnet_daemon_(0),
       seaf_daemon_(0)
 {
-    monitor_timer_ = new QTimer(this);
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(tryConnCcnet()));
     shutdown_process (kCcnetDaemonExecutable);

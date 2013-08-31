@@ -1,17 +1,29 @@
 #include <QtGui>
 #include <QApplication>
 #include <QSet>
+#include <QDebug>
 
 #include "seafile-applet.h"
 #include "main-window.h"
 #include "settings-mgr.h"
 #include "tray-icon.h"
 
+namespace {
+
+const int kCheckIntervalMilli = 5000;
+const int kRotateTrayIconIntervalMilli = 250;
+}
+
 SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
-    : QSystemTrayIcon(parent)
+    : QSystemTrayIcon(parent),
+      nth_trayicon_(0),
+      rotate_counter_(0)
 {
+    qDebug("supportsMessages:%d", QSystemTrayIcon::supportsMessages());
     setToolTip("Seafile");
     setState(STATE_DAEMON_DOWN);
+    rotate_timer_ = new QTimer(this);
+    connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));
 
     createActions();
     createContextMenu();
@@ -91,9 +103,60 @@ void SeafileTrayIcon::prepareContextMenu()
     }
 }
 
+void SeafileTrayIcon::notify(const QString &title, const QString &content)
+{
+    qDebug() <<__func__ << title << content;
+    this->showMessage(title, content);
+    // TODO ? message not show in MacOS
+}
+
+void SeafileTrayIcon::rotate(bool start)
+{
+    qDebug("rorate %d, timer is active %d", start, rotate_timer_->isActive());
+    if (start) {
+        rotate_counter_ = 0;
+        if (!rotate_timer_->isActive()) {
+            nth_trayicon_ = 0;
+            rotate_timer_->start(kRotateTrayIconIntervalMilli);
+        }
+    } else {
+        rotate_timer_->stop();
+    }
+}
+
+void SeafileTrayIcon::rotateTrayIcon()
+{
+    if (rotate_counter_ >= 8 || !seafApplet->settingsManager()->autoSync()) {
+        rotate_timer_->stop();
+        if (!seafApplet->settingsManager()->autoSync())
+            setState (STATE_DAEMON_AUTOSYNC_DISABLED);
+        else
+            setState (STATE_DAEMON_UP);
+        return;
+    }
+
+    TrayState states[] = { STATE_TRANSFER_1, STATE_TRANSFER_2 };
+    int index = nth_trayicon_ % 2;
+    setIcon(stateToIcon(states[index]));
+
+    nth_trayicon_++;
+    rotate_counter_++;
+}
+
+void SeafileTrayIcon::resetToolTip ()
+{
+    QString tip("Seafile");
+    if (!seafApplet->settingsManager()->autoSync())
+        tip = tr("Auto sync is disabled");
+
+    setToolTip(tip);
+}
+
 void SeafileTrayIcon::setState(TrayState state)
 {
     setIcon(stateToIcon(state));
+    if (state != STATE_DAEMON_DOWN)
+        resetToolTip();
 }
 
 QIcon SeafileTrayIcon::stateToIcon(TrayState state)
@@ -141,6 +204,8 @@ void SeafileTrayIcon::toggleMainWindow()
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
     qDebug("onActivated: %d", reason);
+
+#ifndef __APPLE__
     switch(reason) {
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:
@@ -150,6 +215,7 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
     default:
         return;
     }
+#endif
 }
 
 void SeafileTrayIcon::disableAutoSync()

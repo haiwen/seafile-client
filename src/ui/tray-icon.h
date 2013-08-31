@@ -21,6 +21,8 @@ public:
     };
 
     void setState(TrayState);
+    void notify(const QString &title, const QString &content);
+    void rotate(bool start);
 
 private slots:
     void disableAutoSync();
@@ -29,6 +31,7 @@ private slots:
     void onActivated(QSystemTrayIcon::ActivationReason);
     void prepareContextMenu();
     void toggleMainWindow();
+    void rotateTrayIcon();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
@@ -37,6 +40,7 @@ private:
     void createContextMenu();
 
     QIcon stateToIcon(TrayState state);
+    void resetToolTip();
 
     QMenu *context_menu_;
     // Actions for tray icon menu
@@ -45,6 +49,9 @@ private:
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
 
+    QTimer *rotate_timer_;
+    int nth_trayicon_;
+    int rotate_counter_;
     bool auto_sync_;
 };
 

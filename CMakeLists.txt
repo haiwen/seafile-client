@@ -35,8 +35,6 @@ SET(moc_headers
   src/ui/repo-item.h
   src/ui/repos-view.h
   src/ui/tray-icon.h
-  src/utils/rsa.h
-  src/utils/utils.h
 )
 
 # UI FILES

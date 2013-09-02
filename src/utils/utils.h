@@ -1,5 +1,5 @@
-#ifndef __UTILS_H_
-#define __UTILS_H_
+#ifndef SEAFILE_CLIENT_UTILS_H_
+#define SEAFILE_CLIENT_UTILS_H_
 
 struct sqlite3;
 struct sqlite3_stmt;
@@ -14,5 +14,7 @@ int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
                                  SqliteRowFunc callback, void *data);
 
 int checkdir_with_mkdir (const char *dir);
+
+void shutdown_process (const char *name);
 
 #endif

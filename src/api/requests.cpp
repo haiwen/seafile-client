@@ -13,13 +13,17 @@ const char *kApiLoginUrl = "/api2/auth-token/";
 const char *kListReposUrl = "/api2/repos/";
 const char *kCreateRepoUrl = "/api2/repos/";
 
-static QMap<QString, QString> mapFromJSON(json_t *json, json_error_t *error)
+QMap<QString, QString> mapFromJSON(json_t *json, json_error_t *error)
 {
     QMap<QString, QString> dict;
+    void *member;
     const char *key;
     json_t *value;
 
-    json_object_foreach(json, key, value) {
+    for (member = json_object_iter(json); member; member = json_object_iter_next(json, member)) {
+        key = json_object_iter_key(member);
+        value = json_object_iter_value(member);
+
         qDebug() << "key:"<<key << " value:" << json_string_value(value);
         dict[QString::fromUtf8(key)] = QString::fromUtf8(json_string_value(value));
     }

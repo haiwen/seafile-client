@@ -1,6 +1,7 @@
 #include <sqlite3.h>
 #include <glib.h>
 #include <errno.h>
+#include <stdio.h>
 
 #include "account-mgr.h"
 #include "configurator.h"

@@ -8,6 +8,7 @@
 #include "rpc/rpc-client.h"
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
+#include "ui/settings-dialog.h"
 
 #include "seafile-applet.h"
 
@@ -19,6 +20,7 @@ SeafileApplet::SeafileApplet()
       daemon_mgr_(new DaemonManager),
       message_listener_(new MessageListener),
       rpc_client_(new SeafileRpcClient),
+      settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
       in_exit_(false)
 {
@@ -39,13 +41,15 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    // tray_icon_->showMessage("Seafile", "daemon is started");
+    tray_icon_->showMessage("Seafile", "daemon is started");
     main_win_ = new MainWindow;
+
     main_win_->showWindow();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
+    seafApplet->settingsManager()->loadSettings();
 }
 
 void SeafileApplet::exit(int code)

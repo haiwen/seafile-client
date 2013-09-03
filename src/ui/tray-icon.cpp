@@ -5,6 +5,7 @@
 
 #include "seafile-applet.h"
 #include "main-window.h"
+#include "settings-dialog.h"
 #include "settings-mgr.h"
 #include "tray-icon.h"
 
@@ -67,6 +68,9 @@ void SeafileTrayIcon::createActions()
 
     toggle_main_window_action_ = new QAction(tr("Show main window"), this);
     connect(toggle_main_window_action_, SIGNAL(triggered()), this, SLOT(toggleMainWindow()));
+
+    settings_action_ = new QAction(tr("Settings"), this);
+    connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
 }
 
 void SeafileTrayIcon::createContextMenu()
@@ -74,6 +78,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_ = new QMenu(NULL);
 
     context_menu_->addAction(toggle_main_window_action_);
+    context_menu_->addAction(settings_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(enable_auto_sync_action_);
     context_menu_->addAction(disable_auto_sync_action_);
@@ -199,6 +204,11 @@ void SeafileTrayIcon::toggleMainWindow()
     } else {
         main_win->hide();
     }
+}
+
+void SeafileTrayIcon::showSettingsWindow()
+{
+    seafApplet->settingsDialog()->show();
 }
 
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)

@@ -28,6 +28,7 @@ seafile-client
 cscope*
 core
 *.pyc
+.DS_Store
 
 # CMake files goes here
 build/
@@ -42,6 +43,7 @@ install_manifest.txt
 #### Qt files goes here
 ### moc
 moc_*.cxx*
+moc_*.cpp
 *.moc
 
 ### ui

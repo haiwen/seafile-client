@@ -24,6 +24,8 @@ const char *kCcnetRpcService = "ccnet-rpcserver";
 
 } // namespace
 
+#define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
+
 SeafileRpcClient::SeafileRpcClient()
       : sync_client_(0),
         seafile_rpc_client_(0),
@@ -168,5 +170,82 @@ int SeafileRpcClient::getLocalRepo(const QString& repo_id, LocalRepo *repo)
 
     g_object_unref(obj);
 
+    return 0;
+}
+
+int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (ccnet_rpc_client_, 
+                                            "get_config", &error,
+                                            1, "string", toCStr(key));
+    if (error) {
+        return -1;
+    }
+    *value = QString::fromUtf8(ret);
+    return 0;
+}
+
+int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (seafile_rpc_client_, 
+                                               "seafile_get_config", &error,
+                                               1, "string", toCStr(key));
+    if (error) {
+        return -1;
+    }
+    *value = QString::fromUtf8(ret);
+    return 0;
+}
+
+int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
+{
+    GError *error = NULL;
+    *value = searpc_client_call__int (seafile_rpc_client_, 
+                                      "seafile_get_config_int", &error,
+                                      1, "string", toCStr(key));
+    if (error) {
+        return -1;
+    }
+    return 0;
+}
+
+int SeafileRpcClient::ccnetSetConfig(const QString &key, const QString &value)
+{
+    GError *error = NULL;
+    searpc_client_call__int (ccnet_rpc_client_, 
+                             "set_config", &error,
+                             2, "string", toCStr(key),
+                             "string", toCStr(value));
+    if (error) {
+        return -1;
+    }
+    return 0;
+}
+
+int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
+{
+    GError *error = NULL;
+    searpc_client_call__int (seafile_rpc_client_, 
+                             "seafile_set_config", &error,
+                             2, "string", toCStr(key),
+                             "string", toCStr(value));
+    if (error) {
+        return -1;
+    }
+    return 0;
+}
+
+int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
+{
+    GError *error = NULL;
+    searpc_client_call__int (seafile_rpc_client_, 
+                             "seafile_set_config", &error,
+                             2, "string", toCStr(key),
+                             "int", value);
+    if (error) {
+        return -1;
+    }
     return 0;
 }

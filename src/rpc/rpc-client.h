@@ -36,6 +36,13 @@ public:
                   const QString &magic, const QString &peerAddr,
                   const QString &port, const QString &email);
 
+    int ccnetGetConfig(const QString &key, QString *value);
+    int seafileGetConfig(const QString &key, QString *value);
+    int seafileGetConfigInt(const QString &key, int *value);
+    int ccnetSetConfig(const QString &key, const QString &value);
+    int seafileSetConfig(const QString &key, const QString &value);
+    int seafileSetConfigInt(const QString &key, int value);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

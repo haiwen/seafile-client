@@ -11,6 +11,7 @@ class MainWindow;
 class MessageListener;
 class SeafileTrayIcon;
 class SettingsManager;
+class SettingsDialog;
 
 /**
  * The central class of seafile-client
@@ -42,6 +43,8 @@ public:
 
     SeafileTrayIcon *trayIcon() { return tray_icon_; }
 
+    SettingsDialog *settingsDialog() { return settings_dialog_; }
+
     SettingsManager *settingsManager() { return settings_mgr_; }
 
     bool inExit() { return in_exit_; }
@@ -65,6 +68,8 @@ private:
     MessageListener *message_listener_;
 
     SeafileTrayIcon *tray_icon_;
+
+    SettingsDialog *settings_dialog_;
 
     SettingsManager *settings_mgr_;
 

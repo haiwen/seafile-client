@@ -29,6 +29,7 @@ SET(moc_headers
   src/ui/login-dialog.h
   src/ui/switch-account-dialog.h
   src/ui/create-repo-dialog.h
+  src/ui/settings-dialog.h
   src/ui/sync-repo-dialog.h
   src/ui/local-view.h
   src/ui/local-repos-list-view.h
@@ -46,6 +47,7 @@ SET(ui_files
   ui/login-dialog.ui
   ui/switch-account-dialog.ui
   ui/create-repo.ui
+  ui/settings-dialog.ui
   ui/sync-repo.ui
   ui/init-seafile-dialog.ui
 )
@@ -113,6 +115,7 @@ SET(seafile_client_sources
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
   src/ui/switch-account-dialog.cpp
+  src/ui/settings-dialog.cpp
   src/ui/create-repo-dialog.cpp
   src/ui/sync-repo-dialog.cpp
   src/ui/tray-icon.cpp

@@ -347,6 +347,130 @@ void shutdown_process (const char *name)
 
     closedir(proc_dir);
 }
+
+#endif
+
+#if defined(Q_WS_WIN)
+static LONG
+get_win_run_key (HKEY *pKey)
+{
+    const char *key_run = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+    LONG result = RegOpenKeyEx(
+        /* We don't use HKEY_LOCAL_MACHINE here because that requires
+         * seaf-daemon to run with admin privilege. */
+                               HKEY_CURRENT_USER,
+                               key_run,
+                               0L,KEY_WRITE | KEY_READ,
+                               pKey);
+    if (result != ERROR_SUCCESS) {
+        applet_warning("Failed to open Registry key %s\n", key_run);
+    }
+
+    return result;
+}
+
+static int
+add_to_auto_start (const wchar_t *appname_w, const wchar_t *path_w)
+{
+    HKEY hKey;
+    LONG result = get_win_run_key(&hKey);
+    if (result != ERROR_SUCCESS) {
+        return -1;
+    }
+
+    DWORD n = sizeof(wchar_t) * (wcslen(path_w) + 1);
+
+    result = RegSetValueExW (hKey, appname_w,
+                             0, REG_SZ, (const BYTE *)path_w, n);
+
+    RegCloseKey(hKey);
+    if (result != ERROR_SUCCESS) {
+        applet_warning("Failed to create auto start value\n");
+        return -1;
+    }
+
+    return 0;
+}
+
+static int
+delete_from_auto_start(const char *appname)
+{
+    HKEY hKey;
+    LONG result = get_win_run_key(&hKey);
+    if (result != ERROR_SUCCESS) {
+        return -1;
+    }
+
+    result = RegDeleteValue (hKey, appname);
+    RegCloseKey(hKey);
+    if (result != ERROR_SUCCESS) {
+        applet_warning("Failed to remove auto start value for %s\n", appname);
+        return -1;
+    }
+
+    return 0;
+}
+
+int
+get_seafile_auto_start()
+{
+    HKEY hKey;
+    LONG result = get_win_run_key(&hKey);
+    if (result != ERROR_SUCCESS) {
+        return -1;
+    }
+
+    char buf[SEAF_PATH_MAX] = {0};
+    DWORD len = sizeof(buf);
+    result = RegQueryValueEx (hKey,             /* Key */
+                              "Seafile",        /* value */
+                              NULL,             /* reserved */
+                              NULL,             /* output type */
+                              (LPBYTE)buf,      /* output data */
+                              &len);            /* output length */
+
+    RegCloseKey(hKey);
+    if (result != ERROR_SUCCESS) {
+        /* seafile applet auto start no set  */
+        return 0;
+    }
+
+    return 1;
+}
+
+int
+set_seafile_auto_start(int on)
+{
+    int result = 0;
+    if (on) {
+        /* turn on auto start  */
+        wchar_t applet_path[SEAF_PATH_MAX];
+        if (GetModuleFileNameW (NULL, applet_path, SEAF_PATH_MAX) == 0) {
+            return -1;
+        }
+
+        result = add_to_auto_start (L"Seafile", applet_path);
+
+    } else {
+        /* turn off auto start */
+        result = delete_from_auto_start("Seafile");
+    }
+    return result;
+}
+
+#else
+int
+get_seafile_auto_start()
+{
+    return 0;
+}
+
+int
+set_seafile_auto_start(int on)
+{
+    return 0;
+}
+
 #endif
 
 

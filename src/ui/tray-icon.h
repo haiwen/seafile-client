@@ -32,6 +32,7 @@ private slots:
     void prepareContextMenu();
     void toggleMainWindow();
     void rotateTrayIcon();
+    void showSettingsWindow();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
@@ -48,6 +49,7 @@ private:
     QAction *disable_auto_sync_action_;
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
+    QAction *settings_action_;
 
     QTimer *rotate_timer_;
     int nth_trayicon_;

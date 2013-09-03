@@ -19,6 +19,11 @@ int checkdir_with_mkdir (const char *dir);
 
 void shutdown_process (const char *name);
 
+
 void open_dir(const QString& path);
+
+int get_seafile_auto_start();
+
+int set_seafile_auto_start(int on);
 
 #endif

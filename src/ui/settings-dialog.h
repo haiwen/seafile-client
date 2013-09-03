@@ -1,0 +1,27 @@
+#include <QDialog>
+#include "ui_settings-dialog.h"
+
+#include <QUrl>
+#include <QString>
+
+
+class SettingsDialog : public QDialog,
+                    public Ui::SettingsDialog
+{
+    Q_OBJECT
+public:
+    SettingsDialog(QWidget *parent=0);
+
+private slots:
+    void encryptedChanged(int state);
+    void autoStartChanged(int state);
+    void notifyChanged(int state);
+    void downloadChanged(int value);
+    void uploadChanged(int value);
+    void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
+
+private:
+    Q_DISABLE_COPY(SettingsDialog);
+
+};

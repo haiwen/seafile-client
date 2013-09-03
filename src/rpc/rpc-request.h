@@ -61,4 +61,4 @@ private:
 
 };
 
-#endif
+#endif  // SEAFILE_CLIENT_RPC_REQUEST_H

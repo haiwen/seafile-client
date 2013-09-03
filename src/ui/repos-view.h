@@ -1,5 +1,5 @@
-#ifndef SEAFILE_CLIENT_REPOS_VIEW
-#define SEAFILE_CLIENT_REPOS_VIEW
+#ifndef SEAFILE_CLIENT_REPOS_VIEW_H
+#define SEAFILE_CLIENT_REPOS_VIEW_H
 
 #include <QWidget>
 #include <QHash>
@@ -29,4 +29,4 @@ private:
 };
 
 
-#endif  // SEAFILE_CLIENT_REPOS_VIEW
+#endif  // SEAFILE_CLIENT_REPOS_VIEW_H

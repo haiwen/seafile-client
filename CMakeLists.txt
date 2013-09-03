@@ -35,6 +35,8 @@ SET(moc_headers
   src/ui/accounts-view.h
   src/ui/repo-item.h
   src/ui/repos-view.h
+  src/ui/repos-tab.h
+  src/ui/repo-details-view.h
   src/ui/tray-icon.h
 )
 
@@ -49,6 +51,7 @@ SET(ui_files
   ui/accounts-view.ui
   ui/repo-item.ui
   ui/repos-view.ui
+  ui/repo-details-view.ui
 )
 
 # RESOURCES
@@ -118,6 +121,8 @@ SET(seafile_client_sources
   src/ui/accounts-view.cpp
   src/ui/repo-item.cpp
   src/ui/repos-view.cpp
+  src/ui/repos-tab.cpp
+  src/ui/repo-details-view.cpp
   src/ui/tray-icon.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp

@@ -29,12 +29,12 @@ MainWindow::MainWindow()
     main_widget_->insertTab(INDEX_ACCOUNTS_VIEW,
                             accounts_view_,
                             QIcon(":/images/account.svg"),
-                            "Accounts");
+                            tr("Accounts"));
 
     main_widget_->insertTab(INDEX_REPOS_VIEW,
                             repos_view_,
                             QIcon(":/images/repo.svg"),
-                            "Repos");
+                            tr("Repos"));
 
     connect(main_widget_, SIGNAL(currentChanged(int)), this, SLOT(onViewChanged(int)));
 

@@ -10,7 +10,7 @@ class QToolBar;
 class QToolButton;
 
 class AccountsView;
-class ReposView;
+class ReposTab;
 
 class MainWindow : public QMainWindow
 {
@@ -48,7 +48,7 @@ private:
     QTabWidget *main_widget_;
 
     AccountsView *accounts_view_;
-    ReposView *repos_view_;
+    ReposTab *repos_tab_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

@@ -4,7 +4,7 @@
 #include <QTextStream>
 
 #include "accounts-view.h"
-#include "repos-view.h"
+#include "repos-tab.h"
 #include "seafile-applet.h"
 #include "main-window.h"
 
@@ -23,7 +23,7 @@ MainWindow::MainWindow()
     setWindowTitle("Seafile");
 
     accounts_view_ = new AccountsView;
-    repos_view_ = new ReposView;
+    repos_tab_ = new ReposTab;
 
     main_widget_ = new QTabWidget(this);
     main_widget_->insertTab(INDEX_ACCOUNTS_VIEW,
@@ -32,7 +32,7 @@ MainWindow::MainWindow()
                             tr("Accounts"));
 
     main_widget_->insertTab(INDEX_REPOS_VIEW,
-                            repos_view_,
+                            repos_tab_,
                             QIcon(":/images/repo.svg"),
                             tr("Repos"));
 
@@ -58,7 +58,6 @@ void MainWindow::onViewChanged(int index)
     qDebug("index=%d\n", index);
     switch(index) {
     case INDEX_REPOS_VIEW:
-        repos_view_->updateRepos();
         break;
     case INDEX_ACCOUNTS_VIEW:
         accounts_view_->refreshAccounts();

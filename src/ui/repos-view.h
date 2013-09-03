@@ -5,6 +5,10 @@
 #include <QHash>
 #include "ui_repos-view.h"
 
+class QTimer;
+class QShowEvent;
+class QHideEvent;
+
 class LocalRepo;
 class RepoItem;
 
@@ -16,16 +20,23 @@ class ReposView : public QWidget,
 public:
     ReposView(QWidget *parent=0);
     void addRepo(const LocalRepo& repo);
-    void updateRepos();
+
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
 
 private slots:
-    void updateRepos(const std::vector<LocalRepo>& repos, bool result);
+    void refreshRepos(const std::vector<LocalRepo>& repos, bool result);
+    void refreshRepos();
 
 private:
     Q_DISABLE_COPY(ReposView)
 
     QWidget *repos_list_;
     QHash<QString, RepoItem*> repos_map_;
+
+    QTimer *refresh_timer_;
+    bool in_refresh_;
 };
 
 

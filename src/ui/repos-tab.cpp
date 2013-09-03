@@ -5,8 +5,14 @@
 #include "repos-tab.h"
 
 ReposTab::ReposTab(QWidget *parent)
-    : QWidget(parent),
-      repos_view_(new ReposView),
-      repo_detail_view_(new RepoDetailsView)
+    : QWidget(parent)
 {
+    repos_view_ = new ReposView;
+    repo_detail_view_ = new RepoDetailsView;
+    QStackedLayout *layout = new QStackedLayout(this);
+
+    layout->addWidget(repos_view_);
+    layout->addWidget(repo_detail_view_);
+
+    setLayout(layout);
 }

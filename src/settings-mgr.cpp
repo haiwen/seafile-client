@@ -2,7 +2,7 @@
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"
 
-#include "rpc/rpc-client.h"
+#include "rpc/rpc-request.h"
 
 SettingsManager::SettingsManager()
     : auto_sync_(true)
@@ -11,15 +11,15 @@ SettingsManager::SettingsManager()
 
 void SettingsManager::setAutoSync(bool auto_sync)
 {
-    connect(seafApplet->rpcClient(), SIGNAL(setAutoSyncSignal(bool, bool)),
+    SeafileRpcRequest *req = new SeafileRpcRequest();
+    connect(req, SIGNAL(setAutoSyncSignal(bool, bool)),
             this, SLOT(onSetAutoSyncFinished(bool, bool)));
-    seafApplet->rpcClient()->setAutoSync(auto_sync);
+
+    req->setAutoSync(auto_sync);
 }
 
 void SettingsManager::onSetAutoSyncFinished(bool auto_sync, bool result)
 {
-    disconnect(seafApplet->rpcClient(), SIGNAL(setAutoSyncSignal(bool, bool)),
-               this, SLOT(onSetAutoSyncFinished(bool, bool)));
     if (result) {
         qDebug("%s auto sync success", auto_sync ? "enable" : "disable");
         auto_sync_ = auto_sync;

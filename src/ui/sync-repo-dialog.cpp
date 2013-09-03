@@ -5,7 +5,6 @@
 #include "configurator.h"
 #include "api/requests.h"
 #include "api/server-repo.h"
-#include "rpc/rpc-client.h"
 #include "sync-repo-dialog.h"
 
 SyncRepoDialog::SyncRepoDialog(ServerRepo *repo, QWidget *parent)

@@ -6,7 +6,6 @@
 #include "ui_list-account-repos-dialog.h"
 #include "account.h"
 #include "api/server-repo.h"
-#include "rpc/rpc-client.h"
 
 class ServerRepo;
 class ListReposRequest;

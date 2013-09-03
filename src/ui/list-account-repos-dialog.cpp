@@ -1,13 +1,14 @@
 #include <QtGui>
 #include <QMovie>
 
-#include "list-account-repos-dialog.h"
-#include "create-repo-dialog.h"
-#include "sync-repo-dialog.h"
-#include "api/requests.h"
 #include "seafile-applet.h"
 #include "configurator.h"
-
+#include "api/requests.h"
+#include "rpc/rpc-request.h"
+#include "create-repo-dialog.h"
+#include "sync-repo-dialog.h"
+#include "list-account-repos-dialog.h"
+    
 ListAccountReposDialog::ListAccountReposDialog(const Account& account,
                                                QWidget *parent)
     : QDialog(parent),
@@ -113,17 +114,39 @@ void ListAccountReposDialog::onListApiFailed(int code)
 
 void ListAccountReposDialog::onDownloadApiSuccess(const QMap<QString, QString> &dict, ServerRepo *repo)
 {
-    qDebug() <<"onDownloadApiSuccess repo " << repo->id << "localdir="<<repo->localdir << ", download:" << repo->download;
+    qDebug() << "onDownloadApiSuccess repo " << repo->id \
+             << "localdir=" << repo->localdir            \
+             << ", download:" << repo->download;
+
+    SeafileRpcRequest *req = new SeafileRpcRequest();
     if (repo->download) {
-        connect(seafApplet->rpcClient(),
-                SIGNAL(downloadRepoSignal(QString &, bool)),
+        connect(req, SIGNAL(downloadRepoSignal(QString &, bool)),
                 this, SLOT(downloadRepoRequestFinished(QString &, bool)));
-        seafApplet->rpcClient()->downloadRepo(dict["repo_id"], dict["relay_id"], dict["repo_name"], repo->localdir, dict["token"], repo->passwd, dict["magic"], dict["relay_addr"], dict["relay_port"], dict["email"]);
+
+        req->downloadRepo(dict["repo_id"],
+                          dict["relay_id"],
+                          dict["repo_name"],
+                          repo->localdir,
+                          dict["token"],
+                          repo->passwd,
+                          dict["magic"],
+                          dict["relay_addr"],
+                          dict["relay_port"],
+                          dict["email"]);
     } else {
-        connect(seafApplet->rpcClient(),
-                SIGNAL(cloneRepoSignal(QString &, bool)),
+        connect(req, SIGNAL(cloneRepoSignal(QString &, bool)),
                 this, SLOT(cloneRepoRequestFinished(QString &, bool)));
-        seafApplet->rpcClient()->cloneRepo(dict["repo_id"], dict["relay_id"], dict["repo_name"], repo->localdir, dict["token"], repo->passwd, dict["magic"], dict["relay_addr"], dict["relay_port"], dict["email"]);
+
+        req->cloneRepo(dict["repo_id"],
+                       dict["relay_id"],
+                       dict["repo_name"],
+                       repo->localdir,
+                       dict["token"],
+                       repo->passwd,
+                       dict["magic"],
+                       dict["relay_addr"],
+                       dict["relay_port"],
+                       dict["email"]);
     }
 }
 
@@ -137,15 +160,9 @@ void ListAccountReposDialog::onDownloadApiFailed(int code, ServerRepo *repo)
 void ListAccountReposDialog::downloadRepoRequestFinished(QString &repoId, bool result)
 {
     qDebug() << __func__ << repoId << ", result:"<< result;
-    disconnect(seafApplet->rpcClient(),
-               SIGNAL(downloadRepoSignal(QString &, bool)),
-               this, SLOT(downloadRepoRequestFinished(QString &, bool)));
 }
 
 void ListAccountReposDialog::cloneRepoRequestFinished(QString &repoId, bool result)
 {
     qDebug() << __func__ << repoId << ", result:"<< result;
-    disconnect(seafApplet->rpcClient(),
-               SIGNAL(cloneRepoSignal(QString &, bool)),
-               this, SLOT(cloneRepoRequestFinished(QString &, bool)));
 }

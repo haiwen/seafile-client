@@ -5,7 +5,6 @@
 
 #include "accounts-view.h"
 #include "repos-view.h"
-#include "rpc/rpc-client.h"
 #include "seafile-applet.h"
 #include "main-window.h"
 

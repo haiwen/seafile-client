@@ -38,6 +38,7 @@ SET(moc_headers
   src/ui/repos-tab.h
   src/ui/repo-details-view.h
   src/ui/tray-icon.h
+  third_party/QtAwesome/QtAwesome.h
 )
 
 # UI FILES
@@ -55,7 +56,10 @@ SET(ui_files
 )
 
 # RESOURCES
-SET(qrc_files seafile-client.qrc)
+SET(qrc_files
+  seafile-client.qrc
+  third_party/QtAwesome/QtAwesome.qrc
+)
 
 # preprocess ui files
 QT4_WRAP_UI(ui_output ${ui_files})
@@ -126,12 +130,14 @@ SET(seafile_client_sources
   src/ui/tray-icon.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp
+  third_party/QtAwesome/QtAwesome.cpp
 )
 
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${PROJECT_SOURCE_DIR}/src
+  ${PROJECT_SOURCE_DIR}/third_party/QtAwesome
   ${QT_INCLUDE_DIR}
   ${QT_QTNETWORK_INCLUDE_DIR}
   ${OPEN_SSL_INCLUDE_DIRS}

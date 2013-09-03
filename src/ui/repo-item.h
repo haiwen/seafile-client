@@ -17,6 +17,9 @@ public:
 
     const LocalRepo& repo() const { return repo_; }
 
+private slots:
+    void openRepoFolder();
+
 private:
     LocalRepo repo_;
 };

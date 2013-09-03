@@ -13,6 +13,7 @@ extern "C" {
 #include "seafile-applet.h"
 #include "configurator.h"
 
+#include "utils/utils.h"
 #include "local-repo.h"
 #include "rpc-client.h"
 
@@ -23,8 +24,6 @@ const char *kSeafileRpcService = "seafile-rpcserver";
 const char *kCcnetRpcService = "ccnet-rpcserver";
 
 } // namespace
-
-#define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
 SeafileRpcClient::SeafileRpcClient()
       : async_client_(0),

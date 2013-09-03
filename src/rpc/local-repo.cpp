@@ -26,6 +26,7 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     repo.id = QString::fromUtf8(id);
     repo.name = QString::fromUtf8(name);
     repo.description = QString::fromUtf8(desc);
+    repo.worktree = QString::fromUtf8(worktree);
     repo.encrypted = encrypted;
     repo.auto_sync = auto_sync;
     repo.last_sync_time = last_sync_time;

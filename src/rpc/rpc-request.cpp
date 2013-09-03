@@ -11,12 +11,11 @@ extern "C" {
 #include <QSocketNotifier>
 #include <QtDebug>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc-client.h"
 #include "local-repo.h"
 #include "rpc-request.h"
-
-#define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
 
 SeafileRpcRequest::SeafileRpcRequest() {

@@ -9,6 +9,8 @@
 #include <sqlite3.h>
 #include <glib.h>
 #include <string.h>
+#include <QString>
+#include <string>
 
 #if defined(Q_WS_MAC)
     #include <sys/sysctl.h>
@@ -29,7 +31,7 @@ sqlite_query_prepare (sqlite3 *db, const char *sql)
     if (result != SQLITE_OK) {
         const gchar *str = sqlite3_errmsg (db);
 
-        g_warning ("Couldn't prepare query, error:%d->'%s'\n\t%s\n", 
+        g_warning ("Couldn't prepare query, error:%d->'%s'\n\t%s\n",
                    result, str ? str : "no error given", sql);
 
         return NULL;
@@ -56,7 +58,7 @@ int sqlite_query_exec (sqlite3 *db, const char *sql)
     return 0;
 }
 
-int sqlite_foreach_selected_row (sqlite3 *db, const char *sql, 
+int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
                                  SqliteRowFunc callback, void *data)
 {
     sqlite3_stmt *stmt;
@@ -258,9 +260,9 @@ get_process_handle (const char *process_name_in)
         hProcess = OpenProcess (PROCESS_ALL_ACCESS, FALSE, aProcesses[i]);
         if (!hProcess)
             continue;
-            
+
         if (EnumProcessModules(hProcess, &hMod, sizeof(hMod), &cbNeeded)) {
-            GetModuleBaseName(hProcess, hMod, process_name, 
+            GetModuleBaseName(hProcess, hMod, process_name,
                               sizeof(process_name)/sizeof(char));
         }
 
@@ -346,3 +348,25 @@ void shutdown_process (const char *name)
     closedir(proc_dir);
 }
 #endif
+
+
+void open_dir(const QString& path)
+{
+#ifdef Q_WS_WIN
+
+    std::wstring ws = path.toStdWString();
+    ShellExecuteW (0, L"open", ws.c_str(), NULL, NULL, SW_SHOWNORMAL);
+
+#elif defined(Q_WS_MAC)
+
+    // TODO: open_dir in mac
+    return;
+
+#else
+    char buf[4096];
+    snprintf (buf, 4096, "xdg-open '%s' &", toCStr(path));
+    if (system (buf) < 0) {
+        qDebug("failed to exec: %s", buf);
+    }
+#endif
+}

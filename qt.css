@@ -76,3 +76,9 @@ QTabBar::tab:selected {
     border-color: #9B9B9B;
     border-bottom-color: #C2C7CB; /* same as pane color */
 }
+
+RepoItem QPushButton#mSyncStatusButton,
+RepoItem QPushButton#mOpenFolderButton
+{
+    border: none;
+}

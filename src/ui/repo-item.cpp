@@ -14,7 +14,7 @@ RepoItem::RepoItem(const LocalRepo& repo, QWidget *parent)
 
     setFixedHeight(70);
 
-    connect(mOpenFolderButton, SIGNAL(clicked()), 
+    connect(mOpenFolderButton, SIGNAL(clicked()),
             this, SLOT(openRepoFolder()));
 }
 
@@ -26,7 +26,8 @@ void RepoItem::refresh()
                                     Qt::IgnoreAspectRatio,
                                     Qt::FastTransformation));
 
-    mSyncStatusButton->setIcon(awesome->icon(icon_ok));
+    mSyncStatus->setText(QChar(icon_ok));
+    mSyncStatus->setFont(awesome->font(16));
     mOpenFolderButton->setIcon(awesome->icon(icon_folder_open_alt));
 }
 

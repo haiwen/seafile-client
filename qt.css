@@ -6,47 +6,35 @@ MainWindow {
     max-height: 550px;
 }
 
+AccountsView {
+    min-width: 350px;
+    max-width: 350px;
+
+    min-height: 550px;
+    max-height: 550px;
+}
+
 AccountItem {
+    min-width: 300px;
+    min-width: 300px;
+
     min-height: 100px;
     max-height: 100px;
 }
 
-RepoItem {
-    min-height: 70px;
-    max-height: 70px;
 
-    min-width: 250px;
-    max-width: 250px;
-}
-
-ReposView {
-    min-height: 550px;
-    max-height: 550px;
-
-    min-width: 350px;
-    max-width: 350px;
-}
-
-AccountsView {
-    min-height: 550px;
-    max-height: 550px;
-
-    min-width: 350px;
-    max-width: 350px;
-}
-
-QTabWidget {
+MainWindow QTabWidget {
     qproperty-tabPosition: West;
 }
 
 /* The tab widget frame */
-QTabWidget::pane {
+MainWindow QTabWidget::pane {
     border-top: 2px solid #C2C7CB;
     position: absolute;
     top: -0.5em;
 }
 
-/* QTabWidget::tab-bar { */
+/* MainWindow QTabWidget::tab-bar { */
 /*     alignment: center; */
 /* } */
 
@@ -54,7 +42,7 @@ QTabWidget::pane {
  * Style the tab using the tab sub-control. Note that
  *  it reads QTabBar _not_ QTabWidget
  */
-QTabBar::tab {
+MainWindow QTabBar::tab {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
@@ -62,23 +50,59 @@ QTabBar::tab {
     border-bottom-color: #C2C7CB; /* same as the pane color */
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    min-width: 8ex;
+    min-width: 50px;
+    max-width: 50px;
     padding: 2px;
 }
 
-QTabBar::tab:selected, QTabBar::tab:hover {
+MainWindow QTabBar::tab:selected, QTabBar::tab:hover {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #fafafa, stop: 0.4 #f4f4f4,
                                 stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
 }
 
-QTabBar::tab:selected {
+MainWindow QTabBar::tab:selected {
     border-color: #9B9B9B;
     border-bottom-color: #C2C7CB; /* same as pane color */
+}
+
+ReposView {
+    min-width: 360px;
+    max-width: 360px;
+
+    min-height: 550px;
+    max-height: 550px;
+}
+
+RepoItem {
+    min-width: 300px;
+    max-width: 300px;
+
+    min-height: 70px;
+    max-height: 70px;
+}
+
+RepoItem QLabel#mRepoIcon {
+    min-width: 48px;
+    max-width: 48px;
+
+    min-height: 48px;
+    min-height: 48px;
+
+}
+
+RepoItem QLabel#mRepoName {
+    min-width: 150px;
+    max-width: 150px;
+    
+    border: 1px solid black;
 }
 
 RepoItem QPushButton#mSyncStatusButton,
 RepoItem QPushButton#mOpenFolderButton
 {
+    min-width: 16px;
+    max-width: 16px;
+
     border: none;
 }

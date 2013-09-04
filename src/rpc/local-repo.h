@@ -20,6 +20,20 @@ public:
     qint64 last_sync_time;
 
     static LocalRepo fromGObject(_GObject *obj);
+
+    bool operator==(const LocalRepo& rhs) const {
+        return id == rhs.id
+            && name == rhs.name
+            && description == rhs.description
+            && worktree == rhs.worktree
+            && encrypted == rhs.encrypted
+            && auto_sync == rhs.auto_sync
+            && last_sync_time == rhs.last_sync_time;
+    }
+
+    bool operator!=(const LocalRepo& rhs) const {
+        return !(*this == rhs);
+    }
 };
 
 #endif // SEAFILE_CLIENT_LOCAL_REPO_H

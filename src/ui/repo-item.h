@@ -14,6 +14,7 @@ public:
     RepoItem(const LocalRepo& repo, QWidget *parent=0);
 
     void refresh();
+    void setRepo(const LocalRepo& repo) { repo_ = repo; }
 
     const LocalRepo& repo() const { return repo_; }
 

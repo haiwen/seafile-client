@@ -71,6 +71,11 @@ void ReposView::refreshRepos(const std::vector<LocalRepo>& repos, bool result)
 void ReposView::addRepo(const LocalRepo& repo)
 {
     if (repos_map_.contains(repo.id)) {
+        RepoItem *item = repos_map_[repo.id];
+        if (repo != item->repo()) {
+            item->setRepo(repo);
+            item->refresh();
+        }
         return;
     }
 

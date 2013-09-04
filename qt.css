@@ -1,42 +1,21 @@
 MainWindow {
-    min-width: 420px;
-    max-width: 420px;
-
+    min-width: 360px;
     min-height: 550px;
-    max-height: 550px;
 }
-
-AccountsView {
-    min-width: 350px;
-    max-width: 350px;
-
-    min-height: 550px;
-    max-height: 550px;
-}
-
-AccountItem {
-    min-width: 300px;
-    min-width: 300px;
-
-    min-height: 100px;
-    max-height: 100px;
-}
-
 
 MainWindow QTabWidget {
-    qproperty-tabPosition: West;
+    qproperty-tabPosition: North;
 }
 
 /* The tab widget frame */
 MainWindow QTabWidget::pane {
-    border-top: 2px solid #C2C7CB;
+    border: none;
     position: absolute;
-    top: -0.5em;
 }
 
-/* MainWindow QTabWidget::tab-bar { */
-/*     alignment: center; */
-/* } */
+MainWindow QTabWidget::tab-bar {
+    alignment: center;
+}
 
 /**
  * Style the tab using the tab sub-control. Note that
@@ -50,9 +29,11 @@ MainWindow QTabBar::tab {
     border-bottom-color: #C2C7CB; /* same as the pane color */
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    min-width: 50px;
-    max-width: 50px;
-    padding: 2px;
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 30px;
+    max-height: 30px;
+    padding: 5px;
 }
 
 MainWindow QTabBar::tab:selected, QTabBar::tab:hover {
@@ -68,10 +49,7 @@ MainWindow QTabBar::tab:selected {
 
 ReposView {
     min-width: 360px;
-    max-width: 360px;
-
-    min-height: 550px;
-    max-height: 550px;
+    min-height: 450px;
 }
 
 RepoItem {
@@ -80,6 +58,7 @@ RepoItem {
 
     min-height: 70px;
     max-height: 70px;
+
 }
 
 RepoItem QLabel#mRepoIcon {
@@ -94,7 +73,7 @@ RepoItem QLabel#mRepoIcon {
 RepoItem QLabel#mRepoName {
     min-width: 150px;
     max-width: 150px;
-    
+
     border: 1px solid black;
 }
 
@@ -105,4 +84,21 @@ RepoItem QPushButton#mOpenFolderButton
     max-width: 16px;
 
     border: none;
+}
+
+CloudView {
+    min-width: 350px;
+    min-height: 450px;
+}
+
+ServerRepoItem {
+    min-width: 300px;
+    min-height: 100px;
+}
+
+QPushButton#mAccountOpButton {
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 30px;
+    max-height: 30px;
 }

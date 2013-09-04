@@ -9,7 +9,7 @@ class QListWidget;
 class QToolBar;
 class QToolButton;
 
-class AccountsView;
+class CloudView;
 class ReposTab;
 
 class MainWindow : public QMainWindow
@@ -31,7 +31,6 @@ protected:
 private slots:
     void about();
     void refreshQss();
-    void onViewChanged(int);
     void closeEvent(QCloseEvent *event);
 
 private:
@@ -47,7 +46,7 @@ private:
 
     QTabWidget *main_widget_;
 
-    AccountsView *accounts_view_;
+    CloudView *cloud_view_;
     ReposTab *repos_tab_;
 };
 

@@ -3,7 +3,8 @@
 #include <QFile>
 #include <QTextStream>
 
-#include "accounts-view.h"
+#include "QtAwesome.h"
+#include "cloud-view.h"
 #include "repos-tab.h"
 #include "seafile-applet.h"
 #include "main-window.h"
@@ -11,32 +12,31 @@
 namespace {
 
 enum WIDGET_INDEX {
-    INDEX_ACCOUNTS_VIEW = 0,
-    INDEX_REPOS_VIEW
+    INDEX_CLOUD_VIEW = 0,
+    INDEX_LOCAL_VIEW
 };
 
 } // namespace
+
 
 MainWindow::MainWindow()
 {
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle("Seafile");
 
-    accounts_view_ = new AccountsView;
+    cloud_view_ = new CloudView;
     repos_tab_ = new ReposTab;
 
     main_widget_ = new QTabWidget(this);
-    main_widget_->insertTab(INDEX_ACCOUNTS_VIEW,
-                            accounts_view_,
-                            QIcon(":/images/account.svg"),
-                            tr("Accounts"));
+    main_widget_->insertTab(INDEX_CLOUD_VIEW,
+                            cloud_view_,
+                            awesome->icon(icon_cloud),
+                            tr("Cloud"));
 
-    main_widget_->insertTab(INDEX_REPOS_VIEW,
+    main_widget_->insertTab(INDEX_LOCAL_VIEW,
                             repos_tab_,
                             QIcon(":/images/repo.svg"),
-                            tr("Repos"));
-
-    connect(main_widget_, SIGNAL(currentChanged(int)), this, SLOT(onViewChanged(int)));
+                            tr("Local"));
 
     setCentralWidget(main_widget_);
 
@@ -51,18 +51,6 @@ MainWindow::MainWindow()
 void MainWindow::centerInScreen()
 {
     // TODO: center the window at startup
-}
-
-void MainWindow::onViewChanged(int index)
-{
-    qDebug("index=%d\n", index);
-    switch(index) {
-    case INDEX_REPOS_VIEW:
-        break;
-    case INDEX_ACCOUNTS_VIEW:
-        accounts_view_->refreshAccounts();
-        break;
-    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -102,7 +90,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::showWindow()
 {
     this->show();
-    onViewChanged (main_widget_->currentIndex());
 }
 
 void MainWindow::createMenus()

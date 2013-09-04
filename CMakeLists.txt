@@ -38,6 +38,10 @@ SET(moc_headers
   src/ui/repos-tab.h
   src/ui/repo-details-view.h
   src/ui/tray-icon.h
+  src/ui/cloud-view.h
+  src/ui/server-repos-view.h
+  src/ui/server-repo-item.h
+  src/ui/my-tabwidget.h
   third_party/QtAwesome/QtAwesome.h
 )
 
@@ -53,6 +57,9 @@ SET(ui_files
   ui/repo-item.ui
   ui/repos-view.ui
   ui/repo-details-view.ui
+  ui/cloud-view.ui
+  ui/server-repos-view.ui
+  ui/server-repo-item.ui
 )
 
 # RESOURCES
@@ -130,6 +137,10 @@ SET(seafile_client_sources
   src/ui/tray-icon.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp
+  src/ui/cloud-view.cpp
+  src/ui/server-repos-view.cpp
+  src/ui/server-repo-item.cpp
+  src/ui/my-tabwidget.cpp
   third_party/QtAwesome/QtAwesome.cpp
 )
 

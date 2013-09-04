@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ServerRepoItem</class>
+ <widget class="QWidget" name="ServerRepoItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>247</width>
+    <height>45</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QLabel" name="mRepoIcon">
+     <property name="text">
+      <string>repoicon</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="mRepoName">
+     <property name="text">
+      <string>reponame</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="mDownloadButton">
+     <property name="text">
+      <string>download</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

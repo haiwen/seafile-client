@@ -145,3 +145,28 @@ int SeafileRpcClient::cloneRepo(const QString &id, const QString &relayId,
 
     return 0;
 }
+
+int SeafileRpcClient::getLocalRepo(const QString& repo_id, LocalRepo *repo)
+{
+    GError *error = NULL;
+    GObject *obj = searpc_client_call__object(
+        seafile_rpc_client_,
+        "seafile_get_repo",
+        SEAFILE_TYPE_REPO,
+        &error, 1,
+        "string", toCStr(repo_id));
+
+    if (error != NULL) {
+        return -1;
+    }
+
+    if (obj == NULL) {
+        return -1;
+    }
+
+    *repo = LocalRepo::fromGObject(obj);
+
+    g_object_unref(obj);
+
+    return 0;
+}

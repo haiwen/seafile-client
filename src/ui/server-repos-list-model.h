@@ -11,6 +11,9 @@ class ServerReposListModel : public QAbstractListModel {
     Q_OBJECT
 
 public:
+    enum {
+        RepoRole = Qt::UserRole,
+    };
     explicit ServerReposListModel(QObject *parent=0);
 
 	virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;

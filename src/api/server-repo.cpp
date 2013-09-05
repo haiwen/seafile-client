@@ -13,12 +13,6 @@ QString getStringFromJson(const json_t *json, const char* key)
 
 } // namespace
 
-ServerRepo:: ~ServerRepo()
-{
-    if (req)
-        delete req;
-}
-
 ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t *error)
 {
     ServerRepo repo;

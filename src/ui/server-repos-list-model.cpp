@@ -30,10 +30,12 @@ QVariant ServerReposListModel::data(const QModelIndex &index, int role) const
 
     ServerRepo repo = repos_[index.row()];
     switch(role) {
-    case Qt::DisplayRole: 
+    case Qt::DisplayRole:
         return repo.name;
-    case Qt::DecorationRole: 
+    case Qt::DecorationRole:
         return repo.getIcon();
+    case RepoRole:
+        return QVariant::fromValue(repo);
     }
 
     return QVariant();

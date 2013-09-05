@@ -7,28 +7,24 @@
 #include "api/server-repo.h"
 #include "sync-repo-dialog.h"
 
-SyncRepoDialog::SyncRepoDialog(ServerRepo *repo, QWidget *parent)
+SyncRepoDialog::SyncRepoDialog(const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
       repo_(repo)
 {
     setupUi(this);
-    QString title = QString(tr("Sync repo")) + repo->name;
-    setWindowTitle(title);
+    setWindowTitle(tr("Sync repo \"%1\"").arg(repo_.name));
 
     mDirectory->setText(seafApplet->configurator()->worktreeDir());
-    if (repo_->encrypted) {
+    if (repo_.encrypted) {
         mPassword->setVisible(true);
         mLabelPassword->setVisible(true);
     } else {
         mLabelPassword->setVisible(false);
         mPassword->setVisible(false);
     }
+
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mSyncBtn, SIGNAL(clicked()), this, SLOT(syncAction()));
-}
-
-SyncRepoDialog::~SyncRepoDialog()
-{
 }
 
 void SyncRepoDialog::chooseDirAction()
@@ -50,7 +46,7 @@ void SyncRepoDialog::syncAction()
     if (!validateInputs()) {
         return;
     }
-    
+
     done(QDialog::Accepted);
 }
 
@@ -70,16 +66,16 @@ bool SyncRepoDialog::validateInputs()
                              QMessageBox::Ok);
         return false;
     }
-    if (repo_->encrypted) {
+    if (repo_.encrypted) {
         if (mPassword->text().isEmpty()) {
             QMessageBox::warning(this, tr("Seafile"),
                                  tr("Please enter the password"),
                                  QMessageBox::Ok);
             return false;
         }
-        repo_->passwd = mPassword->text();
+        repo_.passwd = mPassword->text();
     }
-    repo_->localdir = mDirectory->text();
-    repo_->download = (mRadioDownload->isChecked()) ? true : false;
+    repo_.localdir = mDirectory->text();
+    repo_.download = (mRadioDownload->isChecked()) ? true : false;
     return true;
 }

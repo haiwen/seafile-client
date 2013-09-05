@@ -57,5 +57,7 @@ void LocalView::refreshRepos()
         // Error
     }
 
+    qDebug("list local repos success\n");
+
     repos_model_->setRepos(repos);
 }

@@ -22,6 +22,7 @@ public:
     void connectDaemon();
 
     int listLocalRepos(std::vector<LocalRepo> *repos);
+    int getLocalRepo(const QString& repo_id, LocalRepo *repo);
     int setAutoSync(const bool autoSync);
     int downloadRepo(const QString &id, const QString &relayId,
                      const QString &name, const QString &wt,

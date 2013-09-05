@@ -1,21 +1,16 @@
-#ifndef SEAFILE_CLIENT_SEAF_REPO_H
-#define SEAFILE_CLIENT_SEAF_REPO_H
+#ifndef SEAFILE_CLIENT_SERVER_REPO_H
+#define SEAFILE_CLIENT_SERVER_REPO_H
 
 #include <vector>
 #include <QString>
+#include <QMetaType>
 #include <QIcon>
 #include <jansson.h>
-
-class DownloadRepoRequest;
 
 /**
  * Repo information from seahub api
  */
 class ServerRepo {
-public:
-    ServerRepo():req(NULL), passwd(QString::null){};
-    ~ServerRepo();
-
 public:
     QString id;
     QString name;
@@ -33,7 +28,6 @@ public:
     bool download; // download or sync with local dir
     QString passwd;
     QString localdir;
-    DownloadRepoRequest *req;
 
     QIcon getIcon();
 
@@ -41,4 +35,6 @@ public:
     static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);
 };
 
-#endif
+Q_DECLARE_METATYPE(ServerRepo)
+
+#endif // SEAFILE_CLIENT_SERVER_REPO_H

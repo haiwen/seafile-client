@@ -104,6 +104,8 @@ void CloudView::hideEvent(QHideEvent *event) {
 void CloudView::showSwitchAccountDialog()
 {
     SwitchAccountDialog dialog(this);
+    connect(&dialog, SIGNAL(accountSelected(const Account&)),
+            this, SLOT(setCurrentAccount(const Account&)));
     dialog.exec();
 }
 

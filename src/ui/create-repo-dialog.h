@@ -22,9 +22,6 @@ private slots:
     void createSuccess(const QMap<QString, QString> &dict);
     void createFailed(int code);
 
-    void cloneRepoRequestFinished(QString &repoId, bool result);
-
-
 private:
     Q_DISABLE_COPY(CreateRepoDialog);
     bool validateInputs();

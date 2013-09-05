@@ -4,7 +4,7 @@
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "api/requests.h"
-#include "rpc/rpc-request.h"
+#include "rpc/rpc-client.h"
 #include "create-repo-dialog.h"
 
 CreateRepoDialog::CreateRepoDialog(const Account& account, QWidget *parent)
@@ -152,21 +152,23 @@ void CreateRepoDialog::createSuccess(const QMap<QString, QString> &dict)
 {
     qDebug() << __func__ << ":" << dict["repo_id"];
 
-    SeafileRpcRequest *req = new SeafileRpcRequest();
-    connect(req,
-            SIGNAL(cloneRepoSignal(QString &, bool)),
-            this, SLOT(cloneRepoRequestFinished(QString &, bool)));
+    int ret = seafApplet->rpcClient()->cloneRepo(
+        dict["repo_id"],
+        dict["relay_id"],
+        dict["repo_name"],
+        path_,
+        dict["token"],
+        passwd_,
+        dict["magic"],
+        dict["relay_addr"],
+        dict["relay_port"],
+        dict["email"]);
 
-    req->cloneRepo(dict["repo_id"],
-                   dict["relay_id"],
-                   dict["repo_name"],
-                   path_,
-                   dict["token"],
-                   passwd_,
-                   dict["magic"],
-                   dict["relay_addr"],
-                   dict["relay_port"],
-                   dict["email"]);
+    if (ret < 0) {
+        qDebug() << "Failed to sync the directory";
+    } else {
+        done(QDialog::Accepted);
+    }
 }
 
 void CreateRepoDialog::createFailed(int code)
@@ -183,15 +185,5 @@ void CreateRepoDialog::createFailed(int code)
     if (mEncrypteCheckBox->checkState() == Qt::Checked) {
         mPassword->setEnabled(true);
         mPasswordAgain->setEnabled(true);
-    }
-}
-
-void CreateRepoDialog::cloneRepoRequestFinished(QString &repoId, bool result)
-{
-    qDebug() << __func__ << ":" << result;
-    if (result)
-        done(QDialog::Accepted);
-    else {
-        qDebug() << "Failed to sync the directory";
     }
 }

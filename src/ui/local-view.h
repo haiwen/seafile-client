@@ -24,7 +24,6 @@ protected:
     void hideEvent(QHideEvent *event);
 
 private slots:
-    void refreshRepos(const std::vector<LocalRepo>& repos, bool result);
     void refreshRepos();
 
 private:

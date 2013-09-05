@@ -13,57 +13,34 @@ struct _CcnetClient;
 }
 
 class LocalRepo;
-class QSocketNotifier;
 
 class SeafileRpcClient : public QObject {
     Q_OBJECT
 
 public:
     SeafileRpcClient();
-    void start();
     void connectDaemon();
 
-    SearpcClient* seafRpcClient() { return seafile_rpc_client_; }
-    SearpcClient* ccnetRpcClient() { return ccnet_rpc_client_; }
+    int listLocalRepos(std::vector<LocalRepo> *repos);
+    int setAutoSync(const bool autoSync);
+    int downloadRepo(const QString &id, const QString &relayId,
+                     const QString &name, const QString &wt,
+                     const QString &token, const QString &passwd,
+                     const QString &magic, const QString &peerAddr,
+                     const QString &port, const QString &email);
 
-    void listLocalRepos();
-    void setAutoSync(bool autoSync);
-    void downloadRepo(const QString &id, const QString &relayId,
-                      const QString &name, const QString &wt,
-                      const QString &token, const QString &passwd,
-                      const QString &magic, const QString &peerAddr,
-                      const QString &port, const QString &email);
-    void cloneRepo(const QString &id, const QString &relayId,
-                   const QString &name, const QString &wt,
-                   const QString &token, const QString &passwd,
-                   const QString &magic, const QString &peerAddr,
-                   const QString &port, const QString &email);
-
-signals:
-    void listLocalReposSignal(const std::vector<LocalRepo> &repos, bool result);
-    void setAutoSyncSignal(bool autoSync, bool result);
-    void downloadRepoSignal(QString &repoId, bool result);
-    void cloneRepoSignal(QString &repoId, bool result);
-
-private:
-    static void listLocalReposCB(void *result, void *data, GError *error);
-    static void setAutoSyncCB(void *result, void *data, GError *error);
-    static void setNotAutoSyncCB(void *result, void *data, GError *error);
-    static void downloadRepoCB(void *result, void *data, GError *error);
-    static void cloneRepoCB(void *result, void *data, GError *error);
-
-
-private slots:
-    void readConnfd();
+    int cloneRepo(const QString &id, const QString &relayId,
+                  const QString &name, const QString &wt,
+                  const QString &token, const QString &passwd,
+                  const QString &magic, const QString &peerAddr,
+                  const QString &port, const QString &email);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 
-    _CcnetClient *async_client_;
+    _CcnetClient *sync_client_;
     SearpcClient *seafile_rpc_client_;
     SearpcClient *ccnet_rpc_client_;
-    
-    QSocketNotifier *socket_notifier_;
 };
 
 #endif

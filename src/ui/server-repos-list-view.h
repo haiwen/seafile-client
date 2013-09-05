@@ -3,13 +3,28 @@
 
 #include <QListView>
 
-
+class QAction;
+class QContextMenuEvent;
 
 class ServerReposListView : public QListView {
     Q_OBJECT
 public:
     explicit ServerReposListView(QWidget *parent=0);
 
+protected:
+    virtual void contextMenuEvent(QContextMenuEvent *event);
+
+private slots:
+    void downloadRepo();
+    void syncRepo();
+
+private:
+    void createActions();
+    void createContextMenu();
+
+    QAction *sync_action_;
+    QAction *download_action_;
+    QMenu *context_menu_;
 };
 
 

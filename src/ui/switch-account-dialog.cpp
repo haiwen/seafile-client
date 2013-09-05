@@ -50,5 +50,6 @@ void SwitchAccountDialog::submit()
     }
     int row = mAccountsList->currentRow();
     emit accountSelected(accounts_[row]);
+    done(QDialog::Accepted);
     return;
 }

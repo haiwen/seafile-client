@@ -3,7 +3,7 @@
 #include <QTimer>
 
 #include "seafile-applet.h"
-#include "rpc/rpc-request.h"
+#include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "local-repos-list-view.h"
 #include "local-repos-list-model.h"
@@ -11,7 +11,7 @@
 
 namespace {
 
-const int kRefreshReposInterval = 1000;
+const int kRefreshReposInterval = 2000;
 
 }
 
@@ -52,21 +52,10 @@ void LocalView::refreshRepos()
         return;
     }
 
-    SeafileRpcRequest *req = new SeafileRpcRequest();
-
-    connect(req, SIGNAL(listLocalReposSignal(const std::vector<LocalRepo>&, bool)),
-            this, SLOT(refreshRepos(const std::vector<LocalRepo>&, bool)));
-
-    in_refresh_ = true;
-
-    req->listLocalRepos();
-}
-
-void LocalView::refreshRepos(const std::vector<LocalRepo>& repos, bool result)
-{
-    if (result) {
-        repos_model_->setRepos(repos);
+    std::vector<LocalRepo> repos;
+    if (seafApplet->rpcClient()->listLocalRepos(&repos) < 0) {
+        // Error
     }
 
-    in_refresh_ = false;
+    repos_model_->setRepos(repos);
 }

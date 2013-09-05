@@ -24,7 +24,6 @@ SET(moc_headers
   src/api/api-request.h
   src/api/requests.h
   src/rpc/rpc-client.h
-  src/rpc/rpc-request.h
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
@@ -108,7 +107,6 @@ SET(seafile_client_sources
   src/api/requests.cpp
   src/api/server-repo.cpp
   src/rpc/rpc-client.cpp
-  src/rpc/rpc-request.cpp
   src/rpc/local-repo.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp

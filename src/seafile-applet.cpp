@@ -16,7 +16,6 @@ SeafileApplet *seafApplet;
 SeafileApplet::SeafileApplet()
     : configurator_(new Configurator),
       account_mgr_(new AccountManager),
-      main_win_(new MainWindow),
       daemon_mgr_(new DaemonManager),
       message_listener_(new MessageListener),
       rpc_client_(new SeafileRpcClient),
@@ -41,6 +40,7 @@ void SeafileApplet::start()
 void SeafileApplet::onDaemonStarted()
 {
     // tray_icon_->showMessage("Seafile", "daemon is started");
+    main_win_ = new MainWindow;
     main_win_->showWindow();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 

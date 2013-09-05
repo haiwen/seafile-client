@@ -47,3 +47,7 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
     return repos;
 }
 
+QIcon ServerRepo::getIcon()
+{
+    return QIcon(":/images/repo.svg");
+}

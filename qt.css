@@ -3,6 +3,11 @@ MainWindow {
     min-height: 550px;
 }
 
+QToolBar {
+    padding: 5px 10px;
+    spacing: 5px;
+}
+
 MainWindow QTabWidget {
     qproperty-tabPosition: North;
 }
@@ -25,7 +30,7 @@ MainWindow QTabBar::tab {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-    border: 2px solid #C4C4C3;
+    border: 1px solid #C4C4C3;
     border-bottom-color: #C2C7CB; /* same as the pane color */
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -47,53 +52,14 @@ MainWindow QTabBar::tab:selected {
     border-bottom-color: #C2C7CB; /* same as pane color */
 }
 
-ReposView {
-    min-width: 360px;
+LocalView {
+    min-width: 350px;
     min-height: 450px;
-}
-
-RepoItem {
-    min-width: 300px;
-    max-width: 300px;
-
-    min-height: 70px;
-    max-height: 70px;
-
-}
-
-RepoItem QLabel#mRepoIcon {
-    min-width: 48px;
-    max-width: 48px;
-
-    min-height: 48px;
-    min-height: 48px;
-
-}
-
-RepoItem QLabel#mRepoName {
-    min-width: 150px;
-    max-width: 150px;
-
-    border: 1px solid black;
-}
-
-RepoItem QPushButton#mSyncStatusButton,
-RepoItem QPushButton#mOpenFolderButton
-{
-    min-width: 16px;
-    max-width: 16px;
-
-    border: none;
 }
 
 CloudView {
     min-width: 350px;
     min-height: 450px;
-}
-
-ServerRepoItem {
-    min-width: 300px;
-    min-height: 100px;
 }
 
 QPushButton#mAccountOpButton {

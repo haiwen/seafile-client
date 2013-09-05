@@ -39,3 +39,6 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
+QIcon LocalRepo::getIcon() {
+    return QIcon(":/images/repo.svg");
+}

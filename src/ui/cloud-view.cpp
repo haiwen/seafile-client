@@ -1,57 +1,116 @@
 #include <QtGui>
 
 #include "QtAwesome.h"
-#include "server-repos-view.h"
+#include "api/requests.h"
+#include "seafile-applet.h"
+#include "account-mgr.h"
+#include "server-repos-list-view.h"
+#include "server-repos-list-model.h"
+#include "switch-account-dialog.h"
+#include "login-dialog.h"
 #include "cloud-view.h"
 
-CloudView::CloudView(QWidget *parent) : QWidget(parent)
-{
-    setupUi(this);
+namespace {
 
-    server_repos_view_ = new ServerReposView;
-    QVBoxLayout *layout = (QVBoxLayout *)(this->layout());
-    layout->addWidget(server_repos_view_);
+const int kRefreshReposInterval = 10000;
 
-    createAccoutOpMenu();
-    prepareAccountOpButton();
 }
 
-void CloudView::prepareAccountOpButton()
+CloudView::CloudView(QWidget *parent)
+    : QWidget(parent),
+      in_refresh_(false)
 {
-    mAccountOpButton->setText(QChar(icon_user));
-    mAccountOpButton->setFont(awesome->font(24));
+    repos_list_ = new ServerReposListView;
+    repos_model_ = new ServerReposListModel;
+    repos_list_->setModel(repos_model_);
 
-    // mAccountOpButton->setContextMenuPolicy(Qt::CustomContextMenu);
-    // connect(mAccountOpButton, SIGNAL(customContextMenuRequested(const QPoint &)),
-    //         this, SLOT(showAccoutOpMenu(const QPoint &)));
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(repos_list_);
 
-    mAccountOpButton->setMenu(accout_op_menu_);
-    connect(mAccountOpButton, SIGNAL(clicked()), mAccountOpButton, SLOT(showMenu()));
+    setLayout(layout);
+
+    refresh_timer_ = new QTimer(this);
+    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshRepos()));
+
+    connect(seafApplet->accountManager(), SIGNAL(accountAdded(const Account&)),
+            this, SLOT(setCurrentAccount(const Account&)));
 }
 
-void CloudView::createAccoutOpMenu()
+void CloudView::setCurrentAccount(const Account& account)
 {
-    accout_op_menu_ = new QMenu;
-
-    switch_account_action_ = new QAction(tr("Switch account"), this);
-    add_account_action_ = new QAction(tr("Add an account"), this);
-    delete_account_action_ = new QAction(tr("Delete this account"), this);
-
-    connect(switch_account_action_, SIGNAL(triggered()), this, SLOT(switchAccount()));
-    connect(add_account_action_, SIGNAL(triggered()), this, SLOT(addAccount()));
-    connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
-
-    accout_op_menu_->addAction(switch_account_action_);
-    accout_op_menu_->addAction(add_account_action_);
-    accout_op_menu_->addAction(delete_account_action_);
+    if (current_account_ != account) {
+        current_account_ = account;
+        refreshRepos();
+    }
 }
 
-void CloudView::switchAccount()
+void CloudView::refreshRepos()
 {
+    if (in_refresh_) {
+        return;
+    }
+
+    if (!hasAccount()) {
+        return;
+    }
+
+    in_refresh_ = true;
+
+    ListReposRequest *req = new ListReposRequest(current_account_);
+    connect(req, SIGNAL(success(const std::vector<ServerRepo>&)),
+            this, SLOT(refreshRepos(const std::vector<ServerRepo>&)));
+    connect(req, SIGNAL(failed(int)), this, SLOT(refreshReposFailed()));
+    req->send();
 }
 
-void CloudView::addAccount()
+void CloudView::refreshRepos(const std::vector<ServerRepo>& repos)
 {
+    repos_model_->setRepos(repos);
+    in_refresh_ = false;
+}
+
+void CloudView::refreshReposFailed()
+{
+    qDebug("failed to refresh repos\n");
+    in_refresh_ = false;
+}
+
+bool CloudView::hasAccount()
+{
+    return current_account_.token.length() > 0;
+}
+
+void CloudView::showEvent(QShowEvent *event) {
+    QWidget::showEvent(event);
+
+    refresh_timer_->start(kRefreshReposInterval);
+    if (!hasAccount()) {
+        // Have an account
+        std::vector<Account> accounts = seafApplet->accountManager()->loadAccounts();
+        if (!accounts.empty()) {
+            current_account_ = accounts[0];
+        }
+        refreshRepos();
+    } else {
+        // No account yet
+    }
+}
+
+void CloudView::hideEvent(QHideEvent *event) {
+    QWidget::hideEvent(event);
+    refresh_timer_->stop();
+}
+
+void CloudView::showSwitchAccountDialog()
+{
+    SwitchAccountDialog dialog(this);
+    dialog.exec();
+}
+
+void CloudView::showAddAccountDialog()
+{
+    LoginDialog dialog(this);
+    dialog.exec();
 }
 
 void CloudView::deleteAccount()

@@ -82,5 +82,8 @@ int AccountManager::saveAccount(const Account& account)
     snprintf(sql, 4096, "REPLACE INTO Accounts VALUES ('%s', '%s', '%s') ",
              url.data(), username.data(), token.data());
     sqlite_query_exec (db, sql);
+
+    emit accountAdded(account);
+
     return 0;
 }

@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_LOCAL_REPO_H
 
 #include <QString>
+#include <QIcon>
 
 struct _GObject;
 
@@ -34,6 +35,8 @@ public:
     bool operator!=(const LocalRepo& rhs) const {
         return !(*this == rhs);
     }
+
+    QIcon getIcon();
 };
 
 #endif // SEAFILE_CLIENT_LOCAL_REPO_H

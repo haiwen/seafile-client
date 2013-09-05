@@ -2,11 +2,14 @@
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QToolButton>
+#include <QWidgetAction>
 
 #include "QtAwesome.h"
 #include "cloud-view.h"
-#include "repos-tab.h"
+#include "local-view.h"
 #include "seafile-applet.h"
+#include "login-dialog.h"
 #include "main-window.h"
 
 namespace {
@@ -25,7 +28,7 @@ MainWindow::MainWindow()
     setWindowTitle("Seafile");
 
     cloud_view_ = new CloudView;
-    repos_tab_ = new ReposTab;
+    local_view_ = new LocalView;
 
     main_widget_ = new QTabWidget(this);
     main_widget_->insertTab(INDEX_CLOUD_VIEW,
@@ -34,14 +37,15 @@ MainWindow::MainWindow()
                             tr("Cloud"));
 
     main_widget_->insertTab(INDEX_LOCAL_VIEW,
-                            repos_tab_,
+                            local_view_,
                             QIcon(":/images/repo.svg"),
                             tr("Local"));
 
     setCentralWidget(main_widget_);
-
     createActions();
-    // createToolBar();
+    prepareAccountButtonMenu();
+    
+    createToolBar();
     createMenus();
 
     centerInScreen();
@@ -73,8 +77,34 @@ void MainWindow::createToolBar()
 {
     tool_bar_ = addToolBar(tr("&main"));
     tool_bar_->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    tool_bar_->setFloatable(false);
+    tool_bar_->setMovable(false);
+    tool_bar_->setContextMenuPolicy(Qt::PreventContextMenu);
 
-    tool_bar_->addAction(refresh_qss_action_);
+    tool_bar_->addAction(account_widget_action_);
+}
+
+void MainWindow::prepareAccountButtonMenu() {
+    accout_op_menu_ = new QMenu;
+    switch_account_action_ = new QAction(tr("Switch account"), this);
+    add_account_action_ = new QAction(tr("Add an account"), this);
+    delete_account_action_ = new QAction(tr("Delete this account"), this);
+
+    connect(switch_account_action_, SIGNAL(triggered()), cloud_view_, SLOT(showSwitchAccountDialog()));
+    connect(add_account_action_, SIGNAL(triggered()), cloud_view_, SLOT(showAddAccountDialog()));
+    connect(delete_account_action_, SIGNAL(triggered()), cloud_view_, SLOT(deleteAccount()));
+
+    accout_op_menu_->addAction(switch_account_action_);
+    accout_op_menu_->addAction(add_account_action_);
+    accout_op_menu_->addAction(delete_account_action_);
+
+    account_tool_button_ = new QToolButton(this);
+    account_tool_button_->setMenu(accout_op_menu_);
+    account_tool_button_->setPopupMode(QToolButton::InstantPopup);
+    account_tool_button_->setIcon(QIcon(":/images/account.png"));
+
+    account_widget_action_ = new QWidgetAction(this);
+    account_widget_action_->setDefaultWidget(account_tool_button_);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -117,3 +147,4 @@ void MainWindow::refreshQss()
     QString style = input.readAll();
     qApp->setStyleSheet(style);
 }
+

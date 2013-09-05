@@ -17,6 +17,10 @@ struct Account {
     bool operator==(const Account& rhs) const {
         return serverUrl == rhs.serverUrl && username == rhs.username && token == rhs.token;
     }
+
+    bool operator!=(const Account& rhs) const {
+        return !(*this == rhs);
+    }
 };
 
 #endif // ACCOUNT_H

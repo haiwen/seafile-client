@@ -28,38 +28,26 @@ SET(moc_headers
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
+  src/ui/switch-account-dialog.h
   src/ui/create-repo-dialog.h
   src/ui/sync-repo-dialog.h
-  src/ui/list-account-repos-dialog.h
-  src/ui/account-item.h
-  src/ui/accounts-view.h
-  src/ui/repo-item.h
-  src/ui/repos-view.h
-  src/ui/repos-tab.h
-  src/ui/repo-details-view.h
-  src/ui/tray-icon.h
+  src/ui/local-view.h
+  src/ui/local-repos-list-view.h
+  src/ui/local-repos-list-model.h
   src/ui/cloud-view.h
-  src/ui/server-repos-view.h
-  src/ui/server-repo-item.h
-  src/ui/my-tabwidget.h
+  src/ui/server-repos-list-view.h
+  src/ui/server-repos-list-model.h
+  src/ui/tray-icon.h
   third_party/QtAwesome/QtAwesome.h
 )
 
 # UI FILES
 SET(ui_files
   ui/login-dialog.ui
+  ui/switch-account-dialog.ui
   ui/create-repo.ui
   ui/sync-repo.ui
   ui/init-seafile-dialog.ui
-  ui/list-account-repos-dialog.ui
-  ui/account-item.ui
-  ui/accounts-view.ui
-  ui/repo-item.ui
-  ui/repos-view.ui
-  ui/repo-details-view.ui
-  ui/cloud-view.ui
-  ui/server-repos-view.ui
-  ui/server-repo-item.ui
 )
 
 # RESOURCES
@@ -125,22 +113,18 @@ SET(seafile_client_sources
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
+  src/ui/switch-account-dialog.cpp
   src/ui/create-repo-dialog.cpp
   src/ui/sync-repo-dialog.cpp
-  src/ui/list-account-repos-dialog.cpp
-  src/ui/account-item.cpp
-  src/ui/accounts-view.cpp
-  src/ui/repo-item.cpp
-  src/ui/repos-view.cpp
-  src/ui/repos-tab.cpp
-  src/ui/repo-details-view.cpp
   src/ui/tray-icon.cpp
+  src/ui/local-view.cpp
+  src/ui/local-repos-list-view.cpp
+  src/ui/local-repos-list-model.cpp
+  src/ui/cloud-view.cpp
+  src/ui/server-repos-list-view.cpp
+  src/ui/server-repos-list-model.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp
-  src/ui/cloud-view.cpp
-  src/ui/server-repos-view.cpp
-  src/ui/server-repo-item.cpp
-  src/ui/my-tabwidget.cpp
   third_party/QtAwesome/QtAwesome.cpp
 )
 

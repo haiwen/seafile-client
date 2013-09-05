@@ -3,23 +3,21 @@
 
 #include <QWidget>
 #include <QHash>
-#include "ui_repos-view.h"
 
 class QTimer;
 class QShowEvent;
 class QHideEvent;
 
 class LocalRepo;
-class RepoItem;
+class LocalReposListView;
+class LocalReposListModel;
 
-class ReposView : public QWidget,
-                  public Ui::ReposView
+class LocalView : public QWidget
 {
     Q_OBJECT
 
 public:
-    ReposView(QWidget *parent=0);
-    void addRepo(const LocalRepo& repo);
+    LocalView(QWidget *parent=0);
 
 protected:
     void showEvent(QShowEvent *event);
@@ -30,10 +28,12 @@ private slots:
     void refreshRepos();
 
 private:
-    Q_DISABLE_COPY(ReposView)
+    Q_DISABLE_COPY(LocalView)
 
-    QWidget *repos_list_;
-    QHash<QString, RepoItem*> repos_map_;
+    LocalReposListView *repos_list_;
+    LocalReposListModel *repos_model_;
+
+    QWidget *loading_view_;
 
     QTimer *refresh_timer_;
     bool in_refresh_;

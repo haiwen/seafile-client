@@ -8,9 +8,11 @@ class QLabel;
 class QListWidget;
 class QToolBar;
 class QToolButton;
+class QWidgetAction;
+class QMenu;
 
 class CloudView;
-class ReposTab;
+class LocalView;
 
 class MainWindow : public QMainWindow
 {
@@ -34,6 +36,8 @@ private slots:
     void closeEvent(QCloseEvent *event);
 
 private:
+    void prepareAccountButtonMenu();
+    
     // Actions
     QAction *about_action_;
     QAction *refresh_qss_action_;
@@ -44,10 +48,18 @@ private:
     // ToolBar
     QToolBar *tool_bar_;
 
+    // Account operations
+    QAction *add_account_action_;
+    QAction *delete_account_action_;
+    QAction *switch_account_action_;
+    QMenu *accout_op_menu_;
+    QWidgetAction *account_widget_action_;
+    QToolButton *account_tool_button_;
+
     QTabWidget *main_widget_;
 
     CloudView *cloud_view_;
-    ReposTab *repos_tab_;
+    LocalView *local_view_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

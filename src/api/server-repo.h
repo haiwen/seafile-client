@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QString>
+#include <QIcon>
 #include <jansson.h>
 
 class DownloadRepoRequest;
@@ -33,6 +34,8 @@ public:
     QString passwd;
     QString localdir;
     DownloadRepoRequest *req;
+
+    QIcon getIcon();
 
     static ServerRepo fromJSON(const json_t*, json_error_t *error);
     static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);

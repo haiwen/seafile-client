@@ -22,12 +22,12 @@ public:
     int saveAccount(const Account& account);
     int start();
 
+signals:
+    void accountAdded(const Account&);
+
 private:
     ~AccountManager();
     static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
-
-signals:
-    void accountsChanged();
 
 private:
     Q_DISABLE_COPY(AccountManager)

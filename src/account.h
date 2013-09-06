@@ -3,6 +3,7 @@
 
 #include <QUrl>
 #include <QString>
+#include <QMetaType>
 
 struct Account {
     QUrl serverUrl;
@@ -22,5 +23,7 @@ struct Account {
         return !(*this == rhs);
     }
 };
+
+Q_DECLARE_METATYPE(Account)
 
 #endif // ACCOUNT_H

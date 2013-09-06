@@ -23,11 +23,8 @@ LocalView::LocalView(QWidget *parent)
     repos_model_ = new LocalReposListModel;
     repos_list_->setModel(repos_model_);
 
-    loading_view_ = new QWidget;
-
-    QVBoxLayout *layout = new QVBoxLayout;
+    QStackedLayout *layout = new QStackedLayout;
     layout->addWidget(repos_list_);
-    layout->addWidget(loading_view_);
 
     setLayout(layout);
 

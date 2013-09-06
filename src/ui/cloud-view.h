@@ -9,7 +9,10 @@ class QMenu;
 class QTimer;
 class QShowEvent;
 class QHideEvent;
+class QWidgetAction;
+class QToolButton;
 
+class ListReposRequest;
 class ServerReposListView;
 class ServerReposListModel;
 class ServerRepo;
@@ -19,6 +22,7 @@ class CloudView : public QWidget
     Q_OBJECT
 public:
     CloudView(QWidget *parent=0);
+    QWidgetAction *getAccountWidgetAction() { return account_widget_action_; }
 
 protected:
     void showEvent(QShowEvent *event);
@@ -26,7 +30,6 @@ protected:
 
 public slots:
     void showAddAccountDialog();
-    void showSwitchAccountDialog();
     void deleteAccount();
 
 private slots:
@@ -34,20 +37,38 @@ private slots:
     void refreshRepos(const std::vector<ServerRepo>& repos);
     void refreshReposFailed();
     void setCurrentAccount(const Account&account);
+    void updateAccountMenu();
+    void onAccountItemClicked();
 
 private:
     Q_DISABLE_COPY(CloudView)
 
+    void prepareAccountButtonMenu();
+    void createLoadingView();
+    QAction *makeAccountAction(const Account& account);
+    void showLoadingView();
+    void showReposList();
     bool hasAccount();
 
     ServerReposListView *repos_list_;
     ServerReposListModel *repos_model_;
 
     QTimer *refresh_timer_;
+    ListReposRequest *list_repo_req_;
     bool in_refresh_;
 
     // FolderDropArea *drop_area_;
     Account current_account_;
+
+    // Account operations
+    QAction *add_account_action_;
+    QAction *delete_account_action_;
+    QAction *switch_account_action_;
+    QMenu *account_menu_;
+    QWidgetAction *account_widget_action_;
+    QToolButton *account_tool_button_;
+
+    QWidget *loading_view_;
 };
 
 

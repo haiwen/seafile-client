@@ -2,8 +2,6 @@
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
-#include <QToolButton>
-#include <QWidgetAction>
 
 #include "QtAwesome.h"
 #include "cloud-view.h"
@@ -42,9 +40,8 @@ MainWindow::MainWindow()
                             tr("Local"));
 
     setCentralWidget(main_widget_);
+
     createActions();
-    prepareAccountButtonMenu();
-    
     createToolBar();
     createMenus();
 
@@ -81,30 +78,7 @@ void MainWindow::createToolBar()
     tool_bar_->setMovable(false);
     tool_bar_->setContextMenuPolicy(Qt::PreventContextMenu);
 
-    tool_bar_->addAction(account_widget_action_);
-}
-
-void MainWindow::prepareAccountButtonMenu() {
-    accout_op_menu_ = new QMenu;
-    switch_account_action_ = new QAction(tr("Switch account"), this);
-    add_account_action_ = new QAction(tr("Add an account"), this);
-    delete_account_action_ = new QAction(tr("Delete this account"), this);
-
-    connect(switch_account_action_, SIGNAL(triggered()), cloud_view_, SLOT(showSwitchAccountDialog()));
-    connect(add_account_action_, SIGNAL(triggered()), cloud_view_, SLOT(showAddAccountDialog()));
-    connect(delete_account_action_, SIGNAL(triggered()), cloud_view_, SLOT(deleteAccount()));
-
-    accout_op_menu_->addAction(switch_account_action_);
-    accout_op_menu_->addAction(add_account_action_);
-    accout_op_menu_->addAction(delete_account_action_);
-
-    account_tool_button_ = new QToolButton(this);
-    account_tool_button_->setMenu(accout_op_menu_);
-    account_tool_button_->setPopupMode(QToolButton::InstantPopup);
-    account_tool_button_->setIcon(QIcon(":/images/account.png"));
-
-    account_widget_action_ = new QWidgetAction(this);
-    account_widget_action_->setDefaultWidget(account_tool_button_);
+    tool_bar_->addAction(cloud_view_->getAccountWidgetAction());
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

@@ -16,6 +16,7 @@ MainWindow QTabWidget {
 MainWindow QTabWidget::pane {
     border: none;
     position: absolute;
+    padding: 0;
 }
 
 MainWindow QTabWidget::tab-bar {
@@ -36,8 +37,9 @@ MainWindow QTabBar::tab {
     border-top-right-radius: 4px;
     min-width: 160px;
     max-width: 160px;
-    min-height: 30px;
-    max-height: 30px;
+    min-height: 25px;
+    max-height: 25px;
+    
     padding: 5px;
 }
 
@@ -52,14 +54,14 @@ MainWindow QTabBar::tab:selected {
     border-bottom-color: #C2C7CB; /* same as pane color */
 }
 
-LocalView {
+/* Cloud Tab */
+CloudView {
     min-width: 350px;
     min-height: 450px;
 }
 
-CloudView {
-    min-width: 350px;
-    min-height: 450px;
+ServerReposListView {
+    qproperty-alternatingRowColors: true;
 }
 
 QPushButton#mAccountOpButton {
@@ -67,4 +69,33 @@ QPushButton#mAccountOpButton {
     max-width: 50px;
     min-height: 30px;
     max-height: 30px;
+}
+
+/* Local Tab */
+LocalView {
+    min-width: 350px;
+    min-height: 450px;
+}
+
+LocalReposListView {
+    qproperty-alternatingRowColors: true;
+}
+
+QListView::item:selected {
+    border: 1px solid #6a6ea9;
+}
+
+QListView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+}
+
+QListView::item:selected:active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #6a6ea9, stop: 1 #888dd9);
+}
+
+QListView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
 }

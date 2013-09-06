@@ -32,8 +32,6 @@ private:
     LocalReposListView *repos_list_;
     LocalReposListModel *repos_model_;
 
-    QWidget *loading_view_;
-
     QTimer *refresh_timer_;
     bool in_refresh_;
 };

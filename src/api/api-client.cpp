@@ -36,9 +36,9 @@ void SeafileApiClient::get(const QUrl& url)
         request.setRawHeader(kAuthHeader, buf);
     }
 
-    qDebug("send request, url = %s\n, token = %s\n",
-           request.url().toString().toUtf8().data(),
-           request.rawHeader(kAuthHeader).data());
+    // qDebug("send request, url = %s\n, token = %s\n",
+    //        request.url().toString().toUtf8().data(),
+    //        request.rawHeader(kAuthHeader).data());
 
     reply_ = na_mgr_->get(request);
 

@@ -18,12 +18,18 @@ class AccountManager : public QObject {
 
 public:
     AccountManager();
-    std::vector<Account> loadAccounts();
-    int saveAccount(const Account& account);
     int start();
+
+    int saveAccount(const Account& account);
+    int removeAccount(const Account& account);
+    const std::vector<Account>& loadAccounts();
+
+    // accessors
+    const std::vector<Account>& accounts() const { return accounts_; }
 
 signals:
     void accountAdded(const Account&);
+    void accountRemoved(const Account&);
 
 private:
     ~AccountManager();

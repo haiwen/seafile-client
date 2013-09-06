@@ -36,8 +36,6 @@ private slots:
     void closeEvent(QCloseEvent *event);
 
 private:
-    void prepareAccountButtonMenu();
-    
     // Actions
     QAction *about_action_;
     QAction *refresh_qss_action_;
@@ -47,14 +45,6 @@ private:
 
     // ToolBar
     QToolBar *tool_bar_;
-
-    // Account operations
-    QAction *add_account_action_;
-    QAction *delete_account_action_;
-    QAction *switch_account_action_;
-    QMenu *accout_op_menu_;
-    QWidgetAction *account_widget_action_;
-    QToolButton *account_tool_button_;
 
     QTabWidget *main_widget_;
 

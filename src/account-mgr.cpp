@@ -2,6 +2,7 @@
 #include <glib.h>
 #include <errno.h>
 #include <stdio.h>
+#include <algorithm>
 
 #include "account-mgr.h"
 #include "configurator.h"
@@ -47,6 +48,8 @@ int AccountManager::start()
     sqlite_query_exec (db, sql);
 
     g_free (db_path);
+
+    loadAccounts();
     return 0;
 }
 
@@ -62,7 +65,7 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     return true;
 }
 
-std::vector<Account> AccountManager::loadAccounts()
+const std::vector<Account>& AccountManager::loadAccounts()
 {
     const char *sql = "SELECT url, username, token FROM Accounts";
     accounts_.clear();
@@ -74,16 +77,29 @@ int AccountManager::saveAccount(const Account& account)
 {
     accounts_.push_back(account);
 
-    char sql[4096];
-    const QByteArray url = account.serverUrl.toEncoded();
-    const QByteArray username = account.username.toUtf8();
-    const QByteArray token = account.token.toUtf8();
+    const char *url = account.serverUrl.toEncoded().data();
 
-    snprintf(sql, 4096, "REPLACE INTO Accounts VALUES ('%s', '%s', '%s') ",
-             url.data(), username.data(), token.data());
-    sqlite_query_exec (db, sql);
+    QString sql = "REPLACE INTO Accounts VALUES ('%1', '%2', '%3') ";
+    sql = sql.arg(url).arg(account.username).arg(account.token);
+    sqlite_query_exec (db, toCStr(sql));
 
     emit accountAdded(account);
+
+    return 0;
+}
+
+int AccountManager::removeAccount(const Account& account)
+{
+    const char *url = account.serverUrl.toEncoded().data();
+
+    QString sql = "DELETE FROM Accounts WHERE url = '%1' AND username = '%2'";
+    sql = sql.arg(url).arg(account.username);
+    sqlite_query_exec (db, toCStr(sql));
+
+    accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
+                    accounts_.end());
+
+    emit accountRemoved(account);
 
     return 0;
 }

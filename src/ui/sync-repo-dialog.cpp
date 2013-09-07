@@ -73,9 +73,9 @@ bool SyncRepoDialog::validateInputs()
                                  QMessageBox::Ok);
             return false;
         }
-        repo_.passwd = mPassword->text();
+        // repo_.passwd = mPassword->text();
     }
-    repo_.localdir = mDirectory->text();
-    repo_.download = (mRadioDownload->isChecked()) ? true : false;
+    // repo_.localdir = mDirectory->text();
+    // repo_.download = (mRadioDownload->isChecked()) ? true : false;
     return true;
 }

@@ -37,6 +37,7 @@ SET(moc_headers
   src/ui/server-repos-list-view.h
   src/ui/server-repos-list-model.h
   src/ui/tray-icon.h
+  src/ui/repo-tree-model.h
   third_party/QtAwesome/QtAwesome.h
 )
 
@@ -123,6 +124,8 @@ SET(seafile_client_sources
   src/ui/server-repos-list-model.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp
+  src/ui/repo-item.cpp
+  src/ui/repo-tree-model.cpp
   third_party/QtAwesome/QtAwesome.cpp
 )
 

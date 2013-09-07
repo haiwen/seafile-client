@@ -2,13 +2,13 @@
 #include <QtGui>
 #include <QToolButton>
 #include <QWidgetAction>
+#include <QTreeView>
 
 #include "QtAwesome.h"
 #include "api/requests.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
-#include "server-repos-list-view.h"
-#include "server-repos-list-model.h"
+#include "repo-tree-model.h"
 #include "login-dialog.h"
 #include "cloud-view.h"
 
@@ -18,7 +18,7 @@ const int kRefreshReposInterval = 10000;
 
 enum {
     INDEX_LOADING_VIEW = 0,
-    INDEX_REPOS_LIST
+    INDEX_REPOS_VIEW
 };
 
 }
@@ -28,15 +28,15 @@ CloudView::CloudView(QWidget *parent)
       in_refresh_(false),
       list_repo_req_(NULL)
 {
-    repos_list_ = new ServerReposListView;
-    repos_model_ = new ServerReposListModel;
-    repos_list_->setModel(repos_model_);
+    repos_tree_ = new QTreeView;
+    repos_model_ = new RepoTreeModel;
+    repos_tree_->setModel(repos_model_);
 
     createLoadingView();
 
     QStackedLayout *stack = new QStackedLayout;
     stack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
-    stack->insertWidget(INDEX_REPOS_LIST, repos_list_);
+    stack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
     setLayout(stack);
 
     prepareAccountButtonMenu();
@@ -77,10 +77,10 @@ void CloudView::showLoadingView()
     stack->setCurrentIndex(INDEX_LOADING_VIEW);
 }
 
-void CloudView::showReposList()
+void CloudView::showRepos()
 {
     QStackedLayout *stack = (QStackedLayout *)(layout());
-    stack->setCurrentIndex(INDEX_REPOS_LIST);
+    stack->setCurrentIndex(INDEX_REPOS_VIEW);
 }
 
 void CloudView::prepareAccountButtonMenu()
@@ -146,6 +146,7 @@ void CloudView::setCurrentAccount(const Account& account)
     if (current_account_ != account) {
         current_account_ = account;
         in_refresh_ = false;
+        repos_model_->clear();
         showLoadingView();
         refreshRepos();
     }
@@ -209,7 +210,7 @@ void CloudView::refreshRepos(const std::vector<ServerRepo>& repos)
     list_repo_req_->deleteLater();
     list_repo_req_ = NULL;
 
-    showReposList();
+    showRepos();
 }
 
 void CloudView::refreshReposFailed()

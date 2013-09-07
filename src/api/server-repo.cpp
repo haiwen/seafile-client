@@ -13,19 +13,28 @@ QString getStringFromJson(const json_t *json, const char* key)
 
 } // namespace
 
+
 ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t *error)
 {
     ServerRepo repo;
     repo.id = getStringFromJson(json, "id");
     repo.name = getStringFromJson(json, "name");
     repo.description = getStringFromJson(json, "desc");
+
+    repo.mtime = json_integer_value(json_object_get(json, "mtime"));
+    repo.size = json_integer_value(json_object_get(json, "size"));
+    repo.root = getStringFromJson(json, "root");
+
+    repo.encrypted = json_is_true(json_object_get(json, "encrypted"));
+
+    repo.type = getStringFromJson(json, "type");
     repo.owner = getStringFromJson(json, "owner");
     repo.permission = getStringFromJson(json, "permission");
-    repo.mtime = json_integer_value(json_object_get(json, "mtime"));
-    repo.encrypted = json_is_true(json_object_get(json, "encrypted"));
-    repo.root = getStringFromJson(json, "root");
-    repo.size = json_integer_value(json_object_get(json, "size"));
-    repo.is_group_repo = getStringFromJson(json, "type") == "type";
+
+    if (repo.type == "grepo") {
+        repo.group_name = repo.owner;
+        repo.group_id = json_integer_value(json_object_get(json, "groupid"));
+    }
 
     return repo;
 }
@@ -41,7 +50,7 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
     return repos;
 }
 
-QIcon ServerRepo::getIcon()
+QIcon ServerRepo::getIcon() const
 {
     return QIcon(":/images/repo.svg");
 }

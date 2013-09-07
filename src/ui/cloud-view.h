@@ -11,11 +11,11 @@ class QShowEvent;
 class QHideEvent;
 class QWidgetAction;
 class QToolButton;
+class QTreeView;
 
 class ListReposRequest;
-class ServerReposListView;
-class ServerReposListModel;
 class ServerRepo;
+class RepoTreeModel;
 
 class CloudView : public QWidget
 {
@@ -47,11 +47,11 @@ private:
     void createLoadingView();
     QAction *makeAccountAction(const Account& account);
     void showLoadingView();
-    void showReposList();
+    void showRepos();
     bool hasAccount();
 
-    ServerReposListView *repos_list_;
-    ServerReposListModel *repos_model_;
+    QTreeView *repos_tree_;
+    RepoTreeModel *repos_model_;
 
     QTimer *refresh_timer_;
     ListReposRequest *list_repo_req_;

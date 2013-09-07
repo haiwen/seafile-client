@@ -15,26 +15,34 @@ public:
     QString id;
     QString name;
     QString description;
-    QString owner;
 
     qint64 mtime;
-    bool is_group_repo;
-    bool encrypted;
-    QString permission;
-
     qint64  size;
     QString root;
 
-    bool download; // download or sync with local dir
-    QString passwd;
-    QString localdir;
+    bool encrypted;
 
-    QIcon getIcon();
+    QString type;
+    QString owner;
+    QString permission;
+    QString group_name;
+    int group_id;
+
+    bool isPersonalRepo() const { return type == "repo"; }
+    bool isSharedRepo() const { return type == "srepo"; }
+    bool isGroupRepo() const { return type == "grepo"; }
+
+    QIcon getIcon() const;
 
     static ServerRepo fromJSON(const json_t*, json_error_t *error);
     static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);
 };
 
+
+/**
+ * Register with QMetaType so we can wrap it with QVariant::fromValue
+ */
 Q_DECLARE_METATYPE(ServerRepo)
+
 
 #endif // SEAFILE_CLIENT_SERVER_REPO_H

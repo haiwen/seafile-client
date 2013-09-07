@@ -14,7 +14,7 @@ QString getStringFromJson(const json_t *json, const char* key)
 } // namespace
 
 
-ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t *error)
+ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
 {
     ServerRepo repo;
     repo.id = getStringFromJson(json, "id");
@@ -42,7 +42,7 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t *error)
 std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_t *error)
 {
     std::vector<ServerRepo> repos;
-    for (int i = 0; i < json_array_size(json); i++) {
+    for (size_t i = 0; i < json_array_size(json); i++) {
         ServerRepo repo = fromJSON(json_array_get(json, i), error);
         repos.push_back(repo);
     }

@@ -7,7 +7,7 @@
 #include "server-repo.h"
 
 class QNetworkReply;
-class Account;
+struct Account;
 class ServerRepo;
 
 class LoginRequest : public SeafileApiRequest {

@@ -4,7 +4,7 @@
 #include <QUrl>
 #include <QString>
 
-class Account;
+struct Account;
 class LoginRequest;
 
 class LoginDialog : public QDialog,

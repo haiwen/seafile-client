@@ -12,6 +12,8 @@
  */
 class ServerRepo {
 public:
+    ServerRepo(){};
+
     QString id;
     QString name;
     QString description;

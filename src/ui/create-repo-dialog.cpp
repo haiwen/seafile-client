@@ -171,7 +171,7 @@ void CreateRepoDialog::createSuccess(const QMap<QString, QString> &dict)
     }
 }
 
-void CreateRepoDialog::createFailed(int code)
+void CreateRepoDialog::createFailed(int /* code */)
 {
     mStatusText->setText("");
 
@@ -187,3 +187,4 @@ void CreateRepoDialog::createFailed(int code)
         mPasswordAgain->setEnabled(true);
     }
 }
+

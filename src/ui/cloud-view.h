@@ -50,12 +50,13 @@ private:
     void showRepos();
     bool hasAccount();
 
+
+    bool in_refresh_;
     QTreeView *repos_tree_;
     RepoTreeModel *repos_model_;
 
     QTimer *refresh_timer_;
     ListReposRequest *list_repo_req_;
-    bool in_refresh_;
 
     // FolderDropArea *drop_area_;
     Account current_account_;

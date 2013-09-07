@@ -204,7 +204,7 @@ static int getBSDProcessPid (const char *name, int except_pid)
     struct kinfo_proc *mylist = NULL;
     size_t mycount = 0;
     GetBSDProcessList (&mylist, &mycount);
-    for (int k = 0; k < mycount; k++) {
+    for (size_t k = 0; k < mycount; k++) {
         kinfo_proc *proc =  &mylist[k];
         if (proc->kp_proc.p_pid != except_pid
             && strcmp (proc->kp_proc.p_comm, name) == 0){
@@ -216,12 +216,21 @@ static int getBSDProcessPid (const char *name, int except_pid)
     return pid;
 }
 
+int process_is_running (const char *name)
+{
+    int pid = getBSDProcessPid (name, getpid ());
+    if (pid)
+        return true;
+    return false;
+}
+
+
 void shutdown_process (const char *name)
 {
     struct kinfo_proc *mylist = NULL;
     size_t mycount = 0;
     GetBSDProcessList (&mylist, &mycount);
-    for (int k = 0; k < mycount; k++) {
+    for (size_t k = 0; k < mycount; k++) {
         kinfo_proc *proc =  &mylist[k];
         if (strcmp (proc->kp_proc.p_comm, name) == 0){
             kill (proc->kp_proc.p_pid, SIGKILL);
@@ -277,6 +286,19 @@ get_process_handle (const char *process_name_in)
 }
 
 int
+process_is_running (const char *process_name)
+{
+    HANDLE proc_handle = get_process_handle(process_name);
+
+    if (proc_handle) {
+        CloseHandle(proc_handle);
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+int
 win32_kill_process (const char *process_name)
 {
     HANDLE proc_handle = get_process_handle(process_name);
@@ -325,6 +347,31 @@ find_process_in_dirent(struct dirent *dir, const char *process_name)
 }
 
 /* read the /proc fs to determine whether some process is running */
+int process_is_running (const char *process_name)
+{
+    DIR *proc_dir = opendir("/proc");
+    if (!proc_dir) {
+        fprintf (stderr, "failed to open /proc/ dir\n");
+        return FALSE;
+    }
+
+    struct dirent *subdir = NULL;
+    while ((subdir = readdir(proc_dir))) {
+        char first = subdir->d_name[0];
+        /* /proc/[1-9][0-9]* */
+        if (first > '9' || first < '1')
+            continue;
+        int pid = find_process_in_dirent(subdir, process_name);
+        if (pid > 0) {
+            closedir(proc_dir);
+            return TRUE;
+        }
+    }
+
+    closedir(proc_dir);
+    return FALSE;
+}
+
 void shutdown_process (const char *name)
 {
     DIR *proc_dir = opendir("/proc");
@@ -466,13 +513,12 @@ get_seafile_auto_start()
 }
 
 int
-set_seafile_auto_start(int on)
+set_seafile_auto_start(int /* on */)
 {
     return 0;
 }
 
 #endif
-
 
 void open_dir(const QString& path)
 {
@@ -493,4 +539,35 @@ void open_dir(const QString& path)
         qDebug("failed to exec: %s", buf);
     }
 #endif
+}
+
+bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
+{
+    char *line = string, *next, *space;
+    char *key, *value;
+
+    while (*line) {
+        /* handle empty line */
+        if (*line == '\n') {
+            ++line;
+            continue;
+        }
+
+        for (next = line; *next != '\n' && *next; ++next) ;
+        *next = '\0';
+
+        for (space = line; space < next && *space != ' '; ++space) ;
+        if (*space != ' ') {
+            return false;
+        }
+        *space = '\0';
+        key = line;
+        value = space + 1;
+
+        if (func(data, key, value) == FALSE)
+            return false;
+
+        line = next + 1;
+    }
+    return true;
 }

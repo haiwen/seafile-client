@@ -10,6 +10,8 @@ extern "C" {
 #include "configurator.h"
 #include "message-listener.h"
 #include "ui/tray-icon.h"
+#include "utils/utils.h"
+
 
 namespace {
 
@@ -31,8 +33,6 @@ static int parse_seafile_notification (char *msg, char **type, char **body)
     return 0;
 }
 
-typedef bool (*KeyValueFunc) (void *data, const char *key,
-                              const char *value);
 static bool
 collect_transfer_info (QString *msg, const char *info, char *repo_name)
 {
@@ -45,38 +45,6 @@ collect_transfer_info (QString *msg, const char *info, char *repo_name)
     QString uploadStr = (strcmp(info, "upload") == 0) ? QObject::tr("Uploading") : QObject::tr("Downloading");
     QString buf = QString("%1 %2, %3 %4 KB/s\n").arg(uploadStr).arg(repo_name).arg(QObject::tr("Speed")).arg(rate);
     msg->append(buf);
-    return true;
-}
-
-bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
-{
-    char *line = string, *next, *space;
-    char *key, *value;
-
-    while (*line) {
-        /* handle empty line */
-        if (*line == '\n') {
-            ++line;
-            continue;
-        }
-
-        for (next = line; *next != '\n' && *next; ++next) ;
-        *next = '\0';
-
-        for (space = line; space < next && *space != ' '; ++space) ;
-        if (*space != ' ') {
-            qDebug ("Bad key value format: %s\n", line);
-            return false;
-        }
-        *space = '\0';
-        key = line;
-        value = space + 1;
-
-        if (func(data, key, value) == FALSE)
-            return false;
-
-        line = next + 1;
-    }
     return true;
 }
 
@@ -179,13 +147,15 @@ void MessageListener::handleMessage(CcnetMessage *message)
             seafApplet->trayIcon()->notify("Seafile", buf);
         } else if (strcmp(type, "sync.done") == 0) {
             /* format: repo_name \t repo_id \t description */
-            QStringList slist = QString(content).split("\t");
+            QStringList slist = QString::fromUtf8(content).split("\t");
             if (slist.count() != 3) {
                 qDebug("Bad sync.done message format");
                 return;
             }
+
             QString title = QString("\"%1\" %2").arg(slist.at(0)).arg(tr("is synchronized"));
-            QString buf = tr(slist.at(2).toUtf8().data());
+            QString buf = slist.at(2);
+
             seafApplet->trayIcon()->notify(title, buf);
 
         } else if (strcmp(type, "sync.access_denied") == 0) {

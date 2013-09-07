@@ -18,8 +18,8 @@ SeafileApplet::SeafileApplet()
     : configurator_(new Configurator),
       account_mgr_(new AccountManager),
       daemon_mgr_(new DaemonManager),
-      message_listener_(new MessageListener),
       rpc_client_(new SeafileRpcClient),
+      message_listener_(new MessageListener),
       settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
       in_exit_(false)

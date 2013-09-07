@@ -57,13 +57,13 @@ private:
 
     Configurator *configurator_;
 
+    AccountManager *account_mgr_;
+
     DaemonManager *daemon_mgr_;
 
     MainWindow* main_win_;
 
     SeafileRpcClient *rpc_client_;
-
-    AccountManager *account_mgr_;
 
     MessageListener *message_listener_;
 

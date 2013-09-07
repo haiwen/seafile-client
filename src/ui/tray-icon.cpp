@@ -215,7 +215,13 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
     qDebug("onActivated: %d", reason);
 
-#ifndef __APPLE__
+#if defined(Q_WS_MAC)
+    MainWindow *main_win = seafApplet->mainWindow();
+    if (main_win->isVisible()) {
+        main_win->showWindow();
+        main_win->raise();
+    }
+#else
     switch(reason) {
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:

@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QString>
 #include <QDebug>
+#include <QDir>
+#include <QCoreApplication>
 
 extern "C" {
 #include <ccnet/ccnet-client.h>
@@ -33,9 +35,9 @@ const char *kSeafileDaemonExecutable = "seaf-daemon";
 
 
 DaemonManager::DaemonManager()
-    : sync_client_(0),
-      ccnet_daemon_(0),
-      seaf_daemon_(0)
+    : ccnet_daemon_(0),
+    seaf_daemon_(0),
+    sync_client_(0)
 {
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(tryConnCcnet()));
@@ -59,7 +61,12 @@ void DaemonManager::startCcnetDaemon()
 
     QStringList args;
     args << "-c" << config_dir << "-D" << "Peer,Message,Connection,Other";
+#if defined(XCODE_APP)
+    ccnet_daemon_->start(RESOURCE_PATH(kCcnetDaemonExecutable), args);
+#else
     ccnet_daemon_->start(kCcnetDaemonExecutable, args);
+#endif
+    qDebug() << "starting ccnet: " << args;
 }
 
 void DaemonManager::startSeafileDaemon()
@@ -75,8 +82,11 @@ void DaemonManager::startSeafileDaemon()
 
     QStringList args;
     args << "-c" << config_dir << "-d" << seafile_dir << "-w" << worktree_dir;
+#if defined(XCODE_APP)
+    seaf_daemon_->start(RESOURCE_PATH(kSeafileDaemonExecutable), args);
+#else
     seaf_daemon_->start(kSeafileDaemonExecutable, args);
-
+#endif
     qDebug() << "starting seaf-daemon: " << args;
 }
 

@@ -13,7 +13,7 @@ const char *kApiLoginUrl = "/api2/auth-token/";
 const char *kListReposUrl = "/api2/repos/";
 const char *kCreateRepoUrl = "/api2/repos/";
 
-QMap<QString, QString> mapFromJSON(json_t *json, json_error_t *error)
+QMap<QString, QString> mapFromJSON(json_t *json, json_error_t */* error */)
 {
     QMap<QString, QString> dict;
     void *member;

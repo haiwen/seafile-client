@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QDir>
+#include <QCoreApplication>
 
 #include "QtAwesome.h"
 #include "cloud-view.h"
@@ -9,6 +11,7 @@
 #include "seafile-applet.h"
 #include "login-dialog.h"
 #include "main-window.h"
+#include "utils/utils.h"
 
 namespace {
 
@@ -111,7 +114,7 @@ void MainWindow::about()
 
 void MainWindow::refreshQss()
 {
-    QFile qss(QDir::current().filePath("qt.css"));
+    QFile qss(RESOURCE_PATH("qt.css"));
 
     if (!qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug("failed to open qt.css\n");

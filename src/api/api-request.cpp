@@ -46,7 +46,7 @@ void SeafileApiRequest::send()
 json_t* SeafileApiRequest::parseJSON(QNetworkReply &reply, json_error_t *error)
 {
     QByteArray raw = reply.readAll();
-    qDebug("\n%s\n", raw.data());
+    //qDebug("\n%s\n", raw.data());
     json_t *root = json_loads(raw.data(), 0, error);
     return root;
 }

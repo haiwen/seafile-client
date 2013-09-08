@@ -20,6 +20,8 @@ SET(moc_headers
   src/daemon-mgr.h
   src/message-listener.h
   src/settings-mgr.h
+  src/traynotificationwidget.h
+  src/traynotificationmanager.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/requests.h
@@ -105,6 +107,8 @@ SET(seafile_client_sources
   src/configurator.cpp
   src/message-listener.cpp
   src/settings-mgr.cpp
+  src/traynotificationwidget.cpp
+  src/traynotificationmanager.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/requests.cpp

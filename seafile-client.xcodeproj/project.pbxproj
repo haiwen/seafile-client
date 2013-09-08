@@ -28,7 +28,13 @@
 		48FE2AB07189AF639EF53145 /* sync-repo-dialog.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = EFD4E252F37FB162B4786E4E /* sync-repo-dialog.cpp */; settings = {ATTRIBUTES = (); }; };
 		563E49A9ED7653686782365D /* api-client.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 20CFBDFCCD359F1EAFDC2E71 /* api-client.cpp */; settings = {ATTRIBUTES = (); }; };
 		56F2D1B45EAD3ECA73BF6C62 /* QtAwesome.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 54D314D3A9A1186286D5363D /* QtAwesome.cpp */; settings = {ATTRIBUTES = (); }; };
+		572D58BB17DCD01B00D41E6D /* seafile.png in Bundle Resources */ = {isa = PBXBuildFile; fileRef = 572D58BA17DCD01B00D41E6D /* seafile.png */; };
+		572D58BD17DCD07E00D41E6D /* seafile.icns in Bundle Resources */ = {isa = PBXBuildFile; fileRef = 572D58BC17DCD07E00D41E6D /* seafile.icns */; };
 		5731E6EDF88E02D89A2F81A8 /* daemon-mgr.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 6D7568236FD1FCE4E32EBB33 /* daemon-mgr.cpp */; settings = {ATTRIBUTES = (); }; };
+		57B57F0117DCCA8100CB9AF0 /* moc_traynotificationmanager.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 57B57EFF17DCCA8100CB9AF0 /* moc_traynotificationmanager.cpp */; };
+		57B57F0217DCCA8100CB9AF0 /* moc_traynotificationwidget.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 57B57F0017DCCA8100CB9AF0 /* moc_traynotificationwidget.cpp */; };
+		57B57F0717DCCD5B00CB9AF0 /* traynotificationmanager.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 57B57F0517DCCD5B00CB9AF0 /* traynotificationmanager.cpp */; };
+		57B57F0817DCCD5B00CB9AF0 /* traynotificationwidget.cpp in Build Sources */ = {isa = PBXBuildFile; fileRef = 57B57F0617DCCD5B00CB9AF0 /* traynotificationwidget.cpp */; };
 		57DC634C17DAF65600D4A0F9 /* ccnet in Bundle Resources */ = {isa = PBXBuildFile; fileRef = 57DC633617DAF65500D4A0F9 /* ccnet */; };
 		57DC634D17DAF65600D4A0F9 /* libccnet.0.dylib in Frameworks & Libraries */ = {isa = PBXBuildFile; fileRef = 57DC633717DAF65500D4A0F9 /* libccnet.0.dylib */; };
 		57DC634E17DAF65600D4A0F9 /* libcrypto.1.0.0.dylib in Frameworks & Libraries */ = {isa = PBXBuildFile; fileRef = 57DC633817DAF65500D4A0F9 /* libcrypto.1.0.0.dylib */; };
@@ -51,7 +57,6 @@
 		57DC636017DAF65600D4A0F9 /* libz.1.dylib in Frameworks & Libraries */ = {isa = PBXBuildFile; fileRef = 57DC634A17DAF65600D4A0F9 /* libz.1.dylib */; };
 		57DC636117DAF65600D4A0F9 /* seaf-daemon in Bundle Resources */ = {isa = PBXBuildFile; fileRef = 57DC634B17DAF65600D4A0F9 /* seaf-daemon */; };
 		57DC636417DAF67800D4A0F9 /* qt.css in Bundle Resources */ = {isa = PBXBuildFile; fileRef = 57DC636317DAF67800D4A0F9 /* qt.css */; };
-		57DC636617DAF68900D4A0F9 /* seafile.png in Bundle Resources */ = {isa = PBXBuildFile; fileRef = 57DC636517DAF68900D4A0F9 /* seafile.png */; };
 		57DC636817DAFA4C00D4A0F9 /* libccnet.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57DC633717DAF65500D4A0F9 /* libccnet.0.dylib */; };
 		57DC636917DAFA4C00D4A0F9 /* libcrypto.1.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57DC633817DAF65500D4A0F9 /* libcrypto.1.0.0.dylib */; };
 		57DC636A17DAFA4C00D4A0F9 /* libevent-2.0.5.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57DC633917DAF65500D4A0F9 /* libevent-2.0.5.dylib */; };
@@ -184,6 +189,14 @@
 		53941764B1EEA25839BC349F /* local-view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "local-view.h"; path = "src/ui/local-view.h"; sourceTree = SOURCE_ROOT; };
 		543159A1A22AEE2BE39F2113 /* settings-mgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "settings-mgr.h"; path = "src/settings-mgr.h"; sourceTree = SOURCE_ROOT; };
 		54D314D3A9A1186286D5363D /* QtAwesome.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = QtAwesome.cpp; path = third_party/QtAwesome/QtAwesome.cpp; sourceTree = SOURCE_ROOT; };
+		572D58BA17DCD01B00D41E6D /* seafile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = seafile.png; path = images/seafile.png; sourceTree = SOURCE_ROOT; };
+		572D58BC17DCD07E00D41E6D /* seafile.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = seafile.icns; path = images/mac/seafile.icns; sourceTree = SOURCE_ROOT; };
+		57B57EFF17DCCA8100CB9AF0 /* moc_traynotificationmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_traynotificationmanager.cpp; sourceTree = SOURCE_ROOT; };
+		57B57F0017DCCA8100CB9AF0 /* moc_traynotificationwidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_traynotificationwidget.cpp; sourceTree = SOURCE_ROOT; };
+		57B57F0317DCCB3400CB9AF0 /* traynotificationmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = traynotificationmanager.h; path = src/traynotificationmanager.h; sourceTree = SOURCE_ROOT; };
+		57B57F0417DCCB3400CB9AF0 /* traynotificationwidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = traynotificationwidget.h; path = src/traynotificationwidget.h; sourceTree = SOURCE_ROOT; };
+		57B57F0517DCCD5B00CB9AF0 /* traynotificationmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = traynotificationmanager.cpp; path = src/traynotificationmanager.cpp; sourceTree = SOURCE_ROOT; };
+		57B57F0617DCCD5B00CB9AF0 /* traynotificationwidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = traynotificationwidget.cpp; path = src/traynotificationwidget.cpp; sourceTree = SOURCE_ROOT; };
 		57DC633417DAF5C600D4A0F9 /* seafile-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "seafile-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57DC633617DAF65500D4A0F9 /* ccnet */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = ccnet; path = libs/ccnet; sourceTree = SOURCE_ROOT; };
 		57DC633717DAF65500D4A0F9 /* libccnet.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libccnet.0.dylib; path = libs/libccnet.0.dylib; sourceTree = SOURCE_ROOT; };
@@ -207,7 +220,6 @@
 		57DC634A17DAF65600D4A0F9 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = libs/libz.1.dylib; sourceTree = SOURCE_ROOT; };
 		57DC634B17DAF65600D4A0F9 /* seaf-daemon */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = "seaf-daemon"; path = "libs/seaf-daemon"; sourceTree = SOURCE_ROOT; };
 		57DC636317DAF67800D4A0F9 /* qt.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = qt.css; sourceTree = SOURCE_ROOT; };
-		57DC636517DAF68900D4A0F9 /* seafile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = seafile.png; path = images/seafile.png; sourceTree = SOURCE_ROOT; };
 		5B16B451EBF993675B863D6B /* ui_settings-dialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ui_settings-dialog.h"; sourceTree = SOURCE_ROOT; };
 		5E28979F053EDAE5DE867CFE /* create-repo-dialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "create-repo-dialog.h"; path = "src/ui/create-repo-dialog.h"; sourceTree = SOURCE_ROOT; };
 		5F220C6AA01CD794256B4A11 /* switch-account-dialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "switch-account-dialog.h"; path = "src/ui/switch-account-dialog.h"; sourceTree = SOURCE_ROOT; };
@@ -363,7 +375,8 @@
 		05596AB53D8D521C69802C27 /* seafile-client */ = {
 			isa = PBXGroup;
 			children = (
-				57DC636517DAF68900D4A0F9 /* seafile.png */,
+				572D58BC17DCD07E00D41E6D /* seafile.icns */,
+				572D58BA17DCD01B00D41E6D /* seafile.png */,
 				57DC636317DAF67800D4A0F9 /* qt.css */,
 				57DC633617DAF65500D4A0F9 /* ccnet */,
 				57DC634B17DAF65600D4A0F9 /* seaf-daemon */,
@@ -382,6 +395,8 @@
 		06674E1DE8D3EB6E763DFFDA /* src */ = {
 			isa = PBXGroup;
 			children = (
+				57B57F0517DCCD5B00CB9AF0 /* traynotificationmanager.cpp */,
+				57B57F0617DCCD5B00CB9AF0 /* traynotificationwidget.cpp */,
 				18B0D764643988BE058040E2 /* account-mgr.cpp */,
 				346B87E8EFBF490190401150 /* ccnet-init.cpp */,
 				C100E772CE09DDB25359AC27 /* configurator.cpp */,
@@ -449,6 +464,8 @@
 		46E892BBB6BB6952967E0561 /* Temporary Sources */ = {
 			isa = PBXGroup;
 			children = (
+				57B57EFF17DCCA8100CB9AF0 /* moc_traynotificationmanager.cpp */,
+				57B57F0017DCCA8100CB9AF0 /* moc_traynotificationwidget.cpp */,
 				EA84394838EF31A16866CDA4 /* moc_account-mgr.cpp */,
 				98487E78B31D1772411D5944 /* moc_configurator.cpp */,
 				32C995260AEC1C33B4569A73 /* moc_daemon-mgr.cpp */,
@@ -659,6 +676,8 @@
 			isa = PBXGroup;
 			children = (
 				A11A1C9C88543BBB7910571E /* account-mgr.h */,
+				57B57F0317DCCB3400CB9AF0 /* traynotificationmanager.h */,
+				57B57F0417DCCB3400CB9AF0 /* traynotificationwidget.h */,
 				91C9EA9410D82AE0D7AD6585 /* account.h */,
 				23DE555D686E19D757B7DFD9 /* ccnet-init.h */,
 				2B3839E4C84F9C05130F0DB4 /* configurator.h */,
@@ -739,7 +758,8 @@
 				57DC634C17DAF65600D4A0F9 /* ccnet in Bundle Resources */,
 				57DC636117DAF65600D4A0F9 /* seaf-daemon in Bundle Resources */,
 				57DC636417DAF67800D4A0F9 /* qt.css in Bundle Resources */,
-				57DC636617DAF68900D4A0F9 /* seafile.png in Bundle Resources */,
+				572D58BB17DCD01B00D41E6D /* seafile.png in Bundle Resources */,
+				572D58BD17DCD07E00D41E6D /* seafile.icns in Bundle Resources */,
 			);
 			name = "Bundle Resources";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -832,6 +852,10 @@
 				63F5E009385E004587395935 /* moc_QtAwesome.cpp in Build Sources */,
 				76DF22EBC9C30BB011454D1E /* qrc_seafile-client.cpp in Build Sources */,
 				13B2247D2B02BE88A40C295F /* qrc_QtAwesome.cpp in Build Sources */,
+				57B57F0117DCCA8100CB9AF0 /* moc_traynotificationmanager.cpp in Build Sources */,
+				57B57F0217DCCA8100CB9AF0 /* moc_traynotificationwidget.cpp in Build Sources */,
+				57B57F0717DCCD5B00CB9AF0 /* traynotificationmanager.cpp in Build Sources */,
+				57B57F0817DCCD5B00CB9AF0 /* traynotificationwidget.cpp in Build Sources */,
 			);
 			name = "Build Sources";
 			runOnlyForDeploymentPostprocessing = 0;

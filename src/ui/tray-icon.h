@@ -5,6 +5,9 @@
 
 class QAction;
 class QMenu;
+#if defined(Q_WS_MAC)
+class TrayNotificationManager;
+#endif
 
 class SeafileTrayIcon : public QSystemTrayIcon {
     Q_OBJECT
@@ -50,6 +53,10 @@ private:
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
     QAction *settings_action_;
+
+#if defined(Q_WS_MAC)
+    TrayNotificationManager *tnm;
+#endif
 
     QTimer *rotate_timer_;
     int nth_trayicon_;

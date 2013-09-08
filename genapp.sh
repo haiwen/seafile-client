@@ -47,7 +47,7 @@ while [ $# -ge 1 ]; do
       rm -rf ${top_dir}/seafile-client.app
       cp -rf build/Release/seafile-client.app ${top_dir}/seafile-client.app
       echo "macdeployqt seafile-client.app"
-      macdeployqt seafile-client.app
+      macdeployqt seafile-client.app -no-plugins
       ;;
     esac
     shift

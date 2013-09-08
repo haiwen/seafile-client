@@ -41,7 +41,7 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    tray_icon_->showMessage("Seafile", "daemon is started");
+    tray_icon_->notify("Seafile", "daemon is started");
     main_win_ = new MainWindow;
 
     main_win_->showWindow();

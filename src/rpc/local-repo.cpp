@@ -1,13 +1,5 @@
 #include <glib-object.h>
 #include "local-repo.h"
-extern "C" {
-#include <searpc-client.h>
-#include <ccnet.h>
-    
-#include <seafile/seafile.h>
-#include <seafile/seafile-object.h>
-    
-}
 
 LocalRepo LocalRepo::fromGObject(GObject *obj)
 {
@@ -20,7 +12,6 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     gboolean auto_sync;
     gint64 last_sync_time;
 
-    //qDebug("#%d %s %d:%d\n", __LINE__, __func__, G_IS_OBJECT(obj), SEAFILE_IS_REPO(obj));
     g_object_get (obj,
                   "id", &id,
                   "name", &name,
@@ -30,7 +21,6 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
                   "auto-sync", &auto_sync,
                   "last-sync-time", &last_sync_time,
                   NULL);
-    //qDebug("#%d %s\n", __LINE__, __func__);
 
     LocalRepo repo;
     repo.id = QString::fromUtf8(id);

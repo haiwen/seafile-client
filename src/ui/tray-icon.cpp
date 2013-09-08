@@ -8,6 +8,9 @@
 #include "settings-dialog.h"
 #include "settings-mgr.h"
 #include "tray-icon.h"
+#if defined(Q_WS_MAC)
+#include "traynotificationmanager.h"
+#endif
 
 namespace {
 
@@ -31,6 +34,10 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
+
+#if defined(Q_WS_MAC)
+    tnm = new TrayNotificationManager(this);
+#endif
 }
 
 // SeafileTrayIcon *SeafileTrayIcon::instance()
@@ -110,9 +117,13 @@ void SeafileTrayIcon::prepareContextMenu()
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
 {
-    qDebug() <<__func__ << title << content;
+    qDebug() <<__func__ << ":" << title << "," << content;
+#if defined(Q_WS_MAC)
+    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(QPixmap(), title, content);
+    tnm->append(trayNotification);
+#else
     this->showMessage(title, content);
-    // TODO ? message not show in MacOS
+#endif
 }
 
 void SeafileTrayIcon::rotate(bool start)
@@ -201,6 +212,7 @@ void SeafileTrayIcon::toggleMainWindow()
     if (!main_win->isVisible()) {
         main_win->showWindow();
         main_win->raise();
+        main_win->activateWindow();
     } else {
         main_win->hide();
     }
@@ -209,6 +221,8 @@ void SeafileTrayIcon::toggleMainWindow()
 void SeafileTrayIcon::showSettingsWindow()
 {
     seafApplet->settingsDialog()->show();
+    seafApplet->settingsDialog()->raise();
+    seafApplet->settingsDialog()->activateWindow();
 }
 
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -220,6 +234,7 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
     if (main_win->isVisible()) {
         main_win->showWindow();
         main_win->raise();
+        main_win->activateWindow();
     }
 #else
     switch(reason) {

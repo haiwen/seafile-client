@@ -114,7 +114,7 @@ void MessageListener::startMqClient()
 
 void MessageListener::handleMessage(CcnetMessage *message)
 {
-    qDebug("got a message: %s %s", message->app, message->body);
+    qDebug("got a message: %s %s.", message->app, message->body);
 
     char *type = NULL;
     char *content = NULL;
@@ -156,7 +156,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString title = QString("\"%1\" %2").arg(slist.at(0)).arg(tr("is synchronized"));
             QString buf = slist.at(2);
 
-            seafApplet->trayIcon()->notify(title, buf);
+            seafApplet->trayIcon()->notify(title, buf.trimmed());
 
         } else if (strcmp(type, "sync.access_denied") == 0) {
             /* format: <repo_name\trepo_id> */

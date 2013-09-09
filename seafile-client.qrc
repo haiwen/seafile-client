@@ -1,11 +1,13 @@
 <RCC>
 <qresource>
     <file>images/seafile.png</file>
-    <file>images/account.svg</file>
-    <file>images/repo.svg</file>
-    <file>images/refresh.svg</file>
     <file>images/account.png</file>
+    <file>images/account.svg</file>
     <file>images/repo.png</file>
+    <file>images/repo.svg</file>
+    <file>images/encrypted-repo.png</file>
+    <file>images/encrypted-repo.svg</file>
+    <file>images/refresh.svg</file>
     <file>images/loading.gif</file>
     <file>images/daemon_up.png</file>
     <file>images/daemon_down.png</file>

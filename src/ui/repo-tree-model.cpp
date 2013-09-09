@@ -46,7 +46,7 @@ void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
     for (row = 0; row < n; row++) {
         RepoItem *item = (RepoItem *)(my_repos_catetory_->child(row));
         if (item->repo().id == repo.id) {
-            item->setRepo(repo);
+            updateRepoItem(item, repo);
             return;
         }
     }
@@ -62,7 +62,7 @@ void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
     for (row = 0; row < n; row++) {
         RepoItem *item = (RepoItem *)(shared_repos_catetory_->child(row));
         if (item->repo().id == repo.id) {
-            item->setRepo(repo);
+            updateRepoItem(item, repo);
             return;
         }
     }
@@ -98,7 +98,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
     for (row = 0; row < n; row++) {
         RepoItem *item = (RepoItem *)(group->child(row));
         if (item->repo().id == repo.id) {
-            item->setRepo(repo);
+            updateRepoItem(item, repo);
             return;
         }
     }
@@ -106,4 +106,11 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
     // Current repo not in this group yet
     RepoItem *item = new RepoItem(repo);
     group->appendRow(item);
+}
+
+void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)
+{
+    if (item->setRepo(repo)) {
+        emit itemChanged(item);
+    }
 }

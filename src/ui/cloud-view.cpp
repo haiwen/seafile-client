@@ -8,8 +8,10 @@
 #include "api/requests.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
-#include "repo-tree-model.h"
 #include "login-dialog.h"
+#include "repo-tree-view.h"
+#include "repo-tree-model.h"
+#include "repo-item-delegate.h"
 #include "cloud-view.h"
 
 namespace {
@@ -28,9 +30,11 @@ CloudView::CloudView(QWidget *parent)
       in_refresh_(false),
       list_repo_req_(NULL)
 {
-    repos_tree_ = new QTreeView;
+    repos_tree_ = new RepoTreeView;
     repos_model_ = new RepoTreeModel;
+
     repos_tree_->setModel(repos_model_);
+    repos_tree_->setItemDelegate(new RepoItemDelegate);
 
     createLoadingView();
 

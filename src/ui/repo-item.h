@@ -19,7 +19,7 @@ class RepoItem : public QStandardItem {
 public:
     RepoItem(const ServerRepo& repo);
 
-    void setRepo(const ServerRepo& repo);
+    bool setRepo(const ServerRepo& repo);
 
     virtual int type() const { return REPO_ITEM_TYPE; }
 

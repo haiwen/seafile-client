@@ -4,8 +4,11 @@
 #include <vector>
 #include <QStandardItemModel>
 
+class QModelIndex;
+
 class ServerRepo;
 class RepoCategoryItem;
+class RepoItem;
 
 /**
  * Tree model for repos. There are two levels of items:
@@ -38,6 +41,7 @@ private:
     void checkSharedRepo(const ServerRepo& repo);
     void checkGroupRepo(const ServerRepo& repo);
     void initialize();
+    void updateRepoItem(RepoItem *item, const ServerRepo& repo);
     
     RepoCategoryItem *my_repos_catetory_;
     RepoCategoryItem *shared_repos_catetory_;

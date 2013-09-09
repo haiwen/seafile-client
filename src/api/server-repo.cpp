@@ -1,5 +1,6 @@
 #include <vector>
 #include <jansson.h>
+#include <QPixmap>
 
 #include "server-repo.h"
 #include "requests.h"
@@ -52,5 +53,18 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
 
 QIcon ServerRepo::getIcon() const
 {
-    return QIcon(":/images/repo.svg");
+    if (encrypted) {
+        return QIcon(":/images/encrypted-repo.svg");
+    } else {
+        return QIcon(":/images/repo.svg");
+    }
+}
+
+QPixmap ServerRepo::getPixmap() const
+{
+    if (encrypted) {
+        return QPixmap(":/images/encrypted-repo.svg");
+    } else {
+        return QPixmap(":/images/repo.svg");
+    }
 }

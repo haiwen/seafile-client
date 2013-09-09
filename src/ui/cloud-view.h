@@ -11,10 +11,10 @@ class QShowEvent;
 class QHideEvent;
 class QWidgetAction;
 class QToolButton;
-class QTreeView;
 
 class ListReposRequest;
 class ServerRepo;
+class RepoTreeView;
 class RepoTreeModel;
 
 class CloudView : public QWidget
@@ -50,12 +50,14 @@ private:
     void showRepos();
     bool hasAccount();
 
-
     bool in_refresh_;
-    QTreeView *repos_tree_;
+    QTimer *refresh_timer_;
+
     RepoTreeModel *repos_model_;
 
-    QTimer *refresh_timer_;
+    RepoTreeView *repos_tree_;
+    QWidget *loading_view_;
+
     ListReposRequest *list_repo_req_;
 
     // FolderDropArea *drop_area_;
@@ -68,8 +70,6 @@ private:
     QMenu *account_menu_;
     QWidgetAction *account_widget_action_;
     QToolButton *account_tool_button_;
-
-    QWidget *loading_view_;
 };
 
 

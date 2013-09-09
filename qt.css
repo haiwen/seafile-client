@@ -41,7 +41,7 @@ MainWindow QTabBar::tab {
     max-width: 160px;
     min-height: 25px;
     max-height: 25px;
-    
+
     padding: 5px;
 }
 

@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMetaType>
 #include <QIcon>
+#include <QPixmap>
 #include <jansson.h>
 
 /**
@@ -35,6 +36,7 @@ public:
     bool isGroupRepo() const { return type == "grepo"; }
 
     QIcon getIcon() const;
+    QPixmap getPixmap() const;
 
     static ServerRepo fromJSON(const json_t*, json_error_t *error);
     static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);

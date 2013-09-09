@@ -9,9 +9,9 @@ RepoItem::RepoItem(const ServerRepo& repo)
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 }
 
-void RepoItem::setRepo(const ServerRepo& repo) {
+bool RepoItem::setRepo(const ServerRepo& repo) {
     repo_ = repo;
-    // TODO: emit changed signal if repo info changed
+    return false;
 }
 
 RepoCategoryItem::RepoCategoryItem(const QString& name)

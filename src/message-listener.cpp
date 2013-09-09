@@ -34,7 +34,7 @@ static int parse_seafile_notification (char *msg, char **type, char **body)
 }
 
 static bool
-collect_transfer_info (QString *msg, const char *info, char *repo_name)
+collect_transfer_info (QString *msg, char *info, char *repo_name)
 {
     char *p;
     if (! (p = strchr (info, '\t')))

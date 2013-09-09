@@ -52,7 +52,7 @@ void RepoTreeView::prepareContextMenu(const ServerRepo& repo)
     open_local_folder_action_->setData(QVariant::fromValue(repo));
     download_action_->setData(QVariant::fromValue(repo));
 
-    if (hasLocalRepo(repo.id)) {
+    if (seafApplet->rpcClient()->hasLocalRepo(repo.id)) {
         download_action_->setVisible(false);
         open_local_folder_action_->setVisible(true);
     } else {
@@ -60,16 +60,6 @@ void RepoTreeView::prepareContextMenu(const ServerRepo& repo)
         open_local_folder_action_->setVisible(false);
     }
 
-}
-
-bool RepoTreeView::hasLocalRepo(const QString& repo_id)
-{
-    LocalRepo repo;
-    if (seafApplet->rpcClient()->getLocalRepo(toCStr(repo_id), &repo) < 0) {
-        return false;
-    }
-
-    return true;
 }
 
 void RepoTreeView::drawBranches(QPainter *painter,
@@ -82,14 +72,19 @@ void RepoTreeView::drawBranches(QPainter *painter,
         return;
     }
 
+    const ServerRepo& repo = item->repo();
+
+    LocalRepo local_repo;
+    if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) < 0) {
+        // No local repo
+        return;
+    }
+
     painter->save();
     painter->setFont(awesome->font(kSyncStatusIconSize));
-    QString icon_text;
-    icon_text.append(QChar(icon_long_arrow_up));
-    icon_text.append(QChar(icon_long_arrow_down));
     painter->drawText(rect,
                       Qt::AlignCenter | Qt::AlignVCenter,
-                      icon_text);
+                      QChar(icon_refresh));
     painter->restore();
 }
 

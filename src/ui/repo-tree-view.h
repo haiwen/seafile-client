@@ -30,7 +30,6 @@ private:
 
     void createContextMenu();
     void prepareContextMenu(const ServerRepo& repo);
-    bool hasLocalRepo(const QString& repo_id);
 
     QMenu *context_menu_;
     QAction *download_action_;

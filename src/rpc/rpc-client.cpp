@@ -176,7 +176,7 @@ int SeafileRpcClient::getLocalRepo(const QString& repo_id, LocalRepo *repo)
 int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
 {
     GError *error = NULL;
-    char *ret = searpc_client_call__string (ccnet_rpc_client_, 
+    char *ret = searpc_client_call__string (ccnet_rpc_client_,
                                             "get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
@@ -189,7 +189,7 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
 int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
 {
     GError *error = NULL;
-    char *ret = searpc_client_call__string (seafile_rpc_client_, 
+    char *ret = searpc_client_call__string (seafile_rpc_client_,
                                                "seafile_get_config", &error,
                                                1, "string", toCStr(key));
     if (error) {
@@ -202,7 +202,7 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
 int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
 {
     GError *error = NULL;
-    *value = searpc_client_call__int (seafile_rpc_client_, 
+    *value = searpc_client_call__int (seafile_rpc_client_,
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
@@ -214,7 +214,7 @@ int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
 int SeafileRpcClient::ccnetSetConfig(const QString &key, const QString &value)
 {
     GError *error = NULL;
-    searpc_client_call__int (ccnet_rpc_client_, 
+    searpc_client_call__int (ccnet_rpc_client_,
                              "set_config", &error,
                              2, "string", toCStr(key),
                              "string", toCStr(value));
@@ -227,7 +227,7 @@ int SeafileRpcClient::ccnetSetConfig(const QString &key, const QString &value)
 int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
 {
     GError *error = NULL;
-    searpc_client_call__int (seafile_rpc_client_, 
+    searpc_client_call__int (seafile_rpc_client_,
                              "seafile_set_config", &error,
                              2, "string", toCStr(key),
                              "string", toCStr(value));
@@ -240,7 +240,7 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
 int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
 {
     GError *error = NULL;
-    searpc_client_call__int (seafile_rpc_client_, 
+    searpc_client_call__int (seafile_rpc_client_,
                              "seafile_set_config", &error,
                              2, "string", toCStr(key),
                              "int", value);
@@ -248,4 +248,14 @@ int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
         return -1;
     }
     return 0;
+}
+
+bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
+{
+    LocalRepo repo;
+    if (getLocalRepo(repo_id, &repo) < 0) {
+        return false;
+    }
+
+    return true;
 }

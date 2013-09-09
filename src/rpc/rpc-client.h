@@ -43,6 +43,9 @@ public:
     int seafileSetConfig(const QString &key, const QString &value);
     int seafileSetConfigInt(const QString &key, int value);
 
+    // Helper functions
+    bool hasLocalRepo(const QString& repo_id);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

@@ -31,6 +31,31 @@ const int kRepoStatusIconHeight = 48;
 const int kMargin1 = 5;
 const int kMargin2= 5;
 
+QString fitTextToWidth(const QString& text, const QFont& font, int width)
+{
+    static QString ELLIPSISES = "...";
+
+	QFontMetrics qfm(font);
+	QSize size = qfm.size(0, text);
+	if (size.width() <= width)
+		return text;				// it fits, so just display it
+
+	// doesn't fit, so we need to truncate and add ellipses
+	QSize sizeElippses = qfm.size(0, ELLIPSISES); // we need to cut short enough to add these
+	QString s = text;
+	while (s.length() > 20)     // never cut shorter than this...
+	{
+		int len = s.length();
+		s = text.left(len-1);
+		size = qfm.size(0, s);
+		if (size.width() <= (width - sizeElippses.width()))
+			break;              // we are finally short enough
+	}
+
+	return (s + ELLIPSISES);
+}
+
+
 } // namespace
 
 RepoItemDelegate::RepoItemDelegate(QObject *parent)
@@ -76,12 +101,14 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QBrush backBrush;
     QColor foreColor;
     bool hover = false;
+    bool selected = false;
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = option.palette.brush(QPalette::Highlight);
         foreColor = option.palette.color(QPalette::HighlightedText);
+        selected = true;
 
     } else if (option.state & QStyle::State_MouseOver) {
-        backBrush = option.palette.color( QPalette::Highlight ).light(115);
+        backBrush = option.palette.color( QPalette::Highlight ).lighter(115);
         foreColor = option.palette.color( QPalette::HighlightedText );
         hover = true;
 
@@ -95,8 +122,8 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (hover)
     {
         Qt::BrushStyle bs = opt.backgroundBrush.style();
-        if ( bs > Qt::NoBrush && bs < Qt::TexturePattern )
-            opt.backgroundBrush = opt.backgroundBrush.color().light( 115 );
+        if (bs > Qt::NoBrush && bs < Qt::TexturePattern)
+            opt.backgroundBrush = opt.backgroundBrush.color().lighter(115);
         else
             opt.backgroundBrush = backBrush;
     }
@@ -106,16 +133,27 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 
     QPoint repo_icon_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     repo_icon_pos += option.rect.topLeft();
+    painter->save();
     painter->drawPixmap(repo_icon_pos,
                         repo.getPixmap().scaled(kRepoIconWidth, kRepoIconHeight));
+    painter->restore();
 
-    QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidth, kMargin1);
-    QRect repo_name_rect(repo_name_pos, QSize(kRepoNameWidth, kRepoNameHeight));
     painter->save();
+    QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidth, 0);
+    QRect repo_name_rect(repo_name_pos, QSize(kRepoNameWidth, kRepoNameHeight));
     painter->setPen(foreColor);
     painter->drawText(repo_name_rect,
-                      Qt::AlignLeft | Qt::AlignVCenter | Qt::TextWordWrap | Qt::TextWrapAnywhere,
-                      repo.name, &repo_name_rect);
+                      Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+                      fitTextToWidth(repo.name, option.font, kRepoNameWidth),
+                      &repo_name_rect);
+
+    QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 10);
+    QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
+    painter->setPen((selected | hover) ? foreColor.darker() : foreColor.lighter());
+    painter->drawText(repo_desc_rect,
+                      Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+                      fitTextToWidth(repo.description, option.font, kRepoNameWidth),
+                      &repo_desc_rect);
     painter->restore();
 }
 

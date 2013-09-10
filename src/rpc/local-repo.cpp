@@ -41,14 +41,10 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
-QIcon LocalRepo::getIcon() {
-    return QIcon(":/images/repo.svg");
-}
-
 void LocalRepo::setSyncInfo(QString state, QString error)
 {
-    qDebug("error: %s\n", toCStr(error));
-    qDebug("state: %s\n", toCStr(state));
+    // qDebug("error: %s\n", toCStr(error));
+    // qDebug("state: %s\n", toCStr(state));
     if (error.length() > 0) {
         translateSyncError(error);
     } else {

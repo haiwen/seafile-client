@@ -5,9 +5,9 @@
 class QAction;
 class QContextMenuEvent;
 class QModelIndex;
+class QStandardItem;
 
 class RepoItem;
-class ServerRepo;
 
 class RepoTreeView : public QTreeView {
     Q_OBJECT
@@ -16,21 +16,18 @@ public:
 
 protected:
     virtual void contextMenuEvent(QContextMenuEvent *event);
-    void drawBranches(QPainter *painter,
-                      const QRect& rect,
-                      const QModelIndex & index) const;
 
 private slots:
     void downloadRepo();
     void showRepoDetail();
     void openLocalFolder();
+    void onItemClicked(const QModelIndex& index);
 
 private:
-    RepoItem* getRepoItem(const QModelIndex &index) const;
+    QStandardItem* getRepoItem(const QModelIndex &index) const;
 
     void createContextMenu();
-    void prepareContextMenu(const ServerRepo& repo);
-    QChar getSyncStatusIcon(const ServerRepo& repo) const;
+    void prepareContextMenu(const RepoItem *item);
 
     QMenu *context_menu_;
     QAction *download_action_;

@@ -32,6 +32,7 @@ CloudView::CloudView(QWidget *parent)
 {
     repos_tree_ = new RepoTreeView;
     repos_model_ = new RepoTreeModel;
+    repos_model_->setTreeView(repos_tree_);
 
     repos_tree_->setModel(repos_model_);
     repos_tree_->setItemDelegate(new RepoItemDelegate);
@@ -253,3 +254,4 @@ void CloudView::deleteAccount()
         current_account_ = Account();
     }
 }
+

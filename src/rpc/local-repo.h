@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QIcon>
+#include <QMetaType>
 
 struct _GObject;
 
@@ -51,12 +52,16 @@ public:
         return !(*this == rhs);
     }
 
-    QIcon getIcon();
+    bool isValid() const { return id.length() > 0; }
+
+    QIcon getIcon() const;
     void setSyncInfo(QString state, QString error = QString());
 
 private:
     void translateSyncError(QString error);
     void translateSyncState(QString state);
 };
+
+Q_DECLARE_METATYPE(LocalRepo)
 
 #endif // SEAFILE_CLIENT_LOCAL_REPO_H

@@ -9,6 +9,8 @@ class QModelIndex;
 class ServerRepo;
 class RepoCategoryItem;
 class RepoItem;
+class QTimer;
+class RepoTreeView;
 
 /**
  * Tree model for repos. There are two levels of items:
@@ -36,6 +38,12 @@ public:
 
     void clear();
 
+    void setTreeView(RepoTreeView *view) { tree_view_ = view; }
+    RepoTreeView* treeView() { return tree_view_; }
+
+private slots:
+    void refreshLocalRepos();
+
 private:
     void checkPersonalRepo(const ServerRepo& repo);
     void checkSharedRepo(const ServerRepo& repo);
@@ -45,6 +53,10 @@ private:
     
     RepoCategoryItem *my_repos_catetory_;
     RepoCategoryItem *shared_repos_catetory_;
+
+    QTimer *refresh_local_timer_;
+
+    RepoTreeView *tree_view_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_MODEL_H

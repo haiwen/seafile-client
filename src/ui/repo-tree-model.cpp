@@ -1,13 +1,28 @@
 #include <QMap>
+#include <QTimer>
 
 #include "api/server-repo.h"
+#include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "repo-item.h"
 #include "repo-tree-model.h"
+
+namespace {
+
+const int kRefreshLocalReposInterval = 1000;
+
+} // namespace
 
 
 RepoTreeModel::RepoTreeModel(QObject *parent) : QStandardItemModel(parent)
 {
     initialize();
+
+    refresh_local_timer_ = new QTimer(this);
+    connect(refresh_local_timer_, SIGNAL(timeout()),
+            this, SLOT(refreshLocalRepos()));
+
+    refresh_local_timer_->start(kRefreshLocalReposInterval);
 }
 
 void RepoTreeModel::initialize()
@@ -112,5 +127,24 @@ void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)
 {
     if (item->setRepo(repo)) {
         emit itemChanged(item);
+    }
+}
+
+void RepoTreeModel::refreshLocalRepos()
+{
+    int row, n;
+
+    n = my_repos_catetory_->rowCount();
+    for (row = 0; row < n; row++) {
+        RepoItem *item = (RepoItem *)(my_repos_catetory_->child(row));
+
+        LocalRepo local_repo;
+        seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
+        if (local_repo != item->localRepo()) {
+            item->setLocalRepo(local_repo);
+            qDebug("item changed for %s\n", item->repo().name.toUtf8().data());
+            QModelIndex index = indexFromItem(item);
+            emit dataChanged(index,index);
+        }
     }
 }

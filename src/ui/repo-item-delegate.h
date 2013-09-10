@@ -4,6 +4,8 @@
 #include <QStyledItemDelegate>
 
 class RepoItem;
+class RepoCategoryItem;
+class QStandardItem;
 class QModelIndex;
 class ServerRepo;
 
@@ -22,10 +24,22 @@ public:
 private:
     void matchCurrentItem(const QStyleOptionViewItem& option,
                           const ServerRepo& repo) const;
-    RepoItem* getRepoItem(const QModelIndex &index) const;
+    QStandardItem* getItem(const QModelIndex &index) const;
     void paintRepoItem(QPainter *painter,
                        const QStyleOptionViewItem& opt,
-                       const ServerRepo& repo) const;
+                       const RepoItem *item) const;
+
+    void paintRepoCategoryItem(QPainter *painter,
+                               const QStyleOptionViewItem& opt,
+                               const RepoCategoryItem *item) const;
+
+    QSize sizeHintForRepoCategoryItem(const QStyleOptionViewItem &option,
+                                      const RepoCategoryItem *item) const;
+                                      
+    QSize sizeHintForRepoItem(const QStyleOptionViewItem &option,
+                              const RepoItem *item) const;
+
+    QChar getSyncStatusIcon(const RepoItem *item) const;
 };
 
 

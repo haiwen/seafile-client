@@ -7,7 +7,6 @@
 
 #include "QtAwesome.h"
 #include "cloud-view.h"
-#include "local-view.h"
 #include "seafile-applet.h"
 #include "login-dialog.h"
 #include "main-window.h"
@@ -29,20 +28,14 @@ MainWindow::MainWindow()
     setWindowTitle("Seafile");
 
     cloud_view_ = new CloudView;
-    local_view_ = new LocalView;
 
-    main_widget_ = new QTabWidget(this);
-    main_widget_->insertTab(INDEX_CLOUD_VIEW,
-                            cloud_view_,
-                            awesome->icon(icon_cloud),
-                            tr("Cloud"));
+    // main_widget_ = new QTabWidget(this);
+    // main_widget_->insertTab(INDEX_CLOUD_VIEW,
+    //                         cloud_view_,
+    //                         awesome->icon(icon_cloud),
+    //                         tr("Cloud"));
 
-    main_widget_->insertTab(INDEX_LOCAL_VIEW,
-                            local_view_,
-                            QIcon(":/images/repo.svg"),
-                            tr("Local"));
-
-    setCentralWidget(main_widget_);
+    setCentralWidget(cloud_view_);
 
     createActions();
     createToolBar();

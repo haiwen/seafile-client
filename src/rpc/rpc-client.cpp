@@ -263,7 +263,7 @@ bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
 
 void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 {
-    if (!seafApplet->settingsManager()->autoSync()) {
+    if (!repo.auto_sync || !seafApplet->settingsManager()->autoSync()) {
         repo.setSyncInfo("auto sync is turned off");
         return;
     }

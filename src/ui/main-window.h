@@ -12,7 +12,6 @@ class QWidgetAction;
 class QMenu;
 
 class CloudView;
-class LocalView;
 
 class MainWindow : public QMainWindow
 {
@@ -49,7 +48,6 @@ private:
     QTabWidget *main_widget_;
 
     CloudView *cloud_view_;
-    LocalView *local_view_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

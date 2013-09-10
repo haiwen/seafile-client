@@ -12,17 +12,19 @@
 #include "repo-tree-model.h"
 #include "repo-tree-view.h"
 
-namespace {
-
-const int kSyncStatusIconSize = 16;
-
-}
-
 RepoTreeView::RepoTreeView(QWidget *parent)
     : QTreeView(parent)
 {
     header()->hide();
     createContextMenu();
+
+    // We draw the indicator ourselves
+    setIndentation(0);
+    // We handle the click oursevles
+    setExpandsOnDoubleClick(false);
+
+    connect(this, SIGNAL(clicked(const QModelIndex&)),
+            this, SLOT(onItemClicked(const QModelIndex&)));
 }
 
 void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
@@ -34,26 +36,23 @@ void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
         return;
     }
 
-    RepoItem *item = getRepoItem(index);
-    if (!item) {
+    QStandardItem *item = getRepoItem(index);
+    if (!item || item->type() != REPO_ITEM_TYPE) {
         return;
     }
 
-    prepareContextMenu(item->repo());
+    prepareContextMenu((RepoItem *)item);
     pos = viewport()->mapToGlobal(pos);
     context_menu_->exec(pos);
 }
 
-void RepoTreeView::prepareContextMenu(const ServerRepo& repo)
+void RepoTreeView::prepareContextMenu(const RepoItem *item)
 {
-    qDebug("repo id is %s\n", toCStr(repo.id));
-
-    show_detail_action_->setData(QVariant::fromValue(repo));
-    open_local_folder_action_->setData(QVariant::fromValue(repo));
-    download_action_->setData(QVariant::fromValue(repo));
-
-    if (seafApplet->rpcClient()->hasLocalRepo(repo.id)) {
+    if (item->localRepo().isValid()) {
         download_action_->setVisible(false);
+        download_action_->setData(QVariant::fromValue(item->repo()));
+
+        open_local_folder_action_->setData(QVariant::fromValue(item->localRepo()));
         open_local_folder_action_->setVisible(true);
     } else {
         download_action_->setVisible(true);
@@ -62,61 +61,18 @@ void RepoTreeView::prepareContextMenu(const ServerRepo& repo)
 
 }
 
-void RepoTreeView::drawBranches(QPainter *painter,
-                                const QRect& rect,
-                                const QModelIndex& index) const
-{
-    RepoItem *item = getRepoItem(index);
-    if (!item) {
-        QTreeView::drawBranches(painter, rect, index);
-        return;
-    }
-
-    painter->save();
-    painter->setFont(awesome->font(kSyncStatusIconSize));
-    painter->drawText(rect,
-                      Qt::AlignCenter | Qt::AlignVCenter,
-                      getSyncStatusIcon(item->repo()));
-    painter->restore();
-}
-
-QChar RepoTreeView::getSyncStatusIcon(const ServerRepo& repo) const
-{
-    LocalRepo local_repo;
-    if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) < 0) {
-        // No local repo, return a cloud icon to indicate this
-        return icon_cloud;
-    } else {
-        // Has local repo, return an icon according to sync status
-        switch (local_repo.sync_state) {
-        case LocalRepo::SYNC_STATE_DONE:
-            return icon_ok;
-        case LocalRepo::SYNC_STATE_ING:
-            return icon_refresh;
-        case LocalRepo::SYNC_STATE_ERROR:
-            return icon_exclamation;
-        case LocalRepo::SYNC_STATE_WAITING:
-            return icon_pause;
-        case LocalRepo::SYNC_STATE_DISABLED:
-            return icon_minus_sign;
-        case LocalRepo::SYNC_STATE_UNKNOWN:
-            return icon_question_sign;
-        }
-    }
-}
-
-RepoItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
+QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
 {
     if (!index.isValid()) {
         return NULL;
     }
     const RepoTreeModel *model = (const RepoTreeModel*)index.model();
     QStandardItem *item = model->itemFromIndex(index);
-    if (item->type() != REPO_ITEM_TYPE) {
-        // qDebug("drawBranches: %s\n", item->data(Qt::DisplayRole).toString().toUtf8().data());
+    if (item->type() != REPO_ITEM_TYPE &&
+        item->type() != REPO_CATEGORY_TYPE) {
         return NULL;
     }
-    return (RepoItem *)item;
+    return item;
 }
 
 void RepoTreeView::createContextMenu()
@@ -158,12 +114,25 @@ void RepoTreeView::showRepoDetail()
 
 void RepoTreeView::openLocalFolder()
 {
-    ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
+    LocalRepo repo = qvariant_cast<LocalRepo>(open_local_folder_action_->data());
+    open_dir(repo.worktree);
+}
 
-    LocalRepo local_repo;
-    if (seafApplet->rpcClient()->getLocalRepo(toCStr(repo.id), &local_repo) < 0) {
+void RepoTreeView::onItemClicked(const QModelIndex& index)
+{
+    QStandardItem *item = getRepoItem(index);
+    if (!item) {
         return;
     }
-
-    open_dir(local_repo.worktree);
+    if (item->type() == REPO_ITEM_TYPE) {
+        return;
+    } else {
+        // A repo category item
+        if (isExpanded(index)) {
+            collapse(index);
+        } else {
+            expand(index);
+        }
+    }
 }
+      

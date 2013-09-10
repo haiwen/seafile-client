@@ -1,3 +1,5 @@
+#include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "repo-item.h"
 
 RepoItem::RepoItem(const ServerRepo& repo)
@@ -7,10 +9,14 @@ RepoItem::RepoItem(const ServerRepo& repo)
     setData(repo.name, Qt::DisplayRole);
 
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+    seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo_);
 }
 
 bool RepoItem::setRepo(const ServerRepo& repo) {
     repo_ = repo;
+    seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo_);
+
     return false;
 }
 

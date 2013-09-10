@@ -3,6 +3,7 @@
 
 #include <QStandardItem>
 #include "api/server-repo.h"
+#include "rpc/local-repo.h"
 
 #define MY_REPOS "My Libraries"
 #define SHARED_REPOS "Shared Libraries"
@@ -20,13 +21,16 @@ public:
     RepoItem(const ServerRepo& repo);
 
     bool setRepo(const ServerRepo& repo);
+    bool setLocalRepo(const LocalRepo& repo) { local_repo_ = repo; }
 
     virtual int type() const { return REPO_ITEM_TYPE; }
 
     const ServerRepo& repo() const { return repo_; }
+    const LocalRepo& localRepo() const { return local_repo_; }
 
 private:
     ServerRepo repo_;
+    LocalRepo local_repo_;
 };
 
 /**

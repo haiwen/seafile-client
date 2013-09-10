@@ -11,6 +11,7 @@ extern "C" {
 #include <QtDebug>
 #include "seafile-applet.h"
 #include "configurator.h"
+#include "settings-mgr.h"
 
 #include "utils/utils.h"
 #include "local-repo.h"
@@ -167,9 +168,9 @@ int SeafileRpcClient::getLocalRepo(const QString& repo_id, LocalRepo *repo)
     }
 
     *repo = LocalRepo::fromGObject(obj);
-
     g_object_unref(obj);
 
+    getSyncStatus(*repo);
     return 0;
 }
 
@@ -258,4 +259,40 @@ bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
     }
 
     return true;
+}
+
+void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
+{
+    if (!seafApplet->settingsManager()->autoSync()) {
+        repo.setSyncInfo("auto sync is turned off");
+        return;
+    }
+
+    GError *error = NULL;
+    SeafileSyncTask *task = (SeafileSyncTask *)
+        searpc_client_call__object (seafile_rpc_client_,
+                                    "seafile_get_repo_sync_task",
+                                    SEAFILE_TYPE_SYNC_TASK,
+                                    &error, 1,
+                                    "string", toCStr(repo.id));
+    if (error) {
+        repo.setSyncInfo("unknown");
+        return;
+    }
+
+    if (!task) {
+        repo.setSyncInfo("waiting for sync");
+        return;
+    }
+
+    char *state = NULL;
+    char *err = NULL;
+    g_object_get(task, "state", &state, "error", &err, NULL);
+
+    repo.setSyncInfo(state,
+                     g_strcmp0(state, "error") == 0 ? err : NULL);
+
+    g_free (state);
+    g_free (err);
+    g_object_unref(task);
 }

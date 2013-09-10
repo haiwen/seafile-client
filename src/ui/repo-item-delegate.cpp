@@ -168,7 +168,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo description
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
     QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
-    painter->setPen((selected | hover) ? foreColor.darker() : foreColor.lighter());
+    painter->setPen(selected ? foreColor.darker(115) : foreColor.lighter(150));
     painter->setFont(zoomFont(painter->font(), 0.8));
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
@@ -176,19 +176,19 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                       &repo_desc_rect);
     painter->restore();
 
-    if (seafApplet->rpcClient()->hasLocalRepo(repo.id)) {
-        return;
-    }
+    // if (seafApplet->rpcClient()->hasLocalRepo(repo.id)) {
+    //     return;
+    // }
 
     // Paint a cloud for repos not in local
-    painter->save();
-    painter->setFont(awesome->font(24));
-    QRect cloud_icon_rect(option.rect.topRight() + QPoint(-32, 0),
-                          QSize(32, option.rect.height()));
-    painter->drawText(cloud_icon_rect,
-                      Qt::AlignCenter,
-                      QChar(icon_cloud));
-    painter->restore();
+    // painter->save();
+    // painter->setFont(awesome->font(24));
+    // QRect cloud_icon_rect(option.rect.topRight() + QPoint(-32, 0),
+    //                       QSize(32, option.rect.height()));
+    // painter->drawText(cloud_icon_rect,
+    //                   Qt::AlignCenter,
+    //                   QChar(icon_cloud));
+    // painter->restore();
 }
 
 

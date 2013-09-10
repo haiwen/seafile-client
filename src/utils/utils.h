@@ -1,6 +1,9 @@
 #ifndef SEAFILE_CLIENT_UTILS_H_
 #define SEAFILE_CLIENT_UTILS_H_
 
+#include <QString>
+#include <QDir>
+
 #if defined(XCODE_APP)
 #define RESOURCE_PATH(_name)  (QDir(QCoreApplication::applicationDirPath()).filePath(QString("../Resources/")+(_name)))
 #else

@@ -72,20 +72,37 @@ void RepoTreeView::drawBranches(QPainter *painter,
         return;
     }
 
-    const ServerRepo& repo = item->repo();
-
-    LocalRepo local_repo;
-    if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) < 0) {
-        // No local repo
-        return;
-    }
-
     painter->save();
     painter->setFont(awesome->font(kSyncStatusIconSize));
     painter->drawText(rect,
                       Qt::AlignCenter | Qt::AlignVCenter,
-                      QChar(icon_refresh));
+                      getSyncStatusIcon(item->repo()));
     painter->restore();
+}
+
+QChar RepoTreeView::getSyncStatusIcon(const ServerRepo& repo) const
+{
+    LocalRepo local_repo;
+    if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) < 0) {
+        // No local repo, return a cloud icon to indicate this
+        return icon_cloud;
+    } else {
+        // Has local repo, return an icon according to sync status
+        switch (local_repo.sync_state) {
+        case LocalRepo::SYNC_STATE_DONE:
+            return icon_ok;
+        case LocalRepo::SYNC_STATE_ING:
+            return icon_refresh;
+        case LocalRepo::SYNC_STATE_ERROR:
+            return icon_exclamation;
+        case LocalRepo::SYNC_STATE_WAITING:
+            return icon_pause;
+        case LocalRepo::SYNC_STATE_DISABLED:
+            return icon_minus_sign;
+        case LocalRepo::SYNC_STATE_UNKNOWN:
+            return icon_question_sign;
+        }
+    }
 }
 
 RepoItem* RepoTreeView::getRepoItem(const QModelIndex &index) const

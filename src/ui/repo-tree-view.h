@@ -30,6 +30,7 @@ private:
 
     void createContextMenu();
     void prepareContextMenu(const ServerRepo& repo);
+    QChar getSyncStatusIcon(const ServerRepo& repo) const;
 
     QMenu *context_menu_;
     QAction *download_action_;

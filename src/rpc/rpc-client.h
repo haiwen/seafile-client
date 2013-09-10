@@ -43,6 +43,8 @@ public:
     int seafileSetConfig(const QString &key, const QString &value);
     int seafileSetConfigInt(const QString &key, int value);
 
+    void getSyncStatus(LocalRepo &repo);
+
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
 

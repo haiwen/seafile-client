@@ -22,6 +22,10 @@ struct Account {
     bool operator!=(const Account& rhs) const {
         return !(*this == rhs);
     }
+
+    bool isValid() const {
+        return token.length() > 0;
+    }
 };
 
 Q_DECLARE_METATYPE(Account)

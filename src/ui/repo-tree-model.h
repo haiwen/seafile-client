@@ -50,6 +50,7 @@ private:
     void checkGroupRepo(const ServerRepo& repo);
     void initialize();
     void updateRepoItem(RepoItem *item, const ServerRepo& repo);
+    void refrefshReposInCategory(RepoCategoryItem *category);
     
     RepoCategoryItem *my_repos_catetory_;
     RepoCategoryItem *shared_repos_catetory_;

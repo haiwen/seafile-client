@@ -32,7 +32,7 @@ const int kRepoNameHeight = 30;
 const int kRepoStatusIconWidth = 16;
 const int kRepoStatusIconHeight = 16;
 
-const int kRepoCategoryMaxWidth = 400;
+const int kRepoCategoryNameMaxWidth = 400;
 const int kRepoCategoryIndicatorWidth = 16;
 const int kRepoCategoryIndicatorHeight = 16;
 const int kMarginBetweenIndicatorAndName = 5;
@@ -100,6 +100,7 @@ QSize RepoItemDelegate::sizeHint(const QStyleOptionViewItem &option,
     if (item->type() == REPO_ITEM_TYPE) {
         return sizeHintForRepoItem(option, (const RepoItem *)item);
     } else {
+        // return QStyledItemDelegate::sizeHint(option, index);
         return sizeHintForRepoCategoryItem(option, (const RepoCategoryItem *)item);
     }
 }
@@ -128,7 +129,9 @@ QSize RepoItemDelegate::sizeHintForRepoCategoryItem(const QStyleOptionViewItem &
 	QFontMetrics qfm(option.font);
     QSize size = qfm.size(0, item->name());
 
-    width = qMin(size.width(), kRepoCategoryMaxWidth + kRepoCategoryIndicatorWidth);
+    width = qMin(size.width(), kRepoCategoryIndicatorWidth)
+        + kMarginBetweenIndicatorAndName + kRepoCategoryNameMaxWidth;
+
     height = qMax(size.height(), kRepoCategoryIndicatorHeight) + kPadding;
 
     // qDebug("width = %d, height = %d\n", width, height);
@@ -150,6 +153,7 @@ void RepoItemDelegate::paint(QPainter *painter,
     if (item->type() == REPO_ITEM_TYPE) {
         paintRepoItem(painter, option, (RepoItem *)item);
     } else {
+        // QStyledItemDelegate::paint(painter, option, index);
         paintRepoCategoryItem(painter, option, (RepoCategoryItem *)item);
     }
 }
@@ -240,31 +244,25 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QColor foreColor;
     bool hover = false;
     bool selected = false;
+
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = option.palette.brush(QPalette::Highlight);
         foreColor = option.palette.color(QPalette::HighlightedText);
         selected = true;
 
     } else if (option.state & QStyle::State_MouseOver) {
-        backBrush = option.palette.color( QPalette::Highlight ).lighter(115);
-        foreColor = option.palette.color( QPalette::HighlightedText );
+        backBrush = option.palette.color(QPalette::Highlight).lighter(115);
+        foreColor = option.palette.color(QPalette::HighlightedText);
         hover = true;
 
     } else {
-        backBrush = option.palette.brush( QPalette::Base );
-        foreColor = option.palette.color( QPalette::Text );
+        backBrush = option.palette.brush(QPalette::Base);
+        foreColor = option.palette.color(QPalette::Text);
     }
 
     QStyle *style = QApplication::style();
     QStyleOptionViewItemV4 opt(option);
-    if (hover)
-    {
-        Qt::BrushStyle bs = opt.backgroundBrush.style();
-        if (bs > Qt::NoBrush && bs < Qt::TexturePattern)
-            opt.backgroundBrush = opt.backgroundBrush.color().lighter(115);
-        else
-            opt.backgroundBrush = backBrush;
-    }
+    opt.backgroundBrush = backBrush;
     painter->save();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, 0);
     painter->restore();

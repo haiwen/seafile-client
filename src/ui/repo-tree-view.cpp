@@ -1,6 +1,6 @@
 #include <QtGui>
 #include <QHeaderView>
-#include <QPainter>
+#include <QDesktopServices>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -8,12 +8,14 @@
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "sync-repo-dialog.h"
+#include "cloud-view.h"
 #include "repo-item.h"
 #include "repo-tree-model.h"
 #include "repo-tree-view.h"
 
-RepoTreeView::RepoTreeView(QWidget *parent)
-    : QTreeView(parent)
+RepoTreeView::RepoTreeView(CloudView *cloud_view, QWidget *parent)
+    : QTreeView(parent),
+      cloud_view_(cloud_view)
 {
     header()->hide();
     createContextMenu();
@@ -59,6 +61,7 @@ void RepoTreeView::prepareContextMenu(const RepoItem *item)
         open_local_folder_action_->setVisible(false);
     }
 
+    view_on_web_action_->setData(item->repo().id);
 }
 
 QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
@@ -82,6 +85,7 @@ void RepoTreeView::createContextMenu()
     show_detail_action_ = new QAction(tr("&Show details"), this);
     show_detail_action_->setIcon(awesome->icon(icon_info_sign));
     show_detail_action_->setStatusTip(tr("Download this library"));
+    show_detail_action_->setIconVisibleInMenu(true);
     connect(show_detail_action_, SIGNAL(triggered()), this, SLOT(showRepoDetail()));
 
     // context_menu_->addAction(show_detail_action_);
@@ -89,16 +93,27 @@ void RepoTreeView::createContextMenu()
     download_action_ = new QAction(tr("&Download this library"), this);
     download_action_->setIcon(awesome->icon(icon_download));
     download_action_->setStatusTip(tr("Download this library"));
+    download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
     context_menu_->addAction(download_action_);
 
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
     open_local_folder_action_->setIcon(awesome->icon(icon_folder_open_alt));
-    open_local_folder_action_->setStatusTip(tr("open this folder with file manager"));
+    open_local_folder_action_->setStatusTip(tr("open local folder"));
+    open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
     context_menu_->addAction(open_local_folder_action_);
+
+    view_on_web_action_ = new QAction(tr("&View on website"), this);
+    view_on_web_action_->setIcon(awesome->icon(icon_hand_right));
+    view_on_web_action_->setStatusTip(tr("view this library on seahub"));
+    view_on_web_action_->setIconVisibleInMenu(true);
+
+    connect(view_on_web_action_, SIGNAL(triggered()), this, SLOT(viewRepoOnWeb()));
+
+    context_menu_->addAction(view_on_web_action_);
 }
 
 void RepoTreeView::downloadRepo()
@@ -115,7 +130,7 @@ void RepoTreeView::showRepoDetail()
 void RepoTreeView::openLocalFolder()
 {
     LocalRepo repo = qvariant_cast<LocalRepo>(open_local_folder_action_->data());
-    open_dir(repo.worktree);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(repo.worktree));
 }
 
 void RepoTreeView::onItemClicked(const QModelIndex& index)
@@ -135,4 +150,14 @@ void RepoTreeView::onItemClicked(const QModelIndex& index)
         }
     }
 }
-      
+
+void RepoTreeView::viewRepoOnWeb()
+{
+    QString repo_id = view_on_web_action_->data().toString();
+    const Account& account = cloud_view_->currentAccount();
+    if (account.isValid()) {
+        QUrl url = account.serverUrl;
+        url.setPath(url.path() + "/repo/" + repo_id);
+        QDesktopServices::openUrl(url);
+    }
+}

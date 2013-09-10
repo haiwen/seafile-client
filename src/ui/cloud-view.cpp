@@ -30,7 +30,7 @@ CloudView::CloudView(QWidget *parent)
       in_refresh_(false),
       list_repo_req_(NULL)
 {
-    repos_tree_ = new RepoTreeView;
+    repos_tree_ = new RepoTreeView(this);
     repos_model_ = new RepoTreeModel;
     repos_model_->setTreeView(repos_tree_);
 

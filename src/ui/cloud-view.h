@@ -24,6 +24,8 @@ public:
     CloudView(QWidget *parent=0);
     QWidgetAction *getAccountWidgetAction() { return account_widget_action_; }
 
+    const Account& currentAccount() { return current_account_; }
+
 protected:
     void showEvent(QShowEvent *event);
     void hideEvent(QHideEvent *event);

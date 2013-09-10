@@ -137,11 +137,22 @@ void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)
 
 void RepoTreeModel::refreshLocalRepos()
 {
-    int row, n;
-
-    n = my_repos_catetory_->rowCount();
+    int row;
+    int n;
+    QStandardItem *root = invisibleRootItem();
+    n = root->rowCount();
     for (row = 0; row < n; row++) {
-        RepoItem *item = (RepoItem *)(my_repos_catetory_->child(row));
+        RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
+        refrefshReposInCategory(category);
+    }
+}
+
+void RepoTreeModel::refrefshReposInCategory(RepoCategoryItem *category)
+{
+    int row, n;
+    n = category->rowCount();
+    for (row = 0; row < n; row++) {
+        RepoItem *item = (RepoItem *)(category->child(row));
 
         LocalRepo local_repo;
         seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);

@@ -13,13 +13,6 @@ RepoItem::RepoItem(const ServerRepo& repo)
     seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo_);
 }
 
-bool RepoItem::setRepo(const ServerRepo& repo) {
-    repo_ = repo;
-    seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo_);
-
-    return false;
-}
-
 RepoCategoryItem::RepoCategoryItem(const QString& name)
     : name_(name),
       group_id_(-1)

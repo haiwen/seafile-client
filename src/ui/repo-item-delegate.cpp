@@ -131,7 +131,7 @@ QSize RepoItemDelegate::sizeHintForRepoCategoryItem(const QStyleOptionViewItem &
     width = qMin(size.width(), kRepoCategoryMaxWidth + kRepoCategoryIndicatorWidth);
     height = qMax(size.height(), kRepoCategoryIndicatorHeight) + kPadding;
 
-    qDebug("width = %d, height = %d\n", width, height);
+    // qDebug("width = %d, height = %d\n", width, height);
 
     return QSize(width, height);
 }
@@ -232,20 +232,6 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->restore();
 }
 
-QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const
-{
-    if (!index.isValid()) {
-        return NULL;
-    }
-    const RepoTreeModel *model = (const RepoTreeModel*)index.model();
-    QStandardItem *item = model->itemFromIndex(index);
-    if (item->type() != REPO_ITEM_TYPE &&
-        item->type() != REPO_CATEGORY_TYPE) {
-        return NULL;
-    }
-    return item;
-}
-
 void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                              const QStyleOptionViewItem& option,
                                              const RepoCategoryItem *item) const
@@ -332,4 +318,18 @@ QChar RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     case LocalRepo::SYNC_STATE_UNKNOWN:
         return icon_question_sign;
     }
+}
+
+QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const
+{
+    if (!index.isValid()) {
+        return NULL;
+    }
+    const RepoTreeModel *model = (const RepoTreeModel*)index.model();
+    QStandardItem *item = model->itemFromIndex(index);
+    if (item->type() != REPO_ITEM_TYPE &&
+        item->type() != REPO_CATEGORY_TYPE) {
+        return NULL;
+    }
+    return item;
 }

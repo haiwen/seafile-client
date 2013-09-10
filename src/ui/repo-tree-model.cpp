@@ -5,6 +5,7 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "repo-item.h"
+#include "repo-tree-view.h"
 #include "repo-tree-model.h"
 
 namespace {
@@ -32,6 +33,10 @@ void RepoTreeModel::initialize()
 
     appendRow(my_repos_catetory_);
     appendRow(shared_repos_catetory_);
+
+    if (tree_view_) {
+        tree_view_->expand(indexFromItem(my_repos_catetory_));
+    }
 }
 
 void RepoTreeModel::clear()
@@ -125,9 +130,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
 
 void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)
 {
-    if (item->setRepo(repo)) {
-        emit itemChanged(item);
-    }
+    item->setRepo(repo);
 }
 
 void RepoTreeModel::refreshLocalRepos()
@@ -142,7 +145,6 @@ void RepoTreeModel::refreshLocalRepos()
         seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
         if (local_repo != item->localRepo()) {
             item->setLocalRepo(local_repo);
-            qDebug("item changed for %s\n", item->repo().name.toUtf8().data());
             QModelIndex index = indexFromItem(item);
             emit dataChanged(index,index);
         }

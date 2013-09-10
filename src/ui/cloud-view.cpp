@@ -154,6 +154,8 @@ void CloudView::setCurrentAccount(const Account& account)
         repos_model_->clear();
         showLoadingView();
         refreshRepos();
+
+        qDebug("switch to account %s\n", account.username.toUtf8().data());
     }
 }
 

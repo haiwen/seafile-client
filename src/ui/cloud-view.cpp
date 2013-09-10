@@ -253,7 +253,7 @@ void CloudView::deleteAccount()
     QString question = tr("Are you sure to remove this account?");
     if (QMessageBox::question(this, tr("Seafile"), question) == QMessageBox::Ok) {
         seafApplet->accountManager()->removeAccount(current_account_);
-        current_account_ = Account();
+        setCurrentAccount(Account());
     }
 }
 

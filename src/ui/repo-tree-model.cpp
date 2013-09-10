@@ -15,7 +15,9 @@ const int kRefreshLocalReposInterval = 1000;
 } // namespace
 
 
-RepoTreeModel::RepoTreeModel(QObject *parent) : QStandardItemModel(parent)
+RepoTreeModel::RepoTreeModel(QObject *parent)
+    : QStandardItemModel(parent),
+      tree_view_(NULL)
 {
     initialize();
 

@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QHeaderView>
 #include <QDesktopServices>
+#include <QEvent>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -160,4 +161,61 @@ void RepoTreeView::viewRepoOnWeb()
         url.setPath(url.path() + "/repo/" + repo_id);
         QDesktopServices::openUrl(url);
     }
+}
+
+bool RepoTreeView::viewportEvent(QEvent *event)
+{
+    if (event->type() != QEvent::ToolTip && event->type() != QEvent::WhatsThis) {
+        return QTreeView::viewportEvent(event);
+    }
+
+    QPoint global_pos = QCursor::pos();
+    QPoint viewport_pos = viewport()->mapFromGlobal(global_pos);
+    QModelIndex index = indexAt(viewport_pos);
+    if (!index.isValid()) {
+        return true;
+    }
+
+    QStandardItem *item = getRepoItem(index);
+    if (!item) {
+        return true;
+    }
+
+    // QRect item_rect = visualRect(index);
+    QRect item_rect;
+    if (item->type() == REPO_ITEM_TYPE) {
+        showRepoItemToolTip((RepoItem *)item, global_pos, item_rect);
+    } else {
+        showRepoCategoryItemToolTip((RepoCategoryItem *)item, global_pos, item_rect);
+    }
+
+    return true;
+}
+
+void RepoTreeView::showRepoItemToolTip(const RepoItem *item,
+                                       const QPoint& pos,
+                                       const QRect& rect)
+{
+    QString text = "<p style='white-space:pre'>" + item->repo().name + "<br/>";
+    const LocalRepo& local_repo = item->localRepo();
+    if (!local_repo.isValid()) {
+        text += tr("This library has not been downloaded");
+    } else {
+        if (local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
+            text += local_repo.sync_error_str;
+        } else {
+            text += local_repo.sync_state_str;
+        }
+    }
+    text += "</p>";
+    QToolTip::showText(QPoint(), "");
+    QToolTip::showText(pos, text, viewport(), rect);
+}
+
+void RepoTreeView::showRepoCategoryItemToolTip(const RepoCategoryItem *item,
+                                               const QPoint& pos,
+                                               const QRect& rect)
+{
+    QToolTip::showText(QPoint(), "");
+    QToolTip::showText(pos, item->name(), viewport(), rect);
 }

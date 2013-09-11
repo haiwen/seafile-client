@@ -4,10 +4,12 @@
 
 class QAction;
 class QContextMenuEvent;
+class QEvent;
 class QModelIndex;
 class QStandardItem;
 
 class RepoItem;
+class RepoCategoryItem;
 class CloudView;
 
 class RepoTreeView : public QTreeView {
@@ -17,6 +19,7 @@ public:
 
 protected:
     virtual void contextMenuEvent(QContextMenuEvent *event);
+    virtual bool viewportEvent(QEvent *event);
 
 private slots:
     void downloadRepo();
@@ -30,6 +33,14 @@ private:
 
     void createContextMenu();
     void prepareContextMenu(const RepoItem *item);
+
+    void showRepoItemToolTip(const RepoItem *item,
+                             const QPoint& pos,
+                             const QRect& rect);
+
+    void showRepoCategoryItemToolTip(const RepoCategoryItem *item,
+                                     const QPoint& pos,
+                                     const QRect& rect);
 
     QMenu *context_menu_;
     QAction *download_action_;

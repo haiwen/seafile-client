@@ -5,9 +5,9 @@
 #include "configurator.h"
 #include "api/requests.h"
 #include "api/server-repo.h"
-#include "sync-repo-dialog.h"
+#include "download-repo-dialog.h"
 
-SyncRepoDialog::SyncRepoDialog(const ServerRepo& repo, QWidget *parent)
+DownloadRepoDialog::DownloadRepoDialog(const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
       repo_(repo)
 {
@@ -27,7 +27,7 @@ SyncRepoDialog::SyncRepoDialog(const ServerRepo& repo, QWidget *parent)
     connect(mSyncBtn, SIGNAL(clicked()), this, SLOT(syncAction()));
 }
 
-void SyncRepoDialog::chooseDirAction()
+void DownloadRepoDialog::chooseDirAction()
 {
     const QString &wt = seafApplet->configurator()->worktreeDir();
     QString dir = QFileDialog::getExistingDirectory(this, tr("Please choose a directory"),
@@ -41,7 +41,7 @@ void SyncRepoDialog::chooseDirAction()
     mDirectory->setText(dir);
 }
 
-void SyncRepoDialog::syncAction()
+void DownloadRepoDialog::syncAction()
 {
     if (!validateInputs()) {
         return;
@@ -50,7 +50,7 @@ void SyncRepoDialog::syncAction()
     done(QDialog::Accepted);
 }
 
-bool SyncRepoDialog::validateInputs()
+bool DownloadRepoDialog::validateInputs()
 {
 
     if (mDirectory->text().isEmpty()) {

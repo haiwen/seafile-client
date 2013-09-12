@@ -3,11 +3,13 @@
 
 #include <QStyledItemDelegate>
 
-class RepoItem;
-class RepoCategoryItem;
 class QStandardItem;
 class QModelIndex;
+class QWidget;
+
 class ServerRepo;
+class RepoItem;
+class RepoCategoryItem;
 
 class RepoItemDelegate : public QStyledItemDelegate {
     Q_OBJECT
@@ -20,6 +22,11 @@ public:
 
     QSize sizeHint(const QStyleOptionViewItem& option,
                    const QModelIndex& index) const;
+
+    void showRepoItemToolTip(const RepoItem *item,
+                             const QPoint& global_pos,
+                             QWidget *viewport,
+                             const QRect& rect) const;
 
 private:
     void matchCurrentItem(const QStyleOptionViewItem& option,
@@ -35,7 +42,7 @@ private:
 
     QSize sizeHintForRepoCategoryItem(const QStyleOptionViewItem &option,
                                       const RepoCategoryItem *item) const;
-                                      
+
     QSize sizeHintForRepoItem(const QStyleOptionViewItem &option,
                               const RepoItem *item) const;
 

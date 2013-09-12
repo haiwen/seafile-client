@@ -8,9 +8,10 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
-#include "sync-repo-dialog.h"
+#include "download-repo-dialog.h"
 #include "cloud-view.h"
 #include "repo-item.h"
+#include "repo-item-delegate.h"
 #include "repo-tree-model.h"
 #include "repo-tree-view.h"
 
@@ -120,7 +121,7 @@ void RepoTreeView::createContextMenu()
 void RepoTreeView::downloadRepo()
 {
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
-    SyncRepoDialog dialog(repo, this);
+    DownloadRepoDialog dialog(repo, this);
     dialog.exec();
 }
 
@@ -181,8 +182,7 @@ bool RepoTreeView::viewportEvent(QEvent *event)
         return true;
     }
 
-    // QRect item_rect = visualRect(index);
-    QRect item_rect;
+    QRect item_rect = visualRect(index);
     if (item->type() == REPO_ITEM_TYPE) {
         showRepoItemToolTip((RepoItem *)item, global_pos, item_rect);
     } else {
@@ -196,26 +196,14 @@ void RepoTreeView::showRepoItemToolTip(const RepoItem *item,
                                        const QPoint& pos,
                                        const QRect& rect)
 {
-    QString text = "<p style='white-space:pre'>" + item->repo().name + "<br/>";
-    const LocalRepo& local_repo = item->localRepo();
-    if (!local_repo.isValid()) {
-        text += tr("This library has not been downloaded");
-    } else {
-        if (local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-            text += local_repo.sync_error_str;
-        } else {
-            text += local_repo.sync_state_str;
-        }
-    }
-    text += "</p>";
-    QToolTip::showText(QPoint(), "");
-    QToolTip::showText(pos, text, viewport(), rect);
+    RepoItemDelegate *delegate = (RepoItemDelegate *)itemDelegate();
+    delegate->showRepoItemToolTip(item, pos, viewport(), rect);
 }
 
 void RepoTreeView::showRepoCategoryItemToolTip(const RepoCategoryItem *item,
                                                const QPoint& pos,
                                                const QRect& rect)
 {
-    QToolTip::showText(QPoint(), "");
     QToolTip::showText(pos, item->name(), viewport(), rect);
+    // QToolTip::showText(pos, item->name());
 }

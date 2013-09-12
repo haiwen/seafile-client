@@ -28,9 +28,26 @@ public:
     const ServerRepo& repo() const { return repo_; }
     const LocalRepo& localRepo() const { return local_repo_; }
 
+    /**
+     * Every time the item is painted, we record the metrics of each part of
+     * the item on the screen. So later we the mouse click/hover the item, we
+     * can decide which part is hovered, and to do corresponding actions.
+     */
+    struct Metrics {
+        QRect icon_rect;
+        QRect name_rect;
+        QRect subtitle_rect;
+        QRect status_icon_rect;
+    };
+
+    void setMetrics(const Metrics& metrics) const { metrics_ = metrics; }
+    const Metrics& metrics() const { return metrics_; }
+
 private:
     ServerRepo repo_;
     LocalRepo local_repo_;
+
+    mutable Metrics metrics_;
 };
 
 /**

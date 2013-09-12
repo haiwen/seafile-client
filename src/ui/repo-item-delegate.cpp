@@ -1,6 +1,7 @@
 #include <QPainter>
 #include <QApplication>
 #include <QPixmap>
+#include <QToolTip>
 
 #include "QtAwesome.h"
 #include "seafile-applet.h"
@@ -232,8 +233,23 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->setFont(awesome->font(kRepoStatusIconHeight));
     painter->drawText(status_icon_rect,
                       Qt::AlignCenter,
-                      getSyncStatusIcon(item));
+                      getSyncStatusIcon(item), &status_icon_rect);
     painter->restore();
+
+    // Update the metrics of this item
+    RepoItem::Metrics metrics;
+    QPoint shift(-option.rect.topLeft().x(), -option.rect.topLeft().y());
+    metrics.icon_rect = QRect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
+    metrics.name_rect = repo_name_rect;
+    metrics.subtitle_rect = repo_desc_rect;
+    metrics.status_icon_rect = status_icon_rect;
+
+    metrics.icon_rect.translate(shift);
+    metrics.name_rect.translate(shift);
+    metrics.subtitle_rect.translate(shift);
+    metrics.status_icon_rect.translate(shift);
+
+    item->setMetrics(metrics);
 }
 
 void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
@@ -330,4 +346,44 @@ QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const
         return NULL;
     }
     return item;
+}
+
+void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
+                                           const QPoint& global_pos,
+                                           QWidget *viewport,
+                                           const QRect& rect) const
+{
+    const RepoItem::Metrics& metrics = item->metrics();
+
+    const QRect& status_icon_rect = metrics.status_icon_rect;
+
+    QPoint viewpos = viewport->mapFromGlobal(global_pos);
+    viewpos -= rect.topLeft();
+
+    // QRect r(status_icon_rect);
+    // qDebug("rect: (%d, %d) w = %d, h = %d; pos: (%d, %d)\n",
+    //        r.topLeft().x(), r.topLeft().y(), r.width(), r.height(), viewpos.x(), viewpos.y());
+
+    if (!status_icon_rect.contains(viewpos)) {
+        return;
+    }
+
+    QString text = "<p style='white-space:pre'>" + item->repo().name + "<br/>";
+    const LocalRepo& local_repo = item->localRepo();
+    if (!local_repo.isValid()) {
+        text += tr("This library has not been downloaded");
+    } else {
+        if (local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
+            text += local_repo.sync_error_str;
+        } else {
+            text += local_repo.sync_state_str;
+        }
+    }
+    text += "</p>";
+
+    QPoint tool_tip_pos = viewport->mapToGlobal(status_icon_rect.center()
+                                                + rect.topLeft());
+    QToolTip::showText(tool_tip_pos, text,
+                       viewport,
+                       status_icon_rect.translated(rect.topLeft()));
 }

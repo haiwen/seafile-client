@@ -43,9 +43,9 @@ void DownloadRepoDialog::chooseDirAction()
 {
     const QString &wt = seafApplet->configurator()->worktreeDir();
     QString dir = QFileDialog::getExistingDirectory(this, tr("Please choose a directory"),
-                                                        wt.toUtf8().data(),
-                                                        QFileDialog::ShowDirsOnly
-                                                        | QFileDialog::DontResolveSymlinks);
+                                                    wt.toUtf8().data(),
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
 
     qDebug() << "Choose directory:" << dir;
     if (dir.isEmpty())
@@ -103,7 +103,7 @@ bool DownloadRepoDialog::validateInputs()
 
 void DownloadRepoDialog::switchToSync()
 {
-    mSwitchToSyncBtn->setVisible(false);
+    mSwitchToSyncFrame->setVisible(false);
     mSyncHint->setVisible(true);
 
     setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));

@@ -106,6 +106,8 @@ void DownloadRepoDialog::switchToSync()
     mSwitchToSyncFrame->setVisible(false);
     mSyncHint->setVisible(true);
 
+    mDirectory->clear();
+
     setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
     mDownloadLabel->setText(tr("Sync this library with:"));
 

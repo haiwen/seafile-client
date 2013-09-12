@@ -56,8 +56,7 @@ bool LoginDialog::validateInputs()
                              QMessageBox::Ok);
         return false;
     } else {
-        protocol = mHttpsCheckBox->isChecked() ? "https://" : "http://";
-        url = QUrl(protocol + serverAddr, QUrl::StrictMode);
+        url = QUrl(serverAddr, QUrl::StrictMode);
         qDebug("url is %s\n", url.toString().toUtf8().data());
         if (!url.isValid()) {
             QMessageBox::warning(this, tr("Seafile"),

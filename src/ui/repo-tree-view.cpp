@@ -54,12 +54,13 @@ void RepoTreeView::prepareContextMenu(const RepoItem *item)
 {
     if (item->localRepo().isValid()) {
         download_action_->setVisible(false);
-        download_action_->setData(QVariant::fromValue(item->repo()));
 
         open_local_folder_action_->setData(QVariant::fromValue(item->localRepo()));
         open_local_folder_action_->setVisible(true);
     } else {
         download_action_->setVisible(true);
+        download_action_->setData(QVariant::fromValue(item->repo()));
+
         open_local_folder_action_->setVisible(false);
     }
 
@@ -121,7 +122,7 @@ void RepoTreeView::createContextMenu()
 void RepoTreeView::downloadRepo()
 {
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
-    DownloadRepoDialog dialog(repo, this);
+    DownloadRepoDialog dialog(cloud_view_->currentAccount(), repo, this);
     dialog.exec();
 }
 

@@ -101,12 +101,11 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
 /**
  * DownloadRepoRequest
  */
-DownloadRepoRequest::DownloadRepoRequest(const Account& account, ServerRepo *repo)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + "/api2/repos/" + repo->id + "/download-info/"),
-                         SeafileApiRequest::METHOD_GET, account.token),
+DownloadRepoRequest::DownloadRepoRequest(const Account& account, const ServerRepo& repo)
+    : SeafileApiRequest(QUrl(account.serverUrl.toString() + "/api2/repos/" + repo.id + "/download-info/"),
+                        SeafileApiRequest::METHOD_GET, account.token),
       repo_(repo)
 {
-    connect(this, SIGNAL(failed(int)), this, SLOT(requestFailed(int)));
 }
 
 void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
@@ -121,14 +120,20 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QString> dict = mapFromJSON(json.data(), &error);
-    emit success(dict, repo_);
+    
+    RepoDownloadInfo info;
+    info.relay_id = dict["relay_id"];
+    info.relay_addr = dict["relay_addr"];
+    info.relay_port = dict["relay_port"];
+    info.email = dict["email"];
+    info.token = dict["token"];
+    info.repo_id = dict["repo_id"];
+    info.repo_name = dict["repo_name"];
+    info.encrypted = dict["encrypted"];
+    info.magic = dict["magic"];
+    
+    emit success(info);
 }
-
-void DownloadRepoRequest::requestFailed(int error)
-{
-    emit fail(error, repo_);
-}
-
 
 /**
  * CreateRepoRequest

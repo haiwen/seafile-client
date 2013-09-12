@@ -28,13 +28,15 @@ public:
                      const QString &name, const QString &wt,
                      const QString &token, const QString &passwd,
                      const QString &magic, const QString &peerAddr,
-                     const QString &port, const QString &email);
+                     const QString &port, const QString &email,
+                     QString *error);
 
     int cloneRepo(const QString &id, const QString &relayId,
                   const QString &name, const QString &wt,
                   const QString &token, const QString &passwd,
                   const QString &magic, const QString &peerAddr,
-                  const QString &port, const QString &email);
+                     const QString &port, const QString &email,
+                     QString *error);
 
     int ccnetGetConfig(const QString &key, QString *value);
     int seafileGetConfig(const QString &key, QString *value);

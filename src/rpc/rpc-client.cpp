@@ -92,10 +92,10 @@ int SeafileRpcClient::setAutoSync(bool autoSync)
 }
 
 int SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
-                                    const QString &name, const QString &wt,
-                                    const QString &token, const QString &passwd,
-                                    const QString &magic, const QString &peerAddr,
-                                    const QString &port, const QString &email)
+                                   const QString &name, const QString &wt,
+                                   const QString &token, const QString &passwd,
+                                   const QString &magic, const QString &peerAddr,
+                                   const QString &port, const QString &email, QString *error_ret)
 {
     GError *error = NULL;
     searpc_client_call__string(
@@ -114,6 +114,9 @@ int SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
         "string", toCStr(email));
 
     if (error != NULL) {
+        if (error_ret) {
+            *error_ret = error->message;
+        }
         return -1;
     }
 
@@ -121,10 +124,10 @@ int SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
 }
 
 int SeafileRpcClient::cloneRepo(const QString &id, const QString &relayId,
-                                 const QString &name, const QString &wt,
-                                 const QString &token, const QString &passwd,
-                                 const QString &magic, const QString &peerAddr,
-                                 const QString &port, const QString &email)
+                                const QString &name, const QString &wt,
+                                const QString &token, const QString &passwd,
+                                const QString &magic, const QString &peerAddr,
+                                const QString &port, const QString &email, QString *error_ret)
 {
     GError *error = NULL;
     searpc_client_call__string (
@@ -143,6 +146,9 @@ int SeafileRpcClient::cloneRepo(const QString &id, const QString &relayId,
         "string", toCStr(email));
 
     if (error != NULL) {
+        if (error_ret) {
+            *error_ret = error->message;
+        }
         return -1;
     }
 
@@ -191,8 +197,8 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
 {
     GError *error = NULL;
     char *ret = searpc_client_call__string (seafile_rpc_client_,
-                                               "seafile_get_config", &error,
-                                               1, "string", toCStr(key));
+                                            "seafile_get_config", &error,
+                                            1, "string", toCStr(key));
     if (error) {
         return -1;
     }

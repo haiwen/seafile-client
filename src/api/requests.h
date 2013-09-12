@@ -45,24 +45,35 @@ private:
     Q_DISABLE_COPY(ListReposRequest)
 };
 
+
+struct RepoDownloadInfo {
+    QString relay_id;
+    QString relay_addr;
+    QString relay_port;
+    QString email;
+    QString token;
+    QString repo_id;
+    QString repo_name;
+    QString encrypted;
+    QString magic;
+};
+
 class DownloadRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit DownloadRepoRequest(const Account& account, ServerRepo *repo);
+    explicit DownloadRepoRequest(const Account& account, const ServerRepo& repo);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
-    void requestFailed(int error);
 
 signals:
-    void success(const QMap<QString, QString> &map, ServerRepo *repo);
-    void fail(int code, ServerRepo *repo);
+    void success(const RepoDownloadInfo& info);
 
 private:
     Q_DISABLE_COPY(DownloadRepoRequest)
 
-    ServerRepo *repo_;
+    ServerRepo repo_;
 };
 
 class CreateRepoRequest : public SeafileApiRequest {

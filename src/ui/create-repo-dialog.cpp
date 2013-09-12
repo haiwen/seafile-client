@@ -151,6 +151,7 @@ bool CreateRepoDialog::validateInputs()
 void CreateRepoDialog::createSuccess(const QMap<QString, QString> &dict)
 {
     qDebug() << __func__ << ":" << dict["repo_id"];
+    QString error;
 
     int ret = seafApplet->rpcClient()->cloneRepo(
         dict["repo_id"],
@@ -162,10 +163,10 @@ void CreateRepoDialog::createSuccess(const QMap<QString, QString> &dict)
         dict["magic"],
         dict["relay_addr"],
         dict["relay_port"],
-        dict["email"]);
+        dict["email"], &error);
 
     if (ret < 0) {
-        qDebug() << "Failed to sync the directory";
+        qDebug() << "Failed to sync the directory: " << error;
     } else {
         done(QDialog::Accepted);
     }

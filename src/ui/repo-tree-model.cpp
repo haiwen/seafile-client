@@ -1,7 +1,8 @@
-#include <QMap>
 #include <QTimer>
+#include <QHash>
 
 #include "api/server-repo.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "repo-item.h"
@@ -50,6 +51,8 @@ void RepoTreeModel::clear()
 void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 {
     int i, n = repos.size();
+    removeReposDeletedOnServer(repos);
+
     for (i = 0; i < n; i++) {
         const ServerRepo& repo = repos[i];
         if (repo.isPersonalRepo()) {
@@ -61,6 +64,47 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
         }
     }
 }
+
+struct DeleteRepoData {
+    QHash<QString, const ServerRepo*> map;
+    QList<RepoItem*> itemsToDelete;
+};
+
+void RepoTreeModel::collectDeletedRepos(RepoItem *item, void *vdata)
+{
+    DeleteRepoData *data = (DeleteRepoData *)vdata;
+    const ServerRepo* repo = data->map.value(item->repo().id);
+    if (!repo || repo->type != item->repo().type) {
+        data->itemsToDelete << item;
+    }
+}
+
+void RepoTreeModel::removeReposDeletedOnServer(const std::vector<ServerRepo>& repos)
+{
+    int i, n;
+    DeleteRepoData data;
+    n = repos.size();
+    for (i = 0; i < n; i++) {
+        const ServerRepo& repo = repos[i];
+        data.map.insert(repo.id, &repo);
+    }
+
+    forEachRepoItem(&RepoTreeModel::collectDeletedRepos, (void *)&data);
+
+    QListIterator<RepoItem*> iter(data.itemsToDelete);
+    while(iter.hasNext()) {
+        RepoItem *item = iter.next();
+
+        const ServerRepo& repo = item->repo();
+
+        qDebug("remove repo %s(%s) from \"%s\"\n",
+               toCStr(repo.name), toCStr(repo.id),
+               toCStr(((RepoCategoryItem*)item->parent())->name()));
+
+        item->parent()->removeRow(item->row());
+    }
+}
+
 
 void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
 {
@@ -135,7 +179,8 @@ void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)
     item->setRepo(repo);
 }
 
-void RepoTreeModel::refreshLocalRepos()
+void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *),
+                                    void *data)
 {
     int row;
     int n;
@@ -143,23 +188,27 @@ void RepoTreeModel::refreshLocalRepos()
     n = root->rowCount();
     for (row = 0; row < n; row++) {
         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
-        refrefshReposInCategory(category);
+        int j, total;
+        total = category->rowCount();
+        for (j = 0; j < total; j++) {
+            RepoItem *item = (RepoItem *)category->child(j);
+            (this->*func)(item, data);
+        }
     }
 }
 
-void RepoTreeModel::refrefshReposInCategory(RepoCategoryItem *category)
+void RepoTreeModel::refreshLocalRepos()
 {
-    int row, n;
-    n = category->rowCount();
-    for (row = 0; row < n; row++) {
-        RepoItem *item = (RepoItem *)(category->child(row));
+    forEachRepoItem(&RepoTreeModel::refreshRepoItem, NULL);
+}
 
-        LocalRepo local_repo;
-        seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
-        if (local_repo != item->localRepo()) {
-            item->setLocalRepo(local_repo);
-            QModelIndex index = indexFromItem(item);
-            emit dataChanged(index,index);
-        }
+void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
+{
+    LocalRepo local_repo;
+    seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
+    if (local_repo != item->localRepo()) {
+        item->setLocalRepo(local_repo);
+        QModelIndex index = indexFromItem(item);
+        emit dataChanged(index,index);
     }
 }

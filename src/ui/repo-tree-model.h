@@ -50,8 +50,14 @@ private:
     void checkGroupRepo(const ServerRepo& repo);
     void initialize();
     void updateRepoItem(RepoItem *item, const ServerRepo& repo);
-    void refrefshReposInCategory(RepoCategoryItem *category);
-    
+    void refreshRepoItem(RepoItem *item, void *data);
+
+    void forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *), void *data);
+
+    void removeReposDeletedOnServer(const std::vector<ServerRepo>& repos);
+
+    void collectDeletedRepos(RepoItem *item, void *vdata);
+
     RepoCategoryItem *my_repos_catetory_;
     RepoCategoryItem *shared_repos_catetory_;
 

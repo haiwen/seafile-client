@@ -146,9 +146,13 @@ void CloudView::updateAccountMenu()
 
     // Add rest items
     add_account_action_ = new QAction(tr("Add an account"), this);
-    delete_account_action_ = new QAction(tr("Delete this account"), this);
-
+    add_account_action_->setIcon(awesome->icon(icon_plus));
+    add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
+
+    delete_account_action_ = new QAction(tr("Delete this account"), this);
+    delete_account_action_->setIcon(awesome->icon(icon_remove));
+    delete_account_action_->setIconVisibleInMenu(true);
     connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
 
     account_menu_->addAction(add_account_action_);
@@ -263,9 +267,14 @@ void CloudView::showAddAccountDialog()
 void CloudView::deleteAccount()
 {
     QString question = tr("Are you sure to remove this account?");
-    if (QMessageBox::question(this, tr("Seafile"), question) == QMessageBox::Ok) {
+    if (QMessageBox::question(this,
+                              tr("Seafile"),
+                              question,
+                              QMessageBox::Ok | QMessageBox::Cancel,
+                              QMessageBox::Cancel) == QMessageBox::Ok) {
+        Account account = current_account_;
         setCurrentAccount(Account());
-        seafApplet->accountManager()->removeAccount(current_account_);
+        seafApplet->accountManager()->removeAccount(account);
     }
 }
 

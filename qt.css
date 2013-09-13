@@ -119,3 +119,7 @@ QListView::item:hover {
                                 stop: 0 #FAFBFE, stop: 1 #DCDEF1);
 }
 
+QToolButton#mAccountBtn
+{
+    margin-left: 10px;
+}

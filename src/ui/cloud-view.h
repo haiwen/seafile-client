@@ -3,13 +3,13 @@
 
 #include <QWidget>
 #include "account.h"
+#include "ui_cloud-view.h"
 
 class QPoint;
 class QMenu;
 class QTimer;
 class QShowEvent;
 class QHideEvent;
-class QWidgetAction;
 class QToolButton;
 
 class ListReposRequest;
@@ -17,13 +17,12 @@ class ServerRepo;
 class RepoTreeView;
 class RepoTreeModel;
 
-class CloudView : public QWidget
+class CloudView : public QWidget,
+                  public Ui::CloudView
 {
     Q_OBJECT
 public:
     CloudView(QWidget *parent=0);
-    QWidgetAction *getAccountWidgetAction() { return account_widget_action_; }
-
     const Account& currentAccount() { return current_account_; }
 
 protected:
@@ -45,8 +44,10 @@ private slots:
 private:
     Q_DISABLE_COPY(CloudView)
 
-    void prepareAccountButtonMenu();
     void createLoadingView();
+    void createRepoModelView();
+    void prepareAccountButtonMenu();
+    void updateAccountInfoDisplay();
     QAction *makeAccountAction(const Account& account);
     void showLoadingView();
     void showRepos();
@@ -70,8 +71,6 @@ private:
     QAction *delete_account_action_;
     QAction *switch_account_action_;
     QMenu *account_menu_;
-    QWidgetAction *account_widget_action_;
-    QToolButton *account_tool_button_;
 };
 
 

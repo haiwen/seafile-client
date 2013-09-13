@@ -47,6 +47,7 @@ SET(ui_files
   ui/settings-dialog.ui
   ui/download-repo-dialog.ui
   ui/init-seafile-dialog.ui
+  ui/cloud-view.ui
 )
 
 # RESOURCES

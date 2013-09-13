@@ -30,19 +30,12 @@ CloudView::CloudView(QWidget *parent)
       in_refresh_(false),
       list_repo_req_(NULL)
 {
-    repos_tree_ = new RepoTreeView(this);
-    repos_model_ = new RepoTreeModel;
-    repos_model_->setTreeView(repos_tree_);
+    setupUi(this);
 
-    repos_tree_->setModel(repos_model_);
-    repos_tree_->setItemDelegate(new RepoItemDelegate);
-
+    createRepoModelView();
     createLoadingView();
-
-    QStackedLayout *stack = new QStackedLayout;
-    stack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
-    stack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
-    setLayout(stack);
+    mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
+    mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
     prepareAccountButtonMenu();
 
@@ -57,6 +50,16 @@ CloudView::CloudView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
             this, SLOT(updateAccountMenu()));
+}
+
+void CloudView::createRepoModelView()
+{
+    repos_tree_ = new RepoTreeView(this);
+    repos_model_ = new RepoTreeModel;
+    repos_model_->setTreeView(repos_tree_);
+
+    repos_tree_->setModel(repos_model_);
+    repos_tree_->setItemDelegate(new RepoItemDelegate);
 }
 
 void CloudView::createLoadingView()
@@ -79,28 +82,35 @@ void CloudView::showLoadingView()
 {
     QStackedLayout *stack = (QStackedLayout *)(layout());
 
-    stack->setCurrentIndex(INDEX_LOADING_VIEW);
+    mStack->setCurrentIndex(INDEX_LOADING_VIEW);
 }
 
 void CloudView::showRepos()
 {
-    QStackedLayout *stack = (QStackedLayout *)(layout());
-    stack->setCurrentIndex(INDEX_REPOS_VIEW);
+    mStack->setCurrentIndex(INDEX_REPOS_VIEW);
 }
 
 void CloudView::prepareAccountButtonMenu()
 {
     account_menu_ = new QMenu;
+    mAccountBtn->setMenu(account_menu_);
 
-    account_tool_button_ = new QToolButton(this);
-    account_tool_button_->setMenu(account_menu_);
-    account_tool_button_->setPopupMode(QToolButton::InstantPopup);
-    account_tool_button_->setIcon(QIcon(":/images/account.png"));
-
-    account_widget_action_ = new QWidgetAction(this);
-    account_widget_action_->setDefaultWidget(account_tool_button_);
+    mAccountBtn->setPopupMode(QToolButton::InstantPopup);
 
     updateAccountMenu();
+}
+
+void CloudView::updateAccountInfoDisplay()
+{
+    mAccountBtn->setIcon(QIcon(":/images/account.png"));
+    mAccountBtn->setIconSize(QSize(32, 32));
+    if (hasAccount()) {
+        mEmail->setText(current_account_.username);
+        mServerAddr->setText(current_account_.serverUrl.host());
+    } else {
+        mEmail->setText(tr("No account"));
+        mServerAddr->setText(QString());
+    }
 }
 
 /**
@@ -123,9 +133,10 @@ void CloudView::updateAccountMenu()
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (account == current_account_) {
-                // Add a check sign before current account
-                action->setCheckable(true);
-                action->setChecked(true);
+                continue;
+                // // Add a check sign before current account
+                // action->setCheckable(true);
+                // action->setChecked(true);
             }
             account_menu_->addAction(action);
         }
@@ -155,6 +166,7 @@ void CloudView::setCurrentAccount(const Account& account)
         showLoadingView();
         refreshRepos();
 
+        updateAccountInfoDisplay();
         qDebug("switch to account %s\n", account.username.toUtf8().data());
     }
 }
@@ -252,8 +264,8 @@ void CloudView::deleteAccount()
 {
     QString question = tr("Are you sure to remove this account?");
     if (QMessageBox::question(this, tr("Seafile"), question) == QMessageBox::Ok) {
-        seafApplet->accountManager()->removeAccount(current_account_);
         setCurrentAccount(Account());
+        seafApplet->accountManager()->removeAccount(current_account_);
     }
 }
 

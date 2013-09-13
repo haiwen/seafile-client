@@ -38,7 +38,7 @@ MainWindow::MainWindow()
     setCentralWidget(cloud_view_);
 
     createActions();
-    createToolBar();
+    // createToolBar();
     createMenus();
 
     centerInScreen();
@@ -68,13 +68,13 @@ void MainWindow::createActions()
 
 void MainWindow::createToolBar()
 {
-    tool_bar_ = addToolBar(tr("&main"));
-    tool_bar_->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    tool_bar_->setFloatable(false);
-    tool_bar_->setMovable(false);
-    tool_bar_->setContextMenuPolicy(Qt::PreventContextMenu);
+    // tool_bar_ = addToolBar(tr("&main"));
+    // tool_bar_->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    // tool_bar_->setFloatable(false);
+    // tool_bar_->setMovable(false);
+    // tool_bar_->setContextMenuPolicy(Qt::PreventContextMenu);
 
-    tool_bar_->addAction(cloud_view_->getAccountWidgetAction());
+    // tool_bar_->addAction(cloud_view_->getAccountWidgetAction());
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

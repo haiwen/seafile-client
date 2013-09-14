@@ -13,6 +13,7 @@ struct _CcnetClient;
 }
 
 class LocalRepo;
+class CloneTask;
 
 class SeafileRpcClient : public QObject {
     Q_OBJECT
@@ -46,12 +47,21 @@ public:
     int seafileSetConfigInt(const QString &key, int value);
 
     void getSyncStatus(LocalRepo &repo);
+    int getCloneTasks(std::vector<CloneTask> *tasks);
+    int getCloneTasksCount(int *count);
+
+    int cancelCloneTask(const QString& repo_id, QString *error);
+    int removeCloneTask(const QString& repo_id, QString *error);
 
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
+
+    void getTransferDetail(CloneTask* task);
+    void getCheckOutDetail(CloneTask* task);
+    
 
     _CcnetClient *sync_client_;
     SearpcClient *seafile_rpc_client_;

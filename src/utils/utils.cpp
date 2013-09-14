@@ -11,6 +11,7 @@
 #include <string.h>
 #include <QString>
 #include <string>
+#include <jansson.h>
 
 #if defined(Q_WS_MAC)
     #include <sys/sysctl.h>
@@ -18,6 +19,10 @@
     #include <windows.h>
     #include <psapi.h>
 #endif
+
+#include <QMap>
+#include <QVariant>
+#include <QDebug>
 
 #include "utils.h"
 
@@ -573,4 +578,44 @@ bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
         line = next + 1;
     }
     return true;
+}
+
+QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t */* error */)
+{
+    QMap<QString, QVariant> dict;
+    void *member;
+    const char *key;
+    json_t *value;
+
+    for (member = json_object_iter(json); member; member = json_object_iter_next(json, member)) {
+        key = json_object_iter_key(member);
+        value = json_object_iter_value(member);
+
+        QString k = QString::fromUtf8(key);
+        QVariant v;
+        
+        // json_is_object(const json_t *json)
+        // json_is_array(const json_t *json)
+        // json_is_string(const json_t *json)
+        // json_is_integer(const json_t *json)
+        // json_is_real(const json_t *json)
+        // json_is_true(const json_t *json)
+        // json_is_false(const json_t *json)
+        // json_is_null(const json_t *json)
+        if (json_is_string(value)) {
+            v = json_string_value(value);
+        } else if (json_is_integer(value)) {
+            v = json_integer_value(value);
+        } else if (json_is_real(value)) {
+            v = json_real_value(value);
+        } else if (json_is_boolean(value)) {
+            v = json_is_true(value);
+        }
+
+        if (v.isValid()) {
+            qDebug() << "key:" << key << " value:" << v;
+            dict[k] = v;
+        }
+    }
+    return dict;
 }

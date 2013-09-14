@@ -40,6 +40,8 @@ private slots:
     void setCurrentAccount(const Account&account);
     void updateAccountMenu();
     void onAccountItemClicked();
+    void showCloneTasksDialog();
+    void refreshTasksInfo();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -55,6 +57,8 @@ private:
 
     bool in_refresh_;
     QTimer *refresh_timer_;
+
+    QTimer *refresh_tasks_info_timer_;
 
     RepoTreeModel *repos_model_;
 

@@ -9,6 +9,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "download-repo-dialog.h"
+#include "clone-tasks-dialog.h"
 #include "cloud-view.h"
 #include "repo-item.h"
 #include "repo-item-delegate.h"
@@ -123,7 +124,10 @@ void RepoTreeView::downloadRepo()
 {
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
     DownloadRepoDialog dialog(cloud_view_->currentAccount(), repo, this);
-    dialog.exec();
+    if (dialog.exec() == QDialog::Accepted) {
+        CloneTasksDialog tasks_dialog(this);
+        tasks_dialog.exec();
+    }
 }
 
 void RepoTreeView::showRepoDetail()

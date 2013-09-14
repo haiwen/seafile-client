@@ -7,11 +7,13 @@
 #include "QtAwesome.h"
 #include "api/requests.h"
 #include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
 #include "repo-tree-view.h"
 #include "repo-tree-model.h"
 #include "repo-item-delegate.h"
+#include "clone-tasks-dialog.h"
 #include "cloud-view.h"
 
 namespace {
@@ -39,6 +41,12 @@ CloudView::CloudView(QWidget *parent)
 
     prepareAccountButtonMenu();
 
+    mDownloadTasksInfo->setText("0");
+    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
+
+    refresh_tasks_info_timer_ = new QTimer(this);
+    connect(refresh_tasks_info_timer_, SIGNAL(timeout()), this, SLOT(refreshTasksInfo()));
+
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshRepos()));
 
@@ -50,6 +58,8 @@ CloudView::CloudView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
             this, SLOT(updateAccountMenu()));
+
+    connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 }
 
 void CloudView::createRepoModelView()
@@ -251,6 +261,7 @@ void CloudView::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 
     refresh_timer_->start(kRefreshReposInterval);
+    refresh_tasks_info_timer_->start(kRefreshReposInterval);
 }
 
 void CloudView::hideEvent(QHideEvent *event) {
@@ -276,5 +287,21 @@ void CloudView::deleteAccount()
         setCurrentAccount(Account());
         seafApplet->accountManager()->removeAccount(account);
     }
+}
+
+void CloudView::refreshTasksInfo()
+{
+    int count = 0;
+    if (seafApplet->rpcClient()->getCloneTasksCount(&count) < 0) {
+        return;
+    }
+
+    mDownloadTasksInfo->setText(QString::number(count));
+}
+
+void CloudView::showCloneTasksDialog()
+{
+    CloneTasksDialog dialog(this);
+    dialog.exec();
 }
 

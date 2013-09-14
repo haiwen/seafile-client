@@ -15,6 +15,7 @@ extern "C" {
 
 #include "utils/utils.h"
 #include "local-repo.h"
+#include "clone-task.h"
 #include "rpc-client.h"
 
 
@@ -63,8 +64,7 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
     }
 
     for (GList *ptr = repos; ptr; ptr = ptr->next) {
-        GObject *obj = static_cast<GObject*>(ptr->data);
-        result->push_back(LocalRepo::fromGObject((GObject*)obj));
+        result->push_back(LocalRepo::fromGObject((GObject*)ptr->data));
     }
 
     g_list_foreach (repos, (GFunc)g_object_unref, NULL);
@@ -301,4 +301,166 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     g_free (state);
     g_free (err);
     g_object_unref(task);
+}
+
+int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
+{
+    GError *error = NULL;
+    GList *objlist = searpc_client_call__objlist(
+        seafile_rpc_client_,
+        "seafile_get_clone_tasks",
+        SEAFILE_TYPE_CLONE_TASK,
+        &error, 0);
+
+    if (error) {
+        return -1;
+    }
+
+    for (GList *ptr = objlist; ptr; ptr = ptr->next) {
+        CloneTask  task = CloneTask::fromGObject((GObject *)ptr->data);
+
+        if (task.state == "fetch") {
+            getTransferDetail(&task);
+        } else if (task.state == "checkout") {
+            getCheckOutDetail(&task);
+        } else if (task.state == "error") {
+            if (task.error_str == "fetch") {
+                getTransferDetail(&task);
+            }
+        }
+        task.translateStateInfo();
+        tasks->push_back(task);
+    }
+
+    g_list_foreach (objlist, (GFunc)g_object_unref, NULL);
+    g_list_free (objlist);
+
+    return 0;
+}
+
+void SeafileRpcClient::getTransferDetail(CloneTask* task)
+{
+    GError *error = NULL;
+    GObject *obj = searpc_client_call__object(
+        seafile_rpc_client_,
+        "seafile_find_transfer_task",
+        SEAFILE_TYPE_TASK,
+        &error, 1,
+        "string", toCStr(task->repo_id));
+
+    if (error != NULL) {
+        return;
+    }
+
+    if (obj == NULL) {
+        return;
+    }
+
+    if (task->state == "error") {
+        char *err = NULL;
+        g_object_get(obj, "error_str", &err, NULL);
+        task->error_str = err;
+    } else {
+        int block_done = 0;
+        int block_total = 0;
+
+        g_object_get (obj,
+                      "block_done", &block_done,
+                      "block_total", &block_total,
+                      NULL);
+
+        task->block_done = block_done;
+        task->block_total = block_total;
+    }
+
+    g_object_unref (obj);
+}
+
+void SeafileRpcClient::getCheckOutDetail(CloneTask *task)
+{
+    GError *error = NULL;
+    GObject *obj = searpc_client_call__object(
+        seafile_rpc_client_,
+        "seafile_get_checkout_task",
+        SEAFILE_TYPE_CHECKOUT_TASK,
+        &error, 1,
+        "string", toCStr(task->repo_id));
+
+    if (error != NULL) {
+        return;
+    }
+
+    if (obj == NULL) {
+        return;
+    }
+
+    int checkout_done = 0;
+    int checkout_total = 0;
+
+    g_object_get (obj,
+                  "total_files", &checkout_done,
+                  "finished_files", &checkout_total,
+                  NULL);
+
+    task->checkout_done = checkout_done;
+    task->checkout_total = checkout_total;
+
+    g_object_unref (obj);
+}
+
+int SeafileRpcClient::cancelCloneTask(const QString& repo_id, QString *err)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_cancel_clone_task",
+                                       &error, 1,
+                                       "string", toCStr(repo_id));
+
+    if (ret < 0) {
+        if (err) {
+            *err = error ? error->message : tr("Unknown error");
+        }
+    }
+
+    return ret;
+}
+
+int SeafileRpcClient::removeCloneTask(const QString& repo_id, QString *err)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_remove_clone_task",
+                                       &error, 1,
+                                       "string", toCStr(repo_id));
+
+    if (ret < 0) {
+        if (err) {
+            *err = error ? error->message : tr("Unknown error");
+        }
+    }
+
+    return ret;
+}
+
+int SeafileRpcClient::getCloneTasksCount(int *count)
+{
+    GError *error = NULL;
+    GList *objlist = searpc_client_call__objlist(
+        seafile_rpc_client_,
+        "seafile_get_clone_tasks",
+        SEAFILE_TYPE_CLONE_TASK,
+        &error, 0);
+
+    if (error) {
+        return -1;
+    }
+
+    if (count) {
+        *count = g_list_length(objlist);
+    }
+
+    g_list_foreach (objlist, (GFunc)g_object_unref, NULL);
+    g_list_free (objlist);
+
+    return 0;
 }

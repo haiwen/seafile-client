@@ -37,6 +37,9 @@ SET(moc_headers
   src/ui/repo-tree-model.h
   src/ui/repo-tree-view.h
   src/ui/repo-item-delegate.h
+  src/ui/clone-tasks-dialog.h
+  src/ui/clone-tasks-table-model.h
+  src/ui/clone-tasks-table-view.h
   third_party/QtAwesome/QtAwesome.h
 )
 
@@ -48,6 +51,7 @@ SET(ui_files
   ui/download-repo-dialog.ui
   ui/init-seafile-dialog.ui
   ui/cloud-view.ui
+  ui/clone-tasks-dialog.ui
 )
 
 # RESOURCES
@@ -111,6 +115,7 @@ SET(seafile_client_sources
   src/api/server-repo.cpp
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
+  src/rpc/clone-task.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
@@ -125,6 +130,9 @@ SET(seafile_client_sources
   src/ui/repo-tree-model.cpp
   src/ui/repo-tree-view.cpp
   src/ui/repo-item-delegate.cpp
+  src/ui/clone-tasks-dialog.cpp
+  src/ui/clone-tasks-table-model.cpp
+  src/ui/clone-tasks-table-view.cpp
   third_party/QtAwesome/QtAwesome.cpp
 )
 

@@ -139,14 +139,16 @@ void CloudView::updateAccountMenu()
             setCurrentAccount(accounts[0]);
         }
 
+        QAction *current = makeAccountAction(current_account_);
+        // Add a check sign before current account
+        current->setChecked(true);
+        account_menu_->addAction(current);
+
         for (int i = 0, n = accounts.size(); i < n; i++) {
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (account == current_account_) {
                 continue;
-                // // Add a check sign before current account
-                // action->setCheckable(true);
-                // action->setChecked(true);
             }
             account_menu_->addAction(action);
         }
@@ -190,6 +192,7 @@ QAction* CloudView::makeAccountAction(const Account& account)
     QString text = account.username + "(" + account.serverUrl.host() + ")";
     QAction *action = new QAction(text, account_menu_);
     action->setData(QVariant::fromValue(account));
+    action->setCheckable(true);
     // QMenu won't display tooltip for menu item
     // action->setToolTip(account.serverUrl.host());
 

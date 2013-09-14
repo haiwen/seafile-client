@@ -14,6 +14,9 @@
 
 #if defined(Q_WS_MAC)
     #include <sys/sysctl.h>
+#elif defined(Q_WS_WIN)
+    #include <windows.h>
+    #include <psapi.h>
 #endif
 
 #include "utils.h"
@@ -410,7 +413,7 @@ get_win_run_key (HKEY *pKey)
                                0L,KEY_WRITE | KEY_READ,
                                pKey);
     if (result != ERROR_SUCCESS) {
-        applet_warning("Failed to open Registry key %s\n", key_run);
+        qDebug("Failed to open Registry key %s\n", key_run);
     }
 
     return result;
@@ -432,7 +435,7 @@ add_to_auto_start (const wchar_t *appname_w, const wchar_t *path_w)
 
     RegCloseKey(hKey);
     if (result != ERROR_SUCCESS) {
-        applet_warning("Failed to create auto start value\n");
+        qDebug("Failed to create auto start value\n");
         return -1;
     }
 
@@ -451,7 +454,7 @@ delete_from_auto_start(const char *appname)
     result = RegDeleteValue (hKey, appname);
     RegCloseKey(hKey);
     if (result != ERROR_SUCCESS) {
-        applet_warning("Failed to remove auto start value for %s\n", appname);
+        qDebug("Failed to remove auto start value for %s\n", appname);
         return -1;
     }
 
@@ -467,7 +470,7 @@ get_seafile_auto_start()
         return -1;
     }
 
-    char buf[SEAF_PATH_MAX] = {0};
+    char buf[MAX_PATH] = {0};
     DWORD len = sizeof(buf);
     result = RegQueryValueEx (hKey,             /* Key */
                               "Seafile",        /* value */
@@ -491,8 +494,8 @@ set_seafile_auto_start(int on)
     int result = 0;
     if (on) {
         /* turn on auto start  */
-        wchar_t applet_path[SEAF_PATH_MAX];
-        if (GetModuleFileNameW (NULL, applet_path, SEAF_PATH_MAX) == 0) {
+        wchar_t applet_path[MAX_PATH];
+        if (GetModuleFileNameW (NULL, applet_path, MAX_PATH) == 0) {
             return -1;
         }
 

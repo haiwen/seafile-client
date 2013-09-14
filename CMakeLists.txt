@@ -159,6 +159,10 @@ ADD_EXECUTABLE(seafile-client
   ${resources_ouput}
 )
 
+if (MSYS)
+  set(EXTRA_LIBS ${EXTRA_LIBS} psapi)
+endif (MSYS)
+
 TARGET_LINK_LIBRARIES(seafile-client
   ${QT_LIBRARIES}
   ${QT_QTNETWORK_LIBRARY}
@@ -168,4 +172,5 @@ TARGET_LINK_LIBRARIES(seafile-client
   ${LIBSEARPC_LIBRARIES}
   ${LIBCCNET_LIBRARIES}
   ${LIBSEAFILE_LIBRARIES}
+  ${EXTRA_LIBS}
 )

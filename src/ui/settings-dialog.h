@@ -13,7 +13,7 @@ public:
     SettingsDialog(QWidget *parent=0);
 
 private slots:
-    void encryptedChanged(int state);
+
     void autoStartChanged(int state);
     void notifyChanged(int state);
     void downloadChanged(int value);

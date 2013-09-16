@@ -26,8 +26,8 @@ const int kMarginTop = 5;
 const int kMarginBottom = 5;
 const int kPadding = 5;
 
-const int kRepoIconHeight = 40;
-const int kRepoIconWidth = 40;
+const int kRepoIconHeight = 32;
+const int kRepoIconWidth = 32;
 const int kRepoNameWidth = 180;
 const int kRepoNameHeight = 30;
 const int kRepoStatusIconWidth = 16;

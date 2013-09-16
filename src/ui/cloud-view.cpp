@@ -139,16 +139,11 @@ void CloudView::updateAccountMenu()
             setCurrentAccount(accounts[0]);
         }
 
-        QAction *current = makeAccountAction(current_account_);
-        // Add a check sign before current account
-        current->setChecked(true);
-        account_menu_->addAction(current);
-
         for (int i = 0, n = accounts.size(); i < n; i++) {
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (account == current_account_) {
-                continue;
+                action->setChecked(true);
             }
             account_menu_->addAction(action);
         }

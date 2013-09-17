@@ -34,10 +34,10 @@ public:
         return repo_id == rhs.repo_id
             && repo_name == rhs.repo_name
             && worktree == rhs.worktree
-            && state == rhs.state
+            && state_str == rhs.state_str
             && error_str == rhs.error_str;
-            
     }
+
     bool operator!=(const CloneTask& rhs) const {
         return !(*this == rhs);
     }

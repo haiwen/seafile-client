@@ -317,7 +317,7 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
     }
 
     for (GList *ptr = objlist; ptr; ptr = ptr->next) {
-        CloneTask  task = CloneTask::fromGObject((GObject *)ptr->data);
+        CloneTask task = CloneTask::fromGObject((GObject *)ptr->data);
 
         if (task.state == "fetch") {
             getTransferDetail(&task);

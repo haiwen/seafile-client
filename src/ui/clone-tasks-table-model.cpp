@@ -47,7 +47,7 @@ void CloneTasksTableModel::updateTasks()
 
     for (int i = 0, n = tasks.size(); i < n; i++) {
         if (tasks_[i] == tasks[i]) {
-            return;
+            continue;
         }
 
         tasks_[i] = tasks[i];

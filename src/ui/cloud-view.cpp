@@ -10,6 +10,7 @@
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
+#include "create-repo-dialog.h"
 #include "repo-tree-view.h"
 #include "repo-tree-model.h"
 #include "repo-item-delegate.h"
@@ -40,9 +41,11 @@ CloudView::CloudView(QWidget *parent)
     mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
     prepareAccountButtonMenu();
+    createToolBar();
 
     mDownloadTasksInfo->setText("0");
     mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
+    mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
 
     refresh_tasks_info_timer_ = new QTimer(this);
     connect(refresh_tasks_info_timer_, SIGNAL(timeout()), this, SLOT(refreshTasksInfo()));
@@ -303,3 +306,27 @@ void CloudView::showCloneTasksDialog()
     dialog.exec();
 }
 
+void CloudView::createToolBar()
+{
+    tool_bar_ = new QToolBar;
+
+    QVBoxLayout *vlayout = (QVBoxLayout *)layout();
+    vlayout->insertWidget(1, tool_bar_);
+
+    // Create toolbar actions
+    create_repo_action_ = new QAction(tr("Create a new library"), this);
+    create_repo_action_->setIcon(awesome->icon(icon_plus));
+    connect(create_repo_action_, SIGNAL(triggered()), this, SLOT(showCreateRepoDialog()));
+
+    tool_bar_->addAction(create_repo_action_);
+    std::vector<QAction*> repo_actions = repos_tree_->getToolBarActions();
+    for (int i = 0, n = repo_actions.size(); i < n; i++) {
+        tool_bar_->addAction(repo_actions[i]);
+    }
+}
+
+void CloudView::showCreateRepoDialog()
+{
+    CreateRepoDialog dialog(current_account_, this);
+    dialog.exec();
+}

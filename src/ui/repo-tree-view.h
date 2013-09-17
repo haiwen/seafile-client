@@ -1,10 +1,14 @@
 #ifndef SEAFILE_CLIENT_REPO_TREE_VIEW_H
 #define SEAFILE_CLIENT_REPO_TREE_VIEW_H
+
+#include <vector>
 #include <QTreeView>
 
 class QAction;
 class QContextMenuEvent;
 class QEvent;
+class QShowEvent;
+class QHideEvent;
 class QModelIndex;
 class QStandardItem;
 
@@ -17,9 +21,15 @@ class RepoTreeView : public QTreeView {
 public:
     RepoTreeView(CloudView *view, QWidget *parent=0);
 
+    std::vector<QAction*> getToolBarActions();
+
 protected:
-    virtual void contextMenuEvent(QContextMenuEvent *event);
-    virtual bool viewportEvent(QEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
+    bool viewportEvent(QEvent *event);
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+    void selectionChanged(const QItemSelection &selected,
+                          const QItemSelection &deselected);
 
 private slots:
     void downloadRepo();
@@ -31,8 +41,9 @@ private slots:
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
 
-    void createContextMenu();
-    void prepareContextMenu(const RepoItem *item);
+    void createActions();
+    QMenu *prepareContextMenu(const RepoItem *item);
+    void updateActions(const RepoItem *item);
 
     void showRepoItemToolTip(const RepoItem *item,
                              const QPoint& pos,
@@ -42,7 +53,6 @@ private:
                                      const QPoint& pos,
                                      const QRect& rect);
 
-    QMenu *context_menu_;
     QAction *download_action_;
     QAction *show_detail_action_;
     QAction *open_local_folder_action_;

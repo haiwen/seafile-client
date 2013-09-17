@@ -74,7 +74,7 @@ void SeafileApiClient::httpRequestFinished()
     }
 
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-    if (code/100 != 2) {
+    if ((code / 100) != 2) {
         qDebug("request failed : status code %d\n", code);
         emit requestFailed(code);
     }

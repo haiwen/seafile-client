@@ -13,13 +13,12 @@ CreateRepoDialog::CreateRepoDialog(const Account& account, QWidget *parent)
       account_(account)
 {
     setupUi(this);
-    setWindowTitle(tr("Create a repo"));
+    setWindowTitle(tr("Create a library"));
 
     mStatusText->setText("");
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
-    connect(mCreateBtn, SIGNAL(clicked()), this, SLOT(createAction()));
-    connect(mEncrypteCheckBox, SIGNAL(stateChanged(int)), this, SLOT(encryptedChanged(int)));
+    connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
 }
 
 CreateRepoDialog::~CreateRepoDialog()
@@ -46,15 +45,18 @@ void CreateRepoDialog::chooseDirAction()
     }
 }
 
-void CreateRepoDialog::encryptedChanged(int state)
+void CreateRepoDialog::setAllInputsEnabled(bool enabled)
 {
-    if (state == Qt::Checked) {
-        mPassword->setEnabled(true);
-        mPasswordAgain->setEnabled(true);
-    } else {
-        mPassword->setEnabled(false);
-        mPasswordAgain->setEnabled(false);
-    }
+    mOkBtn->setEnabled(enabled);
+    mChooseDirBtn->setEnabled(enabled);
+    mDirectory->setEnabled(enabled);
+    mName->setEnabled(enabled);
+    mDesc->setEnabled(enabled);
+    mEncrypteCheckBox->setEnabled(enabled);
+
+    bool password_enabled = (mEncrypteCheckBox->checkState() == Qt::Checked) && enabled;
+    mPassword->setEnabled(password_enabled);
+    mPasswordAgain->setEnabled(password_enabled);
 }
 
 void CreateRepoDialog::createAction()
@@ -62,18 +64,9 @@ void CreateRepoDialog::createAction()
     if (!validateInputs()) {
         return;
     }
-    mStatusText->setText(tr("Creating repo..."));
+    mStatusText->setText(tr("Creating..."));
 
-    mCreateBtn->setEnabled(false);
-    mChooseDirBtn->setEnabled(false);
-    mDirectory->setEnabled(false);
-    mName->setEnabled(false);
-    mDesc->setEnabled(false);
-    mEncrypteCheckBox->setEnabled(false);
-    if (mEncrypteCheckBox->checkState() == Qt::Checked) {
-        mPassword->setEnabled(false);
-        mPasswordAgain->setEnabled(false);
-    }
+    setAllInputsEnabled(false);
 
     if (request_) {
         delete request_;
@@ -81,8 +74,8 @@ void CreateRepoDialog::createAction()
     qDebug() << name_ << desc_ << passwd_;
     request_ = new CreateRepoRequest(account_, name_, desc_, passwd_);
 
-    connect(request_, SIGNAL(success(const QMap<QString, QString> &)),
-            this, SLOT(createSuccess(const QMap<QString, QString> &)));
+    connect(request_, SIGNAL(success(const RepoDownloadInfo&)),
+            this, SLOT(createSuccess(const RepoDownloadInfo&)));
 
     connect(request_, SIGNAL(failed(int)),
             this, SLOT(createFailed(int)));
@@ -148,25 +141,28 @@ bool CreateRepoDialog::validateInputs()
     return true;
 }
 
-void CreateRepoDialog::createSuccess(const QMap<QString, QString> &dict)
+void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
 {
-    qDebug() << __func__ << ":" << dict["repo_id"];
+    qDebug() << __func__ << ":" << info.repo_id;
     QString error;
 
     int ret = seafApplet->rpcClient()->cloneRepo(
-        dict["repo_id"],
-        dict["relay_id"],
-        dict["repo_name"],
+        info.repo_id,
+        info.relay_id,
+        info.repo_name,
         path_,
-        dict["token"],
+        info.token,
         passwd_,
-        dict["magic"],
-        dict["relay_addr"],
-        dict["relay_port"],
-        dict["email"], &error);
+        info.magic,
+        info.relay_addr,
+        info.relay_port,
+        info.email, &error);
 
     if (ret < 0) {
-        qDebug() << "Failed to sync the directory: " << error;
+        QMessageBox::warning(this, tr("Seafile"),
+                             tr("Failed to add download task:\n %1").arg(error),
+                             QMessageBox::Ok);
+        setAllInputsEnabled(true);
     } else {
         done(QDialog::Accepted);
     }
@@ -176,16 +172,10 @@ void CreateRepoDialog::createFailed(int /* code */)
 {
     mStatusText->setText("");
 
-    qDebug("%s", __func__);
-    mCreateBtn->setEnabled(true);
-    mChooseDirBtn->setEnabled(true);
-    mDirectory->setEnabled(true);
-    mName->setEnabled(true);
-    mDesc->setEnabled(true);
-    mEncrypteCheckBox->setEnabled(true);
-    if (mEncrypteCheckBox->checkState() == Qt::Checked) {
-        mPassword->setEnabled(true);
-        mPasswordAgain->setEnabled(true);
-    }
+    QMessageBox::warning(this, tr("Seafile"),
+                         tr("Failed to create library on the server"),
+                         QMessageBox::Ok);
+
+    setAllInputsEnabled(true);
 }
 

@@ -2,10 +2,11 @@
 #include <QUrl>
 #include <QString>
 
-#include "ui_create-repo.h"
+#include "ui_create-repo-dialog.h"
 #include "account.h"
 
 class CreateRepoRequest;
+class RepoDownloadInfo;
 
 class CreateRepoDialog : public QDialog,
                          public Ui::CreateRepoDialog
@@ -16,15 +17,15 @@ public:
     ~CreateRepoDialog();
 
 private slots:
-    void encryptedChanged(int state);
     void createAction();
     void chooseDirAction();
-    void createSuccess(const QMap<QString, QString> &dict);
+    void createSuccess(const RepoDownloadInfo& info);
     void createFailed(int code);
 
 private:
     Q_DISABLE_COPY(CreateRepoDialog);
     bool validateInputs();
+    void setAllInputsEnabled(bool enabled);
 
     QString path_;
     QString name_;

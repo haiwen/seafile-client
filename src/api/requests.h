@@ -2,13 +2,15 @@
 #define SEAFILE_CLIENT_API_REQUESTS_H
 
 #include <vector>
+#include <QMap>
 
 #include "api-request.h"
 #include "server-repo.h"
 
 class QNetworkReply;
-struct Account;
+
 class ServerRepo;
+struct Account;
 
 class LoginRequest : public SeafileApiRequest {
     Q_OBJECT
@@ -56,6 +58,8 @@ struct RepoDownloadInfo {
     QString repo_name;
     QString encrypted;
     QString magic;
+
+    static RepoDownloadInfo fromDict(QMap<QString, QString>& dict);
 };
 
 class DownloadRepoRequest : public SeafileApiRequest {
@@ -86,7 +90,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 signals:
-    void success(const QMap<QString, QString> &dict);
+    void success(const RepoDownloadInfo& info);
 
 private:
     Q_DISABLE_COPY(CreateRepoRequest)

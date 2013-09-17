@@ -123,3 +123,9 @@ QToolButton#mAccountBtn
 {
     margin-left: 10px;
 }
+
+QToolBar {
+    padding: 0;
+    background: #F7F7F7;
+    qproperty-iconSize: 20px;
+}

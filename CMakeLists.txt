@@ -46,7 +46,7 @@ SET(moc_headers
 # UI FILES
 SET(ui_files
   ui/login-dialog.ui
-  ui/create-repo.ui
+  ui/create-repo-dialog.ui
   ui/settings-dialog.ui
   ui/download-repo-dialog.ui
   ui/init-seafile-dialog.ui

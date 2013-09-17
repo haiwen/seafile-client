@@ -11,6 +11,7 @@ class QTimer;
 class QShowEvent;
 class QHideEvent;
 class QToolButton;
+class QToolBar;
 
 class ListReposRequest;
 class ServerRepo;
@@ -42,6 +43,7 @@ private slots:
     void onAccountItemClicked();
     void showCloneTasksDialog();
     void refreshTasksInfo();
+    void showCreateRepoDialog();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -49,6 +51,7 @@ private:
     void createLoadingView();
     void createRepoModelView();
     void prepareAccountButtonMenu();
+    void createToolBar();
     void updateAccountInfoDisplay();
     QAction *makeAccountAction(const Account& account);
     void showLoadingView();
@@ -66,6 +69,12 @@ private:
     QWidget *loading_view_;
 
     ListReposRequest *list_repo_req_;
+
+    // Toolbar and actions
+    QToolBar *tool_bar_;
+    QAction *refresh_action_;
+    QAction *create_repo_action_;
+
 
     // FolderDropArea *drop_area_;
     Account current_account_;

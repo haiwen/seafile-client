@@ -1,5 +1,6 @@
-#include <QtNetwork>
 #include <jansson.h>
+
+#include <QtNetwork>
 #include <QScopedPointer>
 
 #include "account.h"
@@ -108,6 +109,22 @@ DownloadRepoRequest::DownloadRepoRequest(const Account& account, const ServerRep
 {
 }
 
+RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QString>& dict)
+{
+    RepoDownloadInfo info;
+    info.relay_id = dict["relay_id"];
+    info.relay_addr = dict["relay_addr"];
+    info.relay_port = dict["relay_port"];
+    info.email = dict["email"];
+    info.token = dict["token"];
+    info.repo_id = dict["repo_id"];
+    info.repo_name = dict["repo_name"];
+    info.encrypted = dict["encrypted"];
+    info.magic = dict["magic"];
+
+    return info;
+}
+
 void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
@@ -120,18 +137,9 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QString> dict = mapFromJSON(json.data(), &error);
-    
-    RepoDownloadInfo info;
-    info.relay_id = dict["relay_id"];
-    info.relay_addr = dict["relay_addr"];
-    info.relay_port = dict["relay_port"];
-    info.email = dict["email"];
-    info.token = dict["token"];
-    info.repo_id = dict["repo_id"];
-    info.repo_name = dict["repo_name"];
-    info.encrypted = dict["encrypted"];
-    info.magic = dict["magic"];
-    
+
+    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
+
     emit success(info);
 }
 
@@ -162,5 +170,6 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QString> dict = mapFromJSON(json.data(), &error);
-    emit success(dict);
+    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
+    emit success(info);
 }

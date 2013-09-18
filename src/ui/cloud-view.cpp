@@ -40,8 +40,9 @@ CloudView::CloudView(QWidget *parent)
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
-    prepareAccountButtonMenu();
     createToolBar();
+    updateAccountInfoDisplay();
+    prepareAccountButtonMenu();
 
     mDownloadTasksInfo->setText("0");
     mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
@@ -186,6 +187,7 @@ void CloudView::setCurrentAccount(const Account& account)
         }
         qDebug("switch to account %s\n", account.username.toUtf8().data());
     }
+    create_repo_action_->setEnabled(account.isValid());
 }
 
 QAction* CloudView::makeAccountAction(const Account& account)
@@ -324,8 +326,12 @@ void CloudView::createToolBar()
     tool_bar_->addAction(create_repo_action_);
     std::vector<QAction*> repo_actions = repos_tree_->getToolBarActions();
     for (int i = 0, n = repo_actions.size(); i < n; i++) {
-        tool_bar_->addAction(repo_actions[i]);
+        QAction *action = repo_actions[i];
+        tool_bar_->addAction(action);
+        action->setEnabled(hasAccount());
     }
+
+    create_repo_action_->setEnabled(hasAccount());
 }
 
 void CloudView::showCreateRepoDialog()

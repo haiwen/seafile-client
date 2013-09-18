@@ -6,6 +6,7 @@
 
 extern "C" {
 
+struct _GList;
 struct _CcnetClient;
 // Can't forward-declare type SearpcClient here because it is an anonymous typedef struct
 #include <searpc-client.h>
@@ -55,6 +56,7 @@ public:
 
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
+    int getServers(_GList** servers);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)

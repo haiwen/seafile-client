@@ -464,3 +464,22 @@ int SeafileRpcClient::getCloneTasksCount(int *count)
 
     return 0;
 }
+
+int SeafileRpcClient::getServers(GList** servers)
+{
+    GError *error = NULL;
+    GList *objlist = searpc_client_call__objlist(
+        ccnet_rpc_client_,
+        "get_peers_by_role",
+        CCNET_TYPE_PEER,
+        &error, 1,
+        "string", "MyRelay");
+
+    if (error) {
+        return -1;
+    }
+
+    *servers = objlist;
+
+    return 0;
+}

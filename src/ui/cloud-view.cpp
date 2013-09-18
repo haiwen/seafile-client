@@ -1,3 +1,9 @@
+extern "C" {
+
+#include <ccnet/peer.h>
+
+}
+
 #include <vector>
 #include <QtGui>
 #include <QToolButton>
@@ -48,8 +54,13 @@ CloudView::CloudView(QWidget *parent)
     mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
     mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
 
-    refresh_tasks_info_timer_ = new QTimer(this);
-    connect(refresh_tasks_info_timer_, SIGNAL(timeout()), this, SLOT(refreshTasksInfo()));
+    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
+    mServerStatusBtn->setPopupMode(QToolButton::InstantPopup);
+    servers_menu_ = new QMenu(this);
+    mServerStatusBtn->setMenu(servers_menu_);
+
+    refresh_status_bar_timer_ = new QTimer(this);
+    connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshRepos()));
@@ -64,6 +75,9 @@ CloudView::CloudView(QWidget *parent)
             this, SLOT(updateAccountMenu()));
 
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
+
+    connect(servers_menu_, SIGNAL(aboutToShow()),
+            this, SLOT(prepareServerList()));
 }
 
 void CloudView::createRepoModelView()
@@ -267,7 +281,7 @@ void CloudView::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 
     refresh_timer_->start(kRefreshReposInterval);
-    refresh_tasks_info_timer_->start(kRefreshReposInterval);
+    refresh_status_bar_timer_->start(kRefreshReposInterval);
 }
 
 void CloudView::hideEvent(QHideEvent *event) {
@@ -303,6 +317,89 @@ void CloudView::refreshTasksInfo()
     }
 
     mDownloadTasksInfo->setText(QString::number(count));
+}
+
+void CloudView::prepareServerList()
+{
+    GList *servers = NULL;
+    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
+        qDebug("failed to get ccnet servers list\n");
+        return;
+    }
+
+    servers_menu_->clear();
+
+    if (!servers) {
+        return;
+    }
+
+    GList *ptr;
+    for (ptr = servers; ptr ; ptr = ptr->next) {
+        CcnetPeer *server = (CcnetPeer *)ptr->data;
+        QString name;
+        name.sprintf("%s", server->public_addr);
+        QAction *action = new QAction(name, servers_menu_);
+        action->setIcon((server->net_state == PEER_CONNECTED)
+                        ? awesome->icon(icon_ok)
+                        : awesome->icon(icon_remove));
+        action->setIconVisibleInMenu(true);
+
+        servers_menu_->addAction(action);
+    }
+
+    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
+    g_list_free (servers);
+}
+
+void CloudView::refreshServerStatus()
+{
+    GList *servers = NULL;
+    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
+        qDebug("failed to get ccnet servers list\n");
+        return;
+    }
+
+    if (!servers) {
+        mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
+        mServerStatusBtn->setToolTip(tr("no server connected"));
+        return;
+    }
+
+    GList *ptr;
+    bool all_server_connected = true;
+    bool all_server_disconnected = true;
+    for (ptr = servers; ptr ; ptr = ptr->next) {
+        CcnetPeer *server = (CcnetPeer *)ptr->data;
+        if (server->net_state == PEER_CONNECTED) {
+            all_server_disconnected = false;
+        } else {
+            all_server_connected = false;
+        }
+    }
+
+    QColor color;
+    QString tool_tip;
+    if (all_server_connected) {
+        color = "green";
+        tool_tip = tr("all server connected");
+    } else if (all_server_disconnected) {
+        color = "red";
+        tool_tip = tr("no server connected");
+    } else {
+        color = "yellow";
+        tool_tip = tr("some server is not connected");
+    }
+    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb, color));
+    mServerStatusBtn->setToolTip(tool_tip);
+
+    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
+    g_list_free (servers);
+}
+
+void CloudView::refreshStatusBar()
+{
+    refreshTasksInfo();
+    refreshServerStatus();
 }
 
 void CloudView::showCloneTasksDialog()

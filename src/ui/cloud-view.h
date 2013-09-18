@@ -42,8 +42,9 @@ private slots:
     void updateAccountMenu();
     void onAccountItemClicked();
     void showCloneTasksDialog();
-    void refreshTasksInfo();
+    void refreshStatusBar();
     void showCreateRepoDialog();
+    void prepareServerList();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -57,11 +58,13 @@ private:
     void showLoadingView();
     void showRepos();
     bool hasAccount();
+    void refreshServerStatus();
+    void refreshTasksInfo();
 
     bool in_refresh_;
     QTimer *refresh_timer_;
 
-    QTimer *refresh_tasks_info_timer_;
+    QTimer *refresh_status_bar_timer_;
 
     RepoTreeModel *repos_model_;
 
@@ -84,6 +87,8 @@ private:
     QAction *delete_account_action_;
     QAction *switch_account_action_;
     QMenu *account_menu_;
+
+    QMenu *servers_menu_;
 };
 
 

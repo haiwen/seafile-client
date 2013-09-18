@@ -451,6 +451,7 @@ public:
     QIcon icon( int character, const QVariantMap& options = QVariantMap() );
     QIcon icon( const QString& name, const QVariantMap& options = QVariantMap() );
     QIcon icon(QtAwesomeIconPainter* painter, const QVariantMap& optionMap = QVariantMap() );
+    QIcon icon(int character, const QColor& color);
 
     void give( const QString& name, QtAwesomeIconPainter* painter );
 

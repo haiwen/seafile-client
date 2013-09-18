@@ -686,6 +686,13 @@ QIcon QtAwesome::icon(QtAwesomeIconPainter* painter, const QVariantMap& optionMa
     return QIcon( engine );
 }
 
+QIcon QtAwesome::icon(int character, const QColor& color)
+{
+    QVariantMap optionMap;
+    optionMap.insert("color", color);
+    return icon(character, optionMap);
+}
+
 /// Adds a named icon-painter to the QtAwesome icon map
 /// As the name applies the ownership is passed over to QtAwesome
 ///

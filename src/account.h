@@ -9,14 +9,19 @@ struct Account {
     QUrl serverUrl;
     QString username;
     QString token;
+    qint64 lastVisited;
+
     Account() {}
-    Account(QUrl serverUrl, QString username, QString token) :
-        serverUrl(serverUrl),
-        username(username),
-        token(token) {}
+    Account(QUrl serverUrl, QString username, QString token, qint64 lastVisited=0)
+        : serverUrl(serverUrl),
+          username(username),
+          token(token),
+          lastVisited(lastVisited) {}
 
     bool operator==(const Account& rhs) const {
-        return serverUrl == rhs.serverUrl && username == rhs.username && token == rhs.token;
+        return serverUrl == rhs.serverUrl
+            && username == rhs.username
+            && token == rhs.token;
     }
 
     bool operator!=(const Account& rhs) const {

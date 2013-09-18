@@ -23,6 +23,7 @@ public:
     int saveAccount(const Account& account);
     int removeAccount(const Account& account);
     const std::vector<Account>& loadAccounts();
+    void updateAccountLastVisited(const Account& account);
 
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }

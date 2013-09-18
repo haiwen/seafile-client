@@ -181,6 +181,9 @@ void CloudView::setCurrentAccount(const Account& account)
         refreshRepos();
 
         updateAccountInfoDisplay();
+        if (account.isValid()) {
+            seafApplet->accountManager()->updateAccountLastVisited(account);
+        }
         qDebug("switch to account %s\n", account.username.toUtf8().data());
     }
 }

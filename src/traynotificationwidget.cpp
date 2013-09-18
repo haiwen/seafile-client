@@ -28,12 +28,12 @@ TrayNotificationWidget::TrayNotificationWidget(QPixmap pixmapIcon, QString heade
     icon->setPixmap(pixmapIcon);
     icon->setMaximumSize(32, 32);
     QLabel* header = new QLabel;
-    header->setMaximumSize(225, 50);
+    header->setMaximumSize(250, 50);
     header->setWordWrap(true);
     header->setText(headerText);
     header->setStyleSheet("QLabel { color: #ffffff; font-weight: bold; font-size: 12px; }");
     QLabel* message = new QLabel;
-    message->setMaximumSize(225, 100);
+    message->setMaximumSize(250, 150);
     message->setWordWrap(true);
     message->setText(messageText);
     message->setStyleSheet("QLabel { color: #ffffff; font-size: 10px; }");

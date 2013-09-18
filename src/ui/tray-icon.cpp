@@ -117,7 +117,8 @@ void SeafileTrayIcon::prepareContextMenu()
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
 {
 #if defined(Q_WS_MAC)
-    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(QPixmap(), title, content);
+    QIcon icon(":/images/info.png");
+    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(icon.pixmap(32, 32), title, content);
     tnm->append(trayNotification);
 #else
     this->showMessage(title, content);

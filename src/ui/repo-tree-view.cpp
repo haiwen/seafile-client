@@ -17,6 +17,7 @@
 #include "repo-item-delegate.h"
 #include "repo-tree-model.h"
 #include "repo-tree-view.h"
+#include "repo-detail-dialog.h"
 
 RepoTreeView::RepoTreeView(CloudView *cloud_view, QWidget *parent)
     : QTreeView(parent),
@@ -56,7 +57,7 @@ void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
 QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 {
     QMenu *menu = new QMenu(this);
-
+    menu->addAction(show_detail_action_);
     if (item->localRepo().isValid()) {
         menu->addAction(open_local_folder_action_);
     } else {
@@ -91,6 +92,7 @@ void RepoTreeView::updateRepoActions()
         open_local_folder_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
+        show_detail_action_->setEnabled(false);
         return;
     }
 
@@ -124,6 +126,8 @@ void RepoTreeView::updateRepoActions()
 
     view_on_web_action_->setEnabled(true);
     view_on_web_action_->setData(item->repo().id);
+    show_detail_action_->setEnabled(true);
+    show_detail_action_->setData(QVariant::fromValue(item->repo()));
 }
 
 QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
@@ -184,6 +188,9 @@ void RepoTreeView::downloadRepo()
 
 void RepoTreeView::showRepoDetail()
 {
+    ServerRepo repo = qvariant_cast<ServerRepo>(show_detail_action_->data());
+    RepoDetailDialog dialog(repo, this);
+    dialog.exec();
 }
 
 void RepoTreeView::openLocalFolder()
@@ -281,7 +288,7 @@ std::vector<QAction*> RepoTreeView::getToolBarActions()
     actions.push_back(download_action_);
     actions.push_back(open_local_folder_action_);
     actions.push_back(view_on_web_action_);
-
+    actions.push_back(show_detail_action_);
     return actions;
 }
 

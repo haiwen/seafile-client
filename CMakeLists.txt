@@ -43,6 +43,7 @@ SET(moc_headers
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
   src/ui/create-repo-dialog.h
+  src/ui/repo-detail-dialog.h
   src/ui/settings-dialog.h
   src/ui/download-repo-dialog.h
   src/ui/cloud-view.h
@@ -61,6 +62,7 @@ SET(moc_headers
 SET(ui_files
   ui/login-dialog.ui
   ui/create-repo-dialog.ui
+  ui/repo-detail-dialog.ui
   ui/settings-dialog.ui
   ui/download-repo-dialog.ui
   ui/init-seafile-dialog.ui
@@ -148,6 +150,7 @@ SET(seafile_client_sources
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
+  src/ui/repo-detail-dialog.cpp
   src/ui/settings-dialog.cpp
   src/ui/create-repo-dialog.cpp
   src/ui/download-repo-dialog.cpp

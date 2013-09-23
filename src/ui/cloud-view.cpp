@@ -174,14 +174,13 @@ void CloudView::updateAccountMenu()
     add_account_action_->setIcon(awesome->icon(icon_plus));
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
-
-    delete_account_action_ = new QAction(tr("Delete this account"), this);
-    delete_account_action_->setIcon(awesome->icon(icon_remove));
-    delete_account_action_->setIconVisibleInMenu(true);
-    connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
-
     account_menu_->addAction(add_account_action_);
+
     if (hasAccount()) {
+        delete_account_action_ = new QAction(tr("Delete this account"), this);
+        delete_account_action_->setIcon(awesome->icon(icon_remove));
+        delete_account_action_->setIconVisibleInMenu(true);
+        connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
         account_menu_->addAction(delete_account_action_);
     }
 }
@@ -297,12 +296,21 @@ void CloudView::showAddAccountDialog()
 
 void CloudView::deleteAccount()
 {
-    QString question = tr("Are you sure to remove this account?");
+    QString question = tr("Are you sure to remove this account?<br>"
+                          "<b>Warning: All libraries of this account would be unsynced!</b>");
     if (QMessageBox::question(this,
                               tr("Seafile"),
                               question,
                               QMessageBox::Ok | QMessageBox::Cancel,
                               QMessageBox::Cancel) == QMessageBox::Ok) {
+
+        QString error, server_addr = current_account_.serverUrl.host();
+        if (seafApplet->rpcClient()->unsyncReposByServer(server_addr, &error) < 0) {
+            QMessageBox::warning(this, tr("Seafile"),
+                                 tr("Failed to unsync libraries of this account: %1").arg(error),
+                                 QMessageBox::Ok);
+        }
+
         Account account = current_account_;
         setCurrentAccount(Account());
         seafApplet->accountManager()->removeAccount(account);

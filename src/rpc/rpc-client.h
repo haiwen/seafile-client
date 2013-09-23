@@ -54,6 +54,8 @@ public:
     int cancelCloneTask(const QString& repo_id, QString *error);
     int removeCloneTask(const QString& repo_id, QString *error);
 
+    int unsyncReposByServer(const QString& server_addr, QString *error);
+
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
     int getServers(_GList** servers);

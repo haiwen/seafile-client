@@ -483,3 +483,22 @@ int SeafileRpcClient::getServers(GList** servers)
 
     return 0;
 }
+
+int SeafileRpcClient::unsyncReposByServer(const QString& server_addr, QString *err)
+{
+    GError *error = NULL;
+    int ret =  searpc_client_call__int (seafile_rpc_client_,
+                                        "seafile_unsync_repos_by_server",
+                                        &error, 1,
+                                        "string", toCStr(server_addr));
+
+    if (ret < 0) {
+        if (error) {
+            *err = QString::fromUtf8(error->message);
+        } else {
+            *err = tr("Unknown error");
+        }
+    }
+
+    return ret;
+}

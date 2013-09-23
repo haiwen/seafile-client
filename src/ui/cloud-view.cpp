@@ -26,6 +26,7 @@ extern "C" {
 namespace {
 
 const int kRefreshReposInterval = 10000;
+const int kRefreshStatusInterval = 1000;
 
 enum {
     INDEX_LOADING_VIEW = 0,
@@ -58,6 +59,16 @@ CloudView::CloudView(QWidget *parent)
     mServerStatusBtn->setPopupMode(QToolButton::InstantPopup);
     servers_menu_ = new QMenu(this);
     mServerStatusBtn->setMenu(servers_menu_);
+
+    mDownloadRateArrow->setText(QChar(icon_arrow_down));
+    mDownloadRateArrow->setFont(awesome->font(16));
+    mDownloadRate->setText("0 kB/s");
+    mDownloadRate->setToolTip(tr("current download rate"));
+
+    mUploadRateArrow->setText(QChar(icon_arrow_up));
+    mUploadRateArrow->setFont(awesome->font(16));
+    mUploadRate->setText("0 kB/s");
+    mUploadRate->setToolTip(tr("current upload rate"));
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
@@ -280,7 +291,7 @@ void CloudView::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 
     refresh_timer_->start(kRefreshReposInterval);
-    refresh_status_bar_timer_->start(kRefreshReposInterval);
+    refresh_status_bar_timer_->start(kRefreshStatusInterval);
 }
 
 void CloudView::hideEvent(QHideEvent *event) {
@@ -404,10 +415,26 @@ void CloudView::refreshServerStatus()
     g_list_free (servers);
 }
 
+void CloudView::refreshTransferRate()
+{
+    int up_rate, down_rate;
+    if (seafApplet->rpcClient()->getUploadRate(&up_rate) < 0) {
+        return;
+    }
+
+    if (seafApplet->rpcClient()->getDownloadRate(&down_rate) < 0) {
+        return;
+    }
+
+    mUploadRate->setText(tr("%1 kB/s").arg(up_rate / 1024));
+    mDownloadRate->setText(tr("%1 kB/s").arg(down_rate / 1024));
+}
+
 void CloudView::refreshStatusBar()
 {
     refreshTasksInfo();
     refreshServerStatus();
+    refreshTransferRate();
 }
 
 void CloudView::showCloneTasksDialog()

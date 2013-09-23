@@ -60,6 +60,7 @@ private:
     bool hasAccount();
     void refreshServerStatus();
     void refreshTasksInfo();
+    void refreshTransferRate();
 
     bool in_refresh_;
     QTimer *refresh_timer_;

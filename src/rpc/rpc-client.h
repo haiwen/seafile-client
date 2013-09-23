@@ -55,6 +55,8 @@ public:
     int removeCloneTask(const QString& repo_id, QString *error);
 
     int unsyncReposByServer(const QString& server_addr, QString *error);
+    int getUploadRate(int *rate);
+    int getDownloadRate(int *rate);
 
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);

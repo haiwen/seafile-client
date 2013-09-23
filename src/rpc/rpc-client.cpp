@@ -502,3 +502,33 @@ int SeafileRpcClient::unsyncReposByServer(const QString& server_addr, QString *e
 
     return ret;
 }
+
+int SeafileRpcClient::getDownloadRate(int *rate)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_get_download_rate",
+                                       &error, 0);
+
+    if (error) {
+        return -1;
+    }
+
+    *rate = ret;
+    return 0;
+}
+
+int SeafileRpcClient::getUploadRate(int *rate)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_get_upload_rate",
+                                       &error, 0);
+
+    if (error) {
+        return -1;
+    }
+
+    *rate = ret;
+    return 0;
+}

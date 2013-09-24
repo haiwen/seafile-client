@@ -231,6 +231,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QRect status_icon_rect(status_icon_pos, option.rect.bottomRight());
     painter->save();
     painter->setFont(awesome->font(kRepoStatusIconHeight));
+    if (selected)
+        painter->setPen(QColor("white"));
+    else
+        painter->setPen(QColor("#f17f49"));
     painter->drawText(status_icon_rect,
                       Qt::AlignCenter,
                       getSyncStatusIcon(item), &status_icon_rect);
@@ -368,7 +372,7 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
         return;
     }
 
-    QString text = "<p style='white-space:pre'>" + item->repo().name + "<br/>";
+    QString text = "<p style='white-space:pre'>";
     const LocalRepo& local_repo = item->localRepo();
     if (!local_repo.isValid()) {
         text += tr("This library has not been downloaded");

@@ -118,11 +118,15 @@ void CloudView::showLoadingView()
     QStackedLayout *stack = (QStackedLayout *)(layout());
 
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+
+    create_repo_action_->setEnabled(false);
 }
 
 void CloudView::showRepos()
 {
     mStack->setCurrentIndex(INDEX_REPOS_VIEW);
+
+    create_repo_action_->setEnabled(true);
 }
 
 void CloudView::prepareAccountButtonMenu()
@@ -207,7 +211,8 @@ void CloudView::setCurrentAccount(const Account& account)
         }
         qDebug("switch to account %s\n", account.username.toUtf8().data());
     }
-    create_repo_action_->setEnabled(account.isValid());
+
+    refresh_action_->setEnabled(account.isValid());
 }
 
 QAction* CloudView::makeAccountAction(const Account& account)
@@ -424,8 +429,13 @@ void CloudView::createToolBar()
     create_repo_action_ = new QAction(tr("Create a new library"), this);
     create_repo_action_->setIcon(awesome->icon(icon_plus));
     connect(create_repo_action_, SIGNAL(triggered()), this, SLOT(showCreateRepoDialog()));
-
     tool_bar_->addAction(create_repo_action_);
+
+    refresh_action_ = new QAction(tr("Refresh"), this);
+    refresh_action_->setIcon(awesome->icon(icon_refresh));
+    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
+    tool_bar_->addAction(refresh_action_);
+
     std::vector<QAction*> repo_actions = repos_tree_->getToolBarActions();
     for (int i = 0, n = repo_actions.size(); i < n; i++) {
         QAction *action = repo_actions[i];
@@ -434,6 +444,15 @@ void CloudView::createToolBar()
     }
 
     create_repo_action_->setEnabled(hasAccount());
+    refresh_action_->setEnabled(hasAccount());
+}
+
+void CloudView::onRefreshClicked()
+{
+    if (hasAccount()) {
+        showLoadingView();
+        refreshRepos();
+    }
 }
 
 void CloudView::showCreateRepoDialog()

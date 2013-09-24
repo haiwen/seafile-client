@@ -45,6 +45,7 @@ private slots:
     void refreshStatusBar();
     void showCreateRepoDialog();
     void showServerStatusDialog();
+    void onRefreshClicked();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -78,7 +79,6 @@ private:
     QToolBar *tool_bar_;
     QAction *refresh_action_;
     QAction *create_repo_action_;
-
 
     // FolderDropArea *drop_area_;
     Account current_account_;

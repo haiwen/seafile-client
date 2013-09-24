@@ -84,12 +84,12 @@
       <g
          transform="translate(95.428571,333.50504)"
          id="g2995"
-         style="fill:#666666">
+         style="fill:#00aad4">
         <path
            inkscape:connector-curvature="0"
            d="m 3279.4427,497.45117 -2356.84334,0 0,-3583.34677 1122.30634,0 0,2015.6326 336.6919,-447.9184 224.4612,0 336.6919,447.9184 0,-2015.6326 336.692,0 c 62.0635,0 112.2306,50.1668 112.2306,111.9795 l 0,3359.38769 c 0,61.9247 -50.1671,111.97958 -112.2306,111.97958 z M 249.21552,385.47159 l 0,-3359.38769 c 0,-61.8127 50.16709,-111.9795 112.23064,-111.9795 l 336.69191,0 0,3583.34677 -336.69191,0 c -62.06355,0 -112.23064,-50.05488 -112.23064,-111.97958 z"
            id="path2987"
-           style="fill:#999999;stroke:url(#linearGradient3761);stroke-width:29.09770203;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:#00aad4;stroke:url(#linearGradient3761);stroke-width:29.09770203000000066;stroke-miterlimit:4;stroke-dasharray:none"
            inkscape:export-filename="/Users/poet/repo2.png"
            inkscape:export-xdpi="90"
            inkscape:export-ydpi="90" />

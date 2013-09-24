@@ -51,7 +51,11 @@ void RepoTreeModel::clear()
 void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 {
     int i, n = repos.size();
-    removeReposDeletedOnServer(repos);
+    // removeReposDeletedOnServer(repos);
+
+    qDebug("refresh: %d repos\n", n);
+
+    clear();
 
     for (i = 0; i < n; i++) {
         const ServerRepo& repo = repos[i];

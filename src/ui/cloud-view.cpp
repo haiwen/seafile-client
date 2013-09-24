@@ -21,6 +21,7 @@ extern "C" {
 #include "repo-tree-model.h"
 #include "repo-item-delegate.h"
 #include "clone-tasks-dialog.h"
+#include "server-status-dialog.h"
 #include "cloud-view.h"
 
 namespace {
@@ -56,9 +57,6 @@ CloudView::CloudView(QWidget *parent)
     mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
 
     mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
-    mServerStatusBtn->setPopupMode(QToolButton::InstantPopup);
-    servers_menu_ = new QMenu(this);
-    mServerStatusBtn->setMenu(servers_menu_);
 
     mDownloadRateArrow->setText(QChar(icon_arrow_down));
     mDownloadRateArrow->setFont(awesome->font(16));
@@ -86,9 +84,7 @@ CloudView::CloudView(QWidget *parent)
             this, SLOT(updateAccountMenu()));
 
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
-
-    connect(servers_menu_, SIGNAL(aboutToShow()),
-            this, SLOT(prepareServerList()));
+    connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 }
 
 void CloudView::createRepoModelView()
@@ -338,38 +334,6 @@ void CloudView::refreshTasksInfo()
     mDownloadTasksInfo->setText(QString::number(count));
 }
 
-void CloudView::prepareServerList()
-{
-    GList *servers = NULL;
-    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
-        qDebug("failed to get ccnet servers list\n");
-        return;
-    }
-
-    servers_menu_->clear();
-
-    if (!servers) {
-        return;
-    }
-
-    GList *ptr;
-    for (ptr = servers; ptr ; ptr = ptr->next) {
-        CcnetPeer *server = (CcnetPeer *)ptr->data;
-        QString name;
-        name.sprintf("%s", server->public_addr);
-        QAction *action = new QAction(name, servers_menu_);
-        action->setIcon((server->net_state == PEER_CONNECTED)
-                        ? awesome->icon(icon_ok)
-                        : awesome->icon(icon_remove));
-        action->setIconVisibleInMenu(true);
-
-        servers_menu_->addAction(action);
-    }
-
-    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
-    g_list_free (servers);
-}
-
 void CloudView::refreshServerStatus()
 {
     GList *servers = NULL;
@@ -440,6 +404,12 @@ void CloudView::refreshStatusBar()
 void CloudView::showCloneTasksDialog()
 {
     CloneTasksDialog dialog(this);
+    dialog.exec();
+}
+
+void CloudView::showServerStatusDialog()
+{
+    ServerStatusDialog dialog(this);
     dialog.exec();
 }
 

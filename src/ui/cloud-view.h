@@ -44,7 +44,7 @@ private slots:
     void showCloneTasksDialog();
     void refreshStatusBar();
     void showCreateRepoDialog();
-    void prepareServerList();
+    void showServerStatusDialog();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -88,8 +88,6 @@ private:
     QAction *delete_account_action_;
     QAction *switch_account_action_;
     QMenu *account_menu_;
-
-    QMenu *servers_menu_;
 };
 
 

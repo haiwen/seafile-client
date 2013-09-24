@@ -50,7 +50,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
-        <number>8</number>
+        <number>6</number>
        </property>
        <property name="leftMargin">
         <number>6</number>

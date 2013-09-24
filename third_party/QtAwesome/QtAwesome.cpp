@@ -690,6 +690,9 @@ QIcon QtAwesome::icon(int character, const QColor& color)
 {
     QVariantMap optionMap;
     optionMap.insert("color", color);
+    optionMap.insert("color-disabled", color);
+    optionMap.insert("color-active", color);
+    optionMap.insert("color-selected", color);
     return icon(character, optionMap);
 }
 

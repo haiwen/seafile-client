@@ -102,3 +102,9 @@ QToolBar {
     margin: 3px;
     qproperty-iconSize: 18px;
 }
+
+QLabel#mUploadRateArrow,
+QLabel#mDownloadRateArrow
+{
+    color: #F17F49;
+}

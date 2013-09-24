@@ -374,7 +374,7 @@ void CloudView::refreshServerStatus()
         color = "red";
         tool_tip = tr("no server connected");
     } else {
-        color = "yellow";
+        color = "red";
         tool_tip = tr("some server is not connected");
     }
     mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb, color));

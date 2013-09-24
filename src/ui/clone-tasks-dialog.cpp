@@ -29,7 +29,7 @@ CloneTasksDialog::CloneTasksDialog(QWidget *parent)
 
     setWindowTitle(tr("Download tasks"));
 
-    setMinimumSize(QSize(500, 300));
+    setMinimumSize(QSize(600, 300));
 
     createEmptyView();
 

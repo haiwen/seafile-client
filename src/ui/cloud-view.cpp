@@ -25,7 +25,7 @@ extern "C" {
 
 namespace {
 
-const int kRefreshReposInterval = 10000;
+const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
 const int kRefreshStatusInterval = 1000;
 
 enum {

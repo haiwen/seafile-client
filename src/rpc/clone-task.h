@@ -29,6 +29,7 @@ public:
 
     bool isCancelable() const;
     bool isRemovable() const;
+    bool isSuccessful() const { return state == "done"; }
 
     bool operator==(const CloneTask& rhs) const {
         return repo_id == rhs.repo_id

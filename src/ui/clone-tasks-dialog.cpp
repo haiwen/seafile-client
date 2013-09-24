@@ -44,6 +44,9 @@ CloneTasksDialog::CloneTasksDialog(QWidget *parent)
     QVBoxLayout *vlayout = (QVBoxLayout *)layout();
     vlayout->insertWidget(0, stack_);
 
+    mClearBtn->setToolTip(tr("remove all successful tasks"));
+    connect(mClearBtn, SIGNAL(clicked()), model_, SLOT(clearSuccessfulTasks()));
+
     onModelReset();
     connect(model_, SIGNAL(modelReset()), this, SLOT(onModelReset()));
 }

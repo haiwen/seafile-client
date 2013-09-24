@@ -174,9 +174,9 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
         selected = true;
 
     } else if (option.state & QStyle::State_MouseOver) {
-        backBrush = option.palette.color( QPalette::Highlight ).lighter(115);
-        foreColor = option.palette.color( QPalette::HighlightedText );
-        hover = true;
+        // backBrush = option.palette.color( QPalette::Highlight ).lighter(115);
+        // foreColor = option.palette.color( QPalette::HighlightedText );
+        // hover = true;
 
     } else {
         backBrush = option.palette.brush( QPalette::Base );

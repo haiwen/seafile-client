@@ -121,3 +121,15 @@ QVariant CloneTasksTableModel::headerData(int section,
 
     return QVariant();
 }
+
+void CloneTasksTableModel::clearSuccessfulTasks()
+{
+    int i, n = tasks_.size();
+    for (int i = 0; i < n; i++) {
+        const CloneTask& task = tasks_[i];
+        if (task.isSuccessful()) {
+            QString error;
+            seafApplet->rpcClient()->removeCloneTask(task.repo_id, &error);
+        }
+    }
+}

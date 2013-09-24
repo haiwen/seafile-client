@@ -23,6 +23,9 @@ public:
                                                                                  
     CloneTask taskAt(int i) const { return (i >= tasks_.size()) ? CloneTask() : tasks_[i]; }
 
+public slots:
+    void clearSuccessfulTasks();
+
 private slots:
     void updateTasks();
 

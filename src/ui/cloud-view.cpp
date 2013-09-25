@@ -458,5 +458,8 @@ void CloudView::onRefreshClicked()
 void CloudView::showCreateRepoDialog()
 {
     CreateRepoDialog dialog(current_account_, this);
-    dialog.exec();
+    if (dialog.exec() == QDialog::Accepted) {
+        showLoadingView();
+        refreshRepos();
+    }
 }

@@ -47,7 +47,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="nameLabel">
         <property name="text">
-         <string>name</string>
+         <string>Name</string>
         </property>
        </widget>
       </item>
@@ -109,6 +109,9 @@
        <widget class="QLineEdit" name="mPasswordAgain">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>

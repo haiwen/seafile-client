@@ -55,6 +55,8 @@ private slots:
 private:
     Q_DISABLE_COPY(SeafileApplet)
 
+    void initLog();
+
     Configurator *configurator_;
 
     AccountManager *account_mgr_;

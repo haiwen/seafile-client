@@ -613,7 +613,6 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t */* error */)
         }
 
         if (v.isValid()) {
-            qDebug() << "key:" << key << " value:" << v;
             dict[k] = v;
         }
     }

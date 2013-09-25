@@ -1,5 +1,7 @@
 #include <QMessageBox>
 
+#include "utils/utils.h"
+#include "utils/log.h"
 #include "account-mgr.h"
 #include "configurator.h"
 #include "daemon-mgr.h"
@@ -9,8 +11,30 @@
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
 #include "ui/settings-dialog.h"
-
 #include "seafile-applet.h"
+
+namespace {
+
+void myLogHandler(QtMsgType type, const char *msg)
+{
+    switch (type) {
+    case QtDebugMsg:
+        g_debug("%s\n", msg);
+        break;
+    case QtWarningMsg:
+        g_warning("%s\n", msg);
+        break;
+    case QtCriticalMsg:
+        g_critical("%s\n", msg);
+        break;
+    case QtFatalMsg:
+        g_critical("%s\n", msg);
+        abort();
+    }
+}
+
+
+} // namespace
 
 SeafileApplet *seafApplet;
 
@@ -31,6 +55,8 @@ void SeafileApplet::start()
 {
     tray_icon_->show();
     configurator_->checkInit();
+
+    initLog();
 
     account_mgr_->start();
     daemon_mgr_->startCcnetDaemon();
@@ -66,3 +92,13 @@ void SeafileApplet::errorAndExit(const QString& error)
     QMessageBox::warning(main_win_, tr("Seafile"), error, QMessageBox::Ok);
     this->exit(1);
 }
+
+void SeafileApplet::initLog()
+{
+    if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
+        errorAndExit(tr("Failed to initialize log"));
+    } else {
+        qInstallMsgHandler(myLogHandler);
+    }
+}
+

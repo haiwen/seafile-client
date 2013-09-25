@@ -34,8 +34,6 @@ void CreateRepoDialog::chooseDirAction()
                                                         wt.toUtf8().data(),
                                                         QFileDialog::ShowDirsOnly
                                                         | QFileDialog::DontResolveSymlinks);
-
-    qDebug() << "Choose directory:" << dir;
     if (dir.isEmpty())
         return;
     mDirectory->setText(dir);
@@ -71,7 +69,6 @@ void CreateRepoDialog::createAction()
     if (request_) {
         delete request_;
     }
-    qDebug() << name_ << desc_ << passwd_;
     request_ = new CreateRepoRequest(account_, name_, desc_, passwd_);
 
     connect(request_, SIGNAL(success(const RepoDownloadInfo&)),
@@ -143,7 +140,6 @@ bool CreateRepoDialog::validateInputs()
 
 void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
 {
-    qDebug() << __func__ << ":" << info.repo_id;
     QString error;
 
     int ret = seafApplet->rpcClient()->cloneRepo(

@@ -25,7 +25,6 @@ QMap<QString, QString> mapFromJSON(json_t *json, json_error_t */* error */)
         key = json_object_iter_key(member);
         value = json_object_iter_value(member);
 
-        qDebug() << "key:"<<key << " value:" << json_string_value(value);
         dict[QString::fromUtf8(key)] = QString::fromUtf8(json_string_value(value));
     }
     return dict;

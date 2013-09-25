@@ -23,7 +23,6 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       nth_trayicon_(0),
       rotate_counter_(0)
 {
-    qDebug("supportsMessages:%d", QSystemTrayIcon::supportsMessages());
     setToolTip("Seafile");
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
@@ -117,7 +116,6 @@ void SeafileTrayIcon::prepareContextMenu()
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
 {
-    qDebug() <<__func__ << ":" << title << "," << content;
 #if defined(Q_WS_MAC)
     TrayNotificationWidget* trayNotification = new TrayNotificationWidget(QPixmap(), title, content);
     tnm->append(trayNotification);
@@ -128,7 +126,6 @@ void SeafileTrayIcon::notify(const QString &title, const QString &content)
 
 void SeafileTrayIcon::rotate(bool start)
 {
-    qDebug("rorate %d, timer is active %d", start, rotate_timer_->isActive());
     if (start) {
         rotate_counter_ = 0;
         if (!rotate_timer_->isActive()) {

@@ -46,8 +46,6 @@ void DownloadRepoDialog::chooseDirAction()
                                                     wt.toUtf8().data(),
                                                     QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
-
-    qDebug() << "Choose directory:" << dir;
     if (dir.isEmpty())
         return;
     mDirectory->setText(dir);

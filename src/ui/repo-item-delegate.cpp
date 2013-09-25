@@ -4,6 +4,7 @@
 #include <QToolTip>
 
 #include "QtAwesome.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "api/server-repo.h"
@@ -220,9 +221,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
     painter->setPen(selected ? foreColor.darker(115) : foreColor.lighter(150));
     painter->setFont(zoomFont(painter->font(), 0.8));
+    qDebug("mtime = %s\n", toCStr(QString::number(repo.mtime)));
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(repo.description, option.font, kRepoNameWidth),
+                      fitTextToWidth(translateCommitTime(repo.mtime), option.font, kRepoNameWidth),
                       &repo_desc_rect);
     painter->restore();
 

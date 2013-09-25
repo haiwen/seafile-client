@@ -23,6 +23,7 @@
 #include <QMap>
 #include <QVariant>
 #include <QDebug>
+#include <QDateTime>
 
 #include "utils.h"
 
@@ -593,7 +594,7 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t */* error */)
 
         QString k = QString::fromUtf8(key);
         QVariant v;
-        
+
         // json_is_object(const json_t *json)
         // json_is_array(const json_t *json)
         // json_is_string(const json_t *json)
@@ -617,4 +618,42 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t */* error */)
         }
     }
     return dict;
+}
+
+QString translateCommitTime(qint64 timestamp) {
+    timestamp *= 1000;          // use milli seconds
+    qint64 now = QDateTime::currentMSecsSinceEpoch();
+    if (now <= timestamp) {
+        return QObject::tr("Just now");
+    }
+
+    qint64 delta = (now - timestamp) / 1000;
+
+    qint64 secondsPerDay = 24 * 60 * 60;
+
+    qint64 days = delta / secondsPerDay;
+    qint64 seconds = delta % secondsPerDay;
+
+    QDateTime dt = QDateTime::fromMSecsSinceEpoch(timestamp);
+
+    if (days >= 14) {
+        return dt.toString("yyyy-MM-dd");
+
+    } else if (days > 0) {
+        return days == 1 ? QObject::tr("1 day ago") : QObject::tr("%1 days ago").arg(days);
+
+    } else if (seconds >= 60 * 60) {
+        qint64 hours = seconds / 3600;
+        return hours == 1 ? QObject::tr("1 hour ago") : QObject::tr("%1 hours ago").arg(hours);
+
+    } else if (seconds >= 60) {
+        qint64 minutes = seconds / 60;
+        return minutes == 1 ? QObject::tr("1 minute ago") : QObject::tr("%1 minutes ago").arg(minutes);
+
+    } else if (seconds > 0) {
+        return seconds == 1 ? QObject::tr("1 second ago") : QObject::tr("%1 seconds ago").arg(seconds);
+
+    } else {
+        return QObject::tr("Just now");
+    }
 }

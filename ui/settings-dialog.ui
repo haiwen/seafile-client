@@ -35,7 +35,7 @@
         <item>
          <widget class="QCheckBox" name="mAutoStartCheckBox">
           <property name="text">
-           <string>Auto start Seafile on system startup (Windows only)</string>
+           <string>Auto start Seafile after login (Windows only)</string>
           </property>
          </widget>
         </item>
@@ -96,8 +96,6 @@
        </layout>
       </item>
      </layout>
-     <zorder>verticalLayoutWidget</zorder>
-     <zorder>horizontalLayoutWidget</zorder>
     </widget>
    </item>
    <item>

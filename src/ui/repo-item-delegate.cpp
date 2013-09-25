@@ -221,7 +221,6 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
     painter->setPen(selected ? foreColor.darker(115) : foreColor.lighter(150));
     painter->setFont(zoomFont(painter->font(), 0.8));
-    qDebug("mtime = %s\n", toCStr(QString::number(repo.mtime)));
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
                       fitTextToWidth(translateCommitTime(repo.mtime), option.font, kRepoNameWidth),
@@ -231,16 +230,20 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo status icon
     QPoint status_icon_pos = option.rect.topRight() - QPoint(80, 0);
     QRect status_icon_rect(status_icon_pos, option.rect.bottomRight());
-    painter->save();
-    painter->setFont(awesome->font(kRepoStatusIconHeight));
-    if (selected)
-        painter->setPen(QColor("white"));
-    else
-        painter->setPen(QColor("#f17f49"));
-    painter->drawText(status_icon_rect,
-                      Qt::AlignCenter,
-                      getSyncStatusIcon(item), &status_icon_rect);
-    painter->restore();
+    if (!item->localRepo().isValid()
+        || item->localRepo().sync_state != LocalRepo::SYNC_STATE_WAITING) {
+
+        painter->save();
+        painter->setFont(awesome->font(kRepoStatusIconHeight));
+        if (selected)
+            painter->setPen(QColor("white"));
+        else
+            painter->setPen(QColor("#f17f49"));
+        painter->drawText(status_icon_rect,
+                          Qt::AlignCenter,
+                          getSyncStatusIcon(item), &status_icon_rect);
+        painter->restore();
+    }
 
     // Update the metrics of this item
     RepoItem::Metrics metrics;
@@ -309,7 +312,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->save();
     QPoint category_name_pos = indicator_rect.topRight() + QPoint(kMarginBetweenIndicatorAndName, 0);
     QRect category_name_rect(category_name_pos,
-                          option.rect.bottomRight() - QPoint(kPadding, 0));
+                             option.rect.bottomRight() - QPoint(kPadding, 0));
     painter->setPen(foreColor);
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
@@ -332,9 +335,9 @@ QChar RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     case LocalRepo::SYNC_STATE_ERROR:
         return icon_exclamation;
     case LocalRepo::SYNC_STATE_WAITING:
-        return icon_pause;
-    case LocalRepo::SYNC_STATE_DISABLED:
         return icon_minus_sign;
+    case LocalRepo::SYNC_STATE_DISABLED:
+        return icon_pause;
     case LocalRepo::SYNC_STATE_UNKNOWN:
         return icon_question_sign;
     }

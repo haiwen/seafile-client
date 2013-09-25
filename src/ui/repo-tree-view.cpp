@@ -65,26 +65,61 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 
     menu->addAction(view_on_web_action_);
 
+    if (item->localRepo().isValid()) {
+        menu->addAction(toggle_auto_sync_action_);
+    }
+
     return menu;
 }
 
-void RepoTreeView::updateActions(const RepoItem *item)
+void RepoTreeView::updateRepoActions()
 {
+    RepoItem *item = NULL;
+    QItemSelection selected = selectionModel()->selection();
+    QModelIndexList indexes = selected.indexes();
+    if (indexes.size() != 0) {
+        const QModelIndex& index = indexes.at(0);
+        QStandardItem *it = ((RepoTreeModel *)model())->itemFromIndex(index);
+        if (it && it->type() == REPO_ITEM_TYPE) {
+            item = (RepoItem *)it;
+        }
+    }
+
     if (!item) {
+        // No repo item is selected
         download_action_->setEnabled(false);
         open_local_folder_action_->setEnabled(false);
+        toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
         return;
     }
 
     if (item->localRepo().isValid()) {
+        const LocalRepo& local_repo = item->localRepo();
+        LocalRepo r;
+        if (seafApplet->rpcClient()->getLocalRepo(local_repo.id, &r) >= 0) {
+            item->setLocalRepo(r);
+        }
+
         download_action_->setEnabled(false);
-        open_local_folder_action_->setData(QVariant::fromValue(item->localRepo()));
+        open_local_folder_action_->setData(QVariant::fromValue(local_repo));
         open_local_folder_action_->setEnabled(true);
+
+        toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
+        toggle_auto_sync_action_->setEnabled(true);
+        if (local_repo.auto_sync) {
+            toggle_auto_sync_action_->setText(tr("Disable auto sync"));
+            toggle_auto_sync_action_->setToolTip(tr("Disable auto sync"));
+        } else {
+            toggle_auto_sync_action_->setText(tr("Enable auto sync"));
+            toggle_auto_sync_action_->setToolTip(tr("Enable auto sync"));
+        }
+
     } else {
         download_action_->setEnabled(true);
         download_action_->setData(QVariant::fromValue(item->repo()));
         open_local_folder_action_->setEnabled(false);
+        toggle_auto_sync_action_->setEnabled(false);
     }
 
     view_on_web_action_->setEnabled(true);
@@ -125,6 +160,10 @@ void RepoTreeView::createActions()
     open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
+    toggle_auto_sync_action_ = new QAction(tr("Enable auto sync"), this);
+    toggle_auto_sync_action_->setStatusTip(tr("Enable auto sync"));
+    connect(toggle_auto_sync_action_, SIGNAL(triggered()), this, SLOT(toggleRepoAutoSync()));
+
     view_on_web_action_ = new QAction(tr("&View on website"), this);
     view_on_web_action_->setIcon(awesome->icon(icon_hand_right));
     view_on_web_action_->setStatusTip(tr("view this library on seahub"));
@@ -151,6 +190,15 @@ void RepoTreeView::openLocalFolder()
 {
     LocalRepo repo = qvariant_cast<LocalRepo>(open_local_folder_action_->data());
     QDesktopServices::openUrl(QUrl::fromLocalFile(repo.worktree));
+}
+
+void RepoTreeView::toggleRepoAutoSync()
+{
+    LocalRepo repo = qvariant_cast<LocalRepo>(open_local_folder_action_->data());
+
+    seafApplet->rpcClient()->setRepoAutoSync(repo.id, !repo.auto_sync);
+
+    updateRepoActions();
 }
 
 void RepoTreeView::onItemClicked(const QModelIndex& index)
@@ -240,25 +288,18 @@ std::vector<QAction*> RepoTreeView::getToolBarActions()
 void RepoTreeView::selectionChanged(const QItemSelection &selected,
                                     const QItemSelection &deselected)
 {
-    RepoItem *item = NULL;
-    QModelIndexList indexes = selected.indexes();
-    if (indexes.size() != 0) {
-        const QModelIndex& index = indexes.at(0);
-        QStandardItem *it = ((RepoTreeModel *)model())->itemFromIndex(index);
-        if (it != NULL && it->type() == REPO_ITEM_TYPE) {
-            item = (RepoItem *)it;
-        }
-    }
-
-    updateActions(item);
+    updateRepoActions();
 }
 
 void RepoTreeView::hideEvent(QHideEvent *event)
 {
-    updateActions(NULL);
+    download_action_->setEnabled(false);
+    open_local_folder_action_->setEnabled(false);
+    toggle_auto_sync_action_->setEnabled(false);
+    view_on_web_action_->setEnabled(false);
 }
 
 void RepoTreeView::showEvent(QShowEvent *event)
 {
-    selectionChanged(selectionModel()->selection(), QItemSelection());
+    updateRepoActions();
 }

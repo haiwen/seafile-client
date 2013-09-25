@@ -37,13 +37,14 @@ private slots:
     void openLocalFolder();
     void viewRepoOnWeb();
     void onItemClicked(const QModelIndex& index);
+    void toggleRepoAutoSync();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
 
     void createActions();
     QMenu *prepareContextMenu(const RepoItem *item);
-    void updateActions(const RepoItem *item);
+    void updateRepoActions();
 
     void showRepoItemToolTip(const RepoItem *item,
                              const QPoint& pos,
@@ -57,6 +58,7 @@ private:
     QAction *show_detail_action_;
     QAction *open_local_folder_action_;
     QAction *view_on_web_action_;
+    QAction *toggle_auto_sync_action_;
 
     CloudView *cloud_view_;
 };

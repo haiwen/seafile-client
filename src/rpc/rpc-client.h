@@ -58,6 +58,8 @@ public:
     int getUploadRate(int *rate);
     int getDownloadRate(int *rate);
 
+    void setRepoAutoSync(const QString& repo_id, bool auto_sync);
+
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
     int getServers(_GList** servers);

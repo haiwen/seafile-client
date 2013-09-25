@@ -532,3 +532,15 @@ int SeafileRpcClient::getUploadRate(int *rate)
     *rate = ret;
     return 0;
 }
+
+
+void SeafileRpcClient::setRepoAutoSync(const QString& repo_id, bool auto_sync)
+{
+    GError *error = NULL;
+    searpc_client_call__int(seafile_rpc_client_,
+                            "seafile_set_repo_property",
+                            &error, 3,
+                            "string", toCStr(repo_id),
+                            "string", "auto-sync",
+                            "string", auto_sync ? "true" : "false");
+}

@@ -101,9 +101,14 @@ void InitSeafileDialog::onOkClicked()
         return;
     }
 
+#if defined(Q_WS_WIN)
     dir.mkpath("Seafile/seafile-data");
-
     QString seafile_dir = dir.filePath("Seafile/seafile-data");
+#else
+    dir.mkpath("Seafile/.seafile-data");
+    QString seafile_dir = dir.filePath("Seafile/.seafile-data");
+#endif
+
     emit seafileDirSet(seafile_dir);
 
     accept();

@@ -18,6 +18,9 @@ public:
     const QString& seafileDir() const { return seafile_dir_; }
     const QString& worktreeDir() const { return worktree_; }
 
+private slots:
+    void onSeafileDirSet(const QString& path);
+
 private:
     Q_DISABLE_COPY(Configurator)
 

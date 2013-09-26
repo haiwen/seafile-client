@@ -11,6 +11,13 @@ class InitSeafileDialog : public QDialog,
 
 public:
     InitSeafileDialog(QWidget *parent=0);
+
+private slots:
+    void onOkClicked();
+    void chooseDir();
+
+signals:
+    void seafileDirSet(const QString&);
 };
 
-#endif
+#endif  // SEAFILE_CLIENT_INIT_SEAFILE_DIALOG_H

@@ -65,9 +65,30 @@ void Configurator::initCcnet()
 void Configurator::initSeafile()
 {
     InitSeafileDialog dialog;
+    connect(&dialog, SIGNAL(seafileDirSet(const QString&)),
+            this, SLOT(onSeafileDirSet(const QString&)));
+
     if (dialog.exec() != QDialog::Accepted) {
         seafApplet->exit(1);
     }
+}
+
+void Configurator::onSeafileDirSet(const QString& path)
+{
+    // Write seafile dir to <ccnet dir>/seafile.ini
+    QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
+
+    if (!seafile_ini.open(QIODevice::WriteOnly)) {
+        return;
+    }
+
+    seafile_ini.write(path.toUtf8().data());
+
+    seafile_dir_ = path;
+
+    QDir d(path);
+    d.cdUp();
+    worktree_ = d.absolutePath();
 }
 
 void Configurator::validateExistingConfig()

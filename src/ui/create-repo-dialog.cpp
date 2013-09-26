@@ -82,20 +82,21 @@ void CreateRepoDialog::createAction()
 
 bool CreateRepoDialog::validateInputs()
 {
+    QString path;
     QString passwd;
     QString passwdAgain;
     bool encrypted;
 
-    if (mDirectory->text().isEmpty()) {
+    path = mDirectory->text();
+    if (path.isEmpty()) {
         QMessageBox::warning(this, tr("Seafile"),
                              tr("Please choose the drectory to sync"),
                              QMessageBox::Ok);
         return false;
     }
-    QDir dir(mDirectory->text());
-    if (!dir.exists()) {
+    if (!QDir(path).exists()) {
         QMessageBox::warning(this, tr("Seafile"),
-                             tr("Directory donot exist"),
+                             tr("The folder %1 does not exist").arg(path),
                              QMessageBox::Ok);
         return false;
     }

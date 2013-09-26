@@ -94,7 +94,7 @@ int count_process (const char *process_name_in)
     HMODULE hMods[1024];
     int count = 0;
     int i, j;
-    
+
     if (strstr(process_name_in, ".exe")) {
         snprintf (name, sizeof(name), "%s", process_name_in);
     } else {
@@ -115,7 +115,7 @@ int count_process (const char *process_name_in)
         if (!hProcess) {
             continue;
         }
-            
+
         if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded)) {
             for (j = 0; j < cbNeeded / sizeof(HMODULE); j++) {
                 if (GetModuleBaseName(hProcess, hMods[j], process_name,
@@ -123,11 +123,11 @@ int count_process (const char *process_name_in)
                     if (strcasecmp(process_name, name) == 0)
                         count++;
                 }
-            } 
+            }
         }
 
         CloseHandle(hProcess);
     }
-    
+
     return count;
 }

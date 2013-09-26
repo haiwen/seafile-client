@@ -56,7 +56,6 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
-    setWindowTitle(tr("Choose a directory"));
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkClicked()));
@@ -85,16 +84,16 @@ void InitSeafileDialog::chooseDir()
 
 void InitSeafileDialog::onOkClicked()
 {
-    QString path;
+    QString path = mDirectory->text();
     if (path.isEmpty()) {
         QMessageBox::warning(this, tr("Seafile"),
-                             tr("Please choose the drectory to sync"),
+                             tr("Please choose a directory"),
                              QMessageBox::Ok);
         return;
     }
 
     QDir dir(path);
-    if (dir.exists()) {
+    if (!dir.exists()) {
         QMessageBox::warning(this, tr("Seafile"),
                              tr("The folder %1 does not exist").arg(path),
                              QMessageBox::Ok);
@@ -105,5 +104,7 @@ void InitSeafileDialog::onOkClicked()
 
     QString seafile_dir = dir.filePath("Seafile/seafile-data");
     emit seafileDirSet(seafile_dir);
+
+    accept();
 }
 

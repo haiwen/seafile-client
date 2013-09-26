@@ -98,6 +98,20 @@ PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 ###### END: other libraries configuration
 ####################
 
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    SET(platform_specific_sources
+      src/utils/process-win.cpp
+    )
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    SET(platform_specific_sources
+      src/utils/process-linux.cpp
+    )
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET(platform_specific_sources
+      src/utils/process-mac.cpp
+    )
+endif()
+
 
 # c/cpp sources
 SET(seafile_client_sources
@@ -138,6 +152,7 @@ SET(seafile_client_sources
   src/ui/clone-tasks-table-view.cpp
   src/ui/server-status-dialog.cpp
   third_party/QtAwesome/QtAwesome.cpp
+  ${platform_specific_sources}
 )
 
 INCLUDE_DIRECTORIES(

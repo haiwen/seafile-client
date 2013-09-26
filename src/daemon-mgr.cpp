@@ -14,6 +14,7 @@ extern "C" {
 
 
 #include "utils/utils.h"
+#include "utils/process.h"
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "daemon-mgr.h"

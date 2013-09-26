@@ -53,8 +53,8 @@ SeafileApplet::SeafileApplet()
 
 void SeafileApplet::start()
 {
-    tray_icon_->show();
     configurator_->checkInit();
+    tray_icon_->show();
 
     initLog();
 

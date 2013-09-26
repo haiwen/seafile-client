@@ -26,13 +26,6 @@ int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
 
 int checkdir_with_mkdir (const char *dir);
 
-int process_is_running (const char *process_name);
-
-void shutdown_process (const char *name);
-
-
-void open_dir(const QString& path);
-
 int get_seafile_auto_start();
 
 int set_seafile_auto_start(int on);
@@ -43,5 +36,6 @@ typedef bool (*KeyValueFunc) (void *data, const char *key,
 bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data);
 
 QString translateCommitTime(qint64 timestamp);
+
 
 #endif

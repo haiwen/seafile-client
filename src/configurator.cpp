@@ -95,18 +95,13 @@ void Configurator::validateExistingConfig()
 {
     QFile ccnet_conf(QDir(ccnet_dir_).filePath("ccnet.conf"));
     if (!ccnet_conf.exists()) {
-        // TODO: init config here instead of exit
-        seafApplet->errorAndExit(tr("%1 not found").arg(ccnet_conf.fileName()));
+        initConfig();
+        return;
     }
 
-    if (readSeafileIni(&seafile_dir_) < 0) {
-        // TODO: init config here instead of exit
-        seafApplet->errorAndExit(tr("seafile.ini not found"));
-    }
-
-    if (!QDir(seafile_dir_).exists()) {
-        // TODO: init config here instead of exit
-        seafApplet->errorAndExit(tr("%1 does not exist").arg(seafile_dir_));
+    if (readSeafileIni(&seafile_dir_) < 0 || !QDir(seafile_dir_).exists()) {
+        initSeafile();
+        return;
     }
 
     QFileInfo finfo(seafile_dir_);

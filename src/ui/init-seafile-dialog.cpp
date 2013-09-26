@@ -59,6 +59,7 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkClicked()));
+    connect(mCancelBtn, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
 }
 
 void InitSeafileDialog::chooseDir()
@@ -108,3 +109,26 @@ void InitSeafileDialog::onOkClicked()
     accept();
 }
 
+void InitSeafileDialog::onCancelClicked()
+{
+    QString question = tr("Initialzation is not finished. Really quit?");
+    if (QMessageBox::question(this, tr("Seafile"),
+                              question,
+                              QMessageBox::Yes | QMessageBox::No,
+                              QMessageBox::No) == QMessageBox::Yes) {
+        reject();
+    }
+}
+
+void InitSeafileDialog::closeEvent(QCloseEvent *event)
+{
+    QString question = tr("Initialzation is not finished. Really quit?");
+    if (QMessageBox::question(this, tr("Seafile"),
+                              question,
+                              QMessageBox::Yes | QMessageBox::No,
+                              QMessageBox::No) == QMessageBox::Yes) {
+        QDialog::closeEvent(event);
+        return;
+    }
+    event->ignore();
+}

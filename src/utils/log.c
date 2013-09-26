@@ -48,6 +48,10 @@ applet_log (const gchar *log_domain, GLogLevelFlags log_level,
     g_return_if_fail (len < 1024);
     fputs (buf, logfp);
     fputs (message, logfp);
+
+    if (message && strlen(message) > 0 && message[strlen(message) - 1] != '\n') {
+        fputs("\n", logfp);
+    }
     fflush (logfp);
 }
 

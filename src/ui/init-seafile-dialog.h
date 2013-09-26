@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "ui_init-seafile-dialog.h"
 
+class QCloseEvent;
+
 class InitSeafileDialog : public QDialog,
                           public Ui::InitSeafileDialog
 {
@@ -11,9 +13,11 @@ class InitSeafileDialog : public QDialog,
 
 public:
     InitSeafileDialog(QWidget *parent=0);
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void onOkClicked();
+    void onCancelClicked();
     void chooseDir();
 
 signals:

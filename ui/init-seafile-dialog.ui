@@ -203,7 +203,7 @@ We will create a Seafile subfolder in it. When you download a library, it will b
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="mCancelBtn">
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -214,22 +214,5 @@ We will create a Seafile subfolder in it. When you download a library, it will b
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>InitSeafileDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>438</x>
-     <y>252</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>268</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

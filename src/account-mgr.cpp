@@ -25,23 +25,14 @@ int AccountManager::start()
 {
     const char *errmsg;
     const char *sql;
-    char *db_path;
-    const QString config_dir = seafApplet->configurator()->ccnetDir();
-    const QByteArray path = config_dir.toUtf8();
-    char *db_dir = g_build_filename (path.data(), "misc", NULL);
 
-    if (checkdir_with_mkdir(db_dir) < 0) {
-        qDebug ("Cannot open db dir %s: %s\n", db_dir, strerror(errno));
-        g_free (db_dir);
-        return -1;
-    }
-    g_free (db_dir);
-    db_path = g_build_filename(path.data(), "misc", "accounts.db", NULL);
-    if (sqlite3_open (db_path, &db)) {
+    QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
+    if (sqlite3_open (toCStr(db_path), &db)) {
         errmsg = sqlite3_errmsg (db);
-        qDebug("Couldn't open database:'%s', %s\n",
-                   db_path, errmsg ? errmsg : "no error given");
-        db = NULL;
+        qDebug("failed to open account database %s: %s",
+               toCStr(db_path), errmsg ? errmsg : "no error given");
+
+        seafApplet->errorAndExit(tr("failed to open account databse"));
         return -1;
     }
 
@@ -49,8 +40,6 @@ int AccountManager::start()
         "username VARCHAR(15), token VARCHAR(40), lastVisited INTEGER, "
         "PRIMARY KEY(url, username))";
     sqlite_query_exec (db, sql);
-
-    g_free (db_path);
 
     loadAccounts();
     return 0;

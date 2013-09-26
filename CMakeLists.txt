@@ -201,3 +201,10 @@ TARGET_LINK_LIBRARIES(seafile-client
   ${LIBSEAFILE_LIBRARIES}
   ${EXTRA_LIBS}
 )
+
+set(PROJECT_VERSION "0.1")
+set(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
+add_custom_target(dist
+    COMMAND git archive -v --prefix=${ARCHIVE_NAME}/ HEAD
+        | gzip > ${CMAKE_BINARY_DIR}/${ARCHIVE_NAME}.tar.gz
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

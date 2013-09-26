@@ -107,10 +107,9 @@ void MainWindow::about()
 
 void MainWindow::refreshQss()
 {
-    QFile qss(RESOURCE_PATH("qt.css"));
+    QFile qss(":/qt.css");
 
     if (!qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug("failed to open qt.css\n");
         return;
     }
     QTextStream input(&qss);

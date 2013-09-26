@@ -19,5 +19,6 @@
     <file>images/mac/seafile_auto_sync_disabled.png</file>
     <file>images/mac/seafile_transfer_1.png</file>
     <file>images/mac/seafile_transfer_2.png</file>
+    <file>qt.css</file>
 </qresource>
 </RCC>

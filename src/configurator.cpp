@@ -1,5 +1,7 @@
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
 #include <QDebug>
 
@@ -89,6 +91,39 @@ void Configurator::onSeafileDirSet(const QString& path)
     QDir d(path);
     d.cdUp();
     worktree_ = d.absolutePath();
+
+    setSeafileDirAttributes();
+}
+
+void Configurator::setSeafileDirAttributes()
+{
+#if defined(Q_WS_WIN)
+    std::wstring seafdir = seafile_dir_.toStdWString();
+
+    // Make seafile-data folder hidden
+    SetFileAttributesW (seafdir.c_str(),
+                        FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+
+    // Set seafdir folder icon.
+    SetFileAttributesW (seafdir.c_str(), FILE_ATTRIBUTE_SYSTEM);
+    QString desktop_ini_path = QDir(seafile_dir_).filePath("Desktop.ini");
+    QFile desktop_ini(desktop_ini_path);
+
+    if (!desktop_ini.open(QIODevice::WriteOnly |  QIODevice::Text)) {
+        return;
+    }
+
+    QString icon_path = QDir(QCoreApplication::applicationDirPath()).filePath("seafdir.ico");
+
+    QTextStream out(&desktop_ini);
+    out << "[.ShellClassInfo]\n";
+    out << QString("IconFile=%1\n").arg(icon_path);
+    out << "IconIndex=0\n";
+
+    // Make the "Desktop.ini" file hidden.
+    SetFileAttributesW (desktop_ini_path.toStdWString().c_str(),
+                        FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+#endif
 }
 
 void Configurator::validateExistingConfig()

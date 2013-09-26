@@ -24,6 +24,8 @@ private slots:
 private:
     Q_DISABLE_COPY(Configurator)
 
+    void setSeafileDirAttributes();
+
     bool needInitConfig();
     void initConfig();
     void validateExistingConfig();

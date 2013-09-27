@@ -1,6 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(seafile-client)
+SET(PROJECT_VERSION "2.0")
 INCLUDE(FindPkgConfig)
 
 SET(CMAKE_BUILD_TYPE Debug)
@@ -204,7 +205,6 @@ TARGET_LINK_LIBRARIES(seafile-client
   ${EXTRA_LIBS}
 )
 
-set(PROJECT_VERSION "0.1")
 set(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
 add_custom_target(dist
     COMMAND git archive -v --prefix=${ARCHIVE_NAME}/ HEAD

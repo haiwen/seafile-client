@@ -186,6 +186,8 @@ ADD_EXECUTABLE(seafile-client
   ${resources_ouput}
 )
 
+INSTALL(TARGETS seafile-client DESTINATION bin)
+
 if (MSYS)
   set(EXTRA_LIBS ${EXTRA_LIBS} psapi)
 endif (MSYS)

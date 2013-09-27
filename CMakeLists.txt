@@ -180,20 +180,20 @@ LINK_DIRECTORIES(
   ${JANSSON_LIBRARRY_DIRS}
 )
 
-ADD_EXECUTABLE(seafile-client
+ADD_EXECUTABLE(seafile-applet
   ${seafile_client_sources}
   ${moc_output}
   ${ui_output}
   ${resources_ouput}
 )
 
-INSTALL(TARGETS seafile-client DESTINATION bin)
+INSTALL(TARGETS seafile-applet DESTINATION bin)
 
 if (MSYS)
   set(EXTRA_LIBS ${EXTRA_LIBS} psapi)
 endif (MSYS)
 
-TARGET_LINK_LIBRARIES(seafile-client
+TARGET_LINK_LIBRARIES(seafile-applet
   ${QT_LIBRARIES}
   ${QT_QTNETWORK_LIBRARY}
   ${OPENSSL_LIBRARIES}

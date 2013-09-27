@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    if (count_process("seafile-client") > 1) {
+    if (count_process("seafile-applet") > 1) {
         QMessageBox::warning(NULL, "Seafile",
                              QObject::tr("Seafile is already running"),
                              QMessageBox::Ok);

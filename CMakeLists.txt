@@ -6,6 +6,18 @@ INCLUDE(FindPkgConfig)
 
 SET(CMAKE_BUILD_TYPE Debug)
 
+
+IF (MSYS)
+  SET(EXTRA_LIBS ${EXTRA_LIBS} psapi)
+
+  # SET(CMAKE_RC_COMPILER_INIT windres)
+  # ENABLE_LANGUAGE(RC)
+  # SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+
+  SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
+ENDIF (MSYS) 
+
+
 ####################
 ###### BEGIN: QT configuration
 ####################
@@ -185,13 +197,11 @@ ADD_EXECUTABLE(seafile-applet
   ${moc_output}
   ${ui_output}
   ${resources_ouput}
+  ${EXTRA_SOURCES}
 )
 
 INSTALL(TARGETS seafile-applet DESTINATION bin)
 
-if (MSYS)
-  set(EXTRA_LIBS ${EXTRA_LIBS} psapi)
-endif (MSYS)
 
 TARGET_LINK_LIBRARIES(seafile-applet
   ${QT_LIBRARIES}

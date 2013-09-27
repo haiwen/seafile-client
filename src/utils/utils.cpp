@@ -3,7 +3,6 @@
 #include <errno.h>
 #include <dirent.h>
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sqlite3.h>

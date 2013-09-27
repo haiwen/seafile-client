@@ -1,7 +1,15 @@
-#include "process.h"
-
 #include <windows.h>
 #include <psapi.h>
+
+#include <assert.h>
+#include <errno.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+
+#include "process.h"
 
 namespace {
 
@@ -87,8 +95,8 @@ void shutdown_process (const char *name)
 
 int count_process (const char *process_name_in)
 {
-    char name[SEAF_PATH_MAX];
-    char process_name[SEAF_PATH_MAX];
+    char name[MAX_PATH];
+    char process_name[MAX_PATH];
     DWORD aProcesses[1024], cbNeeded, cProcesses;
     HANDLE hProcess;
     HMODULE hMods[1024];

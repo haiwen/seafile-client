@@ -7,10 +7,14 @@
 namespace {
 
 #if defined(Q_WS_WIN)
+
+#include <ShlObj.h>
+#include <shlwapi.h>
+    
 static QString
 get_largest_drive()
 {
-    wchar_t drives[SEAF_PATH_MAX];
+    wchar_t drives[MAX_PATH];
     wchar_t *p, *largest_drive;
     ULARGE_INTEGER free_space;
     ULARGE_INTEGER largest_free_space;
@@ -34,8 +38,8 @@ get_largest_drive()
             }
 
         } else {
-            applet_warning ("failed to GetDiskFreeSpaceEx(), GLE=%lu\n",
-                            GetLastError());
+            qDebug ("failed to GetDiskFreeSpaceEx(), GLE=%lu\n",
+                    GetLastError());
         }
     }
 

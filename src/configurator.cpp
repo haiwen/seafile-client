@@ -11,6 +11,12 @@
 #include "configurator.h"
 
 
+#if defined(Q_WS_WIN)
+#include <ShlObj.h>
+#include <shlwapi.h>
+#endif
+
+
 namespace {
 
 #if defined(Q_WS_WIN)

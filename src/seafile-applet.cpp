@@ -1,5 +1,7 @@
 #include <QMessageBox>
 
+#include <glib.h>
+
 #include "utils/utils.h"
 #include "utils/log.h"
 #include "account-mgr.h"
@@ -59,6 +61,13 @@ void SeafileApplet::start()
     initLog();
 
     account_mgr_->start();
+
+#if defined(Q_WS_WIN)
+    QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath();
+    if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
+        QDebug("Failed to set CRASH_RPT_PATH env variable.\n");
+#endif
+
     daemon_mgr_->startCcnetDaemon();
 
     connect(daemon_mgr_, SIGNAL(daemonStarted()),

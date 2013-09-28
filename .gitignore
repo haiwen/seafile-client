@@ -17,6 +17,7 @@
 
 # executables 
 seafile-client
+seafile-applet
 *.exe
 
 # backup file

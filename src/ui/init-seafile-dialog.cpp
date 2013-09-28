@@ -10,7 +10,7 @@ namespace {
 
 #include <ShlObj.h>
 #include <shlwapi.h>
-    
+
 static QString
 get_largest_drive()
 {
@@ -60,6 +60,8 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
+
+    setWindowTitle(tr("Seafile Initialzation"));
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkClicked()));

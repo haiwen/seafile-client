@@ -6,6 +6,7 @@
 #include "api/requests.h"
 #include "rpc/rpc-client.h"
 #include "repo-detail-dialog.h"
+#include "rpc/local-repo.h"
 
 
 RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
@@ -19,7 +20,6 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     const QDateTime dt = QDateTime::fromTime_t(repo.mtime);
     mTimeLabel->setText(dt.toString(Qt::TextDate));        
     mOwnerLabel->setText(repo.owner);
-
 
     gint64 res = repo.size;
     QString filetyperes;
@@ -39,15 +39,23 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     }
     mSizeLabel->setText(QString::number(res) + filetyperes);
 
-    if (!repo.isGroupRepo()) {
-        mGroupLabel->setVisible(false);
-        groupLabel->setVisible(false);
-        mGroupLabel->setText(repo.group_name);
+    LocalRepo lrepo;
+    seafApplet->rpcClient()->getLocalRepo(repo.id, &lrepo);
+    if (lrepo.isValid()) {
+        mStatusLabel->setVisible(true);
+        lpathLabel->setVisible(true);
+        mLpathLabel->setVisible(true);
+        mLpathLabel->setText(lrepo.worktree);
+        if (lrepo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
+            mStatusLabel->setText(lrepo.sync_error_str);
+        } else {
+            mStatusLabel->setText(lrepo.sync_state_str);
+        }
     } else {
-        mGroupLabel->setVisible(true);
-        groupLabel->setVisible(true);
+        mStatusLabel->setVisible(false);
+        lpathLabel->setVisible(false);
+        mLpathLabel->setVisible(false);
     }
-    progressBar->setVisible(false);
 }
 
 RepoDetailDialog::~RepoDetailDialog()

@@ -1,5 +1,6 @@
 #include <QTimer>
 #include <QHash>
+#include <QDebug>
 
 #include "api/server-repo.h"
 #include "utils/utils.h"

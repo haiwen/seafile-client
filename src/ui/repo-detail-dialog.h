@@ -4,6 +4,7 @@
 
 #include "ui_repo-detail-dialog.h"
 #include "api/server-repo.h"
+#include "rpc/local-repo.h"
 
 
 class RepoDetailDialog : public QDialog,

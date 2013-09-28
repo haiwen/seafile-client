@@ -1,6 +1,14 @@
 #include "process.h"
 
 #include <sys/sysctl.h>
+#include <assert.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <errno.h>
+#include <glib.h>
 
 typedef struct kinfo_proc kinfo_proc;
 
@@ -130,4 +138,20 @@ void shutdown_process (const char *name)
         }
     }
     free (mylist);
+}
+
+int count_process(const char *process_name)
+{
+    int count = 0;
+    struct kinfo_proc *mylist = NULL;
+    size_t mycount = 0;
+    GetBSDProcessList (&mylist, &mycount);
+    for (size_t k = 0; k < mycount; k++) {
+        kinfo_proc *proc =  &mylist[k];
+        if (strcmp (proc->kp_proc.p_comm, process_name) == 0){
+            count++;
+        }
+    }
+    free (mylist);
+    return count;
 }

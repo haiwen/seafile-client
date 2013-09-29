@@ -117,6 +117,7 @@ IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     SET(platform_specific_sources
       src/utils/process-win.cpp
     )
+    SET(GUI_TYPE WIN32)
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     SET(platform_specific_sources
       src/utils/process-linux.cpp
@@ -195,7 +196,7 @@ LINK_DIRECTORIES(
   ${JANSSON_LIBRARRY_DIRS}
 )
 
-ADD_EXECUTABLE(seafile-applet
+ADD_EXECUTABLE(seafile-applet ${GUI_TYPE}
   ${seafile_client_sources}
   ${moc_output}
   ${ui_output}

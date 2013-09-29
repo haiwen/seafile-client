@@ -1,4 +1,5 @@
 #include <QMessageBox>
+#include <QDir>
 
 #include <glib.h>
 
@@ -63,9 +64,9 @@ void SeafileApplet::start()
     account_mgr_->start();
 
 #if defined(Q_WS_WIN)
-    QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath();
+    QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
-        QDebug("Failed to set CRASH_RPT_PATH env variable.\n");
+        qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
 
     daemon_mgr_->startCcnetDaemon();

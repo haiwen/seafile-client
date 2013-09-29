@@ -2,10 +2,8 @@
 <qresource>
     <file>images/seafile.png</file>
     <file>images/account.png</file>
-    <file>images/info.png</file>
     <file>images/repo.png</file>
     <file>images/encrypted-repo.png</file>
-    <file>images/refresh.png</file>
     <file>images/loading.gif</file>
     <file>images/daemon_up.png</file>
     <file>images/daemon_down.png</file>
@@ -17,6 +15,11 @@
     <file>images/mac/seafile_auto_sync_disabled.png</file>
     <file>images/mac/seafile_transfer_1.png</file>
     <file>images/mac/seafile_transfer_2.png</file>
+    <file>images/refresh.png</file>
+    <file>images/plus.png</file>
+    <file>images/download.png</file>
+    <file>images/folder-open.png</file>
+    <file>images/browser.png</file>
     <file>qt.css</file>
 </qresource>
 </RCC>

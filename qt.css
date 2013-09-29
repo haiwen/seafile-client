@@ -101,7 +101,7 @@ QToolBar {
     padding:0;
     border: 0;
     margin: 3px;
-    qproperty-iconSize: 18px;
+    qproperty-iconSize: 16px;
 }
 
 QLabel#mUploadRateArrow,

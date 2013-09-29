@@ -146,19 +146,19 @@ QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
 void RepoTreeView::createActions()
 {
     show_detail_action_ = new QAction(tr("&Show details"), this);
-    show_detail_action_->setIcon(awesome->icon(icon_info_sign));
+    show_detail_action_->setIcon(QIcon(":/images/info.png"));
     show_detail_action_->setStatusTip(tr("Download this library"));
     show_detail_action_->setIconVisibleInMenu(true);
     connect(show_detail_action_, SIGNAL(triggered()), this, SLOT(showRepoDetail()));
 
     download_action_ = new QAction(tr("&Download this library"), this);
-    download_action_->setIcon(awesome->icon(icon_download));
+    download_action_->setIcon(QIcon(":/images/download.png"));
     download_action_->setStatusTip(tr("Download this library"));
     download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
-    open_local_folder_action_->setIcon(awesome->icon(icon_folder_open_alt));
+    open_local_folder_action_->setIcon(QIcon(":/images/folder-open.png"));
     open_local_folder_action_->setStatusTip(tr("open local folder"));
     open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
@@ -168,7 +168,7 @@ void RepoTreeView::createActions()
     connect(toggle_auto_sync_action_, SIGNAL(triggered()), this, SLOT(toggleRepoAutoSync()));
 
     view_on_web_action_ = new QAction(tr("&View on website"), this);
-    view_on_web_action_->setIcon(awesome->icon(icon_hand_right));
+    view_on_web_action_->setIcon(QIcon(":/images/browser.png"));
     view_on_web_action_->setStatusTip(tr("view this library on seahub"));
     view_on_web_action_->setIconVisibleInMenu(true);
 

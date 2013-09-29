@@ -427,12 +427,12 @@ void CloudView::createToolBar()
 
     // Create toolbar actions
     create_repo_action_ = new QAction(tr("Create a new library"), this);
-    create_repo_action_->setIcon(awesome->icon(icon_plus));
+    create_repo_action_->setIcon(QIcon(":/images/plus.png"));
     connect(create_repo_action_, SIGNAL(triggered()), this, SLOT(showCreateRepoDialog()));
     tool_bar_->addAction(create_repo_action_);
 
     refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(awesome->icon(icon_refresh));
+    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
     tool_bar_->addAction(refresh_action_);
 

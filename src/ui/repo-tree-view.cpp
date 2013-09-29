@@ -303,6 +303,7 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     open_local_folder_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
+    show_detail_action_->setEnabled(false);
 }
 
 void RepoTreeView::showEvent(QShowEvent *event)

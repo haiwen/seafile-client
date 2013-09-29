@@ -107,13 +107,24 @@ void MainWindow::about()
 
 void MainWindow::refreshQss()
 {
-    QFile qss(":/qt.css");
+    QFile debug_qss(RESOURCE_PATH("qt.css"));
+    if (QFileInfo(debug_qss).exists()) {
+        if (!debug_qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            return;
+        }
+        QTextStream input(&debug_qss);
+        QString style = input.readAll();
+        qApp->setStyleSheet(style);
 
-    if (!qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return;
+    } else {
+        QFile qss(":/qt.css");
+
+        if (!qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            return;
+        }
+        QTextStream input(&qss);
+        QString style = input.readAll();
+        qApp->setStyleSheet(style);
     }
-    QTextStream input(&qss);
-    QString style = input.readAll();
-    qApp->setStyleSheet(style);
 }
 

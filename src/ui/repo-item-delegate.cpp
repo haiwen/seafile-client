@@ -171,7 +171,8 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     bool selected = false;
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = option.palette.brush(QPalette::Highlight);
-        foreColor = option.palette.color(QPalette::HighlightedText);
+        backBrush = QColor("#f9e0c7");
+        foreColor = option.palette.color( QPalette::Text );
         selected = true;
 
     } else if (option.state & QStyle::State_MouseOver) {
@@ -195,7 +196,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
             opt.backgroundBrush = backBrush;
     }
     painter->save();
-    style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, 0);
+    painter->fillRect(option.rect, backBrush);
     painter->restore();
 
     // Paint repo icon
@@ -219,7 +220,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo description
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
     QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
-    painter->setPen(selected ? foreColor.darker(115) : foreColor.lighter(150));
+    painter->setPen(selected ? foreColor : foreColor.lighter(150));
     painter->setFont(zoomFont(painter->font(), 0.8));
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,

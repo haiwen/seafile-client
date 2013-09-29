@@ -62,7 +62,7 @@ void MainWindow::createActions()
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
-    refresh_qss_action_ = new QAction(QIcon(":/images/refresh.svg"), tr("Refresh"), this);
+    refresh_qss_action_ = new QAction(QIcon(":/images/refresh.png"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
 }
 

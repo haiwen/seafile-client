@@ -54,17 +54,17 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
 QIcon ServerRepo::getIcon() const
 {
     if (encrypted) {
-        return QIcon(":/images/encrypted-repo.svg");
+        return QIcon(":/images/encrypted-repo.png");
     } else {
-        return QIcon(":/images/repo.svg");
+        return QIcon(":/images/repo.png");
     }
 }
 
 QPixmap ServerRepo::getPixmap() const
 {
     if (encrypted) {
-        return QPixmap(":/images/encrypted-repo.svg");
+        return QPixmap(":/images/encrypted-repo.png");
     } else {
-        return QPixmap(":/images/repo.svg");
+        return QPixmap(":/images/repo.png");
     }
 }

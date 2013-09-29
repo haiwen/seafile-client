@@ -184,15 +184,15 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 #if defined(Q_WS_WIN)
     switch (state) {
     case STATE_DAEMON_UP:
-        return QIcon(":/images/mac/daemon_up.png");
+        return QIcon(":/images/win/daemon_up.ico");
     case STATE_DAEMON_DOWN:
-        return QIcon(":/images/mac/daemon_down.png");
+        return QIcon(":/images/win/daemon_down.ico");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return QIcon(":/images/mac/seafile_auto_sync_disabled.png");
+        return QIcon(":/images/win/seafile_auto_sync_disabled.ico");
     case STATE_TRANSFER_1:
-        return QIcon(":/images/mac/seafile_transfer_1.png");
+        return QIcon(":/images/win/seafile_transfer_1.ico");
     case STATE_TRANSFER_2:
-        return QIcon(":/images/mac/seafile_transfer_2.png");
+        return QIcon(":/images/win/seafile_transfer_2.ico");
     }
 #elif defined(Q_WS_MAC)
     switch (state) {

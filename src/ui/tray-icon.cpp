@@ -169,6 +169,12 @@ void SeafileTrayIcon::resetToolTip ()
 void SeafileTrayIcon::setState(TrayState state)
 {
     setIcon(stateToIcon(state));
+
+    // the following two lines solving the problem of tray icon
+    // disappear in ubuntu 13.04
+    hide();
+    show();
+
     if (state != STATE_DAEMON_DOWN)
         resetToolTip();
 }

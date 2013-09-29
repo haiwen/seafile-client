@@ -26,6 +26,9 @@
     <file>images/folder-open.png</file>
     <file>images/browser.png</file>
     <file>images/info.png</file>
+    <file>images/play.png</file>
+    <file>images/pause.png</file>
+    <file>images/cloud.png</file>
     <file>qt.css</file>
 </qresource>
 </RCC>

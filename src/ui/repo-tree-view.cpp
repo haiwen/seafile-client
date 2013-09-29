@@ -56,7 +56,6 @@ void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
 QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 {
     QMenu *menu = new QMenu(this);
-    menu->addAction(show_detail_action_);
     if (item->localRepo().isValid()) {
         menu->addAction(open_local_folder_action_);
     } else {
@@ -68,6 +67,8 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     if (item->localRepo().isValid()) {
         menu->addAction(toggle_auto_sync_action_);
     }
+
+    menu->addAction(show_detail_action_);
 
     return menu;
 }
@@ -111,9 +112,11 @@ void RepoTreeView::updateRepoActions()
         if (local_repo.auto_sync) {
             toggle_auto_sync_action_->setText(tr("Disable auto sync"));
             toggle_auto_sync_action_->setToolTip(tr("Disable auto sync"));
+            toggle_auto_sync_action_->setIcon(QIcon(":/images/pause.png"));
         } else {
             toggle_auto_sync_action_->setText(tr("Enable auto sync"));
             toggle_auto_sync_action_->setToolTip(tr("Enable auto sync"));
+            toggle_auto_sync_action_->setIcon(QIcon(":/images/play.png"));
         }
 
     } else {
@@ -165,10 +168,11 @@ void RepoTreeView::createActions()
 
     toggle_auto_sync_action_ = new QAction(tr("Enable auto sync"), this);
     toggle_auto_sync_action_->setStatusTip(tr("Enable auto sync"));
+    toggle_auto_sync_action_->setIconVisibleInMenu(true);
     connect(toggle_auto_sync_action_, SIGNAL(triggered()), this, SLOT(toggleRepoAutoSync()));
 
-    view_on_web_action_ = new QAction(tr("&View on website"), this);
-    view_on_web_action_->setIcon(QIcon(":/images/browser.png"));
+    view_on_web_action_ = new QAction(tr("&View on cloud"), this);
+    view_on_web_action_->setIcon(QIcon(":/images/cloud.png"));
     view_on_web_action_->setStatusTip(tr("view this library on seahub"));
     view_on_web_action_->setIconVisibleInMenu(true);
 

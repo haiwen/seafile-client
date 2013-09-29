@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QDir>
 
 #include "account-mgr.h"
 #include "seafile-applet.h"
@@ -45,7 +46,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
         mStatusLabel->setVisible(true);
         lpathLabel->setVisible(true);
         mLpathLabel->setVisible(true);
-        mLpathLabel->setText(lrepo.worktree);
+        mLpathLabel->setText(QDir::toNativeSeparators(lrepo.worktree));
         if (lrepo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
             mStatusLabel->setText(lrepo.sync_error_str);
         } else {

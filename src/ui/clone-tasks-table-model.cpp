@@ -1,4 +1,5 @@
 #include <QTimer>
+#include <QDir>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -84,7 +85,7 @@ QVariant CloneTasksTableModel::data(const QModelIndex & index, int role) const
     if (column == COLUMN_NAME) {
         return task.repo_name;
     } else if (column == COLUMN_WORK_TREE) {
-        return task.worktree;
+        return QDir::toNativeSeparators(task.worktree);
     } else if (column == COLUMN_STATE) {
         if (task.error_str.length() > 0) {
             return task.error_str;

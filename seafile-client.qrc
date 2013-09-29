@@ -25,6 +25,7 @@
     <file>images/download.png</file>
     <file>images/folder-open.png</file>
     <file>images/browser.png</file>
+    <file>images/info.png</file>
     <file>qt.css</file>
 </qresource>
 </RCC>

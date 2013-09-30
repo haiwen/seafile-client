@@ -43,7 +43,7 @@ collect_transfer_info (QString *msg, char *info, char *repo_name)
 
     int rate = atoi(p + 1) / 1024;
     QString uploadStr = (strcmp(info, "upload") == 0) ? QObject::tr("Uploading") : QObject::tr("Downloading");
-    QString buf = QString("%1 %2, %3 %4 KB/s\n").arg(uploadStr).arg(repo_name).arg(QObject::tr("Speed")).arg(rate);
+    QString buf = QString("%1 %2, %3 %4 KB/s\n").arg(uploadStr).arg(QString::fromUtf8(repo_name)).arg(QObject::tr("Speed")).arg(rate);
     msg->append(buf);
     return true;
 }

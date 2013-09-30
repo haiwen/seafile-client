@@ -247,7 +247,6 @@ min-width: 300px;
     </layout>
    </item>
   </layout>
-  <zorder>mFrame</zorder>
  </widget>
  <resources/>
  <connections>

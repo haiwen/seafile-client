@@ -93,6 +93,8 @@ void SeafileApplet::exit(int code)
     // Must use the global namespace, or the "exit" would call itself util
     // stack overflow
     daemon_mgr_->stopAll();
+    // Remove tray icon from system tray
+    delete tray_icon_;
     ::exit(code);
 }
 

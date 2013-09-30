@@ -66,6 +66,17 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkClicked()));
     connect(mCancelBtn, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
+
+    mDirectory->setText(getInitialPath());
+}
+
+QString InitSeafileDialog::getInitialPath()
+{
+#if defined(Q_WS_WIN)
+    return get_largest_drive();
+#else
+    return QDir::home().path();
+#endif
 }
 
 void InitSeafileDialog::chooseDir()
@@ -74,13 +85,8 @@ void InitSeafileDialog::chooseDir()
 
     // On windows, set the initial path to the max volume, on linux/mac, set
     // to the home direcotry.
-#if defined(Q_WS_WIN)
-    initial_path = get_largest_drive();
-#else
-    initial_path = QDir::home().path();
-#endif
     QString dir = QFileDialog::getExistingDirectory(this, tr("Please choose a directory"),
-                                                    initial_path,
+                                                    getInitialPath(),
                                                     QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
     if (dir.isEmpty())

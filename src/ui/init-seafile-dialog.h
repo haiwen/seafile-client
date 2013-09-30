@@ -22,6 +22,9 @@ private slots:
 
 signals:
     void seafileDirSet(const QString&);
+
+private:
+    QString getInitialPath();
 };
 
 #endif  // SEAFILE_CLIENT_INIT_SEAFILE_DIALOG_H

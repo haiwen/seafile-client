@@ -124,9 +124,9 @@ void DaemonManager::stopAll()
 {
     qDebug("[Daemon Mgr] stopping ccnet/seafile daemon");
     if (seaf_daemon_)
-        seaf_daemon_->terminate();
+        seaf_daemon_->kill();
     if (ccnet_daemon_)
-        ccnet_daemon_->terminate();
+        ccnet_daemon_->kill();
 }
 
 void DaemonManager::tryConnCcnet()

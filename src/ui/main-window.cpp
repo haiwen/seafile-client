@@ -105,26 +105,37 @@ void MainWindow::about()
                           "<p>Copyright &copy; 2013 Seafile Ltd."));
 }
 
+void MainWindow::loadQss(const QString& path)
+{
+    QFile file(path);
+    if (!QFileInfo(file).exists()) {
+        return;
+    }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+
+    QTextStream input(&file);
+    style_ += "\n";
+    style_ += input.readAll();
+    qApp->setStyleSheet(style_);
+}
+
 void MainWindow::refreshQss()
 {
-    QFile debug_qss(RESOURCE_PATH("qt.css"));
-    if (QFileInfo(debug_qss).exists()) {
-        if (!debug_qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            return;
-        }
-        QTextStream input(&debug_qss);
-        QString style = input.readAll();
-        qApp->setStyleSheet(style);
+    style_.clear();
+    loadQss("qt.css");
+    loadQss(RESOURCE_PATH("qt.css"));
 
-    } else {
-        QFile qss(":/qt.css");
-
-        if (!qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            return;
-        }
-        QTextStream input(&qss);
-        QString style = input.readAll();
-        qApp->setStyleSheet(style);
-    }
+#if defined(Q_WS_WIN)
+    loadQss(RESOURCE_PATH("qt-win.css"));
+    loadQss("qt-win.css");
+#elif defined(Q_WS_X11)
+    loadQss(RESOURCE_PATH("qt-linux.css"));
+    loadQss("qt-linux.css");
+#else
+    loadQss(RESOURCE_PATH("qt-mac.css"));
+    loadQss("qt-mac.css");
+#endif
 }
 

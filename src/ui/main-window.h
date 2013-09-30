@@ -10,6 +10,7 @@ class QToolBar;
 class QToolButton;
 class QWidgetAction;
 class QMenu;
+class QFile;
 
 class CloudView;
 
@@ -35,6 +36,8 @@ private slots:
     void closeEvent(QCloseEvent *event);
 
 private:
+    void loadQss(const QString& file);
+    
     // Actions
     QAction *about_action_;
     QAction *refresh_qss_action_;
@@ -48,6 +51,8 @@ private:
     QTabWidget *main_widget_;
 
     CloudView *cloud_view_;
+
+    QString style_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

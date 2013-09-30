@@ -317,7 +317,8 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->setPen(foreColor);
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(item->name(), option.font, category_name_rect.width()));
+                      fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->rowCount()),
+                                     option.font, category_name_rect.width()));
     painter->restore();
 }
 

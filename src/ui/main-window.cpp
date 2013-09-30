@@ -125,17 +125,17 @@ void MainWindow::refreshQss()
 {
     style_.clear();
     loadQss("qt.css");
-    loadQss(RESOURCE_PATH("qt.css"));
+    loadQss(":/qt.css");
 
 #if defined(Q_WS_WIN)
-    loadQss(RESOURCE_PATH("qt-win.css"));
     loadQss("qt-win.css");
+    loadQss(":/qt-win.css");
 #elif defined(Q_WS_X11)
-    loadQss(RESOURCE_PATH("qt-linux.css"));
     loadQss("qt-linux.css");
+    loadQss(":/qt-linux.css");
 #else
-    loadQss(RESOURCE_PATH("qt-mac.css"));
     loadQss("qt-mac.css");
+    loadQss(":/qt-mac.css");
 #endif
 }
 

@@ -14,6 +14,7 @@
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
 #include "ui/settings-dialog.h"
+#include "ui/login-dialog.h"
 #include "seafile-applet.h"
 
 namespace {
@@ -57,6 +58,7 @@ SeafileApplet::SeafileApplet()
 void SeafileApplet::start()
 {
     configurator_->checkInit();
+
     tray_icon_->show();
 
     initLog();
@@ -68,6 +70,11 @@ void SeafileApplet::start()
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
         qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
+
+    if (configurator_->firstUse()) {
+        LoginDialog dialog;
+        dialog.exec();
+    }
 
     daemon_mgr_->startCcnetDaemon();
 

@@ -33,7 +33,8 @@ QString defaultCcnetDir() {
 
 
 Configurator::Configurator()
-    : ccnet_dir_(defaultCcnetDir())
+    : ccnet_dir_(defaultCcnetDir()),
+      first_use_(false)
 {
 }
 
@@ -68,6 +69,8 @@ void Configurator::initCcnet()
     if (create_ccnet_config(path.toUtf8().data()) < 0) {
         seafApplet->errorAndExit(tr("Error when creating ccnet configuration"));
     }
+
+    first_use_ = true;
 }
 
 void Configurator::initSeafile()
@@ -79,6 +82,8 @@ void Configurator::initSeafile()
     if (dialog.exec() != QDialog::Accepted) {
         seafApplet->exit(1);
     }
+
+    first_use_ = true;
 }
 
 void Configurator::onSeafileDirSet(const QString& path)

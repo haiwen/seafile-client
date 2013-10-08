@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    app.setQuitOnLastWindowClosed(false);
+
     if (count_process("seafile-applet") > 1) {
         QMessageBox::warning(NULL, "Seafile",
                              QObject::tr("Seafile is already running"),

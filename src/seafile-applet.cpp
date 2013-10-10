@@ -87,7 +87,10 @@ void SeafileApplet::onDaemonStarted()
     // tray_icon_->notify("Seafile", "daemon is started");
     main_win_ = new MainWindow;
 
-    main_win_->showWindow();
+    if (configurator_->firstUse()) {
+        // Only show main window on first use
+        main_win_->showWindow();
+    }
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
     rpc_client_->connectDaemon();

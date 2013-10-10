@@ -113,3 +113,8 @@ QLabel#mDownloadRateArrow
 RepoTreeView {
     font-size: 14px;
 }
+
+RepoDetailDialog {
+    min-width: 350px;
+    min-height: 350px;
+}

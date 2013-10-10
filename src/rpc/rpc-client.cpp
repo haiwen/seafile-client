@@ -553,3 +553,38 @@ int SeafileRpcClient::unsync(const QString& repo_id)
                                    &error, 1,
                                    "string", toCStr(repo_id));
 }
+
+int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int *percent)
+{
+    GError *error = NULL;
+    GObject *task = searpc_client_call__object (seafile_rpc_client_,
+                                                "seafile_find_transfer_task",
+                                                SEAFILE_TYPE_TASK,
+                                                &error, 1,
+                                                "string", toCStr(repo_id));
+    if (error) {
+        return -1;
+    }
+
+    if (!task) {
+        return -1;
+    }
+
+    int finished = 0;
+    int total = 0;
+    g_object_get (task,
+                  "rate", rate,
+                  "block_total", &total,
+                  "block_done", &finished,
+                  NULL);
+
+    if (total == 0) {
+        *percent = 0;
+    } else {
+        *percent = 100 * finished / total;
+    }
+
+    g_object_unref(task);
+
+    return 0;
+}

@@ -17,7 +17,7 @@ public:
 private slots:
     void doLogin();
     void loginSuccess(const QString& token);
-    void loginFailed();
+    void loginFailed(int code);
 
 private:
     Q_DISABLE_COPY(LoginDialog);

@@ -39,7 +39,7 @@ void LoginDialog::doLogin()
             this, SLOT(loginSuccess(const QString&)));
 
     connect(request_, SIGNAL(failed(int)),
-            this, SLOT(loginFailed()));
+            this, SLOT(loginFailed(int)));
 
     request_->send();
 }
@@ -56,20 +56,35 @@ bool LoginDialog::validateInputs()
                              QMessageBox::Ok);
         return false;
     } else {
+        if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
+            QMessageBox::warning(this, tr("Seafile"),
+                                 tr("%1 is not a valid server address")
+                                 .arg(serverAddr),
+                                 QMessageBox::Ok);
+            return false;
+        }
+
         url = QUrl(serverAddr, QUrl::StrictMode);
-        qDebug("url is %s\n", url.toString().toUtf8().data());
+        // qDebug("url is %s\n", url.toString().toUtf8().data());
         if (!url.isValid()) {
             QMessageBox::warning(this, tr("Seafile"),
                                  tr("%1 is not a valid server address")
-                                 .arg(url.toString()),
+                                 .arg(serverAddr),
                                  QMessageBox::Ok);
             return false;
         }
     }
 
-    if (mUsername->text().size() == 0) {
+    QString email = mUsername->text();
+    if (email.size() == 0) {
         QMessageBox::warning(this, tr("Seafile"),
                              tr("Please enter the username"),
+                             QMessageBox::Ok);
+        return false;
+    } else if (!email.contains("@")) {
+        QMessageBox::warning(this, tr("Seafile"),
+                             tr("%1 is not a valid email")
+                             .arg(email),
                              QMessageBox::Ok);
         return false;
     }
@@ -100,10 +115,23 @@ void LoginDialog::loginSuccess(const QString& token)
     }
 }
 
-void LoginDialog::loginFailed()
+void LoginDialog::loginFailed(int code)
 {
+    QString err_msg, reason;
+    if (code == 400) {
+        reason = tr("Incorrect email or password");
+    } else if (code != 0) {
+        reason = tr("error code %1").arg(code);
+    }
+
+    if (reason.length() > 0) {
+        err_msg = tr("Failed to login: %1").arg(reason);
+    } else {
+        err_msg = tr("Failed to login");
+    }
+
     QMessageBox::warning(this, tr("Seafile"),
-                         tr("Failed to login"),
+                         err_msg,
                          QMessageBox::Ok);
 
     mSubmitBtn->setEnabled(true);

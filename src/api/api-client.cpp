@@ -67,13 +67,13 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
 
 void SeafileApiClient::httpRequestFinished()
 {
+    int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (reply_->error() != QNetworkReply::NoError) {
         qDebug("http request failed: %s\n", reply_->errorString().toUtf8().data());
-        emit requestFailed(0);
+        emit requestFailed(code);
         return;
     }
 
-    int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if ((code / 100) != 2) {
         qDebug("request failed : status code %d\n", code);
         emit requestFailed(code);

@@ -90,7 +90,7 @@ bool CreateRepoDialog::validateInputs()
     path = mDirectory->text();
     if (path.isEmpty()) {
         QMessageBox::warning(this, tr("Seafile"),
-                             tr("Please choose the drectory to sync"),
+                             tr("Please choose the directory to sync"),
                              QMessageBox::Ok);
         return false;
     }

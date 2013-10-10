@@ -53,3 +53,5 @@ ui_*.h
 ### qrc
 *.qrc.depends
 qrc_*.cxx
+
+i18n/*.qm

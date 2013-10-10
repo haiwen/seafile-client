@@ -114,7 +114,7 @@ void MessageListener::startMqClient()
 
 void MessageListener::handleMessage(CcnetMessage *message)
 {
-    qDebug("got a message: %s %s.", message->app, message->body);
+    // qDebug("got a message: %s %s.", message->app, message->body);
 
     char *type = NULL;
     char *content = NULL;
@@ -136,14 +136,14 @@ void MessageListener::handleMessage(CcnetMessage *message)
             }
             QString buf;
             bool ret = parse_key_value_pairs(content, (KeyValueFunc)collect_transfer_info, &buf);
-            qDebug() << "ret="<< ret << buf;
+            // qDebug() << "ret="<< ret << buf;
             if (ret)
                 seafApplet->trayIcon()->setToolTip(buf);
 
             return;
 
         } else if (strcmp(type, "repo.deleted_on_relay") == 0) {
-            QString buf = QString("\"%1\" %2").arg(content).arg(tr("is unsynced. \nReason: Deleted on server"));
+            QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(content);
             seafApplet->trayIcon()->notify("Seafile", buf);
         } else if (strcmp(type, "sync.done") == 0) {
             /* format: repo_name \t repo_id \t description */
@@ -153,7 +153,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
-            QString title = QString("\"%1\" %2").arg(slist.at(0)).arg(tr("is synchronized"));
+            QString title = tr("\"%1\" is synchronized").arg(slist.at(0));
             QString buf = slist.at(2);
 
             seafApplet->trayIcon()->notify(title, buf.trimmed());
@@ -165,7 +165,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 qDebug("Bad sync.access_denied message format");
                 return;
             }
-            QString buf = QString("\"%1\" %2").arg(slist.at(0)).arg(tr("failed to sync. \nAccess denied to service"));
+            QString buf = tr("\"%1\" failed to sync. \nAccess denied to service").arg(slist.at(0));
             seafApplet->trayIcon()->notify("Seafile", buf);
 
         } else if (strcmp(type, "sync.quota_full") == 0) {
@@ -176,7 +176,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
-            QString buf = QString("\"%1\" %2").arg(slist.at(0)).arg(tr("failed to sync.\nThe library owner's storage space is used up."));
+            QString buf = tr("\"%1\" failed to sync.\nThe library owner's storage space is used up.").arg(slist.at(0));
             seafApplet->trayIcon()->notify("Seafile", buf);
         }
     }

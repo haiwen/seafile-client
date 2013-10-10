@@ -73,14 +73,14 @@ bool DownloadRepoDialog::validateInputs()
     mDirectory->setText(mDirectory->text().trimmed());
     if (mDirectory->text().isEmpty()) {
         QMessageBox::warning(this, tr("Seafile"),
-                             tr("Please choose the drectory to sync"),
+                             tr("Please choose the folder to sync"),
                              QMessageBox::Ok);
         return false;
     }
     QDir dir(mDirectory->text());
     if (!dir.exists()) {
         QMessageBox::warning(this, tr("Seafile"),
-                             tr("Directory donot exist"),
+                             tr("The folder does not exist"),
                              QMessageBox::Ok);
         return false;
     }

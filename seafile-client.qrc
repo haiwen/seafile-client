@@ -31,5 +31,6 @@
     <file>images/cloud.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
+    <file>i18n/seafile_zh_CN.qm</file>
 </qresource>
 </RCC>

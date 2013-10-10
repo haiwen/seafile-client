@@ -136,18 +136,18 @@ void MainWindow::loadQss(const QString& path)
 void MainWindow::refreshQss()
 {
     style_.clear();
-    loadQss("qt.css");
     loadQss(":/qt.css");
+    loadQss("qt.css");
 
 #if defined(Q_WS_WIN)
-    loadQss("qt-win.css");
     loadQss(":/qt-win.css");
+    loadQss("qt-win.css");
 #elif defined(Q_WS_X11)
-    loadQss("qt-linux.css");
     loadQss(":/qt-linux.css");
+    loadQss("qt-linux.css");
 #else
-    loadQss("qt-mac.css");
     loadQss(":/qt-mac.css");
+    loadQss("qt-mac.css");
 #endif
 }
 

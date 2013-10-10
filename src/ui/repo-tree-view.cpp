@@ -175,7 +175,7 @@ void RepoTreeView::createActions()
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
     unsync_action_ = new QAction(tr("&Unsync"), this);
-    unsync_action_->setIcon(QIcon(":/images/close.png"));
+    // unsync_action_->setIcon(QIcon(":/images/close.png"));
     unsync_action_->setStatusTip(tr("unsync this library"));
     unsync_action_->setIconVisibleInMenu(true);
     connect(unsync_action_, SIGNAL(triggered()), this, SLOT(unsyncRepo()));
@@ -331,7 +331,6 @@ std::vector<QAction*> RepoTreeView::getToolBarActions()
     actions.push_back(open_local_folder_action_);
     actions.push_back(view_on_web_action_);
     actions.push_back(show_detail_action_);
-    actions.push_back(unsync_action_);
     return actions;
 }
 

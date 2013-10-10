@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>350</height>
+    <width>500</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,6 +37,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QLabel" name="mRepoIcon">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>RepoIcon</string>
         </property>
@@ -234,7 +240,7 @@
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Ok</string>
+        <string>Close</string>
        </property>
       </widget>
      </item>

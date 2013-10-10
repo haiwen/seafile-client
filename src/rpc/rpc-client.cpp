@@ -544,3 +544,12 @@ void SeafileRpcClient::setRepoAutoSync(const QString& repo_id, bool auto_sync)
                             "string", "auto-sync",
                             "string", auto_sync ? "true" : "false");
 }
+
+int SeafileRpcClient::unsync(const QString& repo_id)
+{
+    GError *error = NULL;
+    return searpc_client_call__int(seafile_rpc_client_,
+                                   "seafile_destroy_repo",
+                                   &error, 1,
+                                   "string", toCStr(repo_id));
+}

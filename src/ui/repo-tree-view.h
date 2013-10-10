@@ -38,6 +38,7 @@ private slots:
     void viewRepoOnWeb();
     void onItemClicked(const QModelIndex& index);
     void toggleRepoAutoSync();
+    void unsyncRepo();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
@@ -57,6 +58,7 @@ private:
     QAction *download_action_;
     QAction *show_detail_action_;
     QAction *open_local_folder_action_;
+    QAction *unsync_action_;
     QAction *view_on_web_action_;
     QAction *toggle_auto_sync_action_;
 

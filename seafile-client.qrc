@@ -29,6 +29,7 @@
     <file>images/play.png</file>
     <file>images/pause.png</file>
     <file>images/cloud.png</file>
+    <file>images/close.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>i18n/seafile_zh_CN.qm</file>

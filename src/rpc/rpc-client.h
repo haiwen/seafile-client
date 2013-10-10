@@ -59,6 +59,7 @@ public:
     int getDownloadRate(int *rate);
 
     void setRepoAutoSync(const QString& repo_id, bool auto_sync);
+    int unsync(const QString& repo_id);
 
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);

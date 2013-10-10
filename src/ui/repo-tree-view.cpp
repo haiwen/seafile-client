@@ -70,6 +70,10 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 
     menu->addAction(show_detail_action_);
 
+    if (item->localRepo().isValid()) {
+        menu->addAction(unsync_action_);
+    }
+
     return menu;
 }
 
@@ -90,22 +94,25 @@ void RepoTreeView::updateRepoActions()
         // No repo item is selected
         download_action_->setEnabled(false);
         open_local_folder_action_->setEnabled(false);
+        unsync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
         show_detail_action_->setEnabled(false);
         return;
     }
 
+    LocalRepo r;
+    seafApplet->rpcClient()->getLocalRepo(item->repo().id, &r);
+    item->setLocalRepo(r);
+
     if (item->localRepo().isValid()) {
         const LocalRepo& local_repo = item->localRepo();
-        LocalRepo r;
-        if (seafApplet->rpcClient()->getLocalRepo(local_repo.id, &r) >= 0) {
-            item->setLocalRepo(r);
-        }
-
         download_action_->setEnabled(false);
         open_local_folder_action_->setData(QVariant::fromValue(local_repo));
         open_local_folder_action_->setEnabled(true);
+
+        unsync_action_->setData(QVariant::fromValue(local_repo));
+        unsync_action_->setEnabled(true);
 
         toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
         toggle_auto_sync_action_->setEnabled(true);
@@ -123,6 +130,7 @@ void RepoTreeView::updateRepoActions()
         download_action_->setEnabled(true);
         download_action_->setData(QVariant::fromValue(item->repo()));
         open_local_folder_action_->setEnabled(false);
+        unsync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
     }
 
@@ -166,6 +174,12 @@ void RepoTreeView::createActions()
     open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
+    unsync_action_ = new QAction(tr("&Unsync"), this);
+    unsync_action_->setIcon(QIcon(":/images/close.png"));
+    unsync_action_->setStatusTip(tr("unsync this library"));
+    unsync_action_->setIconVisibleInMenu(true);
+    connect(unsync_action_, SIGNAL(triggered()), this, SLOT(unsyncRepo()));
+
     toggle_auto_sync_action_ = new QAction(tr("Enable auto sync"), this);
     toggle_auto_sync_action_->setStatusTip(tr("Enable auto sync"));
     toggle_auto_sync_action_->setIconVisibleInMenu(true);
@@ -187,6 +201,8 @@ void RepoTreeView::downloadRepo()
         CloneTasksDialog tasks_dialog(this);
         tasks_dialog.exec();
     }
+
+    updateRepoActions();
 }
 
 void RepoTreeView::showRepoDetail()
@@ -204,9 +220,32 @@ void RepoTreeView::openLocalFolder()
 
 void RepoTreeView::toggleRepoAutoSync()
 {
-    LocalRepo repo = qvariant_cast<LocalRepo>(open_local_folder_action_->data());
+    LocalRepo repo = qvariant_cast<LocalRepo>(toggle_auto_sync_action_->data());
 
     seafApplet->rpcClient()->setRepoAutoSync(repo.id, !repo.auto_sync);
+
+    updateRepoActions();
+}
+
+void RepoTreeView::unsyncRepo()
+{
+    LocalRepo repo = qvariant_cast<LocalRepo>(toggle_auto_sync_action_->data());
+
+    QString question = tr("Are you sure to unsync library \"%1\"?").arg(repo.name);
+
+    if (QMessageBox::question(this,
+                              tr("Seafile"),
+                              question,
+                              QMessageBox::Ok | QMessageBox::Cancel,
+                              QMessageBox::Cancel) != QMessageBox::Ok) {
+        return;
+    }
+
+    if (seafApplet->rpcClient()->unsync(repo.id) < 0) {
+        QMessageBox::warning(this, tr("Seafile"),
+                             tr("Failed to unsync library \"%1\"").arg(repo.name),
+                             QMessageBox::Ok);
+    }
 
     updateRepoActions();
 }
@@ -292,6 +331,7 @@ std::vector<QAction*> RepoTreeView::getToolBarActions()
     actions.push_back(open_local_folder_action_);
     actions.push_back(view_on_web_action_);
     actions.push_back(show_detail_action_);
+    actions.push_back(unsync_action_);
     return actions;
 }
 
@@ -305,6 +345,7 @@ void RepoTreeView::hideEvent(QHideEvent *event)
 {
     download_action_->setEnabled(false);
     open_local_folder_action_->setEnabled(false);
+    unsync_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
     show_detail_action_->setEnabled(false);

@@ -45,6 +45,11 @@ MainWindow::MainWindow()
     refreshQss();
 }
 
+MainWindow::~MainWindow()
+{
+    writeSettings();
+}
+
 void MainWindow::centerInScreen()
 {
     // TODO: center the window at startup
@@ -52,8 +57,15 @@ void MainWindow::centerInScreen()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    writeSettings();
     event->ignore();
     this->hide();
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    readSettings();
+    QMainWindow::showEvent(event);
 }
 
 void MainWindow::createActions()
@@ -139,3 +151,27 @@ void MainWindow::refreshQss()
 #endif
 }
 
+void MainWindow::writeSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup("MainWindow");
+    settings.setValue("size", size());
+    settings.setValue("pos", pos());
+    settings.endGroup();
+}
+
+void MainWindow::readSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup("MainWindow");
+    if (settings.contains("size")) {
+        resize(settings.value("size", QSize()).toSize());
+    }
+
+    if (settings.contains("pos")) {
+        move(settings.value("pos", QPoint()).toPoint());
+    }
+    settings.endGroup();
+}

@@ -22,6 +22,11 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
 
+    // see QSettings documentation
+    QCoreApplication::setOrganizationName("Seafile");
+    QCoreApplication::setOrganizationDomain("seafile.com");
+    QCoreApplication::setApplicationName("Seafile Client");
+
     // initialize i18n
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),

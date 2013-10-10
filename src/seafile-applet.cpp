@@ -105,6 +105,9 @@ void SeafileApplet::exit(int code)
     daemon_mgr_->stopAll();
     // Remove tray icon from system tray
     delete tray_icon_;
+    if (main_win_) {
+        delete main_win_;
+    }
     ::exit(code);
 }
 

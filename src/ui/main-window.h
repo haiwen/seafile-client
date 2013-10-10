@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow();
+    ~MainWindow();
 
     void keyPressEvent(QKeyEvent *event);
     void showWindow();
@@ -34,9 +35,13 @@ private slots:
     void about();
     void refreshQss();
     void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
 
 private:
     void loadQss(const QString& file);
+
+    void readSettings();
+    void writeSettings();
     
     // Actions
     QAction *about_action_;

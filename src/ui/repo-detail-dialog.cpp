@@ -68,6 +68,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     mRepoIcon->setPixmap(repo_.getPixmap().scaled(40, 40));
     mRepoName->setText(repo_.name);
 
+    resize(sizeHint());
     updateRepoStatus();
 
     refresh_timer_ = new QTimer(this);
@@ -99,6 +100,4 @@ void RepoDetailDialog::updateRepoStatus()
     }
 
     mStatus->setText(text);
-
-    resize(sizeHint());
 }

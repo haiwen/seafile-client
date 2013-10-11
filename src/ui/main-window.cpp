@@ -113,7 +113,7 @@ void MainWindow::createMenus()
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Seafile"),
-                       tr("<h2>Seafile Client 2.0 beta</h2>"
+                       tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
                           "<p>Copyright &copy; 2013 Seafile Ltd."));
 }
 

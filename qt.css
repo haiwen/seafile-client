@@ -115,6 +115,6 @@ RepoTreeView {
 }
 
 RepoDetailDialog {
-    min-width: 550px;
-    min-height: 360px;
+    min-width: 400px;
+    min-height: 250px;
 }

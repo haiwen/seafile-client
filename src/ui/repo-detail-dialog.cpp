@@ -99,4 +99,6 @@ void RepoDetailDialog::updateRepoStatus()
     }
 
     mStatus->setText(text);
+
+    resize(sizeHint());
 }

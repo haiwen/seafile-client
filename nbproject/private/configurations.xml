@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="89">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="seafile-client">
+      <df name="CMakeFiles">
+        <df name="CMakeTmp">
+        </df>
+        <df name="CompilerIdC">
+          <in>CMakeCCompilerId.c</in>
+        </df>
+        <df name="CompilerIdCXX">
+          <in>CMakeCXXCompilerId.cpp</in>
+        </df>
+      </df>
+      <df name="i18n">
+      </df>
+      <df name="images">
+        <df name="mac">
+        </df>
+        <df name="win">
+        </df>
+      </df>
+      <df name="seafile-client.xcodeproj">
+      </df>
+      <df name="src">
+        <df name="api">
+          <in>api-client.cpp</in>
+          <in>api-client.h</in>
+          <in>api-request.cpp</in>
+          <in>api-request.h</in>
+          <in>requests.cpp</in>
+          <in>requests.h</in>
+          <in>server-repo.cpp</in>
+          <in>server-repo.h</in>
+        </df>
+        <df name="rpc">
+          <in>clone-task.cpp</in>
+          <in>clone-task.h</in>
+          <in>local-repo.cpp</in>
+          <in>local-repo.h</in>
+          <in>rpc-client.cpp</in>
+          <in>rpc-client.h</in>
+        </df>
+        <df name="ui">
+          <in>clone-tasks-dialog.cpp</in>
+          <in>clone-tasks-dialog.h</in>
+          <in>clone-tasks-table-model.cpp</in>
+          <in>clone-tasks-table-model.h</in>
+          <in>clone-tasks-table-view.cpp</in>
+          <in>clone-tasks-table-view.h</in>
+          <in>cloud-view.cpp</in>
+          <in>cloud-view.h</in>
+          <in>create-repo-dialog.cpp</in>
+          <in>create-repo-dialog.h</in>
+          <in>download-repo-dialog.cpp</in>
+          <in>download-repo-dialog.h</in>
+          <in>init-seafile-dialog.cpp</in>
+          <in>init-seafile-dialog.h</in>
+          <in>local-repos-list-model.cpp</in>
+          <in>local-repos-list-model.h</in>
+          <in>local-repos-list-view.cpp</in>
+          <in>local-repos-list-view.h</in>
+          <in>local-view.cpp</in>
+          <in>local-view.h</in>
+          <in>login-dialog.cpp</in>
+          <in>login-dialog.h</in>
+          <in>main-window.cpp</in>
+          <in>main-window.h</in>
+          <in>repo-detail-dialog.cpp</in>
+          <in>repo-detail-dialog.h</in>
+          <in>repo-item-delegate.cpp</in>
+          <in>repo-item-delegate.h</in>
+          <in>repo-item.cpp</in>
+          <in>repo-item.h</in>
+          <in>repo-tree-model.cpp</in>
+          <in>repo-tree-model.h</in>
+          <in>repo-tree-view.cpp</in>
+          <in>repo-tree-view.h</in>
+          <in>server-repos-list-view.cpp</in>
+          <in>server-repos-list-view.h</in>
+          <in>server-status-dialog.cpp</in>
+          <in>server-status-dialog.h</in>
+          <in>settings-dialog.cpp</in>
+          <in>settings-dialog.h</in>
+          <in>tray-icon.cpp</in>
+          <in>tray-icon.h</in>
+        </df>
+        <df name="utils">
+          <in>log.c</in>
+          <in>log.h</in>
+          <in>process-linux.cpp</in>
+          <in>process-mac.cpp</in>
+          <in>process-win.cpp</in>
+          <in>process.h</in>
+          <in>rsa.cpp</in>
+          <in>rsa.h</in>
+          <in>utils.cpp</in>
+          <in>utils.h</in>
+        </df>
+        <in>account-mgr.cpp</in>
+        <in>account-mgr.h</in>
+        <in>account.h</in>
+        <in>ccnet-init.cpp</in>
+        <in>ccnet-init.h</in>
+        <in>configurator.cpp</in>
+        <in>configurator.h</in>
+        <in>daemon-mgr.cpp</in>
+        <in>daemon-mgr.h</in>
+        <in>main.cpp</in>
+        <in>message-listener.cpp</in>
+        <in>message-listener.h</in>
+        <in>seafile-applet.cpp</in>
+        <in>seafile-applet.h</in>
+        <in>settings-mgr.cpp</in>
+        <in>settings-mgr.h</in>
+        <in>traynotificationmanager.cpp</in>
+        <in>traynotificationmanager.h</in>
+        <in>traynotificationwidget.cpp</in>
+        <in>traynotificationwidget.h</in>
+      </df>
+      <df name="third_party">
+        <df name="QtAwesome">
+          <df name="fonts">
+          </df>
+          <in>QtAwesome.cpp</in>
+          <in>QtAwesome.h</in>
+        </df>
+      </df>
+      <df name="ui">
+      </df>
+      <in>ui_account-item.h</in>
+      <in>ui_accounts-view.h</in>
+    </df>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

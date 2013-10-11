@@ -365,7 +365,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Cancel</source>
-        <translation>Törlés</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="217"/>
         <source>Cancel</source>
-        <translation>Törlés</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -562,7 +562,7 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="173"/>
         <source>Cancel</source>
-        <translation>Törlés</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -683,7 +683,7 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
     <message>
         <location filename="../ui_login-dialog.h" line="160"/>
         <source>Cancel</source>
-        <translation>Törlés</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -716,7 +716,7 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
     <message>
         <location filename="../src/ui/main-window.cpp" line="116"/>
         <source>&lt;h2&gt;Seafile Client </source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile kliens</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</source>
@@ -1106,7 +1106,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>Close</source>
-        <translation type="unfinished">Bezárás</translation>
+        <translation>Bezárás</translation>
     </message>
     <message>
         <source>Ok</source>

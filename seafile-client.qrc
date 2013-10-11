@@ -33,5 +33,6 @@
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>i18n/seafile_zh_CN.qm</file>
+    <file>i18n/seafile_hu_HU.qm</file>
 </qresource>
 </RCC>

@@ -715,8 +715,12 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
     </message>
     <message>
         <location filename="../src/ui/main-window.cpp" line="116"/>
+        <source>&lt;h2&gt;Seafile Client </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</source>
-        <translation>&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</translation>
+        <translation type="obsolete">&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</translation>
     </message>
 </context>
 <context>
@@ -1032,77 +1036,81 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Hiba: </translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="208"/>
+        <location filename="../ui_repo-detail-dialog.h" line="213"/>
         <source>Dialog</source>
         <translation>Párbeszédablak</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="209"/>
+        <location filename="../ui_repo-detail-dialog.h" line="214"/>
         <source>RepoIcon</source>
         <translation>Tároló ikon</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="210"/>
+        <location filename="../ui_repo-detail-dialog.h" line="215"/>
         <source>Name:</source>
         <translation>Név:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="211"/>
+        <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>RepoName</source>
         <translation>Tároló név</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="212"/>
+        <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>Description:</source>
         <translation>Leírás:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="213"/>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="226"/>
         <source>TextLabel</source>
         <translation>Szövegcímke</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="214"/>
+        <location filename="../ui_repo-detail-dialog.h" line="219"/>
         <source>Last Modified:</source>
         <translation>Utoljára módosítva:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="215"/>
+        <location filename="../ui_repo-detail-dialog.h" line="220"/>
         <source>mtime</source>
         <translation>mtime</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="216"/>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
         <source>Size:</source>
         <translation>Méret:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>Owner:</source>
         <translation>Tulajdonos:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <source>Local Path:</source>
         <translation>Helyi elérési út:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>Status:</source>
         <translation>Állapot:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
+        <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>RepoStatus</source>
         <translation>Tároló állapot</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <source>Close</source>
+        <translation type="unfinished">Bezárás</translation>
+    </message>
+    <message>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation type="obsolete">Ok</translation>
     </message>
 </context>
 <context>

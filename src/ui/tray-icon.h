@@ -21,6 +21,7 @@ public:
         STATE_DAEMON_AUTOSYNC_DISABLED,
         STATE_TRANSFER_1,
         STATE_TRANSFER_2,
+        STATE_SERVERS_NOT_CONNECTED,
     };
 
     void setState(TrayState);
@@ -36,12 +37,14 @@ private slots:
     void toggleMainWindow();
     void rotateTrayIcon();
     void showSettingsWindow();
+    void refreshTrayIcon();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
 
     void createActions();
     void createContextMenu();
+    bool allServersConnected();
 
     QIcon stateToIcon(TrayState state);
     void resetToolTip();
@@ -59,9 +62,12 @@ private:
 #endif
 
     QTimer *rotate_timer_;
+    QTimer *refresh_timer_;
     int nth_trayicon_;
     int rotate_counter_;
     bool auto_sync_;
+
+    TrayState state_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

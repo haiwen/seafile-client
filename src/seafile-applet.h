@@ -47,6 +47,7 @@ public:
 
     SettingsManager *settingsManager() { return settings_mgr_; }
 
+    bool started() { return started_; }
     bool inExit() { return in_exit_; }
 
 private slots:
@@ -74,6 +75,8 @@ private:
     SettingsDialog *settings_dialog_;
 
     SettingsManager *settings_mgr_;
+
+    bool started_;
 
     bool in_exit_;
 };

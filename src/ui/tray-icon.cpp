@@ -1,9 +1,15 @@
+extern "C" {
+
+#include <ccnet/peer.h>
+
+}
 #include <QtGui>
 #include <QApplication>
 #include <QSet>
 #include <QDebug>
 
 #include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "main-window.h"
 #include "settings-dialog.h"
 #include "settings-mgr.h"
@@ -14,7 +20,7 @@
 
 namespace {
 
-const int kCheckIntervalMilli = 5000;
+const int kRefreshInterval = 5000;
 const int kRotateTrayIconIntervalMilli = 250;
 }
 
@@ -28,6 +34,10 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     rotate_timer_ = new QTimer(this);
     connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));
 
+    refresh_timer_ = new QTimer(this);
+    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIcon()));
+    refresh_timer_->start(kRefreshInterval);
+
     createActions();
     createContextMenu();
 
@@ -38,28 +48,6 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     tnm = new TrayNotificationManager(this);
 #endif
 }
-
-// SeafileTrayIcon *SeafileTrayIcon::instance()
-// {
-//     /**
-//      * This is a HACK around the qt trayicon bug on GNOME,
-//      * See https://bugreports.qt-project.org/browse/QTBUG-30079
-//      */
-//     QSet<QWidget*> beforeWidgets = QApplication::topLevelWidgets().toSet();
-//     SeafileTrayIcon *icon = new SeafileTrayIcon;
-//     QSet<QWidget*> postWidgets = QApplication::topLevelWidgets().toSet();
-//     postWidgets -= beforeWidgets;
-//     if(!postWidgets.isEmpty())
-//     {
-//         QWidget* sysWidget = (*postWidgets.begin());
-//         sysWidget->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::SplashScreen );
-//         sysWidget->show();
-//     }
-
-//     icon->init();
-
-//     return icon;
-// }
 
 void SeafileTrayIcon::createActions()
 {
@@ -160,14 +148,18 @@ void SeafileTrayIcon::rotateTrayIcon()
 void SeafileTrayIcon::resetToolTip ()
 {
     QString tip("Seafile");
-    if (!seafApplet->settingsManager()->autoSync())
-        tip = tr("Auto sync is disabled");
+    if (!seafApplet->settingsManager()->autoSync()) {
+        tip = tr("auto sync is disabled");
+    } else if (state_ == STATE_DAEMON_UP && !allServersConnected()) {
+        tip = tr("some server is not connected");
+    }
 
     setToolTip(tip);
 }
 
 void SeafileTrayIcon::setState(TrayState state)
 {
+    state_ = state;
     setIcon(stateToIcon(state));
 
     // the following two lines solving the problem of tray icon
@@ -181,6 +173,10 @@ void SeafileTrayIcon::setState(TrayState state)
 
 QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
+
+    if (state == STATE_DAEMON_UP && !allServersConnected()) {
+        state = STATE_SERVERS_NOT_CONNECTED;
+    }
 #if defined(Q_WS_WIN)
     switch (state) {
     case STATE_DAEMON_UP:
@@ -193,6 +189,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return QIcon(":/images/win/seafile_transfer_1.ico");
     case STATE_TRANSFER_2:
         return QIcon(":/images/win/seafile_transfer_2.ico");
+    case STATE_SERVERS_NOT_CONNECTED:
+        return QIcon(":/images/win/seafile_warn.ico");
     }
 #elif defined(Q_WS_MAC)
     switch (state) {
@@ -206,6 +204,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return QIcon(":/images/mac/seafile_transfer_1.png");
     case STATE_TRANSFER_2:
         return QIcon(":/images/mac/seafile_transfer_2.png");
+    case STATE_SERVERS_NOT_CONNECTED:
+        return QIcon(":/images/mac/daemon_up.png");
     }
 #else
     switch (state) {
@@ -219,6 +219,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return QIcon(":/images/seafile_transfer_1.png");
     case STATE_TRANSFER_2:
         return QIcon(":/images/seafile_transfer_2.png");
+    case STATE_SERVERS_NOT_CONNECTED:
+        return QIcon(":/images/seafile_warn.png");
     }
 #endif
 }
@@ -280,3 +282,46 @@ void SeafileTrayIcon::quitSeafile()
 {
     seafApplet->exit(0);
 }
+
+void SeafileTrayIcon::refreshTrayIcon()
+{
+    if (state_ == STATE_DAEMON_UP) {
+        if (!allServersConnected()) {
+            setIcon(stateToIcon(STATE_SERVERS_NOT_CONNECTED));
+        } else {
+            setIcon(stateToIcon(STATE_DAEMON_UP));
+        }
+    }
+}
+
+bool SeafileTrayIcon::allServersConnected()
+{
+    if (!seafApplet->started()) {
+        return true;
+    }
+
+    GList *servers = NULL;
+    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
+        return true;
+    }
+
+    if (!servers) {
+        return true;
+    }
+
+    GList *ptr;
+    bool all_server_connected = true;
+    for (ptr = servers; ptr ; ptr = ptr->next) {
+        CcnetPeer *server = (CcnetPeer *)ptr->data;
+        if (server->net_state != PEER_CONNECTED) {
+            all_server_connected = false;
+            break;
+        }
+    }
+
+    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
+    g_list_free (servers);
+
+    return all_server_connected;
+}
+

@@ -50,6 +50,7 @@ SeafileApplet::SeafileApplet()
       message_listener_(new MessageListener),
       settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
+      started_(false),
       in_exit_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
@@ -96,6 +97,8 @@ void SeafileApplet::onDaemonStarted()
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
+
+    started_ = true;
 }
 
 void SeafileApplet::exit(int code)

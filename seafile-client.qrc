@@ -10,8 +10,10 @@
     <file>images/seafile_auto_sync_disabled.png</file>
     <file>images/seafile_transfer_1.png</file>
     <file>images/seafile_transfer_2.png</file>
+    <file>images/seafile_warn.png</file>
     <file>images/win/daemon_up.ico</file>
     <file>images/win/daemon_down.ico</file>
+    <file>images/win/seafile_warn.ico</file>
     <file>images/win/seafile_auto_sync_disabled.ico</file>
     <file>images/win/seafile_transfer_1.ico</file>
     <file>images/win/seafile_transfer_2.ico</file>

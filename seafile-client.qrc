@@ -10,13 +10,19 @@
     <file>images/seafile_auto_sync_disabled.png</file>
     <file>images/seafile_transfer_1.png</file>
     <file>images/seafile_transfer_2.png</file>
-    <file>images/seafile_warn.png</file>
-    <file>images/win/daemon_up.ico</file>
-    <file>images/win/daemon_down.ico</file>
-    <file>images/win/seafile_warn.ico</file>
-    <file>images/win/seafile_auto_sync_disabled.ico</file>
-    <file>images/win/seafile_transfer_1.ico</file>
-    <file>images/win/seafile_transfer_2.ico</file>
+    <file>images/seafile_warning.png</file>
+    <file>images/win/xp/daemon_up.ico</file>
+    <file>images/win/xp/daemon_down.ico</file>
+    <file>images/win/xp/seafile_warning.ico</file>
+    <file>images/win/xp/seafile_auto_sync_disabled.ico</file>
+    <file>images/win/xp/seafile_transfer_1.ico</file>
+    <file>images/win/xp/seafile_transfer_2.ico</file>
+    <file>images/win/win7/daemon_up.ico</file>
+    <file>images/win/win7/daemon_down.ico</file>
+    <file>images/win/win7/seafile_warning.ico</file>
+    <file>images/win/win7/seafile_auto_sync_disabled.ico</file>
+    <file>images/win/win7/seafile_transfer_1.ico</file>
+    <file>images/win/win7/seafile_transfer_2.ico</file>
     <file>images/mac/daemon_up.png</file>
     <file>images/mac/daemon_down.png</file>
     <file>images/mac/seafile_auto_sync_disabled.png</file>

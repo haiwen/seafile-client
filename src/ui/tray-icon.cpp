@@ -22,6 +22,28 @@ namespace {
 
 const int kRefreshInterval = 5000;
 const int kRotateTrayIconIntervalMilli = 250;
+
+#if defined(Q_WS_WIN)
+#include <windows.h>
+bool
+isWindowsSeven ()
+{
+    OSVERSIONINFOEX ver = {0};
+
+    ver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+
+    if (!GetVersionEx((LPOSVERSIONINFO)&ver)) {
+        return false;
+    }
+
+    if (ver.dwMajorVersion == 6 && ver.dwMinorVersion == 1) {
+        return true;
+    }
+
+    return false;
+}
+#endif
+
 }
 
 SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
@@ -150,8 +172,6 @@ void SeafileTrayIcon::resetToolTip ()
     QString tip("Seafile");
     if (!seafApplet->settingsManager()->autoSync()) {
         tip = tr("auto sync is disabled");
-    } else if (state_ == STATE_DAEMON_UP && !allServersConnected()) {
-        tip = tr("some server is not connected");
     }
 
     setToolTip(tip);
@@ -159,13 +179,14 @@ void SeafileTrayIcon::resetToolTip ()
 
 void SeafileTrayIcon::setState(TrayState state)
 {
-    state_ = state;
     setIcon(stateToIcon(state));
 
     // the following two lines solving the problem of tray icon
     // disappear in ubuntu 13.04
+#if defined(Q_WS_X11)
     hide();
     show();
+#endif
 
     if (state != STATE_DAEMON_DOWN)
         resetToolTip();
@@ -173,24 +194,23 @@ void SeafileTrayIcon::setState(TrayState state)
 
 QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
-
-    if (state == STATE_DAEMON_UP && !allServersConnected()) {
-        state = STATE_SERVERS_NOT_CONNECTED;
-    }
+    state_ = state;
 #if defined(Q_WS_WIN)
+    QString prefix = isWindowsSeven() ? ":/images/win/win7/" : ":/images/win/xp/";
+
     switch (state) {
     case STATE_DAEMON_UP:
-        return QIcon(":/images/win/daemon_up.ico");
+        return QIcon(prefix + "daemon_up.ico");
     case STATE_DAEMON_DOWN:
-        return QIcon(":/images/win/daemon_down.ico");
+        return QIcon(prefix + "daemon_down.ico");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return QIcon(":/images/win/seafile_auto_sync_disabled.ico");
+        return QIcon(prefix + "seafile_auto_sync_disabled.ico");
     case STATE_TRANSFER_1:
-        return QIcon(":/images/win/seafile_transfer_1.ico");
+        return QIcon(prefix + "seafile_transfer_1.ico");
     case STATE_TRANSFER_2:
-        return QIcon(":/images/win/seafile_transfer_2.ico");
+        return QIcon(prefix + "seafile_transfer_2.ico");
     case STATE_SERVERS_NOT_CONNECTED:
-        return QIcon(":/images/win/seafile_warn.ico");
+        return QIcon(prefix + "seafile_warning.ico");
     }
 #elif defined(Q_WS_MAC)
     switch (state) {
@@ -220,7 +240,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     case STATE_TRANSFER_2:
         return QIcon(":/images/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
-        return QIcon(":/images/seafile_warn.png");
+        return QIcon(":/images/seafile_warning.png");
     }
 #endif
 }
@@ -285,11 +305,13 @@ void SeafileTrayIcon::quitSeafile()
 
 void SeafileTrayIcon::refreshTrayIcon()
 {
-    if (state_ == STATE_DAEMON_UP) {
+    if (state_ == STATE_DAEMON_UP || state_ == STATE_SERVERS_NOT_CONNECTED) {
         if (!allServersConnected()) {
-            setIcon(stateToIcon(STATE_SERVERS_NOT_CONNECTED));
+            setState(STATE_SERVERS_NOT_CONNECTED);
+            setToolTip(tr("some server is not connected"));
         } else {
-            setIcon(stateToIcon(STATE_DAEMON_UP));
+            setState(STATE_DAEMON_UP);
+            setToolTip("Seafile");
         }
     }
 }

@@ -10,6 +10,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     setWindowTitle(tr("Settings"));
+    setWindowIcon(QIcon(":/images/seafile.png"));
 }
 
 void SettingsDialog::closeEvent(QCloseEvent *event)

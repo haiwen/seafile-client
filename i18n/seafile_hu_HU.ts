@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="35"/>
         <source>failed to open account databse</source>
-        <translation>A felhasználói fiók adatbázis megnyitása nem sikerült</translation>
+        <translation>A felhasználói adatbázis megnyitása nem sikerült</translation>
     </message>
 </context>
 <context>

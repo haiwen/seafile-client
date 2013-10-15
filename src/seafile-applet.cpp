@@ -60,7 +60,7 @@ void SeafileApplet::start()
 {
     configurator_->checkInit();
 
-    tray_icon_->show();
+    tray_icon_->start();
 
     initLog();
 
@@ -73,8 +73,8 @@ void SeafileApplet::start()
 #endif
 
     if (configurator_->firstUse()) {
-        LoginDialog dialog;
-        dialog.exec();
+        LoginDialog login_dialog;
+        login_dialog.exec();
     }
 
     daemon_mgr_->startCcnetDaemon();

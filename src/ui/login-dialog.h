@@ -1,3 +1,6 @@
+#ifndef SEAFILE_CLIENT_LOGIN_DIALOG_H
+#define SEAFILE_CLIENT_LOGIN_DIALOG_H
+
 #include <QDialog>
 #include "ui_login-dialog.h"
 
@@ -28,3 +31,5 @@ private:
     QString password_;
     LoginRequest *request_;
 };
+
+#endif // SEAFILE_CLIENT_LOGIN_DIALOG_H

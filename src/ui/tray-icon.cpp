@@ -58,7 +58,6 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIcon()));
-    refresh_timer_->start(kRefreshInterval);
 
     createActions();
     createContextMenu();
@@ -69,6 +68,12 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 #if defined(Q_WS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif
+}
+
+void SeafileTrayIcon::start()
+{
+    show();
+    refresh_timer_->start(kRefreshInterval);
 }
 
 void SeafileTrayIcon::createActions()

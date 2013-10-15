@@ -24,6 +24,8 @@ public:
         STATE_SERVERS_NOT_CONNECTED,
     };
 
+    void start();
+
     void setState(TrayState);
     void notify(const QString &title, const QString &content);
     void rotate(bool start);

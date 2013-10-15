@@ -184,7 +184,7 @@ We will create a Seafile subfolder in it. When you download a library, it will b
      <item>
       <widget class="QPushButton" name="mOkBtn">
        <property name="text">
-        <string>Ok</string>
+        <string>Next</string>
        </property>
       </widget>
      </item>

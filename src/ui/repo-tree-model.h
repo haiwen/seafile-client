@@ -58,6 +58,7 @@ private:
 
     void collectDeletedRepos(RepoItem *item, void *vdata);
 
+    RepoCategoryItem *recent_updated_category_;
     RepoCategoryItem *my_repos_catetory_;
     RepoCategoryItem *shared_repos_catetory_;
 

@@ -1,6 +1,7 @@
 #include <QTimer>
 #include <QHash>
 #include <QDebug>
+#include <algorithm>            // std::sort
 
 #include "api/server-repo.h"
 #include "utils/utils.h"
@@ -13,6 +14,17 @@
 namespace {
 
 const int kRefreshLocalReposInterval = 1000;
+const int kMaxRecentUpdatedRepos = 10;
+
+bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
+{
+    return a.mtime > b.mtime;
+}
+
+bool isSameRepo(const ServerRepo& a, const ServerRepo& b)
+{
+    return a.id == b.id;
+}
 
 } // namespace
 
@@ -32,14 +44,16 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 
 void RepoTreeModel::initialize()
 {
+    recent_updated_category_ = new RepoCategoryItem(tr("Recent Updated"));
     my_repos_catetory_ = new RepoCategoryItem(tr("My Libraries"));
     shared_repos_catetory_ = new RepoCategoryItem(tr("Shared Libraries"));
 
+    appendRow(recent_updated_category_);
     appendRow(my_repos_catetory_);
     appendRow(shared_repos_catetory_);
 
     if (tree_view_) {
-        tree_view_->expand(indexFromItem(my_repos_catetory_));
+        tree_view_->expand(indexFromItem(recent_updated_category_));
     }
 }
 
@@ -65,6 +79,17 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
         } else {
             checkGroupRepo(repo);
         }
+    }
+
+    std::vector<ServerRepo> repos_copy(repos);
+    // sort all repso by timestamp
+    std::sort(repos_copy.begin(), repos_copy.end(), compareRepoByTimestamp);
+    // erase duplidates
+    repos_copy.erase(std::unique(repos_copy.begin(), repos_copy.end(), isSameRepo), repos_copy.end());
+
+    for (i = 0; i < kMaxRecentUpdatedRepos; i++) {
+        RepoItem *item = new RepoItem(repos_copy[i]);
+        recent_updated_category_->appendRow(item);
     }
 }
 

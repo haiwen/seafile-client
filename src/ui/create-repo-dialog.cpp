@@ -153,7 +153,10 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         info.magic,
         info.relay_addr,
         info.relay_port,
-        info.email, &error);
+        info.email,
+        info.random_key,
+        info.enc_version,
+        &error);
 
     if (ret < 0) {
         QMessageBox::warning(this, tr("Seafile"),

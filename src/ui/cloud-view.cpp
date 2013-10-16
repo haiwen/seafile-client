@@ -403,6 +403,9 @@ void CloudView::refreshTransferRate()
 
 void CloudView::refreshStatusBar()
 {
+    if (!seafApplet->mainWindow()->isVisible()) {
+        return;
+    }
     refreshTasksInfo();
     refreshServerStatus();
     refreshTransferRate();

@@ -237,11 +237,16 @@ void RepoTreeModel::refreshLocalRepos()
 
 void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
 {
+    if (!tree_view_->isExpanded(indexFromItem(item->parent()))) {
+        return;
+    }
     LocalRepo local_repo;
     seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
     if (local_repo != item->localRepo()) {
         item->setLocalRepo(local_repo);
         QModelIndex index = indexFromItem(item);
         emit dataChanged(index,index);
+
+        // qDebug("repo %s is changed\n", toCStr(item->repo().name));
     }
 }

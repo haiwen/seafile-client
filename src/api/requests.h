@@ -56,10 +56,12 @@ struct RepoDownloadInfo {
     QString token;
     QString repo_id;
     QString repo_name;
-    QString encrypted;
+    bool encrypted;
+    int enc_version;
     QString magic;
+    QString random_key;
 
-    static RepoDownloadInfo fromDict(QMap<QString, QString>& dict);
+    static RepoDownloadInfo fromDict(QMap<QString, QVariant>& dict);
 };
 
 class DownloadRepoRequest : public SeafileApiRequest {

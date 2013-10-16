@@ -42,7 +42,6 @@ public:
             && worktree == rhs.worktree
             && encrypted == rhs.encrypted
             && auto_sync == rhs.auto_sync
-            && last_sync_time == rhs.last_sync_time
             && sync_state == rhs.sync_state
             && sync_state_str == rhs.sync_state_str
             && sync_error_str == rhs.sync_error_str;

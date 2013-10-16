@@ -26,26 +26,28 @@ public:
     int listLocalRepos(std::vector<LocalRepo> *repos);
     int getLocalRepo(const QString& repo_id, LocalRepo *repo);
     int setAutoSync(const bool autoSync);
-    int downloadRepo(const QString &id, const QString &relayId,
-                     const QString &name, const QString &wt,
-                     const QString &token, const QString &passwd,
-                     const QString &magic, const QString &peerAddr,
-                     const QString &port, const QString &email,
+    int downloadRepo(const QString& id, const QString& relayId,
+                     const QString& name, const QString& wt,
+                     const QString& token, const QString& passwd,
+                     const QString& magic, const QString& peerAddr,
+                     const QString& port, const QString& email,
+                     const QString& random_key, int enc_version,
                      QString *error);
 
-    int cloneRepo(const QString &id, const QString &relayId,
-                  const QString &name, const QString &wt,
-                  const QString &token, const QString &passwd,
-                  const QString &magic, const QString &peerAddr,
-                     const QString &port, const QString &email,
-                     QString *error);
+    int cloneRepo(const QString& id, const QString& relayId,
+                  const QString& name, const QString& wt,
+                  const QString& token, const QString& passwd,
+                  const QString& magic, const QString& peerAddr,
+                  const QString& port, const QString& email,
+                  const QString& random_key, int enc_version,
+                  QString *error);
 
-    int ccnetGetConfig(const QString &key, QString *value);
-    int seafileGetConfig(const QString &key, QString *value);
-    int seafileGetConfigInt(const QString &key, int *value);
-    int ccnetSetConfig(const QString &key, const QString &value);
-    int seafileSetConfig(const QString &key, const QString &value);
-    int seafileSetConfigInt(const QString &key, int value);
+    int ccnetGetConfig(const QString& key, QString *value);
+    int seafileGetConfig(const QString& key, QString *value);
+    int seafileGetConfigInt(const QString& key, int *value);
+    int ccnetSetConfig(const QString& key, const QString& value);
+    int seafileSetConfig(const QString& key, const QString& value);
+    int seafileSetConfigInt(const QString& key, int value);
 
     void getSyncStatus(LocalRepo &repo);
     int getCloneTasks(std::vector<CloneTask> *tasks);

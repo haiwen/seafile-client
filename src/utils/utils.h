@@ -1,8 +1,10 @@
 #ifndef SEAFILE_CLIENT_UTILS_H_
 #define SEAFILE_CLIENT_UTILS_H_
 
+#include <jansson.h>
 #include <QString>
 #include <QDir>
+#include <QMap>
 
 #if defined(XCODE_APP)
 #define RESOURCE_PATH(_name)  (QDir(QCoreApplication::applicationDirPath()).filePath(QString("../Resources/")+(_name)))
@@ -37,5 +39,6 @@ bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data);
 
 QString translateCommitTime(qint64 timestamp);
 
+QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error);
 
 #endif

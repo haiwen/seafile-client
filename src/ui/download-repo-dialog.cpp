@@ -133,6 +133,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.token, password,
                                                  info.magic, info.relay_addr,
                                                  info.relay_port, info.email,
+                                                 info.random_key, info.enc_version,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(repo_.id, info.relay_id,
@@ -140,6 +141,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                     info.token, password,
                                                     info.magic, info.relay_addr,
                                                     info.relay_port, info.email,
+                                                    info.random_key, info.enc_version,
                                                     &error);
     }
 

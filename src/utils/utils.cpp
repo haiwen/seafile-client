@@ -270,7 +270,7 @@ bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
     return true;
 }
 
-QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t */* error */)
+QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
 {
     QMap<QString, QVariant> dict;
     void *member;

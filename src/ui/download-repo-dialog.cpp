@@ -85,7 +85,7 @@ bool DownloadRepoDialog::validateInputs()
         return false;
     }
     if (repo_.encrypted) {
-        mPasswordLabel->setText(mPassword->text().trimmed());
+        mPassword->setText(mPassword->text().trimmed());
         if (mPassword->text().isEmpty()) {
             QMessageBox::warning(this, tr("Seafile"),
                                  tr("Please enter the password"),

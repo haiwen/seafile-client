@@ -88,7 +88,8 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
     // erase duplidates
     repos_copy.erase(std::unique(repos_copy.begin(), repos_copy.end(), isSameRepo), repos_copy.end());
 
-    for (i = 0; i < kMaxRecentUpdatedRepos; i++) {
+    n = qMin((int)repos_copy.size(), kMaxRecentUpdatedRepos);
+    for (i = 0; i < n; i++) {
         RepoItem *item = new RepoItem(repos_copy[i]);
         recent_updated_category_->appendRow(item);
     }

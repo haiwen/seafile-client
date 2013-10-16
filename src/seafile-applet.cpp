@@ -14,6 +14,7 @@
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
 #include "ui/settings-dialog.h"
+#include "ui/welcome-dialog.h"
 #include "ui/login-dialog.h"
 #include "seafile-applet.h"
 
@@ -73,6 +74,8 @@ void SeafileApplet::start()
 #endif
 
     if (configurator_->firstUse()) {
+        WelcomeDialog welcome_dialog;
+        welcome_dialog.exec();
         LoginDialog login_dialog;
         login_dialog.exec();
     }

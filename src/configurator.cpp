@@ -8,7 +8,6 @@
 #include "seafile-applet.h"
 #include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
-#include "ui/welcome-dialog.h"
 #include "configurator.h"
 
 
@@ -76,9 +75,6 @@ void Configurator::initCcnet()
 
 void Configurator::initSeafile()
 {
-    WelcomeDialog welcome_dialog;
-    welcome_dialog.exec();
-
     InitSeafileDialog dialog;
     connect(&dialog, SIGNAL(seafileDirSet(const QString&)),
             this, SLOT(onSeafileDirSet(const QString&)));

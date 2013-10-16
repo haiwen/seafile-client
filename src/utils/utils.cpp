@@ -340,7 +340,8 @@ QString translateCommitTime(qint64 timestamp) {
         return minutes == 1 ? QObject::tr("1 minute ago") : QObject::tr("%1 minutes ago").arg(minutes);
 
     } else if (seconds > 0) {
-        return seconds == 1 ? QObject::tr("1 second ago") : QObject::tr("%1 seconds ago").arg(seconds);
+        // return seconds == 1 ? QObject::tr("1 second ago") : QObject::tr("%1 seconds ago").arg(seconds);
+        return QObject::tr("Just now");
 
     } else {
         return QObject::tr("Just now");

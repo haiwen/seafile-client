@@ -310,14 +310,13 @@ void SeafileTrayIcon::quitSeafile()
 
 void SeafileTrayIcon::refreshTrayIcon()
 {
-    if (state_ == STATE_DAEMON_UP || state_ == STATE_SERVERS_NOT_CONNECTED) {
-        if (!allServersConnected()) {
-            setState(STATE_SERVERS_NOT_CONNECTED);
-            setToolTip(tr("some server is not connected"));
-        } else {
-            setState(STATE_DAEMON_UP);
-            setToolTip("Seafile");
-        }
+    bool all_server_connected = allServersConnected();
+    if (state_ == STATE_DAEMON_UP && !all_server_connected) {
+        setState(STATE_SERVERS_NOT_CONNECTED);
+        setToolTip(tr("some server is not connected"));
+    } else if (state_ == STATE_SERVERS_NOT_CONNECTED && all_server_connected) {
+        setState(STATE_SERVERS_NOT_CONNECTED);
+        setToolTip(tr("some server is not connected"));
     }
 }
 

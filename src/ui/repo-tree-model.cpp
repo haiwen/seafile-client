@@ -6,6 +6,7 @@
 #include "api/server-repo.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
+#include "main-window.h"
 #include "rpc/rpc-client.h"
 #include "repo-item.h"
 #include "repo-tree-view.h"
@@ -227,6 +228,9 @@ void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void
 
 void RepoTreeModel::refreshLocalRepos()
 {
+    if (!seafApplet->mainWindow()->isVisible()) {
+        return;
+    }
     forEachRepoItem(&RepoTreeModel::refreshRepoItem, NULL);
 }
 

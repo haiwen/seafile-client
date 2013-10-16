@@ -22,6 +22,7 @@ extern "C" {
 #include "repo-item-delegate.h"
 #include "clone-tasks-dialog.h"
 #include "server-status-dialog.h"
+#include "main-window.h"
 #include "cloud-view.h"
 
 namespace {
@@ -298,6 +299,7 @@ void CloudView::showEvent(QShowEvent *event) {
 void CloudView::hideEvent(QHideEvent *event) {
     QWidget::hideEvent(event);
     refresh_timer_->stop();
+    refresh_status_bar_timer_->stop();
 }
 
 void CloudView::showAddAccountDialog()

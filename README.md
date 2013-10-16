@@ -38,9 +38,9 @@ First you need to install **Qt Linguist**:
 
 For example, if you like to add Russian translation.
 
-1. Make a copy of an existing translation file in `i18n/` folder, like `i18n/seafile_zh_CN.ts`, and name it `i18n/seafile_ru.ts`.
+1. Make a copy of an existing translation file in `i18n/` folder, like `i18n/seafile_zh_CN.ts`, and name it `i18n/seafile_ru_RU.ts`.
 2. Start Qt Linguist
-3. Open the file `i18n/seafile_ru.ts` in Qt Linguist, and translate it entry by entry.
+3. Open the file `i18n/seafile_ru_RU.ts` in Qt Linguist, and translate it entry by entry.
 
 ### Contribute your translation
 

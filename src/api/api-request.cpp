@@ -18,7 +18,8 @@ SeafileApiRequest::~SeafileApiRequest()
 
 void SeafileApiRequest::setParam(const QString& name, const QString& value)
 {
-    params_.addQueryItem(name, value);
+    params_.addEncodedQueryItem(QUrl::toPercentEncoding(name),
+                                QUrl::toPercentEncoding(value));
 }
 
 void SeafileApiRequest::send()

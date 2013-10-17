@@ -315,8 +315,8 @@ void SeafileTrayIcon::refreshTrayIcon()
         setState(STATE_SERVERS_NOT_CONNECTED);
         setToolTip(tr("some server is not connected"));
     } else if (state_ == STATE_SERVERS_NOT_CONNECTED && all_server_connected) {
-        setState(STATE_SERVERS_NOT_CONNECTED);
-        setToolTip(tr("some server is not connected"));
+        setState(STATE_DAEMON_UP);
+        setToolTip("Seafile");
     }
 }
 

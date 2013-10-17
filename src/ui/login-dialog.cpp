@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QtNetwork>
 
 #include "account-mgr.h"
 #include "seafile-applet.h"
@@ -35,6 +36,7 @@ void LoginDialog::doLogin()
     }
 
     request_ = new LoginRequest(url_, username_, password_);
+    request_->setIgnoreSslErrors(false);
 
     connect(request_, SIGNAL(success(const QString&)),
             this, SLOT(loginSuccess(const QString&)));
@@ -42,7 +44,22 @@ void LoginDialog::doLogin()
     connect(request_, SIGNAL(failed(int)),
             this, SLOT(loginFailed(int)));
 
+    connect(request_, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
+            this, SLOT(onSslErrors(QNetworkReply*, const QList<QSslError>&)));
+
     request_->send();
+}
+
+void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
+{
+    QString question = tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?");
+    if (QMessageBox::question(this,
+                              tr("Seafile"),
+                              question,
+                              QMessageBox::Yes | QMessageBox::No,
+                              QMessageBox::No) == QMessageBox::Yes) {
+        reply->ignoreSslErrors();
+    }
 }
 
 bool LoginDialog::validateInputs()

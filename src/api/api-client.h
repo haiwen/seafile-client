@@ -10,6 +10,7 @@
 class QNetworkAccessManager;
 class QByteArray;
 class QNetworkReply;
+class QSslError;
 
 /**
  * SeafileApiClient handles the underlying api mechanism
@@ -27,9 +28,11 @@ public:
 signals:
     void requestSuccess(QNetworkReply& reply);
     void requestFailed(int code);
+    void sslErrors(QNetworkReply *, const QList<QSslError>&);
 
 private slots:
     void httpRequestFinished();
+    void onSslErrors(const QList<QSslError>& errors);
 
 private:
     Q_DISABLE_COPY(SeafileApiClient)

@@ -9,6 +9,8 @@
 
 struct Account;
 class LoginRequest;
+class QNetworkReply;
+class QSslError;
 
 class LoginDialog : public QDialog,
                     public Ui::LoginDialog
@@ -21,6 +23,7 @@ private slots:
     void doLogin();
     void loginSuccess(const QString& token);
     void loginFailed(int code);
+    void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
 
 private:
     Q_DISABLE_COPY(LoginDialog);

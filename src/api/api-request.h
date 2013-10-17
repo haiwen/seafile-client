@@ -8,6 +8,7 @@
 
 class QNetworkReply;
 class SeafileApiClient;
+class QSslError;
 
 /**
  * Abstract base class for all types of api requests
@@ -20,12 +21,15 @@ public:
 
     void setParam(const QString& name, const QString& value);
     void send();
+    void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }
 
 signals:
     void failed(int code);
+    void sslErrors(QNetworkReply*, const QList<QSslError>&);
 
 protected slots:
     virtual void requestSuccess(QNetworkReply& reply) = 0;
+    void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
 
 protected:
     enum Method {
@@ -35,7 +39,8 @@ protected:
 
     SeafileApiRequest(const QUrl& url,
                       const Method method,
-                      const QString& token = QString());
+                      const QString& token = QString(),
+                      bool ignore_ssl_errors_=true);
 
     json_t* parseJSON(QNetworkReply &reply, json_error_t *error);
 
@@ -46,6 +51,7 @@ protected:
         }
     };
 
+
 private:
     Q_DISABLE_COPY(SeafileApiRequest)
 
@@ -54,6 +60,8 @@ private:
     Method method_;
     QString token_;
     SeafileApiClient* api_client_;
+
+    bool ignore_ssl_errors_;
 };
 
 #endif // SEAFILE_API_REQUEST_H

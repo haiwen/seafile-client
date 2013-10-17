@@ -42,8 +42,8 @@ void SeafileApiClient::get(const QUrl& url)
 
     reply_ = na_mgr_->get(request);
 
-    // ignore ssl error
-    reply_->ignoreSslErrors();
+    connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
+            this, SLOT(onSslErrors(const QList<QSslError>&)));
 
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 }
@@ -57,12 +57,18 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
         request.setRawHeader(kAuthHeader, buf);
     }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
+
     reply_ = na_mgr_->post(request, encodedParams);
 
-    // ignore ssl error
-    reply_->ignoreSslErrors();
-
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
+
+    connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
+            this, SLOT(onSslErrors(const QList<QSslError>&)));
+}
+
+void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
+{
+    emit sslErrors(reply_, errors);
 }
 
 void SeafileApiClient::httpRequestFinished()

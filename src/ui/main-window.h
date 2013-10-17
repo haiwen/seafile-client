@@ -37,6 +37,7 @@ private slots:
     void refreshQss();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
+    void openHelp();
 
 private:
     void loadQss(const QString& file);
@@ -47,6 +48,7 @@ private:
     // Actions
     QAction *about_action_;
     QAction *settings_action_;
+    QAction *open_help_action_;
     QAction *refresh_qss_action_;
 
     // Menus

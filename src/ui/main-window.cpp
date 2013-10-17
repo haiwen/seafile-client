@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QApplication>
+#include <QDesktopServices>
 #include <QFile>
 #include <QTextStream>
 #include <QDir>
@@ -75,6 +76,10 @@ void MainWindow::createActions()
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
+    open_help_action_ = new QAction(tr("&View online help"), this);
+    open_help_action_->setStatusTip(tr("open seafile online help"));
+    connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
+
     settings_action_ = new QAction(tr("&Settings"), this);
     settings_action_->setStatusTip(tr("Edit seafile settings"));
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsDialog()));
@@ -116,6 +121,7 @@ void MainWindow::createMenus()
 
     help_menu_ = menuBar()->addMenu(tr("&Help"));
     help_menu_->addAction(about_action_);
+    help_menu_->addAction(open_help_action_);
 }
 
 void MainWindow::about()
@@ -128,6 +134,11 @@ void MainWindow::about()
 void MainWindow::showSettingsDialog()
 {
     seafApplet->trayIcon()->showSettingsWindow();
+}
+
+void MainWindow::openHelp()
+{
+    QDesktopServices::openUrl(QUrl("http://seafile.com/en/help/install_v2/"));
 }
 
 void MainWindow::loadQss(const QString& path)

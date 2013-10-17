@@ -74,8 +74,8 @@ void SeafileApplet::start()
 #endif
 
     if (configurator_->firstUse()) {
-        WelcomeDialog welcome_dialog;
-        welcome_dialog.exec();
+        // WelcomeDialog welcome_dialog;
+        // welcome_dialog.exec();
         LoginDialog login_dialog;
         login_dialog.exec();
     }

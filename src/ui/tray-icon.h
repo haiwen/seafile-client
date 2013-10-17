@@ -30,6 +30,9 @@ public:
     void notify(const QString &title, const QString &content);
     void rotate(bool start);
 
+public slots:
+    void showSettingsWindow();
+
 private slots:
     void disableAutoSync();
     void enableAutoSync();
@@ -38,7 +41,6 @@ private slots:
     void prepareContextMenu();
     void toggleMainWindow();
     void rotateTrayIcon();
-    void showSettingsWindow();
     void refreshTrayIcon();
 
 private:

@@ -248,6 +248,14 @@ min-width: 300px;
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>mOkBtn</tabstop>
+  <tabstop>mDirectory</tabstop>
+  <tabstop>mChooseDirBtn</tabstop>
+  <tabstop>mPassword</tabstop>
+  <tabstop>mSwitchToSyncBtn</tabstop>
+  <tabstop>mCancelBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

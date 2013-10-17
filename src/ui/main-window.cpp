@@ -8,6 +8,7 @@
 #include "QtAwesome.h"
 #include "cloud-view.h"
 #include "seafile-applet.h"
+#include "tray-icon.h"
 #include "login-dialog.h"
 #include "main-window.h"
 #include "utils/utils.h"
@@ -74,6 +75,10 @@ void MainWindow::createActions()
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
+    settings_action_ = new QAction(tr("&Settings"), this);
+    settings_action_->setStatusTip(tr("Edit seafile settings"));
+    connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsDialog()));
+
     refresh_qss_action_ = new QAction(QIcon(":/images/refresh.png"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
 }
@@ -106,6 +111,9 @@ void MainWindow::showWindow()
 
 void MainWindow::createMenus()
 {
+    edit_menu_ = menuBar()->addMenu(tr("&Edit"));
+    edit_menu_->addAction(settings_action_);
+
     help_menu_ = menuBar()->addMenu(tr("&Help"));
     help_menu_->addAction(about_action_);
 }
@@ -115,6 +123,11 @@ void MainWindow::about()
     QMessageBox::about(this, tr("About Seafile"),
                        tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
                           "<p>Copyright &copy; 2013 Seafile Ltd."));
+}
+
+void MainWindow::showSettingsDialog()
+{
+    seafApplet->trayIcon()->showSettingsWindow();
 }
 
 void MainWindow::loadQss(const QString& path)

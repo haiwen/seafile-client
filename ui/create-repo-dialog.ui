@@ -164,6 +164,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>mOkBtn</tabstop>
+  <tabstop>mDirectory</tabstop>
+  <tabstop>mChooseDirBtn</tabstop>
+  <tabstop>mName</tabstop>
+  <tabstop>mDesc</tabstop>
+  <tabstop>mEncrypteCheckBox</tabstop>
+  <tabstop>mPassword</tabstop>
+  <tabstop>mPasswordAgain</tabstop>
+  <tabstop>mCancelBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

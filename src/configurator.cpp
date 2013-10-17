@@ -99,11 +99,12 @@ void Configurator::onSeafileDirSet(const QString& path)
 
     seafile_dir_ = path;
 
+    setSeafileDirAttributes();
+
     QDir d(path);
+
     d.cdUp();
     worktree_ = d.absolutePath();
-
-    setSeafileDirAttributes();
 }
 
 void Configurator::setSeafileDirAttributes()
@@ -150,8 +151,18 @@ void Configurator::validateExistingConfig()
         return;
     }
 
-    QFileInfo finfo(seafile_dir_);
-    worktree_ = finfo.dir().path();
+    QDir d(seafile_dir_);
+#ifndef Q_WS_WIN
+    QString old_client_wt = d.filePath("../seafile/");
+    if (QFile(old_client_wt).exists()) {
+        // old client
+        worktree_ = QFileInfo(old_client_wt).absoluteFilePath();
+        return;
+    }
+#endif
+
+    d.cdUp();
+    worktree_ = d.absolutePath();
 }
 
 int Configurator::readSeafileIni(QString *content)

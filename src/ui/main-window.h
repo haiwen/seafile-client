@@ -33,6 +33,7 @@ protected:
 
 private slots:
     void about();
+    void showSettingsDialog();
     void refreshQss();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
@@ -45,9 +46,11 @@ private:
     
     // Actions
     QAction *about_action_;
+    QAction *settings_action_;
     QAction *refresh_qss_action_;
 
     // Menus
+    QMenu *edit_menu_;
     QMenu *help_menu_;
 
     // ToolBar

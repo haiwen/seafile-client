@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_TRAY_ICON_H
 
 #include <QSystemTrayIcon>
+#include <QHash>
 
 class QAction;
 class QMenu;
@@ -51,6 +52,7 @@ private:
     bool allServersConnected();
 
     QIcon stateToIcon(TrayState state);
+    QIcon getIcon(const QString& name);
     void resetToolTip();
 
     QMenu *context_menu_;
@@ -72,6 +74,8 @@ private:
     bool auto_sync_;
 
     TrayState state_;
+
+    QHash<QString, QIcon> icon_cache_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

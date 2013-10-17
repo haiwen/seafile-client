@@ -197,6 +197,17 @@ void SeafileTrayIcon::setState(TrayState state)
         resetToolTip();
 }
 
+QIcon SeafileTrayIcon::getIcon(const QString& name)
+{
+    if (icon_cache_.contains(name)) {
+        return icon_cache_[name];
+    }
+
+    QIcon icon(name);
+    icon_cache_[name] = icon;
+    return icon;
+}
+
 QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
@@ -205,47 +216,47 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 
     switch (state) {
     case STATE_DAEMON_UP:
-        return QIcon(prefix + "daemon_up.ico");
+        return getIcon(prefix + "daemon_up.ico");
     case STATE_DAEMON_DOWN:
-        return QIcon(prefix + "daemon_down.ico");
+        return getIcon(prefix + "daemon_down.ico");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return QIcon(prefix + "seafile_auto_sync_disabled.ico");
+        return getIcon(prefix + "seafile_auto_sync_disabled.ico");
     case STATE_TRANSFER_1:
-        return QIcon(prefix + "seafile_transfer_1.ico");
+        return getIcon(prefix + "seafile_transfer_1.ico");
     case STATE_TRANSFER_2:
-        return QIcon(prefix + "seafile_transfer_2.ico");
+        return getIcon(prefix + "seafile_transfer_2.ico");
     case STATE_SERVERS_NOT_CONNECTED:
-        return QIcon(prefix + "seafile_warning.ico");
+        return getIcon(prefix + "seafile_warning.ico");
     }
 #elif defined(Q_WS_MAC)
     switch (state) {
     case STATE_DAEMON_UP:
-        return QIcon(":/images/mac/daemon_up.png");
+        return getIcon(":/images/mac/daemon_up.png");
     case STATE_DAEMON_DOWN:
-        return QIcon(":/images/mac/daemon_down.png");
+        return getIcon(":/images/mac/daemon_down.png");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return QIcon(":/images/mac/seafile_auto_sync_disabled.png");
+        return getIcon(":/images/mac/seafile_auto_sync_disabled.png");
     case STATE_TRANSFER_1:
-        return QIcon(":/images/mac/seafile_transfer_1.png");
+        return getIcon(":/images/mac/seafile_transfer_1.png");
     case STATE_TRANSFER_2:
-        return QIcon(":/images/mac/seafile_transfer_2.png");
+        return getIcon(":/images/mac/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
-        return QIcon(":/images/mac/daemon_up.png");
+        return getIcon(":/images/mac/daemon_up.png");
     }
 #else
     switch (state) {
     case STATE_DAEMON_UP:
-        return QIcon(":/images/daemon_up.png");
+        return getIcon(":/images/daemon_up.png");
     case STATE_DAEMON_DOWN:
-        return QIcon(":/images/daemon_down.png");
+        return getIcon(":/images/daemon_down.png");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return QIcon(":/images/seafile_auto_sync_disabled.png");
+        return getIcon(":/images/seafile_auto_sync_disabled.png");
     case STATE_TRANSFER_1:
-        return QIcon(":/images/seafile_transfer_1.png");
+        return getIcon(":/images/seafile_transfer_1.png");
     case STATE_TRANSFER_2:
-        return QIcon(":/images/seafile_transfer_2.png");
+        return getIcon(":/images/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
-        return QIcon(":/images/seafile_warning.png");
+        return getIcon(":/images/seafile_warning.png");
     }
 #endif
 }

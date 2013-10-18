@@ -37,6 +37,7 @@ private slots:
     void openLocalFolder();
     void viewRepoOnWeb();
     void onItemClicked(const QModelIndex& index);
+    void onItemDoubleClicked(const QModelIndex& index);
     void toggleRepoAutoSync();
     void unsyncRepo();
 

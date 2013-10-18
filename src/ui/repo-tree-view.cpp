@@ -33,6 +33,9 @@ RepoTreeView::RepoTreeView(CloudView *cloud_view, QWidget *parent)
 
     connect(this, SIGNAL(clicked(const QModelIndex&)),
             this, SLOT(onItemClicked(const QModelIndex&)));
+
+    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
+            this, SLOT(onItemDoubleClicked(const QModelIndex&)));
 }
 
 void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
@@ -264,6 +267,21 @@ void RepoTreeView::onItemClicked(const QModelIndex& index)
             collapse(index);
         } else {
             expand(index);
+        }
+    }
+}
+
+void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
+{
+    QStandardItem *item = getRepoItem(index);
+    if (!item) {
+        return;
+    }
+    if (item->type() == REPO_ITEM_TYPE) {
+        RepoItem *it = (RepoItem *)item;
+        const LocalRepo& local_repo = it->localRepo();
+        if (local_repo.isValid()) {
+            QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
         }
     }
 }

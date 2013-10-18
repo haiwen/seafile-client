@@ -319,7 +319,9 @@ void CloudView::deleteAccount()
                               QMessageBox::Cancel) == QMessageBox::Ok) {
 
         QString error, server_addr = current_account_.serverUrl.host();
-        if (seafApplet->rpcClient()->unsyncReposByServer(server_addr, &error) < 0) {
+        if (seafApplet->rpcClient()->unsyncReposByAccount(server_addr,
+                                                          current_account_.username,
+                                                          &error) < 0) {
             QMessageBox::warning(this, tr("Seafile"),
                                  tr("Failed to unsync libraries of this account: %1").arg(error),
                                  QMessageBox::Ok);

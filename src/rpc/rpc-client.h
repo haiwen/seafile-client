@@ -56,7 +56,7 @@ public:
     int cancelCloneTask(const QString& repo_id, QString *error);
     int removeCloneTask(const QString& repo_id, QString *error);
 
-    int unsyncReposByServer(const QString& server_addr, QString *error);
+    int unsyncReposByAccount(const QString& server_addr, const QString& email, QString *error);
     int getUploadRate(int *rate);
     int getDownloadRate(int *rate);
 

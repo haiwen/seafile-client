@@ -125,11 +125,13 @@ void MainWindow::createMenus()
 }
 
 #define STR(s)     #s
+#define STRINGIZE(x) STR(x)
+
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Seafile"),
 #ifdef XCODE_APP
-                       tr("<h2>Seafile Client " STR(SEAFILE_CLIENT_VERSION) "</h2>"
+                       tr("<h2>Seafile Client "STRINGIZE(SEAFILE_CLIENT_VERSION)"</h2>"
 #else
                        tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
 #endif

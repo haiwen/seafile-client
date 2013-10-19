@@ -13,6 +13,26 @@ class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
 
+
+/**
+ * Show thr main window when the dock icon is clicked
+ */
+#ifdef Q_OS_MAC
+#include <QApplication>
+
+#include <objc/objc.h>
+#include <objc/message.h>
+#include "main-window.h"
+class Application : public QApplication {
+    Q_OBJECT
+    
+public:
+    Application (int& argc, char **argv);
+
+};
+#endif
+
+
 /**
  * The central class of seafile-client
  */

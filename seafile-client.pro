@@ -131,7 +131,7 @@ TRANSLATIONS += i18n/seafile_de_DE.ts \
                 i18n/seafile_hu_HU.ts \
                 i18n/seafile_zh_CN.ts
 
-ICON = images/seafile.png
+ICON = seafile.icns
 CONFIG += debug_and_release_target
 CONFIG += warn_on link_pkgconfig resources
 PKGCONFIG += libsearpc libccnet libseafile glib-2.0 sqlite3 jansson openssl
@@ -147,11 +147,13 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP "SEAFILE_CLIENT_VERSION=\"2.0.3 beta\""
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.3 beta"'
 
     exe.path = Contents/Resources/
-    exe.files = ccnet seaf-daemon
+    exe.files = libs/ccnet libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe
 }
+
+macx:LIBS += -framework Carbon -framework Cocoa
 
 QT += network

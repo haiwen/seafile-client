@@ -2,15 +2,11 @@
 
 top_dir=${PWD}
 
+dylibs="/usr/local/lib/libccnet.0.dylib /usr/local/lib/libseafile.0.dylib /usr/local/lib/libsearpc.1.dylib /usr/local/lib/libsearpc-json-glib.0.dylib /opt/local/lib/libcrypto.1.0.0.dylib /opt/local/lib/libuuid.16.dylib /opt/local/lib/libevent-2.0.5.dylib /opt/local/lib/libssl.1.0.0.dylib /opt/local/lib/libgio-2.0.0.dylib /opt/local/lib/libgmodule-2.0.0.dylib /opt/local/lib/libgobject-2.0.0.dylib /opt/local/lib/libgthread-2.0.0.dylib /opt/local/lib/libffi.6.dylib /opt/local/lib/libglib-2.0.0.dylib /opt/local/lib/libintl.8.dylib /opt/local/lib/libiconv.2.dylib /opt/local/lib/libsqlite3.0.dylib /opt/local/lib/libz.1.dylib /opt/local/lib/libjansson.4.dylib"
 
-dylibs_com="/usr/local/lib/libccnet.0.dylib /usr/local/lib/libseafile.0.dylib /usr/local/lib/libsearpc.1.dylib /usr/local/lib/libsearpc-json-glib.0.dylib /opt/local/lib/libcrypto.1.0.0.dylib /opt/local/lib/libuuid.16.dylib /opt/local/lib/libevent-2.0.5.dylib /opt/local/lib/libssl.1.0.0.dylib /opt/local/lib/libgio-2.0.0.dylib /opt/local/lib/libgmodule-2.0.0.dylib /opt/local/lib/libgobject-2.0.0.dylib /opt/local/lib/libgthread-2.0.0.dylib /opt/local/lib/libffi.6.dylib /opt/local/lib/libglib-2.0.0.dylib /opt/local/lib/libintl.8.dylib /opt/local/lib/libiconv.2.dylib /opt/local/lib/libsqlite3.0.dylib /opt/local/lib/libz.1.dylib /opt/local/lib/libjansson.4.dylib"
 
-dylibs_orig=$dylibs_com
-
-all_orig=$dylibs_orig" /usr/local/bin/ccnet /usr/local/bin/seaf-daemon"
-
-dylibs=$dylibs_com
-all=$dylibs" /usr/local/bin/ccnet /usr/local/bin/seaf-daemon"
+exes="`which ccnet` `which seaf-daemon`"
+all=$dylibs" ${exes}"
 
 function change_otool() {
     DIR=$1
@@ -37,8 +33,9 @@ function change_otool() {
 while [ $# -ge 1 ]; do
     case $1 in
         "xcode" )
-            cp `which ccnet` .
-            cp `which seaf-daemon` .
+            mkdir -p libs
+            cp -f `which ccnet` libs/
+            cp -f `which seaf-daemon` libs/
             qmake -spec macx-xcode
             ;;
 
@@ -62,10 +59,15 @@ while [ $# -ge 1 ]; do
             ;;
 
         "otool" )
-            echo "macdeployqt seafile-client.app"
+            echo "macdeployqt seafile-client.app -no-plugins"
             macdeployqt seafile-client.app -no-plugins
             change_otool ${top_dir}/seafile-client.app/Contents/Resources
             change_otool ${top_dir}/seafile-client.app/Contents/Frameworks
+            ;;
+
+        "dmg" )
+            echo "macdeployqt seafile-client.app -dmg"
+            macdeployqt seafile-client.app -dmg
             ;;
 
     esac

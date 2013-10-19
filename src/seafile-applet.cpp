@@ -129,7 +129,8 @@ void SeafileApplet::initLog()
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
         errorAndExit(tr("Failed to initialize log"));
     } else {
-        qInstallMsgHandler(myLogHandler);
+        //qInstallMsgHandler(myLogHandler);
+        qInstallMsgHandler(0);
     }
 }
 

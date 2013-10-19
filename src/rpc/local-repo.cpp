@@ -150,3 +150,12 @@ void LocalRepo::translateSyncError(QString error)
         sync_error_str = error;
     }
 };
+
+QIcon LocalRepo::getIcon() const
+{
+    if (encrypted) {
+        return QIcon(":/images/encrypted-repo.png");
+    } else {
+        return QIcon(":/images/repo.png");
+    }
+}

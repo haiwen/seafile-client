@@ -34,7 +34,6 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     QString filetyperes;
 
     if (res <= 1024) {
-        res = res;
         filetyperes = "B";
     } else if (res > 1024 && res <= 1024*1024) {
         res = res / 1024;

@@ -97,8 +97,6 @@ QSize RepoItemDelegate::sizeHint(const QStyleOptionViewItem &option,
         return QStyledItemDelegate::sizeHint(option, index);
     }
 
-    int width, height;
-
     if (item->type() == REPO_ITEM_TYPE) {
         return sizeHintForRepoItem(option, (const RepoItem *)item);
     } else {

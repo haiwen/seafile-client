@@ -124,10 +124,15 @@ void MainWindow::createMenus()
     help_menu_->addAction(open_help_action_);
 }
 
+#define STR(s)     #s
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Seafile"),
+#ifdef XCODE_APP
+                       tr("<h2>Seafile Client " STR(SEAFILE_CLIENT_VERSION) "</h2>"
+#else
                        tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
+#endif
                           "<p>Copyright &copy; 2013 Seafile Ltd."));
 }
 

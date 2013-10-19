@@ -48,7 +48,8 @@ private:
 };
 
 
-struct RepoDownloadInfo {
+class RepoDownloadInfo {
+public:
     QString relay_id;
     QString relay_addr;
     QString relay_port;

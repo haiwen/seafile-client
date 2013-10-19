@@ -13,9 +13,9 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
                                        const ServerRepo& repo,
                                        QWidget *parent)
     : QDialog(parent),
-      account_(account),
       repo_(repo),
-      sync_with_existing_(false)
+      sync_with_existing_(false),
+      account_(account)
 {
     setupUi(this);
     setWindowTitle(tr("Download library \"%1\"").arg(repo_.name));

@@ -12,43 +12,62 @@ all_orig=$dylibs_orig" /usr/local/bin/ccnet /usr/local/bin/seaf-daemon"
 dylibs=$dylibs_com
 all=$dylibs" /usr/local/bin/ccnet /usr/local/bin/seaf-daemon"
 
+function change_otool() {
+    DIR=$1
+    pushd ${DIR}
+    for var in $all ; do
+        dyexe=$(basename "$var")
+        if [ -f $dyexe ] ; then
+            echo "Deal with "$dyexe
+            for libpath in $dylibs ; do
+                lib=$(basename $libpath)
+                if [ "$lib" = "$dyexe" ] ; then
+                    echo "install_name_tool -id @loader_path/../Frameworks/$lib $dyexe"
+                    install_name_tool -id @loader_path/../Frameworks/$lib $dyexe
+                else
+                    echo "install_name_tool -change $libpath @loader_path/../Frameworks/$lib $dyexe"
+                    install_name_tool -change $libpath @loader_path/../Frameworks/$lib $dyexe
+                fi
+            done
+        fi
+    done
+    popd
+}
+
 while [ $# -ge 1 ]; do
-  case $1 in
-    "dylib" )
-      mkdir -p libs
-      pushd libs
-      for var in $all_orig ; do
-          cp -f $var ./
-          base=$(basename "$var")
-          chmod 0744 $base
-      done
+    case $1 in
+        "xcode" )
+            cp `which ccnet` .
+            cp `which seaf-daemon` .
+            qmake -spec macx-xcode
+            ;;
 
-      for var in $all ; do
-          dyexe=$(basename "$var")
-          echo "Deal with "$dyexe
-          for libpath in $dylibs ; do
-              lib=$(basename $libpath)
-              if [ "$lib" = "$dyexe" ] ; then
-                  echo "install_name_tool -id @loader_path/../Frameworks/$lib $dyexe"
-                  install_name_tool -id @loader_path/../Frameworks/$lib $dyexe
-              else
-                  echo "install_name_tool -change $libpath @loader_path/../Frameworks/$lib $dyexe"
-                  install_name_tool -change $libpath @loader_path/../Frameworks/$lib $dyexe
-              fi
-          done
-      done
-      popd
-      ;;
+        "build" )
+            echo "build seafile-client.app for Mac OS X 10.6"
+            rm -rf build
+            xcodebuild -target seafile-client
+            rm -rf ${top_dir}/seafile-client.app
+            cp -rf build/Release/seafile-client.app ${top_dir}/seafile-client.app
+            ;;
 
-    "app" )
-      echo "build seafile-client.app for Mac OS X 10.6"
-      rm -rf build
-      xcodebuild -target seafile-client
-      rm -rf ${top_dir}/seafile-client.app
-      cp -rf build/Release/seafile-client.app ${top_dir}/seafile-client.app
-      echo "macdeployqt seafile-client.app"
-      macdeployqt seafile-client.app -no-plugins
-      ;;
+        "libs" )
+            mkdir ${top_dir}/seafile-client.app/Contents/Frameworks
+            pushd ${top_dir}/seafile-client.app/Contents/Frameworks
+            for var in $dylibs_orig ; do
+                cp -f $var ./
+                base=$(basename "$var")
+                chmod 0744 $base
+            done
+            popd
+            ;;
+
+        "otool" )
+            echo "macdeployqt seafile-client.app"
+            macdeployqt seafile-client.app -no-plugins
+            change_otool ${top_dir}/seafile-client.app/Contents/Resources
+            change_otool ${top_dir}/seafile-client.app/Contents/Frameworks
+            ;;
+
     esac
     shift
 done

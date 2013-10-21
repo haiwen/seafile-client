@@ -11,14 +11,24 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     setupUi(this);
     setWindowTitle(tr("Settings"));
     setWindowIcon(QIcon(":/images/seafile.png"));
+
+    // Since closeEvent() would not not called when accept() is called, we
+    // need to handle it here.
+    connect(this, SIGNAL(accepted()), this, SLOT(updateSettings()));
 }
 
-void SettingsDialog::closeEvent(QCloseEvent *event)
+void SettingsDialog::updateSettings()
 {
     seafApplet->settingsManager()->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
     seafApplet->settingsManager()->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
     seafApplet->settingsManager()->setMaxDownloadRatio(mDownloadSpinBox->value());
     seafApplet->settingsManager()->setMaxUploadRatio(mUploadSpinBox->value());
+    seafApplet->settingsManager()->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
+}
+
+void SettingsDialog::closeEvent(QCloseEvent *event)
+{
+    updateSettings();
 
     event->ignore();
     this->hide();
@@ -28,6 +38,9 @@ void SettingsDialog::showEvent(QShowEvent *event)
 {
     Qt::CheckState state;
     int ratio;
+
+    state = seafApplet->settingsManager()->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
+    mHideMainWinCheckBox->setCheckState(state);
 
     state = seafApplet->settingsManager()->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);

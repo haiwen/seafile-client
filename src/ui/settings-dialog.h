@@ -20,8 +20,8 @@ private slots:
     void uploadChanged(int value);
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
+    void updateSettings();
 
 private:
     Q_DISABLE_COPY(SettingsDialog);
-
 };

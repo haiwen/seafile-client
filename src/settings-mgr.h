@@ -29,6 +29,9 @@ public:
     void setMaxDownloadRatio(unsigned int ratio);
     void setMaxUploadRatio(unsigned int ratio);
 
+    bool hideMainWindowWhenStarted();
+    void setHideMainWindowWhenStarted(bool hide);
+
 private:
     Q_DISABLE_COPY(SettingsManager)
 

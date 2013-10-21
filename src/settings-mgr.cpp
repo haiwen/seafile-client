@@ -1,9 +1,16 @@
-#include <QtDebug>
+#include <QSettings>
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
+
+namespace {
+
+const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
+const char *kBehaviorGroup = "Behavior";
+
+} // namespace
 
 
 SettingsManager::SettingsManager()
@@ -57,7 +64,7 @@ void SettingsManager::setNotify(bool notify)
                                                       notify ? "on" : "off") < 0) {
             // Error
             return;
-        }            
+        }
         bubbleNotifycation_ = notify;
     }
 }
@@ -108,4 +115,25 @@ void SettingsManager::setMaxUploadRatio(unsigned int ratio)
         }
         maxUploadRatio_ = ratio;
     }
+}
+
+bool SettingsManager::hideMainWindowWhenStarted()
+{
+    QSettings settings;
+    bool hide;
+
+    settings.beginGroup(kBehaviorGroup);
+    hide = settings.value(kHideMainWindowWhenStarted, false).toBool();
+    settings.endGroup();
+
+    return hide;
+}
+
+void SettingsManager::setHideMainWindowWhenStarted(bool hide)
+{
+    QSettings settings;
+
+    settings.beginGroup(kBehaviorGroup);
+    settings.setValue(kHideMainWindowWhenStarted, hide);
+    settings.endGroup();
 }

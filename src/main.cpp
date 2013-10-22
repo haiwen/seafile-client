@@ -6,6 +6,7 @@
 #include <QWidget>
 
 #include <glib-object.h>
+#include <stdio.h>
 
 #include "utils/process.h"
 #include "seafile-applet.h"
@@ -43,6 +44,12 @@ Application::Application (int& argc, char **argv)
 
 int main(int argc, char *argv[])
 {
+#ifdef Q_WS_MAC
+    Application app(argc, argv);
+#else
+    QApplication app(argc, argv);
+#endif
+
     if (count_process("seafile-applet") > 1) {
         QMessageBox::warning(NULL, "Seafile",
                              QObject::tr("Seafile is already running"),
@@ -50,11 +57,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-#ifdef Q_WS_MAC
-    Application app(argc, argv);
-#else
-    QApplication app(argc, argv);
-#endif
 
     app.setQuitOnLastWindowClosed(false);
 

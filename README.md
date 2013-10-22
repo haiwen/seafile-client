@@ -45,3 +45,7 @@ For example, if you like to add Russian translation.
 ### Contribute your translation
 
 Just fork seafile-client and send us a pull request, and we'll check and merge your translation.
+
+### Update the translation
+
+Some time later after the your initial translation is merged, new content need to be translated as seafile-client source code evolves. To update the translation, just open the `.ts` file with Qt Linguist, and translate all unfinished items.

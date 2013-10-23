@@ -34,8 +34,6 @@ private slots:
     void showEvent(QShowEvent *event);
 
 private:
-    void loadQss(const QString& file);
-
     void readSettings();
     void writeSettings();
 
@@ -47,8 +45,6 @@ private:
     QTabWidget *main_widget_;
 
     CloudView *cloud_view_;
-
-    QString style_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

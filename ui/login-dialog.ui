@@ -269,6 +269,13 @@ min-width: 260px;
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>mServerAddr</tabstop>
+  <tabstop>mUsername</tabstop>
+  <tabstop>mPassword</tabstop>
+  <tabstop>mSubmitBtn</tabstop>
+  <tabstop>pushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

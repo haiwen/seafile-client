@@ -290,16 +290,9 @@ void SeafileTrayIcon::toggleMainWindow()
 
 void SeafileTrayIcon::about()
 {
-#ifdef XCODE_APP
     QMessageBox::about(seafApplet->mainWindow(), tr("About Seafile"),
-                       tr("<h2>Seafile Client "STRINGIZE(SEAFILE_CLIENT_VERSION)"</h2>"
-                          "<p>Copyright &copy; 2013 Seafile Ltd."));
-
-#else
-    QMessageBox::about(seafApplet->mainWindow(), tr("About Seafile"),
-                       tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
-                          "<p>Copyright &copy; 2013 Seafile Ltd."));
-#endif
+                       tr("<h2>Seafile Client %1</h2><br><p>Copyright &copy; 2013 Seafile Ltd.</p>").arg(
+                           STRINGIZE(SEAFILE_CLIENT_VERSION)));
 }
 
 void SeafileTrayIcon::openHelp()

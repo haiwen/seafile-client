@@ -132,6 +132,6 @@ CloudView QLabel#mServerAddr {
 
 QDialog QLabel#mTitle {
     color: #E83;
-    font-family:  "Sans Serif";
+    font-family: Arial;
     font-size: 20px;
 }

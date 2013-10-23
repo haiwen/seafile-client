@@ -44,6 +44,8 @@ public:
 
     void start();
 
+    void refreshQss();
+
     // normal exit
     void exit(int code);
 
@@ -78,6 +80,8 @@ private:
 
     void initLog();
 
+    void loadQss(const QString& path);
+
     Configurator *configurator_;
 
     AccountManager *account_mgr_;
@@ -99,6 +103,8 @@ private:
     bool started_;
 
     bool in_exit_;
+
+    QString style_;
 };
 
 /**

@@ -1,5 +1,11 @@
-#include <QMessageBox>
+#include <QtGui>
+#include <QApplication>
+#include <QDesktopServices>
+#include <QFile>
+#include <QTextStream>
 #include <QDir>
+#include <QCoreApplication>
+#include <QMessageBox>
 
 #include <glib.h>
 
@@ -59,6 +65,8 @@ SeafileApplet::SeafileApplet()
 
 void SeafileApplet::start()
 {
+    refreshQss();
+
     configurator_->checkInit();
 
     tray_icon_->start();
@@ -133,3 +141,36 @@ void SeafileApplet::initLog()
     }
 }
 
+void SeafileApplet::loadQss(const QString& path)
+{
+    QFile file(path);
+    if (!QFileInfo(file).exists()) {
+        return;
+    }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+
+    QTextStream input(&file);
+    style_ += "\n";
+    style_ += input.readAll();
+    qApp->setStyleSheet(style_);
+}
+
+void SeafileApplet::refreshQss()
+{
+    style_.clear();
+    loadQss(":/qt.css");
+    loadQss("qt.css");
+
+#if defined(Q_WS_WIN)
+    loadQss(":/qt-win.css");
+    loadQss("qt-win.css");
+#elif defined(Q_WS_X11)
+    loadQss(":/qt-linux.css");
+    loadQss("qt-linux.css");
+#else
+    loadQss(":/qt-mac.css");
+    loadQss("qt-mac.css");
+#endif
+}

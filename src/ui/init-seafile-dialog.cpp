@@ -62,11 +62,13 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
     setupUi(this);
 
     setWindowTitle(tr("Seafile Initialzation"));
+    setWindowIcon(QIcon(":/images/seafile.png"));
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkClicked()));
     connect(mCancelBtn, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
 
+    mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
     mDirectory->setText(getInitialPath());
 }
 

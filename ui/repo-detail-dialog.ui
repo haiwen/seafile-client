@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>250</height>
+    <height>254</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,10 +21,10 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
-    <number>20</number>
+    <number>9</number>
    </property>
    <property name="rightMargin">
-    <number>20</number>
+    <number>9</number>
    </property>
    <item>
     <widget class="QFrame" name="mFrame">
@@ -35,6 +35,9 @@
       <enum>QFrame::Plain</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>12</number>
+      </property>
       <item>
        <widget class="QLabel" name="mRepoIcon">
         <property name="sizePolicy">

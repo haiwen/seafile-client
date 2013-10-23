@@ -76,7 +76,7 @@ void MainWindow::createActions()
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
-    open_help_action_ = new QAction(tr("&View online help"), this);
+    open_help_action_ = new QAction(tr("&Online help"), this);
     open_help_action_->setStatusTip(tr("open seafile online help"));
     connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
 

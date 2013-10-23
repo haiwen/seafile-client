@@ -702,8 +702,12 @@ We will create a Seafile subfolder in it. When you download a library, it will b
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="79"/>
         <source>&amp;View online help</source>
+        <translation type="obsolete">在线帮助(&amp;O)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/main-window.cpp" line="79"/>
+        <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
@@ -786,7 +790,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="48"/>
+        <location filename="../src/main.cpp" line="55"/>
         <source>Seafile is already running</source>
         <translation>Seafile 已经在运行中</translation>
     </message>
@@ -1061,75 +1065,75 @@ The library owner&apos;s storage space is used up.</source>
         <translation>错误： </translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="214"/>
+        <location filename="../ui_repo-detail-dialog.h" line="215"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="215"/>
+        <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>RepoIcon</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="216"/>
+        <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>Name:</source>
         <translation>名字：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
+        <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="219"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
-        <location filename="../ui_repo-detail-dialog.h" line="225"/>
-        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
         <source>Last Modified:</source>
         <translation>更新时间：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="222"/>
         <source>mtime</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>Size:</source>
         <translation>大小：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="228"/>
+        <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>Owner:</source>
         <translation>所有者：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="230"/>
+        <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <source>Local Path:</source>
         <translation>本地路径：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>Status:</source>
         <translation>状态：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="227"/>
+        <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>RepoStatus</source>
         <translation></translation>
     </message>

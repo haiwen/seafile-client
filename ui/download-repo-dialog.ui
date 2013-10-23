@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>437</width>
-    <height>282</height>
+    <height>284</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,6 +47,11 @@ min-width: 300px;
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLabel" name="mDownloadLabel">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
           </property>
@@ -167,11 +172,6 @@ min-width: 300px;
          </item>
          <item>
           <widget class="QPushButton" name="mSwitchToSyncBtn">
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>

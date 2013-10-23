@@ -706,7 +706,7 @@ In diesem  wird ein Seafile Unterordner erstellt.Heruntergeladene Bibliotheken w
     </message>
     <message>
         <location filename="../src/ui/main-window.cpp" line="79"/>
-        <source>&amp;View online help</source>
+        <source>&amp;Online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -792,7 +792,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="48"/>
+        <location filename="../src/main.cpp" line="55"/>
         <source>Seafile is already running</source>
         <translation>Seafile läuft schon</translation>
     </message>
@@ -1067,75 +1067,75 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
         <translation>Fehler: </translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="214"/>
+        <location filename="../ui_repo-detail-dialog.h" line="215"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="215"/>
+        <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>RepoIcon</source>
         <translation>RepoIcon</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="216"/>
+        <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
+        <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
         <translation>RepoName</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="219"/>
         <source>Description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
-        <location filename="../ui_repo-detail-dialog.h" line="225"/>
-        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
         <source>Last Modified:</source>
         <translation>Zuletzt geändert:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="222"/>
         <source>mtime</source>
         <translation>mtime</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>Size:</source>
         <translation>Größe:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="228"/>
+        <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>Owner:</source>
         <translation>Eigentümer:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="230"/>
+        <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Close</source>
         <translation type="unfinished">Schließen</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <source>Local Path:</source>
         <translation>Lokaler Pfad:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>Status:</source>
         <translation>Status:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="227"/>
+        <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>RepoStatus</source>
         <translation>RepoStatus</translation>
     </message>

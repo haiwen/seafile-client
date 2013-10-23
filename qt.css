@@ -118,3 +118,20 @@ RepoDetailDialog {
     min-width: 400px;
     min-height: 250px;
 }
+
+CloudView QLabel#mEmail {
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+CloudView QLabel#mServerAddr {
+    font-family: Arial;
+    color: #555;
+}
+
+QDialog QLabel#mTitle {
+    color: #E83;
+    font-family:  "Sans Serif";
+    font-size: 20px;
+}

@@ -5,6 +5,7 @@ extern "C" {
 }
 #include <QtGui>
 #include <QApplication>
+#include <QDesktopServices>
 #include <QSet>
 #include <QDebug>
 
@@ -92,14 +93,27 @@ void SeafileTrayIcon::createActions()
 
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
+
+    about_action_ = new QAction(tr("&About"), this);
+    about_action_->setStatusTip(tr("Show the application's About box"));
+    connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
+
+    open_help_action_ = new QAction(tr("&Online help"), this);
+    open_help_action_->setStatusTip(tr("open seafile online help"));
+    connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
 }
 
 void SeafileTrayIcon::createContextMenu()
 {
+    help_menu_ = new QMenu(tr("Help"), NULL);
+    help_menu_->addAction(about_action_);
+    help_menu_->addAction(open_help_action_);
+
     context_menu_ = new QMenu(NULL);
 
     context_menu_->addAction(toggle_main_window_action_);
     context_menu_->addAction(settings_action_);
+    context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
     context_menu_->addAction(enable_auto_sync_action_);
     context_menu_->addAction(disable_auto_sync_action_);
@@ -107,9 +121,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(quit_action_);
 
     setContextMenu(context_menu_);
-
-    connect(context_menu_, SIGNAL(aboutToShow()),
-            this, SLOT(prepareContextMenu()));
+    connect(context_menu_, SIGNAL(aboutToShow()), this, SLOT(prepareContextMenu()));
 }
 
 void SeafileTrayIcon::prepareContextMenu()
@@ -271,6 +283,28 @@ void SeafileTrayIcon::toggleMainWindow()
     } else {
         main_win->hide();
     }
+}
+
+#define STR(s)     #s
+#define STRINGIZE(x) STR(x)
+
+void SeafileTrayIcon::about()
+{
+#ifdef XCODE_APP
+    QMessageBox::about(seafApplet->mainWindow(), tr("About Seafile"),
+                       tr("<h2>Seafile Client "STRINGIZE(SEAFILE_CLIENT_VERSION)"</h2>"
+                          "<p>Copyright &copy; 2013 Seafile Ltd."));
+
+#else
+    QMessageBox::about(seafApplet->mainWindow(), tr("About Seafile"),
+                       tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
+                          "<p>Copyright &copy; 2013 Seafile Ltd."));
+#endif
+}
+
+void SeafileTrayIcon::openHelp()
+{
+    QDesktopServices::openUrl(QUrl("http://seafile.com/en/help/install_v2/"));
 }
 
 void SeafileTrayIcon::showSettingsWindow()

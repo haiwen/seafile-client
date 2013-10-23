@@ -43,6 +43,8 @@ private slots:
     void toggleMainWindow();
     void rotateTrayIcon();
     void refreshTrayIcon();
+    void openHelp();
+    void about();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
@@ -56,12 +58,17 @@ private:
     void resetToolTip();
 
     QMenu *context_menu_;
+    QMenu *help_menu_;
+
     // Actions for tray icon menu
     QAction *enable_auto_sync_action_;
     QAction *disable_auto_sync_action_;
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
     QAction *settings_action_;
+
+    QAction *about_action_;
+    QAction *open_help_action_;
 
 #if defined(Q_WS_MAC)
     TrayNotificationManager *tnm;

@@ -40,21 +40,13 @@ MainWindow::MainWindow()
     setCentralWidget(cloud_view_);
 
     createActions();
-    // createToolBar();
-    createMenus();
 
-    centerInScreen();
     refreshQss();
 }
 
 MainWindow::~MainWindow()
 {
     writeSettings();
-}
-
-void MainWindow::centerInScreen()
-{
-    // TODO: center the window at startup
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -72,31 +64,8 @@ void MainWindow::showEvent(QShowEvent *event)
 
 void MainWindow::createActions()
 {
-    about_action_ = new QAction(tr("&About"), this);
-    about_action_->setStatusTip(tr("Show the application's About box"));
-    connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
-
-    open_help_action_ = new QAction(tr("&Online help"), this);
-    open_help_action_->setStatusTip(tr("open seafile online help"));
-    connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
-
-    settings_action_ = new QAction(tr("&Settings"), this);
-    settings_action_->setStatusTip(tr("Edit seafile settings"));
-    connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsDialog()));
-
     refresh_qss_action_ = new QAction(QIcon(":/images/refresh.png"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
-}
-
-void MainWindow::createToolBar()
-{
-    // tool_bar_ = addToolBar(tr("&main"));
-    // tool_bar_->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    // tool_bar_->setFloatable(false);
-    // tool_bar_->setMovable(false);
-    // tool_bar_->setContextMenuPolicy(Qt::PreventContextMenu);
-
-    // tool_bar_->addAction(cloud_view_->getAccountWidgetAction());
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -114,39 +83,8 @@ void MainWindow::showWindow()
     this->show();
 }
 
-void MainWindow::createMenus()
-{
-    edit_menu_ = menuBar()->addMenu(tr("&Edit"));
-    edit_menu_->addAction(settings_action_);
-
-    help_menu_ = menuBar()->addMenu(tr("&Help"));
-    help_menu_->addAction(about_action_);
-    help_menu_->addAction(open_help_action_);
-}
-
 #define STR(s)     #s
 #define STRINGIZE(x) STR(x)
-
-void MainWindow::about()
-{
-    QMessageBox::about(this, tr("About Seafile"),
-#ifdef XCODE_APP
-                       tr("<h2>Seafile Client "STRINGIZE(SEAFILE_CLIENT_VERSION)"</h2>"
-#else
-                       tr("<h2>Seafile Client "SEAFILE_CLIENT_VERSION"</h2>"
-#endif
-                          "<p>Copyright &copy; 2013 Seafile Ltd."));
-}
-
-void MainWindow::showSettingsDialog()
-{
-    seafApplet->trayIcon()->showSettingsWindow();
-}
-
-void MainWindow::openHelp()
-{
-    QDesktopServices::openUrl(QUrl("http://seafile.com/en/help/install_v2/"));
-}
 
 void MainWindow::loadQss(const QString& path)
 {

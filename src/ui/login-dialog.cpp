@@ -15,6 +15,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     request_ = NULL;
 
     mStatusText->setText("");
+    mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 }

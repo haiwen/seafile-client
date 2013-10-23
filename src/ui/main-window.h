@@ -27,33 +27,19 @@ public:
 
 protected:
     void createActions();
-    void createMenus();
-    void createToolBar();
-    void centerInScreen();
 
 private slots:
-    void about();
-    void showSettingsDialog();
     void refreshQss();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void openHelp();
 
 private:
     void loadQss(const QString& file);
 
     void readSettings();
     void writeSettings();
-    
-    // Actions
-    QAction *about_action_;
-    QAction *settings_action_;
-    QAction *open_help_action_;
-    QAction *refresh_qss_action_;
 
-    // Menus
-    QMenu *edit_menu_;
-    QMenu *help_menu_;
+    QAction *refresh_qss_action_;
 
     // ToolBar
     QToolBar *tool_bar_;

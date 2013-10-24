@@ -61,7 +61,7 @@ void DaemonManager::startCcnetDaemon()
             this, SLOT(onCcnetDaemonExited()));
 
     QStringList args;
-    args << "-c" << config_dir << "-D" << "Peer,Message,Connection,Other";
+    args << "-c" << config_dir;
 #if defined(XCODE_APP)
     ccnet_daemon_->start(RESOURCE_PATH(kCcnetDaemonExecutable), args);
 #else

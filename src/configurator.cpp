@@ -99,12 +99,12 @@ void Configurator::onSeafileDirSet(const QString& path)
 
     seafile_dir_ = path;
 
-    setSeafileDirAttributes();
-
     QDir d(path);
 
     d.cdUp();
     worktree_ = d.absolutePath();
+
+    setSeafileDirAttributes();
 }
 
 void Configurator::setSeafileDirAttributes()
@@ -117,8 +117,8 @@ void Configurator::setSeafileDirAttributes()
                         FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
 
     // Set seafdir folder icon.
-    SetFileAttributesW (seafdir.c_str(), FILE_ATTRIBUTE_SYSTEM);
-    QString desktop_ini_path = QDir(seafile_dir_).filePath("Desktop.ini");
+    SetFileAttributesW (worktree_.toStdWString().c_str(), FILE_ATTRIBUTE_SYSTEM);
+    QString desktop_ini_path = QDir(worktree_).filePath("Desktop.ini");
     QFile desktop_ini(desktop_ini_path);
 
     if (!desktop_ini.open(QIODevice::WriteOnly |  QIODevice::Text)) {

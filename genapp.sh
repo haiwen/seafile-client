@@ -48,9 +48,9 @@ while [ $# -ge 1 ]; do
             ;;
 
         "libs" )
-            mkdir ${top_dir}/seafile-client.app/Contents/Frameworks
+            mkdir -p ${top_dir}/seafile-client.app/Contents/Frameworks
             pushd ${top_dir}/seafile-client.app/Contents/Frameworks
-            for var in $dylibs_orig ; do
+            for var in $dylibs ; do
                 cp -f $var ./
                 base=$(basename "$var")
                 chmod 0744 $base
@@ -59,8 +59,8 @@ while [ $# -ge 1 ]; do
             ;;
 
         "otool" )
-            echo "macdeployqt seafile-client.app -no-plugins"
-            macdeployqt seafile-client.app -no-plugins
+            echo "macdeployqt seafile-client.app"
+            macdeployqt seafile-client.app
             change_otool ${top_dir}/seafile-client.app/Contents/Resources
             change_otool ${top_dir}/seafile-client.app/Contents/Frameworks
             ;;

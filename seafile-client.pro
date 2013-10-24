@@ -16,16 +16,16 @@ DEPENDPATH += . \
 INCLUDEPATH += . src src/utils src/ui third_party/QtAwesome src/rpc src/api
 
 # Input
-HEADERS += ui_account-view.h \
-           ui_create-repo.h \
-           ui_download-repo.h \
-           ui_get-account-repos-dialog.h \
-           ui_list-account-repos-dialog.h \
-           ui_repo-details-view.h \
-           ui_repo-item.h \
-           ui_repos-view.h \
-           ui_switch-account-dialog.h \
-           ui_sync-repo.h \
+HEADERS += ui_clone-tasks-dialog.h \
+           ui_init-seafile-dialog.h \
+           ui_settings-dialog.h \
+           ui_cloud-view.h \
+           ui_login-dialog.h \
+           ui_welcome-dialog.h \
+           ui_create-repo-dialog.h \
+           ui_repo-detail-dialog.h \
+           ui_download-repo-dialog.h \
+           ui_server-status-dialog.h \
            src/account-mgr.h \
            src/account.h \
            src/ccnet-init.h \
@@ -69,17 +69,13 @@ HEADERS += ui_account-view.h \
            src/utils/rsa.h \
            src/utils/utils.h \
            third_party/QtAwesome/QtAwesome.h
-FORMS += ui/account-item.ui \
-         ui/accounts-view.ui \
-         ui/clone-tasks-dialog.ui \
+FORMS += ui/clone-tasks-dialog.ui \
          ui/cloud-view.ui \
          ui/create-repo-dialog.ui \
          ui/download-repo-dialog.ui \
          ui/init-seafile-dialog.ui \
          ui/login-dialog.ui \
          ui/repo-detail-dialog.ui \
-         ui/server-repo-item.ui \
-         ui/server-repos-view.ui \
          ui/server-status-dialog.ui \
          ui/settings-dialog.ui \
          ui/welcome-dialog.ui
@@ -151,7 +147,7 @@ macx {
     DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.4 beta"'
 
     exe.path = Contents/Resources/
-    exe.files = libs/ccnet libs/seaf-daemon
+    exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe
 }
 

@@ -63,6 +63,10 @@ SET(moc_headers
   third_party/QtAwesome/QtAwesome.h
 )
 
+IF (APPLE)
+  SET(moc_headers ${moc_headers} src/application.h)
+ENDIF()
+
 # UI FILES
 SET(ui_files
   ui/login-dialog.ui
@@ -130,8 +134,13 @@ ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     )
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     SET(platform_specific_sources
-      src/utils/process-mac.cpp
+      src/utils/process-mac.cpp src/application.cpp
     )
+
+    FIND_LIBRARY(CARBON_LIBRARY Carbon)
+    FIND_LIBRARY(COCOA_LIBRARY Cocoa )
+    MARK_AS_ADVANCED (CARBON_LIBRARY COCOA_LIBRARY)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} ${CARBON_LIBRARY} ${COCOA_LIBRARY})
 endif()
 
 

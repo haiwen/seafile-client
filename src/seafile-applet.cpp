@@ -47,6 +47,7 @@ void myLogHandler(QtMsgType type, const char *msg)
 
 } // namespace
 
+
 SeafileApplet *seafApplet;
 
 SeafileApplet::SeafileApplet()

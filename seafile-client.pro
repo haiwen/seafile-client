@@ -143,11 +143,12 @@ linux {
     SOURCES += src/utils/process-linux.cpp
 }
 macx {
-    SOURCES += src/utils/process-mac.cpp
+    SOURCES += src/utils/process-mac.cpp src/application.cpp
+    HEADERS += src/application.h
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.3 beta"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.4 beta"'
 
     exe.path = Contents/Resources/
     exe.files = libs/ccnet libs/seaf-daemon

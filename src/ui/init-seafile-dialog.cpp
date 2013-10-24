@@ -70,6 +70,9 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
 
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
     mDirectory->setText(getInitialPath());
+
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    move(screen.center() - this->rect().center());
 }
 
 QString InitSeafileDialog::getInitialPath()

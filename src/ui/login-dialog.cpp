@@ -18,6 +18,9 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
+
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    move(screen.center() - this->rect().center());
 }
 
 void LoginDialog::doLogin()

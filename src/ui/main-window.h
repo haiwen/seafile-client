@@ -24,6 +24,7 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
     void showWindow();
+    void hide();
 
 protected:
     void createActions();

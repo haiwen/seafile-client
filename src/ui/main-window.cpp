@@ -47,11 +47,16 @@ MainWindow::~MainWindow()
     writeSettings();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::hide()
 {
     writeSettings();
+    QMainWindow::hide();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    hide();
     event->ignore();
-    this->hide();
 }
 
 void MainWindow::showEvent(QShowEvent *event)

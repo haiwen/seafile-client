@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>555</width>
-    <height>454</height>
+    <width>550</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -229,9 +229,7 @@
   </layout>
   <zorder>line</zorder>
   <zorder>line_2</zorder>
-  <zorder>mCancelBtn</zorder>
   <zorder>widget</zorder>
-  <zorder>mTitle</zorder>
  </widget>
  <resources/>
  <connections/>

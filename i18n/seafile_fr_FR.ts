@@ -544,17 +544,17 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisisez un répertoire pour Seafile</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>logo</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez choisir un dossier. Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez une bibliothèque, elle sera sauvegardé dans le dossier Seafile par défaut.</translation>
     </message>
     <message>
         <source>Please choose a folder.
@@ -572,7 +572,7 @@ Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez un
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="198"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
     <message>
         <source>Ok</source>
@@ -600,7 +600,7 @@ Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez un
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="56"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Attention :&lt;/b&gt; Le certificat de sécurité du site n&apos;est pas approuvé, poursuivre quand même ?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="58"/>
@@ -696,22 +696,22 @@ Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez un
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>logo</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="239"/>
         <source>Server:</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveur :</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="242"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>Email :</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="243"/>
         <source>Password:</source>
-        <translation type="unfinished">Mot de passe：</translation>
+        <translation>Mot de passe：</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="244"/>
@@ -774,7 +774,7 @@ Raison : Supprimé sur le serveur</translation>
     <message>
         <location filename="../src/message-listener.cpp" line="156"/>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; est désynchronisé</translation>
+        <translation>&quot;%1&quot; est synchronisé</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="168"/>
@@ -886,7 +886,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="58"/>
         <source>synchronized</source>
-        <translation>synchronisé</translation>
+        <translation>Synchronisé</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="62"/>
@@ -901,12 +901,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="70"/>
         <source>downloading</source>
-        <translation>téléchargement</translation>
+        <translation>Téléchargement</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="74"/>
         <source>uploading</source>
-        <translation>envoi</translation>
+        <translation>Envoi</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="78"/>
@@ -932,7 +932,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>auto sync is turned off</source>
-        <translation>synchro auto désactivée</translation>
+        <translation>La synchro auto est désactivée</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="99"/>
@@ -1124,7 +1124,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
@@ -1159,7 +1159,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="48"/>
         <source>Recent Updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Mis à Jour Récemment</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
@@ -1310,27 +1310,27 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="97"/>
         <source>&amp;About</source>
-        <translation type="unfinished">À &amp;propos</translation>
+        <translation>À &amp;propos</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished">Voir la boite de dialogue À propos</translation>
+        <translation>Voir la boite de dialogue À propos</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>&amp;Online help</source>
-        <translation type="unfinished"></translation>
+        <translation>Aide en &amp;Ligne</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="102"/>
         <source>open seafile online help</source>
-        <translation type="unfinished"></translation>
+        <translation>ouvrir l&apos;aide en ligne de seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Aide</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="140"/>
@@ -1340,22 +1340,22 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="191"/>
         <source>auto sync is disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>synchro auto désactivé</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="293"/>
         <source>About Seafile</source>
-        <translation type="unfinished">À propos de Seafile</translation>
+        <translation>À propos de Seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="294"/>
         <source>&lt;h2&gt;Seafile Client %1&lt;/h2&gt;&lt;br&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Client Seafile %1&lt;/h2&gt;&lt;br&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="354"/>
         <source>some server is not connected</source>
-        <translation type="unfinished">des serveurs ne sont pas connectés</translation>
+        <translation>des serveurs ne sont pas connectés</translation>
     </message>
     <message>
         <source>Auto sync is disabled</source>
@@ -1405,7 +1405,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_settings-dialog.h" line="154"/>
         <source>Hide main window when started</source>
-        <translation type="unfinished"></translation>
+        <translation>Cacher la fenêtre principale au démarrage </translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="155"/>
@@ -1415,7 +1415,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_settings-dialog.h" line="156"/>
         <source>Auto start Seafile after login (Windows only)</source>
-        <translation>Démarage auto après la connexion (Windows seulement)</translation>
+        <translation>Démarrage auto après la connexion (Windows seulement)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="157"/>
@@ -1430,12 +1430,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_settings-dialog.h" line="159"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="160"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1447,32 +1447,32 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/welcome-dialog.cpp" line="9"/>
         <source>Seafile Initialzation</source>
-        <translation type="unfinished">Initialisation de Seafile</translation>
+        <translation>Initialisation de Seafile</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialogue</translation>
+        <translation>Dialogue</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
         <source>Welcome to use the seafile client</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous êtes invité à utiliser le client seafile </translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>
         <source>HelpImage</source>
-        <translation type="unfinished"></translation>
+        <translation>ImageAide</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="118"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pour synchroniser des fichiers avec un serveur Seafile&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Ajoutez un compte (avec l&apos;adresse du serveur et votre email)&lt;/p&gt;&lt;p&gt;2. Téléchargez une bibliothèque&lt;/p&gt;&lt;p&gt;3. Ajoutez des fichiers dans la bibliothèque et ils seront envoyés au serveur automatiquement&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Vous pouvez aussi créer une bibliothèque depuis n&apos;importe quel dossier local. Voir &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Aide de Seafile en ligne&lt;/span&gt;&lt;/a&gt;pour plus d&apos;informations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="119"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
 </context>
 </TS>

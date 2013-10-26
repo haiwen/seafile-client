@@ -94,8 +94,17 @@ LocalView {
 
 QToolButton#mAccountBtn
 {
-    margin-left: 10px;
+    margin-left: 0px;
+    background: white;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
+
+QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
+
+}
+
 
 QToolBar {
     padding:0;

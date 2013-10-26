@@ -701,17 +701,17 @@ Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez un
     <message>
         <location filename="../ui_login-dialog.h" line="239"/>
         <source>Server:</source>
-        <translation>Serveur :</translation>
+        <translation>Serveur:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="242"/>
         <source>Email:</source>
-        <translation>Email :</translation>
+        <translation>Email:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="243"/>
         <source>Password:</source>
-        <translation>Mot de passe：</translation>
+        <translation>Mot de passe:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="244"/>

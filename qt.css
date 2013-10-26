@@ -102,7 +102,7 @@ QToolButton#mAccountBtn
 }
 
 QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
-
+    background: #f8f8f8;
 }
 
 

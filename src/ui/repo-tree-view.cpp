@@ -178,8 +178,8 @@ void RepoTreeView::createActions()
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
     unsync_action_ = new QAction(tr("&Unsync"), this);
-    // unsync_action_->setIcon(QIcon(":/images/close.png"));
     unsync_action_->setStatusTip(tr("unsync this library"));
+    unsync_action_->setIcon(QIcon(":/images/minus.png"));
     unsync_action_->setIconVisibleInMenu(true);
     connect(unsync_action_, SIGNAL(triggered()), this, SLOT(unsyncRepo()));
 

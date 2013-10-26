@@ -24,7 +24,7 @@
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="73"/>
         <source>No download tasks right now.</source>
-        <translation>Pas de taches de téléchargement en cours.</translation>
+        <translation>Pas de tâches de téléchargement en cours.</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="70"/>
@@ -133,7 +133,7 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="313"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation>Êtes-vous sûrs de vouloir supprimer ce compte ?&lt;br&gt;&lt;b&gt;Attention : Toutes les bibliothèques de ce compte seront désynchronisées&lt;/b &gt;</translation>
+        <translation>Êtes-vous sûr de vouloir supprimer ce compte ?&lt;br&gt;&lt;b&gt;Attention : Toutes les bibliothèques de ce compte seront désynchronisées&lt;/b &gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="316"/>
@@ -477,7 +477,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="218"/>
         <source>Files in the local folder will be merged with files in the library</source>
-        <translation>Les fichiers dans le dossier local seront fusionné avec ceux de la bibliotbhèque</translation>
+        <translation>Les fichiers dans le dossier local seront fusionnés avec ceux de la bibliotbhèque</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="219"/>
@@ -529,8 +529,8 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="133"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="144"/>
-        <source>Initialzation is not finished. Really quit?</source>
-        <translation>L&apos;initialisation n&apos;est pas terminée. Quitter réellement ?</translation>
+        <source>Initialzation is not finished. Are you sure you want to quit?</source>
+        <translation>L&apos;initialisation n&apos;est pas terminée. Êtes-vous certain de vouloir quitter ?</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
@@ -554,7 +554,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Veuillez choisir un dossier. Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez une bibliothèque, elle sera sauvegardé dans le dossier Seafile par défaut.</translation>
+        <translation>Veuillez choisir un dossier. Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez une bibliothèque, elle sera sauvegardée dans le dossier Seafile par défaut.</translation>
     </message>
     <message>
         <source>Please choose a folder.
@@ -562,7 +562,7 @@
 We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
         <translation type="obsolete">Veuillez choisir un dossier.
 
-Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez une bibliothèque, elle sera sauvegardé dans le dossier Seafile par défaut. </translation>
+Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez une bibliothèque, elle sera sauvegardée dans le dossier Seafile par défaut. </translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="197"/>
@@ -629,7 +629,7 @@ Un sous dossier Seafile sera crée à cet endroit. Quand vous téléchargerez un
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="100"/>
         <source>Please enter the username</source>
-        <translation>Veuillez entrer le nom de l&apos;utilisateur</translation>
+        <translation>Veuillez entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="105"/>
@@ -846,7 +846,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="95"/>
         <source>Done</source>
-        <translation>Fait</translation>
+        <translation>Terminé</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="98"/>
@@ -952,7 +952,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="118"/>
         <source>You do not have permission to access this library</source>
-        <translation>Vous n&apos;avez pas les permissions d&apos;acceder à cette bibliothèque</translation>
+        <translation>Vous n&apos;avez pas les permissions d&apos;accéder à cette bibliothèque</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="121"/>
@@ -1151,7 +1151,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="383"/>
         <source>This library has not been downloaded</source>
-        <translation>Cette bibliothèque n&apos;a pas été téléchargé</translation>
+        <translation>Cette bibliothèque n&apos;a pas été téléchargée</translation>
     </message>
 </context>
 <context>
@@ -1186,7 +1186,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../src/ui/repo-tree-view.cpp" line="186"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="187"/>
         <source>Enable auto sync</source>
-        <translation>Activer  la synchro auto</translation>
+        <translation>Activer la synchro auto</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
@@ -1237,7 +1237,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation>Êtes-vous sûr de vouloir désynchroniser la bibliothèque &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous certain de vouloir désynchroniser la bibliothèque &quot;%1&quot; ?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="240"/>
@@ -1324,8 +1324,8 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="102"/>
-        <source>open seafile online help</source>
-        <translation>ouvrir l&apos;aide en ligne de seafile</translation>
+        <source>open Seafile online help</source>
+        <translation>ouvrir l&apos;aide en ligne de Seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="108"/>
@@ -1340,7 +1340,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="191"/>
         <source>auto sync is disabled</source>
-        <translation>synchro auto désactivé</translation>
+        <translation>synchro auto désactivée</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="293"/>
@@ -1355,11 +1355,11 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="354"/>
         <source>some server is not connected</source>
-        <translation>des serveurs ne sont pas connectés</translation>
+        <translation>un serveur n&apos;est pas connecté</translation>
     </message>
     <message>
         <source>Auto sync is disabled</source>
-        <translation type="obsolete">Synchro auto désactivé</translation>
+        <translation type="obsolete">Synchro auto désactivée</translation>
     </message>
 </context>
 <context>
@@ -1456,8 +1456,8 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
-        <source>Welcome to use the seafile client</source>
-        <translation>Vous êtes invité à utiliser le client seafile </translation>
+        <source>Welcome to use the Seafile client</source>
+        <translation>Vous êtes invité à utiliser le client Seafile </translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>

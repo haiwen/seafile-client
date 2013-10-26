@@ -84,6 +84,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::showWindow()
 {
     this->show();
+    this->raise();
+    this->activateWindow();
 }
 
 void MainWindow::refreshQss()

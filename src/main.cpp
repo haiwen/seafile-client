@@ -18,7 +18,7 @@
 int main(int argc, char *argv[])
 {
 #ifdef Q_WS_MAC
-    QApplication app(argc, argv);
+    Application app(argc, argv);
 #else
     QApplication app(argc, argv);
 #endif

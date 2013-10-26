@@ -54,6 +54,7 @@ SeafileApplet::SeafileApplet()
     : configurator_(new Configurator),
       account_mgr_(new AccountManager),
       daemon_mgr_(new DaemonManager),
+      main_win_(NULL),
       rpc_client_(new SeafileRpcClient),
       message_listener_(new MessageListener),
       settings_dialog_(new SettingsDialog),

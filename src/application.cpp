@@ -7,7 +7,8 @@ static bool dockClickHandler(id self,SEL _cmd,...)
     Q_UNUSED(_cmd)
     if (seafApplet) {
         MainWindow *main_win = seafApplet->mainWindow();
-        main_win->showWindow();
+        if (main_win)
+            main_win->showWindow();
     }
     return true;
 }

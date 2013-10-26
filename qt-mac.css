@@ -1,0 +1,12 @@
+QToolButton#mDownloadTasksBtn,
+QToolButton#mServerStatusBtn
+{
+    border-style:flat;
+}
+
+QToolButton:hover
+{
+    border: 1px solid #ccc;
+    border-radius: 4px;    
+    background-color: rgb(255,255,255);
+}

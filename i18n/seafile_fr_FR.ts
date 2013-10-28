@@ -182,7 +182,7 @@
         <location filename="../ui_cloud-view.h" line="183"/>
         <source>Form</source>
         <translatorcomment>Formulaire</translatorcomment>
-        <translation>Form</translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="184"/>
@@ -285,17 +285,17 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
         <source>Please enter the name</source>
-        <translation>Veuillez entrer le nom</translation>
+        <translation>Veuillez entrer un nom</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="112"/>
         <source>Please enter the description</source>
-        <translation>Veuillez entrer la description</translation>
+        <translation>Veuillez entrer une description</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="120"/>
         <source>Please enter the password</source>
-        <translation>Veuillez entrer le mot de passe</translation>
+        <translation>Veuillez entrer un mot de passe</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
@@ -342,7 +342,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>encrypted</source>
-        <translation>chiffré</translation>
+        <translation>crypté</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="199"/>
@@ -380,12 +380,12 @@
     <message>
         <location filename="../src/daemon-mgr.cpp" line="111"/>
         <source>ccnet daemon has exited abnormally</source>
-        <translation>le service ccnet s&apos;est quitté anormalement</translation>
+        <translation>le service ccnet s&apos;a quitté anormalement</translation>
     </message>
     <message>
         <location filename="../src/daemon-mgr.cpp" line="120"/>
         <source>seafile daemon has exited abnormally</source>
-        <translation>le service seafile s&apos;est quitté anormalement</translation>
+        <translation>le service seafile s&apos;a quitté anormalement</translation>
     </message>
 </context>
 <context>
@@ -410,7 +410,7 @@
         <translation>Seafile</translation>
     </message>
     <message>
-        <source>Please choose the drectory to sync</source>
+        <source>Please choose the directory to sync</source>
         <translation type="obsolete">请选择要同步的文件夹</translation>
     </message>
     <message>
@@ -554,7 +554,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Veuillez choisir un dossier. Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez une bibliothèque, elle sera sauvegardée dans le dossier Seafile par défaut.</translation>
+        <translation>Veuillez choisir un dossier. Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez une bibliothèque, elle sera sauvegardée à cet endroit par défaut.</translation>
     </message>
     <message>
         <source>Please choose a folder.
@@ -932,7 +932,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>auto sync is turned off</source>
-        <translation>La synchro auto est désactivée</translation>
+        <translation>La synchronisation automatique est désactivée</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="99"/>
@@ -1159,17 +1159,17 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="48"/>
         <source>Recent Updated</source>
-        <translation>Mis à Jour Récemment</translation>
+        <translation>Mis à jour récemment</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
         <source>My Libraries</source>
-        <translation>Mes Bibliothèques</translation>
+        <translation>Mes bibliothèques</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>Shared Libraries</source>
-        <translation>Bibliothèques Partagées</translation>
+        <translation>Bibliothèques partagées</translation>
     </message>
 </context>
 <context>
@@ -1178,7 +1178,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../src/ui/repo-tree-view.cpp" line="123"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="124"/>
         <source>Disable auto sync</source>
-        <translation>Désactiver la synchro auto</translation>
+        <translation>Désactiver la synchronisation automatique</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="127"/>
@@ -1186,7 +1186,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../src/ui/repo-tree-view.cpp" line="186"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="187"/>
         <source>Enable auto sync</source>
-        <translation>Activer la synchro auto</translation>
+        <translation>Activer la synchronistaion automatique</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
@@ -1231,8 +1231,8 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="193"/>
-        <source>view this library on seahub</source>
-        <translation>voir cette bibliothèque sur seahub</translation>
+        <source>view this library on Seahub</source>
+        <translation>voir cette bibliothèque sur Seahub</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
@@ -1284,12 +1284,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="82"/>
         <source>Disable auto sync</source>
-        <translation>Désactiver la synchro auto</translation>
+        <translation>Désactiver la synchronisation automatique</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="85"/>
         <source>Enable auto sync</source>
-        <translation>Activer la synchro auto</translation>
+        <translation>Activer la synchronisation automatique</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="88"/>
@@ -1340,7 +1340,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="191"/>
         <source>auto sync is disabled</source>
-        <translation>synchro auto désactivée</translation>
+        <translation>synchronisation automatique désactivée</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="293"/>
@@ -1359,7 +1359,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     </message>
     <message>
         <source>Auto sync is disabled</source>
-        <translation type="obsolete">Synchro auto désactivée</translation>
+        <translation type="obsolete">Synchronisation automatique désactivée</translation>
     </message>
 </context>
 <context>
@@ -1415,17 +1415,17 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_settings-dialog.h" line="156"/>
         <source>Auto start Seafile after login (Windows only)</source>
-        <translation>Démarrage auto après la connexion (Windows seulement)</translation>
+        <translation>Démarrer Seafile automatiquement avec le système (Windows uniquement)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="157"/>
         <source>Download speed limit (KB/s):</source>
-        <translation>Vitesse de téléchargement max (Ko/s) :</translation>
+        <translation>Vitesse de téléchargement maximum (Ko/s) :</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="158"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation>Vitesse d&apos;envoi max (Ko/s) :</translation>
+        <translation>Vitesse d&apos;envoi maximum (Ko/s) :</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="159"/>
@@ -1457,7 +1457,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
         <source>Welcome to use the Seafile client</source>
-        <translation>Vous êtes invité à utiliser le client Seafile </translation>
+        <translation>Merci d&apos;utiliser le client Seafile</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>

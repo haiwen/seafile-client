@@ -14,17 +14,17 @@
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="30"/>
         <source>Download tasks</source>
-        <translation>Download Aufgaben</translation>
+        <translation>Download-Aufgaben</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="47"/>
         <source>remove all successful tasks</source>
-        <translation>entferne alle erfoglreich erledigte Aufgaben</translation>
+        <translation>Entferne alle erfolgreich erledigten Aufgaben</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="73"/>
         <source>No download tasks right now.</source>
-        <translation>Keine Download Aufgaben im Moment.</translation>
+        <translation>Zur Zeit keine Download-Aufgaben.</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="70"/>
@@ -52,8 +52,7 @@
     <message>
         <location filename="../src/ui/clone-tasks-table-model.cpp" line="116"/>
         <source>Path</source>
-        <translation>Pfad
-</translation>
+        <translation>Pfad</translation>
     </message>
 </context>
 <context>
@@ -105,12 +104,12 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="65"/>
         <source>current download rate</source>
-        <translation>aktuelle Download-Rate</translation>
+        <translation>aktuelle Download-Geschwindigkeit</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="70"/>
         <source>current upload rate</source>
-        <translation>aktuelle Upload Rate</translation>
+        <translation>aktuelle Upload-Geschwindigkeit</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="151"/>
@@ -130,7 +129,7 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="313"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation>Wollen Sie diese Konto wirklich entfernen？&lt;br&gt;&lt;b&gt;Alle Bibliotheken für diese Konto werden nicht mehr synchronisiert!&lt;/b&gt;</translation>
+        <translation>Wollen Sie diese Konto wirklich entfernen？&lt;br&gt;&lt;b&gt;Alle Bibliotheken dieses Kontos werden nicht mehr synchronisiert!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="316"/>
@@ -152,12 +151,12 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="376"/>
         <source>all server connected</source>
-        <translation>allle Server verbunden</translation>
+        <translation>alle Server verbunden</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="382"/>
         <source>some server is not connected</source>
-        <translation>manche server sind nicht verbunden</translation>
+        <translation>manche Server sind nicht verbunden</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="402"/>
@@ -188,7 +187,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="185"/>
         <source>email</source>
-        <translation>Email</translation>
+        <translation>E-Mail</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="186"/>
@@ -204,7 +203,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="190"/>
         <source>download rate</source>
-        <translation>Download-Rate</translation>
+        <translation>Download-Geschwindigkeit</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="191"/>
@@ -214,7 +213,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="192"/>
         <source>upload rate</source>
-        <translation>Upload-Rate</translation>
+        <translation>Upload-Geschwindigkeit</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="193"/>
@@ -227,7 +226,7 @@
     <message>
         <location filename="../src/configurator.cpp" line="70"/>
         <source>Error when creating ccnet configuration</source>
-        <translation>Fehler beim Erstellen der cnet Konfiguration</translation>
+        <translation>Fehler beim Erstellen der ccnet Konfiguration</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="176"/>
@@ -322,7 +321,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Choose</source>
-        <translation>Wähle</translation>
+        <translation>Wählen</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="196"/>
@@ -388,7 +387,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="21"/>
         <source>Download library &quot;%1&quot;</source>
-        <translation>Download-Bibliothek &quot;%1&quot;</translation>
+        <translation>Bibliothek &quot;%1&quot; herunterladen</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="45"/>
@@ -430,7 +429,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="109"/>
         <source>Sync library &quot;%1&quot;</source>
-        <translation>Synchronisationsbibliothek &quot;%1&quot;</translation>
+        <translation>Bibliothek &quot;%1&quot; synchronisieren</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="110"/>
@@ -446,7 +445,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="162"/>
         <source>Failed to get repo download information</source>
-        <translation>Fehler beim Holen der repo Download-Informationen</translation>
+        <translation>Fehler beim Abrufen der Download-Informationen der Bibliothek</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="214"/>
@@ -456,7 +455,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="215"/>
         <source>Download this library to:</source>
-        <translation>Diese Bibliotheke herunterladen zu:</translation>
+        <translation>Diese Bibliotheke herunterladen nach:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="216"/>
@@ -565,7 +564,7 @@ In diesem  wird ein Seafile Unterordner erstellt.Heruntergeladene Bibliotheken w
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="198"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
     <message>
         <source>Ok</source>
@@ -594,7 +593,7 @@ In diesem  wird ein Seafile Unterordner erstellt.Heruntergeladene Bibliotheken w
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="56"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Warnung:&lt;/b&gt; Das SSL zertifikat dieses Servers ist nicht vertrauenswürdig. Trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="58"/>
@@ -681,7 +680,7 @@ In diesem  wird ein Seafile Unterordner erstellt.Heruntergeladene Bibliotheken w
     </message>
     <message>
         <source>Email</source>
-        <translation type="obsolete">Email</translation>
+        <translation type="obsolete">E-Mail</translation>
     </message>
     <message>
         <source>Password</source>
@@ -700,17 +699,17 @@ In diesem  wird ein Seafile Unterordner erstellt.Heruntergeladene Bibliotheken w
     <message>
         <location filename="../ui_login-dialog.h" line="242"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>E-Mail:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="243"/>
         <source>Password:</source>
-        <translation type="unfinished">Passwort:</translation>
+        <translation>Passwort:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="244"/>
         <source>status text</source>
-        <translation></translation>
+        <translation>Status Text</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="245"/>
@@ -756,7 +755,7 @@ In diesem  wird ein Seafile Unterordner erstellt.Heruntergeladene Bibliotheken w
     <message>
         <location filename="../src/message-listener.cpp" line="78"/>
         <source>failed to load ccnet config dir </source>
-        <translation>konnte ccnet config dir nicht laden</translation>
+        <translation>konnte ccnet Konfigurationsverzeichnis nicht laden</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="146"/>
@@ -926,7 +925,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>auto sync is turned off</source>
-        <translation>Auto Synchronisierung ist ausgeschaltet</translation>
+        <translation>Automatische Synchronisierung ist ausgeschaltet</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="99"/>
@@ -1118,7 +1117,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
@@ -1145,7 +1144,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="383"/>
         <source>This library has not been downloaded</source>
-        <translation>Diese Bibliothek wurde nich nicht heruntergeladen</translation>
+        <translation>Diese Bibliothek wurde nicht heruntergeladen</translation>
     </message>
 </context>
 <context>
@@ -1153,7 +1152,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="48"/>
         <source>Recent Updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuletzt aktualisiert</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
@@ -1196,7 +1195,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="168"/>
         <source>&amp;Download this library</source>
-        <translation>Bibliothek herunterladen (&amp;D)</translation>
+        <translation>Bibliothek herunterladen(&amp;D)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="174"/>
@@ -1211,7 +1210,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="180"/>
         <source>&amp;Unsync</source>
-        <translation>Mciht mehr synchronisieren(&amp;U)</translation>
+        <translation>Nicht mehr synchronisieren(&amp;U)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="182"/>
@@ -1231,7 +1230,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation>Soll die Bibliothek &quot;%1&quot;wirklich nicht mehr synchronisiert werden?</translation>
+        <translation>Soll die Bibliothek &quot;%1&quot; wirklich nicht mehr synchronisiert werden?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="240"/>
@@ -1263,7 +1262,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation>Das ccnet config Verzeichnis %1 konnte nicht geladen werden</translation>
+        <translation>Das ccnet Konfigurationsverzeichnis %1 konnte nicht geladen werden</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="429"/>
@@ -1314,17 +1313,17 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>&amp;Online help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Online Hilfe</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="102"/>
         <source>open seafile online help</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile Online Hilfe öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="140"/>
@@ -1334,7 +1333,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="191"/>
         <source>auto sync is disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische Synchronisierung ist deaktiviert</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="293"/>
@@ -1361,7 +1360,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="25"/>
         <source>Servers connection status</source>
-        <translation>Verbindungsstatus der Servers</translation>
+        <translation>Verbindungsstatus des Servers</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="59"/>
@@ -1399,7 +1398,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../ui_settings-dialog.h" line="154"/>
         <source>Hide main window when started</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauptfenster beim Start minimieren</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="155"/>
@@ -1414,22 +1413,22 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../ui_settings-dialog.h" line="157"/>
         <source>Download speed limit (KB/s):</source>
-        <translation>Maximale Download Geschwindigkeit (KB/s):</translation>
+        <translation>Maximale Download-Geschwindigkeit (KB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="158"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation>Maximale Upload Geschwindigkeit (KB/s):</translation>
+        <translation>Maximale Upload-Geschwindigkeit (KB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="159"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="160"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1441,17 +1440,17 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/welcome-dialog.cpp" line="9"/>
         <source>Seafile Initialzation</source>
-        <translation type="unfinished">Seafile Initialisierung</translation>
+        <translation>Seafile Initialisierung</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
         <source>Welcome to use the seafile client</source>
-        <translation type="unfinished"></translation>
+        <translation>Willkommen beim Seafile Client</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>
@@ -1461,12 +1460,12 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../ui_welcome-dialog.h" line="118"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Um Dateien mit einem Seafile Server zu synchronisieren:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Konto hinzufügen (Mit Server-Adresse und Ihrer E-Mail-Adresse)&lt;/p&gt;&lt;p&gt;2. Eine Bibliothek herunterladen&lt;/p&gt;&lt;p&gt;3. Dateien zur Bibliothek hinzufügen. Sie werden automatisch zum Server hochgeladen&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Sie können auch eine Biliothek auf Basis eines beliebigen lokalen Ordners erstellen. Besuchen Sie auch die &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Seafile Online-Hilfe&lt;/span&gt;&lt;/a&gt; für weitere Informationen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="119"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
 </context>
 </TS>

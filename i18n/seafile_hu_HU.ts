@@ -268,10 +268,6 @@
         <translation>Seafile</translation>
     </message>
     <message>
-        <source>Please choose the drectory to sync</source>
-        <translation type="obsolete">请选择要同步的文件夹</translation>
-    </message>
-    <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="93"/>
         <source>Please choose the directory to sync</source>
         <translation>Válassza ki a szinkronizálandó könyvtárat</translation>
@@ -408,14 +404,6 @@
         <translation>Seafile</translation>
     </message>
     <message>
-        <source>Please choose the drectory to sync</source>
-        <translation type="obsolete">请选择要同步的文件夹</translation>
-    </message>
-    <message>
-        <source>Directory donot exist</source>
-        <translation type="obsolete">该文件夹不存在</translation>
-    </message>
-    <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>Please choose the folder to sync</source>
         <translation>Válassza ki a szinkronizálandó könyvtárat</translation>
@@ -506,78 +494,62 @@
         <translation>Seafile inicializálása</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="90"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="105"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="108"/>
         <source>Please choose a directory</source>
         <translation>Kérem válasszon egy könyvtárat</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="104"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="112"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="134"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="145"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="107"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="115"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="137"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="148"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="113"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
         <source>The folder %1 does not exist</source>
         <translation>A(z) %1 könyvtár nem létezik</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="133"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="144"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="147"/>
         <source>Initialzation is not finished. Really quit?</source>
         <translation>Az inicializálás még nem ért véget. Biztosan kilép?</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="193"/>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Dialog</source>
         <translation>Pábeszédablak</translation>
     </message>
     <message>
-        <source>Choose a place to store Seafile data</source>
-        <translation type="obsolete">Válasszon egy helyet a Seafile adatainak tárolására</translation>
-    </message>
-    <message>
-        <location filename="../ui_init-seafile-dialog.h" line="194"/>
+        <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>Choose Seafile folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="195"/>
+        <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="196"/>
+        <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please choose a folder.
-
-We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="obsolete">Válasszon egy könyvtárat.
-
-Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapértelemzés szerint ide kerülnek.</translation>
-    </message>
-    <message>
-        <location filename="../ui_init-seafile-dialog.h" line="197"/>
+        <location filename="../ui_init-seafile-dialog.h" line="195"/>
         <source>Choose...</source>
         <translation>Váasszon...</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="198"/>
+        <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
-    </message>
-    <message>
-        <location filename="../ui_init-seafile-dialog.h" line="199"/>
+        <location filename="../ui_init-seafile-dialog.h" line="197"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
@@ -591,76 +563,76 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
         <translation>Fiók hozzáadása</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="28"/>
+        <location filename="../src/ui/login-dialog.cpp" line="31"/>
         <source>Logging in...</source>
         <translation>Bejelentkezés...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="56"/>
+        <location filename="../src/ui/login-dialog.cpp" line="59"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="58"/>
-        <location filename="../src/ui/login-dialog.cpp" line="73"/>
-        <location filename="../src/ui/login-dialog.cpp" line="79"/>
-        <location filename="../src/ui/login-dialog.cpp" line="89"/>
-        <location filename="../src/ui/login-dialog.cpp" line="99"/>
-        <location filename="../src/ui/login-dialog.cpp" line="104"/>
-        <location filename="../src/ui/login-dialog.cpp" line="112"/>
-        <location filename="../src/ui/login-dialog.cpp" line="129"/>
-        <location filename="../src/ui/login-dialog.cpp" line="152"/>
+        <location filename="../src/ui/login-dialog.cpp" line="61"/>
+        <location filename="../src/ui/login-dialog.cpp" line="76"/>
+        <location filename="../src/ui/login-dialog.cpp" line="82"/>
+        <location filename="../src/ui/login-dialog.cpp" line="92"/>
+        <location filename="../src/ui/login-dialog.cpp" line="102"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
+        <location filename="../src/ui/login-dialog.cpp" line="115"/>
+        <location filename="../src/ui/login-dialog.cpp" line="132"/>
+        <location filename="../src/ui/login-dialog.cpp" line="155"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="74"/>
+        <location filename="../src/ui/login-dialog.cpp" line="77"/>
         <source>Please enter the server address</source>
         <translation>Írja be a kiszolgáló címét</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="80"/>
-        <location filename="../src/ui/login-dialog.cpp" line="90"/>
+        <location filename="../src/ui/login-dialog.cpp" line="83"/>
+        <location filename="../src/ui/login-dialog.cpp" line="93"/>
         <source>%1 is not a valid server address</source>
         <translation>érvénytelem kiszolgáló cím: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="100"/>
+        <location filename="../src/ui/login-dialog.cpp" line="103"/>
         <source>Please enter the username</source>
         <translation>Írja be a felhasználónevet</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="105"/>
+        <location filename="../src/ui/login-dialog.cpp" line="108"/>
         <source>%1 is not a valid email</source>
         <translation>érvénytelen email cím: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="113"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
         <source>Please enter the password</source>
         <translation>Írja be a jelszót</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="130"/>
+        <location filename="../src/ui/login-dialog.cpp" line="133"/>
         <source>Internal Error</source>
         <translation>Belső alkalmazáshiba</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="141"/>
+        <location filename="../src/ui/login-dialog.cpp" line="144"/>
         <source>Incorrect email or password</source>
         <translation>Érvénytelen email cím vagy jelszó</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="143"/>
+        <location filename="../src/ui/login-dialog.cpp" line="146"/>
         <source>error code %1</source>
         <translation>hibakód: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="147"/>
+        <location filename="../src/ui/login-dialog.cpp" line="150"/>
         <source>Failed to login: %1</source>
         <translation>sikertelen belépés: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="149"/>
+        <location filename="../src/ui/login-dialog.cpp" line="152"/>
         <source>Failed to login</source>
         <translation>Sikertelen belépés</translation>
     </message>
@@ -668,10 +640,6 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
         <location filename="../ui_login-dialog.h" line="236"/>
         <source>Dialog</source>
         <translation>Párbeszédablak</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation type="obsolete">Kiszolgáló</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="240"/>
@@ -682,14 +650,6 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
         <location filename="../ui_login-dialog.h" line="241"/>
         <source>or http://192.168.1.24:8000</source>
         <translation>vagy: http://192.168.1.24:8000</translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation type="obsolete">Email</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Jelszó</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
@@ -730,33 +690,9 @@ Készítünk benne egy Seafile alkönyvtárat. A letöltött könyvtárak alapé
 <context>
     <name>MainWindow</name>
     <message>
-        <source>&amp;About</source>
-        <translation type="obsolete">&amp;Névjegy</translation>
-    </message>
-    <message>
-        <source>Show the application&apos;s About box</source>
-        <translation type="obsolete">Az alkalmazás névjegye</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/main-window.cpp" line="65"/>
+        <location filename="../src/ui/main-window.cpp" line="70"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Súgó</translation>
-    </message>
-    <message>
-        <source>About Seafile</source>
-        <translation type="obsolete">A Seafile névjegye</translation>
-    </message>
-    <message>
-        <source>&lt;h2&gt;Seafile Client </source>
-        <translation type="obsolete">Seafile kliens</translation>
-    </message>
-    <message>
-        <source>&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</source>
-        <translation type="obsolete">&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</translation>
     </message>
 </context>
 <context>
@@ -796,7 +732,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="55"/>
+        <location filename="../src/main.cpp" line="28"/>
         <source>Seafile is already running</source>
         <translation>A Seafile már fut</translation>
     </message>
@@ -1043,14 +979,6 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <source>%1 minutes ago</source>
         <translation>%1 perce</translation>
     </message>
-    <message>
-        <source>1 second ago</source>
-        <translation type="obsolete">1 másodperce</translation>
-    </message>
-    <message>
-        <source>%1 seconds ago</source>
-        <translation type="obsolete">%1 másodperce</translation>
-    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -1143,10 +1071,6 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <source>Close</source>
         <translation>Bezárás</translation>
     </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
-    </message>
 </context>
 <context>
     <name>RepoItemDelegate</name>
@@ -1222,7 +1146,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Szinkronizálás &amp;befejezése</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="182"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="181"/>
         <source>unsync this library</source>
         <translation>a könyvtár szinkronizálásának befejezése</translation>
     </message>
@@ -1256,12 +1180,12 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="131"/>
+        <location filename="../src/seafile-applet.cpp" line="133"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="138"/>
+        <location filename="../src/seafile-applet.cpp" line="140"/>
         <source>Failed to initialize log</source>
         <translation>A naplózás elindítása nem sikerült</translation>
     </message>
@@ -1299,73 +1223,65 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>&amp;Kilépés</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="91"/>
-        <location filename="../src/ui/tray-icon.cpp" line="138"/>
+        <location filename="../src/ui/tray-icon.cpp" line="92"/>
+        <location filename="../src/ui/tray-icon.cpp" line="142"/>
         <source>Show main window</source>
         <translation>Fő ablak megnyitása</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <location filename="../src/ui/tray-icon.cpp" line="96"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
+        <location filename="../src/ui/tray-icon.cpp" line="99"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Névjegy</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="98"/>
+        <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>Show the application&apos;s About box</source>
         <translation type="unfinished">Az alkalmazás névjegye</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="101"/>
+        <location filename="../src/ui/tray-icon.cpp" line="103"/>
         <source>&amp;Online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="102"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>open seafile online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="110"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="140"/>
+        <location filename="../src/ui/tray-icon.cpp" line="144"/>
         <source>Hide main window</source>
         <translation>Fő ablak elrejtése</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="191"/>
+        <location filename="../src/ui/tray-icon.cpp" line="196"/>
         <source>auto sync is disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="293"/>
+        <location filename="../src/ui/tray-icon.cpp" line="298"/>
         <source>About Seafile</source>
         <translation type="unfinished">A Seafile névjegye</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="294"/>
+        <location filename="../src/ui/tray-icon.cpp" line="299"/>
         <source>&lt;h2&gt;Seafile Client %1&lt;/h2&gt;&lt;br&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;h2&gt;Seafile Client </source>
-        <translation type="obsolete">Seafile kliens</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="354"/>
+        <location filename="../src/ui/tray-icon.cpp" line="359"/>
         <source>some server is not connected</source>
         <translation type="unfinished">néhány kiszolgáló nem csatlakozik</translation>
-    </message>
-    <message>
-        <source>Auto sync is disabled</source>
-        <translation type="obsolete">Önműködő szinkronizálás kikapcsolva</translation>
     </message>
 </context>
 <context>
@@ -1442,10 +1358,6 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../ui_settings-dialog.h" line="160"/>
         <source>Cancel</source>
         <translation type="unfinished">Mégsem</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Bezárás</translation>
     </message>
 </context>
 <context>

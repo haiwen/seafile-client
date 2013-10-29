@@ -293,7 +293,7 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
         // json_is_false(const json_t *json)
         // json_is_null(const json_t *json)
         if (json_is_string(value)) {
-            v = json_string_value(value);
+            v = QString::fromUtf8(json_string_value(value));
         } else if (json_is_integer(value)) {
             v = json_integer_value(value);
         } else if (json_is_real(value)) {

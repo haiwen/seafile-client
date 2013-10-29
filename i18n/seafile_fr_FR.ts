@@ -269,10 +269,6 @@
         <translation>Seafile</translation>
     </message>
     <message>
-        <source>Please choose the drectory to sync</source>
-        <translation type="obsolete">请选择要同步的文件夹</translation>
-    </message>
-    <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="93"/>
         <source>Please choose the directory to sync</source>
         <translation>Veuillez choisir le répertoire à synchroniser</translation>
@@ -410,14 +406,6 @@
         <translation>Seafile</translation>
     </message>
     <message>
-        <source>Please choose the directory to sync</source>
-        <translation type="obsolete">请选择要同步的文件夹</translation>
-    </message>
-    <message>
-        <source>Directory donot exist</source>
-        <translation type="obsolete">该文件夹不存在</translation>
-    </message>
-    <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>Please choose the folder to sync</source>
         <translation>Veuillez choisir le dossier à synchroniser</translation>
@@ -508,78 +496,62 @@
         <translation>Initialisation de Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="90"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="105"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="108"/>
         <source>Please choose a directory</source>
         <translation>Veuillez choisir un répertoire</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="104"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="112"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="134"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="145"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="107"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="115"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="137"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="148"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="113"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
         <source>The folder %1 does not exist</source>
         <translation>Le dossier %1 n&apos;existe pas</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="133"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="144"/>
-        <source>Initialzation is not finished. Are you sure you want to quit?</source>
-        <translation>L&apos;initialisation n&apos;est pas terminée. Êtes-vous certain de vouloir quitter ?</translation>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="147"/>
+        <source>Initialzation is not finished. Really quit?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="193"/>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Dialog</source>
         <translation>Dialogue</translation>
     </message>
     <message>
-        <source>Choose a place to store Seafile data</source>
-        <translation type="obsolete">Choisir un endroit où stocker les données de Seafile</translation>
-    </message>
-    <message>
-        <location filename="../ui_init-seafile-dialog.h" line="194"/>
+        <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>Choose Seafile folder</source>
         <translation>Choisisez un répertoire pour Seafile</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="195"/>
+        <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="196"/>
+        <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
         <translation>Veuillez choisir un dossier. Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez une bibliothèque, elle sera sauvegardée à cet endroit par défaut.</translation>
     </message>
     <message>
-        <source>Please choose a folder.
-
-We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="obsolete">Veuillez choisir un dossier.
-
-Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez une bibliothèque, elle sera sauvegardée dans le dossier Seafile par défaut. </translation>
-    </message>
-    <message>
-        <location filename="../ui_init-seafile-dialog.h" line="197"/>
+        <location filename="../ui_init-seafile-dialog.h" line="195"/>
         <source>Choose...</source>
         <translation>Choisir...</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="198"/>
+        <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Next</source>
         <translation>Suivant</translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
-    </message>
-    <message>
-        <location filename="../ui_init-seafile-dialog.h" line="199"/>
+        <location filename="../ui_init-seafile-dialog.h" line="197"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -593,76 +565,76 @@ Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez
         <translation>Ajouter un compte</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="28"/>
+        <location filename="../src/ui/login-dialog.cpp" line="31"/>
         <source>Logging in...</source>
         <translation>Connexion...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="56"/>
+        <location filename="../src/ui/login-dialog.cpp" line="59"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Attention :&lt;/b&gt; Le certificat de sécurité du site n&apos;est pas approuvé, poursuivre quand même ?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="58"/>
-        <location filename="../src/ui/login-dialog.cpp" line="73"/>
-        <location filename="../src/ui/login-dialog.cpp" line="79"/>
-        <location filename="../src/ui/login-dialog.cpp" line="89"/>
-        <location filename="../src/ui/login-dialog.cpp" line="99"/>
-        <location filename="../src/ui/login-dialog.cpp" line="104"/>
-        <location filename="../src/ui/login-dialog.cpp" line="112"/>
-        <location filename="../src/ui/login-dialog.cpp" line="129"/>
-        <location filename="../src/ui/login-dialog.cpp" line="152"/>
+        <location filename="../src/ui/login-dialog.cpp" line="61"/>
+        <location filename="../src/ui/login-dialog.cpp" line="76"/>
+        <location filename="../src/ui/login-dialog.cpp" line="82"/>
+        <location filename="../src/ui/login-dialog.cpp" line="92"/>
+        <location filename="../src/ui/login-dialog.cpp" line="102"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
+        <location filename="../src/ui/login-dialog.cpp" line="115"/>
+        <location filename="../src/ui/login-dialog.cpp" line="132"/>
+        <location filename="../src/ui/login-dialog.cpp" line="155"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="74"/>
+        <location filename="../src/ui/login-dialog.cpp" line="77"/>
         <source>Please enter the server address</source>
         <translation>Veuillez entrer l&apos;adresse du serveur</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="80"/>
-        <location filename="../src/ui/login-dialog.cpp" line="90"/>
+        <location filename="../src/ui/login-dialog.cpp" line="83"/>
+        <location filename="../src/ui/login-dialog.cpp" line="93"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 n&apos;est pas une adresse de serveur valide</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="100"/>
+        <location filename="../src/ui/login-dialog.cpp" line="103"/>
         <source>Please enter the username</source>
         <translation>Veuillez entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="105"/>
+        <location filename="../src/ui/login-dialog.cpp" line="108"/>
         <source>%1 is not a valid email</source>
         <translation>%1 n&apos;est pas une adresse email valide</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="113"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
         <source>Please enter the password</source>
         <translation>Veuillez entrer le mot de passe</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="130"/>
+        <location filename="../src/ui/login-dialog.cpp" line="133"/>
         <source>Internal Error</source>
         <translation>Erreur Interne</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="141"/>
+        <location filename="../src/ui/login-dialog.cpp" line="144"/>
         <source>Incorrect email or password</source>
         <translation>Email ou mot de passe incorrect</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="143"/>
+        <location filename="../src/ui/login-dialog.cpp" line="146"/>
         <source>error code %1</source>
         <translation>code d&apos;erreur %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="147"/>
+        <location filename="../src/ui/login-dialog.cpp" line="150"/>
         <source>Failed to login: %1</source>
         <translation>Impossible de se connecter：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="149"/>
+        <location filename="../src/ui/login-dialog.cpp" line="152"/>
         <source>Failed to login</source>
         <translation>Impossible de se connecter</translation>
     </message>
@@ -670,10 +642,6 @@ Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez
         <location filename="../ui_login-dialog.h" line="236"/>
         <source>Dialog</source>
         <translation>Dialogue</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation type="obsolete">Serveur</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="240"/>
@@ -684,14 +652,6 @@ Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez
         <location filename="../ui_login-dialog.h" line="241"/>
         <source>or http://192.168.1.24:8000</source>
         <translation>ou http://192.168.1.24:8000</translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation type="obsolete">Email</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Mot de passe</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
@@ -732,29 +692,9 @@ Un sous dossier Seafile sera créé à cet endroit. Lorsque vous téléchargerez
 <context>
     <name>MainWindow</name>
     <message>
-        <source>&amp;About</source>
-        <translation type="obsolete">À &amp;propos</translation>
-    </message>
-    <message>
-        <source>Show the application&apos;s About box</source>
-        <translation type="obsolete">Voir la boite de dialogue À propos</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/main-window.cpp" line="65"/>
+        <location filename="../src/ui/main-window.cpp" line="70"/>
         <source>Refresh</source>
         <translation>Rafraichir</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Aide</translation>
-    </message>
-    <message>
-        <source>About Seafile</source>
-        <translation type="obsolete">À propos de Seafile</translation>
-    </message>
-    <message>
-        <source>&lt;h2&gt;Seafile Client 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</source>
-        <translation type="obsolete">&lt;h2&gt;Client Seafile 2.0 beta&lt;/h2&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.</translation>
     </message>
 </context>
 <context>
@@ -794,7 +734,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="55"/>
+        <location filename="../src/main.cpp" line="28"/>
         <source>Seafile is already running</source>
         <translation>Seafile fonctionne déjà</translation>
     </message>
@@ -1041,14 +981,6 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <source>%1 minutes ago</source>
         <translation>Il y a %1 minutes</translation>
     </message>
-    <message>
-        <source>1 second ago</source>
-        <translation type="obsolete">Il y a 1 seconde</translation>
-    </message>
-    <message>
-        <source>%1 seconds ago</source>
-        <translation type="obsolete">Il y a %1 secondes</translation>
-    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -1141,10 +1073,6 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <source>RepoStatus</source>
         <translation></translation>
     </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
-    </message>
 </context>
 <context>
     <name>RepoItemDelegate</name>
@@ -1220,7 +1148,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <translation>&amp;Désynchroniser</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="182"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="181"/>
         <source>unsync this library</source>
         <translation>désynchroniser cettte bibliothèque</translation>
     </message>
@@ -1231,8 +1159,8 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="193"/>
-        <source>view this library on Seahub</source>
-        <translation>voir cette bibliothèque sur Seahub</translation>
+        <source>view this library on seahub</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
@@ -1254,12 +1182,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="131"/>
+        <location filename="../src/seafile-applet.cpp" line="133"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="138"/>
+        <location filename="../src/seafile-applet.cpp" line="140"/>
         <source>Failed to initialize log</source>
         <translation>Impossible d&apos;initialiser les logs</translation>
     </message>
@@ -1297,69 +1225,65 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="91"/>
-        <location filename="../src/ui/tray-icon.cpp" line="138"/>
+        <location filename="../src/ui/tray-icon.cpp" line="92"/>
+        <location filename="../src/ui/tray-icon.cpp" line="142"/>
         <source>Show main window</source>
         <translation>Voir la fenêtre principale</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <location filename="../src/ui/tray-icon.cpp" line="96"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
+        <location filename="../src/ui/tray-icon.cpp" line="99"/>
         <source>&amp;About</source>
         <translation>À &amp;propos</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="98"/>
+        <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>Show the application&apos;s About box</source>
         <translation>Voir la boite de dialogue À propos</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="101"/>
+        <location filename="../src/ui/tray-icon.cpp" line="103"/>
         <source>&amp;Online help</source>
         <translation>Aide en &amp;Ligne</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="102"/>
-        <source>open Seafile online help</source>
-        <translation>ouvrir l&apos;aide en ligne de Seafile</translation>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <source>open seafile online help</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="110"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="140"/>
+        <location filename="../src/ui/tray-icon.cpp" line="144"/>
         <source>Hide main window</source>
         <translation>Cacher la fenêtre principale</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="191"/>
+        <location filename="../src/ui/tray-icon.cpp" line="196"/>
         <source>auto sync is disabled</source>
         <translation>synchronisation automatique désactivée</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="293"/>
+        <location filename="../src/ui/tray-icon.cpp" line="298"/>
         <source>About Seafile</source>
         <translation>À propos de Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="294"/>
+        <location filename="../src/ui/tray-icon.cpp" line="299"/>
         <source>&lt;h2&gt;Seafile Client %1&lt;/h2&gt;&lt;br&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Client Seafile %1&lt;/h2&gt;&lt;br&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="354"/>
+        <location filename="../src/ui/tray-icon.cpp" line="359"/>
         <source>some server is not connected</source>
         <translation>un serveur n&apos;est pas connecté</translation>
-    </message>
-    <message>
-        <source>Auto sync is disabled</source>
-        <translation type="obsolete">Synchronisation automatique désactivée</translation>
     </message>
 </context>
 <context>
@@ -1437,10 +1361,6 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Fermer</translation>
-    </message>
 </context>
 <context>
     <name>WelcomeDialog</name>
@@ -1456,8 +1376,8 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
-        <source>Welcome to use the Seafile client</source>
-        <translation>Merci d&apos;utiliser le client Seafile</translation>
+        <source>Welcome to use the seafile client</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>

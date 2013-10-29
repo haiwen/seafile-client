@@ -80,9 +80,10 @@ void SeafileApiClient::httpRequestFinished()
         return;
     }
 
-    if ((code / 100) != 2) {
+    if ((code / 100) == 4 || (code / 100) == 5) {
         qDebug("request failed : status code %d\n", code);
         emit requestFailed(code);
+        return;
     }
 
     emit requestSuccess(*reply_);

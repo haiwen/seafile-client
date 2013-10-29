@@ -252,6 +252,29 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
     return 0;
 }
 
+int SeafileRpcClient::setUploadRateLimit(int limit)
+{
+    return setRateLimit(true, limit);
+}
+
+int SeafileRpcClient::setDownloadRateLimit(int limit)
+{
+    return setRateLimit(false, limit);
+}
+
+int SeafileRpcClient::setRateLimit(bool upload, int limit)
+{
+    GError *error = NULL;
+    const char *rpc = upload ? "seafile_set_upload_rate_limit" : "seafile_set_download_rate_limit";
+    searpc_client_call__int (seafile_rpc_client_,
+                             rpc, &error,
+                             1, "int", limit);
+    if (error) {
+        return -1;
+    }
+    return 0;
+}
+
 int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
 {
     GError *error = NULL;

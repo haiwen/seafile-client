@@ -95,8 +95,7 @@ void SettingsManager::setMaxDownloadRatio(unsigned int ratio)
 {
     qDebug("%s:%d", __func__, ratio);
     if (maxDownloadRatio_ != ratio) {
-        if (seafApplet->rpcClient()->seafileSetConfigInt("download_limit",
-                                                         ratio << 10) < 0) {
+        if (seafApplet->rpcClient()->setDownloadRateLimit(ratio << 10) < 0) {
             // Error
             return;
         }
@@ -108,8 +107,7 @@ void SettingsManager::setMaxUploadRatio(unsigned int ratio)
 {
     qDebug("%s:%d", __func__, ratio);
     if (maxUploadRatio_ != ratio) {
-        if (seafApplet->rpcClient()->seafileSetConfigInt("upload_limit",
-                                                         ratio << 10) < 0) {
+        if (seafApplet->rpcClient()->setUploadRateLimit(ratio << 10) < 0) {
             // Error
             return;
         }

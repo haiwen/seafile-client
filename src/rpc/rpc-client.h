@@ -65,6 +65,9 @@ public:
     void setRepoAutoSync(const QString& repo_id, bool auto_sync);
     int unsync(const QString& repo_id);
 
+    int setUploadRateLimit(int limit);
+    int setDownloadRateLimit(int limit);
+
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
     int getServers(_GList** servers);
@@ -74,6 +77,7 @@ private:
 
     void getTransferDetail(CloneTask* task);
     void getCheckOutDetail(CloneTask* task);
+    int setRateLimit(bool upload, int limit);
 
 
     _CcnetClient *sync_client_;

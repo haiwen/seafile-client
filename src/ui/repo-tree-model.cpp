@@ -185,8 +185,14 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
         }
     }
     if (!group) {
-        group = new RepoCategoryItem(repo.group_name, repo.group_id);
-        appendRow(group);
+        if (repo.group_name == "Organization") {
+            group = new RepoCategoryItem(tr("Organization"), repo.group_id);
+            // Insert pub repos after "recent updated", "my libraries", "shared libraries"
+            insertRow(3, group);
+        } else {
+            group = new RepoCategoryItem(repo.group_name, repo.group_id);
+            appendRow(group);
+        }
     }
 
     // Find the repo in this group

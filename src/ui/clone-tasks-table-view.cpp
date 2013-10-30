@@ -24,6 +24,8 @@ CloneTasksTableView::CloneTasksTableView(QWidget *parent)
     setSelectionBehavior(QAbstractItemView::SelectRows);
     verticalHeader()->hide();
 
+    horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+
     createContextMenu();
 }
 

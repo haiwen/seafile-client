@@ -51,13 +51,18 @@ CloneTasksDialog::CloneTasksDialog(QWidget *parent)
     connect(model_, SIGNAL(modelReset()), this, SLOT(onModelReset()));
 }
 
+void CloneTasksDialog::updateCloneTasksDialog()
+{
+    model_->updateTasks();
+}
+
 void CloneTasksDialog::onModelReset()
 {
     if (model_->rowCount() == 0) {
         stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
     } else {
         stack_->setCurrentIndex(INDEX_TASKS_VIEW);
-        table_->resizeColumnsToContents();
+        //table_->justifyColumnWidth();
     }
 }
         

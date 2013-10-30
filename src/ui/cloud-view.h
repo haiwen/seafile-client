@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "account.h"
 #include "ui_cloud-view.h"
-
 class QPoint;
 class QMenu;
 class QTimer;
@@ -17,6 +16,7 @@ class ListReposRequest;
 class ServerRepo;
 class RepoTreeView;
 class RepoTreeModel;
+class CloneTasksDialog;
 
 class CloudView : public QWidget,
                   public Ui::CloudView
@@ -25,6 +25,8 @@ class CloudView : public QWidget,
 public:
     CloudView(QWidget *parent=0);
     const Account& currentAccount() { return current_account_; }
+
+    CloneTasksDialog* cloneTasksDialog();
 
 protected:
     void showEvent(QShowEvent *event);
@@ -88,6 +90,8 @@ private:
     QAction *delete_account_action_;
     QAction *switch_account_action_;
     QMenu *account_menu_;
+
+    CloneTasksDialog* clone_task_dialog_;
 };
 
 

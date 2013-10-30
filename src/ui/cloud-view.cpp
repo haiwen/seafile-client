@@ -40,7 +40,8 @@ enum {
 CloudView::CloudView(QWidget *parent)
     : QWidget(parent),
       in_refresh_(false),
-      list_repo_req_(NULL)
+      list_repo_req_(NULL),
+      clone_task_dialog_(NULL)
 {
     setupUi(this);
 
@@ -86,6 +87,14 @@ CloudView::CloudView(QWidget *parent)
 
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
+}
+
+CloneTasksDialog *CloudView::cloneTasksDialog()
+{
+    if (clone_task_dialog_ == NULL) {
+        clone_task_dialog_ = new CloneTasksDialog(this);
+    }
+    return clone_task_dialog_;
 }
 
 void CloudView::createRepoModelView()
@@ -415,8 +424,17 @@ void CloudView::refreshStatusBar()
 
 void CloudView::showCloneTasksDialog()
 {
-    CloneTasksDialog dialog(this);
-    dialog.exec();
+    //CloneTasksDialog dialog(this);
+    if (clone_task_dialog_ != NULL) {
+        clone_task_dialog_->show();
+        clone_task_dialog_->raise();
+        clone_task_dialog_->activateWindow();
+    } else {
+        clone_task_dialog_ = new CloneTasksDialog(this);
+        clone_task_dialog_->show();
+        clone_task_dialog_->raise();
+        clone_task_dialog_->activateWindow();
+    }
 }
 
 void CloudView::showServerStatusDialog()

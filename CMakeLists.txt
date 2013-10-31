@@ -217,7 +217,7 @@ LINK_DIRECTORIES(
 ####################
 
 SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${moc_output} ${ui_output})
-SET(LANGUAGES de_DE fr_FR hu_HU zh_CN)
+SET(LANGUAGES en de_DE fr_FR hu_HU zh_CN)
 
 SET(LANGUAGE_TS_FILES)
 SET(SEAFILE_TS_TARGETS)

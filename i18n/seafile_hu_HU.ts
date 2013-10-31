@@ -1009,60 +1009,60 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Tároló ikon</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
+        <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>Name:</source>
         <translation>Név:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoName</source>
         <translation>Tároló név</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
+        <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>Description:</source>
         <translation>Leírás:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
-        <location filename="../ui_repo-detail-dialog.h" line="226"/>
-        <location filename="../ui_repo-detail-dialog.h" line="230"/>
+        <location filename="../ui_repo-detail-dialog.h" line="219"/>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="225"/>
+        <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>TextLabel</source>
         <translation>Szövegcímke</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="222"/>
         <source>Last Modified:</source>
         <translation>Utoljára módosítva:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>mtime</source>
         <translation>mtime</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
+        <location filename="../ui_repo-detail-dialog.h" line="224"/>
         <source>Size:</source>
         <translation>Méret:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <location filename="../ui_repo-detail-dialog.h" line="220"/>
         <source>Owner:</source>
         <translation>Tulajdonos:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="225"/>
+        <location filename="../ui_repo-detail-dialog.h" line="226"/>
         <source>Local Path:</source>
         <translation>Helyi elérési út:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="227"/>
+        <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>Status:</source>
         <translation>Állapot:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="228"/>
+        <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>RepoStatus</source>
         <translation>Tároló állapot</translation>
     </message>
@@ -1096,6 +1096,11 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>Shared Libraries</source>
         <translation>Megosztott könyvtárak</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-model.cpp" line="189"/>
+        <source>Organization</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1198,9 +1203,9 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>nem sikerült betölteni a(z) &quot;%1&quot; ccnet konfigurációs könyvtárat</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="429"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="446"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="510"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="452"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="469"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="533"/>
         <source>Unknown error</source>
         <translation>Ismeretlen hiba</translation>
     </message>

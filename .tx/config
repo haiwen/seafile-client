@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[seafile-client.master]
+file_filter = i18n/seafile_<lang>.ts
+source_file = i18n/seafile_en.ts
+source_lang = en
+type = TS
+

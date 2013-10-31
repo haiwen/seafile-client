@@ -44,8 +44,10 @@ For example, if you like to add Russian translation.
 
 ### Contribute your translation
 
-Just fork seafile-client and send us a pull request, and we'll check and merge your translation.
+Please submit translations via Transifex: https://www.transifex.com/projects/p/seahub/
 
-### Update the translation
+Steps:
 
-Some time later after the your initial translation is merged, new content need to be translated as seafile-client source code evolves. To update the translation, just open the `.ts` file with Qt Linguist, and translate all unfinished items.
+1. Create a free account on Transifex (https://www.transifex.com/).
+2. Send a request to join the language translation.
+3. After accepted by the project maintainer, then you can upload your file or translate online.

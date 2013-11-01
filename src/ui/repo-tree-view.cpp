@@ -68,7 +68,10 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     menu->addAction(view_on_web_action_);
 
     if (item->localRepo().isValid()) {
+        menu->addSeparator();
         menu->addAction(toggle_auto_sync_action_);
+        menu->addAction(sync_now_action_);
+        menu->addSeparator();
     }
 
     menu->addAction(show_detail_action_);
@@ -96,6 +99,7 @@ void RepoTreeView::updateRepoActions()
     if (!item) {
         // No repo item is selected
         download_action_->setEnabled(false);
+        sync_now_action_->setEnabled(false);
         open_local_folder_action_->setEnabled(false);
         unsync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
@@ -111,6 +115,10 @@ void RepoTreeView::updateRepoActions()
     if (item->localRepo().isValid()) {
         const LocalRepo& local_repo = item->localRepo();
         download_action_->setEnabled(false);
+
+        sync_now_action_->setEnabled(true);
+        sync_now_action_->setData(QVariant::fromValue(local_repo));
+
         open_local_folder_action_->setData(QVariant::fromValue(local_repo));
         open_local_folder_action_->setEnabled(true);
 
@@ -132,6 +140,9 @@ void RepoTreeView::updateRepoActions()
     } else {
         download_action_->setEnabled(true);
         download_action_->setData(QVariant::fromValue(item->repo()));
+
+        sync_now_action_->setEnabled(false);
+
         open_local_folder_action_->setEnabled(false);
         unsync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
@@ -170,6 +181,12 @@ void RepoTreeView::createActions()
     download_action_->setStatusTip(tr("Download this library"));
     download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
+
+    sync_now_action_ = new QAction(tr("&Sync now"), this);
+    sync_now_action_->setIcon(QIcon(":/images/sync_now.png"));
+    sync_now_action_->setStatusTip(tr("Sync this library immediately"));
+    sync_now_action_->setIconVisibleInMenu(true);
+    connect(sync_now_action_, SIGNAL(triggered()), this, SLOT(syncRepoImmediately()));
 
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
     open_local_folder_action_->setIcon(QIcon(":/images/folder-open.png"));
@@ -371,4 +388,11 @@ void RepoTreeView::hideEvent(QHideEvent *event)
 void RepoTreeView::showEvent(QShowEvent *event)
 {
     updateRepoActions();
+}
+
+void RepoTreeView::syncRepoImmediately()
+{
+    LocalRepo repo = qvariant_cast<LocalRepo>(sync_now_action_->data());
+
+    seafApplet->rpcClient()->syncRepoImmediately(repo.id);
 }

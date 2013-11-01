@@ -622,3 +622,12 @@ int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int
 
     return 0;
 }
+
+void SeafileRpcClient::syncRepoImmediately(const QString& repo_id)
+{
+    searpc_client_call__int (seafile_rpc_client_,
+                             "seafile_sync", NULL,
+                             2,
+                             "string", toCStr(repo_id),
+                             "string", NULL);
+}

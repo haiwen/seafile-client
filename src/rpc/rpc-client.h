@@ -68,6 +68,8 @@ public:
     int setUploadRateLimit(int limit);
     int setDownloadRateLimit(int limit);
 
+    void syncRepoImmediately(const QString& repo_id);
+
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
     int getServers(_GList** servers);

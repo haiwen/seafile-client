@@ -40,6 +40,7 @@ private slots:
     void onItemDoubleClicked(const QModelIndex& index);
     void toggleRepoAutoSync();
     void unsyncRepo();
+    void syncRepoImmediately();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
@@ -62,6 +63,7 @@ private:
     QAction *unsync_action_;
     QAction *view_on_web_action_;
     QAction *toggle_auto_sync_action_;
+    QAction *sync_now_action_;
 
     CloudView *cloud_view_;
 };

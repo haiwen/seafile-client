@@ -108,15 +108,17 @@ QVariant CloneTasksTableModel::headerData(int section,
     if (section == COLUMN_NAME) {
         if (role == Qt::DisplayRole) {
             return tr("Library");
-        } else if (role == Qt::DecorationRole) {
-            return awesome->icon(icon_cloud);
         }
+        //else if (role == Qt::DecorationRole) {
+        //    return awesome->icon(icon_cloud);
+        //}
     } else if (section == COLUMN_WORK_TREE) {
         if (role == Qt::DisplayRole) {
             return tr("Path");
-        } else if (role == Qt::DecorationRole) {
-            return awesome->icon(icon_folder_close_alt);
         }
+        //else if (role == Qt::DecorationRole) {
+        //   return awesome->icon(icon_folder_close_alt);
+        //}
     }
 
 

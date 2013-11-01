@@ -16,6 +16,8 @@ class RepoItem;
 class RepoCategoryItem;
 class CloudView;
 
+class CloneTasksDialog;
+
 class RepoTreeView : public QTreeView {
     Q_OBJECT
 public:

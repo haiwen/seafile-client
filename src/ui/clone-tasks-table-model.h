@@ -26,7 +26,7 @@ public:
 public slots:
     void clearSuccessfulTasks();
 
-private slots:
+public slots:
     void updateTasks();
 
 private:

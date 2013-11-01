@@ -18,7 +18,7 @@ class CloneTasksDialog : public QDialog,
 
 public:
     CloneTasksDialog(QWidget *parent=0);
-    void updateCloneTasksDialog();
+    void updateTasks();
 
 private slots:
     void onModelReset();

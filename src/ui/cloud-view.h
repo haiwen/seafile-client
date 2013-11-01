@@ -35,6 +35,7 @@ protected:
 public slots:
     void showAddAccountDialog();
     void deleteAccount();
+    void showCloneTasksDialog();
 
 private slots:
     void refreshRepos();
@@ -43,7 +44,6 @@ private slots:
     void setCurrentAccount(const Account&account);
     void updateAccountMenu();
     void onAccountItemClicked();
-    void showCloneTasksDialog();
     void refreshStatusBar();
     void showCreateRepoDialog();
     void showServerStatusDialog();

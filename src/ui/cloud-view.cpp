@@ -92,8 +92,9 @@ CloudView::CloudView(QWidget *parent)
 CloneTasksDialog *CloudView::cloneTasksDialog()
 {
     if (clone_task_dialog_ == NULL) {
-        clone_task_dialog_ = new CloneTasksDialog(this);
+        clone_task_dialog_ = new CloneTasksDialog;
     }
+
     return clone_task_dialog_;
 }
 
@@ -425,16 +426,14 @@ void CloudView::refreshStatusBar()
 void CloudView::showCloneTasksDialog()
 {
     //CloneTasksDialog dialog(this);
-    if (clone_task_dialog_ != NULL) {
-        clone_task_dialog_->show();
-        clone_task_dialog_->raise();
-        clone_task_dialog_->activateWindow();
-    } else {
-        clone_task_dialog_ = new CloneTasksDialog(this);
-        clone_task_dialog_->show();
-        clone_task_dialog_->raise();
-        clone_task_dialog_->activateWindow();
+    if (clone_task_dialog_ == NULL) {
+        clone_task_dialog_ = new CloneTasksDialog;
     }
+
+    clone_task_dialog_->updateTasks();
+    clone_task_dialog_->show();
+    clone_task_dialog_->raise();
+    clone_task_dialog_->activateWindow();
 }
 
 void CloudView::showServerStatusDialog()
@@ -486,5 +485,6 @@ void CloudView::showCreateRepoDialog()
     if (dialog.exec() == QDialog::Accepted) {
         showLoadingView();
         refreshRepos();
+        showCloneTasksDialog();
     }
 }

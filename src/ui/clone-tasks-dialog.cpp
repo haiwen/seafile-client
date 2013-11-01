@@ -28,6 +28,7 @@ CloneTasksDialog::CloneTasksDialog(QWidget *parent)
     setupUi(this);
 
     setWindowTitle(tr("Download tasks"));
+    setWindowIcon(QIcon(":/images/seafile.png"));
 
     setMinimumSize(QSize(600, 300));
 
@@ -51,7 +52,7 @@ CloneTasksDialog::CloneTasksDialog(QWidget *parent)
     connect(model_, SIGNAL(modelReset()), this, SLOT(onModelReset()));
 }
 
-void CloneTasksDialog::updateCloneTasksDialog()
+void CloneTasksDialog::updateTasks()
 {
     model_->updateTasks();
 }

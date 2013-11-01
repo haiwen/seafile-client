@@ -218,9 +218,7 @@ void RepoTreeView::downloadRepo()
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
     DownloadRepoDialog dialog(cloud_view_->currentAccount(), repo, this);
     if (dialog.exec() == QDialog::Accepted) {
-        CloneTasksDialog* cloneTasksDialog = cloud_view_->cloneTasksDialog();
-        cloneTasksDialog->updateCloneTasksDialog();
-        cloneTasksDialog->show();
+        cloud_view_->showCloneTasksDialog();
     }
 
     updateRepoActions();

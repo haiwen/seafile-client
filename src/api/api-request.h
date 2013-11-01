@@ -51,6 +51,8 @@ protected:
         }
     };
 
+protected:
+    const QUrl& url() const { return url_; }
 
 private:
     Q_DISABLE_COPY(SeafileApiRequest)

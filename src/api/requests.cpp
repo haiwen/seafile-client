@@ -126,6 +126,8 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
 
     RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
 
+    info.relay_addr = url().host();
+
     emit success(info);
 }
 
@@ -157,5 +159,7 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
     RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
+
+    info.relay_addr = url().host();
     emit success(info);
 }

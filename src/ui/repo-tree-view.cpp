@@ -253,7 +253,7 @@ void RepoTreeView::unsyncRepo()
     QString question = tr("Are you sure to unsync library \"%1\"?").arg(repo.name);
 
     if (QMessageBox::question(this,
-                              tr("Seafile"),
+                              tr(SEAFILE_CLIENT_BRAND),
                               question,
                               QMessageBox::Ok | QMessageBox::Cancel,
                               QMessageBox::Cancel) != QMessageBox::Ok) {
@@ -261,7 +261,7 @@ void RepoTreeView::unsyncRepo()
     }
 
     if (seafApplet->rpcClient()->unsync(repo.id) < 0) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Failed to unsync library \"%1\"").arg(repo.name),
                              QMessageBox::Ok);
     }

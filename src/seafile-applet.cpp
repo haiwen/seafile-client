@@ -98,7 +98,7 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    // tray_icon_->notify("Seafile", "daemon is started");
+    // tray_icon_->notify(SEAFILE_CLIENT_BRAND, "daemon is started");
     main_win_ = new MainWindow;
 
     if (configurator_->firstUse() || !settings_mgr_->hideMainWindowWhenStarted()) {
@@ -130,7 +130,7 @@ void SeafileApplet::exit(int code)
 void SeafileApplet::errorAndExit(const QString& error)
 {
     in_exit_ = true;
-    QMessageBox::warning(main_win_, tr("Seafile"), error, QMessageBox::Ok);
+    QMessageBox::warning(main_win_, tr(SEAFILE_CLIENT_BRAND), error, QMessageBox::Ok);
     this->exit(1);
 }
 

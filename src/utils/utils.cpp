@@ -189,7 +189,7 @@ get_seafile_auto_start()
     char buf[MAX_PATH] = {0};
     DWORD len = sizeof(buf);
     result = RegQueryValueEx (hKey,             /* Key */
-                              "Seafile",        /* value */
+                              SEAFILE_CLIENT_BRAND,        /* value */
                               NULL,             /* reserved */
                               NULL,             /* output type */
                               (LPBYTE)buf,      /* output data */
@@ -215,11 +215,11 @@ set_seafile_auto_start(int on)
             return -1;
         }
 
-        result = add_to_auto_start (L"Seafile", applet_path);
+        result = add_to_auto_start (LSEAFILE_CLIENT_BRAND, applet_path);
 
     } else {
         /* turn off auto start */
-        result = delete_from_auto_start("Seafile");
+        result = delete_from_auto_start(SEAFILE_CLIENT_BRAND);
     }
     return result;
 }

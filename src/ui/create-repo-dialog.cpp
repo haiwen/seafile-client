@@ -89,26 +89,26 @@ bool CreateRepoDialog::validateInputs()
 
     path = mDirectory->text();
     if (path.isEmpty()) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Please choose the directory to sync"),
                              QMessageBox::Ok);
         return false;
     }
     if (!QDir(path).exists()) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("The folder %1 does not exist").arg(path),
                              QMessageBox::Ok);
         return false;
     }
 
     if (mName->text().isEmpty()) {
-         QMessageBox::warning(this, tr("Seafile"),
+         QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Please enter the name"),
                              QMessageBox::Ok);
         return false;
     }
     if (mDesc->toPlainText().isEmpty()) {
-         QMessageBox::warning(this, tr("Seafile"),
+         QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Please enter the description"),
                              QMessageBox::Ok);
         return false;
@@ -116,7 +116,7 @@ bool CreateRepoDialog::validateInputs()
     encrypted = (mEncrypteCheckBox->checkState() == Qt::Checked) ? true : false;
     if (encrypted) {
          if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
-             QMessageBox::warning(this, tr("Seafile"),
+             QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                                   tr("Please enter the password"),
                                   QMessageBox::Ok);
              return false;
@@ -124,7 +124,7 @@ bool CreateRepoDialog::validateInputs()
          passwd = mPassword->text();
          passwdAgain = mPasswordAgain->text();
          if (passwd != passwdAgain) {
-             QMessageBox::warning(this, tr("Seafile"),
+             QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                                   tr("Passwords don't match"),
                                   QMessageBox::Ok);
              return false;
@@ -159,7 +159,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         &error);
 
     if (ret < 0) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Failed to add download task:\n %1").arg(error),
                              QMessageBox::Ok);
         setAllInputsEnabled(true);
@@ -172,7 +172,7 @@ void CreateRepoDialog::createFailed(int /* code */)
 {
     mStatusText->setText("");
 
-    QMessageBox::warning(this, tr("Seafile"),
+    QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                          tr("Failed to create library on the server"),
                          QMessageBox::Ok);
 

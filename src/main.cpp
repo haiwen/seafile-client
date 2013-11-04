@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
 #endif
 
     if (count_process("seafile-applet") > 1) {
-        QMessageBox::warning(NULL, "Seafile",
-                             QObject::tr("Seafile is already running"),
+        QMessageBox::warning(NULL, SEAFILE_CLIENT_BRAND,
+                             QObject::tr("%1 is already running").arg(SEAFILE_CLIENT_BRAND),
                              QMessageBox::Ok);
         return -1;
     }
@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
 
     // see QSettings documentation
-    QCoreApplication::setOrganizationName("Seafile");
+    QCoreApplication::setOrganizationName(SEAFILE_CLIENT_BRAND);
     QCoreApplication::setOrganizationDomain("seafile.com");
-    QCoreApplication::setApplicationName("Seafile Client");
+    QCoreApplication::setApplicationName(QString("%1 Client").arg(SEAFILE_CLIENT_BRAND));
 
     // initialize i18n
     QTranslator qtTranslator;

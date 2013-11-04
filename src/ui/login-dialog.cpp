@@ -58,7 +58,7 @@ void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& erro
 {
     QString question = tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?");
     if (QMessageBox::question(this,
-                              tr("Seafile"),
+                              tr(SEAFILE_CLIENT_BRAND),
                               question,
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No) == QMessageBox::Yes) {
@@ -73,13 +73,13 @@ bool LoginDialog::validateInputs()
     QUrl url;
 
     if (serverAddr.size() == 0) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Please enter the server address"),
                              QMessageBox::Ok);
         return false;
     } else {
         if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
-            QMessageBox::warning(this, tr("Seafile"),
+            QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                                  tr("%1 is not a valid server address")
                                  .arg(serverAddr),
                                  QMessageBox::Ok);
@@ -89,7 +89,7 @@ bool LoginDialog::validateInputs()
         url = QUrl(serverAddr, QUrl::StrictMode);
         // qDebug("url is %s\n", url.toString().toUtf8().data());
         if (!url.isValid()) {
-            QMessageBox::warning(this, tr("Seafile"),
+            QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                                  tr("%1 is not a valid server address")
                                  .arg(serverAddr),
                                  QMessageBox::Ok);
@@ -99,12 +99,12 @@ bool LoginDialog::validateInputs()
 
     QString email = mUsername->text();
     if (email.size() == 0) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Please enter the username"),
                              QMessageBox::Ok);
         return false;
     } else if (!email.contains("@")) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("%1 is not a valid email")
                              .arg(email),
                              QMessageBox::Ok);
@@ -112,7 +112,7 @@ bool LoginDialog::validateInputs()
     }
 
     if (mPassword->text().size() == 0) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Please enter the password"),
                              QMessageBox::Ok);
         return false;
@@ -129,7 +129,7 @@ void LoginDialog::loginSuccess(const QString& token)
 {
     Account account(url_, username_, token);
     if (seafApplet->accountManager()->saveAccount(account) < 0) {
-        QMessageBox::warning(this, tr("Seafile"),
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                              tr("Internal Error"),
                              QMessageBox::Ok);
     } else {
@@ -152,7 +152,7 @@ void LoginDialog::loginFailed(int code)
         err_msg = tr("Failed to login");
     }
 
-    QMessageBox::warning(this, tr("Seafile"),
+    QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
                          err_msg,
                          QMessageBox::Ok);
 

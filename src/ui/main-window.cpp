@@ -27,7 +27,7 @@ enum WIDGET_INDEX {
 MainWindow::MainWindow()
 {
     setWindowIcon(QIcon(":/images/seafile.png"));
-    setWindowTitle("Seafile");
+    setWindowTitle(SEAFILE_CLIENT_BRAND);
 
     cloud_view_ = new CloudView;
 

@@ -27,8 +27,8 @@ const int kMarginTop = 5;
 const int kMarginBottom = 5;
 const int kPadding = 5;
 
-const int kRepoIconHeight = 32;
-const int kRepoIconWidth = 32;
+const int kRepoIconHeight = 36;
+const int kRepoIconWidth = 36;
 const int kRepoNameWidth = 180;
 const int kRepoNameHeight = 30;
 const int kRepoStatusIconWidth = 16;
@@ -202,7 +202,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
     painter->save();
     painter->drawPixmap(repo_icon_pos,
-                        repo.getPixmap().scaled(kRepoIconWidth, kRepoIconHeight));
+                        repo.getPixmap());
     painter->restore();
 
     // Paint repo name

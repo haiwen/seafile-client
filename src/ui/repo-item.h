@@ -43,11 +43,14 @@ public:
     void setMetrics(const Metrics& metrics) const { metrics_ = metrics; }
     const Metrics& metrics() const { return metrics_; }
 
+    void setCloneProgress(QString progress);
+    QString cloneProgress() const;
 private:
     ServerRepo repo_;
     LocalRepo local_repo_;
 
     mutable Metrics metrics_;
+    QString clone_progress_;
 };
 
 /**

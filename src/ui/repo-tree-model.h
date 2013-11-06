@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <QStandardItemModel>
-
 class QModelIndex;
 
 class ServerRepo;
@@ -65,6 +64,7 @@ private:
     QTimer *refresh_local_timer_;
 
     RepoTreeView *tree_view_;
+
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_MODEL_H

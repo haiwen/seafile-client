@@ -11,6 +11,7 @@
 #include "repo-item.h"
 #include "repo-tree-view.h"
 #include "repo-tree-model.h"
+#include "rpc/clone-task.h"
 
 namespace {
 
@@ -238,7 +239,12 @@ void RepoTreeModel::refreshLocalRepos()
     if (!seafApplet->mainWindow()->isVisible()) {
         return;
     }
-    forEachRepoItem(&RepoTreeModel::refreshRepoItem, NULL);
+
+
+    std::vector<CloneTask> tasks;
+    seafApplet->rpcClient()->getCloneTasks(&tasks);
+
+    forEachRepoItem(&RepoTreeModel::refreshRepoItem, (void*) &tasks);
 }
 
 void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
@@ -252,7 +258,22 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
         item->setLocalRepo(local_repo);
         QModelIndex index = indexFromItem(item);
         emit dataChanged(index,index);
-
         // qDebug("repo %s is changed\n", toCStr(item->repo().name));
     }
+
+    CloneTask clone_task;
+    std::vector<CloneTask>* tasks = (std::vector<CloneTask>*)data;
+    if (!local_repo.isValid()) {
+        for (size_t i=0; i < tasks->size(); ++i) {
+            clone_task = tasks->at(i);
+            if (clone_task.repo_id == item->repo().id) {
+                item->setCloneProgress(clone_task.state_str);
+                QModelIndex index = indexFromItem(item);
+                emit dataChanged(index,index);
+            }
+        }
+    } else {
+        item->setCloneProgress("");
+    }
+
 }

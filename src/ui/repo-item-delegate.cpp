@@ -31,8 +31,8 @@ const int kRepoIconHeight = 36;
 const int kRepoIconWidth = 36;
 const int kRepoNameWidth = 180;
 const int kRepoNameHeight = 30;
-const int kRepoStatusIconWidth = 16;
-const int kRepoStatusIconHeight = 16;
+const int kRepoStatusIconWidth = 24;
+const int kRepoStatusIconHeight = 24;
 
 const int kRepoCategoryNameMaxWidth = 400;
 const int kRepoCategoryIndicatorWidth = 16;
@@ -227,20 +227,14 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->restore();
 
     // Paint repo status icon
-    QPoint status_icon_pos = option.rect.topRight() - QPoint(80, 0);
-    QRect status_icon_rect(status_icon_pos, option.rect.bottomRight());
+    QPoint status_icon_pos = option.rect.topRight() - QPoint(50, 0);
+    status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeight / 2));
+    QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
     if (!item->localRepo().isValid()
         || item->localRepo().sync_state != LocalRepo::SYNC_STATE_WAITING) {
 
         painter->save();
-        painter->setFont(awesome->font(kRepoStatusIconHeight));
-        if (selected)
-            painter->setPen(QColor("white"));
-        else
-            painter->setPen(QColor("#f17f49"));
-        painter->drawText(status_icon_rect,
-                          Qt::AlignCenter,
-                          getSyncStatusIcon(item), &status_icon_rect);
+        painter->drawPixmap(status_icon_pos, getSyncStatusIcon(item));
         painter->restore();
     }
 
@@ -320,27 +314,37 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->restore();
 }
 
-QChar RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
+QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
 {
+    const QString prefix = ":/images/sync/";
     const LocalRepo& repo = item->localRepo();
+    QString icon;
     if (!repo.isValid()) {
-        return icon_cloud;
+        icon = "cloud";
+    } else {
+        switch (repo.sync_state) {
+        case LocalRepo::SYNC_STATE_DONE:
+            icon = "ok";
+            break;
+        case LocalRepo::SYNC_STATE_ING:
+            icon = "refresh";
+            break;
+        case LocalRepo::SYNC_STATE_ERROR:
+            icon = "exclamation";
+            break;
+        case LocalRepo::SYNC_STATE_WAITING:
+            icon = "minus-sign";
+            break;
+        case LocalRepo::SYNC_STATE_DISABLED:
+            icon = "pause";
+            break;
+        case LocalRepo::SYNC_STATE_UNKNOWN:
+            icon = "question";
+            break;
+        }
     }
 
-    switch (repo.sync_state) {
-    case LocalRepo::SYNC_STATE_DONE:
-        return icon_ok;
-    case LocalRepo::SYNC_STATE_ING:
-        return icon_refresh;
-    case LocalRepo::SYNC_STATE_ERROR:
-        return icon_exclamation;
-    case LocalRepo::SYNC_STATE_WAITING:
-        return icon_minus_sign;
-    case LocalRepo::SYNC_STATE_DISABLED:
-        return icon_pause;
-    case LocalRepo::SYNC_STATE_UNKNOWN:
-        return icon_question_sign;
-    }
+    return prefix + icon + ".png";
 }
 
 QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const

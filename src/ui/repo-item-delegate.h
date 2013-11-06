@@ -46,7 +46,7 @@ private:
     QSize sizeHintForRepoItem(const QStyleOptionViewItem &option,
                               const RepoItem *item) const;
 
-    QChar getSyncStatusIcon(const RepoItem *item) const;
+    QPixmap getSyncStatusIcon(const RepoItem *item) const;
 };
 
 

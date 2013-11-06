@@ -42,6 +42,13 @@
     <file>images/close.png</file>
     <file>images/sync_now.png</file>
     <file>images/seafile-download-library.png</file>
+    <file>images/sync/ok.png</file>
+    <file>images/sync/exclamation.png</file>
+    <file>images/sync/minus-sign.png</file>
+    <file>images/sync/pause.png</file>
+    <file>images/sync/question.png</file>
+    <file>images/sync/refresh.png</file>
+    <file>images/sync/cloud.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

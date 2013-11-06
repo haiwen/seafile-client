@@ -429,8 +429,8 @@ void SeafileRpcClient::getCheckOutDetail(CloneTask *task)
     int checkout_total = 0;
 
     g_object_get (obj,
-                  "total_files", &checkout_done,
-                  "finished_files", &checkout_total,
+                  "total_files", &checkout_total,
+                  "finished_files", &checkout_done,
                   NULL);
 
     task->checkout_done = checkout_done;

@@ -25,7 +25,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
     mServerAddr->addItem(kDefaultServerAddr1);
     mServerAddr->addItem(kDefaultServerAddr2);
-    mServerAddr->setCurrentIndex(-1);
+    mServerAddr->clearEditText();
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 

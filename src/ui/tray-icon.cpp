@@ -27,7 +27,7 @@ const int kRotateTrayIconIntervalMilli = 250;
 #if defined(Q_WS_WIN)
 #include <windows.h>
 bool
-isWindowsSeven ()
+isWindowsVistaOrHigher()
 {
     OSVERSIONINFOEX ver = {0};
 
@@ -37,7 +37,7 @@ isWindowsSeven ()
         return false;
     }
 
-    if (ver.dwMajorVersion == 6 && ver.dwMinorVersion == 1) {
+    if (ver.dwMajorVersion >= 6) {
         return true;
     }
 
@@ -229,7 +229,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
 #if defined(Q_WS_WIN)
-    QString prefix = isWindowsSeven() ? ":/images/win/win7/" : ":/images/win/xp/";
+    QString prefix = isWindowsVistaOrHigher() ? ":/images/win/win7/" : ":/images/win/xp/";
 
     switch (state) {
     case STATE_DAEMON_UP:

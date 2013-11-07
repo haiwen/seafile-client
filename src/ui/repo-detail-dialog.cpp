@@ -64,7 +64,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
         mLpathLabel->setVisible(false);
     }
 
-    mRepoIcon->setPixmap(repo_.getPixmap().scaled(40, 40));
+    mRepoIcon->setPixmap(repo_.getPixmap());
     mRepoName->setText(repo_.name);
 
     resize(sizeHint());

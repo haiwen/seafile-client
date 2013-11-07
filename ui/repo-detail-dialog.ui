@@ -59,6 +59,9 @@
         <property name="fieldGrowthPolicy">
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
+        <property name="verticalSpacing">
+         <number>3</number>
+        </property>
         <item row="0" column="1">
          <widget class="QLabel" name="mRepoName">
           <property name="text">

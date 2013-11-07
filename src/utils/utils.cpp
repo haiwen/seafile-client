@@ -215,7 +215,7 @@ set_seafile_auto_start(int on)
             return -1;
         }
 
-        result = add_to_auto_start (LSEAFILE_CLIENT_BRAND, applet_path);
+        result = add_to_auto_start (QString::fromUtf8(SEAFILE_CLIENT_BRAND).toStdWString().c_str(), applet_path);
 
     } else {
         /* turn off auto start */

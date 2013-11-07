@@ -302,7 +302,14 @@ void SeafileTrayIcon::about()
 
 void SeafileTrayIcon::openHelp()
 {
-    QDesktopServices::openUrl(QUrl("http://seafile.com/en/help/install_v2/"));
+    QString url;
+    if (QLocale::system().name() == "zh_CN") {
+        url = "http://seafile.com/help/install_v2/";
+    } else {
+        url = "http://seafile.com/en/help/install_v2/";
+    }
+
+    QDesktopServices::openUrl(QUrl(url));
 }
 
 void SeafileTrayIcon::showSettingsWindow()

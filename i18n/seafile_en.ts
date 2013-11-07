@@ -17,12 +17,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-dialog.cpp" line="47"/>
+        <location filename="../src/ui/clone-tasks-dialog.cpp" line="48"/>
         <source>remove all successful tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-dialog.cpp" line="73"/>
+        <location filename="../src/ui/clone-tasks-dialog.cpp" line="79"/>
         <source>No download tasks right now.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -50,7 +50,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-model.cpp" line="116"/>
+        <location filename="../src/ui/clone-tasks-table-model.cpp" line="117"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
@@ -58,36 +58,30 @@
 <context>
     <name>CloneTasksTableView</name>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="69"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="71"/>
         <source>Cancel this task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="71"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="73"/>
         <source>cancel this task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="76"/>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="78"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="80"/>
         <source>Remove this task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="89"/>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="100"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="90"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="92"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="101"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="103"/>
         <source>Failed to remove this task:
 
  %1</source>
@@ -97,80 +91,74 @@
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="58"/>
+        <location filename="../src/ui/cloud-view.cpp" line="59"/>
         <source>Show download tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="65"/>
+        <location filename="../src/ui/cloud-view.cpp" line="66"/>
         <source>current download rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="70"/>
+        <location filename="../src/ui/cloud-view.cpp" line="71"/>
         <source>current upload rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="151"/>
+        <location filename="../src/ui/cloud-view.cpp" line="161"/>
         <source>No account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="185"/>
+        <location filename="../src/ui/cloud-view.cpp" line="195"/>
         <source>Add an account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="192"/>
+        <location filename="../src/ui/cloud-view.cpp" line="202"/>
         <source>Delete this account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="313"/>
+        <location filename="../src/ui/cloud-view.cpp" line="323"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="316"/>
-        <location filename="../src/ui/cloud-view.cpp" line="325"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/cloud-view.cpp" line="326"/>
+        <location filename="../src/ui/cloud-view.cpp" line="336"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="356"/>
-        <location filename="../src/ui/cloud-view.cpp" line="379"/>
+        <location filename="../src/ui/cloud-view.cpp" line="366"/>
+        <location filename="../src/ui/cloud-view.cpp" line="389"/>
         <source>no server connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="376"/>
+        <location filename="../src/ui/cloud-view.cpp" line="386"/>
         <source>all server connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="382"/>
+        <location filename="../src/ui/cloud-view.cpp" line="392"/>
         <source>some server is not connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="402"/>
-        <location filename="../src/ui/cloud-view.cpp" line="403"/>
+        <location filename="../src/ui/cloud-view.cpp" line="412"/>
+        <location filename="../src/ui/cloud-view.cpp" line="413"/>
         <source>%1 kB/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="436"/>
+        <location filename="../src/ui/cloud-view.cpp" line="453"/>
         <source>Create a new library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="441"/>
+        <location filename="../src/ui/cloud-view.cpp" line="458"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -249,18 +237,6 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="65"/>
         <source>Creating...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="92"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="98"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="105"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="119"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="127"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="162"/>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="175"/>
-        <source>Seafile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -391,15 +367,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="75"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="82"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="90"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="149"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="161"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>Please choose the folder to sync</source>
         <translation type="unfinished"></translation>
@@ -484,22 +451,14 @@
 <context>
     <name>InitSeafileDialog</name>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
-        <source>Seafile Initialzation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="108"/>
         <source>Please choose a directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="107"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="115"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="137"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="148"/>
-        <source>Seafile</source>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
+        <source>%1 Initialzation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -552,132 +511,119 @@
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="12"/>
-        <location filename="../ui_login-dialog.h" line="237"/>
+        <location filename="../src/ui/login-dialog.cpp" line="19"/>
+        <location filename="../ui_login-dialog.h" line="235"/>
         <source>Add an account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="31"/>
+        <location filename="../src/ui/login-dialog.cpp" line="41"/>
         <source>Logging in...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="59"/>
+        <location filename="../src/ui/login-dialog.cpp" line="69"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="61"/>
-        <location filename="../src/ui/login-dialog.cpp" line="76"/>
-        <location filename="../src/ui/login-dialog.cpp" line="82"/>
-        <location filename="../src/ui/login-dialog.cpp" line="92"/>
-        <location filename="../src/ui/login-dialog.cpp" line="102"/>
-        <location filename="../src/ui/login-dialog.cpp" line="107"/>
-        <location filename="../src/ui/login-dialog.cpp" line="115"/>
-        <location filename="../src/ui/login-dialog.cpp" line="132"/>
-        <location filename="../src/ui/login-dialog.cpp" line="155"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/login-dialog.cpp" line="77"/>
+        <location filename="../src/ui/login-dialog.cpp" line="87"/>
         <source>Please enter the server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="83"/>
         <location filename="../src/ui/login-dialog.cpp" line="93"/>
+        <location filename="../src/ui/login-dialog.cpp" line="103"/>
         <source>%1 is not a valid server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="103"/>
+        <location filename="../src/ui/login-dialog.cpp" line="113"/>
         <source>Please enter the username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="108"/>
+        <location filename="../src/ui/login-dialog.cpp" line="118"/>
         <source>%1 is not a valid email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="116"/>
+        <location filename="../src/ui/login-dialog.cpp" line="126"/>
         <source>Please enter the password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="133"/>
+        <location filename="../src/ui/login-dialog.cpp" line="143"/>
         <source>Internal Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="144"/>
+        <location filename="../src/ui/login-dialog.cpp" line="154"/>
         <source>Incorrect email or password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="146"/>
+        <location filename="../src/ui/login-dialog.cpp" line="156"/>
         <source>error code %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="150"/>
+        <location filename="../src/ui/login-dialog.cpp" line="160"/>
         <source>Failed to login: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="152"/>
+        <location filename="../src/ui/login-dialog.cpp" line="162"/>
         <source>Failed to login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="236"/>
+        <location filename="../ui_login-dialog.h" line="234"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="238"/>
+        <location filename="../ui_login-dialog.h" line="236"/>
         <source>logo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="239"/>
+        <location filename="../ui_login-dialog.h" line="237"/>
         <source>Server:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="240"/>
+        <location filename="../ui_login-dialog.h" line="238"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="241"/>
+        <location filename="../ui_login-dialog.h" line="239"/>
         <source>or http://192.168.1.24:8000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="242"/>
+        <location filename="../ui_login-dialog.h" line="240"/>
         <source>Email:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="243"/>
+        <location filename="../ui_login-dialog.h" line="241"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="244"/>
+        <location filename="../ui_login-dialog.h" line="242"/>
         <source>status text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="245"/>
+        <location filename="../ui_login-dialog.h" line="243"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="246"/>
+        <location filename="../ui_login-dialog.h" line="244"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -685,7 +631,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="70"/>
+        <location filename="../src/ui/main-window.cpp" line="65"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -693,29 +639,29 @@
 <context>
     <name>MessageListener</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="78"/>
+        <location filename="../src/message-listener.cpp" line="79"/>
         <source>failed to load ccnet config dir </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="146"/>
+        <location filename="../src/message-listener.cpp" line="147"/>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="156"/>
+        <location filename="../src/message-listener.cpp" line="157"/>
         <source>&quot;%1&quot; is synchronized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="168"/>
+        <location filename="../src/message-listener.cpp" line="169"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="179"/>
+        <location filename="../src/message-listener.cpp" line="180"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
@@ -724,22 +670,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="28"/>
-        <source>Seafile is already running</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/message-listener.cpp" line="45"/>
+        <location filename="../src/message-listener.cpp" line="46"/>
         <source>Uploading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="45"/>
+        <location filename="../src/message-listener.cpp" line="46"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="46"/>
+        <location filename="../src/message-listener.cpp" line="47"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -971,6 +912,101 @@ The library owner&apos;s storage space is used up.</source>
         <source>%1 minutes ago</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/main.cpp" line="28"/>
+        <source>%1 is already running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
+        <source>Added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <source>Removed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <source>Renamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <source>Moved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <source>Added directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <source>Removed directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <source>Renamed directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <source>Moved directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <source>Reverted library to status at</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <source>Reverted file &quot;%1&quot; to status at %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <source>Recovered deleted directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <source>Changed library name or description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <source>Auto merge by seafile system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <source>files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <source>directories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <source>and %1 more</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -991,75 +1027,75 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="215"/>
+        <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="216"/>
+        <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoIcon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
+        <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="219"/>
         <source>Description:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
-        <location filename="../ui_repo-detail-dialog.h" line="225"/>
-        <location filename="../ui_repo-detail-dialog.h" line="227"/>
+        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
         <source>Owner:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>Last Modified:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
+        <location filename="../ui_repo-detail-dialog.h" line="224"/>
         <source>mtime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <source>Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>Local Path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="228"/>
+        <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>Status:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>RepoStatus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="230"/>
+        <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="231"/>
+        <location filename="../ui_repo-detail-dialog.h" line="232"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1067,7 +1103,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="383"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="393"/>
         <source>This library has not been downloaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1075,22 +1111,22 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="48"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
         <source>Recent Updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>My Libraries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
         <source>Shared Libraries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="189"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
         <source>Organization</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1098,89 +1134,88 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="123"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="124"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="131"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="132"/>
         <source>Disable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="127"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="128"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="186"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="187"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="135"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="136"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="203"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Enable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="173"/>
         <source>&amp;Show details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="164"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="170"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="175"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="181"/>
         <source>Download this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="168"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="179"/>
         <source>&amp;Download this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="174"/>
-        <source>&amp;Open folder</source>
+        <location filename="../src/ui/repo-tree-view.cpp" line="185"/>
+        <source>&amp;Sync now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="176"/>
-        <source>open local folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="180"/>
-        <source>&amp;Unsync</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="181"/>
-        <source>unsync this library</source>
+        <location filename="../src/ui/repo-tree-view.cpp" line="187"/>
+        <source>Sync this library immediately</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="191"/>
-        <source>&amp;View on cloud</source>
+        <source>&amp;Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="193"/>
+        <source>open local folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="197"/>
+        <source>&amp;Unsync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
+        <source>unsync this library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
+        <source>&amp;View on cloud</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>view this library on seahub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="253"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="240"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="248"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="249"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="265"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SeafileApplet</name>
-    <message>
-        <location filename="../src/seafile-applet.cpp" line="133"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="140"/>
         <source>Failed to initialize log</source>
@@ -1267,12 +1302,12 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="298"/>
-        <source>About Seafile</source>
+        <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="299"/>
-        <source>&lt;h2&gt;Seafile Client %1&lt;/h2&gt;&lt;br&gt;&lt;p&gt;Copyright &amp;copy; 2013 Seafile Ltd.&lt;/p&gt;</source>
+        <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1360,11 +1395,6 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>WelcomeDialog</name>
     <message>
-        <location filename="../src/ui/welcome-dialog.cpp" line="9"/>
-        <source>Seafile Initialzation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui_welcome-dialog.h" line="115"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
@@ -1387,6 +1417,11 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_welcome-dialog.h" line="119"/>
         <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/welcome-dialog.cpp" line="9"/>
+        <source>%1 Initialzation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

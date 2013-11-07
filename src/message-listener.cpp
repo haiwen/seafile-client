@@ -11,6 +11,7 @@ extern "C" {
 #include "message-listener.h"
 #include "ui/tray-icon.h"
 #include "utils/utils.h"
+#include "utils/translate-commit-desc.h"
 
 
 namespace {
@@ -143,7 +144,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             return;
 
         } else if (strcmp(type, "repo.deleted_on_relay") == 0) {
-            QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(content);
+            QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(QString::fromUtf8(content));
             seafApplet->trayIcon()->notify(SEAFILE_CLIENT_BRAND, buf);
         } else if (strcmp(type, "sync.done") == 0) {
             /* format: repo_name \t repo_id \t description */
@@ -156,11 +157,11 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString title = tr("\"%1\" is synchronized").arg(slist.at(0));
             QString buf = slist.at(2);
 
-            seafApplet->trayIcon()->notify(title, buf.trimmed());
+            seafApplet->trayIcon()->notify(title, translateCommitDesc(buf.trimmed()));
 
         } else if (strcmp(type, "sync.access_denied") == 0) {
             /* format: <repo_name\trepo_id> */
-            QStringList slist = QString(content).split("\t");
+            QStringList slist = QString::fromUtf8(content).split("\t");
             if (slist.count() != 2) {
                 qDebug("Bad sync.access_denied message format");
                 return;
@@ -170,7 +171,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
 
         } else if (strcmp(type, "sync.quota_full") == 0) {
             /* format: <repo_name\trepo_id> */
-            QStringList slist = QString(content).split("\t");
+            QStringList slist = QString::fromUtf8(content).split("\t");
             if (slist.count() != 2) {
                 qDebug("Bad sync.quota_full message format");
                 return;

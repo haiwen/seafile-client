@@ -178,6 +178,7 @@ SET(seafile_client_sources
   src/ui/cloud-view.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp
+  src/utils/translate-commit-desc.cpp
   src/utils/log.c
   src/ui/repo-item.cpp
   src/ui/repo-tree-model.cpp

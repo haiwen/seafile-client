@@ -15,7 +15,7 @@ static bool dockClickHandler(id self,SEL _cmd,...)
 
 Application::Application (int &argc, char **argv):QApplication(argc, argv)
 {
-    objc_object* cls = objc_getClass("NSApplication");
+    objc_object* cls = (objc_object *)objc_getClass("NSApplication");
     SEL sharedApplication = sel_registerName("sharedApplication");
     objc_object* appInst = objc_msgSend(cls,sharedApplication);
     

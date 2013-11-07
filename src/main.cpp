@@ -15,15 +15,25 @@
 #include "Application.h"
 #endif
 
+#define APPNAME "seafile-applet"
+
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_MACX
+    if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
+        // fix Mac OS X 10.9 (mavericks) font issue
+        // https://bugreports.qt-project.org/browse/QTBUG-32789
+        QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
+    }
+#endif
+
 #ifdef Q_WS_MAC
     Application app(argc, argv);
 #else
     QApplication app(argc, argv);
 #endif
 
-    if (count_process("seafile-applet") > 1) {
+    if (count_process(APPNAME) > 1) {
         QMessageBox::warning(NULL, SEAFILE_CLIENT_BRAND,
                              QObject::tr("%1 is already running").arg(SEAFILE_CLIENT_BRAND),
                              QMessageBox::Ok);

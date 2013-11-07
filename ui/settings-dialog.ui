@@ -24,14 +24,14 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QCheckBox" name="mHideMainWinCheckBox">
-        <property name="text">
-         <string>Hide main window when started</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QCheckBox" name="mHideMainWinCheckBox">
+          <property name="text">
+           <string>Hide main window when started</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QCheckBox" name="mNotifyCheckBox">
           <property name="text">

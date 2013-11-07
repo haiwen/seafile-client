@@ -8,6 +8,7 @@ dylibs="/usr/local/lib/libccnet.0.dylib /usr/local/lib/libseafile.0.dylib /usr/l
 exes="`which ccnet` `which seaf-daemon`"
 all=$dylibs" ${exes}"
 
+target=seafile-applet
 function change_otool() {
     DIR=$1
     pushd ${DIR}
@@ -40,16 +41,16 @@ while [ $# -ge 1 ]; do
             ;;
 
         "build" )
-            echo "build seafile-client.app for Mac OS X 10.6"
+            echo "build ${target}.app for Mac OS X 10.6"
             rm -rf build
-            xcodebuild -target seafile-client
-            rm -rf ${top_dir}/seafile-client.app
-            cp -rf build/Release/seafile-client.app ${top_dir}/seafile-client.app
+            xcodebuild -target ${target}
+            rm -rf ${top_dir}/${target}.app
+            cp -rf build/Release/${target}.app ${top_dir}/${target}.app
             ;;
 
         "libs" )
-            mkdir -p ${top_dir}/seafile-client.app/Contents/Frameworks
-            pushd ${top_dir}/seafile-client.app/Contents/Frameworks
+            mkdir -p ${top_dir}/${target}.app/Contents/Frameworks
+            pushd ${top_dir}/${target}.app/Contents/Frameworks
             for var in $dylibs ; do
                 cp -f $var ./
                 base=$(basename "$var")
@@ -59,15 +60,15 @@ while [ $# -ge 1 ]; do
             ;;
 
         "otool" )
-            echo "macdeployqt seafile-client.app"
-            macdeployqt seafile-client.app
-            change_otool ${top_dir}/seafile-client.app/Contents/Resources
-            change_otool ${top_dir}/seafile-client.app/Contents/Frameworks
+            echo "macdeployqt ${target}.app"
+            macdeployqt ${target}.app
+            change_otool ${top_dir}/${target}.app/Contents/Resources
+            change_otool ${top_dir}/${target}.app/Contents/Frameworks
             ;;
 
         "dmg" )
-            echo "macdeployqt seafile-client.app -dmg"
-            macdeployqt seafile-client.app -dmg
+            echo "macdeployqt ${target}.app -dmg"
+            macdeployqt ${target}.app -dmg
             ;;
 
     esac

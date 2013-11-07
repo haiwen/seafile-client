@@ -2,6 +2,7 @@
 #include <QPixmap>
 
 #include "welcome-dialog.h"
+#include "seafile-applet.h"
 
 WelcomeDialog::WelcomeDialog(QWidget *parent) : QDialog(parent)
 {

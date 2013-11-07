@@ -93,5 +93,12 @@ private:
  */
 extern SeafileApplet *seafApplet;
 
+#define STR(s)     #s
+#define STRINGIZE(x) STR(x)
+
+#ifdef XCODE_APP
+#define SEAFILE_CLIENT_BRAND STRINGIZE(_SEAFILE_CLIENT_BRAND)
+#endif
+
 
 #endif // SEAFILE_CLIENT_APPLET_H

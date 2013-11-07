@@ -290,9 +290,6 @@ void SeafileTrayIcon::toggleMainWindow()
     }
 }
 
-#define STR(s)     #s
-#define STRINGIZE(x) STR(x)
-
 void SeafileTrayIcon::about()
 {
     QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(SEAFILE_CLIENT_BRAND),

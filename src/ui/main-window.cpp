@@ -42,11 +42,6 @@ MainWindow::MainWindow()
     createActions();
 }
 
-MainWindow::~MainWindow()
-{
-    writeSettings();
-}
-
 void MainWindow::hide()
 {
     writeSettings();

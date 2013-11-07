@@ -122,7 +122,7 @@ void SeafileApplet::exit(int code)
     // Remove tray icon from system tray
     delete tray_icon_;
     if (main_win_) {
-        delete main_win_;
+        main_win_->writeSettings();
     }
     ::exit(code);
 }

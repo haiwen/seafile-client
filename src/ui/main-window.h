@@ -20,11 +20,13 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow();
-    ~MainWindow();
 
     void keyPressEvent(QKeyEvent *event);
     void showWindow();
     void hide();
+
+    void readSettings();
+    void writeSettings();
 
 protected:
     void createActions();
@@ -35,9 +37,6 @@ private slots:
     void showEvent(QShowEvent *event);
 
 private:
-    void readSettings();
-    void writeSettings();
-
     QAction *refresh_qss_action_;
 
     // ToolBar

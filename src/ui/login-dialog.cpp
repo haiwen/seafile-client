@@ -78,7 +78,7 @@ void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& erro
 
 bool LoginDialog::validateInputs()
 {
-    QString serverAddr = mServerAddr->itemText(mServerAddr->currentIndex());
+    QString serverAddr = mServerAddr->currentText();
     QString protocol;
     QUrl url;
 

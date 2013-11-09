@@ -3,8 +3,7 @@
 #include "repo-item.h"
 
 RepoItem::RepoItem(const ServerRepo& repo)
-    : repo_(repo),
-      clone_progress_("")
+    : repo_(repo)
 {
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
@@ -23,14 +22,22 @@ void RepoItem::setLocalRepo(const LocalRepo& repo)
     local_repo_ = repo;
 }
 
-void RepoItem::setCloneProgress(QString progress)
+bool RepoItem::repoDownloadable() const
 {
-    clone_progress_ = progress;
-}
+    if (local_repo_.isValid()) {
+        return false;
+    }
 
-QString RepoItem::cloneProgress() const
-{
-    return clone_progress_;
+    if (!clone_task_.isValid()) {
+        return true;
+    }
+
+    QString state = clone_task_.state;
+    if (state == "canceled" || state == "error" || state == "done") {
+        return true;
+    }
+
+    return false;
 }
 
 RepoCategoryItem::RepoCategoryItem(const QString& name)

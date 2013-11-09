@@ -43,6 +43,7 @@ private slots:
     void toggleRepoAutoSync();
     void unsyncRepo();
     void syncRepoImmediately();
+    void cancelDownload();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
@@ -66,6 +67,7 @@ private:
     QAction *view_on_web_action_;
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
+    QAction *cancel_download_action_;
 
     CloudView *cloud_view_;
 };

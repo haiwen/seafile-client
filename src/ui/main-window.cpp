@@ -58,7 +58,7 @@ bool MainWindow::event(QEvent *ev)
 {
     bool ret = QMainWindow::event(ev);
 
-    if (this->isMinimized() && ev->type() == QEvent::WindowStateChange) {
+    if (isMinimized() && ev->type() == QEvent::WindowStateChange) {
         QWindowStateChangeEvent *wev = (QWindowStateChangeEvent *)ev;
         if (wev->oldState() != Qt::WindowMinimized) {
             writeSettings();

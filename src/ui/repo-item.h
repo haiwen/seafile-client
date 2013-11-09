@@ -4,6 +4,7 @@
 #include <QStandardItem>
 #include "api/server-repo.h"
 #include "rpc/local-repo.h"
+#include "rpc/clone-task.h"
 
 #define MY_REPOS "My Libraries"
 #define SHARED_REPOS "Shared Libraries"
@@ -43,14 +44,17 @@ public:
     void setMetrics(const Metrics& metrics) const { metrics_ = metrics; }
     const Metrics& metrics() const { return metrics_; }
 
-    void setCloneProgress(QString progress);
-    QString cloneProgress() const;
+    void setCloneTask(const CloneTask& task=CloneTask()) { clone_task_ = task; }
+    const CloneTask& cloneTask() const { return clone_task_; }
+
+    bool repoDownloadable() const;
+
 private:
     ServerRepo repo_;
     LocalRepo local_repo_;
 
     mutable Metrics metrics_;
-    QString clone_progress_;
+    CloneTask clone_task_;
 };
 
 /**

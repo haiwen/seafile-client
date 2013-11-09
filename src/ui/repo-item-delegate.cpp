@@ -221,8 +221,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->setPen(selected ? foreColor : foreColor.lighter(150));
     painter->setFont(zoomFont(painter->font(), 0.8));
 
-    QString description = item->cloneProgress();
-    if (description == "" || description == "done") {
+    QString description;
+    if (item->cloneTask().isValid() && item->cloneTask().isDisplayable()) {
+        description = item->cloneTask().state_str;
+    } else {
         description = translateCommitTime(repo.mtime);
     }
 

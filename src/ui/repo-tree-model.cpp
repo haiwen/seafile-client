@@ -240,7 +240,6 @@ void RepoTreeModel::refreshLocalRepos()
         return;
     }
 
-
     std::vector<CloneTask> tasks;
     seafApplet->rpcClient()->getCloneTasks(&tasks);
 
@@ -252,6 +251,7 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
     if (!tree_view_->isExpanded(indexFromItem(item->parent()))) {
         return;
     }
+
     LocalRepo local_repo;
     seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
     if (local_repo != item->localRepo()) {
@@ -267,13 +267,10 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
         for (size_t i=0; i < tasks->size(); ++i) {
             clone_task = tasks->at(i);
             if (clone_task.repo_id == item->repo().id) {
-                item->setCloneProgress(clone_task.state_str);
+                item->setCloneTask(clone_task);
                 QModelIndex index = indexFromItem(item);
                 emit dataChanged(index,index);
             }
         }
-    } else {
-        item->setCloneProgress("");
     }
-
 }

@@ -62,7 +62,9 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     QMenu *menu = new QMenu(this);
     if (item->localRepo().isValid()) {
         menu->addAction(open_local_folder_action_);
-    } else {
+    }
+
+    if (item->repoDownloadable()) {
         menu->addAction(download_action_);
     }
 
@@ -77,6 +79,9 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 
     menu->addAction(show_detail_action_);
 
+    if (item->cloneTask().isCancelable()) {
+        menu->addAction(cancel_download_action_);
+    }
     if (item->localRepo().isValid()) {
         menu->addAction(unsync_action_);
     }
@@ -139,8 +144,12 @@ void RepoTreeView::updateRepoActions()
         }
 
     } else {
-        download_action_->setEnabled(true);
-        download_action_->setData(QVariant::fromValue(item->repo()));
+        if (item->repoDownloadable()) {
+            download_action_->setEnabled(true);
+            download_action_->setData(QVariant::fromValue(item->repo()));
+        } else {
+            download_action_->setEnabled(false);
+        }
 
         sync_now_action_->setEnabled(false);
 
@@ -153,6 +162,13 @@ void RepoTreeView::updateRepoActions()
     view_on_web_action_->setData(item->repo().id);
     show_detail_action_->setEnabled(true);
     show_detail_action_->setData(QVariant::fromValue(item->repo()));
+
+    if (item->cloneTask().isCancelable()) {
+        cancel_download_action_->setEnabled(true);
+        cancel_download_action_->setData(QVariant::fromValue(item->repo()));
+    } else {
+        cancel_download_action_->setEnabled(false);
+    }
 }
 
 QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
@@ -189,6 +205,12 @@ void RepoTreeView::createActions()
     sync_now_action_->setIconVisibleInMenu(true);
     connect(sync_now_action_, SIGNAL(triggered()), this, SLOT(syncRepoImmediately()));
 
+    cancel_download_action_ = new QAction(tr("&Cancel download"), this);
+    cancel_download_action_->setIcon(QIcon(":/images/remove.png"));
+    cancel_download_action_->setStatusTip(tr("Cancel download of this library"));
+    cancel_download_action_->setIconVisibleInMenu(true);
+    connect(cancel_download_action_, SIGNAL(triggered()), this, SLOT(cancelDownload()));
+
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
     open_local_folder_action_->setIcon(QIcon(":/images/folder-open.png"));
     open_local_folder_action_->setStatusTip(tr("open local folder"));
@@ -218,9 +240,6 @@ void RepoTreeView::downloadRepo()
 {
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
     DownloadRepoDialog dialog(cloud_view_->currentAccount(), repo, this);
-    if (dialog.exec() == QDialog::Accepted) {
-        //cloud_view_->showCloneTasksDialog();
-    }
 
     updateRepoActions();
 }
@@ -395,4 +414,20 @@ void RepoTreeView::syncRepoImmediately()
     LocalRepo repo = qvariant_cast<LocalRepo>(sync_now_action_->data());
 
     seafApplet->rpcClient()->syncRepoImmediately(repo.id);
+}
+
+void RepoTreeView::cancelDownload()
+{
+    ServerRepo repo = qvariant_cast<ServerRepo>(cancel_download_action_->data());
+
+    QString error;
+    if (seafApplet->rpcClient()->cancelCloneTask(repo.id, &error) < 0) {
+        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+                             tr("Failed to cancel this task:\n\n %1").arg(error),
+                             QMessageBox::Ok);
+    } else {
+        QMessageBox::information(this, tr(SEAFILE_CLIENT_BRAND),
+                                 tr("The download has been canceled"),
+                                 QMessageBox::Ok);
+    }
 }

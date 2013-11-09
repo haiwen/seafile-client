@@ -136,3 +136,8 @@ bool CloneTask::isRemovable() const
     list << "done" << "error" << "canceled";
     return list.contains(state);
 }
+
+bool CloneTask::isDisplayable() const
+{
+    return state != "canceled" && state != "done";
+}

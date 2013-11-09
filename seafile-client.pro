@@ -68,6 +68,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/utils/process.h \
            src/utils/rsa.h \
            src/utils/utils.h \
+           src/utils/translate-commit-desc.h \
            third_party/QtAwesome/QtAwesome.h
 FORMS += ui/clone-tasks-dialog.ui \
          ui/cloud-view.ui \
@@ -120,11 +121,13 @@ SOURCES += src/account-mgr.cpp \
            src/utils/log.c \
            src/utils/rsa.cpp \
            src/utils/utils.cpp \
+           src/utils/translate-commit-desc.cpp \
            third_party/QtAwesome/QtAwesome.cpp
 RESOURCES += seafile-client.qrc third_party/QtAwesome/QtAwesome.qrc
 TRANSLATIONS += i18n/seafile_de_DE.ts \
                 i18n/seafile_fr_FR.ts \
                 i18n/seafile_hu_HU.ts \
+                i18n/seafile_en.ts \
                 i18n/seafile_zh_CN.ts
 
 ICON = seafile.icns
@@ -144,7 +147,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.6"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.8"'
     DEFINES += _SEAFILE_CLIENT_BRAND='"Seafile"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon

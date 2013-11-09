@@ -261,6 +261,8 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
         // qDebug("repo %s is changed\n", toCStr(item->repo().name));
     }
 
+    item->setCloneTask();
+
     CloneTask clone_task;
     std::vector<CloneTask>* tasks = (std::vector<CloneTask>*)data;
     if (!local_repo.isValid()) {

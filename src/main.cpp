@@ -4,6 +4,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 #include <QWidget>
+#include <QDir>
 
 #include <glib-object.h>
 #include <stdio.h>
@@ -40,6 +41,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    QDir::setCurrent(QApplication::applicationDirPath());
 
     app.setQuitOnLastWindowClosed(false);
 
@@ -50,8 +52,12 @@ int main(int argc, char *argv[])
 
     // initialize i18n
     QTranslator qtTranslator;
+#if defined(Q_WS_WIN)
+    qtTranslator.load("qt_" + QLocale::system().name());
+#else
     qtTranslator.load("qt_" + QLocale::system().name(),
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+#endif
     app.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;

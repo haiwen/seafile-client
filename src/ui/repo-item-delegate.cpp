@@ -222,7 +222,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->setFont(zoomFont(painter->font(), 0.8));
 
     QString description = item->cloneProgress();
-    if (description == "") {
+    if (description == "" || description == "done") {
         description = translateCommitTime(repo.mtime);
     }
 

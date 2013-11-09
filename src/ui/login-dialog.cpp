@@ -26,6 +26,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mServerAddr->addItem(kDefaultServerAddr1);
     mServerAddr->addItem(kDefaultServerAddr2);
     mServerAddr->clearEditText();
+    mServerAddr->setAutoCompletion(false);
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 

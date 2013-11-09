@@ -30,6 +30,7 @@ public:
 
 protected:
     void createActions();
+    bool event(QEvent *event);
 
 private slots:
     void refreshQss();

@@ -51,6 +51,7 @@ void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
     if (!item || item->type() != REPO_ITEM_TYPE) {
         return;
     }
+    updateRepoActions();
     QMenu *menu = prepareContextMenu((RepoItem *)item);
     pos = viewport()->mapToGlobal(pos);
     menu->exec(pos);

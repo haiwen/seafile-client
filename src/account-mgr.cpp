@@ -69,6 +69,13 @@ const std::vector<Account>& AccountManager::loadAccounts()
 
 int AccountManager::saveAccount(const Account& account)
 {
+    for (int i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].serverUrl == account.serverUrl
+            && accounts_[i].username == account.username) {
+            return 0;
+        }
+    }
+
     accounts_.push_back(account);
 
     QString url = account.serverUrl.toEncoded().data();

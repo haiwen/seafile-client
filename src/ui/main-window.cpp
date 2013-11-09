@@ -54,6 +54,19 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->ignore();
 }
 
+bool MainWindow::event(QEvent *ev)
+{
+    if (ev->type() == QEvent::WindowStateChange) {
+        QWindowStateChangeEvent *wev = (QWindowStateChangeEvent *)ev;
+        if (wev->oldState() != Qt::WindowMinimized) {
+            writeSettings();
+            printf ("main window: minimized\n");
+        }
+    }
+
+    return QMainWindow::event(ev);
+}
+
 void MainWindow::showEvent(QShowEvent *event)
 {
     readSettings();

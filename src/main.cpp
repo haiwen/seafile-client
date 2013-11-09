@@ -19,7 +19,7 @@
 
 int main(int argc, char *argv[])
 {
-#ifdef Q_OS_MACX
+#ifdef Q_WS_MAC
     if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
         // fix Mac OS X 10.9 (mavericks) font issue
         // https://bugreports.qt-project.org/browse/QTBUG-32789

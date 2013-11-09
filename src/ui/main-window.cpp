@@ -60,7 +60,6 @@ bool MainWindow::event(QEvent *ev)
         QWindowStateChangeEvent *wev = (QWindowStateChangeEvent *)ev;
         if (wev->oldState() != Qt::WindowMinimized) {
             writeSettings();
-            printf ("main window: minimized\n");
         }
     }
 

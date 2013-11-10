@@ -109,3 +109,7 @@ int count_process(const char *process_name)
     return count;
 }
 
+int register_seafile_protocol()
+{
+    return 0;
+}

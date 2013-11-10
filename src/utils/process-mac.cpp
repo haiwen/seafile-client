@@ -155,3 +155,8 @@ int count_process(const char *process_name)
     free (mylist);
     return count;
 }
+
+int register_seafile_protocol()
+{
+    return 0;
+}

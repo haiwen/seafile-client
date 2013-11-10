@@ -9,8 +9,15 @@
 #include <string.h>
 #include <string>
 
+#include <QApplication>
+#include <QSettings>
+#include <QFileInfo>
+#include <QDir>
+#include <QDebug>
+
 #include "process.h"
 
+#define SEAFILE_PROTOCOL "URL: Seafile Protocol"
 namespace {
 
 HANDLE
@@ -138,4 +145,20 @@ int count_process (const char *process_name_in)
     }
 
     return count;
+}
+
+int register_seafile_protocol()
+{
+    QFileInfo fi(QApplication::applicationFilePath());
+    QSettings reg("HKEY_CLASSES_ROOT\\Seafile", QSettings::NativeFormat);
+    QString currentValue = reg.value("Default").toString();
+
+    reg.setValue("Default", SEAFILE_PROTOCOL);
+    reg.setValue("URL Protocol", "");
+
+    QSettings DefaultIcon("HKEY_CLASSES_ROOT\\Seafile\\DefaultIcon", QSettings::NativeFormat);
+    DefaultIcon.setValue("Default", QString("%1,1").arg(fi.fileName()));
+
+    QSettings command("HKEY_CLASSES_ROOT\\Seafile\\shell\\open\\command", QSettings::NativeFormat);
+    command.setValue("Default", QString("\"%1\" \"%2\"").arg(QDir::toNativeSeparators(fi.absoluteFilePath())).arg("%1"));
 }

@@ -26,13 +26,15 @@ int main(int argc, char *argv[])
         // https://bugreports.qt-project.org/browse/QTBUG-32789
         QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
     }
-#endif
-
-#ifdef Q_WS_MAC
     Application app(argc, argv);
 #else
     QApplication app(argc, argv);
 #endif
+
+    if (argc > 1 && QString(argv[1]).startsWith("Seafile://", Qt::CaseInsensitive)) {
+        qDebug("cmdline=%s\n", argv[1]);
+        return 0;
+    }
 
     if (count_process(APPNAME) > 1) {
         QMessageBox::warning(NULL, SEAFILE_CLIENT_BRAND,
@@ -78,5 +80,6 @@ int main(int argc, char *argv[])
     seafApplet = new SeafileApplet;
     seafApplet->start();
 
+    register_seafile_protocol();
     return app.exec();
 }

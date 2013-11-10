@@ -8,4 +8,6 @@ void shutdown_process (const char *name);
 
 int count_process(const char *name);
 
+int register_seafile_protocol();
+
 #endif // SEAFILE_CLIENT_UTILS_PROCESS_H

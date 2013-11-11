@@ -374,7 +374,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="83"/>
         <source>The folder does not exist</source>
-        <translation>Der Ordner exisitert nicht</translation>
+        <translation>Der Ordner existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
@@ -410,7 +410,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="216"/>
         <source>Download this library to:</source>
-        <translation>Diese Bibliotheke herunterladen nach:</translation>
+        <translation>Diese Bibliothek herunterladen nach:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="217"/>
@@ -425,7 +425,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="219"/>
         <source>Files in the local folder will be merged with files in the library</source>
-        <translation>Dateien im Ordner werden mit den Dateien in der Bibliothek vereint</translation>
+        <translation>Dateien im Ordner werden mit den Dateien in der Bibliothek zusammengeführt</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="220"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="221"/>
         <source>sync with existing folder</source>
-        <translation>mit existierendem Ordner synchronisieren</translation>
+        <translation>mit existierenden Ordner synchronisieren</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="222"/>
@@ -464,7 +464,7 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
         <source>The folder %1 does not exist</source>
-        <translation>Der Ordner %1 exisitert nicht</translation>
+        <translation>Der Ordner %1 existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
@@ -524,7 +524,7 @@
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="70"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation>&lt;b&gt;Warnung:&lt;/b&gt; Das SSL zertifikat dieses Servers ist nicht vertrauenswürdig. Trotzdem fortfahren?</translation>
+        <translation>&lt;b&gt;Warnung:&lt;/b&gt; Das SSL Zertifikat dieses Servers ist nicht vertrauenswürdig. Trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="88"/>
@@ -745,7 +745,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="111"/>
         <source>Failed to merge local file changes.</source>
-        <translation>Konnteo lokale Dateiänderungen nicht zusammenfügen.</translation>
+        <translation>Konnte lokale Dateiänderungen nicht zusammenfügen.</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="114"/>
@@ -883,7 +883,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
         <location filename="../src/utils/utils.cpp" line="344"/>
         <location filename="../src/utils/utils.cpp" line="347"/>
         <source>Just now</source>
-        <translation>soeben</translation>
+        <translation>gerade eben</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="332"/>
@@ -1338,7 +1338,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="356"/>
         <source>some server is not connected</source>
-        <translation type="unfinished">manche server sind nicht verbunden</translation>
+        <translation type="unfinished">manche Server sind nicht verbunden</translation>
     </message>
 </context>
 <context>

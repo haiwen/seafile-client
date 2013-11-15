@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="fr_FR" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr_FR" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -169,7 +167,6 @@
     <message>
         <location filename="../ui_cloud-view.h" line="183"/>
         <source>Form</source>
-        <translatorcomment>Formulaire</translatorcomment>
         <translation>Formulaire</translation>
     </message>
     <message>
@@ -201,7 +198,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="191"/>
         <source>downarrow</source>
-        <translation></translation>
+        <translation>flèchebas</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="192"/>
@@ -211,7 +208,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="193"/>
         <source>uparrow</source>
-        <translation></translation>
+        <translation>flèchehaut</translation>
     </message>
 </context>
 <context>
@@ -466,7 +463,7 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
         <source>%1 Initialzation</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialisation de %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
@@ -477,7 +474,7 @@
         <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="147"/>
         <source>Initialzation is not finished. Really quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;initialisation n&apos;est pas terminée. Voulez vous réellement quitter?</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
@@ -590,16 +587,6 @@
         <translation>Dialogue</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="239"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Par exemple： https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui_login-dialog.h" line="240"/>
-        <source>or http://192.168.1.24:8000</source>
-        <translation>ou http://192.168.1.24:8000</translation>
-    </message>
-    <message>
         <location filename="../ui_login-dialog.h" line="237"/>
         <source>logo</source>
         <translation>logo</translation>
@@ -608,6 +595,16 @@
         <location filename="../ui_login-dialog.h" line="238"/>
         <source>Server:</source>
         <translation>Serveur:</translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="239"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Par exemple： https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="240"/>
+        <source>or http://192.168.1.24:8000</source>
+        <translation>ou http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="241"/>
@@ -693,76 +690,6 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../src/message-listener.cpp" line="47"/>
         <source>Speed</source>
         <translation>Vitesse</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="71"/>
-        <source>initializing...</source>
-        <translation>initalisation...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="74"/>
-        <source>connecting server...</source>
-        <translation>connexion au serveur...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="77"/>
-        <source>indexing files...</source>
-        <translation>indexation des fichiers...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="80"/>
-        <source>Downloading...</source>
-        <translation>Téléchargement...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="86"/>
-        <source>Creating folder...</source>
-        <translation>Création du dossier...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="92"/>
-        <source>Merge file changes...</source>
-        <translation>Fusion des changments des fichiers...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="95"/>
-        <source>Done</source>
-        <translation>Terminé</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="98"/>
-        <source>Canceling</source>
-        <translation>Annulation</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="101"/>
-        <source>Canceled</source>
-        <translation>Annulé</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="105"/>
-        <source>Failed to index local files.</source>
-        <translation>Impossible d&apos;indexer les fichiers locaux.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="108"/>
-        <source>Failed to create local files.</source>
-        <translation>Impossible de créer les fichiers locaux.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="111"/>
-        <source>Failed to merge local file changes.</source>
-        <translation>Impossible de fusionner les changements des fichiers locaux.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="114"/>
-        <source>Incorrect password. Please download again.</source>
-        <translation>Mot de passe incorrect. Veuillez télécharger à nouveau.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="116"/>
-        <source>Internal error.</source>
-        <translation>Erreur interne.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="58"/>
@@ -886,6 +813,76 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <translation>Erreur inconnue.</translation>
     </message>
     <message>
+        <location filename="../src/rpc/clone-task.cpp" line="71"/>
+        <source>initializing...</source>
+        <translation>initalisation...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="74"/>
+        <source>connecting server...</source>
+        <translation>connexion au serveur...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="77"/>
+        <source>indexing files...</source>
+        <translation>indexation des fichiers...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="80"/>
+        <source>Downloading...</source>
+        <translation>Téléchargement...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="86"/>
+        <source>Creating folder...</source>
+        <translation>Création du dossier...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="92"/>
+        <source>Merge file changes...</source>
+        <translation>Fusion des changments des fichiers...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="95"/>
+        <source>Done</source>
+        <translation>Terminé</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="98"/>
+        <source>Canceling</source>
+        <translation>Annulation</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="101"/>
+        <source>Canceled</source>
+        <translation>Annulé</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="105"/>
+        <source>Failed to index local files.</source>
+        <translation>Impossible d&apos;indexer les fichiers locaux.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="108"/>
+        <source>Failed to create local files.</source>
+        <translation>Impossible de créer les fichiers locaux.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="111"/>
+        <source>Failed to merge local file changes.</source>
+        <translation>Impossible de fusionner les changements des fichiers locaux.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="114"/>
+        <source>Incorrect password. Please download again.</source>
+        <translation>Mot de passe incorrect. Veuillez télécharger à nouveau.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="116"/>
+        <source>Internal error.</source>
+        <translation>Erreur interne.</translation>
+    </message>
+    <message>
         <location filename="../src/utils/utils.cpp" line="316"/>
         <location filename="../src/utils/utils.cpp" line="344"/>
         <location filename="../src/utils/utils.cpp" line="347"/>
@@ -925,97 +922,97 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/main.cpp" line="39"/>
         <source>%1 is already running</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 fonctionne déjà</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouté</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlevé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifié</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire ajouté</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire supprimé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire renommé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire déplacé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"></translation>
+        <translation>Retour de la bibliothèque à son état du</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Retour du fichier &quot;%1&quot; à son état du %2</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Récupération du dossier supprimé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nom de la bibliothèque ou de la description a changé</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation type="unfinished"></translation>
+        <translation>Fusion automatique par Seafile</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>fichiers</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoires</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation type="unfinished"></translation>
+        <translation>et %1 de plus</translation>
     </message>
 </context>
 <context>
@@ -1044,17 +1041,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoIcon</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../ui_repo-detail-dialog.h" line="231"/>
-        <source>Name:</source>
-        <translation>Nom :</translation>
+        <translation>IconRepo</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
-        <translation></translation>
+        <translation>NomRepo</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="219"/>
@@ -1067,7 +1059,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../ui_repo-detail-dialog.h" line="226"/>
         <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>TextLabel</source>
-        <translation></translation>
+        <translation>LabelTexte</translation>
+    </message>
+    <message>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <source>Owner:</source>
+        <translation>Propriétaire :</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="223"/>
@@ -1077,22 +1074,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="224"/>
         <source>mtime</source>
-        <translation></translation>
+        <translation>mtemp</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <source>Size:</source>
         <translation>Taille :</translation>
-    </message>
-    <message>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
-        <source>Owner:</source>
-        <translation>Propriétaire :</translation>
-    </message>
-    <message>
-        <location filename="../ui_repo-detail-dialog.h" line="232"/>
-        <source>Close</source>
-        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="227"/>
@@ -1107,7 +1094,17 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>RepoStatus</source>
-        <translation></translation>
+        <translation>StatusRepo</translation>
+    </message>
+    <message>
+        <location filename="../ui_repo-detail-dialog.h" line="231"/>
+        <source>Name:</source>
+        <translation>Nom :</translation>
+    </message>
+    <message>
+        <location filename="../ui_repo-detail-dialog.h" line="232"/>
+        <source>Close</source>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -1138,7 +1135,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
         <source>Organization</source>
-        <translation type="unfinished"></translation>
+        <translation>Organisation</translation>
     </message>
 </context>
 <context>
@@ -1147,7 +1144,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../src/ui/repo-tree-view.cpp" line="137"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="138"/>
         <source>Disable auto sync</source>
-        <translation>Désactiver la synchronisation automatique</translation>
+        <translation>Désactiver la synchro auto</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="141"/>
@@ -1155,7 +1152,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <location filename="../src/ui/repo-tree-view.cpp" line="226"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
         <source>Enable auto sync</source>
-        <translation>Activer la synchronistaion automatique</translation>
+        <translation>Activer la synchro auto</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="190"/>
@@ -1176,22 +1173,22 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Synchroniser maintenant</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchroniser cette bibliothèque immédiatement</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>&amp;Cancel download</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Annuler le téléchargement</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>Cancel download of this library</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuler le téléchargement de cette biblitohèque</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
@@ -1221,31 +1218,31 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="233"/>
         <source>view this library on seahub</source>
-        <translation type="unfinished"></translation>
+        <translation>voir cette bibliothèque sur seahub</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="273"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>Êtes-vous certain de vouloir désynchroniser la bibliothèque &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Impossible de désynchroniser la bibliothèque &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="428"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished">Impossible d&apos;annuler cette tâche：
+        <translation>Impossible d&apos;annuler cette tâche:
 
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
         <source>The download has been canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>Le téléchargement a été annulé</translation>
     </message>
 </context>
 <context>
@@ -1276,12 +1273,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="82"/>
         <source>Disable auto sync</source>
-        <translation>Désactiver la synchronisation automatique</translation>
+        <translation>Désactiver la synchro auto</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="85"/>
         <source>Enable auto sync</source>
-        <translation>Activer la synchronisation automatique</translation>
+        <translation>Activer la synchro auto</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="88"/>
@@ -1317,7 +1314,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>open seafile online help</source>
-        <translation type="unfinished"></translation>
+        <translation>ouvrir l&apos;aide en ligne de seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="110"/>
@@ -1332,17 +1329,17 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="196"/>
         <source>auto sync is disabled</source>
-        <translation>synchronisation automatique désactivée</translation>
+        <translation>La synchronisation automatique est désactivée</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="295"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A propos de %1</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="296"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="356"/>
@@ -1386,42 +1383,42 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="154"/>
+        <location filename="../ui_settings-dialog.h" line="156"/>
         <source>Dialog</source>
         <translation>Dialogue</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="155"/>
+        <location filename="../ui_settings-dialog.h" line="157"/>
         <source>Hide main window when started</source>
         <translation>Cacher la fenêtre principale au démarrage </translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="158"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Notifier quand les bibliothèques sont synchronisées</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="159"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation>Démarrer Seafile automatiquement avec le système (Windows uniquement)</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="160"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Vitesse de téléchargement maximum (Ko/s) :</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="161"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Vitesse d&apos;envoi maximum (Ko/s) :</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -1436,7 +1433,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
         <source>Welcome to use the seafile client</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous êtes invité à utiliser le client Seafile</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>
@@ -1456,7 +1453,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/welcome-dialog.cpp" line="10"/>
         <source>%1 Initialzation</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialisation de %1</translation>
     </message>
 </context>
 </TS>

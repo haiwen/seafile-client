@@ -100,5 +100,21 @@ private:
 
 };
 
+class GetSeahubMessagesRequest : public SeafileApiRequest {
+    Q_OBJECT
+
+public:
+    explicit GetSeahubMessagesRequest(const Account& account);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success(int group_messages, int personal_messages);
+
+private:
+    Q_DISABLE_COPY(GetSeahubMessagesRequest)
+
+};
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

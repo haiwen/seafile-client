@@ -144,3 +144,16 @@ QDialog QLabel#mTitle {
     font-family: Arial;
     font-size: 20px;
 }
+
+QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
+    background: white;
+}
+
+QToolButton#mSeahubMessagesBtn
+{
+    margin-left: 0px;
+    padding: 1px;
+    margin-right: 10px;
+    border: 0;
+    qproperty-iconSize: 24px;
+}

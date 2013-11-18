@@ -11,6 +11,7 @@ extern "C" {
 #include <QTreeView>
 
 #include "QtAwesome.h"
+#include "seahub-messages-monitor.h"
 #include "api/requests.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
@@ -42,8 +43,11 @@ CloudView::CloudView(QWidget *parent)
       in_refresh_(false),
       list_repo_req_(NULL),
       clone_task_dialog_(NULL)
+
 {
     setupUi(this);
+
+    seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
 
     createRepoModelView();
     createLoadingView();
@@ -215,6 +219,8 @@ void CloudView::setCurrentAccount(const Account& account)
         repos_model_->clear();
         showLoadingView();
         refreshRepos();
+
+        seahub_messages_monitor_->refresh();
 
         updateAccountInfoDisplay();
         if (account.isValid()) {

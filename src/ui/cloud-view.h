@@ -16,7 +16,7 @@ class ListReposRequest;
 class ServerRepo;
 class RepoTreeView;
 class RepoTreeModel;
-class CloneTasksDialog;
+class CloneTasksDialog; class SeahubMessagesMonitor;
 
 class CloudView : public QWidget,
                   public Ui::CloudView
@@ -27,6 +27,8 @@ public:
     const Account& currentAccount() { return current_account_; }
 
     CloneTasksDialog* cloneTasksDialog();
+
+    QToolButton *seahubMessagesBtn() const { return mSeahubMessagesBtn; }
 
 protected:
     void showEvent(QShowEvent *event);
@@ -92,6 +94,8 @@ private:
     QMenu *account_menu_;
 
     CloneTasksDialog* clone_task_dialog_;
+
+    SeahubMessagesMonitor *seahub_messages_monitor_;
 };
 
 

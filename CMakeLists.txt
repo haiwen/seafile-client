@@ -42,6 +42,7 @@ SET(moc_headers
   src/settings-mgr.h
   src/traynotificationwidget.h
   src/traynotificationmanager.h
+  src/seahub-messages-monitor.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/requests.h
@@ -159,6 +160,7 @@ SET(seafile_client_sources
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp
+  src/seahub-messages-monitor.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/requests.cpp

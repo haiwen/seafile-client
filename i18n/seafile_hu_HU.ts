@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="hu_HU" sourcelanguage="en_US">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hu_HU" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -464,7 +462,7 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
         <source>%1 Initialzation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 induló beállítása</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
@@ -485,17 +483,17 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile könyvtár választás</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>embléma</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Válasszon könyvtárat. A könyvtárban egy Seafile alkönyvtárat hozunk létre. Ha egy kötetet letölt alapértelmezetten abba lesz lementve.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
@@ -505,7 +503,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Következő</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="197"/>
@@ -529,7 +527,7 @@
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="70"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Figyelem:&lt;/b&gt; A szerver SSL tanúsítványa nem megbízható, ennek ellenére folytatja?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="88"/>
@@ -588,6 +586,16 @@
         <translation>Párbeszédablak</translation>
     </message>
     <message>
+        <location filename="../ui_login-dialog.h" line="237"/>
+        <source>logo</source>
+        <translation>embléma</translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="238"/>
+        <source>Server:</source>
+        <translation>Szerver:</translation>
+    </message>
+    <message>
         <location filename="../ui_login-dialog.h" line="239"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Példa: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -598,24 +606,14 @@
         <translation>vagy: http://192.168.1.24:8000</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="237"/>
-        <source>logo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui_login-dialog.h" line="238"/>
-        <source>Server:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui_login-dialog.h" line="241"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>Email:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="242"/>
         <source>Password:</source>
-        <translation type="unfinished">Jelszó:</translation>
+        <translation>Jelszó:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="243"/>
@@ -691,76 +689,6 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../src/message-listener.cpp" line="47"/>
         <source>Speed</source>
         <translation>Sebesség</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="71"/>
-        <source>initializing...</source>
-        <translation>Inicializálás...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="74"/>
-        <source>connecting server...</source>
-        <translation>Kapcsolódás a kiszolgálóhoz...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="77"/>
-        <source>indexing files...</source>
-        <translation>Fájlok indexelése...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="80"/>
-        <source>Downloading...</source>
-        <translation>Letöltés...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="86"/>
-        <source>Creating folder...</source>
-        <translation>Könyvtár létrehozása...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="92"/>
-        <source>Merge file changes...</source>
-        <translation>Fájl változások egyesítése...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="95"/>
-        <source>Done</source>
-        <translation>Kész</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="98"/>
-        <source>Canceling</source>
-        <translation>Megszakítás</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="101"/>
-        <source>Canceled</source>
-        <translation>Megszakítva</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="105"/>
-        <source>Failed to index local files.</source>
-        <translation>A helyi fájlok indexelése nem sikerült.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="108"/>
-        <source>Failed to create local files.</source>
-        <translation>A helyi fájlok létrehozása nem sikerült.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="111"/>
-        <source>Failed to merge local file changes.</source>
-        <translation>A helyi fájlok változatainak egyesítése nem sikerült.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="114"/>
-        <source>Incorrect password. Please download again.</source>
-        <translation>Érvénytelen jelszó. Töltse le újra.</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="116"/>
-        <source>Internal error.</source>
-        <translation>Belső akalmazáshiba.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="58"/>
@@ -884,6 +812,76 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Ismeretlen hiba.</translation>
     </message>
     <message>
+        <location filename="../src/rpc/clone-task.cpp" line="71"/>
+        <source>initializing...</source>
+        <translation>Inicializálás...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="74"/>
+        <source>connecting server...</source>
+        <translation>Kapcsolódás a kiszolgálóhoz...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="77"/>
+        <source>indexing files...</source>
+        <translation>Fájlok indexelése...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="80"/>
+        <source>Downloading...</source>
+        <translation>Letöltés...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="86"/>
+        <source>Creating folder...</source>
+        <translation>Könyvtár létrehozása...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="92"/>
+        <source>Merge file changes...</source>
+        <translation>Fájl változások egyesítése...</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="95"/>
+        <source>Done</source>
+        <translation>Kész</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="98"/>
+        <source>Canceling</source>
+        <translation>Megszakítás</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="101"/>
+        <source>Canceled</source>
+        <translation>Megszakítva</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="105"/>
+        <source>Failed to index local files.</source>
+        <translation>A helyi fájlok indexelése nem sikerült.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="108"/>
+        <source>Failed to create local files.</source>
+        <translation>A helyi fájlok létrehozása nem sikerült.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="111"/>
+        <source>Failed to merge local file changes.</source>
+        <translation>A helyi fájlok változatainak egyesítése nem sikerült.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="114"/>
+        <source>Incorrect password. Please download again.</source>
+        <translation>Érvénytelen jelszó. Töltse le újra.</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="116"/>
+        <source>Internal error.</source>
+        <translation>Belső akalmazáshiba.</translation>
+    </message>
+    <message>
         <location filename="../src/utils/utils.cpp" line="316"/>
         <location filename="../src/utils/utils.cpp" line="344"/>
         <location filename="../src/utils/utils.cpp" line="347"/>
@@ -923,97 +921,97 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/main.cpp" line="39"/>
         <source>%1 is already running</source>
-        <translation type="unfinished"></translation>
+        <translation>%1már fut</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"></translation>
+        <translation>Hozzáadva</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Törölve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Törölve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>Módosítva</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Átnevezve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"></translation>
+        <translation>Átmozgatva</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtár hozzáadva</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtár törölve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtár átnevezve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtár átmozgatva</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"></translation>
+        <translation>A könyvtár visszaállítva erre a státuszra:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; fájl visszaállítva erre a státuszra: %2.</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Törölt könyvtár visszaállítva</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtár neve vagy leírása változott</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile rendszer automatikusan összefűzte</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>fájlok</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"></translation>
+        <translation>könyvtárak</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation type="unfinished"></translation>
+        <translation>és további %1 </translation>
     </message>
 </context>
 <context>
@@ -1045,11 +1043,6 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Tároló ikon</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="231"/>
-        <source>Name:</source>
-        <translation>Név:</translation>
-    </message>
-    <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
         <translation>Tároló név</translation>
@@ -1068,6 +1061,11 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Szövegcímke</translation>
     </message>
     <message>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <source>Owner:</source>
+        <translation>Tulajdonos:</translation>
+    </message>
+    <message>
         <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>Last Modified:</source>
         <translation>Utoljára módosítva:</translation>
@@ -1083,11 +1081,6 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Méret:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
-        <source>Owner:</source>
-        <translation>Tulajdonos:</translation>
-    </message>
-    <message>
         <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>Local Path:</source>
         <translation>Helyi elérési út:</translation>
@@ -1101,6 +1094,11 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>RepoStatus</source>
         <translation>Tároló állapot</translation>
+    </message>
+    <message>
+        <location filename="../ui_repo-detail-dialog.h" line="231"/>
+        <source>Name:</source>
+        <translation>Név:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="232"/>
@@ -1121,7 +1119,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
         <source>Recent Updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Utolsó frissítések</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
@@ -1136,7 +1134,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
         <source>Organization</source>
-        <translation type="unfinished"></translation>
+        <translation>Szervezet</translation>
     </message>
 </context>
 <context>
@@ -1174,22 +1172,22 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Szinkron most</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>A könyvtár azonnali szinkronizálása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>&amp;Cancel download</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Letöltés megszakítása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>Cancel download of this library</source>
-        <translation type="unfinished"></translation>
+        <translation>A könyvtár letöltésének megszakítása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
@@ -1222,28 +1220,28 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>a könyvtár menyitása a seahub-on</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="273"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>Biztos benne, hogy nem szinkronizálja a(z) &quot;%1&quot; könyvtárat?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>A(z) &quot;%1&quot; könyvtár leválasztása nem sikerült.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="428"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished">A feladat megszakítása nem sikerült:
+        <translation>Nem sikerült megszakítani a műveletet:
 
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
         <source>The download has been canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>A letöltés megszakítva</translation>
     </message>
 </context>
 <context>
@@ -1300,27 +1298,27 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="99"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Névjegy</translation>
+        <translation>&amp;Névjegy</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished">Az alkalmazás névjegye</translation>
+        <translation>Az alkalmazás Névjegy ablakának megjelenítése</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="103"/>
         <source>&amp;Online help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Online segítség</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>open seafile online help</source>
-        <translation type="unfinished"></translation>
+        <translation>seafile online segítségének megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="110"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Segítség</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="144"/>
@@ -1330,22 +1328,22 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="196"/>
         <source>auto sync is disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>önműködő szinkronizálás letiltva</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="295"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1-ról/ről</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="296"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;%1 Kliens %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="356"/>
         <source>some server is not connected</source>
-        <translation type="unfinished">néhány kiszolgáló nem csatlakozik</translation>
+        <translation>néhány kiszolgálóhoz nem lehet csatlakozni</translation>
     </message>
 </context>
 <context>
@@ -1384,44 +1382,44 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="154"/>
+        <location filename="../ui_settings-dialog.h" line="156"/>
         <source>Dialog</source>
         <translation>Párbeszédablak</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="155"/>
+        <location filename="../ui_settings-dialog.h" line="157"/>
         <source>Hide main window when started</source>
-        <translation type="unfinished"></translation>
+        <translation>Induláskor a fő ablak elrejtése</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="158"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Értesítés, ha a könyvtárak szinkronizálva vannak</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="159"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation>A Seafile elindítása rendszerbe lépéskor (csak Windows)</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="160"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Letöltési sebesség korlátja (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="161"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Feltöltési sebesség korlátja (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Ok</source>
-        <translation type="unfinished">Ok</translation>
+        <translation>Rendben</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Cancel</source>
-        <translation type="unfinished">Mégsem</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -1429,32 +1427,32 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../ui_welcome-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Párbeszédablak</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="116"/>
         <source>Welcome to use the seafile client</source>
-        <translation type="unfinished"></translation>
+        <translation>Üdvözöljük a seafile kliensben</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="117"/>
         <source>HelpImage</source>
-        <translation type="unfinished"></translation>
+        <translation>KépesSegítség</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="118"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fájlok szinkronizálása Seafile szerverrel:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Fiók létrehozása (a szerver nevével és e-mail címmel)&lt;/p&gt;&lt;p&gt;2. Könyvtár letöltése&lt;/p&gt;&lt;p&gt;3. A könyvtárba kerülő fájlok automatikusan feltöltődnek a szerverre&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Bármely helyi könyvtárból lehet szinkronizálandó kötet. További információk: &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online segítség&lt;/span&gt;&lt;/a&gt; oldalon.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_welcome-dialog.h" line="119"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Következő</translation>
     </message>
     <message>
         <location filename="../src/ui/welcome-dialog.cpp" line="10"/>
         <source>%1 Initialzation</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 induló beállítása</translation>
     </message>
 </context>
 </TS>

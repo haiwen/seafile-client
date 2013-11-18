@@ -1,3 +1,4 @@
+#include <getopt.h>
 #include <QApplication>
 #include <QMessageBox>
 #include <QTranslator>
@@ -39,6 +40,24 @@ int main(int argc, char *argv[])
                              QObject::tr("%1 is already running").arg(SEAFILE_CLIENT_BRAND),
                              QMessageBox::Ok);
         return -1;
+    }
+
+    static const char *short_options = "c:";
+    static const struct option long_options[] = {
+        { "config-dir", required_argument, NULL, 'c' },
+        { NULL, 0, NULL, 0, },
+    };
+
+    char c;
+    while ((c = getopt_long (argc, argv, short_options,
+                             long_options, NULL)) != EOF) {
+        switch (c) {
+        case 'c':
+            g_setenv ("CCNET_CONF_DIR", optarg, 1);
+            break;
+        default:
+            exit(1);
+        }
     }
 
     QDir::setCurrent(QApplication::applicationDirPath());

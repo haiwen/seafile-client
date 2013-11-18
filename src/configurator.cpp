@@ -1,3 +1,4 @@
+#include <glib.h>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
@@ -26,7 +27,12 @@ const char *kCcnetConfDir = ".ccnet";
 #endif
 
 QString defaultCcnetDir() {
-    return QDir::home().filePath(kCcnetConfDir);
+    const char *env = g_getenv("CCNET_CONF_DIR");
+    if (env) {
+        return QString::fromUtf8(env);
+    } else {
+        return QDir::home().filePath(kCcnetConfDir);
+    }
 }
 
 } // namespace

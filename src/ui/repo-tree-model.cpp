@@ -48,7 +48,7 @@ void RepoTreeModel::initialize()
 {
     recent_updated_category_ = new RepoCategoryItem(tr("Recent Updated"));
     my_repos_catetory_ = new RepoCategoryItem(tr("My Libraries"));
-    shared_repos_catetory_ = new RepoCategoryItem(tr("Shared Libraries"));
+    shared_repos_catetory_ = new RepoCategoryItem(tr("Private Shares"));
 
     appendRow(recent_updated_category_);
     appendRow(my_repos_catetory_);

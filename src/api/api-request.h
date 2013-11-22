@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QUrl>
 #include <QMap>
+#include <QPair>
+#include <QList>
 #include <jansson.h>
 
 class QNetworkReply;
@@ -58,7 +60,7 @@ private:
     Q_DISABLE_COPY(SeafileApiRequest)
 
     QUrl url_;
-    QUrl params_;
+    QList<QPair<QString, QString> > params_;
     Method method_;
     QString token_;
     SeafileApiClient* api_client_;

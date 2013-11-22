@@ -20,8 +20,8 @@ SeafileApiRequest::~SeafileApiRequest()
 
 void SeafileApiRequest::setParam(const QString& name, const QString& value)
 {
-    params_.addEncodedQueryItem(QUrl::toPercentEncoding(name),
-                                QUrl::toPercentEncoding(value));
+    QPair<QString, QString> pair(name, value);
+    params_.push_back(pair);
 }
 
 void SeafileApiRequest::send()
@@ -32,10 +32,17 @@ void SeafileApiRequest::send()
 
     switch (method_) {
     case METHOD_GET:
+        url_.setQueryItems(params_);
         api_client_->get(url_);
         break;
     case METHOD_POST:
-        api_client_->post(url_, params_.encodedQuery());
+        QUrl params;
+        for (int i = 0; i < params_.size(); i++) {
+            QPair<QString, QString> pair = params_[i];
+            params.addEncodedQueryItem(QUrl::toPercentEncoding(pair.first),
+                                       QUrl::toPercentEncoding(pair.second));
+        }
+        api_client_->post(url_, params.encodedQuery());
         break;
     }
 
@@ -47,7 +54,7 @@ void SeafileApiRequest::send()
 
     connect(api_client_, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
             this, SLOT(onSslErrors(QNetworkReply*, const QList<QSslError>&)));
-            
+
 }
 
 void SeafileApiRequest::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)

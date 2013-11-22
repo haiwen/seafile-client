@@ -66,6 +66,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
 
+    hide();
+
 #if defined(Q_WS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif

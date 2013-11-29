@@ -389,13 +389,13 @@ void CloudView::refreshServerStatus()
     QString tool_tip;
     if (all_server_connected) {
         color = "green";
-        tool_tip = tr("all server connected");
+        tool_tip = tr("all servers connected");
     } else if (all_server_disconnected) {
         color = "red";
         tool_tip = tr("no server connected");
     } else {
         color = "red";
-        tool_tip = tr("some server is not connected");
+        tool_tip = tr("some servers not connected");
     }
     mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb, color));
     mServerStatusBtn->setToolTip(tool_tip);

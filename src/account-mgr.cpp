@@ -32,7 +32,7 @@ int AccountManager::start()
         qDebug("failed to open account database %s: %s",
                toCStr(db_path), errmsg ? errmsg : "no error given");
 
-        seafApplet->errorAndExit(tr("failed to open account databse"));
+        seafApplet->errorAndExit(tr("failed to open account database"));
         return -1;
     }
 

@@ -112,7 +112,7 @@ void LocalRepo::translateSyncError(QString error)
         sync_error_str = QObject::tr("Server has been removed");
 
     } else if (error == "You have not login to the server") {
-        sync_error_str = QObject::tr("You have not login to the server");
+        sync_error_str = QObject::tr("You have not logged in to the server");
 
     } else if (error == "You do not have permission to access this repo") {
         sync_error_str = QObject::tr("You do not have permission to access this library");

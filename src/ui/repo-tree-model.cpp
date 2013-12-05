@@ -46,7 +46,7 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 
 void RepoTreeModel::initialize()
 {
-    recent_updated_category_ = new RepoCategoryItem(tr("Recent Updated"));
+    recent_updated_category_ = new RepoCategoryItem(tr("Recently Updated"));
     my_repos_catetory_ = new RepoCategoryItem(tr("My Libraries"));
     shared_repos_catetory_ = new RepoCategoryItem(tr("Private Shares"));
 

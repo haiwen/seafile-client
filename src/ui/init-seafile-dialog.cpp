@@ -61,7 +61,7 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
 {
     setupUi(this);
 
-    setWindowTitle(tr("%1 Initialzation").arg(SEAFILE_CLIENT_BRAND));
+    setWindowTitle(tr("%1 Initialization").arg(SEAFILE_CLIENT_BRAND));
     setWindowIcon(QIcon(":/images/seafile.png"));
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
@@ -133,7 +133,7 @@ void InitSeafileDialog::onOkClicked()
 
 void InitSeafileDialog::onCancelClicked()
 {
-    QString question = tr("Initialzation is not finished. Really quit?");
+    QString question = tr("Initialization is not finished. Really quit?");
     if (QMessageBox::question(this, tr(SEAFILE_CLIENT_BRAND),
                               question,
                               QMessageBox::Yes | QMessageBox::No,
@@ -144,7 +144,7 @@ void InitSeafileDialog::onCancelClicked()
 
 void InitSeafileDialog::closeEvent(QCloseEvent *event)
 {
-    QString question = tr("Initialzation is not finished. Really quit?");
+    QString question = tr("Initialization is not finished. Really quit?");
     if (QMessageBox::question(this, tr(SEAFILE_CLIENT_BRAND),
                               question,
                               QMessageBox::Yes | QMessageBox::No,

@@ -14,16 +14,28 @@ ENDIF()
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
-IF (MSYS)
-  SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32)
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32)
+    SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
+    SET(platform_specific_sources
+      src/utils/process-win.cpp
+      src/utils/registry.cpp
+    )
+    SET(GUI_TYPE WIN32)
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    SET(platform_specific_sources
+      src/utils/process-linux.cpp
+    )
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET(platform_specific_sources
+      src/utils/process-mac.cpp src/application.cpp
+    )
 
-  # SET(CMAKE_RC_COMPILER_INIT windres)
-  # ENABLE_LANGUAGE(RC)
-  # SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
-
-  SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
-ENDIF (MSYS)
-
+    FIND_LIBRARY(CARBON_LIBRARY Carbon)
+    FIND_LIBRARY(COCOA_LIBRARY Cocoa )
+    MARK_AS_ADVANCED (CARBON_LIBRARY COCOA_LIBRARY)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} ${CARBON_LIBRARY} ${COCOA_LIBRARY})
+endif()
 
 ####################
 ###### BEGIN: QT configuration
@@ -64,7 +76,9 @@ SET(moc_headers
   src/ui/clone-tasks-table-model.h
   src/ui/clone-tasks-table-view.h
   src/ui/server-status-dialog.h
+  src/ui/init-vdrive-dialog.h
   third_party/QtAwesome/QtAwesome.h
+  ${platform_specific_moc_headers}
 )
 
 IF (APPLE)
@@ -83,6 +97,8 @@ SET(ui_files
   ui/cloud-view.ui
   ui/clone-tasks-dialog.ui
   ui/server-status-dialog.ui
+  ui/init-vdrive-dialog.ui
+  ${platform_specific_ui_files}
 )
 
 # RESOURCES
@@ -127,26 +143,6 @@ PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 ###### END: other libraries configuration
 ####################
 
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    SET(platform_specific_sources
-      src/utils/process-win.cpp
-    )
-    SET(GUI_TYPE WIN32)
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    SET(platform_specific_sources
-      src/utils/process-linux.cpp
-    )
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET(platform_specific_sources
-      src/utils/process-mac.cpp src/application.cpp
-    )
-
-    FIND_LIBRARY(CARBON_LIBRARY Carbon)
-    FIND_LIBRARY(COCOA_LIBRARY Cocoa )
-    MARK_AS_ADVANCED (CARBON_LIBRARY COCOA_LIBRARY)
-    SET(EXTRA_LIBS ${EXTRA_LIBS} ${CARBON_LIBRARY} ${COCOA_LIBRARY})
-endif()
-
 
 # c/cpp sources
 SET(seafile_client_sources
@@ -190,6 +186,7 @@ SET(seafile_client_sources
   src/ui/clone-tasks-table-model.cpp
   src/ui/clone-tasks-table-view.cpp
   src/ui/server-status-dialog.cpp
+  src/ui/init-vdrive-dialog.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

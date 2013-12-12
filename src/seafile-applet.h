@@ -13,7 +13,6 @@ class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
 
-
 /**
  * The central class of seafile-client
  */
@@ -26,6 +25,9 @@ public:
     void start();
 
     void refreshQss();
+
+    void messageBox(const QString& msg);
+    void warningBox(const QString& msg);
 
     // normal exit
     void exit(int code);
@@ -86,6 +88,8 @@ private:
     bool in_exit_;
 
     QString style_;
+
+    bool first_login_ok_;
 };
 
 /**

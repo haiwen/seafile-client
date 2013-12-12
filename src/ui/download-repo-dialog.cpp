@@ -59,7 +59,7 @@ void DownloadRepoDialog::onOkBtnClicked()
 
     setAllInputsEnabled(false);
 
-    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_);
+    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id);
     connect(req, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoRequestSuccess(const RepoDownloadInfo&)));
     connect(req, SIGNAL(failed(int)),

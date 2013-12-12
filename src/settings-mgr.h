@@ -32,6 +32,9 @@ public:
     bool hideMainWindowWhenStarted();
     void setHideMainWindowWhenStarted(bool hide);
 
+    bool defaultLibraryAlreadySetup();
+    void setDefaultLibraryAlreadySetup();
+
 private:
     Q_DISABLE_COPY(SettingsManager)
 

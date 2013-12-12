@@ -69,7 +69,7 @@ class DownloadRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit DownloadRepoRequest(const Account& account, const ServerRepo& repo);
+    explicit DownloadRepoRequest(const Account& account, const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -79,8 +79,6 @@ signals:
 
 private:
     Q_DISABLE_COPY(DownloadRepoRequest)
-
-    ServerRepo repo_;
 };
 
 class CreateRepoRequest : public SeafileApiRequest {
@@ -115,6 +113,21 @@ signals:
 private:
     Q_DISABLE_COPY(GetSeahubMessagesRequest)
 
+};
+
+class CreateDefaultRepoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    CreateDefaultRepoRequest(const Account& account);
+
+signals:
+    void success(const QString& repo_id);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(CreateDefaultRepoRequest);
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

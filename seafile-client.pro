@@ -33,6 +33,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/daemon-mgr.h \
            src/message-listener.h \
            src/seafile-applet.h \
+           src/seahub-messages-monitor.h \
            src/settings-mgr.h \
            src/traynotificationmanager.h \
            src/traynotificationwidget.h \
@@ -87,6 +88,7 @@ SOURCES += src/account-mgr.cpp \
            src/main.cpp \
            src/message-listener.cpp \
            src/seafile-applet.cpp \
+           src/seahub-messages-monitor.cpp \
            src/settings-mgr.cpp \
            src/traynotificationmanager.cpp \
            src/traynotificationwidget.cpp \

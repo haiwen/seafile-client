@@ -160,3 +160,9 @@ bool SettingsManager::defaultLibraryAlreadySetup()
 
     return done;
 }
+
+void SettingsManager::removeAllSettings()
+{
+    QSettings settings;
+    settings.clear();
+}

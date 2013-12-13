@@ -1,5 +1,6 @@
 #include <windows.h>
-#include <QScopedPointer>
+#include <shlwapi.h>
+
 
 #include "registry.h"
 
@@ -76,4 +77,23 @@ int RegElement::add()
     }
 
     return 0;
+}
+
+int RegElement::removeRegKey(HKEY root, const QString& path, const QString& subkey)
+{
+    HKEY hKey;
+    LONG result = RegOpenKeyExW(root,
+                                path.toStdWString().c_str(),
+                                0L,
+                                KEY_ALL_ACCESS,
+                                &hKey);
+
+    if (result != ERROR_SUCCESS) {
+        return -1;
+    }
+
+    result = SHDeleteKeyW(hKey, subkey.toStdWString().c_str());
+    if (result != ERROR_SUCCESS) {
+        return -1;
+    }
 }

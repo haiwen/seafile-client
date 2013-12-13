@@ -119,7 +119,6 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
         return;
     }
 
-    default_repo_info_ = info;
     ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.relay_id,
                                              info.repo_name, default_repo_path,
                                              info.token, QString(),
@@ -170,7 +169,7 @@ void InitVirtualDriveDialog::checkDownloadProgress()
 void InitVirtualDriveDialog::setVDrive(const LocalRepo& repo)
 {
     setStatusText(tr("updating default libray..."));
-    seafApplet->configurator()->setVirtualDrive(repo.worktree);
+    Configurator::setVirtualDrive(repo.worktree);
     seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
 }
 

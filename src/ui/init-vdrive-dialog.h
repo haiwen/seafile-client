@@ -40,7 +40,6 @@ private:
     DownloadRepoRequest *download_default_repo_req_;
 
     QString default_repo_id_;
-    RepoDownloadInfo default_repo_info_;
 
     Account account_;
 

@@ -15,13 +15,15 @@ ENDIF()
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
     SET(platform_specific_sources
       src/utils/process-win.cpp
       src/utils/registry.cpp
     )
-    SET(GUI_TYPE WIN32)
+    IF (${CMAKE_BUILD_TYPE} MATCHES Release)
+      SET(GUI_TYPE WIN32)
+    ENDIF()
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     SET(platform_specific_sources
       src/utils/process-linux.cpp
@@ -62,7 +64,6 @@ SET(moc_headers
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
-  src/ui/welcome-dialog.h
   src/ui/create-repo-dialog.h
   src/ui/repo-detail-dialog.h
   src/ui/settings-dialog.h
@@ -88,7 +89,6 @@ ENDIF()
 # UI FILES
 SET(ui_files
   ui/login-dialog.ui
-  ui/welcome-dialog.ui
   ui/create-repo-dialog.ui
   ui/repo-detail-dialog.ui
   ui/settings-dialog.ui
@@ -167,7 +167,6 @@ SET(seafile_client_sources
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
-  src/ui/welcome-dialog.cpp
   src/ui/repo-detail-dialog.cpp
   src/ui/settings-dialog.cpp
   src/ui/create-repo-dialog.cpp
@@ -177,6 +176,7 @@ SET(seafile_client_sources
   src/utils/rsa.cpp
   src/utils/utils.cpp
   src/utils/translate-commit-desc.cpp
+  src/utils/uninstall-helpers.cpp
   src/utils/log.c
   src/ui/repo-item.cpp
   src/ui/repo-tree-model.cpp

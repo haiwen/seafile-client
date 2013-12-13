@@ -20,7 +20,6 @@
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
 #include "ui/settings-dialog.h"
-#include "ui/welcome-dialog.h"
 #include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
 
@@ -61,7 +60,6 @@ SeafileApplet::SeafileApplet()
       message_listener_(new MessageListener),
       settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
-      first_login_ok_(false),
       started_(false),
       in_exit_(false)
 {
@@ -84,13 +82,9 @@ void SeafileApplet::start()
         qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
 
-    if (configurator_->firstUse()) {
-        // WelcomeDialog welcome_dialog;
-        // welcome_dialog.exec();
+    if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         LoginDialog login_dialog;
-        if (login_dialog.exec() == QDialog::Accepted) {
-            first_login_ok_ = true;
-        }
+        login_dialog.exec();
     }
 
     daemon_mgr_->startCcnetDaemon();
@@ -110,21 +104,20 @@ void SeafileApplet::onDaemonStarted()
 
     started_ = true;
 
-    // if (account_mgr_->accounts().size() > 0) {
-    // if (first_login_ok_ && !settings_mgr_->defaultLibraryAlreadySetup()) {
-    if (!settings_mgr_->defaultLibraryAlreadySetup()) {
-
-        const Account& account = account_mgr_->accounts()[0];
-        InitVirtualDriveDialog dialog(account);
-        dialog.exec();
-    }
-
     if (configurator_->firstUse() || !settings_mgr_->hideMainWindowWhenStarted()) {
         main_win_->showWindow();
     }
 
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
+
+    if (!settings_mgr_->defaultLibraryAlreadySetup() && account_mgr_->accounts().size() > 0) {
+        const Account& account = account_mgr_->accounts()[0];
+        InitVirtualDriveDialog *dialog = new InitVirtualDriveDialog(account);
+        dialog->show();
+        dialog->raise();
+        dialog->activateWindow();
+    }
 }
 
 void SeafileApplet::exit(int code)

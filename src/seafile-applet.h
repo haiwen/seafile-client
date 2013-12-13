@@ -88,8 +88,6 @@ private:
     bool in_exit_;
 
     QString style_;
-
-    bool first_login_ok_;
 };
 
 /**

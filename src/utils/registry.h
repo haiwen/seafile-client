@@ -17,6 +17,8 @@
  */
 class RegElement {
 public:
+    static void removeRegKey(const QString& key);
+
     RegElement(const HKEY& root,
                const QString& path,
                const QString& name,
@@ -36,6 +38,9 @@ public:
     const QString& name() const { return name_; }
     const QString& stringValue() const { return string_value_; }
     DWORD dwordValue() const { return dword_value_; }
+
+public:
+    static int removeRegKey(HKEY root, const QString& path, const QString& subkey);
 
 private:
 

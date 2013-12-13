@@ -277,3 +277,19 @@ int Configurator::setVirtualDrive(const QString& path)
 
 #endif
 }
+
+void Configurator::removeVirtualDrive()
+{
+#if defined(Q_WS_WIN)
+    HKEY root = HKEY_CURRENT_USER;
+    QString parent, subkey;
+
+    parent = QString("Software\\Classes\\CLSID");
+    subkey = QString("{%1}").arg(kVirtualDriveGUID);
+    RegElement::removeRegKey(root, parent, subkey);
+
+    parent = kMyComputerNamespacePath;
+    subkey = QString("\\{%1}").arg(kVirtualDriveGUID);
+    RegElement::removeRegKey(root, parent, subkey);
+#endif
+}

@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include "utils/process.h"
+#include "utils/uninstall-helpers.h"
 #include "seafile-applet.h"
 #include "QtAwesome.h"
 #ifdef Q_WS_MAC
@@ -18,6 +19,10 @@
 #endif
 
 #define APPNAME "seafile-applet"
+
+namespace {
+
+} // namespace
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +33,39 @@ int main(int argc, char *argv[])
         QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
     }
 #endif
+
+#if !GLIB_CHECK_VERSION(2, 35, 0)
+    g_type_init();
+#endif
+#if !GLIB_CHECK_VERSION(2, 31, 0)
+    g_thread_init(NULL);
+#endif
+
+    static const char *short_options = "KXc:";
+    static const struct option long_options[] = {
+        { "config-dir", required_argument, NULL, 'c' },
+        { "stop", no_argument, NULL, 'K' },
+        { "remove-user-data", no_argument, NULL, 'X' },
+        { NULL, 0, NULL, 0, },
+    };
+
+    char c;
+    while ((c = getopt_long (argc, argv, short_options,
+                             long_options, NULL)) != EOF) {
+        switch (c) {
+        case 'c':
+            g_setenv ("CCNET_CONF_DIR", optarg, 1);
+            break;
+        case 'K':
+            do_stop();
+            exit(0);
+        case 'X':
+            do_remove_user_data();
+            exit(0);
+        default:
+            exit(1);
+        }
+    }
 
 #ifdef Q_WS_MAC
     Application app(argc, argv);
@@ -40,24 +78,6 @@ int main(int argc, char *argv[])
                              QObject::tr("%1 is already running").arg(SEAFILE_CLIENT_BRAND),
                              QMessageBox::Ok);
         return -1;
-    }
-
-    static const char *short_options = "c:";
-    static const struct option long_options[] = {
-        { "config-dir", required_argument, NULL, 'c' },
-        { NULL, 0, NULL, 0, },
-    };
-
-    char c;
-    while ((c = getopt_long (argc, argv, short_options,
-                             long_options, NULL)) != EOF) {
-        switch (c) {
-        case 'c':
-            g_setenv ("CCNET_CONF_DIR", optarg, 1);
-            break;
-        default:
-            exit(1);
-        }
     }
 
     QDir::setCurrent(QApplication::applicationDirPath());
@@ -82,14 +102,6 @@ int main(int argc, char *argv[])
     QTranslator myappTranslator;
     myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
     app.installTranslator(&myappTranslator);
-
-
-#if !GLIB_CHECK_VERSION(2, 35, 0)
-    g_type_init();
-#endif
-#if !GLIB_CHECK_VERSION(2, 31, 0)
-    g_thread_init(NULL);
-#endif
 
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();

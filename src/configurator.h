@@ -12,6 +12,7 @@ class Configurator : public QObject {
 
 public:
     Configurator();
+
     void checkInit();
 
     const QString& ccnetDir() const { return ccnet_dir_; }
@@ -21,7 +22,9 @@ public:
 
     const bool firstUse() const { return first_use_; }
 
-    int setVirtualDrive(const QString& path);
+public:
+    static int setVirtualDrive(const QString& path);
+    static void removeVirtualDrive();
 
 private slots:
     void onSeafileDirSet(const QString& path);

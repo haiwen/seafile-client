@@ -23,6 +23,7 @@ extern "C" {
 
 #include "uninstall-helpers.h"
 
+
 namespace {
 
 const char *kAppletCommandsMQ = "applet.commands";
@@ -138,6 +139,7 @@ void do_remove_user_data()
 {
     set_seafile_auto_start(false);
     Configurator::removeVirtualDrive();
+    SettingsManager::removeAllSettings();
     QString ccnet_dir;
     QString seafile_data_dir;
 

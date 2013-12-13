@@ -5,6 +5,10 @@
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
 
+#if defined(Q_WS_WIN)
+#include "utils/registry.h"
+#endif
+
 namespace {
 
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
@@ -165,4 +169,8 @@ void SettingsManager::removeAllSettings()
 {
     QSettings settings;
     settings.clear();
+
+#if defined(Q_WS_WIN)
+    RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", SEAFILE_CLIENT_BRAND);
+#endif
 }

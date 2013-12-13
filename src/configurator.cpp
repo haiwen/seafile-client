@@ -289,7 +289,7 @@ void Configurator::removeVirtualDrive()
     RegElement::removeRegKey(root, parent, subkey);
 
     parent = kMyComputerNamespacePath;
-    subkey = QString("\\{%1}").arg(kVirtualDriveGUID);
+    subkey = QString("{%1}").arg(kVirtualDriveGUID);
     RegElement::removeRegKey(root, parent, subkey);
 #endif
 }

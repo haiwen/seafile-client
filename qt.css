@@ -218,3 +218,9 @@ CloudView QPushButton#mSelectFolderBtn:hover {
 CloudView QFrame#mFooter {
     border: 0;
 }
+
+CreateRepoDialog {
+    min-width: 550px;
+    min-height: 300px;
+    max-height: 300px;
+}

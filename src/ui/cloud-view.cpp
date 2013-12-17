@@ -60,8 +60,8 @@ CloudView::CloudView(QWidget *parent)
     updateAccountInfoDisplay();
     prepareAccountButtonMenu();
 
-    prepareDropArea();
-    prepareFooter();
+    setupDropArea();
+    setupFooter();
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
@@ -93,7 +93,7 @@ void CloudView::setupHeader()
     mHeader->installEventFilter(this);
 }
 
-void CloudView::prepareFooter()
+void CloudView::setupFooter()
 {
     mDownloadTasksInfo->setText("0");
     mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
@@ -114,21 +114,28 @@ void CloudView::prepareFooter()
     mUploadRate->setToolTip(tr("current upload rate"));
 }
 
-void CloudView::prepareDropArea()
-{
-    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
-}
-
 void CloudView::chooseFolderToSync()
 {
     QString msg = tr("Please Choose a folder to sync");
-    QString dir = QFileDialog::getExistingDirectory(this, msg,
-                                                    seafApplet->configurator()->worktreeDir(),
+#if defined(Q_WS_WIN)
+    QString parent_dir = "C:\\";
+#else
+    QString parent_dir = QDir::homePath();
+#endif
+    QString dir = QFileDialog::getExistingDirectory(this, msg, parent_dir,
                                                     QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
     if (dir.isEmpty()) {
         return;
     }
+
+    showCreateRepoDialog(dir);
+}
+
+void CloudView::showCreateRepoDialog(const QString& path)
+{
+    CreateRepoDialog dialog(current_account_, path, this);
+    dialog.exec();
 }
 
 void CloudView::onMinimizeBtnClicked()
@@ -139,6 +146,13 @@ void CloudView::onMinimizeBtnClicked()
 void CloudView::onCloseBtnClicked()
 {
     seafApplet->mainWindow()->hide();
+}
+
+void CloudView::setupDropArea()
+{
+    mDropArea->setAcceptDrops(true);
+    mDropArea->installEventFilter(this);
+    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
 }
 
 bool CloudView::eventFilter(QObject *obj, QEvent *event)
@@ -159,6 +173,27 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
             win->move(win->x() + delta.x(), win->y() + delta.y());
 
             oldPos = ev->globalPos();
+            return true;
+        }
+
+    } else if (obj == mDropArea) {
+        if (event->type() == QEvent::DragEnter) {
+            QDragEnterEvent *ev = (QDragEnterEvent *)event;
+            if (ev->mimeData()->hasUrls()) {
+                const QUrl url = ev->mimeData()->urls().at(0);
+                if (url.isLocalFile()) {
+                    QString path = url.toLocalFile();
+                    if (QFileInfo(path).isDir()) {
+                        ev->acceptProposedAction();
+                    }
+                }
+            }
+            return true;
+        } else if (event->type() == QEvent::Drop) {
+            QDropEvent *ev = (QDropEvent *)event;
+            const QUrl url = ev->mimeData()->urls().at(0);
+            QString path = url.toLocalFile();
+            showCreateRepoDialog(path);
             return true;
         }
     }
@@ -537,7 +572,6 @@ void CloudView::createToolBar()
 
     QWidget *spacerWidget = new QWidget;
 	spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	spacerWidget->setVisible(true);
 	tool_bar_->addWidget(spacerWidget);
 
     refresh_action_ = new QAction(tr("Refresh"), this);

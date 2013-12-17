@@ -57,12 +57,12 @@ private slots:
 private:
     Q_DISABLE_COPY(CloudView)
 
-    void setupHeader();
-    void prepareFooter();
-    void prepareDropArea();
     void createLoadingView();
     void createRepoModelView();
     void prepareAccountButtonMenu();
+    void setupHeader();
+    void setupDropArea();
+    void setupFooter();
     void createToolBar();
     void updateAccountInfoDisplay();
     QAction *makeAccountAction(const Account& account);
@@ -72,6 +72,7 @@ private:
     void refreshServerStatus();
     void refreshTasksInfo();
     void refreshTransferRate();
+    void showCreateRepoDialog(const QString& path);
 
     bool in_refresh_;
     QTimer *refresh_timer_;

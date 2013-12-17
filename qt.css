@@ -180,7 +180,7 @@ CloudView QWidget#mDropArea {
     padding-top: 30px;
     min-height: 50px;
     max-height: 50px;
-    
+
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #DDE, stop: 0.2 #EEE);
 }

@@ -14,7 +14,7 @@ class CreateRepoDialog : public QDialog,
     Q_OBJECT
 public:
     CreateRepoDialog(const Account& account,
-                     const QString& worktree=QString(),
+                     const QString& worktree,
                      QWidget *parent=0);
 
     ~CreateRepoDialog();

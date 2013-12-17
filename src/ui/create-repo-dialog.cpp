@@ -20,9 +20,8 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
 
     mStatusText->setText("");
 
-    if (!worktree.isEmpty()) {
-        mDirectory->setText(worktree);
-    }
+    mDirectory->setText(worktree);
+    mName->setText(QDir(worktree).dirName());
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
@@ -36,11 +35,10 @@ CreateRepoDialog::~CreateRepoDialog()
 
 void CreateRepoDialog::chooseDirAction()
 {
-    const QString &wt = seafApplet->configurator()->worktreeDir();
     QString dir = QFileDialog::getExistingDirectory(this, tr("Please choose a directory"),
-                                                        wt.toUtf8().data(),
-                                                        QFileDialog::ShowDirsOnly
-                                                        | QFileDialog::DontResolveSymlinks);
+                                                    mDirectory->text(),
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
     if (dir.isEmpty())
         return;
     mDirectory->setText(dir);
@@ -185,4 +183,3 @@ void CreateRepoDialog::createFailed(int /* code */)
 
     setAllInputsEnabled(true);
 }
-

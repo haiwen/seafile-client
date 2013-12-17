@@ -94,50 +94,51 @@ bool CreateRepoDialog::validateInputs()
 
     path = mDirectory->text();
     if (path.isEmpty()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please choose the directory to sync"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please choose the directory to sync"), this);
         return false;
     }
     if (!QDir(path).exists()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("The folder %1 does not exist").arg(path),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("The folder %1 does not exist").arg(path), this);
         return false;
     }
 
     if (mName->text().isEmpty()) {
-         QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the name"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please enter the name"), this);
         return false;
     }
+
     if (mDesc->toPlainText().isEmpty()) {
-         QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the description"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please enter the description"), this);
         return false;
     }
+
     encrypted = (mEncrypteCheckBox->checkState() == Qt::Checked) ? true : false;
     if (encrypted) {
          if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
-             QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                                  tr("Please enter the password"),
-                                  QMessageBox::Ok);
+             seafApplet->warningBox(tr("Please enter the password"), this);
              return false;
          }
+
          passwd = mPassword->text();
          passwdAgain = mPasswordAgain->text();
          if (passwd != passwdAgain) {
-             QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                                  tr("Passwords don't match"),
-                                  QMessageBox::Ok);
+             seafApplet->warningBox(tr("Passwords don't match"), this);
              return false;
          }
          passwd_ = passwd;
     } else {
         passwd_ = QString::null;
     }
+
+    QString error;
+    if (seafApplet->rpcClient()->checkPathForClone(path, &error) < 0) {
+        if (error.isEmpty()) {
+            error = tr("Unknown error");
+        }
+        seafApplet->warningBox(error, this);
+        return false;
+    }
+
     name_ = mName->text();
     desc_ = mDesc->toPlainText();
     path_ = mDirectory->text();

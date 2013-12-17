@@ -26,8 +26,8 @@ public:
 
     void refreshQss();
 
-    void messageBox(const QString& msg);
-    void warningBox(const QString& msg);
+    void messageBox(const QString& msg, QWidget *parent=0);
+    void warningBox(const QString& msg, QWidget *parent=0);
 
     // normal exit
     void exit(int code);

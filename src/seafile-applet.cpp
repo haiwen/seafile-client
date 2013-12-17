@@ -187,12 +187,14 @@ void SeafileApplet::refreshQss()
 #endif
 }
 
-void SeafileApplet::warningBox(const QString& msg)
+void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
 {
-    QMessageBox::warning(main_win_, tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
+    QMessageBox::warning(parent != 0 ? parent : main_win_,
+                         tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
 }
 
-void SeafileApplet::messageBox(const QString& msg)
+void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
 {
-    QMessageBox::information(main_win_, tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
+    QMessageBox::information(parent != 0 ? parent : main_win_,
+                             tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
 }

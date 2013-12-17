@@ -231,7 +231,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
 #if defined(Q_WS_WIN)
-    QString prefix = isWindowsVistaOrHigher() ? ":/images/win/win7/" : ":/images/win/xp/";
+    QString prefix = ":/images/win/";
 
     switch (state) {
     case STATE_DAEMON_UP:
@@ -392,4 +392,3 @@ bool SeafileTrayIcon::allServersConnected()
 
     return all_server_connected;
 }
-

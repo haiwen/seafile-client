@@ -13,7 +13,10 @@ class CreateRepoDialog : public QDialog,
 {
     Q_OBJECT
 public:
-    CreateRepoDialog(const Account& account, QWidget *parent=0);
+    CreateRepoDialog(const Account& account,
+                     const QString& worktree=QString(),
+                     QWidget *parent=0);
+
     ~CreateRepoDialog();
 
 private slots:

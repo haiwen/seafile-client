@@ -7,15 +7,22 @@
 #include "rpc/rpc-client.h"
 #include "create-repo-dialog.h"
 
-CreateRepoDialog::CreateRepoDialog(const Account& account, QWidget *parent)
+CreateRepoDialog::CreateRepoDialog(const Account& account,
+                                   const QString& worktree,
+                                   QWidget *parent)
     : QDialog(parent),
       request_(NULL),
+      path_(worktree),
       account_(account)
 {
     setupUi(this);
     setWindowTitle(tr("Create a library"));
 
     mStatusText->setText("");
+
+    if (!worktree.isEmpty()) {
+        mDirectory->setText(worktree);
+    }
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));

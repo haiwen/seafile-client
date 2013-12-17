@@ -385,8 +385,6 @@ std::vector<QAction*> RepoTreeView::getToolBarActions()
 
     actions.push_back(download_action_);
     actions.push_back(open_local_folder_action_);
-    actions.push_back(view_on_web_action_);
-    actions.push_back(show_detail_action_);
     return actions;
 }
 

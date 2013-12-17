@@ -16,6 +16,7 @@ extern "C" {
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
+#include "configurator.h"
 #include "login-dialog.h"
 #include "create-repo-dialog.h"
 #include "repo-tree-view.h"
@@ -49,6 +50,7 @@ CloudView::CloudView(QWidget *parent)
 
     seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
 
+    setupHeader();
     createRepoModelView();
     createLoadingView();
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
@@ -58,21 +60,8 @@ CloudView::CloudView(QWidget *parent)
     updateAccountInfoDisplay();
     prepareAccountButtonMenu();
 
-    mDownloadTasksInfo->setText("0");
-    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
-    mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
-
-    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
-
-    mDownloadRateArrow->setText(QChar(icon_arrow_down));
-    mDownloadRateArrow->setFont(awesome->font(16));
-    mDownloadRate->setText("0 kB/s");
-    mDownloadRate->setToolTip(tr("current download rate"));
-
-    mUploadRateArrow->setText(QChar(icon_arrow_up));
-    mUploadRateArrow->setFont(awesome->font(16));
-    mUploadRate->setText("0 kB/s");
-    mUploadRate->setToolTip(tr("current upload rate"));
+    prepareDropArea();
+    prepareFooter();
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
@@ -88,9 +77,93 @@ CloudView::CloudView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
             this, SLOT(updateAccountMenu()));
+}
 
+void CloudView::setupHeader()
+{
+    mMinimizeBtn->setText("");
+    mMinimizeBtn->setIcon(awesome->icon(icon_minus));
+    connect(mMinimizeBtn, SIGNAL(clicked()), this, SLOT(onMinimizeBtnClicked()));
+
+    mCloseBtn->setText("");
+    mCloseBtn->setIcon(awesome->icon(icon_remove));
+    connect(mCloseBtn, SIGNAL(clicked()), this, SLOT(onCloseBtnClicked()));
+
+    // Handle mouse move event
+    mHeader->installEventFilter(this);
+}
+
+void CloudView::prepareFooter()
+{
+    mDownloadTasksInfo->setText("0");
+    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
+    mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
+
+    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
+
+    mDownloadRateArrow->setText(QChar(icon_arrow_down));
+    mDownloadRateArrow->setFont(awesome->font(16));
+    mDownloadRate->setText("0 kB/s");
+    mDownloadRate->setToolTip(tr("current download rate"));
+
+    mUploadRateArrow->setText(QChar(icon_arrow_up));
+    mUploadRateArrow->setFont(awesome->font(16));
+    mUploadRate->setText("0 kB/s");
+    mUploadRate->setToolTip(tr("current upload rate"));
+}
+
+void CloudView::prepareDropArea()
+{
+    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
+}
+
+void CloudView::chooseFolderToSync()
+{
+    QString msg = tr("Please Choose a folder to sync");
+    QString dir = QFileDialog::getExistingDirectory(this, msg,
+                                                    seafApplet->configurator()->worktreeDir(),
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+    if (dir.isEmpty()) {
+        return;
+    }
+}
+
+void CloudView::onMinimizeBtnClicked()
+{
+    seafApplet->mainWindow()->showMinimized();
+}
+
+void CloudView::onCloseBtnClicked()
+{
+    seafApplet->mainWindow()->hide();
+}
+
+bool CloudView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == mHeader) {
+        static QPoint oldPos;
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            oldPos = ev->globalPos();
+
+            return true;
+
+        } else if (event->type() == QEvent::MouseMove) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            const QPoint delta = ev->globalPos() - oldPos;
+
+            MainWindow *win = seafApplet->mainWindow();
+            win->move(win->x() + delta.x(), win->y() + delta.y());
+
+            oldPos = ev->globalPos();
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(obj, event);
 }
 
 CloneTasksDialog *CloudView::cloneTasksDialog()
@@ -134,14 +207,14 @@ void CloudView::showLoadingView()
 
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
 
-    create_repo_action_->setEnabled(false);
+    mDropArea->setVisible(false);
 }
 
 void CloudView::showRepos()
 {
     mStack->setCurrentIndex(INDEX_REPOS_VIEW);
 
-    create_repo_action_->setEnabled(true);
+    mDropArea->setVisible(true);
 }
 
 void CloudView::prepareAccountButtonMenu()
@@ -453,18 +526,7 @@ void CloudView::createToolBar()
     tool_bar_ = new QToolBar;
 
     QVBoxLayout *vlayout = (QVBoxLayout *)layout();
-    vlayout->insertWidget(1, tool_bar_);
-
-    // Create toolbar actions
-    create_repo_action_ = new QAction(tr("Create a new library"), this);
-    create_repo_action_->setIcon(QIcon(":/images/plus.png"));
-    connect(create_repo_action_, SIGNAL(triggered()), this, SLOT(showCreateRepoDialog()));
-    tool_bar_->addAction(create_repo_action_);
-
-    refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
-    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
-    tool_bar_->addAction(refresh_action_);
+    vlayout->insertWidget(2, tool_bar_);
 
     std::vector<QAction*> repo_actions = repos_tree_->getToolBarActions();
     for (int i = 0, n = repo_actions.size(); i < n; i++) {
@@ -473,8 +535,16 @@ void CloudView::createToolBar()
         action->setEnabled(hasAccount());
     }
 
-    create_repo_action_->setEnabled(hasAccount());
+    QWidget *spacerWidget = new QWidget;
+	spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+	spacerWidget->setVisible(true);
+	tool_bar_->addWidget(spacerWidget);
+
+    refresh_action_ = new QAction(tr("Refresh"), this);
+    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
+    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
+    tool_bar_->addAction(refresh_action_);
 }
 
 void CloudView::onRefreshClicked()
@@ -482,15 +552,5 @@ void CloudView::onRefreshClicked()
     if (hasAccount()) {
         showLoadingView();
         refreshRepos();
-    }
-}
-
-void CloudView::showCreateRepoDialog()
-{
-    CreateRepoDialog dialog(current_account_, this);
-    if (dialog.exec() == QDialog::Accepted) {
-        showLoadingView();
-        refreshRepos();
-        showCloneTasksDialog();
     }
 }

@@ -29,17 +29,22 @@ MainWindow::MainWindow()
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle(SEAFILE_CLIENT_BRAND);
 
+    setWindowFlags(Qt::FramelessWindowHint);
+
     cloud_view_ = new CloudView;
 
-    // main_widget_ = new QTabWidget(this);
-    // main_widget_->insertTab(INDEX_CLOUD_VIEW,
-    //                         cloud_view_,
-    //                         awesome->icon(icon_cloud),
-    //                         tr("Cloud"));
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(cloud_view_);
 
-    setCentralWidget(cloud_view_);
+    QWidget *widget = new QWidget;
+    widget->setObjectName("mainWrapper");
+    widget->setLayout(layout);
+
+    setCentralWidget(widget);
 
     createActions();
+    setAttribute(Qt::WA_TranslucentBackground, true);
 }
 
 void MainWindow::hide()

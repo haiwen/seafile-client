@@ -157,3 +157,64 @@ QToolButton#mSeahubMessagesBtn
     border: 0;
     qproperty-iconSize: 24px;
 }
+
+QWidget#mainWrapper {
+    border: 0px solid #FFF;
+    border-radius: 7px;
+    background: #EEE;
+}
+
+QWidget#mHeader QPushButton {
+    border: 0;
+    margin: 5px;
+}
+
+RepoTreeView
+{
+    background: white;
+    border: 0;
+}
+
+CloudView QWidget#mDropArea {
+    padding-bottom: 0;
+    padding-top: 30px;
+    min-height: 50px;
+    max-height: 50px;
+    
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #DDE, stop: 0.2 #EEE);
+}
+
+CloudView QFrame#mDropInner {
+    min-height: 45px;
+    max-height: 45px;
+    min-width: 340px;
+    max-width: 340px;
+    border: 2px dashed #888;
+}
+
+CloudView QFrame#mDropInner QLabel {
+    font-family: Arial;
+}
+
+CloudView QPushButton#mSelectFolderBtn {
+    min-height: 30px;
+    max-height: 30px;
+    min-width: 80px;
+    max-width: 80px;
+    font-size: 20px;
+    font-family: Arial;
+    border: 0;
+    border-radius: 8px;
+    color: #DDD;
+    background: #777;
+}
+
+CloudView QPushButton#mSelectFolderBtn:hover {
+    color: #EEE;
+    background: #888;
+}
+
+CloudView QFrame#mFooter {
+    border: 0;
+}

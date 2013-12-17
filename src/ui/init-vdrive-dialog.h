@@ -33,7 +33,6 @@ private:
     void createDefaultRepo();
     void setStatusText(const QString& status);
     void setVDrive(const LocalRepo& repo);
-    void copyUserManual(const QString& dir);
     void fail(const QString& reason);
 
     CreateDefaultRepoRequest *create_default_repo_req_;

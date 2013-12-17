@@ -162,7 +162,6 @@ void InitVirtualDriveDialog::checkDownloadProgress()
     setStatusText(tr("downloading default library... done"));
 
     setVDrive(repo);
-    copyUserManual(repo.worktree);
     onSuccess();
 }
 
@@ -199,23 +198,3 @@ void InitVirtualDriveDialog::setStatusText(const QString& status)
     mStatusText->setText(status);
 }
 
-void InitVirtualDriveDialog::copyUserManual(const QString& dir)
-{
-    QString manual_name = "Getting Started.pdf";
-    if (QLocale::system().name() == "zh_CN") {
-        manual_name = tr("Getting Started.pdf");
-    }
-
-    QString src_path = QDir(QCoreApplication::applicationDirPath()).filePath(manual_name);
-    QString dest_path = QDir(dir).filePath(manual_name);
-
-    if (!QFileInfo(src_path).exists()) {
-        qDebug("%s does not exist", toCStr(src_path));
-        return;
-    }
-
-    if (!QFile::copy(src_path, dest_path)) {
-        qDebug("Failed to copy %s to %s", toCStr(src_path), toCStr(dest_path));
-        return;
-    }
-}

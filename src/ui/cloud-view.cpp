@@ -48,7 +48,8 @@ CloudView::CloudView(QWidget *parent)
 {
     setupUi(this);
 
-    seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
+    // seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
+    mSeahubMessagesBtn
 
     setupHeader();
     createRepoModelView();
@@ -328,7 +329,7 @@ void CloudView::setCurrentAccount(const Account& account)
         showLoadingView();
         refreshRepos();
 
-        seahub_messages_monitor_->refresh();
+        // seahub_messages_monitor_->refresh();
 
         updateAccountInfoDisplay();
         if (account.isValid()) {

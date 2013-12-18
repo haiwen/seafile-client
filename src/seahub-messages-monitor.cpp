@@ -23,6 +23,8 @@ SeahubMessagesMonitor::SeahubMessagesMonitor(CloudView *cloud_view, QObject *par
 {
     btn_ = cloud_view->seahubMessagesBtn();
 
+    btn_->setVisible(false);
+
     resetStatus();
 
     connect(btn_, SIGNAL(clicked()), this, SLOT(onBtnClicked()));

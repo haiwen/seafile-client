@@ -159,7 +159,7 @@ QToolButton#mSeahubMessagesBtn
 }
 
 QWidget#mainWrapper {
-    border: 1px solid #BBB;
+    border: 1px solid #333;
     border-radius: 7px;
     background: #EEE;
 }

@@ -274,7 +274,6 @@ int Configurator::setVirtualDrive(const QString& path)
             return -1;
         }
     }
-
 #endif
 }
 

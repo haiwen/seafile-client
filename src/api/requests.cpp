@@ -197,6 +197,48 @@ void GetUnseenSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
     emit success(count);
 }
 
+GetDefaultRepoRequest::GetDefaultRepoRequest(const Account& account)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kDefaultRepoUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+}
+
+void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("exists")) {
+        emit failed(0);
+        return;
+    }
+
+    bool exists = dict.value("exists").toBool();
+    if (!exists) {
+        emit success(false, "");
+        return;
+    }
+
+    if (!dict.contains("repo_id")) {
+        emit failed(0);
+        return;
+    }
+
+    QString repo_id = dict.value("repo_id").toString();
+
+    emit success(true, repo_id);
+}
+
+
 CreateDefaultRepoRequest::CreateDefaultRepoRequest(const Account& account)
     : SeafileApiRequest (QUrl(account.serverUrl.toString() + kDefaultRepoUrl),
                          SeafileApiRequest::METHOD_POST, account.token)

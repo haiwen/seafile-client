@@ -17,6 +17,8 @@ public:
     InitVirtualDriveDialog(const Account& account, QWidget *parent=0);
 
 private slots:
+    void onGetDefaultRepoSuccess(bool exists, const QString& repo_id);
+    void onGetDefaultRepoFailure(int code);
     void onCreateDefaultRepoSuccess(const QString& repo_id);
     void onCreateDefaultRepoFailure(int code);
     void onDownloadRepoSuccess(const RepoDownloadInfo& info);
@@ -29,12 +31,15 @@ private slots:
 private:
     Q_DISABLE_COPY(InitVirtualDriveDialog)
 
+    void getDefaultRepo();
+    void startDownload(const QString& repo_id);
     void createLoadingView();
     void createDefaultRepo();
     void setStatusText(const QString& status);
     void setVDrive(const LocalRepo& repo);
     void fail(const QString& reason);
 
+    GetDefaultRepoRequest *get_default_repo_req_;
     CreateDefaultRepoRequest *create_default_repo_req_;
     DownloadRepoRequest *download_default_repo_req_;
 

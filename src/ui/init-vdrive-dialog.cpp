@@ -44,7 +44,7 @@ void InitVirtualDriveDialog::start()
 {
     mOkBtn->setEnabled(false);
     mCancelBtn->setEnabled(false);
-    createDefaultRepo();
+    getDefaultRepo();
 }
 
 void InitVirtualDriveDialog::onCancel()
@@ -67,9 +67,23 @@ void InitVirtualDriveDialog::createLoadingView()
     // layout->addWidget(label);
 }
 
-void InitVirtualDriveDialog::createDefaultRepo()
+void InitVirtualDriveDialog::getDefaultRepo()
 {
     setStatusText(tr("Checking your default library..."));
+    get_default_repo_req_ = new GetDefaultRepoRequest(account_);
+
+    connect(get_default_repo_req_, SIGNAL(success(bool, const QString&)),
+            this, SLOT(onGetDefaultRepoSuccess(bool, const QString&)));
+
+    connect(get_default_repo_req_, SIGNAL(failed(int)),
+            this, SLOT(onGetDefaultRepoFailure(int)));
+
+    get_default_repo_req_->send();
+}
+
+void InitVirtualDriveDialog::createDefaultRepo()
+{
+    setStatusText(tr("Create a default library..."));
     create_default_repo_req_ = new CreateDefaultRepoRequest(account_);
 
     connect(create_default_repo_req_, SIGNAL(success(const QString&)),
@@ -81,7 +95,7 @@ void InitVirtualDriveDialog::createDefaultRepo()
     create_default_repo_req_->send();
 }
 
-void InitVirtualDriveDialog::onCreateDefaultRepoSuccess(const QString& repo_id)
+void InitVirtualDriveDialog::startDownload(const QString& repo_id)
 {
     default_repo_id_ = repo_id;
 
@@ -90,7 +104,7 @@ void InitVirtualDriveDialog::onCreateDefaultRepoSuccess(const QString& repo_id)
     seafApplet->rpcClient()->getLocalRepo(repo_id, &repo);
     if (repo.isValid()) {
         // This repo is already here
-        printf("default repo is already downloaded\n");
+        qDebug("The default library has already been downloaded");
         setVDrive(repo);
         onSuccess();
         return;
@@ -105,6 +119,42 @@ void InitVirtualDriveDialog::onCreateDefaultRepoSuccess(const QString& repo_id)
             this, SLOT(onDownloadRepoFailure(int)));
 
     download_default_repo_req_->send();
+}
+
+
+void InitVirtualDriveDialog::onGetDefaultRepoSuccess(bool exists, const QString& repo_id)
+{
+    if (!exists) {
+        createDefaultRepo();
+    } else {
+        startDownload(repo_id);
+    }
+}
+
+void InitVirtualDriveDialog::onGetDefaultRepoFailure(int code)
+{
+    if (code == 404) {
+        fail(tr("Failed to create default library:\n\n"
+                "The server version must be 2.1 or higher to support this."));
+    } else {
+        fail(tr("Failed to get default library: error code %1").arg(code));
+    }
+}
+
+
+void InitVirtualDriveDialog::onCreateDefaultRepoSuccess(const QString& repo_id)
+{
+    startDownload(repo_id);
+}
+
+void InitVirtualDriveDialog::onCreateDefaultRepoFailure(int code)
+{
+    if (code == 404) {
+        fail(tr("Failed to create default library:\n\n"
+                "The server version must be 2.1 or higher to support this."));
+    } else {
+        fail(tr("Failed to create default library: error code %1").arg(code));
+    }
 }
 
 void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
@@ -138,6 +188,11 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
     }
 }
 
+void InitVirtualDriveDialog::onDownloadRepoFailure(int code)
+{
+    fail(tr("Failed to download default library: error code %1").arg(code));
+}
+
 void InitVirtualDriveDialog::onSuccess()
 {
     QString msg = tr("The default library has been setup. Please click the \"Finish\" button");
@@ -148,6 +203,12 @@ void InitVirtualDriveDialog::onSuccess()
     mOkBtn->disconnect();
     mOkBtn->setText("Finish");
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(accept()));
+}
+
+void InitVirtualDriveDialog::fail(const QString& reason)
+{
+    seafApplet->warningBox(reason);
+    reject();
 }
 
 void InitVirtualDriveDialog::checkDownloadProgress()
@@ -172,29 +233,8 @@ void InitVirtualDriveDialog::setVDrive(const LocalRepo& repo)
     seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
 }
 
-void InitVirtualDriveDialog::onCreateDefaultRepoFailure(int code)
-{
-    if (code == 404) {
-        fail(tr("Failed to create default library:\n\n"
-                "The server version must be 2.1 or higher to support this."));
-    } else {
-        fail(tr("Failed to create default library: error code %1").arg(code));
-    }
-}
-
-void InitVirtualDriveDialog::onDownloadRepoFailure(int code)
-{
-    fail(tr("Failed to download default library: error code %1").arg(code));
-}
-
-void InitVirtualDriveDialog::fail(const QString& reason)
-{
-    seafApplet->warningBox(reason);
-    reject();
-}
 
 void InitVirtualDriveDialog::setStatusText(const QString& status)
 {
     mStatusText->setText(status);
 }
-

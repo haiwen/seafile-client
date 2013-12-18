@@ -115,6 +115,21 @@ private:
 
 };
 
+class GetDefaultRepoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetDefaultRepoRequest(const Account& account);
+
+signals:
+    void success(bool exists, const QString& repo_id);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetDefaultRepoRequest);
+};
+
 class CreateDefaultRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 public:

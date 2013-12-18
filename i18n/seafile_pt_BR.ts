@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.0" language="pt_BR">
 <context>
     <name>AccountManager</name>
     <message>
@@ -180,7 +180,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="326"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">logotipo</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="327"/>
@@ -205,7 +205,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="331"/>
         <source>email</source>
-        <translation type="unfinished"></translation>
+        <translation>e-mail</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="332"/>
@@ -217,7 +217,7 @@
         <location filename="../ui_cloud-view.h" line="336"/>
         <location filename="../ui_cloud-view.h" line="338"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="334"/>
@@ -384,12 +384,12 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -496,12 +496,12 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="222"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="223"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -541,7 +541,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>logotipo</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -561,7 +561,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="197"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -648,7 +648,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="165"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">logotipo</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="166"/>
@@ -658,12 +658,12 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="167"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ok</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="168"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cancelar</translation>
     </message>
 </context>
 <context>
@@ -743,7 +743,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="237"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>logotipo</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
@@ -783,7 +783,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="245"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -1001,12 +1001,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="98"/>
         <source>Canceling</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelando</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="101"/>
         <source>Canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="105"/>
@@ -1585,12 +1585,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 </TS>

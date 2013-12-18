@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.0" language="he_IL">
 <context>
     <name>AccountManager</name>
     <message>
@@ -14,32 +14,32 @@
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="30"/>
         <source>Download tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>משימות להורדה</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="48"/>
         <source>remove all successful tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>להסיר את כל המשימות המוצלחות</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="79"/>
         <source>No download tasks right now.</source>
-        <translation type="unfinished"></translation>
+        <translation>אין משימות להורדה עכשיו.</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="70"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="71"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>לפנות</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="72"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>לסגור</translation>
     </message>
 </context>
 <context>
@@ -47,12 +47,12 @@
     <message>
         <location filename="../src/ui/clone-tasks-table-model.cpp" line="110"/>
         <source>Library</source>
-        <translation type="unfinished"></translation>
+        <translation>ספרייה</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-model.cpp" line="117"/>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation>נתיב</translation>
     </message>
 </context>
 <context>
@@ -60,32 +60,36 @@
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="71"/>
         <source>Cancel this task</source>
-        <translation type="unfinished"></translation>
+        <translation>בטל את המשימה הזו</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="73"/>
         <source>cancel this task</source>
-        <translation type="unfinished"></translation>
+        <translation>בטל את המשימה הזו</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="78"/>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="80"/>
         <source>Remove this task</source>
-        <translation type="unfinished"></translation>
+        <translation>הסר משימה זו</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="92"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל ניסיון ביטול משימה זו:
+
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="103"/>
         <source>Failed to remove this task:
 
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל ניסיון להסיר משימה זו:
+
+%1</translation>
     </message>
 </context>
 <context>
@@ -98,22 +102,22 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="98"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לסגור</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="110"/>
         <source>Show download tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>הראה את המשימות להורדה</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="119"/>
         <source>current download rate</source>
-        <translation type="unfinished"></translation>
+        <translation>קצב הורדה הנוכחי</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="124"/>
         <source>current upload rate</source>
-        <translation type="unfinished"></translation>
+        <translation>קצב העלאה הנוכחי</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="129"/>
@@ -123,17 +127,17 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="283"/>
         <source>No account</source>
-        <translation type="unfinished"></translation>
+        <translation>אין חשבון</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="317"/>
         <source>Add an account</source>
-        <translation type="unfinished"></translation>
+        <translation>הוסף חשבון</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="324"/>
         <source>Delete this account</source>
-        <translation type="unfinished"></translation>
+        <translation>מחיקת חשבון זה</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="447"/>
@@ -149,7 +153,7 @@
         <location filename="../src/ui/cloud-view.cpp" line="490"/>
         <location filename="../src/ui/cloud-view.cpp" line="513"/>
         <source>no server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>שום שרת מחובר</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="510"/>
@@ -165,22 +169,26 @@
         <location filename="../src/ui/cloud-view.cpp" line="536"/>
         <location filename="../src/ui/cloud-view.cpp" line="537"/>
         <source>%1 kB/s</source>
-        <translation type="unfinished"></translation>
+        <translation>kB/s %1</translation>
+    </message>
+    <message>
+        <source>Create a new library</source>
+        <translation type="obsolete">ליצור ספריה חדשה</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="587"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>רענן</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="325"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>טופס</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="326"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לוגו</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="327"/>
@@ -205,19 +213,19 @@
     <message>
         <location filename="../ui_cloud-view.h" line="331"/>
         <source>email</source>
-        <translation type="unfinished"></translation>
+        <translation>דוא&quot;ל</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="332"/>
         <source>server</source>
-        <translation type="unfinished"></translation>
+        <translation>שרת</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="333"/>
         <location filename="../ui_cloud-view.h" line="336"/>
         <location filename="../ui_cloud-view.h" line="338"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="334"/>
@@ -232,22 +240,22 @@
     <message>
         <location filename="../ui_cloud-view.h" line="339"/>
         <source>download rate</source>
-        <translation type="unfinished"></translation>
+        <translation>קצב הורדה</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="340"/>
         <source>downarrow</source>
-        <translation type="unfinished"></translation>
+        <translation>חץ למטה</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="341"/>
         <source>upload rate</source>
-        <translation type="unfinished"></translation>
+        <translation>קצב העלאה</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="342"/>
         <source>uparrow</source>
-        <translation type="unfinished"></translation>
+        <translation>חץ למעלה</translation>
     </message>
 </context>
 <context>
@@ -255,12 +263,12 @@
     <message>
         <location filename="../src/configurator.cpp" line="86"/>
         <source>Error when creating ccnet configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>שגיאה בעת יצירת תצורת ccnet</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="192"/>
         <source>failed to read %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל בקריאה 1%</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="235"/>
@@ -278,103 +286,104 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="19"/>
         <source>Create a library</source>
-        <translation type="unfinished"></translation>
+        <translation>ליצור ספרייה</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
         <source>Please choose a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא בחר ספרייה</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
         <source>Creating...</source>
-        <translation type="unfinished"></translation>
+        <translation>יוצר...</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
         <source>Please choose the directory to sync</source>
-        <translation type="unfinished"></translation>
+        <translation>נא לבחור את הספרייה כדי לסנכרן</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
         <source>The folder %1 does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>התיקייה %1 אינה קיימת</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
         <source>Please enter the name</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את השם</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
         <source>Please enter the description</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את התיאור</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את הסיסמה</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
         <source>Passwords don&apos;t match</source>
-        <translation type="unfinished"></translation>
+        <translation>סיסמאות אינן תואמות</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שגיאה לא ידועה</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל ניסיון להוסיף משימה להורדה:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
         <source>Failed to create library on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל ביצירת ספרייה בשרת</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="194"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>נתיב:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>בחר</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>שם:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>תיאור:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>מוצפן</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>סיסמא:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password Again:</source>
-        <translation type="unfinished"></translation>
+        <translation>סיסמא שוב:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="202"/>
@@ -389,7 +398,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
     </message>
 </context>
 <context>
@@ -397,7 +406,7 @@
     <message>
         <location filename="../src/daemon-mgr.cpp" line="55"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל בטעינת ספריית תצורת ccnet %1</translation>
     </message>
     <message>
         <location filename="../src/daemon-mgr.cpp" line="107"/>
@@ -415,43 +424,44 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="21"/>
         <source>Download library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>הורד ספרייה &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="45"/>
         <source>Please choose a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא בחר ספרייה</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>Please choose the folder to sync</source>
-        <translation type="unfinished"></translation>
+        <translation>נא לבחור את התיקייה כדי לסנכרן</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="83"/>
         <source>The folder does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>התיקייה אינה קיימת</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את הסיסמה</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="109"/>
         <source>Sync library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>סנכרון ספריית &quot;1%&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="110"/>
         <source>Sync this library with:</source>
-        <translation type="unfinished"></translation>
+        <translation>לסנכרן את ספרייה זה עם:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="150"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל ניסיון להוסיף משימה להורדה:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="162"/>
@@ -461,27 +471,27 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="215"/>
         <source>Download Library</source>
-        <translation type="unfinished"></translation>
+        <translation>הורד ספרייה</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="216"/>
         <source>Download this library to:</source>
-        <translation type="unfinished"></translation>
+        <translation>הורד ספרייה זו ל-:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="217"/>
         <source>choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>בחר...</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="218"/>
         <source>Password for this library:</source>
-        <translation type="unfinished"></translation>
+        <translation>סיסמא לספרייה זו:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="219"/>
         <source>Files in the local folder will be merged with files in the library</source>
-        <translation type="unfinished"></translation>
+        <translation>קבצים בתיקייה המקומית ימוזגו עם קבצים בספרייה</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="220"/>
@@ -491,7 +501,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="221"/>
         <source>sync with existing folder</source>
-        <translation type="unfinished"></translation>
+        <translation>לסנכרן עם תיקייה קיימת</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="222"/>
@@ -501,7 +511,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="223"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
     </message>
 </context>
 <context>
@@ -515,7 +525,7 @@
         <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="108"/>
         <source>Please choose a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא בחר ספרייה</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
@@ -526,42 +536,42 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
         <source>The folder %1 does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>התיקייה %1 אינה קיימת</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"></translation>
+        <translation>בחר תיקיית Seafile</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>לוגו</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא בחר תיקייה. אנו ניצור תיקיית משנה Seafile בו. בעת הורדת ספרייה, זה יישמר שם כברירת מחדל.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>בחר...</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>הבא</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="197"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
     </message>
 </context>
 <context>
@@ -638,7 +648,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="163"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="164"/>
@@ -648,7 +658,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="165"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לוגו</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="166"/>
@@ -663,7 +673,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="168"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ביטול</translation>
     </message>
 </context>
 <context>
@@ -672,7 +682,7 @@ The server version must be 2.1 or higher to support this.</source>
         <location filename="../src/ui/login-dialog.cpp" line="19"/>
         <location filename="../ui_login-dialog.h" line="236"/>
         <source>Add an account</source>
-        <translation type="unfinished"></translation>
+        <translation>הוסף חשבון</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="42"/>
@@ -682,43 +692,43 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="70"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;אזהרה:&lt;/ b&gt; תעודת SSL של שרת זה אינה מהימנה, להמשיך בכל זאת?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="88"/>
         <source>Please enter the server address</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את כתובת השרת</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="94"/>
         <location filename="../src/ui/login-dialog.cpp" line="104"/>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 אינו כתובת שרת חוקית</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="114"/>
         <source>Please enter the username</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את שם המשתמש</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="119"/>
         <source>%1 is not a valid email</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 אינו דוא&quot;ל חוקי</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="127"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation>אנא הכנס את הסיסמה</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="144"/>
         <source>Internal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>שגיאה פנימית</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="155"/>
         <source>Incorrect email or password</source>
-        <translation type="unfinished"></translation>
+        <translation>דוא&quot;ל או סיסמא שגוי</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
@@ -738,17 +748,17 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="235"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="237"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>לוגו</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
         <source>Server:</source>
-        <translation type="unfinished"></translation>
+        <translation>שרת:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="239"/>
@@ -758,17 +768,17 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="240"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"></translation>
+        <translation>או http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="241"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>דוא&quot;ל:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="242"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>סיסמא:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="243"/>
@@ -783,7 +793,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="245"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
     </message>
 </context>
 <context>
@@ -791,7 +801,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../src/ui/main-window.cpp" line="83"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>רענן</translation>
     </message>
 </context>
 <context>
@@ -805,7 +815,8 @@ The server version must be 2.1 or higher to support this.</source>
         <location filename="../src/message-listener.cpp" line="156"/>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; לא מסונכרן.
+סיבה: נמחק בשרת</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="166"/>
@@ -816,7 +827,8 @@ Reason: Deleted on server</source>
         <location filename="../src/message-listener.cpp" line="178"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; לא הצליח לסנכרן.
+הגישה לשירות נדחתה.</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="189"/>
@@ -835,17 +847,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/message-listener.cpp" line="49"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>הורדה</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="50"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>מהירות</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="58"/>
         <source>synchronized</source>
-        <translation type="unfinished"></translation>
+        <translation>מסונכרן</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="62"/>
@@ -855,12 +867,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="66"/>
         <source>sync initializing</source>
-        <translation type="unfinished"></translation>
+        <translation>אתחול הסינכרון</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="70"/>
         <source>downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>הורדה</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="74"/>
@@ -875,33 +887,33 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="82"/>
         <source>waiting for sync</source>
-        <translation type="unfinished"></translation>
+        <translation>מחכה לסנכרון</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="86"/>
         <location filename="../src/rpc/local-repo.cpp" line="109"/>
         <source>server not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>שרת אינו מחובר</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="90"/>
         <source>server authenticating</source>
-        <translation type="unfinished"></translation>
+        <translation>מאמת שרת</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>auto sync is turned off</source>
-        <translation type="unfinished"></translation>
+        <translation>סינכרון אוטומטי כבוי</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="99"/>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>לא ידועה</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="112"/>
         <source>Server has been removed</source>
-        <translation type="unfinished"></translation>
+        <translation>שרת הוסר</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="115"/>
@@ -911,7 +923,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="118"/>
         <source>You do not have permission to access this library</source>
-        <translation type="unfinished"></translation>
+        <translation>אין לך הרשאה לגשת לספרייה זו</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="121"/>
@@ -926,12 +938,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="127"/>
         <source>Access denied to service.</source>
-        <translation type="unfinished"></translation>
+        <translation>הגישה לשירות נדחתה.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="130"/>
         <source>Internal data corrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation>נתונים פנימיים פגומים.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="133"/>
@@ -951,17 +963,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Error occured in download.</source>
-        <translation type="unfinished"></translation>
+        <translation>אירעה שגיאה בהורדה.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Library is deleted on server</source>
-        <translation type="unfinished"></translation>
+        <translation>הספרייה נמחקה בשרת</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Unknown error.</source>
-        <translation type="unfinished"></translation>
+        <translation>שגיאה לא ידועה</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -971,7 +983,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="74"/>
         <source>connecting server...</source>
-        <translation type="unfinished"></translation>
+        <translation>מתחבר השרת...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="77"/>
@@ -981,17 +993,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="80"/>
         <source>Downloading...</source>
-        <translation type="unfinished"></translation>
+        <translation>הורדה</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="86"/>
         <source>Creating folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>יצירת תיקייה...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="92"/>
         <source>Merge file changes...</source>
-        <translation type="unfinished"></translation>
+        <translation>למזג את השינויים בקובץ...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="95"/>
@@ -1001,12 +1013,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="98"/>
         <source>Canceling</source>
-        <translation type="unfinished"></translation>
+        <translation>מבטל</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="101"/>
         <source>Canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>בוטל</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="105"/>
@@ -1026,49 +1038,49 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="114"/>
         <source>Incorrect password. Please download again.</source>
-        <translation type="unfinished"></translation>
+        <translation>סיסמא שגויה. נא להוריד שוב.</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="116"/>
         <source>Internal error.</source>
-        <translation type="unfinished"></translation>
+        <translation>שגיאה פנימית.</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="336"/>
         <location filename="../src/utils/utils.cpp" line="364"/>
         <location filename="../src/utils/utils.cpp" line="367"/>
         <source>Just now</source>
-        <translation type="unfinished"></translation>
+        <translation>כרגע</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="352"/>
         <source>1 day ago</source>
-        <translation type="unfinished"></translation>
+        <translation>לפני יום</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="352"/>
         <source>%1 days ago</source>
-        <translation type="unfinished"></translation>
+        <translation>לפני %1 ימים</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="356"/>
         <source>1 hour ago</source>
-        <translation type="unfinished"></translation>
+        <translation>לפני שעה</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="356"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"></translation>
+        <translation>לפני %1 שעות</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="360"/>
         <source>1 minute ago</source>
-        <translation type="unfinished"></translation>
+        <translation>לפני דקה</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="360"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"></translation>
+        <translation>לפני %1 דקות</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="78"/>
@@ -1078,52 +1090,52 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"></translation>
+        <translation>נוסף</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>נמחק</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>הוסר</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>השתנה</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>שם הוחלף</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"></translation>
+        <translation>הועבר</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"></translation>
+        <translation>ספרייה נוספה</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>ספרייה הוסרה</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>שם הספרייה הוחלף</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"></translation>
+        <translation>הספרייה הועבר</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
@@ -1138,12 +1150,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"></translation>
+        <translation>משוחזר ספרייה שנמחקה</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"></translation>
+        <translation>שם הספרייה השתנה או התיאור</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
@@ -1153,12 +1165,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>קבצים</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"></translation>
+        <translation>ספריות</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
@@ -1171,13 +1183,13 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="27"/>
         <source>Library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>ספרייה &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="62"/>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="98"/>
         <source>This library is not downloaded yet</source>
-        <translation type="unfinished"></translation>
+        <translation>ספרייה זו עדיין לא הורד </translation>
     </message>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="85"/>
@@ -1187,7 +1199,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="217"/>
@@ -1197,12 +1209,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
-        <translation type="unfinished"></translation>
+        <translation>שם מאגר</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="219"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תיאור:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="220"/>
@@ -1220,7 +1232,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>Last Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation>שונה לאחרונה:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="224"/>
@@ -1230,7 +1242,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <source>Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>גודל:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="227"/>
@@ -1250,12 +1262,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>שם:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="232"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>לסגור</translation>
     </message>
 </context>
 <context>
@@ -1276,7 +1288,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>My Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>הספריות שלי</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
@@ -1284,9 +1296,13 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Shared Libraries</source>
+        <translation type="obsolete">ספריות משותפות</translation>
+    </message>
+    <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="195"/>
         <source>Organization</source>
-        <translation type="unfinished"></translation>
+        <translation>ארגון</translation>
     </message>
 </context>
 <context>
@@ -1295,7 +1311,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="137"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="138"/>
         <source>Disable auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>להשבית סנכרון אוטומטי</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="141"/>
@@ -1303,63 +1319,63 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="226"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
         <source>Enable auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>אפשר סנכרון האוטומטי</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="190"/>
         <source>&amp;Show details</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;הצג פרטים</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="192"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
         <source>Download this library</source>
-        <translation type="unfinished"></translation>
+        <translation>הורד ספרייה זו</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>&amp;Download this library</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;הורד ספרייה זו</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;סנכרן עכשיו</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>לסנכרן את הספרייה זו באופן מיידי</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>&amp;Cancel download</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול הורדה</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>Cancel download of this library</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול הורדה של ספרייה זו</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
         <source>&amp;Open folder</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;פתח את תיקייה</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="216"/>
         <source>open local folder</source>
-        <translation type="unfinished"></translation>
+        <translation>לפתוח את התיקייה מקומית</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
         <source>&amp;Unsync</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול &amp;סינכרון</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
         <source>unsync this library</source>
-        <translation type="unfinished"></translation>
+        <translation>נתק מסינכרן ספרייה זו</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="231"/>
@@ -1379,19 +1395,21 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>נתק מסינכרן ספרייה זו</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נכשל ניסיון ביטול משימה זו:
+
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
         <source>The download has been canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>ההורדה בוטלה</translation>
     </message>
 </context>
 <context>
@@ -1407,14 +1425,14 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">נכשל בטעינת ספריית תצורת ccnet %1</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="452"/>
         <location filename="../src/rpc/rpc-client.cpp" line="469"/>
         <location filename="../src/rpc/rpc-client.cpp" line="533"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>שגיאה לא ידועה</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="648"/>
@@ -1432,12 +1450,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="84"/>
         <source>Disable auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>להשבית סנכרון אוטומטי</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="87"/>
         <source>Enable auto sync</source>
-        <translation type="unfinished"></translation>
+        <translation>אפשר סנכרון האוטומטי</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="90"/>
@@ -1448,22 +1466,22 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
         <location filename="../src/ui/tray-icon.cpp" line="144"/>
         <source>Show main window</source>
-        <translation type="unfinished"></translation>
+        <translation>הצג חלון ראשי</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>הגדרות</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;אודות</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="102"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"></translation>
+        <translation>הצג תיבת אודות של היישום</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="105"/>
@@ -1483,17 +1501,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="146"/>
         <source>Hide main window</source>
-        <translation type="unfinished"></translation>
+        <translation>הסתר חלון ראשי</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="198"/>
         <source>auto sync is disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>סנכרון אוטומטי הינו מושבת</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="297"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>אודות 1%</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="298"/>
@@ -1537,12 +1555,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_server-status-dialog.h" line="71"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_server-status-dialog.h" line="72"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>לסגור</translation>
     </message>
 </context>
 <context>
@@ -1550,22 +1568,22 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="12"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>הגדרות</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="156"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>דיאלוג</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="157"/>
         <source>Hide main window when started</source>
-        <translation type="unfinished"></translation>
+        <translation>הסתר חלון ראשי בתחילה</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="158"/>
         <source>Notify when libraries are synchronized</source>
-        <translation type="unfinished"></translation>
+        <translation>הצג הודעה כאשר ספריות מסונכרנות</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="159"/>
@@ -1590,7 +1608,18 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="obsolete">דיאלוג</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">הבא</translation>
     </message>
 </context>
 </TS>

@@ -25,25 +25,35 @@
    </property>
    <item>
     <widget class="QWidget" name="mHeader" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
       <property name="spacing">
        <number>0</number>
       </property>
       <property name="topMargin">
        <number>0</number>
       </property>
-      <property name="bottomMargin">
+      <property name="rightMargin">
        <number>0</number>
       </property>
+      <property name="bottomMargin">
+       <number>10</number>
+      </property>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="mLogo">
+        <property name="text">
+         <string>logo</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="mBrand">
         <property name="text">
          <string>Seafile</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_5">
+       <spacer name="horizontalSpacer_10">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -56,18 +66,39 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="mMinimizeBtn">
-        <property name="text">
-         <string>minimize</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="mCloseBtn">
-        <property name="text">
-         <string>close</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QPushButton" name="mMinimizeBtn">
+            <property name="text">
+             <string>minimize</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mCloseBtn">
+            <property name="text">
+             <string>close</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

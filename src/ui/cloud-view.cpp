@@ -49,7 +49,7 @@ CloudView::CloudView(QWidget *parent)
     setupUi(this);
 
     // seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
-    mSeahubMessagesBtn
+    mSeahubMessagesBtn->setVisible(false);
 
     setupHeader();
     createRepoModelView();
@@ -82,11 +82,20 @@ CloudView::CloudView(QWidget *parent)
 
 void CloudView::setupHeader()
 {
+    mLogo->setText("");
+    mLogo->setToolTip(SEAFILE_CLIENT_BRAND);
+    mLogo->setPixmap(QPixmap(":/images/seafile-24.png"));
+
+    mBrand->setText(SEAFILE_CLIENT_BRAND);
+    mBrand->setToolTip(SEAFILE_CLIENT_BRAND);
+
     mMinimizeBtn->setText("");
+    mMinimizeBtn->setToolTip(tr("Minimize"));
     mMinimizeBtn->setIcon(awesome->icon(icon_minus));
     connect(mMinimizeBtn, SIGNAL(clicked()), this, SLOT(onMinimizeBtnClicked()));
 
     mCloseBtn->setText("");
+    mCloseBtn->setToolTip(tr("Close"));
     mCloseBtn->setIcon(awesome->icon(icon_remove));
     connect(mCloseBtn, SIGNAL(clicked()), this, SLOT(onCloseBtnClicked()));
 

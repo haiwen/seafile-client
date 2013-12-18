@@ -160,13 +160,46 @@ QToolButton#mSeahubMessagesBtn
 
 QWidget#mainWrapper {
     border: 1px solid #333;
-    border-radius: 7px;
+    border-radius: 5px;
     background: #EEE;
 }
 
+QWidget#mHeader {
+    min-height: 35px;
+    max-height: 35px;
+}
+
 QWidget#mHeader QPushButton {
+    padding: 5px;
+    padding-bottom: 0;
+    /* padding-right: 0; */
+    margin: 0;
+    margin-top: 1px;
     border: 0;
-    margin: 5px;
+    border-left: 1px solid #BBB;
+    qproperty-focusPolicy: NoFocus;
+
+}
+
+QWidget#mHeader QPushButton:hover {
+    /* background: #DDD; */
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #999, stop: 0.7 #BBB,
+                                stop:1 #DDD);
+    padding-top: 3px;
+}
+
+
+QWidget#mHeader QPushButton#mCloseBtn:hover {
+    margin-right: 1px;
+    margin-top: 1px;
+    border-top-right-radius: 5px;
+}
+
+QWidget#mHeader QLabel#mBrand,
+QWidget#mHeader QLabel#mLogo {
+    margin-top: 6px;
+    margin-right: 4px;
 }
 
 RepoTreeView
@@ -214,6 +247,7 @@ CloudView QPushButton#mSelectFolderBtn {
     border-radius: 8px;
     color: #DDD;
     background: #777;
+    qproperty-focusPolicy: NoFocus;
 }
 
 CloudView QPushButton#mSelectFolderBtn:hover {

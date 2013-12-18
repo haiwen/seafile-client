@@ -159,7 +159,7 @@ QToolButton#mSeahubMessagesBtn
 }
 
 QWidget#mainWrapper {
-    border: 0px solid #FFF;
+    border: 1px solid #BBB;
     border-radius: 7px;
     background: #EEE;
 }
@@ -173,6 +173,11 @@ RepoTreeView
 {
     background: white;
     border: 0;
+    margin: 0 1px;
+}
+
+RepoTreeView QScrollBar {
+    margin-right: 1px;
 }
 
 CloudView QWidget#mDropArea {
@@ -183,6 +188,7 @@ CloudView QWidget#mDropArea {
 
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #DDE, stop: 0.2 #EEE);
+    margin: 0 1px;
 }
 
 CloudView QFrame#mDropInner {

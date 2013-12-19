@@ -63,7 +63,7 @@ private:
 
     void initLog();
 
-    void loadQss(const QString& path);
+    bool loadQss(const QString& path);
 
     Configurator *configurator_;
 

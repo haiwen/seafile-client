@@ -39,9 +39,13 @@ const int kRepoCategoryIndicatorWidth = 16;
 const int kRepoCategoryIndicatorHeight = 16;
 const int kMarginBetweenIndicatorAndName = 5;
 
-const int kMarginBetweenRepoIconAndName = 5;
+const int kMarginBetweenRepoIconAndName = 10;
 const int kMarginBetweenRepoNameAndStatus = 5;
 
+const char *kRepoNameColor = "#3F3F3F";
+const char *kRepoNameColorHighlighted = "#544D49";
+const char *kTimestampColor = "#959595";
+const char *kTimestampColorHighlighted = "#9D9B9A";
 
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width)
@@ -164,35 +168,15 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 {
     const ServerRepo& repo = item->repo();
     QBrush backBrush;
-    QColor foreColor;
-    bool hover = false;
     bool selected = false;
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
-        backBrush = option.palette.brush(QPalette::Highlight);
-        backBrush = QColor("#f9e0c7");
-        foreColor = option.palette.color( QPalette::Text );
+        backBrush = QColor("#F9E0C7");
         selected = true;
 
-    } else if (option.state & QStyle::State_MouseOver) {
-        // backBrush = option.palette.color( QPalette::Highlight ).lighter(115);
-        // foreColor = option.palette.color( QPalette::HighlightedText );
-        // hover = true;
-
     } else {
-        backBrush = option.palette.brush( QPalette::Base );
-        foreColor = option.palette.color( QPalette::Text );
+        backBrush = QColor("white");
     }
 
-    QStyle *style = QApplication::style();
-    QStyleOptionViewItemV4 opt(option);
-    if (hover)
-    {
-        Qt::BrushStyle bs = opt.backgroundBrush.style();
-        if (bs > Qt::NoBrush && bs < Qt::TexturePattern)
-            opt.backgroundBrush = opt.backgroundBrush.color().lighter(115);
-        else
-            opt.backgroundBrush = backBrush;
-    }
     painter->save();
     painter->fillRect(option.rect, backBrush);
     painter->restore();
@@ -209,7 +193,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->save();
     QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidth + kMarginBetweenRepoIconAndName, 0);
     QRect repo_name_rect(repo_name_pos, QSize(kRepoNameWidth, kRepoNameHeight));
-    painter->setPen(foreColor);
+    painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
     painter->drawText(repo_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
                       fitTextToWidth(repo.name, option.font, kRepoNameWidth),
@@ -218,8 +202,8 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo description
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
     QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
-    painter->setPen(selected ? foreColor : foreColor.lighter(150));
-    painter->setFont(zoomFont(painter->font(), 0.8));
+    painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
+    // painter->setFont(zoomFont(painter->font(), 0.9));
 
     QString description;
     if (item->cloneTask().isValid() && item->cloneTask().isDisplayable()) {
@@ -335,7 +319,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
             icon = "ok";
             break;
         case LocalRepo::SYNC_STATE_ING:
-            icon = "refresh";
+            icon = "rotate";
             break;
         case LocalRepo::SYNC_STATE_ERROR:
             icon = "exclamation";

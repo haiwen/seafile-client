@@ -24,12 +24,14 @@ enum WIDGET_INDEX {
 } // namespace
 
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
 {
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle(SEAFILE_CLIENT_BRAND);
 
-    setWindowFlags(Qt::FramelessWindowHint);
+    // Qt::Tool hides the taskbar entry on windows
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
     cloud_view_ = new CloudView;
 

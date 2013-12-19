@@ -95,8 +95,9 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    // tray_icon_->notify(SEAFILE_CLIENT_BRAND, "daemon is started");
+    // Create a dummy widget as the parent of main window to hide the taskbar entry
     main_win_ = new MainWindow;
+    // DummyWindowWidget *dummy = new DummyWindowWidget(main_win_);
 
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
@@ -106,6 +107,7 @@ void SeafileApplet::onDaemonStarted()
 
     if (configurator_->firstUse() || !settings_mgr_->hideMainWindowWhenStarted()) {
         main_win_->showWindow();
+        // dummy->show();
     }
 
     tray_icon_->start();
@@ -153,37 +155,35 @@ void SeafileApplet::initLog()
     }
 }
 
-void SeafileApplet::loadQss(const QString& path)
+bool SeafileApplet::loadQss(const QString& path)
 {
     QFile file(path);
     if (!QFileInfo(file).exists()) {
-        return;
+        return false;
     }
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return;
+        return false;
     }
 
     QTextStream input(&file);
     style_ += "\n";
     style_ += input.readAll();
     qApp->setStyleSheet(style_);
+
+    return true;
 }
 
 void SeafileApplet::refreshQss()
 {
     style_.clear();
-    loadQss(":/qt.css");
-    loadQss("qt.css");
+    loadQss("qt.css") || loadQss(":/qt.css");
 
 #if defined(Q_WS_WIN)
-    loadQss(":/qt-win.css");
-    loadQss("qt-win.css");
+    loadQss("qt-win.css") || loadQss(":/qt-win.css");
 #elif defined(Q_WS_X11)
-    loadQss(":/qt-linux.css");
-    loadQss("qt-linux.css");
+    loadQss("qt-linux.css") || loadQss(":/qt-linux.css");
 #else
-    loadQss(":/qt-mac.css");
-    loadQss("qt-mac.css");
+    loadQss("qt-mac.css") || loadQss(":/qt-mac.css");
 #endif
 }
 

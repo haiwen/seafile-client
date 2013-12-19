@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
         { "config-dir", required_argument, NULL, 'c' },
         { "stop", no_argument, NULL, 'K' },
         { "remove-user-data", no_argument, NULL, 'X' },
+        { "stdout", no_argument, NULL, 'l' },
         { NULL, 0, NULL, 0, },
     };
 
@@ -55,6 +56,9 @@ int main(int argc, char *argv[])
         switch (c) {
         case 'c':
             g_setenv ("CCNET_CONF_DIR", optarg, 1);
+            break;
+        case 'l':
+            g_setenv ("LOG_STDOUT", "", 1);
             break;
         case 'K':
             do_stop();

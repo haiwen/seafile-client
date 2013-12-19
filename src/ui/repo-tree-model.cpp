@@ -96,6 +96,8 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
     }
 
     if (n > 0) {
+        tree_view_->selectionModel()->select(indexFromItem(recent_updated_category_),
+                                             QItemSelectionModel::Deselect);
         tree_view_->selectionModel()->select(indexFromItem(recent_updated_category_->child(0)),
                                              QItemSelectionModel::Select);
     }

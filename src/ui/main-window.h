@@ -14,12 +14,23 @@ class QFile;
 
 class CloudView;
 
+class DummyWindowWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    DummyWindowWidget(QWidget *parent)
+        : QWidget(parent, Qt::Dialog)
+    {
+
+    }
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow();
+    MainWindow(QWidget *parent=0);
 
     void keyPressEvent(QKeyEvent *event);
     void showWindow();

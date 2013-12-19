@@ -187,6 +187,9 @@
    <item>
     <widget class="QWidget" name="mDropArea" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="topMargin">
        <number>0</number>
       </property>
@@ -230,6 +233,9 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <item>
             <spacer name="horizontalSpacer_8">
              <property name="orientation">
@@ -248,12 +254,15 @@
              <property name="text">
               <string>Select</string>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="mDropFolderText">
              <property name="text">
-              <string>folders to sync</string>
+              <string>or Drop Folders to Sync</string>
              </property>
             </widget>
            </item>

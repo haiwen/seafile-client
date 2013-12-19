@@ -91,12 +91,12 @@ void CloudView::setupHeader()
 
     mMinimizeBtn->setText("");
     mMinimizeBtn->setToolTip(tr("Minimize"));
-    mMinimizeBtn->setIcon(awesome->icon(icon_minus));
+    mMinimizeBtn->setIcon(awesome->icon(icon_minus, QColor("#808081")));
     connect(mMinimizeBtn, SIGNAL(clicked()), this, SLOT(onMinimizeBtnClicked()));
 
     mCloseBtn->setText("");
     mCloseBtn->setToolTip(tr("Close"));
-    mCloseBtn->setIcon(awesome->icon(icon_remove));
+    mCloseBtn->setIcon(awesome->icon(icon_remove, QColor("#808081")));
     connect(mCloseBtn, SIGNAL(clicked()), this, SLOT(onCloseBtnClicked()));
 
     // Handle mouse move event
@@ -106,7 +106,7 @@ void CloudView::setupHeader()
 void CloudView::setupFooter()
 {
     mDownloadTasksInfo->setText("0");
-    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
+    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt, QColor("#B1B1B2")));
     mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
@@ -150,7 +150,7 @@ void CloudView::showCreateRepoDialog(const QString& path)
 
 void CloudView::onMinimizeBtnClicked()
 {
-    seafApplet->mainWindow()->showMinimized();
+    seafApplet->mainWindow()->hide();
 }
 
 void CloudView::onCloseBtnClicked()

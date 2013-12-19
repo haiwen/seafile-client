@@ -238,7 +238,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="334"/>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>选择</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="335"/>

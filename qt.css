@@ -1,12 +1,15 @@
-MainWindow {
+MainWindow QTabWidget {
+    qproperty-tabPosition: North;
+}
+
+QWidget#mainWrapper {
     min-width: 300px;
     max-width: 300px;
     min-height: 550px;
     max-height: 550px;
-}
-
-MainWindow QTabWidget {
-    qproperty-tabPosition: North;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #F5F5F7;
 }
 
 /* The tab widget frame */
@@ -134,12 +137,6 @@ QToolButton#mSeahubMessagesBtn
     margin-right: 10px;
     border: 0;
     qproperty-iconSize: 24px;
-}
-
-QWidget#mainWrapper {
-    border: 1px solid #333;
-    border-radius: 5px;
-    background: #F5F5F7;
 }
 
 QWidget#mHeader {

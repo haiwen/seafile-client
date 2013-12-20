@@ -43,7 +43,7 @@ min-width: 260px;
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>Setup Default Library</string>
+         <string>Download Default Library</string>
         </property>
        </widget>
       </item>
@@ -108,7 +108,7 @@ min-width: 260px;
      <item>
       <widget class="QLabel" name="mStatusText">
        <property name="text">
-        <string>To setup your default library, click &quot;OK&quot;.</string>
+        <string>Do you like to download your default library and create a virtual disk?</string>
        </property>
       </widget>
      </item>
@@ -169,16 +169,16 @@ min-width: 260px;
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="mOkBtn">
+      <widget class="QPushButton" name="mYesBtn">
        <property name="text">
-        <string>Ok</string>
+        <string>Yes</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="mCancelBtn">
+      <widget class="QPushButton" name="mNoBtn">
        <property name="text">
-        <string>Cancel</string>
+        <string>No</string>
        </property>
       </widget>
      </item>
@@ -187,13 +187,13 @@ min-width: 260px;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>mOkBtn</tabstop>
-  <tabstop>mCancelBtn</tabstop>
+  <tabstop>mYesBtn</tabstop>
+  <tabstop>mNoBtn</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>mCancelBtn</sender>
+   <sender>mNoBtn</sender>
    <signal>clicked()</signal>
    <receiver>InitVirtualDriveDialog</receiver>
    <slot>reject()</slot>

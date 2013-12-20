@@ -143,27 +143,27 @@ void SettingsManager::setHideMainWindowWhenStarted(bool hide)
     settings.endGroup();
 }
 
-void SettingsManager::setDefaultLibraryAlreadySetup()
-{
-    QSettings settings;
+// void SettingsManager::setDefaultLibraryAlreadySetup()
+// {
+//     QSettings settings;
 
-    settings.beginGroup(kStatusGroup);
-    settings.setValue(kDefaultLibraryAlreadySetup, true);
-    settings.endGroup();
-}
+//     settings.beginGroup(kStatusGroup);
+//     settings.setValue(kDefaultLibraryAlreadySetup, true);
+//     settings.endGroup();
+// }
 
 
-bool SettingsManager::defaultLibraryAlreadySetup()
-{
-    QSettings settings;
-    bool done;
+// bool SettingsManager::defaultLibraryAlreadySetup()
+// {
+//     QSettings settings;
+//     bool done;
 
-    settings.beginGroup(kStatusGroup);
-    done = settings.value(kDefaultLibraryAlreadySetup, false).toBool();
-    settings.endGroup();
+//     settings.beginGroup(kStatusGroup);
+//     done = settings.value(kDefaultLibraryAlreadySetup, false).toBool();
+//     settings.endGroup();
 
-    return done;
-}
+//     return done;
+// }
 
 void SettingsManager::removeAllSettings()
 {

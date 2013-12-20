@@ -24,14 +24,15 @@ enum WIDGET_INDEX {
 } // namespace
 
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow()
 {
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle(SEAFILE_CLIENT_BRAND);
 
     // Qt::Tool hides the taskbar entry on windows
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
+    // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
+
+    setWindowFlags(Qt::FramelessWindowHint);
 
     cloud_view_ = new CloudView;
 
@@ -74,6 +75,19 @@ bool MainWindow::event(QEvent *ev)
     return ret;
 }
 
+void MainWindow::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::WindowStateChange) {
+        if(windowState() & Qt::WindowMinimized ) {
+            //do something after minimize
+        } else {
+            setWindowFlags(Qt::Window); //show normal window
+            setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            showNormal();
+        }
+    }
+}
+
 void MainWindow::showEvent(QShowEvent *event)
 {
     readSettings();
@@ -113,7 +127,7 @@ void MainWindow::writeSettings()
     QSettings settings;
 
     settings.beginGroup("MainWindow");
-    settings.setValue("size", size());
+    // settings.setValue("size", size());
     settings.setValue("pos", pos());
     settings.endGroup();
 }
@@ -123,9 +137,9 @@ void MainWindow::readSettings()
     QSettings settings;
 
     settings.beginGroup("MainWindow");
-    if (settings.contains("size")) {
-        resize(settings.value("size", QSize()).toSize());
-    }
+    // if (settings.contains("size")) {
+    //     resize(settings.value("size", QSize()).toSize());
+    // }
 
     if (settings.contains("pos")) {
         move(settings.value("pos", QPoint()).toPoint());

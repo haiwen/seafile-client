@@ -28,7 +28,7 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
 {
     setupUi(this);
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-    setWindowTitle(tr("Seafile Initialization"));
+    setWindowTitle(tr("Download  Initialization"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     // createLoadingView();
 
@@ -36,20 +36,20 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
     download_default_repo_req_ = NULL;
 
     check_download_timer_ = NULL;
-    connect(mOkBtn, SIGNAL(clicked()), this, SLOT(start()));
-    connect(mCancelBtn, SIGNAL(clicked()), this, SLOT(onCancel()));
+    connect(mYesBtn, SIGNAL(clicked()), this, SLOT(start()));
+    connect(mNoBtn, SIGNAL(clicked()), this, SLOT(onCancel()));
 }
 
 void InitVirtualDriveDialog::start()
 {
-    mOkBtn->setEnabled(false);
-    mCancelBtn->setEnabled(false);
+    mYesBtn->setEnabled(false);
+    mNoBtn->setEnabled(false);
     getDefaultRepo();
 }
 
 void InitVirtualDriveDialog::onCancel()
 {
-    seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
+    // seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
     reject();
 }
 
@@ -198,11 +198,11 @@ void InitVirtualDriveDialog::onSuccess()
     QString msg = tr("The default library has been setup. Please click the \"Finish\" button");
     mStatusText->setText(msg);
 
-    mCancelBtn->setVisible(false);
-    mOkBtn->setEnabled(true);
-    mOkBtn->disconnect();
-    mOkBtn->setText("Finish");
-    connect(mOkBtn, SIGNAL(clicked()), this, SLOT(accept()));
+    mNoBtn->setVisible(false);
+    mYesBtn->setEnabled(true);
+    mYesBtn->disconnect();
+    mYesBtn->setText("Finish");
+    connect(mYesBtn, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
 void InitVirtualDriveDialog::fail(const QString& reason)
@@ -230,7 +230,7 @@ void InitVirtualDriveDialog::setVDrive(const LocalRepo& repo)
 {
     setStatusText(tr("updating default libray..."));
     Configurator::setVirtualDrive(repo.worktree);
-    seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
+    // seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
 }
 
 

@@ -24,6 +24,7 @@ extern "C" {
 #include "repo-item-delegate.h"
 #include "clone-tasks-dialog.h"
 #include "server-status-dialog.h"
+#include "init-vdrive-dialog.h"
 #include "main-window.h"
 #include "cloud-view.h"
 
@@ -150,7 +151,7 @@ void CloudView::showCreateRepoDialog(const QString& path)
 
 void CloudView::onMinimizeBtnClicked()
 {
-    seafApplet->mainWindow()->hide();
+    seafApplet->mainWindow()->showMinimized();
 }
 
 void CloudView::onCloseBtnClicked()
@@ -439,7 +440,15 @@ void CloudView::hideEvent(QHideEvent *event) {
 void CloudView::showAddAccountDialog()
 {
     LoginDialog dialog(this);
-    dialog.exec();
+    // Show InitVirtualDriveDialog for the first account added
+    AccountManager *account_mgr = seafApplet->accountManager();
+    if (dialog.exec() == QDialog::Accepted
+        && account_mgr->accounts().size() == 1) {
+
+        const Account& account = account_mgr->accounts()[0];
+        InitVirtualDriveDialog dialog(account, seafApplet->mainWindow());
+        dialog.exec();
+    }
 }
 
 void CloudView::deleteAccount()

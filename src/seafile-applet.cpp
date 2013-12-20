@@ -95,9 +95,7 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    // Create a dummy widget as the parent of main window to hide the taskbar entry
     main_win_ = new MainWindow;
-    // DummyWindowWidget *dummy = new DummyWindowWidget(main_win_);
 
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
@@ -107,13 +105,12 @@ void SeafileApplet::onDaemonStarted()
 
     if (configurator_->firstUse() || !settings_mgr_->hideMainWindowWhenStarted()) {
         main_win_->showWindow();
-        // dummy->show();
     }
 
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
-    if (!settings_mgr_->defaultLibraryAlreadySetup() && account_mgr_->accounts().size() > 0) {
+    if (configurator_->firstUse() && account_mgr_->accounts().size() > 0) {
         const Account& account = account_mgr_->accounts()[0];
         InitVirtualDriveDialog *dialog = new InitVirtualDriveDialog(account);
         dialog->show();

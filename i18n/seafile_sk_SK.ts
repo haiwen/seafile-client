@@ -99,73 +99,73 @@
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="93"/>
+        <location filename="../src/ui/cloud-view.cpp" line="94"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="98"/>
+        <location filename="../src/ui/cloud-view.cpp" line="99"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="110"/>
+        <location filename="../src/ui/cloud-view.cpp" line="111"/>
         <source>Show download tasks</source>
         <translation>Zobraz úlohy na stiahnutie</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="119"/>
+        <location filename="../src/ui/cloud-view.cpp" line="120"/>
         <source>current download rate</source>
         <translation>aktuálna rýchlosť sťahovania</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="124"/>
+        <location filename="../src/ui/cloud-view.cpp" line="125"/>
         <source>current upload rate</source>
         <translation>aktuálna rýchlosť nahrávania</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="129"/>
+        <location filename="../src/ui/cloud-view.cpp" line="130"/>
         <source>Please Choose a folder to sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="283"/>
+        <location filename="../src/ui/cloud-view.cpp" line="284"/>
         <source>No account</source>
         <translation>Žiadny účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="317"/>
+        <location filename="../src/ui/cloud-view.cpp" line="318"/>
         <source>Add an account</source>
         <translation>Pridať účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="324"/>
+        <location filename="../src/ui/cloud-view.cpp" line="325"/>
         <source>Delete this account</source>
         <translation>Zmazať tento účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="447"/>
+        <location filename="../src/ui/cloud-view.cpp" line="456"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
         <translation>Ste si istý že chcete odbrať tento účet?&lt;br&gt;&lt;b&gt;Upozornenie: Všetky knižnice tohto účtu budú nesynchronizované!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="460"/>
+        <location filename="../src/ui/cloud-view.cpp" line="469"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Nepodarilo sa zrušiť synchronizáciu pre tento účet: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="490"/>
-        <location filename="../src/ui/cloud-view.cpp" line="513"/>
+        <location filename="../src/ui/cloud-view.cpp" line="499"/>
+        <location filename="../src/ui/cloud-view.cpp" line="521"/>
         <source>no server connected</source>
         <translation>nie je pripojený žiadny server</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="510"/>
+        <location filename="../src/ui/cloud-view.cpp" line="519"/>
         <source>all servers connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="516"/>
+        <location filename="../src/ui/cloud-view.cpp" line="523"/>
         <source>some servers not connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -178,8 +178,8 @@
         <translation type="obsolete">niektoré servery nie sú pripojené</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="536"/>
-        <location filename="../src/ui/cloud-view.cpp" line="537"/>
+        <location filename="../src/ui/cloud-view.cpp" line="545"/>
+        <location filename="../src/ui/cloud-view.cpp" line="546"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
@@ -188,84 +188,84 @@
         <translation type="obsolete">Vytvoriť novú knižnicu</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="587"/>
+        <location filename="../src/ui/cloud-view.cpp" line="596"/>
         <source>Refresh</source>
         <translation>Obnoviť</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="325"/>
+        <location filename="../ui_cloud-view.h" line="324"/>
         <source>Form</source>
         <translation>Formulár</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="326"/>
+        <location filename="../ui_cloud-view.h" line="325"/>
         <source>logo</source>
         <translation type="unfinished">logo</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="327"/>
+        <location filename="../ui_cloud-view.h" line="326"/>
         <source>Seafile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="328"/>
+        <location filename="../ui_cloud-view.h" line="327"/>
         <source>minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="329"/>
+        <location filename="../ui_cloud-view.h" line="328"/>
         <source>close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="330"/>
+        <location filename="../ui_cloud-view.h" line="329"/>
         <source>Account</source>
         <translation>Účet</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="331"/>
+        <location filename="../ui_cloud-view.h" line="330"/>
         <source>email</source>
         <translation>email</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="332"/>
+        <location filename="../ui_cloud-view.h" line="331"/>
         <source>server</source>
         <translation>server</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="333"/>
-        <location filename="../ui_cloud-view.h" line="336"/>
-        <location filename="../ui_cloud-view.h" line="338"/>
+        <location filename="../ui_cloud-view.h" line="332"/>
+        <location filename="../ui_cloud-view.h" line="335"/>
+        <location filename="../ui_cloud-view.h" line="337"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="334"/>
+        <location filename="../ui_cloud-view.h" line="333"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="335"/>
-        <source>folders to sync</source>
+        <location filename="../ui_cloud-view.h" line="334"/>
+        <source>or Drop Folder to Sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="339"/>
+        <location filename="../ui_cloud-view.h" line="338"/>
         <source>download rate</source>
         <translation>rýchlosť sťahovania</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="340"/>
+        <location filename="../ui_cloud-view.h" line="339"/>
         <source>downarrow</source>
         <translation>šípka dole</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="341"/>
+        <location filename="../ui_cloud-view.h" line="340"/>
         <source>upload rate</source>
         <translation>rýchlosť nahrávania</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="342"/>
+        <location filename="../ui_cloud-view.h" line="341"/>
         <source>uparrow</source>
         <translation>šípka hore</translation>
     </message>
@@ -598,7 +598,7 @@
     <name>InitVirtualDriveDialog</name>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="31"/>
-        <source>Seafile Initialization</source>
+        <source>Download  Initialization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -672,7 +672,22 @@ The server version must be 2.1 or higher to support this.</source>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="164"/>
-        <source>Setup Default Library</source>
+        <source>Download Default Library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="166"/>
+        <source>Do you like to download your default library and create a virtual disk?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="167"/>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="168"/>
+        <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -681,19 +696,12 @@ The server version must be 2.1 or higher to support this.</source>
         <translation type="unfinished">logo</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="166"/>
-        <source>To setup your default library, click &quot;OK&quot;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="167"/>
         <source>Ok</source>
-        <translation type="unfinished">Ok</translation>
+        <translation type="obsolete">Ok</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="168"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušiť</translation>
+        <translation type="obsolete">Zrušiť</translation>
     </message>
 </context>
 <context>
@@ -819,7 +827,7 @@ The server version must be 2.1 or higher to support this.</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="83"/>
+        <location filename="../src/ui/main-window.cpp" line="103"/>
         <source>Refresh</source>
         <translation>Obnoviť</translation>
     </message>
@@ -1108,7 +1116,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <translation>pre %1 minútami</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="78"/>
+        <location filename="../src/main.cpp" line="82"/>
         <source>%1 is already running</source>
         <translation>%1 je už spustený</translation>
     </message>
@@ -1298,7 +1306,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="395"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="379"/>
         <source>This library has not been downloaded</source>
         <translation>Táto knižnica nebola stiahnutá</translation>
     </message>
@@ -1329,7 +1337,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <translation type="obsolete">Zdielané Knižnice</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="195"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
         <source>Organization</source>
         <translation>Organizácia</translation>
     </message>
@@ -1444,7 +1452,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="150"/>
+        <location filename="../src/seafile-applet.cpp" line="149"/>
         <source>Failed to initialize log</source>
         <translation>Nepodarila sa inicializácia log súboru</translation>
     </message>

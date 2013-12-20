@@ -77,6 +77,7 @@ bool MainWindow::event(QEvent *ev)
 
 void MainWindow::changeEvent(QEvent *event)
 {
+#ifdef Q_WS_WIN
     /*
      * Solve the problem of restoring a minimized frameless window on Windows
      * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
@@ -90,6 +91,7 @@ void MainWindow::changeEvent(QEvent *event)
             showNormal();
         }
     }
+#endif
 }
 
 void MainWindow::showEvent(QShowEvent *event)
@@ -116,9 +118,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::showWindow()
 {
-    this->show();
-    this->raise();
-    this->activateWindow();
+    show();
+    raise();
+    activateWindow();
 }
 
 void MainWindow::refreshQss()
@@ -145,8 +147,8 @@ void MainWindow::readSettings()
     //     resize(settings.value("size", QSize()).toSize());
     // }
 
-    if (settings.contains("pos")) {
-        move(settings.value("pos", QPoint()).toPoint());
-    }
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    QPoint center_of_screen = screen.center() - rect().center();
+    move(settings.value("pos", center_of_screen).toPoint());
     settings.endGroup();
 }

@@ -224,11 +224,9 @@ SET(LANGUAGES
   en
   de_DE
   es
-  es_MX
   fr_FR
   he_IL
   hu_HU
-  lv
   nl_BE
   pt_BR
   ru

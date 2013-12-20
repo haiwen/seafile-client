@@ -46,6 +46,8 @@ const char *kRepoNameColor = "#3F3F3F";
 const char *kRepoNameColorHighlighted = "#544D49";
 const char *kTimestampColor = "#959595";
 const char *kTimestampColorHighlighted = "#9D9B9A";
+const int kRepoNameFontSize = 14;
+const int kTimestampFontSize = 12;
 
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width)
@@ -80,6 +82,19 @@ QFont zoomFont(const QFont& font_in, double ratio)
         font.setPointSize((int)(font.pointSize() * ratio));
     } else {
         font.setPixelSize((int)(font.pixelSize() * ratio));
+    }
+
+    return font;
+}
+
+QFont changeFontSize(const QFont& font_in, int size)
+{
+    QFont font(font_in);
+
+    if (font.pointSize() > 0) {
+        font.setPointSize(size);
+    } else {
+        font.setPixelSize(size);
     }
 
     return font;
@@ -194,6 +209,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidth + kMarginBetweenRepoIconAndName, 0);
     QRect repo_name_rect(repo_name_pos, QSize(kRepoNameWidth, kRepoNameHeight));
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
+    painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
     painter->drawText(repo_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
                       fitTextToWidth(repo.name, option.font, kRepoNameWidth),
@@ -202,8 +218,8 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo description
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
     QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
+    painter->setFont(changeFontSize(painter->font(), kTimestampFontSize));
     painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
-    // painter->setFont(zoomFont(painter->font(), 0.9));
 
     QString description;
     if (item->cloneTask().isValid() && item->cloneTask().isDisplayable()) {

@@ -10,7 +10,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="35"/>
         <source>failed to open account database</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -95,75 +95,75 @@
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="93"/>
+        <location filename="../src/ui/cloud-view.cpp" line="94"/>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="98"/>
+        <location filename="../src/ui/cloud-view.cpp" line="99"/>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="110"/>
+        <location filename="../src/ui/cloud-view.cpp" line="111"/>
         <source>Show download tasks</source>
         <translation>显示下载任务</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="119"/>
+        <location filename="../src/ui/cloud-view.cpp" line="120"/>
         <source>current download rate</source>
         <translation>当前下载速率</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="124"/>
+        <location filename="../src/ui/cloud-view.cpp" line="125"/>
         <source>current upload rate</source>
         <translation>当前上传速率</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="129"/>
+        <location filename="../src/ui/cloud-view.cpp" line="130"/>
         <source>Please Choose a folder to sync</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择一个文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="283"/>
+        <location filename="../src/ui/cloud-view.cpp" line="284"/>
         <source>No account</source>
         <translation>没有帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="317"/>
+        <location filename="../src/ui/cloud-view.cpp" line="318"/>
         <source>Add an account</source>
         <translation>添加一个帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="324"/>
+        <location filename="../src/ui/cloud-view.cpp" line="325"/>
         <source>Delete this account</source>
         <translation>删除当前帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="447"/>
+        <location filename="../src/ui/cloud-view.cpp" line="456"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
         <translation>确定要删除这个帐号吗？&lt;br&gt;&lt;b&gt;警告：这个帐号的所有资料库都将被解除同步！&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="460"/>
+        <location filename="../src/ui/cloud-view.cpp" line="469"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>解除同步该帐号的资料库失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="490"/>
-        <location filename="../src/ui/cloud-view.cpp" line="513"/>
+        <location filename="../src/ui/cloud-view.cpp" line="499"/>
+        <location filename="../src/ui/cloud-view.cpp" line="521"/>
         <source>no server connected</source>
         <translation>服务器连接失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="510"/>
+        <location filename="../src/ui/cloud-view.cpp" line="519"/>
         <source>all servers connected</source>
-        <translation type="unfinished"></translation>
+        <translation>所有服务器已连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="516"/>
+        <location filename="../src/ui/cloud-view.cpp" line="523"/>
         <source>some servers not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>一些服务器未连接</translation>
     </message>
     <message>
         <source>all server connected</source>
@@ -174,8 +174,8 @@
         <translation type="obsolete">一些服务器连接失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="536"/>
-        <location filename="../src/ui/cloud-view.cpp" line="537"/>
+        <location filename="../src/ui/cloud-view.cpp" line="545"/>
+        <location filename="../src/ui/cloud-view.cpp" line="546"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
@@ -184,86 +184,86 @@
         <translation type="obsolete">创建新资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="587"/>
+        <location filename="../src/ui/cloud-view.cpp" line="596"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="325"/>
+        <location filename="../ui_cloud-view.h" line="324"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="326"/>
+        <location filename="../ui_cloud-view.h" line="325"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>标志</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="326"/>
+        <source>Seafile</source>
+        <translation>Seafile</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="327"/>
-        <source>Seafile</source>
-        <translation type="unfinished"></translation>
+        <source>minimize</source>
+        <translation>最小化</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="328"/>
-        <source>minimize</source>
-        <translation type="unfinished"></translation>
+        <source>close</source>
+        <translation>关闭</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="329"/>
-        <source>close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui_cloud-view.h" line="330"/>
         <source>Account</source>
         <translation>帐号</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="331"/>
+        <location filename="../ui_cloud-view.h" line="330"/>
         <source>email</source>
         <translation>邮箱</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="332"/>
+        <location filename="../ui_cloud-view.h" line="331"/>
         <source>server</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="333"/>
-        <location filename="../ui_cloud-view.h" line="336"/>
-        <location filename="../ui_cloud-view.h" line="338"/>
+        <location filename="../ui_cloud-view.h" line="332"/>
+        <location filename="../ui_cloud-view.h" line="335"/>
+        <location filename="../ui_cloud-view.h" line="337"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="334"/>
+        <location filename="../ui_cloud-view.h" line="333"/>
         <source>Select</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="335"/>
-        <source>folders to sync</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui_cloud-view.h" line="334"/>
+        <source>or Drop Folder to Sync</source>
+        <translation>或拖拽文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="339"/>
+        <location filename="../ui_cloud-view.h" line="338"/>
         <source>download rate</source>
         <translation>下载速率</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="340"/>
+        <location filename="../ui_cloud-view.h" line="339"/>
         <source>downarrow</source>
-        <translation type="unfinished"></translation>
+        <translation>向下的箭头</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="341"/>
+        <location filename="../ui_cloud-view.h" line="340"/>
         <source>upload rate</source>
         <translation>上传速率</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="342"/>
+        <location filename="../ui_cloud-view.h" line="341"/>
         <source>uparrow</source>
-        <translation type="unfinished"></translation>
+        <translation>向上的箭头</translation>
     </message>
 </context>
 <context>
@@ -281,12 +281,12 @@
     <message>
         <location filename="../src/configurator.cpp" line="235"/>
         <source>Seafile</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="238"/>
         <source>Seafile default library</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile 默认资料库</translation>
     </message>
 </context>
 <context>
@@ -339,7 +339,7 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
         <source>Unknown error</source>
-        <translation type="unfinished">未知错误</translation>
+        <translation>未知错误</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
@@ -395,7 +395,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>status text</source>
-        <translation type="unfinished"></translation>
+        <translation>状态文本</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
@@ -525,7 +525,7 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
         <source>%1 Initialization</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 初始化</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
@@ -537,7 +537,7 @@
         <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="147"/>
         <source>Initialization is not finished. Really quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>初始化未完成，确认退出？</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
@@ -561,7 +561,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>标志</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -588,18 +588,18 @@
     <name>InitVirtualDriveDialog</name>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="31"/>
-        <source>Seafile Initialization</source>
-        <translation type="unfinished"></translation>
+        <source>Download  Initialization</source>
+        <translation>下载初始化</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="72"/>
         <source>Checking your default library...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在获取默认资料库信息...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="86"/>
         <source>Create a default library...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在创建默认资料库...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="137"/>
@@ -607,83 +607,92 @@
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
-        <translation type="unfinished"></translation>
+        <translation>创建默认资料库失败：
+服务器版本必须是 2.1 以上才支持默认资料库功能。</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="140"/>
         <source>Failed to get default library: error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>获取默认资料库信息失败：错误码 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="156"/>
         <source>Failed to create default library: error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>创建默认资料库失败：错误码 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="168"/>
         <source>Failed to create folder &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>创建目录 &quot;%1&quot; 失败</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="181"/>
         <source>Failed to download default library:
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation>下载资料库 “%1” 失败</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="187"/>
         <source>downloading default library...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在下载默认资料库...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="193"/>
         <source>Failed to download default library: error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>下载默认资料库失败：错误码 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
         <source>The default library has been setup. Please click the &quot;Finish&quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>默认资料库下载完成。请点击“完成“按钮</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="223"/>
         <source>downloading default library... done</source>
-        <translation type="unfinished"></translation>
+        <translation>正在下载默认资料库...完成</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="231"/>
         <source>updating default libray...</source>
-        <translation type="unfinished"></translation>
+        <translation>更新默认资料库信息...</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="163"/>
         <source>Dialog</source>
-        <translation type="unfinished">对话框</translation>
+        <translation>对话框</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="164"/>
-        <source>Setup Default Library</source>
-        <translation type="unfinished"></translation>
+        <source>Download Default Library</source>
+        <translation>下载默认资料库</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="166"/>
+        <source>Do you like to download your default library and create a virtual disk?</source>
+        <translation>你希望下载默认资料库并创建一个虚拟磁盘吗？</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="167"/>
+        <source>Yes</source>
+        <translation>是</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="168"/>
+        <source>No</source>
+        <translation>否</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="165"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="166"/>
-        <source>To setup your default library, click &quot;OK&quot;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="167"/>
         <source>Ok</source>
-        <translation type="unfinished">确定</translation>
+        <translation type="obsolete">确定</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="168"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation type="obsolete">取消</translation>
     </message>
 </context>
 <context>
@@ -763,7 +772,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="237"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>标志</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
@@ -793,7 +802,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <location filename="../ui_login-dialog.h" line="243"/>
         <source>status text</source>
-        <translation type="unfinished"></translation>
+        <translation>状态文本</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="244"/>
@@ -809,7 +818,7 @@ The server version must be 2.1 or higher to support this.</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="83"/>
+        <location filename="../src/ui/main-window.cpp" line="103"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -929,7 +938,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="115"/>
         <source>You have not logged in to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>你还没登录到服务器上</translation>
     </message>
     <message>
         <source>You have not login to the server</source>
@@ -1098,99 +1107,99 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="78"/>
+        <location filename="../src/main.cpp" line="82"/>
         <source>%1 is already running</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 已经在运行中</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"></translation>
+        <translation>添加了</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>删除了</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"></translation>
+        <translation>删除了</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>修改了</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>重命名了</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"></translation>
+        <translation>移动了</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"></translation>
+        <translation>添加了文件夹</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>删除了文件夹</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"></translation>
+        <translation>重命名了文件夹</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"></translation>
+        <translation>移动了文件夹</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"></translation>
+        <translation>资料库状态恢复到</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>文件 &quot;%1&quot; 状态恢复到 %2。</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复了删除的文件夹</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"></translation>
+        <translation>更改了资料库的名字或描述</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation type="unfinished"></translation>
+        <translation>系统自动合并更改</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>文件</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"></translation>
+        <translation>文件夹</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation type="unfinished"></translation>
+        <translation>及其他 %1 个</translation>
     </message>
 </context>
 <context>
@@ -1219,12 +1228,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoIcon</source>
-        <translation type="unfinished"></translation>
+        <translation>资料库图标</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
-        <translation type="unfinished"></translation>
+        <translation>资料库名字</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="219"/>
@@ -1237,7 +1246,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../ui_repo-detail-dialog.h" line="226"/>
         <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>文本</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="221"/>
@@ -1252,7 +1261,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="224"/>
         <source>mtime</source>
-        <translation type="unfinished"></translation>
+        <translation>修改时间</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
@@ -1272,7 +1281,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>RepoStatus</source>
-        <translation type="unfinished"></translation>
+        <translation>资料库状态</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="231"/>
@@ -1288,7 +1297,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="395"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="379"/>
         <source>This library has not been downloaded</source>
         <translation>这个资料库还没有下载</translation>
     </message>
@@ -1302,7 +1311,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
         <source>Recently Updated</source>
-        <translation type="unfinished"></translation>
+        <translation>最近修改</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
@@ -1312,14 +1321,14 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
         <source>Private Shares</source>
-        <translation type="unfinished"></translation>
+        <translation>共享给我的</translation>
     </message>
     <message>
         <source>Shared Libraries</source>
         <translation type="obsolete">共享的资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="195"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
         <source>Organization</source>
         <translation>机构</translation>
     </message>
@@ -1359,22 +1368,22 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation>立即同步(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>立即同步资料库</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>&amp;Cancel download</source>
-        <translation type="unfinished"></translation>
+        <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>Cancel download of this library</source>
-        <translation type="unfinished"></translation>
+        <translation>取消下载这个资料库</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
@@ -1421,18 +1430,18 @@ The library owner&apos;s storage space is used up.</source>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished">取消任务失败：%1</translation>
+        <translation>取消任务失败：%1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
         <source>The download has been canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>下载已取消</translation>
     </message>
 </context>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="150"/>
+        <location filename="../src/seafile-applet.cpp" line="149"/>
         <source>Failed to initialize log</source>
         <translation>初始化日志失败</translation>
     </message>
@@ -1454,12 +1463,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="648"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation type="unfinished"></translation>
+        <translation>路径 &quot;%1&quot; 与系统路径冲突</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="650"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation type="unfinished"></translation>
+        <translation>路径 &quot;%1&quot; 与已有资料库冲突</translation>
     </message>
 </context>
 <context>
@@ -1528,17 +1537,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="297"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>关于 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="298"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="358"/>
         <source>some servers not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>一些服务器未连接</translation>
     </message>
     <message>
         <source>some server is not connected</source>
@@ -1550,8 +1559,8 @@ The library owner&apos;s storage space is used up.</source>
     <message numerus="yes">
         <location filename="../src/seahub-messages-monitor.cpp" line="69"/>
         <source>You have %n message(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>你有 %n 条未读消息</numerusform>
         </translation>
     </message>
 </context>

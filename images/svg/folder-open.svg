@@ -13,14 +13,14 @@
    width="60"
    height="60"
    viewBox="0 0 60 60"
-   id="svg4487"
+   id="svg5116"
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="folder-open.svg"
-   inkscape:export-filename="/tmp/SVG/folder-open.png"
+   inkscape:export-filename="/tmp/folder-open.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <metadata
-     id="metadata4495">
+     id="metadata5124">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -32,7 +32,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs4493" />
+     id="defs5122" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -44,7 +44,7 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1215"
      inkscape:window-height="776"
-     id="namedview4491"
+     id="namedview5120"
      showgrid="false"
      inkscape:zoom="7.375"
      inkscape:cx="-8"
@@ -52,10 +52,10 @@
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4487" />
+     inkscape:current-layer="svg5116" />
   <path
-     d="M 45.625,55 55,24.230769 H 14.375 L 5,55 z M 11.25,20.384615 5,55 V 5 h 14.0625 l 6.25,7.692308 H 45.625 v 7.692307 z"
-     id="path4489"
+     d="M 47.307692,52.5 57.692308,24.807692 h -45 L 2.307692,52.5 z M 9.2307692,21.346153 2.307692,52.5 v -45 h 15.576923 l 6.923077,6.923077 h 22.5 v 6.923076 z"
+     id="path5118"
      inkscape:connector-curvature="0"
      style="fill:#585859;fill-opacity:1" />
 </svg>

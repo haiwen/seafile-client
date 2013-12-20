@@ -94,13 +94,6 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
         RepoItem *item = new RepoItem(repos_copy[i]);
         recent_updated_category_->appendRow(item);
     }
-
-    if (n > 0) {
-        tree_view_->selectionModel()->select(indexFromItem(recent_updated_category_),
-                                             QItemSelectionModel::Deselect);
-        tree_view_->selectionModel()->select(indexFromItem(recent_updated_category_->child(0)),
-                                             QItemSelectionModel::Select);
-    }
 }
 
 struct DeleteRepoData {

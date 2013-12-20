@@ -29,6 +29,7 @@
     <file>images/plus.png</file>
     <file>images/minus.png</file>
     <file>images/download.png</file>
+    <file>images/download-gray.png</file>
     <file>images/folder-open.png</file>
     <file>images/browser.png</file>
     <file>images/info.png</file>
@@ -39,6 +40,8 @@
     <file>images/sync_now.png</file>
     <file>images/remove.png</file>
     <file>images/seafile-download-library.png</file>
+    <file>images/link-green.png</file>
+    <file>images/link-red.png</file>
     <file>images/sync/ok.png</file>
     <file>images/sync/exclamation.png</file>
     <file>images/sync/minus-sign.png</file>

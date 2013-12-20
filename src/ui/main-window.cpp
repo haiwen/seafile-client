@@ -77,6 +77,10 @@ bool MainWindow::event(QEvent *ev)
 
 void MainWindow::changeEvent(QEvent *event)
 {
+    /*
+     * Solve the problem of restoring a minimized frameless window on Windows
+     * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
+     */
     if(event->type() == QEvent::WindowStateChange) {
         if(windowState() & Qt::WindowMinimized ) {
             //do something after minimize

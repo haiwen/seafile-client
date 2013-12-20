@@ -107,11 +107,11 @@ void CloudView::setupHeader()
 void CloudView::setupFooter()
 {
     mDownloadTasksInfo->setText("0");
-    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt, QColor("#B1B1B2")));
+    mDownloadTasksBtn->setIcon(QIcon(":/images/download-gray.png"));
     mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
-    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
+    mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
     mDownloadRateArrow->setText(QChar(icon_arrow_down));
@@ -495,7 +495,7 @@ void CloudView::refreshServerStatus()
     }
 
     if (!servers) {
-        mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
+        mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
         mServerStatusBtn->setToolTip(tr("no server connected"));
         return;
     }
@@ -512,19 +512,19 @@ void CloudView::refreshServerStatus()
         }
     }
 
-    QColor color;
+    bool all_connected = false;
     QString tool_tip;
     if (all_server_connected) {
-        color = "green";
+        all_connected = true;
         tool_tip = tr("all servers connected");
     } else if (all_server_disconnected) {
-        color = "red";
         tool_tip = tr("no server connected");
     } else {
-        color = "red";
         tool_tip = tr("some servers not connected");
     }
-    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb, color));
+    mServerStatusBtn->setIcon(QIcon(all_connected
+                                    ? ":/images/link-green.png"
+                                    : ":/images/link-red.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 
     g_list_foreach (servers, (GFunc)g_object_unref, NULL);

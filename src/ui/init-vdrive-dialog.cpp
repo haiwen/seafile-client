@@ -12,6 +12,7 @@
 #include "settings-mgr.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
+#include "rpc/clone-task.h"
 
 #include "init-vdrive-dialog.h"
 
@@ -28,9 +29,8 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
 {
     setupUi(this);
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-    setWindowTitle(tr("Download  Initialization"));
+    setWindowTitle(tr("Download Default Library"));
     setWindowIcon(QIcon(":/images/seafile.png"));
-    // createLoadingView();
 
     create_default_repo_req_ = NULL;
     download_default_repo_req_ = NULL;
@@ -38,33 +38,24 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
     check_download_timer_ = NULL;
     connect(mYesBtn, SIGNAL(clicked()), this, SLOT(start()));
     connect(mNoBtn, SIGNAL(clicked()), this, SLOT(onCancel()));
+
+    mRunInBackgroundBtn->setVisible(false);
+    mFinishBtn->setVisible(false);
+    mOpenBtn->setVisible(false);
 }
 
 void InitVirtualDriveDialog::start()
 {
-    mYesBtn->setEnabled(false);
-    mNoBtn->setEnabled(false);
+    // mYesBtn->setEnabled(false);
+    // mNoBtn->setEnabled(false);
+    mYesBtn->setVisible(false);
+    mNoBtn->setVisible(false);
     getDefaultRepo();
 }
 
 void InitVirtualDriveDialog::onCancel()
 {
-    // seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
     reject();
-}
-
-void InitVirtualDriveDialog::createLoadingView()
-{
-    // QVBoxLayout *layout = new QVBoxLayout;
-    // mLoadingView->setLayout(layout);
-
-    // QMovie *gif = new QMovie(":/images/loading.gif");
-    // QLabel *label = new QLabel;
-    // label->setMovie(gif);
-    // label->setAlignment(Qt::AlignCenter);
-    // gif->start();
-
-    // layout->addWidget(label);
 }
 
 void InitVirtualDriveDialog::getDefaultRepo()
@@ -83,7 +74,7 @@ void InitVirtualDriveDialog::getDefaultRepo()
 
 void InitVirtualDriveDialog::createDefaultRepo()
 {
-    setStatusText(tr("Create a default library..."));
+    setStatusText(tr("Creating the default library..."));
     create_default_repo_req_ = new CreateDefaultRepoRequest(account_);
 
     connect(create_default_repo_req_, SIGNAL(success(const QString&)),
@@ -105,8 +96,8 @@ void InitVirtualDriveDialog::startDownload(const QString& repo_id)
     if (repo.isValid()) {
         // This repo is already here
         qDebug("The default library has already been downloaded");
-        setVDrive(repo);
-        onSuccess();
+        createVirtualDisk(repo);
+        success();
         return;
     }
 
@@ -120,7 +111,6 @@ void InitVirtualDriveDialog::startDownload(const QString& repo_id)
 
     download_default_repo_req_->send();
 }
-
 
 void InitVirtualDriveDialog::onGetDefaultRepoSuccess(bool exists, const QString& repo_id)
 {
@@ -184,7 +174,10 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
         connect(check_download_timer_, SIGNAL(timeout()), this, SLOT(checkDownloadProgress()));
         check_download_timer_->start(kCheckDownloadInterval);
 
-        setStatusText(tr("downloading default library..."));
+        setStatusText(tr("Downloading default library..."));
+
+        mRunInBackgroundBtn->setVisible(true);
+        connect(mRunInBackgroundBtn, SIGNAL(clicked()), this, SLOT(hide()));
     }
 }
 
@@ -193,48 +186,89 @@ void InitVirtualDriveDialog::onDownloadRepoFailure(int code)
     fail(tr("Failed to download default library: error code %1").arg(code));
 }
 
-void InitVirtualDriveDialog::onSuccess()
+void InitVirtualDriveDialog::openVirtualDisk()
 {
-    QString msg = tr("The default library has been setup. Please click the \"Finish\" button");
+    accept();
+}
+
+void InitVirtualDriveDialog::success()
+{
+    QString msg = tr("The default library has been downloaded.\n"
+                     "You can click the \"Open\" button to open the virtual disk");
     mStatusText->setText(msg);
 
-    mNoBtn->setVisible(false);
-    mYesBtn->setEnabled(true);
-    mYesBtn->disconnect();
-    mYesBtn->setText("Finish");
-    connect(mYesBtn, SIGNAL(clicked()), this, SLOT(accept()));
+    mFinishBtn->setVisible(true);
+    mOpenBtn->setVisible(true);
+
+    connect(mFinishBtn, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(mOpenBtn, SIGNAL(clicked()), this, SLOT(openVirtualDisk()));
 }
 
 void InitVirtualDriveDialog::fail(const QString& reason)
 {
-    seafApplet->warningBox(reason);
-    reject();
+    ensureVisible();
+
+    setStatusText(reason);
+    mFinishBtn->setVisible(true);
+    connect(mFinishBtn, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 void InitVirtualDriveDialog::checkDownloadProgress()
 {
-    LocalRepo repo;
-    seafApplet->rpcClient()->getLocalRepo(default_repo_id_, &repo);
-    if (!repo.isValid()) {
+    // First check for error
+    std::vector<CloneTask> tasks;
+    if (seafApplet->rpcClient()->getCloneTasks(&tasks) < 0) {
+        return;
+    }
+
+    CloneTask task;
+    for (int i = 0; i < tasks.size(); i++) {
+        if (tasks[i].repo_id == default_repo_id_) {
+            task = tasks[i];
+            break;
+        }
+    }
+
+    if (!task.isValid()) {
+        return;
+    }
+
+    if (task.state != "done" && task.state != "error") {
         return;
     }
 
     check_download_timer_->stop();
-    setStatusText(tr("downloading default library... done"));
 
-    setVDrive(repo);
-    onSuccess();
+    mRunInBackgroundBtn->setVisible(false);
+    ensureVisible();
+
+    if (task.state == "error") {
+        fail(tr("Error when downloading the default library: %1").arg(task.error_str));
+        return;
+    }
+
+    // Download is finished. Create the virutal disk in "My Computer".
+    LocalRepo repo;
+    seafApplet->rpcClient()->getLocalRepo(default_repo_id_, &repo);
+    createVirtualDisk(repo);
+    success();
 }
 
-void InitVirtualDriveDialog::setVDrive(const LocalRepo& repo)
+void InitVirtualDriveDialog::createVirtualDisk(const LocalRepo& repo)
 {
-    setStatusText(tr("updating default libray..."));
+    setStatusText(tr("Creating the virtual disk..."));
     Configurator::setVirtualDrive(repo.worktree);
-    // seafApplet->settingsManager()->setDefaultLibraryAlreadySetup();
 }
 
 
 void InitVirtualDriveDialog::setStatusText(const QString& status)
 {
     mStatusText->setText(status);
+}
+
+void InitVirtualDriveDialog::ensureVisible()
+{
+    show();
+    raise();
+    activateWindow();
 }

@@ -26,7 +26,6 @@ private slots:
     void checkDownloadProgress();
     void start();
     void onCancel();
-    void onSuccess();
 
 private:
     Q_DISABLE_COPY(InitVirtualDriveDialog)
@@ -36,7 +35,10 @@ private:
     void createLoadingView();
     void createDefaultRepo();
     void setStatusText(const QString& status);
-    void setVDrive(const LocalRepo& repo);
+    void ensureVisible();
+    void createVirtualDisk(const LocalRepo& repo);
+    void openVirtualDisk();
+    void success();
     void fail(const QString& reason);
 
     GetDefaultRepoRequest *get_default_repo_req_;

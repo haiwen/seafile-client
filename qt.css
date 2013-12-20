@@ -121,7 +121,7 @@ CloudView QLabel#mServerAddr {
 }
 
 QDialog QLabel#mTitle {
-    color: #E83;
+    color: #F89A01;
     font-family: Arial;
     font-size: 20px;
 }
@@ -271,4 +271,10 @@ CreateRepoDialog {
 QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
     qproperty-iconSize: 20px;
+}
+
+InitVirtualDriveDialog QLabel#mStatusText {
+    font-size: 16px;
+    font-family: Arial;
+    max-width: 260px;
 }

@@ -21,7 +21,6 @@ HEADERS += ui_clone-tasks-dialog.h \
            ui_settings-dialog.h \
            ui_cloud-view.h \
            ui_login-dialog.h \
-           ui_welcome-dialog.h \
            ui_create-repo-dialog.h \
            ui_repo-detail-dialog.h \
            ui_download-repo-dialog.h \
@@ -33,6 +32,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/daemon-mgr.h \
            src/message-listener.h \
            src/seafile-applet.h \
+           src/seahub-messages-monitor.h \
            src/settings-mgr.h \
            src/traynotificationmanager.h \
            src/traynotificationwidget.h \
@@ -62,14 +62,15 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/ui/repo-tree-view.h \
            src/ui/server-status-dialog.h \
            src/ui/settings-dialog.h \
+           src/ui/init-vdrive-dialog.h \
            src/ui/tray-icon.h \
-           src/ui/welcome-dialog.h \
            src/utils/log.h \
            src/utils/process.h \
            src/utils/rsa.h \
            src/utils/utils.h \
            src/utils/translate-commit-desc.h \
            third_party/QtAwesome/QtAwesome.h
+
 FORMS += ui/clone-tasks-dialog.ui \
          ui/cloud-view.ui \
          ui/create-repo-dialog.ui \
@@ -79,7 +80,9 @@ FORMS += ui/clone-tasks-dialog.ui \
          ui/repo-detail-dialog.ui \
          ui/server-status-dialog.ui \
          ui/settings-dialog.ui \
-         ui/welcome-dialog.ui
+         ui/init-vdrive-dialog.ui
+
+
 SOURCES += src/account-mgr.cpp \
            src/ccnet-init.cpp \
            src/configurator.cpp \
@@ -87,6 +90,7 @@ SOURCES += src/account-mgr.cpp \
            src/main.cpp \
            src/message-listener.cpp \
            src/seafile-applet.cpp \
+           src/seahub-messages-monitor.cpp \
            src/settings-mgr.cpp \
            src/traynotificationmanager.cpp \
            src/traynotificationwidget.cpp \
@@ -117,17 +121,26 @@ SOURCES += src/account-mgr.cpp \
            src/ui/server-status-dialog.cpp \
            src/ui/settings-dialog.cpp \
            src/ui/tray-icon.cpp \
-           src/ui/welcome-dialog.cpp \
+           src/ui/init-vdrive-dialog.cpp \
            src/utils/log.c \
            src/utils/rsa.cpp \
            src/utils/utils.cpp \
            src/utils/translate-commit-desc.cpp \
+           src/utils/uninstall-helpers.cpp \
            third_party/QtAwesome/QtAwesome.cpp
+
 RESOURCES += seafile-client.qrc third_party/QtAwesome/QtAwesome.qrc
 TRANSLATIONS += i18n/seafile_de_DE.ts \
-                i18n/seafile_fr_FR.ts \
-                i18n/seafile_hu_HU.ts \
                 i18n/seafile_en.ts \
+                i18n/seafile_es.ts \
+                i18n/seafile_fr_FR.ts \
+                i18n/seafile_he_IL.ts \
+                i18n/seafile_hu_HU.ts \
+                i18n/seafile_nl_BE.ts \
+                i18n/seafile_pt_BR.ts \
+                i18n/seafile_ru.ts \
+                i18n/seafile_sk_SK.ts \
+                i18n/seafile_uk.ts \
                 i18n/seafile_zh_CN.ts
 
 ICON = seafile.icns
@@ -147,7 +160,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.8"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.9"'
     DEFINES += _SEAFILE_CLIENT_BRAND='"Seafile"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon

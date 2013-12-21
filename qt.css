@@ -221,7 +221,7 @@ CloudView QPushButton#mSelectFolderBtn {
     background: #F5F5F7;
     qproperty-focusPolicy: NoFocus;
     qproperty-flat: true;
-    padding: 4px;
+    padding-right: 4px;
     margin: 0;
 }
 

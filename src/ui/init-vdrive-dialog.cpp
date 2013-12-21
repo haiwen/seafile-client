@@ -150,22 +150,16 @@ void InitVirtualDriveDialog::onCreateDefaultRepoFailure(int code)
 void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
 {
     int ret;
-    QDir worktree = seafApplet->configurator()->worktreeDir();
-    QString default_repo_path = worktree.filePath(info.repo_name);
+    QString worktree = seafApplet->configurator()->worktreeDir();
     QString error;
 
-    if (!worktree.mkpath(info.repo_name)) {
-        fail(tr("Failed to create folder \"%1\"").arg(default_repo_path));
-        return;
-    }
-
-    ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.relay_id,
-                                             info.repo_name, default_repo_path,
-                                             info.token, QString(),
-                                             info.magic, info.relay_addr,
-                                             info.relay_port, info.email,
-                                             info.random_key, info.enc_version,
-                                             &error);
+    ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.relay_id,
+                                                info.repo_name, worktree,
+                                                info.token, QString(),
+                                                info.magic, info.relay_addr,
+                                                info.relay_port, info.email,
+                                                info.random_key, info.enc_version,
+                                                &error);
 
     if (ret < 0) {
         fail(tr("Failed to download default library:\n %1").arg(error));
@@ -194,7 +188,7 @@ void InitVirtualDriveDialog::openVirtualDisk()
 void InitVirtualDriveDialog::success()
 {
     QString msg = tr("The default library has been downloaded.\n"
-                     "You can click the \"Open\" button to open the virtual disk");
+                     "You can click the \"Open\" button to open the virtual disk.");
     mStatusText->setText(msg);
 
     mFinishBtn->setVisible(true);

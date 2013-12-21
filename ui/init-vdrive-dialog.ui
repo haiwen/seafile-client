@@ -200,7 +200,7 @@ Do you like to download your default library and create a virtual disk?</string>
      <item>
       <widget class="QPushButton" name="mFinishBtn">
        <property name="text">
-        <string>Finish</string>
+        <string>Skip</string>
        </property>
       </widget>
      </item>

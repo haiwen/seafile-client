@@ -97,10 +97,11 @@ QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
 CloudView QToolBar {
     qproperty-iconSize: 18px;
     border: 0;
+    max-width: 290px;
 }
 
 QToolBar QAbstractButton {
-    margin: 0 8px;
+    margin-left: 10px;
 }
 
 RepoDetailDialog {
@@ -251,14 +252,12 @@ CloudView QFrame#mFooter QLabel {
 CloudView QFrame#mFooter QLabel#mUploadRateArrow,
 CloudView QFrame#mFooter QLabel#mDownloadRateArrow
 {
-    color: #B1B1B2;
-    min-height: 20px;
-    max-height: 20px;
+    margin-top: 1px;
 }
 
 CloudView QFrame#mFooter QLabel#mDownloadRateArrow
 {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 
@@ -270,11 +269,15 @@ CreateRepoDialog {
 
 QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
-    qproperty-iconSize: 20px;
+    qproperty-iconSize: 18px;
+    margin-top: 3px;
 }
 
 InitVirtualDriveDialog QLabel#mStatusText {
     font-size: 16px;
     font-family: Arial;
-    max-width: 260px;
+}
+
+ServerStatusDialog QListView:item {
+    margin-bottom: 4px;
 }

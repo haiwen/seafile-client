@@ -49,6 +49,15 @@ const char *kTimestampColorHighlighted = "#9D9B9A";
 const int kRepoNameFontSize = 14;
 const int kTimestampFontSize = 12;
 
+const char *kRepoItemBackgroundColor = "white";
+const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
+
+const char *kRepoCategoryColor = "#3F3F3F";
+const char *kRepoCategoryColorHighlighted = "#FAF5FB";
+
+const char *kRepoCategoryBackgroundColor = "white";
+const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
+
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width)
 {
@@ -184,12 +193,13 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     const ServerRepo& repo = item->repo();
     QBrush backBrush;
     bool selected = false;
+
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
-        backBrush = QColor("#F9E0C7");
+        backBrush = QColor(kRepoItemBackgroundColorHighlighted);
         selected = true;
 
     } else {
-        backBrush = QColor("white");
+        backBrush = QColor(kRepoItemBackgroundColor);
     }
 
     painter->save();
@@ -267,30 +277,19 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                              const RepoCategoryItem *item) const
 {
     QBrush backBrush;
-    QColor foreColor;
     bool hover = false;
     bool selected = false;
 
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
-        backBrush = option.palette.brush(QPalette::Highlight);
-        foreColor = option.palette.color(QPalette::HighlightedText);
+        backBrush = QColor(kRepoCategoryBackgroundColorHighlighted);
         selected = true;
 
-    } else if (option.state & QStyle::State_MouseOver) {
-        backBrush = option.palette.color(QPalette::Highlight).lighter(115);
-        foreColor = option.palette.color(QPalette::HighlightedText);
-        hover = true;
-
     } else {
-        backBrush = option.palette.brush(QPalette::Base);
-        foreColor = option.palette.color(QPalette::Text);
+        backBrush = QColor(kRepoCategoryBackgroundColor);
     }
 
-    QStyle *style = QApplication::style();
-    QStyleOptionViewItemV4 opt(option);
-    opt.backgroundBrush = backBrush;
     painter->save();
-    style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, 0);
+    painter->fillRect(option.rect, backBrush);
     painter->restore();
 
     // Paint the expand/collapse indicator
@@ -301,7 +300,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QRect indicator_rect(option.rect.topLeft(),
                          option.rect.bottomLeft() + QPoint(option.rect.height(), 0));
     painter->save();
-    painter->setPen(foreColor);
+    painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
     painter->setFont(awesome->font(16));
     painter->drawText(indicator_rect,
                       Qt::AlignCenter,
@@ -314,7 +313,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QPoint category_name_pos = indicator_rect.topRight() + QPoint(kMarginBetweenIndicatorAndName, 0);
     QRect category_name_rect(category_name_pos,
                              option.rect.bottomRight() - QPoint(kPadding, 0));
-    painter->setPen(foreColor);
+    painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
                       fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->rowCount()),

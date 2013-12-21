@@ -114,13 +114,15 @@ void CloudView::setupFooter()
     mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
-    mDownloadRateArrow->setText(QChar(icon_arrow_down));
-    mDownloadRateArrow->setFont(awesome->font(16));
+    // mDownloadRateArrow->setText(QChar(icon_arrow_down));
+    // mDownloadRateArrow->setFont(awesome->font(16));
+    mDownloadRateArrow->setPixmap(QPixmap(":/images/arrow-down.png"));
     mDownloadRate->setText("0 kB/s");
     mDownloadRate->setToolTip(tr("current download rate"));
 
-    mUploadRateArrow->setText(QChar(icon_arrow_up));
-    mUploadRateArrow->setFont(awesome->font(16));
+    // mUploadRateArrow->setText(QChar(icon_arrow_up));
+    // mUploadRateArrow->setFont(awesome->font(16));
+    mUploadRateArrow->setPixmap(QPixmap(":/images/arrow-up.png"));
     mUploadRate->setText("0 kB/s");
     mUploadRate->setToolTip(tr("current upload rate"));
 }

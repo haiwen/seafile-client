@@ -66,6 +66,8 @@ private:
 
     bool loadQss(const QString& path);
 
+    void checkLatestVersionInfo();
+
     Configurator *configurator_;
 
     AccountManager *account_mgr_;

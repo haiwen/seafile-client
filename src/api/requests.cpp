@@ -17,6 +17,16 @@ const char *kCreateRepoUrl = "/api2/repos/";
 const char *kUnseenMessagesUrl = "/api2/unseen_messages/";
 const char *kDefaultRepoUrl = "/api2/default-repo/";
 
+const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
+
+#if defined(Q_WS_WIN)
+const char *kOsName = "windows";
+#elif defined(Q_WS_X11)
+const char *kOsName = "linux";
+#else
+const char *kOsName = "mac";
+#endif
+
 } // namespace
 
 
@@ -265,4 +275,36 @@ void CreateDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success(dict.value("repo_id").toString());
+}
+
+GetLatestVersionRequest::GetLatestVersionRequest(const QString& client_id,
+                                                 const QString& client_version)
+    : SeafileApiRequest(QUrl(kLatestVersionUrl), SeafileApiRequest::METHOD_GET)
+{
+    setParam("id", client_id.left(8));
+    setParam("v", QString(kOsName) + "-" + client_version);
+}
+
+void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetLatestVersionRequest: failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (dict.contains(kOsName)) {
+        QString version = dict.value(kOsName).toString();
+        qDebug("The latest version is %s", toCStr(version));
+        emit success(version);
+        return;
+    }
+
+    emit failed(0);
 }

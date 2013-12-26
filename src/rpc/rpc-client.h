@@ -76,6 +76,8 @@ public:
     bool hasLocalRepo(const QString& repo_id);
     int getServers(_GList** servers);
 
+    QString getCcnetPeerId();
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

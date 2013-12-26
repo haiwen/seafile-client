@@ -115,6 +115,8 @@ void SeafileApplet::onDaemonStarted()
 #if defined(Q_WS_WIN)
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
 #endif
+
+    checkLatestVersionInfo();
 }
 
 void SeafileApplet::checkInitVDrive()
@@ -207,4 +209,14 @@ void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
 {
     QMessageBox::information(parent != 0 ? parent : main_win_,
                              tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
+}
+
+
+void SeafileApplet::checkLatestVersionInfo()
+{
+    QString id = rpc_client_->getCcnetPeerId();
+    QString version = STRINGIZE(SEAFILE_CLIENT_VERSION);
+
+    GetLatestVersionRequest *req = new GetLatestVersionRequest(id, version);
+    req->send();
 }

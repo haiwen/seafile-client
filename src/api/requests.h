@@ -145,4 +145,19 @@ private:
     Q_DISABLE_COPY(CreateDefaultRepoRequest);
 };
 
+class GetLatestVersionRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetLatestVersionRequest(const QString& client_id, const QString& client_version);
+
+signals:
+    void success(const QString& latest_version);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetLatestVersionRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

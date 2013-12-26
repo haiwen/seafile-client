@@ -658,3 +658,8 @@ int SeafileRpcClient::checkPathForClone(const QString& path, QString *err_msg)
 
     return -1;
 }
+
+QString SeafileRpcClient::getCcnetPeerId()
+{
+    return sync_client_ ? sync_client_->base.id : "";
+}

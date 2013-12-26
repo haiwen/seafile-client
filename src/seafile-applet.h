@@ -28,6 +28,7 @@ public:
 
     void messageBox(const QString& msg, QWidget *parent=0);
     void warningBox(const QString& msg, QWidget *parent=0);
+    bool yesOrNoBox(const QString& msg, QWidget *parent=0, bool default_val=true);
 
     // normal exit
     void exit(int code);
@@ -58,6 +59,7 @@ public:
 private slots:
     void onDaemonStarted();
     void checkInitVDrive();
+    void onGetLatestVersionInfoSuccess(const QString&);
 
 private:
     Q_DISABLE_COPY(SeafileApplet)

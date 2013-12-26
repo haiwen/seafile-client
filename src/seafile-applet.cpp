@@ -46,7 +46,50 @@ void myLogHandler(QtMsgType type, const char *msg)
     }
 }
 
+/**
+ * s1 > s2 --> *ret = 1
+ *    = s2 --> *ret = 0
+ *    < s2 --> *ret = -1
+ *
+ * If any of the vesion strings is invalid, return -1; else return 0
+ */
+int compareVersions(const QString& s1, const QString& s2, int *ret)
+{
+    QStringList v1 = s1.split(".");
+    QStringList v2 = s2.split(".");
+
+    int i = 0;
+    while (i < v1.size() && i < v2.size()) {
+        bool ok;
+        int a = v1[i].toInt(&ok);
+        if (!ok) {
+            return -1;
+        }
+        int b = v2[i].toInt(&ok);
+        if (!ok) {
+            return -1;
+        }
+
+        if (a > b) {
+            *ret = 1;
+            break;
+        } else if (a < b) {
+            *ret = -1;
+            break;
+        }
+
+        i++;
+    }
+
+    *ret = v1.size() - v2.size();
+
+    return 0;
+}
+
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
+
+const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
+const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";
 
 } // namespace
 
@@ -211,6 +254,17 @@ void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
                              tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
 }
 
+bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default_val)
+{
+    QMessageBox::StandardButton default_btn = default_val ? QMessageBox::Yes : QMessageBox::No;
+
+    return QMessageBox::question(parent != 0 ? parent : main_win_,
+                                 SEAFILE_CLIENT_BRAND,
+                                 msg,
+                                 QMessageBox::Yes | QMessageBox::No,
+                                 default_btn) == QMessageBox::Yes;
+}
+
 
 void SeafileApplet::checkLatestVersionInfo()
 {
@@ -219,4 +273,37 @@ void SeafileApplet::checkLatestVersionInfo()
 
     GetLatestVersionRequest *req = new GetLatestVersionRequest(id, version);
     req->send();
+
+    connect(req, SIGNAL(success(const QString&)),
+            this, SLOT(onGetLatestVersionInfoSuccess(const QString&)));
+}
+
+void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
+{
+    QString current_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
+
+    int ret;
+    if (compareVersions(current_version, latest_version, &ret) < 0) {
+        return;
+    }
+
+    if (ret >= 0) {
+        return;
+    }
+
+    QString msg = tr("A new vesrion of %1 client (%2) is available.\n"
+                     "Do you want to visit the download page?").arg(SEAFILE_CLIENT_BRAND).arg(latest_version);
+
+    if (!yesOrNoBox(msg, NULL, true)) {
+        return;
+    }
+
+    QString url;
+    if (QLocale::system().name() == "zh_CN") {
+        url = kSeafileClientDownloadUrlChinese;
+    } else {
+        url = kSeafileClientDownloadUrl;
+    }
+
+    QDesktopServices::openUrl(url);
 }

@@ -7,15 +7,21 @@
 #include "rpc/rpc-client.h"
 #include "create-repo-dialog.h"
 
-CreateRepoDialog::CreateRepoDialog(const Account& account, QWidget *parent)
+CreateRepoDialog::CreateRepoDialog(const Account& account,
+                                   const QString& worktree,
+                                   QWidget *parent)
     : QDialog(parent),
       request_(NULL),
+      path_(worktree),
       account_(account)
 {
     setupUi(this);
     setWindowTitle(tr("Create a library"));
 
     mStatusText->setText("");
+
+    mDirectory->setText(worktree);
+    mName->setText(QDir(worktree).dirName());
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
@@ -29,11 +35,10 @@ CreateRepoDialog::~CreateRepoDialog()
 
 void CreateRepoDialog::chooseDirAction()
 {
-    const QString &wt = seafApplet->configurator()->worktreeDir();
     QString dir = QFileDialog::getExistingDirectory(this, tr("Please choose a directory"),
-                                                        wt.toUtf8().data(),
-                                                        QFileDialog::ShowDirsOnly
-                                                        | QFileDialog::DontResolveSymlinks);
+                                                    mDirectory->text(),
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
     if (dir.isEmpty())
         return;
     mDirectory->setText(dir);
@@ -89,50 +94,51 @@ bool CreateRepoDialog::validateInputs()
 
     path = mDirectory->text();
     if (path.isEmpty()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please choose the directory to sync"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please choose the directory to sync"), this);
         return false;
     }
     if (!QDir(path).exists()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("The folder %1 does not exist").arg(path),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("The folder %1 does not exist").arg(path), this);
         return false;
     }
 
     if (mName->text().isEmpty()) {
-         QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the name"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please enter the name"), this);
         return false;
     }
+
     if (mDesc->toPlainText().isEmpty()) {
-         QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the description"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please enter the description"), this);
         return false;
     }
+
     encrypted = (mEncrypteCheckBox->checkState() == Qt::Checked) ? true : false;
     if (encrypted) {
          if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
-             QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                                  tr("Please enter the password"),
-                                  QMessageBox::Ok);
+             seafApplet->warningBox(tr("Please enter the password"), this);
              return false;
          }
+
          passwd = mPassword->text();
          passwdAgain = mPasswordAgain->text();
          if (passwd != passwdAgain) {
-             QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                                  tr("Passwords don't match"),
-                                  QMessageBox::Ok);
+             seafApplet->warningBox(tr("Passwords don't match"), this);
              return false;
          }
          passwd_ = passwd;
     } else {
         passwd_ = QString::null;
     }
+
+    QString error;
+    if (seafApplet->rpcClient()->checkPathForClone(path, &error) < 0) {
+        if (error.isEmpty()) {
+            error = tr("Unknown error");
+        }
+        seafApplet->warningBox(error, this);
+        return false;
+    }
+
     name_ = mName->text();
     desc_ = mDesc->toPlainText();
     path_ = mDirectory->text();
@@ -178,4 +184,3 @@ void CreateRepoDialog::createFailed(int /* code */)
 
     setAllInputsEnabled(true);
 }
-

@@ -33,6 +33,7 @@ public:
 protected:
     void showEvent(QShowEvent *event);
     void hideEvent(QHideEvent *event);
+     bool eventFilter(QObject *obj, QEvent *ev);
 
 public slots:
     void showAddAccountDialog();
@@ -47,9 +48,11 @@ private slots:
     void updateAccountMenu();
     void onAccountItemClicked();
     void refreshStatusBar();
-    void showCreateRepoDialog();
     void showServerStatusDialog();
     void onRefreshClicked();
+    void onMinimizeBtnClicked();
+    void onCloseBtnClicked();
+    void chooseFolderToSync();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -57,6 +60,9 @@ private:
     void createLoadingView();
     void createRepoModelView();
     void prepareAccountButtonMenu();
+    void setupHeader();
+    void setupDropArea();
+    void setupFooter();
     void createToolBar();
     void updateAccountInfoDisplay();
     QAction *makeAccountAction(const Account& account);
@@ -66,6 +72,7 @@ private:
     void refreshServerStatus();
     void refreshTasksInfo();
     void refreshTransferRate();
+    void showCreateRepoDialog(const QString& path);
 
     bool in_refresh_;
     QTimer *refresh_timer_;
@@ -82,7 +89,6 @@ private:
     // Toolbar and actions
     QToolBar *tool_bar_;
     QAction *refresh_action_;
-    QAction *create_repo_action_;
 
     // FolderDropArea *drop_area_;
     Account current_account_;

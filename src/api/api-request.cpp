@@ -1,5 +1,6 @@
 #include <QtNetwork>
 
+#include "utils/utils.h"
 #include "api-request.h"
 #include "api-client.h"
 

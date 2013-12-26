@@ -153,8 +153,8 @@ void LoginDialog::loginFailed(int code)
     QString err_msg, reason;
     if (code == 400) {
         reason = tr("Incorrect email or password");
-    } else if (code != 0) {
-        reason = tr("error code %1").arg(code);
+    } else if (code == 500) {
+        reason = tr("Internal Server Error");
     }
 
     if (reason.length() > 0) {
@@ -163,7 +163,7 @@ void LoginDialog::loginFailed(int code)
         err_msg = tr("Failed to login");
     }
 
-    QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+    QMessageBox::warning(this, SEAFILE_CLIENT_BRAND,
                          err_msg,
                          QMessageBox::Ok);
 

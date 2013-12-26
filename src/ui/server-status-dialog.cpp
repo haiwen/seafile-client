@@ -55,7 +55,7 @@ void ServerStatusDialog::refreshStatus()
         item->setData(Qt::DisplayRole, name);
 
         if (server->net_state == PEER_CONNECTED) {
-            item->setData(Qt::DecorationRole, awesome->icon(icon_ok, QColor("green")));
+            item->setData(Qt::DecorationRole, QIcon(":/images/sync/ok.png"));
             item->setData(Qt::ToolTipRole, tr("connected"));
         } else {
             item->setData(Qt::DecorationRole, awesome->icon(icon_remove, QColor("red")));

@@ -69,14 +69,16 @@ const std::vector<Account>& AccountManager::loadAccounts()
 
 int AccountManager::saveAccount(const Account& account)
 {
-    for (int i = 0; i < accounts_.size(); i++) {
+    int i = 0;
+    for (i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == account.serverUrl
             && accounts_[i].username == account.username) {
-            return 0;
+            accounts_.erase(accounts_.begin() + i);
+            break;
         }
     }
 
-    accounts_.push_back(account);
+    accounts_.insert(accounts_.begin(), account);
 
     QString url = account.serverUrl.toEncoded().data();
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();

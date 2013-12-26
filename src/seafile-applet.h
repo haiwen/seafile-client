@@ -13,7 +13,6 @@ class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
 
-
 /**
  * The central class of seafile-client
  */
@@ -26,6 +25,9 @@ public:
     void start();
 
     void refreshQss();
+
+    void messageBox(const QString& msg, QWidget *parent=0);
+    void warningBox(const QString& msg, QWidget *parent=0);
 
     // normal exit
     void exit(int code);
@@ -55,13 +57,14 @@ public:
 
 private slots:
     void onDaemonStarted();
+    void checkInitVDrive();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)
 
     void initLog();
 
-    void loadQss(const QString& path);
+    bool loadQss(const QString& path);
 
     Configurator *configurator_;
 

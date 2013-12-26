@@ -1,3 +1,11 @@
+QLabel {
+    font-family: Microsoft YaHei;
+}
+
 QFrame#mFrame {
     background-color: white;
+}
+
+RepoTreeView {
+    font-family: Microsoft YaHei;
 }

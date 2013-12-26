@@ -70,6 +70,8 @@ public:
 
     void syncRepoImmediately(const QString& repo_id);
 
+    int checkPathForClone(const QString& path, QString* err_msg);
+
     // Helper functions
     bool hasLocalRepo(const QString& repo_id);
     int getServers(_GList** servers);

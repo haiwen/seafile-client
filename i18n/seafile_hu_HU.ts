@@ -3,7 +3,7 @@
     <name>AccountManager</name>
     <message>
         <location filename="../src/account-mgr.cpp" line="35"/>
-        <source>failed to open account databse</source>
+        <source>failed to open account database</source>
         <translation>A felhasználói adatbázis megnyitása nem sikerült</translation>
     </message>
 </context>
@@ -17,12 +17,12 @@
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="48"/>
         <source>remove all successful tasks</source>
-        <translation>minden végrehajtott feladat eltávolítása</translation>
+        <translation>Végrehajtott feladatok eltávolítása</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="79"/>
         <source>No download tasks right now.</source>
-        <translation>Jelenleg nincs letöltési feladat.</translation>
+        <translation>Jelenleg nincsenek letöltési feladatok.</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="70"/>
@@ -58,18 +58,18 @@
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="71"/>
         <source>Cancel this task</source>
-        <translation>A feladat megszakítása</translation>
+        <translation>Feladat megszakítása</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="73"/>
         <source>cancel this task</source>
-        <translation>a feladat megszakítása</translation>
+        <translation>Feladat megszakítása</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="78"/>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="80"/>
         <source>Remove this task</source>
-        <translation>A feladat eltávolítása</translation>
+        <translation>Feladat eltávolítása</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="92"/>
@@ -93,120 +93,161 @@
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="59"/>
+        <location filename="../src/ui/cloud-view.cpp" line="94"/>
+        <source>Minimize</source>
+        <translation>Kis méret</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/cloud-view.cpp" line="99"/>
+        <source>Close</source>
+        <translation>Bezárás</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/cloud-view.cpp" line="111"/>
         <source>Show download tasks</source>
-        <translation>A letöltési feladatok listája</translation>
+        <translation>Letöltési feladatok listája</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="66"/>
+        <location filename="../src/ui/cloud-view.cpp" line="121"/>
         <source>current download rate</source>
-        <translation>pillanatnyi letöltési sebesség</translation>
+        <translation>Aktuális letöltési sebesség</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="71"/>
+        <location filename="../src/ui/cloud-view.cpp" line="127"/>
         <source>current upload rate</source>
-        <translation>pillanatnyi feltöltési sebesség</translation>
+        <translation>Aktuális feltöltési sebesség</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="161"/>
+        <location filename="../src/ui/cloud-view.cpp" line="132"/>
+        <source>Please Choose a folder to sync</source>
+        <translation>Kérem, jelölje ki a szinkronizálandó mappát</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/cloud-view.cpp" line="288"/>
         <source>No account</source>
-        <translation>Nincs felhasználói fiók</translation>
+        <translation>Nincs felhasználói fiók beállítva</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="195"/>
+        <location filename="../src/ui/cloud-view.cpp" line="322"/>
         <source>Add an account</source>
         <translation>Fiók hozzáadása</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="202"/>
+        <location filename="../src/ui/cloud-view.cpp" line="329"/>
         <source>Delete this account</source>
         <translation>Fiók törlése</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="323"/>
+        <location filename="../src/ui/cloud-view.cpp" line="460"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation>Biztosan eltávolítja a fiókot？&lt;br&gt;&lt;b&gt;Figyelmeztetés: A fiók minden könyvtárának szinkronizálása befejeződik!&lt;/b&gt;</translation>
+        <translation>Biztosan eltávolítja a fiókot？&lt;br&gt;&lt;b&gt;Figyelem: a fiókhoz tartozó könyvtárak szinkronizálása megszűnik a törlést követően!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="336"/>
+        <location filename="../src/ui/cloud-view.cpp" line="473"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation>A fiók szinkronizálásának befejezése nem sikerült: %1</translation>
+        <translation>A könyvtárak szinkronizálásának megszüntetése nem sikerült: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="366"/>
-        <location filename="../src/ui/cloud-view.cpp" line="389"/>
+        <location filename="../src/ui/cloud-view.cpp" line="503"/>
+        <location filename="../src/ui/cloud-view.cpp" line="525"/>
         <source>no server connected</source>
-        <translation>nincs csatlakoztatott kiszolgáló</translation>
+        <translation>Nincs kapcsolat a szerverrel</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="386"/>
-        <source>all server connected</source>
-        <translation>minden kiszolgálói kapcsolat él</translation>
+        <location filename="../src/ui/cloud-view.cpp" line="523"/>
+        <source>all servers connected</source>
+        <translation>Minden kapcsolat aktív</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="392"/>
-        <source>some server is not connected</source>
-        <translation>néhány kiszolgáló nem csatlakozik</translation>
+        <location filename="../src/ui/cloud-view.cpp" line="527"/>
+        <source>some servers not connected</source>
+        <translation>Néhány szerver nem elérhető</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="412"/>
-        <location filename="../src/ui/cloud-view.cpp" line="413"/>
+        <location filename="../src/ui/cloud-view.cpp" line="549"/>
+        <location filename="../src/ui/cloud-view.cpp" line="550"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="453"/>
-        <source>Create a new library</source>
-        <translation>Új könyvtár létrehozása</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/cloud-view.cpp" line="458"/>
+        <location filename="../src/ui/cloud-view.cpp" line="600"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="183"/>
+        <location filename="../ui_cloud-view.h" line="324"/>
         <source>Form</source>
         <translation>Űrlap</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="184"/>
+        <location filename="../ui_cloud-view.h" line="325"/>
+        <source>logo</source>
+        <translation>Embléma</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="326"/>
+        <source>Seafile</source>
+        <translation>Seafile</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="327"/>
+        <source>minimize</source>
+        <translation>Kis méret</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="328"/>
+        <source>close</source>
+        <translation>Bezárás</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="329"/>
         <source>Account</source>
         <translation>Fiók</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="185"/>
+        <location filename="../ui_cloud-view.h" line="330"/>
         <source>email</source>
-        <translation>email</translation>
+        <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="186"/>
+        <location filename="../ui_cloud-view.h" line="331"/>
         <source>server</source>
-        <translation>kiszolgáló</translation>
+        <translation>Szerver</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="187"/>
-        <location filename="../ui_cloud-view.h" line="189"/>
+        <location filename="../ui_cloud-view.h" line="332"/>
+        <location filename="../ui_cloud-view.h" line="335"/>
+        <location filename="../ui_cloud-view.h" line="337"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="190"/>
-        <source>download rate</source>
-        <translation>letöltési sebesség</translation>
+        <location filename="../ui_cloud-view.h" line="333"/>
+        <source>Select</source>
+        <translation>Kiválasztás</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="191"/>
+        <location filename="../ui_cloud-view.h" line="334"/>
+        <source>or Drop Folder to Sync</source>
+        <translation>vagy húzzon ide egy könyvtárat a szinkronizáláshoz</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="338"/>
+        <source>download rate</source>
+        <translation>Letöltési sebesség</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="339"/>
         <source>downarrow</source>
         <translation>lefelé nyíl</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="192"/>
+        <location filename="../ui_cloud-view.h" line="340"/>
         <source>upload rate</source>
-        <translation>feltöltési sebesség</translation>
+        <translation>Feltöltési sebesség</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="193"/>
+        <location filename="../ui_cloud-view.h" line="341"/>
         <source>uparrow</source>
         <translation>felfelé nyíl</translation>
     </message>
@@ -214,73 +255,89 @@
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="70"/>
+        <location filename="../src/configurator.cpp" line="86"/>
         <source>Error when creating ccnet configuration</source>
-        <translation>A ccnet konfigurálásakor hiba történt</translation>
+        <translation>Hiba történt a ccnet konfigurálása közben</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="176"/>
+        <location filename="../src/configurator.cpp" line="192"/>
         <source>failed to read %1</source>
-        <translation>Olvasási hiba: %1</translation>
+        <translation>%1 nem olvasható</translation>
+    </message>
+    <message>
+        <location filename="../src/configurator.cpp" line="235"/>
+        <source>%1 Default Library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/configurator.cpp" line="238"/>
+        <source>Seafile default library</source>
+        <translation>Seafile alapértelmezett könyvtára</translation>
     </message>
 </context>
 <context>
     <name>CreateRepoDialog</name>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="16"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="19"/>
         <source>Create a library</source>
         <translation>Könyvtár létrehozása</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="33"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
         <source>Please choose a directory</source>
-        <translation>Válasszon könyvtárat</translation>
+        <translation>Kérem, válasszon könyvtárat</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="65"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
         <source>Creating...</source>
         <translation>Létrehozás...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="93"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
         <source>Please choose the directory to sync</source>
-        <translation>Válassza ki a szinkronizálandó könyvtárat</translation>
+        <translation>Kérem, válassza ki a szinkronizálandó könyvtárat</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="99"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
         <source>The folder %1 does not exist</source>
-        <translation>A %1 könyvtár nem létezik</translation>
+        <translation>A könyvtár (%1) nem létezik</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
         <source>Please enter the name</source>
-        <translation>Írja be a nevet</translation>
+        <translation>Kérem, írja be a nevet</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="112"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
         <source>Please enter the description</source>
-        <translation>Írja be a leírást</translation>
+        <translation>Kérem, adjon meg egy leírást</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="120"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
         <source>Please enter the password</source>
-        <translation>Írja be a jelszót</translation>
+        <translation>Kérem, adja meg a jelszót</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
         <source>Passwords don&apos;t match</source>
         <translation>A jelszavak nem egyeznek</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="163"/>
-        <source>Failed to add download task:
- %1</source>
-        <translation>A letöltési feladat hozzáadása nem sikerült: %1</translation>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <source>Unknown error</source>
+        <translation>Ismeretlen hiba</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="176"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
+        <source>Failed to add download task:
+ %1</source>
+        <translation>A letöltési feladat hozzáadása nem sikerült:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
         <source>Failed to create library on the server</source>
-        <translation>A kiszolgálón nem sikerült létrehozni a könyvtárat</translation>
+        <translation>Nem sikerült létrehozni a könyvtárat a szerveren</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="194"/>
@@ -310,7 +367,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>encrypted</source>
-        <translation>titkosított</translation>
+        <translation>Titkosított</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="200"/>
@@ -320,7 +377,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password Again:</source>
-        <translation>Jelszó ismét:</translation>
+        <translation>Jelszó ismételten:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="202"/>
@@ -330,7 +387,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
@@ -343,17 +400,17 @@
     <message>
         <location filename="../src/daemon-mgr.cpp" line="55"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation>A %1 ccnet konfigurációs könyvtárat nem sikerült betölteni</translation>
+        <translation>Nem sikerült betölteni a ccnet konfigurációs könyvtárát (%1)</translation>
     </message>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="111"/>
+        <location filename="../src/daemon-mgr.cpp" line="107"/>
         <source>ccnet daemon has exited abnormally</source>
-        <translation>A ccnet háttérfolyamat váratlanul kilépett</translation>
+        <translation>A ccnet háttérfolyamat váratlanul megszakadt</translation>
     </message>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="120"/>
+        <location filename="../src/daemon-mgr.cpp" line="112"/>
         <source>seafile daemon has exited abnormally</source>
-        <translation>A seafile háttérfolyamat váratlanul kilépett</translation>
+        <translation>A seafile háttérfolyamat váratlanul megszakadt</translation>
     </message>
 </context>
 <context>
@@ -366,12 +423,12 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="45"/>
         <source>Please choose a directory</source>
-        <translation>Válasszon egy könyvtárat</translation>
+        <translation>Kérem, válasszon egy könyvtárat</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>Please choose the folder to sync</source>
-        <translation>Válassza ki a szinkronizálandó könyvtárat</translation>
+        <translation>Kérem, válassza ki a szinkronizálandó könyvtárat</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="83"/>
@@ -381,54 +438,54 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
         <source>Please enter the password</source>
-        <translation>Adja meg a jelszót</translation>
+        <translation>Kérem, adja meg a jelszót</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="109"/>
         <source>Sync library &quot;%1&quot;</source>
-        <translation>Könyvtár szinkonizálás: &quot;%1&quot;</translation>
+        <translation>&quot;%1&quot; könyvtár szinkronizálása</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="110"/>
         <source>Sync this library with:</source>
-        <translation>A könyvtár szinkronizálása:</translation>
+        <translation>A könyvtár szinkronizálása a következővel:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="150"/>
         <source>Failed to add download task:
  %1</source>
-        <translation>A letöltési feladat hozzáadása nem sikerült:
+        <translation>A letöltési feladat létrehozása sikertelen:
 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="162"/>
         <source>Failed to get repo download information</source>
-        <translation>A tároló letöltési információi nem elérhetőek</translation>
+        <translation>Nem sikerült lekérdezni a tároló letöltési információit</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="215"/>
         <source>Download Library</source>
-        <translation>Letöltési könyvtár</translation>
+        <translation>Könyvtár letöltése</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="216"/>
         <source>Download this library to:</source>
-        <translation>A könyvtár letöltésének helye:</translation>
+        <translation>Könyvtár letöltése ide:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="217"/>
         <source>choose...</source>
-        <translation>válasszon...</translation>
+        <translation>Tallózás...</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="218"/>
         <source>Password for this library:</source>
-        <translation>Jelszó a könyvtárhoz:</translation>
+        <translation>A könyvtár jelszava:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="219"/>
         <source>Files in the local folder will be merged with files in the library</source>
-        <translation>A helyi mappa és a könyvtár fájljai egyesítve lesznek</translation>
+        <translation>A helyi mappa tartalma egyesítve lesz a szerveren lévő könyvtár tartalmával</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="220"/>
@@ -438,12 +495,12 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="221"/>
         <source>sync with existing folder</source>
-        <translation>szinkronizálás egy létező könyvtárral</translation>
+        <translation>Szinkronizálás egy létező könyvtárral</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="222"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="223"/>
@@ -454,51 +511,51 @@
 <context>
     <name>InitSeafileDialog</name>
     <message>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
+        <source>%1 Initialization</source>
+        <translation>%1 inicializálása</translation>
+    </message>
+    <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="108"/>
         <source>Please choose a directory</source>
-        <translation>Kérem válasszon egy könyvtárat</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
-        <source>%1 Initialzation</source>
-        <translation>%1 induló beállítása</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
-        <source>The folder %1 does not exist</source>
-        <translation>A(z) %1 könyvtár nem létezik</translation>
+        <translation>Kérem, válasszon egy könyvtárat</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="147"/>
-        <source>Initialzation is not finished. Really quit?</source>
-        <translation>Az inicializálás még nem ért véget. Biztosan kilép?</translation>
+        <source>Initialization is not finished. Really quit?</source>
+        <translation>Az inicializálás még nem fejeződött be. Biztosan kilép?</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
+        <source>The folder %1 does not exist</source>
+        <translation>A mappa (%1) nem létezik</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Dialog</source>
-        <translation>Pábeszédablak</translation>
+        <translation>Párbeszédablak</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>Choose Seafile folder</source>
-        <translation>Seafile könyvtár választás</translation>
+        <translation>Seafile könyvtárának kiválasztása</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>logo</source>
-        <translation>embléma</translation>
+        <translation>Embléma</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Válasszon könyvtárat. A könyvtárban egy Seafile alkönyvtárat hozunk létre. Ha egy kötetet letölt alapértelmezetten abba lesz lementve.</translation>
+        <translation>Kérem, válasszon egy mappát. A kiválasztott mappában automatikusan létrejön egy Seafile alkönyvtár, amely a letöltésre kijelölt könyvtárak alapértelmezett mentési helye lesz.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
         <source>Choose...</source>
-        <translation>Váasszon...</translation>
+        <translation>Tallózás...</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="196"/>
@@ -509,6 +566,119 @@
         <location filename="../ui_init-seafile-dialog.h" line="197"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
+    </message>
+</context>
+<context>
+    <name>InitVirtualDriveDialog</name>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="63"/>
+        <source>Checking your default library...</source>
+        <translation>Alapértelmezett könyvtár ellenőrzése...</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="77"/>
+        <source>Creating the default library...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="128"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="144"/>
+        <source>Failed to create default library:
+
+The server version must be 2.1 or higher to support this.</source>
+        <translation>Az alapértelmezett könyvtár létrehozása nem sikerült:
+
+A funkció használatához a szoftver 2.1-es vagy újabb verzióját kell futtatni a szerveren.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="131"/>
+        <source>Failed to get default library: error code %1</source>
+        <translation>Az alapértelmezett könyvtár lekérdezése nem sikerült. Hibakód: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="147"/>
+        <source>Failed to create default library: error code %1</source>
+        <translation>Az alapértelmezett könyvtár létrehozása nem sikerült. Hibakód: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="172"/>
+        <source>Downloading default library...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="192"/>
+        <source>The default library has been downloaded.
+You can click the &quot;Open&quot; button to view it.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="242"/>
+        <source>Error when downloading the default library: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
+        <source>Creating the virtual disk...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="166"/>
+        <source>Failed to download default library:
+ %1</source>
+        <translation>Az alapértelmezett könyvtár letöltése nem sikerült:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="181"/>
+        <source>Failed to download default library: error code %1</source>
+        <translation>Az alapértelmezett könyvtár letöltése nem sikerült. Hibakód: %1</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="181"/>
+        <source>Dialog</source>
+        <translation>Párbeszédablak</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="184"/>
+        <source>Seafile organizes files by libraries. 
+Do you like to download your default library and create a virtual disk?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
+        <source>Run in Background</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
+        <source>Open</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <source>Finish</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="32"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="182"/>
+        <source>Download Default Library</source>
+        <translation>Alapértelmezett könyvtár letöltése</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <source>Yes</source>
+        <translation>Igen</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="183"/>
+        <source>logo</source>
+        <translation>Embléma</translation>
     </message>
 </context>
 <context>
@@ -527,58 +697,58 @@
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="70"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation>&lt;b&gt;Figyelem:&lt;/b&gt; A szerver SSL tanúsítványa nem megbízható, ennek ellenére folytatja?</translation>
+        <translation>&lt;b&gt;Figyelem:&lt;/b&gt; A szerver SSL tanúsítványa nem megbízható. Elfogadja a tanúsítványt?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="88"/>
         <source>Please enter the server address</source>
-        <translation>Írja be a kiszolgáló címét</translation>
+        <translation>Kérem, adja meg a szerver címét</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="94"/>
         <location filename="../src/ui/login-dialog.cpp" line="104"/>
         <source>%1 is not a valid server address</source>
-        <translation>érvénytelem kiszolgáló cím: %1</translation>
+        <translation>Érvénytelen elérés: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="114"/>
         <source>Please enter the username</source>
-        <translation>Írja be a felhasználónevet</translation>
+        <translation>Kérem, adja meg a felhasználónevet</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="119"/>
         <source>%1 is not a valid email</source>
-        <translation>érvénytelen email cím: %1</translation>
+        <translation>Érvénytelen e-mail cím: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="127"/>
         <source>Please enter the password</source>
-        <translation>Írja be a jelszót</translation>
+        <translation>Kérem, adja meg a jelszavát</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="144"/>
         <source>Internal Error</source>
-        <translation>Belső alkalmazáshiba</translation>
+        <translation>Belső hiba</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="155"/>
         <source>Incorrect email or password</source>
-        <translation>Érvénytelen email cím vagy jelszó</translation>
+        <translation>Érvénytelen e-mail cím vagy jelszó</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
-        <source>error code %1</source>
-        <translation>hibakód: %1</translation>
+        <source>Internal Server Error</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="161"/>
         <source>Failed to login: %1</source>
-        <translation>sikertelen belépés: %1</translation>
+        <translation>Sikertelen bejelentkezés: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="163"/>
         <source>Failed to login</source>
-        <translation>Sikertelen belépés</translation>
+        <translation>Sikertelen bejelentkezés</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="235"/>
@@ -588,7 +758,7 @@
     <message>
         <location filename="../ui_login-dialog.h" line="237"/>
         <source>logo</source>
-        <translation>embléma</translation>
+        <translation>Embléma</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="238"/>
@@ -598,17 +768,17 @@
     <message>
         <location filename="../ui_login-dialog.h" line="239"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Példa: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Például: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="240"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation>vagy: http://192.168.1.24:8000</translation>
+        <translation>vagy http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="241"/>
         <source>Email:</source>
-        <translation>Email:</translation>
+        <translation>E-mail:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="242"/>
@@ -623,7 +793,7 @@
     <message>
         <location filename="../ui_login-dialog.h" line="244"/>
         <source>Login</source>
-        <translation>Belépés</translation>
+        <translation>Bejelentkezés</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="245"/>
@@ -634,7 +804,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="78"/>
+        <location filename="../src/ui/main-window.cpp" line="106"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
     </message>
@@ -642,174 +812,174 @@
 <context>
     <name>MessageListener</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="79"/>
+        <location filename="../src/message-listener.cpp" line="82"/>
         <source>failed to load ccnet config dir </source>
-        <translation>A ccnet konfigurációs könyvtár betöltése nem sikerült </translation>
+        <translation>A ccnet konfigurációs könyvtár betöltése nem sikerült</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="147"/>
+        <location filename="../src/message-listener.cpp" line="156"/>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; nincs szinkronizálva.
-Indok: a kiszolgálóról törölve</translation>
+        <translation>&quot;%1&quot; nem szinkronizálható.
+Indok: a könyvtár törölve lett a szerverről</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="157"/>
+        <location filename="../src/message-listener.cpp" line="166"/>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; szinkronizálva van</translation>
+        <translation>&quot;%1&quot; szinkronizált állapotban van</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="169"/>
+        <location filename="../src/message-listener.cpp" line="178"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation>&quot;%1&quot; nem szinkronizálható
-Nincs megfelelő jogosultsága</translation>
+        <translation>&quot;%1&quot; nem szinkronizálható.
+Hozzáférés megtagadva</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="180"/>
+        <location filename="../src/message-listener.cpp" line="189"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; nem szinkronizálható
-A könyvtár tulajdonosának tárhelye betelt.</translation>
+        <translation>&quot;%1&quot; nem szinkronizálható.
+A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="46"/>
+        <location filename="../src/message-listener.cpp" line="49"/>
         <source>Uploading</source>
         <translation>Feltöltés</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="46"/>
+        <location filename="../src/message-listener.cpp" line="49"/>
         <source>Downloading</source>
         <translation>Letöltés</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="47"/>
+        <location filename="../src/message-listener.cpp" line="50"/>
         <source>Speed</source>
         <translation>Sebesség</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="58"/>
         <source>synchronized</source>
-        <translation>szinkronizálva</translation>
+        <translation>Szinkronizálva</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="62"/>
         <source>indexing files</source>
-        <translation>fájlok indexelése</translation>
+        <translation>Fájlok indexelése</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="66"/>
         <source>sync initializing</source>
-        <translation>szinkronizálás előkészítése</translation>
+        <translation>Szinkronizálás inicializálása</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="70"/>
         <source>downloading</source>
-        <translation>letöltés</translation>
+        <translation>Letöltés</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="74"/>
         <source>uploading</source>
-        <translation>feltöltés</translation>
+        <translation>Feltöltés</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="78"/>
         <source>sync merging</source>
-        <translation>egyesítés</translation>
+        <translation>Egyesítés</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="82"/>
         <source>waiting for sync</source>
-        <translation>várakozás a szinkronizálásra</translation>
+        <translation>Várakozás a szinkronizálásra</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="86"/>
         <location filename="../src/rpc/local-repo.cpp" line="109"/>
         <source>server not connected</source>
-        <translation>nincs kapcsolat a kiszolgálóval</translation>
+        <translation>Nincs kapcsolat a szerverrel</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="90"/>
         <source>server authenticating</source>
-        <translation>a kiszolgáló azonosítást végez</translation>
+        <translation>Azonosítás</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>auto sync is turned off</source>
-        <translation>önműködő szinkronizálás kikapcsolva</translation>
+        <translation>Automatikus szinkronizálás kikapcsolva</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="99"/>
         <source>unknown</source>
-        <translation>ismeretlen</translation>
+        <translation>Ismeretlen</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="112"/>
         <source>Server has been removed</source>
-        <translation>A kiszolgálót eltávolították</translation>
+        <translation>A szerver eltávolításra került</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="115"/>
-        <source>You have not login to the server</source>
-        <translation>Nem lépett be a kiszolgálóra</translation>
+        <source>You have not logged in to the server</source>
+        <translation>Nem jelentkezett be a szerverre</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="118"/>
         <source>You do not have permission to access this library</source>
-        <translation>Nincs megfelelő jogosultsága a könyvtárhoz</translation>
+        <translation>Nincs jogosultsága a könyvtár eléréséhez</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="121"/>
         <source>The storage space of the library owner has been used up</source>
-        <translation>A könyvtár tulajdonosának tárhelye betelt</translation>
+        <translation>A könyvtár tulajdonosának kiosztott tárhely megtelt</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="124"/>
         <source>Remote service is not available</source>
-        <translation>A távoli szolgáltatás nem elérhető</translation>
+        <translation>A távoli szolgáltatás nem érhető el</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="127"/>
         <source>Access denied to service.</source>
-        <translation>A szolgáltatáshoz nincs jogosultsága.</translation>
+        <translation>Nincs jogosultsága a szolgáltatás eléréséhez.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="130"/>
         <source>Internal data corrupted.</source>
-        <translation>A tárolt adat sérült.</translation>
+        <translation>Sérült adat</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="133"/>
         <source>Failed to start upload.</source>
-        <translation>A feltöltést nem sikerült elkezdeni.</translation>
+        <translation>A feltöltés elindítása nem sikerült</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <source>Error occured in upload.</source>
-        <translation>A feltöltés alatt hiba történt.</translation>
+        <translation>Hiba történt a feltöltés során</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Failed to start download.</source>
-        <translation>A letöltést nem sikerült elkezdeni.</translation>
+        <translation>A letöltés elindítása nem sikerült</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Error occured in download.</source>
-        <translation>A letöltés alatt hiba történt.</translation>
+        <translation>Hiba történt a letöltés során</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Library is deleted on server</source>
-        <translation>A könyvtárat törölték a kiszolgálóról</translation>
+        <translation>A könyvtár törölve lett a szerverről</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Unknown error.</source>
-        <translation>Ismeretlen hiba.</translation>
+        <translation>Ismeretlen hiba</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -819,7 +989,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="74"/>
         <source>connecting server...</source>
-        <translation>Kapcsolódás a kiszolgálóhoz...</translation>
+        <translation>Kapcsolódás a szerverhez...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="77"/>
@@ -839,7 +1009,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="92"/>
         <source>Merge file changes...</source>
-        <translation>Fájl változások egyesítése...</translation>
+        <translation>Változások egyesítése...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="95"/>
@@ -859,69 +1029,69 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="105"/>
         <source>Failed to index local files.</source>
-        <translation>A helyi fájlok indexelése nem sikerült.</translation>
+        <translation>A helyi fájlok indexelése nem sikerült</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="108"/>
         <source>Failed to create local files.</source>
-        <translation>A helyi fájlok létrehozása nem sikerült.</translation>
+        <translation>A helyi fájlok létrehozása nem sikerült</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="111"/>
         <source>Failed to merge local file changes.</source>
-        <translation>A helyi fájlok változatainak egyesítése nem sikerült.</translation>
+        <translation>A változások egyesítése nem sikerült</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="114"/>
         <source>Incorrect password. Please download again.</source>
-        <translation>Érvénytelen jelszó. Töltse le újra.</translation>
+        <translation>Érvénytelen jelszó. Kérem, ismételje meg a letöltést.</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="116"/>
         <source>Internal error.</source>
-        <translation>Belső akalmazáshiba.</translation>
+        <translation>Belső hiba</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="316"/>
-        <location filename="../src/utils/utils.cpp" line="344"/>
-        <location filename="../src/utils/utils.cpp" line="347"/>
+        <location filename="../src/utils/utils.cpp" line="336"/>
+        <location filename="../src/utils/utils.cpp" line="364"/>
+        <location filename="../src/utils/utils.cpp" line="367"/>
         <source>Just now</source>
-        <translation>Épp az imént</translation>
+        <translation>Mostanában</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="332"/>
+        <location filename="../src/utils/utils.cpp" line="352"/>
         <source>1 day ago</source>
-        <translation>tegnap</translation>
+        <translation>1 napja</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="332"/>
+        <location filename="../src/utils/utils.cpp" line="352"/>
         <source>%1 days ago</source>
         <translation>%1 napja</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="336"/>
+        <location filename="../src/utils/utils.cpp" line="356"/>
         <source>1 hour ago</source>
         <translation>1 órája</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="336"/>
+        <location filename="../src/utils/utils.cpp" line="356"/>
         <source>%1 hours ago</source>
         <translation>%1 órája</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="340"/>
+        <location filename="../src/utils/utils.cpp" line="360"/>
         <source>1 minute ago</source>
         <translation>1 perce</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="340"/>
+        <location filename="../src/utils/utils.cpp" line="360"/>
         <source>%1 minutes ago</source>
         <translation>%1 perce</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="39"/>
+        <location filename="../src/main.cpp" line="82"/>
         <source>%1 is already running</source>
-        <translation>%1már fut</translation>
+        <translation>%1 már folyamatban van</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
@@ -951,7 +1121,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation>Átmozgatva</translation>
+        <translation>Áthelyezve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
@@ -971,17 +1141,17 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation>Könyvtár átmozgatva</translation>
+        <translation>Könyvtár áthelyezve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation>A könyvtár visszaállítva erre a státuszra:</translation>
+        <translation>A könyvtár vissza lett állítva a következő állapot szerint:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation>&quot;%1&quot; fájl visszaállítva erre a státuszra: %2.</translation>
+        <translation>A fájl (&quot;%1&quot;) vissza lett állítva a következő állapot szerint: %2</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
@@ -991,27 +1161,27 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation>Könyvtár neve vagy leírása változott</translation>
+        <translation>A könyvtár neve vagy leírása megváltozott</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation>Seafile rendszer automatikusan összefűzte</translation>
+        <translation>Seafile által automatikusan egyesítve</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation>fájlok</translation>
+        <translation>fájl</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation>könyvtárak</translation>
+        <translation>könyvtár</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation>és további %1 </translation>
+        <translation>és további %1</translation>
     </message>
 </context>
 <context>
@@ -1030,7 +1200,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="85"/>
         <source>Error: </source>
-        <translation>Hiba: </translation>
+        <translation>Hiba:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="216"/>
@@ -1040,12 +1210,12 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoIcon</source>
-        <translation>Tároló ikon</translation>
+        <translation>Tároló ikonja</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
-        <translation>Tároló név</translation>
+        <translation>Tároló neve</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="219"/>
@@ -1083,7 +1253,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>Local Path:</source>
-        <translation>Helyi elérési út:</translation>
+        <translation>Helyi elérési útvonal:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="229"/>
@@ -1093,7 +1263,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>RepoStatus</source>
-        <translation>Tároló állapot</translation>
+        <translation>Tároló állapota</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="231"/>
@@ -1109,7 +1279,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="395"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="394"/>
         <source>This library has not been downloaded</source>
         <translation>Ez a könyvtár nincs letöltve</translation>
     </message>
@@ -1118,18 +1288,18 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <name>RepoTreeModel</name>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
-        <source>Recent Updated</source>
-        <translation>Utolsó frissítések</translation>
+        <source>Recently Updated</source>
+        <translation>Mostanában frissült könyvtárak</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>My Libraries</source>
-        <translation>Saját könyvtáraim</translation>
+        <translation>Saját könyvtárak</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
-        <source>Shared Libraries</source>
-        <translation>Megosztott könyvtárak</translation>
+        <source>Private Shares</source>
+        <translation>Saját megosztások</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
@@ -1143,7 +1313,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="137"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="138"/>
         <source>Disable auto sync</source>
-        <translation>Önműködő szinkronizálás kikapcsolása</translation>
+        <translation>Automatikus szinkronizálás kikapcsolása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="141"/>
@@ -1151,7 +1321,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="226"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
         <source>Enable auto sync</source>
-        <translation>Önműködő szinkronizálás bekapcsolása</translation>
+        <translation>Automatikus szinkronizálás bekapcsolása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="190"/>
@@ -1162,17 +1332,17 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="192"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
         <source>Download this library</source>
-        <translation>A könyvtár letöltése</translation>
+        <translation>Könyvtár letöltése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>&amp;Download this library</source>
-        <translation>A &amp;könyvtár letöltése</translation>
+        <translation>&amp;Könyvtár letöltése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync now</source>
-        <translation>&amp;Szinkron most</translation>
+        <translation>&amp;Szinkronizálás most</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
@@ -1197,17 +1367,17 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="216"/>
         <source>open local folder</source>
-        <translation>helyi mappa megnyitása</translation>
+        <translation>Helyi mappa megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
         <source>&amp;Unsync</source>
-        <translation>Szinkronizálás &amp;befejezése</translation>
+        <translation>&amp;Szinkronizálás befejezése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
         <source>unsync this library</source>
-        <translation>a könyvtár szinkronizálásának befejezése</translation>
+        <translation>A könyvtár szinkronizálásának befejezése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="231"/>
@@ -1217,39 +1387,39 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="233"/>
         <source>view this library on seahub</source>
-        <translation>a könyvtár menyitása a seahub-on</translation>
+        <translation>A könyvtár megnyitása a seahub-on</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation>Biztos benne, hogy nem szinkronizálja a(z) &quot;%1&quot; könyvtárat?</translation>
+        <translation>Biztosan befejezi a könyvtár (&quot;%1&quot;) szinkronizálását?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation>A(z) &quot;%1&quot; könyvtár leválasztása nem sikerült.</translation>
+        <translation>A könyvtár (&quot;%1&quot;) szinkronizálását nem sikerült befejezni</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="428"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation>Nem sikerült megszakítani a műveletet:
+        <translation>A művelet megszakítása sikertelen:
 
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
         <source>The download has been canceled</source>
-        <translation>A letöltés megszakítva</translation>
+        <translation>Letöltés megszakítva</translation>
     </message>
 </context>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="140"/>
+        <location filename="../src/seafile-applet.cpp" line="162"/>
         <source>Failed to initialize log</source>
-        <translation>A naplózás elindítása nem sikerült</translation>
+        <translation>A napló inicializálása nem sikerült</translation>
     </message>
 </context>
 <context>
@@ -1257,7 +1427,7 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation>nem sikerült betölteni a(z) &quot;%1&quot; ccnet konfigurációs könyvtárat</translation>
+        <translation>A ccnet konfigurációs könyvtára (%1) nem tölthető be</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="452"/>
@@ -1266,84 +1436,102 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
         <source>Unknown error</source>
         <translation>Ismeretlen hiba</translation>
     </message>
+    <message>
+        <location filename="../src/rpc/rpc-client.cpp" line="648"/>
+        <source>The path &quot;%1&quot; conflicts with system path</source>
+        <translation>Az útvonal (&quot;%1&quot;) ütközik a rendszer elérési útvonalával</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/rpc-client.cpp" line="650"/>
+        <source>The path &quot;%1&quot; conflicts with an existing library</source>
+        <translation>Az útvonal (&quot;%1&quot;) ütközik egy meglévő könyvtár elérési útvonalával</translation>
+    </message>
 </context>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="82"/>
+        <location filename="../src/ui/tray-icon.cpp" line="84"/>
         <source>Disable auto sync</source>
-        <translation>Önműködő szinkronizálás kikapcsolása</translation>
+        <translation>Automatikus szinkronizálás kikapcsolása</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="85"/>
+        <location filename="../src/ui/tray-icon.cpp" line="87"/>
         <source>Enable auto sync</source>
-        <translation>Önműködő szinkronizálás bekapcsolása</translation>
+        <translation>Automatikus szinkronizálás bekapcsolása</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="88"/>
+        <location filename="../src/ui/tray-icon.cpp" line="90"/>
         <source>&amp;Quit</source>
         <translation>&amp;Kilépés</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="92"/>
-        <location filename="../src/ui/tray-icon.cpp" line="142"/>
+        <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <location filename="../src/ui/tray-icon.cpp" line="144"/>
         <source>Show main window</source>
-        <translation>Fő ablak megnyitása</translation>
+        <translation>Főablak megnyitása</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="96"/>
+        <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="99"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>&amp;About</source>
         <translation>&amp;Névjegy</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="102"/>
         <source>Show the application&apos;s About box</source>
-        <translation>Az alkalmazás Névjegy ablakának megjelenítése</translation>
+        <translation>Megjeleníti az alkalmazás névjegyét</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="105"/>
         <source>&amp;Online help</source>
         <translation>&amp;Online segítség</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="106"/>
         <source>open seafile online help</source>
-        <translation>seafile online segítségének megnyitása</translation>
+        <translation>Megnyitja a seafile online súgóját</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="110"/>
+        <location filename="../src/ui/tray-icon.cpp" line="112"/>
         <source>Help</source>
         <translation>Segítség</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="144"/>
+        <location filename="../src/ui/tray-icon.cpp" line="146"/>
         <source>Hide main window</source>
-        <translation>Fő ablak elrejtése</translation>
+        <translation>Főablak elrejtése</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="196"/>
+        <location filename="../src/ui/tray-icon.cpp" line="198"/>
         <source>auto sync is disabled</source>
-        <translation>önműködő szinkronizálás letiltva</translation>
+        <translation>Automatikus szinkronizálás kikapcsolva</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="295"/>
+        <location filename="../src/ui/tray-icon.cpp" line="297"/>
         <source>About %1</source>
-        <translation>%1-ról/ről</translation>
+        <translation>Információk a %1-ról</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="296"/>
+        <location filename="../src/ui/tray-icon.cpp" line="298"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation>&lt;h2&gt;%1 Kliens %2&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;%1 kliens %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="356"/>
-        <source>some server is not connected</source>
-        <translation>néhány kiszolgálóhoz nem lehet csatlakozni</translation>
+        <location filename="../src/ui/tray-icon.cpp" line="358"/>
+        <source>some servers not connected</source>
+        <translation>Néhány szerver nem elérhető</translation>
+    </message>
+</context>
+<context>
+    <name>SeahubMessagesMonitor</name>
+    <message numerus="yes">
+        <location filename="../src/seahub-messages-monitor.cpp" line="69"/>
+        <source>You have %n message(s)</source>
+        <translation><numerusform>%n üzenete van</numerusform><numerusform>%n üzenete van</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1351,17 +1539,17 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="25"/>
         <source>Servers connection status</source>
-        <translation>Kiszolgálói kapcsolatok</translation>
+        <translation>Kapcsolódás állapota</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="59"/>
         <source>connected</source>
-        <translation>kapcsolódva</translation>
+        <translation>Kapcsolódva</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="62"/>
         <source>disconnected</source>
-        <translation>nincs kapcsolat</translation>
+        <translation>Nincs kapcsolat</translation>
     </message>
     <message>
         <location filename="../ui_server-status-dialog.h" line="71"/>
@@ -1389,70 +1577,37 @@ A könyvtár tulajdonosának tárhelye betelt.</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="157"/>
         <source>Hide main window when started</source>
-        <translation>Induláskor a fő ablak elrejtése</translation>
+        <translation>Főablak elrejtése indításkor</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="158"/>
         <source>Notify when libraries are synchronized</source>
-        <translation>Értesítés, ha a könyvtárak szinkronizálva vannak</translation>
+        <translation>Értesítést kérek, ha a könyvtárak szinkronizálva vannak</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="159"/>
         <source>Auto start Seafile after login (Windows only)</source>
-        <translation>A Seafile elindítása rendszerbe lépéskor (csak Windows)</translation>
+        <translation>Seafile automatikus indítása bejelentkezéskor (Windows)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="160"/>
         <source>Download speed limit (KB/s):</source>
-        <translation>Letöltési sebesség korlátja (KB/s):</translation>
+        <translation>Letöltési sebesség korlátozása (KB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="161"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation>Feltöltési sebesség korlátja (KB/s):</translation>
+        <translation>Feltöltési sebesség korlátozása (KB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Ok</source>
-        <translation>Rendben</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
-    </message>
-</context>
-<context>
-    <name>WelcomeDialog</name>
-    <message>
-        <location filename="../ui_welcome-dialog.h" line="115"/>
-        <source>Dialog</source>
-        <translation>Párbeszédablak</translation>
-    </message>
-    <message>
-        <location filename="../ui_welcome-dialog.h" line="116"/>
-        <source>Welcome to use the seafile client</source>
-        <translation>Üdvözöljük a seafile kliensben</translation>
-    </message>
-    <message>
-        <location filename="../ui_welcome-dialog.h" line="117"/>
-        <source>HelpImage</source>
-        <translation>KépesSegítség</translation>
-    </message>
-    <message>
-        <location filename="../ui_welcome-dialog.h" line="118"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fájlok szinkronizálása Seafile szerverrel:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Fiók létrehozása (a szerver nevével és e-mail címmel)&lt;/p&gt;&lt;p&gt;2. Könyvtár letöltése&lt;/p&gt;&lt;p&gt;3. A könyvtárba kerülő fájlok automatikusan feltöltődnek a szerverre&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Bármely helyi könyvtárból lehet szinkronizálandó kötet. További információk: &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online segítség&lt;/span&gt;&lt;/a&gt; oldalon.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui_welcome-dialog.h" line="119"/>
-        <source>Next</source>
-        <translation>Következő</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/welcome-dialog.cpp" line="10"/>
-        <source>%1 Initialzation</source>
-        <translation>%1 induló beállítása</translation>
     </message>
 </context>
 </TS>

@@ -11,19 +11,19 @@
 namespace {
 
 const int kRefreshSeahubMessagesInterval = 1000 * 60; // 1min
-const char *kPersonalMessagesPath = "/message/list/";
-
+const char *kMessagesUrl = "/notification/list/";
 
 } // namespace
 
 SeahubMessagesMonitor::SeahubMessagesMonitor(CloudView *cloud_view, QObject *parent)
     : QObject(parent),
       cloud_view_(cloud_view),
-      group_messages_(0),
-      personal_messages_(0),
+      unread_count_(0),
       req_(0)
 {
     btn_ = cloud_view->seahubMessagesBtn();
+
+    btn_->setVisible(false);
 
     resetStatus();
 
@@ -48,31 +48,25 @@ void SeahubMessagesMonitor::refresh()
         return;
     }
 
-    req_ = new GetSeahubMessagesRequest(account);
+    req_ = new GetUnseenSeahubMessagesRequest(account);
 
-    connect(req_, SIGNAL(success(int, int)),
-            this, SLOT(onRequestSuccess(int, int)));
+    connect(req_, SIGNAL(success(int)),
+            this, SLOT(onRequestSuccess(int)));
 
     req_->send();
 }
 
-void SeahubMessagesMonitor::onRequestSuccess(int group_messages, int personal_messages)
+void SeahubMessagesMonitor::onRequestSuccess(int count)
 {
     QString tip;
-    group_messages_ = group_messages;
-    personal_messages_ = personal_messages;
+    unread_count_ = count;
 
-    if (group_messages == 0 && personal_messages == 0) {
+    if (count == 0) {
         resetStatus();
         return;
     }
 
-    if (group_messages > 0) {
-        tip += tr("You have %n group message(s)", "", group_messages);
-
-    } else if (personal_messages > 0) {
-        tip += tr("You have %n personal message(s)", "", personal_messages);
-    }
+    tip = tr("You have %n message(s)", "", count);
 
     btn_->setVisible(true);
     btn_->setToolTip(tip);
@@ -81,15 +75,10 @@ void SeahubMessagesMonitor::onRequestSuccess(int group_messages, int personal_me
 
 void SeahubMessagesMonitor::onBtnClicked()
 {
-    if (group_messages_ == 0 && personal_messages_ == 0) {
-        return;
-    }
-
     const Account& account = cloud_view_->currentAccount();
-    QString path = group_messages_ > 0 ? "" : kPersonalMessagesPath;
 
     QUrl url = account.serverUrl;
-    url.setPath(url.path() + path);
+    url.setPath(url.path() + kMessagesUrl);
 
     QDesktopServices::openUrl(url);
 

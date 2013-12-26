@@ -32,6 +32,14 @@ public:
     bool hideMainWindowWhenStarted();
     void setHideMainWindowWhenStarted(bool hide);
 
+    // bool defaultLibraryAlreadySetup();
+    // void setDefaultLibraryAlreadySetup();
+
+public:
+
+    // Remove all settings from system when uninstall
+    static void removeAllSettings();
+
 private:
     Q_DISABLE_COPY(SettingsManager)
 

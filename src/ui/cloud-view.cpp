@@ -16,6 +16,7 @@ extern "C" {
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
+#include "configurator.h"
 #include "login-dialog.h"
 #include "create-repo-dialog.h"
 #include "repo-tree-view.h"
@@ -23,6 +24,7 @@ extern "C" {
 #include "repo-item-delegate.h"
 #include "clone-tasks-dialog.h"
 #include "server-status-dialog.h"
+#include "init-vdrive-dialog.h"
 #include "main-window.h"
 #include "cloud-view.h"
 
@@ -47,8 +49,10 @@ CloudView::CloudView(QWidget *parent)
 {
     setupUi(this);
 
-    seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
+    // seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
+    mSeahubMessagesBtn->setVisible(false);
 
+    setupHeader();
     createRepoModelView();
     createLoadingView();
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
@@ -58,21 +62,8 @@ CloudView::CloudView(QWidget *parent)
     updateAccountInfoDisplay();
     prepareAccountButtonMenu();
 
-    mDownloadTasksInfo->setText("0");
-    mDownloadTasksBtn->setIcon(awesome->icon(icon_download_alt));
-    mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
-
-    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
-
-    mDownloadRateArrow->setText(QChar(icon_arrow_down));
-    mDownloadRateArrow->setFont(awesome->font(16));
-    mDownloadRate->setText("0 kB/s");
-    mDownloadRate->setToolTip(tr("current download rate"));
-
-    mUploadRateArrow->setText(QChar(icon_arrow_up));
-    mUploadRateArrow->setFont(awesome->font(16));
-    mUploadRate->setText("0 kB/s");
-    mUploadRate->setToolTip(tr("current upload rate"));
+    setupDropArea();
+    setupFooter();
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
@@ -88,9 +79,141 @@ CloudView::CloudView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
             this, SLOT(updateAccountMenu()));
+}
 
+void CloudView::setupHeader()
+{
+    mLogo->setText("");
+    mLogo->setToolTip(SEAFILE_CLIENT_BRAND);
+    mLogo->setPixmap(QPixmap(":/images/seafile-24.png"));
+
+    mBrand->setText(SEAFILE_CLIENT_BRAND);
+    mBrand->setToolTip(SEAFILE_CLIENT_BRAND);
+
+    mMinimizeBtn->setText("");
+    mMinimizeBtn->setToolTip(tr("Minimize"));
+    mMinimizeBtn->setIcon(awesome->icon(icon_minus, QColor("#808081")));
+    connect(mMinimizeBtn, SIGNAL(clicked()), this, SLOT(onMinimizeBtnClicked()));
+
+    mCloseBtn->setText("");
+    mCloseBtn->setToolTip(tr("Close"));
+    mCloseBtn->setIcon(awesome->icon(icon_remove, QColor("#808081")));
+    connect(mCloseBtn, SIGNAL(clicked()), this, SLOT(onCloseBtnClicked()));
+
+    // Handle mouse move event
+    mHeader->installEventFilter(this);
+}
+
+void CloudView::setupFooter()
+{
+    mDownloadTasksInfo->setText("0");
+    mDownloadTasksBtn->setIcon(QIcon(":/images/download-gray.png"));
+    mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
+
+    mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
+
+    // mDownloadRateArrow->setText(QChar(icon_arrow_down));
+    // mDownloadRateArrow->setFont(awesome->font(16));
+    mDownloadRateArrow->setPixmap(QPixmap(":/images/arrow-down.png"));
+    mDownloadRate->setText("0 kB/s");
+    mDownloadRate->setToolTip(tr("current download rate"));
+
+    // mUploadRateArrow->setText(QChar(icon_arrow_up));
+    // mUploadRateArrow->setFont(awesome->font(16));
+    mUploadRateArrow->setPixmap(QPixmap(":/images/arrow-up.png"));
+    mUploadRate->setText("0 kB/s");
+    mUploadRate->setToolTip(tr("current upload rate"));
+}
+
+void CloudView::chooseFolderToSync()
+{
+    QString msg = tr("Please Choose a folder to sync");
+#if defined(Q_WS_WIN)
+    QString parent_dir = "C:\\";
+#else
+    QString parent_dir = QDir::homePath();
+#endif
+    QString dir = QFileDialog::getExistingDirectory(this, msg, parent_dir,
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+    if (dir.isEmpty()) {
+        return;
+    }
+
+    showCreateRepoDialog(dir);
+}
+
+void CloudView::showCreateRepoDialog(const QString& path)
+{
+    CreateRepoDialog dialog(current_account_, path, this);
+    if (dialog.exec() == QDialog::Accepted) {
+        refreshRepos();
+    }
+}
+
+void CloudView::onMinimizeBtnClicked()
+{
+    seafApplet->mainWindow()->showMinimized();
+}
+
+void CloudView::onCloseBtnClicked()
+{
+    seafApplet->mainWindow()->hide();
+}
+
+void CloudView::setupDropArea()
+{
+    mDropArea->setAcceptDrops(true);
+    mDropArea->installEventFilter(this);
+    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
+}
+
+bool CloudView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == mHeader) {
+        static QPoint oldPos;
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            oldPos = ev->globalPos();
+
+            return true;
+
+        } else if (event->type() == QEvent::MouseMove) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            const QPoint delta = ev->globalPos() - oldPos;
+
+            MainWindow *win = seafApplet->mainWindow();
+            win->move(win->x() + delta.x(), win->y() + delta.y());
+
+            oldPos = ev->globalPos();
+            return true;
+        }
+
+    } else if (obj == mDropArea) {
+        if (event->type() == QEvent::DragEnter) {
+            QDragEnterEvent *ev = (QDragEnterEvent *)event;
+            if (ev->mimeData()->hasUrls() && ev->mimeData()->urls().size() == 1) {
+                const QUrl url = ev->mimeData()->urls().at(0);
+                if (url.isLocalFile()) {
+                    QString path = url.toLocalFile();
+                    if (QFileInfo(path).isDir()) {
+                        ev->acceptProposedAction();
+                    }
+                }
+            }
+            return true;
+        } else if (event->type() == QEvent::Drop) {
+            QDropEvent *ev = (QDropEvent *)event;
+            const QUrl url = ev->mimeData()->urls().at(0);
+            QString path = url.toLocalFile();
+            showCreateRepoDialog(path);
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(obj, event);
 }
 
 CloneTasksDialog *CloudView::cloneTasksDialog()
@@ -134,14 +257,14 @@ void CloudView::showLoadingView()
 
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
 
-    create_repo_action_->setEnabled(false);
+    mDropArea->setVisible(false);
 }
 
 void CloudView::showRepos()
 {
     mStack->setCurrentIndex(INDEX_REPOS_VIEW);
 
-    create_repo_action_->setEnabled(true);
+    mDropArea->setVisible(true);
 }
 
 void CloudView::prepareAccountButtonMenu()
@@ -220,7 +343,7 @@ void CloudView::setCurrentAccount(const Account& account)
         showLoadingView();
         refreshRepos();
 
-        seahub_messages_monitor_->refresh();
+        // seahub_messages_monitor_->refresh();
 
         updateAccountInfoDisplay();
         if (account.isValid()) {
@@ -321,7 +444,15 @@ void CloudView::hideEvent(QHideEvent *event) {
 void CloudView::showAddAccountDialog()
 {
     LoginDialog dialog(this);
-    dialog.exec();
+    // Show InitVirtualDriveDialog for the first account added
+    AccountManager *account_mgr = seafApplet->accountManager();
+    if (dialog.exec() == QDialog::Accepted
+        && account_mgr->accounts().size() == 1) {
+
+        const Account& account = account_mgr->accounts()[0];
+        InitVirtualDriveDialog dialog(account, seafApplet->mainWindow());
+        dialog.exec();
+    }
 }
 
 void CloudView::deleteAccount()
@@ -368,7 +499,7 @@ void CloudView::refreshServerStatus()
     }
 
     if (!servers) {
-        mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb));
+        mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
         mServerStatusBtn->setToolTip(tr("no server connected"));
         return;
     }
@@ -385,19 +516,19 @@ void CloudView::refreshServerStatus()
         }
     }
 
-    QColor color;
+    bool all_connected = false;
     QString tool_tip;
     if (all_server_connected) {
-        color = "green";
+        all_connected = true;
         tool_tip = tr("all servers connected");
     } else if (all_server_disconnected) {
-        color = "red";
         tool_tip = tr("no server connected");
     } else {
-        color = "red";
         tool_tip = tr("some servers not connected");
     }
-    mServerStatusBtn->setIcon(awesome->icon(icon_lightbulb, color));
+    mServerStatusBtn->setIcon(QIcon(all_connected
+                                    ? ":/images/link-green.png"
+                                    : ":/images/link-red.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 
     g_list_foreach (servers, (GFunc)g_object_unref, NULL);
@@ -453,18 +584,7 @@ void CloudView::createToolBar()
     tool_bar_ = new QToolBar;
 
     QVBoxLayout *vlayout = (QVBoxLayout *)layout();
-    vlayout->insertWidget(1, tool_bar_);
-
-    // Create toolbar actions
-    create_repo_action_ = new QAction(tr("Create a new library"), this);
-    create_repo_action_->setIcon(QIcon(":/images/plus.png"));
-    connect(create_repo_action_, SIGNAL(triggered()), this, SLOT(showCreateRepoDialog()));
-    tool_bar_->addAction(create_repo_action_);
-
-    refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
-    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
-    tool_bar_->addAction(refresh_action_);
+    vlayout->insertWidget(2, tool_bar_);
 
     std::vector<QAction*> repo_actions = repos_tree_->getToolBarActions();
     for (int i = 0, n = repo_actions.size(); i < n; i++) {
@@ -473,8 +593,15 @@ void CloudView::createToolBar()
         action->setEnabled(hasAccount());
     }
 
-    create_repo_action_->setEnabled(hasAccount());
+    QWidget *spacerWidget = new QWidget;
+	spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+	tool_bar_->addWidget(spacerWidget);
+
+    refresh_action_ = new QAction(tr("Refresh"), this);
+    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
+    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
+    tool_bar_->addAction(refresh_action_);
 }
 
 void CloudView::onRefreshClicked()
@@ -482,15 +609,5 @@ void CloudView::onRefreshClicked()
     if (hasAccount()) {
         showLoadingView();
         refreshRepos();
-    }
-}
-
-void CloudView::showCreateRepoDialog()
-{
-    CreateRepoDialog dialog(current_account_, this);
-    if (dialog.exec() == QDialog::Accepted) {
-        showLoadingView();
-        refreshRepos();
-        showCloneTasksDialog();
     }
 }

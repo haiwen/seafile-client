@@ -16,6 +16,9 @@ extern "C" {
 
 namespace {
 
+const char *kSeafileNotificationsMQ = "seafile.notification";
+const char *kAppletCommandsMQ = "applet.commands";
+
 #define IS_APP_MSG(msg,topic) (strcmp((msg)->app, (topic)) == 0)
 static int parse_seafile_notification (char *msg, char **type, char **body)
 {
@@ -103,7 +106,8 @@ void MessageListener::startMqClient()
 
     static const char *topics[] = {
         // "seafile.heartbeat",
-        "seafile.notification",
+        kSeafileNotificationsMQ,
+        kAppletCommandsMQ,
     };
 
     if (ccnet_processor_start ((CcnetProcessor *)mqclient_proc_,
@@ -120,8 +124,13 @@ void MessageListener::handleMessage(CcnetMessage *message)
     char *type = NULL;
     char *content = NULL;
 
-    if (IS_APP_MSG(message, "seafile.heartbeat")) {
-    } else if (IS_APP_MSG(message, "seafile.notification")) {
+    if (IS_APP_MSG(message, kAppletCommandsMQ)) {
+        if (g_strcmp0(message->body, "quit") == 0) {
+            qDebug("[Message Listener] Got a quit command. Quit now.");
+            seafApplet->exit(0);
+        }
+
+    } else if (IS_APP_MSG(message, kSeafileNotificationsMQ)) {
         if (parse_seafile_notification (message->body, &type, &content) < 0)
             return;
 

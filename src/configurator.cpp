@@ -5,25 +5,35 @@
 #include <QFileInfo>
 #include <QTextStream>
 #include <QDebug>
+#include <QList>
 
 #include "seafile-applet.h"
 #include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
-#include "configurator.h"
-
 
 #if defined(Q_WS_WIN)
-#include <ShlObj.h>
+#include "utils/registry.h"
+#include <shlobj.h>
 #include <shlwapi.h>
 #endif
+
+#include "configurator.h"
 
 
 namespace {
 
 #if defined(Q_WS_WIN)
+
 const char *kCcnetConfDir = "ccnet";
+const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
+const char *kMyComputerNamespacePath =
+    "Software\\Microsoft\\Windows\\CurrentVersion"
+    "\\Explorer\\MyComputer\\Namespace";
+
 #else
+
 const char *kCcnetConfDir = ".ccnet";
+
 #endif
 
 QString defaultCcnetDir() {
@@ -192,4 +202,93 @@ int Configurator::readSeafileIni(QString *content)
     *content = input.readLine();
 
     return 0;
+}
+
+int Configurator::setVirtualDrive(const QString& path)
+{
+    printf ("Configurator::setVirtualDrive is called\n");
+#if defined(Q_WS_WIN)
+    QString clsid_path = QString("Software\\Classes\\CLSID\\{%1}").arg(kVirtualDriveGUID);
+
+    QList<RegElement> list;
+
+    /*
+      See http://msdn.microsoft.com/en-us/library/ms997573.aspx
+
+        HKEY_CLASSES_ROOT\CLSID\Classes\CLSID\{GUID}
+        - DefaultIcon = "c:/Program Files/Seafile/bin/seafile-appelet.exe", 0
+        - InProcServer32 = "%SystemRoot%\system32\shdocvw.dll"
+          - ThreadingModel = "Apartment"
+        - Instance
+          - CLSID = {0AFACED1-E828-11D1-9187-B532F1E9575D}
+          - InitPropertyBag
+            -Target(REG_SZ) = D:\Seafile
+        - ShellFolder
+          - Attributes=0xXXXXX
+          - PinToNameSpaceTree=""
+          - wantsFORPARSING=""
+    */
+
+    HKEY root = HKEY_CURRENT_USER;
+
+    list.append(RegElement(root, clsid_path,
+                           "", tr("%1 Default Library").arg(SEAFILE_CLIENT_BRAND)));
+
+    list.append(RegElement(root, clsid_path,
+                           "InfoTip", tr("Seafile default library")));
+
+    list.append(RegElement(root, clsid_path + "\\DefaultIcon",
+                           "", QCoreApplication::applicationFilePath(), true));
+
+    list.append(RegElement(root, clsid_path + "\\InProcServer32",
+                           "", "shdocvw.dll", true));
+
+    list.append(RegElement(root, clsid_path + "\\InProcServer32",
+                           "ThreadingModel", "Apartment"));
+
+    list.append(RegElement(root, clsid_path + "\\Instance",
+                           "CLSID", "{0AFACED1-E828-11D1-9187-B532F1E9575D}"));
+
+    list.append(RegElement(root, clsid_path + "\\Instance\\InitPropertyBag",
+                           "Target", QDir::toNativeSeparators(path)));
+
+    list.append(RegElement(root, clsid_path + "\\ShellFolder",
+                           "Attributes",
+                           SFGAO_FOLDER | SFGAO_FILESYSTEM | SFGAO_HASSUBFOLDER));
+
+    list.append(RegElement(root, clsid_path + "\\ShellFolder",
+                           "PinToNameSpaceTree", ""));
+
+    list.append(RegElement(root, clsid_path + "\\ShellFolder",
+                           "wantsFORPARSING", ""));
+
+    // HKEY_CURRENT_USESR\Software\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\Namespace
+    // - {GUID}
+
+    list.append(RegElement(root, kMyComputerNamespacePath + QString("\\{%1}").arg(kVirtualDriveGUID),
+                           "", ""));
+
+    for (int i = 0; i < list.size(); i++) {
+        RegElement& reg = list[i];
+        if (reg.add() < 0) {
+            return -1;
+        }
+    }
+#endif
+}
+
+void Configurator::removeVirtualDrive()
+{
+#if defined(Q_WS_WIN)
+    HKEY root = HKEY_CURRENT_USER;
+    QString parent, subkey;
+
+    parent = QString("Software\\Classes\\CLSID");
+    subkey = QString("{%1}").arg(kVirtualDriveGUID);
+    RegElement::removeRegKey(root, parent, subkey);
+
+    parent = kMyComputerNamespacePath;
+    subkey = QString("{%1}").arg(kVirtualDriveGUID);
+    RegElement::removeRegKey(root, parent, subkey);
+#endif
 }

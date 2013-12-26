@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QCoreApplication>
 #include <QMessageBox>
+#include <QTimer>
 
 #include <glib.h>
 
@@ -20,8 +21,9 @@
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
 #include "ui/settings-dialog.h"
-#include "ui/welcome-dialog.h"
+#include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
+
 #include "seafile-applet.h"
 
 namespace {
@@ -44,6 +46,7 @@ void myLogHandler(QtMsgType type, const char *msg)
     }
 }
 
+const int kIntervalBeforeShowInitVirtualDialog = 3000;
 
 } // namespace
 
@@ -71,8 +74,6 @@ void SeafileApplet::start()
 
     configurator_->checkInit();
 
-    tray_icon_->start();
-
     initLog();
 
     account_mgr_->start();
@@ -83,13 +84,6 @@ void SeafileApplet::start()
         qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
 
-    if (configurator_->firstUse()) {
-        // WelcomeDialog welcome_dialog;
-        // welcome_dialog.exec();
-        LoginDialog login_dialog;
-        login_dialog.exec();
-    }
-
     daemon_mgr_->startCcnetDaemon();
 
     connect(daemon_mgr_, SIGNAL(daemonStarted()),
@@ -98,20 +92,44 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    // tray_icon_->notify(SEAFILE_CLIENT_BRAND, "daemon is started");
     main_win_ = new MainWindow;
-
-    if (configurator_->firstUse() || !settings_mgr_->hideMainWindowWhenStarted()) {
-        main_win_->showWindow();
-    }
-
-    tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
 
+    if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
+        LoginDialog login_dialog;
+        login_dialog.exec();
+    }
+
     started_ = true;
+
+    if (configurator_->firstUse() || !settings_mgr_->hideMainWindowWhenStarted()) {
+        main_win_->showWindow();
+    }
+
+    tray_icon_->start();
+    tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
+
+#if defined(Q_WS_WIN)
+    QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
+#endif
+}
+
+void SeafileApplet::checkInitVDrive()
+{
+    if (configurator_->firstUse() && account_mgr_->accounts().size() > 0) {
+        const Account& account = account_mgr_->accounts()[0];
+        InitVirtualDriveDialog *dialog = new InitVirtualDriveDialog(account);
+        // Move the dialog to the left of the main window
+        int x = main_win_->pos().x() - dialog->rect().width() - 30;
+        int y = (QApplication::desktop()->screenGeometry().center() - dialog->rect().center()).y();
+        dialog->move(qMax(0, x), y);
+        dialog->show();
+        dialog->raise();
+        dialog->activateWindow();
+    }
 }
 
 void SeafileApplet::exit(int code)
@@ -129,6 +147,10 @@ void SeafileApplet::exit(int code)
 
 void SeafileApplet::errorAndExit(const QString& error)
 {
+    if (in_exit_) {
+        return;
+    }
+
     in_exit_ = true;
     QMessageBox::warning(main_win_, tr(SEAFILE_CLIENT_BRAND), error, QMessageBox::Ok);
     this->exit(1);
@@ -143,36 +165,46 @@ void SeafileApplet::initLog()
     }
 }
 
-void SeafileApplet::loadQss(const QString& path)
+bool SeafileApplet::loadQss(const QString& path)
 {
     QFile file(path);
     if (!QFileInfo(file).exists()) {
-        return;
+        return false;
     }
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return;
+        return false;
     }
 
     QTextStream input(&file);
     style_ += "\n";
     style_ += input.readAll();
     qApp->setStyleSheet(style_);
+
+    return true;
 }
 
 void SeafileApplet::refreshQss()
 {
     style_.clear();
-    loadQss(":/qt.css");
-    loadQss("qt.css");
+    loadQss("qt.css") || loadQss(":/qt.css");
 
 #if defined(Q_WS_WIN)
-    loadQss(":/qt-win.css");
-    loadQss("qt-win.css");
+    loadQss("qt-win.css") || loadQss(":/qt-win.css");
 #elif defined(Q_WS_X11)
-    loadQss(":/qt-linux.css");
-    loadQss("qt-linux.css");
+    loadQss("qt-linux.css") || loadQss(":/qt-linux.css");
 #else
-    loadQss(":/qt-mac.css");
-    loadQss("qt-mac.css");
+    loadQss("qt-mac.css") || loadQss(":/qt-mac.css");
 #endif
+}
+
+void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
+{
+    QMessageBox::warning(parent != 0 ? parent : main_win_,
+                         tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
+}
+
+void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
+{
+    QMessageBox::information(parent != 0 ? parent : main_win_,
+                             tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
 }

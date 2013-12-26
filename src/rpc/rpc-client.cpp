@@ -596,8 +596,7 @@ int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int
                                                 SEAFILE_TYPE_TASK,
                                                 &error, 1,
                                                 "string", toCStr(repo_id));
-    if (error) {
-        return -1;
+    if (error) {return -1;
     }
 
     if (!task) {
@@ -630,4 +629,32 @@ void SeafileRpcClient::syncRepoImmediately(const QString& repo_id)
                              2,
                              "string", toCStr(repo_id),
                              "string", NULL);
+}
+
+int SeafileRpcClient::checkPathForClone(const QString& path, QString *err_msg)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_check_path_for_clone", &error,
+                                       1, "string", toCStr(path));
+
+    if (ret == 0) {
+        return 0;
+    }
+
+    QString err;
+    const char *msg = error->message;
+    if (g_strcmp0(msg, "Worktree conflicts system path") == 0) {
+        err = tr("The path \"%1\" conflicts with system path").arg(path);
+    } else if (g_strcmp0(msg, "Worktree conflicts existing repo") == 0) {
+        err = tr("The path \"%1\" conflicts with an existing library").arg(path);
+    } else {
+        err = QString::fromUtf8(msg);
+    }
+
+    if (err_msg) {
+        *err_msg = err;
+    }
+
+    return -1;
 }

@@ -31,6 +31,7 @@ public:
 protected:
     void createActions();
     bool event(QEvent *event);
+    void changeEvent(QEvent *event);
 
 private slots:
     void refreshQss();
@@ -38,6 +39,10 @@ private slots:
     void showEvent(QShowEvent *event);
 
 private:
+    Q_DISABLE_COPY(MainWindow)
+
+    QPoint getDefaultPosition();
+
     QAction *refresh_qss_action_;
 
     // ToolBar

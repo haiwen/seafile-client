@@ -7,7 +7,7 @@ class QToolButton;
 class QTimer;
 
 class CloudView;
-class GetSeahubMessagesRequest;
+class GetUnseenSeahubMessagesRequest;
 
 class SeahubMessagesMonitor : public QObject
 {
@@ -20,19 +20,18 @@ public slots:
 
 private slots:
     void onBtnClicked();
-    void onRequestSuccess(int, int);
+    void onRequestSuccess(int count);
 
 private:
     void resetStatus();
 
-    GetSeahubMessagesRequest *req_;
+    GetUnseenSeahubMessagesRequest *req_;
     CloudView *cloud_view_;
 
     QToolButton *btn_;
     QTimer *refresh_timer_;
 
-    int group_messages_;
-    int personal_messages_;
+    int unread_count_;
 };
 
 #endif // SEAFILE_CLIENT_SEAHUB_MESSAGES_MONITOR_

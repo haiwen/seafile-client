@@ -26,6 +26,26 @@
 
 #include "utils.h"
 
+namespace {
+
+#if defined(Q_WS_WIN)
+const char *kCcnetConfDir = "ccnet";
+#else
+const char *kCcnetConfDir = ".ccnet";
+#endif
+
+} // namespace
+
+
+QString defaultCcnetDir() {
+    const char *env = g_getenv("CCNET_CONF_DIR");
+    if (env) {
+        return QString::fromUtf8(env);
+    } else {
+        return QDir::home().filePath(kCcnetConfDir);
+    }
+}
+
 typedef bool (*SqliteRowFunc) (sqlite3_stmt *stmt, void *data);
 
 sqlite3_stmt *
@@ -205,7 +225,7 @@ get_seafile_auto_start()
 }
 
 int
-set_seafile_auto_start(int on)
+set_seafile_auto_start(bool on)
 {
     int result = 0;
     if (on) {
@@ -232,7 +252,7 @@ get_seafile_auto_start()
 }
 
 int
-set_seafile_auto_start(int /* on */)
+set_seafile_auto_start(bool /* on */)
 {
     return 0;
 }

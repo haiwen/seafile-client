@@ -14,7 +14,8 @@ namespace {
 const char *kApiLoginUrl = "/api2/auth-token/";
 const char *kListReposUrl = "/api2/repos/";
 const char *kCreateRepoUrl = "/api2/repos/";
-const char *kMessagesCountUrl = "/api2/msgs_count/";
+const char *kUnseenMessagesUrl = "/api2/unseen_messages/";
+const char *kDefaultRepoUrl = "/api2/default-repo/";
 
 } // namespace
 
@@ -87,10 +88,9 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
 /**
  * DownloadRepoRequest
  */
-DownloadRepoRequest::DownloadRepoRequest(const Account& account, const ServerRepo& repo)
-    : SeafileApiRequest(QUrl(account.serverUrl.toString() + "/api2/repos/" + repo.id + "/download-info/"),
-                        SeafileApiRequest::METHOD_GET, account.token),
-      repo_(repo)
+DownloadRepoRequest::DownloadRepoRequest(const Account& account, const QString& repo_id)
+    : SeafileApiRequest(QUrl(account.serverUrl.toString() + "/api2/repos/" + repo_id + "/download-info/"),
+                        SeafileApiRequest::METHOD_GET, account.token)
 {
 }
 
@@ -166,20 +166,20 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
 }
 
 /**
- * GetSeahubMessagesRequest
+ * GetUnseenSeahubMessagesRequest
  */
-GetSeahubMessagesRequest::GetSeahubMessagesRequest(const Account& account)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kMessagesCountUrl),
+GetUnseenSeahubMessagesRequest::GetUnseenSeahubMessagesRequest(const Account& account)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kUnseenMessagesUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
 }
 
-void GetSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
+void GetUnseenSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetSeahubMessagesRequest: failed to parse json:%s\n", error.text);
+        qDebug("GetUnseenSeahubMessagesRequest: failed to parse json:%s\n", error.text);
         emit failed(0);
         return;
     }
@@ -188,12 +188,81 @@ void GetSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
 
     QMap<QString, QVariant> ret = mapFromJSON(root, &error);
 
-    if (!ret.contains("personal_messages") || !ret.contains("group_messages")) {
+    if (!ret.contains("count")) {
         emit failed(0);
         return;
     }
 
-    int group_messages = ret.value("group_messages").toInt();
-    int personal_messages = ret.value("personal_messages").toInt();
-    emit success(group_messages, personal_messages);
+    int count = ret.value("count").toInt();
+    emit success(count);
+}
+
+GetDefaultRepoRequest::GetDefaultRepoRequest(const Account& account)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kDefaultRepoUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+}
+
+void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("exists")) {
+        emit failed(0);
+        return;
+    }
+
+    bool exists = dict.value("exists").toBool();
+    if (!exists) {
+        emit success(false, "");
+        return;
+    }
+
+    if (!dict.contains("repo_id")) {
+        emit failed(0);
+        return;
+    }
+
+    QString repo_id = dict.value("repo_id").toString();
+
+    emit success(true, repo_id);
+}
+
+
+CreateDefaultRepoRequest::CreateDefaultRepoRequest(const Account& account)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kDefaultRepoUrl),
+                         SeafileApiRequest::METHOD_POST, account.token)
+{
+}
+
+void CreateDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("repo_id")) {
+        emit failed(0);
+        return;
+    }
+
+    emit success(dict.value("repo_id").toString());
 }

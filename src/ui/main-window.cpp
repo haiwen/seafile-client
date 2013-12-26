@@ -9,6 +9,7 @@
 #include "QtAwesome.h"
 #include "cloud-view.h"
 #include "seafile-applet.h"
+#include "configurator.h"
 #include "tray-icon.h"
 #include "login-dialog.h"
 #include "main-window.h"
@@ -29,17 +30,25 @@ MainWindow::MainWindow()
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle(SEAFILE_CLIENT_BRAND);
 
+    // Qt::Tool hides the taskbar entry on windows
+    // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
+
+    setWindowFlags(Qt::FramelessWindowHint);
+
     cloud_view_ = new CloudView;
 
-    // main_widget_ = new QTabWidget(this);
-    // main_widget_->insertTab(INDEX_CLOUD_VIEW,
-    //                         cloud_view_,
-    //                         awesome->icon(icon_cloud),
-    //                         tr("Cloud"));
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(cloud_view_);
 
-    setCentralWidget(cloud_view_);
+    QWidget *widget = new QWidget;
+    widget->setObjectName("mainWrapper");
+    widget->setLayout(layout);
+
+    setCentralWidget(widget);
 
     createActions();
+    setAttribute(Qt::WA_TranslucentBackground, true);
 }
 
 void MainWindow::hide()
@@ -67,6 +76,25 @@ bool MainWindow::event(QEvent *ev)
     return ret;
 }
 
+void MainWindow::changeEvent(QEvent *event)
+{
+#ifdef Q_WS_WIN
+    /*
+     * Solve the problem of restoring a minimized frameless window on Windows
+     * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
+     */
+    if(event->type() == QEvent::WindowStateChange) {
+        if(windowState() & Qt::WindowMinimized ) {
+            //do something after minimize
+        } else {
+            setWindowFlags(Qt::Window); //show normal window
+            setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            showNormal();
+        }
+    }
+#endif
+}
+
 void MainWindow::showEvent(QShowEvent *event)
 {
     readSettings();
@@ -91,9 +119,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::showWindow()
 {
-    this->show();
-    this->raise();
-    this->activateWindow();
+    show();
+    raise();
+    activateWindow();
 }
 
 void MainWindow::refreshQss()
@@ -106,22 +134,39 @@ void MainWindow::writeSettings()
     QSettings settings;
 
     settings.beginGroup("MainWindow");
-    settings.setValue("size", size());
+    // settings.setValue("size", size());
     settings.setValue("pos", pos());
     settings.endGroup();
 }
 
+QPoint MainWindow::getDefaultPosition()
+{
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    const QPoint top_right = screen.topRight();
+
+    int top_margin = rect().width() + qMin(150, (int)(0.1 * screen.width()));
+    int right_margin = qMin(150, (int)(0.1 * screen.width()));
+    QPoint default_pos(top_right.x() -top_margin, top_right.y() + right_margin);
+
+    return default_pos;
+}
+
 void MainWindow::readSettings()
 {
+    QPoint pos;
     QSettings settings;
 
-    settings.beginGroup("MainWindow");
-    if (settings.contains("size")) {
-        resize(settings.value("size", QSize()).toSize());
+    static bool first_show = true;
+
+    if (first_show && seafApplet->configurator()->firstUse()) {
+        pos = getDefaultPosition();
+    } else {
+        settings.beginGroup("MainWindow");
+        pos = settings.value("pos", getDefaultPosition()).toPoint();
+        settings.endGroup();
     }
 
-    if (settings.contains("pos")) {
-        move(settings.value("pos", QPoint()).toPoint());
-    }
-    settings.endGroup();
+    first_show = false;
+
+    move(pos);
 }

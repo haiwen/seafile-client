@@ -78,7 +78,7 @@ void DaemonManager::startSeafileDaemon()
 
     seaf_daemon_ = new QProcess(this);
     connect(seaf_daemon_, SIGNAL(started()), this, SLOT(onSeafDaemonStarted()));
-    connect(ccnet_daemon_, SIGNAL(finished(int, QProcess::ExitStatus)),
+    connect(seaf_daemon_, SIGNAL(finished(int, QProcess::ExitStatus)),
             this, SLOT(onSeafDaemonExited()));
 
     QStringList args;
@@ -104,19 +104,11 @@ void DaemonManager::onSeafDaemonStarted()
 
 void DaemonManager::onCcnetDaemonExited()
 {
-    if (seafApplet->inExit()) {
-        return;
-    }
-
     seafApplet->errorAndExit(tr("ccnet daemon has exited abnormally"));
 }
 
 void DaemonManager::onSeafDaemonExited()
 {
-    if (seafApplet->inExit()) {
-        return;
-    }
-
     seafApplet->errorAndExit(tr("seafile daemon has exited abnormally"));
 }
 

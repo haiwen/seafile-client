@@ -1,8 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(seafile-client)
-SET(PROJECT_VERSION "2.0.8")
-ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=2.0.8)
+SET(PROJECT_VERSION "2.1.0")
+ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 INCLUDE(FindPkgConfig)
 
 SET(BRAND \"Seafile\")
@@ -14,16 +14,30 @@ ENDIF()
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
-IF (MSYS)
-  SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32)
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
+    SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
+    SET(platform_specific_sources
+      src/utils/process-win.cpp
+      src/utils/registry.cpp
+    )
+    IF (${CMAKE_BUILD_TYPE} MATCHES Release)
+      SET(GUI_TYPE WIN32)
+    ENDIF()
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    SET(platform_specific_sources
+      src/utils/process-linux.cpp
+    )
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET(platform_specific_sources
+      src/utils/process-mac.cpp src/application.cpp
+    )
 
-  # SET(CMAKE_RC_COMPILER_INIT windres)
-  # ENABLE_LANGUAGE(RC)
-  # SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
-
-  SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
-ENDIF (MSYS)
-
+    FIND_LIBRARY(CARBON_LIBRARY Carbon)
+    FIND_LIBRARY(COCOA_LIBRARY Cocoa )
+    MARK_AS_ADVANCED (CARBON_LIBRARY COCOA_LIBRARY)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} ${CARBON_LIBRARY} ${COCOA_LIBRARY})
+endif()
 
 ####################
 ###### BEGIN: QT configuration
@@ -50,7 +64,6 @@ SET(moc_headers
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
-  src/ui/welcome-dialog.h
   src/ui/create-repo-dialog.h
   src/ui/repo-detail-dialog.h
   src/ui/settings-dialog.h
@@ -64,7 +77,9 @@ SET(moc_headers
   src/ui/clone-tasks-table-model.h
   src/ui/clone-tasks-table-view.h
   src/ui/server-status-dialog.h
+  src/ui/init-vdrive-dialog.h
   third_party/QtAwesome/QtAwesome.h
+  ${platform_specific_moc_headers}
 )
 
 IF (APPLE)
@@ -74,7 +89,6 @@ ENDIF()
 # UI FILES
 SET(ui_files
   ui/login-dialog.ui
-  ui/welcome-dialog.ui
   ui/create-repo-dialog.ui
   ui/repo-detail-dialog.ui
   ui/settings-dialog.ui
@@ -83,6 +97,8 @@ SET(ui_files
   ui/cloud-view.ui
   ui/clone-tasks-dialog.ui
   ui/server-status-dialog.ui
+  ui/init-vdrive-dialog.ui
+  ${platform_specific_ui_files}
 )
 
 # RESOURCES
@@ -127,26 +143,6 @@ PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 ###### END: other libraries configuration
 ####################
 
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    SET(platform_specific_sources
-      src/utils/process-win.cpp
-    )
-    SET(GUI_TYPE WIN32)
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    SET(platform_specific_sources
-      src/utils/process-linux.cpp
-    )
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET(platform_specific_sources
-      src/utils/process-mac.cpp src/application.cpp
-    )
-
-    FIND_LIBRARY(CARBON_LIBRARY Carbon)
-    FIND_LIBRARY(COCOA_LIBRARY Cocoa )
-    MARK_AS_ADVANCED (CARBON_LIBRARY COCOA_LIBRARY)
-    SET(EXTRA_LIBS ${EXTRA_LIBS} ${CARBON_LIBRARY} ${COCOA_LIBRARY})
-endif()
-
 
 # c/cpp sources
 SET(seafile_client_sources
@@ -171,7 +167,6 @@ SET(seafile_client_sources
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
-  src/ui/welcome-dialog.cpp
   src/ui/repo-detail-dialog.cpp
   src/ui/settings-dialog.cpp
   src/ui/create-repo-dialog.cpp
@@ -181,6 +176,7 @@ SET(seafile_client_sources
   src/utils/rsa.cpp
   src/utils/utils.cpp
   src/utils/translate-commit-desc.cpp
+  src/utils/uninstall-helpers.cpp
   src/utils/log.c
   src/ui/repo-item.cpp
   src/ui/repo-tree-model.cpp
@@ -190,6 +186,7 @@ SET(seafile_client_sources
   src/ui/clone-tasks-table-model.cpp
   src/ui/clone-tasks-table-view.cpp
   src/ui/server-status-dialog.cpp
+  src/ui/init-vdrive-dialog.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )
@@ -223,7 +220,20 @@ LINK_DIRECTORIES(
 ####################
 
 SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${moc_output} ${ui_output})
-SET(LANGUAGES en de_DE fr_FR hu_HU zh_CN)
+SET(LANGUAGES
+  en
+  de_DE
+  es
+  fr_FR
+  he_IL
+  hu_HU
+  nl_BE
+  pt_BR
+  ru
+  sk_SK
+  uk
+  zh_CN
+  )
 
 SET(LANGUAGE_TS_FILES)
 SET(SEAFILE_TS_TARGETS)
@@ -235,7 +245,7 @@ FOREACH(LANGUAGE ${LANGUAGES})
   SET(TS_TARGET "${LANGUAGE}_ts")
   ADD_CUSTOM_TARGET(${TS_TARGET}
     COMMAND ${QT_LUPDATE_EXECUTABLE} ${SEAFILE_TRANSLATE_SOURCES}
-        -ts "${PROJECT_SOURCE_DIR}/i18n/seafile_${LANGUAGE}.ts" -no-obsolete
+        -ts "${PROJECT_SOURCE_DIR}/i18n/seafile_${LANGUAGE}.ts"
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
   SET(SEAFILE_TS_TARGETS ${SEAFILE_TS_TARGETS} ${TS_TARGET})

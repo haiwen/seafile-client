@@ -1,11 +1,15 @@
-MainWindow {
-    min-width: 360px;
+QWidget#mainWrapper {
+    min-width: 300px;
+    max-width: 300px;
     min-height: 550px;
+    max-height: 550px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #F5F5F7;
 }
 
-QToolBar {
-    padding: 5px 10px;
-    spacing: 5px;
+QLabel {
+    font-family: Arial;
 }
 
 MainWindow QTabWidget {
@@ -75,26 +79,15 @@ QTabBar::tab:only-one {
 
 /* Cloud Tab */
 CloudView {
-    min-width: 350px;
-    min-height: 450px;
-}
-
-QPushButton#mAccountOpButton {
-    min-width: 50px;
-    max-width: 50px;
-    min-height: 30px;
-    max-height: 30px;
-}
-
-/* Local Tab */
-LocalView {
-    min-width: 350px;
+    min-width: 300px;
+    max-width: 300px;
     min-height: 450px;
 }
 
 QToolButton#mAccountBtn
 {
     margin-left: 0px;
+    margin-right: 6px;
     background: white;
     padding: 1px;
     border: 1px solid #ccc;
@@ -105,22 +98,14 @@ QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
     background: #f8f8f8;
 }
 
-
-QToolBar {
-    padding:0;
-    border: 0;
-    margin: 3px;
+CloudView QToolBar {
     qproperty-iconSize: 18px;
+    border: 0;
+    max-width: 290px;
 }
 
-QLabel#mUploadRateArrow,
-QLabel#mDownloadRateArrow
-{
-    color: #F17F49;
-}
-
-RepoTreeView {
-    font-size: 14px;
+QToolBar QAbstractButton {
+    margin-left: 10px;
 }
 
 RepoDetailDialog {
@@ -130,17 +115,18 @@ RepoDetailDialog {
 
 CloudView QLabel#mEmail {
     font-family: Arial;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 15px;
+    color: #525252;
 }
 
 CloudView QLabel#mServerAddr {
     font-family: Arial;
-    color: #555;
+    color: #A4A4A4;
+    font-size: 13px;
 }
 
 QDialog QLabel#mTitle {
-    color: #E83;
+    color: #F89A01;
     font-family: Arial;
     font-size: 20px;
 }
@@ -156,4 +142,146 @@ QToolButton#mSeahubMessagesBtn
     margin-right: 10px;
     border: 0;
     qproperty-iconSize: 24px;
+}
+
+QWidget#mHeader {
+    min-height: 35px;
+    max-height: 35px;
+}
+
+QWidget#mHeader QPushButton {
+    padding: 5px;
+    padding-bottom: 0;
+    border: 0;
+    qproperty-focusPolicy: NoFocus;
+}
+
+QWidget#mHeader QPushButton:hover {
+    color: #FF9A2A;
+    padding-top: 3px;
+    margin-top: 1px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #A1A1A2,
+                                stop: 1 #F5F5F7);
+}
+
+QWidget#mHeader QPushButton#mCloseBtn:hover {
+    border-top-right-radius: 5px;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FF9A2A,
+                                stop: 1 #FEEAEA);
+}
+
+QWidget#mHeader QLabel#mBrand,
+QWidget#mHeader QLabel#mLogo {
+    margin-top: 6px;
+    margin-right: 4px;
+    font-size: 14px;
+    font-family: Arial;
+}
+
+RepoTreeView
+{
+    background: white;
+    border: 0;
+    margin: 0 1px;
+    font-size: 14px;
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+RepoTreeView QScrollBar {
+    margin-right: 1px;
+}
+
+CloudView QWidget#mDropArea {
+    min-height: 60px;
+    max-height: 60px;
+    background: #F5F5F7;
+    padding: 0;
+    padding-top: 10px;
+    margin: 0 1px;
+}
+
+CloudView QFrame#mDropInner {
+    min-width: 280px;
+    max-width: 280px;
+    min-height: 40px;
+    max-height: 40px;
+    border: 2px dashed #DBDBDC;
+    border-radius: 5px;
+    padding: 6px 0;
+}
+
+CloudView QFrame#mDropInner QLabel {
+    font-family: Arial;
+}
+
+CloudView QPushButton#mSelectFolderBtn {
+    font-size: 16px;
+    font-family: Arial;
+    border: 0;
+    color: #FF9A2A;
+    background: #F5F5F7;
+    qproperty-focusPolicy: NoFocus;
+    qproperty-flat: true;
+    padding-right: 4px;
+    margin: 0;
+}
+
+CloudView QPushButton#mSelectFolderBtn:hover {
+    font-weight: bold;
+    background: #DBDBDC;
+    border-radius: 5px;
+}
+
+CloudView QLabel#mDropFolderText {
+    color: #525252;
+    font-size: 16px;
+}
+
+CloudView QFrame#mFooter {
+    border: 0;
+    max-height: 25px;
+    padding: 0;
+    padding-bottom: 3px;
+    text-align: top;
+}
+
+CloudView QFrame#mFooter QLabel {
+    color: #525252;
+    font-size: 15px;
+}
+
+CloudView QFrame#mFooter QLabel#mUploadRateArrow,
+CloudView QFrame#mFooter QLabel#mDownloadRateArrow
+{
+    margin-top: 1px;
+}
+
+CloudView QFrame#mFooter QLabel#mDownloadRateArrow
+{
+    margin-right: 10px;
+}
+
+
+CreateRepoDialog {
+    min-width: 550px;
+    min-height: 300px;
+    max-height: 300px;
+}
+
+QFrame#mFooter QToolButton#mServerStatusBtn,
+QFrame#mFooter QToolButton#mDownloadTasksBtn {
+    qproperty-iconSize: 18px;
+    margin-top: 3px;
+}
+
+InitVirtualDriveDialog QLabel#mStatusText {
+    font-size: 16px;
+    font-family: Arial;
+}
+
+ServerStatusDialog QListView:item {
+    margin-bottom: 4px;
 }

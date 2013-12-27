@@ -1,10 +1,19 @@
 #include <QtGui>
+#include <QDebug>
 
 #include "account-mgr.h"
 #include "seafile-applet.h"
 #include "settings-mgr.h"
 #include "api/requests.h"
 #include "settings-dialog.h"
+
+namespace {
+
+bool isCheckLatestVersionEnabled() {
+    return QString(SEAFILE_CLIENT_BRAND) == "Seafile";
+}
+
+} // namespace
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 {
@@ -15,6 +24,10 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     // Since closeEvent() would not not called when accept() is called, we
     // need to handle it here.
     connect(this, SIGNAL(accepted()), this, SLOT(updateSettings()));
+
+    if (!isCheckLatestVersionEnabled()) {
+        mCheckLatestVersionBox->setVisible(false);
+    }
 }
 
 void SettingsDialog::updateSettings()
@@ -24,6 +37,11 @@ void SettingsDialog::updateSettings()
     seafApplet->settingsManager()->setMaxDownloadRatio(mDownloadSpinBox->value());
     seafApplet->settingsManager()->setMaxUploadRatio(mUploadSpinBox->value());
     seafApplet->settingsManager()->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
+
+    if (isCheckLatestVersionEnabled()) {
+        bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
+        seafApplet->settingsManager()->setCheckLatestVersionEnabled(enabled);
+    }
 }
 
 void SettingsDialog::closeEvent(QCloseEvent *event)
@@ -51,6 +69,11 @@ void SettingsDialog::showEvent(QShowEvent *event)
     mDownloadSpinBox->setValue(ratio);
     ratio = seafApplet->settingsManager()->maxUploadRatio();
     mUploadSpinBox->setValue(ratio);
+
+    if (isCheckLatestVersionEnabled()) {
+        state = seafApplet->settingsManager()->isCheckLatestVersionEnabled() ? Qt::Checked : Qt::Unchecked;
+        mCheckLatestVersionBox->setCheckState(state);
+    }
 
     QDialog::showEvent(event);
 }

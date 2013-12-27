@@ -267,8 +267,12 @@ CloudView QFrame#mFooter QLabel#mDownloadRateArrow
 
 CreateRepoDialog {
     min-width: 550px;
-    min-height: 300px;
-    max-height: 300px;
+    min-height: 330px;
+    max-height: 330px;
+}
+
+CreateRepoDialog QLabel#mDesc {
+    min-height: 60px;
 }
 
 QFrame#mFooter QToolButton#mServerStatusBtn,

@@ -159,7 +159,9 @@ void SeafileApplet::onDaemonStarted()
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
 #endif
 
-    checkLatestVersionInfo();
+    if (settings_mgr_->isCheckLatestVersionEnabled()) {
+        checkLatestVersionInfo();
+    }
 }
 
 void SeafileApplet::checkInitVDrive()

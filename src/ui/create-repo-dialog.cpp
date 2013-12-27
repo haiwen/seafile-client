@@ -25,6 +25,9 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
+
+    const QRect screen = QApplication::desktop()->screenGeometry();
+    move(screen.center() - this->rect().center());
 }
 
 CreateRepoDialog::~CreateRepoDialog()

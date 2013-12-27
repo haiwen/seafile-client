@@ -47,6 +47,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="mCheckLatestVersionBox">
+          <property name="text">
+           <string>Check for new version on startup</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <layout class="QFormLayout" name="formLayout">

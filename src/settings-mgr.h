@@ -32,6 +32,8 @@ public:
     bool hideMainWindowWhenStarted();
     void setHideMainWindowWhenStarted(bool hide);
 
+    void setCheckLatestVersionEnabled(bool enabled);
+    bool isCheckLatestVersionEnabled();
     // bool defaultLibraryAlreadySetup();
     // void setDefaultLibraryAlreadySetup();
 

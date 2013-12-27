@@ -12,6 +12,7 @@
 namespace {
 
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
+const char *kCheckLatestVersion = "checkLatestVersion";
 const char *kBehaviorGroup = "Behavior";
 
 const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
@@ -173,4 +174,25 @@ void SettingsManager::removeAllSettings()
 #if defined(Q_WS_WIN)
     RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", SEAFILE_CLIENT_BRAND);
 #endif
+}
+
+void SettingsManager::setCheckLatestVersionEnabled(bool enabled)
+{
+    QSettings settings;
+
+    settings.beginGroup(kBehaviorGroup);
+    settings.setValue(kCheckLatestVersion, enabled);
+    settings.endGroup();
+}
+
+bool SettingsManager::isCheckLatestVersionEnabled()
+{
+    QSettings settings;
+    bool enabled;
+
+    settings.beginGroup(kBehaviorGroup);
+    enabled = settings.value(kCheckLatestVersion, true).toBool();
+    settings.endGroup();
+
+    return enabled;
 }

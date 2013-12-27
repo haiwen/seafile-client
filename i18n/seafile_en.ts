@@ -281,113 +281,113 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="41"/>
         <source>Please choose a directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="73"/>
         <source>Creating...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="100"/>
         <source>Please choose the directory to sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="104"/>
         <source>The folder %1 does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
         <source>Please enter the name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="114"/>
         <source>Please enter the description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="121"/>
         <source>Please enter the password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
         <source>Passwords don&apos;t match</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="139"/>
         <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="172"/>
         <source>Failed to add download task:
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="185"/>
         <source>Failed to create library on the server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Choose</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>Description:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>Password Again:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>status text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1405,8 +1405,14 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="162"/>
+        <location filename="../src/seafile-applet.cpp" line="209"/>
         <source>Failed to initialize log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="296"/>
+        <source>A new vesrion of %1 client (%2) is available.
+Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1556,47 +1562,52 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="12"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="21"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Hide main window when started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="164"/>
         <source>Notify when libraries are synchronized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="165"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="166"/>
+        <source>Check for new version on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="167"/>
         <source>Download speed limit (KB/s):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="168"/>
         <source>Upload speed limit (KB/s):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="162"/>
+        <location filename="../ui_settings-dialog.h" line="169"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="163"/>
+        <location filename="../ui_settings-dialog.h" line="170"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>

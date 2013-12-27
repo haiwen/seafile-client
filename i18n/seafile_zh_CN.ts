@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="zh_CN">
 <context>
     <name>AccountManager</name>
     <message>
@@ -279,113 +281,113 @@
         <translation>创建新资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="41"/>
         <source>Please choose a directory</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="73"/>
         <source>Creating...</source>
         <translation>正在创建...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="100"/>
         <source>Please choose the directory to sync</source>
         <translation>请选择要同步的文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="104"/>
         <source>The folder %1 does not exist</source>
         <translation>文件夹 %1 不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
         <source>Please enter the name</source>
         <translation>请输入资料库名称</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="114"/>
         <source>Please enter the description</source>
         <translation>请输入资料库描述</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="121"/>
         <source>Please enter the password</source>
         <translation>请输入资料库密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
         <source>Passwords don&apos;t match</source>
         <translation>密码不一致</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="139"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="172"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="185"/>
         <source>Failed to create library on the server</source>
         <translation>在服务器创建资料库失败</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Path:</source>
         <translation>路径：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Choose</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Name:</source>
         <translation>名字：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>encrypted</source>
         <translation>加密</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password:</source>
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>Password Again:</source>
         <translation>确认密码：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>status text</source>
         <translation>状态文本</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1409,9 +1411,16 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="162"/>
+        <location filename="../src/seafile-applet.cpp" line="209"/>
         <source>Failed to initialize log</source>
         <translation>初始化日志失败</translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="296"/>
+        <source>A new vesrion of %1 client (%2) is available.
+Do you want to visit the download page?</source>
+        <translation>%1 客户端有新版本 (%2) 可用。
+是否打开下载页面？</translation>
     </message>
 </context>
 <context>
@@ -1523,7 +1532,9 @@ The library owner&apos;s storage space is used up.</source>
     <message numerus="yes">
         <location filename="../src/seahub-messages-monitor.cpp" line="69"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
+        <translation>
+            <numerusform>你有 %n 条未读消息</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1557,47 +1568,52 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="12"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="21"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Hide main window when started</source>
         <translation>启动时隐藏主窗口</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="164"/>
         <source>Notify when libraries are synchronized</source>
         <translation>资料库同步后用气泡通知</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="165"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation>开机自动启动 Seafile（仅对 Windows 有效）</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="166"/>
+        <source>Check for new version on startup</source>
+        <translation>程序启动时检查最新版本</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="167"/>
         <source>Download speed limit (KB/s):</source>
         <translation>最大下载速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="168"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>最大上传速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="162"/>
+        <location filename="../ui_settings-dialog.h" line="169"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="163"/>
+        <location filename="../ui_settings-dialog.h" line="170"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>

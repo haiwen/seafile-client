@@ -293,3 +293,10 @@ InitVirtualDriveDialog QLabel#mStatusText {
 ServerStatusDialog QListView:item {
     margin-bottom: 4px;
 }
+
+UninstallHelperDialog {
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 100px;
+    max-height: 100px;
+}

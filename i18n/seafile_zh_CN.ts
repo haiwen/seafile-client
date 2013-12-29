@@ -800,7 +800,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="106"/>
+        <location filename="../src/ui/main-window.cpp" line="108"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -1085,7 +1085,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="82"/>
+        <location filename="../src/main.cpp" line="117"/>
         <source>%1 is already running</source>
         <translation>%1 已经在运行中</translation>
     </message>
@@ -1178,6 +1178,10 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
         <translation>及其他 %1 个</translation>
+    </message>
+    <message>
+        <source>Do you want to remove the %1 account information?</source>
+        <translation type="obsolete">是否删除 %1 帐号信息？</translation>
     </message>
 </context>
 <context>
@@ -1417,9 +1421,15 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="296"/>
-        <source>A new vesrion of %1 client (%2) is available.
+        <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
+是否打开下载页面？</translation>
+    </message>
+    <message>
+        <source>A new vesrion of %1 client (%2) is available.
+Do you want to visit the download page?</source>
+        <translation type="obsolete">%1 客户端有新版本 (%2) 可用。
 是否打开下载页面？</translation>
     </message>
 </context>
@@ -1512,17 +1522,17 @@ Do you want to visit the download page?</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="297"/>
+        <location filename="../src/ui/tray-icon.cpp" line="295"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="298"/>
+        <location filename="../src/ui/tray-icon.cpp" line="296"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="358"/>
+        <location filename="../src/ui/tray-icon.cpp" line="356"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -1616,6 +1626,74 @@ Do you want to visit the download page?</source>
         <location filename="../ui_settings-dialog.h" line="170"/>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>UninstallHelperDialog</name>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="12"/>
+        <source>Uninstall %1</source>
+        <translation>卸载 %1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="14"/>
+        <source>Do you want to remove the %1 account information?</source>
+        <translation>是否删除 %1 帐号信息？</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="37"/>
+        <source>Removing account information...</source>
+        <translation>删除帐户信息...</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
+        <source>Dialog</source>
+        <translation>对话框</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
+        <source>text</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
+        <source>Yes</source>
+        <translation>是</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
+        <source>No</source>
+        <translation>否</translation>
+    </message>
+</context>
+<context>
+    <name>UninstallHelperView</name>
+    <message>
+        <source>Do you want to remove the %1 account information?</source>
+        <translation type="obsolete">是否删除 %1 的帐号信息？</translation>
+    </message>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Form</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="obsolete">是</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="obsolete">否</translation>
+    </message>
+</context>
+<context>
+    <name>UninstallHelperWindow</name>
+    <message>
+        <source>Uninstall Seafile</source>
+        <translation type="obsolete">卸载 Seafile</translation>
+    </message>
+    <message>
+        <source>Uninstall %1</source>
+        <translation type="obsolete">卸载 %1</translation>
     </message>
 </context>
 </TS>

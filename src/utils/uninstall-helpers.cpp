@@ -16,17 +16,23 @@ extern "C" {
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <QMessageBox>
+#include <QIcon>
+#include <QMainWindow>
 
 #include "utils/utils.h"
 #include "configurator.h"
 #include "settings-mgr.h"
+#include "ui/uninstall-helper-dialog.h"
 
 #include "uninstall-helpers.h"
-
 
 namespace {
 
 const char *kAppletCommandsMQ = "applet.commands";
+
+} // namespace
+
 
 int delete_dir_recursively(const QString& path_in)
 {
@@ -108,9 +114,6 @@ int get_seafile_data_dir(const QString& ccnet_dir, QString *ret)
 }
 
 
-} // namespace
-
-
 void do_stop()
 {
     CcnetClient *sync_client = ccnet_client_new();
@@ -134,25 +137,20 @@ void do_stop()
     g_object_unref (sync_client);
 }
 
-
 void do_remove_user_data()
 {
     set_seafile_auto_start(false);
     Configurator::removeVirtualDrive();
     SettingsManager::removeAllSettings();
+
     QString ccnet_dir;
     QString seafile_data_dir;
 
-    if (get_ccnet_dir(&ccnet_dir) < 0) {
-        fprintf (stderr, "ccnet dir not found");
-        return;
-    }
-    if (get_seafile_data_dir(ccnet_dir, &seafile_data_dir) < 0) {
-        delete_dir_recursively(ccnet_dir);
-        fprintf (stderr, "seafile dir not found");
-        return;
-    }
+    UninstallHelperDialog *dialog = new UninstallHelperDialog;
 
-    delete_dir_recursively(ccnet_dir);
-    delete_dir_recursively(seafile_data_dir);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+
+    qApp->exec();
 }

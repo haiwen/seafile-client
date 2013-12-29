@@ -33,7 +33,10 @@ MainWindow::MainWindow()
     // Qt::Tool hides the taskbar entry on windows
     // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::Window
+                   | Qt::FramelessWindowHint
+                   | Qt::WindowSystemMenuHint
+                   | Qt::WindowMinimizeButtonHint);
 
     cloud_view_ = new CloudView;
 
@@ -87,9 +90,8 @@ void MainWindow::changeEvent(QEvent *event)
         if(windowState() & Qt::WindowMinimized ) {
             //do something after minimize
         } else {
-            setWindowFlags(Qt::Window); //show normal window
-            setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-            showNormal();
+            cloud_view_->hide();
+            cloud_view_->show();
         }
     }
 #endif

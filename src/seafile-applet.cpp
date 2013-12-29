@@ -293,7 +293,7 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
         return;
     }
 
-    QString msg = tr("A new vesrion of %1 client (%2) is available.\n"
+    QString msg = tr("A new version of %1 client (%2) is available.\n"
                      "Do you want to visit the download page?").arg(SEAFILE_CLIENT_BRAND).arg(latest_version);
 
     if (!yesOrNoBox(msg, NULL, true)) {

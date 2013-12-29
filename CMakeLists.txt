@@ -78,6 +78,7 @@ SET(moc_headers
   src/ui/clone-tasks-table-view.h
   src/ui/server-status-dialog.h
   src/ui/init-vdrive-dialog.h
+  src/ui/uninstall-helper-dialog.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -98,6 +99,7 @@ SET(ui_files
   ui/clone-tasks-dialog.ui
   ui/server-status-dialog.ui
   ui/init-vdrive-dialog.ui
+  ui/uninstall-helper-dialog.ui
   ${platform_specific_ui_files}
 )
 
@@ -187,6 +189,7 @@ SET(seafile_client_sources
   src/ui/clone-tasks-table-view.cpp
   src/ui/server-status-dialog.cpp
   src/ui/init-vdrive-dialog.cpp
+  src/ui/uninstall-helper-dialog.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

@@ -29,7 +29,7 @@ const int kPadding = 5;
 
 const int kRepoIconHeight = 36;
 const int kRepoIconWidth = 36;
-const int kRepoNameWidth = 180;
+const int kRepoNameWidth = 175;
 const int kRepoNameHeight = 30;
 const int kRepoStatusIconWidth = 24;
 const int kRepoStatusIconHeight = 24;
@@ -245,7 +245,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->restore();
 
     // Paint repo status icon
-    QPoint status_icon_pos = option.rect.topRight() - QPoint(50, 0);
+    QPoint status_icon_pos = option.rect.topRight() - QPoint(40, 0);
     status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeight / 2));
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
     if (!item->localRepo().isValid()

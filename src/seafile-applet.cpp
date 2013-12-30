@@ -72,10 +72,10 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
 
         if (a > b) {
             *ret = 1;
-            break;
+            return 0;
         } else if (a < b) {
             *ret = -1;
-            break;
+            return 0;
         }
 
         i++;

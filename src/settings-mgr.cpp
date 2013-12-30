@@ -187,7 +187,7 @@ void SettingsManager::setCheckLatestVersionEnabled(bool enabled)
 
 bool SettingsManager::isCheckLatestVersionEnabled()
 {
-    QString brand = STRINGIZE(SEAFILE_CLIENT_BRAND);
+    QString brand = SEAFILE_CLIENT_BRAND;
 
     if (brand != "Seafile") {
         return false;

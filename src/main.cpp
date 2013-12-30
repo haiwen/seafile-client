@@ -22,23 +22,6 @@
 
 namespace {
 
-void loadTranslation(QApplication *app)
-{
-    // initialize i18n
-    QTranslator qtTranslator;
-#if defined(Q_WS_WIN)
-    qtTranslator.load("qt_" + QLocale::system().name());
-#else
-    qtTranslator.load("qt_" + QLocale::system().name(),
-                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-#endif
-    qApp->installTranslator(&qtTranslator);
-
-    QTranslator myappTranslator;
-    myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
-    qApp->installTranslator(&myappTranslator);
-}
-
 } // namespace
 
 
@@ -66,7 +49,6 @@ int main(int argc, char *argv[])
 #endif
 
     QDir::setCurrent(QApplication::applicationDirPath());
-    // loadTranslation();
 
     // initialize i18n
     QTranslator qtTranslator;

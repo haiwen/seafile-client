@@ -279,113 +279,113 @@
         <translation>Создать библиотеку</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="41"/>
         <source>Please choose a directory</source>
         <translation>Пожалуйста, укажите директорию</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="73"/>
         <source>Creating...</source>
         <translation>Создание...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="100"/>
         <source>Please choose the directory to sync</source>
         <translation>Укажите директорию для синхронизации</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="104"/>
         <source>The folder %1 does not exist</source>
         <translation>Папка %1 не существует</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
         <source>Please enter the name</source>
         <translation>Пожалуйста введите имя</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="114"/>
         <source>Please enter the description</source>
         <translation>Пожалуйста введите описание</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="121"/>
         <source>Please enter the password</source>
         <translation>Пожалуйста введите пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
         <source>Passwords don&apos;t match</source>
         <translation>Пароли не совпадают</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="139"/>
         <source>Unknown error</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="172"/>
         <source>Failed to add download task:
  %1</source>
         <translation>Ошибка добавления закачки %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="185"/>
         <source>Failed to create library on the server</source>
         <translation>Ошибка создания библиотеки на сервере</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Dialog</source>
         <translation>Диалог</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Path:</source>
         <translation>Путь:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Choose</source>
         <translation>Укажите</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Name:</source>
         <translation>Имя:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>Description:</source>
         <translation>Описание:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>encrypted</source>
         <translation>шифровать</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>Password Again:</source>
         <translation>пароль еще раз:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>status text</source>
         <translation>текст статуса</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
@@ -795,7 +795,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="106"/>
+        <location filename="../src/ui/main-window.cpp" line="108"/>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
@@ -1077,7 +1077,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 1 минуту назад</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="82"/>
+        <location filename="../src/main.cpp" line="117"/>
         <source>%1 is already running</source>
         <translation>%1 сейчас запущен</translation>
     </message>
@@ -1403,9 +1403,15 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="162"/>
+        <location filename="../src/seafile-applet.cpp" line="209"/>
         <source>Failed to initialize log</source>
         <translation>Ошибка инициализации лога</translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="296"/>
+        <source>A new version of %1 client (%2) is available.
+Do you want to visit the download page?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1497,17 +1503,17 @@ The library owner&apos;s storage space is used up.</source>
         <translation>автоматическая синхронизация отключена</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="297"/>
+        <location filename="../src/ui/tray-icon.cpp" line="295"/>
         <source>About %1</source>
         <translation>О %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="298"/>
+        <location filename="../src/ui/tray-icon.cpp" line="296"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Клиент %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="358"/>
+        <location filename="../src/ui/tray-icon.cpp" line="356"/>
         <source>some servers not connected</source>
         <translation type="unfinished"/>
     </message>
@@ -1551,49 +1557,92 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="12"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="21"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Dialog</source>
         <translation>Диалог</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Hide main window when started</source>
         <translation>Скрыть главное окно при старте</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="164"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Сообщить, когда билиотеки синхронизированы</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="165"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation>Запуск seafile при загрузке Windows</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="166"/>
+        <source>Check for new version on startup</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="167"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Ограничение скорости загрузки (КБ / с):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="168"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Ограничение скорости отдачи (КБ / с):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="162"/>
+        <location filename="../ui_settings-dialog.h" line="169"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="163"/>
+        <location filename="../ui_settings-dialog.h" line="170"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
+    </message>
+</context>
+<context>
+    <name>UninstallHelperDialog</name>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="12"/>
+        <source>Uninstall %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="14"/>
+        <source>Do you want to remove the %1 account information?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="37"/>
+        <source>Removing account information...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
+        <source>text</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
+        <source>Yes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
+        <source>No</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

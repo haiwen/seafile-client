@@ -45,7 +45,7 @@
     <message>
         <location filename="../src/ui/clone-tasks-table-model.cpp" line="110"/>
         <source>Library</source>
-        <translation>Könyvtár</translation>
+        <translation>Kötet</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-model.cpp" line="117"/>
@@ -267,12 +267,12 @@
     <message>
         <location filename="../src/configurator.cpp" line="235"/>
         <source>%1 Default Library</source>
-        <translation type="unfinished"/>
+        <translation>%1 alapértelmezett kötet</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="238"/>
         <source>Seafile default library</source>
-        <translation>Seafile alapértelmezett könyvtára</translation>
+        <translation>Seafile alapértelmezett kötet</translation>
     </message>
 </context>
 <context>
@@ -280,117 +280,117 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="19"/>
         <source>Create a library</source>
-        <translation>Könyvtár létrehozása</translation>
+        <translation>Kötet létrehozása</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="41"/>
         <source>Please choose a directory</source>
         <translation>Kérem, válasszon könyvtárat</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="73"/>
         <source>Creating...</source>
         <translation>Létrehozás...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="100"/>
         <source>Please choose the directory to sync</source>
         <translation>Kérem, válassza ki a szinkronizálandó könyvtárat</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="104"/>
         <source>The folder %1 does not exist</source>
         <translation>A könyvtár (%1) nem létezik</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
         <source>Please enter the name</source>
         <translation>Kérem, írja be a nevet</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="114"/>
         <source>Please enter the description</source>
         <translation>Kérem, adjon meg egy leírást</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="121"/>
         <source>Please enter the password</source>
         <translation>Kérem, adja meg a jelszót</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
         <source>Passwords don&apos;t match</source>
         <translation>A jelszavak nem egyeznek</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="139"/>
         <source>Unknown error</source>
         <translation>Ismeretlen hiba</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="172"/>
         <source>Failed to add download task:
  %1</source>
         <translation>A letöltési feladat hozzáadása nem sikerült:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="185"/>
         <source>Failed to create library on the server</source>
-        <translation>Nem sikerült létrehozni a könyvtárat a szerveren</translation>
+        <translation>Nem sikerült létrehozni a kötetet a szerveren</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Dialog</source>
         <translation>Párbeszédablak</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Path:</source>
         <translation>Útvonal:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Choose</source>
         <translation>Válasszon</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Name:</source>
         <translation>Név:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>Description:</source>
         <translation>Leírás:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>encrypted</source>
         <translation>Titkosított</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password:</source>
         <translation>Jelszó:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>Password Again:</source>
         <translation>Jelszó ismételten:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>status text</source>
         <translation>Állapot</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Ok</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
@@ -418,7 +418,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="21"/>
         <source>Download library &quot;%1&quot;</source>
-        <translation>Könyvtár letöltése: &quot;%1&quot;</translation>
+        <translation>Kötet letöltése: &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="45"/>
@@ -443,12 +443,12 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="109"/>
         <source>Sync library &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; könyvtár szinkronizálása</translation>
+        <translation>&quot;%1&quot; kötet szinkronizálása</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="110"/>
         <source>Sync this library with:</source>
-        <translation>A könyvtár szinkronizálása a következővel:</translation>
+        <translation>A kötet szinkronizálása a következővel:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="150"/>
@@ -465,12 +465,12 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="215"/>
         <source>Download Library</source>
-        <translation>Könyvtár letöltése</translation>
+        <translation>Kötet letöltése</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="216"/>
         <source>Download this library to:</source>
-        <translation>Könyvtár letöltése ide:</translation>
+        <translation>Kötet letöltése ide:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="217"/>
@@ -480,12 +480,12 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="218"/>
         <source>Password for this library:</source>
-        <translation>A könyvtár jelszava:</translation>
+        <translation>A kötet jelszava:</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="219"/>
         <source>Files in the local folder will be merged with files in the library</source>
-        <translation>A helyi mappa tartalma egyesítve lesz a szerveren lévő könyvtár tartalmával</translation>
+        <translation>A helyi könyvtár tartalma egyesítve lesz a szerveren lévő kötet tartalmával</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="220"/>
@@ -550,7 +550,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Kérem, válasszon egy mappát. A kiválasztott mappában automatikusan létrejön egy Seafile alkönyvtár, amely a letöltésre kijelölt könyvtárak alapértelmezett mentési helye lesz.</translation>
+        <translation>Kérem, válasszon egy mappát. A kiválasztott mappában automatikusan létrejön egy Seafile almappa, amely a letöltésre kijelölt kötetek alapértelmezett mentési helye lesz.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
@@ -573,12 +573,12 @@
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="63"/>
         <source>Checking your default library...</source>
-        <translation>Alapértelmezett könyvtár ellenőrzése...</translation>
+        <translation>Alapértelmezett kötet ellenőrzése...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="77"/>
         <source>Creating the default library...</source>
-        <translation type="unfinished"/>
+        <translation>Alapértelmezett kötet létrehozása...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="128"/>
@@ -586,52 +586,53 @@
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
-        <translation>Az alapértelmezett könyvtár létrehozása nem sikerült:
+        <translation>Az alapértelmezett kötet létrehozása nem sikerült:
 
 A funkció használatához a szoftver 2.1-es vagy újabb verzióját kell futtatni a szerveren.</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="131"/>
         <source>Failed to get default library: error code %1</source>
-        <translation>Az alapértelmezett könyvtár lekérdezése nem sikerült. Hibakód: %1</translation>
+        <translation>Az alapértelmezett kötet lekérdezése nem sikerült. Hibakód: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="147"/>
         <source>Failed to create default library: error code %1</source>
-        <translation>Az alapértelmezett könyvtár létrehozása nem sikerült. Hibakód: %1</translation>
+        <translation>Az alapértelmezett kötet létrehozása nem sikerült. Hibakód: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="172"/>
         <source>Downloading default library...</source>
-        <translation type="unfinished"/>
+        <translation>Alapértelmezett kötet letöltése...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="192"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
-        <translation type="unfinished"/>
+        <translation>Az alapértelmezett kötet letöltése befejeződött.
+A kötet böngészéséhez kattintson a &quot;Megnyitás&quot; gombra.</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="242"/>
         <source>Error when downloading the default library: %1</source>
-        <translation type="unfinished"/>
+        <translation>Hiba történt az alapértelmezett kötet letöltése során: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
         <source>Creating the virtual disk...</source>
-        <translation type="unfinished"/>
+        <translation>Virtuális lemez létrehozása...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="166"/>
         <source>Failed to download default library:
  %1</source>
-        <translation>Az alapértelmezett könyvtár letöltése nem sikerült:
+        <translation>Az alapértelmezett kötet letöltése nem sikerült:
 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="181"/>
         <source>Failed to download default library: error code %1</source>
-        <translation>Az alapértelmezett könyvtár letöltése nem sikerült. Hibakód: %1</translation>
+        <translation>Az alapértelmezett kötet letöltése nem sikerült. Hibakód: %1</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="181"/>
@@ -642,33 +643,34 @@ You can click the &quot;Open&quot; button to view it.</source>
         <location filename="../ui_init-vdrive-dialog.h" line="184"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation type="unfinished"/>
+        <translation>A Seafile kötetekbe szervezi a fájlokat.
+Letölti az alapértelmezett kötetet és létrehoz egy virtuális lemezt hozzá?</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="187"/>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Kihagyás</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Run in Background</source>
-        <translation type="unfinished"/>
+        <translation>Futtatás a háttérben</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Open</source>
-        <translation type="unfinished"/>
+        <translation>Megnyitás</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="190"/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>Befejezés</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="32"/>
         <location filename="../ui_init-vdrive-dialog.h" line="182"/>
         <source>Download Default Library</source>
-        <translation>Alapértelmezett könyvtár letöltése</translation>
+        <translation>Alapértelmezett kötet letöltése</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="186"/>
@@ -738,7 +740,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
         <source>Internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation>Belső szerverhiba</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="161"/>
@@ -804,7 +806,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="106"/>
+        <location filename="../src/ui/main-window.cpp" line="108"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
     </message>
@@ -840,7 +842,7 @@ Hozzáférés megtagadva</translation>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; nem szinkronizálható.
-A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
+A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     </message>
 </context>
 <context>
@@ -929,12 +931,12 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="118"/>
         <source>You do not have permission to access this library</source>
-        <translation>Nincs jogosultsága a könyvtár eléréséhez</translation>
+        <translation>Nincs jogosultsága a kötet eléréséhez</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="121"/>
         <source>The storage space of the library owner has been used up</source>
-        <translation>A könyvtár tulajdonosának kiosztott tárhely megtelt</translation>
+        <translation>A kötet tulajdonosának kiosztott tárhely megtelt</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="124"/>
@@ -974,7 +976,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Library is deleted on server</source>
-        <translation>A könyvtár törölve lett a szerverről</translation>
+        <translation>A kötet törölve lett a szerverről</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
@@ -1089,7 +1091,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
         <translation>%1 perce</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="82"/>
+        <location filename="../src/main.cpp" line="117"/>
         <source>%1 is already running</source>
         <translation>%1 már folyamatban van</translation>
     </message>
@@ -1146,7 +1148,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation>A könyvtár vissza lett állítva a következő állapot szerint:</translation>
+        <translation>A kötet vissza lett állítva a következő állapot szerint:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
@@ -1161,7 +1163,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation>A könyvtár neve vagy leírása megváltozott</translation>
+        <translation>A kötet neve vagy leírása megváltozott</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
@@ -1189,13 +1191,13 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="27"/>
         <source>Library &quot;%1&quot;</source>
-        <translation>Könyvtár: &quot;%1&quot;</translation>
+        <translation>&quot;%1&quot; kötet</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="62"/>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="98"/>
         <source>This library is not downloaded yet</source>
-        <translation>Ez a könyvtár még nincs letöltve</translation>
+        <translation>Ez a kötet még nincs letöltve</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="85"/>
@@ -1281,7 +1283,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="394"/>
         <source>This library has not been downloaded</source>
-        <translation>Ez a könyvtár nincs letöltve</translation>
+        <translation>Ez a kötet nincs letöltve</translation>
     </message>
 </context>
 <context>
@@ -1332,12 +1334,12 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="192"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
         <source>Download this library</source>
-        <translation>Könyvtár letöltése</translation>
+        <translation>Kötet letöltése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>&amp;Download this library</source>
-        <translation>&amp;Könyvtár letöltése</translation>
+        <translation>&amp;Kötet letöltése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
@@ -1347,7 +1349,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library immediately</source>
-        <translation>A könyvtár azonnali szinkronizálása</translation>
+        <translation>Kötet azonnali szinkronizálása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
@@ -1357,7 +1359,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>Cancel download of this library</source>
-        <translation>A könyvtár letöltésének megszakítása</translation>
+        <translation>A kötet letöltésének megszakítása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
@@ -1377,7 +1379,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
         <source>unsync this library</source>
-        <translation>A könyvtár szinkronizálásának befejezése</translation>
+        <translation>Kötet szinkronizálásának megszüntetése</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="231"/>
@@ -1387,17 +1389,17 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="233"/>
         <source>view this library on seahub</source>
-        <translation>A könyvtár megnyitása a seahub-on</translation>
+        <translation>Kötet böngészése a seahub-on</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation>Biztosan befejezi a könyvtár (&quot;%1&quot;) szinkronizálását?</translation>
+        <translation>Biztosan megszünteti a következő kötet szinkronizálását: &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation>A könyvtár (&quot;%1&quot;) szinkronizálását nem sikerült befejezni</translation>
+        <translation>A kötet (&quot;%1&quot;) szinkronizálását nem sikerült megszüntetni</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
@@ -1417,9 +1419,16 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="162"/>
+        <location filename="../src/seafile-applet.cpp" line="209"/>
         <source>Failed to initialize log</source>
         <translation>A napló inicializálása nem sikerült</translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="296"/>
+        <source>A new version of %1 client (%2) is available.
+Do you want to visit the download page?</source>
+        <translation>A %1 kliens újabb verziója érhető el (%2).
+Meglátogatja a szoftver letöltési oldalát?</translation>
     </message>
 </context>
 <context>
@@ -1444,7 +1453,7 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="650"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation>Az útvonal (&quot;%1&quot;) ütközik egy meglévő könyvtár elérési útvonalával</translation>
+        <translation>Az útvonal (&quot;%1&quot;) ütközik egy meglévő kötet elérési útvonalával</translation>
     </message>
 </context>
 <context>
@@ -1511,17 +1520,17 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
         <translation>Automatikus szinkronizálás kikapcsolva</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="297"/>
+        <location filename="../src/ui/tray-icon.cpp" line="295"/>
         <source>About %1</source>
         <translation>Információk a %1-ról</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="298"/>
+        <location filename="../src/ui/tray-icon.cpp" line="296"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 kliens %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="358"/>
+        <location filename="../src/ui/tray-icon.cpp" line="356"/>
         <source>some servers not connected</source>
         <translation>Néhány szerver nem elérhető</translation>
     </message>
@@ -1565,49 +1574,92 @@ A könyvtár tulajdonosának kiosztott tárhely megtelt.</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="12"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="21"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Dialog</source>
         <translation>Párbeszédablak</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Hide main window when started</source>
         <translation>Főablak elrejtése indításkor</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="164"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Értesítést kérek, ha a könyvtárak szinkronizálva vannak</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="165"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation>Seafile automatikus indítása bejelentkezéskor (Windows)</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="166"/>
+        <source>Check for new version on startup</source>
+        <translation>Új verzió keresése a program indításakor</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="167"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Letöltési sebesség korlátozása (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="168"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Feltöltési sebesség korlátozása (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="162"/>
+        <location filename="../ui_settings-dialog.h" line="169"/>
         <source>Ok</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="163"/>
+        <location filename="../ui_settings-dialog.h" line="170"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
+    </message>
+</context>
+<context>
+    <name>UninstallHelperDialog</name>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="12"/>
+        <source>Uninstall %1</source>
+        <translation>%1 eltávolítása</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="14"/>
+        <source>Do you want to remove the %1 account information?</source>
+        <translation>Biztosan eltávolítja a következő fiók beállításait: %1?</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="37"/>
+        <source>Removing account information...</source>
+        <translation>Fiókinformációk eltávolítása...</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
+        <source>Dialog</source>
+        <translation>Párbeszédablak</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
+        <source>text</source>
+        <translation>szöveg</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
+        <source>Yes</source>
+        <translation>Igen</translation>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
+        <source>No</source>
+        <translation>Nem</translation>
     </message>
 </context>
 </TS>

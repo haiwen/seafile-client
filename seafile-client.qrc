@@ -55,9 +55,15 @@
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>
-    <file>i18n/seafile_zh_CN.qm</file>
     <file>i18n/seafile_de_DE.qm</file>
-    <file>i18n/seafile_hu_HU.qm</file>
+    <file>i18n/seafile_es.qm</file>
     <file>i18n/seafile_fr_FR.qm</file>
+    <file>i18n/seafile_he_IL.qm</file>
+    <file>i18n/seafile_hu_HU.qm</file>
+    <file>i18n/seafile_nl_BE.qm</file>
+    <file>i18n/seafile_pt_BR.qm</file>
+    <file>i18n/seafile_ru.qm</file>
+    <file>i18n/seafile_sk_SK.qm</file>
+    <file>i18n/seafile_zh_CN.qm</file>
 </qresource>
 </RCC>

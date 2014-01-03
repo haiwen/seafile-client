@@ -61,7 +61,12 @@ int main(int argc, char *argv[])
     app.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
-    myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
+    myappTranslator.load(QLocale::system(), // locale
+                         "",                // file name
+                         "seafile_",        // prefix
+                         ":/i18n/",         // folder
+                         ".qm");            // suffix
+
     app.installTranslator(&myappTranslator);
 
     static const char *short_options = "KXc:";

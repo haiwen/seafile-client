@@ -44,11 +44,14 @@ MainWindow::MainWindow()
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(cloud_view_);
 
-    QWidget *widget = new QWidget;
-    widget->setObjectName("mainWrapper");
-    widget->setLayout(layout);
+    QWidget *wrapper = new QWidget;
+    wrapper->setObjectName("mainWrapper");
+    wrapper->setLayout(layout);
 
-    setCentralWidget(widget);
+    setCentralWidget(wrapper);
+
+    resizer_ = new QSizeGrip(this);
+    resizer_->resize(resizer_->sizeHint());
 
     createActions();
     setAttribute(Qt::WA_TranslucentBackground, true);
@@ -58,6 +61,12 @@ void MainWindow::hide()
 {
     writeSettings();
     QMainWindow::hide();
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
+    resizer_->raise();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -136,7 +145,7 @@ void MainWindow::writeSettings()
     QSettings settings;
 
     settings.beginGroup("MainWindow");
-    // settings.setValue("size", size());
+    settings.setValue("size", size());
     settings.setValue("pos", pos());
     settings.endGroup();
 }
@@ -156,19 +165,21 @@ QPoint MainWindow::getDefaultPosition()
 void MainWindow::readSettings()
 {
     QPoint pos;
+    QSize size;
     QSettings settings;
+    settings.beginGroup("MainWindow");
 
     static bool first_show = true;
 
     if (first_show && seafApplet->configurator()->firstUse()) {
         pos = getDefaultPosition();
     } else {
-        settings.beginGroup("MainWindow");
         pos = settings.value("pos", getDefaultPosition()).toPoint();
-        settings.endGroup();
+        size = settings.value("size", QSize()).toSize();
     }
 
     first_show = false;
 
     move(pos);
+    resize(size);
 }

@@ -9,6 +9,7 @@ extern "C" {
 #include <QToolButton>
 #include <QWidgetAction>
 #include <QTreeView>
+#include <QTreeView>
 
 #include "QtAwesome.h"
 #include "seahub-messages-monitor.h"
@@ -79,6 +80,7 @@ CloudView::CloudView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
             this, SLOT(updateAccountMenu()));
+
 }
 
 void CloudView::setupHeader()

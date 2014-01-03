@@ -212,19 +212,6 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <spacer name="horizontalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>17</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <widget class="QFrame" name="mDropInner">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -281,19 +268,6 @@
            </item>
           </layout>
          </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>

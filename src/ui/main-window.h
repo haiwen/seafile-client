@@ -4,13 +4,9 @@
 #include <QMainWindow>
 
 class QAction;
-class QLabel;
-class QListWidget;
 class QToolBar;
-class QToolButton;
-class QWidgetAction;
-class QMenu;
-class QFile;
+class QSizeGrip;
+class QResizeEvent;
 
 class CloudView;
 
@@ -37,6 +33,7 @@ private slots:
     void refreshQss();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
 private:
     Q_DISABLE_COPY(MainWindow)
@@ -51,6 +48,8 @@ private:
     QTabWidget *main_widget_;
 
     CloudView *cloud_view_;
+
+    QSizeGrip *resizer_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

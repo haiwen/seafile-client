@@ -4,6 +4,7 @@
 #include <QEvent>
 #include <QShowEvent>
 #include <QHideEvent>
+#include <Qt>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -36,6 +37,9 @@ RepoTreeView::RepoTreeView(CloudView *cloud_view, QWidget *parent)
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
+#ifdef Q_WS_MAC
+    this->setAttribute(Qt::WA_MacShowFocusRect, 0);
+#endif
 }
 
 void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)

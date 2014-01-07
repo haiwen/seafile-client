@@ -254,7 +254,7 @@ void InitVirtualDriveDialog::checkDownloadProgress()
 void InitVirtualDriveDialog::createVirtualDisk(const LocalRepo& repo)
 {
     setStatusText(tr("Creating the virtual disk..."));
-    Configurator::setVirtualDrive(repo.worktree);
+    Configurator::setVirtualDrive(repo.worktree, repo.name);
 }
 
 

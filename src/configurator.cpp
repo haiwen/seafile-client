@@ -204,7 +204,7 @@ int Configurator::readSeafileIni(QString *content)
     return 0;
 }
 
-int Configurator::setVirtualDrive(const QString& path)
+int Configurator::setVirtualDrive(const QString& path, const QString& name)
 {
     printf ("Configurator::setVirtualDrive is called\n");
 #if defined(Q_WS_WIN)

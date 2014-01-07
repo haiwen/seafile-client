@@ -50,6 +50,9 @@ void SeafileApiRequest::send()
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),
             this, SLOT(requestSuccess(QNetworkReply&)));
 
+    connect(api_client_, SIGNAL(networkError(const QNetworkReply::NetworkError&, const QString&)),
+            this, SIGNAL(networkError(const QNetworkReply::NetworkError&, const QString&)));
+
     connect(api_client_, SIGNAL(requestFailed(int)),
             this, SIGNAL(failed(int)));
 

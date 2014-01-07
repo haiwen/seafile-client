@@ -6,6 +6,7 @@
 
 #include <QUrl>
 #include <QString>
+#include <QNetworkReply>
 
 struct Account;
 class LoginRequest;
@@ -23,11 +24,15 @@ private slots:
     void doLogin();
     void loginSuccess(const QString& token);
     void loginFailed(int code);
+    void onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);
     void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
 
 private:
     Q_DISABLE_COPY(LoginDialog);
     bool validateInputs();
+    void disableInputs();
+    void enableInputs();
+    void showWarning(const QString& msg);
 
     QUrl url_;
     QString username_;

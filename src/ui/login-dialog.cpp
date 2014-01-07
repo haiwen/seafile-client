@@ -41,10 +41,7 @@ void LoginDialog::doLogin()
     }
     mStatusText->setText(tr("Logging in..."));
 
-    mServerAddr->setEnabled(false);
-    mUsername->setEnabled(false);
-    mPassword->setEnabled(false);
-    mSubmitBtn->setEnabled(false);
+    disableInputs();
 
     if (request_) {
         delete request_;
@@ -59,10 +56,35 @@ void LoginDialog::doLogin()
     connect(request_, SIGNAL(failed(int)),
             this, SLOT(loginFailed(int)));
 
+    connect(request_, SIGNAL(networkError(const QNetworkReply::NetworkError&, const QString&)),
+            this, SLOT(onNetworkError(const QNetworkReply::NetworkError&, const QString&)));
+
     connect(request_, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
             this, SLOT(onSslErrors(QNetworkReply*, const QList<QSslError>&)));
 
     request_->send();
+}
+
+void LoginDialog::disableInputs()
+{
+    mServerAddr->setEnabled(false);
+    mUsername->setEnabled(false);
+    mPassword->setEnabled(false);
+    mSubmitBtn->setEnabled(false);
+}
+
+void LoginDialog::enableInputs()
+{
+    mSubmitBtn->setEnabled(true);
+    mServerAddr->setEnabled(true);
+    mUsername->setEnabled(true);
+    mPassword->setEnabled(true);
+}
+
+void LoginDialog::onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string)
+{
+    showWarning(tr("Network Error:\n %1").arg(error_string));
+    enableInputs();
 }
 
 void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
@@ -84,48 +106,29 @@ bool LoginDialog::validateInputs()
     QUrl url;
 
     if (serverAddr.size() == 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the server address"),
-                             QMessageBox::Ok);
+        showWarning(tr("Please enter the server address"));
         return false;
     } else {
         if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
-            QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                                 tr("%1 is not a valid server address")
-                                 .arg(serverAddr),
-                                 QMessageBox::Ok);
+            showWarning(tr("%1 is not a valid server address").arg(serverAddr));
             return false;
         }
 
         url = QUrl(serverAddr, QUrl::StrictMode);
-        // qDebug("url is %s\n", url.toString().toUtf8().data());
         if (!url.isValid()) {
-            QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                                 tr("%1 is not a valid server address")
-                                 .arg(serverAddr),
-                                 QMessageBox::Ok);
+            showWarning(tr("%1 is not a valid server address").arg(serverAddr));
             return false;
         }
     }
 
     QString email = mUsername->text();
     if (email.size() == 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the username"),
-                             QMessageBox::Ok);
-        return false;
-    } else if (!email.contains("@")) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("%1 is not a valid email")
-                             .arg(email),
-                             QMessageBox::Ok);
+        showWarning(tr("Please enter the username"));
         return false;
     }
 
     if (mPassword->text().size() == 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Please enter the password"),
-                             QMessageBox::Ok);
+        showWarning(tr("Please enter the password"));
         return false;
     }
 
@@ -140,9 +143,7 @@ void LoginDialog::loginSuccess(const QString& token)
 {
     Account account(url_, username_, token);
     if (seafApplet->accountManager()->saveAccount(account) < 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
-                             tr("Internal Error"),
-                             QMessageBox::Ok);
+        showWarning(tr("Failed to save current account"));
     } else {
         done(QDialog::Accepted);
     }
@@ -163,14 +164,14 @@ void LoginDialog::loginFailed(int code)
         err_msg = tr("Failed to login");
     }
 
-    QMessageBox::warning(this, SEAFILE_CLIENT_BRAND,
-                         err_msg,
-                         QMessageBox::Ok);
+    showWarning(err_msg);
 
-    mSubmitBtn->setEnabled(true);
-    mServerAddr->setEnabled(true);
-    mUsername->setEnabled(true);
-    mPassword->setEnabled(true);
+    enableInputs();
 
     mStatusText->setText("");
+}
+
+void LoginDialog::showWarning(const QString& msg)
+{
+    seafApplet->warningBox(msg, this);
 }

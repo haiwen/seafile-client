@@ -7,8 +7,8 @@
 #include <QPair>
 #include <QList>
 #include <jansson.h>
+#include <QNetworkReply>
 
-class QNetworkReply;
 class SeafileApiClient;
 class QSslError;
 
@@ -26,6 +26,7 @@ public:
     void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }
 
 signals:
+    void networkError(const QNetworkReply::NetworkError& error, const QString& error_string);
     void failed(int code);
     void sslErrors(QNetworkReply*, const QList<QSslError>&);
 

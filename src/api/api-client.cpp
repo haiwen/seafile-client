@@ -76,7 +76,7 @@ void SeafileApiClient::httpRequestFinished()
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (reply_->error() != QNetworkReply::NoError) {
         qDebug("http request failed: %s\n", reply_->errorString().toUtf8().data());
-        emit requestFailed(code);
+        emit networkError(reply_->error(), reply_->errorString());
         return;
     }
 

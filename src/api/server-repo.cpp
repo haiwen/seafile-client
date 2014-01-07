@@ -3,7 +3,6 @@
 #include <QPixmap>
 
 #include "server-repo.h"
-#include "requests.h"
 
 namespace {
 

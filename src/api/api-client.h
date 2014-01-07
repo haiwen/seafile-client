@@ -3,13 +3,13 @@
 
 #include <QString>
 #include <QObject>
+#include <QNetworkReply>
 
 #include "account.h"
 #include "server-repo.h"
 
 class QNetworkAccessManager;
 class QByteArray;
-class QNetworkReply;
 class QSslError;
 
 /**
@@ -28,6 +28,7 @@ public:
 signals:
     void requestSuccess(QNetworkReply& reply);
     void requestFailed(int code);
+    void networkError(const QNetworkReply::NetworkError& error, const QString& error_string);
     void sslErrors(QNetworkReply *, const QList<QSslError>&);
 
 private slots:

@@ -32,6 +32,8 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
     setWindowTitle(tr("Download Default Library"));
     setWindowIcon(QIcon(":/images/seafile.png"));
 
+    setStatusIcon(":/images/download-48.png");
+
     create_default_repo_req_ = NULL;
     download_default_repo_req_ = NULL;
 
@@ -191,7 +193,8 @@ void InitVirtualDriveDialog::finish()
 {
     QString msg = tr("The default library has been downloaded.\n"
                      "You can click the \"Open\" button to view it.");
-    mStatusText->setText(msg);
+    setStatusText(msg);
+    setStatusIcon(":/images/ok-48.png");
 
     mFinishBtn->setVisible(true);
     mOpenBtn->setVisible(true);
@@ -261,6 +264,11 @@ void InitVirtualDriveDialog::createVirtualDisk(const LocalRepo& repo)
 void InitVirtualDriveDialog::setStatusText(const QString& status)
 {
     mStatusText->setText(status);
+}
+
+void InitVirtualDriveDialog::setStatusIcon(const QString& path)
+{
+    mStatusIcon->setPixmap(QPixmap(path));
 }
 
 void InitVirtualDriveDialog::ensureVisible()

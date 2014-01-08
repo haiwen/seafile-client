@@ -284,11 +284,6 @@ QFrame#mFooter QToolButton#mDownloadTasksBtn {
     margin-top: 3px;
 }
 
-InitVirtualDriveDialog QLabel#mStatusText {
-    font-size: 16px;
-    font-family: Arial;
-}
-
 ServerStatusDialog QListView:item {
     margin-bottom: 4px;
 }
@@ -302,4 +297,19 @@ UninstallHelperDialog {
 
 CloudView QSizeGrip {
     margin-right: 2px;
+}
+
+InitVirtualDriveDialog QLabel#mStatusText {
+    font-size: 16px;
+    font-family: Arial;
+    padding-right: 20px;
+    qproperty-wordWrap: true;
+    min-width: 350px;
+}
+
+InitVirtualDriveDialog QLabel#mStatusIcon {
+    min-width: 48px;
+    max-width: 48px;
+    margin-left: 30px;
+    margin-right: 20px;
 }

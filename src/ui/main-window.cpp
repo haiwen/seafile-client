@@ -12,8 +12,9 @@
 #include "configurator.h"
 #include "tray-icon.h"
 #include "login-dialog.h"
-#include "main-window.h"
 #include "utils/utils.h"
+
+#include "main-window.h"
 
 namespace {
 

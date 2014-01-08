@@ -5,7 +5,6 @@
 
 class QAction;
 class QToolBar;
-class QSizeGrip;
 class QResizeEvent;
 
 class CloudView;
@@ -33,7 +32,6 @@ private slots:
     void refreshQss();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void resizeEvent(QResizeEvent *event);
 
 private:
     Q_DISABLE_COPY(MainWindow)
@@ -48,8 +46,6 @@ private:
     QTabWidget *main_widget_;
 
     CloudView *cloud_view_;
-
-    QSizeGrip *resizer_;
 };
 
 #endif  // SEAFILE_MAINWINDOW_H

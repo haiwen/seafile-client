@@ -9,7 +9,6 @@ extern "C" {
 #include <QToolButton>
 #include <QWidgetAction>
 #include <QTreeView>
-#include <QTreeView>
 
 #include "QtAwesome.h"
 #include "seahub-messages-monitor.h"
@@ -65,6 +64,9 @@ CloudView::CloudView(QWidget *parent)
 
     setupDropArea();
     setupFooter();
+
+    resizer_ = new QSizeGrip(this);
+    resizer_->resize(resizer_->sizeHint());
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
@@ -612,4 +614,10 @@ void CloudView::onRefreshClicked()
         showLoadingView();
         refreshRepos();
     }
+}
+
+void CloudView::resizeEvent(QResizeEvent *event)
+{
+    resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
+    resizer_->raise();
 }

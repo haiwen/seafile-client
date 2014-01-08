@@ -11,6 +11,7 @@ class QShowEvent;
 class QHideEvent;
 class QToolButton;
 class QToolBar;
+class QSizeGrip;
 
 class ListReposRequest;
 class ServerRepo;
@@ -33,7 +34,8 @@ public:
 protected:
     void showEvent(QShowEvent *event);
     void hideEvent(QHideEvent *event);
-     bool eventFilter(QObject *obj, QEvent *ev);
+    void resizeEvent(QResizeEvent *event);
+    bool eventFilter(QObject *obj, QEvent *ev);
 
 public slots:
     void showAddAccountDialog();
@@ -83,6 +85,8 @@ private:
 
     RepoTreeView *repos_tree_;
     QWidget *loading_view_;
+
+    QSizeGrip *resizer_;
 
     ListReposRequest *list_repo_req_;
 

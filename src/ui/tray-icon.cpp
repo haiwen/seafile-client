@@ -318,8 +318,6 @@ void SeafileTrayIcon::showSettingsWindow()
 
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
-    qDebug("onActivated: %d", reason);
-
 #ifndef Q_WS_MAC
     switch(reason) {
     case QSystemTrayIcon::Trigger: // single click

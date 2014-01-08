@@ -50,9 +50,6 @@ MainWindow::MainWindow()
 
     setCentralWidget(wrapper);
 
-    resizer_ = new QSizeGrip(this);
-    resizer_->resize(resizer_->sizeHint());
-
     createActions();
     setAttribute(Qt::WA_TranslucentBackground, true);
 }
@@ -61,12 +58,6 @@ void MainWindow::hide()
 {
     writeSettings();
     QMainWindow::hide();
-}
-
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
-    resizer_->raise();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -130,6 +121,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::showWindow()
 {
+    showNormal();
     show();
     raise();
     activateWindow();

@@ -45,6 +45,7 @@ private slots:
 
 private:
     void checkPersonalRepo(const ServerRepo& repo);
+    void checkVirtualRepo(const ServerRepo& repo);
     void checkSharedRepo(const ServerRepo& repo);
     void checkGroupRepo(const ServerRepo& repo);
     void initialize();
@@ -59,6 +60,7 @@ private:
 
     RepoCategoryItem *recent_updated_category_;
     RepoCategoryItem *my_repos_catetory_;
+    RepoCategoryItem *virtual_repos_catetory_;
     RepoCategoryItem *shared_repos_catetory_;
 
     QTimer *refresh_local_timer_;

@@ -17,6 +17,7 @@ namespace {
 
 const int kRefreshLocalReposInterval = 1000;
 const int kMaxRecentUpdatedRepos = 10;
+const int kIndexOfVirtualReposCategory = 2;
 
 bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
 {
@@ -48,10 +49,12 @@ void RepoTreeModel::initialize()
 {
     recent_updated_category_ = new RepoCategoryItem(tr("Recently Updated"));
     my_repos_catetory_ = new RepoCategoryItem(tr("My Libraries"));
+    virtual_repos_catetory_ = new RepoCategoryItem(tr("Sub Libraries"));
     shared_repos_catetory_ = new RepoCategoryItem(tr("Private Shares"));
 
     appendRow(recent_updated_category_);
     appendRow(my_repos_catetory_);
+    // appendRow(virtual_repos_catetory_);
     appendRow(shared_repos_catetory_);
 
     if (tree_view_) {
@@ -75,7 +78,11 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
     for (i = 0; i < n; i++) {
         const ServerRepo& repo = repos[i];
         if (repo.isPersonalRepo()) {
-            checkPersonalRepo(repo);
+            if (repo.isVirtual()) {
+                checkVirtualRepo(repo);
+            } else {
+                checkPersonalRepo(repo);
+            }
         } else if (repo.isSharedRepo()) {
             checkSharedRepo(repo);
         } else {
@@ -153,6 +160,26 @@ void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
     my_repos_catetory_->appendRow(item);
 }
 
+void RepoTreeModel::checkVirtualRepo(const ServerRepo& repo)
+{
+    if (item(kIndexOfVirtualReposCategory) != virtual_repos_catetory_) {
+        insertRow(kIndexOfVirtualReposCategory, virtual_repos_catetory_);
+    }
+
+    int row, n = virtual_repos_catetory_->rowCount();
+    for (row = 0; row < n; row++) {
+        RepoItem *item = (RepoItem *)(virtual_repos_catetory_->child(row));
+        if (item->repo().id == repo.id) {
+            updateRepoItem(item, repo);
+            return;
+        }
+    }
+
+    // The repo is new
+    RepoItem *item = new RepoItem(repo);
+    virtual_repos_catetory_->appendRow(item);
+}
+
 void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
 {
     int row, n = shared_repos_catetory_->rowCount();
@@ -176,9 +203,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
 
     int row, n = root->rowCount();
 
-    // First find for create the group
-    // Starts from row 2 because the first two rows are "My Libraries" and "Shared Libraries"
-    for (row = 2; row < n; row ++) {
+    for (row = 0; row < n; row ++) {
         RepoCategoryItem *item = (RepoCategoryItem *)(root->child(row));
         if (item->groupId() == repo.group_id) {
             group = item;

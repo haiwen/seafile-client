@@ -31,6 +31,8 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
     repo.owner = getStringFromJson(json, "owner");
     repo.permission = getStringFromJson(json, "permission");
 
+    repo._virtual = json_is_true(json_object_get(json, "virtual"));
+
     if (repo.type == "grepo") {
         repo.group_name = repo.owner;
         repo.group_id = json_integer_value(json_object_get(json, "groupid"));

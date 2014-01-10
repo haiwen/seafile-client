@@ -93,161 +93,161 @@
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="94"/>
+        <location filename="../src/ui/cloud-view.cpp" line="98"/>
         <source>Minimize</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="99"/>
+        <location filename="../src/ui/cloud-view.cpp" line="103"/>
         <source>Close</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="111"/>
+        <location filename="../src/ui/cloud-view.cpp" line="115"/>
         <source>Show download tasks</source>
         <translation>Показати завдання завантаження</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="121"/>
+        <location filename="../src/ui/cloud-view.cpp" line="125"/>
         <source>current download rate</source>
         <translation>поточна швидкість завантаження</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="127"/>
+        <location filename="../src/ui/cloud-view.cpp" line="131"/>
         <source>current upload rate</source>
         <translation>поточна швидкість віддачі</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="132"/>
+        <location filename="../src/ui/cloud-view.cpp" line="136"/>
         <source>Please Choose a folder to sync</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="288"/>
+        <location filename="../src/ui/cloud-view.cpp" line="292"/>
         <source>No account</source>
         <translation>Ви не зареєстровані</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="322"/>
+        <location filename="../src/ui/cloud-view.cpp" line="326"/>
         <source>Add an account</source>
         <translation>Додавання облікового запису</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="329"/>
+        <location filename="../src/ui/cloud-view.cpp" line="333"/>
         <source>Delete this account</source>
         <translation>Видалити обліковий запис</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="460"/>
+        <location filename="../src/ui/cloud-view.cpp" line="464"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
         <translation>Ви дійсно хочете видалити цей обліковий запис?&lt;br&gt;&lt;b&gt;Попередження: Усі бібліотеки цього облікового запису будуть розсинхронізовані&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="473"/>
+        <location filename="../src/ui/cloud-view.cpp" line="477"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Не вдалося розсинхронізувати бібліотеки цього особового запису: 1%</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="503"/>
-        <location filename="../src/ui/cloud-view.cpp" line="525"/>
+        <location filename="../src/ui/cloud-view.cpp" line="507"/>
+        <location filename="../src/ui/cloud-view.cpp" line="529"/>
         <source>no server connected</source>
         <translation>немає підключеного серверу</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="523"/>
+        <location filename="../src/ui/cloud-view.cpp" line="527"/>
         <source>all servers connected</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="527"/>
+        <location filename="../src/ui/cloud-view.cpp" line="531"/>
         <source>some servers not connected</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="549"/>
-        <location filename="../src/ui/cloud-view.cpp" line="550"/>
+        <location filename="../src/ui/cloud-view.cpp" line="553"/>
+        <location filename="../src/ui/cloud-view.cpp" line="554"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="600"/>
+        <location filename="../src/ui/cloud-view.cpp" line="604"/>
         <source>Refresh</source>
         <translation>Оновити</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="324"/>
+        <location filename="../ui_cloud-view.h" line="314"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="325"/>
+        <location filename="../ui_cloud-view.h" line="315"/>
         <source>logo</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="326"/>
+        <location filename="../ui_cloud-view.h" line="316"/>
         <source>Seafile</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="327"/>
+        <location filename="../ui_cloud-view.h" line="317"/>
         <source>minimize</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="328"/>
+        <location filename="../ui_cloud-view.h" line="318"/>
         <source>close</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="329"/>
+        <location filename="../ui_cloud-view.h" line="319"/>
         <source>Account</source>
         <translation>Обліковий запис</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="330"/>
+        <location filename="../ui_cloud-view.h" line="320"/>
         <source>email</source>
         <translation>email</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="331"/>
+        <location filename="../ui_cloud-view.h" line="321"/>
         <source>server</source>
         <translation>сервер</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="332"/>
-        <location filename="../ui_cloud-view.h" line="335"/>
-        <location filename="../ui_cloud-view.h" line="337"/>
+        <location filename="../ui_cloud-view.h" line="322"/>
+        <location filename="../ui_cloud-view.h" line="325"/>
+        <location filename="../ui_cloud-view.h" line="327"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="333"/>
+        <location filename="../ui_cloud-view.h" line="323"/>
         <source>Select</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="334"/>
+        <location filename="../ui_cloud-view.h" line="324"/>
         <source>or Drop Folder to Sync</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="338"/>
+        <location filename="../ui_cloud-view.h" line="328"/>
         <source>download rate</source>
         <translation>швидкість завантаження</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="339"/>
+        <location filename="../ui_cloud-view.h" line="329"/>
         <source>downarrow</source>
         <translation>стрілка вниз</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="340"/>
+        <location filename="../ui_cloud-view.h" line="330"/>
         <source>upload rate</source>
         <translation>швидкість віддачі</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="341"/>
+        <location filename="../ui_cloud-view.h" line="331"/>
         <source>uparrow</source>
         <translation>стрілка вгору</translation>
     </message>
@@ -283,114 +283,114 @@
         <translation>Створення бібліотеки</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="38"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="41"/>
         <source>Please choose a directory</source>
         <translation>Будь ласка, виберіть каталог</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="70"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="73"/>
         <source>Creating...</source>
         <translation>Створення...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="97"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="100"/>
         <source>Please choose the directory to sync</source>
         <translation>Будь ласка, виберіть каталог для синхронізації</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="101"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="104"/>
         <source>The folder %1 does not exist</source>
         <translation>Каталог  %1 не існує</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="106"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
         <source>Please enter the name</source>
         <translation>Будь ласка, введіть ім&apos;я</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="111"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="114"/>
         <source>Please enter the description</source>
         <translation>Будь ласка, введіть опис</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="121"/>
         <source>Please enter the password</source>
         <translation>Будь ласка, введіть пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="125"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="128"/>
         <source>Passwords don&apos;t match</source>
         <translation>Паролі не збігаються</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="139"/>
         <source>Unknown error</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="169"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="172"/>
         <source>Failed to add download task:
  %1</source>
         <translation>Не вдалося додати завдання завантаження:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="182"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="185"/>
         <source>Failed to create library on the server</source>
         <translation>Не вдалося створити бібліотеку на сервері</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Dialog</source>
         <translation>Діалог</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Path:</source>
         <translation>Шлях:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Choose</source>
         <translation>Вибрати</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Name:</source>
         <translation>Назва:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>Description:</source>
         <translation>Опис:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>encrypted</source>
         <translation>зашифровано</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>Password Again:</source>
         <translation>Пароль ще раз:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>status text</source>
         <translation>текст статусу</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Ok</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>Відміна</translation>
     </message>
@@ -571,109 +571,109 @@
 <context>
     <name>InitVirtualDriveDialog</name>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="63"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="65"/>
         <source>Checking your default library...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="77"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="79"/>
         <source>Creating the default library...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="128"/>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="144"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="130"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="146"/>
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="131"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="133"/>
         <source>Failed to get default library: error code %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="147"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="149"/>
         <source>Failed to create default library: error code %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="172"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="174"/>
         <source>Downloading default library...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="192"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="194"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="242"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="245"/>
         <source>Error when downloading the default library: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="259"/>
         <source>Creating the virtual disk...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="166"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="168"/>
         <source>Failed to download default library:
  %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="181"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="183"/>
         <source>Failed to download default library: error code %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="181"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>Dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="184"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Skip</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
         <source>Run in Background</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
         <source>Open</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="195"/>
         <source>Finish</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="32"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="182"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
         <source>Download Default Library</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Yes</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="183"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>logo</source>
         <translation type="unfinished"/>
     </message>
@@ -692,58 +692,59 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>Логування до...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="70"/>
+        <location filename="../src/ui/login-dialog.cpp" line="86"/>
+        <source>Network Error:
+ %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="92"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Увага:&lt;/b&gt; SSL-сертифікат цього сервера не є надійним, Продовжувати?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="88"/>
+        <location filename="../src/ui/login-dialog.cpp" line="109"/>
         <source>Please enter the server address</source>
         <translation>Будь ласка, введіть адресу сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="94"/>
-        <location filename="../src/ui/login-dialog.cpp" line="104"/>
+        <location filename="../src/ui/login-dialog.cpp" line="113"/>
+        <location filename="../src/ui/login-dialog.cpp" line="119"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 адреса сервера не припустима</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="114"/>
+        <location filename="../src/ui/login-dialog.cpp" line="126"/>
         <source>Please enter the username</source>
         <translation>Будь ласка, введіть ім&apos;я користувача</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="119"/>
-        <source>%1 is not a valid email</source>
-        <translation>%1 адреса електронної пошти не дійсна </translation>
+        <location filename="../src/ui/login-dialog.cpp" line="146"/>
+        <source>Failed to save current account</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="127"/>
+        <location filename="../src/ui/login-dialog.cpp" line="131"/>
         <source>Please enter the password</source>
         <translation>Будь ласка, введіть пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="144"/>
-        <source>Internal Error</source>
-        <translation>Внутрішня помилка</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/login-dialog.cpp" line="155"/>
+        <location filename="../src/ui/login-dialog.cpp" line="156"/>
         <source>Incorrect email or password</source>
         <translation>Неправильні email або пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="157"/>
+        <location filename="../src/ui/login-dialog.cpp" line="158"/>
         <source>Internal Server Error</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="161"/>
+        <location filename="../src/ui/login-dialog.cpp" line="162"/>
         <source>Failed to login: %1</source>
         <translation>Не вдалося увійти в систему з логіном: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="163"/>
+        <location filename="../src/ui/login-dialog.cpp" line="164"/>
         <source>Failed to login</source>
         <translation>Не вдалося увійти в систему</translation>
     </message>
@@ -801,7 +802,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="106"/>
+        <location filename="../src/ui/main-window.cpp" line="109"/>
         <source>Refresh</source>
         <translation>Оновити</translation>
     </message>
@@ -1086,7 +1087,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="82"/>
+        <location filename="../src/main.cpp" line="104"/>
         <source>%1 is already running</source>
         <translation type="unfinished"/>
     </message>
@@ -1284,22 +1285,27 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="49"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>Recently Updated</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
         <source>My Libraries</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="52"/>
+        <source>Sub Libraries</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-model.cpp" line="53"/>
         <source>Private Shares</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="190"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="215"/>
         <source>Organization</source>
         <translation type="unfinished"/>
     </message>
@@ -1307,104 +1313,104 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="137"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="138"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="141"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="142"/>
         <source>Disable auto sync</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="141"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="142"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="226"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="145"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="146"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="230"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="231"/>
         <source>Enable auto sync</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="190"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="194"/>
         <source>&amp;Show details</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="192"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>Download this library</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="200"/>
         <source>&amp;Download this library</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="206"/>
         <source>&amp;Sync now</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>Sync this library immediately</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="212"/>
         <source>&amp;Cancel download</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
         <source>Cancel download of this library</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="218"/>
         <source>&amp;Open folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="216"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
         <source>open local folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="224"/>
         <source>&amp;Unsync</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="225"/>
         <source>unsync this library</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="231"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="235"/>
         <source>&amp;View on cloud</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="233"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
         <source>view this library on seahub</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="279"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="291"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="434"/>
         <source>The download has been canceled</source>
         <translation type="unfinished"/>
     </message>
@@ -1412,8 +1418,14 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="162"/>
+        <location filename="../src/seafile-applet.cpp" line="209"/>
         <source>Failed to initialize log</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="296"/>
+        <source>A new version of %1 client (%2) is available.
+Do you want to visit the download page?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1506,17 +1518,17 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="297"/>
+        <location filename="../src/ui/tray-icon.cpp" line="295"/>
         <source>About %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="298"/>
+        <location filename="../src/ui/tray-icon.cpp" line="296"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="358"/>
+        <location filename="../src/ui/tray-icon.cpp" line="354"/>
         <source>some servers not connected</source>
         <translation type="unfinished"/>
     </message>
@@ -1560,48 +1572,91 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="12"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="21"/>
         <source>Settings</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="156"/>
+        <location filename="../ui_settings-dialog.h" line="162"/>
         <source>Dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="157"/>
+        <location filename="../ui_settings-dialog.h" line="163"/>
         <source>Hide main window when started</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="158"/>
+        <location filename="../ui_settings-dialog.h" line="164"/>
         <source>Notify when libraries are synchronized</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="159"/>
+        <location filename="../ui_settings-dialog.h" line="165"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="160"/>
+        <location filename="../ui_settings-dialog.h" line="166"/>
+        <source>Check for new version on startup</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="167"/>
         <source>Download speed limit (KB/s):</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="161"/>
+        <location filename="../ui_settings-dialog.h" line="168"/>
         <source>Upload speed limit (KB/s):</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="162"/>
+        <location filename="../ui_settings-dialog.h" line="169"/>
         <source>Ok</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="163"/>
+        <location filename="../ui_settings-dialog.h" line="170"/>
         <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>UninstallHelperDialog</name>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="12"/>
+        <source>Uninstall %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="14"/>
+        <source>Do you want to remove the %1 account information?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/uninstall-helper-dialog.cpp" line="46"/>
+        <source>Removing account information...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
+        <source>text</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
+        <source>Yes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
+        <source>No</source>
         <translation type="unfinished"/>
     </message>
 </context>

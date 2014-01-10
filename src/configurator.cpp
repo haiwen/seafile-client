@@ -231,11 +231,10 @@ int Configurator::setVirtualDrive(const QString& path, const QString& name)
 
     HKEY root = HKEY_CURRENT_USER;
 
-    list.append(RegElement(root, clsid_path,
-                           "", tr("%1 Default Library").arg(SEAFILE_CLIENT_BRAND)));
+    list.append(RegElement(root, clsid_path, "", name));
 
     list.append(RegElement(root, clsid_path,
-                           "InfoTip", tr("Seafile default library")));
+                           "InfoTip", tr("%1 Default Library").arg(SEAFILE_CLIENT_BRAND)));
 
     list.append(RegElement(root, clsid_path + "\\DefaultIcon",
                            "", QCoreApplication::applicationFilePath(), true));

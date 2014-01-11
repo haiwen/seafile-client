@@ -25,6 +25,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            ui_repo-detail-dialog.h \
            ui_download-repo-dialog.h \
            ui_server-status-dialog.h \
+           ui_uninstall-helper-dialog.h \
            src/account-mgr.h \
            src/account.h \
            src/ccnet-init.h \
@@ -63,6 +64,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/ui/server-status-dialog.h \
            src/ui/settings-dialog.h \
            src/ui/init-vdrive-dialog.h \
+           src/ui/uninstall-helper-dialog.h \
            src/ui/tray-icon.h \
            src/utils/log.h \
            src/utils/process.h \
@@ -80,6 +82,7 @@ FORMS += ui/clone-tasks-dialog.ui \
          ui/repo-detail-dialog.ui \
          ui/server-status-dialog.ui \
          ui/settings-dialog.ui \
+         ui/uninstall-helper-dialog.ui \
          ui/init-vdrive-dialog.ui
 
 
@@ -122,6 +125,7 @@ SOURCES += src/account-mgr.cpp \
            src/ui/settings-dialog.cpp \
            src/ui/tray-icon.cpp \
            src/ui/init-vdrive-dialog.cpp \
+           src/ui/uninstall-helper-dialog.cpp \
            src/utils/log.c \
            src/utils/rsa.cpp \
            src/utils/utils.cpp \
@@ -149,7 +153,7 @@ CONFIG += warn_on link_pkgconfig resources
 PKGCONFIG += libsearpc libccnet libseafile glib-2.0 sqlite3 jansson openssl
 
 win32 {
-    SOURCES += src/utils/process-win.cpp
+    SOURCES += src/utils/process-win.cpp src/utils/registry.cpp
 }
 linux {
     SOURCES += src/utils/process-linux.cpp
@@ -160,7 +164,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.0.9"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.1.1"'
     DEFINES += _SEAFILE_CLIENT_BRAND='"Seafile"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon

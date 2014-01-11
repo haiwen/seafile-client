@@ -29,41 +29,21 @@ UninstallHelperDialog::UninstallHelperDialog(QWidget *parent)
             this, SLOT(onYesClicked()));
 
     connect(mNoBtn, SIGNAL(clicked()),
-            this, SLOT(onNoClicked()));
+            this, SLOT(doExit()));
 }
 
 void UninstallHelperDialog::onYesClicked()
 {
-    removeSeafileData();
-    ::exit(0);
-}
-
-void UninstallHelperDialog::removeSeafileData()
-{
     mYesBtn->setEnabled(false);
     mNoBtn->setEnabled(false);
-
     mText->setText(tr("Removing account information..."));
 
-    qApp->processEvents();
-
-    QString ccnet_dir;
-    QString seafile_data_dir;
-
-    if (get_ccnet_dir(&ccnet_dir) < 0) {
-        fprintf (stderr, "ccnet dir not found");
-        return;
-    }
-    if (get_seafile_data_dir(ccnet_dir, &seafile_data_dir) < 0) {
-        delete_dir_recursively(ccnet_dir);
-        return;
-    }
-
-    delete_dir_recursively(ccnet_dir);
-    delete_dir_recursively(seafile_data_dir);
+    RemoveSeafileDataThread *thread = new RemoveSeafileDataThread;
+    thread->start();
+    connect(thread, SIGNAL(finished()), this, SLOT(doExit()));
 }
 
-void UninstallHelperDialog::onNoClicked()
+void UninstallHelperDialog::doExit()
 {
     ::exit(0);
 }
@@ -84,4 +64,22 @@ bool UninstallHelperDialog::loadQss(const QString& path)
     qApp->setStyleSheet(style_);
 
     return true;
+}
+
+void RemoveSeafileDataThread::run()
+{
+    QString ccnet_dir;
+    QString seafile_data_dir;
+
+    if (get_ccnet_dir(&ccnet_dir) < 0) {
+        fprintf (stderr, "ccnet dir not found");
+        return;
+    }
+    if (get_seafile_data_dir(ccnet_dir, &seafile_data_dir) < 0) {
+        delete_dir_recursively(ccnet_dir);
+        return;
+    }
+
+    delete_dir_recursively(ccnet_dir);
+    delete_dir_recursively(seafile_data_dir);
 }

@@ -143,9 +143,6 @@ void do_remove_user_data()
     Configurator::removeVirtualDrive();
     SettingsManager::removeAllSettings();
 
-    QString ccnet_dir;
-    QString seafile_data_dir;
-
     UninstallHelperDialog *dialog = new UninstallHelperDialog;
 
     dialog->show();

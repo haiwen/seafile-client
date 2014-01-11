@@ -1,8 +1,10 @@
 #ifndef SEAFILE_CLIENT_UNINSTALL_HELPER_WINDOW_H
 #define SEAFILE_CLIENT_UNINSTALL_HELPER_WINDOW_H
 
+#include <QThread>
 #include <QDialog>
 #include "ui_uninstall-helper-dialog.h"
+
 
 class UninstallHelperDialog : public QDialog,
                               public Ui::UninstallHelperDialog
@@ -13,8 +15,7 @@ public:
 
 private slots:
     void onYesClicked();
-    void onNoClicked();
-    void removeSeafileData();
+    void doExit();
 
 private:
     Q_DISABLE_COPY(UninstallHelperDialog)
@@ -22,6 +23,13 @@ private:
     bool loadQss(const QString& path);
 
     QString style_;
+};
+
+class RemoveSeafileDataThread : public QThread
+{
+    Q_OBJECT
+public:
+    void run();
 };
 
 

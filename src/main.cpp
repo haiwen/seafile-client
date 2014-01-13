@@ -69,9 +69,10 @@ int main(int argc, char *argv[])
 
     app.installTranslator(&myappTranslator);
 
-    static const char *short_options = "KXc:";
+    static const char *short_options = "KXc:d:";
     static const struct option long_options[] = {
         { "config-dir", required_argument, NULL, 'c' },
+        { "data-dir", required_argument, NULL, 'd' },
         { "stop", no_argument, NULL, 'K' },
         { "remove-user-data", no_argument, NULL, 'X' },
         { "stdout", no_argument, NULL, 'l' },
@@ -84,6 +85,9 @@ int main(int argc, char *argv[])
         switch (c) {
         case 'c':
             g_setenv ("CCNET_CONF_DIR", optarg, 1);
+            break;
+        case 'd':
+            g_setenv ("SEAFILE_DATA_DIR", optarg, 1);
             break;
         case 'l':
             g_setenv ("LOG_STDOUT", "", 1);

@@ -183,6 +183,13 @@ void Configurator::validateExistingConfig()
 
 int Configurator::readSeafileIni(QString *content)
 {
+    // First try SEAFILE_DATA_DIR
+    const char *env = g_getenv("SEAFILE_DATA_DIR");
+    if (env) {
+        *content = QString::fromUtf8(env);
+        return 0;
+    }
+
     QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
     if (!seafile_ini.exists()) {
         return -1;

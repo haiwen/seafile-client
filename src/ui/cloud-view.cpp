@@ -200,7 +200,7 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
             QDragEnterEvent *ev = (QDragEnterEvent *)event;
             if (ev->mimeData()->hasUrls() && ev->mimeData()->urls().size() == 1) {
                 const QUrl url = ev->mimeData()->urls().at(0);
-                if (url.isLocalFile()) {
+                if (url.scheme() == "file") {
                     QString path = url.toLocalFile();
                     if (QFileInfo(path).isDir()) {
                         ev->acceptProposedAction();

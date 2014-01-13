@@ -72,14 +72,14 @@ bool DownloadRepoDialog::validateInputs()
     QString local_dir, password;
     mDirectory->setText(mDirectory->text().trimmed());
     if (mDirectory->text().isEmpty()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("Please choose the folder to sync"),
                              QMessageBox::Ok);
         return false;
     }
     QDir dir(mDirectory->text());
     if (!dir.exists()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("The folder does not exist"),
                              QMessageBox::Ok);
         return false;
@@ -87,7 +87,7 @@ bool DownloadRepoDialog::validateInputs()
     if (repo_.encrypted) {
         mPassword->setText(mPassword->text().trimmed());
         if (mPassword->text().isEmpty()) {
-            QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+            QMessageBox::warning(this, getBrand(),
                                  tr("Please enter the password"),
                                  QMessageBox::Ok);
             return false;
@@ -146,7 +146,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     }
 
     if (ret < 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("Failed to add download task:\n %1").arg(error),
                              QMessageBox::Ok);
         setAllInputsEnabled(true);
@@ -158,7 +158,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
 
 void DownloadRepoDialog::onDownloadRepoRequestFailed(int code)
 {
-    QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+    QMessageBox::warning(this, getBrand(),
                          tr("Failed to get repo download information"),
                          QMessageBox::Ok);
 

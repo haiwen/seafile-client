@@ -168,7 +168,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         &error);
 
     if (ret < 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("Failed to add download task:\n %1").arg(error),
                              QMessageBox::Ok);
         setAllInputsEnabled(true);
@@ -181,7 +181,7 @@ void CreateRepoDialog::createFailed(int /* code */)
 {
     mStatusText->setText("");
 
-    QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+    QMessageBox::warning(this, getBrand(),
                          tr("Failed to create library on the server"),
                          QMessageBox::Ok);
 

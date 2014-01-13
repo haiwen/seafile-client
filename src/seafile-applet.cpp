@@ -199,7 +199,7 @@ void SeafileApplet::errorAndExit(const QString& error)
     }
 
     in_exit_ = true;
-    QMessageBox::warning(main_win_, tr(SEAFILE_CLIENT_BRAND), error, QMessageBox::Ok);
+    QMessageBox::warning(main_win_, getBrand(), error, QMessageBox::Ok);
     this->exit(1);
 }
 
@@ -247,13 +247,13 @@ void SeafileApplet::refreshQss()
 void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
 {
     QMessageBox::warning(parent != 0 ? parent : main_win_,
-                         tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
+                         getBrand(), msg, QMessageBox::Ok);
 }
 
 void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
 {
     QMessageBox::information(parent != 0 ? parent : main_win_,
-                             tr(SEAFILE_CLIENT_BRAND), msg, QMessageBox::Ok);
+                             getBrand(), msg, QMessageBox::Ok);
 }
 
 bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default_val)
@@ -261,7 +261,7 @@ bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default
     QMessageBox::StandardButton default_btn = default_val ? QMessageBox::Yes : QMessageBox::No;
 
     return QMessageBox::question(parent != 0 ? parent : main_win_,
-                                 SEAFILE_CLIENT_BRAND,
+                                 getBrand(),
                                  msg,
                                  QMessageBox::Yes | QMessageBox::No,
                                  default_btn) == QMessageBox::Yes;
@@ -294,7 +294,7 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
     }
 
     QString msg = tr("A new version of %1 client (%2) is available.\n"
-                     "Do you want to visit the download page?").arg(SEAFILE_CLIENT_BRAND).arg(latest_version);
+                     "Do you want to visit the download page?").arg(getBrand()).arg(latest_version);
 
     if (!yesOrNoBox(msg, NULL, true)) {
         return;
@@ -308,4 +308,9 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
     }
 
     QDesktopServices::openUrl(url);
+}
+
+QString getBrand()
+{
+    return QString::fromUtf8(SEAFILE_CLIENT_BRAND);
 }

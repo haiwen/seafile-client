@@ -241,7 +241,7 @@ int Configurator::setVirtualDrive(const QString& path, const QString& name)
     list.append(RegElement(root, clsid_path, "", name));
 
     list.append(RegElement(root, clsid_path,
-                           "InfoTip", tr("%1 Default Library").arg(SEAFILE_CLIENT_BRAND)));
+                           "InfoTip", tr("%1 Default Library").arg(getBrand())));
 
     list.append(RegElement(root, clsid_path + "\\DefaultIcon",
                            "", QCoreApplication::applicationFilePath(), true));

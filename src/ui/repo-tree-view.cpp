@@ -279,7 +279,7 @@ void RepoTreeView::unsyncRepo()
     QString question = tr("Are you sure to unsync library \"%1\"?").arg(repo.name);
 
     if (QMessageBox::question(this,
-                              tr(SEAFILE_CLIENT_BRAND),
+                              getBrand(),
                               question,
                               QMessageBox::Ok | QMessageBox::Cancel,
                               QMessageBox::Cancel) != QMessageBox::Ok) {
@@ -287,7 +287,7 @@ void RepoTreeView::unsyncRepo()
     }
 
     if (seafApplet->rpcClient()->unsync(repo.id) < 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("Failed to unsync library \"%1\"").arg(repo.name),
                              QMessageBox::Ok);
     }
@@ -426,11 +426,11 @@ void RepoTreeView::cancelDownload()
 
     QString error;
     if (seafApplet->rpcClient()->cancelCloneTask(repo.id, &error) < 0) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("Failed to cancel this task:\n\n %1").arg(error),
                              QMessageBox::Ok);
     } else {
-        QMessageBox::information(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::information(this, getBrand(),
                                  tr("The download has been canceled"),
                                  QMessageBox::Ok);
     }

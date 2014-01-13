@@ -91,7 +91,7 @@ void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& erro
 {
     QString question = tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?");
     if (QMessageBox::question(this,
-                              tr(SEAFILE_CLIENT_BRAND),
+                              getBrand(),
                               question,
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No) == QMessageBox::Yes) {

@@ -61,7 +61,7 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
 {
     setupUi(this);
 
-    setWindowTitle(tr("%1 Initialization").arg(SEAFILE_CLIENT_BRAND));
+    setWindowTitle(tr("%1 Initialization").arg(getBrand()));
     setWindowIcon(QIcon(":/images/seafile.png"));
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDir()));
@@ -104,7 +104,7 @@ void InitSeafileDialog::onOkClicked()
 {
     QString path = mDirectory->text();
     if (path.isEmpty()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("Please choose a directory"),
                              QMessageBox::Ok);
         return;
@@ -112,7 +112,7 @@ void InitSeafileDialog::onOkClicked()
 
     QDir dir(path);
     if (!dir.exists()) {
-        QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+        QMessageBox::warning(this, getBrand(),
                              tr("The folder %1 does not exist").arg(path),
                              QMessageBox::Ok);
         return;
@@ -134,7 +134,7 @@ void InitSeafileDialog::onOkClicked()
 void InitSeafileDialog::onCancelClicked()
 {
     QString question = tr("Initialization is not finished. Really quit?");
-    if (QMessageBox::question(this, tr(SEAFILE_CLIENT_BRAND),
+    if (QMessageBox::question(this, getBrand(),
                               question,
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No) == QMessageBox::Yes) {
@@ -145,7 +145,7 @@ void InitSeafileDialog::onCancelClicked()
 void InitSeafileDialog::closeEvent(QCloseEvent *event)
 {
     QString question = tr("Initialization is not finished. Really quit?");
-    if (QMessageBox::question(this, tr(SEAFILE_CLIENT_BRAND),
+    if (QMessageBox::question(this, getBrand(),
                               question,
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No) == QMessageBox::Yes) {

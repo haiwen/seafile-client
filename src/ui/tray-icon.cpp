@@ -52,7 +52,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       nth_trayicon_(0),
       rotate_counter_(0)
 {
-    setToolTip(SEAFILE_CLIENT_BRAND);
+    setToolTip(getBrand());
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
     connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));
@@ -193,7 +193,7 @@ void SeafileTrayIcon::rotateTrayIcon()
 
 void SeafileTrayIcon::resetToolTip ()
 {
-    QString tip(SEAFILE_CLIENT_BRAND);
+    QString tip(getBrand());
     if (!seafApplet->settingsManager()->autoSync()) {
         tip = tr("auto sync is disabled");
     }
@@ -292,8 +292,8 @@ void SeafileTrayIcon::toggleMainWindow()
 
 void SeafileTrayIcon::about()
 {
-    QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(SEAFILE_CLIENT_BRAND),
-                       tr("<h2>%1 Client %2</h2>").arg(SEAFILE_CLIENT_BRAND).arg(
+    QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(getBrand()),
+                       tr("<h2>%1 Client %2</h2>").arg(getBrand()).arg(
                            STRINGIZE(SEAFILE_CLIENT_VERSION)));
 }
 
@@ -354,7 +354,7 @@ void SeafileTrayIcon::refreshTrayIcon()
         setToolTip(tr("some servers not connected"));
     } else if (state_ == STATE_SERVERS_NOT_CONNECTED && all_server_connected) {
         setState(STATE_DAEMON_UP);
-        setToolTip(SEAFILE_CLIENT_BRAND);
+        setToolTip(getBrand());
     }
 }
 

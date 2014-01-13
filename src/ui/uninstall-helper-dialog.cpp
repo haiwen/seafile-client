@@ -10,9 +10,9 @@ UninstallHelperDialog::UninstallHelperDialog(QWidget *parent)
 {
     setupUi(this);
     setWindowIcon(QIcon(":/images/seafile.png"));
-    setWindowTitle(tr("Uninstall %1").arg(SEAFILE_CLIENT_BRAND));
+    setWindowTitle(tr("Uninstall %1").arg(getBrand()));
 
-    mText->setText(tr("Do you want to remove the %1 account information?").arg(SEAFILE_CLIENT_BRAND));
+    mText->setText(tr("Do you want to remove the %1 account information?").arg(getBrand()));
 
     loadQss("qt.css") || loadQss(":/qt.css");
 #if defined(Q_WS_WIN)

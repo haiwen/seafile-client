@@ -13,6 +13,11 @@ class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
 
+#define SEAFILE_CLIENT_BRAND "Seafile"
+
+QString getBrand();
+
+
 /**
  * The central class of seafile-client
  */

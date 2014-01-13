@@ -88,11 +88,11 @@ CloudView::CloudView(QWidget *parent)
 void CloudView::setupHeader()
 {
     mLogo->setText("");
-    mLogo->setToolTip(SEAFILE_CLIENT_BRAND);
+    mLogo->setToolTip(getBrand());
     mLogo->setPixmap(QPixmap(":/images/seafile-24.png"));
 
-    mBrand->setText(SEAFILE_CLIENT_BRAND);
-    mBrand->setToolTip(SEAFILE_CLIENT_BRAND);
+    mBrand->setText(getBrand());
+    mBrand->setToolTip(getBrand());
 
     mMinimizeBtn->setText("");
     mMinimizeBtn->setToolTip(tr("Minimize"));
@@ -464,7 +464,7 @@ void CloudView::deleteAccount()
     QString question = tr("Are you sure to remove this account?<br>"
                           "<b>Warning: All libraries of this account would be unsynced!</b>");
     if (QMessageBox::question(this,
-                              tr(SEAFILE_CLIENT_BRAND),
+                              getBrand(),
                               question,
                               QMessageBox::Ok | QMessageBox::Cancel,
                               QMessageBox::Cancel) == QMessageBox::Ok) {
@@ -473,7 +473,7 @@ void CloudView::deleteAccount()
         if (seafApplet->rpcClient()->unsyncReposByAccount(server_addr,
                                                           current_account_.username,
                                                           &error) < 0) {
-            QMessageBox::warning(this, tr(SEAFILE_CLIENT_BRAND),
+            QMessageBox::warning(this, getBrand(),
                                  tr("Failed to unsync libraries of this account: %1").arg(error),
                                  QMessageBox::Ok);
         }

@@ -172,7 +172,7 @@ void SettingsManager::removeAllSettings()
     settings.clear();
 
 #if defined(Q_WS_WIN)
-    RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", SEAFILE_CLIENT_BRAND);
+    RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", getBrand());
 #endif
 }
 
@@ -187,7 +187,7 @@ void SettingsManager::setCheckLatestVersionEnabled(bool enabled)
 
 bool SettingsManager::isCheckLatestVersionEnabled()
 {
-    QString brand = SEAFILE_CLIENT_BRAND;
+    QString brand = getBrand();
 
     if (brand != "Seafile") {
         return false;

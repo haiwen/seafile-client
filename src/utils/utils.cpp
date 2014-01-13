@@ -24,7 +24,10 @@
 #include <QDebug>
 #include <QDateTime>
 
+#include "seafile-applet.h"
+
 #include "utils.h"
+
 
 namespace {
 
@@ -179,7 +182,7 @@ add_to_auto_start (const wchar_t *appname_w, const wchar_t *path_w)
 }
 
 static int
-delete_from_auto_start(const char *appname)
+delete_from_auto_start(const wchar_t *appname)
 {
     HKEY hKey;
     LONG result = get_win_run_key(&hKey);
@@ -187,10 +190,10 @@ delete_from_auto_start(const char *appname)
         return -1;
     }
 
-    result = RegDeleteValue (hKey, appname);
+    result = RegDeleteValueW (hKey, appname);
     RegCloseKey(hKey);
     if (result != ERROR_SUCCESS) {
-        qDebug("Failed to remove auto start value for %s\n", appname);
+        qDebug("Failed to remove auto start value");
         return -1;
     }
 
@@ -208,12 +211,12 @@ get_seafile_auto_start()
 
     char buf[MAX_PATH] = {0};
     DWORD len = sizeof(buf);
-    result = RegQueryValueEx (hKey,             /* Key */
-                              SEAFILE_CLIENT_BRAND,        /* value */
-                              NULL,             /* reserved */
-                              NULL,             /* output type */
-                              (LPBYTE)buf,      /* output data */
-                              &len);            /* output length */
+    result = RegQueryValueExW (hKey,             /* Key */
+                               getBrand().toStdWString().c_str(),        /* value */
+                               NULL,             /* reserved */
+                               NULL,             /* output type */
+                               (LPBYTE)buf,      /* output data */
+                               &len);            /* output length */
 
     RegCloseKey(hKey);
     if (result != ERROR_SUCCESS) {
@@ -235,11 +238,11 @@ set_seafile_auto_start(bool on)
             return -1;
         }
 
-        result = add_to_auto_start (QString::fromUtf8(SEAFILE_CLIENT_BRAND).toStdWString().c_str(), applet_path);
+        result = add_to_auto_start (getBrand().toStdWString().c_str(), applet_path);
 
     } else {
         /* turn off auto start */
-        result = delete_from_auto_start(SEAFILE_CLIENT_BRAND);
+        result = delete_from_auto_start(getBrand().toStdWString().c_str());
     }
     return result;
 }

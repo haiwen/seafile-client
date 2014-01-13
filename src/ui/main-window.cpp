@@ -29,7 +29,7 @@ enum WIDGET_INDEX {
 MainWindow::MainWindow()
 {
     setWindowIcon(QIcon(":/images/seafile.png"));
-    setWindowTitle(SEAFILE_CLIENT_BRAND);
+    setWindowTitle(getBrand());
 
     // Qt::Tool hides the taskbar entry on windows
     // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);

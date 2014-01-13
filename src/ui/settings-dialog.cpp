@@ -10,7 +10,7 @@
 namespace {
 
 bool isCheckLatestVersionEnabled() {
-    return QString(SEAFILE_CLIENT_BRAND) == "Seafile";
+    return QString(getBrand()) == "Seafile";
 }
 
 } // namespace

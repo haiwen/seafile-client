@@ -62,11 +62,7 @@ void DaemonManager::startCcnetDaemon()
 
     QStringList args;
     args << "-c" << config_dir;
-#if defined(XCODE_APP)
     ccnet_daemon_->start(RESOURCE_PATH(kCcnetDaemonExecutable), args);
-#else
-    ccnet_daemon_->start(kCcnetDaemonExecutable, args);
-#endif
     qDebug() << "starting ccnet: " << args;
 }
 
@@ -83,11 +79,7 @@ void DaemonManager::startSeafileDaemon()
 
     QStringList args;
     args << "-c" << config_dir << "-d" << seafile_dir << "-w" << worktree_dir;
-#if defined(XCODE_APP)
     seaf_daemon_->start(RESOURCE_PATH(kSeafileDaemonExecutable), args);
-#else
-    seaf_daemon_->start(kSeafileDaemonExecutable, args);
-#endif
     qDebug() << "starting seaf-daemon: " << args;
 }
 

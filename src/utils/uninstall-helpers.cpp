@@ -72,6 +72,7 @@ int delete_dir_recursively(const QString& path_in)
         return -1;
     }
 #endif
+    return 0;
 }
 
 int get_ccnet_dir(QString *ret)

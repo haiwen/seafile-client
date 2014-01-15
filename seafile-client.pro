@@ -165,7 +165,6 @@ macx {
 
     QMAKE_INFO_PLIST = Info.plist
     DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.1.1"'
-    DEFINES += _SEAFILE_CLIENT_BRAND='"Seafile"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe

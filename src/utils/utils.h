@@ -11,7 +11,7 @@
 #if defined(XCODE_APP)
 #define RESOURCE_PATH(_name)  (QDir(QCoreApplication::applicationDirPath()).filePath(QString("../Resources/")+(_name)))
 #else
-#define RESOURCE_PATH(_name)  (QDir::current().filePath(_name))
+#define RESOURCE_PATH(_name)  (_name)
 #endif
 
 struct sqlite3;

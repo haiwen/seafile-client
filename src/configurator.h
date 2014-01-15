@@ -20,7 +20,7 @@ public:
     const QString& worktreeDir() const { return worktree_; }
     const QString& defaultRepoPath() const { return default_repo_path_; }
 
-    const bool firstUse() const { return first_use_; }
+    bool firstUse() const { return first_use_; }
 
 public:
     static int setVirtualDrive(const QString& path, const QString& name);

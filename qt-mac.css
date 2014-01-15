@@ -11,6 +11,12 @@ QToolButton:hover
     background-color: rgb(255,255,255);
 }
 
-QWidget#mainWrapper {
+QWidget#mainWrapper
+{
     border : 0;
+    border-radius: 0px;
+}
+
+QWidget#mAccountWrapper {
+    margin-top: 0px;
 }

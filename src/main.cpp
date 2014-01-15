@@ -17,6 +17,7 @@
 #ifdef Q_WS_MAC
 #include "Application.h"
 #endif
+#include <QDebug.h>
 
 #define APPNAME "seafile-applet"
 
@@ -62,13 +63,13 @@ int main(int argc, char *argv[])
 
     QTranslator myappTranslator;
 #if QT_VERSION >= 0x040800
+    myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
+#else
     myappTranslator.load(QLocale::system(), // locale
                          "",                // file name
                          "seafile_",        // prefix
                          ":/i18n/",         // folder
                          ".qm");            // suffix
-#else
-    myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
 #endif
 
     app.installTranslator(&myappTranslator);

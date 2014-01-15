@@ -82,7 +82,9 @@ CloudView::CloudView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
             this, SLOT(updateAccountMenu()));
-
+#ifdef Q_WS_MAC
+    mHeader->setVisible(false);
+#endif
 }
 
 void CloudView::setupHeader()

@@ -35,7 +35,9 @@ MainWindow::MainWindow()
     // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
     setWindowFlags(Qt::Window
+#ifndef Q_WS_MAC
                    | Qt::FramelessWindowHint
+#endif
                    | Qt::WindowSystemMenuHint
                    | Qt::WindowMinimizeButtonHint);
 

@@ -14,7 +14,7 @@ class SettingsManager;
 class SettingsDialog;
 class CertsManager;
 
-#define SEAFILE_CLIENT_BRAND "Seafile"
+#define SEAFILE_CLIENT_BRAND "DataDupe"
 
 QString getBrand();
 

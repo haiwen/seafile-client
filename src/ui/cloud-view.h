@@ -13,7 +13,9 @@ class QToolButton;
 class QToolBar;
 
 class ListReposRequest;
+class AccountInfoRequest;
 class ServerRepo;
+class AccountInfo;
 class RepoTreeView;
 class RepoTreeModel;
 class CloneTasksDialog;
@@ -41,6 +43,9 @@ private slots:
     void refreshRepos();
     void refreshRepos(const std::vector<ServerRepo>& repos);
     void refreshReposFailed();
+    void refreshAccountInfo();
+    void refreshAccountInfo(const AccountInfo& repos);
+    void refreshAccountInfoFailed();
     void setCurrentAccount(const Account&account);
     void updateAccountMenu();
     void onAccountItemClicked();
@@ -66,6 +71,7 @@ private:
     void refreshTransferRate();
 
     bool in_refresh_;
+    bool in_refresh_account_;
     QTimer *refresh_timer_;
 
     QTimer *refresh_status_bar_timer_;
@@ -76,6 +82,7 @@ private:
     QWidget *loading_view_;
 
     ListReposRequest *list_repo_req_;
+    AccountInfoRequest *account_info_req_;
 
     // Toolbar and actions
     QToolBar *tool_bar_;

@@ -14,6 +14,7 @@ namespace {
 const char *kApiLoginUrl = "/api2/auth-token/";
 const char *kListReposUrl = "/api2/repos/";
 const char *kCreateRepoUrl = "/api2/repos/";
+const char *kAccountInfoUrl = "/api2/account/info/";
 
 } // namespace
 
@@ -161,5 +162,40 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
     RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
 
     info.relay_addr = url().host();
+    emit success(info);
+}
+
+AccountInfo AccountInfo::fromDict(QMap<QString, QVariant>& dict)
+{
+    AccountInfo info;
+    info.usage = dict["usage"].toULongLong();
+    info.total = dict["total"].toULongLong();
+    info.email = dict["email"].toString();
+
+    return info;
+}
+
+/**
+ * AccountInfoRequest
+ */
+AccountInfoRequest::AccountInfoRequest(const Account& account)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kAccountInfoUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+}
+
+void AccountInfoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("failed to parse json:%s\n", error.text);
+        emit failed(0);
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    AccountInfo info = AccountInfo::fromDict(dict);
     emit success(info);
 }

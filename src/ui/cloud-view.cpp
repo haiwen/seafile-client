@@ -40,7 +40,9 @@ enum {
 CloudView::CloudView(QWidget *parent)
     : QWidget(parent),
       in_refresh_(false),
+      in_refresh_account_(false),
       list_repo_req_(NULL),
+      account_info_req_(NULL),
       clone_task_dialog_(NULL)
 {
     setupUi(this);
@@ -294,6 +296,43 @@ void CloudView::refreshReposFailed()
     in_refresh_ = false;
 }
 
+void CloudView::refreshAccountInfo()
+{
+    if (in_refresh_account_) {
+        return;
+    }
+
+    if (!hasAccount()) {
+        return;
+    }
+
+    in_refresh_account_ = true;
+
+    if (account_info_req_) {
+        delete account_info_req_;
+    }
+
+    account_info_req_ = new AccountInfoRequest(current_account_);
+    connect(account_info_req_, SIGNAL(success(const AccountInfo&)),
+            this, SLOT(refreshAccountInfo(const AccountInfo&)));
+    connect(account_info_req_, SIGNAL(failed(int)), this, SLOT(refreshAccountInfoFailed()));
+    account_info_req_->send();
+}
+
+void CloudView::refreshAccountInfo(const AccountInfo& accountInfo)
+{
+    qDebug() << "Account Info Email/Usage/Total: " << accountInfo.email << "/" << accountInfo.usage << "/" << accountInfo.total;
+    account_info_req_->deleteLater();
+    account_info_req_ = NULL;
+    in_refresh_account_ = false;
+}
+
+void CloudView::refreshAccountInfoFailed()
+{
+    qDebug("failed to refresh account info\n");
+    in_refresh_account_ = false;
+}
+
 bool CloudView::hasAccount()
 {
     return current_account_.token.length() > 0;
@@ -418,6 +457,7 @@ void CloudView::refreshStatusBar()
     if (!seafApplet->mainWindow()->isVisible()) {
         return;
     }
+
     refreshTasksInfo();
     refreshServerStatus();
     refreshTransferRate();
@@ -476,6 +516,8 @@ void CloudView::onRefreshClicked()
     if (hasAccount()) {
         showLoadingView();
         refreshRepos();
+        // If account info display is implemented, should be refreshed here
+        // refreshAccountInfo();
     }
 }
 

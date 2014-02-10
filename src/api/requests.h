@@ -100,5 +100,30 @@ private:
 
 };
 
+class AccountInfo {
+public:
+    quint64 usage;
+    quint64 total;
+    QString email;
+
+    static AccountInfo fromDict(QMap<QString, QVariant>& dict);
+};
+
+class AccountInfoRequest : public SeafileApiRequest {
+    Q_OBJECT
+
+public:
+    explicit AccountInfoRequest(const Account& account);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success(const AccountInfo& info);
+
+private:
+    Q_DISABLE_COPY(AccountInfoRequest)
+
+};
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

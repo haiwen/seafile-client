@@ -21,6 +21,9 @@ extern "C" {
 
 namespace {
 
+const char* kHelpUrl = "http://seafile.com/help/install_v2/";
+const char* kHelpUrlEn = "http://seafile.com/en/help/install_v2/";
+
 const int kRefreshInterval = 5000;
 const int kRotateTrayIconIntervalMilli = 250;
 
@@ -303,9 +306,9 @@ void SeafileTrayIcon::openHelp()
 {
     QString url;
     if (QLocale::system().name() == "zh_CN") {
-        url = "http://seafile.com/help/install_v2/";
+        url = kHelpUrl;
     } else {
-        url = "http://seafile.com/en/help/install_v2/";
+        url = kHelpUrlEn;
     }
 
     QDesktopServices::openUrl(QUrl(url));

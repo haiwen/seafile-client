@@ -28,6 +28,9 @@ public:
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 
+    bool hasAccounts();
+    const Account& getLatestAccount();
+    
 signals:
     void accountAdded(const Account&);
     void accountRemoved(const Account&);
@@ -41,6 +44,7 @@ private:
 
     struct sqlite3 *db;
     std::vector<Account> accounts_;
+    const Account& null_account_;
 };
 
 #endif  // _SEAF_ACCOUNT_MGR_H

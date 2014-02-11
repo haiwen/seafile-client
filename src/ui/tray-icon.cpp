@@ -15,6 +15,8 @@ extern "C" {
 #include "settings-dialog.h"
 #include "settings-mgr.h"
 #include "tray-icon.h"
+#include "account-mgr.h"
+#include "api/requests.h"
 #if defined(Q_WS_MAC)
 #include "traynotificationmanager.h"
 #endif
@@ -23,6 +25,9 @@ namespace {
 
 const int kRefreshInterval = 5000;
 const int kRotateTrayIconIntervalMilli = 250;
+
+// update every 5 minutes
+const int kRefreshUsageInterval = 1000 * 60 * 5;
 
 #if defined(Q_WS_WIN)
 #include <windows.h>
@@ -60,21 +65,29 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIcon()));
 
+    refresh_usage_timer_ = new QTimer(this);
+    connect(refresh_usage_timer_, SIGNAL(timeout()), this, SLOT(refreshUsage()));
+
     createActions();
     createContextMenu();
 
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
 
+    // timer doesn't trigger immediately
+    QTimer::singleShot(200, this, SLOT(refreshUsage()));
+
 #if defined(Q_WS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif
+
 }
 
 void SeafileTrayIcon::start()
 {
     show();
     refresh_timer_->start(kRefreshInterval);
+    refresh_usage_timer_->start(kRefreshUsageInterval);
 }
 
 void SeafileTrayIcon::createActions()
@@ -103,6 +116,9 @@ void SeafileTrayIcon::createActions()
     open_help_action_ = new QAction(tr("&Online help"), this);
     open_help_action_->setStatusTip(tr("open seafile online help"));
     connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
+
+    display_space_action_ = new QAction(tr("Loading Usage..."), this);
+    display_space_action_->setEnabled(false);
 }
 
 void SeafileTrayIcon::createContextMenu()
@@ -121,6 +137,8 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(enable_auto_sync_action_);
     context_menu_->addAction(disable_auto_sync_action_);
     context_menu_->addSeparator();
+    context_menu_->addAction(display_space_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(quit_action_);
 
     setContextMenu(context_menu_);
@@ -135,6 +153,15 @@ void SeafileTrayIcon::prepareContextMenu()
     } else {
         enable_auto_sync_action_->setVisible(true);
         disable_auto_sync_action_->setVisible(false);
+    }
+
+    if (seafApplet->accountManager()->hasAccounts()) {
+        // If acct deleted, then user logs in, may not have usage figures yet, so display loading
+        if (display_space_action_->text() == tr("Logged out")) {
+            display_space_action_->setText(tr("Loading Usage..."));
+        }
+    } else {
+        display_space_action_->setText(tr("Logged out"));
     }
 
 #ifndef Q_WS_MAC
@@ -389,5 +416,27 @@ bool SeafileTrayIcon::allServersConnected()
     g_list_free (servers);
 
     return all_server_connected;
+}
+
+void SeafileTrayIcon::refreshUsage()
+{
+    qDebug("Refresh");
+    if (seafApplet->accountManager()->hasAccounts()) {
+        const Account& account_info = seafApplet->accountManager()->getLatestAccount();
+        request_ = new AccountInfoRequest(account_info);
+
+        connect(request_, SIGNAL(success(const AccountInfo&)),
+                this, SLOT(accountInfoSuccess(const AccountInfo&)));
+
+        request_->send();
+    } 
+}
+
+void SeafileTrayIcon::accountInfoSuccess(const AccountInfo& info)
+{
+    const QString usage = QString().sprintf("%.1Lf%% of %.1Lf GB Used",
+                                            100 * (long double)info.usage / info.total,
+                                            (long double)info.total / 1024 / 1024 / 1024);
+    display_space_action_->setText(usage);
 }
 

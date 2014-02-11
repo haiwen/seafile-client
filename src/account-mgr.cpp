@@ -11,7 +11,7 @@
 #include "seafile-applet.h"
 #include "utils/utils.h"
 
-AccountManager::AccountManager()
+AccountManager::AccountManager() : null_account_(Account())
 {
 }
 
@@ -42,6 +42,7 @@ int AccountManager::start()
     sqlite_query_exec (db, sql);
 
     loadAccounts();
+    
     return 0;
 }
 
@@ -85,6 +86,7 @@ int AccountManager::saveAccount(const Account& account)
     sql = sql.arg(url).arg(account.username).arg(account.token).arg(QString::number(timestamp));
     sqlite_query_exec (db, toCStr(sql));
 
+    loadAccounts();
     emit accountAdded(account);
 
     return 0;
@@ -101,6 +103,7 @@ int AccountManager::removeAccount(const Account& account)
     accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
                     accounts_.end());
 
+    loadAccounts();
     emit accountRemoved(account);
 
     return 0;
@@ -116,4 +119,20 @@ void AccountManager::updateAccountLastVisited(const Account& account)
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
     sql = sql.arg(QString::number(timestamp)).arg(account.username).arg(url);
     sqlite_query_exec (db, toCStr(sql));
+    
+    loadAccounts();
+}
+
+bool AccountManager::hasAccounts()
+{
+    return !accounts_.empty();
+}
+
+const Account& AccountManager::getLatestAccount()
+{
+    if (hasAccounts()) {
+        return accounts_[0];
+    } else {
+        return null_account_;
+    }
 }

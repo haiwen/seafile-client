@@ -3,9 +3,12 @@
 
 #include <QSystemTrayIcon>
 #include <QHash>
+#include "account.h"
 
 class QAction;
 class QMenu;
+class AccountInfoRequest;
+class AccountInfo;
 #if defined(Q_WS_MAC)
 class TrayNotificationManager;
 #endif
@@ -45,6 +48,8 @@ private slots:
     void refreshTrayIcon();
     void openHelp();
     void about();
+    void refreshUsage();
+    void accountInfoSuccess(const AccountInfo& info);
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
@@ -66,6 +71,7 @@ private:
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
     QAction *settings_action_;
+    QAction *display_space_action_;
 
     QAction *about_action_;
     QAction *open_help_action_;
@@ -83,6 +89,9 @@ private:
     TrayState state_;
 
     QHash<QString, QIcon> icon_cache_;
+    
+    QTimer *refresh_usage_timer_;
+    AccountInfoRequest *request_;    
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

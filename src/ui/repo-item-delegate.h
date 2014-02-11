@@ -47,6 +47,11 @@ private:
                               const RepoItem *item) const;
 
     QPixmap getSyncStatusIcon(const RepoItem *item) const;
+    
+    void displayTooltip(const QString& text,
+                        QWidget *viewport,
+                        const QRect& repo_item_rect,
+                        const QRect& sub_repo_item_rect) const;    
 };
 
 

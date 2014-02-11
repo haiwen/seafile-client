@@ -401,9 +401,17 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
     }
     text += "</p>";
 
-    QPoint tool_tip_pos = viewport->mapToGlobal(status_icon_rect.center()
-                                                + rect.topLeft());
-    QToolTip::showText(tool_tip_pos, text,
-                       viewport,
-                       status_icon_rect.translated(rect.topLeft()));
+    displayTooltip(text, viewport, rect, status_icon_rect);
+}
+
+void RepoItemDelegate::displayTooltip(const QString& text,
+			       QWidget *viewport,
+			       const QRect& repo_item_rect,
+			       const QRect& sub_repo_item_rect) const
+{
+    QPoint tool_tip_pos = viewport->mapToGlobal(sub_repo_item_rect.center() + repo_item_rect.topLeft());
+    QToolTip::showText(tool_tip_pos,
+		       text,
+		       viewport,
+		       sub_repo_item_rect.translated(repo_item_rect.topLeft()));	
 }

@@ -6,6 +6,9 @@
 
 namespace {
 
+const char* kSeafileWinDataDir = "Seafile/seafile-data";
+const char* kSeafileDataDir = "Seafile/.seafile-data";
+
 #if defined(Q_WS_WIN)
 
 #include <ShlObj.h>
@@ -119,11 +122,11 @@ void InitSeafileDialog::onOkClicked()
     }
 
 #if defined(Q_WS_WIN)
-    dir.mkpath("Seafile/seafile-data");
-    QString seafile_dir = dir.filePath("Seafile/seafile-data");
+    dir.mkpath(kSeafileWinDataDir);
+    QString seafile_dir = dir.filePath(kSeafileWinDataDir);
 #else
-    dir.mkpath("Seafile/.seafile-data");
-    QString seafile_dir = dir.filePath("Seafile/.seafile-data");
+    dir.mkpath(kSeafileDataDir);
+    QString seafile_dir = dir.filePath(kSeafileDataDir);
 #endif
 
     emit seafileDirSet(seafile_dir);

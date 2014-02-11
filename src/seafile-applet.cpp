@@ -27,6 +27,8 @@
 
 namespace {
 
+const char *kCrashReportLog = "logs/seafile-crash-report.txt";
+
 void myLogHandler(QtMsgType type, const char *msg)
 {
     switch (type) {
@@ -77,7 +79,7 @@ void SeafileApplet::start()
     account_mgr_->start();
 
 #if defined(Q_WS_WIN)
-    QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
+    QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath(kCrashReportLog);
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
         qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif

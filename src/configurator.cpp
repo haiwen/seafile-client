@@ -22,6 +22,10 @@
 
 namespace {
 
+const char *kCcnetConfFile = "ccnet.conf";
+const char *kSeafileIniFile = "seafile.ini";
+const char *kSeafileDirName = "seafile";
+
 #if defined(Q_WS_WIN)
 
 const char *kCcnetConfDir = "ccnet";
@@ -105,7 +109,7 @@ void Configurator::initSeafile()
 void Configurator::onSeafileDirSet(const QString& path)
 {
     // Write seafile dir to <ccnet dir>/seafile.ini
-    QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
+    QFile seafile_ini(QDir(ccnet_dir_).filePath(kSeafileIniFile));
 
     if (!seafile_ini.open(QIODevice::WriteOnly)) {
         return;
@@ -156,7 +160,7 @@ void Configurator::setSeafileDirAttributes()
 
 void Configurator::validateExistingConfig()
 {
-    QFile ccnet_conf(QDir(ccnet_dir_).filePath("ccnet.conf"));
+    QFile ccnet_conf(QDir(ccnet_dir_).filePath(kCcnetConfFile));
     if (!ccnet_conf.exists()) {
         initConfig();
         return;
@@ -169,7 +173,7 @@ void Configurator::validateExistingConfig()
 
     QDir d(seafile_dir_);
 #ifndef Q_WS_WIN
-    QString old_client_wt = d.filePath("../seafile/");
+    QString old_client_wt = d.filePath(QString("../%1/").arg(kSeafileDirName));
     if (QFile(old_client_wt).exists()) {
         // old client
         worktree_ = QFileInfo(old_client_wt).absoluteFilePath();
@@ -183,7 +187,7 @@ void Configurator::validateExistingConfig()
 
 int Configurator::readSeafileIni(QString *content)
 {
-    QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
+    QFile seafile_ini(QDir(ccnet_dir_).filePath(kSeafileIniFile));
     if (!seafile_ini.exists()) {
         return -1;
     }

@@ -28,7 +28,7 @@ public:
                              QWidget *viewport,
                              const QRect& rect) const;
 
-private:
+protected:
     void matchCurrentItem(const QStyleOptionViewItem& option,
                           const ServerRepo& repo) const;
     QStandardItem* getItem(const QModelIndex &index) const;

@@ -1355,7 +1355,7 @@ Der Eigentümer dieser Bibliothek hat keinen freien Speicherplatz mehr.</transla
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="212"/>
         <source>&amp;Cancel download</source>
-        <translation>%Download abbrechen</translation>
+        <translation>Download abbrechen (&amp;C)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>

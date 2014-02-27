@@ -17,7 +17,6 @@
 #ifdef Q_WS_MAC
 #include "Application.h"
 #endif
-#include <QDebug.h>
 
 #define APPNAME "seafile-applet"
 

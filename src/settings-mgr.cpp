@@ -26,6 +26,7 @@ SettingsManager::SettingsManager()
       bubbleNotifycation_(true),
       autoStart_(false),
       transferEncrypted_(true),
+      allow_invalid_worktree_(false),
       maxDownloadRatio_(0),
       maxUploadRatio_(0)
 {
@@ -48,6 +49,9 @@ void SettingsManager::loadSettings()
     if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit", &value) >= 0)
         maxUploadRatio_ = value >> 10;
 
+    if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree", &str) >= 0)
+        allow_invalid_worktree_ = (str == "true") ? true : false;
+
     autoStart_ = get_seafile_auto_start();
 }
 
@@ -66,7 +70,6 @@ void SettingsManager::setAutoSync(bool auto_sync)
 
 void SettingsManager::setNotify(bool notify)
 {
-    qDebug("%s", __func__);
     if (bubbleNotifycation_ != notify) {
         if (seafApplet->rpcClient()->seafileSetConfig("notify_sync",
                                                       notify ? "on" : "off") < 0) {
@@ -79,7 +82,6 @@ void SettingsManager::setNotify(bool notify)
 
 void SettingsManager::setAutoStart(bool autoStart)
 {
-    qDebug("%s", __func__);
     if (autoStart_ != autoStart) {
         if (set_seafile_auto_start (autoStart) >= 0)
             autoStart_ = autoStart;
@@ -88,7 +90,6 @@ void SettingsManager::setAutoStart(bool autoStart)
 
 void SettingsManager::setEncryptTransfer(bool encrypted)
 {
-    qDebug("%s", __func__);
     if (transferEncrypted_ != encrypted) {
         if (seafApplet->rpcClient()->ccnetSetConfig("encrypt_channel",
                                                     encrypted ? "on" : "off") < 0) {
@@ -101,7 +102,6 @@ void SettingsManager::setEncryptTransfer(bool encrypted)
 
 void SettingsManager::setMaxDownloadRatio(unsigned int ratio)
 {
-    qDebug("%s:%d", __func__, ratio);
     if (maxDownloadRatio_ != ratio) {
         if (seafApplet->rpcClient()->setDownloadRateLimit(ratio << 10) < 0) {
             // Error
@@ -113,7 +113,6 @@ void SettingsManager::setMaxDownloadRatio(unsigned int ratio)
 
 void SettingsManager::setMaxUploadRatio(unsigned int ratio)
 {
-    qDebug("%s:%d", __func__, ratio);
     if (maxUploadRatio_ != ratio) {
         if (seafApplet->rpcClient()->setUploadRateLimit(ratio << 10) < 0) {
             // Error
@@ -201,4 +200,16 @@ bool SettingsManager::isCheckLatestVersionEnabled()
     settings.endGroup();
 
     return enabled;
+}
+
+void SettingsManager::setAllowInvalidWorktree(bool val)
+{
+    if (allow_invalid_worktree_ != val) {
+        if (seafApplet->rpcClient()->seafileSetConfig("allow_invalid_worktree",
+                                                      val ? "true" : "false") < 0) {
+            // Error
+            return;
+        }
+        allow_invalid_worktree_ = val;
+    }
 }

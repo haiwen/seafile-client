@@ -188,6 +188,7 @@ SET(seafile_client_sources
   src/ui/server-status-dialog.cpp
   src/ui/init-vdrive-dialog.cpp
   src/ui/uninstall-helper-dialog.cpp
+  src/ui/proxy-style.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

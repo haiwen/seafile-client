@@ -21,6 +21,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     setWindowTitle(tr("Settings"));
     setWindowIcon(QIcon(":/images/seafile.png"));
 
+    mTabWidget->setCurrentIndex(0);
+
     // Since closeEvent() would not not called when accept() is called, we
     // need to handle it here.
     connect(this, SIGNAL(accepted()), this, SLOT(updateSettings()));
@@ -32,15 +34,17 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
 void SettingsDialog::updateSettings()
 {
-    seafApplet->settingsManager()->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
-    seafApplet->settingsManager()->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
-    seafApplet->settingsManager()->setMaxDownloadRatio(mDownloadSpinBox->value());
-    seafApplet->settingsManager()->setMaxUploadRatio(mUploadSpinBox->value());
-    seafApplet->settingsManager()->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
+    SettingsManager *mgr = seafApplet->settingsManager();
+    mgr->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
+    mgr->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
+    mgr->setMaxDownloadRatio(mDownloadSpinBox->value());
+    mgr->setMaxUploadRatio(mUploadSpinBox->value());
+    mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
+    mgr->setAllowInvalidWorktree(mAllowInvalidWorktreeCheckBox->checkState() == Qt::Checked);
 
     if (isCheckLatestVersionEnabled()) {
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
-        seafApplet->settingsManager()->setCheckLatestVersionEnabled(enabled);
+        mgr->setCheckLatestVersionEnabled(enabled);
     }
 }
 
@@ -57,21 +61,26 @@ void SettingsDialog::showEvent(QShowEvent *event)
     Qt::CheckState state;
     int ratio;
 
-    state = seafApplet->settingsManager()->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
+    SettingsManager *mgr = seafApplet->settingsManager();
+
+    state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
     mHideMainWinCheckBox->setCheckState(state);
 
-    state = seafApplet->settingsManager()->autoStart() ? Qt::Checked : Qt::Unchecked;
+    state = mgr->allowInvalidWorktree() ? Qt::Checked : Qt::Unchecked; 
+    mAllowInvalidWorktreeCheckBox->setCheckState(state);
+
+    state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
-    state = seafApplet->settingsManager()->notify() ? Qt::Checked : Qt::Unchecked;
+    state = mgr->notify() ? Qt::Checked : Qt::Unchecked;
     mNotifyCheckBox->setCheckState(state);
 
-    ratio = seafApplet->settingsManager()->maxDownloadRatio();
+    ratio = mgr->maxDownloadRatio();
     mDownloadSpinBox->setValue(ratio);
-    ratio = seafApplet->settingsManager()->maxUploadRatio();
+    ratio = mgr->maxUploadRatio();
     mUploadSpinBox->setValue(ratio);
 
     if (isCheckLatestVersionEnabled()) {
-        state = seafApplet->settingsManager()->isCheckLatestVersionEnabled() ? Qt::Checked : Qt::Unchecked;
+        state = mgr->isCheckLatestVersionEnabled() ? Qt::Checked : Qt::Unchecked;
         mCheckLatestVersionBox->setCheckState(state);
     }
 

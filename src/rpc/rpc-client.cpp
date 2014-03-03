@@ -300,6 +300,11 @@ bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
 
 void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 {
+    if (repo.worktree_invalid) {
+        repo.setSyncInfo("error", "invalid worktree");
+        return;
+    }
+
     GError *error = NULL;
     SeafileSyncTask *task = (SeafileSyncTask *)
         searpc_client_call__object (seafile_rpc_client_,

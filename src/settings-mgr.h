@@ -22,12 +22,14 @@ public:
     bool encryptTransfer() { return transferEncrypted_; }
     unsigned int maxDownloadRatio() { return maxDownloadRatio_; }
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
+    bool allowInvalidWorktree() { return allow_invalid_worktree_; }
 
     void setNotify(bool notify);
     void setAutoStart(bool autoStart);
     void setEncryptTransfer(bool encrypted);
     void setMaxDownloadRatio(unsigned int ratio);
     void setMaxUploadRatio(unsigned int ratio);
+    void setAllowInvalidWorktree(bool val);
 
     bool hideMainWindowWhenStarted();
     void setHideMainWindowWhenStarted(bool hide);
@@ -49,6 +51,7 @@ private:
     bool bubbleNotifycation_;
     bool autoStart_;
     bool transferEncrypted_;
+    bool allow_invalid_worktree_;
     unsigned int maxDownloadRatio_;
     unsigned int maxUploadRatio_;
 };

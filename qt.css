@@ -47,7 +47,7 @@ MainWindow QTabBar::tab {
     padding: 5px;
 }
 
-MainWindow QTabBar::tab:selected, QTabBar::tab:hover {
+MainWindow QTabBar::tab:selected, MainWindow QTabBar::tab:hover {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #fafafa, stop: 0.4 #f4f4f4,
                                 stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
@@ -63,17 +63,17 @@ MainWindow QTabBar::tab:selected {
     margin-left: -2px;
     margin-right: -2px;
 }
-QTabBar::tab:first:selected {
-    margin-left: 0; /* the first selected tab has nothing to overlap with on the left */
-}
+/* QTabBar::tab:first:selected { */
+/*     margin-left: 0; /\* the first selected tab has nothing to overlap with on the left *\/ */
+/* } */
 
-QTabBar::tab:last:selected {
-    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
-}
+/* QTabBar::tab:last:selected { */
+/*     margin-right: 0; /\* the last selected tab has nothing to overlap with on the right *\/ */
+/* } */
 
-QTabBar::tab:only-one {
-    margin: 0; /* if there is only one tab, we don't want overlapping margins */
-}
+/* QTabBar::tab:only-one { */
+/*     margin: 0; /\* if there is only one tab, we don't want overlapping margins *\/ */
+/* } */
 
 /* Cloud Tab */
 CloudView {
@@ -319,3 +319,4 @@ QLabel#loadingFailedText {
     font-size: 16px;
     margin-top: -120px;
 }
+

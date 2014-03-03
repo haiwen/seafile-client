@@ -12,6 +12,7 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
 
     gboolean encrypted;
     gboolean auto_sync;
+    gboolean worktree_invalid;
     gint64 last_sync_time;
 
     g_object_get (obj,
@@ -22,6 +23,7 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
                   "worktree", &worktree,
                   "auto-sync", &auto_sync,
                   "last-sync-time", &last_sync_time,
+                  "worktree-invalid", &worktree_invalid,
                   NULL);
 
     LocalRepo repo;
@@ -32,6 +34,7 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     repo.encrypted = encrypted;
     repo.auto_sync = auto_sync;
     repo.last_sync_time = last_sync_time;
+    repo.worktree_invalid = worktree_invalid;
 
     g_free (id);
     g_free (name);
@@ -143,6 +146,9 @@ void LocalRepo::translateSyncError(QString error)
 
     } else if (error == "No such repo on relay.") {
         sync_error_str = QObject::tr("Library is deleted on server");
+
+    } else if (error == "invalid worktree") {
+        sync_error_str = QObject::tr("Error when accessing the local folder");
 
     } else if (error == "Unknown error.") {
         sync_error_str = QObject::tr("Unknown error.");

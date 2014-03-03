@@ -131,54 +131,59 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="321"/>
+        <location filename="../src/ui/cloud-view.cpp" line="320"/>
+        <source>click to open the website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/cloud-view.cpp" line="330"/>
         <source>No account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="355"/>
+        <location filename="../src/ui/cloud-view.cpp" line="364"/>
         <source>Add an account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="362"/>
+        <location filename="../src/ui/cloud-view.cpp" line="371"/>
         <source>Delete this account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="499"/>
+        <location filename="../src/ui/cloud-view.cpp" line="505"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="512"/>
+        <location filename="../src/ui/cloud-view.cpp" line="518"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="542"/>
-        <location filename="../src/ui/cloud-view.cpp" line="564"/>
+        <location filename="../src/ui/cloud-view.cpp" line="548"/>
+        <location filename="../src/ui/cloud-view.cpp" line="570"/>
         <source>no server connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="562"/>
+        <location filename="../src/ui/cloud-view.cpp" line="568"/>
         <source>all servers connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="566"/>
+        <location filename="../src/ui/cloud-view.cpp" line="572"/>
         <source>some servers not connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="588"/>
-        <location filename="../src/ui/cloud-view.cpp" line="589"/>
+        <location filename="../src/ui/cloud-view.cpp" line="594"/>
+        <location filename="../src/ui/cloud-view.cpp" line="595"/>
         <source>%1 kB/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="639"/>
+        <location filename="../src/ui/cloud-view.cpp" line="645"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -401,17 +406,17 @@
 <context>
     <name>DaemonManager</name>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="55"/>
+        <location filename="../src/daemon-mgr.cpp" line="59"/>
         <source>failed to load ccnet config dir %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="99"/>
+        <location filename="../src/daemon-mgr.cpp" line="109"/>
         <source>ccnet daemon has exited abnormally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="104"/>
+        <location filename="../src/daemon-mgr.cpp" line="116"/>
         <source>seafile daemon has exited abnormally</source>
         <translation type="unfinished"></translation>
     </message>
@@ -867,123 +872,128 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="58"/>
+        <location filename="../src/rpc/local-repo.cpp" line="61"/>
         <source>synchronized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="62"/>
+        <location filename="../src/rpc/local-repo.cpp" line="65"/>
         <source>indexing files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="66"/>
+        <location filename="../src/rpc/local-repo.cpp" line="69"/>
         <source>sync initializing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="70"/>
+        <location filename="../src/rpc/local-repo.cpp" line="73"/>
         <source>downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="74"/>
+        <location filename="../src/rpc/local-repo.cpp" line="77"/>
         <source>uploading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="78"/>
+        <location filename="../src/rpc/local-repo.cpp" line="81"/>
         <source>sync merging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="82"/>
+        <location filename="../src/rpc/local-repo.cpp" line="85"/>
         <source>waiting for sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="86"/>
-        <location filename="../src/rpc/local-repo.cpp" line="109"/>
+        <location filename="../src/rpc/local-repo.cpp" line="89"/>
+        <location filename="../src/rpc/local-repo.cpp" line="112"/>
         <source>server not connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="90"/>
+        <location filename="../src/rpc/local-repo.cpp" line="93"/>
         <source>server authenticating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="94"/>
+        <location filename="../src/rpc/local-repo.cpp" line="97"/>
         <source>auto sync is turned off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="99"/>
+        <location filename="../src/rpc/local-repo.cpp" line="102"/>
         <source>unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="112"/>
+        <location filename="../src/rpc/local-repo.cpp" line="115"/>
         <source>Server has been removed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="115"/>
+        <location filename="../src/rpc/local-repo.cpp" line="118"/>
         <source>You have not logged in to the server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="118"/>
+        <location filename="../src/rpc/local-repo.cpp" line="121"/>
         <source>You do not have permission to access this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="121"/>
+        <location filename="../src/rpc/local-repo.cpp" line="124"/>
         <source>The storage space of the library owner has been used up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="124"/>
+        <location filename="../src/rpc/local-repo.cpp" line="127"/>
         <source>Remote service is not available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="127"/>
+        <location filename="../src/rpc/local-repo.cpp" line="130"/>
         <source>Access denied to service.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="130"/>
+        <location filename="../src/rpc/local-repo.cpp" line="133"/>
         <source>Internal data corrupted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="133"/>
+        <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <source>Failed to start upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="136"/>
+        <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Error occured in upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="139"/>
+        <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Failed to start download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="142"/>
+        <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Error occured in download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="145"/>
+        <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Library is deleted on server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="148"/>
+        <location filename="../src/rpc/local-repo.cpp" line="151"/>
+        <source>Error when accessing the local folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="154"/>
         <source>Unknown error.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1095,7 +1105,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="112"/>
+        <location filename="../src/main.cpp" line="114"/>
         <source>%1 is already running</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1300,7 +1310,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="398"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="394"/>
         <source>This library has not been downloaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1441,12 +1451,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="209"/>
+        <location filename="../src/seafile-applet.cpp" line="210"/>
         <source>Failed to initialize log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="296"/>
+        <location filename="../src/seafile-applet.cpp" line="297"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
@@ -1460,19 +1470,19 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="451"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="468"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="532"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="456"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="473"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="537"/>
         <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="647"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="652"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="649"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="654"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1603,47 +1613,62 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="162"/>
+        <location filename="../ui_settings-dialog.h" line="174"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="163"/>
+        <location filename="../ui_settings-dialog.h" line="175"/>
         <source>Hide main window when started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="164"/>
+        <location filename="../ui_settings-dialog.h" line="176"/>
         <source>Notify when libraries are synchronized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="165"/>
+        <location filename="../ui_settings-dialog.h" line="177"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="166"/>
+        <location filename="../ui_settings-dialog.h" line="178"/>
         <source>Check for new version on startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="167"/>
+        <location filename="../ui_settings-dialog.h" line="179"/>
         <source>Download speed limit (KB/s):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="168"/>
+        <location filename="../ui_settings-dialog.h" line="180"/>
         <source>Upload speed limit (KB/s):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="169"/>
+        <location filename="../ui_settings-dialog.h" line="181"/>
+        <source>Basic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="182"/>
+        <source>Do not  automatically unsync a library when failed to access its local folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="183"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="184"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="170"/>
+        <location filename="../ui_settings-dialog.h" line="185"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>

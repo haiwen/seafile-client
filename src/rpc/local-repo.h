@@ -27,6 +27,7 @@ public:
     QString worktree;
     bool encrypted;
     bool auto_sync;
+    bool worktree_invalid;
 
     qint64 last_sync_time;
     SyncState sync_state;

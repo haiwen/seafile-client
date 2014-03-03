@@ -12,6 +12,7 @@
 
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
+#include "ui/proxy-style.h"
 #include "seafile-applet.h"
 #include "QtAwesome.h"
 #ifdef Q_WS_MAC
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
 #endif
 
     QDir::setCurrent(QApplication::applicationDirPath());
+    app.setStyle(new SeafileProxyStyle());
 
     // initialize i18n
     QTranslator qtTranslator;
@@ -129,3 +131,4 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+

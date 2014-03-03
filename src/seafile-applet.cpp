@@ -199,7 +199,8 @@ void SeafileApplet::errorAndExit(const QString& error)
     }
 
     in_exit_ = true;
-    QMessageBox::warning(main_win_, getBrand(), error, QMessageBox::Ok);
+
+    warningBox(error);
     this->exit(1);
 }
 

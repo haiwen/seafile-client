@@ -43,6 +43,10 @@ DaemonManager::DaemonManager()
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(tryConnCcnet()));
     shutdown_process (kCcnetDaemonExecutable);
+
+    system_shut_down_ = false;
+    connect(qApp, SIGNAL(aboutToQuit()),
+            this, SLOT(systemShutDown()));
 }
 
 void DaemonManager::startCcnetDaemon()
@@ -88,6 +92,11 @@ void DaemonManager::onCcnetDaemonStarted()
     conn_daemon_timer_->start(kConnDaemonIntervalMilli);
 }
 
+void DaemonManager::systemShutDown()
+{
+    system_shut_down_ = true;
+}
+
 void DaemonManager::onSeafDaemonStarted()
 {
     qDebug("seafile daemon is now running");
@@ -96,12 +105,16 @@ void DaemonManager::onSeafDaemonStarted()
 
 void DaemonManager::onCcnetDaemonExited()
 {
-    seafApplet->errorAndExit(tr("ccnet daemon has exited abnormally"));
+    if (!system_shut_down_) {
+        seafApplet->errorAndExit(tr("ccnet daemon has exited abnormally"));
+    }
 }
 
 void DaemonManager::onSeafDaemonExited()
 {
-    seafApplet->errorAndExit(tr("seafile daemon has exited abnormally"));
+    if (!system_shut_down_) {
+        seafApplet->errorAndExit(tr("seafile daemon has exited abnormally"));
+    }
 }
 
 void DaemonManager::stopAll()

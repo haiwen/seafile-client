@@ -6,7 +6,6 @@
 #include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
-#include "rpc/rpc-client.h"
 #include "api/server-repo.h"
 #include "repo-item.h"
 #include "repo-tree-view.h"
@@ -248,13 +247,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QPoint status_icon_pos = option.rect.topRight() - QPoint(40, 0);
     status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeight / 2));
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
-    if (!item->localRepo().isValid()
-        || item->localRepo().sync_state != LocalRepo::SYNC_STATE_WAITING) {
 
-        painter->save();
-        painter->drawPixmap(status_icon_pos, getSyncStatusIcon(item));
-        painter->restore();
-    }
+    painter->save();
+    painter->drawPixmap(status_icon_pos, getSyncStatusIcon(item));
+    painter->restore();
 
     // Update the metrics of this item
     RepoItem::Metrics metrics;
@@ -343,7 +339,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
                 icon = "exclamation";
                 break;
             case LocalRepo::SYNC_STATE_WAITING:
-                icon = "minus-sign";
+                icon = "waiting";
                 break;
             case LocalRepo::SYNC_STATE_DISABLED:
                 icon = "pause";

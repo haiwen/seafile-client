@@ -78,7 +78,6 @@ void SeafileApiRequest::onSslErrors(QNetworkReply* reply, const QList<QSslError>
     if (ignore_ssl_errors_) {
         reply->ignoreSslErrors();
     } else {
-        // emit sslErrors(reply, errors);
         emit failed(ApiError::fromSslErrors(reply, errors));
     }
 }

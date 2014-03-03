@@ -316,7 +316,16 @@ void CloudView::updateAccountInfoDisplay()
     mAccountBtn->setIconSize(QSize(32, 32));
     if (hasAccount()) {
         mEmail->setText(current_account_.username);
-        mServerAddr->setText(current_account_.serverUrl.host());
+        mServerAddr->setOpenExternalLinks(true);
+        mServerAddr->setToolTip(tr("click to open the website"));
+
+        QString host = current_account_.serverUrl.host();
+        QString href = current_account_.serverUrl.toString();
+        QString text = QString("<a style="
+                               "\"color:#A4A4A4; text-decoration: none;\" "
+                               "href=\"%1\">%2</a>").arg(href).arg(host);
+
+        mServerAddr->setText(text);
     } else {
         mEmail->setText(tr("No account"));
         mServerAddr->setText(QString());

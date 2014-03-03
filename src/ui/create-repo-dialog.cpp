@@ -4,6 +4,7 @@
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "api/requests.h"
+#include "api/api-error.h"
 #include "rpc/rpc-client.h"
 #include "create-repo-dialog.h"
 
@@ -82,8 +83,8 @@ void CreateRepoDialog::createAction()
     connect(request_, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(createSuccess(const RepoDownloadInfo&)));
 
-    connect(request_, SIGNAL(failed(int)),
-            this, SLOT(createFailed(int)));
+    connect(request_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(createFailed(const ApiError&)));
 
     request_->send();
 }
@@ -177,13 +178,13 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
     }
 }
 
-void CreateRepoDialog::createFailed(int /* code */)
+void CreateRepoDialog::createFailed(const ApiError& error)
 {
     mStatusText->setText("");
 
-    QMessageBox::warning(this, getBrand(),
-                         tr("Failed to create library on the server"),
-                         QMessageBox::Ok);
+    QString msg = tr("Failed to create library on the server:\n%1").arg(error.toString());
+
+    seafApplet->warningBox(msg, this);
 
     setAllInputsEnabled(true);
 }

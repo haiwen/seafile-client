@@ -1,8 +1,10 @@
 #include <QtNetwork>
 
 #include "utils/utils.h"
-#include "api-request.h"
 #include "api-client.h"
+#include "api-error.h"
+
+#include "api-request.h"
 
 SeafileApiRequest::SeafileApiRequest(const QUrl& url, Method method,
                                      const QString& token, bool ignore_ssl_errors)
@@ -51,14 +53,24 @@ void SeafileApiRequest::send()
             this, SLOT(requestSuccess(QNetworkReply&)));
 
     connect(api_client_, SIGNAL(networkError(const QNetworkReply::NetworkError&, const QString&)),
-            this, SIGNAL(networkError(const QNetworkReply::NetworkError&, const QString&)));
+            this, SLOT(onNetworkError(const QNetworkReply::NetworkError&, const QString&)));
 
     connect(api_client_, SIGNAL(requestFailed(int)),
-            this, SIGNAL(failed(int)));
+            this, SLOT(onHttpError(int)));
 
     connect(api_client_, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
             this, SLOT(onSslErrors(QNetworkReply*, const QList<QSslError>&)));
 
+}
+
+void SeafileApiRequest::onHttpError(int code)
+{
+    emit failed(ApiError::fromHttpError(code));
+}
+
+void SeafileApiRequest::onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string)
+{
+    emit failed(ApiError::fromNetworkError(error, error_string));
 }
 
 void SeafileApiRequest::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
@@ -66,7 +78,8 @@ void SeafileApiRequest::onSslErrors(QNetworkReply* reply, const QList<QSslError>
     if (ignore_ssl_errors_) {
         reply->ignoreSslErrors();
     } else {
-        emit sslErrors(reply, errors);
+        // emit sslErrors(reply, errors);
+        emit failed(ApiError::fromSslErrors(reply, errors));
     }
 }
 

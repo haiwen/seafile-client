@@ -7,6 +7,7 @@
 
 class CreateRepoRequest;
 class RepoDownloadInfo;
+class ApiError;
 
 class CreateRepoDialog : public QDialog,
                          public Ui::CreateRepoDialog
@@ -23,7 +24,7 @@ private slots:
     void createAction();
     void chooseDirAction();
     void createSuccess(const RepoDownloadInfo& info);
-    void createFailed(int code);
+    void createFailed(const ApiError& error);
 
 private:
     Q_DISABLE_COPY(CreateRepoDialog);

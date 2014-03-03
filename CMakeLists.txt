@@ -158,6 +158,7 @@ SET(seafile_client_sources
   src/seahub-messages-monitor.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
+  src/api/api-error.cpp
   src/api/requests.cpp
   src/api/server-repo.cpp
   src/rpc/rpc-client.cpp

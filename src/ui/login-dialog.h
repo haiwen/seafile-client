@@ -12,6 +12,7 @@ struct Account;
 class LoginRequest;
 class QNetworkReply;
 class QSslError;
+class ApiError;
 
 class LoginDialog : public QDialog,
                     public Ui::LoginDialog
@@ -23,9 +24,7 @@ public:
 private slots:
     void doLogin();
     void loginSuccess(const QString& token);
-    void loginFailed(int code);
-    void onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);
-    void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
+    void loginFailed(const ApiError& error);
 
 private:
     Q_DISABLE_COPY(LoginDialog);
@@ -33,6 +32,10 @@ private:
     void disableInputs();
     void enableInputs();
     void showWarning(const QString& msg);
+
+    void onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);
+    void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
+    void onHttpError(int code);
 
     QUrl url_;
     QString username_;

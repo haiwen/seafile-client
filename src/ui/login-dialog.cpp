@@ -3,6 +3,7 @@
 
 #include "account-mgr.h"
 #include "seafile-applet.h"
+#include "api/api-error.h"
 #include "api/requests.h"
 #include "login-dialog.h"
 
@@ -53,14 +54,8 @@ void LoginDialog::doLogin()
     connect(request_, SIGNAL(success(const QString&)),
             this, SLOT(loginSuccess(const QString&)));
 
-    connect(request_, SIGNAL(failed(int)),
-            this, SLOT(loginFailed(int)));
-
-    connect(request_, SIGNAL(networkError(const QNetworkReply::NetworkError&, const QString&)),
-            this, SLOT(onNetworkError(const QNetworkReply::NetworkError&, const QString&)));
-
-    connect(request_, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
-            this, SLOT(onSslErrors(QNetworkReply*, const QList<QSslError>&)));
+    connect(request_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(loginFailed(const ApiError&)));
 
     request_->send();
 }
@@ -85,6 +80,8 @@ void LoginDialog::onNetworkError(const QNetworkReply::NetworkError& error, const
 {
     showWarning(tr("Network Error:\n %1").arg(error_string));
     enableInputs();
+
+    mStatusText->setText("");
 }
 
 void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
@@ -149,11 +146,30 @@ void LoginDialog::loginSuccess(const QString& token)
     }
 }
 
-void LoginDialog::loginFailed(int code)
+void LoginDialog::loginFailed(const ApiError& error)
+{
+    switch (error.type()) {
+    case ApiError::SSL_ERROR:
+        onSslErrors(error.sslReply(), error.sslErrors());
+        break;
+    case ApiError::NETWORK_ERROR:
+        onNetworkError(error.networkError(), error.networkErrorString());
+        break;
+    case ApiError::HTTP_ERROR:
+        onHttpError(error.httpErrorCode());
+    default:
+        // impossible
+        break;
+    }
+}
+
+void LoginDialog::onHttpError(int code)
 {
     QString err_msg, reason;
     if (code == 400) {
         reason = tr("Incorrect email or password");
+    } else if (code == 429) {
+        reason = tr("Logging in too frequently, please wait a minute");
     } else if (code == 500) {
         reason = tr("Internal Server Error");
     }

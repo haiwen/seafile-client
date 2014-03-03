@@ -7,6 +7,7 @@
 
 #include "utils/utils.h"
 #include "requests.h"
+#include "api-error.h"
 #include "server-repo.h"
 
 namespace {
@@ -50,7 +51,7 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -59,7 +60,7 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
     const char *token = json_string_value(json_object_get(json.data(), "token"));
     if (token == NULL) {
         qDebug("failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -84,7 +85,7 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("ListReposRequest:failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -128,7 +129,7 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -163,7 +164,7 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -190,7 +191,7 @@ void GetUnseenSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("GetUnseenSeahubMessagesRequest: failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -199,7 +200,7 @@ void GetUnseenSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
     QMap<QString, QVariant> ret = mapFromJSON(root, &error);
 
     if (!ret.contains("count")) {
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -219,7 +220,7 @@ void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -228,7 +229,7 @@ void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
 
     if (!dict.contains("exists")) {
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -239,7 +240,7 @@ void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     }
 
     if (!dict.contains("repo_id")) {
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -261,7 +262,7 @@ void CreateDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -270,7 +271,7 @@ void CreateDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
 
     if (!dict.contains("repo_id")) {
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -291,7 +292,7 @@ void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("GetLatestVersionRequest: failed to parse json:%s\n", error.text);
-        emit failed(0);
+        emit failed(ApiError::fromJsonError());
         return;
     }
 
@@ -306,5 +307,5 @@ void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
         return;
     }
 
-    emit failed(0);
+    emit failed(ApiError::fromJsonError());
 }

@@ -329,25 +329,29 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     if (!repo.isValid()) {
         icon = "cloud";
     } else {
-        switch (repo.sync_state) {
-        case LocalRepo::SYNC_STATE_DONE:
-            icon = "ok";
-            break;
-        case LocalRepo::SYNC_STATE_ING:
-            icon = "rotate";
-            break;
-        case LocalRepo::SYNC_STATE_ERROR:
-            icon = "exclamation";
-            break;
-        case LocalRepo::SYNC_STATE_WAITING:
-            icon = "minus-sign";
-            break;
-        case LocalRepo::SYNC_STATE_DISABLED:
+        if (!repo.auto_sync && repo.sync_state != LocalRepo::SYNC_STATE_ING) {
             icon = "pause";
-            break;
-        case LocalRepo::SYNC_STATE_UNKNOWN:
-            icon = "question";
-            break;
+        } else {
+            switch (repo.sync_state) {
+            case LocalRepo::SYNC_STATE_DONE:
+                icon = "ok";
+                break;
+            case LocalRepo::SYNC_STATE_ING:
+                icon = "rotate";
+                break;
+            case LocalRepo::SYNC_STATE_ERROR:
+                icon = "exclamation";
+                break;
+            case LocalRepo::SYNC_STATE_WAITING:
+                icon = "minus-sign";
+                break;
+            case LocalRepo::SYNC_STATE_DISABLED:
+                icon = "pause";
+                break;
+            case LocalRepo::SYNC_STATE_UNKNOWN:
+                icon = "question";
+                break;
+            }
         }
     }
 

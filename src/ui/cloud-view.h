@@ -17,7 +17,9 @@ class ListReposRequest;
 class ServerRepo;
 class RepoTreeView;
 class RepoTreeModel;
-class CloneTasksDialog; class SeahubMessagesMonitor;
+class CloneTasksDialog;
+class SeahubMessagesMonitor;
+class ApiError;
 
 class CloudView : public QWidget,
                   public Ui::CloudView
@@ -45,7 +47,7 @@ public slots:
 private slots:
     void refreshRepos();
     void refreshRepos(const std::vector<ServerRepo>& repos);
-    void refreshReposFailed();
+    void refreshReposFailed(const ApiError& error);
     void setCurrentAccount(const Account&account);
     void updateAccountMenu();
     void onAccountItemClicked();
@@ -60,6 +62,7 @@ private:
     Q_DISABLE_COPY(CloudView)
 
     void createLoadingView();
+    void createLoadingFailedView();
     void createRepoModelView();
     void prepareAccountButtonMenu();
     void setupHeader();
@@ -85,6 +88,7 @@ private:
 
     RepoTreeView *repos_tree_;
     QWidget *loading_view_;
+    QWidget *loading_failed_view_;
 
     QSizeGrip *resizer_;
 

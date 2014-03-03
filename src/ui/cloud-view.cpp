@@ -13,6 +13,7 @@ extern "C" {
 #include "QtAwesome.h"
 #include "seahub-messages-monitor.h"
 #include "api/requests.h"
+#include "api/api-error.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
@@ -32,9 +33,11 @@ namespace {
 
 const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
 const int kRefreshStatusInterval = 1000;
+const char *kLoadingFaieldLabelName = "loadingFailedText";
 
 enum {
     INDEX_LOADING_VIEW = 0,
+    INDEX_LOADING_FAILED_VIEW,
     INDEX_REPOS_VIEW
 };
 
@@ -55,7 +58,9 @@ CloudView::CloudView(QWidget *parent)
     setupHeader();
     createRepoModelView();
     createLoadingView();
+    createLoadingFailedView();
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
+    mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
     createToolBar();
@@ -257,6 +262,28 @@ void CloudView::createLoadingView()
     layout->addWidget(label);
 }
 
+void CloudView::createLoadingFailedView()
+{
+    loading_failed_view_ = new QWidget(this);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    loading_failed_view_->setLayout(layout);
+
+    QLabel *label = new QLabel;
+    label->setObjectName(kLoadingFaieldLabelName);
+    QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("refresh"));
+    QString label_text = tr("Failed to get libraries information<br/>"
+                            "Please %1").arg(link);
+    label->setText(label_text);
+    label->setAlignment(Qt::AlignCenter);
+
+    connect(label, SIGNAL(linkActivated(const QString&)),
+            this, SLOT(onRefreshClicked()));
+    label->installEventFilter(this);
+
+    layout->addWidget(label);
+}
+
 void CloudView::showLoadingView()
 {
     QStackedLayout *stack = (QStackedLayout *)(layout());
@@ -408,7 +435,8 @@ void CloudView::refreshRepos()
     list_repo_req_ = new ListReposRequest(current_account_);
     connect(list_repo_req_, SIGNAL(success(const std::vector<ServerRepo>&)),
             this, SLOT(refreshRepos(const std::vector<ServerRepo>&)));
-    connect(list_repo_req_, SIGNAL(failed(int)), this, SLOT(refreshReposFailed()));
+    connect(list_repo_req_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(refreshReposFailed(const ApiError&)));
     list_repo_req_->send();
 }
 
@@ -423,10 +451,12 @@ void CloudView::refreshRepos(const std::vector<ServerRepo>& repos)
     showRepos();
 }
 
-void CloudView::refreshReposFailed()
+void CloudView::refreshReposFailed(const ApiError& error)
 {
-    qDebug("failed to refresh repos\n");
+    qDebug("failed to refresh repos");
     in_refresh_ = false;
+
+    mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }
 
 bool CloudView::hasAccount()

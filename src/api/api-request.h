@@ -11,6 +11,7 @@
 
 class SeafileApiClient;
 class QSslError;
+class ApiError;
 
 /**
  * Abstract base class for all types of api requests
@@ -26,13 +27,13 @@ public:
     void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }
 
 signals:
-    void networkError(const QNetworkReply::NetworkError& error, const QString& error_string);
-    void failed(int code);
-    void sslErrors(QNetworkReply*, const QList<QSslError>&);
+    void failed(const ApiError& error);
 
 protected slots:
     virtual void requestSuccess(QNetworkReply& reply) = 0;
     void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
+    void onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);
+    void onHttpError(int);
 
 protected:
     enum Method {

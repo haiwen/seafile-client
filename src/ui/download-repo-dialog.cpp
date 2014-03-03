@@ -6,6 +6,7 @@
 #include "rpc/rpc-client.h"
 #include "configurator.h"
 #include "api/requests.h"
+#include "api/api-error.h"
 #include "api/server-repo.h"
 #include "download-repo-dialog.h"
 
@@ -62,8 +63,8 @@ void DownloadRepoDialog::onOkBtnClicked()
     DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id);
     connect(req, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoRequestSuccess(const RepoDownloadInfo&)));
-    connect(req, SIGNAL(failed(int)),
-            this, SLOT(onDownloadRepoRequestFailed(int)));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onDownloadRepoRequestFailed(const ApiError&)));
     req->send();
 }
 
@@ -156,11 +157,11 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
 }
 
 
-void DownloadRepoDialog::onDownloadRepoRequestFailed(int code)
+void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
 {
-    QMessageBox::warning(this, getBrand(),
-                         tr("Failed to get repo download information"),
-                         QMessageBox::Ok);
+    QString msg = tr("Failed to get repo download information:\n%1").arg(error.toString());
+
+    seafApplet->warningBox(msg, this);
 
     setAllInputsEnabled(true);
 }

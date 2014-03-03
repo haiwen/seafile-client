@@ -300,11 +300,6 @@ bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
 
 void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 {
-    if (!repo.auto_sync || !seafApplet->settingsManager()->autoSync()) {
-        repo.setSyncInfo("auto sync is turned off");
-        return;
-    }
-
     GError *error = NULL;
     SeafileSyncTask *task = (SeafileSyncTask *)
         searpc_client_call__object (seafile_rpc_client_,
@@ -318,7 +313,11 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     }
 
     if (!task) {
-        repo.setSyncInfo("waiting for sync");
+        if (!repo.auto_sync) {
+            repo.setSyncInfo("auto sync is turned off");
+        } else {
+            repo.setSyncInfo("waiting for sync");
+        }
         return;
     }
 

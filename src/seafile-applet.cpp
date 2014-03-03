@@ -32,16 +32,16 @@ void myLogHandler(QtMsgType type, const char *msg)
 {
     switch (type) {
     case QtDebugMsg:
-        g_debug("%s\n", msg);
+        g_debug("%s", msg);
         break;
     case QtWarningMsg:
-        g_warning("%s\n", msg);
+        g_warning("%s", msg);
         break;
     case QtCriticalMsg:
-        g_critical("%s\n", msg);
+        g_critical("%s", msg);
         break;
     case QtFatalMsg:
-        g_critical("%s\n", msg);
+        g_critical("%s", msg);
         abort();
     }
 }

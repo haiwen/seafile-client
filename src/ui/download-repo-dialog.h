@@ -7,6 +7,7 @@
 #include "api/server-repo.h"
 
 class RepoDownloadInfo;
+class ApiError;
 
 class DownloadRepoDialog : public QDialog,
                            public Ui::DownloadRepoDialog
@@ -22,7 +23,7 @@ private slots:
     void chooseDirAction();
     void switchToSync();
     void onDownloadRepoRequestSuccess(const RepoDownloadInfo& info);
-    void onDownloadRepoRequestFailed(int code);
+    void onDownloadRepoRequestFailed(const ApiError& error);
 
 private:
     Q_DISABLE_COPY(DownloadRepoDialog);

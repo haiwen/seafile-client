@@ -18,11 +18,11 @@ public:
 
 private slots:
     void onGetDefaultRepoSuccess(bool exists, const QString& repo_id);
-    void onGetDefaultRepoFailure(int code);
+    void onGetDefaultRepoFailure(const ApiError& error);
     void onCreateDefaultRepoSuccess(const QString& repo_id);
-    void onCreateDefaultRepoFailure(int code);
+    void onCreateDefaultRepoFailure(const ApiError& error);
     void onDownloadRepoSuccess(const RepoDownloadInfo& info);
-    void onDownloadRepoFailure(int code);
+    void onDownloadRepoFailure(const ApiError& error);
     void checkDownloadProgress();
     void start();
     void onCancel();

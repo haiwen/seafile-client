@@ -10,6 +10,8 @@
 #include "utils/utils.h"
 #include "configurator.h"
 #include "settings-mgr.h"
+#include "api/requests.h"
+#include "api/api-error.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "rpc/clone-task.h"
@@ -68,8 +70,8 @@ void InitVirtualDriveDialog::getDefaultRepo()
     connect(get_default_repo_req_, SIGNAL(success(bool, const QString&)),
             this, SLOT(onGetDefaultRepoSuccess(bool, const QString&)));
 
-    connect(get_default_repo_req_, SIGNAL(failed(int)),
-            this, SLOT(onGetDefaultRepoFailure(int)));
+    connect(get_default_repo_req_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetDefaultRepoFailure(const ApiError&)));
 
     get_default_repo_req_->send();
 }
@@ -82,8 +84,8 @@ void InitVirtualDriveDialog::createDefaultRepo()
     connect(create_default_repo_req_, SIGNAL(success(const QString&)),
             this, SLOT(onCreateDefaultRepoSuccess(const QString&)));
 
-    connect(create_default_repo_req_, SIGNAL(failed(int)),
-            this, SLOT(onCreateDefaultRepoFailure(int)));
+    connect(create_default_repo_req_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onCreateDefaultRepoFailure(const ApiError&)));
 
     create_default_repo_req_->send();
 }
@@ -109,8 +111,8 @@ void InitVirtualDriveDialog::startDownload(const QString& repo_id)
     connect(download_default_repo_req_, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoSuccess(const RepoDownloadInfo&)));
 
-    connect(download_default_repo_req_, SIGNAL(failed(int)),
-            this, SLOT(onDownloadRepoFailure(int)));
+    connect(download_default_repo_req_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onDownloadRepoFailure(const ApiError&)));
 
     download_default_repo_req_->send();
 }
@@ -124,13 +126,13 @@ void InitVirtualDriveDialog::onGetDefaultRepoSuccess(bool exists, const QString&
     }
 }
 
-void InitVirtualDriveDialog::onGetDefaultRepoFailure(int code)
+void InitVirtualDriveDialog::onGetDefaultRepoFailure(const ApiError& error)
 {
-    if (code == 404) {
+    if (error.type() == ApiError::HTTP_ERROR && error.httpErrorCode() == 404) {
         fail(tr("Failed to create default library:\n\n"
                 "The server version must be 2.1 or higher to support this."));
     } else {
-        fail(tr("Failed to get default library: error code %1").arg(code));
+        fail(tr("Failed to get default library:\n%1").arg(error.toString()));
     }
 }
 
@@ -140,13 +142,13 @@ void InitVirtualDriveDialog::onCreateDefaultRepoSuccess(const QString& repo_id)
     startDownload(repo_id);
 }
 
-void InitVirtualDriveDialog::onCreateDefaultRepoFailure(int code)
+void InitVirtualDriveDialog::onCreateDefaultRepoFailure(const ApiError& error)
 {
-    if (code == 404) {
+    if (error.type() == ApiError::HTTP_ERROR && error.httpErrorCode() == 404) {
         fail(tr("Failed to create default library:\n\n"
                 "The server version must be 2.1 or higher to support this."));
     } else {
-        fail(tr("Failed to create default library: error code %1").arg(code));
+        fail(tr("Failed to create default library:\n%1").arg(error.toString()));
     }
 }
 
@@ -178,9 +180,9 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
     }
 }
 
-void InitVirtualDriveDialog::onDownloadRepoFailure(int code)
+void InitVirtualDriveDialog::onDownloadRepoFailure(const ApiError& error)
 {
-    fail(tr("Failed to download default library: error code %1").arg(code));
+    fail(tr("Failed to download default library:\n%1").arg(error.toString()));
 }
 
 void InitVirtualDriveDialog::openVirtualDisk()

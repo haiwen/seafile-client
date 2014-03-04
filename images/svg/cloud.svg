@@ -17,8 +17,8 @@
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="cloud.svg"
    inkscape:export-filename="/tmp/cloud.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-xdpi="36"
+   inkscape:export-ydpi="36">
   <metadata
      id="metadata3032">
     <rdf:RDF>
@@ -47,7 +47,7 @@
      id="namedview3028"
      showgrid="false"
      inkscape:zoom="9.95"
-     inkscape:cx="14.311558"
+     inkscape:cx="-3.3768842"
      inkscape:cy="25.448101"
      inkscape:window-x="65"
      inkscape:window-y="24"
@@ -57,5 +57,5 @@
      d="m 57.999999,37.133483 q 0,4.637775 -3.281461,7.918364 -3.281462,3.28059 -7.918364,3.281461 H 15.066608 q -5.395637,0 -9.231123,-3.835485 Q 2,40.662337 2,35.2667 2,31.416406 4.0706219,28.222927 6.1412437,25.029448 9.524625,23.454486 q -0.05836,-0.817099 -0.05836,-1.254395 0,-6.183119 4.374699,-10.55869 4.374701,-4.3755723 10.558691,-4.374701 4.608157,0 8.356532,2.5662817 3.748374,2.5662813 5.46881,6.7083963 2.041877,-1.808418 4.841615,-1.808418 3.09156,0 5.278909,2.187351 2.187352,2.18735 2.187352,5.27891 0,2.18735 -1.196031,4.025386 3.762312,0.874591 6.212737,3.922597 Q 58,33.195207 58,37.132612 z"
      id="path3026"
      inkscape:connector-curvature="0"
-     style="fill:#585859;fill-opacity:1" />
+     style="fill:#f17f49;fill-opacity:1" />
 </svg>

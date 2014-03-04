@@ -17,8 +17,8 @@
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="pause.svg"
    inkscape:export-filename="/tmp/pause.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-xdpi="36"
+   inkscape:export-ydpi="36">
   <metadata
      id="metadata6330">
     <rdf:RDF>
@@ -47,7 +47,7 @@
      id="namedview6326"
      showgrid="false"
      inkscape:zoom="3.9333333"
-     inkscape:cx="-19.5"
+     inkscape:cx="-64.245763"
      inkscape:cy="30"
      inkscape:window-x="65"
      inkscape:window-y="24"
@@ -57,5 +57,5 @@
      d="M 55,7.0834549 V 52.916545 q 0,0.846799 -0.618328,1.465127 Q 53.763344,55 52.916545,55 H 36.249878 Q 35.40308,55 34.784752,54.381672 34.166424,53.763344 34.166424,52.916545 V 7.0834549 q 0,-0.8467985 0.618328,-1.4651267 Q 35.40308,5 36.249878,5 H 52.916545 Q 53.763344,5 54.381672,5.6183282 55,6.2366564 55,7.0834549 z m -29.166424,0 V 52.916545 q 0,0.846799 -0.618328,1.465127 Q 24.59692,55 23.750122,55 H 7.083455 Q 6.2366565,55 5.6183282,54.381672 5.0000001,53.763344 5.0000001,52.916545 V 7.0834549 q 0,-0.8467985 0.6183281,-1.4651267 Q 6.2366565,5 7.083455,5 h 16.666667 q 0.846798,0 1.465126,0.6183282 0.618328,0.6183282 0.618328,1.4651267 z"
      id="path6324"
      inkscape:connector-curvature="0"
-     style="fill:#585859;fill-opacity:1" />
+     style="fill:#f17f49;fill-opacity:1" />
 </svg>

@@ -271,7 +271,7 @@ void CloudView::createLoadingFailedView()
 
     QLabel *label = new QLabel;
     label->setObjectName(kLoadingFaieldLabelName);
-    QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("refresh"));
+    QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
     QString label_text = tr("Failed to get libraries information<br/>"
                             "Please %1").arg(link);
     label->setText(label_text);

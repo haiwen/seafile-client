@@ -121,13 +121,17 @@
         <translation>请选择一个文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="274"/>
         <source>refresh</source>
-        <translation>刷新</translation>
+        <translation type="obsolete">刷新</translation>
     </message>
     <message>
         <source>Failed to get libraries information.&lt;br/&gt;Please %1.</source>
         <translation type="obsolete">获取资料库信息失败。&lt;br/&gt;请 %1。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/cloud-view.cpp" line="274"/>
+        <source>retry</source>
+        <translation>重试</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="275"/>

@@ -122,7 +122,7 @@
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="274"/>
-        <source>refresh</source>
+        <source>retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

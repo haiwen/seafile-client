@@ -277,6 +277,12 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
         return;
     }
 
+    if (item->syncNowClicked()) {
+        // Skip refresh repo item on which the user has clicked "sync now"
+        item->setSyncNowClicked(false);
+        return;
+    }
+
     LocalRepo local_repo;
     seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
     if (local_repo != item->localRepo()) {
@@ -299,5 +305,25 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
                 emit dataChanged(index,index);
             }
         }
+    }
+}
+
+void RepoTreeModel::updateRepoItemAfterSyncNow(const QString& repo_id)
+{
+    QString id = repo_id;
+    forEachRepoItem(&RepoTreeModel::updateRepoItemAfterSyncNow, (void*) &id);
+}
+
+void RepoTreeModel::updateRepoItemAfterSyncNow(RepoItem *item, void *data)
+{
+    QString repo_id = *(QString *)data;
+    LocalRepo r = item->localRepo();
+    if (r.isValid() && r.id == repo_id) {
+        // We manually set the sync state of the repo to "SYNC_STATE_ING" to give
+        // the user immediate feedback
+        
+        r.sync_state = LocalRepo::SYNC_STATE_ING;
+        item->setLocalRepo(r);
+        item->setSyncNowClicked(true);
     }
 }

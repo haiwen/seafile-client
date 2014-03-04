@@ -318,11 +318,7 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     }
 
     if (!task) {
-        if (!repo.auto_sync) {
-            repo.setSyncInfo("auto sync is turned off");
-        } else {
-            repo.setSyncInfo("waiting for sync");
-        }
+        repo.setSyncInfo("waiting for sync");
         return;
     }
 

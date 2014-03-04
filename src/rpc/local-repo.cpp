@@ -102,6 +102,11 @@ void LocalRepo::translateSyncState(QString status)
         sync_state_str = QObject::tr("unknown");
         sync_state = SYNC_STATE_UNKNOWN;
     }
+
+    if (!auto_sync && sync_state != SYNC_STATE_ING) {
+        sync_state_str = QObject::tr("auto sync is turned off");
+        sync_state = SYNC_STATE_DISABLED;
+    }
 }
 
 void LocalRepo::translateSyncError(QString error)

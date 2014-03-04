@@ -49,12 +49,17 @@ public:
 
     bool repoDownloadable() const;
 
+    void setSyncNowClicked(bool val) { sync_now_clicked_ = val; }
+    bool syncNowClicked() const { return sync_now_clicked_; }
+
 private:
     ServerRepo repo_;
     LocalRepo local_repo_;
 
     mutable Metrics metrics_;
     CloneTask clone_task_;
+
+    bool sync_now_clicked_;
 };
 
 /**

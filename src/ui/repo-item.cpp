@@ -10,6 +10,8 @@ RepoItem::RepoItem(const ServerRepo& repo)
     LocalRepo local_repo;
     seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo);
     setLocalRepo(local_repo);
+
+    sync_now_clicked_ = false;
 }
 
 void RepoItem::setRepo(const ServerRepo& repo)

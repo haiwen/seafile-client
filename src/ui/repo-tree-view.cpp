@@ -20,6 +20,7 @@
 #include "repo-tree-view.h"
 #include "repo-detail-dialog.h"
 
+
 RepoTreeView::RepoTreeView(CloudView *cloud_view, QWidget *parent)
     : QTreeView(parent),
       cloud_view_(cloud_view)
@@ -418,6 +419,8 @@ void RepoTreeView::syncRepoImmediately()
     LocalRepo repo = qvariant_cast<LocalRepo>(sync_now_action_->data());
 
     seafApplet->rpcClient()->syncRepoImmediately(repo.id);
+
+    ((RepoTreeModel *)model())->updateRepoItemAfterSyncNow(repo.id);
 }
 
 void RepoTreeView::cancelDownload()

@@ -40,6 +40,8 @@ public:
     void setTreeView(RepoTreeView *view) { tree_view_ = view; }
     RepoTreeView* treeView() { return tree_view_; }
 
+    void updateRepoItemAfterSyncNow(const QString& repo_id);
+
 private slots:
     void refreshLocalRepos();
 
@@ -57,6 +59,7 @@ private:
     void removeReposDeletedOnServer(const std::vector<ServerRepo>& repos);
 
     void collectDeletedRepos(RepoItem *item, void *vdata);
+    void updateRepoItemAfterSyncNow(RepoItem *item, void *data);
 
     RepoCategoryItem *recent_updated_category_;
     RepoCategoryItem *my_repos_catetory_;

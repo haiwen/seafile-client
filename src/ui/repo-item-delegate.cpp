@@ -30,8 +30,8 @@ const int kRepoIconHeight = 36;
 const int kRepoIconWidth = 36;
 const int kRepoNameWidth = 175;
 const int kRepoNameHeight = 30;
-const int kRepoStatusIconWidth = 24;
-const int kRepoStatusIconHeight = 24;
+const int kRepoStatusIconWidth = 20;
+const int kRepoStatusIconHeight = 20;
 
 const int kRepoCategoryNameMaxWidth = 400;
 const int kRepoCategoryIndicatorWidth = 16;

@@ -90,10 +90,8 @@ void SeafileTrayIcon::createActions()
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
 
-#ifndef Q_WS_MAC
     toggle_main_window_action_ = new QAction(tr("Show main window"), this);
     connect(toggle_main_window_action_, SIGNAL(triggered()), this, SLOT(toggleMainWindow()));
-#endif
 
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
@@ -114,9 +112,7 @@ void SeafileTrayIcon::createContextMenu()
     help_menu_->addAction(open_help_action_);
 
     context_menu_ = new QMenu(NULL);
-#ifndef Q_WS_MAC
     context_menu_->addAction(toggle_main_window_action_);
-#endif
     context_menu_->addAction(settings_action_);
     context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
@@ -139,13 +135,11 @@ void SeafileTrayIcon::prepareContextMenu()
         disable_auto_sync_action_->setVisible(false);
     }
 
-#ifndef Q_WS_MAC
     if (!seafApplet->mainWindow()->isVisible()) {
         toggle_main_window_action_->setText(tr("Show main window"));
     } else {
         toggle_main_window_action_->setText(tr("Hide main window"));
     }
-#endif
 }
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)

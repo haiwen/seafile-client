@@ -39,6 +39,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/traynotificationwidget.h \
            src/api/api-client.h \
            src/api/api-request.h \
+           src/api/api-error.h \
            src/api/requests.h \
            src/api/server-repo.h \
            src/rpc/clone-task.h \
@@ -66,6 +67,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/ui/init-vdrive-dialog.h \
            src/ui/uninstall-helper-dialog.h \
            src/ui/tray-icon.h \
+           src/ui/proxy-style.h \
            src/utils/log.h \
            src/utils/process.h \
            src/utils/rsa.h \
@@ -99,6 +101,7 @@ SOURCES += src/account-mgr.cpp \
            src/traynotificationwidget.cpp \
            src/api/api-client.cpp \
            src/api/api-request.cpp \
+           src/api/api-error.cpp \
            src/api/requests.cpp \
            src/api/server-repo.cpp \
            src/rpc/clone-task.cpp \
@@ -126,6 +129,7 @@ SOURCES += src/account-mgr.cpp \
            src/ui/tray-icon.cpp \
            src/ui/init-vdrive-dialog.cpp \
            src/ui/uninstall-helper-dialog.cpp \
+           src/ui/proxy-style.cpp \
            src/utils/log.c \
            src/utils/rsa.cpp \
            src/utils/utils.cpp \
@@ -164,7 +168,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.1.1"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.1.2"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe

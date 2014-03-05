@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>seafile</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.seafile.seafile-applet</string>
+	<string>com.seafile.seafile-client</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

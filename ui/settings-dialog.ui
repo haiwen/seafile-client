@@ -118,7 +118,17 @@
        <item>
         <widget class="QCheckBox" name="mAllowInvalidWorktreeCheckBox">
          <property name="text">
-          <string>Do not  automatically unsync a library when failed to access its local folder</string>
+          <string>Do not automatically unsync a library</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="desc">
+         <property name="text">
+          <string>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

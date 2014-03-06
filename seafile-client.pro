@@ -138,14 +138,19 @@ SOURCES += src/account-mgr.cpp \
            third_party/QtAwesome/QtAwesome.cpp
 
 RESOURCES += seafile-client.qrc third_party/QtAwesome/QtAwesome.qrc
-TRANSLATIONS += i18n/seafile_de_DE.ts \
+TRANSLATIONS += i18n/seafile_ca.ts \
+                i18n/seafile_de_DE.ts \
                 i18n/seafile_en.ts \
                 i18n/seafile_es.ts \
+                i18n/seafile_es_AR.ts \
+                i18n/seafile_es_MX.ts \
                 i18n/seafile_fr_FR.ts \
                 i18n/seafile_he_IL.ts \
                 i18n/seafile_hu_HU.ts \
                 i18n/seafile_nl_BE.ts \
+                i18n/seafile_pl_PL.ts \
                 i18n/seafile_pt_BR.ts \
+                i18n/seafile_pt_PT.ts \
                 i18n/seafile_ru.ts \
                 i18n/seafile_sk_SK.ts \
                 i18n/seafile_uk.ts \

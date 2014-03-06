@@ -465,7 +465,9 @@ void CloudView::refreshReposFailed(const ApiError& error)
     qDebug("failed to refresh repos");
     in_refresh_ = false;
 
-    mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    if (mStack->currentIndex() == INDEX_LOADING_VIEW) {
+        mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    }
 }
 
 bool CloudView::hasAccount()

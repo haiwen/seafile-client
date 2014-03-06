@@ -223,14 +223,19 @@ LINK_DIRECTORIES(
 
 SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${moc_output} ${ui_output})
 SET(LANGUAGES
-  en
+  ca
   de_DE
+  en
   es
+  es_AR
+  es_MX
   fr_FR
   he_IL
   hu_HU
   nl_BE
+  pl_PL
   pt_BR
+  pt_PT
   ru
   sk_SK
   uk

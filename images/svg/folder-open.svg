@@ -17,8 +17,8 @@
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="folder-open.svg"
    inkscape:export-filename="/tmp/folder-open.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-xdpi="36"
+   inkscape:export-ydpi="36">
   <metadata
      id="metadata5124">
     <rdf:RDF>
@@ -46,15 +46,15 @@
      inkscape:window-height="776"
      id="namedview5120"
      showgrid="false"
-     inkscape:zoom="7.375"
-     inkscape:cx="-8"
-     inkscape:cy="37.694915"
+     inkscape:zoom="10.216667"
+     inkscape:cx="30"
+     inkscape:cy="30"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg5116" />
   <path
-     d="M 47.307692,52.5 57.692308,24.807692 h -45 L 2.307692,52.5 z M 9.2307692,21.346153 2.307692,52.5 v -45 h 15.576923 l 6.923077,6.923077 h 22.5 v 6.923076 z"
+     d="M 46.370312,51.281406 56.1925,25.088906 H 13.629688 L 3.8075,51.281406 z M 10.355625,21.814843 3.8075,51.281406 V 8.718594 h 14.733281 l 6.548125,6.548125 h 21.281406 v 6.548124 z"
      id="path5118"
      inkscape:connector-curvature="0"
      style="fill:#585859;fill-opacity:1" />

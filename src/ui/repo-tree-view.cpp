@@ -174,6 +174,7 @@ void RepoTreeView::updateRepoActions()
     } else {
         cancel_download_action_->setEnabled(false);
     }
+    emit dataChanged(indexes.at(0), indexes.at(0));
 }
 
 QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const

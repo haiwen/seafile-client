@@ -168,6 +168,7 @@ linux {
     SOURCES += src/utils/process-linux.cpp
 }
 macx {
+    system("mkdir -p libs; cp -f `which ccnet` libs/; cp -f `which seaf-daemon` libs/")
     SOURCES += src/utils/process-mac.cpp src/application.cpp
     HEADERS += src/application.h
     CONFIG += target_predeps

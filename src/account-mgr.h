@@ -25,6 +25,8 @@ public:
     const std::vector<Account>& loadAccounts();
     void updateAccountLastVisited(const Account& account);
 
+    bool hasAccount(const QUrl& url, const QString& username);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 

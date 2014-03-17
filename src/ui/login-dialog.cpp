@@ -29,6 +29,8 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mServerAddr->clearEditText();
     mServerAddr->setAutoCompletion(false);
 
+    mComputerName->setText(QHostInfo::localHostName());
+
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 
     const QRect screen = QApplication::desktop()->screenGeometry();
@@ -48,7 +50,7 @@ void LoginDialog::doLogin()
         delete request_;
     }
 
-    request_ = new LoginRequest(url_, username_, password_);
+    request_ = new LoginRequest(url_, username_, password_, computer_name_);
     request_->setIgnoreSslErrors(false);
 
     connect(request_, SIGNAL(success(const QString&)),
@@ -129,9 +131,20 @@ bool LoginDialog::validateInputs()
         return false;
     }
 
+    QString computer_name = mComputerName->text().trimmed();
+    if (computer_name.size() == 0) {
+        showWarning(tr("Please enter the computer name"));
+    }
+
     url_ = url;
     username_ = mUsername->text();
     password_ = mPassword->text();
+    computer_name_ = mComputerName->text();
+
+    if (seafApplet->accountManager()->hasAccount(url_, username_)) {
+        showWarning(tr("This account already exists"));
+        return false;
+    }
 
     return true;
 }

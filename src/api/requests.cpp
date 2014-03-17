@@ -5,6 +5,8 @@
 
 #include "account.h"
 
+#include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "utils/utils.h"
 #include "requests.h"
 #include "api-error.h"
@@ -36,13 +38,23 @@ const char *kOsName = "mac";
  */
 LoginRequest::LoginRequest(const QUrl& serverAddr,
                            const QString& username,
-                           const QString& password)
+                           const QString& password,
+                           const QString& computer_name)
 
     : SeafileApiRequest (QUrl(serverAddr.toString() + kApiLoginUrl),
                          SeafileApiRequest::METHOD_POST)
 {
     setParam("username", username);
     setParam("password", password);
+
+    QString client_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
+    QString device_id = seafApplet->rpcClient()->getCcnetPeerId();
+
+    setParam("platform", kOsName);
+    setParam("device_id", device_id);
+    setParam("device_name", computer_name);
+    setParam("client_version", client_version);
+    setParam("platform_version", "");
 }
 
 void LoginRequest::requestSuccess(QNetworkReply& reply)

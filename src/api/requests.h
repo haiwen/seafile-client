@@ -18,7 +18,8 @@ class LoginRequest : public SeafileApiRequest {
 public:
     LoginRequest(const QUrl& serverAddr,
                  const QString& username,
-                 const QString& password);
+                 const QString& password,
+                 const QString& computer_name);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

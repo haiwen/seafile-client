@@ -119,3 +119,15 @@ void AccountManager::updateAccountLastVisited(const Account& account)
     sql = sql.arg(QString::number(timestamp)).arg(account.username).arg(url);
     sqlite_query_exec (db, toCStr(sql));
 }
+
+bool AccountManager::hasAccount(const QUrl& url, const QString& username)
+{
+    int i, n = accounts_.size();
+    for (i = 0; i < n; i++) {
+        if (accounts_[i].serverUrl == url && accounts_[i].username == username) {
+            return true;
+        }
+    }
+
+    return false;
+}

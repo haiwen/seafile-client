@@ -40,6 +40,7 @@ private:
     QUrl url_;
     QString username_;
     QString password_;
+    QString computer_name_;
     LoginRequest *request_;
 };
 

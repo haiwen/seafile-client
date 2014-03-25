@@ -155,6 +155,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
 
     int ret = seafApplet->rpcClient()->cloneRepo(
         info.repo_id,
+        info.repo_version,
         info.relay_id,
         info.repo_name,
         path_,

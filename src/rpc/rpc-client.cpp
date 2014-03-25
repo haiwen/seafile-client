@@ -91,11 +91,12 @@ int SeafileRpcClient::setAutoSync(bool autoSync)
     return 0;
 }
 
-int SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
-                                   const QString &name, const QString &wt,
-                                   const QString &token, const QString &passwd,
-                                   const QString &magic, const QString &peerAddr,
-                                   const QString &port, const QString &email,
+int SeafileRpcClient::downloadRepo(const QString& id,
+                                   int repo_version, const QString& relayId,
+                                   const QString& name, const QString& wt,
+                                   const QString& token, const QString& passwd,
+                                   const QString& magic, const QString& peerAddr,
+                                   const QString& port, const QString& email,
                                    const QString& random_key, int enc_version,
                                    QString *error_ret)
 {
@@ -103,8 +104,9 @@ int SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
     searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_download",
-        &error, 12,
+        &error, 13,
         "string", toCStr(id),
+        "int", repo_version,
         "string", toCStr(relayId),
         "string", toCStr(name),
         "string", toCStr(wt),
@@ -127,7 +129,8 @@ int SeafileRpcClient::downloadRepo(const QString &id, const QString &relayId,
     return 0;
 }
 
-int SeafileRpcClient::cloneRepo(const QString &id, const QString &relayId,
+int SeafileRpcClient::cloneRepo(const QString& id,
+                                int repo_version, const QString& relayId,
                                 const QString &name, const QString &wt,
                                 const QString &token, const QString &passwd,
                                 const QString &magic, const QString &peerAddr,
@@ -139,8 +142,9 @@ int SeafileRpcClient::cloneRepo(const QString &id, const QString &relayId,
     searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_clone",
-        &error, 12,
+        &error, 13,
         "string", toCStr(id),
+        "int", repo_version,
         "string", toCStr(relayId),
         "string", toCStr(name),
         "string", toCStr(wt),

@@ -120,6 +120,7 @@ DownloadRepoRequest::DownloadRepoRequest(const Account& account, const QString& 
 RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict)
 {
     RepoDownloadInfo info;
+    info.repo_version = dict["repo_version"].toInt();
     info.relay_id = dict["relay_id"].toString();
     info.relay_addr = dict["relay_addr"].toString();
     info.relay_port = dict["relay_port"].toString();

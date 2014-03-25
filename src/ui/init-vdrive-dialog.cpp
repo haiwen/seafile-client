@@ -158,7 +158,8 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
     QString worktree = seafApplet->configurator()->worktreeDir();
     QString error;
 
-    ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.relay_id,
+    ret = seafApplet->rpcClient()->downloadRepo(info.repo_id,
+                                                info.repo_version, info.relay_id,
                                                 info.repo_name, worktree,
                                                 info.token, QString(),
                                                 info.magic, info.relay_addr,

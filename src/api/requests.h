@@ -51,6 +51,7 @@ private:
 
 class RepoDownloadInfo {
 public:
+    int repo_version;
     QString relay_id;
     QString relay_addr;
     QString relay_port;

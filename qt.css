@@ -321,8 +321,8 @@ QLabel#loadingFailedText {
 }
 
 SettingsDialog {
-    min-width: 550px;
-    max-width: 550px;
+    min-width: 450px;
+    max-width: 450px;
     
     min-height: 350px;
     max-height: 350px;

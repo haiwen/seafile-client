@@ -26,7 +26,8 @@ public:
     int listLocalRepos(std::vector<LocalRepo> *repos);
     int getLocalRepo(const QString& repo_id, LocalRepo *repo);
     int setAutoSync(const bool autoSync);
-    int downloadRepo(const QString& id, const QString& relayId,
+    int downloadRepo(const QString& id,
+                     int repo_version, const QString& relayId,
                      const QString& name, const QString& wt,
                      const QString& token, const QString& passwd,
                      const QString& magic, const QString& peerAddr,
@@ -34,7 +35,8 @@ public:
                      const QString& random_key, int enc_version,
                      QString *error);
 
-    int cloneRepo(const QString& id, const QString& relayId,
+    int cloneRepo(const QString& id,
+                  int repo_version, const QString& relayId,
                   const QString& name, const QString& wt,
                   const QString& token, const QString& passwd,
                   const QString& magic, const QString& peerAddr,

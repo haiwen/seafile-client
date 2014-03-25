@@ -39,6 +39,9 @@ public:
     // bool defaultLibraryAlreadySetup();
     // void setDefaultLibraryAlreadySetup();
 
+    QString getComputerName();
+    void setComputerName(const QString& computerName);
+
 public:
 
     // Remove all settings from system when uninstall

@@ -106,14 +106,8 @@ min-width: 260px;
       </spacer>
      </item>
      <item>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-       </property>
-       <property name="horizontalSpacing">
-        <number>10</number>
-       </property>
-       <property name="verticalSpacing">
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="spacing">
         <number>10</number>
        </property>
        <item row="0" column="0">
@@ -121,10 +115,20 @@ min-width: 260px;
          <property name="text">
           <string>Server:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="mServerAddr">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="hint">
          <property name="lineWidth">
           <number>1</number>
          </property>
@@ -143,7 +147,7 @@ min-width: 260px;
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="hint_2">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -160,6 +164,9 @@ min-width: 260px;
          <property name="text">
           <string>Email:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
         </widget>
        </item>
        <item row="3" column="1">
@@ -170,6 +177,9 @@ min-width: 260px;
          <property name="text">
           <string>Password:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
         </widget>
        </item>
        <item row="4" column="1">
@@ -179,10 +189,26 @@ min-width: 260px;
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="mServerAddr">
-         <property name="editable">
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Computer Name:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="mComputerName"/>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="hint_3">
+         <property name="text">
+          <string>e.g. Jim's laptop</string>
          </property>
         </widget>
        </item>
@@ -193,20 +219,6 @@ min-width: 260px;
          </property>
          <property name="text">
           <string>status text</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLineEdit" name="mComputerName"/>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Computer Name:
- e.g. Lin's laptop</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
          </property>
         </widget>
        </item>

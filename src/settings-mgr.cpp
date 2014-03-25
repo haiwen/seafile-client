@@ -1,4 +1,5 @@
 #include <QSettings>
+#include <QHostInfo>
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"
@@ -17,6 +18,9 @@ const char *kBehaviorGroup = "Behavior";
 
 const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
 const char *kStatusGroup = "Status";
+
+const char *kSettingsGroup = "Settings";
+const char *kComputerName = "computerName";
 
 } // namespace
 
@@ -212,4 +216,26 @@ void SettingsManager::setAllowInvalidWorktree(bool val)
         }
         allow_invalid_worktree_ = val;
     }
+}
+
+QString SettingsManager::getComputerName()
+{
+    QSettings settings;
+    QString name;
+
+    QString default_computer_Name = QHostInfo::localHostName();
+
+    settings.beginGroup(kSettingsGroup);
+    name = settings.value(kComputerName, default_computer_Name).toString();
+    settings.endGroup();
+
+    return name;
+}
+
+void SettingsManager::setComputerName(const QString& computerName)
+{
+    QSettings settings;
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kComputerName, computerName);
+    settings.endGroup();
 }

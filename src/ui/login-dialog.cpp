@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QtNetwork>
 
+#include "settings-mgr.h"
 #include "account-mgr.h"
 #include "seafile-applet.h"
 #include "api/api-error.h"
@@ -29,7 +30,9 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mServerAddr->clearEditText();
     mServerAddr->setAutoCompletion(false);
 
-    mComputerName->setText(QHostInfo::localHostName());
+    QString computerName = seafApplet->settingsManager()->getComputerName();
+
+    mComputerName->setText(computerName);
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 
@@ -141,10 +144,7 @@ bool LoginDialog::validateInputs()
     password_ = mPassword->text();
     computer_name_ = mComputerName->text();
 
-    if (seafApplet->accountManager()->hasAccount(url_, username_)) {
-        showWarning(tr("This account already exists"));
-        return false;
-    }
+    seafApplet->settingsManager()->setComputerName(computer_name_);
 
     return true;
 }

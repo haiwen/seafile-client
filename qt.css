@@ -334,3 +334,12 @@ SettingsDialog QTabWidget::pane QLabel#desc {
     padding-left: 20px;
 }
 
+LoginDialog QLabel#hint,
+LoginDialog QLabel#hint_1,
+LoginDialog QLabel#hint_2,
+LoginDialog QLabel#hint_3
+{
+    font-size: 12px;
+    color: #555;
+}
+

@@ -13,6 +13,7 @@
 
 AccountManager::AccountManager()
 {
+    db = NULL;
 }
 
 AccountManager::~AccountManager()

@@ -76,6 +76,7 @@ SET(moc_headers
   src/ui/server-status-dialog.h
   src/ui/init-vdrive-dialog.h
   src/ui/uninstall-helper-dialog.h
+  src/ui/ssl-confirm-dialog.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -97,6 +98,7 @@ SET(ui_files
   ui/server-status-dialog.ui
   ui/init-vdrive-dialog.ui
   ui/uninstall-helper-dialog.ui
+  ui/ssl-confirm-dialog.ui
   ${platform_specific_ui_files}
 )
 
@@ -156,6 +158,7 @@ SET(seafile_client_sources
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp
   src/seahub-messages-monitor.cpp
+  src/certs-mgr.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/api-error.cpp
@@ -188,6 +191,7 @@ SET(seafile_client_sources
   src/ui/server-status-dialog.cpp
   src/ui/init-vdrive-dialog.cpp
   src/ui/uninstall-helper-dialog.cpp
+  src/ui/ssl-confirm-dialog.cpp
   src/ui/proxy-style.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}

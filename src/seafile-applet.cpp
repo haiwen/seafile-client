@@ -17,6 +17,7 @@
 #include "daemon-mgr.h"
 #include "message-listener.h"
 #include "settings-mgr.h"
+#include "certs-mgr.h"
 #include "rpc/rpc-client.h"
 #include "ui/main-window.h"
 #include "ui/tray-icon.h"
@@ -105,6 +106,7 @@ SeafileApplet::SeafileApplet()
       message_listener_(new MessageListener),
       settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
+      certs_mgr_(new CertsManager),
       started_(false),
       in_exit_(false)
 {
@@ -120,6 +122,8 @@ void SeafileApplet::start()
     initLog();
 
     account_mgr_->start();
+
+    certs_mgr_->start();
 
 #if defined(Q_WS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");

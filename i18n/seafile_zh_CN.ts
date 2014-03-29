@@ -348,13 +348,13 @@
         <translation>未知错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="173"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="174"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="185"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="186"/>
         <source>Failed to create library on the server:
 %1</source>
         <translation>创建资料库失败：
@@ -476,13 +476,13 @@
         <translation>将该资料库同步至：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="151"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="162"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="164"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -642,36 +642,36 @@ The server version must be 2.1 or higher to support this.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="176"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="177"/>
         <source>Downloading default library...</source>
         <translation>正在下载默认资料库...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="185"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="186"/>
         <source>Failed to download default library:
 %1</source>
         <translation>下载默认资料库失败：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="196"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="197"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation>默认资料库已下载。
 你可以点击“打开”按钮来查看它。</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="247"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="248"/>
         <source>Error when downloading the default library: %1</source>
         <translation>下载默认资料库时出错：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="261"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="262"/>
         <source>Creating the virtual disk...</source>
         <translation>创建虚拟磁盘...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="170"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="171"/>
         <source>Failed to download default library:
  %1</source>
         <translation>下载资料库 “%1” 失败</translation>
@@ -1553,19 +1553,19 @@ Do you want to visit the download page?</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="452"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="469"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="533"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="456"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="473"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="537"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="648"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="652"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>路径 &quot;%1&quot; 与系统路径冲突</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="650"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="654"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>路径 &quot;%1&quot; 与已有资料库冲突</translation>
     </message>

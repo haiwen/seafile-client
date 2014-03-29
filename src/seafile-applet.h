@@ -12,6 +12,7 @@ class MessageListener;
 class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
+class CertsManager;
 
 #define SEAFILE_CLIENT_BRAND "Seafile"
 
@@ -58,6 +59,8 @@ public:
 
     SettingsManager *settingsManager() { return settings_mgr_; }
 
+    CertsManager *certsManager() { return certs_mgr_; }
+
     bool started() { return started_; }
     bool inExit() { return in_exit_; }
 
@@ -92,6 +95,8 @@ private:
     SettingsDialog *settings_dialog_;
 
     SettingsManager *settings_mgr_;
+
+    CertsManager *certs_mgr_;
 
     bool started_;
 

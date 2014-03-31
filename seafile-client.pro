@@ -26,6 +26,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            ui_download-repo-dialog.h \
            ui_server-status-dialog.h \
            ui_uninstall-helper-dialog.h \
+           ui_ssl-confirm-dialog.h \
            src/account-mgr.h \
            src/account.h \
            src/ccnet-init.h \
@@ -66,6 +67,7 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/ui/settings-dialog.h \
            src/ui/init-vdrive-dialog.h \
            src/ui/uninstall-helper-dialog.h \
+           src/ui/ssl-confirm-dialog.h \
            src/ui/tray-icon.h \
            src/ui/proxy-style.h \
            src/utils/log.h \
@@ -85,6 +87,7 @@ FORMS += ui/clone-tasks-dialog.ui \
          ui/server-status-dialog.ui \
          ui/settings-dialog.ui \
          ui/uninstall-helper-dialog.ui \
+         ui/ssl-confirm-dialog.ui \
          ui/init-vdrive-dialog.ui
 
 
@@ -96,6 +99,7 @@ SOURCES += src/account-mgr.cpp \
            src/message-listener.cpp \
            src/seafile-applet.cpp \
            src/seahub-messages-monitor.cpp \
+           src/certs-mgr.cpp \
            src/settings-mgr.cpp \
            src/traynotificationmanager.cpp \
            src/traynotificationwidget.cpp \
@@ -129,6 +133,7 @@ SOURCES += src/account-mgr.cpp \
            src/ui/tray-icon.cpp \
            src/ui/init-vdrive-dialog.cpp \
            src/ui/uninstall-helper-dialog.cpp \
+           src/ui/ssl-confirm-dialog.cpp \
            src/ui/proxy-style.cpp \
            src/utils/log.c \
            src/utils/rsa.cpp \
@@ -174,7 +179,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"2.1.2"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"3.0.0"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe

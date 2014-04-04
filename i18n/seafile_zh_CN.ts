@@ -4,7 +4,7 @@
 <context>
     <name>AccountManager</name>
     <message>
-        <location filename="../src/account-mgr.cpp" line="35"/>
+        <location filename="../src/account-mgr.cpp" line="36"/>
         <source>failed to open account database</source>
         <translation>打开帐户数据库失败</translation>
     </message>
@@ -441,48 +441,81 @@
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="22"/>
         <source>Download library &quot;%1&quot;</source>
-        <translation>下载资料库 &quot;%1&quot;</translation>
+        <translation type="obsolete">下载资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="46"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="29"/>
+        <source>Choose a folder</source>
+        <translation>选择一个文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="71"/>
+        <source>merge</source>
+        <translation>合并</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="72"/>
+        <source>or %1 with an existing folder</source>
+        <translation>或者 %1 一个已有文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="74"/>
+        <source>Create a new sync folder at:</source>
+        <translation>创建一个新的同步文件夹于：</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="81"/>
+        <source>create</source>
+        <translation>创建</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="82"/>
+        <source>or %1 a new sync folder</source>
+        <translation>或者 %1 一个新的同步文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="83"/>
+        <source>Merge with this existing folder:</source>
+        <translation>与已有文件夹合并：</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="113"/>
         <source>Please choose a directory</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="77"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="144"/>
         <source>Please choose the folder to sync</source>
         <translation>请选择要同步的文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="84"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="151"/>
         <source>The folder does not exist</source>
         <translation>该文件夹不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="92"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="159"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="110"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="26"/>
         <source>Sync library &quot;%1&quot;</source>
         <translation>同步资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
         <source>Sync this library with:</source>
-        <translation>将该资料库同步至：</translation>
+        <translation type="obsolete">将该资料库同步至：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="206"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="164"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="217"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -493,47 +526,43 @@
         <translation type="obsolete">获取资料库信息失败</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="215"/>
+        <location filename="../ui_download-repo-dialog.h" line="200"/>
         <source>Download Library</source>
         <translation>下载资料库</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="216"/>
         <source>Download this library to:</source>
-        <translation>将该资料库下载到：</translation>
+        <translation type="obsolete">将该资料库下载到：</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="217"/>
+        <location filename="../ui_download-repo-dialog.h" line="201"/>
         <source>choose...</source>
         <translation>选择...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="218"/>
+        <location filename="../ui_download-repo-dialog.h" line="202"/>
         <source>Password for this library:</source>
         <translation>该资料库的密码：</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="219"/>
         <source>Files in the local folder will be merged with files in the library</source>
-        <translation>本地目录中的文件将与该资料库中的文件合并</translation>
+        <translation type="obsolete">本地目录中的文件将与该资料库中的文件合并</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="220"/>
         <source>Advanced:</source>
-        <translation>高级：</translation>
+        <translation type="obsolete">高级：</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="221"/>
         <source>sync with existing folder</source>
-        <translation>与已有的本地文件夹同步</translation>
+        <translation type="obsolete">与已有的本地文件夹同步</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="222"/>
+        <location filename="../ui_download-repo-dialog.h" line="203"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="223"/>
+        <location filename="../ui_download-repo-dialog.h" line="204"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -943,131 +972,224 @@ The library owner&apos;s storage space is used up.</source>
         <translation>速率</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="61"/>
+        <location filename="../src/rpc/local-repo.cpp" line="62"/>
         <source>synchronized</source>
         <translation>已同步</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="65"/>
+        <location filename="../src/rpc/local-repo.cpp" line="66"/>
         <source>indexing files</source>
         <translation>索引文件</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="69"/>
+        <location filename="../src/rpc/local-repo.cpp" line="70"/>
         <source>sync initializing</source>
         <translation>初始化</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="73"/>
+        <location filename="../src/rpc/local-repo.cpp" line="74"/>
         <source>downloading</source>
         <translation>下载中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="77"/>
+        <location filename="../src/rpc/local-repo.cpp" line="78"/>
         <source>uploading</source>
         <translation>上传中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="81"/>
+        <location filename="../src/rpc/local-repo.cpp" line="82"/>
         <source>sync merging</source>
         <translation>合并更改</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="85"/>
+        <location filename="../src/rpc/local-repo.cpp" line="86"/>
         <source>waiting for sync</source>
         <translation>等待同步</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="89"/>
-        <location filename="../src/rpc/local-repo.cpp" line="117"/>
+        <location filename="../src/rpc/local-repo.cpp" line="90"/>
+        <location filename="../src/rpc/local-repo.cpp" line="118"/>
         <source>server not connected</source>
         <translation>服务器未连接</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="93"/>
+        <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>server authenticating</source>
         <translation>服务器验证中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="97"/>
-        <location filename="../src/rpc/local-repo.cpp" line="107"/>
+        <location filename="../src/rpc/local-repo.cpp" line="98"/>
+        <location filename="../src/rpc/local-repo.cpp" line="108"/>
         <source>auto sync is turned off</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="102"/>
+        <location filename="../src/rpc/local-repo.cpp" line="103"/>
         <source>unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="120"/>
+        <location filename="../src/rpc/local-repo.cpp" line="121"/>
         <source>Server has been removed</source>
         <translation>服务器已经被删除</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="123"/>
+        <location filename="../src/rpc/local-repo.cpp" line="124"/>
         <source>You have not logged in to the server</source>
         <translation>你还没登录到服务器上</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="126"/>
+        <location filename="../src/rpc/local-repo.cpp" line="127"/>
         <source>You do not have permission to access this library</source>
         <translation>你没有权限访问这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="129"/>
+        <location filename="../src/rpc/local-repo.cpp" line="130"/>
         <source>The storage space of the library owner has been used up</source>
         <translation>资料库所有者的空间限额已用完</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="132"/>
+        <location filename="../src/rpc/local-repo.cpp" line="133"/>
         <source>Remote service is not available</source>
         <translation>与服务器通信失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="135"/>
+        <location filename="../src/rpc/local-repo.cpp" line="136"/>
+        <location filename="../src/rpc/local-repo.cpp" line="178"/>
+        <source>Access denied to service</source>
+        <translation>没有访问权限</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="139"/>
+        <source>Internal data corrupted</source>
+        <translation>内部数据损坏</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="142"/>
+        <source>Failed to start upload</source>
+        <translation>启动上传失败</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="145"/>
+        <source>Error occured in upload</source>
+        <translation>上传过程中出错</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="148"/>
+        <source>Failed to start download</source>
+        <translation>启动下载失败</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="151"/>
+        <source>Error occured in download</source>
+        <translation>下载过程中出错</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="157"/>
+        <source>Library is damaged on server</source>
+        <translation>该资料库在服务器上已损坏</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="160"/>
+        <source>Conflict in merge</source>
+        <translation>合并文件更改时产生冲突</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="163"/>
+        <source>Server version is too old</source>
+        <translation>服务器版本太低</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="169"/>
+        <source>Unknown error</source>
+        <translation>未知错误</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="172"/>
+        <source>The storage quota has been used up</source>
+        <translation>该用户的空间已经用完</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="175"/>
+        <source>Internal server error</source>
+        <translation>服务器出错了</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="181"/>
+        <source>Your %1 client is too old</source>
+        <translation>你的 % 客户端版本太低</translation>
+    </message>
+    <message>
+        <source>Your seafile client is too old</source>
+        <translation type="obsolete">你的 Seafile 客户端版本太旧了</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="184"/>
+        <location filename="../src/rpc/local-repo.cpp" line="187"/>
+        <location filename="../src/rpc/local-repo.cpp" line="190"/>
+        <location filename="../src/rpc/local-repo.cpp" line="193"/>
+        <location filename="../src/rpc/local-repo.cpp" line="196"/>
+        <location filename="../src/rpc/local-repo.cpp" line="198"/>
+        <location filename="../src/rpc/local-repo.cpp" line="200"/>
+        <location filename="../src/rpc/local-repo.cpp" line="202"/>
+        <location filename="../src/rpc/local-repo.cpp" line="204"/>
+        <location filename="../src/rpc/local-repo.cpp" line="206"/>
+        <location filename="../src/rpc/local-repo.cpp" line="208"/>
+        <location filename="../src/rpc/local-repo.cpp" line="210"/>
+        <location filename="../src/rpc/local-repo.cpp" line="212"/>
+        <location filename="../src/rpc/local-repo.cpp" line="214"/>
+        <location filename="../src/rpc/local-repo.cpp" line="216"/>
+        <location filename="../src/rpc/local-repo.cpp" line="218"/>
+        <location filename="../src/rpc/local-repo.cpp" line="220"/>
+        <location filename="../src/rpc/local-repo.cpp" line="222"/>
+        <location filename="../src/rpc/local-repo.cpp" line="224"/>
+        <location filename="../src/rpc/local-repo.cpp" line="226"/>
+        <location filename="../src/rpc/local-repo.cpp" line="228"/>
+        <location filename="../src/rpc/local-repo.cpp" line="230"/>
+        <source>Failed to sync this library</source>
+        <translation>同步该资料库时出错</translation>
+    </message>
+    <message>
         <source>Access denied to service.</source>
-        <translation>你没有访问权限。</translation>
+        <translation type="obsolete">你没有访问权限。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="138"/>
         <source>Internal data corrupted.</source>
-        <translation>内部数据损坏。</translation>
+        <translation type="obsolete">内部数据损坏。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="141"/>
         <source>Failed to start upload.</source>
-        <translation>启动上传失败。</translation>
+        <translation type="obsolete">启动上传失败。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="144"/>
         <source>Error occured in upload.</source>
-        <translation>上传过程中出错。</translation>
+        <translation type="obsolete">上传过程中出错。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="147"/>
         <source>Failed to start download.</source>
-        <translation>启动下载失败。</translation>
+        <translation type="obsolete">启动下载失败。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="150"/>
         <source>Error occured in download.</source>
-        <translation>下载过程中出错。</translation>
+        <translation type="obsolete">下载过程中出错。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="153"/>
+        <location filename="../src/rpc/local-repo.cpp" line="154"/>
         <source>Library is deleted on server</source>
         <translation>资料库在服务器上被删除</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="156"/>
+        <source>Repo is damaged on relay.</source>
+        <translation type="obsolete">服务器上的资料库已损坏</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Error when accessing the local folder</source>
         <translation>访问本地文件夹时出错</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="159"/>
         <source>Unknown error.</source>
-        <translation>未知错误。</translation>
+        <translation type="obsolete">未知错误。</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -1289,6 +1411,11 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/api/api-error.cpp" line="59"/>
         <source>Server Error</source>
         <translation>服务器内部错误</translation>
+    </message>
+    <message>
+        <location filename="../src/certs-mgr.cpp" line="65"/>
+        <source>failed to open certs database</source>
+        <translation>打开证书数据库时失败</translation>
     </message>
 </context>
 <context>
@@ -1525,14 +1652,22 @@ The library owner&apos;s storage space is used up.</source>
     </message>
 </context>
 <context>
+    <name>SeafileApiClient</name>
+    <message>
+        <location filename="../src/api/api-client.cpp" line="93"/>
+        <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
+        <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
+    </message>
+</context>
+<context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="210"/>
+        <location filename="../src/seafile-applet.cpp" line="214"/>
         <source>Failed to initialize log</source>
         <translation>初始化日志失败</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="297"/>
+        <location filename="../src/seafile-applet.cpp" line="301"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -1766,6 +1901,47 @@ Do you want to visit the download page?</source>
         <location filename="../ui_settings-dialog.h" line="193"/>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>SslConfirmDialog</name>
+    <message>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="11"/>
+        <source>Untrusted Connection</source>
+        <translation>不安全的连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
+        <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
+        <translation>%1 使用了不合法的安全证书，该网络连接可能不安全。是否继续？</translation>
+    </message>
+    <message>
+        <source>%1 uses an invalid security certificate. The connection is not secure. Do you want to continue?</source>
+        <translation type="obsolete">%1 使用了不合法的安全证书，该网络连接可能不安全。是否继续？</translation>
+    </message>
+    <message>
+        <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
+        <source>Dialog</source>
+        <translation>对话框</translation>
+    </message>
+    <message>
+        <source>Don&apos;t Ask Again</source>
+        <translation type="obsolete">不要再询问</translation>
+    </message>
+    <message>
+        <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
+        <source>Remember my choice</source>
+        <translation>记住我的选择</translation>
+    </message>
+    <message>
+        <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
+        <source>Yes</source>
+        <translation>是</translation>
+    </message>
+    <message>
+        <location filename="../ui_ssl-confirm-dialog.h" line="100"/>
+        <source>No</source>
+        <translation>否</translation>
     </message>
 </context>
 <context>

@@ -27,7 +27,7 @@
    <item>
     <widget class="QCheckBox" name="mRememberChoiceCheckBox">
      <property name="text">
-      <string>Don't Ask Again</string>
+      <string>Remember my choice</string>
      </property>
     </widget>
    </item>

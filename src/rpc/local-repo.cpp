@@ -1,6 +1,7 @@
 #include <glib-object.h>
 
 #include "utils/utils.h"
+#include "seafile-applet.h"
 #include "local-repo.h"
 
 LocalRepo LocalRepo::fromGObject(GObject *obj)
@@ -132,35 +133,106 @@ void LocalRepo::translateSyncError(QString error)
         sync_error_str = QObject::tr("Remote service is not available");
 
     } else if (error == "Access denied to service. Please check your registration on relay.") {
-        sync_error_str = QObject::tr("Access denied to service.");
+        sync_error_str = QObject::tr("Access denied to service");
 
     } else if (error == "Internal data corrupted.") {
-        sync_error_str = QObject::tr("Internal data corrupted.");
+        sync_error_str = QObject::tr("Internal data corrupted");
 
     } else if (error == "Failed to start upload.") {
-        sync_error_str = QObject::tr("Failed to start upload.");
+        sync_error_str = QObject::tr("Failed to start upload");
 
     } else if (error == "Error occured in upload.") {
-        sync_error_str = QObject::tr("Error occured in upload.");
+        sync_error_str = QObject::tr("Error occured in upload");
 
     } else if (error == "Failed to start download.") {
-        sync_error_str = QObject::tr("Failed to start download.");
+        sync_error_str = QObject::tr("Failed to start download");
 
     } else if (error == "Error occured in download.") {
-        sync_error_str = QObject::tr("Error occured in download.");
+        sync_error_str = QObject::tr("Error occured in download");
 
     } else if (error == "No such repo on relay.") {
         sync_error_str = QObject::tr("Library is deleted on server");
 
+    } else if (error == "Repo is damaged on relay.") {
+        sync_error_str = QObject::tr("Library is damaged on server");
+
+    } else if (error == "Conflict in merge.") {
+        sync_error_str = QObject::tr("Conflict in merge");
+
+    } else if (error == "Server version is too old.") {
+        sync_error_str = QObject::tr("Server version is too old");
+
     } else if (error == "invalid worktree") {
         sync_error_str = QObject::tr("Error when accessing the local folder");
 
-    } else if (error == "Unknown error.") {
-        sync_error_str = QObject::tr("Unknown error.");
+    } else if (error == "Unknown error." || error == "Unknown error") {
+        sync_error_str = QObject::tr("Unknown error");
+
+    } else if (error == "Storage quota full") {
+        sync_error_str = QObject::tr("The storage quota has been used up");
+
+    } else if (error == "Service on remote server is not available") {
+        sync_error_str = QObject::tr("Internal server error");
+
+    } else if (error == "Access denied to service. Please check your registration on server.") {
+        sync_error_str = QObject::tr("Access denied to service");
+
+    } else if (error == "Transfer protocol outdated. You need to upgrade seafile.") {
+        sync_error_str = QObject::tr("Your %1 client is too old").arg(getBrand());
+
+    } else if (error == "Internal error when preparing upload") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+
+    } else if (error == "Internal error when preparing download") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+
+    } else if (error == "No permission to access remote library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+
+    } else if (error == "Library doesn't exist on the remote end") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+
+    } else if (error == "Internal error when starting to send revision information") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Internal error when starting to get revision information") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to upload revision information to remote library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to get revision information from remote library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Internal error when starting to send file information") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Internal error when starting to get file information") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Incomplete file information in the local library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to upload file information to remote library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to get file information from remote library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Internal error when starting to update remote library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Others have concurrent updates to the remote library. You need to sync again.") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Server failed to check storage quota") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Incomplete revision information in the local library") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to compare data to server.") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to get block server list.") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to start block transfer client.") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to upload blocks.") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+    } else if (error == "Failed to download blocks.") {
+        sync_error_str = QObject::tr("Failed to sync this library");
+
     } else {
         sync_error_str = error;
     }
-};
+}
 
 QIcon LocalRepo::getIcon() const
 {

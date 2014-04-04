@@ -66,7 +66,7 @@ void MainWindow::hide()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     hide();
-    event->ignore();
+    // event->ignore();
 }
 
 bool MainWindow::event(QEvent *ev)

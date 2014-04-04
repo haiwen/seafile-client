@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>284</height>
+    <width>551</width>
+    <height>261</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@ min-width: 300px;
 }
 </string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_6">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <widget class="QFrame" name="mFrame">
      <property name="styleSheet">
@@ -42,11 +42,11 @@ min-width: 300px;
      <property name="lineWidth">
       <number>0</number>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QLabel" name="mDownloadLabel">
+         <widget class="QLabel" name="mOperationText">
           <property name="font">
            <font>
             <pointsize>12</pointsize>
@@ -59,14 +59,18 @@ min-width: 300px;
            <number>0</number>
           </property>
           <property name="text">
-           <string>Download this library to:</string>
+           <string notr="true">Create a new sync folder at:</string>
           </property>
          </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLineEdit" name="mDirectory"/>
+           <widget class="QLineEdit" name="mDirectory">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="mChooseDirBtn">
@@ -110,28 +114,17 @@ min-width: 300px;
        </layout>
       </item>
       <item>
-       <widget class="QLabel" name="mSyncHint">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="styleSheet">
-         <string notr="true"/>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>0</height>
+         </size>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
-        <property name="lineWidth">
-         <number>0</number>
-        </property>
-        <property name="text">
-         <string>Files in the local folder will be merged with files in the library</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
+       </spacer>
       </item>
       <item>
        <widget class="QFrame" name="mSwitchToSyncFrame">
@@ -155,31 +148,9 @@ min-width: 300px;
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label">
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>0</number>
-           </property>
+          <widget class="QLabel" name="mSwitchModeHint">
            <property name="text">
-            <string>Advanced:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="mSwitchToSyncBtn">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>sync with existing folder</string>
+            <string notr="true">or merge with an existing folder </string>
            </property>
           </widget>
          </item>
@@ -213,6 +184,9 @@ min-width: 300px;
        </spacer>
       </item>
      </layout>
+     <zorder>mSwitchToSyncFrame</zorder>
+     <zorder>mSwitchModeHint</zorder>
+     <zorder>verticalSpacer</zorder>
     </widget>
    </item>
    <item>
@@ -252,12 +226,11 @@ min-width: 300px;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>mOkBtn</tabstop>
-  <tabstop>mDirectory</tabstop>
   <tabstop>mChooseDirBtn</tabstop>
   <tabstop>mPassword</tabstop>
-  <tabstop>mSwitchToSyncBtn</tabstop>
+  <tabstop>mOkBtn</tabstop>
   <tabstop>mCancelBtn</tabstop>
+  <tabstop>mDirectory</tabstop>
  </tabstops>
  <resources/>
  <connections>

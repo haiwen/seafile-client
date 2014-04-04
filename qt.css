@@ -323,7 +323,7 @@ QLabel#loadingFailedText {
 SettingsDialog {
     min-width: 450px;
     max-width: 450px;
-    
+
     min-height: 350px;
     max-height: 350px;
 }
@@ -382,4 +382,16 @@ SslConfirmDialog QCheckBox#mRememberChoiceCheckBox {
     margin-left: 20px;
     margin-bottom: 5px;
     /* border: 1px solid black; */
+}
+
+DownloadRepoDialog {
+    min-height: 230px;
+    max-height: 230px;
+}
+
+DownloadRepoDialog QLabel#mRepoName {
+    color: #696969;
+}
+
+DownloadRepoDialog QPushButton#mSwitchToSyncBtn {
 }

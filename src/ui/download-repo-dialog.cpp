@@ -10,22 +10,23 @@
 #include "api/server-repo.h"
 #include "download-repo-dialog.h"
 
+namespace {
+
+} // namespace
+
 DownloadRepoDialog::DownloadRepoDialog(const Account& account,
                                        const ServerRepo& repo,
                                        QWidget *parent)
     : QDialog(parent),
       repo_(repo),
-      sync_with_existing_(false),
-      account_(account)
+      account_(account),
+      mode_(CREATE_NEW_FOLDER)
 {
     setupUi(this);
-    setWindowTitle(tr("Download library \"%1\"").arg(repo_.name));
+    setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
 
-    // mRepoIcon->setPixmap(repo_.getPixmap().scaled(32, 32));
-    // mRepoName->setText(QString().sprintf("<b>%s</b>", toCStr(repo_.name)));
-    mDirectory->setText(seafApplet->configurator()->worktreeDir());
-
-    mSyncHint->setVisible(false);
+    mDirectory->setReadOnly(true);
+    mDirectory->setPlaceholderText(tr("Choose a folder"));
 
     if (repo_.encrypted) {
         mPassword->setVisible(true);
@@ -33,11 +34,77 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     } else {
         mPassword->setVisible(false);
         mPasswordLabel->setVisible(false);
+        setMaximumSize(QSize(size().width(), 200));
     }
 
+    saved_create_new_path_ = seafApplet->configurator()->worktreeDir();
+
+    updateSyncMode();
+
+    connect(mSwitchModeHint, SIGNAL(linkActivated(const QString&)),
+            this, SLOT(switchMode()));
+
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
-    connect(mSwitchToSyncBtn, SIGNAL(clicked()), this, SLOT(switchToSync()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
+}
+
+void DownloadRepoDialog::switchMode()
+{
+    if (mode_ == CREATE_NEW_FOLDER) {
+        mode_ = MERGE_WITH_EXISTING_FOLDER;
+    } else {
+        mode_ = CREATE_NEW_FOLDER;
+    }
+
+    updateSyncMode();
+}
+
+void DownloadRepoDialog::updateSyncMode()
+{
+    QString switch_hint_text;
+    QString op_text;
+    const QString link_template = "<a style=\"color:#FF9A2A\" href=\"#\">%1</a>";
+
+    mDirectory->clear();
+
+    if (mode_ == CREATE_NEW_FOLDER) {
+        QString link = link_template.arg(tr("merge"));
+        switch_hint_text = tr("or %1 with an existing folder").arg(link);
+
+        op_text = tr("Create a new sync folder at:");
+
+        if (!saved_create_new_path_.isNull()) {
+            setDirectoryText(saved_create_new_path_);
+        }
+
+    } else {
+        QString link = link_template.arg(tr("create"));
+        switch_hint_text = tr("or %1 a new sync folder").arg(link);
+        op_text = tr("Merge with this existing folder:");
+
+        if (!saved_merge_existing_path_.isNull()) {
+            setDirectoryText(saved_merge_existing_path_);
+        }
+    }
+
+    mOperationText->setText(op_text);
+    mSwitchModeHint->setText(switch_hint_text);
+}
+
+void DownloadRepoDialog::setDirectoryText(const QString& path)
+{
+    QString text = path;
+    if (text.endsWith("/")) {
+        text.resize(text.size() - 1);
+    }
+
+    mDirectory->setText(text);
+
+    if (mode_ == CREATE_NEW_FOLDER) {
+        saved_create_new_path_ = text;
+    } else {
+        saved_merge_existing_path_ = text;
+    }
 }
 
 void DownloadRepoDialog::chooseDirAction()
@@ -49,7 +116,7 @@ void DownloadRepoDialog::chooseDirAction()
                                                     | QFileDialog::DontResolveSymlinks);
     if (dir.isEmpty())
         return;
-    mDirectory->setText(dir);
+    setDirectoryText(dir);
 }
 
 void DownloadRepoDialog::onOkBtnClicked()
@@ -71,7 +138,7 @@ void DownloadRepoDialog::onOkBtnClicked()
 bool DownloadRepoDialog::validateInputs()
 {
     QString local_dir, password;
-    mDirectory->setText(mDirectory->text().trimmed());
+    setDirectoryText(mDirectory->text().trimmed());
     if (mDirectory->text().isEmpty()) {
         QMessageBox::warning(this, getBrand(),
                              tr("Please choose the folder to sync"),
@@ -100,25 +167,11 @@ bool DownloadRepoDialog::validateInputs()
     return true;
 }
 
-void DownloadRepoDialog::switchToSync()
-{
-    mSwitchToSyncFrame->setVisible(false);
-    mSyncHint->setVisible(true);
-
-    mDirectory->clear();
-
-    setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
-    mDownloadLabel->setText(tr("Sync this library with:"));
-
-    sync_with_existing_ = true;
-}
-
 void DownloadRepoDialog::setAllInputsEnabled(bool enabled)
 {
     mDirectory->setEnabled(enabled);
     mChooseDirBtn->setEnabled(enabled);
     mPassword->setEnabled(enabled);
-    mSwitchToSyncBtn->setEnabled(enabled);
     mOkBtn->setEnabled(enabled);
 }
 
@@ -128,7 +181,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     QString password = repo_.encrypted ? mPassword->text() : QString();
     int ret;
     QString error;
-    if (sync_with_existing_) {
+    if (mode_ == MERGE_WITH_EXISTING_FOLDER) {
         ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
                                                  info.relay_id,
                                                  repo_.name, worktree,

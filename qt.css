@@ -345,12 +345,10 @@ LoginDialog QLabel#hint_3
 
 SslConfirmDialog {
     min-width: 400px;
-    min-height: 150px;
+    min-height: 200px;
 }
 
 SslConfirmDialog QLabel#mHint {
-    min-height: 40px;
-    max-height: 40px;
     margin-right: 20px;
 }
 

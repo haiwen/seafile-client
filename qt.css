@@ -345,7 +345,7 @@ LoginDialog QLabel#hint_3
 
 SslConfirmDialog {
     min-width: 400px;
-    min-height: 300px;
+    min-height: 150px;
 }
 
 SslConfirmDialog QLabel#mHint {
@@ -354,32 +354,9 @@ SslConfirmDialog QLabel#mHint {
     margin-right: 20px;
 }
 
-SslConfirmDialog QLabel#mIcon {
-    min-width: 24px;
-    max-width: 24px;
-    min-height: 24px;
-    max-height: 24px;
-    margin-left: 20px;
-}
-
-SslConfirmDialog QLabel#mErrorDetail {
-    margin-left: 0;
-    /* font-weight: bold; */
-    margin-right: 20px;
-}
-
-SslConfirmDialog QLabel#mQuestion {
-    margin-left: 20px;
-    min-height: 40px;
-    max-height: 40px;
-    margin-bottom: 5px;
-    /* border: 1px solid black; */
-}
-
 SslConfirmDialog QCheckBox#mRememberChoiceCheckBox {
     min-height: 40px;
     max-height: 40px;
-    margin-left: 20px;
     margin-bottom: 5px;
     /* border: 1px solid black; */
 }

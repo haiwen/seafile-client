@@ -7,60 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>166</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>9</number>
-   </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="mIcon">
-       <property name="text">
-        <string notr="true">icon</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="mHint">
-       <property name="text">
-        <string notr="true">hint</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="mErrorDetail">
+    <widget class="QLabel" name="mHint">
      <property name="text">
-      <string notr="true">Detail</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="mQuestion">
-     <property name="text">
-      <string notr="true">question</string>
+      <string notr="true">hint</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -84,10 +41,10 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="topMargin">
-      <number>9</number>
+      <number>0</number>
      </property>
      <property name="bottomMargin">
-      <number>9</number>
+      <number>0</number>
      </property>
      <item>
       <spacer name="horizontalSpacer">
@@ -120,6 +77,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>mYesBtn</tabstop>
+  <tabstop>mRememberChoiceCheckBox</tabstop>
+  <tabstop>mNoBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -23,6 +23,7 @@ ServerStatusDialog::ServerStatusDialog(QWidget *parent) : QDialog(parent)
     setupUi(this);
 
     setWindowTitle(tr("Servers connection status"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshStatus()));

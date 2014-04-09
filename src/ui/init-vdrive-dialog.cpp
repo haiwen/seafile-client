@@ -33,6 +33,7 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
     setWindowTitle(tr("Download Default Library"));
     setWindowIcon(QIcon(":/images/seafile.png"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     setStatusIcon(":/images/download-48.png");
 

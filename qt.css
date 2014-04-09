@@ -364,12 +364,22 @@ SslConfirmDialog QCheckBox#mRememberChoiceCheckBox {
 }
 
 DownloadRepoDialog {
-    min-height: 230px;
-    max-height: 230px;
+    min-height: 250px;
+    max-height: 250px;
 }
 
 DownloadRepoDialog QLabel#mRepoName {
-    color: #696969;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+DownloadRepoDialog QLabel#mRepoIcon {
+    min-width: 36px;
+    max-width: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    margin-right: 10px;
+    margin-bottom: 15px;
 }
 
 DownloadRepoDialog QPushButton#mSwitchToSyncBtn {

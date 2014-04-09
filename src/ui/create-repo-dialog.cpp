@@ -18,6 +18,7 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
 {
     setupUi(this);
     setWindowTitle(tr("Create a library"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     mStatusText->setText("");
 

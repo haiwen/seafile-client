@@ -101,9 +101,8 @@
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="122"/>
         <source>Show download tasks</source>
-        <translation>显示下载任务</translation>
+        <translation type="obsolete">显示下载任务</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="132"/>
@@ -196,79 +195,78 @@
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="319"/>
+        <location filename="../ui_cloud-view.h" line="301"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="320"/>
+        <location filename="../ui_cloud-view.h" line="302"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="321"/>
+        <location filename="../ui_cloud-view.h" line="303"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="322"/>
+        <location filename="../ui_cloud-view.h" line="304"/>
         <source>minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="323"/>
+        <location filename="../ui_cloud-view.h" line="305"/>
         <source>close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="324"/>
+        <location filename="../ui_cloud-view.h" line="306"/>
         <source>Account</source>
         <translation>帐号</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="325"/>
+        <location filename="../ui_cloud-view.h" line="307"/>
         <source>email</source>
         <translation>邮箱</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="326"/>
+        <location filename="../ui_cloud-view.h" line="308"/>
         <source>server</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="327"/>
-        <location filename="../ui_cloud-view.h" line="330"/>
-        <location filename="../ui_cloud-view.h" line="332"/>
+        <location filename="../ui_cloud-view.h" line="309"/>
+        <location filename="../ui_cloud-view.h" line="312"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="328"/>
+        <location filename="../ui_cloud-view.h" line="310"/>
         <source>Select</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="329"/>
+        <location filename="../ui_cloud-view.h" line="311"/>
         <source>or Drop Folder to Sync</source>
         <translation>或拖拽文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="333"/>
+        <location filename="../ui_cloud-view.h" line="313"/>
         <source>download rate</source>
         <translation>下载速率</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="334"/>
+        <location filename="../ui_cloud-view.h" line="314"/>
         <source>downarrow</source>
         <translation>向下的箭头</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="335"/>
+        <location filename="../ui_cloud-view.h" line="315"/>
         <source>upload rate</source>
         <translation>上传速率</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="336"/>
+        <location filename="../ui_cloud-view.h" line="316"/>
         <source>uparrow</source>
         <translation>向上的箭头</translation>
     </message>
@@ -445,57 +443,72 @@
         <translation type="obsolete">下载资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="29"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="35"/>
         <source>Choose a folder</source>
         <translation>选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="71"/>
         <source>merge</source>
-        <translation>合并</translation>
+        <translation type="obsolete">合并</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="72"/>
         <source>or %1 with an existing folder</source>
-        <translation>或者 %1 一个已有文件夹</translation>
+        <translation type="obsolete">或者 %1 一个已有文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="74"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="81"/>
         <source>Create a new sync folder at:</source>
         <translation>创建一个新的同步文件夹于：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="81"/>
         <source>create</source>
-        <translation>创建</translation>
+        <translation type="obsolete">创建</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="82"/>
         <source>or %1 a new sync folder</source>
-        <translation>或者 %1 一个新的同步文件夹</translation>
+        <translation type="obsolete">或者 %1 一个新的同步文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="83"/>
         <source>Merge with this existing folder:</source>
-        <translation>与已有文件夹合并：</translation>
+        <translation type="obsolete">与已有文件夹合并：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="113"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
+        <source>or</source>
+        <translation>或者</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="78"/>
+        <source>sync with an existing folder</source>
+        <translation>和一个已有文件夹同步</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="88"/>
+        <source>create a new sync folder</source>
+        <translation>创建一个新的同步文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
+        <source>Sync with this existing folder:</source>
+        <translation>与这个已有文件夹同步：</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="121"/>
         <source>Please choose a directory</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="144"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="152"/>
         <source>Please choose the folder to sync</source>
         <translation>请选择要同步的文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="151"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="159"/>
         <source>The folder does not exist</source>
         <translation>该文件夹不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="159"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="167"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
@@ -509,13 +522,13 @@
         <translation type="obsolete">将该资料库同步至：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="206"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="214"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="217"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="225"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -526,7 +539,7 @@
         <translation type="obsolete">获取资料库信息失败</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="200"/>
+        <location filename="../ui_download-repo-dialog.h" line="224"/>
         <source>Download Library</source>
         <translation>下载资料库</translation>
     </message>
@@ -535,12 +548,12 @@
         <translation type="obsolete">将该资料库下载到：</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="201"/>
+        <location filename="../ui_download-repo-dialog.h" line="225"/>
         <source>choose...</source>
         <translation>选择...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="202"/>
+        <location filename="../ui_download-repo-dialog.h" line="226"/>
         <source>Password for this library:</source>
         <translation>该资料库的密码：</translation>
     </message>
@@ -557,12 +570,12 @@
         <translation type="obsolete">与已有的本地文件夹同步</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="203"/>
+        <location filename="../ui_download-repo-dialog.h" line="227"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="204"/>
+        <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1421,18 +1434,18 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoDetailDialog</name>
     <message>
-        <location filename="../src/ui/repo-detail-dialog.cpp" line="27"/>
+        <location filename="../src/ui/repo-detail-dialog.cpp" line="29"/>
         <source>Library &quot;%1&quot;</source>
         <translation>资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-detail-dialog.cpp" line="62"/>
-        <location filename="../src/ui/repo-detail-dialog.cpp" line="98"/>
+        <location filename="../src/ui/repo-detail-dialog.cpp" line="64"/>
+        <location filename="../src/ui/repo-detail-dialog.cpp" line="122"/>
         <source>This library is not downloaded yet</source>
         <translation>这个资料库还没有下载到本地</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-detail-dialog.cpp" line="85"/>
+        <location filename="../src/ui/repo-detail-dialog.cpp" line="87"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
@@ -1563,24 +1576,48 @@ The library owner&apos;s storage space is used up.</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>&amp;Show details</source>
-        <translation>详情(&amp;S)</translation>
+        <translation type="obsolete">详情(&amp;S)</translation>
+    </message>
+    <message>
+        <source>Download this library</source>
+        <translation type="obsolete">下载这个资料库</translation>
+    </message>
+    <message>
+        <source>&amp;Download this library</source>
+        <translation type="obsolete">下载(&amp;D)</translation>
+    </message>
+    <message>
+        <source>Show &amp;details</source>
+        <translation type="obsolete">显示细节(&amp;d)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
-        <source>Download this library</source>
-        <translation>下载这个资料库</translation>
+        <source>Show details of this library</source>
+        <translation>查看该资料库详细信息</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
-        <source>&amp;Download this library</source>
-        <translation>下载(&amp;D)</translation>
+        <source>&amp;Sync this library</source>
+        <translation>同步该资料库(&amp;S)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
+        <source>Sync this library</source>
+        <translation>同步这个资料库</translation>
+    </message>
+    <message>
+        <source>&amp;Sync now</source>
+        <translation type="obsolete">立即同步(&amp;S)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
+        <source>Show &amp;Details</source>
+        <translation>详情(&amp;D)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
-        <source>&amp;Sync now</source>
+        <source>Sync &amp;Now</source>
         <translation>立即同步(&amp;S)</translation>
     </message>
     <message>

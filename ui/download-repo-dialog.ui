@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>551</width>
-    <height>261</height>
+    <height>289</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,12 +44,43 @@ min-width: 300px;
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="mRepoIcon">
+          <property name="text">
+           <string notr="true">repoIcon</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="mRepoName">
+          <property name="text">
+           <string notr="true">repoName</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLabel" name="mOperationText">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>11</pointsize>
            </font>
           </property>
           <property name="frameShadow">
@@ -185,8 +216,8 @@ min-width: 300px;
       </item>
      </layout>
      <zorder>mSwitchToSyncFrame</zorder>
-     <zorder>mSwitchModeHint</zorder>
      <zorder>verticalSpacer</zorder>
+     <zorder>layoutWidget</zorder>
     </widget>
    </item>
    <item>

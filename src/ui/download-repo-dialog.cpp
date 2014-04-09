@@ -24,6 +24,13 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 {
     setupUi(this);
     setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+    QString icon_path = repo_.encrypted
+                    ? ":/images/encrypted-repo.png"
+                    : ":/images/repo.png";
+    mRepoIcon->setPixmap(QPixmap(icon_path));
+    mRepoName->setText(repo_.name);
 
     mDirectory->setReadOnly(true);
     mDirectory->setPlaceholderText(tr("Choose a folder"));
@@ -67,9 +74,10 @@ void DownloadRepoDialog::updateSyncMode()
 
     mDirectory->clear();
 
+    QString OR = tr("or");
     if (mode_ == CREATE_NEW_FOLDER) {
-        QString link = link_template.arg(tr("merge"));
-        switch_hint_text = tr("or %1 with an existing folder").arg(link);
+        QString link = link_template.arg(tr("sync with an existing folder"));
+        switch_hint_text = QString("%1 %2").arg(OR).arg(link);
 
         op_text = tr("Create a new sync folder at:");
 
@@ -78,9 +86,10 @@ void DownloadRepoDialog::updateSyncMode()
         }
 
     } else {
-        QString link = link_template.arg(tr("create"));
-        switch_hint_text = tr("or %1 a new sync folder").arg(link);
-        op_text = tr("Merge with this existing folder:");
+        QString link = link_template.arg(tr("create a new sync folder"));
+        switch_hint_text = QString("%1 %2").arg(OR).arg(link);
+
+        op_text = tr("Sync with this existing folder:");
 
         if (!saved_merge_existing_path_.isNull()) {
             setDirectoryText(saved_merge_existing_path_);

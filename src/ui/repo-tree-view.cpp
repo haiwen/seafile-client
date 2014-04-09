@@ -193,19 +193,19 @@ QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
 
 void RepoTreeView::createActions()
 {
-    show_detail_action_ = new QAction(tr("&Show details"), this);
+    show_detail_action_ = new QAction(tr("Show &Details"), this);
     show_detail_action_->setIcon(QIcon(":/images/info.png"));
-    show_detail_action_->setStatusTip(tr("Download this library"));
+    show_detail_action_->setStatusTip(tr("Show details of this library"));
     show_detail_action_->setIconVisibleInMenu(true);
     connect(show_detail_action_, SIGNAL(triggered()), this, SLOT(showRepoDetail()));
 
-    download_action_ = new QAction(tr("&Download this library"), this);
+    download_action_ = new QAction(tr("&Sync this library"), this);
     download_action_->setIcon(QIcon(":/images/download.png"));
-    download_action_->setStatusTip(tr("Download this library"));
+    download_action_->setStatusTip(tr("Sync this library"));
     download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
-    sync_now_action_ = new QAction(tr("&Sync now"), this);
+    sync_now_action_ = new QAction(tr("Sync &Now"), this);
     sync_now_action_->setIcon(QIcon(":/images/sync_now.png"));
     sync_now_action_->setStatusTip(tr("Sync this library immediately"));
     sync_now_action_->setIconVisibleInMenu(true);

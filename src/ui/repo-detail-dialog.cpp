@@ -8,8 +8,10 @@
 #include "configurator.h"
 #include "api/requests.h"
 #include "rpc/rpc-client.h"
-#include "repo-detail-dialog.h"
+#include "rpc/clone-task.h"
 #include "rpc/local-repo.h"
+
+#include "repo-detail-dialog.h"
 
 namespace {
 
@@ -25,6 +27,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
 {
     setupUi(this);
     setWindowTitle(tr("Library \"%1\"").arg(repo.name));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     mDesc->setText(repo.description);
     mTimeLabel->setText(translateCommitTime(repo.mtime));
@@ -95,7 +98,30 @@ void RepoDetailDialog::updateRepoStatus()
         }
 
     } else {
-        text = tr("This library is not downloaded yet");
+        std::vector<CloneTask> tasks;
+        seafApplet->rpcClient()->getCloneTasks(&tasks);
+
+        CloneTask task;
+
+        if (!tasks.empty()) {
+            for (size_t i = 0; i < tasks.size(); ++i) {
+                CloneTask clone_task = tasks[i];
+                if (clone_task.repo_id == repo_.id) {
+                    task = clone_task;
+                    break;
+                }
+            }
+        }
+
+        if (task.isValid() && task.isDisplayable()) {
+            if (task.error_str.length() > 0) {
+                text = task.error_str;
+            } else {
+                text = task.state_str;
+            }
+        } else {
+            text = tr("This library is not downloaded yet");
+        }
     }
 
     mStatus->setText(text);

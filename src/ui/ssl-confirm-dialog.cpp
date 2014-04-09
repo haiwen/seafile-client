@@ -9,6 +9,7 @@ SslConfirmDialog::SslConfirmDialog(const QUrl& url,
     setupUi(this);
 
     setWindowTitle(tr("Untrusted Connection"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     QString hint = tr("%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?").arg(url_.host());
     mHint->setText(hint);

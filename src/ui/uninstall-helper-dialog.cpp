@@ -11,6 +11,7 @@ UninstallHelperDialog::UninstallHelperDialog(QWidget *parent)
     setupUi(this);
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowTitle(tr("Uninstall %1").arg(getBrand()));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     mText->setText(tr("Do you want to remove the %1 account information?").arg(getBrand()));
 

@@ -117,10 +117,10 @@ void CloudView::setupHeader()
 
 void CloudView::setupFooter()
 {
-    mDownloadTasksInfo->setText("0");
-    mDownloadTasksBtn->setIcon(QIcon(":/images/download-gray.png"));
-    mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
-    connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
+    // mDownloadTasksInfo->setText("0");
+    // mDownloadTasksBtn->setIcon(QIcon(":/images/download-gray.png"));
+    // mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
+    // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
     mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
@@ -534,7 +534,7 @@ void CloudView::refreshTasksInfo()
         return;
     }
 
-    mDownloadTasksInfo->setText(QString::number(count));
+    // mDownloadTasksInfo->setText(QString::number(count));
 }
 
 void CloudView::refreshServerStatus()

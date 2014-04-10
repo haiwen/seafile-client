@@ -75,6 +75,7 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 
     clear();
 
+    QHash<QString, ServerRepo> map;
     for (i = 0; i < n; i++) {
         const ServerRepo& repo = repos[i];
         if (repo.isPersonalRepo()) {
@@ -88,17 +89,17 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
         } else {
             checkGroupRepo(repo);
         }
+
+        map[repo.id] = repo;
     }
 
-    std::vector<ServerRepo> repos_copy(repos);
-    // sort all repso by timestamp
-    std::sort(repos_copy.begin(), repos_copy.end(), compareRepoByTimestamp);
-    // erase duplidates
-    repos_copy.erase(std::unique(repos_copy.begin(), repos_copy.end(), isSameRepo), repos_copy.end());
+    QList<ServerRepo> list = map.values();
+    // sort all repos by timestamp
+    std::sort(list.begin(), list.end(), compareRepoByTimestamp);
 
-    n = qMin((int)repos_copy.size(), kMaxRecentUpdatedRepos);
+    n = qMin(list.size(), kMaxRecentUpdatedRepos);
     for (i = 0; i < n; i++) {
-        RepoItem *item = new RepoItem(repos_copy[i]);
+        RepoItem *item = new RepoItem(list[i]);
         recent_updated_category_->appendRow(item);
     }
 }
@@ -321,7 +322,7 @@ void RepoTreeModel::updateRepoItemAfterSyncNow(RepoItem *item, void *data)
     if (r.isValid() && r.id == repo_id) {
         // We manually set the sync state of the repo to "SYNC_STATE_ING" to give
         // the user immediate feedback
-        
+
         r.sync_state = LocalRepo::SYNC_STATE_ING;
         item->setLocalRepo(r);
         item->setSyncNowClicked(true);

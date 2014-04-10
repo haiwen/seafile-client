@@ -10,6 +10,9 @@
 #include "repo-item.h"
 #include "repo-tree-view.h"
 #include "repo-tree-model.h"
+#include "rpc/rpc-client.h"
+#include "rpc/local-repo.h"
+
 #include "repo-item-delegate.h"
 
 namespace {
@@ -231,10 +234,20 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
 
     QString description;
-    if (item->cloneTask().isValid() && item->cloneTask().isDisplayable()) {
-        description = item->cloneTask().state_str;
+
+    const LocalRepo& r = item->localRepo();
+    if (r.isValid() && r.sync_state == LocalRepo::SYNC_STATE_ING) {
+        description = r.sync_state_str;
+        int rate, percent;
+        if (seafApplet->rpcClient()->getRepoTransferInfo(r.id, &rate, &percent) == 0) {
+            description += ", " + QString::number(percent) + "%";
+        }
     } else {
-        description = translateCommitTime(repo.mtime);
+        if (item->cloneTask().isValid() && item->cloneTask().isDisplayable()) {
+            description = item->cloneTask().state_str;
+        } else {
+            description = translateCommitTime(repo.mtime);
+        }
     }
 
     painter->drawText(repo_desc_rect,

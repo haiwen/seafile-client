@@ -254,7 +254,7 @@ CloudView QFrame#mFooter QLabel#mUploadRate
     color: #525252;
     font-size: 15px;
     padding-top: 5px;
-    min-width: 65px;
+    min-width: 75px;
     /* max-width: 80px; */
     qproperty-alignment: right;
 }
@@ -369,8 +369,8 @@ DownloadRepoDialog {
 }
 
 DownloadRepoDialog QLabel#mRepoName {
-    margin-bottom: 15px;
     font-size: 16px;
+    margin-bottom: 8px;
 }
 
 DownloadRepoDialog QLabel#mRepoIcon {
@@ -379,7 +379,7 @@ DownloadRepoDialog QLabel#mRepoIcon {
     min-height: 36px;
     max-height: 36px;
     margin-right: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 DownloadRepoDialog QPushButton#mSwitchToSyncBtn {

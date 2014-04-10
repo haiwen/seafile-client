@@ -32,7 +32,6 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     mRepoIcon->setPixmap(QPixmap(icon_path));
     mRepoName->setText(repo_.name);
 
-    mDirectory->setReadOnly(true);
     mDirectory->setPlaceholderText(tr("Choose a folder"));
 
     if (repo_.encrypted) {

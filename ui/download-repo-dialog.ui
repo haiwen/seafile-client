@@ -99,7 +99,7 @@ min-width: 300px;
           <item>
            <widget class="QLineEdit" name="mDirectory">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
            </widget>
           </item>
@@ -217,7 +217,6 @@ min-width: 300px;
      </layout>
      <zorder>mSwitchToSyncFrame</zorder>
      <zorder>verticalSpacer</zorder>
-     <zorder>layoutWidget</zorder>
     </widget>
    </item>
    <item>

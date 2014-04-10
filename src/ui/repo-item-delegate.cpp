@@ -243,8 +243,14 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
             description += ", " + QString::number(percent) + "%";
         }
     } else {
-        if (item->cloneTask().isValid() && item->cloneTask().isDisplayable()) {
-            description = item->cloneTask().state_str;
+        const CloneTask& task = item->cloneTask();
+        if (task.isValid() && task.isDisplayable()) {
+            if (task.error_str.length() > 0) {
+                description = task.error_str;
+            } else {
+                description = task.state_str;
+            }
+
         } else {
             description = translateCommitTime(repo.mtime);
         }

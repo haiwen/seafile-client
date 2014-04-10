@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -101,10 +99,6 @@
         <translation>关闭</translation>
     </message>
     <message>
-        <source>Show download tasks</source>
-        <translation type="obsolete">显示下载任务</translation>
-    </message>
-    <message>
         <location filename="../src/ui/cloud-view.cpp" line="132"/>
         <source>current download rate</source>
         <translation>当前下载速率</translation>
@@ -118,14 +112,6 @@
         <location filename="../src/ui/cloud-view.cpp" line="143"/>
         <source>Please Choose a folder to sync</source>
         <translation>请选择一个文件夹来同步</translation>
-    </message>
-    <message>
-        <source>refresh</source>
-        <translation type="obsolete">刷新</translation>
-    </message>
-    <message>
-        <source>Failed to get libraries information.&lt;br/&gt;Please %1.</source>
-        <translation type="obsolete">获取资料库信息失败。&lt;br/&gt;请 %1。</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="274"/>
@@ -288,10 +274,6 @@
         <source>%1 Default Library</source>
         <translation>%1 默认资料库</translation>
     </message>
-    <message>
-        <source>Seafile default library</source>
-        <translation type="obsolete">Seafile 默认资料库</translation>
-    </message>
 </context>
 <context>
     <name>CreateRepoDialog</name>
@@ -357,10 +339,6 @@
 %1</source>
         <translation>创建资料库失败：
 %1</translation>
-    </message>
-    <message>
-        <source>Failed to create library on the server</source>
-        <translation type="obsolete">在服务器创建资料库失败</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="195"/>
@@ -439,58 +417,14 @@
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <source>Download library &quot;%1&quot;</source>
-        <translation type="obsolete">下载资料库 &quot;%1&quot;</translation>
-    </message>
-    <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="35"/>
         <source>Choose a folder</source>
         <translation>选择一个文件夹</translation>
     </message>
     <message>
-        <source>merge</source>
-        <translation type="obsolete">合并</translation>
-    </message>
-    <message>
-        <source>or %1 with an existing folder</source>
-        <translation type="obsolete">或者 %1 一个已有文件夹</translation>
-    </message>
-    <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="81"/>
         <source>Create a new sync folder at:</source>
         <translation>创建一个新的同步文件夹于：</translation>
-    </message>
-    <message>
-        <source>create</source>
-        <translation type="obsolete">创建</translation>
-    </message>
-    <message>
-        <source>or %1 a new sync folder</source>
-        <translation type="obsolete">或者 %1 一个新的同步文件夹</translation>
-    </message>
-    <message>
-        <source>Merge with this existing folder:</source>
-        <translation type="obsolete">与已有文件夹合并：</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
-        <source>or</source>
-        <translation>或者</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="78"/>
-        <source>sync with an existing folder</source>
-        <translation>和一个已有文件夹同步</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="88"/>
-        <source>create a new sync folder</source>
-        <translation>创建一个新的同步文件夹</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
-        <source>Sync with this existing folder:</source>
-        <translation>与这个已有文件夹同步：</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="121"/>
@@ -518,8 +452,24 @@
         <translation>同步资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Sync this library with:</source>
-        <translation type="obsolete">将该资料库同步至：</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
+        <source>or</source>
+        <translation>或者</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="78"/>
+        <source>sync with an existing folder</source>
+        <translation>和一个已有文件夹同步</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="88"/>
+        <source>create a new sync folder</source>
+        <translation>创建一个新的同步文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
+        <source>Sync with this existing folder:</source>
+        <translation>与这个已有文件夹同步：</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="214"/>
@@ -535,17 +485,9 @@
 %1</translation>
     </message>
     <message>
-        <source>Failed to get repo download information</source>
-        <translation type="obsolete">获取资料库信息失败</translation>
-    </message>
-    <message>
         <location filename="../ui_download-repo-dialog.h" line="224"/>
         <source>Download Library</source>
         <translation>下载资料库</translation>
-    </message>
-    <message>
-        <source>Download this library to:</source>
-        <translation type="obsolete">将该资料库下载到：</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="225"/>
@@ -556,18 +498,6 @@
         <location filename="../ui_download-repo-dialog.h" line="226"/>
         <source>Password for this library:</source>
         <translation>该资料库的密码：</translation>
-    </message>
-    <message>
-        <source>Files in the local folder will be merged with files in the library</source>
-        <translation type="obsolete">本地目录中的文件将与该资料库中的文件合并</translation>
-    </message>
-    <message>
-        <source>Advanced:</source>
-        <translation type="obsolete">高级：</translation>
-    </message>
-    <message>
-        <source>sync with existing folder</source>
-        <translation type="obsolete">与已有的本地文件夹同步</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="227"/>
@@ -662,14 +592,6 @@ The server version must be 2.1 or higher to support this.</source>
 服务器版本必须是 2.1 以上才支持默认资料库功能。</translation>
     </message>
     <message>
-        <source>Failed to get default library: error code %1</source>
-        <translation type="obsolete">获取默认资料库信息失败：错误码 %1</translation>
-    </message>
-    <message>
-        <source>Failed to create default library: error code %1</source>
-        <translation type="obsolete">创建默认资料库失败：错误码 %1</translation>
-    </message>
-    <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="135"/>
         <source>Failed to get default library:
 %1</source>
@@ -717,10 +639,6 @@ You can click the &quot;Open&quot; button to view it.</source>
         <source>Failed to download default library:
  %1</source>
         <translation>下载资料库 “%1” 失败</translation>
-    </message>
-    <message>
-        <source>Failed to download default library: error code %1</source>
-        <translation type="obsolete">下载默认资料库失败：错误码 %1</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="186"/>
@@ -818,26 +736,14 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>请填写计算机名</translation>
     </message>
     <message>
-        <source>This account already exists</source>
-        <translation type="obsolete">该帐户已经在这台计算机上存在</translation>
-    </message>
-    <message>
         <location filename="../src/ui/login-dialog.cpp" line="156"/>
         <source>Failed to save current account</source>
         <translation>保存帐户失败</translation>
     </message>
     <message>
-        <source>%1 is not a valid email</source>
-        <translation type="obsolete">%1 不是合法的邮箱地址</translation>
-    </message>
-    <message>
         <location filename="../src/ui/login-dialog.cpp" line="133"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
-    </message>
-    <message>
-        <source>Internal Error</source>
-        <translation type="obsolete">内部错误</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="183"/>
@@ -1133,10 +1039,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>你的 % 客户端版本太低</translation>
     </message>
     <message>
-        <source>Your seafile client is too old</source>
-        <translation type="obsolete">你的 Seafile 客户端版本太旧了</translation>
-    </message>
-    <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
         <location filename="../src/rpc/local-repo.cpp" line="187"/>
         <location filename="../src/rpc/local-repo.cpp" line="190"/>
@@ -1163,46 +1065,14 @@ The library owner&apos;s storage space is used up.</source>
         <translation>同步该资料库时出错</translation>
     </message>
     <message>
-        <source>Access denied to service.</source>
-        <translation type="obsolete">你没有访问权限。</translation>
-    </message>
-    <message>
-        <source>Internal data corrupted.</source>
-        <translation type="obsolete">内部数据损坏。</translation>
-    </message>
-    <message>
-        <source>Failed to start upload.</source>
-        <translation type="obsolete">启动上传失败。</translation>
-    </message>
-    <message>
-        <source>Error occured in upload.</source>
-        <translation type="obsolete">上传过程中出错。</translation>
-    </message>
-    <message>
-        <source>Failed to start download.</source>
-        <translation type="obsolete">启动下载失败。</translation>
-    </message>
-    <message>
-        <source>Error occured in download.</source>
-        <translation type="obsolete">下载过程中出错。</translation>
-    </message>
-    <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
         <source>Library is deleted on server</source>
         <translation>资料库在服务器上被删除</translation>
     </message>
     <message>
-        <source>Repo is damaged on relay.</source>
-        <translation type="obsolete">服务器上的资料库已损坏</translation>
-    </message>
-    <message>
         <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Error when accessing the local folder</source>
         <translation>访问本地文件夹时出错</translation>
-    </message>
-    <message>
-        <source>Unknown error.</source>
-        <translation type="obsolete">未知错误。</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -1407,10 +1277,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>及其他 %1 个</translation>
     </message>
     <message>
-        <source>Do you want to remove the %1 account information?</source>
-        <translation type="obsolete">是否删除 %1 帐号信息？</translation>
-    </message>
-    <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
         <source>SSL Error</source>
         <translation>SSL 错误</translation>
@@ -1576,22 +1442,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <source>&amp;Show details</source>
-        <translation type="obsolete">详情(&amp;S)</translation>
-    </message>
-    <message>
-        <source>Download this library</source>
-        <translation type="obsolete">下载这个资料库</translation>
-    </message>
-    <message>
-        <source>&amp;Download this library</source>
-        <translation type="obsolete">下载(&amp;D)</translation>
-    </message>
-    <message>
-        <source>Show &amp;details</source>
-        <translation type="obsolete">显示细节(&amp;d)</translation>
-    </message>
-    <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
         <source>Show details of this library</source>
         <translation>查看该资料库详细信息</translation>
@@ -1605,10 +1455,6 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library</source>
         <translation>同步这个资料库</translation>
-    </message>
-    <message>
-        <source>&amp;Sync now</source>
-        <translation type="obsolete">立即同步(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
@@ -1708,12 +1554,6 @@ The library owner&apos;s storage space is used up.</source>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
-是否打开下载页面？</translation>
-    </message>
-    <message>
-        <source>A new vesrion of %1 client (%2) is available.
-Do you want to visit the download page?</source>
-        <translation type="obsolete">%1 客户端有新版本 (%2) 可用。
 是否打开下载页面？</translation>
     </message>
 </context>
@@ -1826,9 +1666,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/seahub-messages-monitor.cpp" line="69"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>你有 %n 条未读消息</numerusform>
-        </translation>
+        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1917,14 +1755,6 @@ Do you want to visit the download page?</source>
         <translation>当资料库的本地文件夹被移除或无法访问时不自动解除同步。</translation>
     </message>
     <message>
-        <source>Do not  automatically unsync a library when failed to access its local folder</source>
-        <translation type="obsolete">访问资料库本地文件夹出错时不要自动解除同步</translation>
-    </message>
-    <message>
-        <source>Do not  automatically unsync a library when its local folder is gone</source>
-        <translation type="obsolete">访问资料库本地文件夹出错时不要自动解除同步</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="191"/>
         <source>Advanced</source>
         <translation>高级</translation>
@@ -1953,17 +1783,9 @@ Do you want to visit the download page?</source>
         <translation>%1 使用了不合法的安全证书，该网络连接可能不安全。是否继续？</translation>
     </message>
     <message>
-        <source>%1 uses an invalid security certificate. The connection is not secure. Do you want to continue?</source>
-        <translation type="obsolete">%1 使用了不合法的安全证书，该网络连接可能不安全。是否继续？</translation>
-    </message>
-    <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Dialog</source>
         <translation>对话框</translation>
-    </message>
-    <message>
-        <source>Don&apos;t Ask Again</source>
-        <translation type="obsolete">不要再询问</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
@@ -2006,7 +1828,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
         <source>text</source>
-        <translation></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
@@ -2017,36 +1839,6 @@ Do you want to visit the download page?</source>
         <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
         <source>No</source>
         <translation>否</translation>
-    </message>
-</context>
-<context>
-    <name>UninstallHelperView</name>
-    <message>
-        <source>Do you want to remove the %1 account information?</source>
-        <translation type="obsolete">是否删除 %1 的帐号信息？</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">是</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">否</translation>
-    </message>
-</context>
-<context>
-    <name>UninstallHelperWindow</name>
-    <message>
-        <source>Uninstall Seafile</source>
-        <translation type="obsolete">卸载 Seafile</translation>
-    </message>
-    <message>
-        <source>Uninstall %1</source>
-        <translation type="obsolete">卸载 %1</translation>
     </message>
 </context>
 </TS>

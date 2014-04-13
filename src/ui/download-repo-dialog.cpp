@@ -40,7 +40,9 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     } else {
         mPassword->setVisible(false);
         mPasswordLabel->setVisible(false);
+#ifdef Q_WS_MAC
         setMaximumSize(QSize(size().width(), 200));
+#endif
     }
 
     saved_create_new_path_ = seafApplet->configurator()->worktreeDir();

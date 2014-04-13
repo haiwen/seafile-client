@@ -20,3 +20,8 @@ QWidget#mainWrapper
 QWidget#mAccountWrapper {
     margin-top: 0px;
 }
+
+DownloadRepoDialog {
+    min-height: 400px;
+    max-height: 400px;
+}

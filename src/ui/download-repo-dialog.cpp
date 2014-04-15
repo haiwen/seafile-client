@@ -190,8 +190,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     int ret;
     QString error;
     if (mode_ == MERGE_WITH_EXISTING_FOLDER) {
-        ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
-                                                 info.relay_id,
+        ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.relay_id,
                                                  repo_.name, worktree,
                                                  info.token, password,
                                                  info.magic, info.relay_addr,
@@ -199,8 +198,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.random_key, info.enc_version,
                                                  &error);
     } else {
-        ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
-                                                    info.relay_id,
+        ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.relay_id,
                                                     repo_.name, worktree,
                                                     info.token, password,
                                                     info.magic, info.relay_addr,

@@ -24,6 +24,7 @@
 #include "ui/settings-dialog.h"
 #include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
+#include "open-local-helper.h"
 
 #include "seafile-applet.h"
 
@@ -161,11 +162,14 @@ void SeafileApplet::onDaemonStarted()
 
 #if defined(Q_WS_WIN)
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
+    configurator_->installCustomUrlHandler();
 #endif
 
     if (settings_mgr_->isCheckLatestVersionEnabled()) {
         checkLatestVersionInfo();
     }
+
+    OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
 }
 
 void SeafileApplet::checkInitVDrive()

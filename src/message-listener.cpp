@@ -8,11 +8,12 @@ extern "C" {
 #include "seafile-applet.h"
 #include "settings-mgr.h"
 #include "configurator.h"
-#include "message-listener.h"
 #include "ui/tray-icon.h"
 #include "utils/utils.h"
 #include "utils/translate-commit-desc.h"
+#include "open-local-helper.h"
 
+#include "message-listener.h"
 
 namespace {
 
@@ -128,6 +129,11 @@ void MessageListener::handleMessage(CcnetMessage *message)
         if (g_strcmp0(message->body, "quit") == 0) {
             qDebug("[Message Listener] Got a quit command. Quit now.");
             seafApplet->exit(0);
+        }
+
+        const char *kOpenLocalFilePrefix = "open-local-file\t";
+        if (strstr(message->body, kOpenLocalFilePrefix) == message->body) {
+            OpenLocalHelper::instance()->openLocalFile(message->body + strlen(kOpenLocalFilePrefix));
         }
 
     } else if (IS_APP_MSG(message, kSeafileNotificationsMQ)) {

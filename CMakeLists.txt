@@ -153,6 +153,7 @@ SET(seafile_client_sources
   src/ccnet-init.cpp
   src/daemon-mgr.cpp
   src/configurator.cpp
+  src/open-local-helper.cpp
   src/message-listener.cpp
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp

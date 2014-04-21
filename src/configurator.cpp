@@ -298,3 +298,37 @@ void Configurator::removeVirtualDrive()
     RegElement::removeRegKey(root, parent, subkey);
 #endif
 }
+
+void Configurator::installCustomUrlHandler()
+{
+#if defined(Q_WS_WIN)
+    QList<RegElement> list;
+    HKEY root = HKEY_CURRENT_USER;
+
+    QString exe = QDir::toNativeSeparators(QCoreApplication::applicationFilePath());
+
+    QString cmd = QString("\"%1\" -f ").arg(exe) + " \"%1\"";
+
+    QString classes_seafile = "Software\\Classes\\seafile";
+
+    list.append(RegElement(root, classes_seafile,
+                           "", "URL:seafile Protocol"));
+
+    list.append(RegElement(root, classes_seafile,
+                           "URL Protocol", ""));
+
+    list.append(RegElement(root, classes_seafile + "\\shell",
+                           "", ""));
+
+    list.append(RegElement(root, classes_seafile + "\\shell\\open",
+                           "", ""));
+
+    list.append(RegElement(root, classes_seafile + "\\shell\\open\\command",
+                           "", cmd));
+    for (int i = 0; i < list.size(); i++) {
+        RegElement& reg = list[i];
+        reg.add();
+    }
+#endif
+}
+

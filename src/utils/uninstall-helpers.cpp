@@ -140,6 +140,7 @@ void do_stop()
 
 void do_remove_user_data()
 {
+    do_stop();
     set_seafile_auto_start(false);
     Configurator::removeVirtualDrive();
     SettingsManager::removeAllSettings();

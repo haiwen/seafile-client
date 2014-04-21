@@ -15,6 +15,7 @@
 #include "ui/proxy-style.h"
 #include "seafile-applet.h"
 #include "QtAwesome.h"
+#include "open-local-helper.h"
 #ifdef Q_WS_MAC
 #include "Application.h"
 #endif
@@ -22,6 +23,7 @@
 #define APPNAME "seafile-applet"
 
 namespace {
+
 
 } // namespace
 
@@ -75,12 +77,13 @@ int main(int argc, char *argv[])
 
     app.installTranslator(&myappTranslator);
 
-    static const char *short_options = "KXc:d:";
+    static const char *short_options = "KXc:d:f:";
     static const struct option long_options[] = {
         { "config-dir", required_argument, NULL, 'c' },
         { "data-dir", required_argument, NULL, 'd' },
         { "stop", no_argument, NULL, 'K' },
         { "remove-user-data", no_argument, NULL, 'X' },
+        { "open-local-file", no_argument, NULL, 'f' },
         { "stdout", no_argument, NULL, 'l' },
         { NULL, 0, NULL, 0, },
     };
@@ -104,6 +107,9 @@ int main(int argc, char *argv[])
         case 'X':
             do_remove_user_data();
             exit(0);
+        case 'f':
+            OpenLocalHelper::instance()->handleOpenLocalFromCommandLine(optarg);
+            break;
         default:
             exit(1);
         }
@@ -131,4 +137,3 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
-

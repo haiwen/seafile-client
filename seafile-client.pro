@@ -94,6 +94,7 @@ FORMS += ui/clone-tasks-dialog.ui \
 SOURCES += src/account-mgr.cpp \
            src/ccnet-init.cpp \
            src/configurator.cpp \
+           src/open-local-helper.cpp \
            src/daemon-mgr.cpp \
            src/main.cpp \
            src/message-listener.cpp \
@@ -179,7 +180,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"3.0.1"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"3.0.2"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe

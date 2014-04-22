@@ -26,6 +26,8 @@ private:
 
     OpenLocalHelper();
 
+    void messageBox(const QString& msg);
+
     bool connectToCcnetDaemon();
 
     void sendOpenLocalFileMessage(const char *url);

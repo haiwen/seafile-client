@@ -40,7 +40,7 @@ struct LocalFileInfo {
 
     bool isValid() const { return !repo_id.isEmpty() && !repo_name.isEmpty(); }
 
-    static LocalFileInfo fromEncoded(const char *);
+    static LocalFileInfo fromEncoded(const QString& url);
 };
 
 LocalFileInfo::LocalFileInfo(QString repo_id, QString repo_name, QString path)
@@ -50,14 +50,15 @@ LocalFileInfo::LocalFileInfo(QString repo_id, QString repo_name, QString path)
 {
 }
 
-LocalFileInfo LocalFileInfo::fromEncoded(const char *url)
+LocalFileInfo LocalFileInfo::fromEncoded(const QString& url)
 {
-    QByteArray bytes = QByteArray::fromBase64(url);
+    QByteArray bytes = QByteArray::fromBase64(url.toUtf8());
 
     json_error_t error;
 
     json_t *root = json_loads(bytes.data(), 0, &error);
     if (!root) {
+        qDebug("invalid open local url %s\n", toCStr(url));
         return LocalFileInfo();
     }
 
@@ -71,6 +72,7 @@ LocalFileInfo LocalFileInfo::fromEncoded(const char *url)
     path = dict["path"].toString();
 
     if (repo_id.length() != 36 || repo_name.isEmpty()) {
+        qDebug("invalid repo_id %s\n", toCStr(repo_id));
         return LocalFileInfo();
     }
 
@@ -133,56 +135,65 @@ void OpenLocalHelper::sendOpenLocalFileMessage(const char *url)
 }
 
 
-void OpenLocalHelper::openLocalFile(const char *url)
+void OpenLocalHelper::openLocalFile(const char *url_in)
 {
-    if (!QString::fromUtf8(url).startsWith(kSeafileProtocolPrefix)) {
-        qDebug("");
-        return;
+    QString url = QString::fromUtf8(url_in);
+    if (url.endsWith("/")) {
+        url = url.left(url.length() - 1);
     }
 
-    LocalFileInfo info = LocalFileInfo::fromEncoded(url + strlen(kSeafileProtocolPrefix));
+    if (!url.startsWith(kSeafileProtocolPrefix)) {
+        return;
+    }
+    url = url.right(url.length() - strlen(kSeafileProtocolPrefix));
+
+
+    LocalFileInfo info = LocalFileInfo::fromEncoded(url);
     if (!info.isValid()) {
         return;
     }
 
-    printf("[OpenLocalHelper] open local file: repo %s, path %s\n",
-           info.repo_id.toUtf8().data(), info.path.toUtf8().data());
     qDebug("[OpenLocalHelper] open local file: repo %s, path %s\n",
            info.repo_id.toUtf8().data(), info.path.toUtf8().data());
 
     LocalRepo repo;
     if (seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo) < 0) {
-        QString msg = QObject::tr("The library \"%1\" has not been downloaded yet").arg(info.repo_name);
-        MainWindow *win = seafApplet->mainWindow();
-        win->show();
-        win->raise();
-        win->activateWindow();
-        seafApplet->messageBox(msg);
+        QString msg = QObject::tr("The library \"%1\" has not been synced yet").arg(info.repo_name);
+        messageBox(msg);
     } else {
         QString full_path = QDir(repo.worktree).filePath(info.path);
         if (!QFile(full_path).exists()) {
-            printf("[OpenLocalHelper] file %s in library %s does not exist, open library folder instead\n",
-                   info.path.toUtf8().data(), repo.id.toUtf8().data());
             qDebug("[OpenLocalHelper] file %s in library %s does not exist, open library folder instead\n",
                    info.path.toUtf8().data(), repo.id.toUtf8().data());
             full_path = repo.worktree;
         }
-        QDesktopServices::openUrl(QUrl::fromLocalFile(full_path));
+        if (!QDesktopServices::openUrl(QUrl::fromLocalFile(full_path))) {
+            QString file_name = QFileInfo(full_path).fileName();
+            QString msg = QObject::tr("Seafile couldn't find an application to open file %1").arg(file_name);
+            messageBox(msg);
+        }
     }
+}
+
+void OpenLocalHelper::messageBox(const QString& msg)
+{
+    MainWindow *win = seafApplet->mainWindow();
+    win->show();
+    win->raise();
+    win->activateWindow();
+    seafApplet->messageBox(msg);
 }
 
 void OpenLocalHelper::handleOpenLocalFromCommandLine(const char *url)
 {
     if (connectToCcnetDaemon()) {
         // An instance of seafile applet is running
-        printf ("applet is running, send a message to open %s\n", url);
         sendOpenLocalFileMessage(url);
         exit(0);
     } else {
         // No instance of seafile client running, we just record the url and
         // let the applet start. The local file will be opened when the applet
         // is ready.
-        printf ("applet is not running, record url %s\n", url);
         url_ = strdup(url);
     }
 }

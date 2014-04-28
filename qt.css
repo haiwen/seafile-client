@@ -363,9 +363,6 @@ SslConfirmDialog QCheckBox#mRememberChoiceCheckBox {
     /* border: 1px solid black; */
 }
 
-DownloadRepoDialog {
-}
-
 DownloadRepoDialog QLabel#mRepoName {
     font-size: 16px;
     margin-bottom: 8px;

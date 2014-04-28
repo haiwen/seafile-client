@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>551</width>
-    <height>289</height>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,6 +116,9 @@ min-width: 300px;
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
         <item>
          <widget class="QLabel" name="mPasswordLabel">
           <property name="frameShadow">

@@ -364,8 +364,6 @@ SslConfirmDialog QCheckBox#mRememberChoiceCheckBox {
 }
 
 DownloadRepoDialog {
-    min-height: 250px;
-    max-height: 250px;
 }
 
 DownloadRepoDialog QLabel#mRepoName {

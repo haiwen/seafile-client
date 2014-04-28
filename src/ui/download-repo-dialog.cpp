@@ -45,6 +45,13 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 #endif
     }
 
+    int min_height = 250, max_height = 250;
+    if (repo.encrypted) {
+        max_height += 100;
+    }
+    setMinimumHeight(min_height);
+    setMaximumHeight(max_height);
+
     saved_create_new_path_ = seafApplet->configurator()->worktreeDir();
 
     updateSyncMode();

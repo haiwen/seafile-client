@@ -19,6 +19,12 @@ extern "C" {
 #include "traynotificationmanager.h"
 #endif
 
+#ifdef Q_OS_LINUX
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusPendingCall>
+#endif
+
 namespace {
 
 const int kRefreshInterval = 5000;
@@ -164,6 +170,19 @@ void SeafileTrayIcon::rotate(bool start)
     } else {
         rotate_timer_->stop();
     }
+}
+
+void Systray::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+{
+#ifdef Q_OS_LINUX
+    QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "dialog-information"
+                                             << title << message << QStringList () << QVariantMap() << qint32(-1);
+    QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "", "Notify");
+    method.setArguments(args);
+    QDBusConnection::sessionBus().asyncCall(method);
+#else
+    QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
+#endif
 }
 
 void SeafileTrayIcon::rotateTrayIcon()

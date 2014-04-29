@@ -31,6 +31,8 @@ public:
     void notify(const QString &title, const QString &content);
     void rotate(bool start);
 
+    void showMessage(const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000);
+
 public slots:
     void showSettingsWindow();
 

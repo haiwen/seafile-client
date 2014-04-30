@@ -172,7 +172,7 @@ void SeafileTrayIcon::rotate(bool start)
     }
 }
 
-void Systray::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
 {
 #ifdef Q_OS_LINUX
     QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "dialog-information"

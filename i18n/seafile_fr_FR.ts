@@ -373,7 +373,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>encrypted</source>
-        <translation>crypté</translation>
+        <translation>chiffré</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="201"/>

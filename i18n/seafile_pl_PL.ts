@@ -459,22 +459,22 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>lub</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="78"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>synchronizuj z istniejącym folderem</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="88"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>utwórz nowy folder synchronizacji</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>Synchronizuj z tym istniejącym folderem:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="214"/>
@@ -1452,27 +1452,27 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
         <source>Show details of this library</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż szczegóły tej biblioteki</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync this library</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Synchronizuj tę bibliotekę</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library</source>
-        <translation type="unfinished"/>
+        <translation>Synchronizuj tę bibliotekę</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>Show &amp;Details</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż szczegóły</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>Sync &amp;Now</source>
-        <translation type="unfinished"/>
+        <translation>Sy&amp;nchronizuj teraz</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>

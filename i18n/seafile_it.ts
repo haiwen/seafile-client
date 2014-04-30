@@ -22,12 +22,12 @@
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="79"/>
         <source>No download tasks right now.</source>
-        <translation type="unfinished"/>
+        <translation>Nessun processo di download attivo.</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="70"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="71"/>
@@ -93,12 +93,12 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="105"/>
         <source>Minimize</source>
-        <translation type="unfinished"/>
+        <translation>Minimizza</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="110"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Chiudi</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="132"/>
@@ -113,22 +113,22 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="143"/>
         <source>Please Choose a folder to sync</source>
-        <translation type="unfinished"/>
+        <translation>Per favore Scegli una cartella da sincronizzare</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="274"/>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>riprova</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="275"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>Tentativo fallito di ottenere informazioni delle libreria&lt;br\&gt;Per favore %1</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="320"/>
         <source>click to open the website</source>
-        <translation type="unfinished"/>
+        <translation>clicca per aprire il sito web</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="330"/>
@@ -164,12 +164,12 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="570"/>
         <source>all servers connected</source>
-        <translation type="unfinished"/>
+        <translation>tutti i servers sono connessi</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="574"/>
         <source>some servers not connected</source>
-        <translation type="unfinished"/>
+        <translation>alcuni servers non sono connessi</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="596"/>
@@ -190,22 +190,22 @@
     <message>
         <location filename="../ui_cloud-view.h" line="302"/>
         <source>logo</source>
-        <translation type="unfinished"/>
+        <translation>logo</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="303"/>
         <source>Seafile</source>
-        <translation type="unfinished"/>
+        <translation>Seafile</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="304"/>
         <source>minimize</source>
-        <translation type="unfinished"/>
+        <translation>minimizza</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="305"/>
         <source>close</source>
-        <translation type="unfinished"/>
+        <translation>chiudi</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="306"/>
@@ -231,12 +231,12 @@
     <message>
         <location filename="../ui_cloud-view.h" line="310"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Seleziona</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="311"/>
         <source>or Drop Folder to Sync</source>
-        <translation type="unfinished"/>
+        <translation>o Rilascia Cartella per Sincronizzarla</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="313"/>
@@ -274,7 +274,7 @@
     <message>
         <location filename="../src/configurator.cpp" line="244"/>
         <source>%1 Default Library</source>
-        <translation type="unfinished"/>
+        <translation>%1 Libreria Predefinita</translation>
     </message>
 </context>
 <context>
@@ -327,24 +327,26 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="140"/>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Errore sconosciuto</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="174"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallito: aggiungi download task
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="186"/>
         <source>Failed to create library on the server:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Tentativo fallito di creare la libreria sul server:
+%1</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="196"/>
@@ -384,7 +386,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>status text</source>
-        <translation type="unfinished"/>
+        <translation>stato testo</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
@@ -402,12 +404,12 @@
     <message>
         <location filename="../src/daemon-mgr.cpp" line="59"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento fallito di ccnet config dir %1</translation>
     </message>
     <message>
         <location filename="../src/daemon-mgr.cpp" line="109"/>
         <source>ccnet daemon has exited abnormally</source>
-        <translation type="unfinished"/>
+        <translation>il demone ccnet è terminato non correttamente</translation>
     </message>
     <message>
         <location filename="../src/daemon-mgr.cpp" line="116"/>
@@ -420,12 +422,12 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="35"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>Scegli una cartella</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="81"/>
         <source>Create a new sync folder at:</source>
-        <translation type="unfinished"/>
+        <translation>Crea una nuova cartella di sincronizzazione in:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="121"/>
@@ -455,34 +457,36 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="76"/>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>o</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="78"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>sincronizza con una cartella esistente</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="88"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>crea una nuova cartella di sincronia</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="91"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza con una cartella esistente:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="214"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallito: aggiungi download task
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="225"/>
         <source>Failed to get repo download information:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Tentativo fallito di ottenere informazioni sul download del repo:
+%1</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="224"/>
@@ -515,7 +519,7 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
         <source>%1 Initialization</source>
-        <translation type="unfinished"/>
+        <translation>%1 Inizializzazione</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="93"/>
@@ -527,7 +531,7 @@
         <location filename="../src/ui/init-seafile-dialog.cpp" line="136"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="147"/>
         <source>Initialization is not finished. Really quit?</source>
-        <translation type="unfinished"/>
+        <translation>Inizializzazione non completata. Veramente vuoi terminare?</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="116"/>
@@ -537,7 +541,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -552,7 +556,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>Per favore scegli una cartella. Creeremo la cartella Seafile al suo interno. Quando effettuerai il download di una libreria verrà salvata in questa locazione predefinita.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
@@ -575,12 +579,12 @@
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="67"/>
         <source>Checking your default library...</source>
-        <translation type="unfinished"/>
+        <translation>Sto verificando la tua libreria predefinita...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="81"/>
         <source>Creating the default library...</source>
-        <translation type="unfinished"/>
+        <translation>Sto creando la libreria predefinita...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="132"/>
@@ -588,99 +592,107 @@
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
-        <translation type="unfinished"/>
+        <translation>Fallita la creazione della libreria predefinita:
+
+La versione del server deve essere 2.1 o più alta per supportare questa funzione.</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="135"/>
         <source>Failed to get default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallito l&apos;accesso alla libreria predefinita:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="151"/>
         <source>Failed to create default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallita la creazione della libreria predefinita:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="177"/>
         <source>Downloading default library...</source>
-        <translation type="unfinished"/>
+        <translation>Sto scaricando la libreria predefinita...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="186"/>
         <source>Failed to download default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallito il download della libreria predefinita:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="197"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
-        <translation type="unfinished"/>
+        <translation>La libreria predefinita è stata scaricata.
+Puoi clicca il bottone &quot;Apri&quot; per visualizzarla.</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="248"/>
         <source>Error when downloading the default library: %1</source>
-        <translation type="unfinished"/>
+        <translation>Errore durante il download della libreria predefinita: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="262"/>
         <source>Creating the virtual disk...</source>
-        <translation type="unfinished"/>
+        <translation>Sto creando il disco virtuale...</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="171"/>
         <source>Failed to download default library:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallito il download della libreria predefinita:
+%1</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation type="unfinished"/>
+        <translation>Seafile organizza files e librerie.
+Ti piacerebbe scaricare la tua libreria predefinita e creare un disco virtuale?</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Salta</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="193"/>
         <source>Run in Background</source>
-        <translation type="unfinished"/>
+        <translation>Esegui in background</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="194"/>
         <source>Open</source>
-        <translation type="unfinished"/>
+        <translation>Apri</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="195"/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>Finito</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="34"/>
         <location filename="../ui_init-vdrive-dialog.h" line="187"/>
         <source>Download Default Library</source>
-        <translation type="unfinished"/>
+        <translation>Scarica Libreria Predefinita</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Sì</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>logo</source>
-        <translation type="unfinished"/>
+        <translation>logo</translation>
     </message>
 </context>
 <context>
@@ -694,18 +706,19 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="48"/>
         <source>Logging in...</source>
-        <translation type="unfinished"/>
+        <translation>Sto entrando...</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="86"/>
         <source>Network Error:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Errore di Rete:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="94"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Attenzione:&lt;/b&gt; Il certificato ssl di questo server non è verificato, procedere comunque?</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="111"/>
@@ -726,7 +739,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="139"/>
         <source>Please enter the computer name</source>
-        <translation type="unfinished"/>
+        <translation>Per favore inserisci il nome del computer</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="156"/>
@@ -746,12 +759,12 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="185"/>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation type="unfinished"/>
+        <translation>Ti stai autenticando con troppa frequenza, per favore attendi un minuto</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="187"/>
         <source>Internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation>Errore Interno del Server</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="191"/>
@@ -761,12 +774,12 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="193"/>
         <source>Failed to login</source>
-        <translation type="unfinished"/>
+        <translation>Accesso fallito</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="257"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="259"/>
@@ -801,22 +814,22 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_login-dialog.h" line="267"/>
         <source>status text</source>
-        <translation type="unfinished"/>
+        <translation>stato testo</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="265"/>
         <source>Computer Name:</source>
-        <translation type="unfinished"/>
+        <translation>Nome del Computer:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="266"/>
         <source>e.g. Jim&apos;s laptop</source>
-        <translation type="unfinished"/>
+        <translation>e.g. PC di Mario Rossi</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="268"/>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>Accesso</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="269"/>
@@ -843,7 +856,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <location filename="../src/message-listener.cpp" line="156"/>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; è desincronizzato.
+Ragione: Cancellato sul server</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="166"/>
@@ -861,7 +875,8 @@ Accesso rifiutato al servizio</translation>
         <location filename="../src/message-listener.cpp" line="189"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; sincronizzazione fallita.
+Lo spazio del proprietario della libreria è esaurito.</translation>
     </message>
 </context>
 <context>
@@ -909,7 +924,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="82"/>
         <source>sync merging</source>
-        <translation type="unfinished"/>
+        <translation>sincronia unione</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="86"/>
@@ -941,12 +956,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="121"/>
         <source>Server has been removed</source>
-        <translation type="unfinished"/>
+        <translation>Il server è stato rimosso</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="124"/>
         <source>You have not logged in to the server</source>
-        <translation type="unfinished"/>
+        <translation>Non ti sei autenticato nel server</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="127"/>
@@ -956,7 +971,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="130"/>
         <source>The storage space of the library owner has been used up</source>
-        <translation type="unfinished"/>
+        <translation>Lo spazio di archiviazione del proprietario della libreria è esaurito</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="133"/>
@@ -967,67 +982,67 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <location filename="../src/rpc/local-repo.cpp" line="178"/>
         <source>Access denied to service</source>
-        <translation type="unfinished"/>
+        <translation>Accesso negato al servizio</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Internal data corrupted</source>
-        <translation type="unfinished"/>
+        <translation>Dati interni corrotti</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Failed to start upload</source>
-        <translation type="unfinished"/>
+        <translation>Fallito avvio upload</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Error occured in upload</source>
-        <translation type="unfinished"/>
+        <translation>Errore durante l&apos;upload</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Failed to start download</source>
-        <translation type="unfinished"/>
+        <translation>Fallito avvio download</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Error occured in download</source>
-        <translation type="unfinished"/>
+        <translation>Errore durante il download</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="157"/>
         <source>Library is damaged on server</source>
-        <translation type="unfinished"/>
+        <translation>Libreria danneggiata sul server</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="160"/>
         <source>Conflict in merge</source>
-        <translation type="unfinished"/>
+        <translation>Conflitto durante l&apos;unione</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Server version is too old</source>
-        <translation type="unfinished"/>
+        <translation>La versione del server è troppo vecchia </translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="169"/>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Errore sconosciuto</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="172"/>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"/>
+        <translation>Lo spazio di archiviazione è esaurito.</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Internal server error</source>
-        <translation type="unfinished"/>
+        <translation>Errore interno del server</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Your %1 client is too old</source>
-        <translation type="unfinished"/>
+        <translation>Il tuo client %1 è troppo vecchio</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
@@ -1053,7 +1068,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/rpc/local-repo.cpp" line="228"/>
         <location filename="../src/rpc/local-repo.cpp" line="230"/>
         <source>Failed to sync this library</source>
-        <translation type="unfinished"/>
+        <translation>Fallita la sincronia di questa libreria</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
@@ -1063,7 +1078,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Error when accessing the local folder</source>
-        <translation type="unfinished"/>
+        <translation>Errore durante l&apos;accesso della cartella locale</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -1093,12 +1108,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="92"/>
         <source>Merge file changes...</source>
-        <translation type="unfinished"/>
+        <translation>Unisci i cambiamenti del file..</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="95"/>
         <source>Done</source>
-        <translation type="unfinished"/>
+        <translation>Fatto</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="98"/>
@@ -1123,7 +1138,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="111"/>
         <source>Failed to merge local file changes.</source>
-        <translation type="unfinished"/>
+        <translation>Fallita unione del file a livello locale.</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="114"/>
@@ -1175,117 +1190,117 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/main.cpp" line="114"/>
         <source>%1 is already running</source>
-        <translation type="unfinished"/>
+        <translation>%1 sta già funzionando</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"/>
+        <translation>Aggiunto</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"/>
+        <translation>Cancellato</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"/>
+        <translation>Rimosso</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"/>
+        <translation>Modificato</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"/>
+        <translation>Rinominato</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"/>
+        <translation>Spostato</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"/>
+        <translation>Directory aggiunta</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"/>
+        <translation>Directory rimossa</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"/>
+        <translation>Directory rinominata</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"/>
+        <translation>Directory rinominata</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"/>
+        <translation>Riporta lo stato della libreria a</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"/>
+        <translation>Riportato il file &quot;%1&quot; allo stato %2</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"/>
+        <translation>Recuperato la directory cancellata</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"/>
+        <translation>Il nome della libreria o la descrizione sono stati cambiati</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation type="unfinished"/>
+        <translation>Unione automatica da parte del sistema seafile</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation type="unfinished"/>
+        <translation>files</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"/>
+        <translation>directories</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation type="unfinished"/>
+        <translation>e %1 altri</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
         <source>SSL Error</source>
-        <translation type="unfinished"/>
+        <translation>Errore SSL</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="57"/>
         <source>Network Error: %1</source>
-        <translation type="unfinished"/>
+        <translation>Errore di Rete: %1</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="59"/>
         <source>Server Error</source>
-        <translation type="unfinished"/>
+        <translation>Errore del Server</translation>
     </message>
     <message>
         <location filename="../src/certs-mgr.cpp" line="65"/>
         <source>failed to open certs database</source>
-        <translation type="unfinished"/>
+        <translation>Fallita apertura del database certs</translation>
     </message>
 </context>
 <context>
@@ -1309,17 +1324,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoIcon</source>
-        <translation type="unfinished"/>
+        <translation>RepoIcon</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>RepoName</source>
-        <translation type="unfinished"/>
+        <translation>RepoName</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="219"/>
@@ -1332,7 +1347,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../ui_repo-detail-dialog.h" line="226"/>
         <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>Etichetta di Testo</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="221"/>
@@ -1347,7 +1362,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="224"/>
         <source>mtime</source>
-        <translation type="unfinished"/>
+        <translation>mtime</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
@@ -1367,7 +1382,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>RepoStatus</source>
-        <translation type="unfinished"/>
+        <translation>RepoStatus</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="231"/>
@@ -1393,7 +1408,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="50"/>
         <source>Recently Updated</source>
-        <translation type="unfinished"/>
+        <translation>Aggiornamenti Recenti</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="51"/>
@@ -1403,12 +1418,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="52"/>
         <source>Sub Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Sotto Libreria</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="53"/>
         <source>Private Shares</source>
-        <translation type="unfinished"/>
+        <translation>Condivisioni Private</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="215"/>
@@ -1435,42 +1450,42 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
         <source>Show details of this library</source>
-        <translation type="unfinished"/>
+        <translation>Mostra dettagli di questa libreria</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="202"/>
         <source>&amp;Sync this library</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sync questa libreria</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="204"/>
         <source>Sync this library</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza questa libreria</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>Show &amp;Details</source>
-        <translation type="unfinished"/>
+        <translation>Mostra &amp;Details</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>Sync &amp;Now</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza &amp;Now</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
         <source>Sync this library immediately</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza questa libreria immediatamente</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
         <source>&amp;Cancel download</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Cancella download</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="216"/>
         <source>Cancel download of this library</source>
-        <translation type="unfinished"/>
+        <translation>Cancella download di questa libreria</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
@@ -1485,44 +1500,46 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="226"/>
         <source>&amp;Unsync</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Unsync</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
         <source>unsync this library</source>
-        <translation type="unfinished"/>
+        <translation>desincronizza questa libreria</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
         <source>&amp;View on cloud</source>
-        <translation type="unfinished"/>
+        <translation>&amp;View on cloud</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="239"/>
         <source>view this library on seahub</source>
-        <translation type="unfinished"/>
+        <translation>visualizza questa libreria su seahub</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="281"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Sei sicuro di desincronizzare la libreria &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="293"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Fallita desincronizzazione libreria &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="434"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallita la cancellazione di questo task:
+
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="438"/>
         <source>The download has been canceled</source>
-        <translation type="unfinished"/>
+        <translation>Questo download è stato cancellato</translation>
     </message>
 </context>
 <context>
@@ -1530,7 +1547,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/api/api-client.cpp" line="93"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Attenzione:&lt;/b&gt; Il certificato ssl di questo server non è affidabile, procedere comunque?</translation>
     </message>
 </context>
 <context>
@@ -1538,13 +1555,14 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/seafile-applet.cpp" line="214"/>
         <source>Failed to initialize log</source>
-        <translation type="unfinished"/>
+        <translation>Fallita inizializzazione log</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="301"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
-        <translation type="unfinished"/>
+        <translation>Una nuova versione di %1 client (%2) è disponibile.
+Vuoi visitare la pagina di download?</translation>
     </message>
 </context>
 <context>
@@ -1552,24 +1570,24 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"/>
+        <translation>fallito caricamento directory di configurazione ccnet %1</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="456"/>
         <location filename="../src/rpc/rpc-client.cpp" line="473"/>
         <location filename="../src/rpc/rpc-client.cpp" line="537"/>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Errore sconosciuto</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="652"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation type="unfinished"/>
+        <translation>Il percorso &quot;%1&quot; è in conflitto con il percorso di sistema</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="654"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation type="unfinished"/>
+        <translation>Il percorso &quot;%1&quot; è in conflitto con una libreria esistente</translation>
     </message>
 </context>
 <context>
@@ -1577,78 +1595,78 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="84"/>
         <source>Disable auto sync</source>
-        <translation type="unfinished"/>
+        <translation>Disabilita sincronizzazione automatica</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="87"/>
         <source>Enable auto sync</source>
-        <translation type="unfinished"/>
+        <translation>Abilita sincronizzazione automatica</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="90"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Quit</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="93"/>
         <location filename="../src/ui/tray-icon.cpp" line="139"/>
         <source>Show main window</source>
-        <translation type="unfinished"/>
+        <translation>Mostra finestra principale</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="96"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Impostazioni</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="99"/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;About</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"/>
+        <translation>Mostra il box About</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="103"/>
         <source>&amp;Online help</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Online aiuto</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>open seafile online help</source>
-        <translation type="unfinished"/>
+        <translation>apri aiuto online di seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="110"/>
         <source>Help</source>
-        <translation type="unfinished"/>
+        <translation>Aiuto</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="141"/>
         <source>Hide main window</source>
-        <translation type="unfinished"/>
+        <translation>Nascondi finestra principale</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="192"/>
         <source>auto sync is disabled</source>
-        <translation type="unfinished"/>
+        <translation>la sincronizzazione automatica è disabilitata</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="289"/>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>A proposito di %1</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="290"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="348"/>
         <source>some servers not connected</source>
-        <translation type="unfinished"/>
+        <translation>alcuni servers non sono connessi</translation>
     </message>
 </context>
 <context>
@@ -1656,7 +1674,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/seahub-messages-monitor.cpp" line="69"/>
         <source>You have %n message(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Hai %n messaggi(o)</numerusform><numerusform>You have %n message(s)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -1664,27 +1682,27 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="25"/>
         <source>Servers connection status</source>
-        <translation type="unfinished"/>
+        <translation>Stato di connessione dei servers</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="59"/>
         <source>connected</source>
-        <translation type="unfinished"/>
+        <translation>connesso</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="62"/>
         <source>disconnected</source>
-        <translation type="unfinished"/>
+        <translation>disconnesso</translation>
     </message>
     <message>
         <location filename="../ui_server-status-dialog.h" line="71"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_server-status-dialog.h" line="72"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -1692,72 +1710,72 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="21"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Impostazioni</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="181"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="182"/>
         <source>Hide main window when started</source>
-        <translation type="unfinished"/>
+        <translation>Nascondi la finestra principale quando partito</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="183"/>
         <source>Notify when libraries are synchronized</source>
-        <translation type="unfinished"/>
+        <translation>Notifica quando le librerie sono sincronizzate</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="184"/>
         <source>Auto start Seafile after login (Windows only)</source>
-        <translation type="unfinished"/>
+        <translation>Partenza automatica di Seafile all&apos;avvio (solo per Windows)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="185"/>
         <source>Check for new version on startup</source>
-        <translation type="unfinished"/>
+        <translation>Controlla aggiornamenti all&apos;avvio</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="186"/>
         <source>Download speed limit (KB/s):</source>
-        <translation type="unfinished"/>
+        <translation>Velocità massima di download (KB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="187"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation type="unfinished"/>
+        <translation>Velocità massima di caricamento (kB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="188"/>
         <source>Basic</source>
-        <translation type="unfinished"/>
+        <translation>Base</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="189"/>
         <source>Do not automatically unsync a library</source>
-        <translation type="unfinished"/>
+        <translation>Non desincronizzare automaticamente una libreria</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
-        <translation type="unfinished"/>
+        <translation>Non desincronizzare automaticamente una libreria quando la sua directory locale è rimossa o non accessibile per altre ragioni.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="191"/>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>Avanzato</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="192"/>
         <source>Ok</source>
-        <translation type="unfinished"/>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="193"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancella</translation>
     </message>
 </context>
 <context>
@@ -1765,32 +1783,32 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="11"/>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"/>
+        <translation>Connessione Non Affidabile</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
-        <translation type="unfinished"/>
+        <translation>%1 utilizza un certificato di sicurezza non valido. La connessione potrebbe essere insicura. Vuoi continuare?</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
         <source>Remember my choice</source>
-        <translation type="unfinished"/>
+        <translation>Ricorda la mia scelta</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Sì</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="100"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -1798,7 +1816,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="13"/>
         <source>Uninstall %1</source>
-        <translation type="unfinished"/>
+        <translation>Disinstalla %1</translation>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="15"/>
@@ -1813,22 +1831,22 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
         <source>text</source>
-        <translation type="unfinished"/>
+        <translation>testo</translation>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Sì</translation>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>No</translation>
     </message>
 </context>
 </TS>

@@ -16,6 +16,8 @@
 	<string>3.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>NOTE</key>

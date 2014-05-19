@@ -153,6 +153,10 @@ TRANSLATIONS += i18n/seafile_ca.ts \
                 i18n/seafile_fr_FR.ts \
                 i18n/seafile_he_IL.ts \
                 i18n/seafile_hu_HU.ts \
+                i18n/seafile_is.ts \
+                i18n/seafile_it.ts \
+                i18n/seafile_lv.ts \
+                i18n/seafile_sv.ts \
                 i18n/seafile_nl_BE.ts \
                 i18n/seafile_pl_PL.ts \
                 i18n/seafile_pt_BR.ts \
@@ -180,7 +184,7 @@ macx {
     CONFIG += target_predeps
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"3.0.3"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"3.0.4"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe

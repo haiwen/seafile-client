@@ -4,6 +4,7 @@
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
+#include "repo-service.h"
 #include "repo-tree-view.h"
 #include "repo-tree-model.h"
 #include "repo-item-delegate.h"
@@ -15,7 +16,6 @@
 
 namespace {
 
-const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
 const char *kLoadingFaieldLabelName = "loadingFailedText";
 
 enum {
@@ -27,8 +27,7 @@ enum {
 }
 
 ReposTab::ReposTab(QWidget *parent)
-    : TabView(parent),
-      in_refresh_(false)
+    : TabView(parent)
 {
     createRepoTree();
     createLoadingView();
@@ -38,13 +37,13 @@ ReposTab::ReposTab(QWidget *parent)
     mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
-    refresh_timer_ = new QTimer(this);
-    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
-    refresh_timer_->start(kRefreshReposInterval);
+    RepoService *svc = RepoService::instance();
 
-    list_repo_req_ = NULL;
+    connect(svc, SIGNAL(refreshSuccess(const std::vector<ServerRepo>&)),
+            this, SLOT(refreshRepos(const std::vector<ServerRepo>&)));
+    connect(svc, SIGNAL(refreshFailed(const ApiError&)),
+            this, SLOT(refreshReposFailed(const ApiError&)));
 
-    refresh();
 }
 
 void ReposTab::createRepoTree()
@@ -94,42 +93,9 @@ void ReposTab::createLoadingFailedView()
     layout->addWidget(label);
 }
 
-void ReposTab::refresh()
-{
-    if (in_refresh_) {
-        return;
-    }
-
-    showLoadingView();
-    AccountManager *account_mgr = seafApplet->accountManager();
-
-    const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-    if (accounts.empty()) {
-        in_refresh_ = false;
-        return;
-    }
-
-    in_refresh_ = true;
-
-    if (list_repo_req_) {
-        delete list_repo_req_;
-    }
-
-    list_repo_req_ = new ListReposRequest(accounts[0]);
-    connect(list_repo_req_, SIGNAL(success(const std::vector<ServerRepo>&)),
-            this, SLOT(refreshRepos(const std::vector<ServerRepo>&)));
-    connect(list_repo_req_, SIGNAL(failed(const ApiError&)),
-            this, SLOT(refreshReposFailed(const ApiError&)));
-    list_repo_req_->send();
-}
-
 void ReposTab::refreshRepos(const std::vector<ServerRepo>& repos)
 {
-    in_refresh_ = false;
     repos_model_->setRepos(repos);
-
-    list_repo_req_->deleteLater();
-    list_repo_req_ = NULL;
 
     mStack->setCurrentIndex(INDEX_REPOS_VIEW);
 }
@@ -137,7 +103,6 @@ void ReposTab::refreshRepos(const std::vector<ServerRepo>& repos)
 void ReposTab::refreshReposFailed(const ApiError& error)
 {
     qDebug("failed to refresh repos");
-    in_refresh_ = false;
 
     if (mStack->currentIndex() == INDEX_LOADING_VIEW) {
         mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
@@ -152,4 +117,10 @@ std::vector<QAction*> ReposTab::getToolBarActions()
 void ReposTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+}
+
+void ReposTab::refresh()
+{
+    showLoadingView();
+    RepoService::instance()->refresh(true);
 }

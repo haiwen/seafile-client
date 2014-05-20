@@ -34,8 +34,6 @@ private:
     void createLoadingFailedView();
     void showLoadingView();
     
-    QTimer *refresh_timer_;
-    bool in_refresh_;
 
     RepoTreeModel *repos_model_;
 

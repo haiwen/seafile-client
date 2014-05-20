@@ -21,6 +21,7 @@ extern "C" {
 #include "activities-tab.h"
 #include "account-view.h"
 #include "seafile-tab-widget.h"
+#include "repo-service.h"
 
 #include "cloud-view.h"
 
@@ -77,6 +78,10 @@ CloudView::CloudView(QWidget *parent)
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
+
+    RepoService *repo_service = RepoService::instance();
+
+    repo_service->start();
 
     AccountManager *account_mgr = seafApplet->accountManager();
     connect(account_mgr, SIGNAL(accountsChanged()),

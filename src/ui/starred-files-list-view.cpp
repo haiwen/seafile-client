@@ -51,13 +51,12 @@ void StarredFilesListView::openLocalFile()
     seafApplet->rpcClient()->getLocalRepo(file.repo_id, &r);
 
     if (r.isValid()) {
-        printf ("we have the local repo for file %s\n", file.path.toUtf8().data());
-
         QString path = QDir(r.worktree).filePath(file.path.mid(1));
 
         QDesktopServices::openUrl(QUrl::fromLocalFile(path));
     } else {
-        printf ("we do not have the local repo for file %s\n", file.path.toUtf8().data());
+        // if (seafApplet->yesOrNoBox(msg, null, true)) {
+        // }
     }
 }
 

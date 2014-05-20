@@ -18,28 +18,35 @@ class AccountManager : public QObject {
 
 public:
     AccountManager();
+    ~AccountManager();
+
     int start();
 
     int saveAccount(const Account& account);
     int removeAccount(const Account& account);
     const std::vector<Account>& loadAccounts();
-    void updateAccountLastVisited(const Account& account);
+    bool accountExists(const QUrl& url, const QString& username);
 
-    bool hasAccount(const QUrl& url, const QString& username);
+    bool hasAccount() const { return !accounts_.empty(); }
+
+    Account currentAccount() const { return hasAccount() ? accounts_[0] : Account(); }
+
+    bool setCurrentAccount(const Account& account);
 
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
-
 signals:
-    void accountAdded(const Account&);
-    void accountRemoved(const Account&);
-
-private:
-    ~AccountManager();
-    static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
+    /**
+     * Account added/removed/switched.
+     */
+    void accountsChanged();
 
 private:
     Q_DISABLE_COPY(AccountManager)
+
+    static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
+
+    void updateAccountLastVisited(const Account& account);
 
     struct sqlite3 *db;
     std::vector<Account> accounts_;

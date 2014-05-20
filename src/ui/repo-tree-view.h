@@ -21,7 +21,7 @@ class CloneTasksDialog;
 class RepoTreeView : public QTreeView {
     Q_OBJECT
 public:
-    RepoTreeView(CloudView *view, QWidget *parent=0);
+    RepoTreeView(QWidget *parent=0);
 
     std::vector<QAction*> getToolBarActions();
 

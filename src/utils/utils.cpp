@@ -371,3 +371,23 @@ QString translateCommitTime(qint64 timestamp) {
     }
 }
 
+QString readableFileSize(qint64 size)
+{
+    QString str;
+
+    if (size <= 1024) {
+        str = "B";
+    } else if (size > 1024 && size <= 1024*1024) {
+        size = size / 1024;
+        str = "KB";
+    } else if (size > 1024*1024 && size <= 1024*1024*1024) {
+        size = size / 1024 / 1024;
+        str = "MB";
+    } else if (size > 1024*1024*1024) {
+        size = size / 1024 / 1024 / 1024;
+        str = "GB";
+    }
+
+    return QString::number(size) + str;
+}
+

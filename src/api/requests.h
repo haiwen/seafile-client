@@ -11,6 +11,7 @@ class QNetworkReply;
 
 class ServerRepo;
 struct Account;
+class StarredFile;
 
 class LoginRequest : public SeafileApiRequest {
     Q_OBJECT
@@ -160,6 +161,21 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(GetLatestVersionRequest);
+};
+
+class GetStarredFilesRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetStarredFilesRequest(const Account& account);
+
+signals:
+    void success(const std::vector<StarredFile>& starred_files);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetStarredFilesRequest);
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

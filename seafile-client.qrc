@@ -55,6 +55,9 @@
     <file>images/bell-orange.png</file>
     <file>images/ok-48.png</file>
     <file>images/download-48.png</file>
+    <file>images/tabs/repos.png</file>
+    <file>images/tabs/starred.png</file>
+    <file>images/tabs/activities.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

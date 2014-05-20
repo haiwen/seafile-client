@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <QStyleOptionTab>
 
 #include "proxy-style.h"
@@ -9,6 +10,7 @@ void SeafileProxyStyle::drawControl(ControlElement element,
 {
 
     if (element == CE_TabBarTabLabel) {
+        printf ("[draw tab label] name is %s\n", widget->objectName().toUtf8().data());
         if (const QStyleOptionTab *tb = qstyleoption_cast<const QStyleOptionTab *>(option)) {
             if (tb->state & State_HasFocus) {
                 QStyleOptionTab t(*tb);
@@ -17,6 +19,10 @@ void SeafileProxyStyle::drawControl(ControlElement element,
                 return;
             }
         }
+    }
+
+    if (element == CE_TabBarTab) {
+        printf ("[draw tab] name is %s\n", widget->objectName().toUtf8().data());
     }
 
     QProxyStyle::drawControl(element, option, painter, widget);

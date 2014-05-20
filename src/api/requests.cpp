@@ -8,9 +8,11 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
-#include "requests.h"
 #include "api-error.h"
 #include "server-repo.h"
+#include "starred-file.h"
+
+#include "requests.h"
 
 namespace {
 
@@ -19,6 +21,7 @@ const char *kListReposUrl = "/api2/repos/";
 const char *kCreateRepoUrl = "/api2/repos/";
 const char *kUnseenMessagesUrl = "/api2/unseen_messages/";
 const char *kDefaultRepoUrl = "/api2/default-repo/";
+const char *kStarredFilesUrl = "/api2/starredfiles/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -321,4 +324,26 @@ void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit failed(ApiError::fromJsonError());
+}
+
+GetStarredFilesRequest::GetStarredFilesRequest(const Account& account)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kStarredFilesUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+}
+
+void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetStarredFilesRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    std::vector<StarredFile> files = StarredFile::listFromJSON(json.data(), &error);
+    emit success(files);
 }

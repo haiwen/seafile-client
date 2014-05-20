@@ -44,7 +44,7 @@ For example, if you like to add Russian translation.
 
 ### Contribute your translation
 
-Please submit translations via Transifex: https://www.transifex.com/projects/p/seahub/
+Please submit translations via Transifex: https://www.transifex.com/projects/p/seafile-client/
 
 Steps:
 

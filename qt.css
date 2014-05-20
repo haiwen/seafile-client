@@ -10,72 +10,6 @@ QLabel {
     font-family: Arial;
 }
 
-MainWindow QTabWidget {
-    qproperty-tabPosition: North;
-}
-
-/* The tab widget frame */
-MainWindow QTabWidget::pane {
-    border-top: 1px solid #C2C7CB;
-    position: absolute;
-    padding: 0;
-}
-
-MainWindow QTabWidget::tab-bar {
-    alignment: left;
-    left: 5px;
-}
-
-/**
- * Style the tab using the tab sub-control. Note that
- *  it reads QTabBar _not_ QTabWidget
- */
-MainWindow QTabBar::tab {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-    border: 1px solid #C4C4C3;
-    border-bottom: 0px;
-    border-bottom-color: #C2C7CB; /* same as the pane color */
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    min-width: 160px;
-    max-width: 160px;
-    min-height: 25px;
-    max-height: 25px;
-
-    padding: 5px;
-}
-
-MainWindow QTabBar::tab:selected, MainWindow QTabBar::tab:hover {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,
-                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
-}
-
-MainWindow QTabBar::tab:selected {
-    border-color: #9B9B9B;
-    border-bottom-color: #C2C7CB; /* same as pane color */
-}
-/* make use of negative margins for overlapping tabs */
-MainWindow QTabBar::tab:selected {
-    /* expand/overlap to the left and right by 4px */
-    margin-left: -2px;
-    margin-right: -2px;
-}
-/* QTabBar::tab:first:selected { */
-/*     margin-left: 0; /\* the first selected tab has nothing to overlap with on the left *\/ */
-/* } */
-
-/* QTabBar::tab:last:selected { */
-/*     margin-right: 0; /\* the last selected tab has nothing to overlap with on the right *\/ */
-/* } */
-
-/* QTabBar::tab:only-one { */
-/*     margin: 0; /\* if there is only one tab, we don't want overlapping margins *\/ */
-/* } */
-
-/* Cloud Tab */
 CloudView {
     min-width: 300px;
     /* max-width: 300px; */
@@ -100,6 +34,7 @@ CloudView QToolBar {
     qproperty-iconSize: 24px;
     border: 0;
     /* max-width: 290px; */
+    border-bottom: 1px solid #DCDCDE;
 }
 
 QToolBar QAbstractButton {
@@ -182,7 +117,6 @@ RepoTreeView
 {
     background: white;
     border: 0;
-    margin: 0 1px;
     font-size: 14px;
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
@@ -198,7 +132,6 @@ CloudView QWidget#mDropArea {
     background: #F5F5F7;
     padding: 0;
     padding-top: 10px;
-    margin: 0 1px;
 }
 
 CloudView QFrame#mDropInner {
@@ -378,4 +311,42 @@ DownloadRepoDialog QLabel#mRepoIcon {
 }
 
 DownloadRepoDialog QPushButton#mSwitchToSyncBtn {
+}
+
+SeafileTabWidget {
+    border: 0;
+}
+
+SeafileTabWidget QWidget#pane {
+    padding: 0 10px;
+}
+
+SeafileTabBar {
+    alignment: left;
+    border: 0;
+}
+
+SeafileTabBar::tab {
+    background: white;
+
+    min-height: 48px;
+    max-height: 48px;
+
+    min-width: 100px;
+
+    padding: 0;
+    border: 0;
+}
+
+SeafileTabBar::tab:selected {
+    /* border-bottom: 5px solid #D58747; */
+}
+
+SeafileTabWidget ActivitiesTab {
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+StarredFilesListView::item {
+    /* font-size: 5px; */
 }

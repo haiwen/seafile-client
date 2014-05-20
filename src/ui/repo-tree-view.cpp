@@ -9,11 +9,11 @@
 #include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
+#include "account-mgr.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "download-repo-dialog.h"
 #include "clone-tasks-dialog.h"
-#include "cloud-view.h"
 #include "repo-item.h"
 #include "repo-item-delegate.h"
 #include "repo-tree-model.h"
@@ -21,9 +21,8 @@
 #include "repo-detail-dialog.h"
 
 
-RepoTreeView::RepoTreeView(CloudView *cloud_view, QWidget *parent)
-    : QTreeView(parent),
-      cloud_view_(cloud_view)
+RepoTreeView::RepoTreeView(QWidget *parent)
+    : QTreeView(parent)
 {
     header()->hide();
     createActions();
@@ -245,7 +244,7 @@ void RepoTreeView::createActions()
 void RepoTreeView::downloadRepo()
 {
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
-    DownloadRepoDialog dialog(cloud_view_->currentAccount(), repo, this);
+    DownloadRepoDialog dialog(seafApplet->accountManager()->accounts()[0], repo, this);
 
     dialog.exec();
 
@@ -333,7 +332,7 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
 void RepoTreeView::viewRepoOnWeb()
 {
     QString repo_id = view_on_web_action_->data().toString();
-    const Account& account = cloud_view_->currentAccount();
+    const Account& account = seafApplet->accountManager()->accounts()[0];
     if (account.isValid()) {
         QUrl url = account.serverUrl;
         url.setPath(url.path() + "/repo/" + repo_id);
@@ -388,6 +387,8 @@ void RepoTreeView::showRepoCategoryItemToolTip(const RepoCategoryItem *item,
 std::vector<QAction*> RepoTreeView::getToolBarActions()
 {
     std::vector<QAction*> actions;
+
+    updateRepoActions();
 
     actions.push_back(download_action_);
     actions.push_back(open_local_folder_action_);

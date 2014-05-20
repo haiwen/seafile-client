@@ -2,24 +2,23 @@
 #define SEAFILE_CLIENT_CLOUD_VIEW_H
 
 #include <QWidget>
-#include "account.h"
 #include "ui_cloud-view.h"
-class QPoint;
-class QMenu;
+
 class QTimer;
 class QShowEvent;
 class QHideEvent;
 class QToolButton;
 class QToolBar;
 class QSizeGrip;
+class QTabWidget;
 
-class ListReposRequest;
-class ServerRepo;
-class RepoTreeView;
-class RepoTreeModel;
+class SeafileTabWidget;
+class ReposTab;
+class StarredFilesTab;
+class ActivitiesTab;
 class CloneTasksDialog;
 class SeahubMessagesMonitor;
-class ApiError;
+class AccountView;
 
 class CloudView : public QWidget,
                   public Ui::CloudView
@@ -27,11 +26,10 @@ class CloudView : public QWidget,
     Q_OBJECT
 public:
     CloudView(QWidget *parent=0);
-    const Account& currentAccount() { return current_account_; }
 
     CloneTasksDialog* cloneTasksDialog();
 
-    QToolButton *seahubMessagesBtn() const { return mSeahubMessagesBtn; }
+    // QToolButton *seahubMessagesBtn() const { return mSeahubMessagesBtn; }
 
 protected:
     void showEvent(QShowEvent *event);
@@ -40,76 +38,52 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
 public slots:
-    void showAddAccountDialog();
-    void deleteAccount();
     void showCloneTasksDialog();
 
 private slots:
-    void refreshRepos();
-    void refreshRepos(const std::vector<ServerRepo>& repos);
-    void refreshReposFailed(const ApiError& error);
-    void setCurrentAccount(const Account&account);
-    void updateAccountMenu();
-    void onAccountItemClicked();
     void refreshStatusBar();
     void showServerStatusDialog();
     void onRefreshClicked();
     void onMinimizeBtnClicked();
     void onCloseBtnClicked();
     void chooseFolderToSync();
+    void onAccountsChanged();
 
 private:
     Q_DISABLE_COPY(CloudView)
 
-    void createLoadingView();
-    void createLoadingFailedView();
-    void createRepoModelView();
-    void prepareAccountButtonMenu();
+    bool hasAccount();
+
     void setupHeader();
+    void createAccountView();
+    void createToolBar();
+    void createTabs();
     void setupDropArea();
     void setupFooter();
-    void createToolBar();
-    void updateAccountInfoDisplay();
-    QAction *makeAccountAction(const Account& account);
-    void showLoadingView();
-    void showRepos();
-    bool hasAccount();
+
     void refreshServerStatus();
     void refreshTasksInfo();
     void refreshTransferRate();
     void showCreateRepoDialog(const QString& path);
 
-    bool in_refresh_;
-    QTimer *refresh_timer_;
-
     QTimer *refresh_status_bar_timer_;
 
-    RepoTreeModel *repos_model_;
-
-    RepoTreeView *repos_tree_;
-    QWidget *loading_view_;
-    QWidget *loading_failed_view_;
-
-    QSizeGrip *resizer_;
-
-    ListReposRequest *list_repo_req_;
+    AccountView *account_view_;
 
     // Toolbar and actions
     QToolBar *tool_bar_;
     QAction *refresh_action_;
 
-    // FolderDropArea *drop_area_;
-    Account current_account_;
+    SeafileTabWidget *tabs_;
+    ReposTab *repos_tab_;
+    StarredFilesTab *starred_files_tab_;
+    ActivitiesTab *activities_tab_;
 
-    // Account operations
-    QAction *add_account_action_;
-    QAction *delete_account_action_;
-    QAction *switch_account_action_;
-    QMenu *account_menu_;
+    QSizeGrip *resizer_;
 
     CloneTasksDialog* clone_task_dialog_;
 
-    SeahubMessagesMonitor *seahub_messages_monitor_;
+    // SeahubMessagesMonitor *seahub_messages_monitor_;
 };
 
 

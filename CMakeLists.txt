@@ -39,7 +39,7 @@ endif()
 ####################
 ###### BEGIN: QT configuration
 ####################
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork)
+FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork QtWebkit)
 INCLUDE(${QT_USE_FILE})
 
 
@@ -53,7 +53,7 @@ SET(moc_headers
   src/settings-mgr.h
   src/traynotificationwidget.h
   src/traynotificationmanager.h
-  src/seahub-messages-monitor.h
+  # src/seahub-messages-monitor.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/requests.h
@@ -77,6 +77,16 @@ SET(moc_headers
   src/ui/init-vdrive-dialog.h
   src/ui/uninstall-helper-dialog.h
   src/ui/ssl-confirm-dialog.h
+  src/ui/account-view.h
+  src/ui/seafile-tab-widget.h
+  src/ui/tab-view.h
+  src/ui/webview.h
+  src/ui/repos-tab.h
+  src/ui/starred-files-tab.h
+  src/ui/starred-files-list-view.h
+  src/ui/starred-files-list-model.h
+  src/ui/starred-file-item-delegate.h
+  src/ui/activities-tab.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -99,6 +109,7 @@ SET(ui_files
   ui/init-vdrive-dialog.ui
   ui/uninstall-helper-dialog.ui
   ui/ssl-confirm-dialog.ui
+  ui/account-view.ui
   ${platform_specific_ui_files}
 )
 
@@ -158,13 +169,14 @@ SET(seafile_client_sources
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp
-  src/seahub-messages-monitor.cpp
   src/certs-mgr.cpp
+  # src/seahub-messages-monitor.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/api-error.cpp
   src/api/requests.cpp
   src/api/server-repo.cpp
+  src/api/starred-file.cpp
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
@@ -179,6 +191,7 @@ SET(seafile_client_sources
   src/ui/cloud-view.cpp
   src/utils/rsa.cpp
   src/utils/utils.cpp
+  src/utils/paint-utils.cpp
   src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
   src/utils/log.c
@@ -194,6 +207,17 @@ SET(seafile_client_sources
   src/ui/uninstall-helper-dialog.cpp
   src/ui/ssl-confirm-dialog.cpp
   src/ui/proxy-style.cpp
+  src/ui/account-view.cpp
+  src/ui/seafile-tab-widget.cpp
+  src/ui/tab-view.cpp
+  src/ui/webview.cpp
+  src/ui/repos-tab.cpp
+  src/ui/starred-files-tab.cpp
+  src/ui/starred-files-list-view.cpp
+  src/ui/starred-files-list-model.cpp
+  src/ui/starred-file-item.cpp
+  src/ui/starred-file-item-delegate.cpp
+  src/ui/activities-tab.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

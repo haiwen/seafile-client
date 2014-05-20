@@ -29,8 +29,6 @@ public:
                              const QRect& rect) const;
 
 private:
-    void matchCurrentItem(const QStyleOptionViewItem& option,
-                          const ServerRepo& repo) const;
     QStandardItem* getItem(const QModelIndex &index) const;
     void paintRepoItem(QPainter *painter,
                        const QStyleOptionViewItem& opt,

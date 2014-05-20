@@ -6,6 +6,10 @@
 #include <QDir>
 #include <QCoreApplication>
 
+#include <QDialog>
+#include <QTabBar>
+#include <QVBoxLayout>
+
 #include "QtAwesome.h"
 #include "cloud-view.h"
 #include "seafile-applet.h"
@@ -22,6 +26,32 @@ enum WIDGET_INDEX {
     INDEX_CLOUD_VIEW = 0,
     INDEX_LOCAL_VIEW
 };
+
+void showTestDialog(QWidget *parent)
+{
+    static QDialog *dialog;
+
+    if (!dialog) {
+        dialog = new QDialog(parent);
+        
+        QVBoxLayout *layout = new QVBoxLayout;
+        dialog->setLayout(layout);
+
+        QTabBar *bar = new QTabBar;
+        bar->setExpanding(true);
+        bar->addTab("TabA");
+        bar->addTab("TabB");
+        bar->addTab("TabC");
+    
+        layout->addWidget(bar);
+    }
+    
+    // dialog.exec();
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
 
 } // namespace
 
@@ -116,6 +146,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_F5) {
         refreshQss();
+        return;
+    }
+
+    if (event->key() == Qt::Key_F6) {
+        showTestDialog(this);
         return;
     }
 

@@ -6,69 +6,71 @@ extern "C" {
 
 #include <vector>
 #include <QtGui>
-#include <QToolButton>
-#include <QWidgetAction>
-#include <QTreeView>
 
 #include "QtAwesome.h"
 #include "seahub-messages-monitor.h"
-#include "api/requests.h"
-#include "api/api-error.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
-#include "configurator.h"
-#include "login-dialog.h"
 #include "create-repo-dialog.h"
-#include "repo-tree-view.h"
-#include "repo-tree-model.h"
-#include "repo-item-delegate.h"
 #include "clone-tasks-dialog.h"
 #include "server-status-dialog.h"
-#include "init-vdrive-dialog.h"
 #include "main-window.h"
+#include "repos-tab.h"
+#include "starred-files-tab.h"
+#include "activities-tab.h"
+#include "account-view.h"
+#include "seafile-tab-widget.h"
+
 #include "cloud-view.h"
 
 namespace {
 
-const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
 const int kRefreshStatusInterval = 1000;
-const char *kLoadingFaieldLabelName = "loadingFailedText";
+
+const int kIndexOfAccountView = 1;
+const int kIndexOfToolBar = 2;
+const int kIndexOfTabWidget = 3;
 
 enum {
-    INDEX_LOADING_VIEW = 0,
-    INDEX_LOADING_FAILED_VIEW,
-    INDEX_REPOS_VIEW
+    TAB_INDEX_REPOS = 0,
+    TAB_INDEX_STARRED_FILES,
+    TAB_INDEX_ACTIVITIES,
 };
 
 }
 
 CloudView::CloudView(QWidget *parent)
     : QWidget(parent),
-      in_refresh_(false),
-      list_repo_req_(NULL),
       clone_task_dialog_(NULL)
 
 {
     setupUi(this);
 
     // seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
-    mSeahubMessagesBtn->setVisible(false);
+    // mSeahubMessagesBtn->setVisible(false);
 
+    layout()->setContentsMargins(1, 0, 1, 0);
+
+    // Setup widgets from top down
     setupHeader();
-    createRepoModelView();
-    createLoadingView();
-    createLoadingFailedView();
-    mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
-    mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
-    mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
+    createAccountView();
+
+    createTabs();
+
+    // tool bar have to be created after tabs, since some of the toolbar
+    // actions are provided by the tabs
     createToolBar();
-    updateAccountInfoDisplay();
-    prepareAccountButtonMenu();
 
     setupDropArea();
+
     setupFooter();
+
+    QVBoxLayout *vlayout = (QVBoxLayout *)layout();
+    vlayout->insertWidget(kIndexOfAccountView, account_view_);
+    vlayout->insertWidget(kIndexOfToolBar, tool_bar_);
+    vlayout->insertWidget(kIndexOfTabWidget, tabs_);
 
     resizer_ = new QSizeGrip(this);
     resizer_->resize(resizer_->sizeHint());
@@ -76,17 +78,10 @@ CloudView::CloudView(QWidget *parent)
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
 
-    refresh_timer_ = new QTimer(this);
-    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshRepos()));
+    AccountManager *account_mgr = seafApplet->accountManager();
+    connect(account_mgr, SIGNAL(accountsChanged()),
+            this, SLOT(onAccountsChanged()));
 
-    connect(seafApplet->accountManager(), SIGNAL(accountAdded(const Account&)),
-            this, SLOT(setCurrentAccount(const Account&)));
-
-    connect(seafApplet->accountManager(), SIGNAL(accountAdded(const Account&)),
-            this, SLOT(updateAccountMenu()));
-
-    connect(seafApplet->accountManager(), SIGNAL(accountRemoved(const Account&)),
-            this, SLOT(updateAccountMenu()));
 #ifdef Q_WS_MAC
     mHeader->setVisible(false);
 #endif
@@ -113,6 +108,36 @@ void CloudView::setupHeader()
 
     // Handle mouse move event
     mHeader->installEventFilter(this);
+}
+
+
+void CloudView::createAccountView()
+{
+    account_view_ = new AccountView;
+}
+
+void CloudView::createTabs()
+{
+    tabs_ = new SeafileTabWidget;
+    // tabs_ = new QTabWidget;
+
+    repos_tab_ = new ReposTab;
+
+    QString base_icon_path = ":/images/tabs/";
+    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "repos.png");
+
+    starred_files_tab_ = new StarredFilesTab;
+    tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png");
+
+    activities_tab_ = new ActivitiesTab;
+    tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
+}
+
+void CloudView::setupDropArea()
+{
+    mDropArea->setAcceptDrops(true);
+    mDropArea->installEventFilter(this);
+    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
 }
 
 void CloudView::setupFooter()
@@ -158,9 +183,13 @@ void CloudView::chooseFolderToSync()
 
 void CloudView::showCreateRepoDialog(const QString& path)
 {
-    CreateRepoDialog dialog(current_account_, path, this);
+    const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+    if (accounts.empty()) {
+        return;
+    }
+    CreateRepoDialog dialog(accounts[0], path, this);
     if (dialog.exec() == QDialog::Accepted) {
-        refreshRepos();
+        repos_tab_->refresh();
     }
 }
 
@@ -172,13 +201,6 @@ void CloudView::onMinimizeBtnClicked()
 void CloudView::onCloseBtnClicked()
 {
     seafApplet->mainWindow()->hide();
-}
-
-void CloudView::setupDropArea()
-{
-    mDropArea->setAcceptDrops(true);
-    mDropArea->installEventFilter(this);
-    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
 }
 
 bool CloudView::eventFilter(QObject *obj, QEvent *event)
@@ -236,296 +258,22 @@ CloneTasksDialog *CloudView::cloneTasksDialog()
     return clone_task_dialog_;
 }
 
-void CloudView::createRepoModelView()
-{
-    repos_tree_ = new RepoTreeView(this);
-    repos_model_ = new RepoTreeModel;
-    repos_model_->setTreeView(repos_tree_);
-
-    repos_tree_->setModel(repos_model_);
-    repos_tree_->setItemDelegate(new RepoItemDelegate);
-}
-
-void CloudView::createLoadingView()
-{
-    loading_view_ = new QWidget(this);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    loading_view_->setLayout(layout);
-
-    QMovie *gif = new QMovie(":/images/loading.gif");
-    QLabel *label = new QLabel;
-    label->setMovie(gif);
-    label->setAlignment(Qt::AlignCenter);
-    gif->start();
-
-    layout->addWidget(label);
-}
-
-void CloudView::createLoadingFailedView()
-{
-    loading_failed_view_ = new QWidget(this);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    loading_failed_view_->setLayout(layout);
-
-    QLabel *label = new QLabel;
-    label->setObjectName(kLoadingFaieldLabelName);
-    QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
-    QString label_text = tr("Failed to get libraries information<br/>"
-                            "Please %1").arg(link);
-    label->setText(label_text);
-    label->setAlignment(Qt::AlignCenter);
-
-    connect(label, SIGNAL(linkActivated(const QString&)),
-            this, SLOT(onRefreshClicked()));
-    label->installEventFilter(this);
-
-    layout->addWidget(label);
-}
-
-void CloudView::showLoadingView()
-{
-    QStackedLayout *stack = (QStackedLayout *)(layout());
-
-    mStack->setCurrentIndex(INDEX_LOADING_VIEW);
-
-    mDropArea->setVisible(false);
-}
-
-void CloudView::showRepos()
-{
-    mStack->setCurrentIndex(INDEX_REPOS_VIEW);
-
-    mDropArea->setVisible(true);
-}
-
-void CloudView::prepareAccountButtonMenu()
-{
-    account_menu_ = new QMenu;
-    mAccountBtn->setMenu(account_menu_);
-
-    mAccountBtn->setPopupMode(QToolButton::InstantPopup);
-
-    updateAccountMenu();
-}
-
-void CloudView::updateAccountInfoDisplay()
-{
-    mAccountBtn->setIcon(QIcon(":/images/account.png"));
-    mAccountBtn->setIconSize(QSize(32, 32));
-    if (hasAccount()) {
-        mEmail->setText(current_account_.username);
-        mServerAddr->setOpenExternalLinks(true);
-        mServerAddr->setToolTip(tr("click to open the website"));
-
-        QString host = current_account_.serverUrl.host();
-        QString href = current_account_.serverUrl.toString();
-        QString text = QString("<a style="
-                               "\"color:#A4A4A4; text-decoration: none;\" "
-                               "href=\"%1\">%2</a>").arg(href).arg(host);
-
-        mServerAddr->setText(text);
-    } else {
-        mEmail->setText(tr("No account"));
-        mServerAddr->setText(QString());
-    }
-}
-
-/**
- * Update the account menu when accounts changed
- */
-void CloudView::updateAccountMenu()
-{
-    // Remove all menu items
-    account_menu_->clear();
-
-    // Add accounts again
-    const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-
-    if (!accounts.empty()) {
-        if (!hasAccount()) {
-            setCurrentAccount(accounts[0]);
-        }
-
-        for (int i = 0, n = accounts.size(); i < n; i++) {
-            Account account = accounts[i];
-            QAction *action = makeAccountAction(accounts[i]);
-            if (account == current_account_) {
-                action->setChecked(true);
-            }
-            account_menu_->addAction(action);
-        }
-
-        account_menu_->addSeparator();
-    }
-
-    // Add rest items
-    add_account_action_ = new QAction(tr("Add an account"), this);
-    add_account_action_->setIcon(awesome->icon(icon_plus));
-    add_account_action_->setIconVisibleInMenu(true);
-    connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
-    account_menu_->addAction(add_account_action_);
-
-    if (hasAccount()) {
-        delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(awesome->icon(icon_remove));
-        delete_account_action_->setIconVisibleInMenu(true);
-        connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
-        account_menu_->addAction(delete_account_action_);
-    }
-}
-
-void CloudView::setCurrentAccount(const Account& account)
-{
-    if (current_account_ != account) {
-        current_account_ = account;
-        in_refresh_ = false;
-        repos_model_->clear();
-        showLoadingView();
-        refreshRepos();
-
-        // seahub_messages_monitor_->refresh();
-
-        updateAccountInfoDisplay();
-        if (account.isValid()) {
-            seafApplet->accountManager()->updateAccountLastVisited(account);
-        }
-        qDebug("switch to account %s\n", account.username.toUtf8().data());
-    }
-
-    refresh_action_->setEnabled(account.isValid());
-}
-
-QAction* CloudView::makeAccountAction(const Account& account)
-{
-    QString text = account.username + "(" + account.serverUrl.host() + ")";
-    QAction *action = new QAction(text, account_menu_);
-    action->setData(QVariant::fromValue(account));
-    action->setCheckable(true);
-    // QMenu won't display tooltip for menu item
-    // action->setToolTip(account.serverUrl.host());
-
-    connect(action, SIGNAL(triggered()), this, SLOT(onAccountItemClicked()));
-
-    return action;
-}
-
-// Switch to the clicked account in the account menu
-void CloudView::onAccountItemClicked()
-{
-    QAction *action = (QAction *)(sender());
-    Account account = qvariant_cast<Account>(action->data());
-
-    if (account == current_account_) {
-        return;
-    }
-
-    setCurrentAccount(account);
-    updateAccountMenu();
-}
-
-
-void CloudView::refreshRepos()
-{
-    if (in_refresh_) {
-        return;
-    }
-
-    if (!hasAccount()) {
-        return;
-    }
-
-    in_refresh_ = true;
-
-    if (list_repo_req_) {
-        delete list_repo_req_;
-    }
-    list_repo_req_ = new ListReposRequest(current_account_);
-    connect(list_repo_req_, SIGNAL(success(const std::vector<ServerRepo>&)),
-            this, SLOT(refreshRepos(const std::vector<ServerRepo>&)));
-    connect(list_repo_req_, SIGNAL(failed(const ApiError&)),
-            this, SLOT(refreshReposFailed(const ApiError&)));
-    list_repo_req_->send();
-}
-
-void CloudView::refreshRepos(const std::vector<ServerRepo>& repos)
-{
-    in_refresh_ = false;
-    repos_model_->setRepos(repos);
-
-    list_repo_req_->deleteLater();
-    list_repo_req_ = NULL;
-
-    showRepos();
-}
-
-void CloudView::refreshReposFailed(const ApiError& error)
-{
-    qDebug("failed to refresh repos");
-    in_refresh_ = false;
-
-    if (mStack->currentIndex() == INDEX_LOADING_VIEW) {
-        mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
-    }
-}
-
 bool CloudView::hasAccount()
 {
-    return current_account_.token.length() > 0;
+    return seafApplet->accountManager()->hasAccount();
 }
 
 void CloudView::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 
-    refresh_timer_->start(kRefreshReposInterval);
     refresh_status_bar_timer_->start(kRefreshStatusInterval);
 }
 
 void CloudView::hideEvent(QHideEvent *event) {
     QWidget::hideEvent(event);
-    refresh_timer_->stop();
     refresh_status_bar_timer_->stop();
 }
 
-void CloudView::showAddAccountDialog()
-{
-    LoginDialog dialog(this);
-    // Show InitVirtualDriveDialog for the first account added
-    AccountManager *account_mgr = seafApplet->accountManager();
-    if (dialog.exec() == QDialog::Accepted
-        && account_mgr->accounts().size() == 1) {
-
-        const Account& account = account_mgr->accounts()[0];
-        InitVirtualDriveDialog dialog(account, seafApplet->mainWindow());
-        dialog.exec();
-    }
-}
-
-void CloudView::deleteAccount()
-{
-    QString question = tr("Are you sure to remove this account?<br>"
-                          "<b>Warning: All libraries of this account would be unsynced!</b>");
-    if (QMessageBox::question(this,
-                              getBrand(),
-                              question,
-                              QMessageBox::Ok | QMessageBox::Cancel,
-                              QMessageBox::Cancel) == QMessageBox::Ok) {
-
-        QString error, server_addr = current_account_.serverUrl.host();
-        if (seafApplet->rpcClient()->unsyncReposByAccount(server_addr,
-                                                          current_account_.username,
-                                                          &error) < 0) {
-            QMessageBox::warning(this, getBrand(),
-                                 tr("Failed to unsync libraries of this account: %1").arg(error),
-                                 QMessageBox::Ok);
-        }
-
-        Account account = current_account_;
-        setCurrentAccount(Account());
-        seafApplet->accountManager()->removeAccount(account);
-    }
-}
 
 void CloudView::refreshTasksInfo()
 {
@@ -630,14 +378,10 @@ void CloudView::createToolBar()
 {
     tool_bar_ = new QToolBar;
 
-    QVBoxLayout *vlayout = (QVBoxLayout *)layout();
-    vlayout->insertWidget(2, tool_bar_);
-
-    std::vector<QAction*> repo_actions = repos_tree_->getToolBarActions();
+    std::vector<QAction*> repo_actions = repos_tab_->getToolBarActions();
     for (int i = 0, n = repo_actions.size(); i < n; i++) {
         QAction *action = repo_actions[i];
         tool_bar_->addAction(action);
-        action->setEnabled(hasAccount());
     }
 
     QWidget *spacerWidget = new QWidget;
@@ -653,9 +397,12 @@ void CloudView::createToolBar()
 
 void CloudView::onRefreshClicked()
 {
-    if (hasAccount()) {
-        showLoadingView();
-        refreshRepos();
+    if (tabs_->currentIndex() == TAB_INDEX_REPOS) {
+        repos_tab_->refresh();
+    } else if (tabs_->currentIndex() == TAB_INDEX_STARRED_FILES) {
+        starred_files_tab_->refresh();
+    } else if (tabs_->currentIndex() == TAB_INDEX_ACTIVITIES) {
+        activities_tab_->refresh();
     }
 }
 
@@ -663,4 +410,15 @@ void CloudView::resizeEvent(QResizeEvent *event)
 {
     resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
     resizer_->raise();
+    tabs_->adjustTabsWidth(rect().width());
+}
+
+void CloudView::onAccountsChanged()
+{
+    refresh_action_->setEnabled(hasAccount());
+
+    repos_tab_->refresh();
+    starred_files_tab_->refresh();
+    activities_tab_->refresh();
+    account_view_->onAccountsChanged();
 }

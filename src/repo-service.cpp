@@ -95,3 +95,17 @@ void RepoService::refresh(bool force)
     in_refresh_ = false;
     refresh();
 }
+
+ServerRepo
+RepoService::getRepo(const QString& repo_id) const
+{
+    int i, n = server_repos_.size();
+    for (i = 0; i < n; i++) {
+        ServerRepo repo = server_repos_[i];
+        if (repo.id == repo_id) {
+            return repo;
+        }
+    }
+
+    return ServerRepo();
+}

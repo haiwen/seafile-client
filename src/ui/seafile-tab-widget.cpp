@@ -13,7 +13,7 @@
 
 namespace {
 
-const int kTabIconSize = 32;
+const int kTabIconSize = 24;
 
 const char *kTabsBackgroundColor = "white";
 const char *kSelectedTabBorderBottomColor = "#D58747";

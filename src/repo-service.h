@@ -19,7 +19,9 @@ public:
 
     void start();
 
-    const std::vector<ServerRepo>& serverRepos() { return server_repos_; }
+    const std::vector<ServerRepo>& serverRepos() const { return server_repos_; }
+
+    ServerRepo getRepo(const QString& repo_id) const;
 
     void refresh(bool force);
 

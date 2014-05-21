@@ -29,7 +29,7 @@ const int kPadding = 5;
 
 const int kFileIconHeight = 36;
 const int kFileIconWidth = 36;
-const int kFileNameWidth = 175;
+const int kFileNameWidth = 200;
 const int kFileNameHeight = 30;
 
 const int kMarginBetweenFileIconAndName = 10;
@@ -55,11 +55,11 @@ QSize StarredFileItemDelegate::sizeHint(const QStyleOptionViewItem &option,
                                         const QModelIndex &index) const
 {
     StarredFileItem *item = getItem(index);
-    return sizeHintForItem(option, item);
     if (!item) {
         return QStyledItemDelegate::sizeHint(option, index);
     }
 
+    return sizeHintForItem(option, item);
 }
 
 QSize StarredFileItemDelegate::sizeHintForItem(const QStyleOptionViewItem &option,

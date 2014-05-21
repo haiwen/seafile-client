@@ -34,6 +34,8 @@ public:
     QString group_name;
     int group_id;
 
+    bool isValid() const { return !id.isEmpty(); }
+
     bool isPersonalRepo() const { return type == "repo"; }
     bool isSharedRepo() const { return type == "srepo"; }
     bool isGroupRepo() const { return type == "grepo"; }

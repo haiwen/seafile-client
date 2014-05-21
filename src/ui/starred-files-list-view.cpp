@@ -9,10 +9,12 @@
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
+#include "repo-service.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "starred-file-item.h"
 #include "starred-files-list-model.h"
+#include "download-repo-dialog.h"
 
 #include "starred-files-list-view.h"
 
@@ -55,8 +57,19 @@ void StarredFilesListView::openLocalFile()
 
         QDesktopServices::openUrl(QUrl::fromLocalFile(path));
     } else {
-        // if (seafApplet->yesOrNoBox(msg, null, true)) {
-        // }
+        ServerRepo repo = RepoService::instance()->getRepo(file.repo_id);
+        if (!repo.isValid()) {
+            return;
+        }
+
+        QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
+        if (seafApplet->yesOrNoBox(msg, NULL, true)) {
+            Account account = seafApplet->accountManager()->currentAccount();
+            if (account.isValid()) {
+                DownloadRepoDialog dialog(account, repo, this);
+                dialog.exec();
+            }
+        }
     }
 }
 
@@ -103,7 +116,6 @@ void StarredFilesListView::contextMenuEvent(QContextMenuEvent *event)
     QPoint pos = event->pos();
     QModelIndex index = indexAt(pos);
     if (!index.isValid()) {
-        // Not clicked at a repo item
         return;
     }
 

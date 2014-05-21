@@ -317,10 +317,6 @@ SeafileTabWidget {
     border: 0;
 }
 
-SeafileTabWidget QWidget#pane {
-    padding: 0 10px;
-}
-
 SeafileTabBar {
     alignment: left;
     border: 0;
@@ -329,8 +325,8 @@ SeafileTabBar {
 SeafileTabBar::tab {
     background: white;
 
-    min-height: 48px;
-    max-height: 48px;
+    min-height: 36px;
+    max-height: 36px;
 
     min-width: 100px;
 
@@ -338,15 +334,7 @@ SeafileTabBar::tab {
     border: 0;
 }
 
-SeafileTabBar::tab:selected {
-    /* border-bottom: 5px solid #D58747; */
-}
-
-SeafileTabWidget ActivitiesTab {
+StarredFilesListView {
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
-}
-
-StarredFilesListView::item {
-    /* font-size: 5px; */
 }

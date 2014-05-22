@@ -29,7 +29,7 @@ const int kPadding = 5;
 
 const int kFileIconHeight = 36;
 const int kFileIconWidth = 36;
-const int kFileNameWidth = 200;
+const int kFileNameWidth = 220;
 const int kFileNameHeight = 30;
 
 const int kMarginBetweenFileIconAndName = 10;

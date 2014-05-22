@@ -345,10 +345,6 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
     QPoint viewpos = viewport->mapFromGlobal(global_pos);
     viewpos -= rect.topLeft();
 
-    // QRect r(status_icon_rect);
-    // qDebug("rect: (%d, %d) w = %d, h = %d; pos: (%d, %d)\n",
-    //        r.topLeft().x(), r.topLeft().y(), r.width(), r.height(), viewpos.x(), viewpos.y());
-
     if (!status_icon_rect.contains(viewpos)) {
         return;
     }

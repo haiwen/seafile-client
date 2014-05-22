@@ -27,6 +27,9 @@ StarredFilesListView::StarredFilesListView(QWidget *parent)
 #endif
 
     createActions();
+
+    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
+            this, SLOT(onItemDoubleClicked(const QModelIndex&)));
 }
 
 void StarredFilesListView::createActions()
@@ -48,29 +51,7 @@ void StarredFilesListView::openLocalFile()
 {
     StarredFile file = qvariant_cast<StarredFile>(view_file_on_web_action_->data());
 
-    LocalRepo r;
-
-    seafApplet->rpcClient()->getLocalRepo(file.repo_id, &r);
-
-    if (r.isValid()) {
-        QString path = QDir(r.worktree).filePath(file.path.mid(1));
-
-        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-    } else {
-        ServerRepo repo = RepoService::instance()->getRepo(file.repo_id);
-        if (!repo.isValid()) {
-            return;
-        }
-
-        QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
-        if (seafApplet->yesOrNoBox(msg, NULL, true)) {
-            Account account = seafApplet->accountManager()->currentAccount();
-            if (account.isValid()) {
-                DownloadRepoDialog dialog(account, repo, this);
-                dialog.exec();
-            }
-        }
-    }
+    openLocalFile(file);
 }
 
 void StarredFilesListView::viewFileOnWeb()
@@ -148,4 +129,74 @@ QMenu* StarredFilesListView::prepareContextMenu(const StarredFileItem *item)
     menu->addAction(view_file_on_web_action_);
 
     return menu;
+}
+
+bool StarredFilesListView::viewportEvent(QEvent *event)
+{
+    if (event->type() != QEvent::ToolTip && event->type() != QEvent::WhatsThis) {
+        return QListView::viewportEvent(event);
+    }
+
+    QPoint global_pos = QCursor::pos();
+    QPoint viewport_pos = viewport()->mapFromGlobal(global_pos);
+    QModelIndex index = indexAt(viewport_pos);
+    if (!index.isValid()) {
+        return true;
+    }
+
+    QStandardItem *qitem = getFileItem(index);
+    if (!qitem) {
+        return true;
+    }
+
+    StarredFileItem *item = (StarredFileItem *)qitem;
+
+    QRect item_rect = visualRect(index);
+
+    QString text = "<p style='white-space:pre'>";
+    text += item->file().path;
+    text += "</p>";
+
+    QToolTip::showText(QCursor::pos(), text, viewport(), item_rect);
+
+    return true;
+}
+
+void StarredFilesListView::onItemDoubleClicked(const QModelIndex& index)
+{
+    QStandardItem *item = getFileItem(index);
+    if (!item) {
+        return;
+    }
+
+    const StarredFile& file = ((StarredFileItem *)item)->file();
+
+    openLocalFile(file);
+}
+
+void StarredFilesListView::openLocalFile(const StarredFile& file)
+{
+    LocalRepo r;
+
+    seafApplet->rpcClient()->getLocalRepo(file.repo_id, &r);
+
+    if (r.isValid()) {
+        QString path = QDir(r.worktree).filePath(file.path.mid(1));
+
+        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    } else {
+        ServerRepo repo = RepoService::instance()->getRepo(file.repo_id);
+        if (!repo.isValid()) {
+            return;
+        }
+
+        QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
+        if (seafApplet->yesOrNoBox(msg, NULL, true)) {
+            Account account = seafApplet->accountManager()->currentAccount();
+            if (account.isValid()) {
+                DownloadRepoDialog dialog(account, repo, this);
+                dialog.exec();
+            }
+        }
+    }
 }

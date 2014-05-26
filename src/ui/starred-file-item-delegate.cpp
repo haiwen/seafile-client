@@ -6,6 +6,7 @@
 #include "QtAwesome.h"
 #include "utils/utils.h"
 #include "utils/paint-utils.h"
+#include "utils/file-utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "starred-files-list-model.h"
@@ -148,8 +149,7 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
 
 QPixmap StarredFileItemDelegate::getIconForFile(const QString& name) const
 {
-    // TODO: return different icons basic on file type
-    return QPixmap(":/images/repo.png");
+    return QPixmap(::getIconByFileName(name));
 }
 
 StarredFileItem* StarredFileItemDelegate::getItem(const QModelIndex &index) const

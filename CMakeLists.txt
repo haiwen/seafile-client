@@ -194,6 +194,7 @@ SET(seafile_client_sources
   src/utils/rsa.cpp
   src/utils/utils.cpp
   src/utils/paint-utils.cpp
+  src/utils/file-utils.cpp
   src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
   src/utils/log.c

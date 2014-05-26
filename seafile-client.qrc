@@ -58,6 +58,15 @@
     <file>images/tabs/repos.png</file>
     <file>images/tabs/starred.png</file>
     <file>images/tabs/activities.png</file>
+    <file>images/files/file_audio.png</file>
+    <file>images/files/file_image.png</file>
+    <file>images/files/file_ms_excel.png</file>
+    <file>images/files/file_ms_ppt.png</file>
+    <file>images/files/file_ms_word.png</file>
+    <file>images/files/file_pdf.png</file>
+    <file>images/files/file_text.png</file>
+    <file>images/files/file_video.png</file>
+    <file>images/files/file_unknown.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

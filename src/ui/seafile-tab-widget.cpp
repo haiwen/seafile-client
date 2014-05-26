@@ -92,6 +92,9 @@ SeafileTabWidget::SeafileTabWidget(QWidget *parent)
 
     connect(tabbar_, SIGNAL(currentChanged(int)),
             stack_, SLOT(setCurrentIndex(int)));
+
+    connect(tabbar_, SIGNAL(currentChanged(int)),
+            this, SIGNAL(currentTabChanged(int)));
 }
 
 void SeafileTabWidget::addTab(QWidget *tab, const QString& text, const QString& icon_path)

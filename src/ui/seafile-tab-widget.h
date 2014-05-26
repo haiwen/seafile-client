@@ -39,6 +39,9 @@ public:
 
     int currentIndex() const;
 
+signals:
+    void currentTabChanged(int index);
+
 private:
     QVBoxLayout *layout_;
     

@@ -136,6 +136,9 @@ void CloudView::createTabs()
 
     activities_tab_ = new ActivitiesTab;
     tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
+
+    connect(tabs_, SIGNAL(currentTabChanged(int)),
+            this, SLOT(onTabChanged(int)));
 }
 
 void CloudView::setupDropArea()
@@ -426,4 +429,10 @@ void CloudView::onAccountsChanged()
     starred_files_tab_->refresh();
     activities_tab_->refresh();
     account_view_->onAccountsChanged();
+}
+
+void CloudView::onTabChanged(int index)
+{
+    bool drop_area_visible = index == 0;
+    mDropArea->setVisible(drop_area_visible);
 }

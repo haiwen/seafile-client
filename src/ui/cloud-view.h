@@ -48,6 +48,7 @@ private slots:
     void onCloseBtnClicked();
     void chooseFolderToSync();
     void onAccountsChanged();
+    void onTabChanged(int index);
 
 private:
     Q_DISABLE_COPY(CloudView)

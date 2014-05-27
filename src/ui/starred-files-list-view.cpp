@@ -154,7 +154,7 @@ bool StarredFilesListView::viewportEvent(QEvent *event)
     QRect item_rect = visualRect(index);
 
     QString text = "<p style='white-space:pre'>";
-    text += item->file().path;
+    text += item->file().name();
     text += "</p>";
 
     QToolTip::showText(QCursor::pos(), text, viewport(), item_rect);

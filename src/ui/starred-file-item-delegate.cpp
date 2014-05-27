@@ -1,7 +1,6 @@
 #include <QPainter>
 #include <QApplication>
 #include <QPixmap>
-#include <QToolTip>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"

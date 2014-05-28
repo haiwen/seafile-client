@@ -17,7 +17,7 @@ const int kTabIconSize = 24;
 
 const char *kTabsBackgroundColor = "white";
 const char *kSelectedTabBorderBottomColor = "#D58747";
-const int kSelectedTabBorderBottomWidth = 5;
+const int kSelectedTabBorderBottomWidth = 3;
 
 } // namespace
 

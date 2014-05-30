@@ -39,7 +39,7 @@ const char *kFileNameColorHighlighted = "#544D49";
 const char *kSubtitleColor = "#959595";
 const char *kSubtitleColorHighlighted = "#9D9B9A";
 const int kFileNameFontSize = 14;
-const int kSubtitleFontSize = 12;
+const int kSubtitleFontSize = 13;
 
 const char *kFileItemBackgroundColor = "white";
 const char *kFileItemBackgroundColorHighlighted = "#F9E0C7";
@@ -131,7 +131,7 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     size = readableFileSize(file.size);
     mtime = translateCommitTime(file.mtime);
 
-    subtitle = size + ", " + mtime;
+    subtitle = size + "  " + mtime;
 
     painter->save();
     QPoint file_desc_pos = file_name_rect.bottomLeft() + QPoint(0, 5);

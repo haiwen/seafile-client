@@ -30,6 +30,8 @@ namespace {
 
 int main(int argc, char *argv[])
 {
+    int ret = 0;
+    char c;
 #ifdef Q_WS_MAC
     if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
         // fix Mac OS X 10.9 (mavericks) font issue
@@ -88,7 +90,6 @@ int main(int argc, char *argv[])
         { NULL, 0, NULL, 0, },
     };
 
-    char c;
     while ((c = getopt_long (argc, argv, short_options,
                              long_options, NULL)) != EOF) {
         switch (c) {
@@ -135,5 +136,7 @@ int main(int argc, char *argv[])
     seafApplet = new SeafileApplet;
     seafApplet->start();
 
-    return app.exec();
+    ret = app.exec();
+    seafApplet->exit(ret);
+    return ret;
 }

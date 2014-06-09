@@ -11,6 +11,7 @@
 #include "api/requests.h"
 #include "api/server-repo.h"
 #include "rpc/local-repo.h"
+#include "utils/widget-utils.h"
 
 #include "repos-tab.h"
 
@@ -24,7 +25,7 @@ enum {
     INDEX_REPOS_VIEW
 };
 
-}
+} // namespace
 
 ReposTab::ReposTab(QWidget *parent)
     : TabView(parent)
@@ -58,18 +59,7 @@ void ReposTab::createRepoTree()
 
 void ReposTab::createLoadingView()
 {
-    loading_view_ = new QWidget(this);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    loading_view_->setLayout(layout);
-
-    QMovie *gif = new QMovie(":/images/loading.gif");
-    QLabel *label = new QLabel;
-    label->setMovie(gif);
-    label->setAlignment(Qt::AlignCenter);
-    gif->start();
-
-    layout->addWidget(label);
+    loading_view_ = ::newLoadingView();
 }
 
 void ReposTab::createLoadingFailedView()

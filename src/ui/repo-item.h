@@ -10,7 +10,7 @@
 #define SHARED_REPOS "Shared Libraries"
 
 enum {
-    REPO_ITEM_TYPE,
+    REPO_ITEM_TYPE = QStandardItem::UserType,
     REPO_CATEGORY_TYPE
 };
 

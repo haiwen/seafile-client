@@ -50,6 +50,7 @@ SET(moc_headers
   src/configurator.h
   src/daemon-mgr.h
   src/repo-service.h
+  src/events-service.h
   src/message-listener.h
   src/settings-mgr.h
   src/traynotificationwidget.h
@@ -81,13 +82,15 @@ SET(moc_headers
   src/ui/account-view.h
   src/ui/seafile-tab-widget.h
   src/ui/tab-view.h
-  src/ui/webview.h
   src/ui/repos-tab.h
   src/ui/starred-files-tab.h
   src/ui/starred-files-list-view.h
   src/ui/starred-files-list-model.h
   src/ui/starred-file-item-delegate.h
   src/ui/activities-tab.h
+  src/ui/events-list-view.h
+  src/ui/event-details-dialog.h
+  src/ui/event-details-tree.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -168,6 +171,7 @@ SET(seafile_client_sources
   src/open-local-helper.cpp
   src/message-listener.cpp
   src/repo-service.cpp
+  src/events-service.cpp
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp
@@ -179,6 +183,8 @@ SET(seafile_client_sources
   src/api/requests.cpp
   src/api/server-repo.cpp
   src/api/starred-file.cpp
+  src/api/event.cpp
+  src/api/commit-details.cpp
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
@@ -195,6 +201,7 @@ SET(seafile_client_sources
   src/utils/utils.cpp
   src/utils/paint-utils.cpp
   src/utils/file-utils.cpp
+  src/utils/widget-utils.cpp
   src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
   src/utils/log.c
@@ -213,7 +220,6 @@ SET(seafile_client_sources
   src/ui/account-view.cpp
   src/ui/seafile-tab-widget.cpp
   src/ui/tab-view.cpp
-  src/ui/webview.cpp
   src/ui/repos-tab.cpp
   src/ui/starred-files-tab.cpp
   src/ui/starred-files-list-view.cpp
@@ -221,6 +227,9 @@ SET(seafile_client_sources
   src/ui/starred-file-item.cpp
   src/ui/starred-file-item-delegate.cpp
   src/ui/activities-tab.cpp
+  src/ui/events-list-view.cpp
+  src/ui/event-details-dialog.cpp
+  src/ui/event-details-tree.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

@@ -8,6 +8,7 @@
 #include "account-mgr.h"
 #include "api/requests.h"
 #include "api/starred-file.h"
+#include "utils/widget-utils.h"
 #include "starred-files-list-view.h"
 #include "starred-files-list-model.h"
 #include "starred-file-item-delegate.h"
@@ -63,18 +64,7 @@ void StarredFilesTab::createStarredFilesListView()
 
 void StarredFilesTab::createLoadingView()
 {
-    loading_view_ = new QWidget(this);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    loading_view_->setLayout(layout);
-
-    QMovie *gif = new QMovie(":/images/loading.gif");
-    QLabel *label = new QLabel;
-    label->setMovie(gif);
-    label->setAlignment(Qt::AlignCenter);
-    gif->start();
-
-    layout->addWidget(label);
+    loading_view_ = ::newLoadingView();
 }
 
 void StarredFilesTab::createLoadingFailedView()
@@ -101,6 +91,7 @@ void StarredFilesTab::createLoadingFailedView()
 void StarredFilesTab::createEmptyView()
 {
     empty_view_ = new QWidget(this);
+    empty_view_->setObjectName("EmptyPlaceHolder");
 
     QVBoxLayout *layout = new QVBoxLayout;
     empty_view_->setLayout(layout);

@@ -12,6 +12,8 @@ class QNetworkReply;
 class ServerRepo;
 struct Account;
 class StarredFile;
+class SeafEvent;
+class CommitDetails;
 
 class LoginRequest : public SeafileApiRequest {
     Q_OBJECT
@@ -177,5 +179,38 @@ protected slots:
 private:
     Q_DISABLE_COPY(GetStarredFilesRequest);
 };
+
+class GetEventsRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetEventsRequest(const Account& account, int start=0);
+
+signals:
+    void success(const std::vector<SeafEvent>& events, int more_offset);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetEventsRequest);
+};
+
+class GetCommitDetailsRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetCommitDetailsRequest(const Account& account,
+                            const QString& repo_id,
+                            const QString& commit_id);
+
+signals:
+    void success(const CommitDetails& result);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetCommitDetailsRequest);
+};
+
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

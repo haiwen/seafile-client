@@ -11,6 +11,8 @@
 #include "api-error.h"
 #include "server-repo.h"
 #include "starred-file.h"
+#include "event.h"
+#include "commit-details.h"
 
 #include "requests.h"
 
@@ -22,6 +24,8 @@ const char *kCreateRepoUrl = "/api2/repos/";
 const char *kUnseenMessagesUrl = "/api2/unseen_messages/";
 const char *kDefaultRepoUrl = "/api2/default-repo/";
 const char *kStarredFilesUrl = "/api2/starredfiles/";
+const char *kGetEventsUrl = "/api2/events/";
+const char *kCommitDetailsUrl = "/api2/repo_history_changes/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -346,4 +350,65 @@ void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
 
     std::vector<StarredFile> files = StarredFile::listFromJSON(json.data(), &error);
     emit success(files);
+}
+
+GetEventsRequest::GetEventsRequest(const Account& account, int start)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kGetEventsUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    if (start > 0) {
+        setParam("start", QString::number(start));
+    }
+}
+
+void GetEventsRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetEventsRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    bool more = false;
+    int more_offset = -1;
+
+    json_t* array = json_object_get(json.data(), "events");
+    std::vector<SeafEvent> events = SeafEvent::listFromJSON(array, &error);
+
+    more = json_is_true(json_object_get(json.data(), "more"));
+    if (more) {
+        more_offset = json_integer_value(json_object_get(json.data(), "more_offset"));
+    }
+
+    emit success(events, more_offset);
+}
+
+GetCommitDetailsRequest::GetCommitDetailsRequest(const Account& account,
+                                           const QString& repo_id,
+                                           const QString& commit_id)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kCommitDetailsUrl + repo_id + "/"),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    setParam("commit_id", commit_id);
+}
+
+void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetCommitDetailsRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    CommitDetails details = CommitDetails::fromJSON(json.data(), &error);
+
+    emit success(details);
 }

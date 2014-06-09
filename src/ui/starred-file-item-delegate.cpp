@@ -44,6 +44,8 @@ const int kSubtitleFontSize = 13;
 const char *kFileItemBackgroundColor = "white";
 const char *kFileItemBackgroundColorHighlighted = "#F9E0C7";
 
+const char *kItemBottomBorderColor = "#EEE";
+
 } // namespace
 
 StarredFileItemDelegate::StarredFileItemDelegate(QObject *parent)
@@ -144,6 +146,11 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
                       &file_desc_rect);
     painter->restore();
 
+    // Draw the bottom border lines
+    painter->save();
+    painter->setPen(QPen(QColor(kItemBottomBorderColor), 1, Qt::SolidLine));
+    painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
+    painter->restore();
 }
 
 QPixmap StarredFileItemDelegate::getIconForFile(const QString& name) const

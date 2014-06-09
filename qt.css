@@ -338,3 +338,59 @@ StarredFilesListView {
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
 }
+
+QWidget#EmptyPlaceHolder,
+QWidget#LoadingView
+{
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+QWidget#EventsContainerView {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #DCDCDE;
+}
+
+QWidget#EventsContainerView QWidget#LoadingView,
+QWidget#EventsContainerView QToolButton
+{
+    max-height: 40px;
+    min-height: 40px;
+}
+
+QWidget#EventsContainerView QWidget#LoadingView {
+    /* border: 1px solid red; */
+    border: 0;
+    background: white;
+    margin: 0;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+EventsListView {
+    border: 0;
+    border-top: 1px solid #DCDCDE;
+}
+
+EventDetailsDialog {
+    margin: 20px;
+    min-width: 300px;
+    min-height: 300px;
+}
+
+EventDetailsTreeView
+{
+    background: white;
+    border: 0;
+    font-size: 16px;
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+EventDetailsTreeView {
+    qproperty-iconSize: 36px;
+}
+
+EventDetailsTreeView QScrollBar {
+    margin-right: 1px;
+}

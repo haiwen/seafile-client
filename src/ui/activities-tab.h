@@ -1,19 +1,21 @@
 #ifndef SEAFILE_CLIENT_UI_ACTIVITIES_TAB_H
 #define SEAFILE_CLIENT_UI_ACTIVITIES_TAB_H
 
+#include <vector>
 #include <QList>
 
 #include "tab-view.h"
 
 class QSslError;
-class QWebView;
-class QTimer;
 class QUrl;
 class QNetworkRequest;
 class QNetworkReply;
+class QToolButton;
 
+class SeafEvent;
 class Account;
 class ApiError;
+class EventsListView;
 
 /**
  * The activities tab
@@ -27,24 +29,25 @@ public slots:
     void refresh();
 
 private slots:
-    void onLoadPageFinished(bool success);
-    void onLinkClicked(const QUrl& url);
-    void onDownloadRequested(const QNetworkRequest&);
-    void handleSslErrors(QNetworkReply* reply, const QList<QSslError> &errors);
+    void refreshEvents(const std::vector<SeafEvent>& events,
+                       bool is_loading_more,
+                       bool has_more);
+    void loadMoreEvents();
 
 private:
-    void createWebView();
+    void createEventsView();
     void createLoadingView();
     void createLoadingFailedView();
     void showLoadingView();
     void loadPage(const Account& account);
 
-    QTimer *refresh_timer_;
-    bool in_refresh_;
-
-    QWebView *web_view_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+
+    QWidget *events_container_view_;
+    EventsListView *events_list_view_;
+    QWidget *events_loading_view_;
+    QToolButton *load_more_btn_;
 };
 
 #endif // SEAFILE_CLIENT_UI_ACTIVITIES_TAB_H

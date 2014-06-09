@@ -5,16 +5,12 @@
 #include <QShowEvent>
 #include <QHideEvent>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "repo-service.h"
-#include "rpc/rpc-client.h"
-#include "rpc/local-repo.h"
 #include "starred-file-item.h"
 #include "starred-files-list-model.h"
-#include "download-repo-dialog.h"
 
 #include "starred-files-list-view.h"
 
@@ -176,27 +172,28 @@ void StarredFilesListView::onItemDoubleClicked(const QModelIndex& index)
 
 void StarredFilesListView::openLocalFile(const StarredFile& file)
 {
-    LocalRepo r;
+    RepoService::instance()->openLocalFile(file.repo_id, file.path.mid(1));
+    // LocalRepo r;
 
-    seafApplet->rpcClient()->getLocalRepo(file.repo_id, &r);
+    // seafApplet->rpcClient()->getLocalRepo(file.repo_id, &r);
 
-    if (r.isValid()) {
-        QString path = QDir(r.worktree).filePath(file.path.mid(1));
+    // if (r.isValid()) {
+    //     QString path = QDir(r.worktree).filePath(file.path.mid(1));
 
-        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-    } else {
-        ServerRepo repo = RepoService::instance()->getRepo(file.repo_id);
-        if (!repo.isValid()) {
-            return;
-        }
+    //     QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    // } else {
+    //     ServerRepo repo = RepoService::instance()->getRepo(file.repo_id);
+    //     if (!repo.isValid()) {
+    //         return;
+    //     }
 
-        QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
-        if (seafApplet->yesOrNoBox(msg, NULL, true)) {
-            Account account = seafApplet->accountManager()->currentAccount();
-            if (account.isValid()) {
-                DownloadRepoDialog dialog(account, repo, this);
-                dialog.exec();
-            }
-        }
-    }
+    //     QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
+    //     if (seafApplet->yesOrNoBox(msg, NULL, true)) {
+    //         Account account = seafApplet->accountManager()->currentAccount();
+    //         if (account.isValid()) {
+    //             DownloadRepoDialog dialog(account, repo, this);
+    //             dialog.exec();
+    //         }
+    //     }
+    // }
 }

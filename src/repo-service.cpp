@@ -1,9 +1,16 @@
 #include <QTimer>
+#include <QDir>
+#include <QDesktopServices>
 
 #include "seafile-applet.h"
+#include "rpc/rpc-client.h"
+#include "rpc/local-repo.h"
 #include "account-mgr.h"
 #include "api/server-repo.h"
 #include "api/requests.h"
+#include "ui/main-window.h"
+#include "ui/download-repo-dialog.h"
+
 #include "repo-service.h"
 
 namespace {
@@ -108,4 +115,34 @@ RepoService::getRepo(const QString& repo_id) const
     }
 
     return ServerRepo();
+}
+
+void RepoService::openLocalFile(const QString& repo_id,
+                                const QString& path_in_repo,
+                                QWidget *dialog_parent)
+{
+    LocalRepo r;
+
+    seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
+
+    if (r.isValid()) {
+        QString path = QDir(r.worktree).filePath(path_in_repo);
+
+        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    } else {
+        ServerRepo repo = getRepo(repo_id);
+        if (!repo.isValid()) {
+            return;
+        }
+
+        QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
+        if (seafApplet->yesOrNoBox(msg, NULL, true)) {
+            Account account = seafApplet->accountManager()->currentAccount();
+            if (account.isValid()) {
+                QWidget *parent = dialog_parent ? dialog_parent : seafApplet->mainWindow();
+                DownloadRepoDialog dialog(account, repo, parent);
+                dialog.exec();
+            }
+        }
+    }
 }

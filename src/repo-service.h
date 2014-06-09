@@ -25,6 +25,10 @@ public:
 
     void refresh(bool force);
 
+    void openLocalFile(const QString& repo_id,
+                       const QString& path_in_repo,
+                       QWidget *dialog_parent=0);
+
 public slots:
     void refresh();
 

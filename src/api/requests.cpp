@@ -384,6 +384,8 @@ void GetEventsRequest::requestSuccess(QNetworkReply& reply)
         more_offset = json_integer_value(json_object_get(json.data(), "more_offset"));
     }
 
+    printf ("more_offset is %d\n", more_offset);
+
     emit success(events, more_offset);
 }
 

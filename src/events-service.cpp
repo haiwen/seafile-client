@@ -78,14 +78,50 @@ void EventsService::onRefreshSuccess(const std::vector<SeafEvent>& events, int n
 {
     in_refresh_ = false;
 
-    events_ = events;
+    const std::vector<SeafEvent> new_events = handleEventsOffset(events);
 
     bool is_loading_more = more_offset_ > 0;
     bool has_more = new_offset > 0;
 
     more_offset_ = new_offset;
 
-    emit refreshSuccess(events, is_loading_more, has_more);
+    emit refreshSuccess(new_events, is_loading_more, has_more);
+}
+
+// We use the "offset" param as the starting point of loading more events, but
+// if there are new events on the server, the offset would be inaccurate.
+const std::vector<SeafEvent>
+EventsService::handleEventsOffset(const std::vector<SeafEvent>& new_events)
+{
+    if (events_.empty()) {
+        events_ = new_events;
+        return events_;
+    }
+
+    const SeafEvent& last = events_[events_.size() - 1];
+
+    int i = 0, n = new_events.size();
+
+    for (i = 0; i < n; i++) {
+        const SeafEvent& event = new_events[i];
+        if (event.timestamp < last.timestamp) {
+            break;
+        } else if (event.commit_id == last.commit_id) {
+            continue;
+        } else {
+            continue;
+        }
+    }
+
+    std::vector<SeafEvent> ret;
+
+    while (i < n) {
+        SeafEvent event = new_events[i++];
+        events_.push_back(event);
+        ret.push_back(event);
+    }
+
+    return ret;
 }
 
 void EventsService::onRefreshFailed(const ApiError& error)
@@ -98,6 +134,7 @@ void EventsService::onRefreshFailed(const ApiError& error)
 void EventsService::refresh(bool force)
 {
     if (force) {
+        events_.clear();
         more_offset_ = -1;
         in_refresh_ = false;
     }

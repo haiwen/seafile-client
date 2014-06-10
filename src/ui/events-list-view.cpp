@@ -21,6 +21,9 @@ void EventsListView::updateEvents(const std::vector<SeafEvent>& events, bool is_
         clear();
     }
     int i = 0, n = events.size();
+
+    QListWidgetItem *first_item = 0;
+
     for (i = 0; i < n; i++) {
         SeafEvent event = events[i];
         QListWidgetItem *item = new QListWidgetItem(this);
@@ -29,6 +32,14 @@ void EventsListView::updateEvents(const std::vector<SeafEvent>& events, bool is_
         item->setData(Qt::UserRole, QVariant::fromValue(event));
 
         addItem(item);
+
+        if (!first_item) {
+            first_item = item;
+        }
+    }
+
+    if (is_loading_more && first_item) {
+        scrollToItem(first_item);
     }
 }
 

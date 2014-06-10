@@ -46,6 +46,8 @@ private:
 
     static EventsService *singleton_;
 
+    const std::vector<SeafEvent> handleEventsOffset(const std::vector<SeafEvent>& new_events);
+
     GetEventsRequest *get_events_req_;
 
     std::vector<SeafEvent> events_;

@@ -63,9 +63,7 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
 
     events_loading_view_->setVisible(false);
-    if (has_more) {
-        load_more_btn_->setVisible(true);
-    }
+    load_more_btn_->setVisible(has_more);
         
     events_list_view_->updateEvents(events, is_loading_more);
 }
@@ -89,7 +87,6 @@ void ActivitiesTab::createEventsView()
     events_list_view_ = new EventsListView;
     layout->addWidget(events_list_view_);
 
-    // TODO: loading more control: a button & a gif, like github
     load_more_btn_ = new QToolButton;
     load_more_btn_->setText(tr("More"));
     load_more_btn_->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);

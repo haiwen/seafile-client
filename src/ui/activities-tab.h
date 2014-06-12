@@ -16,6 +16,7 @@ class SeafEvent;
 class Account;
 class ApiError;
 class EventsListView;
+class EventsListModel;
 
 /**
  * The activities tab
@@ -46,6 +47,7 @@ private:
 
     QWidget *events_container_view_;
     EventsListView *events_list_view_;
+    EventsListModel *events_list_model_;
     QWidget *events_loading_view_;
     QToolButton *load_more_btn_;
 };

@@ -1,51 +1,215 @@
+#include <QPainter>
+#include <QApplication>
+#include <QPixmap>
+#include <QToolTip>
 #include <QLayout>
 
 #include "seafile-applet.h"
 #include "main-window.h"
 #include "events-service.h"
 #include "event-details-dialog.h"
+#include "utils/paint-utils.h"
+#include "utils/utils.h"
 #include "api/event.h"
 
 #include "events-list-view.h"
 
+namespace {
+
+/**
+            nick date
+   icon
+            description
+ */
+
+const int kMarginLeft = 5;
+const int kMarginRight = 5;
+const int kMarginTop = 5;
+const int kMarginBottom = 5;
+const int kPadding = 5;
+
+const int kAvatarHeight = 36;
+const int kAvatarWidth = 36;
+const int kNickWidth = 210;
+const int kNickHeight = 30;
+
+const int kMarginBetweenAvatarAndNick = 10;
+
+const char *kNickColor = "#D8AC8F";
+const char *kNickColorHighlighted = "#D8AC8F";
+const char *kDescriptionColor = "#3F3F3F";
+const char *kDescriptionColorHighlighted = "#544D49";
+const int kNickFontSize = 16;
+const int kDescriptionFontSize = 13;
+
+const char *kEventItemBackgroundColor = "white";
+const char *kEventItemBackgroundColorHighlighted = "#F9E0C7";
+
+const int kTimeWidth = 100;
+const int kTimeHeight = 30;
+const int kTimeFontSize = 13;
+
+const char *kTimeColor = "#959595";
+const char *kTimeColorHighlighted = "#9D9B9A";
+
+const int kMarginBetweenNickAndTime = 10;
+
+
+const char *kItemBottomBorderColor = "#EEE";
+
+} // namespace
+
+
+
+EventItem::EventItem(const SeafEvent& event)
+    : event_(event)
+{
+}
+
+EventItemDelegate::EventItemDelegate(QObject *parent)
+    : QStyledItemDelegate(parent)
+{
+}
+
+void EventItemDelegate::paint(QPainter *painter,
+                              const QStyleOptionViewItem& option,
+                              const QModelIndex& index) const
+{
+    QBrush backBrush;
+    bool selected = false;
+    EventItem *item = getItem(index);
+    const SeafEvent& event = item->event();
+    QString time_text = translateCommitTime(event.timestamp);
+
+    if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
+        backBrush = QColor(kEventItemBackgroundColorHighlighted);
+        selected = true;
+
+    } else {
+        backBrush = QColor(kEventItemBackgroundColor);
+    }
+
+    painter->save();
+    painter->fillRect(option.rect, backBrush);
+    painter->restore();
+
+    // paint avatar
+    QPixmap avatar(":/images/account-36.png");
+    QPoint avatar_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
+    avatar_pos += option.rect.topLeft();
+    painter->save();
+    painter->drawPixmap(avatar_pos, avatar);
+    painter->restore();
+
+    int time_width = qMin(kTimeWidth,
+        ::textWidthInFont(time_text,
+            changeFontSize(painter->font(), kTimeFontSize)));
+    int nick_width = option.rect.width() - kAvatarWidth - kMarginBetweenAvatarAndNick
+        - time_width - kMarginBetweenNickAndTime - kPadding * 2;
+    nick_width = qMin(nick_width,
+                      ::textWidthInFont(event.nick,
+                            changeFontSize(painter->font(), kNickFontSize)));
+
+    // Paint nick name
+    QPoint nick_pos = avatar_pos + QPoint(kAvatarWidth + kMarginBetweenAvatarAndNick, 0);
+    QRect nick_rect(nick_pos, QSize(nick_width, kNickHeight));
+    painter->save();
+    painter->setPen(QColor(selected ? kNickColorHighlighted : kNickColor));
+    painter->setFont(changeFontSize(painter->font(), kNickFontSize));
+    painter->drawText(nick_rect,
+                      Qt::AlignLeft | Qt::AlignTop,
+                      fitTextToWidth(event.nick, option.font, nick_width),
+                      &nick_rect);
+    painter->restore();
+
+    // Paint event time
+    painter->save();
+    QPoint time_pos = nick_pos + QPoint(nick_width + kMarginBetweenNickAndTime, 0);
+    QRect time_rect(time_pos, QSize(time_width, kTimeHeight));
+    painter->setPen(QColor(selected ? kTimeColorHighlighted : kTimeColor));
+    painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
+
+    painter->drawText(time_rect,
+                      Qt::AlignLeft | Qt::AlignTop,
+                      time_text,
+                      &time_rect);
+    painter->restore();
+
+    // Paint description
+    painter->save();
+    QPoint event_desc_pos = nick_rect.bottomLeft() + QPoint(0, 5);
+
+    int desc_width = option.rect.width() - kAvatarWidth - kMarginBetweenAvatarAndNick - kPadding * 2;
+
+    QRect event_desc_rect(event_desc_pos, QSize(desc_width, kNickHeight));
+    painter->setFont(changeFontSize(painter->font(), kDescriptionFontSize));
+    painter->setPen(QColor(selected ? kDescriptionColorHighlighted : kDescriptionColor));
+    painter->drawText(event_desc_rect,
+                      Qt::AlignLeft | Qt::AlignTop,
+                      fitTextToWidth(event.desc, option.font, desc_width),
+                      &event_desc_rect);
+    painter->restore();
+
+    // Draw the bottom border lines
+    painter->save();
+    painter->setPen(QPen(QColor(kItemBottomBorderColor), 1, Qt::SolidLine));
+    painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
+    painter->restore();
+}
+
+QSize EventItemDelegate::sizeHint(const QStyleOptionViewItem& option,
+                                  const QModelIndex& index) const
+{
+    int height = kAvatarHeight + kPadding * 2 + kMarginTop + kMarginBottom;
+    return QSize(option.rect.width(), height);
+}
+
+EventItem*
+EventItemDelegate::getItem(const QModelIndex &index) const
+{
+    if (!index.isValid()) {
+        return NULL;
+    }
+    const EventsListModel *model = (const EventsListModel*)index.model();
+    QStandardItem *qitem = model->itemFromIndex(index);
+    if (qitem->type() == EVENT_ITEM_TYPE) {
+        return (EventItem *)qitem;
+    }
+    return NULL;
+}
+
 EventsListView::EventsListView(QWidget *parent)
-    : QListWidget(parent)
+    : QListView(parent)
 {
-    connect(this, SIGNAL(itemDoubleClicked(QListWidgetItem *)),
-            this, SLOT(onItemDoubleClicked(QListWidgetItem *)));
+    setItemDelegate(new EventItemDelegate);
+    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
+            this, SLOT(onItemDoubleClicked(const QModelIndex&)));
+
+    setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-void EventsListView::updateEvents(const std::vector<SeafEvent>& events, bool is_loading_more)
+EventItem*
+EventsListView::getItem(const QModelIndex &index) const
 {
-    if (!is_loading_more) {
-        clear();
+    if (!index.isValid()) {
+        return NULL;
     }
-    int i = 0, n = events.size();
-
-    QListWidgetItem *first_item = 0;
-
-    for (i = 0; i < n; i++) {
-        SeafEvent event = events[i];
-        QListWidgetItem *item = new QListWidgetItem(this);
-        item->setData(Qt::DisplayRole, event.desc);
-        item->setData(Qt::DecorationRole, QIcon(":/images/account.png"));
-        item->setData(Qt::UserRole, QVariant::fromValue(event));
-
-        addItem(item);
-
-        if (!first_item) {
-            first_item = item;
-        }
+    const EventsListModel *model = (const EventsListModel*)index.model();
+    QStandardItem *qitem = model->itemFromIndex(index);
+    if (qitem->type() == EVENT_ITEM_TYPE) {
+        return (EventItem *)qitem;
     }
-
-    if (is_loading_more && first_item) {
-        scrollToItem(first_item);
-    }
+    return NULL;
 }
 
-void EventsListView::onItemDoubleClicked(QListWidgetItem* item)
+void EventsListView::onItemDoubleClicked(const QModelIndex& index)
 {
-    const SeafEvent event = qvariant_cast<SeafEvent>(item->data(Qt::UserRole));
+    EventItem *item = getItem(index);
+    if (!item) {
+        return;
+    }
+
+    const SeafEvent& event = item->event();
 
     printf ("event item clicked: %s\n", event.toString().toUtf8().data());
 
@@ -56,4 +220,37 @@ void EventsListView::onItemDoubleClicked(QListWidgetItem* item)
     EventDetailsDialog dialog(event, seafApplet->mainWindow());
 
     dialog.exec();
+}
+
+EventsListModel::EventsListModel(QObject *parent)
+    : QStandardItemModel(parent)
+{
+}
+
+const QModelIndex
+EventsListModel::updateEvents(const std::vector<SeafEvent>& events, bool is_loading_more)
+{
+    if (!is_loading_more) {
+        clear();
+    }
+    int i = 0, n = events.size();
+
+    EventItem *first_item = 0;
+
+    for (i = 0; i < n; i++) {
+        SeafEvent event = events[i];
+        EventItem *item = new EventItem(event);
+
+        appendRow(item);
+
+        if (!first_item) {
+            first_item = item;
+        }
+    }
+
+    if (is_loading_more && first_item) {
+        return indexFromItem(first_item);
+    }
+
+    return QModelIndex();
 }

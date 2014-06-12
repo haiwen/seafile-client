@@ -370,6 +370,7 @@ QWidget#EventsContainerView QWidget#LoadingView {
 EventsListView {
     border: 0;
     border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
 }
 
 EventDetailsDialog {

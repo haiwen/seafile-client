@@ -11,17 +11,17 @@
 class QModelIndex;
 
 enum {
-    EVENT_FILE_ITEM_TYPE = QStandardItem::UserType,
-    EVENT_CATEGORY_TYPE
+    EVENT_DETAILS_FILE_ITEM_TYPE = QStandardItem::UserType,
+    EVENT_DETAILS_CATEGORY_TYPE
 };
 
-class EventCategoryItem : public QStandardItem {
+class EventDetailsCategoryItem : public QStandardItem {
 public:
-    EventCategoryItem(const QString& text);
-    virtual int type() const { return EVENT_CATEGORY_TYPE; }
+    EventDetailsCategoryItem(const QString& text);
+    virtual int type() const { return EVENT_DETAILS_CATEGORY_TYPE; }
 };
 
-class EventFileItem : public QStandardItem {
+class EventDetailsFileItem : public QStandardItem {
 public:
     enum EType {
         FILE_ADDED = 0,
@@ -32,11 +32,11 @@ public:
         DIR_DELETED
     };
 
-    EventFileItem(const QString& path, EType etype);
+    EventDetailsFileItem(const QString& path, EType etype);
 
     virtual QVariant data(int role) const;
 
-    virtual int type() const { return EVENT_FILE_ITEM_TYPE; }
+    virtual int type() const { return EVENT_DETAILS_FILE_ITEM_TYPE; }
 
     bool isFileOpenable() const;
 
@@ -75,7 +75,7 @@ public:
 private:
     void processEventCategory(const std::vector<QString>& files,
                               const QString& desc,
-                              EventFileItem::EType etype);
+                              EventDetailsFileItem::EType etype);
     
     SeafEvent event_;
     CommitDetails details_;

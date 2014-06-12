@@ -54,3 +54,10 @@ QFont changeFontSize(const QFont& font_in, int size)
     return font;
 }
 
+int textWidthInFont(const QString text, const QFont& font)
+{
+	QFontMetrics qfm(font);
+	QSize size = qfm.size(0, text);
+
+    return size.width();
+}

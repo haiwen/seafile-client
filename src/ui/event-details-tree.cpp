@@ -7,7 +7,7 @@
 
 #include "event-details-tree.h"
 
-EventFileItem::EventFileItem(const QString& path, EType etype)
+EventDetailsFileItem::EventDetailsFileItem(const QString& path, EType etype)
     : path_(path),
       etype_(etype)
 {
@@ -15,19 +15,19 @@ EventFileItem::EventFileItem(const QString& path, EType etype)
     setEditable(false);
 }
 
-QString EventFileItem::name() const
+QString EventDetailsFileItem::name() const
 {
     return QFileInfo(path_).fileName();
 }
 
-bool EventFileItem::isFileOpenable() const
+bool EventDetailsFileItem::isFileOpenable() const
 {
     return etype_ == FILE_ADDED ||
         etype_ == FILE_MODIFIED ||
         etype_ == DIR_ADDED;
 }
 
-QVariant EventFileItem::data(int role) const
+QVariant EventDetailsFileItem::data(int role) const
 {
     if (role == Qt::DecorationRole) {
         return QIcon(::getIconByFileName(name()));
@@ -40,7 +40,7 @@ QVariant EventFileItem::data(int role) const
     }
 }
 
-EventCategoryItem::EventCategoryItem(const QString& text)
+EventDetailsCategoryItem::EventDetailsCategoryItem(const QString& text)
     : QStandardItem(text)
 {
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -70,8 +70,8 @@ void EventDetailsTreeView::onItemDoubleClicked(const QModelIndex& index)
     if (!qitem) {
         return;
     }
-    if (qitem->type() == EVENT_FILE_ITEM_TYPE) {
-        EventFileItem *item = (EventFileItem *)qitem;
+    if (qitem->type() == EVENT_DETAILS_FILE_ITEM_TYPE) {
+        EventDetailsFileItem *item = (EventDetailsFileItem *)qitem;
         if (item->isFileOpenable()) {
             RepoService::instance()->openLocalFile(event_.repo_id, item->path());
         }
@@ -85,7 +85,7 @@ QStandardItem* EventDetailsTreeView::getFileItem(const QModelIndex& index)
     }
     const EventDetailsTreeModel *model = (const EventDetailsTreeModel*)index.model();
     QStandardItem *item = model->itemFromIndex(index);
-    if (item->type() != EVENT_FILE_ITEM_TYPE) {
+    if (item->type() != EVENT_DETAILS_FILE_ITEM_TYPE) {
         return NULL;
     }
     return item;
@@ -103,24 +103,24 @@ void EventDetailsTreeModel::setCommitDetails(const CommitDetails& details)
 
     details_ = details;
 
-    processEventCategory(details.added_files, tr("Added files"),  EventFileItem::FILE_ADDED);
-    processEventCategory(details.deleted_files, tr("Deleted files"),  EventFileItem::FILE_DELETED);
-    processEventCategory(details.modified_files, tr("modified_files"),  EventFileItem::FILE_MODIFIED);
+    processEventCategory(details.added_files, tr("Added files"),  EventDetailsFileItem::FILE_ADDED);
+    processEventCategory(details.deleted_files, tr("Deleted files"),  EventDetailsFileItem::FILE_DELETED);
+    processEventCategory(details.modified_files, tr("modified_files"),  EventDetailsFileItem::FILE_MODIFIED);
 }
 
 void EventDetailsTreeModel::processEventCategory(const std::vector<QString>& files,
                                                  const QString& desc,
-                                                 EventFileItem::EType etype)
+                                                 EventDetailsFileItem::EType etype)
 {
     if (files.empty()) {
         return;
     }
 
-    EventCategoryItem *category = new EventCategoryItem(desc);
+    EventDetailsCategoryItem *category = new EventDetailsCategoryItem(desc);
     appendRow(category);
 
     for (int i = 0, n = files.size(); i < n; i++) {
-        EventFileItem *item = new EventFileItem(files[i], etype);
+        EventDetailsFileItem *item = new EventDetailsFileItem(files[i], etype);
         category->appendRow(item);
     }
 }

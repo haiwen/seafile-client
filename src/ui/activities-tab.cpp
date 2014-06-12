@@ -1,10 +1,8 @@
 #include <cstdio>
 #include <QtGui>
 #include <QIcon>
-#include <QNetworkRequest>
 #include <QStackedWidget>
-#include <QWebFrame>
-#include <QSslError>
+#include <QModelIndex>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -65,7 +63,10 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
     events_loading_view_->setVisible(false);
     load_more_btn_->setVisible(has_more);
         
-    events_list_view_->updateEvents(events, is_loading_more);
+    const QModelIndex first = events_list_model_->updateEvents(events, is_loading_more);
+    if (first.isValid()) {
+        events_list_view_->scrollTo(first);
+    }
 }
 
 void ActivitiesTab::refresh()
@@ -86,6 +87,9 @@ void ActivitiesTab::createEventsView()
 
     events_list_view_ = new EventsListView;
     layout->addWidget(events_list_view_);
+
+    events_list_model_ = new EventsListModel;
+    events_list_view_->setModel(events_list_model_);
 
     load_more_btn_ = new QToolButton;
     load_more_btn_->setText(tr("More"));

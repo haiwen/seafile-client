@@ -10,4 +10,6 @@ QFont zoomFont(const QFont& font_in, double ratio);
 
 QFont changeFontSize(const QFont& font_in, int size);
 
+int textWidthInFont(const QString text, const QFont& font);
+
 #endif // SEAFILE_CLIENT_PAINT_UTILS_H_

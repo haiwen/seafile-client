@@ -58,3 +58,4 @@ i18n/*.qm
 
 ### emacs files
 .emacs*
+.#*

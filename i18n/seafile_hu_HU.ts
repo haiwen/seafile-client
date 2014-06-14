@@ -1761,7 +1761,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
-        <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
+        <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>A szinkronizálás maradjon bekapcsolva a helyi mappa törlése vagy elérhetetlensége esetén</translation>
     </message>
     <message>

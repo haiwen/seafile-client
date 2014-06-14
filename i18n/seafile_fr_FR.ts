@@ -1760,7 +1760,7 @@ Voulez vous visiter la page de téléchargement?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
-        <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
+        <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>Ne pas désynchroniser une bibliothèque automatiquement quand le dossier local est supprimé ou n&apos;est plus accessible pour d&apos;autres raisons. </translation>
     </message>
     <message>

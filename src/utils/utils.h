@@ -45,4 +45,6 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error);
 
 QString defaultCcnetDir();
 
+QString md5(const QString& s);
+
 #endif

@@ -8,6 +8,7 @@
 #include "server-repo.h"
 
 class QNetworkReply;
+class QImage;
 
 class ServerRepo;
 struct Account;
@@ -212,5 +213,44 @@ private:
     Q_DISABLE_COPY(GetCommitDetailsRequest);
 };
 
+class FetchImageRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    FetchImageRequest(const QString& img_url);
+
+signals:
+    void success(const QImage& avatar);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FetchImageRequest);
+};
+
+class GetAvatarRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetAvatarRequest(const Account& account,
+                     const QString& email,
+                     int size);
+
+    ~GetAvatarRequest();
+
+    const QString& email() const { return email_; }
+
+signals:
+    void success(const QImage& avatar);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetAvatarRequest);
+
+    FetchImageRequest *fetch_img_req_;
+
+    QString email_;
+};
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

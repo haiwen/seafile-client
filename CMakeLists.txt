@@ -51,6 +51,7 @@ SET(moc_headers
   src/daemon-mgr.h
   src/repo-service.h
   src/events-service.h
+  src/avatar-service.h
   src/message-listener.h
   src/settings-mgr.h
   src/traynotificationwidget.h
@@ -172,6 +173,7 @@ SET(seafile_client_sources
   src/message-listener.cpp
   src/repo-service.cpp
   src/events-service.cpp
+  src/avatar-service.cpp
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp

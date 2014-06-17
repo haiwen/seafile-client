@@ -23,6 +23,7 @@ extern "C" {
 #include "seafile-tab-widget.h"
 #include "repo-service.h"
 #include "events-service.h"
+#include "avatar-service.h"
 
 #include "cloud-view.h"
 
@@ -85,6 +86,8 @@ CloudView::CloudView(QWidget *parent)
 
     EventsService *events_service = EventsService::instance();
     events_service->start();
+
+    AvatarService::instance()->start();
 
     AccountManager *account_mgr = seafApplet->accountManager();
     connect(account_mgr, SIGNAL(accountsChanged()),

@@ -7,6 +7,7 @@
 #include "seafile-applet.h"
 #include "main-window.h"
 #include "events-service.h"
+#include "avatar-service.h"
 #include "event-details-dialog.h"
 #include "utils/paint-utils.h"
 #include "utils/utils.h"
@@ -94,11 +95,14 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->restore();
 
     // paint avatar
-    QPixmap avatar(":/images/account-36.png");
+    QImage avatar = AvatarService::instance()->getAvatar(event.author);
+    if (avatar.size() != QSize(kAvatarWidth, kAvatarHeight)) {
+        avatar = QImage(":/images/account-36.png");
+    }
     QPoint avatar_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     avatar_pos += option.rect.topLeft();
     painter->save();
-    painter->drawPixmap(avatar_pos, avatar);
+    painter->drawImage(avatar_pos, avatar);
     painter->restore();
 
     int time_width = qMin(kTimeWidth,
@@ -253,4 +257,24 @@ EventsListModel::updateEvents(const std::vector<SeafEvent>& events, bool is_load
     }
 
     return QModelIndex();
+}
+
+void EventsListModel::onAvatarUpdated(const QString& email, const QImage& img)
+{
+    int i, n = rowCount();
+
+    printf ("EventsListModel::onAvatarUpdated is called\n");
+
+    for (i = 0; i < n; i++) {
+        QStandardItem *qitem = item(i);
+        if (qitem->type() != EVENT_ITEM_TYPE) {
+            return;
+        }
+        EventItem *item = (EventItem *)qitem;
+
+        if (item->event().author == email) {
+            QModelIndex index = indexFromItem(item);
+            emit dataChanged(index, index);
+        }
+    }
 }

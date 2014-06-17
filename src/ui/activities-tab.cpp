@@ -9,6 +9,7 @@
 #include "events-list-view.h"
 #include "utils/widget-utils.h"
 #include "events-service.h"
+#include "avatar-service.h"
 
 #include "activities-tab.h"
 
@@ -44,6 +45,9 @@ ActivitiesTab::ActivitiesTab(QWidget *parent)
     connect(EventsService::instance(), SIGNAL(refreshSuccess(const std::vector<SeafEvent>&, bool, bool)),
             this, SLOT(refreshEvents(const std::vector<SeafEvent>&, bool, bool)));
 
+    connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
+            events_list_model_, SLOT(onAvatarUpdated(const QString&, const QImage&)));
+            
     refresh();
 }
 
@@ -60,9 +64,10 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
 {
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
 
-    events_loading_view_->setVisible(false);
-    load_more_btn_->setVisible(has_more);
-        
+    // XXX: "load more events" for now
+    // events_loading_view_->setVisible(false);
+    // load_more_btn_->setVisible(has_more);
+
     const QModelIndex first = events_list_model_->updateEvents(events, is_loading_more);
     if (first.isValid()) {
         events_list_view_->scrollTo(first);
@@ -98,7 +103,7 @@ void ActivitiesTab::createEventsView()
             this, SLOT(loadMoreEvents()));
     load_more_btn_->setVisible(false);
     layout->addWidget(load_more_btn_);
-    
+
     events_loading_view_ = newLoadingView();
     events_loading_view_->setVisible(false);
     layout->addWidget(events_loading_view_);

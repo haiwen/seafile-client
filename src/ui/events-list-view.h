@@ -9,6 +9,8 @@
 
 #include "api/event.h"
 
+class QImage;
+
 class SeafEvent;
 
 enum {
@@ -57,6 +59,9 @@ public:
     EventsListModel(QObject *parent=0);
 
     const QModelIndex updateEvents(const std::vector<SeafEvent>& events, bool is_loading_more);
+
+public slots:
+    void onAvatarUpdated(const QString& email, const QImage& img);
 };
 
 class EventsListView : public QListView {

@@ -23,6 +23,7 @@
 #include <QVariant>
 #include <QDebug>
 #include <QDateTime>
+#include <QCryptographicHash>
 
 #include "seafile-applet.h"
 
@@ -391,3 +392,7 @@ QString readableFileSize(qint64 size)
     return QString::number(size) + str;
 }
 
+QString md5(const QString& s)
+{
+    return QCryptographicHash::hash(s.toUtf8(), QCryptographicHash::Md5).toHex();
+}

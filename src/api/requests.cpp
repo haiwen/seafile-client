@@ -26,6 +26,7 @@ const char *kDefaultRepoUrl = "/api2/default-repo/";
 const char *kStarredFilesUrl = "/api2/starredfiles/";
 const char *kGetEventsUrl = "/api2/events/";
 const char *kCommitDetailsUrl = "/api2/repo_history_changes/";
+const char *kAvatarUrl = "/api2/avatars/user/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -411,4 +412,73 @@ void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
     CommitDetails details = CommitDetails::fromJSON(json.data(), &error);
 
     emit success(details);
+}
+
+// /api2/user/foo@foo.com/resized/36
+GetAvatarRequest::GetAvatarRequest(const Account& account,
+                                   const QString& email,
+                                   int size)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString()
+                              + kAvatarUrl
+                              // + QUrl::toPercentEncoding(email) + "/resized/"
+                              + email + "/resized/"
+                              + QString::number(size) + "/"),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    email_ = email;
+    fetch_img_req_ = 0;
+}
+
+GetAvatarRequest::~GetAvatarRequest()
+{
+    if (fetch_img_req_) {
+        delete fetch_img_req_;
+    }
+}
+
+void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetAvatarRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    const char *avatar_url = json_string_value(json_object_get(json.data(), "url"));
+
+    if (!avatar_url) {
+        qDebug("GetAvatarRequest: no 'url' value in response\n");
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    fetch_img_req_ = new FetchImageRequest(avatar_url);
+
+    connect(fetch_img_req_, SIGNAL(failed(const ApiError&)),
+            this, SIGNAL(failed(const ApiError&)));
+    connect(fetch_img_req_, SIGNAL(success(const QImage&)),
+            this, SIGNAL(success(const QImage&)));
+    fetch_img_req_->send();
+}
+
+FetchImageRequest::FetchImageRequest(const QString& img_url)
+    : SeafileApiRequest(QUrl(img_url), SeafileApiRequest::METHOD_GET)
+{
+}
+
+void FetchImageRequest::requestSuccess(QNetworkReply& reply)
+{
+    QImage img;
+    img.loadFromData(reply.readAll());
+
+    if (img.isNull()) {
+        qDebug("FetchImageRequest: invalid image data\n");
+        emit failed(ApiError::fromHttpError(400));
+    } else {
+        emit success(img);
+    }
 }

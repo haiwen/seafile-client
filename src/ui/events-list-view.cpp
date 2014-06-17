@@ -103,6 +103,10 @@ void EventItemDelegate::paint(QPainter *painter,
     avatar_pos += option.rect.topLeft();
     painter->save();
     painter->drawImage(avatar_pos, avatar);
+    QImage mask(selected ? ":/images/avatar-mask-highlighted.png"
+                : ":/images/avatar-mask.png");
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->drawImage(avatar_pos, mask);
     painter->restore();
 
     int time_width = qMin(kTimeWidth,

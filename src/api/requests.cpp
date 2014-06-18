@@ -425,6 +425,7 @@ GetAvatarRequest::GetAvatarRequest(const Account& account,
                               + QString::number(size) + "/"),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
+    account_ = account;
     email_ = email;
     fetch_img_req_ = 0;
 }
@@ -456,7 +457,9 @@ void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
         return;
     }
 
-    fetch_img_req_ = new FetchImageRequest(avatar_url);
+    QString url = QUrl::fromPercentEncoding(avatar_url);
+
+    fetch_img_req_ = new FetchImageRequest(url);
 
     connect(fetch_img_req_, SIGNAL(failed(const ApiError&)),
             this, SIGNAL(failed(const ApiError&)));

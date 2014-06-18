@@ -10,6 +10,7 @@
 
 class QImage;
 
+class Account;
 class ApiError;
 class GetAvatarRequest;
 
@@ -39,7 +40,7 @@ private:
 
     QImage loadAvatarFromLocal(const QString& email);
     void fetchImageFromServer(const QString& email);
-    QString filePathForEmail(const QString& email);
+    QString filePathForEmail(const Account& account, const QString& email);
     void addEmailToDownloadQueue(const QString& email);
 
     GetAvatarRequest *get_avatar_req_;

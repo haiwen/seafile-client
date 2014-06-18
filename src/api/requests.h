@@ -6,6 +6,7 @@
 
 #include "api-request.h"
 #include "server-repo.h"
+#include "account.h"
 
 class QNetworkReply;
 class QImage;
@@ -238,6 +239,7 @@ public:
     ~GetAvatarRequest();
 
     const QString& email() const { return email_; }
+    const Account& account() const { return account_; }
 
 signals:
     void success(const QImage& avatar);
@@ -251,6 +253,8 @@ private:
     FetchImageRequest *fetch_img_req_;
 
     QString email_;
+
+    Account account_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

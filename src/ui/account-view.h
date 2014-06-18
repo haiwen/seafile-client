@@ -24,6 +24,9 @@ public slots:
     void deleteAccount();
     void onAccountItemClicked();
 
+private slots:
+    void updateAvatar();
+
 private:
     Q_DISABLE_COPY(AccountView)
 

@@ -23,6 +23,8 @@ public:
     void start();
 
     QImage getAvatar(const QString& email);
+    QString getAvatarFilePath(const QString& email);
+    bool avatarFileExists(const QString& email);
 
 signals:
     void avatarUpdated(const QString& email, const QImage& avatar);
@@ -40,7 +42,7 @@ private:
 
     QImage loadAvatarFromLocal(const QString& email);
     void fetchImageFromServer(const QString& email);
-    QString filePathForEmail(const Account& account, const QString& email);
+    QString avatarPathForEmail(const Account& account, const QString& email);
     void addEmailToDownloadQueue(const QString& email);
 
     GetAvatarRequest *get_avatar_req_;

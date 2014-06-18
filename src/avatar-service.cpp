@@ -53,7 +53,7 @@ QImage AvatarService::loadAvatarFromLocal(const QString& email)
         return cache_.value(email);
     }
 
-    QString path = filePathForEmail(seafApplet->accountManager()->currentAccount(),
+    QString path = avatarPathForEmail(seafApplet->accountManager()->currentAccount(),
                                     email);
 
     if (QFileInfo(path).exists()) {
@@ -63,7 +63,7 @@ QImage AvatarService::loadAvatarFromLocal(const QString& email)
     return QImage();
 }
 
-QString AvatarService::filePathForEmail(const Account& account, const QString& email)
+QString AvatarService::avatarPathForEmail(const Account& account, const QString& email)
 {
     return QDir(avatars_dir_).filePath(::md5(account.serverUrl.host() + email));
 }
@@ -102,19 +102,17 @@ void AvatarService::fetchImageFromServer(const QString& email)
 
 void AvatarService::onGetAvatarSuccess(const QImage& img)
 {
-    printf ("get avatar success, size = (%d, %d)\n", img.width(), img.height());
     image_ = img;
 
     QString email = get_avatar_req_->email();
 
-    emit avatarUpdated(email, img);
-
     cache_[email] = img;
 
-    QString path = filePathForEmail(get_avatar_req_->account(), email);
-
     // save image to avatars/ folder
+    QString path = avatarPathForEmail(get_avatar_req_->account(), email);
     img.save(path, "PNG");
+
+    emit avatarUpdated(email, img);
 
     get_avatar_req_->deleteLater();
     get_avatar_req_ = 0;
@@ -145,4 +143,15 @@ QImage AvatarService::getAvatar(const QString& email)
     } else {
         return img;
     }
+}
+
+QString AvatarService::getAvatarFilePath(const QString& email)
+{
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    return avatarPathForEmail(account, email);
+}
+
+bool AvatarService::avatarFileExists(const QString& email)
+{
+    return QFileInfo(getAvatarFilePath(email)).exists();
 }

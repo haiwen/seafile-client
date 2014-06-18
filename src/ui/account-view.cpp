@@ -11,6 +11,7 @@
 #include "rpc/rpc-client.h"
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
+#include "avatar-service.h"
 
 #include "account-view.h"
 
@@ -27,6 +28,9 @@ AccountView::AccountView(QWidget *parent)
     mAccountBtn->setPopupMode(QToolButton::InstantPopup);
 
     onAccountsChanged();
+
+    connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
+            this, SLOT(updateAvatar()));
 }
 
 void AccountView::showAddAccountDialog()
@@ -65,8 +69,6 @@ void AccountView::deleteAccount()
 
 void AccountView::updateAccountInfoDisplay()
 {
-    mAccountBtn->setIcon(QIcon(":/images/account.png"));
-    mAccountBtn->setIconSize(QSize(32, 32));
     if (seafApplet->accountManager()->hasAccount()) {
         const Account account = seafApplet->accountManager()->currentAccount();
         mEmail->setText(account.username);
@@ -84,6 +86,8 @@ void AccountView::updateAccountInfoDisplay()
         mEmail->setText(tr("No account"));
         mServerAddr->setText(QString());
     }
+
+    updateAvatar();
 }
 
 /**
@@ -148,4 +152,26 @@ void AccountView::onAccountItemClicked()
     Account account = qvariant_cast<Account>(action->data());
 
     seafApplet->accountManager()->setCurrentAccount(account);
+}
+
+void AccountView::updateAvatar()
+{
+    mAccountBtn->setIconSize(QSize(32, 32));
+    const Account account = seafApplet->accountManager()->currentAccount();
+    if (!account.isValid())  {
+        mAccountBtn->setIcon(QIcon(":/images/account.png"));
+        return;
+    }
+
+    AvatarService *service = AvatarService::instance();
+
+    if (service->avatarFileExists(account.username)) {
+        QString icon_path = AvatarService::instance()->getAvatarFilePath(account.username);
+        mAccountBtn->setIcon(QIcon(icon_path));
+        return;
+    }
+
+    mAccountBtn->setIcon(QIcon(":/images/account.png"));
+    // will trigger a GetAvatarRequest
+    service->getAvatar(account.username);
 }

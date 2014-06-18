@@ -245,12 +245,9 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     bool hover = false;
     bool selected = false;
 
+    backBrush = QColor(kRepoCategoryBackgroundColor);
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
-        backBrush = QColor(kRepoCategoryBackgroundColorHighlighted);
         selected = true;
-
-    } else {
-        backBrush = QColor(kRepoCategoryBackgroundColor);
     }
 
     painter->save();
@@ -265,7 +262,8 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QRect indicator_rect(option.rect.topLeft(),
                          option.rect.bottomLeft() + QPoint(option.rect.height(), 0));
     painter->save();
-    painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+    // painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+    painter->setPen(QColor(kRepoCategoryColor));
     painter->setFont(awesome->font(16));
     painter->drawText(indicator_rect,
                       Qt::AlignCenter,
@@ -278,7 +276,8 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QPoint category_name_pos = indicator_rect.topRight() + QPoint(kMarginBetweenIndicatorAndName, 0);
     QRect category_name_rect(category_name_pos,
                              option.rect.bottomRight() - QPoint(kPadding, 0));
-    painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+    // painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+    painter->setPen(QColor(kRepoCategoryColor));
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
                       fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->rowCount()),

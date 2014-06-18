@@ -219,8 +219,6 @@ void EventsListView::onItemDoubleClicked(const QModelIndex& index)
 
     const SeafEvent& event = item->event();
 
-    printf ("event item clicked: %s\n", event.toString().toUtf8().data());
-
     if (!event.isDetailsDisplayable()) {
         return;
     }
@@ -266,8 +264,6 @@ EventsListModel::updateEvents(const std::vector<SeafEvent>& events, bool is_load
 void EventsListModel::onAvatarUpdated(const QString& email, const QImage& img)
 {
     int i, n = rowCount();
-
-    printf ("EventsListModel::onAvatarUpdated is called\n");
 
     for (i = 0; i < n; i++) {
         QStandardItem *qitem = item(i);

@@ -45,6 +45,7 @@ ReposTab::ReposTab(QWidget *parent)
     connect(svc, SIGNAL(refreshFailed(const ApiError&)),
             this, SLOT(refreshReposFailed(const ApiError&)));
 
+    refresh();
 }
 
 void ReposTab::createRepoTree()

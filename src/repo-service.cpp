@@ -42,7 +42,6 @@ RepoService::RepoService(QObject *parent)
 void RepoService::start()
 {
     refresh_timer_->start(kRefreshReposInterval);
-    refresh();
 }
 
 void RepoService::refresh()

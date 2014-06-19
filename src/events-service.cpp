@@ -35,7 +35,6 @@ EventsService::EventsService(QObject *parent)
 void EventsService::start()
 {
     refresh_timer_->start(kRefreshEventsInterval);
-    refresh();
 }
 
 void EventsService::refresh()

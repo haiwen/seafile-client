@@ -25,6 +25,9 @@
 #include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
 #include "open-local-helper.h"
+#include "repo-service.h"
+#include "events-service.h"
+#include "avatar-service.h"
 
 #include "seafile-applet.h"
 
@@ -125,6 +128,10 @@ void SeafileApplet::start()
     account_mgr_->start();
 
     certs_mgr_->start();
+
+    RepoService::instance()->start();
+    EventsService::instance()->start();
+    AvatarService::instance()->start();
 
 #if defined(Q_WS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");

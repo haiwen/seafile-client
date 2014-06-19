@@ -324,7 +324,16 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
         RepoItem *it = (RepoItem *)item;
         const LocalRepo& local_repo = it->localRepo();
         if (local_repo.isValid()) {
+            // open local folder for downloaded repo
             QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
+        } else {
+            // open seahub repo page for not downloaded repo
+            const Account& account = seafApplet->accountManager()->accounts()[0];
+            if (account.isValid()) {
+                QUrl url = account.serverUrl;
+                url.setPath(url.path() + "/repo/" + it->repo().id);
+                QDesktopServices::openUrl(url);
+            }
         }
     }
 }

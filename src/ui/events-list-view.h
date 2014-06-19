@@ -10,6 +10,7 @@
 #include "api/event.h"
 
 class QImage;
+class QEvent;
 
 class SeafEvent;
 
@@ -70,6 +71,8 @@ public:
     EventsListView(QWidget *parent=0);
 
     void updateEvents(const std::vector<SeafEvent>& events, bool is_loading_more);
+
+    bool viewportEvent(QEvent *event);
                                                                                  
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);

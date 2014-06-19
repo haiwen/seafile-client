@@ -152,9 +152,12 @@ void EventItemDelegate::paint(QPainter *painter,
     QRect event_desc_rect(event_desc_pos, QSize(desc_width, kNickHeight));
     painter->setFont(changeFontSize(painter->font(), kDescriptionFontSize));
     painter->setPen(QColor(selected ? kDescriptionColorHighlighted : kDescriptionColor));
+
+    QString desc = event.desc;
+    desc.replace(QChar('\n'), QChar(' '));
     painter->drawText(event_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop,
-                      fitTextToWidth(event.desc, option.font, desc_width),
+                      fitTextToWidth(desc, option.font, desc_width),
                       &event_desc_rect);
     painter->restore();
 
@@ -227,6 +230,36 @@ void EventsListView::onItemDoubleClicked(const QModelIndex& index)
 
     dialog.exec();
 }
+
+bool EventsListView::viewportEvent(QEvent *event)
+{
+    if (event->type() != QEvent::ToolTip && event->type() != QEvent::WhatsThis) {
+        return QListView::viewportEvent(event);
+    }
+
+    QPoint global_pos = QCursor::pos();
+    QPoint viewport_pos = viewport()->mapFromGlobal(global_pos);
+    QModelIndex index = indexAt(viewport_pos);
+    if (!index.isValid()) {
+        return true;
+    }
+
+    EventItem *item = getItem(index);
+    if (!item) {
+        return true;
+    }
+
+    QRect item_rect = visualRect(index);
+
+    QString text = "<p style='white-space:pre'>";
+    text += item->event().repo_name;
+    text += "</p>";
+
+    QToolTip::showText(QCursor::pos(), text, viewport(), item_rect);
+
+    return true;
+}
+
 
 EventsListModel::EventsListModel(QObject *parent)
     : QStandardItemModel(parent)

@@ -22,6 +22,7 @@ QToolButton#mAccountBtn
     margin-right: 6px;
     background: white;
     padding: 1px;
+    padding-left: 2px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }

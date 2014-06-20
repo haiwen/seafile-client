@@ -3,17 +3,15 @@
 
 #include <QObject>
 
-class QToolButton;
 class QTimer;
 
-class CloudView;
 class GetUnseenSeahubMessagesRequest;
 
 class SeahubMessagesMonitor : public QObject
 {
     Q_OBJECT
 public:
-    SeahubMessagesMonitor(CloudView *cloud_view, QObject *parent=0);
+    SeahubMessagesMonitor(QObject *parent=0);
 
 public slots:
     void refresh();
@@ -28,7 +26,6 @@ private:
     GetUnseenSeahubMessagesRequest *req_;
     CloudView *cloud_view_;
 
-    QToolButton *btn_;
     QTimer *refresh_timer_;
 
     int unread_count_;

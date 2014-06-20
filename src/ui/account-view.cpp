@@ -31,6 +31,8 @@ AccountView::AccountView(QWidget *parent)
 
     connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
             this, SLOT(updateAvatar()));
+
+    mAccountBtn->setCursor(Qt::PointingHandCursor);
 }
 
 void AccountView::showAddAccountDialog()

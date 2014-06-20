@@ -8,7 +8,7 @@ extern "C" {
 #include <QtGui>
 
 #include "QtAwesome.h"
-#include "seahub-messages-monitor.h"
+// #include "seahub-messages-monitor.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"

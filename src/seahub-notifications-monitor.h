@@ -24,6 +24,9 @@ public:
 public slots:
     void refresh();
 
+signals:
+    void notificationsChanged();
+
 private slots:
     void onRequestSuccess(int count);
     void onRequestFailed(const ApiError& error);
@@ -34,6 +37,7 @@ private:
     static SeahubNotificationsMonitor *singleton_;
 
     void resetStatus();
+    void setUnreadNotificationsCount(int count);
 
     QTimer *refresh_timer_;
     GetUnseenSeahubNotificationsRequest *check_messages_req_;

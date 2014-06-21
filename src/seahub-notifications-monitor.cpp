@@ -9,7 +9,7 @@
 
 namespace {
 
-const int kRefreshSeahubMessagesInterval = 1000 * 60; // 1min
+const int kRefreshSeahubMessagesInterval = 1000 * 60; // 1 min
 const char *kNotificationsUrl = "/notification/list/";
 
 } // namespace
@@ -55,7 +55,7 @@ void SeahubNotificationsMonitor::onAccountChanged()
 
 void SeahubNotificationsMonitor::resetStatus()
 {
-    unread_count_ = 0;
+    setUnreadNotificationsCount(0);
 }
 
 void SeahubNotificationsMonitor::refresh()
@@ -94,8 +94,9 @@ void SeahubNotificationsMonitor::onRequestFailed(const ApiError& error)
 void SeahubNotificationsMonitor::onRequestSuccess(int count)
 {
     printf (">>>>> %d unread notification\n", count);
-    unread_count_ = count;
+
     in_refresh_ = false;
+    setUnreadNotificationsCount(count);
 }
 
 void SeahubNotificationsMonitor::refresh(bool force)
@@ -120,4 +121,14 @@ void SeahubNotificationsMonitor::openNotificationsPageInBrowser()
     url.setPath(url.path() + kNotificationsUrl);
 
     QDesktopServices::openUrl(url);
+
+    resetStatus();
+}
+
+void SeahubNotificationsMonitor::setUnreadNotificationsCount(int count)
+{
+    if (unread_count_ != count) {
+        unread_count_ = count;
+        emit notificationsChanged();
+    }
 }

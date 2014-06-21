@@ -47,6 +47,7 @@ private slots:
     void refreshTrayIcon();
     void openHelp();
     void about();
+    void onSeahubNotificationsChanged();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)

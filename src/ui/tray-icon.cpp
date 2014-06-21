@@ -23,7 +23,7 @@ extern "C" {
 
 namespace {
 
-const int kRefreshInterval = 5000;
+const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 
 #if defined(Q_WS_WIN)
@@ -67,6 +67,9 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
+
+    connect(SeahubNotificationsMonitor::instance(), SIGNAL(notificationsChanged()),
+            this, SLOT(onSeahubNotificationsChanged()));
 
     hide();
 
@@ -337,6 +340,7 @@ void SeafileTrayIcon::onClick()
 {
     if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
         SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
+        refreshTrayIcon();
     } else {
         toggleMainWindow();
     }
@@ -359,11 +363,21 @@ void SeafileTrayIcon::quitSeafile()
 
 void SeafileTrayIcon::refreshTrayIcon()
 {
+    if (rotate_timer_->isActive()) {
+        return;
+    }
+
     int n_unread_msg = SeahubNotificationsMonitor::instance()->getUnreadNotifications();
-    if (n_unread_msg) {
+    if (n_unread_msg > 0) {
         QString tip = tr("You have %n message(s)", "", n_unread_msg);
         setState(STATE_HAVE_UNREAD_MESSAGE);
         setToolTip(tip);
+        return;
+    }
+
+    if (!seafApplet->settingsManager()->autoSync()) {
+        setState (STATE_DAEMON_AUTOSYNC_DISABLED);
+        setToolTip(tr("auto sync is disabled"));
         return;
     }
 
@@ -371,9 +385,12 @@ void SeafileTrayIcon::refreshTrayIcon()
     if (state_ == STATE_DAEMON_UP && !all_server_connected) {
         setState(STATE_SERVERS_NOT_CONNECTED);
         setToolTip(tr("some servers not connected"));
+
     } else if (state_ == STATE_SERVERS_NOT_CONNECTED && all_server_connected) {
         setState(STATE_DAEMON_UP);
         setToolTip(getBrand());
+    } else {
+        setState(STATE_DAEMON_UP);
     }
 }
 
@@ -406,4 +423,12 @@ bool SeafileTrayIcon::allServersConnected()
     g_list_free (servers);
 
     return all_server_connected;
+}
+
+void SeafileTrayIcon::onSeahubNotificationsChanged()
+{
+    printf (">>>>>>> onSeahubNotificationsChanged");
+    if (!rotate_timer_->isActive()) {
+        refreshTrayIcon();
+    }
 }

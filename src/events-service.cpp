@@ -77,6 +77,8 @@ void EventsService::onRefreshSuccess(const std::vector<SeafEvent>& events, int n
 {
     in_refresh_ = false;
 
+    // XXX: uncomment this when we need "load more events feature"
+    /*
     const std::vector<SeafEvent> new_events = handleEventsOffset(events);
 
     bool is_loading_more = more_offset_ > 0;
@@ -85,6 +87,9 @@ void EventsService::onRefreshSuccess(const std::vector<SeafEvent>& events, int n
     more_offset_ = new_offset;
 
     emit refreshSuccess(new_events, is_loading_more, has_more);
+    */
+
+    emit refreshSuccess(events, false, false);
 }
 
 // We use the "offset" param as the starting point of loading more events, but

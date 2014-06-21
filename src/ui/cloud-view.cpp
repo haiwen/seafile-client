@@ -8,7 +8,6 @@ extern "C" {
 #include <QtGui>
 
 #include "QtAwesome.h"
-// #include "seahub-messages-monitor.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
@@ -80,7 +79,7 @@ CloudView::CloudView(QWidget *parent)
 
     AccountManager *account_mgr = seafApplet->accountManager();
     connect(account_mgr, SIGNAL(accountsChanged()),
-            this, SLOT(onAccountsChanged()));
+            this, SLOT(onAccountChanged()));
 
 #ifdef Q_WS_MAC
     mHeader->setVisible(false);
@@ -416,14 +415,14 @@ void CloudView::resizeEvent(QResizeEvent *event)
     tabs_->adjustTabsWidth(rect().width());
 }
 
-void CloudView::onAccountsChanged()
+void CloudView::onAccountChanged()
 {
     refresh_action_->setEnabled(hasAccount());
 
     repos_tab_->refresh();
     starred_files_tab_->refresh();
     activities_tab_->refresh();
-    account_view_->onAccountsChanged();
+    account_view_->onAccountChanged();
 }
 
 void CloudView::onTabChanged(int index)

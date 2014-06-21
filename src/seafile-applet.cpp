@@ -28,6 +28,7 @@
 #include "repo-service.h"
 #include "events-service.h"
 #include "avatar-service.h"
+#include "seahub-notifications-monitor.h"
 
 #include "seafile-applet.h"
 
@@ -132,6 +133,7 @@ void SeafileApplet::start()
     RepoService::instance()->start();
     EventsService::instance()->start();
     AvatarService::instance()->start();
+    SeahubNotificationsMonitor::instance()->start();
 
 #if defined(Q_WS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");

@@ -23,6 +23,7 @@ public:
         STATE_TRANSFER_1,
         STATE_TRANSFER_2,
         STATE_SERVERS_NOT_CONNECTED,
+        STATE_HAVE_UNREAD_MESSAGE,
     };
 
     void start();
@@ -41,6 +42,7 @@ private slots:
     void onActivated(QSystemTrayIcon::ActivationReason);
     void prepareContextMenu();
     void toggleMainWindow();
+    void onClick();
     void rotateTrayIcon();
     void refreshTrayIcon();
     void openHelp();

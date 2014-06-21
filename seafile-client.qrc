@@ -14,12 +14,14 @@
     <file>images/seafile_transfer_1.png</file>
     <file>images/seafile_transfer_2.png</file>
     <file>images/seafile_warning.png</file>
+    <file>images/notification.png</file>
     <file>images/win/daemon_up.ico</file>
     <file>images/win/daemon_down.ico</file>
     <file>images/win/seafile_warning.ico</file>
     <file>images/win/seafile_auto_sync_disabled.ico</file>
     <file>images/win/seafile_transfer_1.ico</file>
     <file>images/win/seafile_transfer_2.ico</file>
+    <file>images/win/notification.ico</file>
     <file>images/mac/daemon_up.png</file>
     <file>images/mac/daemon_down.png</file>
     <file>images/mac/seafile_warning.png</file>

@@ -17,7 +17,6 @@ class ReposTab;
 class StarredFilesTab;
 class ActivitiesTab;
 class CloneTasksDialog;
-class SeahubMessagesMonitor;
 class AccountView;
 
 class CloudView : public QWidget,
@@ -28,8 +27,6 @@ public:
     CloudView(QWidget *parent=0);
 
     CloneTasksDialog* cloneTasksDialog();
-
-    // QToolButton *seahubMessagesBtn() const { return mSeahubMessagesBtn; }
 
 protected:
     void showEvent(QShowEvent *event);
@@ -47,7 +44,7 @@ private slots:
     void onMinimizeBtnClicked();
     void onCloseBtnClicked();
     void chooseFolderToSync();
-    void onAccountsChanged();
+    void onAccountChanged();
     void onTabChanged(int index);
 
 private:
@@ -83,8 +80,6 @@ private:
     QSizeGrip *resizer_;
 
     CloneTasksDialog* clone_task_dialog_;
-
-    // SeahubMessagesMonitor *seahub_messages_monitor_;
 };
 
 

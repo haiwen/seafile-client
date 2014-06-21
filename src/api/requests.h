@@ -105,11 +105,11 @@ private:
 
 };
 
-class GetUnseenSeahubMessagesRequest : public SeafileApiRequest {
+class GetUnseenSeahubNotificationsRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit GetUnseenSeahubMessagesRequest(const Account& account);
+    explicit GetUnseenSeahubNotificationsRequest(const Account& account);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -118,7 +118,7 @@ signals:
     void success(int count);
 
 private:
-    Q_DISABLE_COPY(GetUnseenSeahubMessagesRequest)
+    Q_DISABLE_COPY(GetUnseenSeahubNotificationsRequest)
 
 };
 

@@ -27,7 +27,7 @@ AccountView::AccountView(QWidget *parent)
     mAccountBtn->setMenu(account_menu_);
     mAccountBtn->setPopupMode(QToolButton::InstantPopup);
 
-    onAccountsChanged();
+    onAccountChanged();
 
     connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
             this, SLOT(updateAvatar()));
@@ -95,7 +95,7 @@ void AccountView::updateAccountInfoDisplay()
 /**
  * Update the account menu when accounts changed
  */
-void AccountView::onAccountsChanged()
+void AccountView::onAccountChanged()
 {
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
 

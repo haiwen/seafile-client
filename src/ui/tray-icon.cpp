@@ -14,6 +14,8 @@ extern "C" {
 #include "main-window.h"
 #include "settings-dialog.h"
 #include "settings-mgr.h"
+#include "seahub-notifications-monitor.h"
+
 #include "tray-icon.h"
 #if defined(Q_WS_MAC)
 #include "traynotificationmanager.h"
@@ -240,6 +242,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return getIcon(prefix + "seafile_transfer_2.ico");
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(prefix + "seafile_warning.ico");
+    case STATE_HAVE_UNREAD_MESSAGE:
+        return getIcon(prefix + "notification.ico");
     }
 #elif defined(Q_WS_MAC)
     switch (state) {
@@ -255,6 +259,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return getIcon(":/images/mac/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(":/images/mac/seafile_warning.png");
+    case STATE_HAVE_UNREAD_MESSAGE:
+        return getIcon(":/images/mac/daemon_up.png");
     }
 #else
     switch (state) {
@@ -270,6 +276,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return getIcon(":/images/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(":/images/seafile_warning.png");
+    case STATE_HAVE_UNREAD_MESSAGE:
+        return getIcon(":/images/notification.png");
     }
 #endif
 }
@@ -317,12 +325,21 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:
     case QSystemTrayIcon::DoubleClick:
-        toggleMainWindow();
+        onClick();
         break;
     default:
         return;
     }
 #endif
+}
+
+void SeafileTrayIcon::onClick()
+{
+    if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
+        SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
+    } else {
+        toggleMainWindow();
+    }
 }
 
 void SeafileTrayIcon::disableAutoSync()
@@ -342,6 +359,14 @@ void SeafileTrayIcon::quitSeafile()
 
 void SeafileTrayIcon::refreshTrayIcon()
 {
+    int n_unread_msg = SeahubNotificationsMonitor::instance()->getUnreadNotifications();
+    if (n_unread_msg) {
+        QString tip = tr("You have %n message(s)", "", n_unread_msg);
+        setState(STATE_HAVE_UNREAD_MESSAGE);
+        setToolTip(tip);
+        return;
+    }
+
     bool all_server_connected = allServersConnected();
     if (state_ == STATE_DAEMON_UP && !all_server_connected) {
         setState(STATE_SERVERS_NOT_CONNECTED);

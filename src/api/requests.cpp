@@ -198,20 +198,20 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
 }
 
 /**
- * GetUnseenSeahubMessagesRequest
+ * GetUnseenSeahubNotificationsRequest
  */
-GetUnseenSeahubMessagesRequest::GetUnseenSeahubMessagesRequest(const Account& account)
+GetUnseenSeahubNotificationsRequest::GetUnseenSeahubNotificationsRequest(const Account& account)
     : SeafileApiRequest (QUrl(account.serverUrl.toString() + kUnseenMessagesUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
 }
 
-void GetUnseenSeahubMessagesRequest::requestSuccess(QNetworkReply& reply)
+void GetUnseenSeahubNotificationsRequest::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetUnseenSeahubMessagesRequest: failed to parse json:%s\n", error.text);
+        qDebug("GetUnseenSeahubNotificationsRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }

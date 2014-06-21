@@ -19,7 +19,7 @@ public:
     AccountView(QWidget *parent=0);
 
 public slots:
-    void onAccountsChanged();
+    void onAccountChanged();
     void showAddAccountDialog();
     void deleteAccount();
     void onAccountItemClicked();

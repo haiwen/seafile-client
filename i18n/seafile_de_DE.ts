@@ -600,7 +600,8 @@ Die Serverversion muss 2.1 oder höher sein, um dies zu unterstützen.</translat
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="135"/>
         <source>Failed to get default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Ermitteln der Standardbibliothek:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="151"/>
@@ -986,27 +987,27 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Internal data corrupted</source>
-        <translation type="unfinished"/>
+        <translation>Interne Daten korrupt</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Failed to start upload</source>
-        <translation type="unfinished"/>
+        <translation>Beim Starten des Upload-Vorgangs ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Error occured in upload</source>
-        <translation type="unfinished"/>
+        <translation>Während des Upload-Vorgangs ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Failed to start download</source>
-        <translation type="unfinished"/>
+        <translation>Beim Starten des Download-Vorgangs ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Error occured in download</source>
-        <translation type="unfinished"/>
+        <translation>Während des Download-Vorgangs ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="157"/>
@@ -1021,12 +1022,12 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Server version is too old</source>
-        <translation type="unfinished"/>
+        <translation>Die Version des Servers ist zu alt</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="169"/>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Unbekannter Fehler</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="172"/>
@@ -1036,12 +1037,12 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Internal server error</source>
-        <translation type="unfinished"/>
+        <translation>Interner Serverfehler</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Your %1 client is too old</source>
-        <translation type="unfinished"/>
+        <translation>Ihr %1 Client ist zu alt</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
@@ -1067,7 +1068,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="228"/>
         <location filename="../src/rpc/local-repo.cpp" line="230"/>
         <source>Failed to sync this library</source>
-        <translation type="unfinished"/>
+        <translation>Diese Bibliothek konnte nicht synchronisiert werden</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
@@ -1077,7 +1078,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Error when accessing the local folder</source>
-        <translation type="unfinished"/>
+        <translation>Beim Zugriff auf den lokalen Ordner ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -1284,7 +1285,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
         <source>SSL Error</source>
-        <translation type="unfinished"/>
+        <translation>SSL-Fehler</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="57"/>
@@ -1299,7 +1300,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/certs-mgr.cpp" line="65"/>
         <source>failed to open certs database</source>
-        <translation type="unfinished"/>
+        <translation>Konnte nicht auf den Zertifikatspeicher zugreifen</translation>
     </message>
 </context>
 <context>
@@ -1399,7 +1400,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="390"/>
         <source>This library has not been downloaded</source>
-        <translation>Diese Bibliothek ist nicht heruntergeladen worden</translation>
+        <translation>Diese Bibliothek wurde nicht heruntergeladen</translation>
     </message>
 </context>
 <context>
@@ -1436,7 +1437,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="142"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="143"/>
         <source>Disable auto sync</source>
-        <translation>Automatische Synchronisierung deaktiviere</translation>
+        <translation>Automatische Synchronisierung deaktivieren</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="146"/>
@@ -1464,12 +1465,12 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="196"/>
         <source>Show &amp;Details</source>
-        <translation>Anzeigen &amp;Details</translation>
+        <translation>&amp;Details Anzeigen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="208"/>
         <source>Sync &amp;Now</source>
-        <translation>Synchronisieren &amp;Jetzt</translation>
+        <translation>&amp;Jetzt Synchronisieren</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="210"/>
@@ -1554,7 +1555,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/seafile-applet.cpp" line="214"/>
         <source>Failed to initialize log</source>
-        <translation>Fehler beim Initialisieren der Log</translation>
+        <translation>Fehler beim Initialisieren der Logdatei</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="301"/>
@@ -1734,7 +1735,7 @@ Möchten Sie die Download-Seite besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="185"/>
         <source>Check for new version on startup</source>
-        <translation>Auf neue Version beim Start prüfen</translation>
+        <translation>Beim Starten auf neue Version prüfen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="186"/>
@@ -1749,17 +1750,17 @@ Möchten Sie die Download-Seite besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="188"/>
         <source>Basic</source>
-        <translation type="unfinished"/>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="189"/>
         <source>Do not automatically unsync a library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothek nicht automatisch von der Synchronisierung ausnehmen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
-        <translation type="unfinished"/>
+        <translation>Eine Bibliothek nicht automatisch von der Synchronisierung ausnehmen, falls der lokale Ordner entfernt wurde oder aus anderen Gründen nicht zugreifbar ist.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="191"/>
@@ -1782,22 +1783,22 @@ Möchten Sie die Download-Seite besuchen?</translation>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="11"/>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"/>
+        <translation>Nicht vertrauenswürdige Verbindung</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
-        <translation type="unfinished"/>
+        <translation>%1 benutzt ein ungültiges SSL-Zertifikat. Die Verbindung ist eventuell unsicher. Trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
         <source>Remember my choice</source>
-        <translation type="unfinished"/>
+        <translation>Meine Auswahl merken</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="99"/>

@@ -6,13 +6,14 @@
 #include <QImage>
 #include <QHash>
 #include <QString>
-#include <QQueue>
 
 class QImage;
+class QTimer;
 
 class Account;
 class ApiError;
 class GetAvatarRequest;
+class PendingAvatarRequestQueue;
 
 class AvatarService : public QObject
 {
@@ -32,6 +33,7 @@ signals:
 private slots:
     void onGetAvatarSuccess(const QImage& img);
     void onGetAvatarFailed(const ApiError& error);
+    void checkPendingRequests();
 
 private:
     Q_DISABLE_COPY(AvatarService)
@@ -43,7 +45,6 @@ private:
     QImage loadAvatarFromLocal(const QString& email);
     void fetchImageFromServer(const QString& email);
     QString avatarPathForEmail(const Account& account, const QString& email);
-    void addEmailToDownloadQueue(const QString& email);
 
     GetAvatarRequest *get_avatar_req_;
 
@@ -53,7 +54,9 @@ private:
 
     QHash<QString, QImage> cache_;
 
-    QQueue<QString> pending_emails_;
+    PendingAvatarRequestQueue *queue_;
+
+    QTimer *timer_;
 };
 
 

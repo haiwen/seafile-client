@@ -54,7 +54,6 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       nth_trayicon_(0),
       rotate_counter_(0)
 {
-    setToolTip(getBrand());
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
     connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));
@@ -190,18 +189,14 @@ void SeafileTrayIcon::rotateTrayIcon()
     rotate_counter_++;
 }
 
-void SeafileTrayIcon::resetToolTip ()
+void SeafileTrayIcon::setState(TrayState state, const QString& tip)
 {
-    QString tip(getBrand());
-    if (!seafApplet->settingsManager()->autoSync()) {
-        tip = tr("auto sync is disabled");
+    if (state_ == state) {
+        return;
     }
 
-    setToolTip(tip);
-}
+    QString tool_tip = tip.isEmpty() ? getBrand() : tip;
 
-void SeafileTrayIcon::setState(TrayState state)
-{
     setIcon(stateToIcon(state));
 
     // the following two lines solving the problem of tray icon
@@ -211,8 +206,7 @@ void SeafileTrayIcon::setState(TrayState state)
     show();
 #endif
 
-    if (state != STATE_DAEMON_DOWN)
-        resetToolTip();
+    setToolTip(tool_tip);
 }
 
 QIcon SeafileTrayIcon::getIcon(const QString& name)
@@ -369,29 +363,24 @@ void SeafileTrayIcon::refreshTrayIcon()
 
     int n_unread_msg = SeahubNotificationsMonitor::instance()->getUnreadNotifications();
     if (n_unread_msg > 0) {
-        QString tip = tr("You have %n message(s)", "", n_unread_msg);
-        setState(STATE_HAVE_UNREAD_MESSAGE);
-        setToolTip(tip);
+        setState(STATE_HAVE_UNREAD_MESSAGE, 
+                 tr("You have %n message(s)", "", n_unread_msg));
         return;
     }
 
     if (!seafApplet->settingsManager()->autoSync()) {
-        setState (STATE_DAEMON_AUTOSYNC_DISABLED);
-        setToolTip(tr("auto sync is disabled"));
+        setState(STATE_DAEMON_AUTOSYNC_DISABLED,
+                 tr("auto sync is disabled"));
         return;
     }
 
     bool all_server_connected = allServersConnected();
-    if (state_ == STATE_DAEMON_UP && !all_server_connected) {
-        setState(STATE_SERVERS_NOT_CONNECTED);
-        setToolTip(tr("some servers not connected"));
-
-    } else if (state_ == STATE_SERVERS_NOT_CONNECTED && all_server_connected) {
-        setState(STATE_DAEMON_UP);
-        setToolTip(getBrand());
-    } else {
-        setState(STATE_DAEMON_UP);
+    if (!all_server_connected) {
+        setState(STATE_SERVERS_NOT_CONNECTED, tr("some servers not connected"));
+        return;
     }
+
+    setState(STATE_DAEMON_UP);
 }
 
 bool SeafileTrayIcon::allServersConnected()
@@ -427,7 +416,6 @@ bool SeafileTrayIcon::allServersConnected()
 
 void SeafileTrayIcon::onSeahubNotificationsChanged()
 {
-    printf (">>>>>>> onSeahubNotificationsChanged");
     if (!rotate_timer_->isActive()) {
         refreshTrayIcon();
     }

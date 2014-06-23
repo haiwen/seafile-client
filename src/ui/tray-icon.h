@@ -28,7 +28,7 @@ public:
 
     void start();
 
-    void setState(TrayState);
+    void setState(TrayState state, const QString& tip=QString());
     void notify(const QString &title, const QString &content);
     void rotate(bool start);
 
@@ -58,7 +58,6 @@ private:
 
     QIcon stateToIcon(TrayState state);
     QIcon getIcon(const QString& name);
-    void resetToolTip();
 
     QMenu *context_menu_;
     QMenu *help_menu_;

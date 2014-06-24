@@ -149,10 +149,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         return;
     }
 
-    if (event->key() == Qt::Key_F6) {
-        showTestDialog(this);
-        return;
-    }
+    // if (event->key() == Qt::Key_F6) {
+    //     showTestDialog(this);
+    //     return;
+    // }
 
     QMainWindow::keyPressEvent(event);
 }

@@ -256,6 +256,7 @@ QLabel#loadingFailedText {
     color: #777;
     font-size: 16px;
     margin-top: -120px;
+    qproperty-wordWrap: true;
 }
 
 SettingsDialog {

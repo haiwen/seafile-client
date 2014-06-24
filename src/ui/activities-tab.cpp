@@ -3,6 +3,7 @@
 #include <QIcon>
 #include <QStackedWidget>
 #include <QModelIndex>
+#include <QLabel>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -10,13 +11,14 @@
 #include "utils/widget-utils.h"
 #include "events-service.h"
 #include "avatar-service.h"
+#include "api/api-error.h"
 
 #include "activities-tab.h"
 
 namespace {
 
 const int kRefreshInterval = 1000 * 60 * 5; // 5 min
-const char *kLoadingFaieldLabelName = "loadingFailedText";
+const char *kLoadingFailedLabelName = "loadingFailedText";
 const char *kEmptyViewLabelName = "emptyText";
 const char *kAuthHeader = "Authorization";
 const char *kActivitiesUrl = "/api2/html/events/";
@@ -44,10 +46,12 @@ ActivitiesTab::ActivitiesTab(QWidget *parent)
 
     connect(EventsService::instance(), SIGNAL(refreshSuccess(const std::vector<SeafEvent>&, bool, bool)),
             this, SLOT(refreshEvents(const std::vector<SeafEvent>&, bool, bool)));
+    connect(EventsService::instance(), SIGNAL(refreshFailed(const ApiError&)),
+            this, SLOT(refreshFailed(const ApiError&)));
 
     connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
             events_list_model_, SLOT(onAvatarUpdated(const QString&, const QImage&)));
-            
+
     refresh();
 }
 
@@ -121,21 +125,34 @@ void ActivitiesTab::createLoadingFailedView()
     QVBoxLayout *layout = new QVBoxLayout;
     loading_failed_view_->setLayout(layout);
 
-    QLabel *label = new QLabel;
-    label->setObjectName(kLoadingFaieldLabelName);
-    QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
-    QString label_text = tr("Failed to get actvities information<br/>"
-                            "Please %1").arg(link);
-    label->setText(label_text);
-    label->setAlignment(Qt::AlignCenter);
+    loading_failed_text_ = new QLabel;
+    loading_failed_text_->setObjectName(kLoadingFailedLabelName);
+    loading_failed_text_->setAlignment(Qt::AlignCenter);
 
-    connect(label, SIGNAL(linkActivated(const QString&)),
+    connect(loading_failed_text_, SIGNAL(linkActivated(const QString&)),
             this, SLOT(refresh()));
 
-    layout->addWidget(label);
+    layout->addWidget(loading_failed_text_);
 }
 
 void ActivitiesTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+}
+
+void ActivitiesTab::refreshFailed(const ApiError& error)
+{
+    QString text;
+    if (error.type() == ApiError::HTTP_ERROR
+        && error.httpErrorCode() == 404) {
+        text = tr("File Activities are only supported in Seafile Server Business Edition.");
+    } else {
+        QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
+        text = tr("Failed to get actvities information. "
+                  "Please %1").arg(link);
+    }
+
+    loading_failed_text_->setText(text);
+
+    mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }

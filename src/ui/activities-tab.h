@@ -11,6 +11,7 @@ class QUrl;
 class QNetworkRequest;
 class QNetworkReply;
 class QToolButton;
+class QLabel;
 
 class SeafEvent;
 class Account;
@@ -33,6 +34,7 @@ private slots:
     void refreshEvents(const std::vector<SeafEvent>& events,
                        bool is_loading_more,
                        bool has_more);
+    void refreshFailed(const ApiError& error);
     void loadMoreEvents();
 
 private:
@@ -50,6 +52,8 @@ private:
     EventsListModel *events_list_model_;
     QWidget *events_loading_view_;
     QToolButton *load_more_btn_;
+
+    QLabel *loading_failed_text_;
 };
 
 #endif // SEAFILE_CLIENT_UI_ACTIVITIES_TAB_H

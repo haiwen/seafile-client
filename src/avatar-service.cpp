@@ -1,7 +1,6 @@
 #include <QDir>
 #include <QImage>
 #include <QQueue>
-#include <QPair>
 #include <QHash>
 #include <QTimer>
 

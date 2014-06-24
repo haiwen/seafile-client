@@ -94,6 +94,11 @@ public:
         return QString();
     }
 
+    void reset() {
+        q_.clear();
+        wait_.clear();
+    }
+
 private:
     QQueue<QString> q_;
 
@@ -122,6 +127,9 @@ AvatarService::AvatarService(QObject *parent)
     timer_ = new QTimer(this);
 
     connect(timer_, SIGNAL(timeout()), this, SLOT(checkPendingRequests()));
+
+    connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
+            this, SLOT(onAccountChanged()));
 }
 
 void AvatarService::start()
@@ -250,5 +258,14 @@ void AvatarService::checkPendingRequests()
     QString email = queue_->dequeue();
     if (!email.isEmpty()) {
         fetchImageFromServer(email);
+    }
+}
+
+void AvatarService::onAccountChanged()
+{
+    queue_->reset();
+    if (get_avatar_req_) {
+        delete get_avatar_req_;
+        get_avatar_req_ = 0;
     }
 }

@@ -34,6 +34,7 @@ private slots:
     void onGetAvatarSuccess(const QImage& img);
     void onGetAvatarFailed(const ApiError& error);
     void checkPendingRequests();
+    void onAccountChanged();
 
 private:
     Q_DISABLE_COPY(AvatarService)

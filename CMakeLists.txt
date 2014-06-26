@@ -182,6 +182,8 @@ SET(seafile_client_sources
   src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
   src/utils/log.c
+  src/utils/gen_random_passwd.cpp
+  src/utils/password_strength.cpp
   src/ui/repo-item.cpp
   src/ui/repo-tree-model.cpp
   src/ui/repo-tree-view.cpp

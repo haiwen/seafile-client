@@ -75,6 +75,8 @@ HEADERS += ui_clone-tasks-dialog.h \
            src/utils/rsa.h \
            src/utils/utils.h \
            src/utils/translate-commit-desc.h \
+		   src/utils/gen_random_passwd.h \
+		   src/utils/password_strengh.h \
            third_party/QtAwesome/QtAwesome.h
 
 FORMS += ui/clone-tasks-dialog.ui \
@@ -125,7 +127,7 @@ SOURCES += src/account-mgr.cpp \
            src/ui/login-dialog.cpp \
            src/ui/main-window.cpp \
            src/ui/repo-detail-dialog.cpp \
-           src/ui/repo-item-delegate.cpp \
+           src/ui/repo-item=delegate.cpp \
            src/ui/repo-item.cpp \
            src/ui/repo-tree-model.cpp \
            src/ui/repo-tree-view.cpp \
@@ -141,6 +143,8 @@ SOURCES += src/account-mgr.cpp \
            src/utils/utils.cpp \
            src/utils/translate-commit-desc.cpp \
            src/utils/uninstall-helpers.cpp \
+           src/utils/gen_random_passwd.cpp \
+           src/utils/password_strength.cpp \
            third_party/QtAwesome/QtAwesome.cpp
 
 RESOURCES += seafile-client.qrc third_party/QtAwesome/QtAwesome.qrc

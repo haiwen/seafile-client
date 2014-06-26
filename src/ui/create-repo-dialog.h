@@ -25,6 +25,9 @@ private slots:
     void chooseDirAction();
     void createSuccess(const RepoDownloadInfo& info);
     void createFailed(const ApiError& error);
+	void generatePassword();
+	void passwordMode();
+	void calcPasswordStrength(QString password);
 
 private:
     Q_DISABLE_COPY(CreateRepoDialog);

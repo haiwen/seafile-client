@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>407</width>
+    <width>620</width>
     <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -25,35 +28,25 @@
      <property name="lineWidth">
       <number>0</number>
      </property>
-     <layout class="QFormLayout" name="formLayout">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="6" column="0">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Path:</string>
+         <string>Password Again:</string>
         </property>
        </widget>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLineEdit" name="mDirectory"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="mChooseDirBtn">
-          <property name="text">
-           <string>Choose</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="nameLabel">
         <property name="text">
          <string>Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="mEncryptedCheckBox">
+        <property name="text">
+         <string>encrypted</string>
         </property>
        </widget>
       </item>
@@ -67,31 +60,14 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Description:</string>
+      <item row="8" column="0" colspan="3">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QTextEdit" name="mDesc"/>
-      </item>
-      <item row="3" column="1">
-       <widget class="QCheckBox" name="mEncrypteCheckBox">
-        <property name="text">
-         <string>encrypted</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Password:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="QLineEdit" name="mPassword">
         <property name="enabled">
          <bool>false</bool>
@@ -104,20 +80,93 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label">
+      <item row="5" column="2">
+       <widget class="QPushButton" name="mGeneratePasswordBtn">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Password Again:</string>
+         <string>Generate 256bit password</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Password:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Path:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="mDirectory"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="mChooseDirBtn">
+          <property name="text">
+           <string>Choose</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="6" column="1">
        <widget class="QLineEdit" name="mPasswordAgain">
         <property name="enabled">
          <bool>false</bool>
         </property>
         <property name="echoMode">
          <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Description:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QTextEdit" name="mDesc">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="3">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>464</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="passwordStrengthLabel">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
@@ -176,7 +225,7 @@
   <tabstop>mChooseDirBtn</tabstop>
   <tabstop>mName</tabstop>
   <tabstop>mDesc</tabstop>
-  <tabstop>mEncrypteCheckBox</tabstop>
+  <tabstop>mEncryptedCheckBox</tabstop>
   <tabstop>mPassword</tabstop>
   <tabstop>mPasswordAgain</tabstop>
   <tabstop>mCancelBtn</tabstop>
@@ -200,7 +249,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>mEncrypteCheckBox</sender>
+   <sender>mEncryptedCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>mPassword</receiver>
    <slot>setEnabled(bool)</slot>
@@ -216,7 +265,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>mEncrypteCheckBox</sender>
+   <sender>mEncryptedCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>mPasswordAgain</receiver>
    <slot>setEnabled(bool)</slot>
@@ -228,6 +277,54 @@
     <hint type="destinationlabel">
      <x>239</x>
      <y>358</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mEncryptedCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>mPassword</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>288</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>378</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mEncryptedCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>mPasswordAgain</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>288</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>411</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mEncryptedCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>mGeneratePasswordBtn</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>478</x>
+     <y>388</y>
     </hint>
    </hints>
   </connection>

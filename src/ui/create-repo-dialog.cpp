@@ -10,8 +10,6 @@
 #include "rpc/rpc-client.h"
 #include "create-repo-dialog.h"
 
-static int entropy;
-
 CreateRepoDialog::CreateRepoDialog(const Account& account,
                                    const QString& worktree,
                                    QWidget *parent)
@@ -31,9 +29,9 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
-	connect(mGeneratePasswordBtn, SIGNAL(clicked()), this, SLOT(generatePassword()));
-	connect(mEncryptedCheckBox, SIGNAL(clicked()), this, SLOT(passwordMode()));
-	connect(mPassword, SIGNAL(textChanged(QString)), this, SLOT(calcPasswordStrength(QString)) );
+    connect(mGeneratePasswordBtn, SIGNAL(clicked()), this, SLOT(generatePassword()));
+    connect(mEncryptedCheckBox, SIGNAL(clicked()), this, SLOT(passwordMode()));
+    connect(mPassword, SIGNAL(textChanged(QString)), this, SLOT(calcPasswordStrength(QString)) );
 
     const QRect screen = QApplication::desktop()->screenGeometry();
     move(screen.center() - this->rect().center());
@@ -80,11 +78,11 @@ void CreateRepoDialog::createAction()
         return;
     }
 
-	if( entropy <18 )
-	{
+    if( entropy <18 )
+    {
         seafApplet->warningBox(tr("Password is too weak.\nMake sure you are using mixed-case,numbers and symbols as much as possible.\n\nOr generate one using the random password generator."), this);
-		return;
-	}
+        return;
+    }
 
     mStatusText->setText(tr("Creating..."));
 
@@ -133,23 +131,23 @@ bool CreateRepoDialog::validateInputs()
 
     encrypted = (mEncryptedCheckBox->checkState() == Qt::Checked) ? true : false;
     if (encrypted) {
-         if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
-             seafApplet->warningBox(tr("Please enter the password"), this);
-             return false;
-         }
+        if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
+            seafApplet->warningBox(tr("Please enter the password"), this);
+            return false;
+        }
 
-         passwd = mPassword->text();
-         passwdAgain = mPasswordAgain->text();
-		 if (passwd.length() < 8)
-		 {
-			seafApplet->warningBox("Password must be at least 8 characters long", this);
-			return false;
-		 }
-         if (passwd != passwdAgain) {
-             seafApplet->warningBox(tr("Passwords don't match"), this);
-             return false;
-         }
-         passwd_ = passwd;
+        passwd = mPassword->text();
+        passwdAgain = mPasswordAgain->text();
+        if (passwd.length() < 8)
+        {
+            seafApplet->warningBox("Password must be at least 8 characters long", this);
+            return false;
+        }
+        if (passwd != passwdAgain) {
+            seafApplet->warningBox(tr("Passwords don't match"), this);
+            return false;
+        }
+        passwd_ = passwd;
     } else {
         passwd_ = QString::null;
     }
@@ -213,30 +211,30 @@ void CreateRepoDialog::createFailed(const ApiError& error)
 
 void CreateRepoDialog::generatePassword()
 {
-	const int key_length_bits = 256;
-	char* generated_passwd = new char[4*(key_length_bits/4)/3 +1];
+    const int key_length_bits = 256;
+    char* generated_passwd = new char[4*(key_length_bits/4)/3 +1];
 
-	// Make password field data visible to user
-	mPassword->setEchoMode(QLineEdit::Normal);
-	mPasswordAgain->setEchoMode(QLineEdit::Normal);
+    // Make password field data visible to user
+    mPassword->setEchoMode(QLineEdit::Normal);
+    mPasswordAgain->setEchoMode(QLineEdit::Normal);
 
-	// Generate 256 bit password
-	int generated_password_length = gen_random_passwd(generated_passwd, key_length_bits/8);
-	QString generated_passwdStr = QString(generated_passwd);
-	generated_passwdStr.truncate(generated_password_length);
-	mPassword->setText(generated_passwdStr);
-	mPasswordAgain->setText(generated_passwdStr);
-	mPassword->setReadOnly(true);
-	mPassword->selectAll();
-	mPasswordAgain->setReadOnly(true);
+    // Generate 256 bit password
+    int generated_password_length = gen_random_passwd(generated_passwd, key_length_bits/8);
+    QString generated_passwdStr = QString(generated_passwd);
+    generated_passwdStr.truncate(generated_password_length);
+    mPassword->setText(generated_passwdStr);
+    mPasswordAgain->setText(generated_passwdStr);
+    mPassword->setReadOnly(true);
+    mPassword->selectAll();
+    mPasswordAgain->setReadOnly(true);
 }
 
 void CreateRepoDialog::passwordMode()
 {
-	mPassword->setEchoMode(QLineEdit::Password);
-	mPassword->setReadOnly(false);
-	mPasswordAgain->setEchoMode(QLineEdit::Password);
-	mPasswordAgain->setReadOnly(false);	
+    mPassword->setEchoMode(QLineEdit::Password);
+    mPassword->setReadOnly(false);
+    mPasswordAgain->setEchoMode(QLineEdit::Password);
+    mPasswordAgain->setReadOnly(false);
 }
 
 void CreateRepoDialog::calcPasswordStrength(QString password)
@@ -251,34 +249,36 @@ void CreateRepoDialog::calcPasswordStrength(QString password)
     bool medium_threshold=false;    
     bool strong_threshold=false;
 
-	if(password.isEmpty())
+    if (password.isEmpty())
     {
         passwordStrengthLabel->setText("");    
         return;
     }
     
-    if(password.length() < 8){
-        strength_color = "red";        
+    if (password.length() < 8) {
+        strength_color = "red";
         passwordStrengthLabel->setText("Password must be at least 8 characters long");
-    }else{
+    } else {
 
         entropy = isStrongPassword(password.toStdString().c_str(), password.length(), weak_entropy);
         
-        if(entropy >= strong_entropy){
+        if (entropy >= strong_entropy) {
             strength_color = "green";      
             passwordStrengthLabel->setText("Strong password");
-        }else{
-            if (entropy > medium_entropy){
+        } else {
+            if (entropy > medium_entropy) {
                 strength_color = "orange";     
                 passwordStrengthLabel->setText("Medium password");
-            }else{
-                if(entropy >= weak_entropy){                 
-                    strength_color = "red";        
+            } else {
+                if (entropy >= weak_entropy) {
+                    strength_color = "red";
                     passwordStrengthLabel->setText("Weak password");
-                }else{
-                strength_color = "red";        
-                passwordStrengthLabel->setText("Too weak password");
-            }}}
+                } else {
+                    strength_color = "red";
+                    passwordStrengthLabel->setText("Too weak password");
+                }
+            }
+        }
     }
     passwordStrengthLabel->setStyleSheet(QString("QLabel { color : %1; }").arg(strength_color));
 }

@@ -25,14 +25,16 @@ private slots:
     void chooseDirAction();
     void createSuccess(const RepoDownloadInfo& info);
     void createFailed(const ApiError& error);
-	void generatePassword();
-	void passwordMode();
-	void calcPasswordStrength(QString password);
+    void generatePassword();
+    void passwordMode();
+    void calcPasswordStrength(QString password);
 
 private:
     Q_DISABLE_COPY(CreateRepoDialog);
     bool validateInputs();
     void setAllInputsEnabled(bool enabled);
+
+    int entropy;
 
     QString path_;
     QString name_;

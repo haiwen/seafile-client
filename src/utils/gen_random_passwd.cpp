@@ -42,7 +42,8 @@ int base64_sanitizer(char* str, int str_len, char* &sanitized)
 int gen_random_passwd(char* &s, const int len)
 {
 	unsigned char* raw_password = new unsigned char[len];
-	RAND_bytes(raw_password, len);
+	if(!RAND_bytes(raw_password, len))
+		RAND_pseudo_bytes(raw_password, len);
 
 	char* base64 = g_base64_encode(raw_password, len);
 	int base64_len = 4*(len/3 +1);

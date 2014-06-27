@@ -39,7 +39,7 @@ void StarredFilesListView::createActions()
     view_file_on_web_action_ = new QAction(tr("view on &Web"), this);
     view_file_on_web_action_->setIcon(QIcon(":/images/cloud.png"));
     view_file_on_web_action_->setIconVisibleInMenu(true);
-    view_file_on_web_action_->setStatusTip(tr("view this file on seahub"));
+    view_file_on_web_action_->setStatusTip(tr("view this file on website"));
     connect(view_file_on_web_action_, SIGNAL(triggered()), this, SLOT(viewFileOnWeb()));
 }
 

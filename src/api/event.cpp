@@ -2,6 +2,9 @@
 
 #include <vector>
 
+#include "utils/translate-commit-desc.h"
+
+
 #include "event.h"
 
 namespace {
@@ -38,6 +41,8 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
     } else if (event.etype == kEventTypeRepoCreate) {
         event.desc = QObject::tr("Deleted library \"%1\"").arg(event.repo_name);
     }
+
+    event.desc = translateCommitDesc(event.desc);
 
     return event;
 }

@@ -68,11 +68,21 @@ int main(int argc, char *argv[])
 
     QTranslator myappTranslator;
 #if QT_VERSION >= 0x040800 && not defined(Q_WS_MAC)
-    myappTranslator.load(QLocale::system(), // locale
-                         "",                // file name
-                         "seafile_",        // prefix
-                         ":/i18n/",         // folder
-                         ".qm");            // suffix
+    QLocale loc = QLocale::system();
+    QString lang = QLocale::languageToString(loc.language());
+
+    if (lang != "en") {
+        bool success;
+        success = myappTranslator.load(QLocale::system(), // locale
+                                       "",                // file name
+                                       "seafile_",        // prefix
+                                       ":/i18n/",         // folder
+                                       ".qm");            // suffix
+
+        if (!success) {
+            myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
+        }
+    }
 #else
     myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
 #endif

@@ -20,8 +20,6 @@ AccountView::AccountView(QWidget *parent)
 {
     setupUi(this);
 
-    mSeahubMessagesBtn->setVisible(false);
-
     // Init account drop down menu
     account_menu_ = new QMenu;
     mAccountBtn->setMenu(account_menu_);

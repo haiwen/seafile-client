@@ -219,7 +219,7 @@ void CreateRepoDialog::generatePassword()
     mPasswordAgain->setEchoMode(QLineEdit::Normal);
 
     // Generate 256 bit password
-    int generated_password_length = gen_random_passwd(generated_passwd, key_length_bits/8);
+    int generated_password_length = generateRandomPasswd(generated_passwd, key_length_bits/8);
     QString generated_passwdStr = QString(generated_passwd);
     generated_passwdStr.truncate(generated_password_length);
     mPassword->setText(generated_passwdStr);

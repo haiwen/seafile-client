@@ -4,22 +4,7 @@
 #include <glib.h>
 #include <string.h>
 
-void deprecated_gen_random_passwd(unsigned char *s, const int len)
-{
-    static const char alphanum[] =
-        "`~!@#$%^&*()_+-={}\\:\";'<>?,./"
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-
-    for (int i = 0; i < len; ++i) {
-        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
-    }
-
-    s[len] = 0;
-}
-
-int base64_limit(char* b, int len)
+int base64Limit(char* b, int len)
 {
     for(int i=0; i<len; i++)
         if (b[i] == '=')
@@ -28,18 +13,7 @@ int base64_limit(char* b, int len)
     return 0;
 }
 
-int base64_sanitizer(char* str, int str_len, char* &sanitized)
-{
-    int limit = base64_limit(str, str_len);
-    if(limit == 0)
-        return 0;
-
-    sanitized=(char*)malloc(sizeof(char)*limit);
-    memcpy(sanitized, str, limit);
-    return limit;
-}
-
-int gen_random_passwd(char* &s, const int len)
+int generateRandomPasswd(char* &s, const int len)
 {
     unsigned char* raw_password = new unsigned char[len];
     if(!RAND_bytes(raw_password, len))
@@ -47,7 +21,7 @@ int gen_random_passwd(char* &s, const int len)
 
     char* base64 = g_base64_encode(raw_password, len);
     int base64_len = 4*(len/3 +1);
-    int sanitized_length = base64_limit(base64, base64_len);
+    int sanitized_length = base64Limit(base64, base64_len);
 
     s = (char*)malloc(sizeof(char)*sanitized_length);
     memcpy(s, base64,sanitized_length);

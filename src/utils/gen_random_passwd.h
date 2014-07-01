@@ -1,6 +1,6 @@
 #ifndef SEAFILE_CLIENT_UTILS_GEN_RANDOM_PASSWD_H
 #define SEAFILE_CLIENT_UTILS_GEN_RANDOM_PASSWD_H
 
-int gen_random_passwd(char* &s, const int len);
+int generateRandomPasswd(char* &s, const int len);
 
 #endif // SEAFILE_CLIENT_UTILS_GEN_RANDOM_PASSWD_H

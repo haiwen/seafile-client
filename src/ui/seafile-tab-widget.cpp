@@ -28,7 +28,8 @@ SeafileTabBar::SeafileTabBar(QWidget *parent)
 
 void SeafileTabBar::addTab(const QString& text, const QString& icon_path)
 {
-    QTabBar::addTab(text);
+    int index = QTabBar::addTab(text);
+    setTabToolTip(index, text);
     icons_.push_back(icon_path);
 }
 

@@ -220,6 +220,7 @@ QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
     qproperty-iconSize: 18px;
     margin-top: 3px;
+    qproperty-focusPolicy: NoFocus;
 }
 
 ServerStatusDialog QListView:item {

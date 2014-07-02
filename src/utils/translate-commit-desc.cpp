@@ -59,7 +59,7 @@ QString translateLine(const QString line)
             type = QObject::tr("files");
         } else {
             type = QObject::tr("directories");
-        };
+        }
 
         QString more = QObject::tr("and %1 more").arg(n_more);
         ret = QString("%1 \"%2\" %3 %4.").arg(op_trans).arg(file_name).arg(more).arg(type);

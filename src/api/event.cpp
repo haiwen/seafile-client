@@ -38,7 +38,7 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
 
     if (event.etype == kEventTypeRepoCreate) {
         event.desc = QObject::tr("Created library \"%1\"").arg(event.repo_name);
-    } else if (event.etype == kEventTypeRepoCreate) {
+    } else if (event.etype == kEventTypeRepoDelete) {
         event.desc = QObject::tr("Deleted library \"%1\"").arg(event.repo_name);
     }
 

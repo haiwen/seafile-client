@@ -277,8 +277,7 @@ SET(LANGUAGES
   hu_HU
   is
   it
-  lv
-  sv
+  ko_KR
   nl_BE
   pl_PL
   pt_BR

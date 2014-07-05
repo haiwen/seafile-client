@@ -14,12 +14,12 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="53"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished">Bent u zeker om deze account te verwijderen?&lt;br&gt;&lt;b&gt;Waarschuwing: Alle bibliotheken van deze account zullen niet meer gesynchroniseerd worden!&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="63"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished">Mislukt om het synchroniseren van deze account te stoppen: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="76"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="86"/>
         <source>No account</source>
-        <translation type="unfinished">Geen account</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="117"/>
@@ -39,7 +39,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="124"/>
         <source>Delete this account</source>
-        <translation type="unfinished">Verwijder deze account</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
@@ -49,21 +49,17 @@
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation type="unfinished">Account</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
         <source>email</source>
-        <translation type="unfinished">email</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="85"/>
         <source>server</source>
-        <translation type="unfinished">server</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -223,26 +219,6 @@
         <translation>Gelieve een map, om te synchroniseren, te kiezen</translation>
     </message>
     <message>
-        <source>No account</source>
-        <translation type="obsolete">Geen account</translation>
-    </message>
-    <message>
-        <source>Add an account</source>
-        <translation type="obsolete">Voeg een account toe</translation>
-    </message>
-    <message>
-        <source>Delete this account</source>
-        <translation type="obsolete">Verwijder deze account</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="obsolete">Bent u zeker om deze account te verwijderen?&lt;br&gt;&lt;b&gt;Waarschuwing: Alle bibliotheken van deze account zullen niet meer gesynchroniseerd worden!&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="obsolete">Mislukt om het synchroniseren van deze account te stoppen: %1</translation>
-    </message>
-    <message>
         <location filename="../src/ui/cloud-view.cpp" line="300"/>
         <location filename="../src/ui/cloud-view.cpp" line="322"/>
         <source>no server connected</source>
@@ -293,18 +269,6 @@
         <location filename="../ui_cloud-view.h" line="235"/>
         <source>close</source>
         <translation>sluiten</translation>
-    </message>
-    <message>
-        <source>Account</source>
-        <translation type="obsolete">Account</translation>
-    </message>
-    <message>
-        <source>email</source>
-        <translation type="obsolete">email</translation>
-    </message>
-    <message>
-        <source>server</source>
-        <translation type="obsolete">server</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="238"/>
@@ -476,10 +440,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
-    </message>
-    <message>
         <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>Annuleer</translation>
@@ -592,10 +552,6 @@
         <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="229"/>
@@ -1757,87 +1713,82 @@ Wil je naar de download pagina gaan?</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <source>View unread notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
-        <location filename="../src/ui/tray-icon.cpp" line="143"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
+        <location filename="../src/ui/tray-icon.cpp" line="148"/>
         <source>Show main window</source>
         <translation>Toon hoofdvenster</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="107"/>
         <source>&amp;About</source>
         <translation>&amp;About</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Show the application&apos;s About box</source>
         <translation>Toon de toepassings&apos; Over kader</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>&amp;Online help</source>
         <translation>&amp;Online help</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="112"/>
         <source>open seafile online help</source>
         <translation>open seafile online help</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="145"/>
+        <location filename="../src/ui/tray-icon.cpp" line="150"/>
         <source>Hide main window</source>
         <translation>Verberg hoofdvenster</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="367"/>
+        <location filename="../src/ui/tray-icon.cpp" line="373"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished">
-            <numerusform>Je hebt %n bericht(en)</numerusform>
-            <numerusform>Je hebt %n bericht(en)</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="373"/>
+        <location filename="../src/ui/tray-icon.cpp" line="379"/>
         <source>auto sync is disabled</source>
         <translation>auto synchronisatie is uitgeschakeld</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="294"/>
+        <location filename="../src/ui/tray-icon.cpp" line="301"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="295"/>
+        <location filename="../src/ui/tray-icon.cpp" line="302"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="379"/>
+        <location filename="../src/ui/tray-icon.cpp" line="385"/>
         <source>some servers not connected</source>
         <translation>enkele servers zijn niet verbonden</translation>
-    </message>
-</context>
-<context>
-    <name>SeahubMessagesMonitor</name>
-    <message numerus="yes">
-        <source>You have %n message(s)</source>
-        <translation type="obsolete">
-            <numerusform>Je hebt %n bericht(en)</numerusform>
-            <numerusform>Je hebt %n bericht(en)</numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1934,10 +1885,6 @@ Wil je naar de download pagina gaan?</translation>
         <location filename="../ui_settings-dialog.h" line="192"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="193"/>

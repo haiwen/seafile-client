@@ -61,10 +61,6 @@
         <source>server</source>
         <translation>服务器</translation>
     </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -219,38 +215,6 @@
         <translation>请选择一个文件夹来同步</translation>
     </message>
     <message>
-        <source>retry</source>
-        <translation type="obsolete">重试</translation>
-    </message>
-    <message>
-        <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="obsolete">获取资料库信息失败&lt;br/&gt;请%1</translation>
-    </message>
-    <message>
-        <source>click to open the website</source>
-        <translation type="obsolete">点击访问网站</translation>
-    </message>
-    <message>
-        <source>No account</source>
-        <translation type="obsolete">没有帐号</translation>
-    </message>
-    <message>
-        <source>Add an account</source>
-        <translation type="obsolete">添加一个帐号</translation>
-    </message>
-    <message>
-        <source>Delete this account</source>
-        <translation type="obsolete">删除当前帐号</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="obsolete">确定要删除这个帐号吗？&lt;br&gt;&lt;b&gt;警告：这个帐号的所有资料库都将被解除同步！&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="obsolete">解除同步该帐号的资料库失败：%1</translation>
-    </message>
-    <message>
         <location filename="../src/ui/cloud-view.cpp" line="300"/>
         <location filename="../src/ui/cloud-view.cpp" line="322"/>
         <source>no server connected</source>
@@ -301,18 +265,6 @@
         <location filename="../ui_cloud-view.h" line="235"/>
         <source>close</source>
         <translation>关闭</translation>
-    </message>
-    <message>
-        <source>Account</source>
-        <translation type="obsolete">帐号</translation>
-    </message>
-    <message>
-        <source>email</source>
-        <translation type="obsolete">邮箱</translation>
-    </message>
-    <message>
-        <source>server</source>
-        <translation type="obsolete">服务器</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="238"/>
@@ -484,10 +436,6 @@
         <translation>确定</translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">确定</translation>
-    </message>
-    <message>
         <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>取消</translation>
@@ -600,10 +548,6 @@
         <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>OK</source>
         <translation>确定</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">确定</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="229"/>
@@ -1434,10 +1378,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 找不到合适的程序来打开文件 %2</translation>
     </message>
     <message>
-        <source>Seafile couldn&apos;t find an application to open file %1</source>
-        <translation type="obsolete">%1 找不到合适的程序来打开文件 %2</translation>
-    </message>
-    <message>
         <location filename="../src/api/event.cpp" line="40"/>
         <source>Created library &quot;%1&quot;</source>
         <translation>创建了资料库 &quot;%2&quot;</translation>
@@ -1768,85 +1708,81 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <source>View unread notifications</source>
+        <translation>查看未读通知</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>&amp;Quit</source>
         <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
-        <location filename="../src/ui/tray-icon.cpp" line="143"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
+        <location filename="../src/ui/tray-icon.cpp" line="148"/>
         <source>Show main window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="107"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="112"/>
         <source>open seafile online help</source>
         <translation>打开 Seafile 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="145"/>
+        <location filename="../src/ui/tray-icon.cpp" line="150"/>
         <source>Hide main window</source>
         <translation>关闭主窗口</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="367"/>
+        <location filename="../src/ui/tray-icon.cpp" line="373"/>
         <source>You have %n message(s)</source>
         <translation>
             <numerusform>你有 %n 条未读消息</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="373"/>
+        <location filename="../src/ui/tray-icon.cpp" line="379"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="294"/>
+        <location filename="../src/ui/tray-icon.cpp" line="301"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="295"/>
+        <location filename="../src/ui/tray-icon.cpp" line="302"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="379"/>
+        <location filename="../src/ui/tray-icon.cpp" line="385"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
-    </message>
-</context>
-<context>
-    <name>SeahubMessagesMonitor</name>
-    <message numerus="yes">
-        <source>You have %n message(s)</source>
-        <translation type="obsolete">
-            <numerusform>你有 %n 条未读消息</numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1945,10 +1881,6 @@ Do you want to visit the download page?</source>
         <translation>确定</translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">确定</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="193"/>
         <source>Cancel</source>
         <translation>取消</translation>
@@ -2008,10 +1940,6 @@ Do you want to visit the download page?</source>
         <location filename="../src/ui/starred-files-list-view.cpp" line="42"/>
         <source>view this file on website</source>
         <translation>在网站上查看这个文件</translation>
-    </message>
-    <message>
-        <source>view this file on seahub</source>
-        <translation type="obsolete">在网站上查看这个文件</translation>
     </message>
 </context>
 <context>

@@ -14,56 +14,52 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="53"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished">Biztosan eltávolítja a fiókot？&lt;br&gt;&lt;b&gt;Figyelem: a fiókhoz tartozó könyvtárak szinkronizálása megszűnik a törlést követően!&lt;/b&gt;</translation>
+        <translation>Biztosan eltávolítja a fiókot?&lt;br&gt;&lt;b&gt;Figyelem: a fiókhoz tartozó könyvtárak szinkronizálása megszűnik a törlést követően!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="63"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished">A könyvtárak szinkronizálásának megszüntetése nem sikerült: %1</translation>
+        <translation>A könyvtárak szinkronizálásának megszüntetése nem sikerült: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="76"/>
         <source>click to open the website</source>
-        <translation type="unfinished">Kattintson a weboldal megnyitásához</translation>
+        <translation>Kattintson a weboldal megnyitásához</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="86"/>
         <source>No account</source>
-        <translation type="unfinished">Nincs felhasználói fiók beállítva</translation>
+        <translation>Nincs felhasználói fiók beállítva</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="117"/>
         <source>Add an account</source>
-        <translation type="unfinished">Fiók hozzáadása</translation>
+        <translation>Fiók hozzáadása</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="124"/>
         <source>Delete this account</source>
-        <translation type="unfinished">Fiók törlése</translation>
+        <translation>Fiók törlése</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
         <source>Form</source>
-        <translation type="unfinished">Űrlap</translation>
+        <translation>Űrlap</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation type="unfinished">Fiók</translation>
+        <translation>Fiók</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
         <source>email</source>
-        <translation type="unfinished">E-mail</translation>
+        <translation>E-mail</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="85"/>
         <source>server</source>
-        <translation type="unfinished">Szerver</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
+        <translation>Szerver</translation>
     </message>
 </context>
 <context>
@@ -71,22 +67,22 @@
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="104"/>
         <source>More</source>
-        <translation type="unfinished"></translation>
+        <translation>Többi</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="148"/>
         <source>File Activities are only supported in Seafile Server Business Edition.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fájl tevékenységek csak a Seafile Server Business Edition-ben támogatott.</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="150"/>
         <source>retry</source>
-        <translation type="unfinished">Újra</translation>
+        <translation>Újra</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="151"/>
         <source>Failed to get actvities information. Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem sikerült lekérdezni a fájl tevékenységeket. Kérem, %1</translation>
     </message>
 </context>
 <context>
@@ -94,7 +90,7 @@
     <message>
         <location filename="../src/avatar-service.cpp" line="141"/>
         <source>Failed to create avatars folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Az &quot;avatars&quot; könyvtárat nem sikerült létrehozni</translation>
     </message>
 </context>
 <context>
@@ -195,17 +191,17 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="126"/>
         <source>Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Kötetek</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="129"/>
         <source>Starred</source>
-        <translation type="unfinished"></translation>
+        <translation>Csillagozott</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="132"/>
         <source>Activities</source>
-        <translation type="unfinished"></translation>
+        <translation>Tevékenységek</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="159"/>
@@ -221,38 +217,6 @@
         <location filename="../src/ui/cloud-view.cpp" line="170"/>
         <source>Please Choose a folder to sync</source>
         <translation>Kérem, jelölje ki a szinkronizálandó mappát</translation>
-    </message>
-    <message>
-        <source>retry</source>
-        <translation type="obsolete">Újra</translation>
-    </message>
-    <message>
-        <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="obsolete">Nem sikerült lekérdezni a könyvtárinformációkat.&lt;br/&gt;Kérem, %1</translation>
-    </message>
-    <message>
-        <source>click to open the website</source>
-        <translation type="obsolete">Kattintson a weboldal megnyitásához</translation>
-    </message>
-    <message>
-        <source>No account</source>
-        <translation type="obsolete">Nincs felhasználói fiók beállítva</translation>
-    </message>
-    <message>
-        <source>Add an account</source>
-        <translation type="obsolete">Fiók hozzáadása</translation>
-    </message>
-    <message>
-        <source>Delete this account</source>
-        <translation type="obsolete">Fiók törlése</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="obsolete">Biztosan eltávolítja a fiókot？&lt;br&gt;&lt;b&gt;Figyelem: a fiókhoz tartozó könyvtárak szinkronizálása megszűnik a törlést követően!&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="obsolete">A könyvtárak szinkronizálásának megszüntetése nem sikerült: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="300"/>
@@ -305,18 +269,6 @@
         <location filename="../ui_cloud-view.h" line="235"/>
         <source>close</source>
         <translation>Bezárás</translation>
-    </message>
-    <message>
-        <source>Account</source>
-        <translation type="obsolete">Fiók</translation>
-    </message>
-    <message>
-        <source>email</source>
-        <translation type="obsolete">E-mail</translation>
-    </message>
-    <message>
-        <source>server</source>
-        <translation type="obsolete">Szerver</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="238"/>
@@ -486,11 +438,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">OK</translation>
+        <translation>Rendben</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="205"/>
@@ -605,11 +553,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">OK</translation>
+        <translation>Rendben</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="229"/>
@@ -622,7 +566,7 @@
     <message>
         <location filename="../src/ui/event-details-dialog.cpp" line="27"/>
         <source>Modification Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Módosítások részletei</translation>
     </message>
 </context>
 <context>
@@ -630,12 +574,12 @@
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="106"/>
         <source>Added files</source>
-        <translation type="unfinished"></translation>
+        <translation>Hozzáadott fájlok</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="107"/>
         <source>Deleted files</source>
-        <translation type="unfinished"></translation>
+        <translation>Törölt fájlok</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="108"/>
@@ -1434,22 +1378,22 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/open-local-helper.cpp" line="161"/>
         <source>The library &quot;%1&quot; has not been synced yet</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; kötet még nincs szinkronizálva</translation>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 nem található olyan alkalmazás amivel a(z) %2 fájl megnyitható</translation>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="40"/>
         <source>Created library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Elkészített kötet &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="42"/>
         <source>Deleted library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Törölt kötet &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1557,7 +1501,7 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/repo-service.cpp" line="137"/>
         <source>The library of this file is not synced yet. Do you want to sync it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>A kötet fájljai még nincsenek szinkronizálva. Szeretné most szinkronizálni?</translation>
     </message>
 </context>
 <context>
@@ -1704,12 +1648,12 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="75"/>
         <source>retry</source>
-        <translation type="unfinished">Újra</translation>
+        <translation>újra</translation>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="76"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished">Nem sikerült lekérdezni a könyvtárinformációkat.&lt;br/&gt;Kérem, %1</translation>
+        <translation>Nem sikerült lekérdezni a kötet információkat.&lt;br/&gt;Kérem, %1</translation>
     </message>
 </context>
 <context>
@@ -1774,85 +1718,81 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <source>View unread notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>&amp;Quit</source>
         <translation>&amp;Kilépés</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
-        <location filename="../src/ui/tray-icon.cpp" line="143"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
+        <location filename="../src/ui/tray-icon.cpp" line="148"/>
         <source>Show main window</source>
         <translation>Főablak megnyitása</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="107"/>
         <source>&amp;About</source>
         <translation>&amp;Névjegy</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Show the application&apos;s About box</source>
         <translation>Megjeleníti az alkalmazás névjegyét</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>&amp;Online help</source>
         <translation>&amp;Online segítség</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="112"/>
         <source>open seafile online help</source>
         <translation>Megnyitja a seafile online súgóját</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>Help</source>
         <translation>Segítség</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="145"/>
+        <location filename="../src/ui/tray-icon.cpp" line="150"/>
         <source>Hide main window</source>
         <translation>Főablak elrejtése</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="367"/>
+        <location filename="../src/ui/tray-icon.cpp" line="373"/>
         <source>You have %n message(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%n üzenete van</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="373"/>
+        <location filename="../src/ui/tray-icon.cpp" line="379"/>
         <source>auto sync is disabled</source>
         <translation>Automatikus szinkronizálás kikapcsolva</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="294"/>
+        <location filename="../src/ui/tray-icon.cpp" line="301"/>
         <source>About %1</source>
         <translation>Információk a %1-ról</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="295"/>
+        <location filename="../src/ui/tray-icon.cpp" line="302"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 kliens %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="379"/>
+        <location filename="../src/ui/tray-icon.cpp" line="385"/>
         <source>some servers not connected</source>
         <translation>Néhány szerver nem elérhető</translation>
-    </message>
-</context>
-<context>
-    <name>SeahubMessagesMonitor</name>
-    <message numerus="yes">
-        <source>You have %n message(s)</source>
-        <translation type="obsolete">
-            <numerusform>%n üzenete van</numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1948,11 +1888,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="192"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">OK</translation>
+        <translation>Rendben</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="193"/>
@@ -1998,22 +1934,22 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="33"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Megnyitás</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="36"/>
         <source>Open this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Fájl megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="39"/>
         <source>view on &amp;Web</source>
-        <translation type="unfinished"></translation>
+        <translation>megtekintés &amp;Weben</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="42"/>
         <source>view this file on website</source>
-        <translation type="unfinished"></translation>
+        <translation>fájl megtekintése a weboldalon</translation>
     </message>
 </context>
 <context>
@@ -2021,17 +1957,17 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
         <source>retry</source>
-        <translation type="unfinished">Újra</translation>
+        <translation>újra</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="80"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem sikerült lekérdezni a csillagozott fájlok információit&lt;br/&gt;Kérem, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="101"/>
         <source>You have no starred files yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincsenek csillagozott fájljai.</translation>
     </message>
 </context>
 <context>

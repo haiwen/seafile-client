@@ -14,12 +14,12 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="53"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished">Ви дійсно хочете видалити цей обліковий запис?&lt;br&gt;&lt;b&gt;Попередження: Усі бібліотеки цього облікового запису будуть розсинхронізовані&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="63"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished">Не вдалося розсинхронізувати бібліотеки цього особового запису: 1%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="76"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="86"/>
         <source>No account</source>
-        <translation type="unfinished">Ви не зареєстровані</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="117"/>
@@ -39,7 +39,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="124"/>
         <source>Delete this account</source>
-        <translation type="unfinished">Видалити обліковий запис</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
@@ -49,21 +49,17 @@
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation type="unfinished">Обліковий запис</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
         <source>email</source>
-        <translation type="unfinished">email</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="85"/>
         <source>server</source>
-        <translation type="unfinished">сервер</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -223,26 +219,6 @@
         <translation>Будь ласка, оберіть папку для синхронізації</translation>
     </message>
     <message>
-        <source>No account</source>
-        <translation type="obsolete">Ви не зареєстровані</translation>
-    </message>
-    <message>
-        <source>Add an account</source>
-        <translation type="obsolete">Додати обліковий запис</translation>
-    </message>
-    <message>
-        <source>Delete this account</source>
-        <translation type="obsolete">Видалити обліковий запис</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="obsolete">Ви дійсно хочете видалити цей обліковий запис?&lt;br&gt;&lt;b&gt;Попередження: Усі бібліотеки цього облікового запису будуть розсинхронізовані&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="obsolete">Не вдалося розсинхронізувати бібліотеки цього особового запису: 1%</translation>
-    </message>
-    <message>
         <location filename="../src/ui/cloud-view.cpp" line="300"/>
         <location filename="../src/ui/cloud-view.cpp" line="322"/>
         <source>no server connected</source>
@@ -293,18 +269,6 @@
         <location filename="../ui_cloud-view.h" line="235"/>
         <source>close</source>
         <translation>закрити</translation>
-    </message>
-    <message>
-        <source>Account</source>
-        <translation type="obsolete">Обліковий запис</translation>
-    </message>
-    <message>
-        <source>email</source>
-        <translation type="obsolete">email</translation>
-    </message>
-    <message>
-        <source>server</source>
-        <translation type="obsolete">сервер</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="238"/>
@@ -476,10 +440,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
         <location filename="../ui_create-repo-dialog.h" line="205"/>
         <source>Cancel</source>
         <translation>Відміна</translation>
@@ -508,7 +468,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="35"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть папку</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="90"/>
@@ -543,22 +503,22 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="85"/>
         <source>or</source>
-        <translation type="unfinished"></translation>
+        <translation>або</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="87"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"></translation>
+        <translation>синхронізувати з існуючою папкою</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"></translation>
+        <translation>створіть нову папку для синхронізації</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="100"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронізація з цією існуючою папкою:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="223"/>
@@ -592,10 +552,6 @@
         <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="obsolete">ОК</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="229"/>
@@ -851,7 +807,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="140"/>
         <source>Please enter the computer name</source>
-        <translation type="unfinished"></translation>
+        <translation>Будь ласка, введіть ім&apos;я комп&apos;ютера</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
@@ -1129,17 +1085,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="160"/>
         <source>Conflict in merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфлікт у злитті</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Server version is too old</source>
-        <translation type="unfinished"></translation>
+        <translation>Занадто стара версія сервера </translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="169"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Невідома помилка</translation>
+        <translation>Невідома помилка</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="172"/>
@@ -1149,12 +1105,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Internal server error</source>
-        <translation type="unfinished"></translation>
+        <translation>Внутрішня помилка сервера</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Your %1 client is too old</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш клієнт %1 занадто старий</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
@@ -1180,7 +1136,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/rpc/local-repo.cpp" line="228"/>
         <location filename="../src/rpc/local-repo.cpp" line="230"/>
         <source>Failed to sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося синхронізувати цю бібліотеку</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
@@ -1412,7 +1368,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/certs-mgr.cpp" line="77"/>
         <source>failed to open certs database</source>
-        <translation type="unfinished"></translation>
+        <translation>не вдалося відкрити базу даних сертифікатів</translation>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="161"/>
@@ -1590,27 +1546,27 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="197"/>
         <source>Show details of this library</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати деталі цієї бібліотеки</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="201"/>
         <source>&amp;Sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Синхронізація цієї бібліотеки</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="203"/>
         <source>Sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронізація цієї бібліотеки</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="195"/>
         <source>Show &amp;Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати &amp;Деталі</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="207"/>
         <source>Sync &amp;Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронізувати &amp;Зараз</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="209"/>
@@ -1700,7 +1656,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/api/api-client.cpp" line="93"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished">&lt;b&gt;Увага:&lt;/b&gt; SSL-сертифікат цього сервера не є надійним! Продовжувати?</translation>
+        <translation>&lt;b&gt; Увага: &lt;/ B&gt; SSL-сертифікат цього сервера не є надійним, в будь-якому випадку продовжити?</translation>
     </message>
 </context>
 <context>
@@ -1757,89 +1713,83 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <source>View unread notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>&amp;Quit</source>
         <translation>&amp;Вихід</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
-        <location filename="../src/ui/tray-icon.cpp" line="143"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
+        <location filename="../src/ui/tray-icon.cpp" line="148"/>
         <source>Show main window</source>
         <translation>Показати головне вікно</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>Settings</source>
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="107"/>
         <source>&amp;About</source>
         <translation>&amp;Інфо</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Show the application&apos;s About box</source>
         <translation>Показати інформацію про програму</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>&amp;Online help</source>
         <translation>&amp;Онлайн допомога</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="112"/>
         <source>open seafile online help</source>
         <translation>відкрити онлайн допомогу seafile </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>Help</source>
         <translation>Допомога</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="145"/>
+        <location filename="../src/ui/tray-icon.cpp" line="150"/>
         <source>Hide main window</source>
         <translation>Сховати головне вікно</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="367"/>
+        <location filename="../src/ui/tray-icon.cpp" line="373"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished">
-            <numerusform>Надійшло повідомлення</numerusform>
-            <numerusform>Надійшло %n повідомлень</numerusform>
-            <numerusform>Надійшло %n повідомлень</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="373"/>
+        <location filename="../src/ui/tray-icon.cpp" line="379"/>
         <source>auto sync is disabled</source>
         <translation>автосинхронізацію вимкнено</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="294"/>
+        <location filename="../src/ui/tray-icon.cpp" line="301"/>
         <source>About %1</source>
         <translation>Біля %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="295"/>
+        <location filename="../src/ui/tray-icon.cpp" line="302"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Клієнт %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="379"/>
+        <location filename="../src/ui/tray-icon.cpp" line="385"/>
         <source>some servers not connected</source>
         <translation>деякі сервери не підключені</translation>
-    </message>
-</context>
-<context>
-    <name>SeahubMessagesMonitor</name>
-    <message numerus="yes">
-        <source>You have %n message(s)</source>
-        <translation type="obsolete">
-            <numerusform>Надійшло повідомлення</numerusform>
-            <numerusform>Надійшло %n повідомлень</numerusform>
-            <numerusform>Надійшло %n повідомлень</numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1938,10 +1888,6 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="193"/>
         <source>Cancel</source>
         <translation>Відміна</translation>
@@ -1952,7 +1898,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="11"/>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Ненадійне з&apos;єднання</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="14"/>
@@ -1962,22 +1908,22 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Dialog</source>
-        <translation type="unfinished">Діалог</translation>
+        <translation>Діалог</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
         <source>Remember my choice</source>
-        <translation type="unfinished"></translation>
+        <translation>Запам&apos;ятати мій вибір</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
         <source>Yes</source>
-        <translation type="unfinished">Так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="100"/>
         <source>No</source>
-        <translation type="unfinished">Ні</translation>
+        <translation>Ні</translation>
     </message>
 </context>
 <context>

@@ -93,8 +93,6 @@ void SeahubNotificationsMonitor::onRequestFailed(const ApiError& error)
 
 void SeahubNotificationsMonitor::onRequestSuccess(int count)
 {
-    printf (">>>>> %d unread notification\n", count);
-
     in_refresh_ = false;
     setUnreadNotificationsCount(count);
 }

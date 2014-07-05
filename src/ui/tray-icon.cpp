@@ -91,6 +91,10 @@ void SeafileTrayIcon::createActions()
     enable_auto_sync_action_ = new QAction(tr("Enable auto sync"), this);
     connect(enable_auto_sync_action_, SIGNAL(triggered()), this, SLOT(enableAutoSync()));
 
+    view_unread_seahub_notifications_action_ = new QAction(tr("View unread notifications"), this);
+    connect(view_unread_seahub_notifications_action_, SIGNAL(triggered()),
+            this, SLOT(viewUnreadNotifications()));
+
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
 
@@ -116,6 +120,7 @@ void SeafileTrayIcon::createContextMenu()
     help_menu_->addAction(open_help_action_);
 
     context_menu_ = new QMenu(NULL);
+    context_menu_->addAction(view_unread_seahub_notifications_action_);
     context_menu_->addAction(toggle_main_window_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addMenu(help_menu_);
@@ -144,6 +149,8 @@ void SeafileTrayIcon::prepareContextMenu()
     } else {
         toggle_main_window_action_->setText(tr("Hide main window"));
     }
+
+    view_unread_seahub_notifications_action_->setVisible(state_ == STATE_HAVE_UNREAD_MESSAGE);
 }
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
@@ -333,8 +340,7 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 void SeafileTrayIcon::onClick()
 {
     if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
-        SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
-        refreshTrayIcon();
+        viewUnreadNotifications();
     } else {
         toggleMainWindow();
     }
@@ -363,7 +369,7 @@ void SeafileTrayIcon::refreshTrayIcon()
 
     int n_unread_msg = SeahubNotificationsMonitor::instance()->getUnreadNotifications();
     if (n_unread_msg > 0) {
-        setState(STATE_HAVE_UNREAD_MESSAGE, 
+        setState(STATE_HAVE_UNREAD_MESSAGE,
                  tr("You have %n message(s)", "", n_unread_msg));
         return;
     }
@@ -419,4 +425,10 @@ void SeafileTrayIcon::onSeahubNotificationsChanged()
     if (!rotate_timer_->isActive()) {
         refreshTrayIcon();
     }
+}
+
+void SeafileTrayIcon::viewUnreadNotifications()
+{
+    SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
+    refreshTrayIcon();
 }

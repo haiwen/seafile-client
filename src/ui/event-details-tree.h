@@ -27,7 +27,7 @@ public:
         FILE_ADDED = 0,
         FILE_DELETED,
         FILE_MODIFIED,
-        // FILE_RENAMED,
+        FILE_RENAMED,
         DIR_ADDED,
         DIR_DELETED
     };

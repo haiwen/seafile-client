@@ -24,12 +24,16 @@ bool EventDetailsFileItem::isFileOpenable() const
 {
     return etype_ == FILE_ADDED ||
         etype_ == FILE_MODIFIED ||
+        etype_ == FILE_RENAMED ||
         etype_ == DIR_ADDED;
 }
 
 QVariant EventDetailsFileItem::data(int role) const
 {
     if (role == Qt::DecorationRole) {
+        if (etype_ == DIR_ADDED || etype_ == DIR_DELETED) {
+            return QIcon(":/images/folder.png");
+        }
         return QIcon(::getIconByFileName(name()));
     } else if (role == Qt::DisplayRole) {
         return name();
@@ -59,7 +63,7 @@ EventDetailsTreeView::EventDetailsTreeView(const SeafEvent& event, QWidget *pare
 #endif
 
     setEditTriggers(QAbstractItemView::NoEditTriggers);
-    
+
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
 }
@@ -105,7 +109,17 @@ void EventDetailsTreeModel::setCommitDetails(const CommitDetails& details)
 
     processEventCategory(details.added_files, tr("Added files"),  EventDetailsFileItem::FILE_ADDED);
     processEventCategory(details.deleted_files, tr("Deleted files"),  EventDetailsFileItem::FILE_DELETED);
-    processEventCategory(details.modified_files, tr("modified_files"),  EventDetailsFileItem::FILE_MODIFIED);
+    processEventCategory(details.modified_files, tr("Modified files"),  EventDetailsFileItem::FILE_MODIFIED);
+
+    processEventCategory(details.added_dirs, tr("Added folders"),  EventDetailsFileItem::DIR_ADDED);
+    processEventCategory(details.deleted_dirs, tr("Deleted folders"),  EventDetailsFileItem::DIR_DELETED);
+
+    // renamed files is a list of (before rename, after rename) pair
+    std::vector<QString> renamed_files;
+    for (int i = 0, n = details.renamed_files.size(); i < n; i++) {
+        renamed_files.push_back(details.renamed_files[i].second);
+    }
+    processEventCategory(renamed_files, tr("Renamed files"),  EventDetailsFileItem::FILE_RENAMED);
 }
 
 void EventDetailsTreeModel::processEventCategory(const std::vector<QString>& files,

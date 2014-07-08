@@ -30,7 +30,18 @@ CommitDetails CommitDetails::fromJSON(const json_t *json, json_error_t */* error
     processFileList(json, "modified_files", &details.modified_files);
 
     processFileList(json, "added_dirs", &details.added_dirs);
-    processFileList(json, "deleted_files", &details.deleted_files);
+    processFileList(json, "deleted_dirs", &details.deleted_dirs);
+
+    // process renamed files
+    json_t *array = json_object_get(json, "renamed_files");
+    if (array) {
+        for (int i = 0, n = json_array_size(array); i < n; i += 2) {
+            QString before_rename = getStringFromJsonArray(array, i);
+            QString after_rename = getStringFromJsonArray(array, i + 1);
+            std::pair<QString, QString> pair(before_rename, after_rename);
+            details.renamed_files.push_back(pair);
+        }
+    }
 
     return details;
 }

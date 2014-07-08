@@ -564,18 +564,33 @@
 <context>
     <name>EventDetailsTreeModel</name>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="106"/>
+        <location filename="../src/ui/event-details-tree.cpp" line="110"/>
         <source>Added files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="107"/>
+        <location filename="../src/ui/event-details-tree.cpp" line="111"/>
         <source>Deleted files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="108"/>
-        <source>modified_files</source>
+        <location filename="../src/ui/event-details-tree.cpp" line="112"/>
+        <source>Modified files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="114"/>
+        <source>Added folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="115"/>
+        <source>Deleted folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="122"/>
+        <source>Renamed files</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

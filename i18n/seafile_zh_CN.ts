@@ -70,8 +70,12 @@
         <translation>更多</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="148"/>
         <source>File Activities are only supported in Seafile Server Business Edition.</source>
+        <translation type="obsolete">文件活动功能仅在 Seafile 专业版中提供</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/activities-tab.cpp" line="148"/>
+        <source>File Activities are only supported in Seafile Server Professional Edition.</source>
         <translation>文件活动功能仅在 Seafile 专业版中提供</translation>
     </message>
     <message>

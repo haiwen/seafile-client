@@ -71,7 +71,7 @@
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="148"/>
-        <source>File Activities are only supported in Seafile Server Business Edition.</source>
+        <source>File Activities are only supported in Seafile Server Professional Edition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

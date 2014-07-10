@@ -70,9 +70,13 @@
         <translation>Mehr</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="148"/>
         <source>File Activities are only supported in Seafile Server Business Edition.</source>
-        <translation>Dateiaktivitäten werden nur in der »Seafile Server Business Edition« unterstützt.</translation>
+        <translation type="obsolete">Dateiaktivitäten werden nur in der »Seafile Server Business Edition« unterstützt.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/activities-tab.cpp" line="148"/>
+        <source>File Activities are only supported in Seafile Server Professional Edition.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="150"/>
@@ -571,19 +575,34 @@
 <context>
     <name>EventDetailsTreeModel</name>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="106"/>
+        <location filename="../src/ui/event-details-tree.cpp" line="110"/>
         <source>Added files</source>
         <translation>Hinzugefügte Dateien</translation>
     </message>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="107"/>
+        <location filename="../src/ui/event-details-tree.cpp" line="111"/>
         <source>Deleted files</source>
         <translation>Gelöschte Dateien</translation>
     </message>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="108"/>
-        <source>modified_files</source>
-        <translation>Bearbeitet Dateien</translation>
+        <location filename="../src/ui/event-details-tree.cpp" line="112"/>
+        <source>Modified files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="114"/>
+        <source>Added folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="115"/>
+        <source>Deleted folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="122"/>
+        <source>Renamed files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

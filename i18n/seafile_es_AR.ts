@@ -70,9 +70,13 @@
         <translation>Mas</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="148"/>
         <source>File Activities are only supported in Seafile Server Business Edition.</source>
-        <translation>Actividad de Archivos solamente en Seafile Server Business Edition.</translation>
+        <translation type="obsolete">Actividad de Archivos solamente en Seafile Server Business Edition.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/activities-tab.cpp" line="148"/>
+        <source>File Activities are only supported in Seafile Server Professional Edition.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="150"/>
@@ -572,19 +576,34 @@
 <context>
     <name>EventDetailsTreeModel</name>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="106"/>
+        <location filename="../src/ui/event-details-tree.cpp" line="110"/>
         <source>Added files</source>
         <translation>Archivos agregados</translation>
     </message>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="107"/>
+        <location filename="../src/ui/event-details-tree.cpp" line="111"/>
         <source>Deleted files</source>
         <translation>Archivos eliminados</translation>
     </message>
     <message>
-        <location filename="../src/ui/event-details-tree.cpp" line="108"/>
-        <source>modified_files</source>
-        <translation>modified_files</translation>
+        <location filename="../src/ui/event-details-tree.cpp" line="112"/>
+        <source>Modified files</source>
+        <translation>Archivos modificados</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="114"/>
+        <source>Added folders</source>
+        <translation>Carpetas agregadas</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="115"/>
+        <source>Deleted folders</source>
+        <translation>Carpetas eliminadas</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/event-details-tree.cpp" line="122"/>
+        <source>Renamed files</source>
+        <translation>Archivos renombrados</translation>
     </message>
 </context>
 <context>
@@ -1719,7 +1738,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
         <source>View unread notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver notificaciones no leídas</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="98"/>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr_FR" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -14,52 +12,52 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="53"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr de vouloir supprimer ce compte ?&lt;br&gt;&lt;b&gt;Attention : Toutes les bibliothèques de ce compte seront désynchronisées&lt;/b &gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="63"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de désynchroniser les bibliothèques de ce compte：%1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="76"/>
         <source>click to open the website</source>
-        <translation type="unfinished"></translation>
+        <translation>cliquer pour ouvrir le site web</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="86"/>
         <source>No account</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de compte</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="117"/>
         <source>Add an account</source>
-        <translation type="unfinished">Ajouter un compte</translation>
+        <translation>Ajouter un compte</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="124"/>
         <source>Delete this account</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer ce compte</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
         <source>Form</source>
-        <translation type="unfinished">Formulaire</translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Compte</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
         <source>email</source>
-        <translation type="unfinished"></translation>
+        <translation>email</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="85"/>
         <source>server</source>
-        <translation type="unfinished"></translation>
+        <translation>serveur</translation>
     </message>
 </context>
 <context>
@@ -67,22 +65,22 @@
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="104"/>
         <source>More</source>
-        <translation type="unfinished"></translation>
+        <translation>Plus</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="148"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="150"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation>réessayer </translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="151"/>
         <source>Failed to get actvities information. Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de récupérer les informations des activités. Veuillez %1</translation>
     </message>
 </context>
 <context>
@@ -90,7 +88,7 @@
     <message>
         <location filename="../src/avatar-service.cpp" line="141"/>
         <source>Failed to create avatars folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de créer le dossier des avatars</translation>
     </message>
 </context>
 <context>
@@ -191,17 +189,17 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="126"/>
         <source>Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèques</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="129"/>
         <source>Starred</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="132"/>
         <source>Activities</source>
-        <translation type="unfinished"></translation>
+        <translation>Activités</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="159"/>
@@ -438,7 +436,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="205"/>
@@ -553,7 +551,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="229"/>
@@ -566,7 +564,7 @@
     <message>
         <location filename="../src/ui/event-details-dialog.cpp" line="27"/>
         <source>Modification Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Détails des modifications</translation>
     </message>
 </context>
 <context>
@@ -574,32 +572,32 @@
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="110"/>
         <source>Added files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers ajoutés</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="111"/>
         <source>Deleted files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers supprimés</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="112"/>
         <source>Modified files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="114"/>
         <source>Added folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="115"/>
         <source>Deleted folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="122"/>
         <source>Renamed files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1392,22 +1390,22 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/open-local-helper.cpp" line="161"/>
         <source>The library &quot;%1&quot; has not been synced yet</source>
-        <translation type="unfinished"></translation>
+        <translation>La bibliothèque %1&quot; n&apos;a pas encore été synchronisé.</translation>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="40"/>
         <source>Created library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>bibliothèque &quot;%1&quot; créée</translation>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="42"/>
         <source>Deleted library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèque &quot;%1&quot; supprimée</translation>
     </message>
 </context>
 <context>
@@ -1515,7 +1513,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/repo-service.cpp" line="137"/>
         <source>The library of this file is not synced yet. Do you want to sync it now?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1662,12 +1660,12 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est complet.</tra
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="75"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="76"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1733,7 +1731,7 @@ Voulez vous visiter la page de téléchargement?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="94"/>
         <source>View unread notifications</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="98"/>
@@ -1784,10 +1782,7 @@ Voulez vous visiter la page de téléchargement?</translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="373"/>
         <source>You have %n message(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="379"/>
@@ -1892,7 +1887,7 @@ Voulez vous visiter la page de téléchargement?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
-        <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
+        <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>Ne pas désynchroniser une bibliothèque automatiquement quand le dossier local est supprimé ou n&apos;est plus accessible pour d&apos;autres raisons. </translation>
     </message>
     <message>
@@ -1903,7 +1898,7 @@ Voulez vous visiter la page de téléchargement?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="192"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="193"/>
@@ -1949,22 +1944,22 @@ Voulez vous visiter la page de téléchargement?</translation>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="33"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="36"/>
         <source>Open this file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="39"/>
         <source>view on &amp;Web</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="42"/>
         <source>view this file on website</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1972,17 +1967,17 @@ Voulez vous visiter la page de téléchargement?</translation>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="80"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="101"/>
         <source>You have no starred files yet.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -1892,7 +1892,7 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
-        <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
+        <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>로컬 디렉토리를 제거했거나 다른 이유로 접근할 수 없다면 라이브러리를 자동으로 동기화 해제하도록 하지 마세요</translation>
     </message>
     <message>

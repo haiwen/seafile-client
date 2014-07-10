@@ -1898,7 +1898,7 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="190"/>
-        <source>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</source>
+        <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>Nie wyłączaj automatycznie synchronizacji biblioteki, gdy jej folder lokalny zostanie usunięty lub z innych przyczyn stanie się nieosiągalny.</translation>
     </message>
     <message>

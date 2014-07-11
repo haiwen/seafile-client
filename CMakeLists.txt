@@ -372,6 +372,13 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  TARGET_LINK_LIBRARIES(seafile-applet
+    ${QT_QTDBUS_LIBRARIES}
+  )
+ENDIF()
+
+
 set(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
 add_custom_target(dist
     COMMAND git archive -v --prefix=${ARCHIVE_NAME}/ HEAD

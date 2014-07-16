@@ -1365,7 +1365,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation>und %1 mehr</translation>
+        <translation>und %1 weitere</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>

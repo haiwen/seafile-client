@@ -9,6 +9,7 @@ exes="`which ccnet` `which seaf-daemon`"
 all=$dylibs" ${exes}"
 
 target=seafile-applet
+configuration=Release
 function change_otool() {
     DIR=$1
     pushd ${DIR}
@@ -43,7 +44,8 @@ while [ $# -ge 1 ]; do
         "build" )
             echo "build ${target}.app for Mac OS X 10.6"
             rm -rf build
-            xcodebuild -target ${target}
+            lrelease seafile-client.pro
+            xcodebuild -target ${target} -configuration ${configuration}
             rm -rf ${top_dir}/${target}.app
             cp -rf build/Release/${target}.app ${top_dir}/${target}.app
             ;;

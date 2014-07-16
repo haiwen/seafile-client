@@ -42,7 +42,7 @@ endif()
 ####################
 ###### BEGIN: QT configuration
 ####################
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork QtWebkit)
+FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork)
 INCLUDE(${QT_USE_FILE})
 
 

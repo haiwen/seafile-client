@@ -257,4 +257,21 @@ private:
     Account account_;
 };
 
+class SetRepoPasswordRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    SetRepoPasswordRequest(const Account& account,
+                           const QString& repo_id,
+                           const QString& password);
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(SetRepoPasswordRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

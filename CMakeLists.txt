@@ -95,6 +95,7 @@ SET(moc_headers
   src/ui/events-list-view.h
   src/ui/event-details-dialog.h
   src/ui/event-details-tree.h
+  src/ui/set-repo-password-dialog.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -118,6 +119,7 @@ SET(ui_files
   ui/uninstall-helper-dialog.ui
   ui/ssl-confirm-dialog.ui
   ui/account-view.ui
+  ui/set-repo-password-dialog.ui
   ${platform_specific_ui_files}
 )
 
@@ -235,6 +237,7 @@ SET(seafile_client_sources
   src/ui/events-list-view.cpp
   src/ui/event-details-dialog.cpp
   src/ui/event-details-tree.cpp
+  src/ui/set-repo-password-dialog.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

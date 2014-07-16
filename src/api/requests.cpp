@@ -27,6 +27,7 @@ const char *kStarredFilesUrl = "/api2/starredfiles/";
 const char *kGetEventsUrl = "/api2/events/";
 const char *kCommitDetailsUrl = "/api2/repo_history_changes/";
 const char *kAvatarUrl = "/api2/avatars/user/";
+const char *kSetRepoPasswordUrl = "/api2/repos/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -484,4 +485,18 @@ void FetchImageRequest::requestSuccess(QNetworkReply& reply)
     } else {
         emit success(img);
     }
+}
+
+SetRepoPasswordRequest::SetRepoPasswordRequest(const Account& account,
+                                               const QString& repo_id,
+                                               const QString& password)
+    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kSetRepoPasswordUrl + repo_id + "/"),
+                         SeafileApiRequest::METHOD_POST, account.token)
+{
+    setParam("password", password);
+}
+
+void SetRepoPasswordRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
 }

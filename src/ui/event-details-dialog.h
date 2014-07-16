@@ -8,6 +8,7 @@ class GetCommitDetailsRequest;
 class CommitDetails;
 class EventDetailsTreeView;
 class EventDetailsTreeModel;
+class ApiError;
 
 // Display the commit details in a simple tree view
 class EventDetailsDialog : public QDialog {
@@ -17,13 +18,16 @@ public:
 
 private slots:
     void updateContent(const CommitDetails& details);
+    void getCommitDetailsFailed(const ApiError& error);
 
 private:
     Q_DISABLE_COPY(EventDetailsDialog)
 
+    void sendRequest();
+
     SeafEvent event_;
 
-    GetCommitDetailsRequest *get_details_req_;
+    GetCommitDetailsRequest *request_;
 
     EventDetailsTreeView *tree_;
     EventDetailsTreeModel *model_;

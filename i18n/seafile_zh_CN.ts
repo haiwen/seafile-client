@@ -115,17 +115,17 @@
         <translation>当前没有下载任务。</translation>
     </message>
     <message>
-        <location filename="../ui_clone-tasks-dialog.h" line="70"/>
+        <location filename="../ui_clone-tasks-dialog.h" line="69"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_clone-tasks-dialog.h" line="71"/>
+        <location filename="../ui_clone-tasks-dialog.h" line="70"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="../ui_clone-tasks-dialog.h" line="72"/>
+        <location filename="../ui_clone-tasks-dialog.h" line="71"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
@@ -390,57 +390,57 @@
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="194"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="195"/>
         <source>Path:</source>
         <translation>路径：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="196"/>
         <source>Choose</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui_create-repo-dialog.h" line="197"/>
         <source>Name:</source>
         <translation>名字：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="199"/>
         <source>encrypted</source>
         <translation>加密</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="200"/>
         <source>Password:</source>
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="201"/>
         <source>Password Again:</source>
         <translation>确认密码：</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>status text</source>
         <translation>状态文本</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="205"/>
+        <location filename="../ui_create-repo-dialog.h" line="204"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -534,27 +534,27 @@
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="225"/>
+        <location filename="../ui_download-repo-dialog.h" line="224"/>
         <source>Download Library</source>
         <translation>下载资料库</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="226"/>
+        <location filename="../ui_download-repo-dialog.h" line="225"/>
         <source>choose...</source>
         <translation>选择...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="227"/>
+        <location filename="../ui_download-repo-dialog.h" line="226"/>
         <source>Password for this library:</source>
         <translation>该资料库的密码：</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="228"/>
+        <location filename="../ui_download-repo-dialog.h" line="227"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="229"/>
+        <location filename="../ui_download-repo-dialog.h" line="228"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -562,7 +562,7 @@
 <context>
     <name>EventDetailsDialog</name>
     <message>
-        <location filename="../src/ui/event-details-dialog.cpp" line="27"/>
+        <location filename="../src/ui/event-details-dialog.cpp" line="30"/>
         <source>Modification Details</source>
         <translation>修改详情</translation>
     </message>
@@ -629,37 +629,37 @@
         <translation>文件夹 %1 不存在</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="191"/>
+        <location filename="../ui_init-seafile-dialog.h" line="190"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="192"/>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
         <translation>选择 Seafile 文件夹</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="193"/>
+        <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="194"/>
+        <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
         <translation>请选择一个文件夹。我们会在这个文件夹下创建 Seafile 目录，您下载的资料库将默认保存在此处。</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="195"/>
+        <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Choose...</source>
         <translation>选择...</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="196"/>
+        <location filename="../ui_init-seafile-dialog.h" line="195"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="197"/>
+        <location filename="../ui_init-seafile-dialog.h" line="196"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -735,50 +735,50 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>下载资料库 “%1” 失败</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
         <translation>Seafile用资料库的方式来组织文件。
 你想要下载你的默认资料库并创建一个虚拟磁盘吗？</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Run in Background</source>
         <translation>后台运行</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="195"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="34"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>Download Default Library</source>
         <translation>下载默认资料库</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
@@ -787,7 +787,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <name>LoginDialog</name>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="21"/>
-        <location filename="../ui_login-dialog.h" line="258"/>
+        <location filename="../ui_login-dialog.h" line="257"/>
         <source>Add an account</source>
         <translation>添加帐号</translation>
     </message>
@@ -865,62 +865,62 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>登录失败</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="257"/>
+        <location filename="../ui_login-dialog.h" line="256"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="259"/>
+        <location filename="../ui_login-dialog.h" line="258"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="260"/>
+        <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
         <translation>服务器：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="261"/>
+        <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;例如： https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="262"/>
+        <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
         <translation>或者 http://192.168.1.24:8000</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="263"/>
+        <location filename="../ui_login-dialog.h" line="262"/>
         <source>Email:</source>
         <translation>邮箱：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="264"/>
+        <location filename="../ui_login-dialog.h" line="263"/>
         <source>Password:</source>
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="267"/>
+        <location filename="../ui_login-dialog.h" line="266"/>
         <source>status text</source>
         <translation>状态文本</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="265"/>
+        <location filename="../ui_login-dialog.h" line="264"/>
         <source>Computer Name:</source>
         <translation>计算机名：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="266"/>
+        <location filename="../ui_login-dialog.h" line="265"/>
         <source>e.g. Jim&apos;s laptop</source>
         <translation>例如：小王的工作笔记本</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="268"/>
+        <location filename="../ui_login-dialog.h" line="267"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="269"/>
+        <location filename="../ui_login-dialog.h" line="268"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1430,75 +1430,75 @@ The library owner&apos;s storage space is used up.</source>
         <translation>错误： </translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="216"/>
+        <location filename="../ui_repo-detail-dialog.h" line="215"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
+        <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>RepoIcon</source>
         <translation>资料库图标</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoName</source>
         <translation>资料库名字</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
+        <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
-        <location filename="../ui_repo-detail-dialog.h" line="226"/>
-        <location filename="../ui_repo-detail-dialog.h" line="228"/>
+        <location filename="../ui_repo-detail-dialog.h" line="219"/>
+        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="225"/>
+        <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>TextLabel</source>
         <translation>文本</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
+        <location filename="../ui_repo-detail-dialog.h" line="220"/>
         <source>Owner:</source>
         <translation>所有者：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
+        <location filename="../ui_repo-detail-dialog.h" line="222"/>
         <source>Last Modified:</source>
         <translation>更新时间：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>mtime</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="225"/>
+        <location filename="../ui_repo-detail-dialog.h" line="224"/>
         <source>Size:</source>
         <translation>大小：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="227"/>
+        <location filename="../ui_repo-detail-dialog.h" line="226"/>
         <source>Local Path:</source>
         <translation>本地路径：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <location filename="../ui_repo-detail-dialog.h" line="228"/>
         <source>Status:</source>
         <translation>状态：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="230"/>
+        <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>RepoStatus</source>
         <translation>资料库状态</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="231"/>
+        <location filename="../ui_repo-detail-dialog.h" line="230"/>
         <source>Name:</source>
         <translation>名字：</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="232"/>
+        <location filename="../ui_repo-detail-dialog.h" line="231"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
@@ -1720,90 +1720,90 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="88"/>
+        <location filename="../src/ui/tray-icon.cpp" line="94"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="91"/>
+        <location filename="../src/ui/tray-icon.cpp" line="97"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>View unread notifications</source>
         <translation>查看未读通知</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="98"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>&amp;Quit</source>
         <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="101"/>
-        <location filename="../src/ui/tray-icon.cpp" line="148"/>
+        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="154"/>
         <source>Show main window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="110"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="113"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="111"/>
+        <location filename="../src/ui/tray-icon.cpp" line="117"/>
         <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="112"/>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>open seafile online help</source>
         <translation>打开 Seafile 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="118"/>
+        <location filename="../src/ui/tray-icon.cpp" line="124"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="150"/>
+        <location filename="../src/ui/tray-icon.cpp" line="156"/>
         <source>Hide main window</source>
         <translation>关闭主窗口</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="373"/>
+        <location filename="../src/ui/tray-icon.cpp" line="392"/>
         <source>You have %n message(s)</source>
         <translation>
             <numerusform>你有 %n 条未读消息</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="379"/>
+        <location filename="../src/ui/tray-icon.cpp" line="398"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="301"/>
+        <location filename="../src/ui/tray-icon.cpp" line="320"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="302"/>
+        <location filename="../src/ui/tray-icon.cpp" line="321"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="385"/>
+        <location filename="../src/ui/tray-icon.cpp" line="404"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -1826,14 +1826,57 @@ Do you want to visit the download page?</source>
         <translation>未连接</translation>
     </message>
     <message>
-        <location filename="../ui_server-status-dialog.h" line="71"/>
+        <location filename="../ui_server-status-dialog.h" line="70"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_server-status-dialog.h" line="72"/>
+        <location filename="../ui_server-status-dialog.h" line="71"/>
         <source>Close</source>
         <translation>关闭</translation>
+    </message>
+</context>
+<context>
+    <name>SetRepoPasswordDialog</name>
+    <message>
+        <location filename="../src/ui/set-repo-password-dialog.cpp" line="14"/>
+        <source>Please provide the library password</source>
+        <translation>请输入资料库密码</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/set-repo-password-dialog.cpp" line="21"/>
+        <source>Provide the password for library %1</source>
+        <translation>请输入资料库 %1 的密码</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/set-repo-password-dialog.cpp" line="35"/>
+        <source>Please enter the password</source>
+        <translation>请输入密码</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/set-repo-password-dialog.cpp" line="61"/>
+        <source>Incorrect password</source>
+        <translation>错误的密码</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/set-repo-password-dialog.cpp" line="63"/>
+        <source>Unknown error</source>
+        <translation>未知错误</translation>
+    </message>
+    <message>
+        <location filename="../ui_set-repo-password-dialog.h" line="115"/>
+        <source>Dialog</source>
+        <translation>对话框</translation>
+    </message>
+    <message>
+        <location filename="../ui_set-repo-password-dialog.h" line="116"/>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location filename="../ui_set-repo-password-dialog.h" line="117"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -1844,67 +1887,67 @@ Do you want to visit the download page?</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="181"/>
+        <location filename="../ui_settings-dialog.h" line="180"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="182"/>
+        <location filename="../ui_settings-dialog.h" line="181"/>
         <source>Hide main window when started</source>
         <translation>启动时隐藏主窗口</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="183"/>
+        <location filename="../ui_settings-dialog.h" line="182"/>
         <source>Notify when libraries are synchronized</source>
         <translation>资料库同步后用气泡通知</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="184"/>
+        <location filename="../ui_settings-dialog.h" line="183"/>
         <source>Auto start Seafile after login (Windows only)</source>
         <translation>开机自动启动 Seafile（仅对 Windows 有效）</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="185"/>
+        <location filename="../ui_settings-dialog.h" line="184"/>
         <source>Check for new version on startup</source>
         <translation>程序启动时检查最新版本</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="186"/>
+        <location filename="../ui_settings-dialog.h" line="185"/>
         <source>Download speed limit (KB/s):</source>
         <translation>最大下载速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="187"/>
+        <location filename="../ui_settings-dialog.h" line="186"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>最大上传速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="188"/>
+        <location filename="../ui_settings-dialog.h" line="187"/>
         <source>Basic</source>
         <translation>基本</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="189"/>
+        <location filename="../ui_settings-dialog.h" line="188"/>
         <source>Do not automatically unsync a library</source>
         <translation>不自动解除资料库同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="190"/>
+        <location filename="../ui_settings-dialog.h" line="189"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>当资料库的本地文件夹被移除或无法访问时不自动解除同步。</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="191"/>
+        <location filename="../ui_settings-dialog.h" line="190"/>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="192"/>
+        <location filename="../ui_settings-dialog.h" line="191"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="193"/>
+        <location filename="../ui_settings-dialog.h" line="192"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1922,22 +1965,22 @@ Do you want to visit the download page?</source>
         <translation>%1 使用了不合法的安全证书，该网络连接可能不安全。是否继续？</translation>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
+        <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
+        <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Remember my choice</source>
         <translation>记住我的选择</translation>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
+        <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="100"/>
+        <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
         <source>No</source>
         <translation>否</translation>
     </message>
@@ -2001,22 +2044,22 @@ Do you want to visit the download page?</source>
         <translation>删除帐户信息...</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
+        <location filename="../ui_uninstall-helper-dialog.h" line="106"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
+        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
         <source>text</source>
         <translation>text</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
+        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="110"/>
+        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
         <source>No</source>
         <translation>否</translation>
     </message>

@@ -63,6 +63,7 @@ HEADERS += src/seafile-applet.h \
            src/ui/events-list-view.h \
            src/ui/event-details-dialog.h \
            src/ui/event-details-tree.h \
+           src/ui/set-repo-password-dialog.h \
            third_party/QtAwesome/QtAwesome.h
 
 FORMS += ui/login-dialog.ui \
@@ -77,6 +78,7 @@ FORMS += ui/login-dialog.ui \
          ui/init-vdrive-dialog.ui \
          ui/uninstall-helper-dialog.ui \
          ui/ssl-confirm-dialog.ui \
+         ui/set-repo-password-dialog.ui \
          ui/account-view.ui
 
 SOURCES += src/main.cpp \
@@ -148,6 +150,7 @@ SOURCES += src/main.cpp \
            src/ui/events-list-view.cpp \
            src/ui/event-details-dialog.cpp \
            src/ui/event-details-tree.cpp \
+           src/ui/set-repo-password-dialog.cpp \
            third_party/QtAwesome/QtAwesome.cpp
 
 RESOURCES += seafile-client.qrc third_party/QtAwesome/QtAwesome.qrc

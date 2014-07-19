@@ -32,6 +32,7 @@ QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
 }
 
 CloudView QToolBar {
+    qproperty-iconSize: 24px;
     border: 0;
     /* max-width: 290px; */
     border-bottom: 1px solid #DCDCDE;
@@ -62,10 +63,6 @@ QDialog QLabel#mTitle {
     color: #F89A01;
     font-family: Arial;
     font-size: 20px;
-}
-
-QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
-    background: white;
 }
 
 QWidget#mHeader {
@@ -206,8 +203,8 @@ CreateRepoDialog QLabel#mDesc {
     min-height: 60px;
 }
 
-QFrame#mFooter QToolButton#mServerStatusBtn,
-QFrame#mFooter QToolButton#mDownloadTasksBtn {
+QFrame#mFooter QToolButton#mServerStatusBtn {
+    qproperty-iconSize: 18px;
     margin-top: 3px;
     qproperty-focusPolicy: NoFocus;
 }

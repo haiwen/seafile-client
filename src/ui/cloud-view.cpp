@@ -152,7 +152,7 @@ void CloudView::setupFooter()
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
     mServerStatusBtn->setIcon(::getIconByDPI(":/images/link-green.png"));
-    int w = ::isHighDPI() ? 36 : 18;
+    int w = ::getDPIScaledSize(18);
     mServerStatusBtn->setIconSize(QSize(w, w));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
@@ -384,7 +384,7 @@ void CloudView::createToolBar()
 {
     tool_bar_ = new QToolBar;
 
-    int w = ::isHighDPI() ? 48 : 24;
+    int w = ::getDPIScaledSize(24);
     tool_bar_->setIconSize(QSize(w, w));
 
     std::vector<QAction*> repo_actions = repos_tab_->getToolBarActions();

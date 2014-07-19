@@ -157,7 +157,7 @@ void AccountView::onAccountItemClicked()
 
 void AccountView::updateAvatar()
 {
-    int w = ::isHighDPI() ? 64 : 32;
+    int w = ::getDPIScaledSize(32);
     mAccountBtn->setIconSize(QSize(w, w));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {

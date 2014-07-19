@@ -18,4 +18,6 @@ QString getIconPathByDPI(const QString& name);
 
 QIcon getIconByDPI(const QString& name);
 
+int getDPIScaledSize(int size);
+
 #endif // SEAFILE_CLIENT_PAINT_UTILS_H_

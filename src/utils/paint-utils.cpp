@@ -64,7 +64,9 @@ int textWidthInFont(const QString text, const QFont& font)
 
 bool isHighDPI()
 {
-    return true;
+    if (getenv("HDPI_DEBUG")) {
+        return true;
+    }
 #ifdef Q_WS_MAC
     // TODO: Really detect HDPI
     // A useful link: http://stackoverflow.com/a/16627015/1467959
@@ -100,4 +102,12 @@ QString getIconPathByDPI(const QString& path)
 QIcon getIconByDPI(const QString& name)
 {
     return QIcon(getIconPathByDPI(name));
+}
+
+int getDPIScaledSize(int size)
+{
+    const double factor = 1.5;
+    int ret = isHighDPI() ? (factor * size) : size;
+    printf ("size is %d\n", ret);
+    return ret;
 }

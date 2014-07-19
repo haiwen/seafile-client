@@ -12,6 +12,7 @@
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
 #include "avatar-service.h"
+#include "utils/paint-utils.h"
 
 #include "account-view.h"
 
@@ -156,7 +157,8 @@ void AccountView::onAccountItemClicked()
 
 void AccountView::updateAvatar()
 {
-    mAccountBtn->setIconSize(QSize(32, 32));
+    int w = ::isHighDPI() ? 64 : 32;
+    mAccountBtn->setIconSize(QSize(w, w));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {
         mAccountBtn->setIcon(QIcon(":/images/account.png"));

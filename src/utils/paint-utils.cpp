@@ -61,3 +61,42 @@ int textWidthInFont(const QString text, const QFont& font)
 
     return size.width();
 }
+
+bool isHighDPI()
+{
+#ifdef Q_WS_MAC
+    // TODO: Really detect HDPI
+    // A useful link: http://stackoverflow.com/a/16627015/1467959
+    return true;
+#else
+    return false;
+#endif
+}
+
+QString getIconPathByDPI(const QString& path)
+{
+    if (!isHighDPI()) {
+        return path;
+    }
+    QFileInfo finfo(path);
+    QString base = finfo.baseName();
+    QString ext = finfo.completeSuffix();
+
+    QDir dir = finfo.dir();
+
+    QFileInfo finfo_2x(dir.filePath(base + "@2x" + "." + ext));
+
+    if (finfo_2x.exists()) {
+        printf ("found @2x icon %s for %s\n",
+                finfo_2x.absoluteFilePath().toUtf8().data(),
+                path.toUtf8().data());
+        return finfo_2x.absoluteFilePath();
+    } else {
+        return path;
+    }
+}
+
+QIcon getIconByDPI(const QString& name)
+{
+    return QIcon(getIconPathByDPI(name));
+}

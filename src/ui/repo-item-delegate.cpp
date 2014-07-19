@@ -3,7 +3,6 @@
 #include <QPixmap>
 #include <QToolTip>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "utils/paint-utils.h"
 #include "seafile-applet.h"
@@ -261,14 +260,11 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
 
     QRect indicator_rect(option.rect.topLeft(),
                          option.rect.bottomLeft() + QPoint(option.rect.height(), 0));
+    QPoint indicator_pos = option.rect.topLeft() + QPoint(kMarginLeft + kPadding, 0);
     painter->save();
-    // painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
-    painter->setPen(QColor(kRepoCategoryColor));
-    painter->setFont(awesome->font(16));
-    painter->drawText(indicator_rect,
-                      Qt::AlignCenter,
-                      QChar(expanded ? icon_caret_down : icon_caret_right),
-                      &indicator_rect);
+    QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "up");
+    painter->drawPixmap(indicator_pos,
+                        QPixmap(::getIconPathByDPI(icon_path)));
     painter->restore();
 
     // Paint category name

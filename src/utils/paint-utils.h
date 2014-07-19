@@ -12,4 +12,10 @@ QFont changeFontSize(const QFont& font_in, int size);
 
 int textWidthInFont(const QString text, const QFont& font);
 
+bool isHighDPI();
+
+QString getIconPathByDPI(const QString& name);
+
+QIcon getIconByDPI(const QString& name);
+
 #endif // SEAFILE_CLIENT_PAINT_UTILS_H_

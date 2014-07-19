@@ -3,6 +3,9 @@
 
 #include <QFont>
 
+#ifdef Q_WS_MAC
+#include "paint-cocoa.h"
+#endif
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width);
 
@@ -12,7 +15,24 @@ QFont changeFontSize(const QFont& font_in, int size);
 
 int textWidthInFont(const QString text, const QFont& font);
 
-bool isHighDPI();
+inline bool isHighDPI()
+{
+#ifdef Q_WS_MAC
+    return _isHiDPI();
+#else
+    return false;
+#endif
+}
+
+inline float getScaleFactor()
+{
+#ifdef Q_WS_MAC
+    return _getScaleFactor();
+#else
+    return 1.0;
+#endif
+}
+
 
 QString getIconPathByDPI(const QString& name);
 

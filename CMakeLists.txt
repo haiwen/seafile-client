@@ -31,6 +31,7 @@ ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     SET(platform_specific_sources
       src/utils/process-mac.cpp src/application.cpp
+      src/utils/paint-cocoa.m
     )
 
     FIND_LIBRARY(CARBON_LIBRARY Carbon)

@@ -64,6 +64,7 @@ int textWidthInFont(const QString text, const QFont& font)
 
 bool isHighDPI()
 {
+    return true;
 #ifdef Q_WS_MAC
     // TODO: Really detect HDPI
     // A useful link: http://stackoverflow.com/a/16627015/1467959

@@ -258,12 +258,11 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     RepoTreeView *view = model->treeView();
     bool expanded = view->isExpanded(model->indexFromItem(item));
 
-    QRect indicator_rect(option.rect.topLeft(),
-                         option.rect.bottomLeft() + QPoint(option.rect.height(), 0));
-    QPoint indicator_pos = option.rect.topLeft() + QPoint(kMarginLeft + kPadding, 0);
+    QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
+                         QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     painter->save();
     QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "up");
-    painter->drawPixmap(indicator_pos,
+    painter->drawPixmap(indicator_rect,
                         QPixmap(::getIconPathByDPI(icon_path)));
     painter->restore();
 

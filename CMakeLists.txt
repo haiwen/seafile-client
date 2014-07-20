@@ -42,7 +42,12 @@ endif()
 ####################
 ###### BEGIN: QT configuration
 ####################
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork QtWebkit)
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  SET(QtDBus "QtDBus")
+ENDIF()
+
+FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork QtWebkit ${QtDBus})
+
 INCLUDE(${QT_USE_FILE})
 
 

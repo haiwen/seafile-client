@@ -1,4 +1,5 @@
-## seafile-client ##
+## seafile-client [![Build Status](https://secure.travis-ci.org/haiwen/seafile-client.png?branch=master)](http://travis-ci.org/haiwen/seafile-client)
+
 
 New version of Seafile desktop client.
 

@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 #include "seafile-applet.h"
 #include "configurator.h"
@@ -6,7 +12,7 @@
 
 namespace {
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 
 #include <ShlObj.h>
 #include <shlwapi.h>
@@ -78,7 +84,7 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
 
 QString InitSeafileDialog::getInitialPath()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     return get_largest_drive();
 #else
     return QDir::home().path();
@@ -119,7 +125,7 @@ void InitSeafileDialog::onOkClicked()
         return;
     }
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     dir.mkpath("Seafile/seafile-data");
     QString seafile_dir = dir.filePath("Seafile/seafile-data");
 #else

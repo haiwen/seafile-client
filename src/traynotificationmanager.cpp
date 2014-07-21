@@ -9,19 +9,19 @@ TrayNotificationManager::TrayNotificationManager(QObject *parent)
     m_width = 320;
     m_height = 150;
     m_onScreenCount = 0;
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     m_startX = clientRect.width() - m_width;
     m_startY = 10;
     m_up = false;
 #endif
 
-#ifdef Q_WS_X11
+#if defined(Q_OS_LINUX)
     m_startX = clientRect.width() - m_width;
     m_startY = 10;
     m_up = false;
 #endif
 
-#ifdef Q_WS_WIN
+#if defined(Q_OS_WIN)
     m_startX = clientRect.width() - m_width;
     m_startY = clientRect.height() - m_height;
     m_up = true;

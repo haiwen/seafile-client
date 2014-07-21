@@ -5,7 +5,14 @@ extern "C" {
 }
 
 #include <vector>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
+#include <QWidget>
 
 #include "QtAwesome.h"
 #include "seafile-applet.h"
@@ -83,7 +90,7 @@ CloudView::CloudView(QWidget *parent)
     connect(account_mgr, SIGNAL(accountsChanged()),
             this, SLOT(onAccountChanged()));
 
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     mHeader->setVisible(false);
 #endif
 }
@@ -183,7 +190,7 @@ void CloudView::setupFooter()
 void CloudView::chooseFolderToSync()
 {
     QString msg = tr("Please Choose a folder to sync");
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     QString parent_dir = "C:\\";
 #else
     QString parent_dir = QDir::homePath();

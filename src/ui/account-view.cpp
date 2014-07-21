@@ -44,7 +44,7 @@ void AccountView::showAddAccountDialog()
         && account_mgr->accounts().size() == 1) {
 
         InitVirtualDriveDialog dialog(account_mgr->currentAccount(), seafApplet->mainWindow());
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
         dialog.exec();
 #endif
     }

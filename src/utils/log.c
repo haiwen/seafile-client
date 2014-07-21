@@ -11,7 +11,7 @@ static GLogLevelFlags applet_log_level;
 static int
 checkdir_with_mkdir (const char *dir)
 {
-#ifdef Q_WS_WIN
+#if defined(Q_OS_WIN)
     int ret;
     char *path = g_strdup(dir);
     char *p = (char *)path + strlen(path) - 1;

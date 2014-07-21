@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QDir>
 #include <QTimer>
 
@@ -69,7 +75,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
 
     mRepoIcon->setPixmap(repo_.getPixmap());
     mRepoName->setText(repo_.name);
-    #ifdef Q_WS_MAC
+    #if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
     #endif

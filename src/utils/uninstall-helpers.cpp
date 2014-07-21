@@ -1,4 +1,4 @@
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #include <shellapi.h>
 #endif
 
@@ -37,7 +37,7 @@ const char *kAppletCommandsMQ = "applet.commands";
 int delete_dir_recursively(const QString& path_in)
 {
     printf ("removing folder %s\n", toCStr(path_in));
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     const QString path = QDir::toNativeSeparators(QDir::cleanPath(path_in));
     if (path.length() <= 3) {
         // avoid errornous delete drives like C:/ D:/ E:/

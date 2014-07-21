@@ -6,7 +6,7 @@
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #include "utils/registry.h"
 #endif
 
@@ -205,7 +205,7 @@ void SettingsManager::removeAllSettings()
     QSettings settings;
     settings.clear();
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", getBrand());
 #endif
 }

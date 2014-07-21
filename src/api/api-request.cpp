@@ -1,4 +1,8 @@
+#include <QtGlobal>
 #include <QtNetwork>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QUrlQuery>
+#endif
 
 #include "utils/utils.h"
 #include "api-client.h"
@@ -33,6 +37,28 @@ void SeafileApiRequest::send()
         api_client_->setToken(token_);
     }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QUrlQuery urlQuery;
+    switch (method_) {
+    case METHOD_GET:
+        for (int i = 0; i < params_.size(); i++) {
+            QPair<QString, QString> pair = params_[i];
+            urlQuery.addQueryItem(QUrl::toPercentEncoding(pair.first),
+                                  QUrl::toPercentEncoding(pair.second));
+        }
+        url_.setQuery(urlQuery);
+        api_client_->get(url_);
+        break;
+    case METHOD_POST:
+        for (int i = 0; i < params_.size(); i++) {
+            QPair<QString, QString> pair = params_[i];
+            urlQuery.addQueryItem(QUrl::toPercentEncoding(pair.first),
+                                  QUrl::toPercentEncoding(pair.second));
+        }
+        api_client_->post(url_, urlQuery.query(QUrl::FullyEncoded).toUtf8());
+        break;
+    }
+#else /* Qt 4.x */
     switch (method_) {
     case METHOD_GET: {
         QList<QPair<QByteArray, QByteArray> > query;
@@ -56,6 +82,7 @@ void SeafileApiRequest::send()
         break;
     }
     }
+#endif /* Qt 4.x */
 
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),
             this, SLOT(requestSuccess(QNetworkReply&)));

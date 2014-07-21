@@ -1,4 +1,9 @@
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -33,7 +38,11 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
     horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+#endif
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -124,8 +133,9 @@ FileTableModel::FileTableModel(QObject *parent)
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
+    beginResetModel();
     dirents_ = dirents;
-    reset();
+    endResetModel();
 }
 
 int FileTableModel::rowCount(const QModelIndex& parent) const

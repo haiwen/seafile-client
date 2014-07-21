@@ -14,10 +14,10 @@
 #include <QDesktopServices>
 #include <jansson.h>
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     #include <sys/sysctl.h>
     #include "utils-mac.h"
-#elif defined(Q_WS_WIN)
+#elif defined(Q_OS_WIN32)
     #include <windows.h>
     #include <psapi.h>
 #endif
@@ -35,7 +35,7 @@
 
 namespace {
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 const char *kCcnetConfDir = "ccnet";
 #else
 const char *kCcnetConfDir = ".ccnet";
@@ -54,15 +54,15 @@ QString defaultCcnetDir() {
 }
 
 bool openInNativeExtension(const QString &path) {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     //call ShellExecute internally
     return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
     QProcess open_process;
     open_process.start(QLatin1String("open"), QStringList(path));
     open_process.waitForFinished(-1);
     return open_process.exitCode() == 0;
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
     //xdg-open is sufficient
     QProcess open_process;
     open_process.start(QLatin1String("xdg-open"), QStringList(path));
@@ -74,13 +74,13 @@ bool openInNativeExtension(const QString &path) {
 }
 
 bool showInGraphicalShell(const QString& path) {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QString param;
     if (!QFileInfo(path).isDir())
         param = QLatin1String("/select,");
     param += QDir::toNativeSeparators(path);
     return QProcess::startDetached(QLatin1String("explorer.exe"), QStringList(param));
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
     QStringList scriptArgs;
     scriptArgs << QLatin1String("-e")
                << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
@@ -172,7 +172,7 @@ int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
 
 int checkdir_with_mkdir (const char *dir)
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     int ret;
     char *path = g_strdup(dir);
     char *p = (char *)path + strlen(path) - 1;
@@ -186,7 +186,7 @@ int checkdir_with_mkdir (const char *dir)
 }
 
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 static LONG
 get_win_run_key (HKEY *pKey)
 {
@@ -312,7 +312,7 @@ set_seafile_auto_start(bool /* on */)
 int
 set_seafile_dock_icon_style(bool hidden)
 {
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     __mac_setDockIconStyle(hidden);
 #endif
     return 0;
@@ -559,13 +559,18 @@ QString dumpCertificate(const QSslCertificate &cert)
 
     QString s;
     QString s_none = QObject::tr("<Not Part of Certificate>");
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    #define CERTIFICATE_STR(x) ( ((x).join("") == "" ) ? s_none : (x).join(";") )
+#else
     #define CERTIFICATE_STR(x) ( ((x) == "" ) ? s_none : (x) )
+#endif
+
 
     s += "\nIssued To\n";
     s += "CommonName(CN):             " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::CommonName)) + "\n";
     s += "Organization(O):            " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::Organization)) + "\n";
     s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
-    s += "Serial Number:              " + CERTIFICATE_STR(dumpHexPresentation(cert.serialNumber())) + "\n";
+    s += "Serial Number:              " + dumpHexPresentation(cert.serialNumber()) + "\n";
 
     s += "\nIssued By\n";
     s += "CommonName(CN):             " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::CommonName)) + "\n";
@@ -575,7 +580,11 @@ QString dumpCertificate(const QSslCertificate &cert)
     s += "\nPeriod Of Validity\n";
     s += "Begins On:    " + cert.effectiveDate().toString() + "\n";
     s += "Expires On:   " + cert.expiryDate().toString() + "\n";
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    s += "IsBlacklisted:      " + (cert.isBlacklisted() ? QString("Yes") : QString("No")) + "\n";
+#else
     s += "IsValid:      " + (cert.isValid() ? QString("Yes") : QString("No")) + "\n";
+#endif
 
     s += "\nFingerprints\n";
     s += "SHA1 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Sha1) + "\n";

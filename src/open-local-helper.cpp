@@ -1,4 +1,4 @@
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 #include <shellapi.h>
 #endif
 

@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -33,6 +39,26 @@
 
 namespace {
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    switch (type) {
+    case QtDebugMsg:
+        g_debug("Debug: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtWarningMsg:
+        g_warning("Warning: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        g_critical("Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        g_critical("Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+    }
+}
+#else /* Qt 4.x */
 void myLogHandler(QtMsgType type, const char *msg)
 {
     switch (type) {
@@ -50,6 +76,7 @@ void myLogHandler(QtMsgType type, const char *msg)
         abort();
     }
 }
+#endif /* Qt 4.x */
 
 /**
  * s1 > s2 --> *ret = 1
@@ -135,7 +162,7 @@ void SeafileApplet::start()
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
         qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
@@ -155,7 +182,7 @@ void SeafileApplet::onDaemonStarted()
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
 #endif
 
@@ -173,7 +200,7 @@ void SeafileApplet::onDaemonStarted()
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
     configurator_->installCustomUrlHandler();
 #endif
@@ -230,7 +257,12 @@ void SeafileApplet::initLog()
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
         errorAndExit(tr("Failed to initialize log"));
     } else {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        qInstallMessageHandler(myLogHandler);
+#else
         qInstallMsgHandler(myLogHandler);
+#endif
+
     }
 }
 
@@ -257,9 +289,9 @@ void SeafileApplet::refreshQss()
     style_.clear();
     loadQss("qt.css") || loadQss(":/qt.css");
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     loadQss("qt-win.css") || loadQss(":/qt-win.css");
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
     loadQss("qt-linux.css") || loadQss(":/qt-linux.css");
 #else
     loadQss("qt-mac.css") || loadQss(":/qt-mac.css");

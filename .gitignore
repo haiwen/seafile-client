@@ -15,7 +15,7 @@
 *.a
 *.dll.a
 
-# executables 
+# executables
 seafile-client
 seafile-applet
 *.exe
@@ -44,7 +44,7 @@ install_manifest.txt
 #### Qt files goes here
 ### moc
 moc_*.cxx*
-moc_*.cpp
+moc_*.cpp*
 *.moc
 
 ### ui
@@ -53,6 +53,7 @@ ui_*.h
 ### qrc
 *.qrc.depends
 qrc_*.cxx
+qrc_*.cpp
 
 i18n/*.qm
 

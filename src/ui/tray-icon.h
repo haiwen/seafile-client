@@ -7,7 +7,7 @@
 class QAction;
 class QMenu;
 class QMenuBar;
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
 class TrayNotificationManager;
 #endif
 
@@ -68,6 +68,7 @@ private:
     QMenu *context_menu_;
     QMenu *help_menu_;
     QMenu *global_menu_;
+    QMenu *dock_menu_;
     QMenuBar *global_menubar_;
 
     // Actions for tray icon menu
@@ -82,7 +83,7 @@ private:
     QAction *about_action_;
     QAction *open_help_action_;
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     TrayNotificationManager *tnm;
 #endif
 

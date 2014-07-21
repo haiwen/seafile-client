@@ -12,6 +12,13 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     cmake -DBUILD_TESTING=on .
     make -j8 VERBOSE=1
     make test VERBOSE=1
+    git clean -xfd
+    set +e
+    . /opt/qt54/bin/qt54-env.sh
+    set -e
+    cmake . -DBUILD_TESTING=on -DUSE_QT5=ON
+    make -j8 VERBOSE=1
+    make test VERBOSE=1
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
     export PATH=/usr/local/opt/openssl/bin:/usr/local/opt/curl/bin:$PATH
     export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/opt/curl/lib/pkgconfig:/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/sqlite/lib/pkgconfig

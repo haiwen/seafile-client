@@ -48,6 +48,8 @@ public:
 
     friend class FileTableView;
     friend class FileTableModel;
+signals:
+    void aboutToClose();
 
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
@@ -101,6 +103,7 @@ private slots:
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
+    void closeEvent(QCloseEvent *event);
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 

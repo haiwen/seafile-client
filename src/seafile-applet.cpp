@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -54,6 +60,43 @@ DEBUG_LEVEL seafile_client_debug_level = DEBUG;
 DEBUG_LEVEL seafile_client_debug_level = WARNING;
 #endif
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    switch (type) {
+    case QtDebugMsg:
+        g_debug("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtWarningMsg:
+        g_warning("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+    }
+}
+void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    switch (type) {
+    case QtWarningMsg:
+        g_warning("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+    default:
+        break;
+    }
+}
+#else /* Qt 4.x */
 void myLogHandlerDebug(QtMsgType type, const char *msg)
 {
     switch (type) {
@@ -88,6 +131,8 @@ void myLogHandler(QtMsgType type, const char *msg)
         break;
     }
 }
+
+#endif /* Qt 4.x */
 
 /**
  * s1 > s2 --> *ret = 1
@@ -194,7 +239,7 @@ void SeafileApplet::start()
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
         qWarning("Failed to set CRASH_RPT_PATH env variable.\n");
@@ -214,7 +259,7 @@ void SeafileApplet::onDaemonStarted()
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
 #endif
 
@@ -232,7 +277,7 @@ void SeafileApplet::onDaemonStarted()
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
     configurator_->installCustomUrlHandler();
 #endif
@@ -312,11 +357,18 @@ void SeafileApplet::initLog()
             debug_level != "0")
             seafile_client_debug_level = DEBUG;
 
-        // set up log handler respectively
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#define qInstallMsgHandler qInstallMessageHandler
+#endif
         if (seafile_client_debug_level == DEBUG)
             qInstallMsgHandler(myLogHandlerDebug);
         else
             qInstallMsgHandler(myLogHandler);
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#undef qInstallMsgHandler
+#endif
+
     }
 }
 
@@ -343,9 +395,9 @@ void SeafileApplet::refreshQss()
     style_.clear();
     loadQss("qt.css") || loadQss(":/qt.css");
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     loadQss("qt-win.css") || loadQss(":/qt-win.css");
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
     loadQss("qt-linux.css") || loadQss(":/qt-linux.css");
 #else
     loadQss("qt-mac.css") || loadQss(":/qt-mac.css");

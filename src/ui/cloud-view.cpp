@@ -5,7 +5,14 @@ extern "C" {
 }
 
 #include <vector>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
+#include <QWidget>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -85,7 +92,7 @@ CloudView::CloudView(QWidget *parent)
     connect(account_mgr, SIGNAL(accountsChanged()),
             this, SLOT(onAccountChanged()));
 
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     mHeader->setVisible(false);
 #endif
 
@@ -170,8 +177,7 @@ void CloudView::setupFooter()
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
     mServerStatusBtn->setIcon(QIcon(":/images/link-green.png"));
-    int w = ::getDPIScaledSize(18);
-    mServerStatusBtn->setIconSize(QSize(w, w));
+    mServerStatusBtn->setIconSize(QSize(18, 18));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
     // mDownloadRateArrow->setText(QChar(icon_arrow_down));
@@ -190,7 +196,7 @@ void CloudView::setupFooter()
 void CloudView::chooseFolderToSync()
 {
     QString msg = tr("Please Choose a folder to sync");
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QString parent_dir = "C:\\";
 #else
     QString parent_dir = QDir::homePath();
@@ -372,12 +378,10 @@ void CloudView::showServerStatusDialog()
 void CloudView::createToolBar()
 {
     tool_bar_ = new QToolBar;
-
-    int w = ::getDPIScaledSize(24);
-    tool_bar_->setIconSize(QSize(w, w));
+    tool_bar_->setIconSize(QSize(24, 24));
 
     std::vector<QAction*> repo_actions = repos_tab_->getToolBarActions();
-    for (int i = 0, n = repo_actions.size(); i < n; i++) {
+    for (size_t i = 0, n = repo_actions.size(); i < n; i++) {
         QAction *action = repo_actions[i];
         tool_bar_->addAction(action);
     }

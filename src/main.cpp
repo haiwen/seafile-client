@@ -16,7 +16,7 @@
 #include "seafile-applet.h"
 #include "QtAwesome.h"
 #include "open-local-helper.h"
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
 #include "application.h"
 #endif
 
@@ -44,14 +44,32 @@ void initBreakpad()
 
 void setupFontFix()
 {
-#if defined(Q_WS_MAC)
-    if (QSysInfo::MacintoshVersion > QSysInfo::MV_10_8) {
-        // fix Mac OS X 10.9 (mavericks) font issue
-        // https://bugreports.qt-project.org/browse/QTBUG-32789
+#if QT_VERSION < QT_VERSION_CHECK(4, 8, 6) && defined(Q_OS_MAC)
+    // Mac OS X 10.9 (mavericks) font issue,
+    // fixed in qt4.8.6 and qt5.x
+    // https://bugreports.qt-project.org/browse/QTBUG-32789
+    if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
         QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
-        // https://bugreports.qt-project.org/browse/QTBUG-40833
+    }
+#endif // QT_VERSION_CHECK(4, 8, 6)
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 3, 2) && defined(Q_OS_MAC)
+    // Text in buttons and drop-downs looks misaligned in osx 10.10,
+    // fixed in qt5.3.2
+    // https://bugreports.qt-project.org/browse/QTBUG-40833
+    if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
         QFont::insertSubstitution(".Helvetica Neue DeskInterface", "Helvetica Neue");
     }
+#endif // QT_VERSION_CHECK(5, 3, 2)
+}
+
+void setupHIDPIFix()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0) && defined(Q_OS_MAC)
+    // enable builtin retina mode for MAC
+    // http://blog.qt.digia.com/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
+    // https://qt.gitorious.org/qt/qtbase/source/a3cb057c3d5c9ed2c12fb7542065c3d667be38b7:src/gui/image/qicon.cpp#L1028-1043
+    qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 }
 
@@ -119,7 +137,7 @@ int main(int argc, char *argv[])
 
     // TODO imple if we have to restart the application
     // the manual at http://qt-project.org/wiki/ApplicationRestart
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     Application app(argc, argv);
 #else
     QApplication app(argc, argv);
@@ -132,6 +150,9 @@ int main(int argc, char *argv[])
 
     // apply some ui fixes for mac
     setupFontFix();
+
+    // apply hidpi support for osx
+    setupHIDPIFix();
 
     // set the domains of settings
     setupSettingDomain();

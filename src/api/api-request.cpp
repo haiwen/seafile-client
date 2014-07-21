@@ -1,4 +1,8 @@
+#include <QtGlobal>
 #include <QtNetwork>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QUrlQuery>
+#endif
 
 #include "utils/utils.h"
 #include "api-client.h"
@@ -39,6 +43,60 @@ void SeafileApiRequest::send()
         api_client_->setToken(token_);
     }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    if (!params_.isEmpty()) {
+        QList<QPair<QString, QString> > queries;
+
+        for (int i = 0; i < params_.size(); i++) {
+            queries.push_back(
+                QPair<QString, QString> (QUrl::fromPercentEncoding(params_[i].first),
+                                         QUrl::fromPercentEncoding(params_[i].second)));
+        }
+        QUrlQuery url_query;
+        url_query.setQueryItems(queries);
+        url_.setQuery(url_query);
+    }
+
+    switch (method_) {
+    case METHOD_GET:
+        api_client_->get(url_);
+        break;
+    case METHOD_DELETE:
+        api_client_->deleteResource(url_);
+        break;
+    case METHOD_POST:
+        if (!form_params_.isEmpty()) {
+            QList<QPair<QString, QString> > form_queries;
+            for (int i = 0; i < form_params_.size(); i++) {
+                form_queries.push_back(
+                    QPair<QString, QString> (QUrl::fromPercentEncoding(form_params_[i].first),
+                                             QUrl::fromPercentEncoding(form_params_[i].second)));
+            }
+            QUrlQuery form_query;
+            form_query.setQueryItems(form_queries);
+            setData(form_query.query(QUrl::FullyEncoded).toUtf8());
+        }
+        api_client_->post(url_, data_, false);
+        break;
+    case METHOD_PUT:
+        if (!form_params_.isEmpty()) {
+            QList<QPair<QString, QString> > form_queries;
+            for (int i = 0; i < form_params_.size(); i++) {
+                form_queries.push_back(
+                    QPair<QString, QString> (QUrl::fromPercentEncoding(form_params_[i].first),
+                                             QUrl::fromPercentEncoding(form_params_[i].second)));
+            }
+            QUrlQuery form_query;
+            form_query.setQueryItems(form_queries);
+            setData(form_query.query(QUrl::FullyEncoded).toUtf8());
+        }
+        api_client_->post(url_, data_, true);
+        break;
+    default:
+        qWarning("unknown method %d\n", method_);
+        return;
+    }
+#else /* Qt 4.x */
     url_.setEncodedQueryItems(params_);
     switch (method_) {
     case METHOD_GET:
@@ -67,6 +125,7 @@ void SeafileApiRequest::send()
         qWarning("unknown method %d\n", method_);
         return;
     }
+#endif /* Qt 4.x */
 
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),
             this, SLOT(requestSuccess(QNetworkReply&)));

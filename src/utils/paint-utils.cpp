@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 #include "paint-utils.h"
 
@@ -62,79 +68,24 @@ int textWidthInFont(const QString text, const QFont& font)
     return size.width();
 }
 
-QString getIconPathByDPI(const QString& path)
+// it might change when screen moves
+// QIcon::addFile will add a "@2x" file if it exists.
+double getScaleFactor()
 {
-    if (!isHighDPI()) {
-        return path;
-    }
-    QFileInfo finfo(path);
-    QString base = finfo.baseName();
-    QString ext = finfo.completeSuffix();
-
-    QDir dir = finfo.dir();
-
-    QFileInfo finfo_2x(dir.filePath(base + "@2x" + "." + ext));
-
-    if (finfo_2x.exists()) {
-#ifndef QT_NO_DEBUG
-        printf ("found @2x icon %s for %s\n",
-                finfo_2x.absoluteFilePath().toUtf8().data(),
-                path.toUtf8().data());
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    return static_cast<QGuiApplication *>(QCoreApplication::instance())
+                      ->devicePixelRatio();
+#else
+    return 1.0;
 #endif
-        return finfo_2x.absoluteFilePath();
-    } else {
-        return path;
-    }
 }
 
-QIcon getIconByDPI(const QString& name)
+bool isHighDPI()
 {
-    return QIcon(getIconPathByDPI(name));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    return getScaleFactor() > 1.0;
+#else
+    return false;
+#endif
 }
 
-int getDPIScaledSize(int size)
-{
-    const double factor = getScaleFactor();
-    int ret = isHighDPI() ? (factor * size) : size;
-    return ret;
-}
-
-QString get2xIconPath(const QString& path)
-{
-    QFileInfo finfo(path);
-    QString base = finfo.baseName();
-    QString ext = finfo.completeSuffix();
-
-    QDir dir = finfo.dir();
-
-    return dir.filePath(base + "@2x" + "." + ext);
-}
-
-QIcon getIconSet(const QString& path, int base_width, int base_height)
-{
-    if (base_height <= 0) {
-        base_height = base_width;
-    }
-
-    QIcon icon;
-
-    icon.addFile(path, QSize(base_width, base_height));
-    icon.addFile(get2xIconPath(path), QSize(2 * base_width, 2 * base_height));
-
-    return icon;
-}
-
-QIcon getIconSet(const QString& path, int size)
-{
-    return getIconSet(path, size, size);
-}
-
-QIcon getMenuIconSet(const QString& path)
-{
-    return getIconSet(path, 16);
-}
-
-QIcon getToolbarIconSet(const QString& path)
-{
-    return getIconSet(path, 24);
-}

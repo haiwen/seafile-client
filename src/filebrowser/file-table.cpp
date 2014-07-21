@@ -1,4 +1,9 @@
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 
 #include "utils/utils.h"
@@ -157,7 +162,11 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
     horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+#endif
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -536,7 +545,7 @@ void FileTableView::dropEvent(QDropEvent *event)
     Q_FOREACH(const QUrl& url, urls)
     {
         QString path = url.toLocalFile();
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
         if (path.startsWith("/.file/id="))
             path = utils::mac::get_path_from_fileId_url("file://" + path);
 #endif
@@ -590,9 +599,10 @@ FileTableModel::FileTableModel(QObject *parent)
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
+    beginResetModel();
     dirents_ = dirents;
     progresses_.clear();
-    reset();
+    endResetModel();
 }
 
 int FileTableModel::rowCount(const QModelIndex& parent) const

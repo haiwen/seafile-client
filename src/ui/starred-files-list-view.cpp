@@ -1,4 +1,11 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#include <QUrlQuery>
+#else
 #include <QtGui>
+#endif
 #include <QHeaderView>
 #include <QDesktopServices>
 #include <QEvent>
@@ -18,7 +25,7 @@
 StarredFilesListView::StarredFilesListView(QWidget *parent)
     : QListView(parent)
 {
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 
@@ -30,20 +37,14 @@ StarredFilesListView::StarredFilesListView(QWidget *parent)
 
 void StarredFilesListView::createActions()
 {
-    QIcon q_folder_open = QIcon();
-    q_folder_open.addFile(":/images/folder-open-gray.png", QSize(16, 16));
-    q_folder_open.addFile(":/images/folder-open-gray@2x.png", QSize(32, 32));
     open_file_action_ = new QAction(tr("&Open"), this);
-    open_file_action_->setIcon(q_folder_open);
+    open_file_action_->setIcon(QIcon(":/images/folder-open-gray.png"));
     open_file_action_->setIconVisibleInMenu(true);
     open_file_action_->setStatusTip(tr("Open this file"));
     connect(open_file_action_, SIGNAL(triggered()), this, SLOT(openLocalFile()));
 
-    QIcon q_cloud = QIcon();
-    q_cloud.addFile(":/images/cloud-gray.png", QSize(16, 16));
-    q_cloud.addFile(":/images/cloud-gray@2x.png", QSize(32, 32));
     view_file_on_web_action_ = new QAction(tr("view on &Web"), this);
-    view_file_on_web_action_->setIcon(q_cloud);
+    view_file_on_web_action_->setIcon(QIcon(":/images/cloud-gray.png"));
     view_file_on_web_action_->setIconVisibleInMenu(true);
     view_file_on_web_action_->setStatusTip(tr("view this file on website"));
     connect(view_file_on_web_action_, SIGNAL(triggered()), this, SLOT(viewFileOnWeb()));
@@ -63,7 +64,13 @@ void StarredFilesListView::viewFileOnWeb()
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
         QUrl url = account.getAbsoluteUrl("repo/" + file.repo_id + "/files/");
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        QUrlQuery urlQuery(url);
+        urlQuery.addQueryItem("p", file.path);
+        url.setQuery(urlQuery);
+#else
         url.addQueryItem("p", file.path);
+#endif
 
         QDesktopServices::openUrl(url);
     }

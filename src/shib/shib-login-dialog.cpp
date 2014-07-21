@@ -4,6 +4,7 @@
 #include <QList>
 #include <QSslError>
 #include <QNetworkReply>
+#include <QNetworkCookie>
 
 #include "shib-login-dialog.h"
 #include "seafile-applet.h"

@@ -20,7 +20,7 @@ void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto
         QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
         seafApplet->warningBox(msg);
     }
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     MacImageFilesWorkAround::instance()->fileOpened(path);
 #endif
 }

@@ -185,8 +185,10 @@ win32 {
 }
 linux {
     SOURCES += src/utils/process-linux.cpp
+    QT += dbus
 }
 macx {
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
     system("mkdir -p libs; cp -f `which ccnet` libs/; cp -f `which seaf-daemon` libs/")
     SOURCES += src/utils/process-mac.cpp src/application.cpp
     HEADERS += src/application.h src/utils/paint-cocoa.h
@@ -202,4 +204,5 @@ macx {
 
 macx:LIBS += -framework Cocoa
 
-QT += network
+QT += core network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

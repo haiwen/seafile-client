@@ -31,9 +31,9 @@ const char *kSetRepoPasswordUrl = "/api2/repos/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 const char *kOsName = "windows";
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 const char *kOsName = "linux";
 #else
 const char *kOsName = "mac";

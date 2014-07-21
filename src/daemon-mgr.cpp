@@ -23,7 +23,7 @@ namespace {
 
 const int kConnDaemonIntervalMilli = 1000;
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 const char *kCcnetDaemonExecutable = "ccnet.exe";
 const char *kSeafileDaemonExecutable = "seaf-daemon.exe";
 #else

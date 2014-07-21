@@ -14,7 +14,7 @@ class QToolButton;
 class QLabel;
 
 class SeafEvent;
-class Account;
+struct Account;
 class ApiError;
 class EventsListView;
 class EventsListModel;

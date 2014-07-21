@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "ui_account-view.h"
 
-class Account;
+struct Account;
 class QAction;
 class QMenu;
 

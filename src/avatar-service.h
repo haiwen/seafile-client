@@ -10,7 +10,7 @@
 class QImage;
 class QTimer;
 
-class Account;
+struct Account;
 class ApiError;
 class GetAvatarRequest;
 class PendingAvatarRequestQueue;

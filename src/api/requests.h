@@ -15,7 +15,7 @@ class ServerRepo;
 struct Account;
 class StarredFile;
 class SeafEvent;
-class CommitDetails;
+struct CommitDetails;
 
 class LoginRequest : public SeafileApiRequest {
     Q_OBJECT

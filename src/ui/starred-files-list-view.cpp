@@ -1,4 +1,11 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#include <QUrlQuery>
+#else
 #include <QtGui>
+#endif
 #include <QHeaderView>
 #include <QDesktopServices>
 #include <QEvent>
@@ -18,7 +25,7 @@
 StarredFilesListView::StarredFilesListView(QWidget *parent)
     : QListView(parent)
 {
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 
@@ -58,7 +65,13 @@ void StarredFilesListView::viewFileOnWeb()
     if (account.isValid()) {
         QUrl url = account.serverUrl;
         url.setPath(url.path() + "/repo/" + file.repo_id + "/files/");
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        QUrlQuery urlQuery(url);
+        urlQuery.addQueryItem("p", file.path);
+        url.setQuery(urlQuery);
+#else
         url.addQueryItem("p", file.path);
+#endif
 
         QDesktopServices::openUrl(url);
     }

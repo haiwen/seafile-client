@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include "seafile-applet.h"
 #include "utils/uninstall-helpers.h"
 
@@ -16,9 +22,9 @@ UninstallHelperDialog::UninstallHelperDialog(QWidget *parent)
     mText->setText(tr("Do you want to remove the %1 account information?").arg(getBrand()));
 
     loadQss("qt.css") || loadQss(":/qt.css");
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     loadQss("qt-win.css") || loadQss(":/qt-win.css");
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
     loadQss("qt-linux.css") || loadQss(":/qt-linux.css");
 #else
     loadQss("qt-mac.css") || loadQss(":/qt-mac.css");

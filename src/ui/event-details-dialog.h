@@ -5,7 +5,7 @@
 #include "api/event.h"
 
 class GetCommitDetailsRequest;
-class CommitDetails;
+struct CommitDetails;
 class EventDetailsTreeView;
 class EventDetailsTreeModel;
 class ApiError;

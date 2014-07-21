@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -64,7 +70,7 @@ MainWindow::MainWindow()
     // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
     setWindowFlags(Qt::Window
-#ifndef Q_WS_MAC
+#if !defined(Q_OS_MAC)
                    | Qt::FramelessWindowHint
 #endif
                    | Qt::WindowSystemMenuHint
@@ -113,7 +119,7 @@ bool MainWindow::event(QEvent *ev)
 
 void MainWindow::changeEvent(QEvent *event)
 {
-// #ifdef Q_WS_WIN
+// #if defined(Q_OS_WIN)
 //     /*
 //      * Solve the problem of restoring a minimized frameless window on Windows
 //      * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
@@ -132,7 +138,7 @@ void MainWindow::changeEvent(QEvent *event)
 void MainWindow::showEvent(QShowEvent *event)
 {
     readSettings();
-#ifdef Q_WS_WIN
+#if defined(Q_OS_WIN)
     /*
      * Another hack to Solve the problem of restoring a minimized frameless window on Windows
      * See http://qt-project.org/forums/viewthread/7081

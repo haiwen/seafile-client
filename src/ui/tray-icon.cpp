@@ -3,7 +3,13 @@ extern "C" {
 #include <ccnet/peer.h>
 
 }
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QSet>
@@ -17,11 +23,11 @@ extern "C" {
 #include "seahub-notifications-monitor.h"
 
 #include "tray-icon.h"
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
 #include "traynotificationmanager.h"
 #endif
 
-#ifdef Q_WS_X11
+#if defined(Q_OS_LINUX)
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusPendingCall>
@@ -32,7 +38,7 @@ namespace {
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #include <windows.h>
 bool
 isWindowsVistaOrHigher()
@@ -78,7 +84,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     hide();
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif
 }
@@ -161,7 +167,7 @@ void SeafileTrayIcon::prepareContextMenu()
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
 {
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     QIcon icon(":/images/info.png");
     TrayNotificationWidget* trayNotification = new TrayNotificationWidget(icon.pixmap(32, 32), title, content);
     tnm->append(trayNotification);
@@ -185,7 +191,7 @@ void SeafileTrayIcon::rotate(bool start)
 
 void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
 {
-#ifdef Q_WS_X11
+#if defined(Q_OS_LINUX)
     QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "dialog-information"
                                              << title << message << QStringList () << QVariantMap() << qint32(-1);
     QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "", "Notify");
@@ -227,7 +233,7 @@ void SeafileTrayIcon::setState(TrayState state, const QString& tip)
 
     // the following two lines solving the problem of tray icon
     // disappear in ubuntu 13.04
-#if defined(Q_WS_X11)
+#if defined(Q_OS_LINUX)
     hide();
     show();
 #endif
@@ -249,7 +255,7 @@ QIcon SeafileTrayIcon::getIcon(const QString& name)
 QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     QString prefix = ":/images/win/";
 
     switch (state) {
@@ -268,7 +274,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     case STATE_HAVE_UNREAD_MESSAGE:
         return getIcon(prefix + "notification.ico");
     }
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
     switch (state) {
     case STATE_DAEMON_UP:
         return getIcon(":/images/mac/daemon_up.png");
@@ -343,7 +349,7 @@ void SeafileTrayIcon::showSettingsWindow()
 
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
-#ifndef Q_WS_MAC
+#if !defined(Q_OS_MAC)
     switch(reason) {
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:

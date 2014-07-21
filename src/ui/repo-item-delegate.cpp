@@ -91,7 +91,7 @@ QSize RepoItemDelegate::sizeHintForRepoItem(const QStyleOptionViewItem &option,
 
     int width = kMarginLeft + kRepoIconWidth
         + kMarginBetweenRepoIconAndName + kRepoNameWidth
-        + kMarginBetweenRepoNameAndStatus + kRepoStatusIconWidth;
+        + kMarginBetweenRepoNameAndStatus + kRepoStatusIconWidth
         + kMarginRight + kPadding * 2;
 
     int height = kRepoIconHeight + kPadding * 2 + kMarginTop + kMarginBottom;

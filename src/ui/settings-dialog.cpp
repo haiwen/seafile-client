@@ -42,6 +42,7 @@ void SettingsDialog::updateSettings()
     mgr->setMaxUploadRatio(mUploadSpinBox->value());
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
     mgr->setAllowInvalidWorktree(mAllowInvalidWorktreeCheckBox->checkState() == Qt::Checked);
+    mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
 
     if (isCheckLatestVersionEnabled()) {
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
@@ -67,8 +68,11 @@ void SettingsDialog::showEvent(QShowEvent *event)
     state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
     mHideMainWinCheckBox->setCheckState(state);
 
-    state = mgr->allowInvalidWorktree() ? Qt::Checked : Qt::Unchecked; 
+    state = mgr->allowInvalidWorktree() ? Qt::Checked : Qt::Unchecked;
     mAllowInvalidWorktreeCheckBox->setCheckState(state);
+
+    state = mgr->allowRepoNotFoundOnServer() ? Qt::Checked : Qt::Unchecked;
+    mAllowRepoNotFoundCheckBox->setCheckState(state);
 
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);

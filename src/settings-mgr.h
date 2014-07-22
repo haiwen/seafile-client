@@ -39,6 +39,9 @@ public:
     // bool defaultLibraryAlreadySetup();
     // void setDefaultLibraryAlreadySetup();
 
+    void setAllowRepoNotFoundOnServer(bool enabled);
+    bool allowRepoNotFoundOnServer() const { return allow_repo_not_found_on_server_; };
+
     QString getComputerName();
     void setComputerName(const QString& computerName);
 
@@ -55,6 +58,7 @@ private:
     bool autoStart_;
     bool transferEncrypted_;
     bool allow_invalid_worktree_;
+    bool allow_repo_not_found_on_server_;
     unsigned int maxDownloadRatio_;
     unsigned int maxUploadRatio_;
 };

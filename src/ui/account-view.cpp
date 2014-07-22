@@ -2,7 +2,6 @@
 #include <QAction>
 #include <QToolButton>
 
-#include "QtAwesome.h"
 #include "account.h"
 #include "account.h"
 #include "seafile-applet.h"
@@ -116,14 +115,14 @@ void AccountView::onAccountChanged()
 
     // Add rest items
     add_account_action_ = new QAction(tr("Add an account"), this);
-    add_account_action_->setIcon(awesome->icon(icon_plus));
+    add_account_action_->setIcon(::getIconByDPI(":/images/plus.png"));
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
     account_menu_->addAction(add_account_action_);
 
     if (!accounts.empty()) {
         delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(awesome->icon(icon_remove));
+        delete_account_action_->setIcon(::getIconByDPI(":/images/close.png"));
         delete_account_action_->setIconVisibleInMenu(true);
         connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
         account_menu_->addAction(delete_account_action_);

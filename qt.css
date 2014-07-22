@@ -387,3 +387,8 @@ EventDetailsTreeView {
 EventDetailsTreeView QScrollBar {
     margin-right: 1px;
 }
+
+ActivitiesTab, EventsListView
+{
+    qproperty-focusPolicy: NoFocus;
+}

@@ -17,6 +17,9 @@ int textWidthInFont(const QString text, const QFont& font);
 
 inline bool isHighDPI()
 {
+    if (getenv("SEAFILE_HDPI_DEBUG")) {
+        return true;
+    }
 #ifdef Q_WS_MAC
     return _isHiDPI();
 #else

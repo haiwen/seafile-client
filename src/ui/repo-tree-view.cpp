@@ -6,7 +6,6 @@
 #include <QHideEvent>
 #include <Qt>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"

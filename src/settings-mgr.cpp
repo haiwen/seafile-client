@@ -31,6 +31,7 @@ SettingsManager::SettingsManager()
       autoStart_(false),
       transferEncrypted_(true),
       allow_invalid_worktree_(false),
+      allow_repo_not_found_on_server_(false),
       maxDownloadRatio_(0),
       maxUploadRatio_(0)
 {
@@ -55,6 +56,9 @@ void SettingsManager::loadSettings()
 
     if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree", &str) >= 0)
         allow_invalid_worktree_ = (str == "true") ? true : false;
+
+    if (seafApplet->rpcClient()->seafileGetConfig("allow_repo_not_found_on_server", &str) >= 0)
+        allow_repo_not_found_on_server_ = (str == "true") ? true : false;
 
     autoStart_ = get_seafile_auto_start();
 }
@@ -215,6 +219,18 @@ void SettingsManager::setAllowInvalidWorktree(bool val)
             return;
         }
         allow_invalid_worktree_ = val;
+    }
+}
+
+void SettingsManager::setAllowRepoNotFoundOnServer(bool val)
+{
+    if (allow_repo_not_found_on_server_ != val) {
+        if (seafApplet->rpcClient()->seafileSetConfig("allow_repo_not_found_on_server",
+                                                      val ? "true" : "false") < 0) {
+            // Error
+            return;
+        }
+        allow_repo_not_found_on_server_ = val;
     }
 }
 

@@ -133,6 +133,20 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mAllowRepoNotFoundCheckBox">
+         <property name="text">
+          <string>Do not unsync a library when not found on server</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="desc_2">
+         <property name="text">
+          <string>Do not automatically unsync a library when it's not found on server</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

@@ -111,6 +111,7 @@ RepoTreeView
     font-size: 14px;
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
+    padding-top: 8px;
 }
 
 RepoTreeView QScrollBar {

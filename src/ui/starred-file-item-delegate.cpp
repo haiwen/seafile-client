@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <QPixmap>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "utils/paint-utils.h"
 #include "utils/file-utils.h"

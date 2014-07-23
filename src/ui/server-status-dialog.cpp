@@ -6,7 +6,6 @@ extern "C" {
 
 #include <QTimer>
 
-#include "QtAwesome.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "server-status-dialog.h"
@@ -59,7 +58,7 @@ void ServerStatusDialog::refreshStatus()
             item->setData(Qt::DecorationRole, QIcon(":/images/sync/ok.png"));
             item->setData(Qt::ToolTipRole, tr("connected"));
         } else {
-            item->setData(Qt::DecorationRole, awesome->icon(icon_remove, QColor("red")));
+            item->setData(Qt::DecorationRole, QIcon(":/images/remove-red.png"));
             item->setData(Qt::ToolTipRole, tr("disconnected"));
         }
 

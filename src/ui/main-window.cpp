@@ -10,7 +10,6 @@
 #include <QTabBar>
 #include <QVBoxLayout>
 
-#include "QtAwesome.h"
 #include "cloud-view.h"
 #include "seafile-applet.h"
 #include "configurator.h"

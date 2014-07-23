@@ -3,7 +3,6 @@
 #include <QPixmap>
 #include <QToolTip>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "utils/paint-utils.h"
 #include "seafile-applet.h"
@@ -162,8 +161,13 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QPoint repo_icon_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     repo_icon_pos += option.rect.topLeft();
     painter->save();
-    painter->drawPixmap(repo_icon_pos,
-                        repo.getPixmap());
+
+    QPixmap repo_icon(::getIconPathByDPI(repo.encrypted
+                                         ? ":/images/encrypted-repo.png"
+                                         : ":/images/repo.png"));
+
+    QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
+    painter->drawPixmap(repo_icon_rect, repo_icon);
     painter->restore();
 
     // Paint repo name
@@ -218,13 +222,13 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
 
     painter->save();
-    painter->drawPixmap(status_icon_pos, getSyncStatusIcon(item));
+    painter->drawPixmap(status_icon_rect, getSyncStatusIcon(item));
     painter->restore();
 
     // Update the metrics of this item
     RepoItem::Metrics metrics;
     QPoint shift(-option.rect.topLeft().x(), -option.rect.topLeft().y());
-    metrics.icon_rect = QRect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
+    metrics.icon_rect = repo_icon_rect;
     metrics.name_rect = repo_name_rect;
     metrics.subtitle_rect = repo_desc_rect;
     metrics.status_icon_rect = status_icon_rect;
@@ -259,16 +263,12 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     RepoTreeView *view = model->treeView();
     bool expanded = view->isExpanded(model->indexFromItem(item));
 
-    QRect indicator_rect(option.rect.topLeft(),
-                         option.rect.bottomLeft() + QPoint(option.rect.height(), 0));
+    QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
+                         QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     painter->save();
-    // painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
-    painter->setPen(QColor(kRepoCategoryColor));
-    painter->setFont(awesome->font(16));
-    painter->drawText(indicator_rect,
-                      Qt::AlignCenter,
-                      QChar(expanded ? icon_caret_down : icon_caret_right),
-                      &indicator_rect);
+    QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "right");
+    painter->drawPixmap(indicator_rect,
+                        QPixmap(::getIconPathByDPI(icon_path)));
     painter->restore();
 
     // Paint category name
@@ -315,7 +315,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
         }
     }
 
-    return prefix + icon + ".png";
+    return ::getIconPathByDPI(prefix + icon + ".png");
 }
 
 QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const

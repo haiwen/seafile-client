@@ -6,7 +6,6 @@
 #include <QHideEvent>
 #include <Qt>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -19,6 +18,7 @@
 #include "repo-tree-model.h"
 #include "repo-tree-view.h"
 #include "repo-detail-dialog.h"
+#include "utils/paint-utils.h"
 
 
 RepoTreeView::RepoTreeView(QWidget *parent)
@@ -199,7 +199,7 @@ void RepoTreeView::createActions()
     connect(show_detail_action_, SIGNAL(triggered()), this, SLOT(showRepoDetail()));
 
     download_action_ = new QAction(tr("&Sync this library"), this);
-    download_action_->setIcon(QIcon(":/images/download.png"));
+    download_action_->setIcon(::getIconByDPI(":/images/download.png"));
     download_action_->setStatusTip(tr("Sync this library"));
     download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
@@ -217,7 +217,7 @@ void RepoTreeView::createActions()
     connect(cancel_download_action_, SIGNAL(triggered()), this, SLOT(cancelDownload()));
 
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
-    open_local_folder_action_->setIcon(QIcon(":/images/folder-open.png"));
+    open_local_folder_action_->setIcon(::getIconByDPI(":/images/folder-open.png"));
     open_local_folder_action_->setStatusTip(tr("open local folder"));
     open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));

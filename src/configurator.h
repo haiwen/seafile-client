@@ -27,9 +27,6 @@ public:
     static void removeVirtualDrive();
     static void installCustomUrlHandler();
 
-private slots:
-    void onSeafileDirSet(const QString& path);
-
 private:
     Q_DISABLE_COPY(Configurator)
 

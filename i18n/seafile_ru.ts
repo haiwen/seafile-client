@@ -189,7 +189,7 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="126"/>
         <source>Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Библиотеки</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="129"/>
@@ -550,7 +550,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="227"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>ОК</translation>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="228"/>

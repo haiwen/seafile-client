@@ -82,6 +82,8 @@
     <file>images@2x/caret-down.png</file>
     <file>images@2x/caret-up.png</file>
     <file>images@2x/caret-right.png</file>
+    <file>images@2x/folder-open.png</file>
+    <file>images@2x/download.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

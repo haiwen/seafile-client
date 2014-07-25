@@ -25,3 +25,8 @@ DownloadRepoDialog {
     min-height: 400px;
     max-height: 400px;
 }
+
+QToolButton#mAccountBtn
+{
+    margin-right: 0px;
+}

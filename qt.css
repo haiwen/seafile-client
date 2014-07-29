@@ -38,7 +38,7 @@ CloudView QToolBar {
 }
 
 QToolBar QAbstractButton {
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 RepoDetailDialog {
@@ -210,6 +210,10 @@ CreateRepoDialog QLabel#mDesc {
 QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
     margin-top: 3px;
+    qproperty-focusPolicy: NoFocus;
+}
+
+ServerStatusDialog QListView {
     qproperty-focusPolicy: NoFocus;
 }
 

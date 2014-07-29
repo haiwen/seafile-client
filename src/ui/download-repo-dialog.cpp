@@ -40,17 +40,18 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     } else {
         mPassword->setVisible(false);
         mPasswordLabel->setVisible(false);
-#ifdef Q_WS_MAC
-        setMaximumSize(QSize(size().width(), 200));
-#endif
     }
 
-    int min_height = 250, max_height = 250;
+    int height = 250;
     if (repo.encrypted) {
-        max_height += 100;
+#ifdef Q_WS_MAC
+        height += 150;
+#else
+        height += 100;
+#endif
     }
-    setMinimumHeight(min_height);
-    setMaximumHeight(max_height);
+    setMinimumHeight(height);
+    setMaximumHeight(height);
 
     saved_create_new_path_ = seafApplet->configurator()->worktreeDir();
 

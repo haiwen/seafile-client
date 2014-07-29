@@ -393,15 +393,20 @@ void CloudView::createToolBar()
         tool_bar_->addAction(action);
     }
 
-    QWidget *spacerWidget = new QWidget;
-	spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	tool_bar_->addWidget(spacerWidget);
+    QWidget *spacer = new QWidget;
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    tool_bar_->addWidget(spacer);
 
     refresh_action_ = new QAction(tr("Refresh"), this);
     refresh_action_->setIcon(::getIconByDPI(":/images/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
     tool_bar_->addAction(refresh_action_);
+
+    QWidget *spacer_right = new QWidget;
+    spacer_right->setObjectName("spacerWidget");
+    spacer_right->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+    tool_bar_->addWidget(spacer_right);
 }
 
 void CloudView::onRefreshClicked()

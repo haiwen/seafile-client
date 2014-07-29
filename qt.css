@@ -37,8 +37,13 @@ CloudView QToolBar {
     border-bottom: 1px solid #DCDCDE;
 }
 
+CloudView QToolBar QWidget#spacerWidget {
+    min-width: 6px;
+    max-width: 6px;
+}
+
 QToolBar QAbstractButton {
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 RepoDetailDialog {

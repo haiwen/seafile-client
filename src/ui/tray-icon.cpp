@@ -283,7 +283,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(":/images/mac/seafile_warning.png");
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/mac/daemon_up.png");
+        return getIcon(":/images/mac/notification.png");
     }
 #else
     switch (state) {

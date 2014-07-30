@@ -46,6 +46,7 @@ private slots:
     void chooseFolderToSync();
     void onAccountChanged();
     void onTabChanged(int index);
+    void addActivitiesTab();
 
 private:
     Q_DISABLE_COPY(CloudView)

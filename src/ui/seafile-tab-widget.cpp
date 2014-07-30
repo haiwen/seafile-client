@@ -111,8 +111,19 @@ int SeafileTabWidget::currentIndex() const
 
 void SeafileTabWidget::adjustTabsWidth(int full_width)
 {
-    int tab_width = full_width / 3 - 1;
+    int tab_width = (full_width / tabbar_->count()) - 1;
     QString style("QTabBar::tab { min-width: %1px; }");
     style = style.arg(tab_width);
     setStyleSheet(style);
+}
+
+void SeafileTabWidget::removeTab(int index, QWidget *widget)
+{
+    tabbar_->removeTab(index);
+    stack_->removeWidget(widget);
+}
+
+int SeafileTabWidget::count() const
+{
+    return tabbar_->count();
 }

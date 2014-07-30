@@ -131,10 +131,21 @@ void CloudView::createTabs()
     tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png");
 
     activities_tab_ = new ActivitiesTab;
-    tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
 
     connect(tabs_, SIGNAL(currentTabChanged(int)),
             this, SLOT(onTabChanged(int)));
+
+    connect(activities_tab_, SIGNAL(activitiesSupported()),
+            this, SLOT(addActivitiesTab()));
+}
+
+void CloudView::addActivitiesTab()
+{
+    if (tabs_->count() < 3) {
+        QString base_icon_path = ":/images/tabs/";
+        tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
+        tabs_->adjustTabsWidth(rect().width());
+    }
 }
 
 void CloudView::setupDropArea()
@@ -431,9 +442,13 @@ void CloudView::onAccountChanged()
 {
     refresh_action_->setEnabled(hasAccount());
 
+    tabs_->removeTab(2, activities_tab_);
+    tabs_->adjustTabsWidth(rect().width());
+
     repos_tab_->refresh();
     starred_files_tab_->refresh();
     activities_tab_->refresh();
+
     account_view_->onAccountChanged();
 }
 

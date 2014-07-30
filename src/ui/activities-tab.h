@@ -27,6 +27,9 @@ class ActivitiesTab : public TabView {
 public:
     explicit ActivitiesTab(QWidget *parent=0);
 
+signals:
+    void activitiesSupported();
+
 public slots:
     void refresh();
 

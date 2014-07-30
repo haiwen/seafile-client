@@ -34,10 +34,13 @@ public:
     SeafileTabWidget(QWidget *parent=0);
 
     void addTab(QWidget *tab, const QString& text, const QString& icon_path);
+    void removeTab(int index, QWidget *widget);
 
     void adjustTabsWidth(int full_width);
 
     int currentIndex() const;
+
+    int count() const;
 
 signals:
     void currentTabChanged(int index);

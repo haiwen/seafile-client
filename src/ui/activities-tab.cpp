@@ -66,6 +66,7 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
                                   bool is_loading_more,
                                   bool has_more)
 {
+    emit activitiesSupported();
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
 
     // XXX: "load more events" for now

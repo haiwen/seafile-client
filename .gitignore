@@ -59,3 +59,9 @@ i18n/*.qm
 ### emacs files
 .emacs*
 .#*
+
+### ninja files
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja

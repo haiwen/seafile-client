@@ -43,12 +43,11 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     }
 
     int height = 250;
-    if (repo.encrypted) {
 #ifdef Q_WS_MAC
-        height += 150;
-#else
-        height += 100;
+    height += 75;
 #endif
+    if (repo.encrypted) {
+        height += 100;
     }
     setMinimumHeight(height);
     setMaximumHeight(height);

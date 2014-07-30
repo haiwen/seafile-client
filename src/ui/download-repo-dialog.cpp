@@ -44,7 +44,9 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 
     int height = 250;
 #ifdef Q_WS_MAC
-    height += 75;
+    layout()->setContentsMargins(8, 9, 9, 5);
+    layout()->setSpacing(6);
+    verticalLayout_3->setSpacing(6);
 #endif
     if (repo.encrypted) {
         height += 100;

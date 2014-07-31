@@ -15,6 +15,7 @@ public:
     enum SyncState {
         SYNC_STATE_DISABLED,
         SYNC_STATE_WAITING,
+        SYNC_STATE_INIT,
         SYNC_STATE_ING,
         SYNC_STATE_DONE,
         SYNC_STATE_ERROR,

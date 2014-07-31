@@ -312,8 +312,15 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
         case LocalRepo::SYNC_STATE_UNKNOWN:
             icon = "question";
             break;
+        case LocalRepo::SYNC_STATE_INIT:
+            // If the repo is in "sync init", we just display the previous
+            // icon.
+            icon = last_icon_map_.value(repo.id, "waiting");
+            break;
         }
     }
+
+    last_icon_map_[repo.id] = icon;
 
     return ::getIconPathByDPI(prefix + icon + ".png");
 }

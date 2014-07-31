@@ -323,6 +323,7 @@ void RepoTreeModel::updateRepoItemAfterSyncNow(RepoItem *item, void *data)
         // We manually set the sync state of the repo to "SYNC_STATE_ING" to give
         // the user immediate feedback
 
+        r.setSyncInfo("initializing");
         r.sync_state = LocalRepo::SYNC_STATE_ING;
         item->setLocalRepo(r);
         item->setSyncNowClicked(true);

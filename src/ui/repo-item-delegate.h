@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_REPO_ITEM_DELEGATE_H
 
 #include <QStyledItemDelegate>
+#include <QHash>
 
 class QStandardItem;
 class QModelIndex;
@@ -45,6 +46,8 @@ private:
                               const RepoItem *item) const;
 
     QPixmap getSyncStatusIcon(const RepoItem *item) const;
+
+    mutable QHash<QString, QString> last_icon_map_;
 };
 
 

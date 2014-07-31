@@ -68,7 +68,7 @@ void LocalRepo::translateSyncState(QString status)
 
     } else if (status == "initializing") {
         sync_state_str = QObject::tr("sync initializing");
-        sync_state = SYNC_STATE_ING;
+        sync_state = SYNC_STATE_INIT;
 
     } else if (status == "downloading") {
         sync_state_str = QObject::tr("downloading");

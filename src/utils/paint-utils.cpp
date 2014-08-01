@@ -93,7 +93,7 @@ QIcon getIconByDPI(const QString& name)
 int getDPIScaledSize(int size)
 {
 
-    const float factor = getScaleFactor();
+    const double factor = getScaleFactor();
     int ret = isHighDPI() ? (factor * size) : size;
     printf ("size is %d\n", ret);
     return ret;

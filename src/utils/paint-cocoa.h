@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 int _isHiDPI();
-float _getScaleFactor();
+double _getScaleFactor();
 
 #ifdef __cplusplus
 }

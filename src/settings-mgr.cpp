@@ -16,8 +16,8 @@ const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
 const char *kCheckLatestVersion = "checkLatestVersion";
 const char *kBehaviorGroup = "Behavior";
 
-const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
-const char *kStatusGroup = "Status";
+//const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
+//const char *kStatusGroup = "Status";
 
 const char *kSettingsGroup = "Settings";
 const char *kComputerName = "computerName";

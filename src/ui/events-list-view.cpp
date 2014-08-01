@@ -24,14 +24,14 @@ namespace {
  */
 
 const int kMarginLeft = 5;
-const int kMarginRight = 5;
+//const int kMarginRight = 5;
 const int kMarginTop = 5;
 const int kMarginBottom = 5;
 const int kPadding = 5;
 
 const int kAvatarHeight = 36;
 const int kAvatarWidth = 36;
-const int kNickWidth = 210;
+//const int kNickWidth = 210;
 const int kNickHeight = 30;
 
 const int kMarginBetweenAvatarAndNick = 10;

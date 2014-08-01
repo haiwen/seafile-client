@@ -10,7 +10,7 @@
 
 namespace {
 
-const char *kTranslateContext = "MessageListener";
+//const char *kTranslateContext = "MessageListener";
 
 QHash<QString, QString> *verbsMap = NULL;
 

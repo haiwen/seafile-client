@@ -12,8 +12,8 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
                                    const QString& worktree,
                                    QWidget *parent)
     : QDialog(parent),
-      request_(NULL),
       path_(worktree),
+      request_(NULL),
       account_(account)
 {
     setupUi(this);

@@ -12,7 +12,7 @@ class QNetworkReply;
 class QImage;
 
 class ServerRepo;
-struct Account;
+class Account;
 class StarredFile;
 class SeafEvent;
 class CommitDetails;

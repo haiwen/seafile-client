@@ -17,7 +17,7 @@
 #include "QtAwesome.h"
 #include "open-local-helper.h"
 #ifdef Q_WS_MAC
-#include "Application.h"
+#include "application.h"
 #endif
 
 #define APPNAME "seafile-applet"

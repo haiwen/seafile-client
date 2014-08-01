@@ -9,7 +9,8 @@
 #include <QString>
 #include <QMetaType>
 
-struct CommitDetails {
+class CommitDetails {
+public:
     std::vector<QString> added_files, deleted_files, modified_files, added_dirs, deleted_dirs;
 
     // renamed or moved files

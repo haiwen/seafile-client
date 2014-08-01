@@ -2,7 +2,7 @@
 #include "paint-cocoa.h"
 
 static bool checked = false;
-static float scaleFactor = 1.0;
+static double scaleFactor = 1.0;
 inline static void checkFactor()
 {
     if (!checked){
@@ -18,7 +18,7 @@ int _isHiDPI()
     return (scaleFactor > 1.0);
 }
 
-float _getScaleFactor()
+double _getScaleFactor()
 {
     checkFactor();
     return scaleFactor;

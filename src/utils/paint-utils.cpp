@@ -67,17 +67,14 @@ QString getIconPathByDPI(const QString& path)
     if (!isHighDPI()) {
         return path;
     }
-    QFileInfo finfo(path);
-    QString base = finfo.baseName();
-    QString ext = finfo.completeSuffix();
 
-    QDir dir = finfo.dir();
+    QString path_2x(path);
+    path_2x.replace(":/images/", ":/images@2x/");
 
-    QFileInfo finfo_2x(dir.filePath(base + "@2x" + "." + ext));
-
+    QFileInfo finfo_2x(path_2x);
     if (finfo_2x.exists()) {
         printf ("found @2x icon %s for %s\n",
-                finfo_2x.absoluteFilePath().toUtf8().data(),
+                path_2x.toUtf8().data(),
                 path.toUtf8().data());
         return finfo_2x.absoluteFilePath();
     } else {
@@ -95,6 +92,5 @@ int getDPIScaledSize(int size)
 
     const float factor = getScaleFactor();
     int ret = isHighDPI() ? (factor * size) : size;
-    printf ("size is %d\n", ret);
     return ret;
 }

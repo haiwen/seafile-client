@@ -21,7 +21,7 @@ extern "C" {
 #include "traynotificationmanager.h"
 #endif
 
-#ifdef Q_WS_LINUX
+#ifdef Q_WS_X11
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusPendingCall>
@@ -185,7 +185,7 @@ void SeafileTrayIcon::rotate(bool start)
 
 void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
 {
-#ifdef Q_WS_LINUX
+#ifdef Q_WS_X11
     QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "dialog-information"
                                              << title << message << QStringList () << QVariantMap() << qint32(-1);
     QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "", "Notify");

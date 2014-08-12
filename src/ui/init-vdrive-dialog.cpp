@@ -1,5 +1,11 @@
-#include <stdio.h>
+#include <cstdio>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 #include <QPixmap>
 #include <QFile>
@@ -225,7 +231,7 @@ void InitVirtualDriveDialog::checkDownloadProgress()
     }
 
     CloneTask task;
-    for (int i = 0; i < tasks.size(); i++) {
+    for (size_t i = 0; i < tasks.size(); i++) {
         if (tasks[i].repo_id == default_repo_id_) {
             task = tasks[i];
             break;

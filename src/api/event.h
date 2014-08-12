@@ -4,6 +4,7 @@
 #include <jansson.h>
 #include <vector>
 
+#include <QObject>
 #include <QString>
 #include <QMetaType>
 

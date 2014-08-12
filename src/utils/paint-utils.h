@@ -3,7 +3,7 @@
 
 #include <QFont>
 
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
 #include "paint-cocoa.h"
 #endif
 
@@ -20,7 +20,7 @@ inline bool isHighDPI()
     if (getenv("SEAFILE_HDPI_DEBUG")) {
         return true;
     }
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     return _isHiDPI();
 #else
     return false;
@@ -29,7 +29,7 @@ inline bool isHighDPI()
 
 inline float getScaleFactor()
 {
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     return _getScaleFactor();
 #else
     return 1.0;

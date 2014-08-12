@@ -21,7 +21,7 @@ public:
 
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
                                                                                  
-    CloneTask taskAt(int i) const { return (i >= tasks_.size()) ? CloneTask() : tasks_[i]; }
+    CloneTask taskAt(int i) const { return (i >= (int)tasks_.size()) ? CloneTask() : tasks_[i]; }
 
 public slots:
     void clearSuccessfulTasks();

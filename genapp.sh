@@ -10,6 +10,8 @@ all=$dylibs" ${exes}"
 
 target=seafile-applet
 configuration=Release
+jobs=$(sysctl -n hw.ncpu)
+
 function change_otool() {
     DIR=$1
     pushd ${DIR}
@@ -38,14 +40,15 @@ while [ $# -ge 1 ]; do
             mkdir -p libs
             cp -f `which ccnet` libs/
             cp -f `which seaf-daemon` libs/
+            lrelease seafile-client.pro
             qmake -spec macx-xcode
             ;;
 
         "build" )
-            echo "build ${target}.app for Mac OS X 10.6"
+            echo "build ${target}.app for Mac OS X 10.7"
             rm -rf build
-            lrelease seafile-client.pro
-            xcodebuild -target ${target} -configuration ${configuration}
+            xcodebuild -target ${target} -configuration ${configuration} \
+                      -jobs ${jobs}
             rm -rf ${top_dir}/${target}.app
             cp -rf build/Release/${target}.app ${top_dir}/${target}.app
             ;;

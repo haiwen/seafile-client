@@ -27,7 +27,7 @@ inline bool isHighDPI()
 #endif
 }
 
-inline float getScaleFactor()
+inline double getScaleFactor()
 {
 #ifdef Q_WS_MAC
     return _getScaleFactor();

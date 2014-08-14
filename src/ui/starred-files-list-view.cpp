@@ -30,14 +30,20 @@ StarredFilesListView::StarredFilesListView(QWidget *parent)
 
 void StarredFilesListView::createActions()
 {
+    QIcon q_folder_open = QIcon();
+    q_folder_open.addFile(":/images/folder-open-gray.png", QSize(16, 16));
+    q_folder_open.addFile(":/images/folder-open-gray@2x.png", QSize(32, 32));
     open_file_action_ = new QAction(tr("&Open"), this);
-    open_file_action_->setIcon(QIcon(":/images/folder-open.png"));
+    open_file_action_->setIcon(q_folder_open);
     open_file_action_->setIconVisibleInMenu(true);
     open_file_action_->setStatusTip(tr("Open this file"));
     connect(open_file_action_, SIGNAL(triggered()), this, SLOT(openLocalFile()));
 
+    QIcon q_cloud = QIcon();
+    q_cloud.addFile(":/images/cloud-gray.png", QSize(16, 16));
+    q_cloud.addFile(":/images/cloud-gray@2x.png", QSize(32, 32));
     view_file_on_web_action_ = new QAction(tr("view on &Web"), this);
-    view_file_on_web_action_->setIcon(QIcon(":/images/cloud.png"));
+    view_file_on_web_action_->setIcon(q_cloud);
     view_file_on_web_action_->setIconVisibleInMenu(true);
     view_file_on_web_action_->setStatusTip(tr("view this file on website"));
     connect(view_file_on_web_action_, SIGNAL(triggered()), this, SLOT(viewFileOnWeb()));

@@ -267,8 +267,13 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     painter->save();
     QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "right");
+    QString icon_2x_path = QString(":/images/caret-%1@2x.png").arg(expanded ? "down" : "right");
+    QIcon icon = QIcon();
+    icon.addFile(icon_path, QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
+    icon.addFile(icon_2x_path, QSize(kRepoCategoryIndicatorWidth * 2, kRepoCategoryIndicatorHeight * 2));
+
     painter->drawPixmap(indicator_rect,
-                        QPixmap(::getIconPathByDPI(icon_path)));
+                       icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
     painter->restore();
 
     // Paint category name

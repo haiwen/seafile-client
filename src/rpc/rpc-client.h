@@ -80,6 +80,10 @@ public:
 
     QString getCcnetPeerId();
 
+    int updateReposServerHost(const QString& old_host,
+                              const QString& new_host,
+                              QString *err);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

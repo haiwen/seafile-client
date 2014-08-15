@@ -33,6 +33,9 @@ public:
 
     bool setCurrentAccount(const Account& account);
 
+    int replaceAccount(const Account& old_account,
+                       const Account& new_account);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 signals:

@@ -667,3 +667,25 @@ QString SeafileRpcClient::getCcnetPeerId()
 {
     return sync_client_ ? sync_client_->base.id : "";
 }
+
+int SeafileRpcClient::updateReposServerHost(const QString& old_host,
+                                            const QString& new_host,
+                                            QString *err)
+{
+    GError *error = NULL;
+    int ret =  searpc_client_call__int (seafile_rpc_client_,
+                                        "seafile_update_repos_server_host",
+                                        &error, 2,
+                                        "string", toCStr(old_host),
+                                        "string", toCStr(new_host));
+
+    if (ret < 0) {
+        if (error) {
+            *err = QString::fromUtf8(error->message);
+        } else {
+            *err = tr("Unknown error");
+        }
+    }
+
+    return ret;
+}

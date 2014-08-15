@@ -22,6 +22,7 @@ public slots:
     void onAccountChanged();
     void showAddAccountDialog();
     void deleteAccount();
+    void editAccountSettings();
     void onAccountItemClicked();
 
 private slots:
@@ -35,6 +36,7 @@ private:
 
     // Account operations
     QAction *add_account_action_;
+    QAction *account_settings_action_;
     QAction *delete_account_action_;
     QMenu *account_menu_;
 };

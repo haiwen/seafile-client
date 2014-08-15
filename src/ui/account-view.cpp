@@ -1,12 +1,14 @@
 #include <QMenu>
 #include <QAction>
 #include <QToolButton>
+#include <QScopedPointer>
 
 #include "account.h"
 #include "account.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
+#include "account-settings-dialog.h"
 #include "rpc/rpc-client.h"
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
@@ -67,6 +69,15 @@ void AccountView::deleteAccount()
     }
 }
 
+void AccountView::editAccountSettings()
+{
+    const Account& account = seafApplet->accountManager()->currentAccount();
+
+    AccountSettingsDialog dialog(account, this);
+
+    dialog.exec();
+}
+
 void AccountView::updateAccountInfoDisplay()
 {
     if (seafApplet->accountManager()->hasAccount()) {
@@ -111,6 +122,14 @@ void AccountView::onAccountChanged()
         }
 
         account_menu_->addSeparator();
+    }
+
+    if (!accounts.empty()) {
+        account_settings_action_ = new QAction(tr("Edit account settings"), this);
+        account_settings_action_->setIcon(::getIconByDPI(":/images/edit.png"));
+        account_settings_action_->setIconVisibleInMenu(true);
+        connect(account_settings_action_, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
+        account_menu_->addAction(account_settings_action_);
     }
 
     // Add rest items

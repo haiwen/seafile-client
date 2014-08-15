@@ -59,6 +59,8 @@
     <file>images/sync_now-gray.png</file>
     <file>images/sync_now-gray@2x.png</file>
     <file>images/remove.png</file>
+    <file>images/remove-gray.png</file>
+    <file>images/remove-gray@2x.png</file>
     <file>images/remove-red.png</file>
     <file>images/seafile-download-library.png</file>
     <file>images/link-green.png</file>
@@ -91,11 +93,10 @@
     <file>images/files/file_video.png</file>
     <file>images/files/file_unknown.png</file>
     <file>images/caret-down.png</file>
-    <file>images/caret-up.png</file>
-    <file>images/caret-right.png</file>
-    <!-- @2x images -->
     <file>images/caret-down@2x.png</file>
+    <file>images/caret-up.png</file>
     <file>images/caret-up@2x.png</file>
+    <file>images/caret-right.png</file>
     <file>images/caret-right@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>

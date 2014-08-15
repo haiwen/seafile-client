@@ -240,6 +240,7 @@ void RepoTreeView::createActions()
     download_toolbar_action_->setStatusTip(tr("Sync this library"));
     download_toolbar_action_->setIconVisibleInMenu(false);
     connect(download_toolbar_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
+
     QIcon q_sync_now = QIcon();
     q_sync_now.addFile(":/images/sync_now-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight), QIcon::Normal);
     q_sync_now.addFile(":/images/sync_now-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2), QIcon::Normal);
@@ -249,8 +250,11 @@ void RepoTreeView::createActions()
     sync_now_action_->setIconVisibleInMenu(true);
     connect(sync_now_action_, SIGNAL(triggered()), this, SLOT(syncRepoImmediately()));
 
+    QIcon q_remove = QIcon();
+    q_remove.addFile(":/images/remove-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
+    q_remove.addFile(":/images/remove-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
     cancel_download_action_ = new QAction(tr("&Cancel download"), this);
-    cancel_download_action_->setIcon(QIcon(":/images/remove.png"));
+    cancel_download_action_->setIcon(q_remove);
     cancel_download_action_->setStatusTip(tr("Cancel download of this library"));
     cancel_download_action_->setIconVisibleInMenu(true);
     connect(cancel_download_action_, SIGNAL(triggered()), this, SLOT(cancelDownload()));

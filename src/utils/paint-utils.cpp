@@ -76,9 +76,11 @@ QString getIconPathByDPI(const QString& path)
     QFileInfo finfo_2x(dir.filePath(base + "@2x" + "." + ext));
 
     if (finfo_2x.exists()) {
+#ifndef QT_NO_DEBUG
         printf ("found @2x icon %s for %s\n",
                 finfo_2x.absoluteFilePath().toUtf8().data(),
                 path.toUtf8().data());
+#endif
         return finfo_2x.absoluteFilePath();
     } else {
         return path;
@@ -92,9 +94,7 @@ QIcon getIconByDPI(const QString& name)
 
 int getDPIScaledSize(int size)
 {
-
     const double factor = getScaleFactor();
     int ret = isHighDPI() ? (factor * size) : size;
-    printf ("size is %d\n", ret);
     return ret;
 }

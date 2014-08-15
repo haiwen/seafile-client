@@ -31,6 +31,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     if (!isCheckLatestVersionEnabled()) {
         mCheckLatestVersionBox->setVisible(false);
     }
+
+    #ifdef Q_WS_MAC
+    layout()->setContentsMargins(8, 9, 9, 4);
+    layout()->setSpacing(5);
+    #endif
 }
 
 void SettingsDialog::updateSettings()

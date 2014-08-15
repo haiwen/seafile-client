@@ -116,12 +116,8 @@ void AccountView::onAccountChanged()
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (i == 0) {
-                QIcon checked_icon = QIcon();
-                checked_icon.addFile(":/images/account-checked.png", QSize(16, 16));
-                checked_icon.addFile(":/images/account-checked@2x.png", QSize(32, 32));
-                action->setIcon(checked_icon);
+                action->setIcon(::getMenuIconSet(":/images/account-checked.png"));
                 action->setIconVisibleInMenu(true);
-                // action->setChecked(true);
             }
             account_menu_->addAction(action);
         }
@@ -130,36 +126,22 @@ void AccountView::onAccountChanged()
     }
 
     if (!accounts.empty()) {
-        QIcon account_settings_icon = QIcon();
-        account_settings_icon.addFile(":/images/account-settings.png", QSize(16, 16));
-        account_settings_icon.addFile(":/images/account-settings@2x.png", QSize(32, 32));
-
         account_settings_action_ = new QAction(tr("Account settings"), this);
-        account_settings_action_->setIcon(account_settings_icon);
+        account_settings_action_->setIcon(::getMenuIconSet(":/images/account-settings.png"));
         account_settings_action_->setIconVisibleInMenu(true);
         connect(account_settings_action_, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
         account_menu_->addAction(account_settings_action_);
     }
 
-
-    QIcon add_account_icon = QIcon();
-    add_account_icon.addFile(":/images/add-account.png", QSize(16, 16));
-    add_account_icon.addFile(":/images/add-account@2x.png", QSize(32, 32));
-
-    // Add rest items
     add_account_action_ = new QAction(tr("Add an account"), this);
-    add_account_action_->setIcon(add_account_icon);
+    add_account_action_->setIcon(::getMenuIconSet(":/images/add-account.png"));
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
     account_menu_->addAction(add_account_action_);
 
     if (!accounts.empty()) {
-        QIcon delet_account_icon = QIcon();
-        delet_account_icon.addFile(":/images/delete-account.png", QSize(16, 16));
-        delet_account_icon.addFile(":/images/delete-account@2x.png", QSize(32, 32));
-
         delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(delet_account_icon);
+        delete_account_action_->setIcon(::getMenuIconSet(":/images/delete-account.png"));
         delete_account_action_->setIconVisibleInMenu(true);
         connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
         account_menu_->addAction(delete_account_action_);

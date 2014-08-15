@@ -148,9 +148,8 @@ void RepoTreeView::updateRepoActions()
         toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
         toggle_auto_sync_action_->setEnabled(true);
 
-        QIcon q_pause = QIcon();
-        q_pause.addFile(":/images/pause-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
-        q_pause.addFile(":/images/pause-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
+        QIcon q_pause = ::getMenuIconSet(":/images/pause-gray.png");
+
         QIcon q_play = QIcon();
         //TODO: replace them with grey versions
         q_play.addFile(":/images/play.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
@@ -214,71 +213,57 @@ QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
 
 void RepoTreeView::createActions()
 {
-    QIcon q_info = QIcon();
-    QPixmap q_info_32(":/images/info-gray.png");
-    q_info.addFile(":/images/info-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
-    q_info.addFile(":/images/info-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
+    QIcon q_info = ::getMenuIconSet(":/images/info-gray.png");
+
     show_detail_action_ = new QAction(tr("Show &Details"), this);
     show_detail_action_->setIcon(q_info);
     show_detail_action_->setStatusTip(tr("Show details of this library"));
     show_detail_action_->setIconVisibleInMenu(true);
     connect(show_detail_action_, SIGNAL(triggered()), this, SLOT(showRepoDetail()));
 
-    QIcon q_download = QIcon();
-    q_download.addFile(":/images/download-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
-    q_download.addFile(":/images/download-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
+    QIcon q_download = ::getMenuIconSet(":/images/download-gray.png");
     download_action_ = new QAction(tr("&Sync this library"), this);
     download_action_->setIcon(q_download);
     download_action_->setStatusTip(tr("Sync this library"));
     download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
-    QIcon q_download_toolbar = QIcon();
-    q_download_toolbar.addFile(":/images/download.png", QSize(kRepoTreeToolbarIconWidth, 24));
+    QIcon q_download_toolbar = ::getToolbarIconSet(":/images/download.png");
     download_toolbar_action_ = new QAction(tr("&Sync this library"), this);
     download_toolbar_action_->setIcon(q_download_toolbar);
     download_toolbar_action_->setStatusTip(tr("Sync this library"));
     download_toolbar_action_->setIconVisibleInMenu(false);
     connect(download_toolbar_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
-    QIcon q_sync_now = QIcon();
-    q_sync_now.addFile(":/images/sync_now-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight), QIcon::Normal);
-    q_sync_now.addFile(":/images/sync_now-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2), QIcon::Normal);
+    QIcon q_sync_now = ::getMenuIconSet(":/images/sync_now-gray.png");
     sync_now_action_ = new QAction(tr("Sync &Now"), this);
     sync_now_action_->setIcon(q_sync_now);
     sync_now_action_->setStatusTip(tr("Sync this library immediately"));
     sync_now_action_->setIconVisibleInMenu(true);
     connect(sync_now_action_, SIGNAL(triggered()), this, SLOT(syncRepoImmediately()));
 
-    QIcon q_remove = QIcon();
-    q_remove.addFile(":/images/remove-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
-    q_remove.addFile(":/images/remove-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
+    QIcon q_remove = ::getMenuIconSet(":/images/remove-gray.png");
     cancel_download_action_ = new QAction(tr("&Cancel download"), this);
     cancel_download_action_->setIcon(q_remove);
     cancel_download_action_->setStatusTip(tr("Cancel download of this library"));
     cancel_download_action_->setIconVisibleInMenu(true);
     connect(cancel_download_action_, SIGNAL(triggered()), this, SLOT(cancelDownload()));
 
-    QIcon q_folder_open = QIcon();
-    q_folder_open.addFile(":/images/folder-open-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
-    q_folder_open.addFile(":/images/folder-open-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
+    QIcon q_folder_open = ::getMenuIconSet(":/images/folder-open-gray.png");
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
     open_local_folder_action_->setIcon(q_folder_open);
     open_local_folder_action_->setStatusTip(tr("open local folder"));
     open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
-    QIcon q_folder_open_toolbar = QIcon();
-    q_folder_open_toolbar.addFile(":/images/folder-open.png", QSize(kRepoTreeToolbarIconWidth, kRepoTreeToolbarIconHeight));
+    QIcon q_folder_open_toolbar = ::getToolbarIconSet(":/images/folder-open.png");
     open_local_folder_toolbar_action_ = new QAction(tr("&Open folder"), this);
     open_local_folder_toolbar_action_->setIcon(q_folder_open_toolbar);
     open_local_folder_toolbar_action_->setStatusTip(tr("open local folder"));
     open_local_folder_toolbar_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_toolbar_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
-    QIcon q_minus = QIcon();
-    q_minus.addFile(":/images/minus-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight), QIcon::Normal);
-    q_minus.addFile(":/images/minus-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2), QIcon::Normal);
+    QIcon q_minus = ::getMenuIconSet(":/images/minus-gray.png");
     unsync_action_ = new QAction(tr("&Unsync"), this);
     unsync_action_->setStatusTip(tr("unsync this library"));
     unsync_action_->setIcon(q_minus);
@@ -290,9 +275,7 @@ void RepoTreeView::createActions()
     toggle_auto_sync_action_->setIconVisibleInMenu(true);
     connect(toggle_auto_sync_action_, SIGNAL(triggered()), this, SLOT(toggleRepoAutoSync()));
 
-    QIcon q_cloud = QIcon();
-    q_cloud.addFile(":/images/cloud-gray.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight), QIcon::Normal);
-    q_cloud.addFile(":/images/cloud-gray@2x.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2), QIcon::Normal);
+    QIcon q_cloud = ::getMenuIconSet(":/images/cloud-gray.png");
     view_on_web_action_ = new QAction(tr("&View on cloud"), this);
     view_on_web_action_->setIcon(q_cloud);
     view_on_web_action_->setStatusTip(tr("view this library on seahub"));

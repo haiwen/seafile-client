@@ -98,3 +98,43 @@ int getDPIScaledSize(int size)
     int ret = isHighDPI() ? (factor * size) : size;
     return ret;
 }
+
+QString get2xIconPath(const QString& path)
+{
+    QFileInfo finfo(path);
+    QString base = finfo.baseName();
+    QString ext = finfo.completeSuffix();
+
+    QDir dir = finfo.dir();
+
+    return dir.filePath(base + "@2x" + "." + ext);
+}
+
+QIcon getIconSet(const QString& path, int base_width, int base_height)
+{
+    if (base_height <= 0) {
+        base_height = base_width;
+    }
+
+    QIcon icon;
+
+    icon.addFile(path, QSize(base_width, base_height));
+    icon.addFile(get2xIconPath(path), QSize(2 * base_width, 2 * base_height));
+
+    return icon;
+}
+
+QIcon getIconSet(const QString& path, int size)
+{
+    return getIconSet(path, size, size);
+}
+
+QIcon getMenuIconSet(const QString& path)
+{
+    return getIconSet(path, 16);
+}
+
+QIcon getToolbarIconSet(const QString& path)
+{
+    return getIconSet(path, 24);
+}

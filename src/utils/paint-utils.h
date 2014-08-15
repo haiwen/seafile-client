@@ -43,4 +43,24 @@ QIcon getIconByDPI(const QString& name);
 
 int getDPIScaledSize(int size);
 
+/*
+ * Returns a QIcon that contains both 1x and 2x icon
+ */
+QIcon getIconSet(const QString& path, int base_width, int base_height);
+
+/**
+ * Shortcut for getIconSet(path, size, size)
+ */
+QIcon getIconSet(const QString& path, int size);
+
+/**
+ * Shortcut for getIconSet(path, 16)
+ */
+QIcon getMenuIconSet(const QString& path);
+
+/**
+ * Shortcut for getIconSet(path, 24)
+ */
+QIcon getToolbarIconSet(const QString& path);
+
 #endif // SEAFILE_CLIENT_PAINT_UTILS_H_

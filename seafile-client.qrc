@@ -98,6 +98,14 @@
     <file>images/caret-up@2x.png</file>
     <file>images/caret-right.png</file>
     <file>images/caret-right@2x.png</file>
+    <file>images/account-settings.png</file>
+    <file>images/account-settings@2x.png</file>
+    <file>images/add-account.png</file>
+    <file>images/add-account@2x.png</file>
+    <file>images/delete-account.png</file>
+    <file>images/delete-account@2x.png</file>
+    <file>images/account-checked.png</file>
+    <file>images/account-checked@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

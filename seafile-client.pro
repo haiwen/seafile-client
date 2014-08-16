@@ -35,6 +35,7 @@ HEADERS += src/seafile-applet.h \
            src/ui/main-window.h \
            src/ui/init-seafile-dialog.h \
            src/ui/login-dialog.h \
+           src/ui/account-settings-dialog.h \
            src/ui/create-repo-dialog.h \
            src/ui/repo-detail-dialog.h \
            src/ui/settings-dialog.h \
@@ -67,6 +68,7 @@ HEADERS += src/seafile-applet.h \
            third_party/QtAwesome/QtAwesome.h
 
 FORMS += ui/login-dialog.ui \
+         ui/account-settings-dialog.ui \
          ui/create-repo-dialog.ui \
          ui/repo-detail-dialog.ui \
          ui/settings-dialog.ui \
@@ -111,6 +113,7 @@ SOURCES += src/main.cpp \
            src/ui/main-window.cpp \
            src/ui/init-seafile-dialog.cpp \
            src/ui/login-dialog.cpp \
+           src/ui/account-settings-dialog.cpp \
            src/ui/repo-detail-dialog.cpp \
            src/ui/settings-dialog.cpp \
            src/ui/create-repo-dialog.cpp \

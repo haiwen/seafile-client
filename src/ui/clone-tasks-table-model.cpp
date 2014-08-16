@@ -127,7 +127,7 @@ QVariant CloneTasksTableModel::headerData(int section,
 
 void CloneTasksTableModel::clearSuccessfulTasks()
 {
-    int i, n = tasks_.size();
+    int n = tasks_.size();
     for (int i = 0; i < n; i++) {
         const CloneTask& task = tasks_[i];
         if (task.isSuccessful()) {

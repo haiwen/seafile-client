@@ -50,8 +50,6 @@ void RepoService::refresh()
         return;
     }
 
-    AccountManager *account_mgr = seafApplet->accountManager();
-
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
     if (accounts.empty()) {
         in_refresh_ = false;

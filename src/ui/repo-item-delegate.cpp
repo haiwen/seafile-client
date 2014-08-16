@@ -55,10 +55,10 @@ const char *kRepoItemBackgroundColor = "white";
 const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
 
 const char *kRepoCategoryColor = "#3F3F3F";
-const char *kRepoCategoryColorHighlighted = "#FAF5FB";
+//const char *kRepoCategoryColorHighlighted = "#FAF5FB";
 
 const char *kRepoCategoryBackgroundColor = "white";
-const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
+//const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
 
 } // namespace
@@ -246,7 +246,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                              const RepoCategoryItem *item) const
 {
     QBrush backBrush;
-    bool hover = false;
+    //bool hover = false;
     bool selected = false;
 
     backBrush = QColor(kRepoCategoryBackgroundColor);

@@ -17,11 +17,11 @@
 
 namespace {
 
-const int kRefreshInterval = 1000 * 60 * 5; // 5 min
+//const int kRefreshInterval = 1000 * 60 * 5; // 5 min
 const char *kLoadingFailedLabelName = "loadingFailedText";
-const char *kEmptyViewLabelName = "emptyText";
-const char *kAuthHeader = "Authorization";
-const char *kActivitiesUrl = "/api2/html/events/";
+//const char *kEmptyViewLabelName = "emptyText";
+//const char *kAuthHeader = "Authorization";
+//const char *kActivitiesUrl = "/api2/html/events/";
 
 enum {
     INDEX_LOADING_VIEW = 0,

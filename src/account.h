@@ -5,7 +5,8 @@
 #include <QString>
 #include <QMetaType>
 
-struct Account {
+class Account {
+public:
     QUrl serverUrl;
     QString username;
     QString token;

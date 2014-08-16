@@ -26,6 +26,7 @@ enum WIDGET_INDEX {
     INDEX_LOCAL_VIEW
 };
 
+/*
 void showTestDialog(QWidget *parent)
 {
     static QDialog *dialog;
@@ -50,6 +51,7 @@ void showTestDialog(QWidget *parent)
     dialog->raise();
     dialog->activateWindow();
 }
+*/
 
 
 } // namespace

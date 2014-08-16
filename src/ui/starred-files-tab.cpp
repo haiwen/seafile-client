@@ -114,7 +114,7 @@ void StarredFilesTab::refresh()
     in_refresh_ = true;
 
     showLoadingView();
-    AccountManager *account_mgr = seafApplet->accountManager();
+    //AccountManager *account_mgr = seafApplet->accountManager();
 
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
     if (accounts.empty()) {

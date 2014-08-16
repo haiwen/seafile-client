@@ -43,8 +43,6 @@ void EventsService::refresh()
         return;
     }
 
-    AccountManager *account_mgr = seafApplet->accountManager();
-
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid()) {
         in_refresh_ = false;

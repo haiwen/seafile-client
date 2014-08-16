@@ -7,8 +7,8 @@
 #include "set-repo-password-dialog.h"
 
 SetRepoPasswordDialog::SetRepoPasswordDialog(const ServerRepo& repo, QWidget *parent)
-    : repo_(repo),
-      QDialog(parent)
+    : QDialog(parent),
+      repo_(repo)
 {
     setupUi(this);
     setWindowTitle(tr("Please provide the library password"));

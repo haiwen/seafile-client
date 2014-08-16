@@ -279,6 +279,7 @@ int Configurator::setVirtualDrive(const QString& path, const QString& name)
         }
     }
 #endif
+    return 0;
 }
 
 void Configurator::removeVirtualDrive()

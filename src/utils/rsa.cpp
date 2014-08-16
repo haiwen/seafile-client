@@ -16,7 +16,7 @@ int calculate_sha1 (unsigned char *sha1, const char *msg)
 
     SHA1_Init(&c);
     SHA1_Update(&c, msg, strlen(msg));
-	SHA1_Final(sha1, &c);
+    SHA1_Final(sha1, &c);
     return 0;
 }
 
@@ -62,6 +62,7 @@ GString* public_key_to_gstring(const RSA *rsa)
     return buf;
 }
 
+/*
 RSA* public_key_from_string(char *str)
 {
     char *p;
@@ -96,6 +97,7 @@ err:
     g_free(num);
     return NULL;
 }
+*/
 
 } // namespace
 

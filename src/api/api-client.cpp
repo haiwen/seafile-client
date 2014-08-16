@@ -16,6 +16,11 @@ namespace {
 const char *kContentTypeForm = "application/x-www-form-urlencoded";
 const char *kAuthHeader = "Authorization";
 
+bool shouldIgnoreRequestError(const QNetworkReply* reply)
+{
+    return reply->url().toString().contains("/api2/events");
+}
+
 } // namespace
 
 QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
@@ -134,14 +139,18 @@ void SeafileApiClient::httpRequestFinished()
 {
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
-        qDebug("[api] network error: %s\n", reply_->errorString().toUtf8().data());
+        if (!shouldIgnoreRequestError(reply_)) {
+            qDebug("[api] network error: %s\n", reply_->errorString().toUtf8().data());
+        }
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
 
     if ((code / 100) == 4 || (code / 100) == 5) {
-        qDebug("request failed for %s: status code %d\n",
-               reply_->url().toString().toUtf8().data(), code);
+        if (!shouldIgnoreRequestError(reply_)) {
+            qDebug("request failed for %s: status code %d\n",
+                   reply_->url().toString().toUtf8().data(), code);
+        }
         emit requestFailed(code);
         return;
     }

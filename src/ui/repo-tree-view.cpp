@@ -149,11 +149,7 @@ void RepoTreeView::updateRepoActions()
         toggle_auto_sync_action_->setEnabled(true);
 
         QIcon q_pause = ::getMenuIconSet(":/images/pause-gray.png");
-
-        QIcon q_play = QIcon();
-        //TODO: replace them with grey versions
-        q_play.addFile(":/images/play.png", QSize(kRepoTreeMenuIconWidth, kRepoTreeMenuIconHeight));
-        q_play.addFile(":/images/play.png", QSize(kRepoTreeMenuIconWidth*2, kRepoTreeMenuIconHeight*2));
+        QIcon q_play = ::getMenuIconSet(":/images/play-gray.png");
         if (local_repo.auto_sync) {
             toggle_auto_sync_action_->setText(tr("Disable auto sync"));
             toggle_auto_sync_action_->setToolTip(tr("Disable auto sync"));

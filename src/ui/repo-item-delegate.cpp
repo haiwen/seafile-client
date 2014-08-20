@@ -162,9 +162,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
     painter->save();
 
-    QPixmap repo_icon(::getIconPathByDPI(repo.encrypted
-                                         ? ":/images/encrypted-repo.png"
-                                         : ":/images/repo.png"));
+    QPixmap repo_icon(repo.getPixmap());
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
     painter->drawPixmap(repo_icon_rect, repo_icon);

@@ -55,7 +55,6 @@ public:
 
     bool isValid() const { return id.length() > 0; }
 
-    QIcon getIcon() const;
     void setSyncInfo(QString state, QString error = QString());
 
 private:

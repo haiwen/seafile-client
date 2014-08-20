@@ -65,6 +65,7 @@ public:
     QString repo_id;
     QString repo_name;
     bool encrypted;
+    bool readonly;
     int enc_version;
     QString magic;
     QString random_key;

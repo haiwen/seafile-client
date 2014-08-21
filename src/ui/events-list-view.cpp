@@ -95,7 +95,10 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->restore();
 
     // paint avatar
-    QImage avatar = AvatarService::instance()->getAvatar(event.author);
+    QImage avatar;
+    if (!event.anonymous) {
+        avatar = AvatarService::instance()->getAvatar(event.author);
+    }
     if (avatar.size() != QSize(kAvatarWidth, kAvatarHeight)) {
         avatar = QImage(":/images/account-36.png");
     }

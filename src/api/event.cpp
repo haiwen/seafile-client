@@ -25,7 +25,14 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
     SeafEvent event;
 
     event.author = getStringFromJson(json, "author");
+    if (event.author.isEmpty()) {
+        event.author = "anonymous";
+        event.anonymous = true;
+    }
     event.nick = getStringFromJson(json, "nick");
+    if (event.nick.isEmpty()) {
+        event.nick = "anonymous";
+    }
 
     event.repo_id = getStringFromJson(json, "repo_id");
     event.repo_name = getStringFromJson(json, "repo_name");

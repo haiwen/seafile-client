@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="is">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="is" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -14,58 +12,58 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Persónulegar stillingar</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="43"/>
         <source>Please enter the server address</source>
-        <translation type="unfinished">Vinsamlegst sláðu inn veffang þjóns</translation>
+        <translation>Vinsamlegast setjið inn veffang þjóns</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="47"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished">%1 er ekki gilt vefang þjóns</translation>
+        <translation>%1 er ekki rétt veffang þjóns</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="73"/>
         <source>Failed to save account information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="79"/>
         <source>Failed to save the changes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="84"/>
         <source>Successfully updated current account information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="110"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="111"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hætta við</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -73,57 +71,57 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="55"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="65"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="87"/>
         <source>click to open the website</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="97"/>
         <source>No account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Account settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="136"/>
         <source>Add an account</source>
-        <translation type="unfinished">Bæta við reikningi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Delete this account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
         <source>email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="85"/>
         <source>server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -131,22 +129,22 @@
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="105"/>
         <source>More</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="149"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="151"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="152"/>
         <source>Failed to get actvities information. Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -154,7 +152,7 @@
     <message>
         <location filename="../src/avatar-service.cpp" line="141"/>
         <source>Failed to create avatars folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -255,17 +253,17 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="128"/>
         <source>Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="131"/>
         <source>Starred</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="146"/>
         <source>Activities</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="174"/>
@@ -342,7 +340,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="236"/>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="237"/>
@@ -451,7 +449,7 @@
         <location filename="../src/ui/create-repo-dialog.cpp" line="187"/>
         <source>Failed to create library on the server:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="194"/>
@@ -501,7 +499,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
@@ -532,12 +530,12 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="35"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="92"/>
         <source>Create a new sync folder at:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="132"/>
@@ -567,22 +565,22 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="87"/>
         <source>or</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="89"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="99"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="102"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="225"/>
@@ -595,7 +593,7 @@
         <location filename="../src/ui/download-repo-dialog.cpp" line="236"/>
         <source>Failed to get repo download information:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="224"/>
@@ -615,7 +613,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="227"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="228"/>
@@ -628,7 +626,7 @@
     <message>
         <location filename="../src/ui/event-details-dialog.cpp" line="30"/>
         <source>Modification Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -636,32 +634,32 @@
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="110"/>
         <source>Added files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="111"/>
         <source>Deleted files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="112"/>
         <source>Modified files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="114"/>
         <source>Added folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="115"/>
         <source>Deleted folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="122"/>
         <source>Renamed files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -669,7 +667,7 @@
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="64"/>
         <source>%1 Initialization</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="94"/>
@@ -681,7 +679,7 @@
         <location filename="../src/ui/init-seafile-dialog.cpp" line="137"/>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="148"/>
         <source>Initialization is not finished. Really quit?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="117"/>
@@ -742,19 +740,19 @@
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="136"/>
         <source>Failed to get default library:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="152"/>
         <source>Failed to create default library:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="178"/>
@@ -765,7 +763,7 @@ The server version must be 2.1 or higher to support this.</source>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="187"/>
         <source>Failed to download default library:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
@@ -788,12 +786,12 @@ You can click the &quot;Open&quot; button to view it.</source>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="172"/>
         <source>Failed to download default library:
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="185"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
@@ -856,7 +854,7 @@ Viltu hala niður sjálfgefna safninu og búa til sýndardisk?</translation>
         <location filename="../src/ui/login-dialog.cpp" line="87"/>
         <source>Network Error:
  %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="95"/>
@@ -882,12 +880,12 @@ Viltu hala niður sjálfgefna safninu og búa til sýndardisk?</translation>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="140"/>
         <source>Please enter the computer name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="134"/>
@@ -902,7 +900,7 @@ Viltu hala niður sjálfgefna safninu og búa til sýndardisk?</translation>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="186"/>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="188"/>
@@ -962,12 +960,12 @@ Viltu hala niður sjálfgefna safninu og búa til sýndardisk?</translation>
     <message>
         <location filename="../ui_login-dialog.h" line="264"/>
         <source>Computer Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="265"/>
         <source>e.g. Jim&apos;s laptop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="267"/>
@@ -1125,67 +1123,67 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <location filename="../src/rpc/local-repo.cpp" line="178"/>
         <source>Access denied to service</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Internal data corrupted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Failed to start upload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Error occured in upload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Failed to start download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Error occured in download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="157"/>
         <source>Library is damaged on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="160"/>
         <source>Conflict in merge</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Server version is too old</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="169"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Óþekkt villa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="172"/>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Internal server error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Your %1 client is too old</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
@@ -1211,7 +1209,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="228"/>
         <location filename="../src/rpc/local-repo.cpp" line="230"/>
         <source>Failed to sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
@@ -1221,7 +1219,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Error when accessing the local folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -1388,12 +1386,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
@@ -1408,7 +1406,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
@@ -1433,7 +1431,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/api/api-error.cpp" line="57"/>
         <source>Network Error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="59"/>
@@ -1443,27 +1441,27 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/certs-mgr.cpp" line="77"/>
         <source>failed to open certs database</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="161"/>
         <source>The library &quot;%1&quot; has not been synced yet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="40"/>
         <source>Created library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="42"/>
         <source>Deleted library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1492,12 +1490,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="216"/>
         <source>RepoIcon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="217"/>
         <source>RepoName</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
@@ -1510,7 +1508,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <location filename="../ui_repo-detail-dialog.h" line="225"/>
         <location filename="../ui_repo-detail-dialog.h" line="227"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="220"/>
@@ -1525,7 +1523,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="223"/>
         <source>mtime</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="224"/>
@@ -1545,7 +1543,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="229"/>
         <source>RepoStatus</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="230"/>
@@ -1571,7 +1569,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/repo-service.cpp" line="135"/>
         <source>The library of this file is not synced yet. Do you want to sync it now?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1621,29 +1619,29 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="216"/>
         <source>Show details of this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="228"/>
         <source>&amp;Sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="223"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="230"/>
         <source>Sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
         <source>Show &amp;Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="235"/>
         <source>Sync &amp;Now</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
@@ -1664,7 +1662,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="249"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="256"/>
         <source>&amp;Open folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="251"/>
@@ -1675,7 +1673,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="263"/>
         <source>&amp;Unsync</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
@@ -1685,7 +1683,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
         <source>&amp;View on cloud</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="277"/>
@@ -1722,12 +1720,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="75"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="76"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1735,7 +1733,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/api/api-client.cpp" line="98"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished">&lt;b&gt;Viðvörun:&lt;/b&gt; ssl skilríkið fyrir þennan þjón er ótreyst, halda samt áfram?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1749,7 +1747,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <location filename="../src/seafile-applet.cpp" line="314"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1770,12 +1768,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="652"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="654"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1793,7 +1791,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>View unread notifications</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="104"/>
@@ -1819,17 +1817,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="117"/>
         <source>&amp;Online help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>open seafile online help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="124"/>
@@ -1844,10 +1842,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="392"/>
         <source>You have %n message(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="398"/>
@@ -1875,7 +1870,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="29"/>
         <source>Servers connection status</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="64"/>
@@ -1890,7 +1885,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_server-status-dialog.h" line="70"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_server-status-dialog.h" line="71"/>
@@ -1903,42 +1898,42 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="14"/>
         <source>Please provide the library password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="21"/>
         <source>Provide the password for library %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="35"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="61"/>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="63"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Óþekkt villa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="116"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="117"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hætta við</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1951,7 +1946,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="192"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="193"/>
@@ -1976,47 +1971,47 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="197"/>
         <source>Download speed limit (KB/s):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="198"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="199"/>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="200"/>
         <source>Do not automatically unsync a library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="201"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="202"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="203"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="204"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="205"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="206"/>
@@ -2029,32 +2024,32 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="11"/>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="14"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Remember my choice</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
         <source>Yes</source>
-        <translation type="unfinished">Já</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
         <source>No</source>
-        <translation type="unfinished">Nei</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2062,22 +2057,22 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="36"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="39"/>
         <source>Open this file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="45"/>
         <source>view on &amp;Web</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="48"/>
         <source>view this file on website</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2085,17 +2080,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="80"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="101"/>
         <source>You have no starred files yet.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2103,27 +2098,27 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="13"/>
         <source>Uninstall %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="16"/>
         <source>Do you want to remove the %1 account information?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="41"/>
         <source>Removing account information...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="106"/>
         <source>Dialog</source>
-        <translation type="unfinished">Svargluggi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
         <source>text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="108"/>

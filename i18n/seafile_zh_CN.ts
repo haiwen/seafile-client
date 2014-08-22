@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -132,10 +130,6 @@
         <location filename="../src/ui/activities-tab.cpp" line="105"/>
         <source>More</source>
         <translation>更多</translation>
-    </message>
-    <message>
-        <source>File Activities are only supported in Seafile Server Business Edition.</source>
-        <translation type="obsolete">文件活动功能仅在 Seafile 专业版中提供</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="149"/>
@@ -662,10 +656,6 @@
         <location filename="../src/ui/event-details-tree.cpp" line="122"/>
         <source>Renamed files</source>
         <translation>重命名或移动的文件</translation>
-    </message>
-    <message>
-        <source>modified_files</source>
-        <translation type="obsolete">修改的文件</translation>
     </message>
 </context>
 <context>
@@ -1852,9 +1842,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="392"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>你有 %n 条未读消息</numerusform>
-        </translation>
+        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="398"/>

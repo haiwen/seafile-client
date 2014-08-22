@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -14,58 +12,58 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Conficuración de la Cuenta</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="43"/>
         <source>Please enter the server address</source>
-        <translation type="unfinished">Dirección del servidor</translation>
+        <translation>Dirección del servidor</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="47"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished">%1 no es una dirección válida</translation>
+        <translation>%1 no es una dirección válida</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="73"/>
         <source>Failed to save account information</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallo al guardar información de la cuenta</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="79"/>
         <source>Failed to save the changes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallo al guardar los cambios: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="84"/>
         <source>Successfully updated current account information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información de la cuenta  actualizada con éxito</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diálogo</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección del Servidor</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="110"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="111"/>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -93,7 +91,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Account settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de la cuenta</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="136"/>
@@ -1854,10 +1852,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="392"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>Tiene %n mensaje(s)</numerusform>
-            <numerusform>Tiene %n mensaje(s)</numerusform>
-        </translation>
+        <translation><numerusform>Tiene %n mensaje(s)</numerusform><numerusform>Tiene %n mensaje(s)</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="398"/>
@@ -1913,42 +1908,42 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="14"/>
         <source>Please provide the library password</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor suministre la contraseña para la biblioteca</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="21"/>
         <source>Provide the password for library %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Suministre la contraseña para la biblioteca %1</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="35"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingrese la contraseña</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="61"/>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña incorrecta</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="63"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Error desconocido</translation>
+        <translation>Error desconocido</translation>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diálogo</translation>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="116"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="117"/>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -2006,17 +2001,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="201"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>No desincronizar automáticamente una biblioteca cuando la carpeta local haya sido removida o no esté accesible por otros motivos.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="202"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>No desincronizar una biblioteca cuando no se encuentre en el servidor</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="203"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>No desincronizar automáticamente una biblioteca cuando no se encuentre en el servidor</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="204"/>

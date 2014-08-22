@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="hu_HU">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hu_HU" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -14,58 +12,58 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Fiókbeállítások</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="43"/>
         <source>Please enter the server address</source>
-        <translation type="unfinished">Kérem, adja meg a szerver címét</translation>
+        <translation>Kérem, adja meg a szerver címét</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="47"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished">Érvénytelen elérés: %1</translation>
+        <translation>Érvénytelen kiszolgálócím: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="73"/>
         <source>Failed to save account information</source>
-        <translation type="unfinished"></translation>
+        <translation>A fiókinformációk mentése sikertelen</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="79"/>
         <source>Failed to save the changes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A módosítások mentése nem sikerült: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="84"/>
         <source>Successfully updated current account information</source>
-        <translation type="unfinished"></translation>
+        <translation>A fiókbeállítások frissítése sikerült</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation type="unfinished">Párbeszédablak</translation>
+        <translation>Párbeszédablak</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerver címe</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>E-mail</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="110"/>
         <source>OK</source>
-        <translation type="unfinished">Rendben</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="111"/>
         <source>Cancel</source>
-        <translation type="unfinished">Mégsem</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -93,7 +91,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Account settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Fiókbeállítások</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="136"/>
@@ -1854,9 +1852,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="392"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>%n üzenete van</numerusform>
-        </translation>
+        <translation><numerusform>%n üzenete van</numerusform><numerusform>%n üzenete van</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="398"/>
@@ -1912,42 +1908,42 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="14"/>
         <source>Please provide the library password</source>
-        <translation type="unfinished"></translation>
+        <translation>Kérem adja meg a kötet jelszavát</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="21"/>
         <source>Provide the password for library %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Jelszó megadása ehhez a kötethez: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="35"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation>Adja meg a jelszót</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="61"/>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation>Érvénytelen jelszó</translation>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="63"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Ismeretlen hiba</translation>
+        <translation>Ismeretlen hiba</translation>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished">Párbeszédablak</translation>
+        <translation>Párbeszédablak</translation>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="116"/>
         <source>OK</source>
-        <translation type="unfinished">Rendben</translation>
+        <translation>Rendben</translation>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="117"/>
         <source>Cancel</source>
-        <translation type="unfinished">Mégsem</translation>
+        <translation>Mégsem</translation>
     </message>
 </context>
 <context>
@@ -2005,17 +2001,17 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="201"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>A szinkronizálás maradjon bekapcsolva a helyi mappa törlése vagy elérhetetlensége esetén</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="202"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne legyen megszüntetve a szinkronizálás, ha a könyvtár nem létezik a szerveren</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="203"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne legyen automatikusan megszüntetve a szinkronizálás, ha a könyvtár nem létezik a szerveren</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="204"/>

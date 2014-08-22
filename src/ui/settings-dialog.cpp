@@ -43,6 +43,7 @@ void SettingsDialog::updateSettings()
     SettingsManager *mgr = seafApplet->settingsManager();
     mgr->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
     mgr->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
+    mgr->setHideDockIcon(mHideDockIconCheckBox->checkState() == Qt::Checked);
     mgr->setMaxDownloadRatio(mDownloadSpinBox->value());
     mgr->setMaxUploadRatio(mUploadSpinBox->value());
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
@@ -79,8 +80,20 @@ void SettingsDialog::showEvent(QShowEvent *event)
     state = mgr->allowRepoNotFoundOnServer() ? Qt::Checked : Qt::Unchecked;
     mAllowRepoNotFoundCheckBox->setCheckState(state);
 
+    // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
+#if !defined(Q_WS_WIN)
+    mAutoStartCheckBox->hide();
+#endif
+
+    // currently supports mac only
+    state = mgr->hideDockIcon() ? Qt::Checked : Qt::Unchecked;
+    mHideDockIconCheckBox->setCheckState(state);
+#if !defined(Q_WS_MAC)
+    mHideDockIconCheckBox->hide();
+#endif
+
     state = mgr->notify() ? Qt::Checked : Qt::Unchecked;
     mNotifyCheckBox->setCheckState(state);
 
@@ -103,6 +116,13 @@ void SettingsDialog::autoStartChanged(int state)
     qDebug("%s :%d", __func__, state);
     bool autoStart = (mAutoStartCheckBox->checkState() == Qt::Checked);
     seafApplet->settingsManager()->setAutoStart(autoStart);
+}
+
+void SettingsDialog::hideDockIconChanged(int state)
+{
+    qDebug("%s :%d", __func__, state);
+    bool hideDockIcon = (mHideDockIconCheckBox->checkState() == Qt::Checked);
+    seafApplet->settingsManager()->setHideDockIcon(hideDockIcon);
 }
 
 void SettingsDialog::notifyChanged(int state)

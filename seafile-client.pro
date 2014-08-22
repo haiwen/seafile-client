@@ -192,8 +192,8 @@ linux {
 macx {
     system("mkdir -p libs; cp -f `which ccnet` libs/; cp -f `which seaf-daemon` libs/")
     SOURCES += src/utils/process-mac.cpp src/application.cpp
-    HEADERS += src/application.h src/utils/paint-cocoa.h
-    OBJECTIVE_SOURCES += src/utils/paint-cocoa.m
+    HEADERS += src/application.h src/utils/utils-mac.h
+    OBJECTIVE_SOURCES += src/utils/utils-mac.mm
     CONFIG += target_predeps objective_c
 
     QMAKE_INFO_PLIST = Info.plist

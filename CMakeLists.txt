@@ -11,7 +11,7 @@ ENDIF()
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+IF (WIN32)
     SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
     SET(platform_specific_sources
@@ -28,10 +28,10 @@ ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     SET(platform_specific_sources
       src/utils/process-linux.cpp
     )
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+ELSEIF (APPLE)
     SET(platform_specific_sources
       src/utils/process-mac.cpp src/application.cpp
-      src/utils/paint-cocoa.m
+      src/utils/utils-mac.mm
     )
 
     FIND_LIBRARY(COCOA_LIBRARY Cocoa )

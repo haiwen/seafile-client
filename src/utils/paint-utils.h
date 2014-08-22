@@ -4,7 +4,7 @@
 #include <QFont>
 
 #ifdef Q_WS_MAC
-#include "paint-cocoa.h"
+#include "utils-mac.h"
 #endif
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width);
@@ -21,7 +21,7 @@ inline bool isHighDPI()
         return true;
     }
 #ifdef Q_WS_MAC
-    return _isHiDPI();
+    return __mac_isHiDPI();
 #else
     return false;
 #endif
@@ -30,7 +30,7 @@ inline bool isHighDPI()
 inline double getScaleFactor()
 {
 #ifdef Q_WS_MAC
-    return _getScaleFactor();
+    return __mac_getScaleFactor();
 #else
     return 1.0;
 #endif

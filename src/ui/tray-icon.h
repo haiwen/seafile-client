@@ -48,6 +48,7 @@ private slots:
     void rotateTrayIcon();
     void refreshTrayIcon();
     void openHelp();
+    void openLogDirectory();
     void about();
     void onSeahubNotificationsChanged();
     void viewUnreadNotifications();
@@ -71,6 +72,7 @@ private:
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
     QAction *settings_action_;
+    QAction *open_log_directory_action_;
     QAction *view_unread_seahub_notifications_action_;
 
     QAction *about_action_;

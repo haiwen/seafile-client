@@ -10,6 +10,7 @@ extern "C" {
 #include <QDebug>
 
 #include "seafile-applet.h"
+#include "configurator.h"
 #include "rpc/rpc-client.h"
 #include "main-window.h"
 #include "settings-dialog.h"
@@ -110,6 +111,10 @@ void SeafileTrayIcon::createActions()
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
 
+    open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
+    open_log_directory_action_->setStatusTip(tr("open seafile log directory"));
+    connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
+
     about_action_ = new QAction(tr("&About"), this);
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
@@ -129,6 +134,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(view_unread_seahub_notifications_action_);
     context_menu_->addAction(toggle_main_window_action_);
     context_menu_->addAction(settings_action_);
+    context_menu_->addAction(open_log_directory_action_);
     context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
     context_menu_->addAction(enable_auto_sync_action_);
@@ -332,6 +338,12 @@ void SeafileTrayIcon::openHelp()
     }
 
     QDesktopServices::openUrl(QUrl(url));
+}
+
+void SeafileTrayIcon::openLogDirectory()
+{
+    QString log_path = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
+    QDesktopServices::openUrl(QUrl::fromLocalFile(log_path));
 }
 
 void SeafileTrayIcon::showSettingsWindow()

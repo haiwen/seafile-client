@@ -105,16 +105,16 @@ void DaemonManager::onSeafDaemonStarted()
 
 void DaemonManager::onCcnetDaemonExited()
 {
-    if (!system_shut_down_) {
-        seafApplet->errorAndExit(tr("ccnet daemon has exited abnormally"));
-    }
+    // if (!system_shut_down_) {
+    //     seafApplet->errorAndExit(tr("ccnet daemon has exited abnormally"));
+    // }
 }
 
 void DaemonManager::onSeafDaemonExited()
 {
-    if (!system_shut_down_) {
-        seafApplet->errorAndExit(tr("seafile daemon has exited abnormally"));
-    }
+    // if (!system_shut_down_) {
+    //     seafApplet->errorAndExit(tr("seafile daemon has exited abnormally"));
+    // }
 }
 
 void DaemonManager::stopAll()

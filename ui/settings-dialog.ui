@@ -41,7 +41,14 @@
        <item>
         <widget class="QCheckBox" name="mAutoStartCheckBox">
          <property name="text">
-          <string>Auto start Seafile after login (Windows only)</string>
+          <string>Auto start Seafile after login</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="mHideDockIconCheckBox">
+         <property name="text">
+          <string>Hide Seafile Icon from the docker</string>
          </property>
         </widget>
        </item>

@@ -61,6 +61,8 @@ void SettingsManager::loadSettings()
         allow_repo_not_found_on_server_ = (str == "true") ? true : false;
 
     autoStart_ = get_seafile_auto_start();
+
+    hideDockIcon_ = get_seafile_hide_dock_icon();
 }
 
 void SettingsManager::setAutoSync(bool auto_sync)
@@ -93,6 +95,14 @@ void SettingsManager::setAutoStart(bool autoStart)
     if (autoStart_ != autoStart) {
         if (set_seafile_auto_start (autoStart) >= 0)
             autoStart_ = autoStart;
+    }
+}
+
+void SettingsManager::setHideDockIcon(bool hideDockIcon)
+{
+    if (hideDockIcon_ != hideDockIcon) {
+        if (set_seafile_hide_dock_icon (hideDockIcon) >= 0)
+            hideDockIcon_ = hideDockIcon;
     }
 }
 

@@ -442,3 +442,65 @@ QUrl urlJoin(const QUrl& head, const QString& tail)
     }
     return QUrl(a + b);
 }
+
+QString dumpCipher(const QSslCipher &cipher)
+{
+    QString s;
+    s += "Authentication: " + cipher.authenticationMethod() + "\n";
+    s += "Encryption: " + cipher.encryptionMethod() + "\n";
+    s += "Key Exchange: " + cipher.keyExchangeMethod() + "\n";
+    s += "Cipher Name: " + cipher.name() + "\n";
+    s += "Protocol: " +  cipher.protocolString() + "\n";
+    s += "Supported Bits: " + QString(cipher.supportedBits()) + "\n";
+    s += "Used Bits: " + QString(cipher.usedBits()) + "\n";
+    return s;
+}
+
+QString dumpCertificate(const QSslCertificate &cert)
+{
+    QString s;
+    s += cert.toPem();
+
+    s += "== Subject Info ==\n";
+    s += "CommonName: " + cert.subjectInfo( QSslCertificate::CommonName ) + "\n";
+    s += "Organization: " + cert.subjectInfo( QSslCertificate::Organization ) + "\n";
+    s += "LocalityName: " + cert.subjectInfo( QSslCertificate::LocalityName ) + "\n";
+    s += "OrganizationalUnitName: " + cert.subjectInfo( QSslCertificate::OrganizationalUnitName ) + "\n";
+    s += "StateOrProvinceName: " + cert.subjectInfo( QSslCertificate::StateOrProvinceName ) + "\n";
+
+    QMultiMap<QSsl::AlternateNameEntryType, QString> altNames = cert.alternateSubjectNames();
+    if ( !altNames.isEmpty() ) {
+        s += "Alternate Subject Names (DNS):\n";
+        foreach (const QString &altName, altNames.values(QSsl::DnsEntry)) {
+            s += altName + "\n";
+        }
+
+        s += "Alternate Subject Names (Email):\n";
+        foreach (const QString &altName, altNames.values(QSsl::EmailEntry)) {
+            s += altName + "\n";
+        }
+    }
+
+    s += "\n== Issuer Info ==\n";
+    s += "CommonName: " + cert.issuerInfo( QSslCertificate::CommonName ) + "\n";
+    s += "Organization: " + cert.issuerInfo( QSslCertificate::Organization ) + "\n";
+    s += "LocalityName: " + cert.issuerInfo( QSslCertificate::LocalityName ) + "\n";
+    s += "OrganizationalUnitName: " + cert.issuerInfo( QSslCertificate::OrganizationalUnitName ) + "\n";
+    s += "StateOrProvinceName: " + cert.issuerInfo( QSslCertificate::StateOrProvinceName ) + "\n";
+
+    s += "\n== Certificate ==\n";
+    s += "Effective Date: " + cert.effectiveDate().toString() + "\n";
+    s += "Expiry Date: " + cert.expiryDate().toString() + "\n";
+    s += "Valid: " + (cert.isValid() ? QString("Yes") : QString("No")) + "\n";
+
+    return s;
+}
+
+QString dumpSslErrors(const QList<QSslError> &errors)
+{
+    QString s;
+    foreach (const QSslError &error, errors) {
+        s += error.errorString() + "\n";
+    }
+    return s;
+}

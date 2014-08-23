@@ -8,6 +8,7 @@
 #include "certs-mgr.h"
 #include "ui/main-window.h"
 #include "ui/ssl-confirm-dialog.h"
+#include "utils/utils.h"
 
 #include "api-client.h"
 
@@ -98,10 +99,19 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
     CertsManager *mgr = seafApplet->certsManager();
 
     QSslCertificate saved_cert = mgr->getCertificate(url.toString());
+
+    QString error_string = dumpSslErrors(errors);
+
+    qDebug() << "\n= SslErrors =\b" << error_string;
+    qDebug() << "\n= Remote Server =\b" << dumpCertificate(cert);
+    qDebug() << "\n= Previous Server =\b" << (saved_cert.isNull() ? "None" : dumpCertificate(saved_cert));
+
     if (saved_cert.isNull()) {
         // This is the first time when the client connects to the server.
-        QString question = tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?");
-        if (seafApplet->yesOrNoBox(question)) {
+        if (seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
+                                   error_string,
+                                   0,
+                                   false)) {
             mgr->saveCertificate(url, cert);
             reply_->ignoreSslErrors();
         }

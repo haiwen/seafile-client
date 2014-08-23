@@ -6,6 +6,10 @@
 #include <QDir>
 #include <QMap>
 #include <QUrl>
+#include <QSslError>
+#include <QSslCipher>
+#include <QSslConfiguration>
+#include <QSslCertificate>
 
 #define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
@@ -55,5 +59,11 @@ QString defaultCcnetDir();
 QString md5(const QString& s);
 
 QUrl urlJoin(const QUrl& url, const QString& tail);
+
+QString dumpSslErrors(const QList<QSslError>&);
+
+QString dumpCipher(const QSslCipher &cipher);
+
+QString dumpCertificate(const QSslCertificate &cert);
 
 #endif

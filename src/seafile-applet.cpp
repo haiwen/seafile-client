@@ -286,6 +286,19 @@ bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default
                                  default_btn) == QMessageBox::Yes;
 }
 
+bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val)
+{
+    QMessageBox::StandardButton default_btn = default_val ? QMessageBox::Yes : QMessageBox::No;
+
+    QMessageBox msgBox(QMessageBox::Question,
+                       getBrand(),
+                       msg,
+                       QMessageBox::Yes | QMessageBox::No,
+                       parent != 0 ? parent : main_win_);
+    msgBox.setDetailedText(detailed_text);
+    msgBox.setDefaultButton(default_btn);
+    return msgBox.exec() == QMessageBox::Yes;
+}
 
 void SeafileApplet::checkLatestVersionInfo()
 {

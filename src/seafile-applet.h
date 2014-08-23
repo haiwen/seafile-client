@@ -35,6 +35,7 @@ public:
     void messageBox(const QString& msg, QWidget *parent=0);
     void warningBox(const QString& msg, QWidget *parent=0);
     bool yesOrNoBox(const QString& msg, QWidget *parent=0, bool default_val=true);
+    bool detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val=true);
 
     // normal exit
     void exit(int code);

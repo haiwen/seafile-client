@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <jansson.h>
 
 #include "account-mgr.h"
 #include "utils/utils.h"
@@ -191,12 +192,32 @@ void DownloadRepoDialog::setAllInputsEnabled(bool enabled)
     mOkBtn->setEnabled(enabled);
 }
 
+namespace {
+
+QString buildMoreInfo(ServerRepo& repo)
+{
+    json_t *object = NULL;
+    const char *info = NULL;
+
+    object = json_object();
+    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
+    
+    info = json_dumps(object, 0);
+    QString ret = QString::fromUtf8(info);
+    json_decref (object);
+    return ret;
+}
+
+}
+
 void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& info)
 {
     QString worktree = mDirectory->text();
     QString password = repo_.encrypted ? mPassword->text() : QString();
     int ret;
     QString error;
+    QString more_info = buildMoreInfo(repo_);
+
     if (mode_ == MERGE_WITH_EXISTING_FOLDER) {
         ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
                                                  info.relay_id,
@@ -205,6 +226,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.magic, info.relay_addr,
                                                  info.relay_port, info.email,
                                                  info.random_key, info.enc_version,
+                                                 more_info,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
@@ -214,6 +236,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                     info.magic, info.relay_addr,
                                                     info.relay_port, info.email,
                                                     info.random_key, info.enc_version,
+                                                    more_info,
                                                     &error);
     }
 

@@ -33,6 +33,7 @@ public:
                      const QString& magic, const QString& peerAddr,
                      const QString& port, const QString& email,
                      const QString& random_key, int enc_version,
+                     const QString& more_info,
                      QString *error);
 
     int cloneRepo(const QString& id,
@@ -42,6 +43,7 @@ public:
                   const QString& magic, const QString& peerAddr,
                   const QString& port, const QString& email,
                   const QString& random_key, int enc_version,
+                  const QString& more_info,
                   QString *error);
 
     int ccnetGetConfig(const QString& key, QString *value);

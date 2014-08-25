@@ -166,6 +166,7 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
                                                 info.magic, info.relay_addr,
                                                 info.relay_port, info.email,
                                                 info.random_key, info.enc_version,
+                                                QString(),
                                                 &error);
 
     if (ret < 0) {

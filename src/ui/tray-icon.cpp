@@ -188,7 +188,7 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
 #ifdef Q_WS_X11
     QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "dialog-information"
                                              << title << message << QStringList () << QVariantMap() << qint32(-1);
-    QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "", "Notify");
+    QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "org.freedesktop.Notifications", "Notify");
     method.setArguments(args);
     QDBusConnection::sessionBus().asyncCall(method);
 #else

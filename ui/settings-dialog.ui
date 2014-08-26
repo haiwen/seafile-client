@@ -151,6 +151,9 @@
          <property name="text">
           <string>Do not automatically unsync a library when it's not found on server</string>
          </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>

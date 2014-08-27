@@ -92,7 +92,7 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
-//const int kIntervalBeforeShowInitVirtualDialog = 3000;
+const int kIntervalBeforeShowInitVirtualDialog = 3000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
 const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";

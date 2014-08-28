@@ -61,8 +61,10 @@ private:
                                      const QRect& rect);
 
     QAction *download_action_;
+    QAction *download_toolbar_action_;
     QAction *show_detail_action_;
     QAction *open_local_folder_action_;
+    QAction *open_local_folder_toolbar_action_;
     QAction *unsync_action_;
     QAction *view_on_web_action_;
     QAction *toggle_auto_sync_action_;

@@ -13,12 +13,13 @@ static bool dockClickHandler(id self,SEL _cmd,...)
     return true;
 }
 
+//TODO use modern Objc (Objc 2.0) to replace these deprecated APIs
 Application::Application (int &argc, char **argv):QApplication(argc, argv)
 {
     objc_object* cls = (objc_object *)objc_getClass("NSApplication");
     SEL sharedApplication = sel_registerName("sharedApplication");
     objc_object* appInst = objc_msgSend(cls,sharedApplication);
-    
+
     if(appInst != NULL)
     {
         objc_object* delegate = objc_msgSend(appInst, sel_registerName("delegate"));

@@ -5,7 +5,8 @@
 #include <QString>
 #include <QMetaType>
 
-struct Account {
+class Account {
+public:
     QUrl serverUrl;
     QString username;
     QString token;
@@ -31,6 +32,8 @@ struct Account {
     bool isValid() const {
         return token.length() > 0;
     }
+
+    QUrl getAbsoluteUrl(const QString& relativeUrl) const;
 };
 
 Q_DECLARE_METATYPE(Account)

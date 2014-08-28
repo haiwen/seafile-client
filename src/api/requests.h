@@ -12,7 +12,7 @@ class QNetworkReply;
 class QImage;
 
 class ServerRepo;
-struct Account;
+class Account;
 class StarredFile;
 class SeafEvent;
 class CommitDetails;
@@ -65,6 +65,7 @@ public:
     QString repo_id;
     QString repo_name;
     bool encrypted;
+    bool readonly;
     int enc_version;
     QString magic;
     QString random_key;

@@ -18,6 +18,10 @@ public:
     QString desc;
     qint64 timestamp;
 
+    // true for events like a file upload by unregistered user from a
+    // uploadable link
+    bool anonymous;
+
     bool isDetailsDisplayable() const;
     
     static SeafEvent fromJSON(const json_t*, json_error_t *error);

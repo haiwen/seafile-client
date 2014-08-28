@@ -165,12 +165,12 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
 
     QString sql =
         "UPDATE Accounts "
-        "SET url = %1, "
-        "    username = %2, "
-        "    token = %3, "
-        "    lastVisited = %4 "
-        "WHERE url = %5 "
-        "  AND username = %2";
+        "SET url = '%1', "
+        "    username = '%2', "
+        "    token = '%3', "
+        "    lastVisited = '%4' "
+        "WHERE url = '%5' "
+        "  AND username = '%2'";
 
     sql = sql.arg(new_url).arg(new_account.username). \
         arg(new_account.token).arg(QString::number(timestamp)) \

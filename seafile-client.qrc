@@ -7,6 +7,7 @@
     <file>images/account-36.png</file>
     <file>images/repo.png</file>
     <file>images/encrypted-repo.png</file>
+    <file>images/readonly-repo.png</file>
     <file>images/folder.png</file>
     <file>images/loading.gif</file>
     <file>images/daemon_up.png</file>
@@ -33,17 +34,36 @@
     <file>images/refresh.png</file>
     <file>images/plus.png</file>
     <file>images/minus.png</file>
+    <file>images/minus-gray.png</file>
+    <file>images/minus-gray@2x.png</file>
     <file>images/download.png</file>
+    <file>images/download@2x.png</file>
     <file>images/download-gray.png</file>
+    <file>images/download-gray@2x.png</file>
     <file>images/folder-open.png</file>
+    <file>images/folder-open@2x.png</file>
+    <file>images/folder-open-gray.png</file>
+    <file>images/folder-open-gray@2x.png</file>
     <file>images/browser.png</file>
     <file>images/info.png</file>
+    <file>images/info-gray.png</file>
+    <file>images/info-gray@2x.png</file>
     <file>images/play.png</file>
+    <file>images/play-gray.png</file>
+    <file>images/play-gray@2x.png</file>
     <file>images/pause.png</file>
+    <file>images/pause-gray.png</file>
+    <file>images/pause-gray@2x.png</file>
     <file>images/cloud.png</file>
+    <file>images/cloud-gray.png</file>
+    <file>images/cloud-gray@2x.png</file>
     <file>images/close.png</file>
     <file>images/sync_now.png</file>
+    <file>images/sync_now-gray.png</file>
+    <file>images/sync_now-gray@2x.png</file>
     <file>images/remove.png</file>
+    <file>images/remove-gray.png</file>
+    <file>images/remove-gray@2x.png</file>
     <file>images/remove-red.png</file>
     <file>images/seafile-download-library.png</file>
     <file>images/link-green.png</file>
@@ -76,8 +96,19 @@
     <file>images/files/file_video.png</file>
     <file>images/files/file_unknown.png</file>
     <file>images/caret-down.png</file>
+    <file>images/caret-down@2x.png</file>
     <file>images/caret-up.png</file>
+    <file>images/caret-up@2x.png</file>
     <file>images/caret-right.png</file>
+    <file>images/caret-right@2x.png</file>
+    <file>images/account-settings.png</file>
+    <file>images/account-settings@2x.png</file>
+    <file>images/add-account.png</file>
+    <file>images/add-account@2x.png</file>
+    <file>images/delete-account.png</file>
+    <file>images/delete-account@2x.png</file>
+    <file>images/account-checked.png</file>
+    <file>images/account-checked@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

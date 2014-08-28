@@ -41,7 +41,14 @@
        <item>
         <widget class="QCheckBox" name="mAutoStartCheckBox">
          <property name="text">
-          <string>Auto start Seafile after login (Windows only)</string>
+          <string>Auto start Seafile after login</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="mHideDockIconCheckBox">
+         <property name="text">
+          <string>Hide Seafile Icon from the docker</string>
          </property>
         </widget>
        </item>
@@ -143,6 +150,9 @@
         <widget class="QLabel" name="desc_2">
          <property name="text">
           <string>Do not automatically unsync a library when it's not found on server</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

@@ -10,7 +10,7 @@
 namespace {
 
 const int kRefreshSeahubMessagesInterval = 1000 * 60; // 1 min
-const char *kNotificationsUrl = "/notification/list/";
+const char *kNotificationsUrl = "notification/list/";
 
 } // namespace
 
@@ -28,9 +28,9 @@ SeahubNotificationsMonitor* SeahubNotificationsMonitor::instance()
 
 SeahubNotificationsMonitor::SeahubNotificationsMonitor(QObject *parent)
     : QObject(parent),
-      unread_count_(0),
       check_messages_req_(0),
-      in_refresh_(false)
+      in_refresh_(false),
+      unread_count_(0)
 {
 }
 
@@ -114,11 +114,7 @@ void SeahubNotificationsMonitor::openNotificationsPageInBrowser()
         return;
     }
 
-    QUrl url = account.serverUrl;
-
-    url.setPath(url.path() + kNotificationsUrl);
-
-    QDesktopServices::openUrl(url);
+    QDesktopServices::openUrl(account.getAbsoluteUrl(kNotificationsUrl));
 
     resetStatus();
 }

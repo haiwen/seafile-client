@@ -16,11 +16,20 @@ namespace {
 const char *kContentTypeForm = "application/x-www-form-urlencoded";
 const char *kAuthHeader = "Authorization";
 
+const int kMaxRedirects = 3;
+
+bool shouldIgnoreRequestError(const QNetworkReply* reply)
+{
+    return reply->url().toString().contains("/api2/events");
+}
+
 } // namespace
 
 QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
 
-SeafileApiClient::SeafileApiClient()
+SeafileApiClient::SeafileApiClient(QObject *parent)
+    : QObject(parent),
+      redirect_count_(0)
 {
     if (!na_mgr_) {
         na_mgr_ = new QNetworkAccessManager();
@@ -56,8 +65,9 @@ void SeafileApiClient::get(const QUrl& url)
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 }
 
-void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
+void SeafileApiClient::post(const QUrl& url, const QByteArray& encoded_params)
 {
+    encoded_params_ = encoded_params;
     QNetworkRequest request(url);
     if (token_.length() > 0) {
         char buf[1024];
@@ -66,7 +76,7 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
     }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
-    reply_ = na_mgr_->post(request, encodedParams);
+    reply_ = na_mgr_->post(request, encoded_params);
 
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 
@@ -134,17 +144,62 @@ void SeafileApiClient::httpRequestFinished()
 {
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
-        qDebug("[api] network error: %s\n", reply_->errorString().toUtf8().data());
+        if (!shouldIgnoreRequestError(reply_)) {
+            qDebug("[api] network error: %s\n", reply_->errorString().toUtf8().data());
+        }
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
 
+    if (handleHttpRedirect()) {
+        return;
+    }
+
     if ((code / 100) == 4 || (code / 100) == 5) {
-        qDebug("request failed for %s: status code %d\n",
-               reply_->url().toString().toUtf8().data(), code);
+        if (!shouldIgnoreRequestError(reply_)) {
+            qDebug("request failed for %s: status code %d\n",
+                   reply_->url().toString().toUtf8().data(), code);
+        }
         emit requestFailed(code);
         return;
     }
 
     emit requestSuccess(*reply_);
+}
+
+bool SeafileApiClient::handleHttpRedirect()
+{
+    QVariant redirect_attr = reply_->attribute(QNetworkRequest::RedirectionTargetAttribute);
+    if (redirect_attr.isNull()) {
+        return false;
+    }
+
+    if (redirect_count_++ > kMaxRedirects) {
+        // simply treat too many redirects as server side error
+        emit requestFailed(500);
+        qDebug("too many redirects for %s\n",
+               reply_->url().toString().toUtf8().data());
+        return true;
+    }
+
+    reply_->deleteLater();
+
+    QUrl redirect_url = redirect_attr.toUrl();
+    if (redirect_url.isRelative()) {
+        redirect_url =  reply_->url().resolved(redirect_url);
+    }
+
+    // qDebug("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
+    //        reply_->url().toString().toUtf8().data());
+
+    switch (reply_->operation()) {
+    case QNetworkAccessManager::GetOperation:
+        get(redirect_url);
+        break;
+    case QNetworkAccessManager::PostOperation:
+        post(redirect_url, encoded_params_);
+        break;
+    }
+
+    return true;
 }

@@ -8,7 +8,7 @@
 #include <QString>
 #include <QNetworkReply>
 
-struct Account;
+class Account;
 class LoginRequest;
 class QNetworkReply;
 class QSslError;

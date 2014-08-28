@@ -24,6 +24,7 @@ public:
     QString root;
 
     bool encrypted;
+    bool readonly;
 
     // "virtual" is a reserved word in C++
     bool _virtual;

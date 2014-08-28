@@ -116,6 +116,7 @@ SeafileApplet::SeafileApplet()
       in_exit_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
+    init_seafile_hide_dock_icon();
 }
 
 void SeafileApplet::start()

@@ -76,9 +76,11 @@ QString getIconPathByDPI(const QString& path)
     QFileInfo finfo_2x(dir.filePath(base + "@2x" + "." + ext));
 
     if (finfo_2x.exists()) {
+#ifndef QT_NO_DEBUG
         printf ("found @2x icon %s for %s\n",
                 finfo_2x.absoluteFilePath().toUtf8().data(),
                 path.toUtf8().data());
+#endif
         return finfo_2x.absoluteFilePath();
     } else {
         return path;
@@ -92,9 +94,47 @@ QIcon getIconByDPI(const QString& name)
 
 int getDPIScaledSize(int size)
 {
-
     const double factor = getScaleFactor();
     int ret = isHighDPI() ? (factor * size) : size;
-    printf ("size is %d\n", ret);
     return ret;
+}
+
+QString get2xIconPath(const QString& path)
+{
+    QFileInfo finfo(path);
+    QString base = finfo.baseName();
+    QString ext = finfo.completeSuffix();
+
+    QDir dir = finfo.dir();
+
+    return dir.filePath(base + "@2x" + "." + ext);
+}
+
+QIcon getIconSet(const QString& path, int base_width, int base_height)
+{
+    if (base_height <= 0) {
+        base_height = base_width;
+    }
+
+    QIcon icon;
+
+    icon.addFile(path, QSize(base_width, base_height));
+    icon.addFile(get2xIconPath(path), QSize(2 * base_width, 2 * base_height));
+
+    return icon;
+}
+
+QIcon getIconSet(const QString& path, int size)
+{
+    return getIconSet(path, size, size);
+}
+
+QIcon getMenuIconSet(const QString& path)
+{
+    return getIconSet(path, 16);
+}
+
+QIcon getToolbarIconSet(const QString& path)
+{
+    return getIconSet(path, 24);
 }

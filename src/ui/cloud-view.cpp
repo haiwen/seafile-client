@@ -162,7 +162,7 @@ void CloudView::setupFooter()
     // mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
-    mServerStatusBtn->setIcon(::getIconByDPI(":/images/link-green.png"));
+    mServerStatusBtn->setIcon(QIcon(":/images/link-green.png"));
     int w = ::getDPIScaledSize(18);
     mServerStatusBtn->setIconSize(QSize(w, w));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
@@ -409,7 +409,7 @@ void CloudView::createToolBar()
     tool_bar_->addWidget(spacer);
 
     refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(::getIconByDPI(":/images/refresh.png"));
+    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
     tool_bar_->addAction(refresh_action_);

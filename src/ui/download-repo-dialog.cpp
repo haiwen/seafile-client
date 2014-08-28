@@ -26,10 +26,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    QString icon_path = repo_.encrypted
-                    ? ":/images/encrypted-repo.png"
-                    : ":/images/repo.png";
-    mRepoIcon->setPixmap(QPixmap(icon_path));
+    mRepoIcon->setPixmap(repo.getPixmap());
     mRepoName->setText(repo_.name);
 
     mDirectory->setPlaceholderText(tr("Choose a folder"));

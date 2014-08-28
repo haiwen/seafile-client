@@ -24,10 +24,12 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
     return a.mtime > b.mtime;
 }
 
+/*
 bool isSameRepo(const ServerRepo& a, const ServerRepo& b)
 {
     return a.id == b.id;
 }
+*/
 
 } // namespace
 

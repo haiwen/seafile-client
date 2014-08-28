@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDir>
 #include <QMap>
+#include <QUrl>
 
 #define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
@@ -32,6 +33,12 @@ int get_seafile_auto_start();
 
 int set_seafile_auto_start(bool on);
 
+bool get_seafile_hide_dock_icon();
+
+int set_seafile_hide_dock_icon(bool on);
+
+int init_seafile_hide_dock_icon();
+
 typedef bool (*KeyValueFunc) (void *data, const char *key,
                               const char *value);
 
@@ -46,5 +53,7 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error);
 QString defaultCcnetDir();
 
 QString md5(const QString& s);
+
+QUrl urlJoin(const QUrl& url, const QString& tail);
 
 #endif

@@ -19,6 +19,7 @@ public:
 
     bool notify() { return bubbleNotifycation_; }
     bool autoStart() { return autoStart_; }
+    bool hideDockIcon() { return hideDockIcon_; }
     bool encryptTransfer() { return transferEncrypted_; }
     unsigned int maxDownloadRatio() { return maxDownloadRatio_; }
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
@@ -26,6 +27,7 @@ public:
 
     void setNotify(bool notify);
     void setAutoStart(bool autoStart);
+    void setHideDockIcon(bool hideDockIcon);
     void setEncryptTransfer(bool encrypted);
     void setMaxDownloadRatio(unsigned int ratio);
     void setMaxUploadRatio(unsigned int ratio);
@@ -56,6 +58,7 @@ private:
     bool auto_sync_;
     bool bubbleNotifycation_;
     bool autoStart_;
+    bool hideDockIcon_;
     bool transferEncrypted_;
     bool allow_invalid_worktree_;
     bool allow_repo_not_found_on_server_;

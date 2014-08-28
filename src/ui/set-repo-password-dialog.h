@@ -6,7 +6,7 @@
 
 #include "api/server-repo.h"
 
-struct Account;
+class Account;
 class ApiError;
 class SetRepoPasswordRequest;
 

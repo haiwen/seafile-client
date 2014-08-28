@@ -15,6 +15,7 @@ public:
 private slots:
 
     void autoStartChanged(int state);
+    void hideDockIconChanged(int state);
     void notifyChanged(int state);
     void downloadChanged(int value);
     void uploadChanged(int value);

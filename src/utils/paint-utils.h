@@ -4,7 +4,7 @@
 #include <QFont>
 
 #ifdef Q_WS_MAC
-#include "paint-cocoa.h"
+#include "utils-mac.h"
 #endif
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width);
@@ -21,7 +21,7 @@ inline bool isHighDPI()
         return true;
     }
 #ifdef Q_WS_MAC
-    return _isHiDPI();
+    return __mac_isHiDPI();
 #else
     return false;
 #endif
@@ -30,7 +30,7 @@ inline bool isHighDPI()
 inline double getScaleFactor()
 {
 #ifdef Q_WS_MAC
-    return _getScaleFactor();
+    return __mac_getScaleFactor();
 #else
     return 1.0;
 #endif
@@ -42,5 +42,25 @@ QString getIconPathByDPI(const QString& name);
 QIcon getIconByDPI(const QString& name);
 
 int getDPIScaledSize(int size);
+
+/*
+ * Returns a QIcon that contains both 1x and 2x icon
+ */
+QIcon getIconSet(const QString& path, int base_width, int base_height);
+
+/**
+ * Shortcut for getIconSet(path, size, size)
+ */
+QIcon getIconSet(const QString& path, int size);
+
+/**
+ * Shortcut for getIconSet(path, 16)
+ */
+QIcon getMenuIconSet(const QString& path);
+
+/**
+ * Shortcut for getIconSet(path, 24)
+ */
+QIcon getToolbarIconSet(const QString& path);
 
 #endif // SEAFILE_CLIENT_PAINT_UTILS_H_

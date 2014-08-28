@@ -177,6 +177,7 @@ PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 SET(seafile_client_sources
   src/main.cpp
   src/seafile-applet.cpp
+  src/account.cpp
   src/account-mgr.cpp
   src/ccnet-init.cpp
   src/daemon-mgr.cpp

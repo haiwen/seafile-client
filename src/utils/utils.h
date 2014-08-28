@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDir>
 #include <QMap>
+#include <QUrl>
 
 #define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
@@ -52,5 +53,7 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error);
 QString defaultCcnetDir();
 
 QString md5(const QString& s);
+
+QUrl urlJoin(const QUrl& url, const QString& tail);
 
 #endif

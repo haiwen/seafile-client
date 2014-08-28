@@ -369,8 +369,7 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
             // open seahub repo page for not downloaded repo
             const Account& account = seafApplet->accountManager()->accounts()[0];
             if (account.isValid()) {
-                QUrl url = account.serverUrl;
-                url.setPath(url.path() + "/repo/" + it->repo().id);
+                QUrl url = account.getAbsoluteUrl("repo/" + it->repo().id);
                 QDesktopServices::openUrl(url);
             }
         }
@@ -382,9 +381,7 @@ void RepoTreeView::viewRepoOnWeb()
     QString repo_id = view_on_web_action_->data().toString();
     const Account& account = seafApplet->accountManager()->accounts()[0];
     if (account.isValid()) {
-        QUrl url = account.serverUrl;
-        url.setPath(url.path() + "/repo/" + repo_id);
-        QDesktopServices::openUrl(url);
+        QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + repo_id));
     }
 }
 

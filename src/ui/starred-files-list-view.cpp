@@ -62,8 +62,7 @@ void StarredFilesListView::viewFileOnWeb()
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
-        QUrl url = account.serverUrl;
-        url.setPath(url.path() + "/repo/" + file.repo_id + "/files/");
+        QUrl url = account.getAbsoluteUrl("repo/" + file.repo_id + "/files/");
         url.addQueryItem("p", file.path);
 
         QDesktopServices::openUrl(url);

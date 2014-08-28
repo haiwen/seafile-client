@@ -10,7 +10,7 @@
 namespace {
 
 const int kRefreshSeahubMessagesInterval = 1000 * 60; // 1 min
-const char *kNotificationsUrl = "/notification/list/";
+const char *kNotificationsUrl = "notification/list/";
 
 } // namespace
 
@@ -114,11 +114,7 @@ void SeahubNotificationsMonitor::openNotificationsPageInBrowser()
         return;
     }
 
-    QUrl url = account.serverUrl;
-
-    url.setPath(url.path() + kNotificationsUrl);
-
-    QDesktopServices::openUrl(url);
+    QDesktopServices::openUrl(account.getAbsoluteUrl(kNotificationsUrl));
 
     resetStatus();
 }

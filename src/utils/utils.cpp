@@ -428,3 +428,17 @@ QString md5(const QString& s)
 {
     return QCryptographicHash::hash(s.toUtf8(), QCryptographicHash::Md5).toHex();
 }
+
+QUrl urlJoin(const QUrl& head, const QString& tail)
+{
+    QString a = head.toString();
+    QString b = tail;
+
+    if (!a.endsWith("/")) {
+        a += "/";
+    }
+    while (b.startsWith("/")) {
+        b = b.right(1);
+    }
+    return QUrl(a + b);
+}

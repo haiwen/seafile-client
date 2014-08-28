@@ -32,6 +32,8 @@ public:
     bool isValid() const {
         return token.length() > 0;
     }
+
+    QUrl getAbsoluteUrl(const QString& relativeUrl) const;
 };
 
 Q_DECLARE_METATYPE(Account)

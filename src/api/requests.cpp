@@ -18,16 +18,16 @@
 
 namespace {
 
-const char *kApiLoginUrl = "/api2/auth-token/";
-const char *kListReposUrl = "/api2/repos/";
-const char *kCreateRepoUrl = "/api2/repos/";
-const char *kUnseenMessagesUrl = "/api2/unseen_messages/";
-const char *kDefaultRepoUrl = "/api2/default-repo/";
-const char *kStarredFilesUrl = "/api2/starredfiles/";
-const char *kGetEventsUrl = "/api2/events/";
-const char *kCommitDetailsUrl = "/api2/repo_history_changes/";
-const char *kAvatarUrl = "/api2/avatars/user/";
-const char *kSetRepoPasswordUrl = "/api2/repos/";
+const char *kApiLoginUrl = "api2/auth-token/";
+const char *kListReposUrl = "api2/repos/";
+const char *kCreateRepoUrl = "api2/repos/";
+const char *kUnseenMessagesUrl = "api2/unseen_messages/";
+const char *kDefaultRepoUrl = "api2/default-repo/";
+const char *kStarredFilesUrl = "api2/starredfiles/";
+const char *kGetEventsUrl = "api2/events/";
+const char *kCommitDetailsUrl = "api2/repo_history_changes/";
+const char *kAvatarUrl = "api2/avatars/user/";
+const char *kSetRepoPasswordUrl = "api2/repos/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -50,7 +50,7 @@ LoginRequest::LoginRequest(const QUrl& serverAddr,
                            const QString& password,
                            const QString& computer_name)
 
-    : SeafileApiRequest (QUrl(serverAddr.toString() + kApiLoginUrl),
+    : SeafileApiRequest (::urlJoin(serverAddr, kApiLoginUrl),
                          SeafileApiRequest::METHOD_POST)
 {
     setParam("username", username);
@@ -95,7 +95,7 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
  * ListReposRequest
  */
 ListReposRequest::ListReposRequest(const Account& account)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kListReposUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kListReposUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
 }
@@ -121,7 +121,7 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
  * DownloadRepoRequest
  */
 DownloadRepoRequest::DownloadRepoRequest(const Account& account, const QString& repo_id)
-    : SeafileApiRequest(QUrl(account.serverUrl.toString() + "/api2/repos/" + repo_id + "/download-info/"),
+    : SeafileApiRequest(account.getAbsoluteUrl("api2/repos/" + repo_id + "/download-info/"),
                         SeafileApiRequest::METHOD_GET, account.token)
 {
 }
@@ -169,7 +169,7 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
  * CreateRepoRequest
  */
 CreateRepoRequest::CreateRepoRequest(const Account& account, QString &name, QString &desc, QString &passwd)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kCreateRepoUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kCreateRepoUrl),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
     this->setParam(QString("name"), name);
@@ -202,7 +202,7 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
  * GetUnseenSeahubNotificationsRequest
  */
 GetUnseenSeahubNotificationsRequest::GetUnseenSeahubNotificationsRequest(const Account& account)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kUnseenMessagesUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kUnseenMessagesUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
 }
@@ -231,7 +231,7 @@ void GetUnseenSeahubNotificationsRequest::requestSuccess(QNetworkReply& reply)
 }
 
 GetDefaultRepoRequest::GetDefaultRepoRequest(const Account& account)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kDefaultRepoUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kDefaultRepoUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
 }
@@ -273,7 +273,7 @@ void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
 
 
 CreateDefaultRepoRequest::CreateDefaultRepoRequest(const Account& account)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kDefaultRepoUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kDefaultRepoUrl),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
 }
@@ -333,7 +333,7 @@ void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
 }
 
 GetStarredFilesRequest::GetStarredFilesRequest(const Account& account)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kStarredFilesUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kStarredFilesUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
 }
@@ -355,7 +355,7 @@ void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
 }
 
 GetEventsRequest::GetEventsRequest(const Account& account, int start)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kGetEventsUrl),
+    : SeafileApiRequest (account.getAbsoluteUrl(kGetEventsUrl),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
     if (start > 0) {
@@ -392,7 +392,7 @@ void GetEventsRequest::requestSuccess(QNetworkReply& reply)
 GetCommitDetailsRequest::GetCommitDetailsRequest(const Account& account,
                                            const QString& repo_id,
                                            const QString& commit_id)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kCommitDetailsUrl + repo_id + "/"),
+    : SeafileApiRequest (account.getAbsoluteUrl(kCommitDetailsUrl + repo_id + "/"),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
     setParam("commit_id", commit_id);
@@ -419,11 +419,10 @@ void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
 GetAvatarRequest::GetAvatarRequest(const Account& account,
                                    const QString& email,
                                    int size)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString()
-                              + kAvatarUrl
-                              // + QUrl::toPercentEncoding(email) + "/resized/"
-                              + email + "/resized/"
-                              + QString::number(size) + "/"),
+    : SeafileApiRequest (account.getAbsoluteUrl(
+                             kAvatarUrl
+                             + email + "/resized/"
+                             + QString::number(size) + "/"),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
     account_ = account;
@@ -490,7 +489,7 @@ void FetchImageRequest::requestSuccess(QNetworkReply& reply)
 SetRepoPasswordRequest::SetRepoPasswordRequest(const Account& account,
                                                const QString& repo_id,
                                                const QString& password)
-    : SeafileApiRequest (QUrl(account.serverUrl.toString() + kSetRepoPasswordUrl + repo_id + "/"),
+    : SeafileApiRequest (account.getAbsoluteUrl(kSetRepoPasswordUrl + repo_id + "/"),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
     setParam("password", password);

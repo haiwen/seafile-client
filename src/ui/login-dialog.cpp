@@ -7,6 +7,7 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "login-dialog.h"
+#include "utils/utils.h"
 
 namespace {
 
@@ -92,14 +93,11 @@ void LoginDialog::onNetworkError(const QNetworkReply::NetworkError& error, const
 
 void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
 {
-    QString question = tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?");
-    if (QMessageBox::question(this,
-                              getBrand(),
-                              question,
-                              QMessageBox::Yes | QMessageBox::No,
-                              QMessageBox::No) == QMessageBox::Yes) {
+    if (seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
+                                   dumpSslErrors(errors),
+                                   this,
+                                   false))
         reply->ignoreSslErrors();
-    }
 }
 
 bool LoginDialog::validateInputs()

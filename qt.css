@@ -404,3 +404,13 @@ ActivitiesTab, EventsListView
 {
     qproperty-focusPolicy: NoFocus;
 }
+
+FileBrowserDialog {
+    min-width: 500px;
+    min-height: 600px;
+}
+
+FileTableView {
+    min-width: 400px;
+    min-height: 500px;
+}

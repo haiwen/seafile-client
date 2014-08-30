@@ -89,6 +89,9 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 {
     QUrl url = reply_->url();
     QSslCertificate cert = reply_->sslConfiguration().peerCertificate();
+    qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+    qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+
     if (cert.isNull()) {
         // The server has no ssl certificate, we do nothing and let the
         // request fail
@@ -100,16 +103,12 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 
     QSslCertificate saved_cert = mgr->getCertificate(url.toString());
 
-    QString error_string = dumpSslErrors(errors);
-
-    qDebug() << "\n= SslErrors =\b" << error_string;
-    qDebug() << "\n= Remote Server =\b" << dumpCertificate(cert);
-    qDebug() << "\n= Previous Server =\b" << (saved_cert.isNull() ? "None" : dumpCertificate(saved_cert));
+    qDebug() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
 
     if (saved_cert.isNull()) {
         // This is the first time when the client connects to the server.
         if (seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
-                                   error_string,
+                                   dumpSslErrors(errors) + dumpCertificate(cert),
                                    0,
                                    false)) {
             mgr->saveCertificate(url, cert);
@@ -132,7 +131,10 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
          * Anyway, we'll prompt the user
          */
 
-        SslConfirmDialog dialog(url, seafApplet->mainWindow());
+        SslConfirmDialog dialog(url,
+                                dumpCertificateFingerprint(cert),
+                                dumpCertificateFingerprint(saved_cert),
+                                seafApplet->mainWindow());
         if (dialog.exec() == QDialog::Accepted) {
             reply_->ignoreSslErrors();
             if (dialog.rememberChoice()) {

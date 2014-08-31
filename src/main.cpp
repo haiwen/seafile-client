@@ -8,7 +8,7 @@
 #include <QDir>
 
 #include <glib-object.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
@@ -21,12 +21,6 @@
 #endif
 
 #define APPNAME "seafile-applet"
-
-namespace {
-
-
-} // namespace
-
 
 int main(int argc, char *argv[])
 {
@@ -67,7 +61,7 @@ int main(int argc, char *argv[])
     app.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
-#if QT_VERSION >= 0x040800 && not defined(Q_WS_MAC)
+#if QT_VERSION >= 0x040800 && !defined(Q_WS_MAC)
     QLocale loc = QLocale::system();
     QString lang = QLocale::languageToString(loc.language());
 

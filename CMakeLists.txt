@@ -102,6 +102,10 @@ SET(moc_headers
   src/ui/event-details-dialog.h
   src/ui/event-details-tree.h
   src/ui/set-repo-password-dialog.h
+  src/filebrowser/file-browser-dialog.h
+  src/filebrowser/file-browser-requests.h
+  src/filebrowser/file-table.h
+  src/filebrowser/data-mgr.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -220,6 +224,7 @@ SET(seafile_client_sources
   src/utils/widget-utils.cpp
   src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
+  src/utils/json-utils.cpp
   src/utils/log.c
   src/ui/repo-item.cpp
   src/ui/repo-tree-model.cpp
@@ -247,6 +252,11 @@ SET(seafile_client_sources
   src/ui/event-details-dialog.cpp
   src/ui/event-details-tree.cpp
   src/ui/set-repo-password-dialog.cpp
+  src/filebrowser/file-browser-dialog.cpp
+  src/filebrowser/file-browser-requests.cpp
+  src/filebrowser/data-mgr.cpp
+  src/filebrowser/file-table.cpp
+  src/filebrowser/seaf-dirent.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

@@ -16,9 +16,11 @@
 #include "repo-item.h"
 #include "repo-item-delegate.h"
 #include "repo-tree-model.h"
-#include "repo-tree-view.h"
 #include "repo-detail-dialog.h"
 #include "utils/paint-utils.h"
+#include "filebrowser/file-browser-dialog.h"
+
+#include "repo-tree-view.h"
 
 const int kRepoTreeMenuIconWidth = 16;
 const int kRepoTreeMenuIconHeight = 16;
@@ -367,11 +369,8 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
             QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
         } else {
             // open seahub repo page for not downloaded repo
-            const Account& account = seafApplet->accountManager()->accounts()[0];
-            if (account.isValid()) {
-                QUrl url = account.getAbsoluteUrl("repo/" + it->repo().id);
-                QDesktopServices::openUrl(url);
-            }
+            FileBrowserDialog dialog(it->repo(), this);
+            dialog.exec();
         }
     }
 }

@@ -1,61 +1,49 @@
+#include "file-table.h"
+
 #include <QtGui>
+#include <QApplication>
 
 #include "utils/utils.h"
 #include "seaf-dirent.h"
 
-#include "file-table.h"
-
-namespace {
-
-enum {
-    COLUMN_NAME = 0,
-    COLUMN_SIZE,
-    COLUMN_MTIME,
-    MAX_COLUMN,
-};
-
-} // namespace
-
-FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
-    : QTableView(parent),
-      repo_(repo)
-{
-    horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-
-    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
-            this, SLOT(onItemDoubleClicked(const QModelIndex&)));
-}
-
-void FileTableView::onItemDoubleClicked(const QModelIndex& index)
-{
-    if (index.column() != COLUMN_NAME) {
-        return;
-    }
-    FileTableModel *model = (FileTableModel *)this->model();
-    const SeafDirent dirent = model->direntAt(index.row());
-
-    emit direntClicked(dirent);
-}
+const int kFileNameColumnWidth = 240;
+const int kDefaultColumnWidth = 120;
+const int kDefaultColumnHeight = 24;
 
 FileTableModel::FileTableModel(QObject *parent)
+    : QAbstractTableModel(parent),
+      selected_dirent_(NULL),
+      curr_hovered_(-1) // -1 is a publicly-known magic number
+{
+    dirents_ = QList<SeafDirent>();
+}
+
+FileTableModel::FileTableModel(const QList<SeafDirent>& dirents,
+                               QObject *parent)
     : QAbstractTableModel(parent)
 {
+    dirents_ = dirents;
 }
 
-void FileTableModel::setDirents(const std::vector<SeafDirent>& dirents)
+void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
     dirents_ = dirents;
-    reset();
+    this->reset();
 }
 
-int FileTableModel::rowCount(const QModelIndex& parent) const
+QList<SeafDirent> FileTableModel::dirents()
+{
+    return dirents_;
+}
+
+int FileTableModel::rowCount(const QModelIndex& /* parent */) const
 {
     return dirents_.size();
 }
 
-int FileTableModel::columnCount(const QModelIndex& parent) const
+int FileTableModel::columnCount(const QModelIndex& /* parent */) const
 {
-    return MAX_COLUMN;
+    return FILE_MAX_COLUMN;
 }
 
 QVariant FileTableModel::data(const QModelIndex & index, int role) const
@@ -64,43 +52,96 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return QVariant();
     }
 
+    const int column = index.column();
+    const int row = index.row();
+    const SeafDirent& dirent = dirents_[row];
+
+    if (role == Qt::DecorationRole && column == FILE_COLUMN_ICON) {
+        return (dirent.isDir() ?
+            QApplication::style()->standardIcon(QStyle::SP_DirIcon) :
+            QApplication::style()->standardIcon(QStyle::SP_FileIcon)).
+          pixmap(kDefaultColumnHeight, kDefaultColumnHeight);
+    }
+
+    if (role == Qt::TextAlignmentRole && column == FILE_COLUMN_NAME)
+        return Qt::AlignLeft + Qt::AlignVCenter;
+
+    if (role == Qt::BackgroundRole && row == curr_hovered_)
+        return QColor(200, 200, 220, 255);
+
+    if (role == Qt::SizeHintRole) {
+        QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
+        switch (column) {
+        case FILE_COLUMN_ICON:
+          qsize.setWidth(kDefaultColumnHeight);
+          break;
+        case FILE_COLUMN_NAME:
+          qsize.setWidth(kFileNameColumnWidth);
+          break;
+        case FILE_COLUMN_SIZE:
+          break;
+        case FILE_COLUMN_MTIME:
+          break;
+        case FILE_COLUMN_KIND:
+          break;
+        default:
+          break;
+        }
+        return qsize;
+
+    }
+
     if (role != Qt::DisplayRole) {
         return QVariant();
     }
 
-    const SeafDirent& dirent = dirents_[index.row()];
-
-    int column = index.column();
-
-    if (column == COLUMN_NAME) {
-        return dirent.name;
-    } else if (column == COLUMN_SIZE) {
-        return ::readableFileSize(dirent.size);
-    } else if (column == COLUMN_MTIME) {
-        return ::translateCommitTime(dirent.mtime);
+    switch (column) {
+    case FILE_COLUMN_NAME:
+      return dirent.name;
+    case FILE_COLUMN_SIZE:
+      if (dirent.isDir())
+        return "";
+      return ::readableFileSize(dirent.size);
+    case FILE_COLUMN_MTIME:
+      return ::translateCommitTime(dirent.mtime);
+    case FILE_COLUMN_KIND:
+      //TODO: mime file information
+      return dirent.isDir() ?
+        tr("Folder") :
+        tr("Document");
+    default:
+      return QVariant();
     }
-
-    return QVariant();
 }
 
 QVariant FileTableModel::headerData(int section,
                                     Qt::Orientation orientation,
                                     int role) const
 {
-    if (orientation == Qt::Vertical || role != Qt::DisplayRole) {
+    if (orientation == Qt::Vertical)
+        return QVariant();
+
+    if (role == Qt::TextAlignmentRole)
+        return Qt::AlignLeft + Qt::AlignVCenter;
+
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    switch (section) {
+    case FILE_COLUMN_ICON:
+        return "";
+    case FILE_COLUMN_NAME:
+        return tr("Name");
+    case FILE_COLUMN_SIZE:
+        return tr("Size");
+    case FILE_COLUMN_MTIME:
+        return tr("Last Modified");
+    case FILE_COLUMN_KIND:
+        return tr("Kind");
+    default:
         return QVariant();
     }
 
-    switch (section) {
-    case COLUMN_NAME:
-        return tr("Name");
-    case COLUMN_SIZE:
-        return tr("Size");
-    case COLUMN_MTIME:
-        return tr("Last Modified");
-    }
-
-    return QVariant();
 }
 
 const SeafDirent FileTableModel::direntAt(int index) const
@@ -110,4 +151,40 @@ const SeafDirent FileTableModel::direntAt(int index) const
     }
 
     return dirents_[index];
+}
+
+void FileTableModel::setMouseOver(const int row)
+{
+    const int curr_hovered = curr_hovered_;
+    if (curr_hovered_ == row)
+        return;
+    curr_hovered_ = row;
+
+    if (curr_hovered != -1)
+        emit dataChanged(index(curr_hovered, 0),
+                         index(curr_hovered, FILE_MAX_COLUMN-1));
+    if (curr_hovered_ != -1)
+        emit dataChanged(index(curr_hovered_, 0),
+                         index(curr_hovered_, FILE_MAX_COLUMN-1));
+}
+
+const SeafDirent *FileTableModel::selectedDirent() const
+{
+    return selected_dirent_;
+}
+
+Qt::DropActions FileTableModel::supportedDropActions() const
+{
+    return Qt::CopyAction | Qt::MoveAction;
+}
+
+void FileTableModel::onSelectionChanged(const int row)
+{
+    if (row != -1) {
+        selected_dirent_ = &dirents_[row];
+        emit dataChanged(index(row, 0), index(row, FILE_MAX_COLUMN-1));
+    }
+    else
+        selected_dirent_ = NULL;
+    return;
 }

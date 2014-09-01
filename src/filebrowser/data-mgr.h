@@ -1,16 +1,16 @@
 #ifndef SEAFILE_CLIENT_FILE_BROWSER_DATA_MANAGER_H
 #define SEAFILE_CLIENT_FILE_BROWSER_DATA_MANAGER_H
 
-#include <vector>
-#include <QPair>
 #include <QObject>
+#include <QList>
+#include <QCache>
 
+#include "lrucache.h"
 #include "api/api-error.h"
 #include "account.h"
 #include "seaf-dirent.h"
 
 class GetDirentsRequest;
-class FileBrowserCache;
 
 /**
  * DataManager is responsible for getting dirents/files from seahub, as well
@@ -22,40 +22,27 @@ class DataManager : public QObject {
 public:
     DataManager(const Account& account);
 
+    ~DataManager();
+
     void getDirents(const QString repo_id,
-                    const QString& path);
+                    const QString& path,
+                    bool force_update = false);
 
 signals:
-    void getDirentsSuccess(const std::vector<SeafDirent>& dirents);
+    void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
 private slots:
-    void onGetDirentsSuccess(const QString& dir_id,
-                             const std::vector<SeafDirent>& dirents);
-    // void onGetDirentsFailed(const ApiError& error);
+    void onGetDirentsSuccess(const QString &dir_id,
+                             const QList<SeafDirent>& dirents);
+    void onGetDirentsFailed(const ApiError& error);
 
 private:
     Account account_;
 
+    QCache<QString, LRUCache<QString, QList<SeafDirent> > > repo_cache_;
+
     GetDirentsRequest *req_;
-
-    FileBrowserCache *cache_;
-};
-
-// Manages cached dirents
-class FileBrowserCache {
-public:
-    FileBrowserCache();
-    QPair<QString, std::vector<SeafDirent> > getCachedDirents(const QString repo_id,
-                                                              const QString& path);
-
-    void saveDirents(const QString repo_id,
-                     const QString& path,
-                     const QString& dir_id,
-                     const std::vector<SeafDirent>& dirents);
-
-private:
-    QString cache_dir_;
 };
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_DATA_MANAGER_H

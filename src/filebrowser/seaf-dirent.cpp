@@ -24,9 +24,9 @@ SeafDirent SeafDirent::fromJSON(const json_t *root, json_error_t */* error */)
     return dirent;
 }
 
-std::vector<SeafDirent> SeafDirent::listFromJSON(const json_t *json, json_error_t *error)
+QList<SeafDirent> SeafDirent::listFromJSON(const json_t *json, json_error_t *error)
 {
-    std::vector<SeafDirent> dirents;
+    QList<SeafDirent> dirents;
     for (size_t i = 0; i < json_array_size(json); i++) {
         SeafDirent dirent = fromJSON(json_array_get(json, i), error);
         dirents.push_back(dirent);

@@ -48,13 +48,21 @@ QString translateCommitTime(qint64 timestamp);
 
 QString readableFileSize(qint64 size);
 
+QString readableFileSizeV2(qint64 size);
+
 QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error);
 
 QString defaultCcnetDir();
 
+QString defaultFileCachePath(bool create_if_not_exist = false);
+
+QString defaultDownloadsPath();
+
 QString md5(const QString& s);
 
 QUrl urlJoin(const QUrl& url, const QString& tail);
+
+void removeDirRecursively(const QString &path);
 
 QString dumpHexPresentation(const QByteArray &bytes);
 

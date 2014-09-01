@@ -1,4 +1,3 @@
-
 #include <cassert>
 #include <errno.h>
 #include <dirent.h>
@@ -8,8 +7,9 @@
 #include <sqlite3.h>
 #include <glib.h>
 #include <cstring>
+#include <QObject>
 #include <QString>
-#include <string>
+#include <QSettings>
 #include <jansson.h>
 
 #if defined(Q_WS_MAC)
@@ -29,6 +29,7 @@
 #include <QSslCertificate>
 
 #include "seafile-applet.h"
+#include "configurator.h"
 
 #include "utils.h"
 
@@ -51,6 +52,63 @@ QString defaultCcnetDir() {
     } else {
         return QDir::home().filePath(kCcnetConfDir);
     }
+}
+
+QString defaultFileCachePath(bool create_if_not_exist) {
+    const QDir &seafile_dir = seafApplet->configurator()->seafileDir();
+    const QString &path = seafile_dir.absoluteFilePath("file-cache");
+    if (create_if_not_exist && !QDir(path).exists()) {
+        bool result = seafile_dir.mkdir("file-cache");
+        assert(result);
+    }
+    return path;
+}
+
+QString defaultDownloadsPath() {
+#if defined(Q_WS_WIN)
+  return QDir(QDesktopServices:: \
+              storageLocation(QDesktopServices::DocumentsLocation)). \
+              absoluteFilePath(QObject::tr("Downloads"));
+#endif
+
+#if defined(Q_WS_X11)
+  QString save_path;
+  QString config_path(QString:: \
+                      fromLocal8Bit(qgetenv("XDG_CONFIG_HOME").constData()));
+  if (config_path.isEmpty())
+      config_path = QDir::home().absoluteFilePath(".config");
+
+  QString user_dirs_file(config_path + "/user-dirs.dirs");
+  if (QFile::exists(user_dirs_file)) {
+      QSettings settings(user_dirs_file, QSettings::IniFormat);
+      settings.setIniCodec("UTF-8"); // kind of guarentee
+      QString xdg_download_dir = settings.value("XDG_DOWNLOAD_DIR").toString();
+      if (!xdg_download_dir.isEmpty()) {
+          xdg_download_dir.replace("$HOME", QDir::homePath());
+          save_path = xdg_download_dir;
+      }
+  }
+
+  // save_path is found but not exists
+  if (!save_path.isEmpty() && !QFile::exists(save_path)) {
+      QDir().mkpath(save_path);
+  }
+
+  // save_path is not found or (found but unable to create)
+  // fallback
+  if (save_path.isEmpty() || !QFile::exists(save_path)) {
+      save_path = QDir::home().absoluteFilePath(QObject::tr("Downloads"));
+  }
+
+  return save_path;
+#endif
+
+#if defined(Q_WS_MAC)
+  return QDir::home().absoluteFilePath(QObject::tr("Downloads"));
+#endif
+
+  // Fallback
+  return QDir::home().absoluteFilePath(QObject::tr("Downloads"));
 }
 
 typedef bool (*SqliteRowFunc) (sqlite3_stmt *stmt, void *data);
@@ -404,6 +462,52 @@ QString readableFileSize(qint64 size)
     return QString::number(size) + str;
 }
 
+QString readableFileSizeV2(qint64 size)
+{
+    if (size <= 0)
+        return "0 B";
+    //max size is 6 x 7 -1
+    const int bufsize = 50;
+    char buf[bufsize];
+
+    int size_unit_b = size & 1023; //B
+    int size_unit_k = size >> 10 & 1023; //K
+    int size_unit_m = size >> 20 & 1023; //M
+    int size_unit_g = size >> 30 & 1023; //G
+    int size_unit_t = size >> 40 & 1023; //T
+    int size_unit_p = size >> 50 & 1023; //P
+    //omit all size large than 1PB
+
+    if (size_unit_p)
+        snprintf(buf, bufsize - 1,
+                 "%dP %3dT %3dG %3dM %3dK %3dB",
+                 size_unit_p, size_unit_t, size_unit_g,
+                 size_unit_m, size_unit_k, size_unit_b);
+    else if (size_unit_t)
+        snprintf(buf, bufsize - 1,
+                 "%dT %3dG %3dM %3dK %3dB",
+                 size_unit_t, size_unit_g,
+                 size_unit_m, size_unit_k, size_unit_b);
+    else if (size_unit_g)
+        snprintf(buf, bufsize - 1,
+                 "%dG %3dM %3dK %3dB",
+                 size_unit_g, size_unit_m, size_unit_k, size_unit_b);
+    else if (size_unit_m)
+        snprintf(buf, bufsize - 1,
+                 "%dM %3dK %3dB",
+                 size_unit_m, size_unit_k, size_unit_b);
+    else if (size_unit_k)
+        snprintf(buf, bufsize - 1,
+                 "%dK %3dB",
+                 size_unit_k, size_unit_b);
+    else
+        snprintf(buf, bufsize - 1,
+                 "%dB",
+                 size_unit_b);
+
+    return buf; // return by a new QString item
+}
+
 QString md5(const QString& s)
 {
     return QCryptographicHash::hash(s.toUtf8(), QCryptographicHash::Md5).toHex();
@@ -421,6 +525,21 @@ QUrl urlJoin(const QUrl& head, const QString& tail)
         b = b.right(1);
     }
     return QUrl(a + b);
+}
+
+void removeDirRecursively(const QString &path)
+{
+    QFileInfo file_info(path);
+    if (file_info.isDir()) {
+        QDir dir(path);
+        QStringList file_list = dir.entryList();
+        for (int i = 0; i < file_list.count(); ++i) {
+            removeDirRecursively(file_list.at(i));
+        }
+        removeDirRecursively(path);
+    } else {
+        QFile::remove(path);
+    }
 }
 
 QString dumpHexPresentation(const QByteArray &bytes)

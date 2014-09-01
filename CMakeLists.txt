@@ -104,9 +104,13 @@ SET(moc_headers
   src/ui/event-details-tree.h
   src/ui/set-repo-password-dialog.h
   src/filebrowser/file-browser-dialog.h
+  src/filebrowser/file-browser-progress-dialog.h
   src/filebrowser/file-browser-requests.h
+  src/filebrowser/file-network-mgr.h
+  src/filebrowser/file-table-view.h
   src/filebrowser/file-table.h
   src/filebrowser/data-mgr.h
+  src/filebrowser/network/task.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -254,10 +258,17 @@ SET(seafile_client_sources
   src/ui/event-details-tree.cpp
   src/ui/set-repo-password-dialog.cpp
   src/filebrowser/file-browser-dialog.cpp
+  src/filebrowser/file-browser-progress-dialog.cpp
   src/filebrowser/file-browser-requests.cpp
-  src/filebrowser/data-mgr.cpp
+  src/filebrowser/file-delegate.cpp
+  src/filebrowser/file-network-mgr.cpp
+  src/filebrowser/file-table-view.cpp
   src/filebrowser/file-table.cpp
+  src/filebrowser/data-mgr.cpp
   src/filebrowser/seaf-dirent.cpp
+  src/filebrowser/network/request.cpp
+  src/filebrowser/network/task.cpp
+  src/filebrowser/network/task-builder.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

@@ -1,13 +1,14 @@
 #ifndef SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H
 #define SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H
 
-#include <vector>
+#include <QList>
 
 #include "api/api-request.h"
 #include "seaf-dirent.h"
 
 class SeafDirent;
 class Account;
+class QDir;
 
 class GetDirentsRequest : public SeafileApiRequest {
     Q_OBJECT
@@ -21,8 +22,8 @@ public:
     QString path() const { return path_; }
 
 signals:
-    void success(const QString& dir_id,
-                 const std::vector<SeafDirent>& dirents);
+    void success(const QString &dir_id,
+                 const QList<SeafDirent> &dirents);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -33,6 +34,29 @@ private:
     QString repo_id_;
     QString path_;
     QString cached_dir_id_;
+};
+
+class GetFileRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetFileRequest(const Account& account,
+                      const QString& repo_id,
+                      const QString& path);
+
+    QString repoId() const { return repo_id_; }
+    QString path() const { return path_; }
+
+signals:
+    void success(const QString& file_url);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetFileRequest);
+
+    QString repo_id_;
+    QString path_;
 };
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

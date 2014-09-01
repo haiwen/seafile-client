@@ -406,11 +406,32 @@ ActivitiesTab, EventsListView
 }
 
 FileBrowserDialog {
-    min-width: 500px;
-    min-height: 600px;
+    min-width: 720px;
+    min-height: 500px;
+}
+
+FileBrowserDialog QToolBar {
+    border: 0;
 }
 
 FileTableView {
-    min-width: 400px;
-    min-height: 500px;
+    min-width: 640px;
+    min-height: 400px;
+    border: 0;
+    padding: 6px;
+    selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                             stop: 0 #D7F4F7, stop: 0.4 #CEECF0,
+                             stop: 0.6 #C5E4E8, stop: 1.0 #D7F4F7);
+    selection-color: #2f2f2f;
+}
+
+FileTableView QHeaderView::section {
+    border: 0;
+    padding: 8px;
+    outline: 0px;
+}
+
+FileBrowserProgressDialog {
+    min-width: 540px;
+    max-width: 720px;
 }

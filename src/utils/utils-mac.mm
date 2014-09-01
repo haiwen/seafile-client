@@ -43,10 +43,11 @@ void __mac_setDefault(const char* key, bool value) {
 }
 
 //TransformProcessType is not encouraged to use, aha
+//Sorry but not functional for OSX 10.7
 void __mac_setDockIconStyle(bool hidden) {
     //https://developer.apple.com/library/mac/documentation/AppKit/Reference/NSRunningApplication_Class/Reference/Reference.html
     if (hidden) {
-        [NSApp setActivationPolicy: NSApplicationActivationPolicyProhibited];
+        [NSApp setActivationPolicy: NSApplicationActivationPolicyAccessory];
     } else {
         [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
     }

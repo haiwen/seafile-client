@@ -17,6 +17,7 @@ INCLUDEPATH += . src src/utils src/ui third_party/QtAwesome src/rpc src/api
 
 # Input
 HEADERS += src/seafile-applet.h \
+           src/account.h \
            src/account-mgr.h \
            src/configurator.h \
            src/daemon-mgr.h \
@@ -84,6 +85,7 @@ FORMS += ui/login-dialog.ui \
          ui/account-view.ui
 
 SOURCES += src/main.cpp \
+           src/account.cpp \
            src/seafile-applet.cpp \
            src/account-mgr.cpp \
            src/ccnet-init.cpp \

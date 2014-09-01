@@ -116,7 +116,6 @@ SeafileApplet::SeafileApplet()
       in_exit_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
-    init_seafile_hide_dock_icon();
 }
 
 void SeafileApplet::start()
@@ -155,6 +154,10 @@ void SeafileApplet::onDaemonStarted()
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
+
+#if defined(Q_WS_MAC)
+    seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
+#endif
 
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         LoginDialog login_dialog;

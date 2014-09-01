@@ -39,8 +39,6 @@ const char *kCcnetConfDir = "ccnet";
 const char *kCcnetConfDir = ".ccnet";
 #endif
 
-const char *kSettingHideDockIcon = "hideDockIcon";
-
 } // namespace
 
 
@@ -266,31 +264,11 @@ set_seafile_auto_start(bool /* on */)
 
 #endif
 
-bool
-get_seafile_hide_dock_icon(void)
-{
-#if defined(Q_WS_MAC)
-    return __mac_getDefault(kSettingHideDockIcon);
-#endif
-    return false;
-}
-
 int
-set_seafile_hide_dock_icon(bool on)
+set_seafile_dock_icon_style(bool hidden)
 {
 #if defined(Q_WS_MAC)
-    __mac_setDefault(kSettingHideDockIcon, on);
-    __mac_setDockIconStyle(on);
-#endif
-    return 0;
-}
-
-int
-init_seafile_hide_dock_icon(void)
-{
-#if defined(Q_WS_MAC)
-    __mac_initDefaults(kSettingHideDockIcon);
-    __mac_setDockIconStyle(__mac_getDefault(kSettingHideDockIcon));
+    __mac_setDockIconStyle(hidden);
 #endif
     return 0;
 }

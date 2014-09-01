@@ -37,11 +37,7 @@ int get_seafile_auto_start();
 
 int set_seafile_auto_start(bool on);
 
-bool get_seafile_hide_dock_icon();
-
-int set_seafile_hide_dock_icon(bool on);
-
-int init_seafile_hide_dock_icon();
+int set_seafile_dock_icon_style(bool hidden);
 
 typedef bool (*KeyValueFunc) (void *data, const char *key,
                               const char *value);

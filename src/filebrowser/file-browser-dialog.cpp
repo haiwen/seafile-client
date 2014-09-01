@@ -6,6 +6,7 @@
 #include "utils/paint-utils.h"
 #include "api/api-error.h"
 #include "file-table.h"
+#include "file-table-view.h"
 #include "seaf-dirent.h"
 #include "data-mgr.h"
 #include "data-mgr.h"
@@ -36,6 +37,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     setWindowTitle(tr("File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    //don't help
+    setWindowModality(Qt::NonModal);
 
     createToolBar();
     createLoadingFailedView();
@@ -55,8 +58,9 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
             this, SLOT(onDirentClicked(const SeafDirent&)));
 
-    connect(data_mgr_, SIGNAL(getDirentsSuccess(const std::vector<SeafDirent>&)),
-            this, SLOT(onGetDirentsSuccess(const std::vector<SeafDirent>&)));
+    connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
+
     connect(data_mgr_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
 
@@ -91,6 +95,9 @@ void FileBrowserDialog::createFileTable()
     table_view_ = new FileTableView(repo_);
     table_model_ = new FileTableModel();
     table_view_->setModel(table_model_);
+    table_view_->setGridStyle(Qt::NoPen);
+    table_view_->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table_view_->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 }
 
 void FileBrowserDialog::fetchDirents()
@@ -99,7 +106,7 @@ void FileBrowserDialog::fetchDirents()
     data_mgr_->getDirents(repo_.id, path_);
 }
 
-void FileBrowserDialog::onGetDirentsSuccess(const std::vector<SeafDirent>& dirents)
+void FileBrowserDialog::onGetDirentsSuccess(const QList<SeafDirent>& dirents)
 {
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     table_model_->setDirents(dirents);

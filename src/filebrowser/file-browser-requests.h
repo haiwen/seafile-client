@@ -1,7 +1,7 @@
 #ifndef SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H
 #define SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H
 
-#include <vector>
+#include <QList>
 
 #include "api/api-request.h"
 #include "seaf-dirent.h"
@@ -22,7 +22,7 @@ public:
 
 signals:
     void success(const QString& dir_id,
-                 const std::vector<SeafDirent>& dirents);
+                 const QList<SeafDirent>& dirents);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

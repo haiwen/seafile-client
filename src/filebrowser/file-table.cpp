@@ -1,61 +1,34 @@
 #include <QtGui>
+#include <cassert>
 
 #include "utils/utils.h"
 #include "seaf-dirent.h"
-
 #include "file-table.h"
-
-namespace {
-
-enum {
-    COLUMN_NAME = 0,
-    COLUMN_SIZE,
-    COLUMN_MTIME,
-    MAX_COLUMN,
-};
-
-} // namespace
-
-FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
-    : QTableView(parent),
-      repo_(repo)
-{
-    horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-
-    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
-            this, SLOT(onItemDoubleClicked(const QModelIndex&)));
-}
-
-void FileTableView::onItemDoubleClicked(const QModelIndex& index)
-{
-    if (index.column() != COLUMN_NAME) {
-        return;
-    }
-    FileTableModel *model = (FileTableModel *)this->model();
-    const SeafDirent dirent = model->direntAt(index.row());
-
-    emit direntClicked(dirent);
-}
 
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
 }
 
-void FileTableModel::setDirents(const std::vector<SeafDirent>& dirents)
+void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
     dirents_ = dirents;
-    reset();
+    this->reset();
 }
 
-int FileTableModel::rowCount(const QModelIndex& parent) const
+QList<SeafDirent> FileTableModel::dirents()
+{
+    return dirents_;
+}
+
+int FileTableModel::rowCount(const QModelIndex& /* parent */) const
 {
     return dirents_.size();
 }
 
-int FileTableModel::columnCount(const QModelIndex& parent) const
+int FileTableModel::columnCount(const QModelIndex& /* parent */) const
 {
-    return MAX_COLUMN;
+    return FILE_MAX_COLUMN;
 }
 
 QVariant FileTableModel::data(const QModelIndex & index, int role) const
@@ -72,11 +45,11 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     int column = index.column();
 
-    if (column == COLUMN_NAME) {
+    if (column == FILE_COLUMN_NAME) {
         return dirent.name;
-    } else if (column == COLUMN_SIZE) {
+    } else if (column == FILE_COLUMN_SIZE) {
         return ::readableFileSize(dirent.size);
-    } else if (column == COLUMN_MTIME) {
+    } else if (column == FILE_COLUMN_MTIME) {
         return ::translateCommitTime(dirent.mtime);
     }
 
@@ -92,11 +65,11 @@ QVariant FileTableModel::headerData(int section,
     }
 
     switch (section) {
-    case COLUMN_NAME:
+    case FILE_COLUMN_NAME:
         return tr("Name");
-    case COLUMN_SIZE:
+    case FILE_COLUMN_SIZE:
         return tr("Size");
-    case COLUMN_MTIME:
+    case FILE_COLUMN_MTIME:
         return tr("Last Modified");
     }
 
@@ -105,9 +78,15 @@ QVariant FileTableModel::headerData(int section,
 
 const SeafDirent FileTableModel::direntAt(int index) const
 {
-    if (index > dirents_.size()) {
-        return SeafDirent();
-    }
+    assert(index <= dirents_.size());
 
     return dirents_[index];
+}
+
+
+Qt::ItemFlags FileTableModel::flags (const QModelIndex & index) const
+{
+    Qt::ItemFlags flags = QAbstractTableModel::flags(index);
+
+    return flags | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
 }

@@ -2,7 +2,6 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H
 
 #include <QDialog>
-// #include "ui_file-browser-dialog.h"
 
 #include "api/server-repo.h"
 
@@ -28,7 +27,6 @@ class DataManager;
  *
  */
 class FileBrowserDialog : public QDialog
-                          // public Ui::FileBrowserDialog
 {
     Q_OBJECT
 public:
@@ -37,7 +35,7 @@ public:
     ~FileBrowserDialog();
 
 private slots:
-    void onGetDirentsSuccess(const std::vector<SeafDirent>& dirents);
+    void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
     void onGetDirentsFailed(const ApiError& error);
     void fetchDirents();
     void onDirentClicked(const SeafDirent& dirent);

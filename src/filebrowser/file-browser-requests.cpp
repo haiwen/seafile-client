@@ -38,7 +38,7 @@ GetDirentsRequest::GetDirentsRequest(const Account& account,
 void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
-    std::vector<SeafDirent> dirents;
+    QList<SeafDirent> dirents;
     QString dir_id = reply.rawHeader("oid");
     if (dir_id.length() != 40) {
         emit failed(ApiError::fromHttpError(500));

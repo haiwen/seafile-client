@@ -104,6 +104,9 @@ SET(moc_headers
   src/ui/set-repo-password-dialog.h
   src/filebrowser/file-browser-dialog.h
   src/filebrowser/file-browser-requests.h
+  src/filebrowser/file-delegate.h
+  src/filebrowser/file-iview.h
+  src/filebrowser/file-table-view.h
   src/filebrowser/file-table.h
   src/filebrowser/data-mgr.h
   third_party/QtAwesome/QtAwesome.h
@@ -254,8 +257,10 @@ SET(seafile_client_sources
   src/ui/set-repo-password-dialog.cpp
   src/filebrowser/file-browser-dialog.cpp
   src/filebrowser/file-browser-requests.cpp
-  src/filebrowser/data-mgr.cpp
+  src/filebrowser/file-delegate.cpp
+  src/filebrowser/file-table-view.cpp
   src/filebrowser/file-table.cpp
+  src/filebrowser/data-mgr.cpp
   src/filebrowser/seaf-dirent.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}

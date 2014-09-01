@@ -23,6 +23,16 @@ AccountSettingsDialog::AccountSettingsDialog(const Account& account, QWidget *pa
     mUsername->setText(account_.username);
     mUsername->setEnabled(false);
 
+    #ifdef Q_WS_MAC
+    layout()->setContentsMargins(9, 9, 9, 9);
+    layout()->setSpacing(6);
+    formLayout->setSpacing(6);
+    formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+    formLayout->setLabelAlignment(Qt::AlignLeft);
+    formLayout->setFormAlignment(Qt::AlignLeft);
+    horizontalLayout->setSpacing(6);
+    #endif
+
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onSubmitBtnClicked()));
 
     // const QRect screen = QApplication::desktop()->screenGeometry();

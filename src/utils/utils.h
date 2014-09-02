@@ -7,9 +7,9 @@
 #include <QMap>
 #include <QUrl>
 #include <QSslError>
-#include <QSslCipher>
-#include <QSslConfiguration>
-#include <QSslCertificate>
+
+class QSslCipher;
+class QSslCertificate;
 
 #define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
@@ -68,6 +68,7 @@ QString dumpCipher(const QSslCipher &cipher);
 
 QString dumpCertificate(const QSslCertificate &cert);
 
-QString dumpCertificateFingerprint(const QSslCertificate &cert, const QCryptographicHash::Algorithm &algorithm = QCryptographicHash::Md5);
+QString dumpCertificateFingerprint(const QSslCertificate &cert,
+                                   const QCryptographicHash::Algorithm &algorithm = QCryptographicHash::Md5);
 
 #endif

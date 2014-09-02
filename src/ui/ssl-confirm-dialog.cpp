@@ -15,7 +15,7 @@ SslConfirmDialog::SslConfirmDialog(const QUrl& url,
 
     QString hint = tr("%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?").arg(url_.host());
 
-    hint += "\n";
+    hint += "\n\n";
     hint += tr("Current RSA key fingerprint is %1").arg(fingerprint);
     if (prev_fingerprint != "") {
         hint += "\n";

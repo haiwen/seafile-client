@@ -107,10 +107,9 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 
     if (saved_cert.isNull()) {
         // This is the first time when the client connects to the server.
-        if (seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
-                                   dumpSslErrors(errors) + dumpCertificate(cert),
-                                   0,
-                                   false)) {
+        if (seafApplet->detailedYesOrNoBox(
+            tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
+            dumpSslErrors(errors) + dumpCertificate(cert), 0, false)) {
             mgr->saveCertificate(url, cert);
             reply_->ignoreSslErrors();
         }

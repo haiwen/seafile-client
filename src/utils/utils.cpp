@@ -25,6 +25,8 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QCryptographicHash>
+#include <QSslCipher>
+#include <QSslCertificate>
 
 #include "seafile-applet.h"
 

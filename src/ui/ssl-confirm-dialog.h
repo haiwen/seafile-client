@@ -12,6 +12,8 @@ class SslConfirmDialog : public QDialog,
     Q_OBJECT
 public:
     SslConfirmDialog(const QUrl& url,
+                     const QString fingerprint,
+                     const QString prev_fingerprint = QString(""),
                      QWidget *parent=0);
 
     bool rememberChoice() const;

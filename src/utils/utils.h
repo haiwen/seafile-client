@@ -7,9 +7,9 @@
 #include <QMap>
 #include <QUrl>
 #include <QSslError>
-#include <QSslCipher>
-#include <QSslConfiguration>
-#include <QSslCertificate>
+
+class QSslCipher;
+class QSslCertificate;
 
 #define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
 
@@ -60,10 +60,15 @@ QString md5(const QString& s);
 
 QUrl urlJoin(const QUrl& url, const QString& tail);
 
+QString dumpHexPresentation(const QByteArray &bytes);
+
 QString dumpSslErrors(const QList<QSslError>&);
 
 QString dumpCipher(const QSslCipher &cipher);
 
 QString dumpCertificate(const QSslCertificate &cert);
+
+QString dumpCertificateFingerprint(const QSslCertificate &cert,
+                                   const QCryptographicHash::Algorithm &algorithm = QCryptographicHash::Md5);
 
 #endif

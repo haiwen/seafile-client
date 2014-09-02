@@ -93,8 +93,12 @@ void LoginDialog::onNetworkError(const QNetworkReply::NetworkError& error, const
 
 void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
 {
+    const QSslCertificate &cert = reply->sslConfiguration().peerCertificate();
+    qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+    qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+
     if (seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
-                                   dumpSslErrors(errors),
+                                   dumpSslErrors(errors) + dumpCertificate(cert),
                                    this,
                                    false))
         reply->ignoreSslErrors();

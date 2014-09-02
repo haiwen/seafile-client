@@ -26,22 +26,6 @@ double __mac_getScaleFactor() {
     return scaleFactor;
 }
 
-//TODO: support more types float int obj double url and etc
-bool __mac_getDefault(const char* key) {
-    if (key == NULL)
-        return false;
-    return [[NSUserDefaults standardUserDefaults] boolForKey:[NSString
-      stringWithUTF8String:key]];
-}
-
-void __mac_setDefault(const char* key, bool value) {
-    if (key == NULL)
-        return;
-    [[NSUserDefaults standardUserDefaults] setBool:value forKey:[NSString
-      stringWithUTF8String:key]];
-    return;
-}
-
 //TransformProcessType is not encouraged to use, aha
 //Sorry but not functional for OSX 10.7
 void __mac_setDockIconStyle(bool hidden) {
@@ -51,8 +35,4 @@ void __mac_setDockIconStyle(bool hidden) {
     } else {
         [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
     }
-}
-
-void __mac_initDefaults(const char* key) {
-    //empty
 }

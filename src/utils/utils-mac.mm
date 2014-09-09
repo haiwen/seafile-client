@@ -31,8 +31,8 @@ double __mac_getScaleFactor() {
 void __mac_setDockIconStyle(bool hidden) {
     //https://developer.apple.com/library/mac/documentation/AppKit/Reference/NSRunningApplication_Class/Reference/Reference.html
     if (hidden) {
-        [NSApp setActivationPolicy: NSApplicationActivationPolicyAccessory];
+        [[NSApplication sharedApplication] setActivationPolicy: NSApplicationActivationPolicyAccessory];
     } else {
-        [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
+        [[NSApplication sharedApplication] setActivationPolicy: NSApplicationActivationPolicyRegular];
     }
 }

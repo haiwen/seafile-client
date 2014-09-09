@@ -89,8 +89,6 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 {
     QUrl url = reply_->url();
     QSslCertificate cert = reply_->sslConfiguration().peerCertificate();
-    qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
-    qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
 
     if (cert.isNull()) {
         // The server has no ssl certificate, we do nothing and let the
@@ -103,9 +101,11 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 
     QSslCertificate saved_cert = mgr->getCertificate(url.toString());
 
-    qDebug() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
-
     if (saved_cert.isNull()) {
+        // dump certificate information
+        qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+        qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+
         // This is the first time when the client connects to the server.
         if (seafApplet->detailedYesOrNoBox(
             tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
@@ -114,12 +114,18 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
             reply_->ignoreSslErrors();
         }
 
+
         return;
     } else if (saved_cert == cert) {
         // The user has choosen to trust the certificate before
         reply_->ignoreSslErrors();
         return;
     } else {
+        // dump certificate information
+        qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+        qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+        qDebug() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
+
         /**
          * The cert which the user had chosen to trust has been changed. It
          * may be either:
@@ -129,7 +135,6 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
          *
          * Anyway, we'll prompt the user
          */
-
         SslConfirmDialog dialog(url,
                                 dumpCertificateFingerprint(cert),
                                 dumpCertificateFingerprint(saved_cert),

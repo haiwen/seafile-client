@@ -4,7 +4,7 @@
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
-#include "utils/widget-utils.h"
+#include "loading-view.h"
 #include "api/requests.h"
 #include "api/api-error.h"
 #include "api/commit-details.h"
@@ -35,7 +35,7 @@ EventDetailsDialog::EventDetailsDialog(const SeafEvent& event, QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     setLayout(layout);
 
-    loading_view_ = ::newLoadingView();
+    loading_view_ = new LoadingView;
     layout->addWidget(loading_view_);
 
     tree_ = new EventDetailsTreeView(event);

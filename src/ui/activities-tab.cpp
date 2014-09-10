@@ -8,7 +8,7 @@
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "events-list-view.h"
-#include "utils/widget-utils.h"
+#include "loading-view.h"
 #include "events-service.h"
 #include "avatar-service.h"
 #include "api/api-error.h"
@@ -109,14 +109,14 @@ void ActivitiesTab::createEventsView()
     load_more_btn_->setVisible(false);
     layout->addWidget(load_more_btn_);
 
-    events_loading_view_ = newLoadingView();
+    events_loading_view_ = new LoadingView;
     events_loading_view_->setVisible(false);
     layout->addWidget(events_loading_view_);
 }
 
 void ActivitiesTab::createLoadingView()
 {
-    loading_view_ = ::newLoadingView();
+    loading_view_ = new LoadingView;
 }
 
 void ActivitiesTab::createLoadingFailedView()

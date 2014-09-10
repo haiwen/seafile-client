@@ -92,6 +92,7 @@ SET(moc_headers
   src/ui/account-view.h
   src/ui/seafile-tab-widget.h
   src/ui/tab-view.h
+  src/ui/loading-view.h
   src/ui/repos-tab.h
   src/ui/starred-files-tab.h
   src/ui/starred-files-list-view.h
@@ -217,7 +218,6 @@ SET(seafile_client_sources
   src/utils/utils.cpp
   src/utils/paint-utils.cpp
   src/utils/file-utils.cpp
-  src/utils/widget-utils.cpp
   src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
   src/utils/log.c
@@ -236,6 +236,7 @@ SET(seafile_client_sources
   src/ui/account-view.cpp
   src/ui/seafile-tab-widget.cpp
   src/ui/tab-view.cpp
+  src/ui/loading-view.cpp
   src/ui/repos-tab.cpp
   src/ui/starred-files-tab.cpp
   src/ui/starred-files-list-view.cpp

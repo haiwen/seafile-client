@@ -344,7 +344,7 @@ StarredFilesListView {
 }
 
 QWidget#EmptyPlaceHolder,
-QWidget#LoadingView
+LoadingView
 {
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
@@ -356,14 +356,14 @@ QWidget#EventsContainerView {
     border-top: 1px solid #DCDCDE;
 }
 
-QWidget#EventsContainerView QWidget#LoadingView,
+QWidget#EventsContainerView LoadingView,
 QWidget#EventsContainerView QToolButton
 {
     max-height: 40px;
     min-height: 40px;
 }
 
-QWidget#EventsContainerView QWidget#LoadingView {
+QWidget#EventsContainerView LoadingView {
     /* border: 1px solid red; */
     border: 0;
     background: white;

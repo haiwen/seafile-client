@@ -8,7 +8,7 @@
 #include "account-mgr.h"
 #include "api/requests.h"
 #include "api/starred-file.h"
-#include "utils/widget-utils.h"
+#include "loading-view.h"
 #include "starred-files-list-view.h"
 #include "starred-files-list-model.h"
 #include "starred-file-item-delegate.h"
@@ -64,7 +64,7 @@ void StarredFilesTab::createStarredFilesListView()
 
 void StarredFilesTab::createLoadingView()
 {
-    loading_view_ = ::newLoadingView();
+    loading_view_ = new LoadingView;
 }
 
 void StarredFilesTab::createLoadingFailedView()

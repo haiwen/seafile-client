@@ -11,7 +11,7 @@
 #include "api/requests.h"
 #include "api/server-repo.h"
 #include "rpc/local-repo.h"
-#include "utils/widget-utils.h"
+#include "loading-view.h"
 
 #include "repos-tab.h"
 
@@ -60,7 +60,7 @@ void ReposTab::createRepoTree()
 
 void ReposTab::createLoadingView()
 {
-    loading_view_ = ::newLoadingView();
+    loading_view_ = new LoadingView;
 }
 
 void ReposTab::createLoadingFailedView()

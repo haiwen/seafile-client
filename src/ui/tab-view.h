@@ -4,6 +4,8 @@
 #include <QWidget>
 
 class QStackedWidget;
+class QShowEvent;
+class QHideEvent;
 
 /**
  * Represents one tab of a QTabWidget
@@ -18,6 +20,12 @@ public slots:
     virtual void refresh() = 0;
 
 protected:
+    virtual void showEvent(QShowEvent *event);
+    virtual void hideEvent(QHideEvent *event);
+
+    virtual void startRefresh() = 0;
+    virtual void stopRefresh() = 0;
+
     QStackedWidget *mStack;
 };
 

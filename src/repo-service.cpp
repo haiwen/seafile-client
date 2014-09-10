@@ -44,6 +44,11 @@ void RepoService::start()
     refresh_timer_->start(kRefreshReposInterval);
 }
 
+void RepoService::stop()
+{
+    refresh_timer_->stop();
+}
+
 void RepoService::refresh()
 {
     if (in_refresh_) {

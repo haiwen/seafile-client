@@ -115,3 +115,13 @@ void ReposTab::refresh()
     showLoadingView();
     RepoService::instance()->refresh(true);
 }
+
+void ReposTab::startRefresh()
+{
+    RepoService::instance()->start();
+}
+
+void ReposTab::stopRefresh()
+{
+    RepoService::instance()->stop();
+}

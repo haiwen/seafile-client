@@ -46,7 +46,6 @@ StarredFilesTab::StarredFilesTab(QWidget *parent)
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
-    refresh_timer_->start(kRefreshInterval);
 
     get_starred_files_req_ = NULL;
 
@@ -162,4 +161,14 @@ void StarredFilesTab::refreshStarredFilesFailed(const ApiError& error)
 void StarredFilesTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+}
+
+void StarredFilesTab::startRefresh()
+{
+    refresh_timer_->start(kRefreshInterval);
+}
+
+void StarredFilesTab::stopRefresh()
+{
+    refresh_timer_->stop();
 }

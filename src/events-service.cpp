@@ -37,6 +37,11 @@ void EventsService::start()
     refresh_timer_->start(kRefreshEventsInterval);
 }
 
+void EventsService::stop()
+{
+    refresh_timer_->stop();
+}
+
 void EventsService::refresh()
 {
     if (in_refresh_) {

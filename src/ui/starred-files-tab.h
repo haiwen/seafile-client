@@ -23,6 +23,10 @@ public:
 public slots:
     void refresh();
 
+protected:
+    void startRefresh();
+    void stopRefresh();
+
 private slots:
     void refreshStarredFiles(const std::vector<StarredFile>& files);
     void refreshStarredFilesFailed(const ApiError& error);

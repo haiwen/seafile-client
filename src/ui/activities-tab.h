@@ -33,6 +33,10 @@ signals:
 public slots:
     void refresh();
 
+protected:
+    void startRefresh();
+    void stopRefresh();
+
 private slots:
     void refreshEvents(const std::vector<SeafEvent>& events,
                        bool is_loading_more,

@@ -24,6 +24,10 @@ public:
 public slots:
     void refresh();
 
+protected:
+    void startRefresh();
+    void stopRefresh();
+
 private slots:
     void refreshRepos(const std::vector<ServerRepo>& repos);
     void refreshReposFailed(const ApiError& error);

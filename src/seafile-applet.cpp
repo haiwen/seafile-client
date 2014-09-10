@@ -25,8 +25,6 @@
 #include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
 #include "open-local-helper.h"
-#include "repo-service.h"
-#include "events-service.h"
 #include "avatar-service.h"
 #include "seahub-notifications-monitor.h"
 
@@ -130,8 +128,6 @@ void SeafileApplet::start()
 
     certs_mgr_->start();
 
-    RepoService::instance()->start();
-    EventsService::instance()->start();
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();
 

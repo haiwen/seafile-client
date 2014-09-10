@@ -13,3 +13,18 @@ TabView::TabView(QWidget *parent)
     mStack = new QStackedWidget;
     layout->addWidget(mStack);
 }
+
+void TabView::showEvent(QShowEvent *event)
+{
+    startRefresh();
+    QWidget::showEvent(event);
+}
+
+/**
+ * Pause its freshing when this tab is not shown in front.
+ */
+void TabView::hideEvent(QHideEvent *event)
+{
+    stopRefresh();
+    QWidget::hideEvent(event);
+}

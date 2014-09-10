@@ -157,3 +157,13 @@ void ActivitiesTab::refreshFailed(const ApiError& error)
 
     mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }
+
+void ActivitiesTab::startRefresh()
+{
+    EventsService::instance()->start();
+}
+
+void ActivitiesTab::stopRefresh()
+{
+    EventsService::instance()->stop();
+}

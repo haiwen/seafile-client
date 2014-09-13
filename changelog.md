@@ -2,6 +2,32 @@
 
 ## DEVELOPMENT
 
+#### 20140922
+* add persisent cache support for file
+* fix drag and drop behaviour
+
+#### 20140920
+* fix segmentfault issue when cancelling
+* multiple small fixes
+
+#### 20140916
+* continue 20140915 work, and bring more ui tweaks
+* upload fix the behaviour when finished
+* disable hover effect temporarily
+
+#### 20140915
+* add upload task support (gui part)
+* add a status bar at bottom
+* bring lots of ui tweaks
+
+#### 20140913
+* add upload task support (no-gui part)
+* add hover animation for table view
+* fix linux compiling issue
+
+#### 20140912
+* enhance progress dialog
+
 #### 20140911
 * add a progress dialog for downloading
 * fix a weired behaviour while downloading

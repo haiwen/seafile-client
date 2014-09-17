@@ -23,6 +23,7 @@ public:
     unsigned int maxDownloadRatio() { return maxDownloadRatio_; }
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
     bool allowInvalidWorktree() { return allow_invalid_worktree_; }
+    bool syncExtraTempFile() { return sync_extra_temp_file_; }
 
     void setNotify(bool notify);
     void setAutoStart(bool autoStart);
@@ -30,12 +31,13 @@ public:
     void setMaxDownloadRatio(unsigned int ratio);
     void setMaxUploadRatio(unsigned int ratio);
     void setAllowInvalidWorktree(bool val);
+    void setSyncExtraTempFile(bool sync);
 
     bool hideMainWindowWhenStarted();
     void setHideMainWindowWhenStarted(bool hide);
 
     bool hideDockIcon();
-    void setHideDockIcon(bool hideDockIcon);
+    void setHideDockIcon(bool hide);
 
     void setCheckLatestVersionEnabled(bool enabled);
     bool isCheckLatestVersionEnabled();
@@ -62,6 +64,7 @@ private:
     bool transferEncrypted_;
     bool allow_invalid_worktree_;
     bool allow_repo_not_found_on_server_;
+    bool sync_extra_temp_file_;
     unsigned int maxDownloadRatio_;
     unsigned int maxUploadRatio_;
 };

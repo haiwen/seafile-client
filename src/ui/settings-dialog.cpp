@@ -44,6 +44,7 @@ void SettingsDialog::updateSettings()
     mgr->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
     mgr->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
     mgr->setHideDockIcon(mHideDockIconCheckBox->checkState() == Qt::Checked);
+    mgr->setSyncExtraTempFile(mSyncExtraTempFileCheckBox->checkState() == Qt::Checked);
     mgr->setMaxDownloadRatio(mDownloadSpinBox->value());
     mgr->setMaxUploadRatio(mUploadSpinBox->value());
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
@@ -76,6 +77,9 @@ void SettingsDialog::showEvent(QShowEvent *event)
 
     state = mgr->allowInvalidWorktree() ? Qt::Checked : Qt::Unchecked;
     mAllowInvalidWorktreeCheckBox->setCheckState(state);
+
+    state = mgr->syncExtraTempFile() ? Qt::Checked : Qt::Unchecked;
+    mSyncExtraTempFileCheckBox->setCheckState(state);
 
     state = mgr->allowRepoNotFoundOnServer() ? Qt::Checked : Qt::Unchecked;
     mAllowRepoNotFoundCheckBox->setCheckState(state);

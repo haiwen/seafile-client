@@ -252,8 +252,8 @@ void SettingsManager::setSyncExtraTempFile(bool sync)
 {
     if (sync_extra_temp_file_ != sync) {
         if (seafApplet->rpcClient()->seafileSetConfig(
-                "sync_extra_sync_temp_file",
-                sync_extra_temp_file_ ? "true" : "false") < 0) {
+                "sync_extra_temp_file",
+                sync ? "true" : "false") < 0) {
             // Error
             return;
         }

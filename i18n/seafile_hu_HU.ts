@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="hu_HU">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hu_HU" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -516,14 +514,6 @@
         <location filename="../src/daemon-mgr.cpp" line="59"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>Nem sikerült betölteni a ccnet konfigurációs könyvtárát (%1)</translation>
-    </message>
-    <message>
-        <source>ccnet daemon has exited abnormally</source>
-        <translation type="obsolete">A ccnet háttérfolyamat váratlanul megszakadt</translation>
-    </message>
-    <message>
-        <source>seafile daemon has exited abnormally</source>
-        <translation type="obsolete">A seafile háttérfolyamat váratlanul megszakadt</translation>
     </message>
 </context>
 <context>
@@ -1340,7 +1330,7 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/utils/utils.cpp" line="459"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Nem része a tanúsítványnak&gt;</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="125"/>
@@ -1827,12 +1817,12 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nap&amp;lózási mappa megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="115"/>
         <source>open seafile log directory</source>
-        <translation type="unfinished"></translation>
+        <translation>A Seafile log könyvtárának megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="118"/>
@@ -1867,9 +1857,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="404"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>%n üzenete van</numerusform>
-        </translation>
+        <translation><numerusform>%n üzenete van</numerusform><numerusform>%n üzenete van</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="410"/>
@@ -1986,23 +1974,19 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
         <translation>Értesítést kérek, ha a könyvtárak szinkronizálva vannak</translation>
     </message>
     <message>
-        <source>Auto start Seafile after login (Windows only)</source>
-        <translation type="obsolete">Seafile automatikus indítása bejelentkezéskor (Windows)</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="208"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"></translation>
+        <translation>MS Office/Libreoffice ideiglenes fájlok szinkronizálása</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="209"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile elindítása bejelentkezéskor</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="210"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne jelenjen meg a Seafile ikonja az értesítési területen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="211"/>
@@ -2075,12 +2059,12 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Jelenlegi RSA-kulcs ujjlenyomata: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Előző RSA-kulcs ujjlenyomata: %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>

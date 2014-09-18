@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="de_DE" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -347,7 +345,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="237"/>
         <source>or Drop Folder to Sync</source>
-        <translation>oder hier hinziehen, um ihn zu synchronisieren</translation>
+        <translation>oder ablegen</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="239"/>
@@ -515,14 +513,6 @@
         <location filename="../src/daemon-mgr.cpp" line="59"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>Fehler beim Laden des ccnet Konfigurationsordners %1</translation>
-    </message>
-    <message>
-        <source>ccnet daemon has exited abnormally</source>
-        <translation type="obsolete">ccnet Daemon wurde unerwartet beendet</translation>
-    </message>
-    <message>
-        <source>seafile daemon has exited abnormally</source>
-        <translation type="obsolete">seafile Daemon wurde unerwartet beendet</translation>
     </message>
 </context>
 <context>
@@ -1339,7 +1329,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/utils/utils.cpp" line="459"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Nicht Teil des Zertifikates&gt;</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="125"/>
@@ -1816,7 +1806,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <location filename="../src/ui/tray-icon.cpp" line="160"/>
         <source>Show main window</source>
-        <translation>Hauptfenster zeigen</translation>
+        <translation>Hauptfenster anzeigen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="111"/>
@@ -1826,12 +1816,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Protokollordner öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="115"/>
         <source>open seafile log directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile-Protokollverzeichnis öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="118"/>
@@ -1866,10 +1856,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="404"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>Sie haben %n Nachricht</numerusform>
-            <numerusform>Sie haben %n Nachrichten</numerusform>
-        </translation>
+        <translation><numerusform>Sie haben %n Nachricht</numerusform><numerusform>Sie haben %n Nachrichten</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="410"/>
@@ -1986,23 +1973,19 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <translation>Benachrichtigen, wenn Bibliotheken synchronisiert sind</translation>
     </message>
     <message>
-        <source>Auto start Seafile after login (Windows only)</source>
-        <translation type="obsolete">Seafile nach dem Anmelden automatisch starten (nur für Windows)</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="208"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisieren temporärer Dateien von MSOffice/Libreoffice aktivieren</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="209"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile automatisch nach der Anmeldung starten</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="210"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"></translation>
+        <translation>Seafile-Symbol aus Docker entfernen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="211"/>
@@ -2012,12 +1995,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="212"/>
         <source>Download speed limit (KB/s):</source>
-        <translation>Maximale Übertragungsgeschwindigkeit (kB/s):</translation>
+        <translation>Größte Geschwindigkeit beim Herunterladen (kB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="213"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation>Maximale Upload-Geschwindigkeit (kB/s):</translation>
+        <translation>Größte Geschwindigkeit beim Hochladen (kB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="214"/>
@@ -2027,7 +2010,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="215"/>
         <source>Do not automatically unsync a library</source>
-        <translation>Nicht automatisch eine Bibliothek vom Synchronisieren ausnehmen</translation>
+        <translation>Synchronisierung einer Bibliothek nicht automatisch aufheben</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="216"/>
@@ -2075,12 +2058,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktueller Fingerabdruck des RSA-Schlüssels ist %1</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorheriger Fingerabdruck des RSA-Schlüssels ist %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>

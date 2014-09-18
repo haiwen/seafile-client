@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="es_AR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es_AR" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -516,14 +514,6 @@
         <location filename="../src/daemon-mgr.cpp" line="59"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>fallo al cargar configuración ccnet %1</translation>
-    </message>
-    <message>
-        <source>ccnet daemon has exited abnormally</source>
-        <translation type="obsolete">proceso ccnet terminado por fallo interno</translation>
-    </message>
-    <message>
-        <source>seafile daemon has exited abnormally</source>
-        <translation type="obsolete">proceso seafile terminado por fallo interno</translation>
     </message>
 </context>
 <context>
@@ -1340,7 +1330,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/utils/utils.cpp" line="459"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;No es Parte del Certificado&gt;</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="125"/>
@@ -1827,12 +1817,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir &amp;registros</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="115"/>
         <source>open seafile log directory</source>
-        <translation type="unfinished"></translation>
+        <translation>abrir carpeta de registros de seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="118"/>
@@ -1867,10 +1857,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="404"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>Tiene %n mensaje(s)</numerusform>
-            <numerusform>Tiene %n mensaje(s)</numerusform>
-        </translation>
+        <translation><numerusform>Tiene %n mensaje(s)</numerusform><numerusform>Tiene %n mensaje(s)</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="410"/>
@@ -1987,23 +1974,19 @@ Do you want to visit the download page?</source>
         <translation>Notificar al sincronizar bibliotecas</translation>
     </message>
     <message>
-        <source>Auto start Seafile after login (Windows only)</source>
-        <translation type="obsolete">Iniciar Seafile al iniciar sesión (Sólo en Windows)</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="208"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar la sincronización de archivos temporarios de MSOffice/Libreoffice</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="209"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"></translation>
+        <translation>Iniciar automáticamente Seafile después del inicio de sesión</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="210"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar el icono de Seafile de la barra</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="211"/>
@@ -2076,12 +2059,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>La huella digital de la clave RSA actual es %1</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>La huella digital de la clave RSA anterior es %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>

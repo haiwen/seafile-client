@@ -34,7 +34,8 @@ SettingsManager::SettingsManager()
       allow_invalid_worktree_(false),
       allow_repo_not_found_on_server_(false),
       maxDownloadRatio_(0),
-      maxUploadRatio_(0)
+      maxUploadRatio_(0),
+      sync_extra_temp_file_(false)
 {
 }
 

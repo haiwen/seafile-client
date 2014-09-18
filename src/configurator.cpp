@@ -9,6 +9,7 @@
 
 #include "seafile-applet.h"
 #include "ccnet-init.h"
+#include "ui/init-seafile-dialog.h"
 
 #if defined(Q_WS_WIN)
 #include "utils/registry.h"
@@ -90,20 +91,19 @@ void Configurator::initCcnet()
 
 void Configurator::initSeafile()
 {
+    InitSeafileDialog dialog;
+    connect(&dialog, SIGNAL(seafileDirSet(const QString&)),
+            this, SLOT(onSeafileDirSet(const QString&)));
+
+    if (dialog.exec() != QDialog::Accepted) {
+        seafApplet->exit(1);
+    }
+
     first_use_ = true;
+}
 
-    QString relative_path;
-#if defined(Q_WS_WIN)
-    relative_path = "Seafile/seafile-data";
-#else
-    relative_path = "Seafile/.seafile-data";
-#endif
-
-    // Create seafile-data dir
-    QDir dir(QDir::homePath());
-    dir.mkpath(relative_path);
-    seafile_dir_ = dir.filePath(relative_path);
-
+void Configurator::onSeafileDirSet(const QString& path)
+{
     // Write seafile dir to <ccnet dir>/seafile.ini
     QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
 
@@ -111,9 +111,11 @@ void Configurator::initSeafile()
         return;
     }
 
-    seafile_ini.write(seafile_dir_.toUtf8().data());
+    seafile_ini.write(path.toUtf8().data());
 
-    QDir d(seafile_dir_);
+    seafile_dir_ = path;
+
+    QDir d(path);
 
     d.cdUp();
     worktree_ = d.absolutePath();
@@ -330,3 +332,4 @@ void Configurator::installCustomUrlHandler()
     }
 #endif
 }
+

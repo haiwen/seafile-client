@@ -1817,7 +1817,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Open &amp;logs folder</source>
-        <translation>(&amp;o)打开日志文件</translation>
+        <translation>打开日志文件(&amp;L)</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="115"/>

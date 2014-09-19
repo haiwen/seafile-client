@@ -72,6 +72,8 @@ void SettingsDialog::showEvent(QShowEvent *event)
 
     SettingsManager *mgr = seafApplet->settingsManager();
 
+    mgr->loadSettings();
+
     state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
     mHideMainWinCheckBox->setCheckState(state);
 

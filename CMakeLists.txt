@@ -269,6 +269,7 @@ SET(seafile_client_sources
   src/filebrowser/network/request.cpp
   src/filebrowser/network/task.cpp
   src/filebrowser/network/task-builder.cpp
+  third_party/CppSQLite/CppSQLite3.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )
@@ -277,6 +278,7 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${PROJECT_SOURCE_DIR}/src
+  ${PROJECT_SOURCE_DIR}/third_party/CppSQLite
   ${PROJECT_SOURCE_DIR}/third_party/QtAwesome
   ${QT_INCLUDE_DIR}
   ${QT_QTNETWORK_INCLUDE_DIR}

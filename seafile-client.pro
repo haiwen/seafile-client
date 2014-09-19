@@ -13,6 +13,7 @@ DEPENDPATH += . \
               src/rpc \
               src/ui \
               src/utils \
+              third_party/CppSQLite \
               third_party/QtAwesome \
               src/filebrowser/network
 INCLUDEPATH += . \
@@ -20,6 +21,7 @@ INCLUDEPATH += . \
                src/utils \
                src/ui \
                src/api \
+               third_party/CppSQLite \
                third_party/QtAwesome \
                src/rpc \
                src/filebrowser \
@@ -110,6 +112,7 @@ HEADERS += src/account-mgr.h \
            src/utils/translate-commit-desc.h \
            src/utils/uninstall-helpers.h \
            src/utils/utils.h \
+           third_party/CppSQLite/CppSQLite3.h \
            third_party/QtAwesome/QtAwesome.h \
            src/filebrowser/network/request.h \
            src/filebrowser/network/task-builder.h \
@@ -214,6 +217,7 @@ SOURCES += src/account-mgr.cpp \
            src/utils/translate-commit-desc.cpp \
            src/utils/uninstall-helpers.cpp \
            src/utils/utils.cpp \
+           third_party/CppSQLite/CppSQLite3.cpp \
            third_party/QtAwesome/QtAwesome.cpp \
            src/filebrowser/network/request.cpp \
            src/filebrowser/network/task-builder.cpp \

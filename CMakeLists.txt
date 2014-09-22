@@ -260,6 +260,7 @@ SET(seafile_client_sources
   src/filebrowser/file-browser-dialog.cpp
   src/filebrowser/file-browser-progress-dialog.cpp
   src/filebrowser/file-browser-requests.cpp
+  src/filebrowser/file-cache-mgr.cpp
   src/filebrowser/file-delegate.cpp
   src/filebrowser/file-network-mgr.cpp
   src/filebrowser/file-table-view.cpp

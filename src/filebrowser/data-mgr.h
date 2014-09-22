@@ -20,12 +20,11 @@ class GetDirentsRequest;
 class DataManager : public QObject {
     Q_OBJECT
 public:
-    DataManager(const Account& account);
+    DataManager(const Account& account, const ServerRepo& repo);
 
     ~DataManager();
 
-    void getDirents(const QString repo_id,
-                    const QString& path,
+    void getDirents(const QString& path,
                     bool force_update = false);
 
 signals:
@@ -38,7 +37,9 @@ private slots:
     void onGetDirentsFailed(const ApiError& error);
 
 private:
-    Account account_;
+    const Account account_;
+
+    const ServerRepo &repo_;
 
     QCache<QString, LRUCache<QString, QList<SeafDirent> > > repo_cache_;
 

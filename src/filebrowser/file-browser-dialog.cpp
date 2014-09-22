@@ -47,8 +47,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     selected_dirent_ = NULL;
 
     const Account& account = seafApplet->accountManager()->currentAccount();
-    data_mgr_ = new DataManager(account);
-    file_network_mgr_ = new FileNetworkManager(account);
+    data_mgr_ = new DataManager(account, repo);
+    file_network_mgr_ = new FileNetworkManager(account, repo.id);
     file_progress_dialog_ = new FileBrowserProgressDialog(this);
 
     setWindowTitle(tr("File Browser - %1").arg(account.serverUrl.toString()));
@@ -220,7 +220,7 @@ void FileBrowserDialog::onDirChanged(bool forcely)
 
     details_label_->setText(tr("Loading..."));
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
-    data_mgr_->getDirents(repo_.id, path_, forcely);
+    data_mgr_->getDirents(path_, forcely);
     path_line_edit_->setText(repo_id_and_path_.arg(path_));
 }
 
@@ -320,8 +320,9 @@ void FileBrowserDialog::onFileUpload(const QString &_file_name)
     if (file_name.isEmpty())
         return;
     FileNetworkTask* task = \
-        file_network_mgr_->createUploadTask(repo_.id, path_,
-                           QFileInfo(file_name).fileName(), file_name);
+        file_network_mgr_->createUploadTask(path_,
+                                            QFileInfo(file_name).fileName(),
+                                            file_name);
     connect(task, SIGNAL(finished()), this, SIGNAL(dirChangedForcely()));
     file_progress_dialog_->setTask(task);
     file_progress_dialog_->show();
@@ -334,7 +335,7 @@ void FileBrowserDialog::onFileDownload()
         return;
     if (selected_dirent_->isDir()) //no implemented yet
         return;
-    FileNetworkTask* task = file_network_mgr_->createDownloadTask(repo_.id, path_,
+    FileNetworkTask* task = file_network_mgr_->createDownloadTask(path_,
                                                 selected_dirent_->name,
                                                 selected_dirent_->id);
     file_progress_dialog_->setTask(task);

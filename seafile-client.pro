@@ -56,6 +56,7 @@ HEADERS += src/account-mgr.h \
            src/filebrowser/file-browser-dialog.h \
            src/filebrowser/file-browser-progress-dialog.h \
            src/filebrowser/file-browser-requests.h \
+           src/filebrowser/file-cache-mgr.h \
            src/filebrowser/file-delegate.h \
            src/filebrowser/file-iview.h \
            src/filebrowser/file-network-mgr.h \
@@ -164,6 +165,7 @@ SOURCES += src/account-mgr.cpp \
            src/filebrowser/file-browser-dialog.cpp \
            src/filebrowser/file-browser-progress-dialog.cpp \
            src/filebrowser/file-browser-requests.cpp \
+           src/filebrowser/file-cache-mgr.cpp \
            src/filebrowser/file-delegate.cpp \
            src/filebrowser/file-network-mgr.cpp \
            src/filebrowser/file-table-view.cpp \

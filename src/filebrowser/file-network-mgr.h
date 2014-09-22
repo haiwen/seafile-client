@@ -2,11 +2,11 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MANAGER_H
 
 #include <QDir>
-#include <QHash>
 
 #include "network/task-builder.h"
 #include "network/task.h"
 #include "account.h"
+#include "file-cache-mgr.h"
 
 class ApiError;
 class QThread;
@@ -105,18 +105,16 @@ class FileNetworkManager : public QObject {
     Q_OBJECT
     friend class FileNetworkTask;
 public:
-    FileNetworkManager(const Account &account);
+    FileNetworkManager(const Account &account, const QString &repo_id);
     ~FileNetworkManager();
 
-    FileNetworkTask* createDownloadTask(const QString &repo_id,
-                           const QString &path,
-                           const QString &file_name,
-                           const QString &oid = QString());
+    FileNetworkTask* createDownloadTask(const QString &path,
+                                        const QString &file_name,
+                                        const QString &oid = QString());
 
-    FileNetworkTask* createUploadTask(const QString &repo_id,
-                               const QString &path,
-                               const QString &file_name,
-                               const QString &upload_file_path);
+    FileNetworkTask* createUploadTask(const QString &path,
+                                      const QString &file_name,
+                                      const QString &upload_file_path);
 
     void runTask(FileNetworkTask* task);
 
@@ -127,15 +125,16 @@ private:
     int addTask(FileNetworkTask* task);
 
     const Account account_;
+    const QString repo_id_;
 
     QDir file_cache_dir_;
     QString file_cache_path_;
 
-    QHash<QString, FileNetworkTask*> cached_tasks_;
-
     SeafileNetworkTaskBuilder network_task_builder_;
 
     QThread *worker_thread_;
+
+    FileCacheManager &cache_mgr_;
 };
 
 void FileNetworkTask::onRun()
@@ -191,15 +190,8 @@ void FileNetworkTask::onPrefetchFinished()
     if (type_ ==  SEAFILE_NETWORK_TASK_UPLOAD)
         emit resume();
     if (type_ ==  SEAFILE_NETWORK_TASK_DOWNLOAD) {
-        FileNetworkTask *associated_task;
-        if (!network_mgr_->cached_tasks_.contains(oid_) ||
-            !(associated_task = network_mgr_->cached_tasks_[oid_]) ||
-            associated_task->oid_ != oid_ ||
-            associated_task->status_ != SEAFILE_NETWORK_TASK_STATUS_FINISHED ||
-            !QFileInfo(associated_task->file_location_).exists()
-            ) {
-            // missed cache
-            network_mgr_->cached_tasks_.remove(oid_);
+        QString cached_location = network_mgr_->cache_mgr_.get(oid_);
+        if (cached_location.isEmpty()) {
             emit resume();
             return;
         }
@@ -207,9 +199,10 @@ void FileNetworkTask::onPrefetchFinished()
         disconnect(network_task_, 0, this, 0);
         onCancel();
         network_task_ = NULL;
-        // copy attributes from previous task
-        file_location_ = associated_task->file_location_; //TODO: copy file
-        total_bytes_ = associated_task->total_bytes_;
+        // copy attributes from cached file
+        QFileInfo cached_info_ = QFileInfo(cached_location);
+        file_location_ = cached_location; //TODO: copy the file
+        total_bytes_ = cached_info_.size();
         processed_bytes_ = total_bytes_;
         status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
         // fast-forward progress dialog
@@ -226,7 +219,9 @@ void FileNetworkTask::onAborted()
 
 void FileNetworkTask::onFinished()
 {
-    network_mgr_->cached_tasks_.insert(oid_, this);
+    network_mgr_->cache_mgr_.set(oid_, file_location_, file_name_, path_,
+                                 network_mgr_->account_.serverUrl.toString(),
+                                 network_mgr_->repo_id_);
     status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
     network_task_ = NULL;
     emit finished();

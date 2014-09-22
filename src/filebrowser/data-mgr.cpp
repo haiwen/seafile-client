@@ -7,8 +7,8 @@
 
 const int kLRUTTL = 60;
 
-DataManager::DataManager(const Account& account)
-    : account_(account)
+DataManager::DataManager(const Account &account, const ServerRepo &repo)
+    : account_(account), repo_(repo)
 {
     req_ = NULL;
 }
@@ -18,19 +18,18 @@ DataManager::~DataManager()
     //nothing
 }
 
-void DataManager::getDirents(const QString repo_id,
-                             const QString& path,
+void DataManager::getDirents(const QString& path,
                              bool force_update)
 {
     QString dir_id;
 
     LRUCache<QString, QList<SeafDirent> > *path_cache;
 
-    if (!repo_cache_.contains(repo_id)) {
+    if (!repo_cache_.contains(repo_.id)) {
         path_cache = new LRUCache<QString, QList<SeafDirent> >(kLRUTTL);
-        repo_cache_.insert(repo_id, path_cache);
+        repo_cache_.insert(repo_.id, path_cache);
     } else
-        path_cache = repo_cache_[repo_id];
+        path_cache = repo_cache_[repo_.id];
 
     if (!force_update && path_cache->contains(path)) {
         emit getDirentsSuccess(*(*path_cache)[path]);
@@ -41,7 +40,7 @@ void DataManager::getDirents(const QString repo_id,
         delete req_;
     }
 
-    req_ = new GetDirentsRequest(account_, repo_id, path, dir_id);
+    req_ = new GetDirentsRequest(account_, repo_.id, path, dir_id);
     connect(req_, SIGNAL(success(const QString&, const QList<SeafDirent>&)),
             this, SLOT(onGetDirentsSuccess(const QString&, const QList<SeafDirent>&)));
     connect(req_, SIGNAL(failed(const ApiError&)),

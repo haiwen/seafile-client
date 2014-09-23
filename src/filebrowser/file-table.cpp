@@ -4,6 +4,7 @@
 #include <QApplication>
 
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "seaf-dirent.h"
 
 const int kFileNameColumnWidth = 240;
@@ -59,7 +60,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     if (role == Qt::DecorationRole && column == FILE_COLUMN_ICON) {
         return (dirent.isDir() ?
             QApplication::style()->standardIcon(QStyle::SP_DirIcon) :
-            QApplication::style()->standardIcon(QStyle::SP_FileIcon)).
+            QIcon(getIconByFileName(dirent.name))).
           pixmap(kDefaultColumnHeight, kDefaultColumnHeight);
     }
 

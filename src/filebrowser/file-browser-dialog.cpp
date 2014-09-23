@@ -50,6 +50,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     data_mgr_ = new DataManager(account, repo);
     file_network_mgr_ = new FileNetworkManager(account, repo.id);
     file_progress_dialog_ = new FileBrowserProgressDialog(this);
+    file_progress_dialog_->setWindowModality(Qt::WindowModal);
 
     setWindowTitle(tr("File Browser - %1").arg(account.serverUrl.toString()));
     setWindowIcon(QIcon(":/images/seafile.png"));

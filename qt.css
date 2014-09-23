@@ -432,6 +432,6 @@ FileTableView QHeaderView::section {
 }
 
 FileBrowserProgressDialog {
-    min-width: 540px;
-    max-width: 720px;
+    min-width: 484px;
+    max-width: 640px;
 }

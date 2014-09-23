@@ -1,5 +1,4 @@
 #include "file-browser-progress-dialog.h"
-#include <QMessageBox>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -41,11 +40,11 @@ void FileBrowserProgressDialog::setTask(const FileNetworkTask *task)
 {
     task_ = task;
 
-    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD) ?
-       tr("Uploading %1 to \"%2\"") : tr("Downloading %1 to \"%2\"")) \
-                 .arg(task->fileName()).arg(task->fileLocation()));
     setWindowTitle((task->type() == SEAFILE_NETWORK_TASK_UPLOAD) ?
        tr("Upload") : tr("Download"));
+    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD) ?
+       tr("Uploading %1") : tr("Downloading %1")) \
+                 .arg(task->fileName()));
 
     more_details_label_->setText("");
 
@@ -78,9 +77,6 @@ void FileBrowserProgressDialog::onAborted()
 {
     disconnect(task_, 0, this, 0);
     more_details_label_->setText(tr("Aborted"));
-    QMessageBox::warning(static_cast<QWidget*>(parent()),
-                         tr("Aborted"),
-                         description_label_->text().append('\n').append(tr("Aborted")));
 
     reset();
 }
@@ -89,10 +85,6 @@ void FileBrowserProgressDialog::onFinished()
     disconnect(task_, 0, this, 0);
     more_details_label_->setText(tr("Finished"));
     progress_bar_->setValue(maximum());
-    if (task_->type() == SEAFILE_NETWORK_TASK_UPLOAD)
-        QMessageBox::information(static_cast<QWidget*>(parent()),
-                          tr("Finished"),
-                          description_label_->text().append('\n').append(tr("Finished")));
 
     if (task_->type() == SEAFILE_NETWORK_TASK_DOWNLOAD &&
         !QDesktopServices::openUrl(QUrl::fromLocalFile(task_->fileLocation())) &&

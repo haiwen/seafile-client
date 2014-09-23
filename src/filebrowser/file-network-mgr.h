@@ -163,6 +163,9 @@ void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
     if (processed_bytes_++ != 0) //processed_bytes contains network cache
         processed_bytes_ = processed_bytes;
     total_bytes_ = total_bytes;
+
+    if (processed_bytes_ >= total_bytes_)
+        processed_bytes_ = total_bytes_ - 1;
     emit updateProgress(processed_bytes_, total_bytes_);
 }
 

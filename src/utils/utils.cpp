@@ -466,8 +466,8 @@ QString readableFileSizeV2(qint64 size)
 {
     if (size <= 0)
         return "0 B";
-    //max size is 6 x 7 -1
-    const int bufsize = 50;
+    //max size is 1 x 7 + 1
+    const int bufsize = 10;
     char buf[bufsize];
 
     int size_unit_b = size & 1023; //B
@@ -480,26 +480,24 @@ QString readableFileSizeV2(qint64 size)
 
     if (size_unit_p)
         snprintf(buf, bufsize - 1,
-                 "%dP %3dT %3dG %3dM %3dK %3dB",
-                 size_unit_p, size_unit_t, size_unit_g,
-                 size_unit_m, size_unit_k, size_unit_b);
+                 "%d.%.2dP",
+                 size_unit_p, (size_unit_t * 100) >> 10);
     else if (size_unit_t)
         snprintf(buf, bufsize - 1,
-                 "%dT %3dG %3dM %3dK %3dB",
-                 size_unit_t, size_unit_g,
-                 size_unit_m, size_unit_k, size_unit_b);
+                 "%d.%.2dT",
+                 size_unit_t, (size_unit_g * 100) >> 10);
     else if (size_unit_g)
         snprintf(buf, bufsize - 1,
-                 "%dG %3dM %3dK %3dB",
-                 size_unit_g, size_unit_m, size_unit_k, size_unit_b);
+                 "%d.%.2dG",
+                 size_unit_g, (size_unit_m * 100) >> 10);
     else if (size_unit_m)
         snprintf(buf, bufsize - 1,
-                 "%dM %3dK %3dB",
-                 size_unit_m, size_unit_k, size_unit_b);
+                 "%d.%.2dM",
+                 size_unit_m, (size_unit_k * 100) >> 10);
     else if (size_unit_k)
         snprintf(buf, bufsize - 1,
-                 "%dK %3dB",
-                 size_unit_k, size_unit_b);
+                 "%d.%.2dK",
+                 size_unit_k, (size_unit_b * 100) >> 10);
     else
         snprintf(buf, bufsize - 1,
                  "%dB",

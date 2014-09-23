@@ -10,6 +10,7 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
       repo_(repo)
 {
     verticalHeader()->hide();
+    verticalHeader()->setDefaultSectionSize(40);
     horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);

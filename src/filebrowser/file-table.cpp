@@ -7,9 +7,9 @@
 #include "utils/file-utils.h"
 #include "seaf-dirent.h"
 
-const int kFileNameColumnWidth = 240;
-const int kDefaultColumnWidth = 120;
-const int kDefaultColumnHeight = 24;
+const int kFileNameColumnWidth = 300;
+const int kDefaultColumnWidth = 160;
+const int kDefaultColumnHeight = 36;
 
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent),

@@ -415,14 +415,14 @@ FileBrowserDialog QToolBar {
 }
 
 FileTableView {
-    min-width: 640px;
-    min-height: 400px;
+    alternate-background-color: #f0f0f0;
+    min-width: 827px;
+    min-height: 621px;
     border: 0;
     padding: 6px;
-    selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #D7F4F7, stop: 0.4 #CEECF0,
-                             stop: 0.6 #C5E4E8, stop: 1.0 #D7F4F7);
+    selection-background-color: rgb(200, 200, 220, 255);
     selection-color: #2f2f2f;
+    selection-height: 36px;
 }
 
 FileTableView QHeaderView::section {

@@ -123,6 +123,14 @@ void FileTableView::selectionChanged(const QItemSelection &selected,
     emit selectionChanged(row);
 }
 
+void FileTableView::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return ||
+        event->key() == Qt::Key_Enter)
+        onItemDoubleClicked(currentIndex());
+    QAbstractItemView::keyPressEvent(event);
+}
+
 void FileTableView::mouseDoubleClickEvent(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)

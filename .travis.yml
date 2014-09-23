@@ -3,12 +3,12 @@ matrix:
   include:
     - compiler: gcc
       env:
-        CFLAGS="-Wall -Wextra -Wsign-compare"
-        CXXFLAGS="-Wall -Wextra -Wsign-compare -Woverloaded-virtual"
+        CFLAGS="-Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -pedantic"
+        CXXFLAGS="-Woverloaded-virtual $CFLAGS"
     - compiler: clang
       env:
-        CFLAGS="-Wall -Wextra -Wsign-compare -fcolor-diagnostics"
-        CXXFLAGS="-Wall -Wextra -Wsign-compare -Woverloaded-virtual -fcolor-diagnostics"
+        CFLAGS="-Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -pedantic -fcolor-diagnostics"
+        CXXFLAGS="-Woverloaded-virtual $CFLAGS"
 before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq valac uuid-dev libevent-dev libarchive-dev intltool re2c libjansson-dev libqt4-dev

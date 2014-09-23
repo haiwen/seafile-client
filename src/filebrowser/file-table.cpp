@@ -59,7 +59,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::DecorationRole && column == FILE_COLUMN_ICON) {
         return (dirent.isDir() ?
-            QApplication::style()->standardIcon(QStyle::SP_DirIcon) :
+            QIcon(":/images/folder.png") :
             QIcon(getIconByFileName(dirent.name))).
           pixmap(kDefaultColumnHeight, kDefaultColumnHeight);
     }

@@ -9,6 +9,11 @@
 #include <QSslError>
 #include "utils/utils.h"
 
+#include "seafile-applet.h"
+#include "certs-mgr.h"
+#include <QSslConfiguration>
+#include <QSslCertificate>
+
 SeafileNetworkTask::SeafileNetworkTask(const QString &token,
                                        const QUrl &url,
                                        bool prefetch_api_required)
@@ -34,10 +39,16 @@ SeafileNetworkTask::SeafileNetworkTask(const QString &token,
 #if !defined(QT_NO_OPENSSL)
 void SeafileNetworkTask::sslErrors(QNetworkReply*, const QList<QSslError> &errors)
 {
-    qWarning() << dumpSslErrors(errors);
+    CertsManager *mgr = seafApplet->certsManager();
 
-    //TODO
-    reply_->ignoreSslErrors();
+    QSslCertificate cert = reply_->sslConfiguration().peerCertificate();
+    QSslCertificate saved_cert = mgr->getCertificate(url_.toString());
+    if (!saved_cert.isNull() && saved_cert == cert)
+        reply_->ignoreSslErrors();
+    else {
+        qWarning() << dumpSslErrors(errors);
+        reply_->abort();
+    }
 }
 #endif
 

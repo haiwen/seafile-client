@@ -39,15 +39,6 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     setDragDropMode(QAbstractItemView::DropOnly);
 }
 
-QStyleOptionViewItem FileTableView::viewOptions () const
-{
-    QStyleOptionViewItemV4 option = QTableView::viewOptions();
-    option.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
-    option.decorationAlignment = Qt::AlignHCenter | Qt::AlignCenter;
-    option.decorationPosition = QStyleOptionViewItem::Top;
-    return option;
-}
-
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
 {
     FileTableModel *_model = static_cast<FileTableModel*>(model());
@@ -130,5 +121,21 @@ void FileTableView::selectionChanged(const QItemSelection &selected,
     if  (!selected.isEmpty())
         row = selected.indexes().first().row();
     emit selectionChanged(row);
+}
+
+void FileTableView::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    if (event->button() != Qt::LeftButton)
+        return;
+    QAbstractItemView::mouseDoubleClickEvent(event);
+}
+
+QStyleOptionViewItem FileTableView::viewOptions () const
+{
+    QStyleOptionViewItemV4 option = QTableView::viewOptions();
+    option.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
+    option.decorationAlignment = Qt::AlignHCenter | Qt::AlignCenter;
+    option.decorationPosition = QStyleOptionViewItem::Top;
+    return option;
 }
 

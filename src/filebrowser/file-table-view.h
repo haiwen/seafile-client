@@ -31,6 +31,8 @@ private:
     void selectionChanged(const QItemSelection &selected,
                           const QItemSelection &deselected);
 
+    void mouseDoubleClickEvent(QMouseEvent *event);
+
     QStyleOptionViewItem viewOptions() const;
 
     ServerRepo repo_;

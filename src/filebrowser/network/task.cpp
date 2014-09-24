@@ -54,17 +54,17 @@ void SeafileNetworkTask::sslErrors(QNetworkReply*, const QList<QSslError> &error
 
 SeafileNetworkTask::~SeafileNetworkTask()
 {
+    if (reply_ && !reply_->isFinished())
+        reply_->abort();
     onClose();
-    delete req_;
-    delete prefetch_api_url_buf_;
 }
 
 void SeafileNetworkTask::onClose()
 {
     if (reply_)
-        onAborted();
-    if (reply_)
-        reply_->deleteLater();
+        reply_->deleteLater(); // delete called only here and onRedirected
+    delete req_;
+    delete prefetch_api_url_buf_;
 }
 
 void SeafileNetworkTask::onRedirected(const QUrl &new_url)
@@ -83,8 +83,6 @@ void SeafileNetworkTask::onAborted(SeafileNetworkTaskError error)
     qDebug() << "[network task]" << url_.toEncoded()
       << " is aborted due to error" << error;
     status_ = SEAFILE_NETWORK_TASK_STATUS_ERROR;
-    reply_->deleteLater();
-    reply_ = NULL;
 }
 
 void SeafileNetworkTask::onStart()
@@ -100,6 +98,7 @@ void SeafileNetworkTask::onCancel()
 {
     qDebug() << "[network task]" << url_.toEncoded() << "cancelled";
     if (reply_ &&
+        !reply_->isFinished() &&
         status_ != SEAFILE_NETWORK_TASK_STATUS_ERROR &&
         status_ != SEAFILE_NETWORK_TASK_STATUS_CANCELING) {
         reply_->abort();
@@ -174,16 +173,15 @@ SeafileDownloadTask::SeafileDownloadTask(const QString &token,
 SeafileDownloadTask::~SeafileDownloadTask()
 {
     onClose();
+}
+
+void SeafileDownloadTask::onClose()
+{
     if (file_) {
         file_->close();
         delete file_;
         file_ = NULL;
     }
-}
-
-void SeafileDownloadTask::onClose()
-{
-    SeafileNetworkTask::onClose();
 }
 
 void SeafileDownloadTask::onStartDownload()
@@ -288,8 +286,6 @@ void SeafileDownloadTask::onAborted(SeafileNetworkTaskError error)
     if (file_) {
         file_->close();
         file_->remove();
-        delete file_;
-        file_ = NULL;
     }
     this->deleteLater();
 }
@@ -313,16 +309,14 @@ SeafileUploadTask::SeafileUploadTask(const QString &token,
 SeafileUploadTask::~SeafileUploadTask()
 {
     onClose();
-    if (file_) {
-        file_->close();
-        delete file_;
-        file_ = NULL;
-    }
 }
 
 void SeafileUploadTask::onClose()
 {
-    SeafileNetworkTask::onClose();
+    if (reply_ && !reply_->isFinished())
+        reply_->abort();
+    if (file_)
+        file_->close();
 }
 
 void SeafileUploadTask::onStartUpload()

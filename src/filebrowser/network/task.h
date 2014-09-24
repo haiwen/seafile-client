@@ -64,13 +64,13 @@ protected slots:
 #endif
     void onRedirected(const QUrl &new_url);
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
-    void onClose();
 
 private slots:
     void onPrefetchProcessReady();
     void onPrefetchFinished();
 
 protected:
+    void onClose(); // cleanup function, responsible for resource release
     QNetworkReply *reply_;
     SeafileNetworkRequest *req_;
     QNetworkAccessManager *network_mgr_;
@@ -118,6 +118,8 @@ private slots:
     void onStartDownload(); // entry for beginning of download
     void onRedirected(const QUrl &new_url);
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
+
+private:
     void onClose();
 };
 
@@ -159,6 +161,8 @@ private slots:
     void onStartUpload(); //entry
     void onRedirected(const QUrl &new_url);
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
+
+private:
     void onClose();
 };
 

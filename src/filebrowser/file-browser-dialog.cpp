@@ -104,9 +104,9 @@ void FileBrowserDialog::createToolBar()
     path_line_edit_->setAlignment(Qt::AlignHCenter | Qt::AlignLeft);
     path_line_edit_->setMaximumHeight(kToolBarIconSize);
     path_line_edit_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    path_line_edit_->setStyleSheet("border: 2px solid #f0f0f0;"
-        "border-radius: 5px; padding-left: 8px; padding-right: 4px;"
-        "margin-right: 18px; selection-color: #d0d0d0");
+    path_line_edit_->setStyleSheet("border: 1px solid #f0f0f0;"
+        "border-radius: 5px; padding-left: 4px; padding-right: 4px;"
+        "margin-left: 8px; margin-right: 18px; selection-color: #d0d0d0");
     toolbar_->addWidget(path_line_edit_);
 
     QWidget *spacer0 = new QWidget;

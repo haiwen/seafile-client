@@ -115,16 +115,9 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return qsize;
     }
 
-    if (role == Qt::ForegroundRole &&
-        column == FILE_COLUMN_NAME) //change font only for file name column
+    //change color only for file name column
+    if (role == Qt::ForegroundRole && column == FILE_COLUMN_NAME)
         return QColor("#e83");
-
-    if (role == Qt::FontRole &&
-        column == FILE_COLUMN_NAME) {
-        QFont bold_font;
-        bold_font.setBold(true);
-        return bold_font;
-    }
 
     if (role != Qt::DisplayRole) {
         return QVariant();

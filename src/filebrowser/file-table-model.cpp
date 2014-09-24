@@ -15,14 +15,17 @@
 #include "file-network-mgr.h"
 #include "network/task.h"
 
-const int kFileNameColumnWidth = 300;
-const int kDefaultColumnWidth = 160;
-const int kDefaultColumnHeight = 36;
+const int kDefaultColumnWidth = 120;
+const int kDefaultColumnHeight = 40;
+const int kColumnIconSize = 36;
+const int kColumnIconAlign = 4;
+const int kDefaultColumnSum = kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign;
 
 FileTableModel::FileTableModel(const ServerRepo& repo, QObject *parent)
     : QAbstractTableModel(parent),
       selected_dirent_(NULL),
       curr_hovered_(-1), // -1 is a publicly-known magic number
+      file_name_column_width_(160),
       data_mgr_(NULL),
       file_network_mgr_(NULL),
       account_(seafApplet->accountManager()->currentAccount()),
@@ -79,8 +82,11 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return (dirent.isDir() ?
             QIcon(":/images/folder.png") :
             QIcon(getIconByFileName(dirent.name))).
-          pixmap(kDefaultColumnHeight, kDefaultColumnHeight);
+          pixmap(kColumnIconSize, kColumnIconSize);
     }
+
+    if (role == Qt::TextAlignmentRole && column == FILE_COLUMN_ICON)
+        return Qt::AlignRight + Qt::AlignVCenter;
 
     if (role == Qt::TextAlignmentRole && column == FILE_COLUMN_NAME)
         return Qt::AlignLeft + Qt::AlignVCenter;
@@ -92,10 +98,10 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
         switch (column) {
         case FILE_COLUMN_ICON:
-          qsize.setWidth(kDefaultColumnHeight);
+          qsize.setWidth(kColumnIconSize + kColumnIconAlign);
           break;
         case FILE_COLUMN_NAME:
-          qsize.setWidth(kFileNameColumnWidth);
+          qsize.setWidth(file_name_column_width_);
           break;
         case FILE_COLUMN_SIZE:
           break;
@@ -107,7 +113,17 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
           break;
         }
         return qsize;
+    }
 
+    if (role == Qt::ForegroundRole &&
+        column == FILE_COLUMN_NAME) //change font only for file name column
+        return QColor("#e83");
+
+    if (role == Qt::FontRole &&
+        column == FILE_COLUMN_NAME) {
+        QFont bold_font;
+        bold_font.setBold(true);
+        return bold_font;
     }
 
     if (role != Qt::DisplayRole) {
@@ -210,6 +226,11 @@ void FileTableModel::onSelectionChanged(const int row)
         emit downloadEnabled(false);
     }
     return;
+}
+
+void FileTableModel::onResizeEvent(const QSize &new_size)
+{
+    file_name_column_width_ = new_size.width() - kDefaultColumnSum;
 }
 
 void FileTableModel::onEnter(const SeafDirent& dirent)

@@ -21,9 +21,9 @@ enum {
 };
 
 const char kLoadingFaieldLabelName[] = "loadingFailedText";
-const int kToolBarHeight = 36;
-const int kToolBarIconSize = 32;
-const int kStatusBarIconSize = 16;
+const int kToolBarHeight = 32;
+const int kToolBarIconSize = 28;
+const int kStatusBarIconSize = 18;
 
 } // namespace
 
@@ -33,7 +33,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     table_model_(new FileTableModel(repo, this))
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(tr("File Browser - %1").arg(table_model_->account().serverUrl.toString()));
+    setWindowTitle(tr("Cloud File Browser - %1").arg(table_model_->account().serverUrl.toString()));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
@@ -104,8 +104,14 @@ void FileBrowserDialog::createToolBar()
     path_line_edit_->setAlignment(Qt::AlignHCenter | Qt::AlignLeft);
     path_line_edit_->setMaximumHeight(kToolBarIconSize);
     path_line_edit_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    path_line_edit_->setStyleSheet("border-radius: 5px; margin-right: 12px");
+    path_line_edit_->setStyleSheet("border: 2px solid #f0f0f0;"
+        "border-radius: 5px; padding-left: 8px; padding-right: 4px;"
+        "margin-right: 18px; selection-color: #d0d0d0");
     toolbar_->addWidget(path_line_edit_);
+
+    QWidget *spacer0 = new QWidget;
+    spacer0->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    toolbar_->addWidget(spacer0);
 }
 
 void FileBrowserDialog::createFileTable()
@@ -122,7 +128,7 @@ void FileBrowserDialog::createStatusBar()
 
     const int w = ::getDPIScaledSize(kStatusBarIconSize);
     status_bar_->setIconSize(QSize(w, w));
-    status_bar_->setContentsMargins(10, -10, 10, 14);
+    status_bar_->setContentsMargins(10, 0, 10, 0);
     status_bar_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     settings_action_ = new QAction(this);
@@ -146,8 +152,9 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addAction(download_action_);
 
     details_label_ = new QLabel;
-    details_label_->setAlignment(Qt::AlignCenter);
+    details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     details_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    details_label_->setFixedHeight(w);
     status_bar_->addWidget(details_label_);
 
     refresh_action_ = new QAction(this);
@@ -163,6 +170,8 @@ void FileBrowserDialog::createStatusBar()
     open_cache_dir_action_->setIcon(QIcon(":/images/folder-open.png"));
     connect(open_cache_dir_action_, SIGNAL(triggered()), table_model_, SLOT(onOpenCacheDir()));
     status_bar_->addAction(open_cache_dir_action_);
+
+    status_bar_->setStyleSheet("background-color: #f2f2f2");
 }
 
 void FileBrowserDialog::createStackWidget()
@@ -172,7 +181,6 @@ void FileBrowserDialog::createStackWidget()
     stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     stack_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
-    stack_->setContentsMargins(0, 0, 0, -14);
 }
 
 void FileBrowserDialog::createLoadingFailedView()
@@ -198,6 +206,10 @@ void FileBrowserDialog::createLoadingFailedView()
 
 void FileBrowserDialog::onLoading()
 {
+    download_action_->setEnabled(false);
+    upload_action_->setEnabled(false);
+    refresh_action_->setEnabled(false);
+
     details_label_->setText(tr("Loading..."));
     path_line_edit_->setText(repo_id_and_path_.arg(table_model_->currentPath()));
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
@@ -205,6 +217,10 @@ void FileBrowserDialog::onLoading()
 
 void FileBrowserDialog::onLoadingFinished()
 {
+    upload_action_->setEnabled(true);
+    refresh_action_->setEnabled(true);
+
+    details_label_->setText(tr("Loading..."));
     details_label_->setText(
         tr("%1 files and directories found").arg(table_model_->dirents().size()));
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
@@ -212,6 +228,8 @@ void FileBrowserDialog::onLoadingFinished()
 
 void FileBrowserDialog::onLoadingFailed()
 {
+    refresh_action_->setEnabled(true);
+
     details_label_->setText(tr("Failed to load at path: %1").arg(table_model_->currentPath()));
     stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }

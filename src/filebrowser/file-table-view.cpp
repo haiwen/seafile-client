@@ -16,10 +16,10 @@ FileTableView::FileTableView(QWidget *parent)
     horizontalHeader()->setHighlightSections(false);
     horizontalHeader()->setSortIndicatorShown(false);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    horizontalHeader()->setStyleSheet("background-color: white");
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
-    setAlternatingRowColors(true);
 
     setGridStyle(Qt::NoPen);
     setShowGrid(false);
@@ -67,6 +67,8 @@ void FileTableView::setModel(QAbstractItemModel *p_model)
 
     connect(this, SIGNAL(selectionChanged(const int)),
             model_, SLOT(onSelectionChanged(const int)));
+
+    resize(size());
 }
 
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
@@ -165,3 +167,8 @@ QStyleOptionViewItem FileTableView::viewOptions () const
     return option;
 }
 
+void FileTableView::resizeEvent(QResizeEvent *event)
+{
+    QAbstractItemView::resizeEvent(event);
+    static_cast<FileTableModel*>(model())->onResizeEvent(event->size());
+}

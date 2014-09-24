@@ -36,8 +36,8 @@ private:
     void mouseDoubleClickEvent(QMouseEvent *event);
 
     QStyleOptionViewItem viewOptions() const;
+
+    void resizeEvent(QResizeEvent *event);
 };
-
-
 
 #endif

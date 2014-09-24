@@ -51,6 +51,7 @@ public:
 
 public slots:
     void onSelectionChanged(const int row);
+    void onResizeEvent(const QSize &new_size);
 
     void onEnter(const SeafDirent& dirent);
     void onBackward();
@@ -77,6 +78,7 @@ private:
     SeafDirent *selected_dirent_;
 
     int curr_hovered_;
+    int file_name_column_width_;
 
     DataManager *data_mgr_;
     FileNetworkManager *file_network_mgr_;

@@ -154,8 +154,6 @@ void SeafileNetworkTask::onPrefetchFinished()
         emit prefetchOid(reply_->rawHeader("oid"));
     onRedirected(new_url);
     status_ = SEAFILE_NETWORK_TASK_STATUS_PREFETCHED;
-    reply_->deleteLater();
-    reply_ = NULL;
     emit prefetchFinished();
 }
 

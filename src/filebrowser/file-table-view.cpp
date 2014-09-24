@@ -40,7 +40,8 @@ FileTableView::FileTableView(QWidget *parent)
 }
 
 void FileTableView::setMouseOver(const int row)
-{ 
+{
+    Q_UNUSED(row);
     //disable hover effect temporary
     /*
     FileTableModel *_model = static_cast<FileTableModel*>(model());
@@ -49,14 +50,14 @@ void FileTableView::setMouseOver(const int row)
     */
 }
 
-void FileTableView::setModel(QAbstractItemModel *model)
+void FileTableView::setModel(QAbstractItemModel *p_model)
 {
-    if (model == NULL)
+    if (p_model == NULL || p_model == model()) //if model is not changed
         return;
 
-    QTableView::setModel(model);
+    QTableView::setModel(p_model);
 
-    FileTableModel *model_ = static_cast<FileTableModel*>(model);
+    FileTableModel *model_ = static_cast<FileTableModel*>(p_model);
 
     connect(this, SIGNAL(direntClicked(const SeafDirent&)),
             model_, SLOT(onEnter(const SeafDirent&)));

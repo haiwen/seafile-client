@@ -6,9 +6,9 @@
 #include "ui/loading-view.h"
 #include "utils/paint-utils.h"
 
-#include "file-table.h"
-#include "file-table-view.h"
 #include "seaf-dirent.h"
+#include "file-table-model.h"
+#include "file-table-view.h"
 
 #include "file-browser-progress-dialog.h"
 

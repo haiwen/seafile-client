@@ -61,7 +61,7 @@ HEADERS += src/account-mgr.h \
            src/filebrowser/file-iview.h \
            src/filebrowser/file-network-mgr.h \
            src/filebrowser/file-table-view.h \
-           src/filebrowser/file-table.h \
+           src/filebrowser/file-table-model.h \
            src/filebrowser/lrucache.h \
            src/filebrowser/seaf-dirent.h \
            src/rpc/clone-task.h \
@@ -169,7 +169,7 @@ SOURCES += src/account-mgr.cpp \
            src/filebrowser/file-delegate.cpp \
            src/filebrowser/file-network-mgr.cpp \
            src/filebrowser/file-table-view.cpp \
-           src/filebrowser/file-table.cpp \
+           src/filebrowser/file-table-model.cpp \
            src/filebrowser/seaf-dirent.cpp \
            src/rpc/clone-task.cpp \
            src/rpc/local-repo.cpp \

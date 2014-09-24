@@ -2,7 +2,7 @@
 #define FB_TABLE_VIEW_H
 
 #include <QTableView>
-#include "file-table.h"
+#include "file-table-model.h"
 #include "file-iview.h"
 
 class FileTableView : public QTableView, public FileIView

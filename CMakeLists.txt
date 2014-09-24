@@ -108,7 +108,7 @@ SET(moc_headers
   src/filebrowser/file-browser-requests.h
   src/filebrowser/file-network-mgr.h
   src/filebrowser/file-table-view.h
-  src/filebrowser/file-table.h
+  src/filebrowser/file-table-model.h
   src/filebrowser/data-mgr.h
   src/filebrowser/network/task.h
   third_party/QtAwesome/QtAwesome.h
@@ -264,7 +264,7 @@ SET(seafile_client_sources
   src/filebrowser/file-delegate.cpp
   src/filebrowser/file-network-mgr.cpp
   src/filebrowser/file-table-view.cpp
-  src/filebrowser/file-table.cpp
+  src/filebrowser/file-table-model.cpp
   src/filebrowser/data-mgr.cpp
   src/filebrowser/seaf-dirent.cpp
   src/filebrowser/network/request.cpp

@@ -1,12 +1,11 @@
-#ifndef SEAFILE_CLIENT_FILE_TABLE_H
-#define SEAFILE_CLIENT_FILE_TABLE_H
+#ifndef SEAFILE_CLIENT_FILE_TABLE_MODEL_H
+#define SEAFILE_CLIENT_FILE_TABLE_MODEL_H
 
 #include <QStack>
 #include <QStyledItemDelegate>
 #include <QModelIndex>
 
 #include "api/server-repo.h"
-#include "seafile-applet.h"
 #include "account-mgr.h"
 #include "seaf-dirent.h"
 
@@ -99,4 +98,4 @@ enum {
     FILE_MAX_COLUMN,
 };
 
-#endif  // SEAFILE_CLIENT_FILE_TABLE_H
+#endif  // SEAFILE_CLIENT_FILE_TABLE_MODEL_H

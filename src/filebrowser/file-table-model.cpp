@@ -1,16 +1,17 @@
-#include "file-table.h"
+#include "file-table-model.h"
 
 #include <QtGlobal>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDesktopServices>
 
-#include "data-mgr.h"
+#include "seaf-dirent.h"
+#include "seafile-applet.h"
+#include "api/api-error.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
-#include "seaf-dirent.h"
-#include "api/api-error.h"
 
+#include "data-mgr.h"
 #include "file-network-mgr.h"
 #include "network/task.h"
 

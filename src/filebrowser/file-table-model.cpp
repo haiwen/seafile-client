@@ -350,7 +350,7 @@ void FileTableModel::onFileUpload(const QString &_file_name)
         file_network_mgr_->createUploadTask(current_path_,
                                             QFileInfo(file_name).fileName(),
                                             file_name);
-    connect(task, SIGNAL(finished()), this, SIGNAL(dirChangedForcely()));
+    connect(task, SIGNAL(finished()), this, SLOT(onRefreshForcely()));
     emit taskCreated(task);
     file_network_mgr_->runTask(task);
 }

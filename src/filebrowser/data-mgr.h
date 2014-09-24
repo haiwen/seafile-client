@@ -37,7 +37,7 @@ private slots:
     void onGetDirentsFailed(const ApiError& error);
 
 private:
-    const Account account_;
+    const Account &account_;
 
     const ServerRepo &repo_;
 

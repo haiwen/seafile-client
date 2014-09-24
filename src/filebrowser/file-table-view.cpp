@@ -5,9 +5,8 @@
 
 #include "file-delegate.h"
 
-FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
-    : QTableView(parent),
-      repo_(repo)
+FileTableView::FileTableView(QWidget *parent)
+    : QTableView(parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(40);
@@ -34,10 +33,39 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     FileDelegate *delegate = new FileDelegate;
     delegate->setView(this);
     setItemDelegate(delegate);
-    //setMouseTracking(true); //disable hover effect temporary
+    setMouseTracking(true);
 
     setAcceptDrops(true);
     setDragDropMode(QAbstractItemView::DropOnly);
+}
+
+void FileTableView::setMouseOver(const int row)
+{ 
+    //disable hover effect temporary
+    /*
+    FileTableModel *_model = static_cast<FileTableModel*>(model());
+
+    _model->setMouseOver(row);
+    */
+}
+
+void FileTableView::setModel(QAbstractItemModel *model)
+{
+    if (model == NULL)
+        return;
+
+    QTableView::setModel(model);
+
+    FileTableModel *model_ = static_cast<FileTableModel*>(model);
+
+    connect(this, SIGNAL(direntClicked(const SeafDirent&)),
+            model_, SLOT(onEnter(const SeafDirent&)));
+
+    connect(this, SIGNAL(dropFile(const QString &)),
+            model_, SLOT(onFileUpload(const QString &)));
+
+    connect(this, SIGNAL(selectionChanged(const int)),
+            model_, SLOT(onSelectionChanged(const int)));
 }
 
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
@@ -46,15 +74,6 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
     const SeafDirent dirent = _model->direntAt(index.row());
 
     emit direntClicked(dirent);
-}
-
-void FileTableView::setMouseOver(const int row)
-{
-    /*
-    FileTableModel *_model = static_cast<FileTableModel*>(model());
-
-    _model->setMouseOver(row);
-    */
 }
 
 void FileTableView::leaveEvent(QEvent *event)
@@ -80,9 +99,6 @@ void FileTableView::dropEvent(QDropEvent *event)
         QString file_name = url.toLocalFile();
 
         if(file_name.isEmpty())
-            continue;
-
-        if(!QFileInfo(file_name).isFile())
             continue;
 
         emit dropFile(file_name);

@@ -9,8 +9,9 @@ class FileTableView : public QTableView, public FileIView
 {
     Q_OBJECT
 public:
-    FileTableView(const ServerRepo& repo, QWidget *parent=0);
+    FileTableView(QWidget *parent = NULL);
     void setMouseOver(const int row);
+    void setModel(QAbstractItemModel *model);
 
 signals:
     void direntClicked(const SeafDirent& dirent);
@@ -35,8 +36,6 @@ private:
     void mouseDoubleClickEvent(QMouseEvent *event);
 
     QStyleOptionViewItem viewOptions() const;
-
-    ServerRepo repo_;
 };
 
 

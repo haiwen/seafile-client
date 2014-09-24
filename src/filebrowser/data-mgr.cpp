@@ -15,7 +15,8 @@ DataManager::DataManager(const Account &account, const ServerRepo &repo)
 
 DataManager::~DataManager()
 {
-    //nothing
+    if (req_)
+        delete req_;
 }
 
 void DataManager::getDirents(const QString& path,

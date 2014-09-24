@@ -1,29 +1,46 @@
 #include "file-table.h"
 
-#include <QtGui>
-#include <QApplication>
+#include <QtGlobal>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QDesktopServices>
 
+#include "data-mgr.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seaf-dirent.h"
+#include "api/api-error.h"
+
+#include "file-network-mgr.h"
+#include "network/task.h"
 
 const int kFileNameColumnWidth = 300;
 const int kDefaultColumnWidth = 160;
 const int kDefaultColumnHeight = 36;
 
-FileTableModel::FileTableModel(QObject *parent)
+FileTableModel::FileTableModel(const ServerRepo& repo, QObject *parent)
     : QAbstractTableModel(parent),
       selected_dirent_(NULL),
-      curr_hovered_(-1) // -1 is a publicly-known magic number
+      curr_hovered_(-1), // -1 is a publicly-known magic number
+      data_mgr_(NULL),
+      file_network_mgr_(NULL),
+      account_(seafApplet->accountManager()->currentAccount()),
+      repo_(repo),
+      current_path_("/")
 {
-    dirents_ = QList<SeafDirent>();
-}
+    data_mgr_ = new DataManager(account_, repo_);
+    file_network_mgr_ = new FileNetworkManager(account_, repo_.id);
 
-FileTableModel::FileTableModel(const QList<SeafDirent>& dirents,
-                               QObject *parent)
-    : QAbstractTableModel(parent)
+    connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
+
+    connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
+            this, SLOT(onGetDirentsFailed(const ApiError&)));
+}
+FileTableModel::~FileTableModel()
 {
-    dirents_ = dirents;
+    delete data_mgr_;
+    delete file_network_mgr_;
 }
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
@@ -32,7 +49,7 @@ void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
     this->reset();
 }
 
-QList<SeafDirent> FileTableModel::dirents()
+const QList<SeafDirent>& FileTableModel::dirents()
 {
     return dirents_;
 }
@@ -184,8 +201,172 @@ void FileTableModel::onSelectionChanged(const int row)
     if (row != -1) {
         selected_dirent_ = &dirents_[row];
         emit dataChanged(index(row, 0), index(row, FILE_MAX_COLUMN-1));
+        // dir download is not implemented
+        selected_dirent_->isDir() ? emit downloadEnabled(false) : emit downloadEnabled(true);
     }
-    else
+    else {
         selected_dirent_ = NULL;
+        emit downloadEnabled(false);
+    }
     return;
+}
+
+void FileTableModel::onEnter(const SeafDirent& dirent)
+{
+    if (dirent.isDir()) {
+        onDirEnter(dirent);
+    } else {
+        onFileDownload();
+    }
+}
+
+void FileTableModel::onDirEnter(const SeafDirent& dirent)
+{
+    backward_history_.push(current_path_);
+    emit backwardEnabled(true);
+
+    current_path_ += dirent.name;
+
+    if (!forward_history_.isEmpty()) {
+        if (forward_history_.last() == current_path_) {
+            forward_history_.pop_back();
+            if (forward_history_.isEmpty())
+                emit forwardEnabled(false);
+        }
+        else {
+            forward_history_.clear();
+            emit forwardEnabled(false);
+        }
+
+    }
+
+    onRefresh();
+}
+
+
+void FileTableModel::onBackward()
+{
+    if (backward_history_.isEmpty())
+        return;
+
+    forward_history_.push(current_path_);
+    emit forwardEnabled(true);
+
+    current_path_ = backward_history_.pop();
+    if (backward_history_.isEmpty())
+        emit backwardEnabled(false);
+
+    onRefresh();
+}
+
+void FileTableModel::onForward()
+{
+    if (forward_history_.isEmpty())
+        return;
+
+    backward_history_.push(current_path_);
+    emit backwardEnabled(true);
+
+    current_path_ = forward_history_.pop();
+    if (forward_history_.isEmpty())
+        emit forwardEnabled(false);
+
+    onRefresh();
+}
+
+void FileTableModel::onNavigateHome()
+{
+    if (current_path_ == "/")
+        return;
+
+    backward_history_.push(current_path_);
+    current_path_ = "/";
+
+    if (!forward_history_.isEmpty()) {
+        if (forward_history_.last() == current_path_) {
+            forward_history_.pop_back();
+            if (forward_history_.isEmpty())
+                forwardEnabled(false);
+        }
+        else {
+            forward_history_.clear();
+            forwardEnabled(false);
+        }
+
+    }
+
+    onRefresh();
+}
+
+void FileTableModel::onRefresh(bool forcely)
+{
+    if (!current_path_.endsWith("/"))
+        current_path_ += "/";
+
+    emit loading();
+    data_mgr_->getDirents(current_path_, forcely);
+}
+
+void FileTableModel::onGetDirentsSuccess(const QList<SeafDirent>& dirents)
+{
+    setDirents(dirents);
+    emit loadingFinished();
+}
+
+void FileTableModel::onGetDirentsFailed(const ApiError& error)
+{
+    Q_UNUSED(error);
+    emit loadingFailed();
+}
+
+void FileTableModel::onFileUpload(bool prompt)
+{
+    if (prompt)
+      onFileUpload(QFileDialog::getOpenFileName(NULL, tr("Select file to upload")));
+    else
+      onFileUpload("");
+}
+void FileTableModel::onFileUpload(const QString &_file_name)
+{
+    QString file_name(_file_name);
+    if (file_name.isEmpty())
+        return;
+    FileNetworkTask* task = \
+        file_network_mgr_->createUploadTask(current_path_,
+                                            QFileInfo(file_name).fileName(),
+                                            file_name);
+    connect(task, SIGNAL(finished()), this, SIGNAL(dirChangedForcely()));
+    emit taskCreated(task);
+    file_network_mgr_->runTask(task);
+}
+
+void FileTableModel::onFileDownload()
+{
+    if (selected_dirent_)
+        onFileDownload(*selected_dirent_);
+}
+
+void FileTableModel::onFileDownload(const SeafDirent& dirent)
+{
+    if (dirent.isDir()) //no implemented yet
+        return;
+    FileNetworkTask* task =
+      file_network_mgr_->createDownloadTask(current_path_,
+                               dirent.name, dirent.id);
+    emit taskCreated(task);
+    file_network_mgr_->runTask(task);
+}
+
+void FileTableModel::onOpenCacheDir()
+{
+    QDir file_cache_dir_(defaultFileCachePath());
+    QString file_location(
+        file_cache_dir_.absoluteFilePath(repo_.id + current_path_));
+    if (file_cache_dir_.mkpath(file_location))
+        QDesktopServices::openUrl(QUrl::fromLocalFile(file_location));
+    else
+        QMessageBox::warning(NULL,
+            tr("Warning"),
+            tr("Unable to open cache file dir: %1").arg(file_location));
+
 }

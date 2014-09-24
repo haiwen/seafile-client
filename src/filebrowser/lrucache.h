@@ -53,7 +53,7 @@ class LRUCache
         return &n;
     }
 
-    Q_DISABLE_COPY(LRUCache);
+    Q_DISABLE_COPY(LRUCache)
 public:
     inline explicit LRUCache(int ttl = 120);
     ~LRUCache() { clear(); }

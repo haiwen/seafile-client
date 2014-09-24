@@ -2,25 +2,20 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H
 
 #include <QDialog>
-#include <QStack>
 
-#include "api/server-repo.h"
-
+class ServerRepo;
 class QVBoxLayout;
 class QToolBar;
 class QLabel;
 class QAction;
 class QStackedWidget;
 class QLineEdit;
+class FileNetworkTask;
 class FileBrowserProgressDialog;
 
-class ApiError;
 class FileTableView;
 class FileTableModel;
 class SeafDirent;
-class GetDirentsRequest;
-class DataManager;
-class FileNetworkManager;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -38,25 +33,15 @@ public:
     FileBrowserDialog(const ServerRepo& repo, QWidget *parent=0);
     ~FileBrowserDialog();
 
-signals:
-    void dirChanged();
-    void dirChangedForcely();
-
 private slots:
-    void onSelectionChanged();
-    void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
-    void onGetDirentsFailed(const ApiError& error);
-    void onDirChanged(bool forcely = false);
-    void onDirChangedForcely();
-    void onDirentClicked(const SeafDirent& dirent);
-    void onBackwardActionClicked();
-    void onForwardActionClicked();
-    void onNavigateHomeActionClicked();
-    void onFileUpload(const QString &file_location = "");
-    void onFileDownload();
-    void onOpenCacheDir();
-    void onDirInvolved(const SeafDirent& dirent);
-    void onFileInvolved(const SeafDirent& dirent);
+    void onLoading();
+    void onLoadingFinished();
+    void onLoadingFailed();
+
+    void onBackwardEnabled(bool enabled);
+    void onForwardEnabled(bool enabled);
+    void onDownloadEnabled(bool enabled);
+    void onTaskCreated(const FileNetworkTask *task);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
@@ -65,10 +50,9 @@ private:
     void createStatusBar();
     void createFileTable();
     void createLoadingFailedView();
+    void createStackWidget();
 
-    ServerRepo repo_;
-    // current path
-    QString path_;
+    // template string
     QString repo_id_and_path_;
 
     QVBoxLayout *layout_;
@@ -91,12 +75,6 @@ private:
     FileTableView *table_view_;
     FileTableModel *table_model_;
     FileBrowserProgressDialog *file_progress_dialog_;
-
-    const SeafDirent *selected_dirent_;
-    QStack<QString> *forward_history_;
-    QStack<QString> *backward_history_;
-    DataManager *data_mgr_;
-    FileNetworkManager *file_network_mgr_;
 };
 
 

@@ -1,6 +1,7 @@
 #ifndef SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MANAGER_H
 #define SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MANAGER_H
 
+#include <QList>
 #include <QDir>
 
 #include "network/task-builder.h"
@@ -30,7 +31,7 @@ class FileNetworkTask : public QObject {
     void onFastForwardProgress();
 
 signals:
-    //command order signal, triggered by command order slots
+    //networktask's command order signal, should be triggered by command order slots
     void start();
     void cancel();
     void resume();
@@ -110,21 +111,32 @@ public:
 
 signals:
     void run();
+    void taskStarted(const FileNetworkTask* current_task); //signal for progress dialog
+
+private slots:
+    void onTaskStarted();
+    void onTaskFinished();
 
 private:
-    int addTask(FileNetworkTask* task);
-
+    /* keep reference of account and repo copy from FileTableModel*/
     const Account& account_;
     const QString repo_id_;
 
+    /* download path */
     QDir file_cache_dir_;
     QString file_cache_path_;
 
+    /* file cache reference*/
+    FileCacheManager &cache_mgr_;
+
+    /* task builder helper */
     SeafileNetworkTaskBuilder network_task_builder_;
 
+    /* underlying work thread */
     QThread *worker_thread_;
 
-    FileCacheManager &cache_mgr_;
+    /* manage running task queue */
+    QList<FileNetworkTask*> running_tasks_;
 };
 
 #endif //SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MANAGER_H

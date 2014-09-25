@@ -9,8 +9,10 @@
 #include "utils/utils.h"
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
-        : QProgressDialog(parent), task_(NULL)
+        : QProgressDialog(parent), task_(NULL), mgr_(NULL)
 {
+    setWindowModality(Qt::WindowModal);
+
     QVBoxLayout *layout_ = new QVBoxLayout;
     progress_bar_ = new QProgressBar;
     description_label_ = new QLabel;
@@ -36,9 +38,36 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
     setBar(progress_bar_);
     setCancelButton(cancel_button_);
 }
-void FileBrowserProgressDialog::setTask(const FileNetworkTask *task)
+
+void FileBrowserProgressDialog::setFileNetworkManager(const FileNetworkManager *mgr)
 {
+    if (mgr_) {
+        disconnect(mgr_, 0, this, 0);
+        onTaskStarted(NULL);
+    }
+
+    mgr_ = mgr;
+
+    if (mgr_ == NULL)
+        return;
+
+    connect(mgr_, SIGNAL(taskStarted(const FileNetworkTask*)),
+            this, SLOT(onTaskStarted(const FileNetworkTask*)));
+}
+
+
+void FileBrowserProgressDialog::onTaskStarted(const FileNetworkTask *task)
+{
+    if (task_) {
+        disconnect(task_, 0, this, 0);
+        hide();
+        reset();
+    }
+
     task_ = task;
+
+    if (task_ == NULL)
+        return;
 
     setWindowTitle((task->type() == SEAFILE_NETWORK_TASK_UPLOAD) ?
        tr("Upload") : tr("Download"));
@@ -57,6 +86,8 @@ void FileBrowserProgressDialog::setTask(const FileNetworkTask *task)
     connect(task_, SIGNAL(aborted()), this, SLOT(onAborted()));
     connect(task_, SIGNAL(finished()), this, SLOT(onFinished()));
     connect(this, SIGNAL(canceled()), task_, SLOT(onCancel()));
+
+    show();
 }
 
 void FileBrowserProgressDialog::onStarted()
@@ -78,6 +109,7 @@ void FileBrowserProgressDialog::onAborted()
     disconnect(task_, 0, this, 0);
     more_details_label_->setText(tr("Aborted"));
 
+    task_ = NULL;
     reset();
 }
 void FileBrowserProgressDialog::onFinished()
@@ -93,5 +125,6 @@ void FileBrowserProgressDialog::onFinished()
         qDebug() << Q_FUNC_INFO << task_->fileLocation()
           << " is downloaded but unable to open via openUrl";
 
+    task_ = NULL;
     reset();
 }

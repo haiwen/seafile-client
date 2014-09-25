@@ -41,7 +41,6 @@ private slots:
     void onBackwardEnabled(bool enabled);
     void onForwardEnabled(bool enabled);
     void onDownloadEnabled(bool enabled);
-    void onTaskCreated(const FileNetworkTask *task);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)

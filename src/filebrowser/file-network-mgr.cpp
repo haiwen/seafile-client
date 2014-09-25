@@ -2,6 +2,7 @@
 
 #include <QThread>
 #include <QDebug>
+
 #include "account.h"
 #include "utils/utils.h"
 #include "api/api-error.h"
@@ -16,8 +17,10 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
         status_(SEAFILE_NETWORK_TASK_STATUS_FRESH),
         type_(type), network_task_(network_task), network_mgr_(network_mgr)
     {
-        if (network_task_ == NULL)
+        if (network_task_ == NULL) // if it is a dummy task
             return;
+
+        connect(this, SIGNAL(start()), this, SIGNAL(started()));
 
         connect(this, SIGNAL(start()), network_task, SIGNAL(start()));
         connect(this, SIGNAL(resume()), network_task, SIGNAL(resume()));
@@ -42,10 +45,10 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
 
 void FileNetworkTask::onRun()
 {
-    if (network_task_ !=NULL)
-        emit start();
-    else
+    if (network_task_ == NULL)
         onFastForwardProgress();
+    else
+        emit start();
 }
 
 void FileNetworkTask::onCancel()
@@ -57,7 +60,6 @@ void FileNetworkTask::onCancel()
 void FileNetworkTask::onStarted()
 {
     status_ = SEAFILE_NETWORK_TASK_STATUS_PROCESSING;
-    emit started();
 }
 
 void FileNetworkTask::onFileLocationChanged(const QString &file_location)
@@ -95,7 +97,7 @@ void FileNetworkTask::onPrefetchFinished()
         network_task_ = NULL;
         // copy attributes from cached file
         QFileInfo cached_info_ = QFileInfo(cached_location);
-        file_location_ = cached_location; //TODO: copy the file
+        file_location_ = cached_location;
         total_bytes_ = cached_info_.size();
         processed_bytes_ = total_bytes_;
         status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
@@ -157,7 +159,6 @@ FileNetworkTask* FileNetworkManager::createDownloadTask(const QString &path,
                 new FileNetworkTask(SEAFILE_NETWORK_TASK_DOWNLOAD, NULL, this,
                                     repo_id_, path, file_name, cached_location);
             ctask->setParent(this);
-            //TODO : duplicate task and copy file here
             return ctask;
         }
     }
@@ -206,8 +207,35 @@ FileNetworkTask* FileNetworkManager::createUploadTask(const QString &path,
 void FileNetworkManager::runTask(FileNetworkTask* task)
 {
     worker_thread_->start();
+
+    // connect the task to the mgr
+    connect(task, SIGNAL(started()), this ,SLOT(onTaskStarted()));
+    connect(task, SIGNAL(aborted()), this ,SLOT(onTaskFinished()));
+    connect(task, SIGNAL(finished()), this ,SLOT(onTaskFinished()));
+
     // shot once
     connect(this, SIGNAL(run()), task, SLOT(onRun()));
     emit run();
     disconnect(this, SIGNAL(run()), task, SLOT(onRun()));
+}
+
+void FileNetworkManager::onTaskStarted()
+{
+    FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
+    running_tasks_.push_back(task);
+
+    if (running_tasks_.size() == 1)
+        emit taskStarted(task);
+}
+
+void FileNetworkManager::onTaskFinished()
+{
+    FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
+    const int count = running_tasks_.indexOf(task);
+    // this task is in the running list, remove it
+    if (count >= 0)
+        running_tasks_.removeOne(task);
+    // this task is at the first place, replace it with next one
+    if (count == 0 && !running_tasks_.isEmpty())
+        emit taskStarted(running_tasks_.first());
 }

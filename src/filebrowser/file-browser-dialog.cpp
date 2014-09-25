@@ -58,9 +58,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onLoadingFailed()));
 
     file_progress_dialog_ = new FileBrowserProgressDialog(this);
-    file_progress_dialog_->setWindowModality(Qt::WindowModal);
-    connect(table_model_, SIGNAL(taskCreated(const FileNetworkTask*)),
-            this, SLOT(onTaskCreated(const FileNetworkTask*)));
+    file_progress_dialog_->setFileNetworkManager(table_model_->fileNetworkManager());
 
     table_model_->onRefresh();
 }
@@ -247,10 +245,4 @@ void FileBrowserDialog::onForwardEnabled(bool enabled)
 void FileBrowserDialog::onDownloadEnabled(bool enabled)
 {
     download_action_->setEnabled(enabled);
-}
-
-void FileBrowserDialog::onTaskCreated(const FileNetworkTask *task)
-{
-    file_progress_dialog_->setTask(task);
-    file_progress_dialog_->show();
 }

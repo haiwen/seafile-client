@@ -40,6 +40,9 @@ FileTableModel::FileTableModel(const ServerRepo& repo, QObject *parent)
 
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
+
+    connect(file_network_mgr_, SIGNAL(taskStarted(const FileNetworkTask*)),
+            this, SIGNAL(taskStarted(const FileNetworkTask*)));
 }
 FileTableModel::~FileTableModel()
 {
@@ -351,7 +354,6 @@ void FileTableModel::onFileUpload(const QString &_file_name)
                                             QFileInfo(file_name).fileName(),
                                             file_name);
     connect(task, SIGNAL(finished()), this, SLOT(onRefreshForcely()));
-    emit taskCreated(task);
     file_network_mgr_->runTask(task);
 }
 
@@ -368,7 +370,6 @@ void FileTableModel::onFileDownload(const SeafDirent& dirent)
     FileNetworkTask* task =
       file_network_mgr_->createDownloadTask(current_path_,
                                dirent.name, dirent.id);
-    emit taskCreated(task);
     file_network_mgr_->runTask(task);
 }
 

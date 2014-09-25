@@ -416,6 +416,22 @@ FileBrowserDialog QToolBar {
     margin: 0;
 }
 
+FileBrowserDialog QToolBar#statusBar {
+    border: 0;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+FileBrowserDialog QLineEdit {
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 8px;
+    margin-right: 18px;
+    selection-color: #d0d0d0
+}
+
 FileTableView {
     border: 0;
     padding-left: 4px;

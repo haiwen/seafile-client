@@ -102,9 +102,6 @@ void FileBrowserDialog::createToolBar()
     path_line_edit_->setAlignment(Qt::AlignHCenter | Qt::AlignLeft);
     path_line_edit_->setMaximumHeight(kToolBarIconSize);
     path_line_edit_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    path_line_edit_->setStyleSheet("border: 1px solid #f0f0f0;"
-        "border-radius: 5px; padding-left: 4px; padding-right: 4px;"
-        "margin-left: 8px; margin-right: 18px; selection-color: #d0d0d0");
     toolbar_->addWidget(path_line_edit_);
 
     QWidget *spacer0 = new QWidget;
@@ -125,6 +122,7 @@ void FileBrowserDialog::createStatusBar()
     status_bar_ = new QToolBar;
 
     const int w = ::getDPIScaledSize(kStatusBarIconSize);
+    status_bar_->setObjectName("statusBar");
     status_bar_->setIconSize(QSize(w, w));
     status_bar_->setContentsMargins(10, 0, 10, 0);
     status_bar_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -168,8 +166,6 @@ void FileBrowserDialog::createStatusBar()
     open_cache_dir_action_->setIcon(QIcon(":/images/folder-open.png"));
     connect(open_cache_dir_action_, SIGNAL(triggered()), table_model_, SLOT(onOpenCacheDir()));
     status_bar_->addAction(open_cache_dir_action_);
-
-    status_bar_->setStyleSheet("background-color: #f2f2f2");
 }
 
 void FileBrowserDialog::createStackWidget()

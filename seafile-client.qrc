@@ -109,6 +109,22 @@
     <file>images/delete-account@2x.png</file>
     <file>images/account-checked.png</file>
     <file>images/account-checked@2x.png</file>
+    <file>images/filebrowser/backward.png</file>
+    <file>images/filebrowser/backward@2x.png</file>
+    <file>images/filebrowser/download.png</file>
+    <file>images/filebrowser/download@2x.png</file>
+    <file>images/filebrowser/forward.png</file>
+    <file>images/filebrowser/forward@2x.png</file>
+    <file>images/filebrowser/home.png</file>
+    <file>images/filebrowser/home@2x.png</file>
+    <file>images/filebrowser/open-folder.png</file>
+    <file>images/filebrowser/open-folder@2x.png</file>
+    <file>images/filebrowser/upload.png</file>
+    <file>images/filebrowser/upload@2x.png</file>
+    <file>images/filebrowser/refresh.png</file>
+    <file>images/filebrowser/refresh@2x.png</file>
+    <file>images/filebrowser/settings.png</file>
+    <file>images/filebrowser/settings@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

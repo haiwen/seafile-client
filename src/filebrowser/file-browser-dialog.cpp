@@ -1,7 +1,6 @@
 #include "file-browser-dialog.h"
 
 #include <QtGui>
-#include <QApplication>
 
 #include "ui/loading-view.h"
 #include "utils/paint-utils.h"
@@ -78,21 +77,21 @@ void FileBrowserDialog::createToolBar()
     toolbar_->setMinimumHeight(kToolBarHeight);
 
     backward_action_ = new QAction(tr("Back"), layout_);
-    backward_action_->setIcon(QApplication::style()->standardIcon(QStyle::SP_ArrowBack));
+    backward_action_->setIcon(getIconSet(":images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
     backward_action_->setEnabled(false);
     toolbar_->addAction(backward_action_);
     connect(backward_action_, SIGNAL(triggered()), table_model_, SLOT(onBackward()));
     connect(table_model_, SIGNAL(backwardEnabled(bool)), this, SLOT(onBackwardEnabled(bool)));
 
     forward_action_ = new QAction(tr("Forward"), layout_);
-    forward_action_->setIcon(QApplication::style()->standardIcon(QStyle::SP_ArrowForward));
+    forward_action_->setIcon(getIconSet(":images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
     forward_action_->setEnabled(false);
     connect(forward_action_, SIGNAL(triggered()), table_model_, SLOT(onForward()));
     connect(table_model_, SIGNAL(forwardEnabled(bool)), this, SLOT(onForwardEnabled(bool)));
     toolbar_->addAction(forward_action_);
 
     navigate_home_action_ = new QAction(tr("Home"), layout_);
-    navigate_home_action_->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirHomeIcon));
+    navigate_home_action_->setIcon(getIconSet(":images/filebrowser/home.png", kToolBarIconSize, kToolBarIconSize));
     connect(navigate_home_action_, SIGNAL(triggered()), table_model_, SLOT(onNavigateHome()));
     toolbar_->addAction(navigate_home_action_);
 
@@ -128,7 +127,7 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     settings_action_ = new QAction(this);
-    settings_action_->setIcon(QIcon(":/images/account-settings.png"));
+    settings_action_->setIcon(getIconSet(":images/filebrowser/settings.png", kStatusBarIconSize, kStatusBarIconSize));
     settings_action_->setEnabled(false);
     status_bar_->addAction(settings_action_);
 
@@ -137,12 +136,12 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addWidget(spacer1);
 
     upload_action_ = new QAction(this);
-    upload_action_->setIcon(QIcon(":/images/plus.png"));
+    upload_action_->setIcon(getIconSet(":images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(upload_action_, SIGNAL(triggered()), table_model_, SLOT(onFileUpload()));
     status_bar_->addAction(upload_action_);
 
     download_action_ = new QAction(this);
-    download_action_->setIcon(QIcon(":/images/download.png"));
+    download_action_->setIcon(getIconSet(":images/filebrowser/download.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(table_model_, SIGNAL(downloadEnabled(bool)), this, SLOT(onDownloadEnabled(bool)));
     connect(download_action_, SIGNAL(triggered()), table_model_, SLOT(onFileDownload()));
     status_bar_->addAction(download_action_);
@@ -154,7 +153,7 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addWidget(details_label_);
 
     refresh_action_ = new QAction(this);
-    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
+    refresh_action_->setIcon(getIconSet(":images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(refresh_action_, SIGNAL(triggered()), table_model_, SLOT(onRefreshForcely()));
     status_bar_->addAction(refresh_action_);
 
@@ -163,7 +162,7 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addWidget(spacer2);
 
     open_cache_dir_action_ = new QAction(this);
-    open_cache_dir_action_->setIcon(QIcon(":/images/folder-open.png"));
+    open_cache_dir_action_->setIcon(getIconSet(":/images/filebrowser/open-folder.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(open_cache_dir_action_, SIGNAL(triggered()), table_model_, SLOT(onOpenCacheDir()));
     status_bar_->addAction(open_cache_dir_action_);
 }

@@ -17,7 +17,7 @@ namespace {
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_TABLE_VIEW,
-    INDEX_LOADING_FAILED_VIEW,
+    INDEX_LOADING_FAILED_VIEW
 };
 
 const char kLoadingFaieldLabelName[] = "loadingFailedText";

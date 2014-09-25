@@ -8,7 +8,7 @@ class FileNetworkManager;
 class QLabel;
 
 class FileBrowserProgressDialog : public QProgressDialog {
-    Q_OBJECT;
+    Q_OBJECT
     const FileNetworkTask *task_;
     const FileNetworkManager *mgr_;
     QLabel *description_label_;

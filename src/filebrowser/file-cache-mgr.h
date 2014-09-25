@@ -11,13 +11,13 @@ class CppSQLite3DB;
  */
 class FileCacheManager {
 public:
-    inline static FileCacheManager& getInstance() {
+    static FileCacheManager& getInstance() {
         static FileCacheManager instance;
         return instance;
     }
     void open();
     void close();
-    QString get(const QString &oid);
+    QString get(const QString &oid, const QString &account, const QString &repo_id);
     void set(const QString &oid, const QString &file_location,
              const QString &file_name, const QString &parent_dir = "/",
              const QString &account = QString(), const QString &repo_id = QString());
@@ -25,14 +25,15 @@ public:
 private:
     explicit FileCacheManager();
     ~FileCacheManager();
-    inline explicit FileCacheManager(const FileCacheManager&) {}
-    inline FileCacheManager& operator=(const FileCacheManager&) { return *this; }
-    void createTableIfNotExist();
+    explicit FileCacheManager(const FileCacheManager&) {}
+    FileCacheManager& operator=(const FileCacheManager&) { return *this; }
 
 private:
+    void createTableIfNotExist();
+    QString get(const QString &oid);
+    void remove(const QString &oid);
     bool enabled_;
     bool closed_;
-    void remove(const QString &oid);
     CppSQLite3DB *db_;
     QString db_path_;
 };

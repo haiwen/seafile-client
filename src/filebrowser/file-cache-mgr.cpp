@@ -102,6 +102,45 @@ QString FileCacheManager::get(const QString &oid)
     return "";
 }
 
+QString FileCacheManager::get(const QString &oid,
+                              const QString &account,
+                              const QString &repo_id)
+{
+    if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
+        repo_id.size() > FILE_CACHE_ID_MAX)
+        return "";
+    if (account.isEmpty() || repo_id.isEmpty())
+        return get(oid);
+
+    static const char sql[] =
+      "SELECT file_location FROM FileCache WHERE oid='%1' AND account='%2' AND repo_id='%3'";
+
+    QString buf = QString(sql).arg(oid).arg(account).arg(repo_id);
+    CppSQLite3Query q;
+    try {
+        q = db_->execQuery(buf.toUtf8().constData());
+    } catch (CppSQLite3Exception &e) {
+        qDebug("[file cache] %s", e.errorMessage());
+        return "";
+    }
+
+    if (q.eof() || q.numFields() < 1) {
+        return "";
+    }
+
+    QString file_location = QString::fromUtf8(q.getStringField(0));
+    if (file_location.isEmpty() ||
+        !QFileInfo(file_location).isFile()) {
+        qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
+        remove(oid);
+        return "";
+    } else {
+        qDebug("[file cache] file %s found", file_location.toUtf8().constData());
+        return file_location;
+    }
+    return "";
+}
+
 void FileCacheManager::set(const QString &oid, const QString &file_location,
                            const QString &file_name, const QString &parent_dir,
                            const QString &account, const QString &repo_id)

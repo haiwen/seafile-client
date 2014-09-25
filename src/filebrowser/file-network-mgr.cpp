@@ -86,7 +86,9 @@ void FileNetworkTask::onPrefetchFinished()
     if (type_ ==  SEAFILE_NETWORK_TASK_UPLOAD)
         emit resume();
     if (type_ ==  SEAFILE_NETWORK_TASK_DOWNLOAD) {
-        QString cached_location = network_mgr_->cache_mgr_.get(oid_);
+        QString cached_location = network_mgr_->cache_mgr_.get(
+            oid_, network_mgr_->account_.serverUrl.toString(),
+            network_mgr_->repo_id_);
         if (cached_location.isEmpty()) {
             emit resume();
             return;
@@ -153,7 +155,8 @@ FileNetworkTask* FileNetworkManager::createDownloadTask(const QString &path,
         file_cache_dir_.absoluteFilePath(repo_id_ + path + file_name));
 
     if (!oid.isEmpty()) {
-        QString cached_location = cache_mgr_.get(oid);
+        QString cached_location =
+            cache_mgr_.get(oid, account_.serverUrl.toString(), repo_id_);
         if (!cached_location.isEmpty()) {
             FileNetworkTask *ctask =
                 new FileNetworkTask(SEAFILE_NETWORK_TASK_DOWNLOAD, NULL, this,

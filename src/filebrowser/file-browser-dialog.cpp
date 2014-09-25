@@ -200,6 +200,7 @@ void FileBrowserDialog::createLoadingFailedView()
 
 void FileBrowserDialog::onLoading()
 {
+    toolbar_->setEnabled(false);
     download_action_->setEnabled(false);
     upload_action_->setEnabled(false);
     refresh_action_->setEnabled(false);
@@ -211,6 +212,7 @@ void FileBrowserDialog::onLoading()
 
 void FileBrowserDialog::onLoadingFinished()
 {
+    toolbar_->setEnabled(true);
     upload_action_->setEnabled(true);
     refresh_action_->setEnabled(true);
 
@@ -222,6 +224,7 @@ void FileBrowserDialog::onLoadingFinished()
 
 void FileBrowserDialog::onLoadingFailed()
 {
+    toolbar_->setEnabled(true);
     refresh_action_->setEnabled(true);
 
     details_label_->setText(tr("Failed to load at path: %1").arg(table_model_->currentPath()));

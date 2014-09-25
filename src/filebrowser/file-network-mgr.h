@@ -105,7 +105,7 @@ public:
 
     FileNetworkTask* createUploadTask(const QString &path,
                                       const QString &file_name,
-                                      const QString &upload_file_path);
+                                      const QString &source_file_location);
 
     void runTask(FileNetworkTask* task);
 

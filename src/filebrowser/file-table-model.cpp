@@ -339,20 +339,28 @@ void FileTableModel::onGetDirentsFailed(const ApiError& error)
 
 void FileTableModel::onFileUpload(bool prompt)
 {
-    if (prompt)
-      onFileUpload(QFileDialog::getOpenFileName(NULL, tr("Select file to upload")));
+    if (prompt) {
+        QStringList files = QFileDialog::getOpenFileNames(NULL, tr("Select file to upload"));
+        foreach(const QString &file, files) {
+            onFileUpload(file);
+        }
+    }
     else
-      onFileUpload("");
+        onFileUpload("");
 }
+
 void FileTableModel::onFileUpload(const QString &_file_name)
 {
     QString file_name(_file_name);
     if (file_name.isEmpty())
         return;
-    FileNetworkTask* task = \
-        file_network_mgr_->createUploadTask(current_path_,
-                                            QFileInfo(file_name).fileName(),
-                                            file_name);
+
+    QFileInfo file_info(file_name);
+    if (file_info.isDir() || !file_info.exists() || !file_info.isReadable())
+        return;
+
+    FileNetworkTask *task = file_network_mgr_->createUploadTask(
+          current_path_, file_info.fileName(), file_info.absoluteFilePath());
     connect(task, SIGNAL(finished()), this, SLOT(onRefreshForcely()));
     file_network_mgr_->runTask(task);
 }

@@ -188,17 +188,14 @@ FileNetworkTask* FileNetworkManager::createDownloadTask(const QString &path,
 
 FileNetworkTask* FileNetworkManager::createUploadTask(const QString &path,
                                                       const QString &file_name,
-                                                      const QString &update_file_path)
+                                                      const QString &source_file_location)
 {
-    QString file_location(QFileInfo(update_file_path).absoluteFilePath());
+    SeafileUploadTask *network_task = network_task_builder_.createUploadTask(
+        account_, repo_id_, path, file_name, source_file_location);
 
-    SeafileUploadTask* network_task = \
-      network_task_builder_.createUploadTask(account_, repo_id_,
-                                  path, file_name, file_location);
-
-    FileNetworkTask* ftask = \
+    FileNetworkTask *ftask =
         new FileNetworkTask(SEAFILE_NETWORK_TASK_UPLOAD, network_task, this,
-                           repo_id_, path, file_name, file_location);
+                            repo_id_, path, file_name, source_file_location);
     ftask->setParent(this);
 
     network_task->moveToThread(worker_thread_);

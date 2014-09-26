@@ -96,7 +96,8 @@ void Configurator::initSeafile()
             this, SLOT(onSeafileDirSet(const QString&)));
 
     if (dialog.exec() != QDialog::Accepted) {
-        seafApplet->exit(1);
+        QCoreApplication::exit(1);
+        return;
     }
 
     first_use_ = true;

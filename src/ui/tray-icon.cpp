@@ -389,7 +389,7 @@ void SeafileTrayIcon::enableAutoSync()
 
 void SeafileTrayIcon::quitSeafile()
 {
-    seafApplet->exit(0);
+    QCoreApplication::exit(0);
 }
 
 void SeafileTrayIcon::refreshTrayIcon()

@@ -196,19 +196,18 @@ void SeafileApplet::checkInitVDrive()
     }
 }
 
+// cleanup before exit
 void SeafileApplet::exit(int code)
 {
-    // Must use the global namespace, or the "exit" would call itself util
-    // stack overflow
     daemon_mgr_->stopAll();
     // Remove tray icon from system tray
     delete tray_icon_;
     if (main_win_) {
         main_win_->writeSettings();
     }
-    ::exit(code);
 }
 
+// stop the main event loop and return to the main function
 void SeafileApplet::errorAndExit(const QString& error)
 {
     if (in_exit_) {
@@ -218,7 +217,8 @@ void SeafileApplet::errorAndExit(const QString& error)
     in_exit_ = true;
 
     warningBox(error);
-    this->exit(1);
+    // stop eventloop before exit and return to the main function
+    QCoreApplication::exit(1);
 }
 
 void SeafileApplet::initLog()

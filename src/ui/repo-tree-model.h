@@ -34,6 +34,7 @@ class RepoTreeModel : public QStandardItemModel {
 
 public:
     RepoTreeModel(QObject *parent=0);
+    ~RepoTreeModel();
     void setRepos(const std::vector<ServerRepo>& repos);
 
     void clear();

@@ -94,9 +94,6 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     if (role == Qt::TextAlignmentRole && column == FILE_COLUMN_NAME)
         return Qt::AlignLeft + Qt::AlignVCenter;
 
-    if (role == Qt::BackgroundRole && row == curr_hovered_)
-        return QColor(200, 200, 220, 255);
-
     if (role == Qt::SizeHintRole) {
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
         switch (column) {

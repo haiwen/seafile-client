@@ -435,7 +435,6 @@ FileTableView {
     border-bottom: 1px solid #f3f3f3;
     selection-background-color: #F9E0C7;
     selection-color: black;
-    selection-border: 1px solid #F9E0C7;
     qproperty-focusPolicy: NoFocus;
 }
 

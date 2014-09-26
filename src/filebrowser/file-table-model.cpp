@@ -19,13 +19,14 @@ const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
 const int kColumnIconAlign = 8;
-const int kDefaultColumnSum = kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign;
+const int kColumnExtraAlign = 40;
+const int kDefaultColumnSum = kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign + kColumnExtraAlign;
 
 FileTableModel::FileTableModel(const ServerRepo& repo, QObject *parent)
     : QAbstractTableModel(parent),
       selected_dirent_(NULL),
       curr_hovered_(-1), // -1 is a publicly-known magic number
-      file_name_column_width_(240),
+      file_name_column_width_(200),
       data_mgr_(NULL),
       file_network_mgr_(NULL),
       account_(seafApplet->accountManager()->currentAccount()),

@@ -76,7 +76,7 @@ private:
     Q_DISABLE_COPY(FileTableModel)
 
     QList<SeafDirent> dirents_;
-    SeafDirent *selected_dirent_;
+    const SeafDirent *selected_dirent_;
 
     int curr_hovered_;
     int file_name_column_width_;

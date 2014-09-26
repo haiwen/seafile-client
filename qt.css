@@ -407,24 +407,20 @@ ActivitiesTab, EventsListView
 
 FileBrowserDialog {
     background-color: white;
-    min-width: 560px;
-    min-height: 400px;
+    min-width: 640px;
+    min-height: 456px;
 }
 
-FileBrowserDialog QToolBar {
+FileBrowserDialog QToolBar#topBar {
     border: 0;
-    margin: 0;
-}
-
-FileBrowserDialog QToolBar#statusBar {
-    border: 0;
-    margin: 0;
-    background-color: #f2f2f2;
+    margin: 0px 24px 6px 12px;
+    min-height: 36px;
+    max-height: 36px;
 }
 
 FileBrowserDialog QLineEdit {
     border: 1px solid #f0f0f0;
-    border-radius: 5px;
+    border-radius: 4px;
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 8px;
@@ -434,10 +430,13 @@ FileBrowserDialog QLineEdit {
 
 FileTableView {
     border: 0;
+    margin: 0;
     padding-left: 4px;
-    padding-right: 4px;
-    selection-background-color: rgb(200, 200, 220, 255);
-    selection-color: white;
+    border-bottom: 1px solid #f3f3f3;
+    selection-background-color: #F9E0C7;
+    selection-color: black;
+    selection-border: 1px solid #F9E0C7;
+    qproperty-focusPolicy: NoFocus;
 }
 
 FileTableView QHeaderView::section {
@@ -446,6 +445,18 @@ FileTableView QHeaderView::section {
     outline: 0px;
     color: #b3b3b3;
     background-color: white;
+    font-size: 12px;
+}
+
+FileTableView::item {
+    border-top: 1px solid #e0e0e0;
+}
+
+FileBrowserDialog QToolBar#statusBar {
+    border: 0;
+    border-top: 1px solid white;
+    margin: 0;
+    background-color: #f2f2f2;
 }
 
 FileBrowserProgressDialog {

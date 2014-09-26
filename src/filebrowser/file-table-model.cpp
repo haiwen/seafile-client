@@ -17,15 +17,15 @@
 
 const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
-const int kColumnIconSize = 36;
-const int kColumnIconAlign = 4;
+const int kColumnIconSize = 28;
+const int kColumnIconAlign = 8;
 const int kDefaultColumnSum = kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign;
 
 FileTableModel::FileTableModel(const ServerRepo& repo, QObject *parent)
     : QAbstractTableModel(parent),
       selected_dirent_(NULL),
       curr_hovered_(-1), // -1 is a publicly-known magic number
-      file_name_column_width_(160),
+      file_name_column_width_(240),
       data_mgr_(NULL),
       file_network_mgr_(NULL),
       account_(seafApplet->accountManager()->currentAccount()),
@@ -83,8 +83,8 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::DecorationRole && column == FILE_COLUMN_ICON) {
         return (dirent.isDir() ?
-            QIcon(":/images/folder.png") :
-            QIcon(getIconByFileName(dirent.name))).
+            QIcon(":/images/files_v2/file_folder.png") :
+            QIcon(getIconByFileNameV2(dirent.name))).
           pixmap(kColumnIconSize, kColumnIconSize);
     }
 
@@ -227,6 +227,8 @@ void FileTableModel::onSelectionChanged(const int row)
 void FileTableModel::onResizeEvent(const QSize &new_size)
 {
     file_name_column_width_ = new_size.width() - kDefaultColumnSum;
+    emit dataChanged(index(0, FILE_COLUMN_NAME),
+                     index(dirents_.size() -1 , FILE_COLUMN_NAME));
 }
 
 void FileTableModel::onEnter(const SeafDirent& dirent)

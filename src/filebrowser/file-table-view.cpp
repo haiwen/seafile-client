@@ -9,7 +9,7 @@ FileTableView::FileTableView(QWidget *parent)
     : QTableView(parent)
 {
     verticalHeader()->hide();
-    verticalHeader()->setDefaultSectionSize(40);
+    verticalHeader()->setDefaultSectionSize(36);
     horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
@@ -67,8 +67,6 @@ void FileTableView::setModel(QAbstractItemModel *p_model)
 
     connect(this, SIGNAL(selectionChanged(const int)),
             model_, SLOT(onSelectionChanged(const int)));
-
-    resize(size());
 }
 
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
@@ -165,10 +163,4 @@ QStyleOptionViewItem FileTableView::viewOptions () const
     option.decorationAlignment = Qt::AlignHCenter | Qt::AlignCenter;
     option.decorationPosition = QStyleOptionViewItem::Top;
     return option;
-}
-
-void FileTableView::resizeEvent(QResizeEvent *event)
-{
-    QAbstractItemView::resizeEvent(event);
-    static_cast<FileTableModel*>(model())->onResizeEvent(event->size());
 }

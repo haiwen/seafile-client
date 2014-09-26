@@ -40,10 +40,11 @@ private slots:
 
     void onBackwardEnabled(bool enabled);
     void onForwardEnabled(bool enabled);
-    void onDownloadEnabled(bool enabled);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
+
+    void resizeEvent(QResizeEvent *event);
 
     void createToolBar();
     void createStatusBar();
@@ -61,9 +62,7 @@ private:
     QLineEdit *path_line_edit_;
     QAction *navigate_home_action_;
     QToolBar *status_bar_;
-    QAction *settings_action_;
     QAction *upload_action_;
-    QAction *download_action_;
     QLabel *details_label_;
     QAction *refresh_action_;
     QAction *open_cache_dir_action_;

@@ -379,7 +379,10 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
              }
 
             FileBrowserDialog* dialog = new FileBrowserDialog(it->repo(), this);
+            const QRect screen = QApplication::desktop()->screenGeometry();
             dialog->show();
+            dialog->move(screen.center() - dialog->rect().center());
+            dialog->raise();
             // open seahub repo page for not downloaded repo
         }
     }

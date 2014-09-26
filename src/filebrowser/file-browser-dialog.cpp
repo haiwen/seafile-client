@@ -20,9 +20,8 @@ enum {
 };
 
 const char kLoadingFaieldLabelName[] = "loadingFailedText";
-const int kToolBarHeight = 32;
-const int kToolBarIconSize = 28;
-const int kStatusBarIconSize = 18;
+const int kToolBarIconSize = 20;
+const int kStatusBarIconSize = 24;
 
 } // namespace
 
@@ -39,6 +38,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     layout_ = new QVBoxLayout;
     setLayout(layout_);
     layout_->setContentsMargins(0, 6, 0, 0);
+    layout_->setSpacing(0);
 
     createToolBar();
     createLoadingFailedView();
@@ -48,7 +48,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
 
     layout_->addWidget(toolbar_);
     layout_->addWidget(stack_);
-    layout_->addWidget(status_bar_, 0, Qt::AlignBottom);
+    layout_->addWidget(status_bar_);
 
     connect(table_model_, SIGNAL(loading()), this, SLOT(onLoading()));
     connect(table_model_, SIGNAL(loadingFinished()),
@@ -59,6 +59,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     file_progress_dialog_ = new FileBrowserProgressDialog(this);
     file_progress_dialog_->setFileNetworkManager(table_model_->fileNetworkManager());
 
+    resize(size());
     table_model_->onRefresh();
 }
 
@@ -72,9 +73,8 @@ void FileBrowserDialog::createToolBar()
     toolbar_ = new QToolBar;
 
     const int w = ::getDPIScaledSize(kToolBarIconSize);
+    toolbar_->setObjectName("topBar");
     toolbar_->setIconSize(QSize(w, w));
-    toolbar_->setMaximumHeight(kToolBarHeight);
-    toolbar_->setMinimumHeight(kToolBarHeight);
 
     backward_action_ = new QAction(tr("Back"), layout_);
     backward_action_->setIcon(getIconSet(":images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
@@ -100,12 +100,7 @@ void FileBrowserDialog::createToolBar()
     path_line_edit_->setText(repo_id_and_path_.arg("/"));
     path_line_edit_->setAlignment(Qt::AlignHCenter | Qt::AlignLeft);
     path_line_edit_->setMaximumHeight(kToolBarIconSize);
-    path_line_edit_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     toolbar_->addWidget(path_line_edit_);
-
-    QWidget *spacer0 = new QWidget;
-    spacer0->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
-    toolbar_->addWidget(spacer0);
 }
 
 void FileBrowserDialog::createFileTable()
@@ -113,7 +108,6 @@ void FileBrowserDialog::createFileTable()
     loading_view_ = new LoadingView;
     table_view_ = new FileTableView;
     table_view_->setModel(table_model_); // connect is called inside setModel
-    table_view_->setContentsMargins(0,0,0,0);
 }
 
 void FileBrowserDialog::createStatusBar()
@@ -123,13 +117,6 @@ void FileBrowserDialog::createStatusBar()
     const int w = ::getDPIScaledSize(kStatusBarIconSize);
     status_bar_->setObjectName("statusBar");
     status_bar_->setIconSize(QSize(w, w));
-    status_bar_->setContentsMargins(10, 0, 10, 0);
-    status_bar_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-
-    settings_action_ = new QAction(this);
-    settings_action_->setIcon(getIconSet(":images/filebrowser/settings.png", kStatusBarIconSize, kStatusBarIconSize));
-    settings_action_->setEnabled(false);
-    status_bar_->addAction(settings_action_);
 
     QWidget *spacer1 = new QWidget;
     spacer1->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -139,12 +126,6 @@ void FileBrowserDialog::createStatusBar()
     upload_action_->setIcon(getIconSet(":images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(upload_action_, SIGNAL(triggered()), table_model_, SLOT(onFileUpload()));
     status_bar_->addAction(upload_action_);
-
-    download_action_ = new QAction(this);
-    download_action_->setIcon(getIconSet(":images/filebrowser/download.png", kStatusBarIconSize, kStatusBarIconSize));
-    connect(table_model_, SIGNAL(downloadEnabled(bool)), this, SLOT(onDownloadEnabled(bool)));
-    connect(download_action_, SIGNAL(triggered()), table_model_, SLOT(onFileDownload()));
-    status_bar_->addAction(download_action_);
 
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
@@ -157,14 +138,14 @@ void FileBrowserDialog::createStatusBar()
     connect(refresh_action_, SIGNAL(triggered()), table_model_, SLOT(onRefreshForcely()));
     status_bar_->addAction(refresh_action_);
 
-    QWidget *spacer2 = new QWidget;
-    spacer2->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    status_bar_->addWidget(spacer2);
-
     open_cache_dir_action_ = new QAction(this);
     open_cache_dir_action_->setIcon(getIconSet(":/images/filebrowser/open-folder.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(open_cache_dir_action_, SIGNAL(triggered()), table_model_, SLOT(onOpenCacheDir()));
     status_bar_->addAction(open_cache_dir_action_);
+
+    QWidget *spacer2 = new QWidget;
+    spacer2->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    status_bar_->addWidget(spacer2);
 }
 
 void FileBrowserDialog::createStackWidget()
@@ -173,7 +154,6 @@ void FileBrowserDialog::createStackWidget()
     stack_->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
-    stack_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 }
 
 void FileBrowserDialog::createLoadingFailedView()
@@ -200,7 +180,6 @@ void FileBrowserDialog::createLoadingFailedView()
 void FileBrowserDialog::onLoading()
 {
     toolbar_->setEnabled(false);
-    download_action_->setEnabled(false);
     upload_action_->setEnabled(false);
     refresh_action_->setEnabled(false);
 
@@ -240,7 +219,8 @@ void FileBrowserDialog::onForwardEnabled(bool enabled)
     forward_action_->setEnabled(enabled);
 }
 
-void FileBrowserDialog::onDownloadEnabled(bool enabled)
+void FileBrowserDialog::resizeEvent(QResizeEvent *event)
 {
-    download_action_->setEnabled(enabled);
+    QDialog::resizeEvent(event);
+    table_model_->onResizeEvent(event->size());
 }

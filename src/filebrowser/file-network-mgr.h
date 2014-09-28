@@ -45,7 +45,6 @@ signals:
 
 private slots:
     //command order slot
-    void onRun();
     void onCancel();
 
     //status changed slot
@@ -56,6 +55,10 @@ private slots:
     void onPrefetchFinished();
     void onAborted();
     void onFinished();
+
+public:
+    //entry point
+    void run();
 
 public:
     FileNetworkTask(const SeafileNetworkTaskType type,

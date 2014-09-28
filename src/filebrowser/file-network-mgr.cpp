@@ -43,7 +43,7 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
         }
     }
 
-void FileNetworkTask::onRun()
+void FileNetworkTask::run()
 {
     if (network_task_ == NULL)
         onFastForwardProgress();
@@ -214,9 +214,7 @@ void FileNetworkManager::runTask(FileNetworkTask* task)
     connect(task, SIGNAL(finished()), this ,SLOT(onTaskFinished()));
 
     // shot once
-    connect(this, SIGNAL(run()), task, SLOT(onRun()));
-    emit run();
-    disconnect(this, SIGNAL(run()), task, SLOT(onRun()));
+    task->run();
 }
 
 void FileNetworkManager::onTaskStarted()

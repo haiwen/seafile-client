@@ -3,6 +3,7 @@ extern "C" {
 }
 
 #include <QSocketNotifier>
+#include <QCoreApplication>
 #include <QtDebug>
 
 #include "seafile-applet.h"
@@ -128,7 +129,8 @@ void MessageListener::handleMessage(CcnetMessage *message)
     if (IS_APP_MSG(message, kAppletCommandsMQ)) {
         if (g_strcmp0(message->body, "quit") == 0) {
             qDebug("[Message Listener] Got a quit command. Quit now.");
-            seafApplet->exit(0);
+            QCoreApplication::exit(0);
+            return;
         }
 
         const char *kOpenLocalFilePrefix = "open-local-file\t";

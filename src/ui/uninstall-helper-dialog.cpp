@@ -47,7 +47,7 @@ void UninstallHelperDialog::onYesClicked()
 
 void UninstallHelperDialog::doExit()
 {
-    ::exit(0);
+    QCoreApplication::exit(0);
 }
 
 bool UninstallHelperDialog::loadQss(const QString& path)

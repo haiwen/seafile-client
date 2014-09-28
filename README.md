@@ -1,4 +1,4 @@
-## seafile-client [![Build Status](https://secure.travis-ci.org/haiwen/seafile-client.svg?branch=master)](http://travis-ci.org/haiwen/seafile-client)
+## seafile-client [![Build Status](https://secure.travis-ci.org/haiwen/seafile-client.svg?branch=master)](http://travis-ci.org/haiwen/seafile-client) [![Coverity Scan Build Status](https://scan.coverity.com/projects/3121/badge.svg)](https://scan.coverity.com/projects/3121)
 
 
 New version of Seafile desktop client.

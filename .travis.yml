@@ -1,4 +1,7 @@
 language: cpp
+env:
+  global:
+   - secure: "VGKP/MgL+kk+DToAlMyZCN6id17oydM69yR8RC0jI9RKM73Jgsyb5iRUbP3UOpqhl/dZQB5dt14I8HMneyy7lskd+l5RNMrh5yPxM4/D9PrRhwte9xZhrDXoAi79GyRDidNhyt6g6rM3uViPe/K41c9qJy3ZY4P/t/uMq5hFKfs="
 matrix:
   include:
     - os: linux
@@ -13,13 +16,25 @@ matrix:
     - os: linux
       compiler: clang
       env: USE_QT5=1
+    - os: osx
+      compiler: clang
+      env: USE_QT5=1
   exclude:
     - os: osx
       compiler: gcc
 before_install:
  - ./scripts/install-deps-${TRAVIS_OS_NAME}.sh
 script:
- - ./scripts/ci-build.sh
+ - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./scripts/ci-build.sh ; fi
+addons:
+  coverity_scan:
+    project:
+      name: "haiwen/seafile-client"
+      description: "Build submitted via Travis CI"
+    notification_email: rwindz0@gmail.com
+    build_command_prepend: "git clean -xfd"
+    build_command:   "./scripts/ci-build.sh"
+    branch_pattern: coverity_scan
 notifications:
   email:
     recipients:

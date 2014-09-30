@@ -192,8 +192,11 @@ void SeafileTrayIcon::rotate(bool start)
 void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
 {
 #ifdef Q_WS_X11
-    QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "dialog-information"
-                                             << title << message << QStringList () << QVariantMap() << qint32(-1);
+    QVariantMap hints;
+    hints["resident"] = QVariant(true);
+    hints["desktop-entry"] = QVariant("seafile");
+    QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "seafile"
+                                             << title << message << QStringList () << hints << qint32(-1);
     QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "org.freedesktop.Notifications", "Notify");
     method.setArguments(args);
     QDBusConnection::sessionBus().asyncCall(method);

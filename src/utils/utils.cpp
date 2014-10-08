@@ -10,6 +10,8 @@
 #include <QObject>
 #include <QString>
 #include <QSettings>
+#include <QProcess>
+#include <QDesktopServices>
 #include <jansson.h>
 
 #if defined(Q_WS_MAC)
@@ -62,6 +64,49 @@ QString defaultFileCachePath(bool create_if_not_exist) {
         assert(result);
     }
     return path;
+}
+
+bool openInNativeExtension(const QString &path) {
+#if defined(Q_WS_WIN)
+    //call ShellExecute internally
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+#elif defined(Q_WS_MAC)
+    QProcess open_process;
+    open_process.start(QLatin1String("open"), QStringList(path));
+    open_process.waitForFinished(-1);
+    return open_process.exitCode() == 0;
+#elif defined(Q_WS_X11)
+    //xdg-open is sufficient
+    QProcess open_process;
+    open_process.start(QLatin1String("xdg-open"), QStringList(path));
+    open_process.waitForFinished(-1);
+    return open_process.exitCode() == 0;
+#else
+    return false;
+#endif
+}
+
+bool showInGraphicalShell(const QString& path) {
+#if defined(Q_WS_WIN)
+    QString param;
+    if (!QFileInfo(path).isDir())
+        param = QLatin1String("/select,");
+    param += QDir::toNativeSeparators(path);
+    return QProcess::startDetached(QLatin1String("explorer.exe"), QStringList(param));
+#elif defined(Q_WS_MAC)
+    QStringList scriptArgs;
+    scriptArgs << QLatin1String("-e")
+               << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
+                                     .arg(path);
+    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+    scriptArgs.clear();
+    scriptArgs << QLatin1String("-e")
+               << QLatin1String("tell application \"Finder\" to activate");
+    QProcess::execute("/usr/bin/osascript", scriptArgs);
+    return true;
+#else
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(path).absolutePath()));
+#endif
 }
 
 typedef bool (*SqliteRowFunc) (sqlite3_stmt *stmt, void *data);

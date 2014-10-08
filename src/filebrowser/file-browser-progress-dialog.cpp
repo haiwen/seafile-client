@@ -119,11 +119,13 @@ void FileBrowserProgressDialog::onFinished()
     progress_bar_->setValue(maximum());
 
     if (task_->type() == SEAFILE_NETWORK_TASK_DOWNLOAD &&
-        !QDesktopServices::openUrl(QUrl::fromLocalFile(task_->fileLocation())) &&
-        !QDesktopServices::openUrl( \
-            QUrl::fromLocalFile(QFileInfo(task_->fileLocation()).dir().absolutePath())))
-        qDebug() << Q_FUNC_INFO << task_->fileLocation()
-          << " is downloaded but unable to open via openUrl";
+        !openInNativeExtension(task_->fileLocation()) &&
+        !showInGraphicalShell(task_->fileLocation())) {
+      qDebug() << Q_FUNC_INFO << task_->fileLocation()
+        << " is downloaded but unable to open";
+      QDesktopServices::openUrl(QUrl::fromLocalFile(
+          QFileInfo(task_->fileLocation()).dir().absolutePath()));
+    }
 
     task_ = NULL;
     reset();

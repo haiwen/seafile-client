@@ -56,6 +56,12 @@ QString defaultCcnetDir();
 
 QString defaultFileCachePath(bool create_if_not_exist = false);
 
+// open file use native default file handler, return false if failed
+bool openInNativeExtension(const QString &path);
+
+// open file and select it in native file browser, return false if failed
+bool showInGraphicalShell(const QString& path);
+
 QString md5(const QString& s);
 
 QUrl urlJoin(const QUrl& url, const QString& tail);

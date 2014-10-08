@@ -210,6 +210,7 @@ void SeafileDownloadTask::onStartDownload()
         emit fileLocationChanged(file_location_);
     }
     if (!file_->open(QIODevice::WriteOnly)) {
+        qDebug() << "[download task]" << "file" << file_->fileName() << "unable to write data";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -239,9 +240,13 @@ void SeafileDownloadTask::httpUpdateProgress(qint64 processed_bytes, qint64 tota
 
 void SeafileDownloadTask::httpProcessReady()
 {
-    if (file_) {
-        file_->write(reply_->readAll());
-    }
+    if (file_)
+        if (file_->write(reply_->readAll()) < 0) {
+            qDebug() << "[download task]" << "file" << file_->fileName() << "unable to write data";
+            qDebug() << Q_FUNC_INFO << file_->errorString();
+            onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
+            return;
+        }
 }
 
 void SeafileDownloadTask::httpFinished()
@@ -273,8 +278,12 @@ void SeafileDownloadTask::httpFinished()
 void SeafileDownloadTask::onRedirected(const QUrl &new_url)
 {
     SeafileNetworkTask::onRedirected(new_url);
-    file_->open(QIODevice::WriteOnly);
-    file_->resize(0);
+    if (!file_->open(QIODevice::WriteOnly) || !file_->resize(0)) {
+        qDebug() << "[download task]" << "file" << file_->fileName() << "unable to be truncated";
+        qDebug() << Q_FUNC_INFO << file_->errorString();
+        onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
+        return;
+    }
     emit redirected();
     startRequest();
 }
@@ -333,7 +342,7 @@ void SeafileUploadTask::onStartUpload()
     }
     //file is unable to open
     if (!file_->open(QIODevice::ReadOnly)) {
-        qDebug() << "[upload task]" << "file" << file_->fileName() << "unable to open";
+        qDebug() << "[upload task]" << "file" << file_->fileName() << "unable to read data";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;

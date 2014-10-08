@@ -56,8 +56,6 @@ QString defaultCcnetDir();
 
 QString defaultFileCachePath(bool create_if_not_exist = false);
 
-QString defaultDownloadsPath();
-
 QString md5(const QString& s);
 
 QUrl urlJoin(const QUrl& url, const QString& tail);

@@ -64,53 +64,6 @@ QString defaultFileCachePath(bool create_if_not_exist) {
     return path;
 }
 
-QString defaultDownloadsPath() {
-#if defined(Q_WS_WIN)
-  return QDir(QDesktopServices:: \
-              storageLocation(QDesktopServices::DocumentsLocation)). \
-              absoluteFilePath(QObject::tr("Downloads"));
-#endif
-
-#if defined(Q_WS_X11)
-  QString save_path;
-  QString config_path(QString:: \
-                      fromLocal8Bit(qgetenv("XDG_CONFIG_HOME").constData()));
-  if (config_path.isEmpty())
-      config_path = QDir::home().absoluteFilePath(".config");
-
-  QString user_dirs_file(config_path + "/user-dirs.dirs");
-  if (QFile::exists(user_dirs_file)) {
-      QSettings settings(user_dirs_file, QSettings::IniFormat);
-      settings.setIniCodec("UTF-8"); // kind of guarentee
-      QString xdg_download_dir = settings.value("XDG_DOWNLOAD_DIR").toString();
-      if (!xdg_download_dir.isEmpty()) {
-          xdg_download_dir.replace("$HOME", QDir::homePath());
-          save_path = xdg_download_dir;
-      }
-  }
-
-  // save_path is found but not exists
-  if (!save_path.isEmpty() && !QFile::exists(save_path)) {
-      QDir().mkpath(save_path);
-  }
-
-  // save_path is not found or (found but unable to create)
-  // fallback
-  if (save_path.isEmpty() || !QFile::exists(save_path)) {
-      save_path = QDir::home().absoluteFilePath(QObject::tr("Downloads"));
-  }
-
-  return save_path;
-#endif
-
-#if defined(Q_WS_MAC)
-  return QDir::home().absoluteFilePath(QObject::tr("Downloads"));
-#endif
-
-  // Fallback
-  return QDir::home().absoluteFilePath(QObject::tr("Downloads"));
-}
-
 typedef bool (*SqliteRowFunc) (sqlite3_stmt *stmt, void *data);
 
 sqlite3_stmt *

@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QList>
-#include <QCache>
 
 #include "api/api-error.h"
 #include "account.h"
@@ -41,7 +40,7 @@ private:
 
     const ServerRepo &repo_;
 
-    QCache<QString, LRUCache<QString, QList<SeafDirent> > > repo_cache_;
+    LRUCache<QString, QList<SeafDirent> > *path_cache_;
 
     GetDirentsRequest *req_;
 };

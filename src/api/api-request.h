@@ -62,7 +62,7 @@ private:
     Q_DISABLE_COPY(SeafileApiRequest)
 
     QUrl url_;
-    QList<QPair<QString, QString> > params_;
+    QList<QPair<QByteArray, QByteArray> > params_;
     Method method_;
     QString token_;
     SeafileApiClient* api_client_;

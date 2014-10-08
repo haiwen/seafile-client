@@ -23,7 +23,7 @@ SeafileApiRequest::~SeafileApiRequest()
 
 void SeafileApiRequest::setParam(const QString& name, const QString& value)
 {
-    QPair<QString, QString> pair(name, value);
+    QPair<QByteArray, QByteArray> pair(QUrl::toPercentEncoding(name), QUrl::toPercentEncoding(value));
     params_.push_back(pair);
 }
 
@@ -34,27 +34,15 @@ void SeafileApiRequest::send()
     }
 
     switch (method_) {
-    case METHOD_GET: {
-        QList<QPair<QByteArray, QByteArray> > query;
-        for (int i = 0; i < params_.size(); i++) {
-            QPair<QString, QString> pair = params_[i];
-            query << QPair<QByteArray, QByteArray>(QUrl::toPercentEncoding(pair.first),
-                                                   QUrl::toPercentEncoding(pair.second));
-        }
-        url_.setEncodedQueryItems(query);
+    case METHOD_GET:
+        url_.setEncodedQueryItems(params_);
         api_client_->get(url_);
         break;
-    }
-    case METHOD_POST: {
+    case METHOD_POST:
         QUrl params;
-        for (int i = 0; i < params_.size(); i++) {
-            QPair<QString, QString> pair = params_[i];
-            params.addEncodedQueryItem(QUrl::toPercentEncoding(pair.first),
-                                       QUrl::toPercentEncoding(pair.second));
-        }
+        params.setEncodedQueryItems(params_);
         api_client_->post(url_, params.encodedQuery());
         break;
-    }
     }
 
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),

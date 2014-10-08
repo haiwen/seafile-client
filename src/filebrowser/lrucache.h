@@ -8,6 +8,8 @@
 /*
  * Almost the same interface as QCache
  * Enjoy!
+ * only remove timed out key-value pair in method ``contains``
+ * object method wouldnot remove any key-value pair
  */
 template<typename Key, typename T>
 class LRUCache
@@ -119,10 +121,6 @@ template <typename Key, typename T>
 T *LRUCache<Key, T>::object(const Key &key)
 {
     Node *pn = this->relink(key);
-    if (pn->timeout <= current_time()) {
-        unlink(*pn);
-        return NULL;
-    }
     return pn->t;
 }
 

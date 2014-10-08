@@ -5,12 +5,12 @@
 #include <QList>
 #include <QCache>
 
-#include "lrucache.h"
 #include "api/api-error.h"
 #include "account.h"
 #include "seaf-dirent.h"
 
 class GetDirentsRequest;
+template<typename Key, typename T> class LRUCache;
 
 /**
  * DataManager is responsible for getting dirents/files from seahub, as well

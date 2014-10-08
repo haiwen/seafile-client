@@ -29,7 +29,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetDirentsRequest);
+    Q_DISABLE_COPY(GetDirentsRequest)
 
     QString repo_id_;
     QString path_;
@@ -53,7 +53,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetFileRequest);
+    Q_DISABLE_COPY(GetFileRequest)
 
     QString repo_id_;
     QString path_;

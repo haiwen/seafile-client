@@ -25,7 +25,7 @@ void DataManager::getDirents(const QString& path,
     QString dir_id;
 
     LRUCache<QString, QList<SeafDirent> > *path_cache;
-
+    //insert path_cache if not available
     if (!repo_cache_.contains(repo_.id)) {
         path_cache = new LRUCache<QString, QList<SeafDirent> >(kLRUTTL);
         // path_cache is owned by repo_cache now via insert
@@ -59,6 +59,8 @@ void DataManager::onGetDirentsSuccess(const QString &dir_id,
     LRUCache<QString, QList<SeafDirent> > *path_cache;
     QList<SeafDirent> *pdirents = new QList<SeafDirent>(dirents);
     path_cache = repo_cache_[req_->repoId()];
+    // it might return NULL
+    Q_ASSERT(path_cache && "PATH CACHE mush be valid");
     path_cache->insert(req_->path(), pdirents);
     emit getDirentsSuccess(*pdirents);
 }

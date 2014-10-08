@@ -116,7 +116,6 @@ HEADERS += src/account-mgr.h \
            third_party/CppSQLite/CppSQLite3.h \
            third_party/QtAwesome/QtAwesome.h \
            src/filebrowser/network/request.h \
-           src/filebrowser/network/task-builder.h \
            src/filebrowser/network/task.h
 FORMS += ui/account-settings-dialog.ui \
          ui/account-view.ui \
@@ -222,7 +221,6 @@ SOURCES += src/account-mgr.cpp \
            third_party/CppSQLite/CppSQLite3.cpp \
            third_party/QtAwesome/QtAwesome.cpp \
            src/filebrowser/network/request.cpp \
-           src/filebrowser/network/task-builder.cpp \
            src/filebrowser/network/task.cpp
 RESOURCES += seafile-client.qrc third_party/QtAwesome/QtAwesome.qrc
 TRANSLATIONS += i18n/seafile_ca.ts \

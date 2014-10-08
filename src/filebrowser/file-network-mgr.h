@@ -4,7 +4,6 @@
 #include <QList>
 #include <QDir>
 
-#include "network/task-builder.h"
 #include "network/task.h"
 #include "file-cache-mgr.h"
 
@@ -28,7 +27,7 @@ class FileNetworkTask : public QObject {
     SeafileNetworkTask *network_task_;
     FileNetworkManager *network_mgr_;
 
-    void onFastForwardProgress();
+    void fastForward(const QString &cached_location);
 
 signals:
     //networktask's command order signal, should be triggered by command order slots
@@ -39,7 +38,6 @@ signals:
     //status changed signal
     void started();
     void updateProgress(qint64 processed_bytes, qint64 total_bytes);
-    void prefetchOid(const QString &oid);
     void aborted();
     void finished();
 
@@ -51,8 +49,7 @@ private slots:
     void onStarted();
     inline void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
     void onFileLocationChanged(const QString &file_location);
-    void onPrefetchOid(const QString &oid);
-    void onPrefetchFinished();
+    void onPrefetchFinished(const QString &url, const QString &oid = QString());
     void onAborted();
     void onFinished();
 
@@ -62,22 +59,25 @@ public:
 
 public:
     FileNetworkTask(const SeafileNetworkTaskType type,
-                    SeafileNetworkTask *network_task,
                     FileNetworkManager *network_mgr,
                     const QString &repo_id,
                     const QString &path,
                     const QString &file_name,
-                    const QString &file_location);
+                    const QString &file_location,
+                    const QString &oid = QString());
 
     QString path() const { return path_; }
     QString fileName() const { return file_name_; }
     QString fileLocation() const { return file_location_; }
+    void setFileLocation(const QString& file_location) { file_location_ = file_location; }
 
     QString oid() const { return oid_; }
     void setOid(const QString &oid) { oid_ = oid; }
 
     qint64 processedBytes() const { return processed_bytes_; }
     qint64 totalBytes() const { return total_bytes_; }
+    SeafileNetworkTask* networkTask() const { return network_task_; }
+    void setNetworkTask(SeafileNetworkTask *task);
     SeafileNetworkTaskStatus status() const { return status_; }
     SeafileNetworkTaskType type() const { return type_; }
     FileNetworkManager* networkMgr() const { return network_mgr_; }
@@ -98,6 +98,7 @@ void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
 class FileNetworkManager : public QObject {
     Q_OBJECT
     friend class FileNetworkTask;
+    void startThread();
 public:
     FileNetworkManager(const Account &account, const QString &repo_id);
     ~FileNetworkManager();
@@ -110,10 +111,7 @@ public:
                                       const QString &file_name,
                                       const QString &source_file_location);
 
-    void runTask(FileNetworkTask* task);
-
 signals:
-    void run();
     void taskStarted(const FileNetworkTask* current_task); //signal for progress dialog
 
 private slots:
@@ -131,9 +129,6 @@ private:
 
     /* file cache reference*/
     FileCacheManager &cache_mgr_;
-
-    /* task builder helper */
-    SeafileNetworkTaskBuilder network_task_builder_;
 
     /* underlying work thread */
     QThread *worker_thread_;

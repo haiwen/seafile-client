@@ -36,27 +36,36 @@ private:
     QString cached_dir_id_;
 };
 
-class GetFileRequest : public SeafileApiRequest {
+class GetFileDownloadRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    GetFileRequest(const Account& account,
-                      const QString& repo_id,
-                      const QString& path);
-
-    QString repoId() const { return repo_id_; }
-    QString path() const { return path_; }
+    GetFileDownloadRequest(const Account &account, const QString &repo_id,
+                           const QString &path);
 
 signals:
-    void success(const QString& file_url);
+    void success(const QString& url, const QString& oid);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetFileRequest)
+    Q_DISABLE_COPY(GetFileDownloadRequest)
+};
 
-    QString repo_id_;
-    QString path_;
+class GetFileUploadRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetFileUploadRequest(const Account &account, const QString &repo_id,
+                         const QString &path);
+
+signals:
+    void success(const QString& url);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetFileUploadRequest)
 };
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

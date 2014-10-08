@@ -18,8 +18,6 @@ typedef enum {
 typedef enum {
     SEAFILE_NETWORK_TASK_STATUS_UNKNOWN,
     SEAFILE_NETWORK_TASK_STATUS_FRESH,
-    SEAFILE_NETWORK_TASK_STATUS_PREFETCHING,
-    SEAFILE_NETWORK_TASK_STATUS_PREFETCHED,
     SEAFILE_NETWORK_TASK_STATUS_PROCESSING,
     SEAFILE_NETWORK_TASK_STATUS_REDIRECTING,
     SEAFILE_NETWORK_TASK_STATUS_FINISHED,
@@ -36,11 +34,8 @@ typedef enum {
 
 class SeafileNetworkTask : public QObject {
     Q_OBJECT
-    void startPrefetchRequest();
-    QByteArray *prefetch_api_url_buf_;
 public:
-    SeafileNetworkTask(const QString &token, const QUrl &url,
-                       bool prefetch_api_required = true);
+    SeafileNetworkTask(const QString &token, const QUrl &url);
     virtual ~SeafileNetworkTask();
 
     SeafileNetworkTaskStatus status() { return status_; }
@@ -51,13 +46,9 @@ public:
 signals:
     void start();
     void cancel();
-    void resume();
-    void prefetchAborted();
-    void prefetchFinished();
-    void prefetchOid(const QString &oid);
 
 protected slots:
-    void onStart();
+    void onStart(); // entry
     void onCancel();
 #if !defined(QT_NO_OPENSSL)
     void sslErrors(QNetworkReply*, const QList<QSslError> &errors);
@@ -65,12 +56,9 @@ protected slots:
     void onRedirected(const QUrl &new_url);
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
 
-private slots:
-    void onPrefetchProcessReady();
-    void onPrefetchFinished();
-
 protected:
     void onClose(); // cleanup function, responsible for resource release
+    virtual void resume() = 0;
     QNetworkReply *reply_;
     SeafileNetworkRequest *req_;
     QNetworkAccessManager *network_mgr_;
@@ -92,22 +80,13 @@ public:
     SeafileDownloadTask(const QString &token,
                         const QUrl &url,
                         const QString &file_name,
-                        const QString &file_location,
-                        bool prefetch_api_required = true);
+                        const QString &file_location);
     ~SeafileDownloadTask();
-
-    QString file_name() { return file_name_; }
-    void setFilename(const QString &file_name) { file_name_ = file_name; }
-    QString fileLocation() { return file_location_; }
-    void setFileLocation(const QString &file_location) {
-        file_location_ = file_location;
-    }
 
 signals:
     void started();
     void redirected();
     void updateProgress(qint64 processed_bytes, qint64 total_bytes);
-    void fileLocationChanged(const QString &);
     void aborted();
     void finished();
 
@@ -115,12 +94,12 @@ private slots:
     void httpUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
     void httpProcessReady();
     void httpFinished();
-    void onStartDownload(); // entry for beginning of download
     void onRedirected(const QUrl &new_url);
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
 
 private:
     void onClose();
+    void resume(); // entry for beginning of download
 };
 
 class SeafileUploadTask : public SeafileNetworkTask {
@@ -137,16 +116,8 @@ public:
                         const QUrl &url,
                         const QString &parent_dir,
                         const QString &file_name,
-                        const QString &file_location,
-                        bool prefetch_api_required = true);
+                        const QString &file_location);
     ~SeafileUploadTask();
-
-    QString file_name() { return file_name_; }
-    void setFilename(const QString &file_name) { file_name_ = file_name; }
-    QString fileLocation() { return file_location_; }
-    void setFileLocation(const QString &file_location) {
-        file_location_ = file_location;
-    }
 
 signals:
     void started();
@@ -158,12 +129,12 @@ signals:
 private slots:
     void httpUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
     void httpFinished();
-    void onStartUpload(); //entry
     void onRedirected(const QUrl &new_url);
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
 
 private:
     void onClose();
+    void resume(); // entry for beginning of upload
 };
 
 #endif // SEAFILE_NETWORK_TASK_H

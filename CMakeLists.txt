@@ -269,7 +269,6 @@ SET(seafile_client_sources
   src/filebrowser/seaf-dirent.cpp
   src/filebrowser/network/request.cpp
   src/filebrowser/network/task.cpp
-  src/filebrowser/network/task-builder.cpp
   third_party/CppSQLite/CppSQLite3.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}

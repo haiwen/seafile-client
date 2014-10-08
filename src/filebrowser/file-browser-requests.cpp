@@ -12,12 +12,14 @@
 
 namespace {
 
-const char *kGetDirentsUrl = "api2/repos/%1/dir/";
-const char *kGetFileUrl = "api2/repos/%1/file/";
-const char *kGetFileStarUrl = "api2/starredfiles/";
-const char *kGetFileFromRevisionUrl = "api2/repos/%1/file/revision/";
-const char *kGetFileDetailUrl = "api2/repos/%1/file/detail/";
-const char *kGetFileHistoryUrl = "api2/repos/%1/file/history/";
+const char kGetDirentsUrl[] = "api2/repos/%1/dir/";
+const char kGetFileDownloadUrl[] = "api2/repos/%1/file/";
+const char kGetFileUploadUrl[] = "api2/repos/%1/upload-link/";
+//const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
+//const char kGetFileStarUrl[] = "api2/starredfiles/";
+//const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
+//const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
+//const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
 
 } // namespace
 
@@ -69,29 +71,67 @@ void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
     emit success(dir_id, dirents);
 }
 
-
-GetFileRequest::GetFileRequest(const Account& account,
-                                     const QString& repo_id,
-                                     const QString& path)
-    : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetFileUrl).arg(repo_id)),
-                         SeafileApiRequest::METHOD_GET, account.token)
+GetFileDownloadRequest::GetFileDownloadRequest(const Account &account,
+                                               const QString &repo_id,
+                                               const QString &path)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kGetFileDownloadUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_GET, account.token)
 {
     setParam("p", path);
-
-    repo_id_ = repo_id;
-    path_ = path;
 }
 
-void GetFileRequest::requestSuccess(QNetworkReply& reply)
+void GetFileDownloadRequest::requestSuccess(QNetworkReply& reply)
+{
+    QString reply_content(reply.readAll());
+    QString oid;
+
+    if (reply.hasRawHeader("oid"))
+        oid = reply.rawHeader("oid");
+
+    do {
+        if (reply_content.size() <= 2)
+            break;
+        reply_content.remove(0, 1);
+        reply_content.chop(1);
+        QUrl new_url(reply_content);
+
+        if (!new_url.isValid())
+            break;
+
+        emit success(reply_content, oid);
+        return;
+    } while (0);
+    emit failed(ApiError::fromHttpError(500));
+}
+
+GetFileUploadRequest::GetFileUploadRequest(const Account &account,
+                                           const QString &repo_id,
+                                           const QString &path)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kGetFileUploadUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_GET, account.token)
+{
+    setParam("p", path);
+}
+
+void GetFileUploadRequest::requestSuccess(QNetworkReply& reply)
 {
     QString reply_content(reply.readAll());
 
-    if (reply_content.size() <= 2) {
-        emit failed(ApiError::fromHttpError(500));
-        return;
-    }
-    reply_content.remove(0, 1);
-    reply_content.chop(1);
+    do {
+        if (reply_content.size() <= 2)
+            break;
+        reply_content.remove(0, 1);
+        reply_content.chop(1);
+        QUrl new_url(reply_content);
 
-    emit success(reply_content);
+        if (!new_url.isValid())
+            break;
+
+        emit success(reply_content);
+        return;
+    } while (0);
+    emit failed(ApiError::fromHttpError(500));
 }
+

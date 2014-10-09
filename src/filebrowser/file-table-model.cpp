@@ -360,7 +360,7 @@ void FileTableModel::onFileUpload(const QString &_file_name)
         return;
 
     FileNetworkTask *task = file_network_mgr_->createUploadTask(
-          current_path_, file_info.fileName(), file_info.absoluteFilePath());
+          file_info.fileName(), current_path_, file_info.absoluteFilePath());
     connect(task, SIGNAL(finished()), this, SLOT(onRefreshForcely()));
 }
 
@@ -375,8 +375,8 @@ void FileTableModel::onFileDownload(const SeafDirent& dirent)
     if (dirent.isDir()) //no implemented yet
         return;
 
-    file_network_mgr_->createDownloadTask(current_path_,
-                               dirent.name, dirent.id);
+    file_network_mgr_->createDownloadTask(dirent.name,
+                                          current_path_, dirent.id);
 }
 
 void FileTableModel::onOpenCacheDir()

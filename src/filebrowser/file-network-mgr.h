@@ -15,24 +15,33 @@ class FileNetworkManager;
 class FileNetworkTask : public QObject {
     Q_OBJECT
 
-    QString repo_id_;
-    QString path_;
+    // path is used as parent_dir
+    QString parent_dir_;
+    // file name
     QString file_name_;
+    // target_file_location or source_file_location
     QString file_location_;
+    // file object id
     QString oid_;
     qint64 processed_bytes_;
     qint64 total_bytes_;
     SeafileNetworkTaskStatus status_;
     SeafileNetworkTaskType type_;
+    // underlying network task
     SeafileNetworkTask *network_task_;
     FileNetworkManager *network_mgr_;
 
     void fastForward(const QString &cached_location);
+    SeafileNetworkTask* networkTask() const { return network_task_; }
+    void setNetworkTask(SeafileNetworkTask *task);
 
 signals:
     //networktask's command order signal, should be triggered by command order slots
+    // dummy
     void start();
+    // command network and prefetch task
     void cancel();
+    // command network task
     void resume();
 
     //status changed signal
@@ -48,7 +57,6 @@ private slots:
     //status changed slot
     void onStarted();
     inline void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
-    void onFileLocationChanged(const QString &file_location);
     void onPrefetchFinished(const QString &url, const QString &oid = QString());
     void onAborted();
     void onFinished();
@@ -60,27 +68,20 @@ public:
 public:
     FileNetworkTask(const SeafileNetworkTaskType type,
                     FileNetworkManager *network_mgr,
-                    const QString &repo_id,
-                    const QString &path,
                     const QString &file_name,
+                    const QString &parent_dir,
                     const QString &file_location,
-                    const QString &oid = QString());
+                    const QString &file_oid = QString());
 
-    QString path() const { return path_; }
+    QString parentDir() const { return parent_dir_; }
+    QString oid() const { return oid_; }
     QString fileName() const { return file_name_; }
     QString fileLocation() const { return file_location_; }
-    void setFileLocation(const QString& file_location) { file_location_ = file_location; }
-
-    QString oid() const { return oid_; }
-    void setOid(const QString &oid) { oid_ = oid; }
 
     qint64 processedBytes() const { return processed_bytes_; }
     qint64 totalBytes() const { return total_bytes_; }
-    SeafileNetworkTask* networkTask() const { return network_task_; }
-    void setNetworkTask(SeafileNetworkTask *task);
     SeafileNetworkTaskStatus status() const { return status_; }
     SeafileNetworkTaskType type() const { return type_; }
-    FileNetworkManager* networkMgr() const { return network_mgr_; }
 };
 
 void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
@@ -103,12 +104,12 @@ public:
     FileNetworkManager(const Account &account, const QString &repo_id);
     ~FileNetworkManager();
 
-    FileNetworkTask* createDownloadTask(const QString &path,
-                                        const QString &file_name,
+    FileNetworkTask* createDownloadTask(const QString &file_name,
+                                        const QString &parent_dir,
                                         const QString &oid = QString());
 
-    FileNetworkTask* createUploadTask(const QString &path,
-                                      const QString &file_name,
+    FileNetworkTask* createUploadTask(const QString &file_name,
+                                      const QString &parent_dir,
                                       const QString &source_file_location);
 
 signals:

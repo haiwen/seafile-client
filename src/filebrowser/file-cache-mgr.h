@@ -7,7 +7,7 @@ class CppSQLite3DB;
  * Singleton class for persistent file cache
  * Designed to be used by multiple instances of FileBrowserDiaglog and DataMgr
  * and of course, across different Accounts and ServerRepos
- * Exceptions are used for control-flow
+ * Exceptions should be caught by all, and methods are nothrow
  */
 class FileCacheManager {
 public:
@@ -17,6 +17,7 @@ public:
     }
     void open();
     void close();
+    QString get(const QString &oid);
     QString get(const QString &oid, const QString &account, const QString &repo_id);
     void set(const QString &oid, const QString &file_location,
              const QString &file_name, const QString &parent_dir = "/",
@@ -30,7 +31,7 @@ private:
 
 private:
     void createTableIfNotExist();
-    QString get(const QString &oid);
+    void remove(const QString &oid, const QString &account, const QString &repo_id);
     void remove(const QString &oid);
     bool enabled_;
     bool closed_;

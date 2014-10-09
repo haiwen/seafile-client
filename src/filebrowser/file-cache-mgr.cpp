@@ -10,7 +10,7 @@
 
 enum {
     FILE_CACHE_ID_MAX = 40,
-    FILE_CACHE_PATH_MAX = 255,
+    FILE_CACHE_PATH_MAX = 255
 };
 
 FileCacheManager::FileCacheManager()
@@ -48,7 +48,7 @@ void FileCacheManager::open()
 void FileCacheManager::close()
 {
     if (enabled_ && !closed_ )
-        db_->close();
+        db_->close(); // no exception could be throw here
     delete db_;
 }
 
@@ -109,8 +109,6 @@ QString FileCacheManager::get(const QString &oid,
     if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
         repo_id.size() > FILE_CACHE_ID_MAX)
         return "";
-    if (account.isEmpty() || repo_id.isEmpty())
-        return get(oid);
 
     static const char sql[] =
       "SELECT file_location FROM FileCache WHERE oid='%1' AND account='%2' AND repo_id='%3'";
@@ -132,7 +130,7 @@ QString FileCacheManager::get(const QString &oid,
     if (file_location.isEmpty() ||
         !QFileInfo(file_location).isFile()) {
         qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        remove(oid);
+        remove(oid, account, repo_id);
         return "";
     } else {
         qDebug("[file cache] file %s found", file_location.toUtf8().constData());
@@ -154,7 +152,8 @@ void FileCacheManager::set(const QString &oid, const QString &file_location,
     if (file_location.isEmpty() ||
         !QFileInfo(file_location).isFile()) {
         qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        return remove(oid);
+        remove(oid, account, repo_id);
+        return;
     }
 
     static const char sql[] = "INSERT OR REPLACE INTO "
@@ -182,3 +181,25 @@ void FileCacheManager::remove(const QString &oid)
         return;
     }
 }
+
+void FileCacheManager::remove(const QString &oid,
+                              const QString &account,
+                              const QString &repo_id)
+{
+    if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
+        repo_id.size() > FILE_CACHE_ID_MAX)
+        return;
+
+    static const char sql[] =
+      "DELETE FROM FileCache WHERE oid='%1' AND account='%2' AND repo_id='%3'";
+
+    QString buf = QString(sql).arg(oid).arg(account).arg(repo_id);
+    CppSQLite3Query q;
+    try {
+        q = db_->execQuery(buf.toUtf8().constData());
+    } catch (CppSQLite3Exception &e) {
+        qDebug("[file cache] %s", e.errorMessage());
+        return;
+    }
+}
+

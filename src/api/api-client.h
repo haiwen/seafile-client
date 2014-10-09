@@ -22,7 +22,9 @@ public:
     ~SeafileApiClient();
     void setToken(const QString& token) { token_ = token; };
     void get(const QUrl& url);
-    void post(const QUrl& url, const QByteArray& encoded_params);
+    void post(const QUrl& url, const QByteArray& body);
+    void put(const QUrl& url, const QByteArray& body);
+    void deleteResource(const QUrl& url);
 
 signals:
     void requestSuccess(QNetworkReply& reply);
@@ -43,7 +45,7 @@ private:
 
     QString token_;
 
-    QByteArray encoded_params_;
+    QByteArray body_;
 
     QNetworkReply *reply_;
 

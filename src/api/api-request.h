@@ -22,7 +22,14 @@ class SeafileApiRequest : public QObject {
 public:
     virtual ~SeafileApiRequest();
 
-    void setParam(const QString& name, const QString& value);
+    // set param k-v pair which appears in query params
+    void setUrlParam(const QString& name, const QString& value);
+    // set param k-v pair which appears in url-encoded form
+    void setFormParam(const QString& name, const QString& value);
+    // be care of this, if formParms are set
+    // data will be overrided
+    void setData(const QByteArray& data) { data_ = data; }
+
     void send();
     void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }
 
@@ -37,8 +44,14 @@ protected slots:
 
 protected:
     enum Method {
+        // post action, passing urlParam and formParam
         METHOD_POST,
-        METHOD_GET
+        // get action, passing urlParam only
+        METHOD_GET,
+        // put action, passing urlParam and formParam
+        METHOD_PUT,
+        // delete action, passing urlParam only
+        METHOD_DELETE
     };
 
     SeafileApiRequest(const QUrl& url,
@@ -63,9 +76,12 @@ private:
 
     QUrl url_;
     QList<QPair<QByteArray, QByteArray> > params_;
+    QList<QPair<QByteArray, QByteArray> > form_params_;
     Method method_;
     QString token_;
     SeafileApiClient* api_client_;
+
+    QByteArray data_;
 
     bool ignore_ssl_errors_;
 };

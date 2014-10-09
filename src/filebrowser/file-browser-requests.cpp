@@ -199,7 +199,7 @@ GetFileSharedLinkRequest::GetFileSharedLinkRequest(const Account &account,
 {
     //TODO use METHOD_PUT, need to hack SeafileApiRequest
 
-    setParam("type", "f");
+    setParam("type", "d");
     setParam("p", path);
 }
 

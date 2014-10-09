@@ -56,12 +56,19 @@ void FileCacheManager::createTableIfNotExist()
 {
     if (!enabled_)
         return;
-    static const char sql[] = "CREATE TABLE IF NOT EXISTS FileCache "
-      "(oid VARCHAR(40), file_location VARCHAR(256), "
-      "file_name TEXT NOT NULL, parent_dir TEXT NOT NULL, "
-      "account TEXT, repo_id VARCHAR(40), PRIMARY KEY(oid))";
+    static const char sql_create_table[] =
+      "CREATE TABLE IF NOT EXISTS FileCache "
+      "(oid VARCHAR(40) PRIMARY KEY, "
+      "file_location VARCHAR(256), "
+      "file_name TEXT NOT NULL, "
+      "parent_dir TEXT NOT NULL, "
+      "account TEXT, repo_id VARCHAR(40))";
+    static const char sql_create_index[] =
+      "CREATE INDEX IF NOT EXISTS repo_idx "
+      "on FileCache (repo_id)";
     try {
-        db_->execQuery(sql);
+        db_->execQuery(sql_create_table);
+        db_->execQuery(sql_create_index);
     } catch (CppSQLite3Exception &e) {
         qWarning("[file cache] %s", e.errorMessage());
         return;

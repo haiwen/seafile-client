@@ -70,8 +70,7 @@ const std::vector<Account>& AccountManager::loadAccounts()
 
 int AccountManager::saveAccount(const Account& account)
 {
-    int i = 0;
-    for (i = 0; i < accounts_.size(); i++) {
+    for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == account.serverUrl
             && accounts_[i].username == account.username) {
             accounts_.erase(accounts_.begin() + i);

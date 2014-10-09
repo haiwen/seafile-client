@@ -10,8 +10,9 @@
 
 enum {
     FILE_CACHE_ID_MAX = 40,
-    FILE_CACHE_PATH_MAX = 255
+    FILE_CACHE_PATH_MAX = 4096
 };
+
 
 FileCacheManager::FileCacheManager()
   : enabled_(true), closed_(true), db_(new CppSQLite3DB)
@@ -58,11 +59,10 @@ void FileCacheManager::createTableIfNotExist()
         return;
     static const char sql_create_table[] =
       "CREATE TABLE IF NOT EXISTS FileCache "
-      "(oid VARCHAR(40) PRIMARY KEY, "
-      "file_location VARCHAR(256), "
-      "file_name TEXT NOT NULL, "
-      "parent_dir TEXT NOT NULL, "
-      "account TEXT, repo_id VARCHAR(40))";
+      "(path VARCHAR(4097), "
+      " repo_id VARCHAR(40), "
+      " oid VARCHAR(40) NOT NULL,"
+      " PRIMARY KEY(path, repo_id))";
     static const char sql_create_index[] =
       "CREATE INDEX IF NOT EXISTS repo_idx "
       "on FileCache (repo_id)";
@@ -75,99 +75,46 @@ void FileCacheManager::createTableIfNotExist()
     }
 }
 
-QString FileCacheManager::get(const QString &oid)
+QString FileCacheManager::get(const QString &path,
+                              const QString &repo_id) const
 {
-    if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX)
-        return "";
-
-    static const char sql[] = "SELECT file_location FROM FileCache WHERE oid='%s'";
-
-    char buf[64 + FILE_CACHE_ID_MAX];
-    snprintf(buf, 63 + FILE_CACHE_ID_MAX, sql, oid.toAscii().constData());
-    CppSQLite3Query q;
-    try {
-        q = db_->execQuery(buf);
-    } catch (CppSQLite3Exception &e) {
-        qDebug("[file cache] %s", e.errorMessage());
-        return "";
-    }
-
-    if (q.eof() || q.numFields() < 1) {
-        return "";
-    }
-
-    QString file_location = QString::fromUtf8(q.getStringField(0));
-    if (file_location.isEmpty() ||
-        !QFileInfo(file_location).isFile()) {
-        qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        remove(oid);
-        return "";
-    } else {
-        qDebug("[file cache] file %s found", file_location.toUtf8().constData());
-        return file_location;
-    }
-    return "";
-}
-
-QString FileCacheManager::get(const QString &oid,
-                              const QString &parent_dir,
-                              const QString &repo_id)
-{
-    if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
+    if (!enabled_ || path.size() > FILE_CACHE_PATH_MAX ||
         repo_id.size() > FILE_CACHE_ID_MAX)
-        return "";
+        return QString();
 
     static const char sql[] =
-      "SELECT file_location FROM FileCache WHERE oid='%1' AND parent_dir='%2' AND repo_id='%3'";
+      "SELECT oid FROM FileCache WHERE path='%1' AND repo_id='%2'";
 
-    QString buf = QString(sql).arg(oid).arg(parent_dir).arg(repo_id);
+    QString buf = QString(sql).arg(path).arg(repo_id);
     CppSQLite3Query q;
     try {
         q = db_->execQuery(buf.toUtf8().constData());
     } catch (CppSQLite3Exception &e) {
         qDebug("[file cache] %s", e.errorMessage());
-        return "";
+        return QString();
     }
 
-    if (q.eof() || q.numFields() < 1) {
-        return "";
-    }
+    if (q.eof() || q.numFields() < 1)
+        return QString();
 
-    QString file_location = QString::fromUtf8(q.getStringField(0));
-    if (file_location.isEmpty() ||
-        !QFileInfo(file_location).isFile()) {
-        qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        remove(oid, parent_dir, repo_id);
-        return "";
-    } else {
-        qDebug("[file cache] file %s found", file_location.toUtf8().constData());
-        return file_location;
-    }
-    return "";
+    return QString::fromUtf8(q.getStringField(0));
 }
 
-void FileCacheManager::set(const QString &oid, const QString &file_location,
-                           const QString &file_name, const QString &parent_dir,
-                           const QString &account, const QString &repo_id)
+void FileCacheManager::set(const QString &path, const QString &repo_id,
+                           const QString &oid)
+
 {
-    if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX)
+    if (!enabled_ || path.size() > FILE_CACHE_PATH_MAX ||
+        repo_id.size() > FILE_CACHE_ID_MAX ||
+        oid.size() > FILE_CACHE_ID_MAX)
         return;
-
-    if (file_location.size() > FILE_CACHE_PATH_MAX) //too large to fit in
+    if (oid.isEmpty())
         return;
-
-    if (file_location.isEmpty() ||
-        !QFileInfo(file_location).isFile()) {
-        qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        remove(oid, parent_dir, repo_id);
-        return;
-    }
 
     static const char sql[] = "INSERT OR REPLACE INTO "
-      " FileCache VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ";
+      " FileCache VALUES ('%1', '%2', '%3') ";
 
-    QString buf = QString(sql).arg(oid).arg(file_location).arg(file_name)
-                        .arg(parent_dir).arg(account).arg(repo_id);
+    QString buf = QString(sql).arg(path).arg(repo_id).arg(oid);
     try {
         CppSQLite3Query q = db_->execQuery(buf.toUtf8().constData());
     } catch (CppSQLite3Exception &e) {
@@ -176,31 +123,18 @@ void FileCacheManager::set(const QString &oid, const QString &file_location,
     }
 }
 
-void FileCacheManager::remove(const QString &oid)
-{
-    static const char sql[] = "DELETE FROM FileCache WHERE oid='%s'";
-    char buf[64 + FILE_CACHE_ID_MAX];
-    snprintf(buf, 63 + FILE_CACHE_ID_MAX, sql, oid.toAscii().constData());
-    try {
-        CppSQLite3Query q = db_->execQuery(buf);
-    } catch (CppSQLite3Exception &e) {
-        qDebug("[file cache] %s", e.errorMessage());
-        return;
-    }
-}
-
-void FileCacheManager::remove(const QString &oid,
-                              const QString &parent_dir,
+void FileCacheManager::remove(const QString &path,
                               const QString &repo_id)
 {
-    if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
-        repo_id.size() > FILE_CACHE_ID_MAX)
-        return;
+    // not need to check since it is used internally
+    //if (!enabled_ || path.size() > FILE_CACHE_PATH_MAX ||
+    //    repo_id.size() > FILE_CACHE_ID_MAX)
+    //    return;
 
     static const char sql[] =
-      "DELETE FROM FileCache WHERE oid='%1' AND parent_dir='%2' AND repo_id='%3'";
+      "DELETE FROM FileCache WHERE path='%1' AND repo_id='%2'";
 
-    QString buf = QString(sql).arg(oid).arg(parent_dir).arg(repo_id);
+    QString buf = QString(sql).arg(path).arg(repo_id);
     CppSQLite3Query q;
     try {
         q = db_->execQuery(buf.toUtf8().constData());
@@ -208,5 +142,36 @@ void FileCacheManager::remove(const QString &oid,
         qDebug("[file cache] %s", e.errorMessage());
         return;
     }
+}
+
+bool FileCacheManager::expectCachedInLocation(
+    const QString &path,
+    const QString &repo_id,
+    const QString &expected_oid,
+    const QString &expected_location)
+{
+    if (!expectCachedInLocationWithoutRemove(path, repo_id, expected_oid,
+                                             expected_location)) {
+      remove(path, repo_id);
+      return false;
+    }
+
+    return true;
+}
+
+bool FileCacheManager::expectCachedInLocationWithoutRemove(
+    const QString &path,
+    const QString &repo_id,
+    const QString &expected_oid,
+    const QString &expected_location) const
+{
+    if (expected_location.isEmpty() ||
+        !QFileInfo(expected_location).isFile())
+        return false;
+
+    if (expected_oid != get(path, repo_id))
+        return false;
+
+    return true;
 }
 

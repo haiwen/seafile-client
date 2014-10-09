@@ -17,12 +17,20 @@ public:
     }
     void open();
     void close();
-    QString get(const QString &oid);
-    QString get(const QString &oid, const QString &parent_dir,
-                const QString &repo_id);
-    void set(const QString &oid, const QString &file_location,
-             const QString &file_name, const QString &parent_dir = "/",
-             const QString &account = QString(), const QString &repo_id = QString());
+    void set(const QString &path, const QString &repo_id,
+             const QString &oid);
+
+    // Internally, first check if the file exists
+    // then if the oids are matched
+    bool expectCachedInLocation(
+        const QString &path, const QString &repo_id,
+        const QString &expected_oid, const QString &expected_location);
+
+    // Internally, first check if the file exists
+    // then if the oids are matched while not modifying anything
+    bool expectCachedInLocationWithoutRemove(
+        const QString &path, const QString &repo_id,
+        const QString &expected_oid, const QString &expected_location) const;
 
 private:
     explicit FileCacheManager();
@@ -31,14 +39,14 @@ private:
     FileCacheManager& operator=(const FileCacheManager&) { return *this; }
 
 private:
+    QString get(const QString &path, const QString &repo_id) const;
+    void remove(const QString &path, const QString &repo_id);
     void createTableIfNotExist();
-    void remove(const QString &oid, const QString &parent_dir,
-                const QString &repo_id);
-    void remove(const QString &oid);
     bool enabled_;
     bool closed_;
     CppSQLite3DB *db_;
     QString db_path_;
 };
+
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_FILE_CACHE_H

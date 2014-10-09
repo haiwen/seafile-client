@@ -6,6 +6,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QHttpMultiPart>
+#include <QUuid>
 #include <QSslError>
 #include "utils/utils.h"
 
@@ -125,20 +126,31 @@ void SeafileDownloadTask::resume()
 {
     qDebug() << "[download task]" << url_.toEncoded() << "started";
 
-    // create QFile object
-    file_ = new QFile(file_location_);
+    // create QFile object, used for tmp file
+    file_ = new QFile;
 
-    // remove if exist
-    if (file_->exists() && !file_->remove()) {
-        qDebug() << "[download task]" << "file" << file_->fileName() << "unable to remove old file";
-        qDebug() << Q_FUNC_INFO << file_->errorString();
-        onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
-        return;
-    }
+    // preparation of attempt to find an alternative file name
+    QDir dir = QFileInfo(file_location_).absoluteDir();
+    int count = 0;
+    QString tmp_name;
+
+    // attempt to find an alternative file name
+    do {
+        // if try too many times
+        if (count++ > 10) {
+            qDebug() << "[download task]" <<
+              "file" << file_->fileName() << "unable to find a alternative file name";
+            onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
+            return;
+        }
+        tmp_name = ::md5(QUuid::createUuid());
+        file_->setFileName(dir.absoluteFilePath("." + tmp_name));
+    } while(file_->exists());
 
     // open the file
     if (!file_->open(QIODevice::WriteOnly)) {
-        qDebug() << "[download task]" << "file" << file_->fileName() << "unable to write data";
+        qDebug() << "[download task]" <<
+          "file" << file_->fileName() << "unable to write data";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -201,6 +213,27 @@ void SeafileDownloadTask::httpFinished()
 
     //onFinished
     qDebug() << "[download task]" << url_.toEncoded() << "finished";
+
+    QFile target_file_(file_location_);
+
+    // remove if exist
+    if (target_file_.exists() && !target_file_.remove()) {
+        qDebug() << "[download task]" <<
+            "file" << target_file_.fileName() << "unable to remove old file";
+        qDebug() << Q_FUNC_INFO << target_file_.errorString();
+        onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
+        return;
+    }
+
+    // rename the tmp file to the target location
+    if (!file_->rename(file_location_)) {
+        qDebug() << "[download task]" <<
+            "file" << file_->fileName() << "unable to rename";
+        qDebug() << Q_FUNC_INFO << file_->errorString();
+        onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
+        return;
+    }
+
     status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
     emit finished();
     this->deleteLater();

@@ -17,10 +17,16 @@ class FileNetworkTask : public QObject {
 
     // file name
     QString file_name_;
+
     // file parent_dir
     QString parent_dir_;
+
+    // file path = parent_dir_ + file_name_
+    QString file_path_;
+
     // target_file_location or source_file_location
     QString file_location_;
+
     // file object id
     QString file_oid_;
 
@@ -41,7 +47,7 @@ class FileNetworkTask : public QObject {
     void setNetworkTask(SeafileNetworkTask *task);
 
     // if hit the cache
-    void fastForward(const QString &cached_location);
+    void fastForward();
 
 signals:
     // networktask slots are connected with these signals

@@ -81,7 +81,10 @@ GetDirentSharedLinkRequest::GetDirentSharedLinkRequest(const Account &account,
 {
     //TODO use METHOD_PUT, need to hack SeafileApiRequest
 
+    //okay, passing this in http body
     setParam("type", "f");
+
+    //okay, passing this in http body
     setParam("p", path);
 }
 
@@ -199,7 +202,10 @@ GetFileSharedLinkRequest::GetFileSharedLinkRequest(const Account &account,
 {
     //TODO use METHOD_PUT, need to hack SeafileApiRequest
 
+    //okay, passing this in http body
     setParam("type", "d");
+
+    //okay, passing this in http body
     setParam("p", path);
 }
 

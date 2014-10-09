@@ -15,33 +15,41 @@ class FileNetworkManager;
 class FileNetworkTask : public QObject {
     Q_OBJECT
 
-    // path is used as parent_dir
-    QString parent_dir_;
     // file name
     QString file_name_;
+    // file parent_dir
+    QString parent_dir_;
     // target_file_location or source_file_location
     QString file_location_;
     // file object id
-    QString oid_;
+    QString file_oid_;
+
+    // network task's attributes
     qint64 processed_bytes_;
     qint64 total_bytes_;
+
+    // current task status
     SeafileNetworkTaskStatus status_;
+
+    // current task type
     SeafileNetworkTaskType type_;
-    // underlying network task
+
+    // private, should not used outside
     SeafileNetworkTask *network_task_;
     FileNetworkManager *network_mgr_;
 
-    void fastForward(const QString &cached_location);
-    SeafileNetworkTask* networkTask() const { return network_task_; }
     void setNetworkTask(SeafileNetworkTask *task);
 
+    // if hit the cache
+    void fastForward(const QString &cached_location);
+
 signals:
-    //networktask's command order signal, should be triggered by command order slots
+    // networktask slots are connected with these signals
     // dummy
     void start();
-    // command network and prefetch task
+    // command network task to abort if any
     void cancel();
-    // command network task
+    // command network task to start if any
     void resume();
 
     //status changed signal
@@ -51,14 +59,22 @@ signals:
     void finished();
 
 private slots:
-    //command order slot
+    // command order slot, connected with high level stuff
     void onCancel();
 
-    //status changed slot
+    // connected with self's start signal
     void onStarted();
-    inline void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
+
+    // connected with prefetch task
     void onPrefetchFinished(const QString &url, const QString &oid = QString());
+
+    // connected with network task
+    inline void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
+
+    // connected with network task and prefetch task
     void onAborted();
+
+    // connected with network task
     void onFinished();
 
 public:
@@ -74,7 +90,7 @@ public:
                     const QString &file_oid = QString());
 
     QString parentDir() const { return parent_dir_; }
-    QString oid() const { return oid_; }
+    QString fileOid() const { return file_oid_; }
     QString fileName() const { return file_name_; }
     QString fileLocation() const { return file_location_; }
 
@@ -87,6 +103,7 @@ public:
 void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
                                             qint64 total_bytes)
 {
+    // work around with the weired progressbar behaviour and network BUF
     if (processed_bytes_++ != 0) //processed_bytes contains network cache
         processed_bytes_ = processed_bytes;
     total_bytes_ = total_bytes;
@@ -99,6 +116,8 @@ void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
 class FileNetworkManager : public QObject {
     Q_OBJECT
     friend class FileNetworkTask;
+
+    // start the underlying thread!
     void startThread();
 public:
     FileNetworkManager(const Account &account, const QString &repo_id);
@@ -113,28 +132,36 @@ public:
                                       const QString &source_file_location);
 
 signals:
-    void taskStarted(const FileNetworkTask* current_task); //signal for progress dialog
+    //signal for progress dialog
+    void taskStarted(const FileNetworkTask* current_task);
 
 private slots:
+    //connected with filenetworktask once it created
     void onTaskStarted();
+
+    //connected with filenetworktask whether it succeeds or fails
     void onTaskFinished();
 
 private:
-    /* keep reference of account and repo copy from FileTableModel*/
+    /* keep an reference to the copy in the caller */
     const Account& account_;
+
+    /* keep an copy from the caller */
     const QString repo_id_;
 
     /* download path */
     QDir file_cache_dir_;
+
+    /* download path, string */
     QString file_cache_path_;
 
-    /* file cache reference*/
+    /* reference to file cache manager*/
     FileCacheManager &cache_mgr_;
 
     /* underlying work thread */
     QThread *worker_thread_;
 
-    /* manage running task queue */
+    /* list of current running tasks */
     QList<FileNetworkTask*> running_tasks_;
 };
 

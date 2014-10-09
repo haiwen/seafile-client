@@ -15,8 +15,8 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
     const QString &parent_dir,
     const QString &file_location,
     const QString &file_oid)
-    :   parent_dir_(parent_dir), file_name_(file_name),
-        file_location_(file_location), oid_(file_oid),
+    :   file_name_(file_name), parent_dir_(parent_dir),
+        file_location_(file_location), file_oid_(file_oid),
         processed_bytes_(0), total_bytes_(0),
         status_(SEAFILE_NETWORK_TASK_STATUS_FRESH),
         type_(type), network_task_(NULL), network_mgr_(network_mgr)
@@ -43,9 +43,9 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
     } else if (type_ == SEAFILE_NETWORK_TASK_DOWNLOAD) {
 
         // find if cached in the list
-        if (!oid_.isEmpty()) {
+        if (!file_oid_.isEmpty()) {
             QString cached_location = network_mgr_->cache_mgr_.get(
-                oid_, parent_dir_, network_mgr_->repo_id_);
+                file_oid_, parent_dir_, network_mgr_->repo_id_);
             // hit the cache
             if (!cached_location.isEmpty()) {
                 fastForward(cached_location);
@@ -133,11 +133,11 @@ void FileNetworkTask::onPrefetchFinished(const QString &url, const QString &oid)
         emit resume();
     } else if (type_ ==  SEAFILE_NETWORK_TASK_DOWNLOAD) {
         if (!oid.isEmpty())
-            oid_ = oid;
+            file_oid_ = oid;
 
         // search the cache
         QString cached_location = network_mgr_->cache_mgr_.get(
-            oid_, parent_dir_, network_mgr_->repo_id_);
+            file_oid_, parent_dir_, network_mgr_->repo_id_);
 
         // hit the cache
         if (!cached_location.isEmpty()) {
@@ -165,7 +165,7 @@ void FileNetworkTask::onAborted()
 void FileNetworkTask::onFinished()
 {
     if (type_ == SEAFILE_NETWORK_TASK_DOWNLOAD)
-        network_mgr_->cache_mgr_.set(oid_, file_location_, file_name_, parent_dir_,
+        network_mgr_->cache_mgr_.set(file_oid_, file_location_, file_name_, parent_dir_,
                                  network_mgr_->account_.serverUrl.toString(),
                                  network_mgr_->repo_id_);
     status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;

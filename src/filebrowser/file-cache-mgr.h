@@ -18,7 +18,8 @@ public:
     void open();
     void close();
     QString get(const QString &oid);
-    QString get(const QString &oid, const QString &account, const QString &repo_id);
+    QString get(const QString &oid, const QString &parent_dir,
+                const QString &repo_id);
     void set(const QString &oid, const QString &file_location,
              const QString &file_name, const QString &parent_dir = "/",
              const QString &account = QString(), const QString &repo_id = QString());
@@ -31,7 +32,8 @@ private:
 
 private:
     void createTableIfNotExist();
-    void remove(const QString &oid, const QString &account, const QString &repo_id);
+    void remove(const QString &oid, const QString &parent_dir,
+                const QString &repo_id);
     void remove(const QString &oid);
     bool enabled_;
     bool closed_;

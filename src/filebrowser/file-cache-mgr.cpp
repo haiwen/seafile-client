@@ -103,7 +103,7 @@ QString FileCacheManager::get(const QString &oid)
 }
 
 QString FileCacheManager::get(const QString &oid,
-                              const QString &account,
+                              const QString &parent_dir,
                               const QString &repo_id)
 {
     if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
@@ -111,9 +111,9 @@ QString FileCacheManager::get(const QString &oid,
         return "";
 
     static const char sql[] =
-      "SELECT file_location FROM FileCache WHERE oid='%1' AND account='%2' AND repo_id='%3'";
+      "SELECT file_location FROM FileCache WHERE oid='%1' AND parent_dir='%2' AND repo_id='%3'";
 
-    QString buf = QString(sql).arg(oid).arg(account).arg(repo_id);
+    QString buf = QString(sql).arg(oid).arg(parent_dir).arg(repo_id);
     CppSQLite3Query q;
     try {
         q = db_->execQuery(buf.toUtf8().constData());
@@ -130,7 +130,7 @@ QString FileCacheManager::get(const QString &oid,
     if (file_location.isEmpty() ||
         !QFileInfo(file_location).isFile()) {
         qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        remove(oid, account, repo_id);
+        remove(oid, parent_dir, repo_id);
         return "";
     } else {
         qDebug("[file cache] file %s found", file_location.toUtf8().constData());
@@ -152,7 +152,7 @@ void FileCacheManager::set(const QString &oid, const QString &file_location,
     if (file_location.isEmpty() ||
         !QFileInfo(file_location).isFile()) {
         qDebug("[file cache] file %s does not exist", file_location.toUtf8().constData());
-        remove(oid, account, repo_id);
+        remove(oid, parent_dir, repo_id);
         return;
     }
 
@@ -183,7 +183,7 @@ void FileCacheManager::remove(const QString &oid)
 }
 
 void FileCacheManager::remove(const QString &oid,
-                              const QString &account,
+                              const QString &parent_dir,
                               const QString &repo_id)
 {
     if (!enabled_ || oid.size() > FILE_CACHE_ID_MAX ||
@@ -191,9 +191,9 @@ void FileCacheManager::remove(const QString &oid,
         return;
 
     static const char sql[] =
-      "DELETE FROM FileCache WHERE oid='%1' AND account='%2' AND repo_id='%3'";
+      "DELETE FROM FileCache WHERE oid='%1' AND parent_dir='%2' AND repo_id='%3'";
 
-    QString buf = QString(sql).arg(oid).arg(account).arg(repo_id);
+    QString buf = QString(sql).arg(oid).arg(parent_dir).arg(repo_id);
     CppSQLite3Query q;
     try {
         q = db_->execQuery(buf.toUtf8().constData());

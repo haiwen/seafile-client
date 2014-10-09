@@ -43,7 +43,7 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
         // find if cached in the list
         if (!oid.isEmpty()) {
             QString cached_location = network_mgr_->cache_mgr_.get(
-                oid, network_mgr_->account_.serverUrl.toString(), repo_id_);
+                oid, path_, repo_id_);
             // hit the cache
             if (!cached_location.isEmpty()) {
                 fastForward(cached_location);
@@ -135,8 +135,7 @@ void FileNetworkTask::onPrefetchFinished(const QString &url, const QString &oid)
 
         // search the cache
         QString cached_location = network_mgr_->cache_mgr_.get(
-            oid_, network_mgr_->account_.serverUrl.toString(),
-            network_mgr_->repo_id_);
+            oid_, path_, network_mgr_->repo_id_);
 
         // hit the cache
         if (!cached_location.isEmpty()) {

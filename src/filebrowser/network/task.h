@@ -35,13 +35,13 @@ typedef enum {
 class SeafileNetworkTask : public QObject {
     Q_OBJECT
 public:
-    SeafileNetworkTask(const QString &token, const QUrl &url);
+    SeafileNetworkTask(const QString &token,
+                       const QUrl &url,
+                       const QString &file_name,
+                       const QString &file_location);
     virtual ~SeafileNetworkTask();
 
     SeafileNetworkTaskStatus status() { return status_; }
-
-    QUrl url() { return url_; }
-    void setUrl(const QUrl &url) { url_ = url; }
 
 signals:
     void start();
@@ -57,25 +57,37 @@ protected slots:
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
 
 protected:
-    void onClose(); // cleanup function, responsible for resource release
     virtual void resume() = 0;
     QNetworkReply *reply_;
     SeafileNetworkRequest *req_;
     QNetworkAccessManager *network_mgr_;
 
+    // the file to be processed
+    QFile *file_;
+
+    // the file name
+    QString file_name_;
+
+    // the absolute path to target/source file
+    QString file_location_;
+
+    // http authorization token
     QString token_;
+
+    // http url
     QUrl url_;
+
     SeafileNetworkTaskType type_;
     SeafileNetworkTaskStatus status_;
+
+private:
+    void close(); // cleanup function, responsible for resource release
 };
 
 class SeafileDownloadTask : public SeafileNetworkTask {
     Q_OBJECT
     void startRequest();
 
-    QFile *file_; // the file to be download
-    QString file_name_; // the file to be download
-    QString file_location_; // the absolute path to file
 public:
     SeafileDownloadTask(const QString &token,
                         const QUrl &url,
@@ -98,7 +110,6 @@ private slots:
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
 
 private:
-    void onClose();
     void resume(); // entry for beginning of download
 };
 
@@ -106,17 +117,14 @@ class SeafileUploadTask : public SeafileNetworkTask {
     Q_OBJECT
     void startRequest();
 
-    QFile *file_; // the file to be upload
     QString parent_dir_; // the parent dir chose to be upload
-    QString file_name_; // the file to be upload
-    QString file_location_; // the absolute path to file
     QHttpMultiPart *upload_parts_; // http mutlt part
 public:
     SeafileUploadTask(const QString &token,
-                        const QUrl &url,
-                        const QString &parent_dir,
-                        const QString &file_name,
-                        const QString &file_location);
+                      const QUrl &url,
+                      const QString &parent_dir,
+                      const QString &file_name,
+                      const QString &file_location);
     ~SeafileUploadTask();
 
 signals:
@@ -133,7 +141,6 @@ private slots:
     void onAborted(SeafileNetworkTaskError error = SEAFILE_NETWORK_TASK_UNKNOWN_ERROR);
 
 private:
-    void onClose();
     void resume(); // entry for beginning of upload
 };
 

@@ -1,65 +1,59 @@
+#include "data-mgr.h"
 #include <QDir>
 
+#include "lrucache.h"
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "file-browser-requests.h"
 
-#include "data-mgr.h"
+const int kLRUTTL = 60;
 
-DataManager::DataManager(const Account& account)
-    : account_(account)
+DataManager::DataManager(const Account &account, const ServerRepo &repo)
+    : account_(account), repo_(repo), path_cache_(new LRUCache<QString, QList<SeafDirent> >(kLRUTTL)), req_(NULL)
 {
-    req_ = 0;
-    cache_ = new FileBrowserCache();
 }
 
-void DataManager::getDirents(const QString repo_id,
-                             const QString& path)
+DataManager::~DataManager()
 {
-    // TODO: real caching
-    QPair<QString, std::vector<SeafDirent> > cached = cache_->getCachedDirents(repo_id, path);
-    QString dir_id = cached.first;
-    if (!dir_id.isEmpty()) {
-        emit getDirentsSuccess(cached.second);
+    if (req_)
+        delete req_;
+    delete path_cache_;
+}
+
+void DataManager::getDirents(const QString& path,
+                             bool force_update)
+{
+    QString dir_id;
+
+    if (!force_update && path_cache_->contains(path)) {
+        //method object will not remove timed out item
+        emit getDirentsSuccess(*(path_cache_->object(path)));
         return;
     }
 
-    if (req_) {
+    if (req_)
         delete req_;
-    }
 
-    req_ = new GetDirentsRequest(account_, repo_id, path, dir_id);
-    connect(req_, SIGNAL(success(const QString&, const std::vector<SeafDirent>&)),
-            this, SLOT(onGetDirentsSuccess(const QString&, const std::vector<SeafDirent>&)));
+    req_ = new GetDirentsRequest(account_, repo_.id, path, dir_id);
+    connect(req_, SIGNAL(success(const QString&, const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(const QString&, const QList<SeafDirent>&)));
     connect(req_, SIGNAL(failed(const ApiError&)),
             this, SIGNAL(getDirentsFailed(const ApiError&)));
     req_->send();
 }
 
-void DataManager::onGetDirentsSuccess(const QString& dir_id, const std::vector<SeafDirent>& dirents)
+void DataManager::onGetDirentsSuccess(const QString &dir_id,
+                                      const QList<SeafDirent> &dirents)
 {
-    cache_->saveDirents(req_->repoId(), req_->path(), dir_id, dirents);
-    emit getDirentsSuccess(dirents);
+    Q_UNUSED(dir_id);
+    QList<SeafDirent> *pdirents = new QList<SeafDirent>(dirents);
+    emit getDirentsSuccess(*pdirents);
+    //path_cache_ now owns pdirents!
+    path_cache_->insert(req_->path(), pdirents);
 }
 
-
-FileBrowserCache::FileBrowserCache()
+void DataManager::onGetDirentsFailed(const ApiError& error)
 {
-    QDir seafdir = seafApplet->configurator()->seafileDir();
-    // TODO: setup cache
-}
-
-QPair<QString, std::vector<SeafDirent> >
-FileBrowserCache::getCachedDirents(const QString repo_id,
-                                   const QString& path)
-{
-    QPair<QString, std::vector<SeafDirent> > pair;
-    return pair;
-}
-
-void FileBrowserCache::saveDirents(const QString repo_id,
-                                   const QString& path,
-                                   const QString& dir_id,
-                                   const std::vector<SeafDirent>& dirents)
-{
+    // nothing
+    emit getDirentsFailed(error);
 }

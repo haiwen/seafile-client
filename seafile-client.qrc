@@ -95,6 +95,16 @@
     <file>images/files/file_text.png</file>
     <file>images/files/file_video.png</file>
     <file>images/files/file_unknown.png</file>
+    <file>images/files_v2/file_audio.png</file>
+    <file>images/files_v2/file_folder.png</file>
+    <file>images/files_v2/file_image.png</file>
+    <file>images/files_v2/file_ms_excel.png</file>
+    <file>images/files_v2/file_ms_ppt.png</file>
+    <file>images/files_v2/file_ms_word.png</file>
+    <file>images/files_v2/file_pdf.png</file>
+    <file>images/files_v2/file_text.png</file>
+    <file>images/files_v2/file_video.png</file>
+    <file>images/files_v2/file_unknown.png</file>
     <file>images/caret-down.png</file>
     <file>images/caret-down@2x.png</file>
     <file>images/caret-up.png</file>
@@ -109,6 +119,22 @@
     <file>images/delete-account@2x.png</file>
     <file>images/account-checked.png</file>
     <file>images/account-checked@2x.png</file>
+    <file>images/filebrowser/backward.png</file>
+    <file>images/filebrowser/backward@2x.png</file>
+    <file>images/filebrowser/download.png</file>
+    <file>images/filebrowser/download@2x.png</file>
+    <file>images/filebrowser/forward.png</file>
+    <file>images/filebrowser/forward@2x.png</file>
+    <file>images/filebrowser/home.png</file>
+    <file>images/filebrowser/home@2x.png</file>
+    <file>images/filebrowser/open-folder.png</file>
+    <file>images/filebrowser/open-folder@2x.png</file>
+    <file>images/filebrowser/upload.png</file>
+    <file>images/filebrowser/upload@2x.png</file>
+    <file>images/filebrowser/refresh.png</file>
+    <file>images/filebrowser/refresh@2x.png</file>
+    <file>images/filebrowser/settings.png</file>
+    <file>images/filebrowser/settings@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

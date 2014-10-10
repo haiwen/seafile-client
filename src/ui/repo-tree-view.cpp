@@ -19,6 +19,7 @@
 #include "repo-detail-dialog.h"
 #include "utils/paint-utils.h"
 #include "filebrowser/file-browser-dialog.h"
+#include "set-repo-password-dialog.h"
 
 #include "repo-tree-view.h"
 
@@ -368,9 +369,21 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
             // open local folder for downloaded repo
             QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
         } else {
+             if (!it->repo().isValid())
+                 return;
+
+             if (it->repo().encrypted) {
+                 SetRepoPasswordDialog dialog(it->repo(), this);
+                 if (dialog.exec() != QDialog::Accepted)
+                    return;
+             }
+
+            FileBrowserDialog* dialog = new FileBrowserDialog(it->repo(), this);
+            const QRect screen = QApplication::desktop()->screenGeometry();
+            dialog->show();
+            dialog->move(screen.center() - dialog->rect().center());
+            dialog->raise();
             // open seahub repo page for not downloaded repo
-            FileBrowserDialog dialog(it->repo(), this);
-            dialog.exec();
         }
     }
 }

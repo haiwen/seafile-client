@@ -3,7 +3,7 @@
 
 #include <jansson.h>
 
-#include <vector>
+#include <QList>
 #include <QString>
 #include <QMetaType>
 
@@ -13,7 +13,7 @@ public:
         DIR,
         FILE
     };
-    
+
     Type type;
     QString id;
     QString name;
@@ -24,7 +24,7 @@ public:
     bool isFile() const { return type == FILE; }
 
     static SeafDirent fromJSON(const json_t*, json_error_t *error);
-    static std::vector<SeafDirent> listFromJSON(const json_t*, json_error_t *error);
+    static QList<SeafDirent> listFromJSON(const json_t*, json_error_t *error);
 };
 
 

@@ -225,7 +225,7 @@ void InitVirtualDriveDialog::checkDownloadProgress()
     }
 
     CloneTask task;
-    for (int i = 0; i < tasks.size(); i++) {
+    for (size_t i = 0; i < tasks.size(); i++) {
         if (tasks[i].repo_id == default_repo_id_) {
             task = tasks[i];
             break;

@@ -32,14 +32,13 @@ SeahubNotificationsMonitor::SeahubNotificationsMonitor(QObject *parent)
       in_refresh_(false),
       unread_count_(0)
 {
+    refresh_timer_ = new QTimer(this);
+    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
 }
 
 void SeahubNotificationsMonitor::start()
 {
     resetStatus();
-
-    refresh_timer_ = new QTimer(this);
-    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
 
     refresh_timer_->start(kRefreshSeahubMessagesInterval);
 

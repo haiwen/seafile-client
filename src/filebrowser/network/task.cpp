@@ -86,7 +86,7 @@ void SeafileNetworkTask::onRedirected(const QUrl &new_url)
 
 void SeafileNetworkTask::onAborted(SeafileNetworkTaskError error)
 {
-    qDebug() << "[network task]" << url_.toEncoded()
+    qDebug() << "[network task]" << file_location_
       << " is aborted due to error" << error;
     status_ = SEAFILE_NETWORK_TASK_STATUS_ERROR;
 }
@@ -98,7 +98,7 @@ void SeafileNetworkTask::onStart()
 
 void SeafileNetworkTask::onCancel()
 {
-    qDebug() << "[network task]" << url_.toEncoded() << "cancelled";
+    qDebug() << "[network task]" << file_location_ << "cancelled";
     if (reply_ &&
         !reply_->isFinished() &&
         status_ != SEAFILE_NETWORK_TASK_STATUS_ERROR &&
@@ -124,7 +124,7 @@ SeafileDownloadTask::~SeafileDownloadTask()
 
 void SeafileDownloadTask::resume()
 {
-    qDebug() << "[download task]" << url_.toEncoded() << "started";
+    qDebug() << "[download task]" << file_location_ << "started";
 
     // create QFile object, used for tmp file
     file_ = new QFile;
@@ -139,7 +139,7 @@ void SeafileDownloadTask::resume()
         // if try too many times
         if (count++ > 10) {
             qDebug() << "[download task]" <<
-              "file" << file_->fileName() << "unable to find a alternative file name";
+              "file" << file_location_ << "unable to find a alternative file name";
             onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
             return;
         }
@@ -150,7 +150,7 @@ void SeafileDownloadTask::resume()
     // open the file
     if (!file_->open(QIODevice::WriteOnly)) {
         qDebug() << "[download task]" <<
-          "file" << file_->fileName() << "unable to write data";
+          "file" << file_location_ << "unable to write data";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -212,14 +212,14 @@ void SeafileDownloadTask::httpFinished()
     }
 
     //onFinished
-    qDebug() << "[download task]" << url_.toEncoded() << "finished";
+    qDebug() << "[download task]" << file_location_ << "finished";
 
     QFile target_file_(file_location_);
 
     // remove if exist
     if (target_file_.exists() && !target_file_.remove()) {
         qDebug() << "[download task]" <<
-            "file" << target_file_.fileName() << "unable to remove old file";
+            "file" << file_location_ << "unable to remove old file";
         qDebug() << Q_FUNC_INFO << target_file_.errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -228,7 +228,7 @@ void SeafileDownloadTask::httpFinished()
     // rename the tmp file to the target location
     if (!file_->rename(file_location_)) {
         qDebug() << "[download task]" <<
-            "file" << file_->fileName() << "unable to rename";
+            "file" << file_location_ << "unable to rename";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -244,7 +244,7 @@ void SeafileDownloadTask::onRedirected(const QUrl &new_url)
     SeafileNetworkTask::onRedirected(new_url);
     if (!file_->open(QIODevice::WriteOnly) || !file_->resize(0)) {
         qDebug() << "[download task]" <<
-          "file" << file_->fileName() << "unable to be truncated";
+          "file" << file_location_ << "unable to be truncated";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -281,7 +281,7 @@ SeafileUploadTask::~SeafileUploadTask()
 
 void SeafileUploadTask::resume()
 {
-    qDebug() << "[upload task]" << url_.toEncoded() << "started";
+    qDebug() << "[upload task]" << file_location_ << "started";
 
     file_ = new QFile(file_location_);
     upload_parts_ = new QHttpMultiPart(QHttpMultiPart::FormDataType, this);
@@ -290,7 +290,7 @@ void SeafileUploadTask::resume()
     //file not exists
     if (!file_->exists()) {
         qDebug() << "[upload task]" <<
-          "file" << file_->fileName() << "not existed";
+          "file" << file_location_ << "not existed";
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
     }
@@ -298,7 +298,7 @@ void SeafileUploadTask::resume()
     //file is unable to open
     if (!file_->open(QIODevice::ReadOnly)) {
         qDebug() << "[upload task]" <<
-          "file" << file_->fileName() << "unable to read data";
+          "file" << file_location_ << "unable to read data";
         qDebug() << Q_FUNC_INFO << file_->errorString();
         onAborted(SEAFILE_NETWORK_TASK_FILE_ERROR);
         return;
@@ -366,7 +366,7 @@ void SeafileUploadTask::httpFinished()
     }
 
     //onFinished
-    qDebug() << "[upload task]" << url_.toEncoded() << "finished";
+    qDebug() << "[upload task]" << file_location_ << "finished";
     status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
     emit finished();
     this->deleteLater();

@@ -41,9 +41,6 @@ FileTableModel::FileTableModel(const ServerRepo& repo, QObject *parent)
 
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
-
-    connect(file_network_mgr_, SIGNAL(taskStarted(const FileNetworkTask*)),
-            this, SIGNAL(taskStarted(const FileNetworkTask*)));
 }
 FileTableModel::~FileTableModel()
 {

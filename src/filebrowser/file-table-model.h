@@ -25,7 +25,6 @@ signals:
     void backwardEnabled(bool enabled);
     void forwardEnabled(bool enabled);
     void downloadEnabled(bool enabled);
-    void taskStarted(const FileNetworkTask *task);
 
 public:
     FileTableModel(const ServerRepo& repo, QObject *parent=0);
@@ -48,7 +47,7 @@ public:
     const QString& currentPath() { return current_path_; }
     const Account& account() { return account_; }
     const ServerRepo& repo() { return repo_; }
-    const FileNetworkManager* fileNetworkManager() { return file_network_mgr_; }
+    FileNetworkManager* fileNetworkManager() { return file_network_mgr_; }
 
 public slots:
     void onSelectionChanged(const int row);

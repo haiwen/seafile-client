@@ -6,10 +6,12 @@
 #include <QPushButton>
 #include <QDesktopServices>
 #include <QDebug>
+#include <QApplication>
 #include "utils/utils.h"
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
-        : QProgressDialog(parent), task_(NULL), mgr_(NULL)
+    : QProgressDialog(parent), mgr_(NULL), task_num_(0), task_done_num_(0),
+      task_bytes_(0), task_done_bytes_(0)
 {
     setWindowModality(Qt::WindowModal);
 
@@ -22,13 +24,16 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
 
     QHBoxLayout *hlayout_ = new QHBoxLayout;
     more_details_label_ = new QLabel;
-    QPushButton *cancel_button_ = new QPushButton(tr("Cancel"));
+    cancel_button_ = new QPushButton(tr("Cancel"));
+    QPushButton *hide_button_ = new QPushButton(tr("&Hide"));
     QWidget *spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     hlayout_->addWidget(more_details_label_);
     hlayout_->addWidget(spacer);
     hlayout_->addWidget(cancel_button_);
+    hlayout_->addWidget(hide_button_);
+    hlayout_->setSpacing(6);
     hlayout_->setContentsMargins(-1, 0, -1, 6);
     layout_->setContentsMargins(-1, 0, -1, 6);
     layout_->addLayout(hlayout_);
@@ -37,96 +42,114 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
     setLabel(description_label_);
     setBar(progress_bar_);
     setCancelButton(cancel_button_);
+
+    connect(hide_button_, SIGNAL(clicked()), this, SLOT(hide()));
+
+    more_details_label_->setText(tr("transferred %1 of %2")
+                                   .arg(::readableFileSizeV2(0))
+                                   .arg(::readableFileSizeV2(0)));
+
 }
 
-void FileBrowserProgressDialog::setFileNetworkManager(const FileNetworkManager *mgr)
+void FileBrowserProgressDialog::setFileNetworkManager(FileNetworkManager *mgr)
 {
-    if (mgr_) {
-        disconnect(mgr_, 0, this, 0);
-        onTaskStarted(NULL);
-    }
+    if (mgr_)
+      disconnect(mgr_, 0, this, 0);
 
     mgr_ = mgr;
 
     if (mgr_ == NULL)
         return;
 
-    connect(mgr_, SIGNAL(taskStarted(const FileNetworkTask*)),
-            this, SLOT(onTaskStarted(const FileNetworkTask*)));
+    connect(mgr_, SIGNAL(taskRegistered(const FileNetworkTask *)), this,
+            SLOT(onTaskRegistered(const FileNetworkTask *)));
+
+    connect(mgr_, SIGNAL(taskUnregistered(const FileNetworkTask *)), this,
+            SLOT(onTaskUnregistered(const FileNetworkTask *)));
+
+    connect(mgr_, SIGNAL(taskProgressed(qint64, qint64)), this,
+            SLOT(onTaskProgressed(qint64, qint64)));
+
+    connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
 }
 
-
-void FileBrowserProgressDialog::onTaskStarted(const FileNetworkTask *task)
+void FileBrowserProgressDialog::onTaskRegistered(const FileNetworkTask *task)
 {
-    if (task_) {
-        disconnect(task_, 0, this, 0);
-        hide();
-        reset();
+    if (task == NULL)
+      return;
+
+    task_num_++;
+    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
+                      ? tr("Uploading %1 of %2")
+                      : tr("Downloading %1 of %2"))
+                     .arg(task_done_num_ + 1)
+                     .arg(task_num_));
+
+    // if it is first time emitted
+    if (task_num_ == 1) {
+      setWindowTitle((task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
+                         ? tr("Upload")
+                         : tr("Download"));
     }
-
-    task_ = task;
-
-    if (task_ == NULL)
-        return;
-
-    setWindowTitle((task->type() == SEAFILE_NETWORK_TASK_UPLOAD) ?
-       tr("Upload") : tr("Download"));
-    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD) ?
-       tr("Uploading %1") : tr("Downloading %1")) \
-                 .arg(task->fileName()));
-
-    more_details_label_->setText("");
-
-    setMaximum(0);
-    setValue(0);
-
-    connect(task_, SIGNAL(started()), this, SLOT(onStarted()));
-    connect(task_, SIGNAL(updateProgress(qint64, qint64)),
-            this, SLOT(onUpdateProgress(qint64, qint64)));
-    connect(task_, SIGNAL(aborted()), this, SLOT(onAborted()));
-    connect(task_, SIGNAL(finished()), this, SLOT(onFinished()));
-    connect(this, SIGNAL(canceled()), task_, SLOT(onCancel()));
 
     show();
 }
 
-void FileBrowserProgressDialog::onStarted()
+void FileBrowserProgressDialog::onTaskUnregistered(const FileNetworkTask *task)
 {
-    more_details_label_->setText("Pending");
-}
-void FileBrowserProgressDialog::onUpdateProgress(qint64 processed_bytes, qint64 total_bytes)
-{
-    if (maximum() != total_bytes)
-        setMaximum(total_bytes);
-    setValue(processed_bytes);
+    // Hack
+    if (!task_num_)
+        return;
 
-    more_details_label_->setText(tr("%1 of %2")
-                            .arg(::readableFileSizeV2(processed_bytes))
-                            .arg(::readableFileSizeV2(total_bytes)));
-}
-void FileBrowserProgressDialog::onAborted()
-{
-    disconnect(task_, 0, this, 0);
-    more_details_label_->setText(tr("Aborted"));
+    task_done_num_++;
 
-    task_ = NULL;
-    reset();
-}
-void FileBrowserProgressDialog::onFinished()
-{
-    disconnect(task_, 0, this, 0);
-    more_details_label_->setText(tr("Finished"));
-    progress_bar_->setValue(maximum());
-
-    if (task_->type() == SEAFILE_NETWORK_TASK_DOWNLOAD &&
-        !openInNativeExtension(task_->fileLocation()) &&
-        !showInGraphicalShell(task_->fileLocation())) {
-      qDebug() << Q_FUNC_INFO << task_->fileLocation()
-        << " is downloaded but unable to open";
+    if (task->status() == SEAFILE_NETWORK_TASK_STATUS_FINISHED &&
+        task->type() == SEAFILE_NETWORK_TASK_DOWNLOAD &&
+        !openInNativeExtension(task->fileLocation()) &&
+        !showInGraphicalShell(task->fileLocation())) {
+      qDebug() << Q_FUNC_INFO << task->fileLocation()
+               << " is downloaded but unable to open";
       QDesktopServices::openUrl(QUrl::fromLocalFile(
-          QFileInfo(task_->fileLocation()).dir().absolutePath()));
+          QFileInfo(task->fileLocation()).dir().absolutePath()));
     }
 
-    task_ = NULL;
-    reset();
+    // All tasks are finished
+    if (task_done_num_ == task_num_) {
+        task_bytes_ = 0;
+        task_done_bytes_ = 0;
+        task_num_ = 0;
+        task_done_num_ = 0;
+        reset();
+        return;
+    }
+
+    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
+                      ? tr("Uploading %1 of %2")
+                      : tr("Downloading %1 of %2"))
+                     .arg(task_done_num_ + 1)
+                     .arg(task_num_));
 }
+
+void FileBrowserProgressDialog::onTaskProgressed(qint64 bytes, qint64 total_bytes)
+{
+    if (!bytes || !isVisible())
+        return;
+    task_bytes_ = total_bytes;
+    task_done_bytes_ = bytes;
+    setValue(task_done_bytes_);
+    setMaximum(task_bytes_);
+
+    more_details_label_->setText(tr("transferred %1 of %2")
+                                     .arg(::readableFileSizeV2(task_done_bytes_))
+                                     .arg(::readableFileSizeV2(task_bytes_)));
+}
+
+void FileBrowserProgressDialog::cancel()
+{
+    mgr_->cancelAll();
+    task_bytes_ = 0;
+    task_done_bytes_ = 0;
+    task_num_ = 0;
+    task_done_num_ = 0;
+}
+

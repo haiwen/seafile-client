@@ -10,11 +10,74 @@
 class Account;
 class ApiError;
 class QThread;
+class QTimer;
 class FileNetworkManager;
 
 class FileNetworkTask : public QObject {
     Q_OBJECT
+public:
+    FileNetworkTask(const SeafileNetworkTaskType type,
+                    FileNetworkManager *network_mgr,
+                    const QString &file_name,
+                    const QString &parent_dir,
+                    const QString &file_location,
+                    const QString &file_oid = QString());
 
+    QString parentDir() const { return parent_dir_; }
+    QString fileOid() const { return file_oid_; }
+    QString fileName() const { return file_name_; }
+    QString fileLocation() const { return file_location_; }
+
+    qint64 processedBytes() const { return processed_bytes_; }
+    qint64 totalBytes() const { return total_bytes_; }
+    SeafileNetworkTaskStatus status() const { return status_; }
+    SeafileNetworkTaskType type() const { return type_; }
+
+signals:
+    // networktask slots are connected with these signals
+    void start();
+    // command network task to abort if any
+    void cancel();
+    // command network task to start if any
+    void resume();
+
+    //status changed signal
+    void started();
+    void updateProgress(qint64 processed_bytes, qint64 total_bytes);
+    void aborted();
+    void finished();
+
+public slots:
+    // signal this task
+    void runThis();
+
+    // cancel this task
+    void cancelThis();
+
+private slots:
+    // connected with self's start signal
+    void onStarted();
+
+    // connected with prefetch task
+    void onPrefetchFinished(const QString &url, const QString &oid = QString());
+
+    // connected with network task
+    inline void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
+
+    // connected with network task and prefetch task
+    void onAborted();
+
+    // connected with network task
+    void onFinished();
+
+private:
+    // set worker task
+    void setNetworkTask(SeafileNetworkTask *task);
+
+    // omit the worker task
+    void fastForward();
+
+private:
     // file name
     QString file_name_;
 
@@ -43,67 +106,6 @@ class FileNetworkTask : public QObject {
     // private, should not used outside
     SeafileNetworkTask *network_task_;
     FileNetworkManager *network_mgr_;
-
-    void setNetworkTask(SeafileNetworkTask *task);
-
-    // if hit the cache
-    void fastForward();
-
-signals:
-    // networktask slots are connected with these signals
-    // dummy
-    void start();
-    // command network task to abort if any
-    void cancel();
-    // command network task to start if any
-    void resume();
-
-    //status changed signal
-    void started();
-    void updateProgress(qint64 processed_bytes, qint64 total_bytes);
-    void aborted();
-    void finished();
-
-private slots:
-    // command order slot, connected with high level stuff
-    void onCancel();
-
-    // connected with self's start signal
-    void onStarted();
-
-    // connected with prefetch task
-    void onPrefetchFinished(const QString &url, const QString &oid = QString());
-
-    // connected with network task
-    inline void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
-
-    // connected with network task and prefetch task
-    void onAborted();
-
-    // connected with network task
-    void onFinished();
-
-public:
-    //entry point
-    void run();
-
-public:
-    FileNetworkTask(const SeafileNetworkTaskType type,
-                    FileNetworkManager *network_mgr,
-                    const QString &file_name,
-                    const QString &parent_dir,
-                    const QString &file_location,
-                    const QString &file_oid = QString());
-
-    QString parentDir() const { return parent_dir_; }
-    QString fileOid() const { return file_oid_; }
-    QString fileName() const { return file_name_; }
-    QString fileLocation() const { return file_location_; }
-
-    qint64 processedBytes() const { return processed_bytes_; }
-    qint64 totalBytes() const { return total_bytes_; }
-    SeafileNetworkTaskStatus status() const { return status_; }
-    SeafileNetworkTaskType type() const { return type_; }
 };
 
 void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
@@ -116,15 +118,13 @@ void FileNetworkTask::onUpdateProgress(qint64 processed_bytes,
 
     if (processed_bytes_ >= total_bytes_)
         processed_bytes_ = total_bytes_ - 1;
+
     emit updateProgress(processed_bytes_, total_bytes_);
 }
 
 class FileNetworkManager : public QObject {
     Q_OBJECT
     friend class FileNetworkTask;
-
-    // start the underlying thread!
-    void startThread();
 public:
     FileNetworkManager(const Account &account, const QString &repo_id);
     ~FileNetworkManager();
@@ -138,15 +138,34 @@ public:
                                       const QString &source_file_location);
 
 signals:
-    //signal for progress dialog
-    void taskStarted(const FileNetworkTask* current_task);
+    // emitted once a task starts
+    void taskRegistered(const FileNetworkTask* task);
+
+    // emitted once a task ends
+    void taskUnregistered(const FileNetworkTask* task);
+
+    // emitted per 100ms
+    void taskProgressed(qint64 bytes, qint64 total_bytes);
+
+    // emitted per 100ms
+    void taskRateBeat(qint64 rate);
+
+public slots:
+    // cancel all underlying tasks
+    void cancelAll();
 
 private slots:
-    //connected with filenetworktask once it created
-    void onTaskStarted();
+    // receive task begin signal
+    void networkTaskBegin();
 
-    //connected with filenetworktask whether it succeeds or fails
-    void onTaskFinished();
+    // receive task end signal
+    void networkTaskEnd();
+
+    // receive task update signal, dummy currently
+    void networkTaskUpdate(qint64 bytes, qint64 total_bytes);
+
+    // triggered by a timer
+    void networkTaskBeat();
 
 private:
     /* keep an reference to the copy in the caller */
@@ -168,7 +187,10 @@ private:
     QThread *worker_thread_;
 
     /* list of current running tasks */
-    QList<FileNetworkTask*> running_tasks_;
+    QList<FileNetworkTask*> tasks_;
+
+    // Timer
+    QTimer *timer_;
 };
 
 #endif //SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MANAGER_H

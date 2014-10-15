@@ -459,6 +459,6 @@ FileBrowserDialog QToolBar#statusBar {
 }
 
 FileBrowserProgressDialog {
-    min-width: 320px;
-    max-width: 420px;
+    min-width: 450px;
+    max-width: 450px;
 }

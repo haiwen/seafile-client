@@ -9,24 +9,29 @@ class QLabel;
 
 class FileBrowserProgressDialog : public QProgressDialog {
     Q_OBJECT
-    const FileNetworkTask *task_;
-    const FileNetworkManager *mgr_;
+public:
+    FileBrowserProgressDialog(QWidget *parent = 0);
+    void setFileNetworkManager(FileNetworkManager *mgr);
+
+private slots:
+    void onTaskRegistered(const FileNetworkTask *task);
+    void onTaskUnregistered(const FileNetworkTask *task);
+    void onTaskProgressed(qint64 bytes, qint64 total_bytes);
+
+    void cancel();
+
+private:
+    //UI
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
-public:
-    FileBrowserProgressDialog(QWidget *parent = 0);
-    void setFileNetworkManager(const FileNetworkManager *mgr);
+    QPushButton *cancel_button_;
 
-private slots:
-    void onTaskStarted(const FileNetworkTask *task);
-
-public slots:
-
-    void onStarted();
-    void onUpdateProgress(qint64 processed_bytes, qint64 total_bytes);
-    void onAborted();
-    void onFinished();
+    FileNetworkManager *mgr_;
+    unsigned int task_num_;
+    unsigned int task_done_num_;
+    qint64 task_bytes_;
+    qint64 task_done_bytes_;
 };
 
 

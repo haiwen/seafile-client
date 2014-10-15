@@ -1,6 +1,7 @@
 #include "file-network-mgr.h"
 
 #include <QThread>
+#include <QTimer>
 #include <QDebug>
 
 #include "account.h"
@@ -25,9 +26,11 @@ FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
     connect(this, SIGNAL(start()), this, SIGNAL(started()));
 
     //connection with network_mgr
-    connect(this, SIGNAL(started()), network_mgr_ ,SLOT(onTaskStarted()));
-    connect(this, SIGNAL(aborted()), network_mgr_ ,SLOT(onTaskFinished()));
-    connect(this, SIGNAL(finished()), network_mgr_ ,SLOT(onTaskFinished()));
+    connect(this, SIGNAL(started()), network_mgr_ ,SLOT(networkTaskBegin()));
+    connect(this, SIGNAL(aborted()), network_mgr_ ,SLOT(networkTaskEnd()));
+    connect(this, SIGNAL(finished()), network_mgr_ ,SLOT(networkTaskEnd()));
+    connect(this, SIGNAL(updateProgress(qint64, qint64)),
+            network_mgr_ ,SLOT(networkTaskUpdate(qint64, qint64)));
 
     if (type_ == SEAFILE_NETWORK_TASK_UPLOAD) {
 
@@ -84,14 +87,14 @@ void FileNetworkTask::setNetworkTask(SeafileNetworkTask *network_task)
     connect(network_task_, SIGNAL(finished()), this, SLOT(onFinished()));
 }
 
-void FileNetworkTask::run()
+void FileNetworkTask::runThis()
 {
     if (status_ != SEAFILE_NETWORK_TASK_STATUS_FRESH)
         return;
     emit start();
 }
 
-void FileNetworkTask::onCancel()
+void FileNetworkTask::cancelThis()
 {
     status_ = SEAFILE_NETWORK_TASK_STATUS_CANCELING;
     emit cancel();
@@ -109,11 +112,12 @@ void FileNetworkTask::fastForward()
     file_location_ = file_location_;
     total_bytes_ = cached_info_.size();
     processed_bytes_ = total_bytes_;
+    status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
+
     // fast-forward progress
     emit started();
     emit updateProgress(total_bytes_ - 1, total_bytes_);
     emit finished();
-    status_ = SEAFILE_NETWORK_TASK_STATUS_FINISHED;
 }
 
 void FileNetworkTask::onPrefetchFinished(const QString &url, const QString &oid)
@@ -121,6 +125,7 @@ void FileNetworkTask::onPrefetchFinished(const QString &url, const QString &oid)
     //if task is not clean, for example cancelled
     if (status_ != SEAFILE_NETWORK_TASK_STATUS_FRESH)
         return;
+
     //if task is clean
     if (type_ ==  SEAFILE_NETWORK_TASK_UPLOAD) {
         SeafileUploadTask *network_task = new SeafileUploadTask(
@@ -128,8 +133,9 @@ void FileNetworkTask::onPrefetchFinished(const QString &url, const QString &oid)
         setNetworkTask(network_task);
 
         network_task->moveToThread(network_mgr_->worker_thread_);
-        connect(network_mgr_->worker_thread_, SIGNAL(finished()), this, SLOT(onCancel()));
-        network_mgr_->startThread();
+        connect(network_mgr_->worker_thread_, SIGNAL(finished()),
+                this, SLOT(cancelThis()));
+        network_mgr_->worker_thread_->start();
         // begin network task
         emit resume();
     } else if (type_ ==  SEAFILE_NETWORK_TASK_DOWNLOAD) {
@@ -147,8 +153,9 @@ void FileNetworkTask::onPrefetchFinished(const QString &url, const QString &oid)
         SeafileDownloadTask *network_task = new SeafileDownloadTask(network_mgr_->account_.token, url, file_name_, file_location_);
         setNetworkTask(network_task);
         network_task->moveToThread(network_mgr_->worker_thread_);
-        connect(network_mgr_->worker_thread_, SIGNAL(finished()), this, SLOT(onCancel()));
-        network_mgr_->startThread();
+        connect(network_mgr_->worker_thread_, SIGNAL(finished()),
+                this, SLOT(cancelThis()));
+        network_mgr_->worker_thread_->start();
         // begin network task
         emit resume();
     }
@@ -178,24 +185,25 @@ FileNetworkManager::FileNetworkManager(const Account &account,
     : account_(account), repo_id_(repo_id),
     file_cache_dir_(defaultFileCachePath()),
     file_cache_path_(defaultFileCachePath()),
-    cache_mgr_(FileCacheManager::getInstance())
+    cache_mgr_(FileCacheManager::getInstance()),
+    timer_(new QTimer(this))
 {
     if (!file_cache_path_.endsWith("/"))
         file_cache_path_.append('/');
     worker_thread_ = new QThread;
     cache_mgr_.open();
+    connect(timer_, SIGNAL(timeout()), this, SLOT(networkTaskBeat()));
+    timer_->start(100);
 }
 
 FileNetworkManager::~FileNetworkManager()
 {
+    timer_->stop();
+    delete timer_;
+    cancelAll();
     worker_thread_->quit();
     worker_thread_->wait();
     delete worker_thread_;
-}
-
-void FileNetworkManager::startThread()
-{
-    worker_thread_->start();
 }
 
 FileNetworkTask* FileNetworkManager::createDownloadTask(const QString &file_name,
@@ -212,7 +220,7 @@ FileNetworkTask* FileNetworkManager::createDownloadTask(const QString &file_name
                             file_name, parent_dir, target_file_location, file_oid);
     ftask->setParent(this);
 
-    ftask->run();
+    ftask->runThis();
     return ftask;
 }
 
@@ -226,27 +234,58 @@ FileNetworkTask* FileNetworkManager::createUploadTask(const QString &file_name,
                           file_name, parent_dir, source_file_location);
     ftask->setParent(this);
 
-    ftask->run();
+    ftask->runThis();
     return ftask;
 }
 
-void FileNetworkManager::onTaskStarted()
+void FileNetworkManager::cancelAll()
 {
-    FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
-    running_tasks_.push_back(task);
-
-    if (running_tasks_.size() == 1)
-        emit taskStarted(task);
+    foreach(FileNetworkTask* task, tasks_)
+    {
+        task->cancelThis();
+    }
+    tasks_.clear();
 }
 
-void FileNetworkManager::onTaskFinished()
+void FileNetworkManager::networkTaskBegin()
 {
     FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
-    const int count = running_tasks_.indexOf(task);
-    // this task is in the running list, remove it
-    if (count >= 0)
-        running_tasks_.removeOne(task);
-    // this task is at the first place, replace it with next one
-    if (count == 0 && !running_tasks_.isEmpty())
-        emit taskStarted(running_tasks_.first());
+
+    if (!task)
+      return;
+
+    tasks_.push_back(task);
+    emit taskRegistered(task);
 }
+
+void FileNetworkManager::networkTaskEnd()
+{
+    FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
+
+    if (!task)
+      return;
+
+    //remove unfinished task
+    if (task->status() != SEAFILE_NETWORK_TASK_STATUS_FINISHED)
+      tasks_.removeAt(tasks_.indexOf(task));
+
+    emit taskUnregistered(task);
+}
+
+void FileNetworkManager::networkTaskUpdate(qint64 bytes, qint64 total_bytes)
+{
+    // do nothing
+}
+
+void FileNetworkManager::networkTaskBeat()
+{
+    qint64 bytes = 0;
+    qint64 total_bytes = 0;
+    foreach(const FileNetworkTask* task, tasks_)
+    {
+      bytes += task->processedBytes();
+      total_bytes += task->totalBytes();
+    }
+    emit taskProgressed(bytes, total_bytes);
+}
+

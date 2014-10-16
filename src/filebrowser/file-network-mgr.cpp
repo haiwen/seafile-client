@@ -10,6 +10,10 @@
 #include "network/task.h"
 #include "file-browser-requests.h"
 
+namespace {
+const int kNetworkRateBeatInterval = 100;
+}
+
 FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
     FileNetworkManager *network_mgr,
     const QString &file_name,
@@ -186,6 +190,7 @@ FileNetworkManager::FileNetworkManager(const Account &account,
     file_cache_dir_(defaultFileCachePath()),
     file_cache_path_(defaultFileCachePath()),
     cache_mgr_(FileCacheManager::getInstance()),
+    upload_last_tasks_bytes_(0), download_last_tasks_bytes_(0),
     timer_(new QTimer(this))
 {
     if (!file_cache_path_.endsWith("/"))
@@ -193,7 +198,6 @@ FileNetworkManager::FileNetworkManager(const Account &account,
     worker_thread_ = new QThread;
     cache_mgr_.open();
     connect(timer_, SIGNAL(timeout()), this, SLOT(networkTaskBeat()));
-    timer_->start(100);
 }
 
 FileNetworkManager::~FileNetworkManager()
@@ -238,13 +242,26 @@ FileNetworkTask* FileNetworkManager::createUploadTask(const QString &file_name,
     return ftask;
 }
 
-void FileNetworkManager::cancelAll()
+void FileNetworkManager::cancelUploading()
 {
-    foreach(FileNetworkTask* task, tasks_)
+    foreach(FileNetworkTask* task, upload_tasks_)
     {
         task->cancelThis();
+        task->deleteLater();
     }
-    tasks_.clear();
+    upload_tasks_.clear();
+    upload_last_tasks_bytes_ = 0;
+}
+
+void FileNetworkManager::cancelDownloading()
+{
+    foreach(FileNetworkTask* task, download_tasks_)
+    {
+        task->cancelThis();
+        task->deleteLater();
+    }
+    download_tasks_.clear();
+    download_last_tasks_bytes_ = 0;
 }
 
 void FileNetworkManager::networkTaskBegin()
@@ -252,9 +269,18 @@ void FileNetworkManager::networkTaskBegin()
     FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
 
     if (!task)
-      return;
+        return;
 
-    tasks_.push_back(task);
+    if (task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
+        upload_tasks_.push_back(task);
+    else if (task->type() == SEAFILE_NETWORK_TASK_DOWNLOAD)
+        download_tasks_.push_back(task);
+    else
+        return;
+
+    // start or restart the timer
+    timer_->start(kNetworkRateBeatInterval);
+
     emit taskRegistered(task);
 }
 
@@ -263,11 +289,7 @@ void FileNetworkManager::networkTaskEnd()
     FileNetworkTask* task = static_cast<FileNetworkTask*>(sender());
 
     if (!task)
-      return;
-
-    //remove unfinished task
-    if (task->status() != SEAFILE_NETWORK_TASK_STATUS_FINISHED)
-      tasks_.removeAt(tasks_.indexOf(task));
+        return;
 
     emit taskUnregistered(task);
 }
@@ -279,13 +301,40 @@ void FileNetworkManager::networkTaskUpdate(qint64 bytes, qint64 total_bytes)
 
 void FileNetworkManager::networkTaskBeat()
 {
-    qint64 bytes = 0;
-    qint64 total_bytes = 0;
-    foreach(const FileNetworkTask* task, tasks_)
+    qint64 upload_bytes = 0, download_bytes = 0;
+    qint64 upload_total_bytes = 0, download_total_bytes = 0;
+    foreach(const FileNetworkTask* task, upload_tasks_)
     {
-      bytes += task->processedBytes();
-      total_bytes += task->totalBytes();
+        upload_bytes += task->processedBytes();
+        upload_total_bytes += task->totalBytes();
     }
-    emit taskProgressed(bytes, total_bytes);
+
+    qint64 upload_rates = upload_bytes - upload_last_tasks_bytes_;
+    upload_last_tasks_bytes_ = upload_bytes;
+    if (upload_rates < 0)
+        upload_rates = 0;
+    else
+        upload_rates *= 1000 / kNetworkRateBeatInterval;
+
+    foreach(const FileNetworkTask* task, download_tasks_)
+    {
+        download_bytes += task->processedBytes();
+        download_total_bytes += task->totalBytes();
+    }
+
+    qint64 download_rates = download_bytes - download_last_tasks_bytes_;
+    download_last_tasks_bytes_ = download_bytes;
+    if (download_rates < 0)
+        download_rates = 0;
+    else
+        download_rates *= 1000 / kNetworkRateBeatInterval;
+
+    emit taskUploadRateBeat(upload_rates);
+    emit taskUploadProgressed(upload_bytes, upload_total_bytes);
+    emit taskDownloadRateBeat(download_rates);
+    emit taskDownloadProgressed(download_bytes, download_total_bytes);
+    emit taskRateBeat(upload_rates + download_rates);
+    emit taskProgressed(upload_bytes + download_bytes,
+                        upload_total_bytes + download_total_bytes);
 }
 

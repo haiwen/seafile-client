@@ -21,6 +21,9 @@ private slots:
     void cancel();
 
 private:
+    template<bool ISUPLOAD>
+    void syncDataAndUI();
+
     //UI
     QLabel *description_label_;
     QLabel *more_details_label_;
@@ -30,10 +33,6 @@ private:
     FileNetworkManager *mgr_;
     unsigned int task_num_;
     unsigned int task_done_num_;
-    qint64 task_bytes_;
-    qint64 task_done_bytes_;
 };
-
-
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_PROGRESS_DIALOG_H

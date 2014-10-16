@@ -137,6 +137,27 @@ public:
                                       const QString &parent_dir,
                                       const QString &source_file_location);
 
+    QList<FileNetworkTask*> &uploadTasks() { return upload_tasks_; }
+    QList<FileNetworkTask*> &downloadTasks() { return download_tasks_; }
+
+    int uploadedTaskCount() const {
+        int count = 0;
+        foreach (FileNetworkTask *task, upload_tasks_) {
+            if (task->status() == SEAFILE_NETWORK_TASK_STATUS_FINISHED)
+                count++;
+        }
+        return count;
+    }
+
+    int downloadedTaskCount() const {
+        int count = 0;
+        foreach(FileNetworkTask* task, download_tasks_) {
+            if (task->status() == SEAFILE_NETWORK_TASK_STATUS_FINISHED)
+                count++;
+        }
+        return count;
+    }
+
 signals:
     // emitted once a task starts
     void taskRegistered(const FileNetworkTask* task);
@@ -144,15 +165,21 @@ signals:
     // emitted once a task ends
     void taskUnregistered(const FileNetworkTask* task);
 
-    // emitted per 100ms
+    // emitted per kNetworkRateBeatInterval
     void taskProgressed(qint64 bytes, qint64 total_bytes);
+    void taskUploadProgressed(qint64 bytes, qint64 total_bytes);
+    void taskDownloadProgressed(qint64 bytes, qint64 total_bytes);
 
-    // emitted per 100ms
+    // emitted per kNetworkRateBeatInterval
     void taskRateBeat(qint64 rate);
+    void taskUploadRateBeat(qint64 bytes);
+    void taskDownloadRateBeat(qint64 bytes);
 
 public slots:
     // cancel all underlying tasks
-    void cancelAll();
+    void cancelAll() { cancelUploading(); cancelDownloading(); }
+    void cancelUploading();
+    void cancelDownloading();
 
 private slots:
     // receive task begin signal
@@ -187,7 +214,12 @@ private:
     QThread *worker_thread_;
 
     /* list of current running tasks */
-    QList<FileNetworkTask*> tasks_;
+    QList<FileNetworkTask*> upload_tasks_;
+    QList<FileNetworkTask*> download_tasks_;
+
+    /* last tranferred bytes */
+    qint64 upload_last_tasks_bytes_;
+    qint64 download_last_tasks_bytes_;
 
     // Timer
     QTimer *timer_;

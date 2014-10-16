@@ -10,8 +10,7 @@
 #include "utils/utils.h"
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
-    : QProgressDialog(parent), mgr_(NULL), task_num_(0), task_done_num_(0),
-      task_bytes_(0), task_done_bytes_(0)
+    : QProgressDialog(parent), mgr_(NULL), task_num_(0), task_done_num_(0)
 {
     setWindowModality(Qt::WindowModal);
 
@@ -54,7 +53,7 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
 void FileBrowserProgressDialog::setFileNetworkManager(FileNetworkManager *mgr)
 {
     if (mgr_)
-      disconnect(mgr_, 0, this, 0);
+        disconnect(mgr_, 0, this, 0);
 
     mgr_ = mgr;
 
@@ -76,32 +75,29 @@ void FileBrowserProgressDialog::setFileNetworkManager(FileNetworkManager *mgr)
 void FileBrowserProgressDialog::onTaskRegistered(const FileNetworkTask *task)
 {
     if (task == NULL)
-      return;
+        return;
 
-    task_num_++;
-    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
-                      ? tr("Uploading %1 of %2")
-                      : tr("Downloading %1 of %2"))
-                     .arg(task_done_num_ + 1)
-                     .arg(task_num_));
-
-    // if it is first time emitted
-    if (task_num_ == 1) {
-      setWindowTitle((task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
-                         ? tr("Upload")
-                         : tr("Download"));
-    }
+    if (task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
+        syncDataAndUI<true>();
+    else if (task->type() == SEAFILE_NETWORK_TASK_DOWNLOAD)
+        syncDataAndUI<false>();
+    else
+        return;
 
     show();
 }
 
 void FileBrowserProgressDialog::onTaskUnregistered(const FileNetworkTask *task)
 {
-    // Hack
-    if (!task_num_)
+    if (!isVisible())
         return;
 
-    task_done_num_++;
+    if (task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
+        syncDataAndUI<true>();
+    else if (task->type() == SEAFILE_NETWORK_TASK_DOWNLOAD)
+        syncDataAndUI<false>();
+    else
+        return;
 
     if (task->status() == SEAFILE_NETWORK_TASK_STATUS_FINISHED &&
         task->type() == SEAFILE_NETWORK_TASK_DOWNLOAD &&
@@ -115,41 +111,50 @@ void FileBrowserProgressDialog::onTaskUnregistered(const FileNetworkTask *task)
 
     // All tasks are finished
     if (task_done_num_ == task_num_) {
-        task_bytes_ = 0;
-        task_done_bytes_ = 0;
-        task_num_ = 0;
-        task_done_num_ = 0;
-        reset();
+        cancel();
         return;
     }
-
-    setLabelText(((task->type() == SEAFILE_NETWORK_TASK_UPLOAD)
-                      ? tr("Uploading %1 of %2")
-                      : tr("Downloading %1 of %2"))
-                     .arg(task_done_num_ + 1)
-                     .arg(task_num_));
 }
 
 void FileBrowserProgressDialog::onTaskProgressed(qint64 bytes, qint64 total_bytes)
 {
-    if (!bytes || !isVisible())
+    if (!isVisible())
         return;
-    task_bytes_ = total_bytes;
-    task_done_bytes_ = bytes;
-    setValue(task_done_bytes_);
-    setMaximum(task_bytes_);
+
+    setValue(bytes);
+    setMaximum(total_bytes);
 
     more_details_label_->setText(tr("transferred %1 of %2")
-                                     .arg(::readableFileSizeV2(task_done_bytes_))
-                                     .arg(::readableFileSizeV2(task_bytes_)));
+                                     .arg(::readableFileSizeV2(bytes))
+                                     .arg(::readableFileSizeV2(total_bytes)));
 }
 
 void FileBrowserProgressDialog::cancel()
 {
     mgr_->cancelAll();
-    task_bytes_ = 0;
-    task_done_bytes_ = 0;
     task_num_ = 0;
     task_done_num_ = 0;
+    reset();
+}
+
+template<bool ISUPLOAD>
+void FileBrowserProgressDialog::syncDataAndUI()
+{
+    if (ISUPLOAD) {
+        task_num_ = mgr_->uploadTasks().size();
+        task_done_num_ = mgr_->uploadedTaskCount();
+        setLabelText(tr("Uploading %1 of %2")
+                     .arg(task_done_num_ + 1)
+                     .arg(task_num_));
+        setWindowTitle(tr("Upload"));
+    }
+    else {
+        task_num_ = mgr_->downloadTasks().size();
+        task_done_num_ = mgr_->downloadedTaskCount();
+        setLabelText(tr("Downloading %1 of %2")
+                     .arg(task_done_num_ + 1)
+                     .arg(task_num_));
+        setWindowTitle(tr("Download"));
+    }
 }
 

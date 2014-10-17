@@ -23,7 +23,7 @@ public:
 
     qint64 getUploadRate();
     qint64 getDownloadRate();
-    qint64 getRate();
+    qint64 getRate() { return getUploadRate() + getDownloadRate(); }
 
 private:
     FileNetworkMono();

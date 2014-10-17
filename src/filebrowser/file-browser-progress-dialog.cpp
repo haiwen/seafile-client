@@ -7,10 +7,16 @@
 #include <QDesktopServices>
 #include <QDebug>
 #include <QApplication>
+#include <QTimer>
 #include "utils/utils.h"
 
+namespace {
+const int kNetworkRateBeatInterval = 100;
+}
+
 FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
-    : QProgressDialog(parent), mgr_(NULL), task_num_(0), task_done_num_(0)
+    : QProgressDialog(parent), timer_(new QTimer(this)),
+    mgr_(NULL), task_num_(0), task_done_num_(0)
 {
     setWindowModality(Qt::WindowModal);
 
@@ -48,6 +54,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(QWidget *parent)
                                    .arg(::readableFileSizeV2(0))
                                    .arg(::readableFileSizeV2(0)));
 
+    connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
+    connect(timer_, SIGNAL(timeout()), this, SLOT(onRefresh()));
 }
 
 void FileBrowserProgressDialog::setFileNetworkManager(FileNetworkManager *mgr)
@@ -60,16 +68,11 @@ void FileBrowserProgressDialog::setFileNetworkManager(FileNetworkManager *mgr)
     if (mgr_ == NULL)
         return;
 
-    connect(mgr_, SIGNAL(taskRegistered(const FileNetworkTask *)), this,
-            SLOT(onTaskRegistered(const FileNetworkTask *)));
+    connect(mgr_, SIGNAL(taskRegistered(const FileNetworkTask *)),
+        this, SLOT(onTaskRegistered(const FileNetworkTask *)));
 
-    connect(mgr_, SIGNAL(taskUnregistered(const FileNetworkTask *)), this,
-            SLOT(onTaskUnregistered(const FileNetworkTask *)));
-
-    connect(mgr_, SIGNAL(taskProgressed(qint64, qint64)), this,
-            SLOT(onTaskProgressed(qint64, qint64)));
-
-    connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
+    connect(mgr_, SIGNAL(taskUnregistered(const FileNetworkTask *)),
+        this, SLOT(onTaskUnregistered(const FileNetworkTask *)));
 }
 
 void FileBrowserProgressDialog::onTaskRegistered(const FileNetworkTask *task)
@@ -83,6 +86,9 @@ void FileBrowserProgressDialog::onTaskRegistered(const FileNetworkTask *task)
         syncDataAndUI<false>();
     else
         return;
+
+    // start or restart the timer
+    timer_->start(kNetworkRateBeatInterval);
 
     show();
 }
@@ -116,10 +122,13 @@ void FileBrowserProgressDialog::onTaskUnregistered(const FileNetworkTask *task)
     }
 }
 
-void FileBrowserProgressDialog::onTaskProgressed(qint64 bytes, qint64 total_bytes)
+void FileBrowserProgressDialog::onRefresh()
 {
     if (!isVisible())
         return;
+
+    qint64 bytes = mgr_->getProgressedBytes();
+    qint64 total_bytes = mgr_->getTotalProgressedBytes();
 
     setValue(bytes);
     setMaximum(total_bytes);
@@ -129,8 +138,15 @@ void FileBrowserProgressDialog::onTaskProgressed(qint64 bytes, qint64 total_byte
                                      .arg(::readableFileSizeV2(total_bytes)));
 }
 
+void FileBrowserProgressDialog::hide()
+{
+    timer_->stop();
+    QProgressDialog::hide();
+}
+
 void FileBrowserProgressDialog::cancel()
 {
+    timer_->stop();
     mgr_->cancelAll();
     task_num_ = 0;
     task_done_num_ = 0;

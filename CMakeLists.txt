@@ -107,6 +107,7 @@ SET(moc_headers
   src/filebrowser/file-browser-progress-dialog.h
   src/filebrowser/file-browser-requests.h
   src/filebrowser/file-network-mgr.h
+  src/filebrowser/file-network-mono.h
   src/filebrowser/file-table-view.h
   src/filebrowser/file-table-model.h
   src/filebrowser/data-mgr.h
@@ -263,6 +264,7 @@ SET(seafile_client_sources
   src/filebrowser/file-cache-mgr.cpp
   src/filebrowser/file-delegate.cpp
   src/filebrowser/file-network-mgr.cpp
+  src/filebrowser/file-network-mono.cpp
   src/filebrowser/file-table-view.cpp
   src/filebrowser/file-table-model.cpp
   src/filebrowser/data-mgr.cpp

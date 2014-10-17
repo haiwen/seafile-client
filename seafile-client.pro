@@ -60,6 +60,7 @@ HEADERS += src/account-mgr.h \
            src/filebrowser/file-delegate.h \
            src/filebrowser/file-iview.h \
            src/filebrowser/file-network-mgr.h \
+           src/filebrowser/file-network-mono.h \
            src/filebrowser/file-table-view.h \
            src/filebrowser/file-table-model.h \
            src/filebrowser/lrucache.h \
@@ -167,6 +168,7 @@ SOURCES += src/account-mgr.cpp \
            src/filebrowser/file-cache-mgr.cpp \
            src/filebrowser/file-delegate.cpp \
            src/filebrowser/file-network-mgr.cpp \
+           src/filebrowser/file-network-mono.cpp \
            src/filebrowser/file-table-view.cpp \
            src/filebrowser/file-table-model.cpp \
            src/filebrowser/seaf-dirent.cpp \

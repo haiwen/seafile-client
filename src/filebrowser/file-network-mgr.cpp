@@ -9,9 +9,10 @@
 #include "api/api-error.h"
 #include "network/task.h"
 #include "file-browser-requests.h"
+#include "file-network-mono.h"
 
 namespace {
-const int kNetworkRateBeatInterval = 100;
+FileNetworkMono* mono = FileNetworkMono::getInstance();
 }
 
 FileNetworkTask::FileNetworkTask(const SeafileNetworkTaskType type,
@@ -189,21 +190,20 @@ FileNetworkManager::FileNetworkManager(const Account &account,
     : account_(account), repo_id_(repo_id),
     file_cache_dir_(defaultFileCachePath()),
     file_cache_path_(defaultFileCachePath()),
-    cache_mgr_(FileCacheManager::getInstance()),
-    upload_last_tasks_bytes_(0), download_last_tasks_bytes_(0),
-    timer_(new QTimer(this))
+    cache_mgr_(FileCacheManager::getInstance())
 {
     if (!file_cache_path_.endsWith("/"))
         file_cache_path_.append('/');
     worker_thread_ = new QThread;
     cache_mgr_.open();
-    connect(timer_, SIGNAL(timeout()), this, SLOT(networkTaskBeat()));
+
+    mono->RegisterManager(this);
 }
 
 FileNetworkManager::~FileNetworkManager()
 {
-    timer_->stop();
-    delete timer_;
+    mono->UnregisterManager(this);
+
     cancelAll();
     worker_thread_->quit();
     worker_thread_->wait();
@@ -250,7 +250,6 @@ void FileNetworkManager::cancelUploading()
         task->deleteLater();
     }
     upload_tasks_.clear();
-    upload_last_tasks_bytes_ = 0;
 }
 
 void FileNetworkManager::cancelDownloading()
@@ -261,7 +260,6 @@ void FileNetworkManager::cancelDownloading()
         task->deleteLater();
     }
     download_tasks_.clear();
-    download_last_tasks_bytes_ = 0;
 }
 
 void FileNetworkManager::networkTaskBegin()
@@ -277,9 +275,6 @@ void FileNetworkManager::networkTaskBegin()
         download_tasks_.push_back(task);
     else
         return;
-
-    // start or restart the timer
-    timer_->start(kNetworkRateBeatInterval);
 
     emit taskRegistered(task);
 }
@@ -297,44 +292,5 @@ void FileNetworkManager::networkTaskEnd()
 void FileNetworkManager::networkTaskUpdate(qint64 bytes, qint64 total_bytes)
 {
     // do nothing
-}
-
-void FileNetworkManager::networkTaskBeat()
-{
-    qint64 upload_bytes = 0, download_bytes = 0;
-    qint64 upload_total_bytes = 0, download_total_bytes = 0;
-    foreach(const FileNetworkTask* task, upload_tasks_)
-    {
-        upload_bytes += task->processedBytes();
-        upload_total_bytes += task->totalBytes();
-    }
-
-    qint64 upload_rates = upload_bytes - upload_last_tasks_bytes_;
-    upload_last_tasks_bytes_ = upload_bytes;
-    if (upload_rates < 0)
-        upload_rates = 0;
-    else
-        upload_rates *= 1000 / kNetworkRateBeatInterval;
-
-    foreach(const FileNetworkTask* task, download_tasks_)
-    {
-        download_bytes += task->processedBytes();
-        download_total_bytes += task->totalBytes();
-    }
-
-    qint64 download_rates = download_bytes - download_last_tasks_bytes_;
-    download_last_tasks_bytes_ = download_bytes;
-    if (download_rates < 0)
-        download_rates = 0;
-    else
-        download_rates *= 1000 / kNetworkRateBeatInterval;
-
-    emit taskUploadRateBeat(upload_rates);
-    emit taskUploadProgressed(upload_bytes, upload_total_bytes);
-    emit taskDownloadRateBeat(download_rates);
-    emit taskDownloadProgressed(download_bytes, download_total_bytes);
-    emit taskRateBeat(upload_rates + download_rates);
-    emit taskProgressed(upload_bytes + download_bytes,
-                        upload_total_bytes + download_total_bytes);
 }
 

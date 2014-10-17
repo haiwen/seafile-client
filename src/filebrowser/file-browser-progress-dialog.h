@@ -16,8 +16,13 @@ public:
 private slots:
     void onTaskRegistered(const FileNetworkTask *task);
     void onTaskUnregistered(const FileNetworkTask *task);
-    void onTaskProgressed(qint64 bytes, qint64 total_bytes);
 
+    // called by a timer
+    void onRefresh();
+
+    // called when hide action
+    void hide();
+    // called when close action
     void cancel();
 
 private:
@@ -29,6 +34,7 @@ private:
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
     QPushButton *cancel_button_;
+    QTimer *timer_;
 
     FileNetworkManager *mgr_;
     unsigned int task_num_;

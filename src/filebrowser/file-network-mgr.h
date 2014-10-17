@@ -10,7 +10,6 @@
 class Account;
 class ApiError;
 class QThread;
-class QTimer;
 class FileNetworkManager;
 
 class FileNetworkTask : public QObject {
@@ -158,22 +157,52 @@ public:
         return count;
     }
 
+    // emitted per kNetworkRateBeatInterval
+    qint64 getProgressedBytes() const {
+        return getUploadedBytes() + getDownloadedBytes();
+    }
+    qint64 getTotalProgressedBytes() const {
+        return getTotalUploadedBytes() + getTotalDownloadedBytes();
+    }
+    qint64 getUploadedBytes() const {
+        qint64 upload_bytes = 0;
+        foreach(const FileNetworkTask* task, upload_tasks_)
+        {
+            upload_bytes += task->processedBytes();
+        }
+        return upload_bytes;
+    }
+    qint64 getTotalUploadedBytes() const {
+        qint64 upload_total_bytes = 0;
+        foreach(const FileNetworkTask* task, upload_tasks_)
+        {
+            upload_total_bytes += task->totalBytes();
+        }
+        return upload_total_bytes;
+    }
+    qint64 getDownloadedBytes() const {
+        qint64 download_bytes = 0;
+        foreach(const FileNetworkTask* task, download_tasks_)
+        {
+            download_bytes += task->processedBytes();
+        }
+        return download_bytes;
+    }
+    qint64 getTotalDownloadedBytes() const {
+        qint64 download_total_bytes = 0;
+        foreach(const FileNetworkTask* task, download_tasks_)
+        {
+            download_total_bytes += task->totalBytes();
+        }
+        return download_total_bytes;
+    }
+
 signals:
     // emitted once a task starts
     void taskRegistered(const FileNetworkTask* task);
 
     // emitted once a task ends
     void taskUnregistered(const FileNetworkTask* task);
-
-    // emitted per kNetworkRateBeatInterval
-    void taskProgressed(qint64 bytes, qint64 total_bytes);
-    void taskUploadProgressed(qint64 bytes, qint64 total_bytes);
-    void taskDownloadProgressed(qint64 bytes, qint64 total_bytes);
-
-    // emitted per kNetworkRateBeatInterval
-    void taskRateBeat(qint64 rate);
-    void taskUploadRateBeat(qint64 bytes);
-    void taskDownloadRateBeat(qint64 bytes);
 
 public slots:
     // cancel all underlying tasks
@@ -190,9 +219,6 @@ private slots:
 
     // receive task update signal, dummy currently
     void networkTaskUpdate(qint64 bytes, qint64 total_bytes);
-
-    // triggered by a timer
-    void networkTaskBeat();
 
 private:
     /* keep an reference to the copy in the caller */
@@ -216,13 +242,6 @@ private:
     /* list of current running tasks */
     QList<FileNetworkTask*> upload_tasks_;
     QList<FileNetworkTask*> download_tasks_;
-
-    /* last tranferred bytes */
-    qint64 upload_last_tasks_bytes_;
-    qint64 download_last_tasks_bytes_;
-
-    // Timer
-    QTimer *timer_;
 };
 
 #endif //SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MANAGER_H

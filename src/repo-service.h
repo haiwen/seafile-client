@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QObject>
+#include "utils/singleton.h"
 
 #include "api/server-repo.h"
 
@@ -11,12 +12,10 @@ class QTimer;
 class ApiError;
 class ListReposRequest;
 
-class RepoService : public QObject
-{
+class RepoService : public QObject {
+    SINGLETON_DEFINE(RepoService)
     Q_OBJECT
 public:
-    static RepoService *instance();
-
     void start();
     void stop();
 
@@ -45,8 +44,6 @@ private:
     Q_DISABLE_COPY(RepoService)
 
     RepoService(QObject *parent=0);
-
-    static RepoService *singleton_;
 
     ListReposRequest *list_repo_req_;
 

@@ -1,5 +1,7 @@
 #include <QHash>
 #include <QFileInfo>
+#include <QDir>
+#include <QStringList>
 
 #include "file-utils.h"
 
@@ -635,3 +637,45 @@ QString getIconByFileNameV2(const QString& fileName)
     return QString(":/images/files_v2/file_%1").arg(icon.isEmpty() ? "unknown" : icon);
 }
 
+
+QString pathJoin(const QString& a,
+                 const QString& b)
+{
+    QStringList list(b);
+    return pathJoin(a, list);
+}
+
+
+QString pathJoin(const QString& a,
+                 const QString& b,
+                 const QString& c)
+{
+    QStringList list;
+    list << b << c;
+    return pathJoin(a, list);
+}
+
+QString pathJoin(const QString& a, const QStringList& rest)
+{
+    QString result = a;
+    foreach (const QString& b, rest) {
+        bool resultEndsWithSlash = result.endsWith("/");
+        bool bStartWithSlash = b.startsWith("/");
+        if (resultEndsWithSlash && bStartWithSlash) {
+            result.append(b.right(1));
+        } else if (resultEndsWithSlash || bStartWithSlash) {
+            result.append(b);
+        } else {
+            result.append("/" + b);
+        }
+    }
+
+    return result;
+}
+
+bool createDirIfNotExists(const QString& path)
+{
+    QFileInfo finfo(path);
+    QDir parent_dir = finfo.absoluteDir();
+    return parent_dir.mkpath(finfo.fileName());
+}

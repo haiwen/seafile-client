@@ -1,25 +1,33 @@
-#include "file-browser-dialog.h"
-
 #include <QtGui>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
 
-#include "ui/loading-view.h"
+#include "seafile-applet.h"
+#include "account-mgr.h"
+#include "utils/utils.h"
 #include "utils/paint-utils.h"
-
+#include "utils/file-utils.h"
+#include "api/api-error.h"
+#include "file-table.h"
 #include "seaf-dirent.h"
-#include "file-table-model.h"
-#include "file-table-view.h"
+#include "ui/loading-view.h"
+#include "data-mgr.h"
+#include "data-mgr.h"
+#include "progress-dialog.h"
+#include "tasks.h"
 
-#include "file-browser-progress-dialog.h"
+#include "file-browser-dialog.h"
 
 namespace {
 
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_TABLE_VIEW,
-    INDEX_LOADING_FAILED_VIEW
+    INDEX_LOADING_FAILED_VIEW,
 };
 
-const char kLoadingFaieldLabelName[] = "loadingFailedText";
+const char *kLoadingFaieldLabelName = "loadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
 
@@ -27,45 +35,50 @@ const int kStatusBarIconSize = 24;
 
 FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
-    repo_id_and_path_(tr("Library \"%1\": %2").arg(repo.name)),
-    table_model_(new FileTableModel(repo, this))
+      repo_(repo)
 {
-    setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(tr("Cloud File Browser - %1").arg(table_model_->account().serverUrl.toString()));
+    current_path_ = "/";
+
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    data_mgr_ = new DataManager(account);
+
+    setWindowTitle(tr("File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    layout_ = new QVBoxLayout;
-    setLayout(layout_);
-    layout_->setContentsMargins(0, 6, 0, 0);
-    layout_->setSpacing(0);
-
     createToolBar();
+    createStatusBar();
     createLoadingFailedView();
     createFileTable();
-    createStatusBar();
-    createStackWidget();
 
-    layout_->addWidget(toolbar_);
-    layout_->addWidget(stack_);
-    layout_->addWidget(status_bar_);
+    QVBoxLayout *vlayout = new QVBoxLayout;
+    vlayout->setContentsMargins(0, 6, 0, 0);
+    vlayout->setSpacing(0);
+    setLayout(vlayout);
 
-    connect(table_model_, SIGNAL(loading()), this, SLOT(onLoading()));
-    connect(table_model_, SIGNAL(loadingFinished()),
-            this, SLOT(onLoadingFinished()));
-    connect(table_model_, SIGNAL(loadingFailed()),
-            this, SLOT(onLoadingFailed()));
+    stack_ = new QStackedWidget;
+    stack_->insertWidget(INDEX_LOADING_VIEW, loading_view_);
+    stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
+    stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
 
-    file_progress_dialog_ = new FileBrowserProgressDialog(this);
-    file_progress_dialog_->setFileNetworkManager(table_model_->fileNetworkManager());
+    vlayout->addWidget(toolbar_);
+    vlayout->addWidget(stack_);
+    vlayout->addWidget(status_bar_);
 
-    resize(size());
-    table_model_->onRefresh();
+    connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
+            this, SLOT(onDirentClicked(const SeafDirent&)));
+
+    connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
+    connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
+            this, SLOT(onGetDirentsFailed(const ApiError&)));
+
+    fetchDirents();
 }
 
 FileBrowserDialog::~FileBrowserDialog()
 {
-    // empty
+    delete data_mgr_;
 }
 
 void FileBrowserDialog::createToolBar()
@@ -73,41 +86,35 @@ void FileBrowserDialog::createToolBar()
     toolbar_ = new QToolBar;
 
     const int w = ::getDPIScaledSize(kToolBarIconSize);
+    toolbar_->setIconSize(QSize(w, w));
+
     toolbar_->setObjectName("topBar");
     toolbar_->setIconSize(QSize(w, w));
 
-    backward_action_ = new QAction(tr("Back"), layout_);
+    backward_action_ = new QAction(tr("Back"), this);
     backward_action_->setIcon(getIconSet(":images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
     backward_action_->setEnabled(false);
     toolbar_->addAction(backward_action_);
-    connect(backward_action_, SIGNAL(triggered()), table_model_, SLOT(onBackward()));
-    connect(table_model_, SIGNAL(backwardEnabled(bool)), this, SLOT(onBackwardEnabled(bool)));
+    connect(backward_action_, SIGNAL(triggered()), this, SLOT(goBackward()));
 
-    forward_action_ = new QAction(tr("Forward"), layout_);
+    forward_action_ = new QAction(tr("Forward"), this);
     forward_action_->setIcon(getIconSet(":images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
     forward_action_->setEnabled(false);
-    connect(forward_action_, SIGNAL(triggered()), table_model_, SLOT(onForward()));
-    connect(table_model_, SIGNAL(forwardEnabled(bool)), this, SLOT(onForwardEnabled(bool)));
+    connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
     toolbar_->addAction(forward_action_);
 
-    navigate_home_action_ = new QAction(tr("Home"), layout_);
-    navigate_home_action_->setIcon(getIconSet(":images/filebrowser/home.png", kToolBarIconSize, kToolBarIconSize));
-    connect(navigate_home_action_, SIGNAL(triggered()), table_model_, SLOT(onNavigateHome()));
-    toolbar_->addAction(navigate_home_action_);
+    gohome_action_ = new QAction(tr("Home"), this);
+    gohome_action_->setIcon(getIconSet(":images/filebrowser/home.png", kToolBarIconSize, kToolBarIconSize));
+    connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
+    toolbar_->addAction(gohome_action_);
 
     path_line_edit_ = new QLineEdit;
     path_line_edit_->setReadOnly(true);
-    path_line_edit_->setText(repo_id_and_path_.arg("/"));
+    path_line_edit_->setText("/");
     path_line_edit_->setAlignment(Qt::AlignHCenter | Qt::AlignLeft);
     path_line_edit_->setMaximumHeight(kToolBarIconSize);
+    path_line_edit_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolbar_->addWidget(path_line_edit_);
-}
-
-void FileBrowserDialog::createFileTable()
-{
-    loading_view_ = new LoadingView;
-    table_view_ = new FileTableView;
-    table_view_->setModel(table_model_); // connect is called inside setModel
 }
 
 void FileBrowserDialog::createStatusBar()
@@ -123,8 +130,9 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addWidget(spacer1);
 
     upload_action_ = new QAction(this);
-    upload_action_->setIcon(getIconSet(":images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
-    connect(upload_action_, SIGNAL(triggered()), table_model_, SLOT(onFileUpload()));
+    upload_action_->setIcon(
+        getIconSet(":images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
+    connect(upload_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     status_bar_->addAction(upload_action_);
 
     details_label_ = new QLabel;
@@ -134,13 +142,15 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addWidget(details_label_);
 
     refresh_action_ = new QAction(this);
-    refresh_action_->setIcon(getIconSet(":images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
-    connect(refresh_action_, SIGNAL(triggered()), table_model_, SLOT(onRefreshForcely()));
+    refresh_action_->setIcon(
+        getIconSet(":images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
+    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
     status_bar_->addAction(refresh_action_);
 
     open_cache_dir_action_ = new QAction(this);
-    open_cache_dir_action_->setIcon(getIconSet(":/images/filebrowser/open-folder.png", kStatusBarIconSize, kStatusBarIconSize));
-    connect(open_cache_dir_action_, SIGNAL(triggered()), table_model_, SLOT(onOpenCacheDir()));
+    open_cache_dir_action_->setIcon(
+        getIconSet(":/images/filebrowser/open-folder.png", kStatusBarIconSize, kStatusBarIconSize));
+    // connect(open_cache_dir_action_, SIGNAL(triggered()), this, SLOT(openCacheFolder()));
     status_bar_->addAction(open_cache_dir_action_);
 
     QWidget *spacer2 = new QWidget;
@@ -148,12 +158,46 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addWidget(spacer2);
 }
 
-void FileBrowserDialog::createStackWidget()
+void FileBrowserDialog::createFileTable()
 {
-    stack_ = new QStackedWidget;
-    stack_->insertWidget(INDEX_LOADING_VIEW, loading_view_);
-    stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
-    stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
+    loading_view_ = new LoadingView;
+    table_view_ = new FileTableView(repo_);
+    table_model_ = new FileTableModel();
+    table_view_->setModel(table_model_);
+}
+
+void FileBrowserDialog::forceRefresh()
+{
+    fetchDirents(true);
+}
+
+void FileBrowserDialog::fetchDirents()
+{
+    fetchDirents(false);
+}
+
+void FileBrowserDialog::fetchDirents(bool force_refresh)
+{
+    if (!force_refresh) {
+        QList<SeafDirent> dirents;
+        if (data_mgr_->getDirents(repo_.id, current_path_, &dirents)) {
+            updateTable(dirents);
+            return;
+        }
+    }
+
+    showLoading();
+    data_mgr_->getDirentsFromServer(repo_.id, current_path_);
+}
+
+void FileBrowserDialog::onGetDirentsSuccess(const QList<SeafDirent>& dirents)
+{
+    updateTable(dirents);
+}
+
+void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
+{
+    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }
 
 void FileBrowserDialog::createLoadingFailedView()
@@ -172,55 +216,141 @@ void FileBrowserDialog::createLoadingFailedView()
     label->setAlignment(Qt::AlignCenter);
 
     connect(label, SIGNAL(linkActivated(const QString&)),
-            table_model_, SLOT(onRefresh()));
+            this, SLOT(fetchDirents()));
 
     layout->addWidget(label);
 }
 
-void FileBrowserDialog::onLoading()
+void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)
 {
-    toolbar_->setEnabled(false);
-    upload_action_->setEnabled(false);
-    refresh_action_->setEnabled(false);
+    if (dirent.isDir()) {
+        onDirClicked(dirent);
+    } else {
+        onFileClicked(dirent);
+    }
+}
 
-    details_label_->setText(tr("Loading..."));
-    path_line_edit_->setText(repo_id_and_path_.arg(table_model_->currentPath()));
+void FileBrowserDialog::showLoading()
+{
+    forward_action_->setEnabled(false);
+    backward_action_->setEnabled(false);
+    upload_action_->setEnabled(false);
+    gohome_action_->setEnabled(false);
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
 }
 
-void FileBrowserDialog::onLoadingFinished()
+void FileBrowserDialog::onDirClicked(const SeafDirent& dir)
 {
-    toolbar_->setEnabled(true);
-    upload_action_->setEnabled(true);
-    refresh_action_->setEnabled(true);
+    const QString& path = ::pathJoin(current_path_, dir.name);
+    backward_history_.push(current_path_);
+    forward_history_.clear();
+    enterPath(path);
+}
 
-    details_label_->setText(tr("Loading..."));
-    details_label_->setText(
-        tr("%1 files and directories found").arg(table_model_->dirents().size()));
+void FileBrowserDialog::enterPath(const QString& path)
+{
+    current_path_ = path;
+    printf ("nav to %s\n", current_path_.toUtf8().data());;
+    fetchDirents();
+    path_line_edit_->setText(current_path_);
+}
+
+void FileBrowserDialog::onFileClicked(const SeafDirent& file)
+{
+    QString fpath = ::pathJoin(current_path_, file.name);
+
+    QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
+    if (!cached_file.isEmpty()) {
+        openFile(cached_file);
+        return;
+    } else {
+        FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, fpath);
+        connect(task, SIGNAL(finished(bool)),
+                this, SLOT(onDownloadFinished(bool)));
+        FileBrowserProgressDialog dialog(task, this);
+        task->start();
+        dialog.exec();
+    }
+}
+
+void FileBrowserDialog::onDownloadFinished(bool success)
+{
+    if (success) {
+        FileDownloadTask *task = (FileDownloadTask *)sender();
+        openFile(task->localFilePath());
+    }
+}
+
+void FileBrowserDialog::openFile(const QString& path)
+{
+    printf("try to open %s\n", path.toUtf8().data());
+    openInNativeExtension(path) || showInGraphicalShell(path);
+}
+
+void FileBrowserDialog::goForward()
+{
+    printf ("go forward\n");
+    QString path = forward_history_.pop();
+    backward_history_.push(current_path_);
+    enterPath(path);
+}
+
+void FileBrowserDialog::goBackward()
+{
+    printf ("go backward\n");
+    QString path = backward_history_.pop();
+    printf("push foward: %s\n", current_path_.toUtf8().data());
+    forward_history_.push(current_path_);
+    enterPath(path);
+}
+
+void FileBrowserDialog::goHome()
+{
+    if (current_path_ == "/") {
+        return;
+    }
+    QString path = "/";
+    backward_history_.push(current_path_);
+    enterPath(path);
+}
+
+void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
+{
+    table_model_->setDirents(dirents);
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+    if (!forward_history_.empty()) {
+        forward_action_->setEnabled(true);
+    } else {
+        forward_action_->setEnabled(false);
+    }
+    if (!backward_history_.empty()) {
+        backward_action_->setEnabled(true);
+    } else {
+        backward_action_->setEnabled(false);
+    }
+    // TODO: Handle read-only library
+    upload_action_->setEnabled(true);
+    gohome_action_->setEnabled(true);
 }
 
-void FileBrowserDialog::onLoadingFailed()
+void FileBrowserDialog::chooseFileToUpload()
 {
-    toolbar_->setEnabled(true);
-    refresh_action_->setEnabled(true);
-
-    details_label_->setText(tr("Failed to load at path: %1").arg(table_model_->currentPath()));
-    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    QString path = QFileDialog::getOpenFileName(this, tr("Select file to upload"));
+    if (!path.isEmpty()) {
+        FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path);
+        FileBrowserProgressDialog dialog(task, this);
+        connect(task, SIGNAL(finished(bool)),
+                this, SLOT(onUploadFinished(bool)));
+        task->start();
+        dialog.exec();
+    } else {
+        printf ("choose file cancelled\n");
+    }
 }
 
-void FileBrowserDialog::onBackwardEnabled(bool enabled)
+void FileBrowserDialog::onUploadFinished(bool success)
 {
-    backward_action_->setEnabled(enabled);
-}
-
-void FileBrowserDialog::onForwardEnabled(bool enabled)
-{
-    forward_action_->setEnabled(enabled);
-}
-
-void FileBrowserDialog::resizeEvent(QResizeEvent *event)
-{
-    QDialog::resizeEvent(event);
-    table_model_->onResizeEvent(event->size());
+    if (success) {
+        forceRefresh();
+    }
 }

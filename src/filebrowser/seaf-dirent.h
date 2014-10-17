@@ -3,7 +3,7 @@
 
 #include <jansson.h>
 
-#include <QList>
+#include <vector>
 #include <QString>
 #include <QMetaType>
 
@@ -13,7 +13,7 @@ public:
         DIR,
         FILE
     };
-
+    
     Type type;
     QString id;
     QString name;

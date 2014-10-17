@@ -27,6 +27,7 @@
 #include "open-local-helper.h"
 #include "avatar-service.h"
 #include "seahub-notifications-monitor.h"
+#include "filebrowser/data-cache.h"
 
 #include "seafile-applet.h"
 
@@ -127,6 +128,8 @@ void SeafileApplet::start()
     account_mgr_->start();
 
     certs_mgr_->start();
+
+    FileCacheDB::instance()->start();
 
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();

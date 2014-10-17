@@ -19,16 +19,7 @@ const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
 
 } // namespace
 
-RepoService* RepoService::singleton_;
-
-RepoService* RepoService::instance()
-{
-    if (singleton_ == NULL) {
-        singleton_ = new RepoService;
-    }
-
-    return singleton_;
-}
+SINGLETON_IMPL(RepoService)
 
 RepoService::RepoService(QObject *parent)
     : QObject(parent)

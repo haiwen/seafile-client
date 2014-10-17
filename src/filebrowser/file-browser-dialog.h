@@ -1,21 +1,25 @@
 #ifndef SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H
 #define SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H
 
+#include <QStack>
 #include <QDialog>
+// #include "ui_file-browser-dialog.h"
 
-class ServerRepo;
-class QVBoxLayout;
+#include "api/server-repo.h"
+
 class QToolBar;
-class QLabel;
 class QAction;
 class QStackedWidget;
 class QLineEdit;
-class FileNetworkTask;
-class FileBrowserProgressDialog;
+class QLabel;
 
+class ApiError;
 class FileTableView;
 class FileTableModel;
 class SeafDirent;
+class GetDirentsRequest;
+class FileBrowserCache;
+class DataManager;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -27,44 +31,60 @@ class SeafDirent;
  *
  */
 class FileBrowserDialog : public QDialog
+                          // public Ui::FileBrowserDialog
 {
     Q_OBJECT
 public:
-    FileBrowserDialog(const ServerRepo& repo, QWidget *parent=0);
+    FileBrowserDialog(const ServerRepo& repo,
+                      QWidget *parent=0);
     ~FileBrowserDialog();
 
 private slots:
-    void onLoading();
-    void onLoadingFinished();
-    void onLoadingFailed();
-
-    void onBackwardEnabled(bool enabled);
-    void onForwardEnabled(bool enabled);
+    void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
+    void onGetDirentsFailed(const ApiError& error);
+    void fetchDirents();
+    void onDirentClicked(const SeafDirent& dirent);
+    void forceRefresh();
+    void goForward();
+    void goBackward();
+    void goHome();
+    void chooseFileToUpload();
+    void onDownloadFinished(bool success);
+    void onUploadFinished(bool success);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
-
-    void resizeEvent(QResizeEvent *event);
 
     void createToolBar();
     void createStatusBar();
     void createFileTable();
     void createLoadingFailedView();
-    void createStackWidget();
+    void showLoading();
+    void updateTable(const QList<SeafDirent>& dirents);
+    void enterPath(const QString& path);
 
-    // template string
-    QString repo_id_and_path_;
+    void onDirClicked(const SeafDirent& dirent);
+    void onFileClicked(const SeafDirent& dirent);
+    void openFile(const QString& path);
 
-    QVBoxLayout *layout_;
+    void fetchDirents(bool force_refresh);
+
+    ServerRepo repo_;
+    // current path
+    QString current_path_;
+    QStack<QString> forward_history_;
+    QStack<QString> backward_history_;
+
     QToolBar *toolbar_;
     QAction *backward_action_;
     QAction *forward_action_;
     QLineEdit *path_line_edit_;
-    QAction *navigate_home_action_;
+    QAction *gohome_action_;
+    QAction *refresh_action_;
+
     QToolBar *status_bar_;
     QAction *upload_action_;
     QLabel *details_label_;
-    QAction *refresh_action_;
     QAction *open_cache_dir_action_;
 
     QStackedWidget *stack_;
@@ -72,7 +92,8 @@ private:
     QWidget *loading_failed_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
-    FileBrowserProgressDialog *file_progress_dialog_;
+
+    DataManager *data_mgr_;
 };
 
 

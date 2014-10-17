@@ -7,9 +7,15 @@
 #include "api/api-error.h"
 #include "account.h"
 #include "seaf-dirent.h"
+#include "utils/singleton.h"
 
 class GetDirentsRequest;
-template<typename Key, typename T> class LRUCache;
+template<typename Key, typename T> class QCache;
+
+class DirentsCache;
+class FileCacheDB;
+class FileUploadTask;
+class FileDownloadTask;
 
 /**
  * DataManager is responsible for getting dirents/files from seahub, as well
@@ -19,30 +25,45 @@ template<typename Key, typename T> class LRUCache;
 class DataManager : public QObject {
     Q_OBJECT
 public:
-    DataManager(const Account& account, const ServerRepo& repo);
-
+    DataManager(const Account& account);
     ~DataManager();
 
-    void getDirents(const QString& path,
-                    bool force_update = false);
+    bool getDirents(const QString& repo_id,
+                    const QString& path,
+                    QList<SeafDirent> *dirents);
+
+    void getDirentsFromServer(const QString& repo_id,
+                              const QString& path);
+
+    QString getLocalCachedFile(const QString& repo_id,
+                               const QString& path,
+                               const QString& file_id);
+
+    FileDownloadTask *createDownloadTask(const QString& repo_id,
+                                         const QString& path);
+
+    FileUploadTask* createUploadTask(const QString& repo_id,
+                                     const QString& path,
+                                     const QString& local_path);
+
 
 signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
 private slots:
-    void onGetDirentsSuccess(const QString &dir_id,
-                             const QList<SeafDirent>& dirents);
-    void onGetDirentsFailed(const ApiError& error);
+    void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
+    void onFileDownloadFinished(bool success);
 
 private:
-    const Account &account_;
+    const Account account_;
 
-    const ServerRepo &repo_;
+    GetDirentsRequest *get_dirents_req_;
 
-    LRUCache<QString, QList<SeafDirent> > *path_cache_;
+    FileCacheDB *filecache_db_;
 
-    GetDirentsRequest *req_;
+    DirentsCache *dirents_cache_;
 };
+
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_DATA_MANAGER_H

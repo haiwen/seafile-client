@@ -1,59 +1,119 @@
-#include "data-mgr.h"
 #include <QDir>
+#include <sqlite3.h>
+#include <errno.h>
+#include <stdio.h>
 
-#include "lrucache.h"
+#include "utils/file-utils.h"
+#include "utils/utils.h"
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "file-browser-requests.h"
+#include "tasks.h"
 
-const int kLRUTTL = 60;
+#include "data-cache.h"
+#include "data-mgr.h"
 
-DataManager::DataManager(const Account &account, const ServerRepo &repo)
-    : account_(account), repo_(repo), path_cache_(new LRUCache<QString, QList<SeafDirent> >(kLRUTTL)), req_(NULL)
+namespace {
+
+const char *kFileCacheTopDirName = "file-cache";
+
+} // namespace
+
+/**
+ * Cache loaded dirents. But default cache expires after 1 minute.
+ */
+
+DataManager::DataManager(const Account &account)
+    : account_(account),
+      dirents_cache_(DirentsCache::instance()),
+      filecache_db_(FileCacheDB::instance()),
+      get_dirents_req_(NULL)
 {
 }
 
 DataManager::~DataManager()
 {
-    if (req_)
-        delete req_;
-    delete path_cache_;
+    if (get_dirents_req_)
+        delete get_dirents_req_;
 }
 
-void DataManager::getDirents(const QString& path,
-                             bool force_update)
+bool DataManager::getDirents(const QString& repo_id,
+                             const QString& path,
+                             QList<SeafDirent> *dirents)
 {
-    QString dir_id;
+    QList<SeafDirent> *l = dirents_cache_->getCachedDirents(repo_id, path);
+    if (l != 0) {
+        dirents->append(*l);
+        return true;
+    } else {
+        return false;
+    }
+}
 
-    if (!force_update && path_cache_->contains(path)) {
-        //method object will not remove timed out item
-        emit getDirentsSuccess(*(path_cache_->object(path)));
-        return;
+void DataManager::getDirentsFromServer(const QString& repo_id,
+                                       const QString& path)
+{
+    if (get_dirents_req_)
+        delete get_dirents_req_;
+
+    get_dirents_req_ = new GetDirentsRequest(account_, repo_id, path);
+    connect(get_dirents_req_, SIGNAL(success(const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
+    connect(get_dirents_req_, SIGNAL(failed(const ApiError&)),
+            this, SIGNAL(getDirentsFailed(const ApiError&)));
+    get_dirents_req_->send();
+}
+
+void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
+{
+    dirents_cache_->saveCachedDirents(get_dirents_req_->repoId(),
+                                      get_dirents_req_->path(),
+                                      dirents);
+
+    emit getDirentsSuccess(dirents);
+}
+
+QString DataManager::getLocalCachedFile(const QString& repo_id,
+                                        const QString& fpath,
+                                        const QString& file_id)
+{
+    QString local_file_path = ::pathJoin(defaultFileCachePath(),
+                                         repo_id, fpath);
+    if (!QFileInfo(local_file_path).exists()) {
+        return "";
     }
 
-    if (req_)
-        delete req_;
-
-    req_ = new GetDirentsRequest(account_, repo_.id, path, dir_id);
-    connect(req_, SIGNAL(success(const QString&, const QList<SeafDirent>&)),
-            this, SLOT(onGetDirentsSuccess(const QString&, const QList<SeafDirent>&)));
-    connect(req_, SIGNAL(failed(const ApiError&)),
-            this, SIGNAL(getDirentsFailed(const ApiError&)));
-    req_->send();
+    QString cached_file_id = filecache_db_->getCachedFileId(repo_id, fpath);
+    return cached_file_id == file_id ? local_file_path : "";
 }
 
-void DataManager::onGetDirentsSuccess(const QString &dir_id,
-                                      const QList<SeafDirent> &dirents)
+FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
+                                                  const QString& path)
 {
-    Q_UNUSED(dir_id);
-    QList<SeafDirent> *pdirents = new QList<SeafDirent>(dirents);
-    emit getDirentsSuccess(*pdirents);
-    //path_cache_ now owns pdirents!
-    path_cache_->insert(req_->path(), pdirents);
+    QDir seafdir = seafApplet->configurator()->seafileDir();
+    QString local_path = ::pathJoin(seafdir.filePath(kFileCacheTopDirName),
+                                    repo_id, path);
+    FileDownloadTask *task = new FileDownloadTask(account_, repo_id, path, local_path);
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onFileDownloadFinished(bool)));
+
+    return task;
 }
 
-void DataManager::onGetDirentsFailed(const ApiError& error)
+void DataManager::onFileDownloadFinished(bool success)
 {
-    // nothing
-    emit getDirentsFailed(error);
+    FileDownloadTask *task = (FileDownloadTask *)sender();
+    if (success) {
+        filecache_db_->saveCachedFileId(task->repoId(),
+                                        task->path(),
+                                        task->fileId());
+    }
+}
+
+FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
+                                              const QString& path,
+                                              const QString& local_path)
+{
+    FileUploadTask *task = new FileUploadTask(account_, repo_id, path, local_path);
+    return task;
 }

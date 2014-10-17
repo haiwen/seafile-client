@@ -404,3 +404,61 @@ ActivitiesTab, EventsListView
 {
     qproperty-focusPolicy: NoFocus;
 }
+
+FileBrowserDialog {
+    background-color: white;
+    min-width: 640px;
+    min-height: 456px;
+}
+
+FileBrowserDialog QToolBar#topBar {
+    border: 0;
+    margin: 0px 24px 6px 12px;
+    min-height: 36px;
+    max-height: 36px;
+}
+
+FileBrowserDialog QLineEdit {
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 8px;
+    margin-right: 18px;
+    selection-color: #d0d0d0
+}
+
+FileTableView {
+    border: 0;
+    margin: 0;
+    padding-left: 4px;
+    border-bottom: 1px solid #f3f3f3;
+    selection-background-color: #F9E0C7;
+    selection-color: black;
+    qproperty-focusPolicy: NoFocus;
+}
+
+FileTableView QHeaderView::section {
+    border: 0;
+    padding: 8px;
+    outline: 0px;
+    color: #b3b3b3;
+    background-color: white;
+    font-size: 12px;
+}
+
+FileTableView::item {
+    border-top: 1px solid #e0e0e0;
+}
+
+FileBrowserDialog QToolBar#statusBar {
+    border: 0;
+    border-top: 1px solid white;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+FileBrowserProgressDialog {
+    min-width: 450px;
+    max-width: 450px;
+}

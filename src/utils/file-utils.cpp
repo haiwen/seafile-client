@@ -627,3 +627,11 @@ QString getIconByFileName(const QString& fileName)
 
     return QString(":/images/files/file_%1").arg(icon);
 }
+
+QString getIconByFileNameV2(const QString& fileName)
+{
+    QString icon = iconNameFromFileName(fileName);
+
+    return QString(":/images/files_v2/file_%1").arg(icon.isEmpty() ? "unknown" : icon);
+}
+

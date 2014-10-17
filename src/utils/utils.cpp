@@ -1,4 +1,3 @@
-
 #include <cassert>
 #include <errno.h>
 #include <dirent.h>
@@ -8,8 +7,11 @@
 #include <sqlite3.h>
 #include <glib.h>
 #include <cstring>
+#include <QObject>
 #include <QString>
-#include <string>
+#include <QSettings>
+#include <QProcess>
+#include <QDesktopServices>
 #include <jansson.h>
 
 #if defined(Q_WS_MAC)
@@ -29,6 +31,7 @@
 #include <QSslCertificate>
 
 #include "seafile-applet.h"
+#include "configurator.h"
 
 #include "utils.h"
 
@@ -51,6 +54,59 @@ QString defaultCcnetDir() {
     } else {
         return QDir::home().filePath(kCcnetConfDir);
     }
+}
+
+QString defaultFileCachePath(bool create_if_not_exist) {
+    const QDir &seafile_dir = seafApplet->configurator()->seafileDir();
+    const QString &path = seafile_dir.absoluteFilePath("file-cache");
+    if (create_if_not_exist && !QDir(path).exists()) {
+        bool result = seafile_dir.mkdir("file-cache");
+        assert(result);
+    }
+    return path;
+}
+
+bool openInNativeExtension(const QString &path) {
+#if defined(Q_WS_WIN)
+    //call ShellExecute internally
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+#elif defined(Q_WS_MAC)
+    QProcess open_process;
+    open_process.start(QLatin1String("open"), QStringList(path));
+    open_process.waitForFinished(-1);
+    return open_process.exitCode() == 0;
+#elif defined(Q_WS_X11)
+    //xdg-open is sufficient
+    QProcess open_process;
+    open_process.start(QLatin1String("xdg-open"), QStringList(path));
+    open_process.waitForFinished(-1);
+    return open_process.exitCode() == 0;
+#else
+    return false;
+#endif
+}
+
+bool showInGraphicalShell(const QString& path) {
+#if defined(Q_WS_WIN)
+    QString param;
+    if (!QFileInfo(path).isDir())
+        param = QLatin1String("/select,");
+    param += QDir::toNativeSeparators(path);
+    return QProcess::startDetached(QLatin1String("explorer.exe"), QStringList(param));
+#elif defined(Q_WS_MAC)
+    QStringList scriptArgs;
+    scriptArgs << QLatin1String("-e")
+               << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
+                                     .arg(path);
+    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+    scriptArgs.clear();
+    scriptArgs << QLatin1String("-e")
+               << QLatin1String("tell application \"Finder\" to activate");
+    QProcess::execute("/usr/bin/osascript", scriptArgs);
+    return true;
+#else
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(path).absolutePath()));
+#endif
 }
 
 typedef bool (*SqliteRowFunc) (sqlite3_stmt *stmt, void *data);
@@ -404,6 +460,50 @@ QString readableFileSize(qint64 size)
     return QString::number(size) + str;
 }
 
+QString readableFileSizeV2(qint64 size)
+{
+    if (size <= 0)
+        return "0 B";
+    //max size is 1 x 7 + 1
+    const int bufsize = 10;
+    char buf[bufsize];
+
+    int size_unit_b = size & 1023; //B
+    int size_unit_k = size >> 10 & 1023; //K
+    int size_unit_m = size >> 20 & 1023; //M
+    int size_unit_g = size >> 30 & 1023; //G
+    int size_unit_t = size >> 40 & 1023; //T
+    int size_unit_p = size >> 50 & 1023; //P
+    //omit all size large than 1PB
+
+    if (size_unit_p)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dP",
+                 size_unit_p, (size_unit_t * 100) >> 10);
+    else if (size_unit_t)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dT",
+                 size_unit_t, (size_unit_g * 100) >> 10);
+    else if (size_unit_g)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dG",
+                 size_unit_g, (size_unit_m * 100) >> 10);
+    else if (size_unit_m)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dM",
+                 size_unit_m, (size_unit_k * 100) >> 10);
+    else if (size_unit_k)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dK",
+                 size_unit_k, (size_unit_b * 100) >> 10);
+    else
+        snprintf(buf, bufsize - 1,
+                 "%dB",
+                 size_unit_b);
+
+    return buf; // return by a new QString item
+}
+
 QString md5(const QString& s)
 {
     return QCryptographicHash::hash(s.toUtf8(), QCryptographicHash::Md5).toHex();
@@ -421,6 +521,21 @@ QUrl urlJoin(const QUrl& head, const QString& tail)
         b = b.right(1);
     }
     return QUrl(a + b);
+}
+
+void removeDirRecursively(const QString &path)
+{
+    QFileInfo file_info(path);
+    if (file_info.isDir()) {
+        QDir dir(path);
+        QStringList file_list = dir.entryList();
+        for (int i = 0; i < file_list.count(); ++i) {
+            removeDirRecursively(file_list.at(i));
+        }
+        removeDirRecursively(path);
+    } else {
+        QFile::remove(path);
+    }
 }
 
 QString dumpHexPresentation(const QByteArray &bytes)

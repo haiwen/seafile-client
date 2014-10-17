@@ -23,6 +23,7 @@ extern "C" {
 #include "utils/paint-utils.h"
 
 #include "cloud-view.h"
+#include "filebrowser/file-network-mono.h"
 
 namespace {
 
@@ -38,6 +39,7 @@ enum {
     TAB_INDEX_ACTIVITIES,
 };
 
+FileNetworkMono* mono = FileNetworkMono::getInstance();
 
 }
 
@@ -357,6 +359,9 @@ void CloudView::refreshTransferRate()
     if (seafApplet->rpcClient()->getDownloadRate(&down_rate) < 0) {
         return;
     }
+
+    up_rate += mono->getUploadRate();
+    down_rate += mono->getDownloadRate();
 
     mUploadRate->setText(tr("%1 kB/s").arg(up_rate / 1024));
     mDownloadRate->setText(tr("%1 kB/s").arg(down_rate / 1024));

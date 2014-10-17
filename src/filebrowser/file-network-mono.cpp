@@ -33,13 +33,13 @@ qint64 FileNetworkMono::getUploadRate() {
     qint64 delta = upload_bytes - upload_last_bytes_;
 
     if (delta < 0)
-        upload_rates_ = 0;
+        delta = 0;
 
     upload_rates_ = delta * 1000 / (ctime - last_time_);
     upload_last_bytes_ = upload_bytes;
     last_time_ = ctime;
 
-    return upload_rates_ & (int)-1;
+    return upload_rates_;
 }
 
 qint64 FileNetworkMono::getDownloadRate() {
@@ -56,12 +56,12 @@ qint64 FileNetworkMono::getDownloadRate() {
     qint64 delta = download_bytes - download_last_bytes_;
 
     if (delta < 0)
-        download_rates_ = 0;
+        delta = 0;
 
     download_rates_ = delta * 1000 / (ctime - last_time_);
     download_last_bytes_ = download_bytes;
     last_time_ = ctime;
 
-    return download_rates_ & (int)-1;
+    return download_rates_;
 }
 

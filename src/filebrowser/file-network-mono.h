@@ -37,8 +37,8 @@ private:
     qint64 last_time_;
     qint64 upload_last_bytes_;
     qint64 download_last_bytes_;
-    qint64 upload_rates_;
-    qint64 download_rates_;
+    int upload_rates_;
+    int download_rates_;
 };
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_NETWORK_MONO_H

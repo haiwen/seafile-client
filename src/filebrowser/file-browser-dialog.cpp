@@ -278,9 +278,15 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
 
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
+    FileDownloadTask *task = (FileDownloadTask *)sender();
     if (success) {
-        FileDownloadTask *task = (FileDownloadTask *)sender();
         openFile(task->localFilePath());
+    } else {
+        const FileNetworkTask::TaskError& error = task->error();
+        if (error != FileNetworkTask::NoError) {
+            QString msg = tr("Failed to download file: %1").arg(task->errorString());
+            seafApplet->warningBox(msg, this);
+        }
     }
 }
 

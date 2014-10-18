@@ -15,6 +15,7 @@ class QSslError;
 
 class FileServerTask;
 class SeafileApiRequest;
+class ApiError;
 
 template<typename T> class QList;
 
@@ -30,6 +31,7 @@ template<typename T> class QList;
  * In second phase, the FileServerTask is moved to a worker thread to execute,
  * since we will do blocking file IO in that task.
  *
+ * @abstract
  */
 class FileNetworkTask : public QObject {
     Q_OBJECT
@@ -53,6 +55,16 @@ public:
     QString localFilePath() const { return local_path_; }
     QString fileName() const;
 
+    enum TaskError {
+        NoError = 0,
+        ApiRequestError,
+        FileIOError,
+        TaskCanceled,
+    };
+    const TaskError& error() const { return error_; }
+    const QString& errorString() const { return error_string_; }
+    int httpErrorCode() const { return http_error_code_; }
+
 public slots:
     virtual void start();
     virtual void cancel();
@@ -63,8 +75,9 @@ signals:
 
 protected slots:
     virtual void onLinkGet(const QString& link);
-    virtual void onGetLinkFailed();
+    virtual void onGetLinkFailed(const ApiError& error);
     virtual void startFileServerTask(const QString& link);
+    virtual void onFileServerTaskFinished(bool success);
     virtual void onFinished(bool success);
 
 protected:
@@ -78,6 +91,10 @@ protected:
     QString repo_id_;
     QString path_;
     QString local_path_;
+
+    TaskError error_;
+    QString error_string_;
+    int http_error_code_;
 
     static QThread *worker_thread_;
 };
@@ -131,6 +148,8 @@ protected:
  * seperate thread, which means we can not invoke non-const methods of it from
  * the main thread. To start the task: use QMetaObject::invokeMethod to call
  * the start() member function. task. The same for canceling the task.
+ *
+ * @abstract
  */
 class FileServerTask : public QObject {
     Q_OBJECT
@@ -138,6 +157,11 @@ public:
     FileServerTask(const QUrl& url,
                  const QString& local_path);
     virtual ~FileServerTask();
+
+    // accessors
+    const FileNetworkTask::TaskError& error() const { return error_; }
+    const QString& errorString() const { return error_string_; }
+    int httpErrorCode() const { return http_error_code_; }
 
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
@@ -149,6 +173,7 @@ public slots:
 
 protected slots:
     void onSslErrors(const QList<QSslError>& errors);
+    void httpRequestFinished();
 
 protected:
     /**
@@ -164,7 +189,10 @@ protected:
      * 2. when the request is redirected
      */
     virtual void sendRequest() = 0;
+    virtual void onHttpRequestFinished() = 0;
     bool handleHttpRedirect();
+    void setError(FileNetworkTask::TaskError error, const QString& error_string);
+    void setHttpError(int code);
 
     static QNetworkAccessManager *network_mgr_;
     QUrl url_;
@@ -173,6 +201,10 @@ protected:
     QNetworkReply *reply_;
     bool canceled_;
     int redirect_count_;
+
+    FileNetworkTask::TaskError error_;
+    QString error_string_;
+    int http_error_code_;
 };
 
 class GetFileTask : public FileServerTask {
@@ -181,13 +213,13 @@ public:
     GetFileTask(const QUrl& url, const QString& local_path);
     ~GetFileTask();
 
-private slots:
-    void httpReadyRead();
-    void httpRequestFinished();
-
 protected:
     void prepare();
     void sendRequest();
+    void onHttpRequestFinished();
+
+private slots:
+    void httpReadyRead();
 
 private:
     QTemporaryFile *tmp_file_;
@@ -201,12 +233,10 @@ public:
                  const QString& local_path);
     ~PostFileTask();
 
-protected slots:
-    void httpRequestFinished();
-
 protected:
     void prepare();
     void sendRequest();
+    void onHttpRequestFinished();
 
 private:
     QString parent_dir_;

@@ -11,6 +11,7 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seafile-applet.h"
+#include "api/api-error.h"
 #include "configurator.h"
 #include "file-browser-requests.h"
 
@@ -41,6 +42,7 @@ FileNetworkTask::FileNetworkTask(const Account& account,
 {
     fileserver_task_ = NULL;
     get_link_req_ = NULL;
+    http_error_code_ = 0;
 }
 
 FileNetworkTask::~FileNetworkTask()
@@ -64,7 +66,7 @@ void FileNetworkTask::start()
     connect(get_link_req_, SIGNAL(success(const QString&)),
             this, SLOT(onLinkGet(const QString&)));
     connect(get_link_req_, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onGetLinkFailed()));
+            this, SLOT(onGetLinkFailed(const ApiError&)));
     get_link_req_->send();
 
 }
@@ -81,7 +83,7 @@ void FileNetworkTask::startFileServerTask(const QString& link)
     connect(fileserver_task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SIGNAL(progressUpdate(qint64, qint64)));
     connect(fileserver_task_, SIGNAL(finished(bool)),
-            this, SLOT(onFinished(bool)));
+            this, SLOT(onFileServerTaskFinished(bool)));
 
     if (!worker_thread_) {
         worker_thread_ = new QThread;
@@ -101,7 +103,19 @@ void FileNetworkTask::cancel()
     if (fileserver_task_) {
         QMetaObject::invokeMethod(fileserver_task_, "cancel");
     }
+    error_ = TaskCanceled;
+    error_string_ = tr("Operation canceled");
     onFinished(false);
+}
+
+void FileNetworkTask::onFileServerTaskFinished(bool success)
+{
+    if (!success) {
+        error_ = fileserver_task_->error();
+        error_string_ = fileserver_task_->errorString();
+        http_error_code_ = fileserver_task_->httpErrorCode();
+    }
+    onFinished(success);
 }
 
 void FileNetworkTask::onFinished(bool success)
@@ -110,8 +124,13 @@ void FileNetworkTask::onFinished(bool success)
     deleteLater();
 }
 
-void FileNetworkTask::onGetLinkFailed()
+void FileNetworkTask::onGetLinkFailed(const ApiError& error)
 {
+    error_ = ApiRequestError;
+    error_string_ = error.toString();
+    if (error.type() == ApiError::HTTP_ERROR) {
+        http_error_code_ = error.httpErrorCode();
+    }
     onFinished(false);
 }
 
@@ -196,6 +215,31 @@ void FileServerTask::cancel()
     }
 }
 
+void FileServerTask::httpRequestFinished()
+{
+    int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (code == 0 && reply_->error() != QNetworkReply::NoError) {
+        qDebug("[file server task] network error: %s\n", toCStr(reply_->errorString()));
+        setError(FileNetworkTask::ApiRequestError, reply_->errorString());
+        emit finished(false);
+        return;
+    }
+
+    if (handleHttpRedirect()) {
+        return;
+    }
+
+    if ((code / 100) == 4 || (code / 100) == 5) {
+        qDebug("request failed for %s: status code %d\n",
+               toCStr(reply_->url().toString()), code);
+        setHttpError(code);
+        emit finished(false);
+        return;
+    }
+
+    onHttpRequestFinished();
+}
+
 bool FileServerTask::handleHttpRedirect()
 {
     QVariant redirect_attr = reply_->attribute(QNetworkRequest::RedirectionTargetAttribute);
@@ -205,6 +249,7 @@ bool FileServerTask::handleHttpRedirect()
 
     if (redirect_count_++ > kMaxRedirects) {
         // simply treat too many redirects as server side error
+        setHttpError(500);
         emit finished(false);
         qDebug("too many redirects for %s\n",
                toCStr(reply_->url().toString()));
@@ -242,6 +287,7 @@ void GetFileTask::prepare()
     QString download_tmp_dir = ::pathJoin(
         seafApplet->configurator()->seafileDir(), kFileDownloadTmpDirName);
     if (!::createDirIfNotExists(download_tmp_dir)) {
+        setError(FileNetworkTask::FileIOError, tr("Failed to create folders"));
         emit finished(false);
         return;
     }
@@ -250,6 +296,7 @@ void GetFileTask::prepare()
     tmp_file_ = new QTemporaryFile(tmpf_path);
     tmp_file_->setAutoRemove(false);
     if (!tmp_file_->open()) {
+        setError(FileNetworkTask::FileIOError, tr("Failed to create temporary files"));
         emit finished(false);
     }
 }
@@ -281,25 +328,27 @@ void GetFileTask::httpReadyRead()
     QByteArray chunk = reply_->readAll();
     if (!chunk.isEmpty()) {
         if (tmp_file_->write(chunk) <= 0) {
+            setError(FileNetworkTask::FileIOError, tr("Failed to create folders"));
             emit finished(false);
         }
     }
 }
 
-void GetFileTask::httpRequestFinished()
+void GetFileTask::onHttpRequestFinished()
 {
     if (canceled_) {
         return;
     }
-    // TODO: check http status code
     tmp_file_->close();
 
     QString parent_dir = QFileInfo(local_path_).absoluteDir().path();
     if (!::createDirIfNotExists(parent_dir)) {
+        setError(FileNetworkTask::FileIOError, tr("Failed to write file to disk"));
         emit finished(false);
     }
 
     if (!tmp_file_->rename(local_path_)) {
+        setError(FileNetworkTask::FileIOError, tr("Failed to move file"));
         emit finished(false);
         return;
     }
@@ -326,10 +375,12 @@ void PostFileTask::prepare()
     file_ = new QFile(local_path_);
     file_->setParent(this);
     if (!file_->exists()) {
+        setError(FileNetworkTask::FileIOError, tr("File does not exist"));
         emit finished(false);
         return;
     }
     if (!file_->open(QIODevice::ReadOnly)) {
+        setError(FileNetworkTask::FileIOError, tr("File does not exist"));
         emit finished(false);
         return;
     }
@@ -367,12 +418,14 @@ void PostFileTask::sendRequest()
         network_mgr_ = new QNetworkAccessManager;
     }
     reply_ = network_mgr_->post(request, multipart);
+    connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
+            this, SLOT(onSslErrors(const QList<QSslError>&)));
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
     connect(reply_, SIGNAL(uploadProgress(qint64,qint64)),
             this, SIGNAL(progressUpdate(qint64, qint64)));
 }
 
-void PostFileTask::httpRequestFinished()
+void PostFileTask::onHttpRequestFinished()
 {
     if (canceled_) {
         return;
@@ -383,4 +436,21 @@ void PostFileTask::httpRequestFinished()
     }
 
     emit finished(true);
+}
+
+void FileServerTask::setError(FileNetworkTask::TaskError error,
+                              const QString& error_string)
+{
+    qDebug("[file server task] error: %s\n", toCStr(error_string));
+    error_ = error;
+    error_string_ = error_string;
+}
+
+void FileServerTask::setHttpError(int code)
+{
+    error_ = FileNetworkTask::ApiRequestError;
+    http_error_code_ = code;
+    if (code == 500) {
+        error_string_ = tr("Internal Server Error");
+    }
 }

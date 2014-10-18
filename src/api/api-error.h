@@ -17,6 +17,7 @@ class QByteArray;
 class ApiError {
 public:
     enum ErrorType {
+        NO_ERROR = 0,
         // network error, like connection refused
         NETWORK_ERROR,
         // ssl error, like invalid ssl certificate
@@ -29,6 +30,7 @@ public:
     static ApiError fromSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
     static ApiError fromHttpError(int code);
     static ApiError fromJsonError();
+    static ApiError NoError();
 
     // accessors
     ErrorType type() const { return type_; }
@@ -42,6 +44,12 @@ public:
     int httpErrorCode() const { return http_error_code_; }
 
     QString toString() const;
+
+    bool operator==(const ApiError& other);
+
+    bool operator!=(const ApiError& other) {
+        return !(*this == other);
+    }
 
 private:
     ApiError();

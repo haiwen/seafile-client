@@ -144,19 +144,35 @@ signals:
     void finished(bool success);
 
 public slots:
-    virtual void start() = 0;
+    void start();
     void cancel();
 
 protected slots:
     void onSslErrors(const QList<QSslError>& errors);
 
 protected:
+    /**
+     * Prepare the initialization work, like creating the tmp file, or open
+     * the uploaded file for reading.
+     */
+    virtual void prepare() = 0;
+
+    /**
+     * Send the http request.
+     * This member function may be called in two places:
+     * 1. when task is first started
+     * 2. when the request is redirected
+     */
+    virtual void sendRequest() = 0;
+    bool handleHttpRedirect();
+
     static QNetworkAccessManager *network_mgr_;
     QUrl url_;
     QString local_path_;
 
     QNetworkReply *reply_;
     bool canceled_;
+    int redirect_count_;
 };
 
 class GetFileTask : public FileServerTask {
@@ -165,12 +181,13 @@ public:
     GetFileTask(const QUrl& url, const QString& local_path);
     ~GetFileTask();
 
-public slots:
-    void start();
-
 private slots:
     void httpReadyRead();
     void httpRequestFinished();
+
+protected:
+    void prepare();
+    void sendRequest();
 
 private:
     QTemporaryFile *tmp_file_;
@@ -184,11 +201,12 @@ public:
                  const QString& local_path);
     ~PostFileTask();
 
-public slots:
-    void start();
-
 protected slots:
     void httpRequestFinished();
+
+protected:
+    void prepare();
+    void sendRequest();
 
 private:
     QString parent_dir_;

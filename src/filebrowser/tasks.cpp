@@ -24,6 +24,8 @@ const char *kParentDirParam = "form-data; name=\"parent_dir\"";
 const char *kFileParamTemplate = "form-data; name=\"file\"; filename=\"%1\"";
 const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 
+const int kMaxRedirects = 3;
+
 } // namesapce
 
 QThread* FileNetworkTask::worker_thread_;
@@ -64,7 +66,6 @@ void FileNetworkTask::start()
     connect(get_link_req_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onGetLinkFailed()));
     get_link_req_->send();
-    printf ("get link reqeust sent\n");
 
 }
 
@@ -75,10 +76,7 @@ void FileNetworkTask::onLinkGet(const QString& link)
 
 void FileNetworkTask::startFileServerTask(const QString& link)
 {
-    printf ("download link is %s\n", toCStr(link));
     createFileServerTask(link);
-
-    printf ("started transfer task\n");
 
     connect(fileserver_task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SIGNAL(progressUpdate(qint64, qint64)));
@@ -108,15 +106,12 @@ void FileNetworkTask::cancel()
 
 void FileNetworkTask::onFinished(bool success)
 {
-    printf (">>>>>>>>>>> FileNetworkTask finished: %s\n", success ? "success" : "failed");
     emit finished(success);
     deleteLater();
 }
 
 void FileNetworkTask::onGetLinkFailed()
 {
-    printf ("get %s link failed\n",
-            type() == Upload ? "upload" : "download");
     onFinished(false);
 }
 
@@ -168,7 +163,8 @@ QNetworkAccessManager* FileServerTask::network_mgr_;
 FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
     : url_(url),
       local_path_(local_path),
-      canceled_(false)
+      canceled_(false),
+      redirect_count_(0)
 {
 }
 
@@ -186,12 +182,44 @@ void FileServerTask::onSslErrors(const QList<QSslError>& errors)
     // emit finished(false);
 }
 
+void FileServerTask::start()
+{
+    prepare();
+    sendRequest();
+}
+
 void FileServerTask::cancel()
 {
     canceled_ = true;
     if (reply_) {
         reply_->abort();
     }
+}
+
+bool FileServerTask::handleHttpRedirect()
+{
+    QVariant redirect_attr = reply_->attribute(QNetworkRequest::RedirectionTargetAttribute);
+    if (redirect_attr.isNull()) {
+        return false;
+    }
+
+    if (redirect_count_++ > kMaxRedirects) {
+        // simply treat too many redirects as server side error
+        emit finished(false);
+        qDebug("too many redirects for %s\n",
+               toCStr(reply_->url().toString()));
+        return true;
+    }
+
+    url_ = redirect_attr.toUrl();
+    if (url_.isRelative()) {
+        url_ = reply_->url().resolved(url_);
+    }
+    qDebug("redirect to %s (from %s)\n", toCStr(url_.toString()),
+           toCStr(reply_->url().toString()));
+    reply_->deleteLater();
+    sendRequest();
+    return true;
 }
 
 
@@ -209,9 +237,8 @@ GetFileTask::~GetFileTask()
     }
 }
 
-void GetFileTask::start()
+void GetFileTask::prepare()
 {
-    printf ("download task started\n");
     QString download_tmp_dir = ::pathJoin(
         seafApplet->configurator()->seafileDir(), kFileDownloadTmpDirName);
     if (!::createDirIfNotExists(download_tmp_dir)) {
@@ -225,9 +252,10 @@ void GetFileTask::start()
     if (!tmp_file_->open()) {
         emit finished(false);
     }
-    printf("created tmp file %s\n", tmp_file_->fileName().toUtf8().data());
+}
 
-
+void GetFileTask::sendRequest()
+{
     QNetworkRequest request(url_);
     if (!network_mgr_) {
         network_mgr_ = new QNetworkAccessManager;
@@ -253,7 +281,6 @@ void GetFileTask::httpReadyRead()
     QByteArray chunk = reply_->readAll();
     if (!chunk.isEmpty()) {
         if (tmp_file_->write(chunk) <= 0) {
-            printf ("failed to write tmp file\n");
             emit finished(false);
         }
     }
@@ -273,14 +300,12 @@ void GetFileTask::httpRequestFinished()
     }
 
     if (!tmp_file_->rename(local_path_)) {
-        printf("failed to rename to %s\n", local_path_.toUtf8().data());
         emit finished(false);
         return;
     }
 
     delete tmp_file_;
     tmp_file_ = 0;
-    printf ("http success\n");
     emit finished(true);
 }
 
@@ -296,9 +321,8 @@ PostFileTask::~PostFileTask()
 {
 }
 
-void PostFileTask::start()
+void PostFileTask::prepare()
 {
-    printf ("upload task started\n");
     file_ = new QFile(local_path_);
     file_->setParent(this);
     if (!file_->exists()) {
@@ -309,9 +333,15 @@ void PostFileTask::start()
         emit finished(false);
         return;
     }
+}
 
-    QString fname = QFileInfo(local_path_).fileName();
-
+/**
+ * This member function may be called in two places:
+ * 1. when task is first started
+ * 2. when the request is redirected
+ */
+void PostFileTask::sendRequest()
+{
     QHttpMultiPart *multipart = new QHttpMultiPart(QHttpMultiPart::FormDataType, this);
     // parent_dir param
     QHttpPart parentdir_part, file_part;
@@ -320,6 +350,7 @@ void PostFileTask::start()
     parentdir_part.setBody(toCStr(parent_dir_));
 
     // "file" param
+    QString fname = QFileInfo(local_path_).fileName();
     file_part.setHeader(QNetworkRequest::ContentDispositionHeader,
                         QString(kFileParamTemplate).arg(fname));
     file_part.setHeader(QNetworkRequest::ContentTypeHeader,
@@ -344,6 +375,10 @@ void PostFileTask::start()
 void PostFileTask::httpRequestFinished()
 {
     if (canceled_) {
+        return;
+    }
+
+    if (handleHttpRedirect()) {
         return;
     }
 

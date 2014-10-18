@@ -134,6 +134,10 @@ void FileBrowserDialog::createStatusBar()
         getIconSet(":images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(upload_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     status_bar_->addAction(upload_action_);
+    if (repo_.readonly) {
+        upload_action_->setEnabled(false);
+        upload_action_->setToolTip(tr("You don't have permission to upload files to this library"));
+    }
 
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
@@ -323,8 +327,9 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     } else {
         backward_action_->setEnabled(false);
     }
-    // TODO: Handle read-only library
-    upload_action_->setEnabled(true);
+    if (!repo_.readonly) {
+        upload_action_->setEnabled(true);
+    }
     gohome_action_->setEnabled(true);
 }
 

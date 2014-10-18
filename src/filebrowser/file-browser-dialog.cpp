@@ -356,5 +356,12 @@ void FileBrowserDialog::onUploadFinished(bool success)
 {
     if (success) {
         forceRefresh();
+    } else {
+        FileUploadTask *task = (FileUploadTask *)sender();
+        const FileNetworkTask::TaskError& error = task->error();
+        if (error != FileNetworkTask::NoError) {
+            QString msg = tr("Failed to upload file: %1").arg(task->errorString());
+            seafApplet->warningBox(msg, this);
+        }
     }
 }

@@ -183,7 +183,8 @@ FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
     : url_(url),
       local_path_(local_path),
       canceled_(false),
-      redirect_count_(0)
+      redirect_count_(0),
+      http_error_code_(0)
 {
 }
 

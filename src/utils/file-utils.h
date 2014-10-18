@@ -8,6 +8,7 @@ QString getIconByFileNameV2(const QString& fileName);
 
 QString pathJoin(const QString& a, const QString& b);
 QString pathJoin(const QString& a, const QString& b, const QString& c);
+QString pathJoin(const QString& a, const QString& b, const QString& c, const QString& d);
 QString pathJoin(const QString& a, const QStringList& rest);
 
 bool createDirIfNotExists(const QString& path);

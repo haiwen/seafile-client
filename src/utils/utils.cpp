@@ -30,9 +30,6 @@
 #include <QSslCipher>
 #include <QSslCertificate>
 
-#include "seafile-applet.h"
-#include "configurator.h"
-
 #include "utils.h"
 
 
@@ -54,16 +51,6 @@ QString defaultCcnetDir() {
     } else {
         return QDir::home().filePath(kCcnetConfDir);
     }
-}
-
-QString defaultFileCachePath(bool create_if_not_exist) {
-    const QDir &seafile_dir = seafApplet->configurator()->seafileDir();
-    const QString &path = seafile_dir.absoluteFilePath("file-cache");
-    if (create_if_not_exist && !QDir(path).exists()) {
-        bool result = seafile_dir.mkdir("file-cache");
-        assert(result);
-    }
-    return path;
 }
 
 bool openInNativeExtension(const QString &path) {

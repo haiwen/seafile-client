@@ -77,8 +77,7 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
                                         const QString& fpath,
                                         const QString& file_id)
 {
-    QString local_file_path = ::pathJoin(defaultFileCachePath(),
-                                         repo_id, fpath);
+    QString local_file_path = getLocalCacheFilePath(repo_id, fpath);
     if (!QFileInfo(local_file_path).exists()) {
         return "";
     }
@@ -90,9 +89,7 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
 FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
                                                   const QString& path)
 {
-    QDir seafdir = seafApplet->configurator()->seafileDir();
-    QString local_path = ::pathJoin(seafdir.filePath(kFileCacheTopDirName),
-                                    repo_id, path);
+    QString local_path = getLocalCacheFilePath(repo_id, path);
     FileDownloadTask *task = new FileDownloadTask(account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)));
@@ -116,4 +113,11 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
 {
     FileUploadTask *task = new FileUploadTask(account_, repo_id, path, local_path);
     return task;
+}
+
+QString DataManager::getLocalCacheFilePath(const QString& repo_id,
+                                        const QString& path)
+{
+    QString seafdir = seafApplet->configurator()->seafileDir();
+    return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id, path);
 }

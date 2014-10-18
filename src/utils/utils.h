@@ -54,8 +54,6 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error);
 
 QString defaultCcnetDir();
 
-QString defaultFileCachePath(bool create_if_not_exist = false);
-
 // open file use native default file handler, return false if failed
 bool openInNativeExtension(const QString &path);
 

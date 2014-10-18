@@ -655,6 +655,16 @@ QString pathJoin(const QString& a,
     return pathJoin(a, list);
 }
 
+QString pathJoin(const QString& a,
+                 const QString& b,
+                 const QString& c,
+                 const QString& d)
+{
+    QStringList list;
+    list << b << c << d;
+    return pathJoin(a, list);
+}
+
 QString pathJoin(const QString& a, const QStringList& rest)
 {
     QString result = a;

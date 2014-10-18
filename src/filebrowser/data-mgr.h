@@ -55,6 +55,8 @@ private slots:
     void onFileDownloadFinished(bool success);
 
 private:
+    QString getLocalCacheFilePath(const QString& repo_id,
+                                  const QString& path);
     const Account account_;
 
     GetDirentsRequest *get_dirents_req_;

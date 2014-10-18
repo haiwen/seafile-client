@@ -10,7 +10,6 @@
 #include "utils/singleton.h"
 
 class GetDirentsRequest;
-template<typename Key, typename T> class QCache;
 
 class DirentsCache;
 class FileCacheDB;

@@ -250,7 +250,6 @@ void FileBrowserDialog::onDirClicked(const SeafDirent& dir)
 void FileBrowserDialog::enterPath(const QString& path)
 {
     current_path_ = path;
-    printf ("nav to %s\n", current_path_.toUtf8().data());;
     fetchDirents();
     path_line_edit_->setText(current_path_);
 }
@@ -283,13 +282,11 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 
 void FileBrowserDialog::openFile(const QString& path)
 {
-    printf("try to open %s\n", path.toUtf8().data());
     openInNativeExtension(path) || showInGraphicalShell(path);
 }
 
 void FileBrowserDialog::goForward()
 {
-    printf ("go forward\n");
     QString path = forward_history_.pop();
     backward_history_.push(current_path_);
     enterPath(path);
@@ -297,9 +294,7 @@ void FileBrowserDialog::goForward()
 
 void FileBrowserDialog::goBackward()
 {
-    printf ("go backward\n");
     QString path = backward_history_.pop();
-    printf("push foward: %s\n", current_path_.toUtf8().data());
     forward_history_.push(current_path_);
     enterPath(path);
 }
@@ -343,8 +338,6 @@ void FileBrowserDialog::chooseFileToUpload()
                 this, SLOT(onUploadFinished(bool)));
         task->start();
         dialog.exec();
-    } else {
-        printf ("choose file cancelled\n");
     }
 }
 

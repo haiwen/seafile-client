@@ -6,9 +6,11 @@
 #include "seaf-dirent.h"
 #include "utils/singleton.h"
 
-class GetDirentsRequest;
 template<typename Key, typename T> class QCache;
 
+/**
+ * Cache dirents by (repo_id + path, dirents) in memory
+ */
 class DirentsCache {
     SINGLETON_DEFINE(DirentsCache)
 public:
@@ -26,7 +28,6 @@ private:
         QList<SeafDirent> dirents;
     };
 
-    // Cache dirents by (repo_id + path, dirents)
     QCache<QString, CacheEntry> *cache_;
 };
 

@@ -16,6 +16,7 @@
 #include "data-mgr.h"
 #include "progress-dialog.h"
 #include "tasks.h"
+#include "ui/set-repo-password-dialog.h"
 
 #include "file-browser-dialog.h"
 
@@ -30,6 +31,7 @@ enum {
 const char *kLoadingFaieldLabelName = "loadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
+const int kStatusCodePasswordNeeded = 400;
 
 } // namespace
 
@@ -182,6 +184,15 @@ void FileBrowserDialog::fetchDirents()
 
 void FileBrowserDialog::fetchDirents(bool force_refresh)
 {
+    if (repo_.encrypted && !data_mgr_->isRepoPasswordSet(repo_.id)) {
+        SetRepoPasswordDialog password_dialog(repo_, this);
+        if (password_dialog.exec() != QDialog::Accepted) {
+            return;
+        } else {
+            data_mgr_->setRepoPasswordSet(repo_.id);
+        }
+    }
+
     if (!force_refresh) {
         QList<SeafDirent> dirents;
         if (data_mgr_->getDirents(repo_.id, current_path_, &dirents)) {
@@ -267,27 +278,73 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(cached_file);
         return;
     } else {
-        FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, fpath);
-        connect(task, SIGNAL(finished(bool)),
-                this, SLOT(onDownloadFinished(bool)));
-        FileBrowserProgressDialog dialog(task, this);
-        task->start();
-        dialog.exec();
+        downloadFile(fpath);
     }
+}
+
+void FileBrowserDialog::downloadFile(const QString& path)
+{
+    FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
+    FileBrowserProgressDialog dialog(task, this);
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onDownloadFinished(bool)));
+    task->start();
+    dialog.exec();
+}
+
+void FileBrowserDialog::uploadFile(const QString& path)
+{
+    FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path);
+    FileBrowserProgressDialog dialog(task, this);
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onUploadFinished(bool)));
+    task->start();
+    dialog.exec();
 }
 
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
-    FileDownloadTask *task = (FileDownloadTask *)sender();
+    FileNetworkTask *task = (FileNetworkTask *)sender();
     if (success) {
         openFile(task->localFilePath());
     } else {
-        const FileNetworkTask::TaskError& error = task->error();
-        if (error != FileNetworkTask::NoError) {
-            QString msg = tr("Failed to download file: %1").arg(task->errorString());
-            seafApplet->warningBox(msg, this);
+        if (repo_.encrypted &&
+            setPasswordAndRetry(task, &FileBrowserDialog::downloadFile)) {
+            return;
+        }
+
+        QString msg = tr("Failed to download file: %1").arg(task->errorString());
+        seafApplet->warningBox(msg, this);
+    }
+}
+
+void FileBrowserDialog::onUploadFinished(bool success)
+{
+    FileNetworkTask *task = (FileNetworkTask *)sender();
+    if (success) {
+        forceRefresh();
+    } else {
+        if (repo_.encrypted &&
+            setPasswordAndRetry(task, &FileBrowserDialog::uploadFile)) {
+            return;
+        }
+        QString msg = tr("Failed to upload file: %1").arg(task->errorString());
+        seafApplet->warningBox(msg, this);
+    }
+}
+
+bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task,
+                                            void (FileBrowserDialog::*func)(const QString&))
+{
+    if (task->httpErrorCode() == 400) {
+        SetRepoPasswordDialog password_dialog(repo_, this);
+        if (password_dialog.exec() == QDialog::Accepted) {
+            (this->*func)(task->path());
+            return true;
         }
     }
+
+    return false;
 }
 
 void FileBrowserDialog::openFile(const QString& path)
@@ -343,25 +400,6 @@ void FileBrowserDialog::chooseFileToUpload()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Select file to upload"));
     if (!path.isEmpty()) {
-        FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path);
-        FileBrowserProgressDialog dialog(task, this);
-        connect(task, SIGNAL(finished(bool)),
-                this, SLOT(onUploadFinished(bool)));
-        task->start();
-        dialog.exec();
-    }
-}
-
-void FileBrowserDialog::onUploadFinished(bool success)
-{
-    if (success) {
-        forceRefresh();
-    } else {
-        FileUploadTask *task = (FileUploadTask *)sender();
-        const FileNetworkTask::TaskError& error = task->error();
-        if (error != FileNetworkTask::NoError) {
-            QString msg = tr("Failed to upload file: %1").arg(task->errorString());
-            seafApplet->warningBox(msg, this);
-        }
+        uploadFile(path);
     }
 }

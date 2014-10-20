@@ -2,15 +2,17 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_DATA_MANAGER_H
 
 #include <QObject>
-#include <QList>
+#include <QHash>
 
 #include "api/api-error.h"
 #include "account.h"
 #include "seaf-dirent.h"
 #include "utils/singleton.h"
 
-class GetDirentsRequest;
 
+template<typename Key> class QList;
+
+class GetDirentsRequest;
 class DirentsCache;
 class FileCacheDB;
 class FileUploadTask;
@@ -45,6 +47,8 @@ public:
                                      const QString& path,
                                      const QString& local_path);
 
+    bool isRepoPasswordSet(const QString& repo_id) const;
+    void setRepoPasswordSet(const QString& repo_id);
 
 signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
@@ -64,6 +68,8 @@ private:
     FileCacheDB *filecache_db_;
 
     DirentsCache *dirents_cache_;
+
+    static QHash<QString, qint64> passwords_cache_;
 };
 
 

@@ -2,6 +2,7 @@
 #include <sqlite3.h>
 #include <errno.h>
 #include <stdio.h>
+#include <QDateTime>
 
 #include "utils/file-utils.h"
 #include "utils/utils.h"
@@ -16,6 +17,7 @@
 namespace {
 
 const char *kFileCacheTopDirName = "file-cache";
+const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
 
 } // namespace
 
@@ -120,4 +122,22 @@ QString DataManager::getLocalCacheFilePath(const QString& repo_id,
 {
     QString seafdir = seafApplet->configurator()->seafileDir();
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id, path);
+}
+
+QHash<QString, qint64> DataManager::passwords_cache_;
+
+bool DataManager::isRepoPasswordSet(const QString& repo_id) const
+{
+    if (!passwords_cache_.contains(repo_id)) {
+        return false;
+    }
+    qint64 expiration_time = passwords_cache_[repo_id];
+    qint64 now = QDateTime::currentMSecsSinceEpoch();
+    return now < expiration_time;
+}
+
+void DataManager::setRepoPasswordSet(const QString& repo_id)
+{
+    passwords_cache_[repo_id] =
+        QDateTime::currentMSecsSinceEpoch() + kPasswordCacheExpirationMSecs;
 }

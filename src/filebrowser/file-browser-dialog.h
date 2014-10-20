@@ -20,6 +20,7 @@ class SeafDirent;
 class GetDirentsRequest;
 class FileBrowserCache;
 class DataManager;
+class FileNetworkTask;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -62,12 +63,17 @@ private:
     void showLoading();
     void updateTable(const QList<SeafDirent>& dirents);
     void enterPath(const QString& path);
+    void downloadFile(const QString& path);
+    void uploadFile(const QString& path);
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);
     void openFile(const QString& path);
 
     void fetchDirents(bool force_refresh);
+
+    bool setPasswordAndRetry(FileNetworkTask *task,
+                             void (FileBrowserDialog::*func)(const QString&));
 
     ServerRepo repo_;
     // current path

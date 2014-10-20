@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QDesktopServices>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -156,7 +157,7 @@ void FileBrowserDialog::createStatusBar()
     open_cache_dir_action_ = new QAction(this);
     open_cache_dir_action_->setIcon(
         getIconSet(":/images/filebrowser/open-folder.png", kStatusBarIconSize, kStatusBarIconSize));
-    // connect(open_cache_dir_action_, SIGNAL(triggered()), this, SLOT(openCacheFolder()));
+    connect(open_cache_dir_action_, SIGNAL(triggered()), this, SLOT(openCacheFolder()));
     status_bar_->addAction(open_cache_dir_action_);
 
     QWidget *spacer2 = new QWidget;
@@ -349,7 +350,7 @@ bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task,
 
 void FileBrowserDialog::openFile(const QString& path)
 {
-    openInNativeExtension(path) || showInGraphicalShell(path);
+    ::openInNativeExtension(path) || ::showInGraphicalShell(path);
 }
 
 void FileBrowserDialog::goForward()
@@ -402,4 +403,11 @@ void FileBrowserDialog::chooseFileToUpload()
     if (!path.isEmpty()) {
         uploadFile(path);
     }
+}
+
+void FileBrowserDialog::openCacheFolder()
+{
+    QString folder = data_mgr_->getRepoCacheFolder(repo_.id);
+    ::createDirIfNotExists(folder);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(folder));
 }

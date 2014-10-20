@@ -52,6 +52,7 @@ private slots:
     void chooseFileToUpload();
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
+    void openCacheFolder();
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)

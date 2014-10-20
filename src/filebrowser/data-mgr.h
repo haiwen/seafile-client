@@ -50,6 +50,8 @@ public:
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);
 
+    QString getRepoCacheFolder(const QString& repo_id) const;
+
 signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);

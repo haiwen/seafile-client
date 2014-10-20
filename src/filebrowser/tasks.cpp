@@ -348,6 +348,13 @@ void GetFileTask::onHttpRequestFinished()
         emit finished(false);
     }
 
+    QFile oldfile(local_path_);
+    if (oldfile.exists() && !oldfile.remove()) {
+        setError(FileNetworkTask::FileIOError, tr("Failed to remove the older version of the downloaded file"));
+        emit finished(false);
+        return;
+    }
+
     if (!tmp_file_->rename(local_path_)) {
         setError(FileNetworkTask::FileIOError, tr("Failed to move file"));
         emit finished(false);

@@ -369,8 +369,11 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
             QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
         } else {
             // open seahub repo page for not downloaded repo
-            FileBrowserDialog dialog(it->repo(), this);
-            dialog.exec();
+            FileBrowserDialog* dialog = new FileBrowserDialog(it->repo(), this);
+            const QRect screen = QApplication::desktop()->screenGeometry();
+            dialog->show();
+            dialog->move(screen.center() - dialog->rect().center());
+            dialog->raise();
         }
     }
 }

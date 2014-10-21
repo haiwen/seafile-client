@@ -53,6 +53,7 @@ private slots:
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
     void openCacheFolder();
+    void uploadFile(const QString& path);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
@@ -65,7 +66,6 @@ private:
     void updateTable(const QList<SeafDirent>& dirents);
     void enterPath(const QString& path);
     void downloadFile(const QString& path);
-    void uploadFile(const QString& path);
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);

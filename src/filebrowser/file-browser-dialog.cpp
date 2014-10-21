@@ -171,6 +171,9 @@ void FileBrowserDialog::createFileTable()
     table_view_ = new FileTableView(repo_);
     table_model_ = new FileTableModel();
     table_view_->setModel(table_model_);
+
+    connect(table_view_, SIGNAL(dropFile(const QString&)),
+            this, SLOT(uploadFile(const QString&)));
 }
 
 void FileBrowserDialog::forceRefresh()

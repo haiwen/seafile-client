@@ -65,6 +65,51 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
     emit direntClicked(dirent);
 }
 
+void FileTableView::dropEvent(QDropEvent *event)
+{
+    // only handle external source currently
+    if(event->source() != NULL)
+        return;
+
+    QList<QUrl> urls = event->mimeData()->urls();
+
+    if(urls.isEmpty())
+        return;
+
+    // since we supports processing only one file at a time, skip the rest
+    QString file_name = urls.first().toLocalFile();
+
+    if(file_name.isEmpty())
+        return;
+
+    if(QFileInfo(file_name).isDir())
+        return;
+
+    emit dropFile(file_name);
+
+    event->accept();
+}
+
+void FileTableView::dragMoveEvent(QDragMoveEvent *event)
+{
+    // this is needed
+    event->accept();
+}
+
+void FileTableView::dragEnterEvent(QDragEnterEvent *event)
+{
+    // only handle external source currently
+    if(event->source() != NULL)
+        return;
+
+    // Otherwise it might be a MoveAction which is unacceptable
+    event->setDropAction(Qt::CopyAction);
+
+    // trivial check
+    if(event->mimeData()->hasFormat("text/uri-list"))
+        event->accept();
+}
+
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {

@@ -18,11 +18,16 @@ public:
 
 signals:
     void direntClicked(const SeafDirent& dirent);
+    void dropFile(const QString& file_name);
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);
 
 private:
+    void dropEvent(QDropEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+
     Q_DISABLE_COPY(FileTableView)
 
     ServerRepo repo_;

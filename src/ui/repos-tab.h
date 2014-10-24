@@ -4,8 +4,10 @@
 #include "tab-view.h"
 
 class QTimer;
+class QLineEdit;
 
 class RepoTreeModel;
+class RepoFilterProxyModel;
 class RepoTreeView;
 class ServerRepo;
 class ListReposRequest;
@@ -31,19 +33,22 @@ protected:
 private slots:
     void refreshRepos(const std::vector<ServerRepo>& repos);
     void refreshReposFailed(const ApiError& error);
+    void onFilterTextChanged(const QString& text);
 
 private:
     void createRepoTree();
     void createLoadingView();
     void createLoadingFailedView();
     void showLoadingView();
-    
 
     RepoTreeModel *repos_model_;
+    RepoFilterProxyModel *filter_model_;
 
     RepoTreeView *repos_tree_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+
+    QLineEdit *filter_text_;
 
     ListReposRequest *list_repo_req_;
 };

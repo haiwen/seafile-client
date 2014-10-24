@@ -107,7 +107,9 @@ void RepoTreeView::updateRepoActions()
     QModelIndexList indexes = selected.indexes();
     if (indexes.size() != 0) {
         const QModelIndex& index = indexes.at(0);
-        QStandardItem *it = ((RepoTreeModel *)model())->itemFromIndex(index);
+        QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
+        RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
+        QStandardItem *it = tree_model->itemFromIndex(proxy->mapToSource(index));
         if (it && it->type() == REPO_ITEM_TYPE) {
             item = (RepoItem *)it;
         }
@@ -200,8 +202,10 @@ QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
     if (!index.isValid()) {
         return NULL;
     }
-    const RepoTreeModel *model = (const RepoTreeModel*)index.model();
-    QStandardItem *item = model->itemFromIndex(index);
+    QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
+    RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
+    QStandardItem *item = tree_model->itemFromIndex(proxy->mapToSource(index));
+
     if (item->type() != REPO_ITEM_TYPE &&
         item->type() != REPO_CATEGORY_TYPE) {
         return NULL;
@@ -471,7 +475,9 @@ void RepoTreeView::syncRepoImmediately()
 
     seafApplet->rpcClient()->syncRepoImmediately(repo.id);
 
-    ((RepoTreeModel *)model())->updateRepoItemAfterSyncNow(repo.id);
+    QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
+    RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
+    tree_model->updateRepoItemAfterSyncNow(repo.id);
 }
 
 void RepoTreeView::cancelDownload()

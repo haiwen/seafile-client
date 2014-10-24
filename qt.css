@@ -114,8 +114,8 @@ RepoTreeView
     background: white;
     border: 0;
     font-size: 14px;
-    border-top: 1px solid #DCDCDE;
-    border-bottom: 1px solid #DCDCDE;
+    /* border-top: 1px solid #DCDCDE; */
+    /* border-bottom: 1px solid #DCDCDE; */
     padding-top: 8px;
 }
 
@@ -461,4 +461,17 @@ FileBrowserDialog QToolBar#statusBar {
 FileBrowserProgressDialog {
     min-width: 320px;
     max-width: 420px;
+}
+
+SeafileTabWidget QWidget#pane {
+    background-color: white;
+}
+
+ReposTab QLineEdit#repoNameFilter {
+    min-height: 25px;
+    margin: 5px;
+    margin-bottom: 0;
+    padding: 0 5px;
+    border: 1px solid #BCBCBE;
+    border-radius: 3px;
 }

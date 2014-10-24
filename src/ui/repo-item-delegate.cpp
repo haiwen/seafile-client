@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QPixmap>
 #include <QToolTip>
+#include <QSortFilterProxyModel>
 
 #include "utils/utils.h"
 #include "utils/paint-utils.h"
@@ -262,7 +263,9 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     // Paint the expand/collapse indicator
     RepoTreeModel *model = (RepoTreeModel *)item->model();
     RepoTreeView *view = model->treeView();
-    bool expanded = view->isExpanded(model->indexFromItem(item));
+
+    QModelIndex index = ((QSortFilterProxyModel *)view->model())->mapFromSource(model->indexFromItem(item));
+    bool expanded = view->isExpanded(index);
 
     QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
@@ -286,7 +289,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->setPen(QColor(kRepoCategoryColor));
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->rowCount()),
+                      fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->matchedReposCount()),
                                      option.font, category_name_rect.width()));
     painter->restore();
 }
@@ -336,8 +339,9 @@ QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const
     if (!index.isValid()) {
         return NULL;
     }
-    const RepoTreeModel *model = (const RepoTreeModel*)index.model();
-    QStandardItem *item = model->itemFromIndex(index);
+    QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)index.model();
+    RepoTreeModel *tree_model_ = (RepoTreeModel *)(proxy->sourceModel());
+    QStandardItem *item = tree_model_->itemFromIndex(proxy->mapToSource(index));
     if (item->type() != REPO_ITEM_TYPE &&
         item->type() != REPO_CATEGORY_TYPE) {
         return NULL;

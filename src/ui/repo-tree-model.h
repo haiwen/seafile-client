@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QStandardItemModel>
+#include <QSortFilterProxyModel>
 class QModelIndex;
 
 class ServerRepo;
@@ -41,6 +42,7 @@ public:
     RepoTreeView* treeView() { return tree_view_; }
 
     void updateRepoItemAfterSyncNow(const QString& repo_id);
+    void onFilterTextChanged(const QString& text);
 
 private slots:
     void refreshLocalRepos();
@@ -69,7 +71,24 @@ private:
     QTimer *refresh_local_timer_;
 
     RepoTreeView *tree_view_;
+};
 
+/**
+ * This model is used to implement (only show repos filtered by user typed text)
+ */
+class RepoFilterProxyModel : public QSortFilterProxyModel {
+    Q_OBJECT
+public:
+    RepoFilterProxyModel(QObject* parent=0);
+
+    void setFilterText(const QString& text);
+    bool filterAcceptsRow(int source_row,
+                          const QModelIndex & source_parent) const;
+    bool lessThan(const QModelIndex &left,
+                  const QModelIndex &right) const;
+    Qt::ItemFlags flags(const QModelIndex& index) const;
+private:
+    bool has_filter_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_MODEL_H

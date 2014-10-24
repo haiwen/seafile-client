@@ -1,6 +1,8 @@
 #include <QtGui>
 #include <QTimer>
 #include <QStackedWidget>
+#include <QSortFilterProxyModel>
+#include <QLineEdit>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -34,6 +36,14 @@ ReposTab::ReposTab(QWidget *parent)
     createLoadingView();
     createLoadingFailedView();
 
+    filter_text_ = new QLineEdit;
+    filter_text_->setPlaceholderText(tr("Search libraries..."));
+    filter_text_->setObjectName("repoNameFilter");
+    connect(filter_text_, SIGNAL(textChanged(const QString&)),
+            this, SLOT(onFilterTextChanged(const QString&)));
+    QVBoxLayout *vlayout = (QVBoxLayout *)layout();
+    vlayout->insertWidget(0, filter_text_);
+
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
@@ -54,7 +64,11 @@ void ReposTab::createRepoTree()
     repos_model_ = new RepoTreeModel;
     repos_model_->setTreeView(repos_tree_);
 
-    repos_tree_->setModel(repos_model_);
+    filter_model_ = new RepoFilterProxyModel(this);
+    filter_model_->setSourceModel(repos_model_);
+    filter_model_->setDynamicSortFilter(true);
+    filter_model_->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    repos_tree_->setModel(filter_model_);
     repos_tree_->setItemDelegate(new RepoItemDelegate);
 }
 
@@ -87,7 +101,8 @@ void ReposTab::createLoadingFailedView()
 void ReposTab::refreshRepos(const std::vector<ServerRepo>& repos)
 {
     repos_model_->setRepos(repos);
-
+    onFilterTextChanged(filter_text_->text());
+    filter_text_->setVisible(true);
     mStack->setCurrentIndex(INDEX_REPOS_VIEW);
 }
 
@@ -107,11 +122,13 @@ std::vector<QAction*> ReposTab::getToolBarActions()
 
 void ReposTab::showLoadingView()
 {
+    filter_text_->setVisible(false);
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
 }
 
 void ReposTab::refresh()
 {
+    filter_text_->clear();
     showLoadingView();
     RepoService::instance()->refresh(true);
 }
@@ -124,4 +141,17 @@ void ReposTab::startRefresh()
 void ReposTab::stopRefresh()
 {
     RepoService::instance()->stop();
+}
+
+void ReposTab::onFilterTextChanged(const QString& text)
+{
+    repos_model_->onFilterTextChanged(text);
+    filter_model_->setFilterText(text.trimmed());
+    filter_model_->sort(0);
+    if (text.isEmpty()) {
+        repos_tree_->collapseAll();
+        return;
+    }
+
+    repos_tree_->expandAll();
 }

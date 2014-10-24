@@ -30,6 +30,12 @@ public:
     const LocalRepo& localRepo() const { return local_repo_; }
 
     /**
+     * Although we don't use this in our custom delegate, we need to
+     * implemented it for our proxy filter model.
+     */
+    QVariant data(int role=Qt::UserRole + 1) const;
+
+    /**
      * Every time the item is painted, we record the metrics of each part of
      * the item on the screen. So later we the mouse click/hover the item, we
      * can decide which part is hovered, and to do corresponding actions.
@@ -69,14 +75,9 @@ private:
 class RepoCategoryItem: public QStandardItem {
 public:
     /**
-     * Create a non-group category
-     */
-    RepoCategoryItem(const QString& name);
-
-    /**
      * Create a group category
      */
-    RepoCategoryItem(const QString& name, int group_id);
+    RepoCategoryItem(int cat_index, const QString& name, int group_id=-1);
 
     virtual int type() const { return REPO_CATEGORY_TYPE; }
 
@@ -87,9 +88,32 @@ public:
 
     int groupId() const { return group_id_; }
 
+    /**
+     * Although we don't use this in our custom delegate, we need to
+     * implemented it for our proxy filter model.
+     */
+    QVariant data(int role=Qt::UserRole + 1) const;
+
+    int categoryIndex() const { return cat_index_; }
+
+    /**
+     * Return the number of matched repos when the user types filter text
+     */
+    int matchedReposCount() const {
+        return matched_repos_ >= 0
+            ? matched_repos_
+            : rowCount();
+    }
+
+    void resetMatchedRepoCount() { matched_repos_ = 0; };
+    void setMatchedReposCount(int n) { matched_repos_ = n; };
+    void increaseMatchedRepoCount() { matched_repos_++; };
+
 private:
     QString name_;
     int group_id_;
+    int matched_repos_;
+    int cat_index_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_ITEM_H

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="zh_CN">
 <context>
     <name>AccountManager</name>
     <message>
@@ -15,28 +17,28 @@
         <translation>帐户设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-settings-dialog.cpp" line="43"/>
+        <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>Please enter the server address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-settings-dialog.cpp" line="47"/>
-        <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
+        <location filename="../src/ui/account-settings-dialog.cpp" line="57"/>
+        <location filename="../src/ui/account-settings-dialog.cpp" line="63"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 不是合法的服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-settings-dialog.cpp" line="73"/>
+        <location filename="../src/ui/account-settings-dialog.cpp" line="83"/>
         <source>Failed to save account information</source>
         <translation>保存帐户信息失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-settings-dialog.cpp" line="79"/>
+        <location filename="../src/ui/account-settings-dialog.cpp" line="89"/>
         <source>Failed to save the changes: %1</source>
         <translation>保存修改失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-settings-dialog.cpp" line="84"/>
+        <location filename="../src/ui/account-settings-dialog.cpp" line="94"/>
         <source>Successfully updated current account information</source>
         <translation>成功更新当前帐户设置</translation>
     </message>
@@ -134,7 +136,7 @@
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="149"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation>文件活动功能仅在 Seafile 专业版中提供</translation>
+        <translation>文件活动功能仅在 Seafile 专业版中提供。</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="151"/>
@@ -511,45 +513,43 @@
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="109"/>
         <source>ccnet daemon has exited abnormally</source>
-        <translation>ccnet 子进程异常结束</translation>
+        <translation type="obsolete">ccnet 子进程异常结束</translation>
     </message>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="116"/>
         <source>seafile daemon has exited abnormally</source>
-        <translation>seafile 子进程异常结束</translation>
+        <translation type="obsolete">seafile 子进程异常结束</translation>
     </message>
 </context>
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="35"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="32"/>
         <source>Choose a folder</source>
         <translation>选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="92"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="89"/>
         <source>Create a new sync folder at:</source>
         <translation>创建一个新的同步文件夹于：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="132"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="129"/>
         <source>Please choose a directory</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="160"/>
         <source>Please choose the folder to sync</source>
         <translation>请选择要同步的文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="170"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="167"/>
         <source>The folder does not exist</source>
         <translation>该文件夹不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="178"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="175"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
@@ -559,33 +559,33 @@
         <translation>同步资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="87"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="84"/>
         <source>or</source>
         <translation>或者</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="89"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="86"/>
         <source>sync with an existing folder</source>
         <translation>和一个已有文件夹同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="99"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="96"/>
         <source>create a new sync folder</source>
         <translation>创建一个新的同步文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="102"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="99"/>
         <source>Sync with this existing folder:</source>
         <translation>与这个已有文件夹同步：</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="225"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="222"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="236"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="233"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -840,81 +840,81 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="21"/>
+        <location filename="../src/ui/login-dialog.cpp" line="22"/>
         <location filename="../ui_login-dialog.h" line="257"/>
         <source>Add an account</source>
         <translation>添加帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="49"/>
+        <location filename="../src/ui/login-dialog.cpp" line="50"/>
         <source>Logging in...</source>
         <translation>登录中...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="87"/>
+        <location filename="../src/ui/login-dialog.cpp" line="88"/>
         <source>Network Error:
  %1</source>
         <translation>网络错误：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="95"/>
+        <location filename="../src/ui/login-dialog.cpp" line="100"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="112"/>
+        <location filename="../src/ui/login-dialog.cpp" line="114"/>
         <source>Please enter the server address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="116"/>
-        <location filename="../src/ui/login-dialog.cpp" line="122"/>
+        <location filename="../src/ui/login-dialog.cpp" line="118"/>
+        <location filename="../src/ui/login-dialog.cpp" line="124"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 不是合法的服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="129"/>
+        <location filename="../src/ui/login-dialog.cpp" line="131"/>
         <source>Please enter the username</source>
         <translation>请输入邮箱</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="140"/>
+        <location filename="../src/ui/login-dialog.cpp" line="142"/>
         <source>Please enter the computer name</source>
         <translation>请填写计算机名</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="157"/>
+        <location filename="../src/ui/login-dialog.cpp" line="159"/>
         <source>Failed to save current account</source>
         <translation>保存帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="134"/>
+        <location filename="../src/ui/login-dialog.cpp" line="136"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="184"/>
+        <location filename="../src/ui/login-dialog.cpp" line="186"/>
         <source>Incorrect email or password</source>
         <translation>错误的邮箱或密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="186"/>
+        <location filename="../src/ui/login-dialog.cpp" line="188"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>登录过于频繁，请稍后再试</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="188"/>
+        <location filename="../src/ui/login-dialog.cpp" line="190"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="192"/>
+        <location filename="../src/ui/login-dialog.cpp" line="194"/>
         <source>Failed to login: %1</source>
         <translation>登录失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="194"/>
+        <location filename="../src/ui/login-dialog.cpp" line="196"/>
         <source>Failed to login</source>
         <translation>登录失败</translation>
     </message>
@@ -1184,7 +1184,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Your %1 client is too old</source>
-        <translation>你的 % 客户端版本太低</translation>
+        <translation>你的 %1 客户端版本太低</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
@@ -1293,44 +1293,49 @@ The library owner&apos;s storage space is used up.</source>
         <translation>内部错误。</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="340"/>
-        <location filename="../src/utils/utils.cpp" line="368"/>
-        <location filename="../src/utils/utils.cpp" line="371"/>
+        <location filename="../src/utils/utils.cpp" line="352"/>
+        <location filename="../src/utils/utils.cpp" line="380"/>
+        <location filename="../src/utils/utils.cpp" line="383"/>
         <source>Just now</source>
         <translation>刚才</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="356"/>
+        <location filename="../src/utils/utils.cpp" line="368"/>
         <source>1 day ago</source>
         <translation>1 天前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="356"/>
+        <location filename="../src/utils/utils.cpp" line="368"/>
         <source>%1 days ago</source>
         <translation>%1 天前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="360"/>
+        <location filename="../src/utils/utils.cpp" line="372"/>
         <source>1 hour ago</source>
         <translation>1 小时前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="360"/>
+        <location filename="../src/utils/utils.cpp" line="372"/>
         <source>%1 hours ago</source>
         <translation>%1 小时前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="364"/>
+        <location filename="../src/utils/utils.cpp" line="376"/>
         <source>1 minute ago</source>
         <translation>1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="364"/>
+        <location filename="../src/utils/utils.cpp" line="376"/>
         <source>%1 minutes ago</source>
         <translation>%1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="131"/>
+        <location filename="../src/utils/utils.cpp" line="459"/>
+        <source>&lt;Not Part of Certificate&gt;</source>
+        <translation>&lt;不包含这部分信息&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="125"/>
         <source>%1 is already running</source>
         <translation>%1 已经在运行中</translation>
     </message>
@@ -1455,12 +1460,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 找不到合适的程序来打开文件 %2</translation>
     </message>
     <message>
-        <location filename="../src/api/event.cpp" line="40"/>
+        <location filename="../src/api/event.cpp" line="50"/>
         <source>Created library &quot;%1&quot;</source>
-        <translation>创建了资料库 &quot;%2&quot;</translation>
+        <translation>创建了资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/api/event.cpp" line="42"/>
+        <location filename="../src/api/event.cpp" line="52"/>
         <source>Deleted library &quot;%1&quot;</source>
         <translation>删除了资料库 &quot;%1&quot;</translation>
     </message>
@@ -1560,7 +1565,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="366"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="367"/>
         <source>This library has not been downloaded</source>
         <translation>这个资料库还没有下载</translation>
     </message>
@@ -1568,7 +1573,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="135"/>
+        <location filename="../src/repo-service.cpp" line="140"/>
         <source>The library of this file is not synced yet. Do you want to sync it now?</source>
         <translation>这个文件所在的资料库还没有同步。现在同步它吗？</translation>
     </message>
@@ -1702,14 +1707,14 @@ The library owner&apos;s storage space is used up.</source>
         <translation>解除同步资料库 &quot;%1&quot; 失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="485"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="482"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="489"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="486"/>
         <source>The download has been canceled</source>
         <translation>下载已取消</translation>
     </message>
@@ -1730,7 +1735,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="98"/>
+        <location filename="../src/api/api-client.cpp" line="111"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
@@ -1743,7 +1748,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>初始化日志失败</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="314"/>
+        <location filename="../src/seafile-applet.cpp" line="330"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -1779,88 +1784,100 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="94"/>
+        <location filename="../src/ui/tray-icon.cpp" line="95"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
+        <location filename="../src/ui/tray-icon.cpp" line="98"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>View unread notifications</source>
         <translation>查看未读通知</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="104"/>
+        <location filename="../src/ui/tray-icon.cpp" line="105"/>
         <source>&amp;Quit</source>
         <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
-        <location filename="../src/ui/tray-icon.cpp" line="154"/>
+        <location filename="../src/ui/tray-icon.cpp" line="108"/>
+        <location filename="../src/ui/tray-icon.cpp" line="160"/>
         <source>Show main window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="110"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="113"/>
+        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <source>Open &amp;logs folder</source>
+        <translation>打开日志文件夹(&amp;L)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="115"/>
+        <source>open seafile log directory</source>
+        <translation>打开 seafile 日志文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <location filename="../src/ui/tray-icon.cpp" line="119"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="117"/>
+        <location filename="../src/ui/tray-icon.cpp" line="122"/>
         <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="118"/>
+        <location filename="../src/ui/tray-icon.cpp" line="123"/>
         <source>open seafile online help</source>
         <translation>打开 Seafile 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="124"/>
+        <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="156"/>
+        <location filename="../src/ui/tray-icon.cpp" line="162"/>
         <source>Hide main window</source>
         <translation>关闭主窗口</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="392"/>
+        <location filename="../src/ui/tray-icon.cpp" line="404"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
+        <translation>
+            <numerusform>你有 %n 条未读消息</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="398"/>
+        <location filename="../src/ui/tray-icon.cpp" line="410"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="320"/>
+        <location filename="../src/ui/tray-icon.cpp" line="326"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="321"/>
+        <location filename="../src/ui/tray-icon.cpp" line="327"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="404"/>
+        <location filename="../src/ui/tray-icon.cpp" line="416"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -1944,77 +1961,91 @@ Do you want to visit the download page?</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="192"/>
+        <location filename="../ui_settings-dialog.h" line="205"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="193"/>
+        <location filename="../ui_settings-dialog.h" line="206"/>
         <source>Hide main window when started</source>
         <translation>启动时隐藏主窗口</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="194"/>
+        <location filename="../ui_settings-dialog.h" line="207"/>
         <source>Notify when libraries are synchronized</source>
         <translation>资料库同步后用气泡通知</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="195"/>
         <source>Auto start Seafile after login (Windows only)</source>
-        <translation>开机自动启动 Seafile（仅对 Windows 有效）</translation>
+        <translation type="obsolete">开机自动启动 Seafile（仅对 Windows 有效）</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="196"/>
+        <location filename="../ui_settings-dialog.h" line="208"/>
+        <source>Enable sync temporary files of MSOffice/Libreoffice</source>
+        <translation>允许同步 office 临时文件</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="209"/>
+        <source>Auto start Seafile after login</source>
+        <translation>开机自动启动 Seafile</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="210"/>
+        <source>Hide Seafile Icon from the docker</source>
+        <translation>不要在 docker 中显示 seafile 图标</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="211"/>
         <source>Check for new version on startup</source>
         <translation>程序启动时检查最新版本</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="197"/>
+        <location filename="../ui_settings-dialog.h" line="212"/>
         <source>Download speed limit (KB/s):</source>
         <translation>最大下载速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="198"/>
+        <location filename="../ui_settings-dialog.h" line="213"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>最大上传速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="199"/>
+        <location filename="../ui_settings-dialog.h" line="214"/>
         <source>Basic</source>
         <translation>基本</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="200"/>
+        <location filename="../ui_settings-dialog.h" line="215"/>
         <source>Do not automatically unsync a library</source>
         <translation>不自动解除资料库同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="201"/>
+        <location filename="../ui_settings-dialog.h" line="216"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>当资料库的本地文件夹被移除或无法访问时不自动解除同步。</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="202"/>
+        <location filename="../ui_settings-dialog.h" line="217"/>
         <source>Do not unsync a library when not found on server</source>
         <translation>当在服务器找不到某个资料库的信息时不要自动解除同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="203"/>
+        <location filename="../ui_settings-dialog.h" line="218"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation>当在服务器找不到某个资料库的信息时不要自动解除同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="204"/>
+        <location filename="../ui_settings-dialog.h" line="219"/>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="205"/>
+        <location filename="../ui_settings-dialog.h" line="220"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="206"/>
+        <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -2022,14 +2053,24 @@ Do you want to visit the download page?</source>
 <context>
     <name>SslConfirmDialog</name>
     <message>
-        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="11"/>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
         <source>Untrusted Connection</source>
         <translation>不安全的连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="14"/>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="16"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
         <translation>%1 使用了不合法的安全证书，该网络连接可能不安全。是否继续？</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
+        <source>Current RSA key fingerprint is %1</source>
+        <translation>当前 RSA 密钥指纹是 %1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
+        <source>Previous RSA key fingerprint is %1</source>
+        <translation>过去的 RSA 密钥指纹是 %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
@@ -2078,19 +2119,19 @@ Do you want to visit the download page?</source>
 <context>
     <name>StarredFilesTab</name>
     <message>
-        <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
+        <location filename="../src/ui/starred-files-tab.cpp" line="78"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/ui/starred-files-tab.cpp" line="80"/>
+        <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
         <translation>获取星标文件信息失败。&lt;br/&gt;请 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/starred-files-tab.cpp" line="101"/>
+        <location filename="../src/ui/starred-files-tab.cpp" line="100"/>
         <source>You have no starred files yet.</source>
-        <translation>你还没有星标文件</translation>
+        <translation>你还没有星标文件。</translation>
     </message>
 </context>
 <context>

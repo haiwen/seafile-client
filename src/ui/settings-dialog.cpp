@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QDebug>
 
 #include "account-mgr.h"
@@ -32,7 +38,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
         mCheckLatestVersionBox->setVisible(false);
     }
 
-    #ifdef Q_WS_MAC
+    #if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
     #endif
@@ -44,6 +50,7 @@ void SettingsDialog::updateSettings()
     mgr->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
     mgr->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
     mgr->setHideDockIcon(mHideDockIconCheckBox->checkState() == Qt::Checked);
+    mgr->setSyncExtraTempFile(mSyncExtraTempFileCheckBox->checkState() == Qt::Checked);
     mgr->setMaxDownloadRatio(mDownloadSpinBox->value());
     mgr->setMaxUploadRatio(mUploadSpinBox->value());
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
@@ -71,11 +78,16 @@ void SettingsDialog::showEvent(QShowEvent *event)
 
     SettingsManager *mgr = seafApplet->settingsManager();
 
+    mgr->loadSettings();
+
     state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
     mHideMainWinCheckBox->setCheckState(state);
 
     state = mgr->allowInvalidWorktree() ? Qt::Checked : Qt::Unchecked;
     mAllowInvalidWorktreeCheckBox->setCheckState(state);
+
+    state = mgr->syncExtraTempFile() ? Qt::Checked : Qt::Unchecked;
+    mSyncExtraTempFileCheckBox->setCheckState(state);
 
     state = mgr->allowRepoNotFoundOnServer() ? Qt::Checked : Qt::Unchecked;
     mAllowRepoNotFoundCheckBox->setCheckState(state);
@@ -83,14 +95,14 @@ void SettingsDialog::showEvent(QShowEvent *event)
     // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
-#if !defined(Q_WS_WIN)
+#if !defined(Q_OS_WIN)
     mAutoStartCheckBox->hide();
 #endif
 
     // currently supports mac only
     state = mgr->hideDockIcon() ? Qt::Checked : Qt::Unchecked;
     mHideDockIconCheckBox->setCheckState(state);
-#if !defined(Q_WS_MAC)
+#if !defined(Q_OS_MAC)
     mHideDockIconCheckBox->hide();
 #endif
 

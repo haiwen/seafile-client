@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -25,8 +31,6 @@
 #include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
 #include "open-local-helper.h"
-#include "repo-service.h"
-#include "events-service.h"
 #include "avatar-service.h"
 #include "seahub-notifications-monitor.h"
 
@@ -34,6 +38,26 @@
 
 namespace {
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    switch (type) {
+    case QtDebugMsg:
+        g_debug("Debug: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtWarningMsg:
+        g_warning("Warning: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        g_critical("Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        g_critical("Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+    }
+}
+#else /* Qt 4.x */
 void myLogHandler(QtMsgType type, const char *msg)
 {
     switch (type) {
@@ -51,6 +75,7 @@ void myLogHandler(QtMsgType type, const char *msg)
         abort();
     }
 }
+#endif /* Qt 4.x */
 
 /**
  * s1 > s2 --> *ret = 1
@@ -130,12 +155,10 @@ void SeafileApplet::start()
 
     certs_mgr_->start();
 
-    RepoService::instance()->start();
-    EventsService::instance()->start();
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
         qDebug("Failed to set CRASH_RPT_PATH env variable.\n");
@@ -155,7 +178,7 @@ void SeafileApplet::onDaemonStarted()
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
 #endif
 
@@ -173,7 +196,7 @@ void SeafileApplet::onDaemonStarted()
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
     configurator_->installCustomUrlHandler();
 #endif
@@ -200,19 +223,18 @@ void SeafileApplet::checkInitVDrive()
     }
 }
 
+// cleanup before exit
 void SeafileApplet::exit(int code)
 {
-    // Must use the global namespace, or the "exit" would call itself util
-    // stack overflow
     daemon_mgr_->stopAll();
     // Remove tray icon from system tray
     delete tray_icon_;
     if (main_win_) {
         main_win_->writeSettings();
     }
-    ::exit(code);
 }
 
+// stop the main event loop and return to the main function
 void SeafileApplet::errorAndExit(const QString& error)
 {
     if (in_exit_) {
@@ -222,7 +244,8 @@ void SeafileApplet::errorAndExit(const QString& error)
     in_exit_ = true;
 
     warningBox(error);
-    this->exit(1);
+    // stop eventloop before exit and return to the main function
+    QCoreApplication::exit(1);
 }
 
 void SeafileApplet::initLog()
@@ -230,7 +253,12 @@ void SeafileApplet::initLog()
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
         errorAndExit(tr("Failed to initialize log"));
     } else {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        qInstallMessageHandler(myLogHandler);
+#else
         qInstallMsgHandler(myLogHandler);
+#endif
+
     }
 }
 
@@ -257,9 +285,9 @@ void SeafileApplet::refreshQss()
     style_.clear();
     loadQss("qt.css") || loadQss(":/qt.css");
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     loadQss("qt-win.css") || loadQss(":/qt-win.css");
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
     loadQss("qt-linux.css") || loadQss(":/qt-linux.css");
 #else
     loadQss("qt-mac.css") || loadQss(":/qt-mac.css");

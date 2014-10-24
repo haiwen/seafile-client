@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QHeaderView>
 #include <QDesktopServices>
 #include <QEvent>
@@ -42,7 +48,7 @@ RepoTreeView::RepoTreeView(QWidget *parent)
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     this->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 }

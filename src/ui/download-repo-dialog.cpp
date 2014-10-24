@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 #include "account-mgr.h"
 #include "utils/utils.h"
@@ -37,10 +43,13 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     } else {
         mPassword->setVisible(false);
         mPasswordLabel->setVisible(false);
+#if defined(Q_OS_MAC)
+        setMaximumSize(QSize(size().width(), 200));
+#endif
     }
 
     int height = 250;
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 5);
     layout()->setSpacing(6);
     verticalLayout_3->setSpacing(6);

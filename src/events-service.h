@@ -18,6 +18,7 @@ public:
     static EventsService* instance();
 
     void start();
+    void stop();
 
     void refresh(bool force);
 

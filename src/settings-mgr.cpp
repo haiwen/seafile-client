@@ -6,7 +6,7 @@
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #include "utils/registry.h"
 #endif
 
@@ -34,7 +34,8 @@ SettingsManager::SettingsManager()
       allow_invalid_worktree_(false),
       allow_repo_not_found_on_server_(false),
       maxDownloadRatio_(0),
-      maxUploadRatio_(0)
+      maxUploadRatio_(0),
+      sync_extra_temp_file_(false)
 {
 }
 
@@ -57,6 +58,9 @@ void SettingsManager::loadSettings()
 
     if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree", &str) >= 0)
         allow_invalid_worktree_ = (str == "true") ? true : false;
+
+    if (seafApplet->rpcClient()->seafileGetConfig("sync_extra_temp_file", &str) >= 0)
+        sync_extra_temp_file_ = (str == "true") ? true : false;
 
     if (seafApplet->rpcClient()->seafileGetConfig("allow_repo_not_found_on_server", &str) >= 0)
         allow_repo_not_found_on_server_ = (str == "true") ? true : false;
@@ -155,23 +159,23 @@ void SettingsManager::setHideMainWindowWhenStarted(bool hide)
 bool SettingsManager::hideDockIcon()
 {
     QSettings settings;
-    bool hideDockIcon;
+    bool hide;
 
     settings.beginGroup(kBehaviorGroup);
-    hideDockIcon = settings.value(kHideDockIcon, false).toBool();
+    hide = settings.value(kHideDockIcon, false).toBool();
     settings.endGroup();
-    return hideDockIcon;
+    return hide;
 }
 
-void SettingsManager::setHideDockIcon(bool hideDockIcon)
+void SettingsManager::setHideDockIcon(bool hide)
 {
     QSettings settings;
 
     settings.beginGroup(kBehaviorGroup);
-    settings.setValue(kHideDockIcon, hideDockIcon);
+    settings.setValue(kHideDockIcon, hide);
     settings.endGroup();
 
-    set_seafile_dock_icon_style(hideDockIcon);
+    set_seafile_dock_icon_style(hide);
 }
 
 // void SettingsManager::setDefaultLibraryAlreadySetup()
@@ -201,7 +205,7 @@ void SettingsManager::removeAllSettings()
     QSettings settings;
     settings.clear();
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", getBrand());
 #endif
 }
@@ -242,6 +246,19 @@ void SettingsManager::setAllowInvalidWorktree(bool val)
             return;
         }
         allow_invalid_worktree_ = val;
+    }
+}
+
+void SettingsManager::setSyncExtraTempFile(bool sync)
+{
+    if (sync_extra_temp_file_ != sync) {
+        if (seafApplet->rpcClient()->seafileSetConfig(
+                "sync_extra_temp_file",
+                sync ? "true" : "false") < 0) {
+            // Error
+            return;
+        }
+        sync_extra_temp_file_ = sync;
     }
 }
 

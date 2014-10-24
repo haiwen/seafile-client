@@ -42,7 +42,7 @@ const int kRepoCategoryIndicatorHeight = 16;
 const int kMarginBetweenIndicatorAndName = 5;
 
 const int kMarginBetweenRepoIconAndName = 10;
-const int kMarginBetweenRepoNameAndStatus = 5;
+const int kMarginBetweenRepoNameAndStatus = 10;
 
 const char *kRepoNameColor = "#3F3F3F";
 const char *kRepoNameColorHighlighted = "#544D49";
@@ -171,17 +171,20 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo name
     painter->save();
     QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidth + kMarginBetweenRepoIconAndName, 0);
-    QRect repo_name_rect(repo_name_pos, QSize(kRepoNameWidth, kRepoNameHeight));
+    int repo_name_width = option.rect.width() - kRepoIconWidth - kMarginBetweenRepoIconAndName
+        - kRepoStatusIconWidth  - kMarginBetweenRepoNameAndStatus
+        - kPadding * 2 - kMarginLeft - kMarginRight;
+    QRect repo_name_rect(repo_name_pos, QSize(repo_name_width, kRepoNameHeight));
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
     painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
     painter->drawText(repo_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(repo.name, option.font, kRepoNameWidth),
+                      fitTextToWidth(repo.name, option.font, repo_name_width),
                       &repo_name_rect);
 
     // Paint repo description
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
-    QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
+    QRect repo_desc_rect(repo_desc_pos, QSize(repo_name_width, kRepoNameHeight));
     painter->setFont(changeFontSize(painter->font(), kTimestampFontSize));
     painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
 
@@ -210,7 +213,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(description, option.font, kRepoNameWidth),
+                      fitTextToWidth(description, option.font, repo_name_width),
                       &repo_desc_rect);
     painter->restore();
 

@@ -39,6 +39,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mSyncExtraTempFileCheckBox">
+         <property name="text">
+          <string>Enable sync temporary files of MSOffice/Libreoffice</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="mAutoStartCheckBox">
          <property name="text">
           <string>Auto start Seafile after login</string>

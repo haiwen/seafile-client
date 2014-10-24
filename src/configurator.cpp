@@ -9,8 +9,9 @@
 
 #include "seafile-applet.h"
 #include "ccnet-init.h"
+#include "ui/init-seafile-dialog.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #include "utils/registry.h"
 #include <shlobj.h>
 #include <shlwapi.h>
@@ -21,7 +22,7 @@
 
 namespace {
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 
 const char *kCcnetConfDir = "ccnet";
 const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
@@ -90,20 +91,20 @@ void Configurator::initCcnet()
 
 void Configurator::initSeafile()
 {
+    InitSeafileDialog dialog;
+    connect(&dialog, SIGNAL(seafileDirSet(const QString&)),
+            this, SLOT(onSeafileDirSet(const QString&)));
+
+    if (dialog.exec() != QDialog::Accepted) {
+        QCoreApplication::exit(1);
+        return;
+    }
+
     first_use_ = true;
+}
 
-    QString relative_path;
-#if defined(Q_WS_WIN)
-    relative_path = "Seafile/seafile-data";
-#else
-    relative_path = "Seafile/.seafile-data";
-#endif
-
-    // Create seafile-data dir
-    QDir dir(QDir::homePath());
-    dir.mkpath(relative_path);
-    seafile_dir_ = dir.filePath(relative_path);
-
+void Configurator::onSeafileDirSet(const QString& path)
+{
     // Write seafile dir to <ccnet dir>/seafile.ini
     QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
 
@@ -111,9 +112,11 @@ void Configurator::initSeafile()
         return;
     }
 
-    seafile_ini.write(seafile_dir_.toUtf8().data());
+    seafile_ini.write(path.toUtf8().data());
 
-    QDir d(seafile_dir_);
+    seafile_dir_ = path;
+
+    QDir d(path);
 
     d.cdUp();
     worktree_ = d.absolutePath();
@@ -123,7 +126,7 @@ void Configurator::initSeafile()
 
 void Configurator::setSeafileDirAttributes()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     std::wstring seafdir = seafile_dir_.toStdWString();
 
     // Make seafile-data folder hidden
@@ -166,7 +169,7 @@ void Configurator::validateExistingConfig()
     }
 
     QDir d(seafile_dir_);
-#ifndef Q_WS_WIN
+#if !defined(Q_OS_WIN)
     QString old_client_wt = d.filePath("../seafile/");
     if (QFile(old_client_wt).exists()) {
         // old client
@@ -212,7 +215,7 @@ int Configurator::readSeafileIni(QString *content)
 int Configurator::setVirtualDrive(const QString& path, const QString& name)
 {
     printf ("Configurator::setVirtualDrive is called\n");
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     QString clsid_path = QString("Software\\Classes\\CLSID\\{%1}").arg(kVirtualDriveGUID);
 
     QList<RegElement> list;
@@ -284,7 +287,7 @@ int Configurator::setVirtualDrive(const QString& path, const QString& name)
 
 void Configurator::removeVirtualDrive()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     HKEY root = HKEY_CURRENT_USER;
     QString parent, subkey;
 
@@ -300,7 +303,7 @@ void Configurator::removeVirtualDrive()
 
 void Configurator::installCustomUrlHandler()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     QList<RegElement> list;
     HKEY root = HKEY_CURRENT_USER;
 
@@ -330,3 +333,4 @@ void Configurator::installCustomUrlHandler()
     }
 #endif
 }
+

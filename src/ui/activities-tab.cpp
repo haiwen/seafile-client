@@ -1,5 +1,11 @@
 #include <cstdio>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QIcon>
 #include <QStackedWidget>
 #include <QModelIndex>
@@ -156,4 +162,14 @@ void ActivitiesTab::refreshFailed(const ApiError& error)
     loading_failed_text_->setText(text);
 
     mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+}
+
+void ActivitiesTab::startRefresh()
+{
+    EventsService::instance()->start();
+}
+
+void ActivitiesTab::stopRefresh()
+{
+    EventsService::instance()->stop();
 }

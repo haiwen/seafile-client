@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 #include <QStackedWidget>
 
@@ -114,4 +120,14 @@ void ReposTab::refresh()
 {
     showLoadingView();
     RepoService::instance()->refresh(true);
+}
+
+void ReposTab::startRefresh()
+{
+    RepoService::instance()->start();
+}
+
+void ReposTab::stopRefresh()
+{
+    RepoService::instance()->stop();
 }

@@ -20,8 +20,8 @@ public:
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-                                                                                 
-    CloneTask taskAt(int i) const { return (i >= tasks_.size()) ? CloneTask() : tasks_[i]; }
+
+    CloneTask taskAt(size_t i) const { return (i >= tasks_.size()) ? CloneTask() : tasks_[i]; }
 
 public slots:
     void clearSuccessfulTasks();

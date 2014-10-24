@@ -1,9 +1,12 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
 
 PROJECT(seafile-client)
-SET(PROJECT_VERSION "3.1.5")
+SET(PROJECT_VERSION "3.1.7")
 ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 INCLUDE(FindPkgConfig)
+
+OPTION(USE_QT5
+  "Build seafile-client against Qt5 instead" ON)
 
 IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)
@@ -21,7 +24,7 @@ IF (WIN32)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)
     ENDIF()
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
     INCLUDE_DIRECTORIES(${QT_QTDBUS_INCLUDE_DIR})
     LINK_DIRECTORIES(${QT_QTDBUS_LIBRARIES})
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${QT_QTDBUS_LIBRARIES})
@@ -42,13 +45,27 @@ endif()
 ####################
 ###### BEGIN: QT configuration
 ####################
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-  SET(QtDBus "QtDBus")
+IF(USE_QT5)
+    SET(QT_VERSION_MAJOR 5)
+ELSE()
+    SET(QT_VERSION_MAJOR 4)
 ENDIF()
 
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork QtWebkit ${QtDBus})
-
-INCLUDE(${QT_USE_FILE})
+IF(USE_QT5)
+    FIND_PACKAGE(Qt5Widgets REQUIRED)
+    FIND_PACKAGE(Qt5Core REQUIRED)
+    FIND_PACKAGE(Qt5LinguistTools REQUIRED)
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        FIND_PACKAGE(Qt5DBus REQUIRED)
+    ENDIF()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+ELSE()
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        SET(QtDBus "QtDBus")
+    ENDIF()
+    FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus})
+    INCLUDE(${QT_USE_FILE})
+ENDIF()
 
 
 # MOC FILES
@@ -138,13 +155,25 @@ SET(qrc_files
 )
 
 # preprocess ui files
-QT4_WRAP_UI(ui_output ${ui_files})
+IF(USE_QT5)
+  QT5_WRAP_UI(ui_output ${ui_files})
+ELSE()
+  QT4_WRAP_UI(ui_output ${ui_files})
+ENDIF()
 
 # meta object compliation(moc)
-QT4_WRAP_CPP(moc_output ${moc_headers})
+IF(USE_QT5)
+  QT5_WRAP_CPP(moc_output ${moc_headers})
+ELSE()
+  QT4_WRAP_CPP(moc_output ${moc_headers})
+ENDIF()
 
 # resources files
-QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
+IF(USE_QT5)
+  QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
+ELSE()
+  QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
+ENDIF()
 
 # MESSAGE("moc output: ${moc_output}")
 # MESSAGE("ui output: ${ui_output}")
@@ -259,7 +288,7 @@ INCLUDE_DIRECTORIES(
   ${PROJECT_SOURCE_DIR}/third_party/QtAwesome
   ${QT_INCLUDE_DIR}
   ${QT_QTNETWORK_INCLUDE_DIR}
-  ${OPEN_SSL_INCLUDE_DIRS}
+  ${OPENSSL_INCLUDE_DIRS}
   ${SQLITE3_INCLUDE_DIRS}
   ${JANSSON_INCLUDE_DIRS}
   ${LIBSEARPC_INCLUDE_DIRS}
@@ -323,7 +352,11 @@ ENDFOREACH(LANGUAGE ${LANGUAGES})
 
 ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
-QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+IF(USE_QT5)
+  QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+ELSE()
+  QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+ENDIF()
 
 ####################
 ###### end: translations
@@ -385,12 +418,19 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+IF(USE_QT5)
+  QT5_USE_MODULES(seafile-applet Widgets Core Network)
+ENDIF(USE_QT5)
+
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   TARGET_LINK_LIBRARIES(seafile-applet
     ${QT_QTDBUS_LIBRARIES}
   )
-ENDIF()
 
+  IF(USE_QT5)
+    QT5_USE_MODULES(seafile-applet DBus)
+  ENDIF(USE_QT5)
+ENDIF()
 
 set(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
 add_custom_target(dist

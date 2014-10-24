@@ -18,6 +18,7 @@ public:
     static RepoService *instance();
 
     void start();
+    void stop();
 
     const std::vector<ServerRepo>& serverRepos() const { return server_repos_; }
 

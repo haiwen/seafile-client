@@ -356,6 +356,11 @@ install(FILES
   DESTINATION share/pixmaps
 )
 
+install(FILES
+  ${CMAKE_SOURCE_DIR}/doc/seafile-applet.1
+  DESTINATION share/man1
+)
+
 endif()
 
 ####################

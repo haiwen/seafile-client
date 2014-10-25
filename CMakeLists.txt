@@ -317,6 +317,7 @@ SET(LANGUAGES
   sk_SK
   uk
   zh_CN
+  zh_TW
   )
 
 SET(LANGUAGE_TS_FILES)

@@ -7,10 +7,15 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTemporaryFile>
+#include <QSslError>
+#include <QSslConfiguration>
+#include <QSslCertificate>
+
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seafile-applet.h"
+#include "certs-mgr.h"
 #include "api/api-error.h"
 #include "configurator.h"
 #include "file-browser-requests.h"
@@ -197,9 +202,13 @@ void FileServerTask::onSslErrors(const QList<QSslError>& errors)
     if (canceled_) {
         return;
     }
-    reply_->ignoreSslErrors();
-    // TODO: handle ssl errors
-    // emit finished(false);
+    QUrl url = reply_->url();
+    QSslCertificate cert = reply_->sslConfiguration().peerCertificate();
+    CertsManager *mgr = seafApplet->certsManager();
+    if (!cert.isNull() && cert == mgr->getCertificate(url.toString())) {
+        reply_->ignoreSslErrors();
+        return;
+    }
 }
 
 void FileServerTask::start()

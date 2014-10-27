@@ -39,6 +39,9 @@ ReposTab::ReposTab(QWidget *parent)
     filter_text_ = new QLineEdit;
     filter_text_->setPlaceholderText(tr("Search libraries..."));
     filter_text_->setObjectName("repoNameFilter");
+#ifdef Q_WS_MAC
+    filter_text_->setAttribute(Qt::WA_MacShowFocusRect, 0);
+#endif
     connect(filter_text_, SIGNAL(textChanged(const QString&)),
             this, SLOT(onFilterTextChanged(const QString&)));
     QVBoxLayout *vlayout = (QVBoxLayout *)layout();

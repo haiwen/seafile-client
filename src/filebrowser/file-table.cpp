@@ -110,8 +110,15 @@ void FileTableView::dragEnterEvent(QDragEnterEvent *event)
         event->accept();
 }
 
+void FileTableView::resizeEvent(QResizeEvent *event)
+{
+    QTableView::resizeEvent(event);
+    static_cast<FileTableModel*>(model())->onResize(event->size());
+}
+
 FileTableModel::FileTableModel(QObject *parent)
-    : QAbstractTableModel(parent)
+    : QAbstractTableModel(parent),
+    name_column_width_(kFileNameColumnWidth)
 {
 }
 
@@ -161,7 +168,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
           qsize.setWidth(kColumnIconSize + kColumnIconAlign);
           break;
         case FILE_COLUMN_NAME:
-          qsize.setWidth(kFileNameColumnWidth);
+          qsize.setWidth(name_column_width_);
           break;
         case FILE_COLUMN_SIZE:
           break;
@@ -238,4 +245,12 @@ const SeafDirent FileTableModel::direntAt(int index) const
     }
 
     return dirents_[index];
+}
+
+void FileTableModel::onResize(const QSize &size)
+{
+    name_column_width_ = size.width() - kDefaultColumnSum;
+    // name_column_width_ should be always larger than kFileNameColumnWidth
+    emit dataChanged(index(0, FILE_COLUMN_NAME),
+                     index(dirents_.size()-1 , FILE_COLUMN_NAME));
 }

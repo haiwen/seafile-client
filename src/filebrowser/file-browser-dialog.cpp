@@ -76,7 +76,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
 
-    fetchDirents();
+    QTimer::singleShot(0, this, SLOT(fetchDirents()));
 }
 
 FileBrowserDialog::~FileBrowserDialog()
@@ -191,6 +191,7 @@ void FileBrowserDialog::fetchDirents(bool force_refresh)
     if (repo_.encrypted && !data_mgr_->isRepoPasswordSet(repo_.id)) {
         SetRepoPasswordDialog password_dialog(repo_, this);
         if (password_dialog.exec() != QDialog::Accepted) {
+            reject();
             return;
         } else {
             data_mgr_->setRepoPasswordSet(repo_.id);

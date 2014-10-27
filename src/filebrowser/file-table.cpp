@@ -85,9 +85,9 @@ void FileTableView::dropEvent(QDropEvent *event)
     if(QFileInfo(file_name).isDir())
         return;
 
-    emit dropFile(file_name);
-
     event->accept();
+
+    emit dropFile(file_name);
 }
 
 void FileTableView::dragMoveEvent(QDragMoveEvent *event)

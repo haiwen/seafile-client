@@ -27,6 +27,7 @@ private:
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
     Q_DISABLE_COPY(FileTableView)
 
@@ -49,10 +50,14 @@ public:
 
     const SeafDirent direntAt(int index) const;
 
+    void onResize(const QSize &size);
+
 private:
     Q_DISABLE_COPY(FileTableModel)
 
     QList<SeafDirent> dirents_;
+
+    int name_column_width_;
 };
 
 

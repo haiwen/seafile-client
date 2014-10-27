@@ -260,7 +260,7 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="131"/>
         <source>Starred</source>
-        <translation>Oznaczone gwiazdką</translation>
+        <translation>Ulubione</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="146"/>
@@ -373,17 +373,17 @@
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="85"/>
+        <location filename="../src/configurator.cpp" line="86"/>
         <source>Error when creating ccnet configuration</source>
         <translation>Błąd podczas tworzenia konfiguracji ccnet</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="197"/>
+        <location filename="../src/configurator.cpp" line="200"/>
         <source>failed to read %1</source>
         <translation>nie udało się odczytać %1</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="242"/>
+        <location filename="../src/configurator.cpp" line="245"/>
         <source>%1 Default Library</source>
         <translation>%1 biblioteka domyślna</translation>
     </message>
@@ -516,14 +516,6 @@
         <location filename="../src/daemon-mgr.cpp" line="59"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>nie udało się wczytać folderu z konfiguracją ccnet %1</translation>
-    </message>
-    <message>
-        <source>ccnet daemon has exited abnormally</source>
-        <translation type="obsolete">demon ccnet został nieprawidłowo zakończony</translation>
-    </message>
-    <message>
-        <source>seafile daemon has exited abnormally</source>
-        <translation type="obsolete">demon seafile został nieprawidłowo zakończony</translation>
     </message>
 </context>
 <context>
@@ -662,6 +654,170 @@
         <location filename="../src/ui/event-details-tree.cpp" line="122"/>
         <source>Renamed files</source>
         <translation>Zmieniono nazwy plików</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserDialog</name>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="48"/>
+        <source>File Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="97"/>
+        <source>Back</source>
+        <translation>Wstecz</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="103"/>
+        <source>Forward</source>
+        <translation>Naprzód</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="109"/>
+        <source>Home</source>
+        <translation>Strona główna</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="142"/>
+        <source>You don&apos;t have permission to upload files to this library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="231"/>
+        <source>retry</source>
+        <translation>ponów</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="232"/>
+        <source>Failed to get files information&lt;br/&gt;Please %1</source>
+        <translation>Nie udało się pobrać informacji o plikach&lt;br /&gt;Proszę %1</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="320"/>
+        <source>Failed to download file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="335"/>
+        <source>Failed to upload file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="405"/>
+        <source>Select a file to upload</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserProgressDialog</name>
+    <message>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="29"/>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="52"/>
+        <source>Upload</source>
+        <translation>Wyślij</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="53"/>
+        <source>Uploading %1</source>
+        <translation>Wysyłanie %1</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
+        <source>Download</source>
+        <translation>Pobierz</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="56"/>
+        <source>Downloading %1</source>
+        <translation>Pobieranie %1</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="80"/>
+        <source>%1 of %2</source>
+        <translation>%1 z %2</translation>
+    </message>
+</context>
+<context>
+    <name>FileNetworkTask</name>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="112"/>
+        <source>Operation canceled</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FileServerTask</name>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="471"/>
+        <source>Internal Server Error</source>
+        <translation type="unfinished">Wewnętrzny błąd serwera</translation>
+    </message>
+</context>
+<context>
+    <name>FileTableModel</name>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="198"/>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="199"/>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="222"/>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="224"/>
+        <source>Size</source>
+        <translation>Rozmiar</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="226"/>
+        <source>Last Modified</source>
+        <translation>Ostatnia zmiana</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
+        <source>Kind</source>
+        <translation>Rodzaj</translation>
+    </message>
+</context>
+<context>
+    <name>GetFileTask</name>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="300"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="341"/>
+        <source>Failed to create folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="309"/>
+        <source>Failed to create temporary files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="356"/>
+        <source>Failed to write file to disk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="362"/>
+        <source>Failed to remove the older version of the downloaded file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="368"/>
+        <source>Failed to move file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -998,7 +1154,7 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
 <context>
     <name>MessageListener</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="83"/>
+        <location filename="../src/message-listener.cpp" line="84"/>
         <source>failed to load ccnet config dir </source>
         <translation>nie udało się wczytać folderu z konfiguracją ccnet</translation>
     </message>
@@ -1030,19 +1186,28 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     </message>
 </context>
 <context>
+    <name>PostFileTask</name>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="395"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="400"/>
+        <source>File does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="50"/>
+        <location filename="../src/message-listener.cpp" line="51"/>
         <source>Uploading</source>
         <translation>Wysyłanie</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="50"/>
+        <location filename="../src/message-listener.cpp" line="51"/>
         <source>Downloading</source>
         <translation>Pobieranie</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="51"/>
+        <location filename="../src/message-listener.cpp" line="52"/>
         <source>Speed</source>
         <translation>Prędkość</translation>
     </message>
@@ -1301,46 +1466,46 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
         <translation>Błąd wewnętrzny.</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="352"/>
-        <location filename="../src/utils/utils.cpp" line="380"/>
-        <location filename="../src/utils/utils.cpp" line="383"/>
+        <location filename="../src/utils/utils.cpp" line="395"/>
+        <location filename="../src/utils/utils.cpp" line="423"/>
+        <location filename="../src/utils/utils.cpp" line="426"/>
         <source>Just now</source>
         <translation>Przed chwilą.</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="368"/>
+        <location filename="../src/utils/utils.cpp" line="411"/>
         <source>1 day ago</source>
         <translation>wczoraj</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="368"/>
+        <location filename="../src/utils/utils.cpp" line="411"/>
         <source>%1 days ago</source>
         <translation>%1 dni temu</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="372"/>
+        <location filename="../src/utils/utils.cpp" line="415"/>
         <source>1 hour ago</source>
         <translation>godzinę temu</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="372"/>
+        <location filename="../src/utils/utils.cpp" line="415"/>
         <source>%1 hours ago</source>
         <translation>%1 godzin temu</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="376"/>
+        <location filename="../src/utils/utils.cpp" line="419"/>
         <source>1 minute ago</source>
         <translation>minutę temu</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="376"/>
+        <location filename="../src/utils/utils.cpp" line="419"/>
         <source>%1 minutes ago</source>
         <translation>%1 minut temu</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="459"/>
+        <location filename="../src/utils/utils.cpp" line="561"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Nie jest częścią certyfikatu&gt;</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="125"/>
@@ -1477,6 +1642,11 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
         <source>Deleted library &quot;%1&quot;</source>
         <translation>Usunięta biblioteka &quot;%1&quot;</translation>
     </message>
+    <message>
+        <location filename="../src/filebrowser/data-cache.cpp" line="71"/>
+        <source>failed to open file cache database</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -1573,7 +1743,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="367"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="371"/>
         <source>This library has not been downloaded</source>
         <translation>Ta biblioteka nie została pobrana</translation>
     </message>
@@ -1581,7 +1751,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="140"/>
+        <location filename="../src/repo-service.cpp" line="131"/>
         <source>The library of this file is not synced yet. Do you want to sync it now?</source>
         <translation>Biblioteka tego pliku nie jest jeszcze synchronizowana. Czy chcesz ją teraz zsynchronizować?</translation>
     </message>
@@ -1589,27 +1759,27 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="52"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>Recently Updated</source>
         <translation>Ostatnio aktualizowane</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="53"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>My Libraries</source>
         <translation>Moje biblioteki</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="54"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Sub Libraries</source>
         <translation>Biblioteki podrzędne</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="55"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
         <source>Private Shares</source>
         <translation>Udziały prywatne</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="218"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="230"/>
         <source>Organization</source>
         <translation>Organizacja</translation>
     </message>
@@ -1617,105 +1787,105 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="154"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="155"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="158"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="159"/>
         <source>Disable auto sync</source>
         <translation>Wyłącz auto synchronizację</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="158"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="159"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="270"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="163"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="276"/>
         <source>Enable auto sync</source>
         <translation>Włącz auto synchronizację</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="216"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="222"/>
         <source>Show details of this library</source>
         <translation>Pokaż szczegóły tej biblioteki</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="228"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="234"/>
         <source>&amp;Sync this library</source>
         <translation>&amp;Synchronizuj tę bibliotekę</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="223"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="230"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="229"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="236"/>
         <source>Sync this library</source>
         <translation>Synchronizuj tę bibliotekę</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="214"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
         <source>Show &amp;Details</source>
         <translation>Pokaż szczegóły</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="235"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="241"/>
         <source>Sync &amp;Now</source>
         <translation>Sy&amp;nchronizuj teraz</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="237"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="243"/>
         <source>Sync this library immediately</source>
         <translation>Niezwłocznie synchronizuj tę bibliotekę</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="242"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="248"/>
         <source>&amp;Cancel download</source>
         <translation>Anuluj pobieranie (&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="244"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="250"/>
         <source>Cancel download of this library</source>
         <translation>Anuluj pobieranie tej biblioteki</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="249"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="256"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="255"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="262"/>
         <source>&amp;Open folder</source>
         <translation>&amp;Otwórz folder</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="251"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="258"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="257"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
         <source>open local folder</source>
         <translation>otwórz folder lokalny</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="263"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
         <source>&amp;Unsync</source>
         <translation>Wyłącz synchronizację (&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="270"/>
         <source>unsync this library</source>
         <translation>wyłącz synchronizację tej biblioteki</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="281"/>
         <source>&amp;View on cloud</source>
         <translation>Pokaż  w chmurze (&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="277"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
         <source>view this library on seahub</source>
         <translation>pokaż tę bibliotekę w seahub</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="319"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="325"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>Czy na pewno chcesz wyłączyć synchronizację biblioteki &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="331"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="337"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Nie udało się wyłączyć synchronizacji biblioteki &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="482"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="490"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -1724,7 +1894,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="486"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
         <source>The download has been canceled</source>
         <translation>Pobieranie zostało anulowane</translation>
     </message>
@@ -1732,12 +1902,17 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>ReposTab</name>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="75"/>
+        <location filename="../src/ui/repos-tab.cpp" line="40"/>
+        <source>Search libraries...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repos-tab.cpp" line="89"/>
         <source>retry</source>
         <translation>ponów</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="76"/>
+        <location filename="../src/ui/repos-tab.cpp" line="90"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
         <translation>Nie udało się uzyskać informacji o bibliotekach&lt;br/&gt;Proszę %1</translation>
     </message>
@@ -1753,12 +1928,12 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="227"/>
+        <location filename="../src/seafile-applet.cpp" line="230"/>
         <source>Failed to initialize log</source>
         <translation>Nie udało się zainicjować logu</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="330"/>
+        <location filename="../src/seafile-applet.cpp" line="333"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Dostępna jest nowa wersja %1 klienta (%2).
@@ -1827,12 +2002,12 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz folder z &amp;logami</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="115"/>
         <source>open seafile log directory</source>
-        <translation type="unfinished"></translation>
+        <translation>otwórz katalog z logami</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="118"/>
@@ -1865,7 +2040,7 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
         <translation>Ukryj główne okno</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="404"/>
+        <location filename="../src/ui/tray-icon.cpp" line="407"/>
         <source>You have %n message(s)</source>
         <translation>
             <numerusform>Masz %n wiadomość</numerusform>
@@ -1874,22 +2049,22 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="410"/>
+        <location filename="../src/ui/tray-icon.cpp" line="413"/>
         <source>auto sync is disabled</source>
         <translation>synchronizacja automatyczna jest wyłączona</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="326"/>
+        <location filename="../src/ui/tray-icon.cpp" line="329"/>
         <source>About %1</source>
         <translation>O %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="327"/>
+        <location filename="../src/ui/tray-icon.cpp" line="330"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Klient %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="416"/>
+        <location filename="../src/ui/tray-icon.cpp" line="419"/>
         <source>some servers not connected</source>
         <translation>niektóre serwery nie zostały podłączone</translation>
     </message>
@@ -1988,23 +2163,19 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
         <translation>Powiadom, gdy biblioteki są zsynchronizowane</translation>
     </message>
     <message>
-        <source>Auto start Seafile after login (Windows only)</source>
-        <translation type="obsolete">Uruchamiaj Seafile automatycznie po zalogowaniu (tylko Windows)</translation>
-    </message>
-    <message>
         <location filename="../ui_settings-dialog.h" line="208"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronizuj pliki tymczasowe MSOffice/LibreOffice</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="209"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatycznie uruchom Seafile po zalogowaniu</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="210"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj ikonę Seafile</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="211"/>
@@ -2077,12 +2248,12 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Obecny odcisk palca klucza RSA to %1</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprzedni odcisk palca klucza RSA to %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
@@ -2138,12 +2309,12 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation>Nie udało się uzyskać informacji o plikach oznaczonych gwiazdką&lt;br/&gt;Proszę %1</translation>
+        <translation>Nie udało się uzyskać informacji o ulubionych plikach&lt;br/&gt;Proszę %1</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="100"/>
         <source>You have no starred files yet.</source>
-        <translation>Nie masz plików oznaczonych gwiazdką.</translation>
+        <translation>Nie masz ulubionych plików.</translation>
     </message>
 </context>
 <context>

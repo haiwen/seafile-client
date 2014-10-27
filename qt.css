@@ -418,14 +418,20 @@ FileBrowserDialog QToolBar#topBar {
     max-height: 36px;
 }
 
-FileBrowserDialog QLineEdit {
-    border: 1px solid #f0f0f0;
+FileBrowserDialog QToolBar QPushButton {
+    padding: 3px;
+    margin: 1px;
+    qproperty-focusPolicy: NoFocus;
+}
+
+FileBrowserDialog QToolBar QLabel {
+    margin-left: 2px;
+}
+
+FileBrowserDialog QToolBar QPushButton:hover {
+    border: 1px solid #d0d0d0;
     border-radius: 4px;
-    padding-left: 4px;
-    padding-right: 4px;
-    margin-left: 8px;
-    margin-right: 18px;
-    selection-color: #d0d0d0
+    color: #FF9A2A;
 }
 
 FileTableView {

@@ -12,6 +12,7 @@ class QAction;
 class QStackedWidget;
 class QLineEdit;
 class QLabel;
+class QButtonGroup;
 
 class ApiError;
 class FileTableView;
@@ -54,6 +55,7 @@ private slots:
     void onUploadFinished(bool success);
     void openCacheFolder();
     void uploadFile(const QString& path);
+    void onNavigatorClick(int id);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
@@ -79,13 +81,15 @@ private:
     ServerRepo repo_;
     // current path
     QString current_path_;
+    QStringList current_lpath_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
 
     QToolBar *toolbar_;
     QAction *backward_action_;
     QAction *forward_action_;
-    QLineEdit *path_line_edit_;
+    QButtonGroup *path_navigator_;
+    QList<QLabel*> path_navigator_separators_;
     QAction *gohome_action_;
     QAction *refresh_action_;
 

@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QButtonGroup>
 #include <QDesktopServices>
 
 #include "seafile-applet.h"
@@ -26,7 +27,7 @@ namespace {
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_TABLE_VIEW,
-    INDEX_LOADING_FAILED_VIEW,
+    INDEX_LOADING_FAILED_VIEW
 };
 
 const char *kLoadingFaieldLabelName = "loadingFailedText";
@@ -41,6 +42,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
       repo_(repo)
 {
     current_path_ = "/";
+    // since root is special, the next step is unnecessary
+    // current_lpath_.push_back("");
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     data_mgr_ = new DataManager(account);
@@ -111,13 +114,17 @@ void FileBrowserDialog::createToolBar()
     connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
     toolbar_->addAction(gohome_action_);
 
-    path_line_edit_ = new QLineEdit;
-    path_line_edit_->setReadOnly(true);
-    path_line_edit_->setText("/");
-    path_line_edit_->setAlignment(Qt::AlignHCenter | Qt::AlignLeft);
-    path_line_edit_->setMaximumHeight(kToolBarIconSize);
-    path_line_edit_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    toolbar_->addWidget(path_line_edit_);
+    path_navigator_ = new QButtonGroup(this);
+    connect(path_navigator_, SIGNAL(buttonClicked(int)),
+            this, SLOT(onNavigatorClick(int)));
+
+    // root is special
+    QPushButton *path_navigator_root_ = new QPushButton(repo_.name);
+    path_navigator_root_->setFlat(true);
+    path_navigator_root_->setCursor(Qt::PointingHandCursor);
+    connect(path_navigator_root_, SIGNAL(clicked()),
+            this, SLOT(goHome()));
+    toolbar_->addWidget(path_navigator_root_);
 }
 
 void FileBrowserDialog::createStatusBar()
@@ -270,8 +277,41 @@ void FileBrowserDialog::onDirClicked(const SeafDirent& dir)
 void FileBrowserDialog::enterPath(const QString& path)
 {
     current_path_ = path;
+    // use QUrl::toPercentEncoding if need
     fetchDirents();
-    path_line_edit_->setText(current_path_);
+
+    // current_path should be guaranteed safe to split!
+    current_lpath_ = current_path_.split('/');
+    // if the last element is empty (i.e. current_path_ ends with an extra "/"),
+    // remove it
+    if(current_lpath_.last().isEmpty())
+        current_lpath_.pop_back();
+
+    // remove all old buttons for navigator except the root
+    QList<QAbstractButton *> buttons = path_navigator_->buttons();
+    foreach(QAbstractButton *button, buttons)
+    {
+        path_navigator_->removeButton(button);
+        delete button;
+    }
+    foreach(QLabel *label, path_navigator_separators_)
+    {
+        delete label;
+    }
+    path_navigator_separators_.clear();
+
+
+    // add new buttons for navigator except the root
+    for(int i = 1; i < current_lpath_.size(); i++) {
+        QLabel *separator = new QLabel("/");
+        path_navigator_separators_.push_back(separator);
+        toolbar_->addWidget(separator);
+        QPushButton* button = new QPushButton(current_lpath_[i]);
+        button->setFlat(true);
+        button->setCursor(Qt::PointingHandCursor);
+        path_navigator_->addButton(button, i);
+        toolbar_->addWidget(button);
+    }
 }
 
 void FileBrowserDialog::onFileClicked(const SeafDirent& file)
@@ -415,3 +455,17 @@ void FileBrowserDialog::openCacheFolder()
     ::createDirIfNotExists(folder);
     QDesktopServices::openUrl(QUrl::fromLocalFile(folder));
 }
+
+void FileBrowserDialog::onNavigatorClick(int id)
+{
+    // root is safe, since it is handled by goHome not this function
+    // i.e. id is never equal to 0
+
+    // calculate the path
+    QString path = "/";
+    for(int i = 1; i <= id; i++)
+      path += current_lpath_[i] + "/";
+
+    enterPath(path);
+}
+

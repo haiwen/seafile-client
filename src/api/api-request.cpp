@@ -34,11 +34,18 @@ void SeafileApiRequest::send()
     }
 
     switch (method_) {
-    case METHOD_GET:
-        url_.setQueryItems(params_);
+    case METHOD_GET: {
+        QList<QPair<QByteArray, QByteArray> > query;
+        for (int i = 0; i < params_.size(); i++) {
+            QPair<QString, QString> pair = params_[i];
+            query << QPair<QByteArray, QByteArray>(QUrl::toPercentEncoding(pair.first),
+                                                   QUrl::toPercentEncoding(pair.second));
+        }
+        url_.setEncodedQueryItems(query);
         api_client_->get(url_);
         break;
-    case METHOD_POST:
+    }
+    case METHOD_POST: {
         QUrl params;
         for (int i = 0; i < params_.size(); i++) {
             QPair<QString, QString> pair = params_[i];
@@ -47,6 +54,7 @@ void SeafileApiRequest::send()
         }
         api_client_->post(url_, params.encodedQuery());
         break;
+    }
     }
 
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),

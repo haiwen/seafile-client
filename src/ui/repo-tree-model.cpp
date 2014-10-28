@@ -438,7 +438,7 @@ bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
         // repos
         RepoItem *cl = (RepoItem *)item_l;
         RepoItem *cr = (RepoItem *)item_r;
-        return cl->repo().mtime < cr->repo().mtime;
+        return cl->repo().mtime > cr->repo().mtime;
     }
 
     return false;

@@ -583,18 +583,16 @@ QString iconNameFromFileName(const QString& fileName)
         return "";
     }
 
-    if (mimetype.contains("pdf")) {
+    if (mimetype == "application/pdf") {
         return "pdf";
-    } else if (mimetype.contains("image")) {
+    } else if (mimetype.startsWith("image")) {
         return "image";
-    } else if (mimetype.contains("text")) {
+    } else if (mimetype.startsWith("text")) {
         return "text";
-    } else if (mimetype.contains("audio")) {
+    } else if (mimetype.startsWith("audio")) {
         return "audio";
-    } else if (mimetype.contains("video")) {
+    } else if (mimetype.startsWith("video")) {
         return "video";
-    } if (mimetype.contains("pdf")) {
-        return "pdf";
     } else if (mimetype.contains("msword") || mimetype.contains("ms-word")) {
         return "ms_word";
     } else if (mimetype.contains("mspowerpoint") || mimetype.contains("ms-powerpoint")) {

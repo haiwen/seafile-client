@@ -71,8 +71,14 @@ void RepoTreeModel::initialize()
     appendRow(shared_repos_catetory_);
 
     if (tree_view_) {
-        tree_view_->expand(indexFromItem(recent_updated_category_));
+        tree_view_->expand(proxiedIndexFromItem(recent_updated_category_));
     }
+}
+
+QModelIndex RepoTreeModel::proxiedIndexFromItem(const QStandardItem* item)
+{
+    QSortFilterProxyModel *proxy_model = (QSortFilterProxyModel *)tree_view_->model();
+    return proxy_model->mapFromSource(indexFromItem(item));
 }
 
 void RepoTreeModel::clear()
@@ -288,7 +294,7 @@ void RepoTreeModel::refreshLocalRepos()
 
 void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
 {
-    if (!tree_view_->isExpanded(indexFromItem(item->parent()))) {
+    if (!tree_view_->isExpanded(proxiedIndexFromItem(item->parent()))) {
         return;
     }
 
@@ -304,7 +310,8 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
         item->setLocalRepo(local_repo);
         QModelIndex index = indexFromItem(item);
         emit dataChanged(index,index);
-        // qDebug("repo %s is changed\n", toCStr(item->repo().name));
+        emit repoStatusChanged(index);
+        // printf("repo %s is changed\n", toCStr(item->repo().name));
     }
 
     item->setCloneTask();
@@ -318,6 +325,7 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
                 item->setCloneTask(clone_task);
                 QModelIndex index = indexFromItem(item);
                 emit dataChanged(index,index);
+                emit repoStatusChanged(index);
             }
         }
     }
@@ -369,6 +377,20 @@ RepoFilterProxyModel::RepoFilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent),
       has_filter_(false)
 {
+}
+
+void RepoFilterProxyModel::setSourceModel(QAbstractItemModel *source_model)
+{
+    QSortFilterProxyModel::setSourceModel(source_model);
+    RepoTreeModel *tree_model = (RepoTreeModel *)source_model;
+    connect(tree_model, SIGNAL(repoStatusChanged(const QModelIndex&)),
+            this, SLOT(onRepoStatusChanged(const QModelIndex&)));
+}
+
+void RepoFilterProxyModel::onRepoStatusChanged(const QModelIndex& source_index)
+{
+    QModelIndex index = mapFromSource(source_index);
+    emit dataChanged(index, index);
 }
 
 bool RepoFilterProxyModel::filterAcceptsRow(int source_row,

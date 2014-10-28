@@ -4,7 +4,7 @@
 #include <vector>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
-class QModelIndex;
+#include <QModelIndex>
 
 class ServerRepo;
 class RepoCategoryItem;
@@ -44,6 +44,9 @@ public:
     void updateRepoItemAfterSyncNow(const QString& repo_id);
     void onFilterTextChanged(const QString& text);
 
+signals:
+    void repoStatusChanged(const QModelIndex& index);
+
 private slots:
     void refreshLocalRepos();
 
@@ -62,6 +65,7 @@ private:
 
     void collectDeletedRepos(RepoItem *item, void *vdata);
     void updateRepoItemAfterSyncNow(RepoItem *item, void *data);
+    QModelIndex proxiedIndexFromItem(const QStandardItem* item);
 
     RepoCategoryItem *recent_updated_category_;
     RepoCategoryItem *my_repos_catetory_;
@@ -81,12 +85,18 @@ class RepoFilterProxyModel : public QSortFilterProxyModel {
 public:
     RepoFilterProxyModel(QObject* parent=0);
 
+    void setSourceModel(QAbstractItemModel *source_model);
+
     void setFilterText(const QString& text);
     bool filterAcceptsRow(int source_row,
                           const QModelIndex & source_parent) const;
     bool lessThan(const QModelIndex &left,
                   const QModelIndex &right) const;
     Qt::ItemFlags flags(const QModelIndex& index) const;
+
+private slots:
+    void onRepoStatusChanged(const QModelIndex& source_index);
+
 private:
     bool has_filter_;
 };

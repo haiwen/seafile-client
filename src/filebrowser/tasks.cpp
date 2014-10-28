@@ -43,7 +43,8 @@ FileNetworkTask::FileNetworkTask(const Account& account,
     : account_(account),
       repo_id_(repo_id),
       path_(path),
-      local_path_(local_path)
+      local_path_(local_path),
+      canceled_(false)
 {
     fileserver_task_ = NULL;
     get_link_req_ = NULL;
@@ -56,7 +57,7 @@ FileNetworkTask::~FileNetworkTask()
         delete get_link_req_;
     }
     if (fileserver_task_) {
-        delete fileserver_task_;
+        fileserver_task_->deleteLater();
     }
 }
 
@@ -101,6 +102,7 @@ void FileNetworkTask::startFileServerTask(const QString& link)
 
 void FileNetworkTask::cancel()
 {
+    canceled_ = true;
     if (get_link_req_) {
         get_link_req_->deleteLater();
         get_link_req_ = 0;
@@ -115,6 +117,9 @@ void FileNetworkTask::cancel()
 
 void FileNetworkTask::onFileServerTaskFinished(bool success)
 {
+    if (canceled_) {
+        return;
+    }
     if (!success) {
         error_ = fileserver_task_->error();
         error_string_ = fileserver_task_->errorString();

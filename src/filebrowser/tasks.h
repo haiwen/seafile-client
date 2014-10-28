@@ -95,6 +95,7 @@ protected:
     TaskError error_;
     QString error_string_;
     int http_error_code_;
+    bool canceled_;
 
     static QThread *worker_thread_;
 };

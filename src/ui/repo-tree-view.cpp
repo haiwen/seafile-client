@@ -22,11 +22,18 @@
 
 #include "repo-tree-view.h"
 
+namespace {
+
 const int kRepoTreeMenuIconWidth = 16;
 const int kRepoTreeMenuIconHeight = 16;
 
 const int kRepoTreeToolbarIconWidth = 24;
 const int kRepoTreeToolbarIconHeight = 24;
+
+const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
+const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
+
+}
 
 RepoTreeView::RepoTreeView(QWidget *parent)
     : QTreeView(parent)
@@ -47,6 +54,28 @@ RepoTreeView::RepoTreeView(QWidget *parent)
 #ifdef Q_WS_MAC
     this->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
+
+    loadExpandedCategries();
+    connect(qApp, SIGNAL(aboutToQuit()),
+            this, SLOT(saveExpandedCategries()));
+    connect(seafApplet->accountManager(), SIGNAL(beforeAccountChanged()),
+            this, SLOT(saveExpandedCategries()));
+    connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
+            this, SLOT(loadExpandedCategries()));
+}
+
+void RepoTreeView::loadExpandedCategries()
+{
+    Account account = seafApplet->accountManager()->currentAccount();
+    if (!account.isValid()) {
+        return;
+    }
+    QSettings settings;
+    settings.beginGroup(kRepoTreeViewSettingsGroup);
+    QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
+    QString cats = settings.value(key, "").toString();
+    expanded_categroies_ = QSet<QString>::fromList(cats.split("\t", QString::SkipEmptyParts));
+    settings.endGroup();
 }
 
 void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
@@ -473,6 +502,20 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     show_detail_action_->setEnabled(false);
 }
 
+void RepoTreeView::saveExpandedCategries()
+{
+    Account account = seafApplet->accountManager()->currentAccount();
+    if (!account.isValid()) {
+        return;
+    }
+    QSettings settings;
+    QStringList cats = expanded_categroies_.toList();
+    settings.beginGroup(kRepoTreeViewSettingsGroup);
+    QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
+    settings.setValue(key, cats.join("\t"));
+    settings.endGroup();
+}
+
 void RepoTreeView::showEvent(QShowEvent *event)
 {
     updateRepoActions();
@@ -502,5 +545,41 @@ void RepoTreeView::cancelDownload()
         QMessageBox::information(this, getBrand(),
                                  tr("The download has been canceled"),
                                  QMessageBox::Ok);
+    }
+}
+
+void RepoTreeView::expand(const QModelIndex& index, bool remember)
+{
+    QTreeView::expand(index);
+    if (remember) {
+        QStandardItem *item = getRepoItem(index);
+        if (item->type() == REPO_CATEGORY_TYPE) {
+            expanded_categroies_.insert(item->data(Qt::DisplayRole).toString());
+        }
+    }
+}
+
+void RepoTreeView::collapse(const QModelIndex& index, bool remember)
+{
+    QTreeView::collapse(index);
+    if (remember) {
+        QStandardItem *item = getRepoItem(index);
+        if (item->type() == REPO_CATEGORY_TYPE) {
+            expanded_categroies_.remove(item->data(Qt::DisplayRole).toString());
+        }
+    }
+}
+
+void RepoTreeView::restoreExpandedCategries()
+{
+    QAbstractItemModel *model = this->model();
+    for (int i = 0; i < model->rowCount(); i++) {
+        QModelIndex index = model->index(i, 0);
+        QString category = model->data(index).toString();
+        if (expanded_categroies_.contains(category)) {
+            expand(index, false);
+        } else {
+            collapse(index, false);
+        }
     }
 }

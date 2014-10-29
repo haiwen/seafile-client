@@ -42,6 +42,7 @@ signals:
     /**
      * Account added/removed/switched.
      */
+    void beforeAccountChanged();
     void accountsChanged();
 
 private:

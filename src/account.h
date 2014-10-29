@@ -34,6 +34,7 @@ public:
     }
 
     QUrl getAbsoluteUrl(const QString& relativeUrl) const;
+    QString getSignature() const;
 };
 
 Q_DECLARE_METATYPE(Account)

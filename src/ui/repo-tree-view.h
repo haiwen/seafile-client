@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QTreeView>
+#include <QSet>
 
 class QAction;
 class QContextMenuEvent;
@@ -24,6 +25,16 @@ public:
 
     std::vector<QAction*> getToolBarActions();
 
+    void expand(const QModelIndex& index, bool remember=true);
+    void collapse(const QModelIndex& index, bool remember=true);
+
+    /**
+     * Restore the expanded repo categories when:
+     * 1. applet startup
+     * 1. restore from filtering repos
+     */
+    void restoreExpandedCategries();
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
     bool viewportEvent(QEvent *event);
@@ -43,6 +54,8 @@ private slots:
     void unsyncRepo();
     void syncRepoImmediately();
     void cancelDownload();
+    void loadExpandedCategries();
+    void saveExpandedCategries();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
@@ -69,6 +82,8 @@ private:
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
     QAction *cancel_download_action_;
+
+    QSet<QString> expanded_categroies_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

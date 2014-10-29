@@ -138,6 +138,8 @@ bool AccountManager::setCurrentAccount(const Account& account)
         return false;
     }
 
+    emit beforeAccountChanged();
+
     // Would emit "accountsChanged" signal
     saveAccount(account);
 

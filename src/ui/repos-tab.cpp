@@ -152,9 +152,8 @@ void ReposTab::onFilterTextChanged(const QString& text)
     filter_model_->setFilterText(text.trimmed());
     filter_model_->sort(0);
     if (text.isEmpty()) {
-        repos_tree_->collapseAll();
-        return;
+        repos_tree_->restoreExpandedCategries();
+    } else {
+        repos_tree_->expandAll();
     }
-
-    repos_tree_->expandAll();
 }

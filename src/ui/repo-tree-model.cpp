@@ -71,7 +71,7 @@ void RepoTreeModel::initialize()
     appendRow(shared_repos_catetory_);
 
     if (tree_view_) {
-        tree_view_->expand(proxiedIndexFromItem(recent_updated_category_));
+        tree_view_->restoreExpandedCategries();
     }
 }
 

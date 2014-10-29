@@ -14,7 +14,6 @@ class QStandardItem;
 
 class RepoItem;
 class RepoCategoryItem;
-class CloudView;
 
 class CloneTasksDialog;
 
@@ -70,8 +69,6 @@ private:
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
     QAction *cancel_download_action_;
-
-    CloudView *cloud_view_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

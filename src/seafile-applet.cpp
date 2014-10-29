@@ -112,7 +112,8 @@ SeafileApplet::SeafileApplet()
       settings_mgr_(new SettingsManager),
       certs_mgr_(new CertsManager),
       started_(false),
-      in_exit_(false)
+      in_exit_(false),
+      is_pro_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
 }

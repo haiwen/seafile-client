@@ -146,6 +146,8 @@ void CloudView::addActivitiesTab()
         tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
         tabs_->adjustTabsWidth(rect().width());
     }
+
+    seafApplet->setPro(true);
 }
 
 void CloudView::setupDropArea()
@@ -450,6 +452,8 @@ void CloudView::onAccountChanged()
     activities_tab_->refresh();
 
     account_view_->onAccountChanged();
+
+    seafApplet->setPro(false);
 }
 
 void CloudView::onTabChanged(int index)

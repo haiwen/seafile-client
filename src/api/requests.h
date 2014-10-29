@@ -69,15 +69,20 @@ public:
     int enc_version;
     QString magic;
     QString random_key;
+    QString more_info;
 
-    static RepoDownloadInfo fromDict(QMap<QString, QVariant>& dict);
+    static RepoDownloadInfo fromDict(QMap<QString, QVariant>& dict,
+                                     const QUrl& url,
+                                     bool read_only);
 };
 
 class DownloadRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit DownloadRepoRequest(const Account& account, const QString& repo_id);
+    explicit DownloadRepoRequest(const Account& account,
+                                 const QString& repo_id,
+                                 bool read_only);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -87,6 +92,8 @@ signals:
 
 private:
     Q_DISABLE_COPY(DownloadRepoRequest)
+
+    bool read_only_;
 };
 
 class CreateRepoRequest : public SeafileApiRequest {

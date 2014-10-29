@@ -388,6 +388,32 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
     return dict;
 }
 
+QString mapToJson(QMap<QString, QVariant> map)
+{
+    json_t *object = NULL;
+    char *info = NULL;
+    object = json_object();
+
+    foreach (const QString &k, map.keys()) {
+        QVariant v = map.value(k);
+        switch (v.type()) {
+        case QVariant::String:
+            json_object_set_new(object, toCStr(k), json_string(toCStr(v.toString())));
+            break;
+        case QVariant::Int:
+            json_object_set_new(object, toCStr(k), json_integer(v.toInt()));
+            break;
+            // TODO: support other types
+        }
+    }
+
+    info = json_dumps(object, 0);
+    QString ret = QString::fromUtf8(info);
+    json_decref (object);
+    free (info);
+    return ret;
+}
+
 QString translateCommitTime(qint64 timestamp) {
     qint64 now = QDateTime::currentMSecsSinceEpoch();
     if ((now / timestamp) > 100) {

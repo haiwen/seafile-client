@@ -168,7 +168,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         info.email,
         info.random_key,
         info.enc_version,
-        QString(),
+        info.more_info,
         &error);
 
     if (ret < 0) {

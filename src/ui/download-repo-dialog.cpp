@@ -13,22 +13,6 @@
 
 namespace {
 
-QString buildMoreInfo(ServerRepo& repo)
-{
-    json_t *object = NULL;
-    char *info = NULL;
-
-    object = json_object();
-    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
-
-    info = json_dumps(object, 0);
-    QString ret = QString::fromUtf8(info);
-    json_decref (object);
-    free (info);
-    return ret;
-}
-
-
 } // namespace
 
 DownloadRepoDialog::DownloadRepoDialog(const Account& account,
@@ -160,7 +144,7 @@ void DownloadRepoDialog::onOkBtnClicked()
 
     setAllInputsEnabled(false);
 
-    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id);
+    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id, repo_.readonly);
     connect(req, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoRequestSuccess(const RepoDownloadInfo&)));
     connect(req, SIGNAL(failed(const ApiError&)),
@@ -214,7 +198,6 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     QString password = repo_.encrypted ? mPassword->text() : QString();
     int ret;
     QString error;
-    QString more_info = buildMoreInfo(repo_);
 
     if (mode_ == MERGE_WITH_EXISTING_FOLDER) {
         ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
@@ -224,7 +207,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.magic, info.relay_addr,
                                                  info.relay_port, info.email,
                                                  info.random_key, info.enc_version,
-                                                 more_info,
+                                                 info.more_info,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
@@ -234,7 +217,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                     info.magic, info.relay_addr,
                                                     info.relay_port, info.email,
                                                     info.random_key, info.enc_version,
-                                                    more_info,
+                                                    info.more_info,
                                                     &error);
     }
 

@@ -98,13 +98,13 @@ void FileBrowserDialog::createToolBar()
     toolbar_->setIconSize(QSize(w, w));
 
     backward_action_ = new QAction(tr("Back"), this);
-    backward_action_->setIcon(getIconSet(":images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
+    backward_action_->setIcon(getIconSet(":/images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
     backward_action_->setEnabled(false);
     toolbar_->addAction(backward_action_);
     connect(backward_action_, SIGNAL(triggered()), this, SLOT(goBackward()));
 
     forward_action_ = new QAction(tr("Forward"), this);
-    forward_action_->setIcon(getIconSet(":images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
+    forward_action_->setIcon(getIconSet(":/images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
     forward_action_->setEnabled(false);
     connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
     toolbar_->addAction(forward_action_);
@@ -141,7 +141,7 @@ void FileBrowserDialog::createStatusBar()
 
     upload_action_ = new QAction(this);
     upload_action_->setIcon(
-        getIconSet(":images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
+        getIconSet(":/images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(upload_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     status_bar_->addAction(upload_action_);
     if (repo_.readonly) {
@@ -157,7 +157,7 @@ void FileBrowserDialog::createStatusBar()
 
     refresh_action_ = new QAction(this);
     refresh_action_->setIcon(
-        getIconSet(":images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
+        getIconSet(":/images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
     status_bar_->addAction(refresh_action_);
 

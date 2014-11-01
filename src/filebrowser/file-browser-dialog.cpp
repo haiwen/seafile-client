@@ -48,7 +48,7 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     const Account& account = seafApplet->accountManager()->currentAccount();
     data_mgr_ = new DataManager(account);
 
-    setWindowTitle(tr("File Browser"));
+    setWindowTitle(tr("Cloud File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 

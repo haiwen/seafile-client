@@ -389,8 +389,11 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
 }
 
 QString translateCommitTime(qint64 timestamp) {
-    timestamp *= 1000;          // use milli seconds
     qint64 now = QDateTime::currentMSecsSinceEpoch();
+    if ((now / timestamp) > 100) {
+        // The timestamp is in seconds, convert it to milliseconds
+        timestamp *= 1000;
+    }
     if (now <= timestamp) {
         return QObject::tr("Just now");
     }

@@ -165,7 +165,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
         switch (column) {
         case FILE_COLUMN_ICON:
-          qsize.setWidth(kColumnIconSize + kColumnIconAlign);
+          qsize.setWidth(kColumnIconSize + kColumnIconAlign / 2);
           break;
         case FILE_COLUMN_NAME:
           qsize.setWidth(name_column_width_);

@@ -24,5 +24,7 @@
 	<string>Copyright © 2014 海文互知. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleName</key>
+	<string>Seafile</string>
 </dict>
 </plist>

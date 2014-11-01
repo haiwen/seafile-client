@@ -73,8 +73,13 @@ void RepoTreeView::loadExpandedCategries()
     QSettings settings;
     settings.beginGroup(kRepoTreeViewSettingsGroup);
     QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
-    QString cats = settings.value(key, "").toString();
-    expanded_categroies_ = QSet<QString>::fromList(cats.split("\t", QString::SkipEmptyParts));
+    if (settings.contains(key)) {
+        QString cats = settings.value(key, "").toString();
+        expanded_categroies_ = QSet<QString>::fromList(cats.split("\t", QString::SkipEmptyParts));
+    } else {
+        // Expand "recent updated" on first use
+        expanded_categroies_.insert(tr("Recently Updated"));
+    }
     settings.endGroup();
 }
 

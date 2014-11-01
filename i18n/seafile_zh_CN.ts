@@ -264,44 +264,44 @@
         <translation>文件活动</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="174"/>
+        <location filename="../src/ui/cloud-view.cpp" line="176"/>
         <source>current download rate</source>
         <translation>当前下载速率</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="180"/>
+        <location filename="../src/ui/cloud-view.cpp" line="182"/>
         <source>current upload rate</source>
         <translation>当前上传速率</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="185"/>
+        <location filename="../src/ui/cloud-view.cpp" line="187"/>
         <source>Please Choose a folder to sync</source>
         <translation>请选择一个文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="315"/>
-        <location filename="../src/ui/cloud-view.cpp" line="337"/>
+        <location filename="../src/ui/cloud-view.cpp" line="317"/>
+        <location filename="../src/ui/cloud-view.cpp" line="339"/>
         <source>no server connected</source>
         <translation>服务器连接失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="335"/>
+        <location filename="../src/ui/cloud-view.cpp" line="337"/>
         <source>all servers connected</source>
         <translation>所有服务器已连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="339"/>
+        <location filename="../src/ui/cloud-view.cpp" line="341"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="361"/>
-        <location filename="../src/ui/cloud-view.cpp" line="362"/>
+        <location filename="../src/ui/cloud-view.cpp" line="363"/>
+        <location filename="../src/ui/cloud-view.cpp" line="364"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="411"/>
+        <location filename="../src/ui/cloud-view.cpp" line="413"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -653,52 +653,56 @@
 <context>
     <name>FileBrowserDialog</name>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="48"/>
         <source>File Browser</source>
-        <translation>文件浏览器</translation>
+        <translation type="obsolete">文件浏览器</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="97"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="51"/>
+        <source>Cloud File Browser</source>
+        <translation>云端文件浏览器</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="100"/>
         <source>Back</source>
         <translation>后退</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="103"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="106"/>
         <source>Forward</source>
         <translation>前进</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="109"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="112"/>
         <source>Home</source>
         <translation>根目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="142"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="149"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>你没有权限上传到文件这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="231"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="239"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="232"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="240"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>获取文件信息失败&lt;br/&gt;请 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="320"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="361"/>
         <source>Failed to download file: %1</source>
         <translation>下载文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="335"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="376"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="405"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="446"/>
         <source>Select a file to upload</source>
         <translation>请选择要上传到文件</translation>
     </message>
@@ -739,7 +743,7 @@
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="112"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="114"/>
         <source>Operation canceled</source>
         <translation>操作被取消</translation>
     </message>
@@ -747,7 +751,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="471"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="476"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
@@ -755,32 +759,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="198"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="205"/>
         <source>Folder</source>
         <translation>文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="199"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="206"/>
         <source>Document</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="222"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="229"/>
         <source>Name</source>
         <translation>文件名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="224"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="231"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="226"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
         <source>Last Modified</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="235"/>
         <source>Kind</source>
         <translation>类型</translation>
     </message>
@@ -788,28 +792,28 @@
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="300"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="341"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="305"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="346"/>
         <source>Failed to create folders</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="309"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="314"/>
         <source>Failed to create temporary files</source>
         <translation>创建临时文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="356"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="361"/>
         <source>Failed to write file to disk</source>
         <translation>写文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="362"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="367"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>移动旧文件时出错</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="368"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="373"/>
         <source>Failed to move file</source>
         <translation>移动文件时出错</translation>
     </message>
@@ -1180,8 +1184,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="395"/>
         <location filename="../src/filebrowser/tasks.cpp" line="400"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="405"/>
         <source>File does not exist</source>
         <translation>文件不存在</translation>
     </message>
@@ -1458,44 +1462,44 @@ The library owner&apos;s storage space is used up.</source>
         <translation>内部错误。</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="395"/>
-        <location filename="../src/utils/utils.cpp" line="423"/>
+        <location filename="../src/utils/utils.cpp" line="398"/>
         <location filename="../src/utils/utils.cpp" line="426"/>
+        <location filename="../src/utils/utils.cpp" line="429"/>
         <source>Just now</source>
         <translation>刚才</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="411"/>
+        <location filename="../src/utils/utils.cpp" line="414"/>
         <source>1 day ago</source>
         <translation>1 天前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="411"/>
+        <location filename="../src/utils/utils.cpp" line="414"/>
         <source>%1 days ago</source>
         <translation>%1 天前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="415"/>
+        <location filename="../src/utils/utils.cpp" line="418"/>
         <source>1 hour ago</source>
         <translation>1 小时前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="415"/>
+        <location filename="../src/utils/utils.cpp" line="418"/>
         <source>%1 hours ago</source>
         <translation>%1 小时前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="419"/>
+        <location filename="../src/utils/utils.cpp" line="422"/>
         <source>1 minute ago</source>
         <translation>1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="419"/>
+        <location filename="../src/utils/utils.cpp" line="422"/>
         <source>%1 minutes ago</source>
         <translation>%1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="561"/>
+        <location filename="../src/utils/utils.cpp" line="564"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation>&lt;不包含这部分信息&gt;</translation>
     </message>
@@ -1625,12 +1629,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 找不到合适的程序来打开文件 %2</translation>
     </message>
     <message>
-        <location filename="../src/api/event.cpp" line="50"/>
+        <location filename="../src/api/event.cpp" line="52"/>
         <source>Created library &quot;%1&quot;</source>
         <translation>创建了资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/api/event.cpp" line="52"/>
+        <location filename="../src/api/event.cpp" line="54"/>
         <source>Deleted library &quot;%1&quot;</source>
         <translation>删除了资料库 &quot;%1&quot;</translation>
     </message>
@@ -1771,7 +1775,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>共享给我的</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="230"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="236"/>
         <source>Organization</source>
         <translation>机构</translation>
     </message>
@@ -1779,112 +1783,117 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="158"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="159"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="193"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="194"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="163"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="276"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="197"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="310"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="311"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="222"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="257"/>
         <source>Show details of this library</source>
         <translation>查看该资料库详细信息</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="234"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="262"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
         <source>&amp;Sync this library</source>
         <translation>同步该资料库(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="229"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="236"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="271"/>
         <source>Sync this library</source>
         <translation>同步这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="255"/>
         <source>Show &amp;Details</source>
         <translation>详情(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="241"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="82"/>
+        <source>Recently Updated</source>
+        <translation>最近修改</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="276"/>
         <source>Sync &amp;Now</source>
         <translation>立即同步(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="243"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="278"/>
         <source>Sync this library immediately</source>
         <translation>立即同步资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="248"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
         <source>&amp;Cancel download</source>
         <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="250"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
         <source>Cancel download of this library</source>
         <translation>取消下载这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="255"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="262"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="297"/>
         <source>&amp;Open folder</source>
         <translation>打开文件夹(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="257"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="292"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="299"/>
         <source>open local folder</source>
         <translation>打开本地文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="304"/>
         <source>&amp;Unsync</source>
         <translation>解除同步(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="270"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="305"/>
         <source>unsync this library</source>
         <translation>解除同步这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="281"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="316"/>
         <source>&amp;View on cloud</source>
         <translation>到网站上查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="318"/>
         <source>view this library on seahub</source>
         <translation>到网站上查看这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="325"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>你确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="337"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="372"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>解除同步资料库 &quot;%1&quot; 失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="490"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="548"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="552"/>
         <source>The download has been canceled</source>
         <translation>下载已取消</translation>
     </message>
@@ -1897,12 +1906,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>搜索资料库...</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="89"/>
+        <location filename="../src/ui/repos-tab.cpp" line="92"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="90"/>
+        <location filename="../src/ui/repos-tab.cpp" line="93"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
         <translation>获取资料库信息失败&lt;br/&gt;请 %1</translation>
     </message>
@@ -1918,12 +1927,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="230"/>
+        <location filename="../src/seafile-applet.cpp" line="231"/>
         <source>Failed to initialize log</source>
         <translation>初始化日志失败</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="333"/>
+        <location filename="../src/seafile-applet.cpp" line="334"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。

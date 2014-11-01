@@ -70,6 +70,7 @@ void RepoTreeView::loadExpandedCategries()
     if (!account.isValid()) {
         return;
     }
+    expanded_categroies_.clear();
     QSettings settings;
     settings.beginGroup(kRepoTreeViewSettingsGroup);
     QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();

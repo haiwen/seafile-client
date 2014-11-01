@@ -112,7 +112,7 @@ void FileBrowserDialog::createToolBar()
     gohome_action_ = new QAction(tr("Home"), this);
     gohome_action_->setIcon(getIconSet(":images/filebrowser/home.png", kToolBarIconSize, kToolBarIconSize));
     connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
-    toolbar_->addAction(gohome_action_);
+    // toolbar_->addAction(gohome_action_);
 
     path_navigator_ = new QButtonGroup(this);
     connect(path_navigator_, SIGNAL(buttonClicked(int)),

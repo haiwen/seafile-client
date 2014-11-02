@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="sk_SK">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="sk_SK" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -14,58 +12,58 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>Please enter the server address</source>
-        <translation type="unfinished">Prosím zadajte adresu servera</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="57"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="63"/>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished">%1 nie je platná adresa servera</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="83"/>
         <source>Failed to save account information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="89"/>
         <source>Failed to save the changes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="94"/>
         <source>Successfully updated current account information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="110"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="111"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušiť</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -73,57 +71,57 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="55"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="65"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="87"/>
         <source>click to open the website</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="97"/>
         <source>No account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Account settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="136"/>
         <source>Add an account</source>
-        <translation type="unfinished">Pridať účet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Delete this account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
         <source>Form</source>
-        <translation type="unfinished">Formulár</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
         <source>email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="85"/>
         <source>server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -131,22 +129,22 @@
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="105"/>
         <source>More</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="149"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="151"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="152"/>
         <source>Failed to get actvities information. Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -154,7 +152,7 @@
     <message>
         <location filename="../src/avatar-service.cpp" line="141"/>
         <source>Failed to create avatars folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -255,57 +253,57 @@
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="128"/>
         <source>Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="131"/>
         <source>Starred</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="146"/>
         <source>Activities</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="174"/>
+        <location filename="../src/ui/cloud-view.cpp" line="176"/>
         <source>current download rate</source>
         <translation>aktuálna rýchlosť sťahovania</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="180"/>
+        <location filename="../src/ui/cloud-view.cpp" line="182"/>
         <source>current upload rate</source>
         <translation>aktuálna rýchlosť nahrávania</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="185"/>
+        <location filename="../src/ui/cloud-view.cpp" line="187"/>
         <source>Please Choose a folder to sync</source>
         <translation>Prosím vyberta adresár pre synchronizáciu</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="315"/>
-        <location filename="../src/ui/cloud-view.cpp" line="337"/>
+        <location filename="../src/ui/cloud-view.cpp" line="317"/>
+        <location filename="../src/ui/cloud-view.cpp" line="339"/>
         <source>no server connected</source>
         <translation>nie je pripojený žiadny server</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="335"/>
+        <location filename="../src/ui/cloud-view.cpp" line="337"/>
         <source>all servers connected</source>
         <translation>všetky servery sú pripojené</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="339"/>
+        <location filename="../src/ui/cloud-view.cpp" line="341"/>
         <source>some servers not connected</source>
         <translation>niektoré servery nie sú pripojené</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="361"/>
-        <location filename="../src/ui/cloud-view.cpp" line="362"/>
+        <location filename="../src/ui/cloud-view.cpp" line="363"/>
+        <location filename="../src/ui/cloud-view.cpp" line="364"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="411"/>
+        <location filename="../src/ui/cloud-view.cpp" line="413"/>
         <source>Refresh</source>
         <translation>Obnoviť</translation>
     </message>
@@ -451,7 +449,7 @@
         <location filename="../src/ui/create-repo-dialog.cpp" line="187"/>
         <source>Failed to create library on the server:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="194"/>
@@ -501,7 +499,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="204"/>
@@ -522,12 +520,12 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="32"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="89"/>
         <source>Create a new sync folder at:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="129"/>
@@ -557,22 +555,22 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="84"/>
         <source>or</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="86"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="96"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="99"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="222"/>
@@ -585,7 +583,7 @@
         <location filename="../src/ui/download-repo-dialog.cpp" line="233"/>
         <source>Failed to get repo download information:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="224"/>
@@ -605,7 +603,7 @@
     <message>
         <location filename="../ui_download-repo-dialog.h" line="227"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_download-repo-dialog.h" line="228"/>
@@ -618,7 +616,7 @@
     <message>
         <location filename="../src/ui/event-details-dialog.cpp" line="30"/>
         <source>Modification Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -626,85 +624,85 @@
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="110"/>
         <source>Added files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="111"/>
         <source>Deleted files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="112"/>
         <source>Modified files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="114"/>
         <source>Added folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="115"/>
         <source>Deleted folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="122"/>
         <source>Renamed files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FileBrowserDialog</name>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="48"/>
-        <source>File Browser</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="51"/>
+        <source>Cloud File Browser</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="97"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="100"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="103"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="106"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="109"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="112"/>
         <source>Home</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="142"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="149"/>
         <source>You don&apos;t have permission to upload files to this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="231"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="239"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="232"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="240"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="320"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="361"/>
         <source>Failed to download file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="335"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="376"/>
         <source>Failed to upload file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="405"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="446"/>
         <source>Select a file to upload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -712,110 +710,110 @@
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="29"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušiť</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="52"/>
         <source>Upload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="53"/>
         <source>Uploading %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="56"/>
         <source>Downloading %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="80"/>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="112"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="114"/>
         <source>Operation canceled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="471"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="476"/>
         <source>Internal Server Error</source>
-        <translation type="unfinished">Interná chyba na servery</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="198"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="205"/>
         <source>Folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="199"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="206"/>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="222"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="229"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="224"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="231"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="226"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
         <source>Last Modified</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="235"/>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="300"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="341"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="305"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="346"/>
         <source>Failed to create folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="309"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="314"/>
         <source>Failed to create temporary files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="356"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="361"/>
         <source>Failed to write file to disk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="362"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="367"/>
         <source>Failed to remove the older version of the downloaded file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="368"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="373"/>
         <source>Failed to move file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -904,13 +902,13 @@ Server musí byť verzie 2.1 alebo vyššie pre túto funkcionalitu.</translatio
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="136"/>
         <source>Failed to get default library:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="152"/>
         <source>Failed to create default library:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="178"/>
@@ -921,7 +919,7 @@ Server musí byť verzie 2.1 alebo vyššie pre túto funkcionalitu.</translatio
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="187"/>
         <source>Failed to download default library:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
@@ -1040,7 +1038,7 @@ Prajete si stiahnuť predvolenú knižnicu a vytvoriť virtuálny disk?</transla
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="142"/>
         <source>Please enter the computer name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="159"/>
@@ -1060,7 +1058,7 @@ Prajete si stiahnuť predvolenú knižnicu a vytvoriť virtuálny disk?</transla
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="188"/>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="190"/>
@@ -1120,12 +1118,12 @@ Prajete si stiahnuť predvolenú knižnicu a vytvoriť virtuálny disk?</transla
     <message>
         <location filename="../ui_login-dialog.h" line="264"/>
         <source>Computer Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="265"/>
         <source>e.g. Jim&apos;s laptop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="267"/>
@@ -1183,10 +1181,10 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="395"/>
         <location filename="../src/filebrowser/tasks.cpp" line="400"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="405"/>
         <source>File does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1292,67 +1290,67 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <location filename="../src/rpc/local-repo.cpp" line="178"/>
         <source>Access denied to service</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Internal data corrupted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>Failed to start upload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>Error occured in upload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>Failed to start download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Error occured in download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="157"/>
         <source>Library is damaged on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="160"/>
         <source>Conflict in merge</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Server version is too old</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="169"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Neznáma chyba</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="172"/>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Internal server error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Your %1 client is too old</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
@@ -1378,7 +1376,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="228"/>
         <location filename="../src/rpc/local-repo.cpp" line="230"/>
         <source>Failed to sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
@@ -1388,7 +1386,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Error when accessing the local folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
@@ -1461,46 +1459,46 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <translation>Interná chyba.</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="395"/>
-        <location filename="../src/utils/utils.cpp" line="423"/>
+        <location filename="../src/utils/utils.cpp" line="398"/>
         <location filename="../src/utils/utils.cpp" line="426"/>
+        <location filename="../src/utils/utils.cpp" line="429"/>
         <source>Just now</source>
         <translation>Práve teraz</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="411"/>
+        <location filename="../src/utils/utils.cpp" line="414"/>
         <source>1 day ago</source>
         <translation>1 deň dozadu</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="411"/>
+        <location filename="../src/utils/utils.cpp" line="414"/>
         <source>%1 days ago</source>
         <translation>pred %1 dňami</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="415"/>
+        <location filename="../src/utils/utils.cpp" line="418"/>
         <source>1 hour ago</source>
         <translation>pre hodinou</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="415"/>
+        <location filename="../src/utils/utils.cpp" line="418"/>
         <source>%1 hours ago</source>
         <translation>pred %1 hodinami</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="419"/>
+        <location filename="../src/utils/utils.cpp" line="422"/>
         <source>1 minute ago</source>
         <translation>pre minutou</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="419"/>
+        <location filename="../src/utils/utils.cpp" line="422"/>
         <source>%1 minutes ago</source>
         <translation>pre %1 minútami</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="561"/>
+        <location filename="../src/utils/utils.cpp" line="564"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/main.cpp" line="125"/>
@@ -1600,47 +1598,47 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
         <source>SSL Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="57"/>
         <source>Network Error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="59"/>
         <source>Server Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/certs-mgr.cpp" line="77"/>
         <source>failed to open certs database</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="161"/>
         <source>The library &quot;%1&quot; has not been synced yet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/api/event.cpp" line="50"/>
-        <source>Created library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="52"/>
+        <source>Created library &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/api/event.cpp" line="54"/>
         <source>Deleted library &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/data-cache.cpp" line="71"/>
         <source>failed to open file cache database</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1748,7 +1746,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
     <message>
         <location filename="../src/repo-service.cpp" line="131"/>
         <source>The library of this file is not synced yet. Do you want to sync it now?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1774,7 +1772,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <translation>Súkromné Zdielania</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="230"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="236"/>
         <source>Organization</source>
         <translation>Organizácia</translation>
     </message>
@@ -1782,105 +1780,110 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="158"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="159"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="193"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="194"/>
         <source>Disable auto sync</source>
         <translation>Vypnúť automatickú synchronizáciu</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="163"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="275"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="276"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="197"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="198"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="310"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="311"/>
         <source>Enable auto sync</source>
         <translation>Zapnúť automatickú synchronizáciu</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="222"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="257"/>
         <source>Show details of this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="227"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="234"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="262"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
         <source>&amp;Sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="229"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="236"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="271"/>
         <source>Sync this library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="220"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="255"/>
         <source>Show &amp;Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="241"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="82"/>
+        <source>Recently Updated</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="276"/>
         <source>Sync &amp;Now</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="243"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="278"/>
         <source>Sync this library immediately</source>
         <translation>Túto knižnicu synchronizovať okamžite</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="248"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
         <source>&amp;Cancel download</source>
         <translation>&amp;Prerušiť sťahovanie</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="250"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
         <source>Cancel download of this library</source>
         <translation>Prerušiť preberanie tejto knižnice</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="255"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="262"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="297"/>
         <source>&amp;Open folder</source>
         <translation>&amp;Otvor priečinok</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="257"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="292"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="299"/>
         <source>open local folder</source>
         <translation>otvor lokálny priečinok</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="304"/>
         <source>&amp;Unsync</source>
         <translation>&amp;Odsynchronizavať</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="270"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="305"/>
         <source>unsync this library</source>
         <translation>odsynchronizovať túto knižnicu</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="281"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="316"/>
         <source>&amp;View on cloud</source>
         <translation>&amp;Pozri v cloude</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="318"/>
         <source>view this library on seahub</source>
         <translation>pozri túto knižnicu v seahube</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="325"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>Skutočne chcete odsynchronizovať knižnicu &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="337"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="372"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Nepodarilo sa odsynchronizovať knižnicu &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="490"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="548"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -1889,7 +1892,7 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="552"/>
         <source>The download has been canceled</source>
         <translation>Preberanie bolo zrušené</translation>
     </message>
@@ -1899,17 +1902,17 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="40"/>
         <source>Search libraries...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="89"/>
+        <location filename="../src/ui/repos-tab.cpp" line="92"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="90"/>
+        <location filename="../src/ui/repos-tab.cpp" line="93"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1917,18 +1920,18 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
     <message>
         <location filename="../src/api/api-client.cpp" line="111"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished">&lt;b&gt;Upozornenie:&lt;/b&gt; SSL certifikát servera nie ne dôveryhodný, pokračovať?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="230"/>
+        <location filename="../src/seafile-applet.cpp" line="231"/>
         <source>Failed to initialize log</source>
         <translation>Nepodarila sa inicializácia log súboru</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="333"/>
+        <location filename="../src/seafile-applet.cpp" line="334"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Je dostupná nová verzia %1 klienta (%2).
@@ -1976,7 +1979,7 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>View unread notifications</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="105"/>
@@ -1997,12 +2000,12 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="114"/>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="115"/>
         <source>open seafile log directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="118"/>
@@ -2037,11 +2040,7 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="407"/>
         <source>You have %n message(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="413"/>
@@ -2097,42 +2096,42 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="14"/>
         <source>Please provide the library password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="21"/>
         <source>Provide the password for library %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="35"/>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="61"/>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/set-repo-password-dialog.cpp" line="63"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Neznáma chyba</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="115"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="116"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_set-repo-password-dialog.h" line="117"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušiť</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2160,17 +2159,17 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="208"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="209"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="210"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="211"/>
@@ -2190,37 +2189,37 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="214"/>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="215"/>
         <source>Do not automatically unsync a library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="216"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="217"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="218"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="219"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="220"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="221"/>
@@ -2233,42 +2232,42 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="16"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Remember my choice</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
         <source>Yes</source>
-        <translation type="unfinished">Áno</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
         <source>No</source>
-        <translation type="unfinished">Nie</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2276,22 +2275,22 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="36"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="39"/>
         <source>Open this file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="45"/>
         <source>view on &amp;Web</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="48"/>
         <source>view this file on website</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2299,17 +2298,17 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="78"/>
         <source>retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="79"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="100"/>
         <source>You have no starred files yet.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

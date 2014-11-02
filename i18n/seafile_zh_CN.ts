@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.0">
 <context>
     <name>AccountManager</name>
     <message>
@@ -652,10 +650,6 @@
 </context>
 <context>
     <name>FileBrowserDialog</name>
-    <message>
-        <source>File Browser</source>
-        <translation type="obsolete">文件浏览器</translation>
-    </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="51"/>
         <source>Cloud File Browser</source>
@@ -2041,9 +2035,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="407"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>你有 %n 条未读消息</numerusform>
-        </translation>
+        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="413"/>

@@ -18,10 +18,14 @@ const int kDirentsCacheExpireTime = 60 * 1000;
 
 } // namespace
 
-SINGLETON_IMPL(DirentsCache);
+SINGLETON_IMPL(DirentsCache)
 DirentsCache::DirentsCache()
 {
     cache_ = new QCache<QString, CacheEntry>;
+}
+DirentsCache::~DirentsCache()
+{
+    delete cache_;
 }
 
 QList<SeafDirent>*
@@ -51,9 +55,16 @@ void DirentsCache::saveCachedDirents(const QString& repo_id,
     cache_->insert(cache_key, val);
 }
 
-SINGLETON_IMPL(FileCacheDB);
+SINGLETON_IMPL(FileCacheDB)
 FileCacheDB::FileCacheDB()
 {
+    db_ = NULL;
+}
+
+FileCacheDB::~FileCacheDB()
+{
+    if (db_ != NULL)
+        sqlite3_close(db_);
 }
 
 void FileCacheDB::start()

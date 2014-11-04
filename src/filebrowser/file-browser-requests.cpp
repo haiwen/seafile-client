@@ -107,7 +107,7 @@ GetSharedLinkRequest::GetSharedLinkRequest(const Account &account,
 
 void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
 {
-    QString reply_content(reply.readAll());
+    QString reply_content(reply.rawHeader("Location"));
 
     emit success(reply_content);
 }

@@ -1,8 +1,4 @@
 #include <QtGui>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QLineEdit>
-#include <QButtonGroup>
 #include <QDesktopServices>
 
 #include "seafile-applet.h"
@@ -34,6 +30,11 @@ const char *kLoadingFaieldLabelName = "loadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
 const int kStatusCodePasswordNeeded = 400;
+
+void openFile(const QString& path)
+{
+    ::openInNativeExtension(path) || ::showInGraphicalShell(path);
+}
 
 } // namespace
 
@@ -71,13 +72,39 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     vlayout->addWidget(stack_);
     vlayout->addWidget(status_bar_);
 
+    // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
             this, SLOT(onDirentClicked(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntRename(const SeafDirent&)),
+            this, SLOT(onGetDirentRename(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntRemove(const SeafDirent&)),
+            this, SLOT(onGetDirentRemove(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntShare(const SeafDirent&)),
+            this, SLOT(onGetDirentShare(const SeafDirent&)));
 
+    //dirents <--> data_mgr_
     connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
             this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
+
+    //rename <--> data_mgr_
+    connect(data_mgr_, SIGNAL(renameDirentSuccess()),
+            this, SLOT(onDirentRenameSuccess()));
+    connect(data_mgr_, SIGNAL(renameDirentFailed(const ApiError&)),
+            this, SLOT(onDirentRenameFailed(const ApiError&)));
+
+    //remove <--> data_mgr_
+    connect(data_mgr_, SIGNAL(removeDirentSuccess()),
+            this, SLOT(onDirentRemoveSuccess()));
+    connect(data_mgr_, SIGNAL(removeDirentFailed(const ApiError&)),
+            this, SLOT(onDirentRemoveFailed(const ApiError&)));
+
+    //share <--> data_mgr_
+    connect(data_mgr_, SIGNAL(shareDirentSuccess(const QString&)),
+            this, SLOT(onDirentShareSuccess(const QString&)));
+    connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
+            this, SLOT(onDirentShareFailed(const ApiError&)));
 
     QTimer::singleShot(0, this, SLOT(fetchDirents()));
 }
@@ -139,7 +166,7 @@ void FileBrowserDialog::createStatusBar()
     spacer1->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     status_bar_->addWidget(spacer1);
 
-    upload_action_ = new QAction(this);
+    upload_action_ = new QAction(tr("Upload"), this);
     upload_action_->setIcon(
         getIconSet(":/images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(upload_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
@@ -175,7 +202,7 @@ void FileBrowserDialog::createStatusBar()
 void FileBrowserDialog::createFileTable()
 {
     loading_view_ = new LoadingView;
-    table_view_ = new FileTableView(repo_);
+    table_view_ = new FileTableView(repo_, this);
     table_model_ = new FileTableModel();
     table_view_->setModel(table_model_);
 
@@ -392,11 +419,6 @@ bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task,
     return false;
 }
 
-void FileBrowserDialog::openFile(const QString& path)
-{
-    ::openInNativeExtension(path) || ::showInGraphicalShell(path);
-}
-
 void FileBrowserDialog::goForward()
 {
     QString path = forward_history_.pop();
@@ -467,5 +489,66 @@ void FileBrowserDialog::onNavigatorClick(int id)
       path += current_lpath_[i] + "/";
 
     enterPath(path);
+}
+
+void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
+                                          QString new_name)
+{
+    if (new_name.isEmpty()) {
+        new_name = QInputDialog::getText(this, tr("Rename"),
+                   QObject::tr("Rename %1 to").arg(dirent.name),
+                   QLineEdit::Normal,
+                   dirent.name);
+    }
+    data_mgr_->renameDirent(repo_.id, current_path_ + dirent.name,
+                            new_name,
+                            dirent.isFile());
+}
+
+void FileBrowserDialog::onGetDirentRemove(const SeafDirent& dirent)
+{
+    if (seafApplet->yesOrNoBox(tr("Confirm to remove file %1").arg(dirent.name),
+                               this, false))
+        data_mgr_->removeDirent(repo_.id, current_path_ + dirent.name,
+                                dirent.isFile());
+}
+
+void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
+{
+    data_mgr_->shareDirent(repo_.id, current_path_ + dirent.name, dirent.isFile());
+}
+
+void FileBrowserDialog::onDirentRenameSuccess()
+{
+    forceRefresh();
+}
+
+void FileBrowserDialog::onDirentRenameFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Rename failed"), this);
+}
+
+void FileBrowserDialog::onDirentRemoveSuccess()
+{
+    forceRefresh();
+}
+
+void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Remove failed"), this);
+}
+
+void FileBrowserDialog::onDirentShareSuccess(const QString &link)
+{
+    QInputDialog::getText(this, getBrand(),
+                          tr("Share link: %1").arg(link),
+                          QLineEdit::Normal,
+                          link);
+
+}
+
+void FileBrowserDialog::onDirentShareFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Share failed"), this);
 }
 

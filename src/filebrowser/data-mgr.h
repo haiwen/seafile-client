@@ -12,6 +12,7 @@
 
 template<typename Key> class QList;
 
+class SeafileApiRequest;
 class GetDirentsRequest;
 class DirentsCache;
 class FileCacheDB;
@@ -36,6 +37,19 @@ public:
     void getDirentsFromServer(const QString& repo_id,
                               const QString& path);
 
+    void renameDirent(const QString &repo_id,
+                      const QString &path,
+                      const QString &new_path,
+                      bool is_file = true);
+
+    void removeDirent(const QString &repo_id,
+                      const QString &path,
+                      bool is_file = true);
+
+    void shareDirent(const QString &repo_id,
+                     const QString &path,
+                     bool is_file = true);
+
     QString getLocalCachedFile(const QString& repo_id,
                                const QString& path,
                                const QString& file_id);
@@ -56,6 +70,15 @@ signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
+    void renameDirentSuccess();
+    void renameDirentFailed(const ApiError& error);
+
+    void removeDirentSuccess();
+    void removeDirentFailed(const ApiError& error);
+
+    void shareDirentSuccess(const QString& link);
+    void shareDirentFailed(const ApiError& error);
+
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
     void onFileDownloadFinished(bool success);
@@ -66,6 +89,8 @@ private:
     const Account account_;
 
     GetDirentsRequest *get_dirents_req_;
+
+    QList<SeafileApiRequest*> reqs_;
 
     FileCacheDB *filecache_db_;
 

@@ -90,6 +90,7 @@ private:
     QAction *forward_action_;
     QButtonGroup *path_navigator_;
     QList<QLabel*> path_navigator_separators_;
+    QAction *gohome_action_;
     QAction *refresh_action_;
 
     QToolBar *status_bar_;

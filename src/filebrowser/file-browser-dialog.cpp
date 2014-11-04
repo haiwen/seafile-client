@@ -109,6 +109,11 @@ void FileBrowserDialog::createToolBar()
     connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
     toolbar_->addAction(forward_action_);
 
+    gohome_action_ = new QAction(tr("Home"), this);
+    gohome_action_->setIcon(getIconSet(":images/filebrowser/home.png", kToolBarIconSize, kToolBarIconSize));
+    connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
+    toolbar_->addAction(gohome_action_);
+
     path_navigator_ = new QButtonGroup(this);
     connect(path_navigator_, SIGNAL(buttonClicked(int)),
             this, SLOT(onNavigatorClick(int)));
@@ -257,6 +262,7 @@ void FileBrowserDialog::showLoading()
     forward_action_->setEnabled(false);
     backward_action_->setEnabled(false);
     upload_action_->setEnabled(false);
+    gohome_action_->setEnabled(false);
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
 }
 
@@ -432,6 +438,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     if (!repo_.readonly) {
         upload_action_->setEnabled(true);
     }
+    gohome_action_->setEnabled(true);
 }
 
 void FileBrowserDialog::chooseFileToUpload()

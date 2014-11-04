@@ -35,7 +35,8 @@ SettingsManager::SettingsManager()
       allow_repo_not_found_on_server_(false),
       maxDownloadRatio_(0),
       maxUploadRatio_(0),
-      sync_extra_temp_file_(false)
+      sync_extra_temp_file_(false),
+      http_sync_enabled_(false)
 {
 }
 
@@ -64,6 +65,9 @@ void SettingsManager::loadSettings()
 
     if (seafApplet->rpcClient()->seafileGetConfig("allow_repo_not_found_on_server", &str) >= 0)
         allow_repo_not_found_on_server_ = (str == "true") ? true : false;
+
+    if (seafApplet->rpcClient()->seafileGetConfig("enable_http_sync", &str) >= 0)
+        http_sync_enabled_ = (str == "true") ? true : false;
 
     autoStart_ = get_seafile_auto_start();
 }
@@ -271,6 +275,18 @@ void SettingsManager::setAllowRepoNotFoundOnServer(bool val)
             return;
         }
         allow_repo_not_found_on_server_ = val;
+    }
+}
+
+void SettingsManager::setHttpSyncEnabled(bool enabled)
+{
+    if (http_sync_enabled_ != enabled) {
+        if (seafApplet->rpcClient()->seafileSetConfig("enable_http_sync",
+                                                      enabled ? "true" : "false") < 0) {
+            // Error
+            return;
+        }
+        http_sync_enabled_ = enabled;
     }
 }
 

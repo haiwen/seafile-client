@@ -66,9 +66,9 @@ void SeafileApiClient::get(const QUrl& url)
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 }
 
-void SeafileApiClient::post(const QUrl& url, const QByteArray& encoded_params)
+void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put)
 {
-    encoded_params_ = encoded_params;
+    body_ = data;
     QNetworkRequest request(url);
     if (token_.length() > 0) {
         char buf[1024];
@@ -77,12 +77,33 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& encoded_params)
     }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
-    reply_ = na_mgr_->post(request, encoded_params);
+    if (is_put)
+        reply_ = na_mgr_->put(request, body_);
+    else
+        reply_ = na_mgr_->post(request, body_);
 
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));
+}
+
+void SeafileApiClient::deleteResource(const QUrl& url)
+{
+    QNetworkRequest request(url);
+
+    if (token_.length() > 0) {
+        char buf[1024];
+        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
+        request.setRawHeader(kAuthHeader, buf);
+    }
+
+    reply_ = na_mgr_->deleteResource(request);
+
+    connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
+            this, SLOT(onSslErrors(const QList<QSslError>&)));
+
+    connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 }
 
 void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
@@ -213,7 +234,18 @@ bool SeafileApiClient::handleHttpRedirect()
         get(redirect_url);
         break;
     case QNetworkAccessManager::PostOperation:
-        post(redirect_url, encoded_params_);
+        post(redirect_url, body_);
+        break;
+    case QNetworkAccessManager::PutOperation:
+        post(redirect_url, body_, true);
+        break;
+    case QNetworkAccessManager::DeleteOperation:
+        deleteResource(redirect_url);
+        break;
+    default:
+        qDebug() << "unsupported redirect" << reply_->operation()
+          << "to" << redirect_url.toString()
+          << "from" << reply_->url().toString();
         break;
     }
 

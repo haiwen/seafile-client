@@ -53,17 +53,17 @@ LoginRequest::LoginRequest(const QUrl& serverAddr,
     : SeafileApiRequest (::urlJoin(serverAddr, kApiLoginUrl),
                          SeafileApiRequest::METHOD_POST)
 {
-    setParam("username", username);
-    setParam("password", password);
+    setFormParam("username", username);
+    setFormParam("password", password);
 
     QString client_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
     QString device_id = seafApplet->rpcClient()->getCcnetPeerId();
 
-    setParam("platform", kOsName);
-    setParam("device_id", device_id);
-    setParam("device_name", computer_name);
-    setParam("client_version", client_version);
-    setParam("platform_version", "");
+    setFormParam("platform", kOsName);
+    setFormParam("device_id", device_id);
+    setFormParam("device_name", computer_name);
+    setFormParam("client_version", client_version);
+    setFormParam("platform_version", "");
 }
 
 void LoginRequest::requestSuccess(QNetworkReply& reply)
@@ -172,11 +172,11 @@ CreateRepoRequest::CreateRepoRequest(const Account& account, QString &name, QStr
     : SeafileApiRequest (account.getAbsoluteUrl(kCreateRepoUrl),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
-    this->setParam(QString("name"), name);
-    this->setParam(QString("desc"), desc);
+    this->setFormParam(QString("name"), name);
+    this->setFormParam(QString("desc"), desc);
     if (!passwd.isNull()) {
         qDebug("Encrypted repo");
-        this->setParam(QString("passwd"), passwd);
+        this->setFormParam(QString("passwd"), passwd);
     }
 }
 
@@ -304,8 +304,8 @@ GetLatestVersionRequest::GetLatestVersionRequest(const QString& client_id,
                                                  const QString& client_version)
     : SeafileApiRequest(QUrl(kLatestVersionUrl), SeafileApiRequest::METHOD_GET)
 {
-    setParam("id", client_id.left(8));
-    setParam("v", QString(kOsName) + "-" + client_version);
+    setUrlParam("id", client_id.left(8));
+    setUrlParam("v", QString(kOsName) + "-" + client_version);
 }
 
 void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
@@ -359,7 +359,7 @@ GetEventsRequest::GetEventsRequest(const Account& account, int start)
                          SeafileApiRequest::METHOD_GET, account.token)
 {
     if (start > 0) {
-        setParam("start", QString::number(start));
+        setUrlParam("start", QString::number(start));
     }
 }
 
@@ -395,7 +395,7 @@ GetCommitDetailsRequest::GetCommitDetailsRequest(const Account& account,
     : SeafileApiRequest (account.getAbsoluteUrl(kCommitDetailsUrl + repo_id + "/"),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
-    setParam("commit_id", commit_id);
+    setUrlParam("commit_id", commit_id);
 }
 
 void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
@@ -492,7 +492,7 @@ SetRepoPasswordRequest::SetRepoPasswordRequest(const Account& account,
     : SeafileApiRequest (account.getAbsoluteUrl(kSetRepoPasswordUrl + repo_id + "/"),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
-    setParam("password", password);
+    setFormParam("password", password);
 }
 
 void SetRepoPasswordRequest::requestSuccess(QNetworkReply& reply)

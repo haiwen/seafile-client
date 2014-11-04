@@ -24,7 +24,7 @@ GetDirentsRequest::GetDirentsRequest(const Account& account,
     : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetDirentsUrl).arg(repo_id)),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
-    setParam("p", path);
+    setUrlParam("p", path);
 
     repo_id_ = repo_id;
     path_ = path;
@@ -60,7 +60,7 @@ GetFileDownloadLinkRequest::GetFileDownloadLinkRequest(const Account &account,
           account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_GET, account.token)
 {
-    setParam("p", path);
+    setUrlParam("p", path);
 }
 
 void GetFileDownloadLinkRequest::requestSuccess(QNetworkReply& reply)

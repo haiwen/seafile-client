@@ -64,7 +64,7 @@ void SeafileApiRequest::send()
             params.setEncodedQueryItems(form_params_);
             setData(params.encodedQuery());
         }
-        api_client_->put(url_, data_);
+        api_client_->post(url_, data_, true);
         break;
     default:
         qWarning("unknown method %d\n", method_);

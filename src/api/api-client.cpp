@@ -66,7 +66,7 @@ void SeafileApiClient::get(const QUrl& url)
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 }
 
-void SeafileApiClient::post(const QUrl& url, const QByteArray& data)
+void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put)
 {
     body_ = data;
     QNetworkRequest request(url);
@@ -77,26 +77,10 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data)
     }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
-    reply_ = na_mgr_->post(request, body_);
-
-    connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
-
-    connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
-            this, SLOT(onSslErrors(const QList<QSslError>&)));
-}
-
-void SeafileApiClient::put(const QUrl& url, const QByteArray& data)
-{
-    body_ = data;
-    QNetworkRequest request(url);
-    if (token_.length() > 0) {
-        char buf[1024];
-        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
-        request.setRawHeader(kAuthHeader, buf);
-    }
-    request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
-
-    reply_ = na_mgr_->put(request, body_);
+    if (is_put)
+        reply_ = na_mgr_->put(request, body_);
+    else
+        reply_ = na_mgr_->post(request, body_);
 
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 
@@ -253,7 +237,7 @@ bool SeafileApiClient::handleHttpRedirect()
         post(redirect_url, body_);
         break;
     case QNetworkAccessManager::PutOperation:
-        put(redirect_url, body_);
+        post(redirect_url, body_, true);
         break;
     case QNetworkAccessManager::DeleteOperation:
         deleteResource(redirect_url);

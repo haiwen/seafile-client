@@ -99,7 +99,7 @@ const int kIntervalForUpdateRepoProperty = 1000;
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
 const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";
 
-const char *kRepoServerUrlProperty = "server_url";
+const char *kRepoServerUrlProperty = "server-url";
 const char *kRepoRelayAddrProperty = "relay-address";
 
 } // namespace
@@ -359,7 +359,7 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
 }
 
 /**
- * For each repo, add the "server_url" property (inferred from account url),
+ * For each repo, add the "server-url" property (inferred from account url),
  * which would be used for http sync.
  */
 void SeafileApplet::updateReposPropertyForHttpSync()

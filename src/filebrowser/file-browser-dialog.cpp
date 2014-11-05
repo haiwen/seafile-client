@@ -499,7 +499,9 @@ void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
                    QObject::tr("Rename %1 to").arg(dirent.name),
                    QLineEdit::Normal,
                    dirent.name);
-        // if cancelled
+        // trim the whites
+        new_name = new_name.trimmed();
+        // if cancelled or empty
         if (new_name.isEmpty())
             return;
     }

@@ -85,7 +85,7 @@ void DataManager::renameDirent(const QString &repo_id,
         req->send();
         reqs_.push_back(req);
     } else {
-        RenameDirentRequest *req = new RenameDirentRequest(account_, repo_id, path, new_path);
+        RenameFolderRequest *req = new RenameFolderRequest(account_, repo_id, path, new_path);
         connect(req, SIGNAL(success()),
                 SIGNAL(renameDirentSuccess()));
 
@@ -110,7 +110,7 @@ void DataManager::removeDirent(const QString &repo_id,
         req->send();
         reqs_.push_back(req);
     } else {
-        RemoveDirentRequest *req = new RemoveDirentRequest(account_, repo_id, path);
+        RemoveFolderRequest *req = new RemoveFolderRequest(account_, repo_id, path);
         connect(req, SIGNAL(success()),
                 SIGNAL(removeDirentSuccess()));
 

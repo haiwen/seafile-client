@@ -133,13 +133,17 @@ public:
     FileUploadTask(const Account& account,
                    const QString& repo_id,
                    const QString& path,
-                   const QString& local_path);
+                   const QString& local_path,
+                   bool not_update = true);
 
     TaskType type() const { return Upload; }
 
 protected:
     void createFileServerTask(const QString& link);
     void createGetLinkRequest();
+
+private:
+    bool not_update_;
 };
 
 /**

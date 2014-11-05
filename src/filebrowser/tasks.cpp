@@ -170,16 +170,17 @@ void FileDownloadTask::createFileServerTask(const QString& link)
 }
 
 FileUploadTask::FileUploadTask(const Account& account,
-                                   const QString& repo_id,
-                                   const QString& path,
-                                   const QString& local_path)
-    : FileNetworkTask(account, repo_id, path, local_path)
+                               const QString& repo_id,
+                               const QString& path,
+                               const QString& local_path,
+                               bool not_update)
+    : FileNetworkTask(account, repo_id, path, local_path), not_update_(not_update)
 {
 }
 
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_);
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, not_update_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)

@@ -141,7 +141,8 @@ class GetFileUploadLinkRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
     GetFileUploadLinkRequest(const Account &account,
-                             const QString &repo_id);
+                             const QString &repo_id,
+                             bool not_update = true);
 
 signals:
     void success(const QString& url);
@@ -151,22 +152,6 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(GetFileUploadLinkRequest)
-};
-
-class GetFileUpdateLinkRequest : public SeafileApiRequest {
-    Q_OBJECT
-public:
-    GetFileUpdateLinkRequest(const Account &account,
-                             const QString &repo_id);
-
-signals:
-    void success(const QString& url);
-
-protected slots:
-    void requestSuccess(QNetworkReply& reply);
-
-private:
-    Q_DISABLE_COPY(GetFileUpdateLinkRequest)
 };
 
 class MoveFileRequest : public SeafileApiRequest {

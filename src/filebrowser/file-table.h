@@ -63,6 +63,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
     void setDirents(const QList<SeafDirent>& dirents);
+    const QList<SeafDirent>& dirents() const { return dirents_; }
 
     const SeafDirent* direntAt(int index) const;
 

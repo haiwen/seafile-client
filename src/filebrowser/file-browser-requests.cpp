@@ -130,42 +130,16 @@ void CreateDirentRequest::requestSuccess(QNetworkReply& reply)
 }
 
 GetFileUploadLinkRequest::GetFileUploadLinkRequest(const Account &account,
-                                                   const QString &repo_id)
+                                                   const QString &repo_id,
+                                                   bool not_update)
     : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFileUploadUrl).arg(repo_id)),
+          account.getAbsoluteUrl(QString(
+              not_update ? kGetFileUploadUrl : kGetFileUpdateUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_GET, account.token)
 {
 }
 
 void GetFileUploadLinkRequest::requestSuccess(QNetworkReply& reply)
-{
-    QString reply_content(reply.readAll());
-
-    do {
-        if (reply_content.size() <= 2)
-            break;
-        reply_content.remove(0, 1);
-        reply_content.chop(1);
-        QUrl new_url(reply_content);
-
-        if (!new_url.isValid())
-            break;
-
-        emit success(reply_content);
-        return;
-    } while (0);
-    emit failed(ApiError::fromHttpError(500));
-}
-
-GetFileUpdateLinkRequest::GetFileUpdateLinkRequest(const Account &account,
-                                                   const QString &repo_id)
-    : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFileUpdateUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_GET, account.token)
-{
-}
-
-void GetFileUpdateLinkRequest::requestSuccess(QNetworkReply& reply)
 {
     QString reply_content(reply.readAll());
 

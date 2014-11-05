@@ -171,6 +171,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mDisableVerifyHttpSyncCert">
+         <property name="text">
+          <string>Do not verify server certificate in HTTP syncing</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

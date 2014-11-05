@@ -36,7 +36,8 @@ SettingsManager::SettingsManager()
       maxDownloadRatio_(0),
       maxUploadRatio_(0),
       sync_extra_temp_file_(false),
-      http_sync_enabled_(false)
+      http_sync_enabled_(false),
+      verify_http_sync_cert_disabled_(false)
 {
 }
 
@@ -68,6 +69,9 @@ void SettingsManager::loadSettings()
 
     if (seafApplet->rpcClient()->seafileGetConfig("enable_http_sync", &str) >= 0)
         http_sync_enabled_ = (str == "true") ? true : false;
+
+    if (seafApplet->rpcClient()->seafileGetConfig("disable_verify_certificate", &str) >= 0)
+        verify_http_sync_cert_disabled_ = (str == "true") ? true : false;
 
     autoStart_ = get_seafile_auto_start();
 }
@@ -287,6 +291,18 @@ void SettingsManager::setHttpSyncEnabled(bool enabled)
             return;
         }
         http_sync_enabled_ = enabled;
+    }
+}
+
+void SettingsManager::setHttpSyncCertVerifyDisabled(bool disabled)
+{
+    if (verify_http_sync_cert_disabled_ != disabled) {
+        if (seafApplet->rpcClient()->seafileSetConfig("disable_verify_certificate",
+                                                      disabled ? "true" : "false") < 0) {
+            // Error
+            return;
+        }
+        verify_http_sync_cert_disabled_ = disabled;
     }
 }
 

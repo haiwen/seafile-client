@@ -499,6 +499,9 @@ void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
                    QObject::tr("Rename %1 to").arg(dirent.name),
                    QLineEdit::Normal,
                    dirent.name);
+        // if cancelled
+        if (new_name.isEmpty())
+            return;
     }
     data_mgr_->renameDirent(repo_.id, current_path_ + dirent.name,
                             new_name,

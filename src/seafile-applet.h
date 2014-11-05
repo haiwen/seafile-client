@@ -72,6 +72,7 @@ private slots:
     void onDaemonStarted();
     void checkInitVDrive();
     void onGetLatestVersionInfoSuccess(const QString&);
+    void updateReposPropertyForHttpSync();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)

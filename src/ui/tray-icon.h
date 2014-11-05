@@ -58,7 +58,6 @@ private:
 
     void createActions();
     void createContextMenu();
-    bool allServersConnected();
 
     QIcon stateToIcon(TrayState state);
     QIcon getIcon(const QString& name);

@@ -47,6 +47,7 @@ private slots:
     void onAccountChanged();
     void onTabChanged(int index);
     void addActivitiesTab();
+    void refreshServerStatus();
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -60,7 +61,6 @@ private:
     void setupDropArea();
     void setupFooter();
 
-    void refreshServerStatus();
     void refreshTasksInfo();
     void refreshTransferRate();
     void showCreateRepoDialog(const QString& path);

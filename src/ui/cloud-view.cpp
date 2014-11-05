@@ -21,6 +21,7 @@ extern "C" {
 #include "account-view.h"
 #include "seafile-tab-widget.h"
 #include "utils/paint-utils.h"
+#include "server-status-service.h"
 
 #include "cloud-view.h"
 
@@ -86,6 +87,9 @@ CloudView::CloudView(QWidget *parent)
 #ifdef Q_WS_MAC
     mHeader->setVisible(false);
 #endif
+
+    connect(ServerStatusService::instance(), SIGNAL(serverStatusChanged()),
+            this, SLOT(refreshServerStatus()));
 }
 
 void CloudView::setupHeader()
@@ -306,47 +310,19 @@ void CloudView::refreshTasksInfo()
 
 void CloudView::refreshServerStatus()
 {
-    GList *servers = NULL;
-    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
-        qDebug("failed to get ccnet servers list\n");
-        return;
-    }
-
-    if (!servers) {
-        mServerStatusBtn->setIcon(QIcon(":/images/link-green"));
-        mServerStatusBtn->setToolTip(tr("no server connected"));
-        return;
-    }
-
-    GList *ptr;
-    bool all_server_connected = true;
-    bool all_server_disconnected = true;
-    for (ptr = servers; ptr ; ptr = ptr->next) {
-        CcnetPeer *server = (CcnetPeer *)ptr->data;
-        if (server->net_state == PEER_CONNECTED) {
-            all_server_disconnected = false;
-        } else {
-            all_server_connected = false;
-        }
-    }
-
-    bool all_connected = false;
+    ServerStatusService *service = ServerStatusService::instance();
     QString tool_tip;
-    if (all_server_connected) {
-        all_connected = true;
+    if (service->allServersConnected()) {
         tool_tip = tr("all servers connected");
-    } else if (all_server_disconnected) {
+    } else if (service->allServersDisconnected()) {
         tool_tip = tr("no server connected");
     } else {
         tool_tip = tr("some servers not connected");
     }
-    mServerStatusBtn->setIcon(QIcon(all_connected
+    mServerStatusBtn->setIcon(QIcon(service->allServersConnected()
                                     ? ":/images/link-green.png"
                                     : ":/images/link-red.png"));
     mServerStatusBtn->setToolTip(tool_tip);
-
-    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
-    g_list_free (servers);
 }
 
 void CloudView::refreshTransferRate()
@@ -370,7 +346,6 @@ void CloudView::refreshStatusBar()
         return;
     }
     refreshTasksInfo();
-    refreshServerStatus();
     refreshTransferRate();
 }
 

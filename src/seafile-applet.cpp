@@ -29,6 +29,7 @@
 #include "seahub-notifications-monitor.h"
 #include "filebrowser/data-cache.h"
 #include "rpc/local-repo.h"
+#include "server-status-service.h"
 
 #include "seafile-applet.h"
 
@@ -139,6 +140,7 @@ void SeafileApplet::start()
 
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();
+    ServerStatusService::instance()->start();
 
 #if defined(Q_WS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");

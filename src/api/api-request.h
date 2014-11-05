@@ -22,6 +22,8 @@ class SeafileApiRequest : public QObject {
 public:
     virtual ~SeafileApiRequest();
 
+    const QUrl& url() const { return url_; }
+
     // set param k-v pair which appears in query params
     void setUrlParam(const QString& name, const QString& value);
     // set param k-v pair which appears in url-encoded form
@@ -67,9 +69,6 @@ protected:
             json_decref(json);
         }
     };
-
-protected:
-    const QUrl& url() const { return url_; }
 
 private:
     Q_DISABLE_COPY(SeafileApiRequest)

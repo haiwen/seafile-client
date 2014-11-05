@@ -17,6 +17,21 @@ class StarredFile;
 class SeafEvent;
 class CommitDetails;
 
+class PingServerRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    PingServerRequest(const QUrl& serverAddr);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success();
+
+private:
+    Q_DISABLE_COPY(PingServerRequest)
+};
+
 class LoginRequest : public SeafileApiRequest {
     Q_OBJECT
 

@@ -18,6 +18,7 @@
 
 namespace {
 
+const char *kApiPingUrl = "api2/ping/";
 const char *kApiLoginUrl = "api2/auth-token/";
 const char *kListReposUrl = "api2/repos/";
 const char *kCreateRepoUrl = "api2/repos/";
@@ -41,6 +42,18 @@ const char *kOsName = "mac";
 
 } // namespace
 
+
+PingServerRequest::PingServerRequest(const QUrl& serverAddr)
+
+    : SeafileApiRequest (::urlJoin(serverAddr, kApiPingUrl),
+                         SeafileApiRequest::METHOD_GET)
+{
+}
+
+void PingServerRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
 
 /**
  * LoginRequest

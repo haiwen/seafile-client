@@ -16,6 +16,7 @@ extern "C" {
 #include "settings-dialog.h"
 #include "settings-mgr.h"
 #include "seahub-notifications-monitor.h"
+#include "server-status-service.h"
 
 #include "tray-icon.h"
 #if defined(Q_WS_MAC)
@@ -414,44 +415,12 @@ void SeafileTrayIcon::refreshTrayIcon()
         return;
     }
 
-    bool all_server_connected = allServersConnected();
-    if (!all_server_connected) {
+    if (!ServerStatusService::instance()->allServersConnected()) {
         setState(STATE_SERVERS_NOT_CONNECTED, tr("some servers not connected"));
         return;
     }
 
     setState(STATE_DAEMON_UP);
-}
-
-bool SeafileTrayIcon::allServersConnected()
-{
-    if (!seafApplet->started()) {
-        return true;
-    }
-
-    GList *servers = NULL;
-    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
-        return true;
-    }
-
-    if (!servers) {
-        return true;
-    }
-
-    GList *ptr;
-    bool all_server_connected = true;
-    for (ptr = servers; ptr ; ptr = ptr->next) {
-        CcnetPeer *server = (CcnetPeer *)ptr->data;
-        if (server->net_state != PEER_CONNECTED) {
-            all_server_connected = false;
-            break;
-        }
-    }
-
-    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
-    g_list_free (servers);
-
-    return all_server_connected;
 }
 
 void SeafileTrayIcon::onSeahubNotificationsChanged()

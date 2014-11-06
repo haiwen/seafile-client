@@ -23,6 +23,7 @@ public:
 
 private:
     DirentsCache();
+    ~DirentsCache();
     struct CacheEntry {
         qint64 timestamp;
         QList<SeafDirent> dirents;
@@ -46,6 +47,7 @@ public:
                           const QString& file_id);
 private:
     FileCacheDB();
+    ~FileCacheDB();
     static bool getCacheIdCB(sqlite3_stmt *stmt, void *data);
 
     sqlite3 *db_;

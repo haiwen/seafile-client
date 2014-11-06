@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QList>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
@@ -24,26 +25,12 @@ namespace {
 
 #if defined(Q_WS_WIN)
 
-const char *kCcnetConfDir = "ccnet";
 const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
 const char *kMyComputerNamespacePath =
     "Software\\Microsoft\\Windows\\CurrentVersion"
     "\\Explorer\\MyComputer\\Namespace";
 
-#else
-
-const char *kCcnetConfDir = ".ccnet";
-
 #endif
-
-QString defaultCcnetDir() {
-    const char *env = g_getenv("CCNET_CONF_DIR");
-    if (env) {
-        return QString::fromUtf8(env);
-    } else {
-        return QDir::home().filePath(kCcnetConfDir);
-    }
-}
 
 } // namespace
 

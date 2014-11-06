@@ -10,6 +10,7 @@
 #include <glib-object.h>
 #include <cstdio>
 
+#include "utils/utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
 #include "ui/proxy-style.h"

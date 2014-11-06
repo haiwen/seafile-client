@@ -1,4 +1,5 @@
 #include <QtGui>
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "utils/uninstall-helpers.h"
 

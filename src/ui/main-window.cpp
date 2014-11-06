@@ -11,6 +11,7 @@
 #include <QVBoxLayout>
 
 #include "cloud-view.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "tray-icon.h"

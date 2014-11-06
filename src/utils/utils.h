@@ -44,6 +44,8 @@ typedef bool (*KeyValueFunc) (void *data, const char *key,
 
 bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data);
 
+QString getBrand();
+
 QString translateCommitTime(qint64 timestamp);
 
 QString readableFileSize(qint64 size);

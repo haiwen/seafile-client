@@ -347,8 +347,3 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
 
     QDesktopServices::openUrl(url);
 }
-
-QString getBrand()
-{
-    return QString::fromUtf8(SEAFILE_CLIENT_BRAND);
-}

@@ -8,6 +8,7 @@ extern "C" {
 #include <QtGui>
 
 #include "QtAwesome.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"

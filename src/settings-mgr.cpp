@@ -1,5 +1,6 @@
 #include <QSettings>
 #include <QHostInfo>
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"

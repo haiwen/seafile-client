@@ -1,5 +1,6 @@
 #include <QtGui>
 
+#include "utils/utils.h"
 #include "account-mgr.h"
 #include "seafile-applet.h"
 #include "configurator.h"

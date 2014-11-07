@@ -9,6 +9,7 @@ extern "C" {
 #include <QSet>
 #include <QDebug>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "rpc/rpc-client.h"

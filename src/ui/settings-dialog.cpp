@@ -2,6 +2,7 @@
 #include <QDebug>
 
 #include "account-mgr.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "settings-mgr.h"
 #include "api/requests.h"

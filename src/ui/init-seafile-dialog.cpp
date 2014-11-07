@@ -1,5 +1,6 @@
 #include <QtGui>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "init-seafile-dialog.h"

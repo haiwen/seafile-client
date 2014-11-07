@@ -6,6 +6,7 @@ extern "C" {
 #include <QCoreApplication>
 #include <QtDebug>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "settings-mgr.h"
 #include "configurator.h"

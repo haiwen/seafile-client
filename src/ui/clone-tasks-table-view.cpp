@@ -3,6 +3,7 @@
 #include <QContextMenuEvent>
 
 #include "QtAwesome.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "rpc/clone-task.h"

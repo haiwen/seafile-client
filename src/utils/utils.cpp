@@ -35,6 +35,7 @@
 
 namespace {
 
+const char *kSeafileClientBrand = "Seafile";
 #if defined(Q_WS_WIN)
 const char *kCcnetConfDir = "ccnet";
 #else
@@ -347,6 +348,11 @@ bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
         line = next + 1;
     }
     return true;
+}
+
+QString getBrand()
+{
+    return QString::fromUtf8(kSeafileClientBrand);
 }
 
 QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)

@@ -6,6 +6,7 @@
 #include <QAbstractTableModel>
 #include <QStyledItemDelegate>
 #include <QModelIndex>
+#include <QScopedPointer>
 
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
@@ -42,7 +43,7 @@ private:
 
     Q_DISABLE_COPY(FileTableView)
 
-    const SeafDirent *item_;
+    QScopedPointer<const SeafDirent> item_;
     ServerRepo repo_;
     QMenu *context_menu_;
     QAction *download_action_;

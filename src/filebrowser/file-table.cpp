@@ -105,7 +105,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     FileTableModel *model = (FileTableModel *)this->model();
 
-    item_ = model->direntAt(row);
+    item_.reset(new SeafDirent(*model->direntAt(row)));
 
     if (item_ == NULL)
         return;

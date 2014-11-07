@@ -687,3 +687,17 @@ bool createDirIfNotExists(const QString& path)
     QDir parent_dir = finfo.absoluteDir();
     return parent_dir.mkpath(finfo.fileName());
 }
+
+QString getParentPath(const QString& path)
+{
+    if (path.isEmpty()) {
+        return "";
+    }
+
+    QString p = QDir::fromNativeSeparators(path);
+    int pos = path.lastIndexOf("/");
+    if (pos == -1) {
+        return "";
+    }
+    return p.left(pos + 1);
+}

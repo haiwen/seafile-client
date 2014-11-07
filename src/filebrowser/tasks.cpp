@@ -356,7 +356,7 @@ void GetFileTask::onHttpRequestFinished()
     }
     tmp_file_->close();
 
-    QString parent_dir = QFileInfo(local_path_).absoluteDir().path();
+    QString parent_dir = ::getParentPath(local_path_);
     if (!::createDirIfNotExists(parent_dir)) {
         setError(FileNetworkTask::FileIOError, tr("Failed to write file to disk"));
         emit finished(false);

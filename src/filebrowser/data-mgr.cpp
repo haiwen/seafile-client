@@ -140,7 +140,7 @@ void DataManager::removeDirentsCache(const QString& repo_id,
                                      bool is_file)
 {
     // expire its parent's cache
-    dirents_cache_->expireCachedDirents(repo_id, QFileInfo(path).absolutePath());
+    dirents_cache_->expireCachedDirents(repo_id, ::getParentPath(path));
     // if the object is a folder, then expire its self cache
     if (is_file)
         dirents_cache_->expireCachedDirents(repo_id, path);

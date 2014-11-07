@@ -6,6 +6,8 @@ class QStringList;
 QString getIconByFileName(const QString& fileName);
 QString getIconByFileNameV2(const QString& fileName);
 
+QString getParentPath(const QString& path);
+
 QString pathJoin(const QString& a, const QString& b);
 QString pathJoin(const QString& a, const QString& b, const QString& c);
 QString pathJoin(const QString& a, const QString& b, const QString& c, const QString& d);

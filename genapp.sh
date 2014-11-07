@@ -2,8 +2,15 @@
 
 top_dir=${PWD}
 
-dylibs="/usr/local/lib/libccnet.0.dylib /usr/local/lib/libseafile.0.dylib /usr/local/lib/libsearpc.1.dylib /opt/local/lib/libcrypto.1.0.0.dylib /opt/local/lib/libevent-2.0.5.dylib /opt/local/lib/libssl.1.0.0.dylib /opt/local/lib/libgio-2.0.0.dylib /opt/local/lib/libgmodule-2.0.0.dylib /opt/local/lib/libgobject-2.0.0.dylib /opt/local/lib/libgthread-2.0.0.dylib /opt/local/lib/libffi.6.dylib /opt/local/lib/libglib-2.0.0.dylib /opt/local/lib/libintl.8.dylib /opt/local/lib/libiconv.2.dylib /opt/local/lib/libsqlite3.0.dylib /opt/local/lib/libz.1.dylib /opt/local/lib/libjansson.4.dylib"
-
+dylibs="/usr/local/lib/libccnet.0.dylib /usr/local/lib/libseafile.0.dylib \
+/usr/local/lib/libsearpc.1.dylib /opt/local/lib/libcrypto.1.0.0.dylib \
+/opt/local/lib/libevent-2.0.5.dylib /opt/local/lib/libssl.1.0.0.dylib \
+/opt/local/lib/libgio-2.0.0.dylib /opt/local/lib/libgmodule-2.0.0.dylib \
+/opt/local/lib/libgobject-2.0.0.dylib /opt/local/lib/libgthread-2.0.0.dylib \
+/opt/local/lib/libffi.6.dylib /opt/local/lib/libglib-2.0.0.dylib \
+/opt/local/lib/libintl.8.dylib /opt/local/lib/libiconv.2.dylib \
+/opt/local/lib/libsqlite3.0.dylib /opt/local/lib/libz.1.dylib \
+/opt/local/lib/libjansson.4.dylib /opt/local/lib/libcurl.4.dylib"
 
 exes="`which ccnet` `which seaf-daemon`"
 all=$dylibs" ${exes}"

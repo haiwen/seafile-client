@@ -34,7 +34,7 @@ DirentsCache::getCachedDirents(const QString& repo_id,
 {
     QString cache_key = repo_id + path;
     CacheEntry *e = cache_->object(cache_key);
-    if (e != 0) {
+    if (e != NULL) {
         qint64 now = QDateTime::currentMSecsSinceEpoch();
         if (now < e->timestamp + kDirentsCacheExpireTime) {
             return &(e->dirents);
@@ -42,6 +42,11 @@ DirentsCache::getCachedDirents(const QString& repo_id,
     }
 
     return NULL;
+}
+
+void DirentsCache::expireCachedDirents(const QString& repo_id, const QString& path)
+{
+    cache_->remove(repo_id + path);
 }
 
 void DirentsCache::saveCachedDirents(const QString& repo_id,

@@ -17,8 +17,8 @@ public:
                       const QString& repo_id,
                       const QString& path);
 
-    QString repoId() const { return repo_id_; }
-    QString path() const { return path_; }
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
 
 signals:
     void success(const QList<SeafDirent> &dirents);
@@ -29,8 +29,8 @@ protected slots:
 private:
     Q_DISABLE_COPY(GetDirentsRequest)
 
-    QString repo_id_;
-    QString path_;
+    const QString repo_id_;
+    const QString path_;
 };
 
 class GetFileDownloadLinkRequest : public SeafileApiRequest {
@@ -69,11 +69,17 @@ private:
     Q_DISABLE_COPY(CreateDirentRequest)
 };
 
-class RenameFolderRequest : public SeafileApiRequest {
+class RenameDirentRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    RenameFolderRequest(const Account &account, const QString &repo_id,
-                        const QString &path, const QString &new_path);
+    RenameDirentRequest(const Account &account, const QString &repo_id,
+                        const QString &path, const QString &new_path,
+                        bool is_file = true);
+
+    const bool& isFile() const { return is_file_; }
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
+    const QString& newName() const { return new_name_; }
 
 signals:
     void success();
@@ -82,14 +88,23 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(RenameFolderRequest)
+    Q_DISABLE_COPY(RenameDirentRequest)
+
+    const bool is_file_;
+    const QString repo_id_;
+    const QString path_;
+    const QString new_name_;
 };
 
-class RemoveFolderRequest : public SeafileApiRequest {
+class RemoveDirentRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    RemoveFolderRequest(const Account &account, const QString &repo_id,
-                        const QString &path);
+    RemoveDirentRequest(const Account &account, const QString &repo_id,
+                        const QString &path, bool is_file = true);
+
+    const bool& isFile() const { return is_file_; }
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
 
 signals:
     void success();
@@ -98,8 +113,13 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(RemoveFolderRequest)
+    Q_DISABLE_COPY(RemoveDirentRequest)
+
+    const bool is_file_;
+    const QString repo_id_;
+    const QString path_;
 };
+
 
 class GetSharedLinkRequest : public SeafileApiRequest {
     Q_OBJECT
@@ -149,22 +169,6 @@ private:
     Q_DISABLE_COPY(GetFileUpdateLinkRequest)
 };
 
-class RenameFileRequest : public SeafileApiRequest {
-    Q_OBJECT
-public:
-    RenameFileRequest(const Account &account, const QString &repo_id,
-                      const QString &path, const QString &new_name);
-
-signals:
-    void success();
-
-protected slots:
-    void requestSuccess(QNetworkReply& reply);
-
-private:
-    Q_DISABLE_COPY(RenameFileRequest)
-};
-
 class MoveFileRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
@@ -182,22 +186,6 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(MoveFileRequest)
-};
-
-class RemoveFileRequest : public SeafileApiRequest {
-    Q_OBJECT
-public:
-    RemoveFileRequest(const Account &account, const QString &repo_id,
-                      const QString &path);
-
-signals:
-    void success();
-
-protected slots:
-    void requestSuccess(QNetworkReply& reply);
-
-private:
-    Q_DISABLE_COPY(RemoveFileRequest)
 };
 
 class StarFileRequest : public SeafileApiRequest {

@@ -85,10 +85,10 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 void FileBrowserProgressDialog::onTaskFinished(bool success)
 {
     if (success) {
-        printf ("progress dialog: task success\n");
+        // printf ("progress dialog: task success\n");
         accept();
     } else {
-        printf ("progress dialog: task failed\n");
+        // printf ("progress dialog: task failed\n");
         reject();
     }
 }

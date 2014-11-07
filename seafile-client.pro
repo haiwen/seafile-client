@@ -54,6 +54,7 @@ HEADERS += src/account-mgr.h \
            src/filebrowser/file-browser-requests.h \
            src/filebrowser/file-table.h \
            src/filebrowser/progress-dialog.h \
+           src/filebrowser/sharedlink-dialog.h \
            src/filebrowser/seaf-dirent.h \
            src/filebrowser/tasks.h \
            src/rpc/clone-task.h \
@@ -156,6 +157,7 @@ SOURCES += src/account-mgr.cpp \
            src/filebrowser/file-browser-requests.cpp \
            src/filebrowser/file-table.cpp \
            src/filebrowser/progress-dialog.cpp \
+           src/filebrowser/sharedlink-dialog.cpp \
            src/filebrowser/seaf-dirent.cpp \
            src/filebrowser/tasks.cpp \
            src/rpc/clone-task.cpp \

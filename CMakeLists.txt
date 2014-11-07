@@ -109,6 +109,7 @@ SET(moc_headers
   src/filebrowser/data-mgr.h
   src/filebrowser/tasks.h
   src/filebrowser/progress-dialog.h
+  src/filebrowser/sharedlink-dialog.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -263,6 +264,7 @@ SET(seafile_client_sources
   src/filebrowser/seaf-dirent.cpp
   src/filebrowser/tasks.cpp
   src/filebrowser/progress-dialog.cpp
+  src/filebrowser/sharedlink-dialog.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

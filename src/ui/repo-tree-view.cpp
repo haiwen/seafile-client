@@ -408,20 +408,20 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
             QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
         } else {
             // open seahub repo page for not downloaded repo
-            if (seafApplet->isPro()) {
-                FileBrowserDialog* dialog = new FileBrowserDialog(it->repo(), this);
-                const QRect screen = QApplication::desktop()->screenGeometry();
-                dialog->setAttribute(Qt::WA_DeleteOnClose, true);
-                dialog->show();
-                dialog->move(screen.center() - dialog->rect().center());
-                dialog->raise();
-            } else {
-                const Account& account = seafApplet->accountManager()->accounts()[0];
-                if (account.isValid()) {
-                    QUrl url = account.getAbsoluteUrl("repo/" + it->repo().id);
-                    QDesktopServices::openUrl(url);
-                }
-            }
+            // if (seafApplet->isPro()) {
+            FileBrowserDialog* dialog = new FileBrowserDialog(it->repo(), this);
+            const QRect screen = QApplication::desktop()->screenGeometry();
+            dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+            dialog->show();
+            dialog->move(screen.center() - dialog->rect().center());
+            dialog->raise();
+            // } else {
+            //     const Account& account = seafApplet->accountManager()->accounts()[0];
+            //     if (account.isValid()) {
+            //         QUrl url = account.getAbsoluteUrl("repo/" + it->repo().id);
+            //         QDesktopServices::openUrl(url);
+            //     }
+            // }
         }
     }
 }

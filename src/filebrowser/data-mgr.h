@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QHash>
+#include <QScopedPointer>
 
 #include "api/api-error.h"
 #include "account.h"
@@ -91,7 +92,7 @@ private:
                                   const QString& path);
     const Account account_;
 
-    GetDirentsRequest *get_dirents_req_;
+    QScopedPointer<GetDirentsRequest> get_dirents_req_;
 
     QList<SeafileApiRequest*> reqs_;
 

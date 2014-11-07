@@ -17,8 +17,8 @@ public:
                       const QString& repo_id,
                       const QString& path);
 
-    QString repoId() const { return repo_id_; }
-    QString path() const { return path_; }
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
 
 signals:
     void success(const QList<SeafDirent> &dirents);
@@ -29,8 +29,8 @@ protected slots:
 private:
     Q_DISABLE_COPY(GetDirentsRequest)
 
-    QString repo_id_;
-    QString path_;
+    const QString repo_id_;
+    const QString path_;
 };
 
 class GetFileDownloadLinkRequest : public SeafileApiRequest {
@@ -76,6 +76,11 @@ public:
                         const QString &path, const QString &new_path,
                         bool is_file = true);
 
+    const bool& isFile() const { return is_file_; }
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
+    const QString& newName() const { return new_name_; }
+
 signals:
     void success();
 
@@ -84,6 +89,11 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(RenameDirentRequest)
+
+    const bool is_file_;
+    const QString repo_id_;
+    const QString path_;
+    const QString new_name_;
 };
 
 class RemoveDirentRequest : public SeafileApiRequest {
@@ -91,6 +101,10 @@ class RemoveDirentRequest : public SeafileApiRequest {
 public:
     RemoveDirentRequest(const Account &account, const QString &repo_id,
                         const QString &path, bool is_file = true);
+
+    const bool& isFile() const { return is_file_; }
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
 
 signals:
     void success();
@@ -100,6 +114,10 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(RemoveDirentRequest)
+
+    const bool is_file_;
+    const QString repo_id_;
+    const QString path_;
 };
 
 

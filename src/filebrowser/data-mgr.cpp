@@ -27,7 +27,6 @@ const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
 
 DataManager::DataManager(const Account &account)
     : account_(account),
-      get_dirents_req_(NULL),
       filecache_db_(FileCacheDB::instance()),
       dirents_cache_(DirentsCache::instance())
 {
@@ -35,8 +34,6 @@ DataManager::DataManager(const Account &account)
 
 DataManager::~DataManager()
 {
-    if (get_dirents_req_)
-        delete get_dirents_req_;
     Q_FOREACH(SeafileApiRequest *req, reqs_)
     {
         delete req;
@@ -59,13 +56,10 @@ bool DataManager::getDirents(const QString& repo_id,
 void DataManager::getDirentsFromServer(const QString& repo_id,
                                        const QString& path)
 {
-    if (get_dirents_req_)
-        delete get_dirents_req_;
-
-    get_dirents_req_ = new GetDirentsRequest(account_, repo_id, path);
-    connect(get_dirents_req_, SIGNAL(success(const QList<SeafDirent>&)),
+    get_dirents_req_.reset(new GetDirentsRequest(account_, repo_id, path));
+    connect(get_dirents_req_.data(), SIGNAL(success(const QList<SeafDirent>&)),
             this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
-    connect(get_dirents_req_, SIGNAL(failed(const ApiError&)),
+    connect(get_dirents_req_.data(), SIGNAL(failed(const ApiError&)),
             this, SIGNAL(getDirentsFailed(const ApiError&)));
     get_dirents_req_->send();
 }
@@ -127,13 +121,29 @@ void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
 
 void DataManager::onRenameDirentSuccess()
 {
-    // remove the parent cache and its cache
+    RenameDirentRequest *req = static_cast<RenameDirentRequest*>(sender());
+
+    // expire its parent's cache
+    dirents_cache_->expireCachedDirents(req->repoId(),
+                                        QFileInfo(req->path()).absolutePath());
+    // if the object is a folder, then expire its self cache
+    if (!req->isFile())
+        dirents_cache_->expireCachedDirents(req->repoId(), req->path());
+
     emit renameDirentSuccess();
 }
 
 void DataManager::onRemoveDirentSuccess()
 {
-    // remove the parent cache and its cache
+    RemoveDirentRequest *req = static_cast<RemoveDirentRequest*>(sender());
+
+    // expire its parent's cache
+    dirents_cache_->expireCachedDirents(req->repoId(),
+                                        QFileInfo(req->path()).absolutePath());
+    // if the object is a folder, then expire its self cache
+    if (!req->isFile())
+        dirents_cache_->expireCachedDirents(req->repoId(), req->path());
+
     emit removeDirentSuccess();
 }
 

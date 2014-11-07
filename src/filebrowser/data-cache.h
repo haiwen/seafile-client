@@ -17,6 +17,8 @@ public:
     QList<SeafDirent> *getCachedDirents(const QString& repo_id,
                                         const QString& path);
 
+    void expireCachedDirents(const QString& repo_id, const QString& path);
+
     void saveCachedDirents(const QString& repo_id,
                            const QString& path,
                            const QList<SeafDirent>& dirents);

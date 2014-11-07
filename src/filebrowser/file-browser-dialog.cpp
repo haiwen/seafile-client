@@ -90,13 +90,13 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
 
     //rename <--> data_mgr_
     connect(data_mgr_, SIGNAL(renameDirentSuccess()),
-            this, SLOT(onDirentRenameSuccess()));
+            this, SLOT(fetchDirents()));
     connect(data_mgr_, SIGNAL(renameDirentFailed(const ApiError&)),
             this, SLOT(onDirentRenameFailed(const ApiError&)));
 
     //remove <--> data_mgr_
     connect(data_mgr_, SIGNAL(removeDirentSuccess()),
-            this, SLOT(onDirentRemoveSuccess()));
+            this, SLOT(fetchDirents()));
     connect(data_mgr_, SIGNAL(removeDirentFailed(const ApiError&)),
             this, SLOT(onDirentRemoveFailed(const ApiError&)));
 
@@ -524,19 +524,9 @@ void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
     data_mgr_->shareDirent(repo_.id, current_path_ + dirent.name, dirent.isFile());
 }
 
-void FileBrowserDialog::onDirentRenameSuccess()
-{
-    forceRefresh();
-}
-
 void FileBrowserDialog::onDirentRenameFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Rename failed"), this);
-}
-
-void FileBrowserDialog::onDirentRemoveSuccess()
-{
-    forceRefresh();
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)

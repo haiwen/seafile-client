@@ -90,6 +90,9 @@ private slots:
 private:
     QString getLocalCacheFilePath(const QString& repo_id,
                                   const QString& path);
+    void removeDirentsCache(const QString& repo_id,
+                            const QString& path,
+                            bool is_file);
     const Account account_;
 
     QScopedPointer<GetDirentsRequest> get_dirents_req_;

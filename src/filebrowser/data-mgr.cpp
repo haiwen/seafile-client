@@ -123,13 +123,7 @@ void DataManager::onRenameDirentSuccess()
 {
     RenameDirentRequest *req = static_cast<RenameDirentRequest*>(sender());
 
-    // expire its parent's cache
-    dirents_cache_->expireCachedDirents(req->repoId(),
-                                        QFileInfo(req->path()).absolutePath());
-    // if the object is a folder, then expire its self cache
-    if (!req->isFile())
-        dirents_cache_->expireCachedDirents(req->repoId(), req->path());
-
+    removeDirentsCache(req->repoId(), req->path(), req->isFile());
     emit renameDirentSuccess();
 }
 
@@ -137,15 +131,21 @@ void DataManager::onRemoveDirentSuccess()
 {
     RemoveDirentRequest *req = static_cast<RemoveDirentRequest*>(sender());
 
-    // expire its parent's cache
-    dirents_cache_->expireCachedDirents(req->repoId(),
-                                        QFileInfo(req->path()).absolutePath());
-    // if the object is a folder, then expire its self cache
-    if (!req->isFile())
-        dirents_cache_->expireCachedDirents(req->repoId(), req->path());
-
+    removeDirentsCache(req->repoId(), req->path(), req->isFile());
     emit removeDirentSuccess();
 }
+
+void DataManager::removeDirentsCache(const QString& repo_id,
+                                     const QString& path,
+                                     bool is_file)
+{
+    // expire its parent's cache
+    dirents_cache_->expireCachedDirents(repo_id, QFileInfo(path).absolutePath());
+    // if the object is a folder, then expire its self cache
+    if (is_file)
+        dirents_cache_->expireCachedDirents(repo_id, path);
+}
+
 
 QString DataManager::getLocalCachedFile(const QString& repo_id,
                                         const QString& fpath,

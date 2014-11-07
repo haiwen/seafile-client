@@ -424,8 +424,8 @@ void PostFileTask::sendRequest()
     QHttpPart parentdir_part, file_part;
     parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
                              not_update_ ? kParentDirParam : kTargetFileParam);
-    parentdir_part.setBody(toCStr(not_update_ ?
-        parent_dir_ : QDir(parent_dir_).filePath(QFileInfo(local_path_).fileName())));
+    parentdir_part.setBody(toCStr(not_update_ ? parent_dir_ :
+        (::pathJoin(parent_dir_, QFileInfo(local_path_).fileName())) ));
 
     // "file" param
     QString fname = QFileInfo(local_path_).fileName();

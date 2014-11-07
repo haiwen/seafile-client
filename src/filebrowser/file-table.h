@@ -10,20 +10,31 @@
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
 
+class DataManager;
+
 class FileTableView : public QTableView
 {
     Q_OBJECT
 public:
-    FileTableView(const ServerRepo& repo, QWidget *parent=0);
+    FileTableView(const ServerRepo& repo, QWidget *parent);
 
 signals:
     void direntClicked(const SeafDirent& dirent);
     void dropFile(const QString& file_name);
+    void direntRename(const SeafDirent& dirent);
+    void direntRemove(const SeafDirent& dirent);
+    void direntShare(const SeafDirent& dirent);
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);
+    void onOpen();
+    void onRename();
+    void onRemove();
+    void onShare();
 
 private:
+    void setupContextMenu();
+    void contextMenuEvent(QContextMenuEvent *event);
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
@@ -31,7 +42,11 @@ private:
 
     Q_DISABLE_COPY(FileTableView)
 
+    const SeafDirent *item_;
     ServerRepo repo_;
+    QMenu *context_menu_;
+    QAction *download_action_;
+    QWidget *parent_;
 };
 
 class FileTableModel : public QAbstractTableModel
@@ -48,7 +63,7 @@ public:
 
     void setDirents(const QList<SeafDirent>& dirents);
 
-    const SeafDirent direntAt(int index) const;
+    const SeafDirent* direntAt(int index) const;
 
     void onResize(const QSize &size);
 

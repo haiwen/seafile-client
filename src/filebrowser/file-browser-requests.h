@@ -69,10 +69,10 @@ private:
     Q_DISABLE_COPY(CreateDirentRequest)
 };
 
-class RenameDirentRequest : public SeafileApiRequest {
+class RenameFolderRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    RenameDirentRequest(const Account &account, const QString &repo_id,
+    RenameFolderRequest(const Account &account, const QString &repo_id,
                         const QString &path, const QString &new_path);
 
 signals:
@@ -82,13 +82,13 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(RenameDirentRequest)
+    Q_DISABLE_COPY(RenameFolderRequest)
 };
 
-class RemoveDirentRequest : public SeafileApiRequest {
+class RemoveFolderRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    RemoveDirentRequest(const Account &account, const QString &repo_id,
+    RemoveFolderRequest(const Account &account, const QString &repo_id,
                         const QString &path);
 
 signals:
@@ -98,7 +98,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(RemoveDirentRequest)
+    Q_DISABLE_COPY(RemoveFolderRequest)
 };
 
 class GetSharedLinkRequest : public SeafileApiRequest {

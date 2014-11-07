@@ -107,7 +107,7 @@ GetSharedLinkRequest::GetSharedLinkRequest(const Account &account,
 
 void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
 {
-    QString reply_content(reply.readAll());
+    QString reply_content(reply.rawHeader("Location"));
 
     emit success(reply_content);
 }
@@ -131,7 +131,7 @@ void CreateDirentRequest::requestSuccess(QNetworkReply& reply)
     emit success(reply_content);
 }
 
-RenameDirentRequest::RenameDirentRequest(const Account &account,
+RenameFolderRequest::RenameFolderRequest(const Account &account,
                                          const QString &repo_id,
                                          const QString &path,
                                          const QString &new_path)
@@ -145,12 +145,12 @@ RenameDirentRequest::RenameDirentRequest(const Account &account,
     setFormParam("newname", new_path);
 }
 
-void RenameDirentRequest::requestSuccess(QNetworkReply& reply)
+void RenameFolderRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
 }
 
-RemoveDirentRequest::RemoveDirentRequest(const Account &account,
+RemoveFolderRequest::RemoveFolderRequest(const Account &account,
                                          const QString &repo_id,
                                          const QString &path)
     : SeafileApiRequest(
@@ -160,7 +160,7 @@ RemoveDirentRequest::RemoveDirentRequest(const Account &account,
     setUrlParam("p", path);
 }
 
-void RemoveDirentRequest::requestSuccess(QNetworkReply& reply)
+void RemoveFolderRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
 }

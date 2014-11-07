@@ -5,6 +5,8 @@
 #include "seaf-dirent.h"
 
 #include "file-table.h"
+#include "file-browser-dialog.h"
+#include "data-mgr.h"
 
 namespace {
 
@@ -29,7 +31,8 @@ const int kFileNameColumnWidth = 200;
 
 FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     : QTableView(parent),
-      repo_(repo)
+      repo_(repo),
+      parent_(parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
@@ -55,14 +58,109 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
+
+    setupContextMenu();
+}
+void FileTableView::setupContextMenu()
+{
+    FileBrowserDialog *dialog = static_cast<FileBrowserDialog*>(parent_);
+
+    context_menu_ = new QMenu(this);
+    download_action_ = new QAction(tr("&Open"), this);
+    download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
+    connect(download_action_, SIGNAL(triggered()),
+            this, SLOT(onOpen()));
+
+    QAction *rename_action_ = new QAction(tr("&Rename"), this);
+    connect(rename_action_, SIGNAL(triggered()),
+            this, SLOT(onRename()));
+
+    QAction *remove_action_ = new QAction(tr("&Remove"), this);
+    connect(remove_action_, SIGNAL(triggered()),
+            this, SLOT(onRemove()));
+
+    QAction *share_action_ = new QAction(tr("&Generate Share Link"), this);
+    connect(share_action_, SIGNAL(triggered()),
+            this, SLOT(onShare()));
+
+    context_menu_->setDefaultAction(download_action_);
+    context_menu_->addAction(download_action_);
+    context_menu_->addAction(share_action_);
+    context_menu_->addSeparator();
+    context_menu_->addAction(rename_action_);
+    context_menu_->addAction(remove_action_);
+    context_menu_->addSeparator();
+    context_menu_->addAction(dialog->upload_action_);
+
+    download_action_->setIconVisibleInMenu(false);
+    dialog->upload_action_->setIconVisibleInMenu(false);
+}
+void FileTableView::contextMenuEvent(QContextMenuEvent *event)
+{
+    QPoint pos = event->pos();
+    int row = rowAt(pos.y());
+    if (row == -1) {
+        return;
+    }
+
+    FileTableModel *model = (FileTableModel *)this->model();
+
+    item_ = model->direntAt(row);
+
+    if (item_ == NULL)
+        return;
+    if (item_->isDir()) {
+        download_action_->setText(tr("&Open"));
+        download_action_->setIcon(QIcon(":images/filebrowser/open-folder.png"));
+    } else {
+        download_action_->setText(tr("&Download"));
+        download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
+    }
+
+    pos = viewport()->mapToGlobal(pos);
+    context_menu_->exec(pos);
 }
 
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
 {
     FileTableModel *model = (FileTableModel *)this->model();
-    const SeafDirent dirent = model->direntAt(index.row());
+    const SeafDirent *dirent = model->direntAt(index.row());
 
-    emit direntClicked(dirent);
+    if (dirent == NULL)
+        return;
+
+    emit direntClicked(*dirent);
+}
+
+void FileTableView::onOpen()
+{
+    if (item_ == NULL)
+        return;
+
+    emit direntClicked(*item_);
+}
+
+void FileTableView::onRename()
+{
+    if (item_ == NULL)
+        return;
+
+    emit direntRename(*item_);
+}
+
+void FileTableView::onRemove()
+{
+    if (item_ == NULL)
+        return;
+
+    emit direntRemove(*item_);
+}
+
+void FileTableView::onShare()
+{
+    if (item_ == NULL)
+        return;
+    emit direntShare(*item_);
 }
 
 void FileTableView::dropEvent(QDropEvent *event)
@@ -238,13 +336,13 @@ QVariant FileTableModel::headerData(int section,
     }
 }
 
-const SeafDirent FileTableModel::direntAt(int index) const
+const SeafDirent* FileTableModel::direntAt(int index) const
 {
     if (index > dirents_.size()) {
-        return SeafDirent();
+        return NULL;
     }
 
-    return dirents_[index];
+    return &dirents_[index];
 }
 
 void FileTableModel::onResize(const QSize &size)

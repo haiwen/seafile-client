@@ -27,9 +27,9 @@ const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
 
 DataManager::DataManager(const Account &account)
     : account_(account),
-      dirents_cache_(DirentsCache::instance()),
+      get_dirents_req_(NULL),
       filecache_db_(FileCacheDB::instance()),
-      get_dirents_req_(NULL)
+      dirents_cache_(DirentsCache::instance())
 {
 }
 
@@ -37,6 +37,10 @@ DataManager::~DataManager()
 {
     if (get_dirents_req_)
         delete get_dirents_req_;
+    Q_FOREACH(SeafileApiRequest *req, reqs_)
+    {
+        delete req;
+    }
 }
 
 bool DataManager::getDirents(const QString& repo_id,
@@ -64,6 +68,71 @@ void DataManager::getDirentsFromServer(const QString& repo_id,
     connect(get_dirents_req_, SIGNAL(failed(const ApiError&)),
             this, SIGNAL(getDirentsFailed(const ApiError&)));
     get_dirents_req_->send();
+}
+
+void DataManager::renameDirent(const QString &repo_id,
+                               const QString &path,
+                               const QString &new_path,
+                               bool is_file)
+{
+    if (is_file) {
+        RenameFileRequest *req = new RenameFileRequest(account_, repo_id, path, new_path);
+        connect(req, SIGNAL(success()),
+                SIGNAL(renameDirentSuccess()));
+
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SIGNAL(renameDirentFailed(const ApiError&)));
+        req->send();
+        reqs_.push_back(req);
+    } else {
+        RenameFolderRequest *req = new RenameFolderRequest(account_, repo_id, path, new_path);
+        connect(req, SIGNAL(success()),
+                SIGNAL(renameDirentSuccess()));
+
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SIGNAL(renameDirentFailed(const ApiError&)));
+        req->send();
+        reqs_.push_back(req);
+    }
+}
+
+void DataManager::removeDirent(const QString &repo_id,
+                               const QString &path,
+                               bool is_file)
+{
+    if (is_file) {
+        RemoveFileRequest *req = new RemoveFileRequest(account_, repo_id, path);
+        connect(req, SIGNAL(success()),
+                SIGNAL(removeDirentSuccess()));
+
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SIGNAL(removeDirentFailed(const ApiError&)));
+        req->send();
+        reqs_.push_back(req);
+    } else {
+        RemoveFolderRequest *req = new RemoveFolderRequest(account_, repo_id, path);
+        connect(req, SIGNAL(success()),
+                SIGNAL(removeDirentSuccess()));
+
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SIGNAL(removeDirentFailed(const ApiError&)));
+        req->send();
+        reqs_.push_back(req);
+    }
+}
+
+void DataManager::shareDirent(const QString &repo_id,
+                              const QString &path,
+                              bool is_file)
+{
+    GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id, path, is_file);
+    connect(req, SIGNAL(success(const QString&)),
+            SIGNAL(shareDirentSuccess(const QString&)));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(shareDirentFailed(const ApiError&)));
+    reqs_.push_back(req);
+    req->send();
 }
 
 void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)

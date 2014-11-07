@@ -41,6 +41,8 @@ public:
                       QWidget *parent=0);
     ~FileBrowserDialog();
 
+    friend class FileTableView;
+
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
     void onGetDirentsFailed(const ApiError& error);
@@ -57,6 +59,17 @@ private slots:
     void uploadFile(const QString& path);
     void onNavigatorClick(int id);
 
+    void onGetDirentRename(const SeafDirent& dirent, QString new_name = QString());
+    void onGetDirentRemove(const SeafDirent& dirent);
+    void onGetDirentShare(const SeafDirent& dirent);
+
+    void onDirentRenameSuccess();
+    void onDirentRenameFailed(const ApiError& error);
+    void onDirentRemoveSuccess();
+    void onDirentRemoveFailed(const ApiError& error);
+    void onDirentShareSuccess(const QString& link);
+    void onDirentShareFailed(const ApiError& error);
+
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
@@ -71,7 +84,6 @@ private:
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);
-    void openFile(const QString& path);
 
     void fetchDirents(bool force_refresh);
 

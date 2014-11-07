@@ -48,7 +48,7 @@ bool DataManager::getDirents(const QString& repo_id,
                              QList<SeafDirent> *dirents)
 {
     QList<SeafDirent> *l = dirents_cache_->getCachedDirents(repo_id, path);
-    if (l != 0) {
+    if (l != NULL) {
         dirents->append(*l);
         return true;
     } else {
@@ -75,57 +75,38 @@ void DataManager::renameDirent(const QString &repo_id,
                                const QString &new_path,
                                bool is_file)
 {
-    if (is_file) {
-        RenameFileRequest *req = new RenameFileRequest(account_, repo_id, path, new_path);
-        connect(req, SIGNAL(success()),
-                SIGNAL(renameDirentSuccess()));
+    RenameDirentRequest *req = new RenameDirentRequest(account_, repo_id, path,
+                                                       new_path, is_file);
+    connect(req, SIGNAL(success()),
+            SLOT(onRenameDirentSuccess()));
 
-        connect(req, SIGNAL(failed(const ApiError&)),
-                SIGNAL(renameDirentFailed(const ApiError&)));
-        req->send();
-        reqs_.push_back(req);
-    } else {
-        RenameFolderRequest *req = new RenameFolderRequest(account_, repo_id, path, new_path);
-        connect(req, SIGNAL(success()),
-                SIGNAL(renameDirentSuccess()));
-
-        connect(req, SIGNAL(failed(const ApiError&)),
-                SIGNAL(renameDirentFailed(const ApiError&)));
-        req->send();
-        reqs_.push_back(req);
-    }
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(renameDirentFailed(const ApiError&)));
+    req->send();
+    reqs_.push_back(req);
 }
 
 void DataManager::removeDirent(const QString &repo_id,
                                const QString &path,
                                bool is_file)
 {
-    if (is_file) {
-        RemoveFileRequest *req = new RemoveFileRequest(account_, repo_id, path);
-        connect(req, SIGNAL(success()),
-                SIGNAL(removeDirentSuccess()));
+    RemoveDirentRequest *req = new RemoveDirentRequest(account_, repo_id, path,
+                                                       is_file);
+    connect(req, SIGNAL(success()),
+            SLOT(onRemoveDirentSuccess()));
 
-        connect(req, SIGNAL(failed(const ApiError&)),
-                SIGNAL(removeDirentFailed(const ApiError&)));
-        req->send();
-        reqs_.push_back(req);
-    } else {
-        RemoveFolderRequest *req = new RemoveFolderRequest(account_, repo_id, path);
-        connect(req, SIGNAL(success()),
-                SIGNAL(removeDirentSuccess()));
-
-        connect(req, SIGNAL(failed(const ApiError&)),
-                SIGNAL(removeDirentFailed(const ApiError&)));
-        req->send();
-        reqs_.push_back(req);
-    }
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(removeDirentFailed(const ApiError&)));
+    req->send();
+    reqs_.push_back(req);
 }
 
 void DataManager::shareDirent(const QString &repo_id,
                               const QString &path,
                               bool is_file)
 {
-    GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id, path, is_file);
+    GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id,
+                                                         path, is_file);
     connect(req, SIGNAL(success(const QString&)),
             SIGNAL(shareDirentSuccess(const QString&)));
 
@@ -142,6 +123,18 @@ void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
                                       dirents);
 
     emit getDirentsSuccess(dirents);
+}
+
+void DataManager::onRenameDirentSuccess()
+{
+    // remove the parent cache and its cache
+    emit renameDirentSuccess();
+}
+
+void DataManager::onRemoveDirentSuccess()
+{
+    // remove the parent cache and its cache
+    emit removeDirentSuccess();
 }
 
 QString DataManager::getLocalCachedFile(const QString& repo_id,

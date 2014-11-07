@@ -83,6 +83,9 @@ private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
     void onFileDownloadFinished(bool success);
 
+    void onRenameDirentSuccess();
+    void onRemoveDirentSuccess();
+
 private:
     QString getLocalCacheFilePath(const QString& repo_id,
                                   const QString& path);

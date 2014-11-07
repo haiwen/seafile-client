@@ -131,40 +131,6 @@ void CreateDirentRequest::requestSuccess(QNetworkReply& reply)
     emit success(reply_content);
 }
 
-RenameFolderRequest::RenameFolderRequest(const Account &account,
-                                         const QString &repo_id,
-                                         const QString &path,
-                                         const QString &new_path)
-    : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetDirentsUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_POST, account.token)
-{
-    setUrlParam("p", path);
-
-    setFormParam("operation", "rename");
-    setFormParam("newname", new_path);
-}
-
-void RenameFolderRequest::requestSuccess(QNetworkReply& reply)
-{
-    emit success();
-}
-
-RemoveFolderRequest::RemoveFolderRequest(const Account &account,
-                                         const QString &repo_id,
-                                         const QString &path)
-    : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetDirentsUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_DELETE, account.token)
-{
-    setUrlParam("p", path);
-}
-
-void RemoveFolderRequest::requestSuccess(QNetworkReply& reply)
-{
-    emit success();
-}
-
 GetFileUploadLinkRequest::GetFileUploadLinkRequest(const Account &account,
                                                    const QString &repo_id)
     : SeafileApiRequest(
@@ -221,13 +187,15 @@ void GetFileUpdateLinkRequest::requestSuccess(QNetworkReply& reply)
     emit failed(ApiError::fromHttpError(500));
 }
 
-RenameFileRequest::RenameFileRequest(const Account &account,
-                                     const QString &repo_id,
-                                     const QString &path,
-                                     const QString &new_name)
+RenameDirentRequest::RenameDirentRequest(const Account &account,
+                                         const QString &repo_id,
+                                         const QString &path,
+                                         const QString &new_name,
+                                         bool is_file)
     : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_POST, account.token)
+        account.getAbsoluteUrl(
+            QString(is_file ? kGetFilesUrl: kGetDirentsUrl).arg(repo_id)),
+        SeafileApiRequest::METHOD_POST, account.token)
 {
     setUrlParam("p", path);
 
@@ -235,7 +203,7 @@ RenameFileRequest::RenameFileRequest(const Account &account,
     setFormParam("newname", new_name);
 }
 
-void RenameFileRequest::requestSuccess(QNetworkReply& reply)
+void RenameDirentRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
 }
@@ -261,17 +229,19 @@ void MoveFileRequest::requestSuccess(QNetworkReply& reply)
     emit success();
 }
 
-RemoveFileRequest::RemoveFileRequest(const Account &account,
-                                     const QString &repo_id,
-                                     const QString &path)
+RemoveDirentRequest::RemoveDirentRequest(const Account &account,
+                                         const QString &repo_id,
+                                         const QString &path,
+                                         bool is_file)
     : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_DELETE, account.token)
+        account.getAbsoluteUrl(
+            QString(is_file ? kGetFilesUrl : kGetDirentsUrl).arg(repo_id)),
+        SeafileApiRequest::METHOD_DELETE, account.token)
 {
     setUrlParam("p", path);
 }
 
-void RemoveFileRequest::requestSuccess(QNetworkReply& reply)
+void RemoveDirentRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
 }

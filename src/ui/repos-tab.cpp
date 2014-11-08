@@ -70,7 +70,6 @@ void ReposTab::createRepoTree()
     filter_model_ = new RepoFilterProxyModel(this);
     filter_model_->setSourceModel(repos_model_);
     filter_model_->setDynamicSortFilter(true);
-    filter_model_->setFilterCaseSensitivity(Qt::CaseInsensitive);
     repos_tree_->setModel(filter_model_);
     repos_tree_->setItemDelegate(new RepoItemDelegate);
 }

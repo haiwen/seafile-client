@@ -38,7 +38,8 @@ enum RepoCategoryIndex {
 
 QRegExp makeFilterRegExp(const QString& text)
 {
-    return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"));
+    return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),
+                   Qt::CaseInsensitive);
 }
 
 

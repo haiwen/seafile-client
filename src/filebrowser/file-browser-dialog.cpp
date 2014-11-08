@@ -15,6 +15,7 @@
 #include "progress-dialog.h"
 #include "tasks.h"
 #include "ui/set-repo-password-dialog.h"
+#include "sharedlink-dialog.h"
 
 #include "file-browser-dialog.h"
 
@@ -536,11 +537,7 @@ void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
 
 void FileBrowserDialog::onDirentShareSuccess(const QString &link)
 {
-    QInputDialog::getText(this, getBrand(),
-                          tr("Share link: %1").arg(link),
-                          QLineEdit::Normal,
-                          link);
-
+    SharedLinkDialog(link, this).exec();
 }
 
 void FileBrowserDialog::onDirentShareFailed(const ApiError&error)

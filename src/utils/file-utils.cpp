@@ -683,9 +683,8 @@ QString pathJoin(const QString& a, const QStringList& rest)
 
 bool createDirIfNotExists(const QString& path)
 {
-    QFileInfo finfo(path);
-    QDir parent_dir = finfo.absoluteDir();
-    return parent_dir.mkpath(finfo.fileName());
+    QDir parent_dir = getParentPath(path);
+    return parent_dir.mkpath(getBaseName(path));
 }
 
 QString getParentPath(const QString& path)
@@ -695,9 +694,23 @@ QString getParentPath(const QString& path)
     }
 
     QString p = QDir::fromNativeSeparators(path);
-    int pos = path.lastIndexOf("/");
+    int pos = path.lastIndexOf("/", path.endsWith("/") ? -2 : -1);
     if (pos == -1) {
         return "";
     }
     return p.left(pos + 1);
+}
+
+QString getBaseName(const QString& path)
+{
+    if (path.isEmpty()) {
+        return "";
+    }
+
+    QString p = QDir::fromNativeSeparators(path);
+    int pos = path.lastIndexOf("/", path.endsWith("/") ? -2 : -1);
+    if (pos == -1) {
+        return path;
+    }
+    return p.mid(pos + 1);
 }

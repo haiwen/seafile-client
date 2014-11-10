@@ -16,6 +16,7 @@ LoadingView::LoadingView(QWidget *parent)
     label->setAlignment(Qt::AlignCenter);
 
     layout->addWidget(label);
+    layout->setContentsMargins(0, 0, 0, 0);
 }
 
 void LoadingView::showEvent(QShowEvent *event)

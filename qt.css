@@ -319,6 +319,7 @@ DownloadRepoDialog QPushButton#mSwitchToSyncBtn {
 
 SeafileTabWidget {
     border: 0;
+    margin: 0;
 }
 
 SeafileTabBar {

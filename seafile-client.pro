@@ -27,6 +27,7 @@ INCLUDEPATH += . \
 HEADERS += src/account-mgr.h \
            src/account.h \
            src/avatar-service.h \
+           src/server-status-service.h \
            src/ccnet-init.h \
            src/certs-mgr.h \
            src/configurator.h \
@@ -129,6 +130,7 @@ FORMS += ui/account-settings-dialog.ui \
 SOURCES += src/account-mgr.cpp \
            src/account.cpp \
            src/avatar-service.cpp \
+           src/server-status-service.cpp \
            src/ccnet-init.cpp \
            src/certs-mgr.cpp \
            src/configurator.cpp \

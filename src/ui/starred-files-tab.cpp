@@ -64,6 +64,7 @@ void StarredFilesTab::createStarredFilesListView()
 void StarredFilesTab::createLoadingView()
 {
     loading_view_ = new LoadingView;
+    static_cast<LoadingView*>(loading_view_)->setQssStyleForTab();
 }
 
 void StarredFilesTab::createLoadingFailedView()

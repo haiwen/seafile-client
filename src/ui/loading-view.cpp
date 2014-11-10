@@ -30,3 +30,13 @@ void LoadingView::hideEvent(QHideEvent *event)
     gif_->stop();
     QWidget::hideEvent(event);
 }
+
+void LoadingView::setQssStyleForTab()
+{
+    static const char *kLoadingViewQss = "border: 0; margin: 0;"
+                              "border-top: 1px solid #DCDCDE;"
+                              "background-color: #F5F5F7;";
+
+    setStyleSheet(kLoadingViewQss);
+}
+

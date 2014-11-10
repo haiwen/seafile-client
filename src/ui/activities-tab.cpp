@@ -117,6 +117,7 @@ void ActivitiesTab::createEventsView()
 void ActivitiesTab::createLoadingView()
 {
     loading_view_ = new LoadingView;
+    static_cast<LoadingView*>(loading_view_)->setQssStyleForTab();
 }
 
 void ActivitiesTab::createLoadingFailedView()

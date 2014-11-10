@@ -20,9 +20,6 @@
 namespace {
 
 const char *kLoadingFaieldLabelName = "loadingFailedText";
-const char *kLoadingViewQss = "border: 0; margin: 0;"
-                              "border-top: 1px solid #DCDCDE;"
-                              "background-color: #F5F5F7;";
 
 enum {
     INDEX_LOADING_VIEW = 0,
@@ -80,7 +77,7 @@ void ReposTab::createRepoTree()
 void ReposTab::createLoadingView()
 {
     loading_view_ = new LoadingView;
-    loading_view_->setStyleSheet(kLoadingViewQss);
+    static_cast<LoadingView*>(loading_view_)->setQssStyleForTab();
 }
 
 void ReposTab::createLoadingFailedView()

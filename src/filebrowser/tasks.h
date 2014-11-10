@@ -133,13 +133,17 @@ public:
     FileUploadTask(const Account& account,
                    const QString& repo_id,
                    const QString& path,
-                   const QString& local_path);
+                   const QString& local_path,
+                   bool not_update = true);
 
     TaskType type() const { return Upload; }
 
 protected:
     void createFileServerTask(const QString& link);
     void createGetLinkRequest();
+
+private:
+    bool not_update_;
 };
 
 /**
@@ -231,7 +235,8 @@ class PostFileTask : public FileServerTask {
 public:
     PostFileTask(const QUrl& url,
                  const QString& parent_dir,
-                 const QString& local_path);
+                 const QString& local_path,
+                 bool not_update);
     ~PostFileTask();
 
 protected:
@@ -242,6 +247,7 @@ protected:
 private:
     QString parent_dir_;
     QFile *file_;
+    bool not_update_;
 };
 
 #endif // SEAFILE_CLIETN_FILEBROWSER_TAKS_H

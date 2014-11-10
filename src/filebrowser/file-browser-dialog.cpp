@@ -367,7 +367,32 @@ void FileBrowserDialog::downloadFile(const QString& path)
 
 void FileBrowserDialog::uploadFile(const QString& path)
 {
-    FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path);
+    bool not_update = true;
+    QString name = QFileInfo(path).fileName();
+    // find if there exist a file with the same name
+    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
+    {
+        if (dirent.name == name) {
+            not_update = false;
+            break;
+        }
+    }
+    // if found
+    // prompt a dialog to confirm to overwrite the current file
+    if (!not_update) {
+        int ret = QMessageBox::question(
+            this, getBrand(),
+            tr("File %1 already exists.<br/>"
+            "Do you like to overwrite it?<br/>"
+            "<small>(Choose No to upload using an alternative name).</small>").arg(name),
+            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if (ret == QMessageBox::Cancel)
+            return;
+        else if (ret != QMessageBox::Yes)
+            not_update = true;
+        // otherwise not_update is false
+    }
+    FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path, not_update);
     FileBrowserProgressDialog dialog(task, this);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onUploadFinished(bool)));

@@ -27,6 +27,7 @@ namespace {
 const char *kFileDownloadTmpDirName = "fcachetmp";
 
 const char *kParentDirParam = "form-data; name=\"parent_dir\"";
+const char *kTargetFileParam = "form-data; name=\"target_file\"";
 const char *kFileParamTemplate = "form-data; name=\"file\"; filename=\"%1\"";
 const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 
@@ -170,21 +171,22 @@ void FileDownloadTask::createFileServerTask(const QString& link)
 }
 
 FileUploadTask::FileUploadTask(const Account& account,
-                                   const QString& repo_id,
-                                   const QString& path,
-                                   const QString& local_path)
-    : FileNetworkTask(account, repo_id, path, local_path)
+                               const QString& repo_id,
+                               const QString& path,
+                               const QString& local_path,
+                               bool not_update)
+    : FileNetworkTask(account, repo_id, path, local_path), not_update_(not_update)
 {
 }
 
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_);
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, not_update_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)
 {
-    fileserver_task_ = new PostFileTask(link, path_, local_path_);
+    fileserver_task_ = new PostFileTask(link, path_, local_path_, not_update_);
 }
 
 QNetworkAccessManager* FileServerTask::network_mgr_;
@@ -382,9 +384,11 @@ void GetFileTask::onHttpRequestFinished()
 
 PostFileTask::PostFileTask(const QUrl& url,
                            const QString& parent_dir,
-                           const QString& local_path)
+                           const QString& local_path,
+                           bool not_update)
     : FileServerTask(url, local_path),
-      parent_dir_(parent_dir)
+      parent_dir_(parent_dir),
+      not_update_(not_update)
 {
 }
 
@@ -419,8 +423,9 @@ void PostFileTask::sendRequest()
     // parent_dir param
     QHttpPart parentdir_part, file_part;
     parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
-                             kParentDirParam);
-    parentdir_part.setBody(toCStr(parent_dir_));
+                             not_update_ ? kParentDirParam : kTargetFileParam);
+    parentdir_part.setBody(toCStr(not_update_ ? parent_dir_ :
+        (::pathJoin(parent_dir_, QFileInfo(local_path_).fileName())) ));
 
     // "file" param
     QString fname = QFileInfo(local_path_).fileName();

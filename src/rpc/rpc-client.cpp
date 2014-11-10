@@ -59,7 +59,8 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
     GError *error = NULL;
     GList *repos = seafile_get_repo_list(seafile_rpc_client_, 0, 0, &error);
     if (repos == NULL) {
-        qWarning("failed to get repo list: %s\n", error->message);
+        qWarning("failed to get repo list: %s\n",
+                 error == NULL ? "" : error->message);
         return -1;
     }
 

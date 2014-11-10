@@ -75,7 +75,7 @@ void FileTableView::setupContextMenu()
     connect(rename_action_, SIGNAL(triggered()),
             this, SLOT(onRename()));
 
-    QAction *remove_action_ = new QAction(tr("&Remove"), this);
+    QAction *remove_action_ = new QAction(tr("&Delete"), this);
     connect(remove_action_, SIGNAL(triggered()),
             this, SLOT(onRemove()));
 

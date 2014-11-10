@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <jansson.h>
 
 #include "account-mgr.h"
 #include "utils/utils.h"
@@ -143,7 +144,7 @@ void DownloadRepoDialog::onOkBtnClicked()
 
     setAllInputsEnabled(false);
 
-    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id);
+    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id, repo_.readonly);
     connect(req, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoRequestSuccess(const RepoDownloadInfo&)));
     connect(req, SIGNAL(failed(const ApiError&)),
@@ -197,6 +198,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     QString password = repo_.encrypted ? mPassword->text() : QString();
     int ret;
     QString error;
+
     if (mode_ == MERGE_WITH_EXISTING_FOLDER) {
         ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
                                                  info.relay_id,
@@ -205,6 +207,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.magic, info.relay_addr,
                                                  info.relay_port, info.email,
                                                  info.random_key, info.enc_version,
+                                                 info.more_info,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
@@ -214,6 +217,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                     info.magic, info.relay_addr,
                                                     info.relay_port, info.email,
                                                     info.random_key, info.enc_version,
+                                                    info.more_info,
                                                     &error);
     }
 

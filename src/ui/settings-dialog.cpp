@@ -50,6 +50,8 @@ void SettingsDialog::updateSettings()
     mgr->setMaxUploadRatio(mUploadSpinBox->value());
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
     mgr->setAllowInvalidWorktree(mAllowInvalidWorktreeCheckBox->checkState() == Qt::Checked);
+    mgr->setHttpSyncEnabled(mEnableHttpSyncCheckBox->checkState() == Qt::Checked);
+    mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
 
     if (isCheckLatestVersionEnabled()) {
@@ -86,6 +88,12 @@ void SettingsDialog::showEvent(QShowEvent *event)
 
     state = mgr->allowRepoNotFoundOnServer() ? Qt::Checked : Qt::Unchecked;
     mAllowRepoNotFoundCheckBox->setCheckState(state);
+
+    state = mgr->httpSyncEnabled() ? Qt::Checked : Qt::Unchecked;
+    mEnableHttpSyncCheckBox->setCheckState(state);
+
+    state = mgr->httpSyncCertVerifyDisabled() ? Qt::Checked : Qt::Unchecked;
+    mDisableVerifyHttpSyncCert->setCheckState(state);
 
     // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;

@@ -18,6 +18,7 @@
 
 namespace {
 
+const char *kApiPingUrl = "api2/ping/";
 const char *kApiLoginUrl = "api2/auth-token/";
 const char *kListReposUrl = "api2/repos/";
 const char *kCreateRepoUrl = "api2/repos/";
@@ -41,6 +42,18 @@ const char *kOsName = "mac";
 
 } // namespace
 
+
+PingServerRequest::PingServerRequest(const QUrl& serverAddr)
+
+    : SeafileApiRequest (::urlJoin(serverAddr, kApiPingUrl),
+                         SeafileApiRequest::METHOD_GET)
+{
+}
+
+void PingServerRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
 
 /**
  * LoginRequest
@@ -120,13 +133,16 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
 /**
  * DownloadRepoRequest
  */
-DownloadRepoRequest::DownloadRepoRequest(const Account& account, const QString& repo_id)
+DownloadRepoRequest::DownloadRepoRequest(const Account& account, const QString& repo_id, bool read_only)
     : SeafileApiRequest(account.getAbsoluteUrl("api2/repos/" + repo_id + "/download-info/"),
-                        SeafileApiRequest::METHOD_GET, account.token)
+                        SeafileApiRequest::METHOD_GET, account.token),
+      read_only_(read_only)
 {
 }
 
-RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict)
+RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
+                                            const QUrl& url_in,
+                                            bool read_only)
 {
     RepoDownloadInfo info;
     info.repo_version = dict["repo_version"].toInt();
@@ -141,6 +157,16 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict)
     info.magic = dict["magic"].toString();
     info.random_key = dict["random_key"].toString();
     info.enc_version = dict.value("enc_version", 1).toInt();
+
+    QUrl url = url_in;
+    url.setPath("/");
+    info.relay_addr = url.host();
+
+    QMap<QString, QVariant> map;
+    map.insert("is_readonly", read_only ? 1 : 0);
+    map.insert("server_url", url.toString());
+
+    info.more_info = ::mapToJson(map);
 
     return info;
 }
@@ -158,9 +184,7 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
 
-    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
-
-    info.relay_addr = url().host();
+    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), read_only_);
 
     emit success(info);
 }
@@ -192,9 +216,8 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
-    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict);
+    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), false);
 
-    info.relay_addr = url().host();
     emit success(info);
 }
 

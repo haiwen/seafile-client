@@ -107,7 +107,7 @@ void InitVirtualDriveDialog::startDownload(const QString& repo_id)
         return;
     }
 
-    download_default_repo_req_ = new DownloadRepoRequest(account_, repo_id);
+    download_default_repo_req_ = new DownloadRepoRequest(account_, repo_id, false);
 
     connect(download_default_repo_req_, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoSuccess(const RepoDownloadInfo&)));
@@ -166,6 +166,7 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
                                                 info.magic, info.relay_addr,
                                                 info.relay_port, info.email,
                                                 info.random_key, info.enc_version,
+                                                info.more_info,
                                                 &error);
 
     if (ret < 0) {

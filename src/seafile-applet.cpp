@@ -28,6 +28,8 @@
 #include "avatar-service.h"
 #include "seahub-notifications-monitor.h"
 #include "filebrowser/data-cache.h"
+#include "rpc/local-repo.h"
+#include "server-status-service.h"
 
 #include "seafile-applet.h"
 
@@ -92,9 +94,13 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
 }
 
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
+const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
 const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";
+
+const char *kRepoServerUrlProperty = "server-url";
+const char *kRepoRelayAddrProperty = "relay-address";
 
 } // namespace
 
@@ -134,6 +140,7 @@ void SeafileApplet::start()
 
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();
+    ServerStatusService::instance()->start();
 
 #if defined(Q_WS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
@@ -183,6 +190,9 @@ void SeafileApplet::onDaemonStarted()
     }
 
     OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
+
+    QTimer::singleShot(kIntervalForUpdateRepoProperty,
+                       this, SLOT(updateReposPropertyForHttpSync()));
 }
 
 void SeafileApplet::checkInitVDrive()
@@ -346,4 +356,43 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
     }
 
     QDesktopServices::openUrl(url);
+}
+
+/**
+ * For each repo, add the "server-url" property (inferred from account url),
+ * which would be used for http sync.
+ */
+void SeafileApplet::updateReposPropertyForHttpSync()
+{
+    std::vector<LocalRepo> repos;
+    if (rpc_client_->listLocalRepos(&repos) < 0) {
+        QTimer::singleShot(kIntervalForUpdateRepoProperty,
+                           this, SLOT(updateReposPropertyForHttpSync()));
+        return;
+    }
+
+    const std::vector<Account>& accounts = account_mgr_->accounts();
+    for (int i = 0; i < repos.size(); i++) {
+        const LocalRepo& repo = repos[i];
+        QString repo_server_url;
+        QString relay_addr;
+        if (rpc_client_->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
+            continue;
+        }
+        if (!repo_server_url.isEmpty()) {
+            continue;
+        }
+        if (rpc_client_->getRepoProperty(repo.id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+            continue;
+        }
+        for (int i = 0; i < accounts.size(); i++) {
+            const Account& account = accounts[i];
+            if (account.serverUrl.host() == relay_addr) {
+                QUrl url(account.serverUrl);
+                url.setPath("/");
+                rpc_client_->setRepoProperty(repo.id, kRepoServerUrlProperty, url.toString());
+                break;
+            }
+        }
+    }
 }

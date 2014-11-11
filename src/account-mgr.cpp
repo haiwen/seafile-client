@@ -148,8 +148,7 @@ bool AccountManager::setCurrentAccount(const Account& account)
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
 {
-    int i = 0;
-    for (i = 0; i < accounts_.size(); i++) {
+    for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl.toString() == old_account.serverUrl.toString()
             && accounts_[i].username == old_account.username) {
             accounts_.erase(accounts_.begin() + i);

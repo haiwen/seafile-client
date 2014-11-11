@@ -23,7 +23,7 @@ public:
         // ssl error, like invalid ssl certificate
         SSL_ERROR,
         // http error, like 4xx, 5xx
-        HTTP_ERROR,
+        HTTP_ERROR
     };
 
     static ApiError fromNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);

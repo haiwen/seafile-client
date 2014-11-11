@@ -27,7 +27,7 @@ private slots:
     void createFailed(const ApiError& error);
 
 private:
-    Q_DISABLE_COPY(CreateRepoDialog);
+    Q_DISABLE_COPY(CreateRepoDialog)
     bool validateInputs();
     void setAllInputsEnabled(bool enabled);
 

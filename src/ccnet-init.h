@@ -7,7 +7,7 @@ enum {
     ERR_PERMISSION = 1,
     ERR_CONF_FILE,
     ERR_SEAFILE_CONF,
-    ERR_MAX_NUM,
+    ERR_MAX_NUM
 };
 
 #endif

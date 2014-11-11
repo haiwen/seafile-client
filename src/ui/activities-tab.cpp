@@ -26,7 +26,7 @@ const char *kLoadingFailedLabelName = "loadingFailedText";
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_LOADING_FAILED_VIEW,
-    INDEX_EVENTS_VIEW,
+    INDEX_EVENTS_VIEW
 };
 
 

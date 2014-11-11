@@ -30,7 +30,7 @@ private slots:
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
 private:
-    Q_DISABLE_COPY(LoginDialog);
+    Q_DISABLE_COPY(LoginDialog)
 
     enum LoginMode {
         LOGIN_NORMAL = 0,

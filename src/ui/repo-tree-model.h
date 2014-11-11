@@ -43,7 +43,7 @@ public:
         CAT_INDEX_SHARED_REPOS,
         CAT_INDEX_PUBLIC_REPOS,
         CAT_INDEX_GROUP_REPOS,
-        CAT_INDEX_SYNCED_REPOS,
+        CAT_INDEX_SYNCED_REPOS
     };
 
     RepoTreeModel(QObject *parent=0);

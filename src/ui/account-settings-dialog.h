@@ -20,7 +20,7 @@ private slots:
     void onSubmitBtnClicked();
 
 private:
-    Q_DISABLE_COPY(AccountSettingsDialog);
+    Q_DISABLE_COPY(AccountSettingsDialog)
     bool validateInputs();
     void showWarning(const QString& msg);
 

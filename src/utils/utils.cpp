@@ -486,7 +486,9 @@ QString mapToJson(QMap<QString, QVariant> map)
         case QVariant::Int:
             json_object_set_new(object, toCStr(k), json_integer(v.toInt()));
             break;
+        default:
             // TODO: support other types
+            break;
         }
     }
 

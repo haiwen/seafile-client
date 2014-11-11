@@ -24,7 +24,7 @@ public:
         STATE_TRANSFER_1,
         STATE_TRANSFER_2,
         STATE_SERVERS_NOT_CONNECTED,
-        STATE_HAVE_UNREAD_MESSAGE,
+        STATE_HAVE_UNREAD_MESSAGE
     };
 
     void start();

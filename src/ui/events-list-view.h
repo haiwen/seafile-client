@@ -15,7 +15,7 @@ class QEvent;
 class SeafEvent;
 
 enum {
-    EVENT_ITEM_TYPE = QStandardItem::UserType,
+    EVENT_ITEM_TYPE = QStandardItem::UserType
 };
 
 class EventItem : public QStandardItem {

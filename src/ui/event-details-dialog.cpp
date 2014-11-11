@@ -18,7 +18,7 @@ namespace {
 
 enum {
     INDEX_LOADING_VIEW = 0,
-    INDEX_DETAILS_VIEW,
+    INDEX_DETAILS_VIEW
 };
 
 } // namespace

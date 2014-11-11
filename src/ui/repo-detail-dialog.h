@@ -19,7 +19,7 @@ private slots:
     void updateRepoStatus();
 
 private:
-    Q_DISABLE_COPY(RepoDetailDialog);
+    Q_DISABLE_COPY(RepoDetailDialog)
 
     ServerRepo repo_;
     QTimer *refresh_timer_;

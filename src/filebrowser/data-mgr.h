@@ -66,7 +66,10 @@ public:
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);
 
-    QString getRepoCacheFolder(const QString& repo_id) const;
+    static QString getRepoCacheFolder(const QString& repo_id);
+
+    static QString getLocalCacheFilePath(const QString& repo_id,
+                                         const QString& path);
 
 signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
@@ -89,8 +92,6 @@ private slots:
     void onRemoveDirentSuccess();
 
 private:
-    QString getLocalCacheFilePath(const QString& repo_id,
-                                  const QString& path);
     void removeDirentsCache(const QString& repo_id,
                             const QString& path,
                             bool is_file);

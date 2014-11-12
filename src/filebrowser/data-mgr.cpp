@@ -192,7 +192,7 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
 }
 
 QString DataManager::getLocalCacheFilePath(const QString& repo_id,
-                                        const QString& path)
+                                           const QString& path)
 {
     QString seafdir = seafApplet->configurator()->seafileDir();
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id, path);
@@ -216,7 +216,7 @@ void DataManager::setRepoPasswordSet(const QString& repo_id)
         QDateTime::currentMSecsSinceEpoch() + kPasswordCacheExpirationMSecs;
 }
 
-QString DataManager::getRepoCacheFolder(const QString& repo_id) const
+QString DataManager::getRepoCacheFolder(const QString& repo_id)
 {
     QString seafdir = seafApplet->configurator()->seafileDir();
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id);

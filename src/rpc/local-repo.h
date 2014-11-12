@@ -29,6 +29,8 @@ public:
     bool encrypted;
     bool auto_sync;
     bool worktree_invalid;
+    int version;
+    QString relay_id;
 
     qint64 last_sync_time;
     SyncState sync_state;

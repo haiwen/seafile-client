@@ -693,3 +693,22 @@ int SeafileRpcClient::updateReposServerHost(const QString& old_host,
 
     return ret;
 }
+
+int SeafileRpcClient::getRepoProperty(const QString &repo_id,
+                                      const QString& name,
+                                      QString *value)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (
+        seafile_rpc_client_,
+        "seafile_get_repo_property",
+        &error, 2,
+        "string", toCStr(repo_id),
+        "string", toCStr(name)
+        );
+    if (error) {
+        return -1;
+    }
+    *value = QString::fromUtf8(ret);
+    return 0;
+}

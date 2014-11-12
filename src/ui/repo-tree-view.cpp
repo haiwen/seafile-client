@@ -19,12 +19,39 @@
 #include "repo-tree-view.h"
 #include "repo-detail-dialog.h"
 #include "utils/paint-utils.h"
+#include "repo-service.h"
 
 const int kRepoTreeMenuIconWidth = 16;
 const int kRepoTreeMenuIconHeight = 16;
 
 const int kRepoTreeToolbarIconWidth = 24;
 const int kRepoTreeToolbarIconHeight = 24;
+
+namespace {
+
+QString buildMoreInfo(ServerRepo& repo)
+{
+    json_t *object = NULL;
+    char *info = NULL;
+
+    object = json_object();
+    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
+
+    info = json_dumps(object, 0);
+    QString ret = QString::fromUtf8(info);
+    json_decref (object);
+    free (info);
+    return ret;
+}
+
+QString getRepoProperty(const QString& repo_id, const QString& name)
+{
+    QString value;
+    seafApplet->rpcClient()->getRepoProperty(repo_id, name, &value);
+    return value;
+}
+
+}
 
 RepoTreeView::RepoTreeView(QWidget *parent)
     : QTreeView(parent)
@@ -93,6 +120,7 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     }
     if (item->localRepo().isValid()) {
         menu->addAction(unsync_action_);
+        menu->addAction(resync_action_);
     }
 
     return menu;
@@ -119,6 +147,7 @@ void RepoTreeView::updateRepoActions()
         open_local_folder_action_->setEnabled(false);
         open_local_folder_toolbar_action_->setEnabled(false);
         unsync_action_->setEnabled(false);
+        resync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
         show_detail_action_->setEnabled(false);
@@ -144,6 +173,9 @@ void RepoTreeView::updateRepoActions()
 
         unsync_action_->setData(QVariant::fromValue(local_repo));
         unsync_action_->setEnabled(true);
+
+        resync_action_->setData(QVariant::fromValue(local_repo));
+        resync_action_->setEnabled(true);
 
         toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
         toggle_auto_sync_action_->setEnabled(true);
@@ -176,6 +208,7 @@ void RepoTreeView::updateRepoActions()
         open_local_folder_action_->setEnabled(false);
         open_local_folder_toolbar_action_->setEnabled(false);
         unsync_action_->setEnabled(false);
+        resync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
     }
 
@@ -278,6 +311,11 @@ void RepoTreeView::createActions()
     view_on_web_action_->setIconVisibleInMenu(true);
 
     connect(view_on_web_action_, SIGNAL(triggered()), this, SLOT(viewRepoOnWeb()));
+
+    resync_action_ = new QAction(tr("&Resync this library"), this);
+    resync_action_->setStatusTip(tr("unsync and resync this library"));
+
+    connect(resync_action_, SIGNAL(triggered()), this, SLOT(resyncRepo()));
 }
 
 void RepoTreeView::downloadRepo()
@@ -453,6 +491,7 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     open_local_folder_action_->setEnabled(false);
     open_local_folder_toolbar_action_->setEnabled(false);
     unsync_action_->setEnabled(false);
+    resync_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
     show_detail_action_->setEnabled(false);
@@ -486,4 +525,55 @@ void RepoTreeView::cancelDownload()
                                  tr("The download has been canceled"),
                                  QMessageBox::Ok);
     }
+}
+
+void RepoTreeView::resyncRepo()
+{
+    LocalRepo local_repo = qvariant_cast<LocalRepo>(unsync_action_->data());
+    ServerRepo server_repo = RepoService::instance()->getRepo(local_repo.id);
+
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+
+    if (!seafApplet->yesOrNoBox(
+            tr("Are you sure to unsync and resync library \"%1\"?").arg(server_repo.name),
+            this)) {
+        return;
+    }
+
+    // must read these before unsync
+    QString token = getRepoProperty(local_repo.id, "token");
+    QString relay_addr = getRepoProperty(local_repo.id, "relay-address");
+    QString relay_port = getRepoProperty(local_repo.id, "relay-port");
+
+    if (rpc->unsync(server_repo.id) < 0) {
+        seafApplet->warningBox(tr("Failed to unsync library \"%1\"").arg(server_repo.name));
+        return;
+    }
+
+    if (server_repo.encrypted) {
+        DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(),
+                                  RepoService::instance()->getRepo(server_repo.id), this);
+        dialog.exec();
+        return;
+    } else {
+        QString more_info = buildMoreInfo(server_repo);
+        QString email = seafApplet->accountManager()->currentAccount().username;
+        QString error;
+
+        // unused fields
+        QString magic, passwd, random_key; // all null
+        int enc_version = 0;
+        if (rpc->cloneRepo(local_repo.id,
+                           local_repo.version, local_repo.relay_id,
+                           server_repo.name, local_repo.worktree,
+                           token, passwd,
+                           magic, relay_addr,
+                           relay_port, email,
+                           random_key, enc_version,
+                           more_info, &error) < 0) {
+            seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error));
+        }
+    }
+
+    updateRepoActions();
 }

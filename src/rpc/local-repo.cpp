@@ -10,11 +10,13 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     char *name = NULL;
     char *desc = NULL;
     char *worktree = NULL;
+    char *relay_id = NULL;
 
     gboolean encrypted;
     gboolean auto_sync;
     gboolean worktree_invalid;
     gint64 last_sync_time;
+    int version;
 
     g_object_get (obj,
                   "id", &id,
@@ -25,6 +27,8 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
                   "auto-sync", &auto_sync,
                   "last-sync-time", &last_sync_time,
                   "worktree-invalid", &worktree_invalid,
+                  "relay-id", &relay_id,
+                  "version", &version,
                   NULL);
 
     LocalRepo repo;
@@ -36,6 +40,8 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     repo.auto_sync = auto_sync;
     repo.last_sync_time = last_sync_time;
     repo.worktree_invalid = worktree_invalid;
+    repo.relay_id = relay_id;
+    repo.version = version;
 
     g_free (id);
     g_free (name);

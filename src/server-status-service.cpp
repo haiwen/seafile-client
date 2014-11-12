@@ -8,7 +8,8 @@
 
 namespace {
 
-const int kRefreshInternval = 3 * 60 * 1000; // 3 min
+const int kRefreshInterval = 3 * 60 * 1000; // 3 min
+const int kRefreshIntervalForUnconnected = 30 * 1000; // 30 sec
 
 }
 
@@ -18,29 +19,38 @@ ServerStatusService::ServerStatusService(QObject *parent)
     : QObject(parent)
 {
     refresh_timer_ = new QTimer(this);
+    refresh_unconnected_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()),
             this, SLOT(refresh()));
+    connect(refresh_unconnected_timer_, SIGNAL(timeout()),
+            this, SLOT(refreshUnconnected()));
     refresh();
 }
 
 void ServerStatusService::start()
 {
-    refresh_timer_->start(kRefreshInternval);
+    refresh_timer_->start(kRefreshInterval);
+    refresh_unconnected_timer_->start(kRefreshIntervalForUnconnected);
 }
 
 void ServerStatusService::stop()
 {
     refresh_timer_->stop();
+    refresh_unconnected_timer_->stop();
 }
 
-void ServerStatusService::refresh()
+void ServerStatusService::refresh(bool only_refresh_unconnected)
 {
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
     for (int i = 0; i < accounts.size(); i++) {
-        if (requests_.contains(accounts[i].serverUrl.host())) {
+        const QUrl& url = accounts[i].serverUrl;
+        if (requests_.contains(url.host())) {
             return;
         }
-        pingServer(accounts[i].serverUrl);
+        if (only_refresh_unconnected && isServerConnected(url)) {
+            return;
+        }
+        pingServer(url);
     }
 }
 
@@ -93,4 +103,10 @@ bool ServerStatusService::allServersDisconnected() const
     }
 
     return true;
+}
+
+
+bool ServerStatusService::isServerConnected(const QUrl& url) const
+{
+    return statuses_.value(url.host()).connected;
 }

@@ -19,6 +19,7 @@ public:
     ServerStatus(const QUrl& url, bool connected):
         url(url),
         connected(connected) {}
+
     QUrl url;
     bool connected;
 };
@@ -31,8 +32,6 @@ public:
     void start();
     void stop();
 
-    void refresh(bool force);
-
     // accessors
     const QList<ServerStatus> statuses() const { return statuses_.values(); }
 
@@ -40,7 +39,8 @@ public:
     bool allServersDisconnected() const;
 
 public slots:
-    void refresh();
+    void refresh(bool only_refresh_unconnected=false);
+    void refreshUnconnected() { refresh(true); }
 
 private slots:
     void onPingServerSuccess();
@@ -54,8 +54,10 @@ private:
     ServerStatusService(QObject *parent=0);
 
     void pingServer(const QUrl& url);
+    bool isServerConnected(const QUrl& url) const;
 
     QTimer *refresh_timer_;
+    QTimer *refresh_unconnected_timer_;
 
     QHash<QString, ServerStatus> statuses_;
     QHash<QString, PingServerRequest *> requests_;

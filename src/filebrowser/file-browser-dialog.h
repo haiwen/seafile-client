@@ -63,7 +63,9 @@ private slots:
     void onGetDirentRemove(const SeafDirent& dirent);
     void onGetDirentShare(const SeafDirent& dirent);
 
+    void onDirentRenameSuccess(const QString& path, const QString& new_name);
     void onDirentRenameFailed(const ApiError& error);
+    void onDirentRemoveSuccess(const QString& path);
     void onDirentRemoveFailed(const ApiError& error);
     void onDirentShareSuccess(const QString& link);
     void onDirentShareFailed(const ApiError& error);

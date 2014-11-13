@@ -90,14 +90,14 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentsFailed(const ApiError&)));
 
     //rename <--> data_mgr_
-    connect(data_mgr_, SIGNAL(renameDirentSuccess()),
-            this, SLOT(fetchDirents()));
+    connect(data_mgr_, SIGNAL(renameDirentSuccess(const QString&, const QString&)),
+            this, SLOT(onDirentRenameSuccess(const QString&, const QString&)));
     connect(data_mgr_, SIGNAL(renameDirentFailed(const ApiError&)),
             this, SLOT(onDirentRenameFailed(const ApiError&)));
 
     //remove <--> data_mgr_
-    connect(data_mgr_, SIGNAL(removeDirentSuccess()),
-            this, SLOT(fetchDirents()));
+    connect(data_mgr_, SIGNAL(removeDirentSuccess(const QString&)),
+            this, SLOT(onDirentRemoveSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(removeDirentFailed(const ApiError&)),
             this, SLOT(onDirentRemoveFailed(const ApiError&)));
 
@@ -531,7 +531,7 @@ void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
         if (new_name.isEmpty())
             return;
     }
-    data_mgr_->renameDirent(repo_.id, current_path_ + dirent.name,
+    data_mgr_->renameDirent(repo_.id, pathJoin(current_path_, dirent.name),
                             new_name,
                             dirent.isFile());
 }
@@ -541,18 +541,38 @@ void FileBrowserDialog::onGetDirentRemove(const SeafDirent& dirent)
     if (seafApplet->yesOrNoBox(dirent.isFile() ?
             tr("Do you really want to delete file \"%1\"").arg(dirent.name) :
             tr("Do you really want to delete folder \"%1\"").arg(dirent.name), this, false))
-        data_mgr_->removeDirent(repo_.id, current_path_ + dirent.name,
+        data_mgr_->removeDirent(repo_.id, pathJoin(current_path_, dirent.name),
                                 dirent.isFile());
 }
 
 void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
 {
-    data_mgr_->shareDirent(repo_.id, current_path_ + dirent.name, dirent.isFile());
+    data_mgr_->shareDirent(repo_.id, pathJoin(current_path_, dirent.name),
+                           dirent.isFile());
+}
+
+void FileBrowserDialog::onDirentRenameSuccess(const QString& path,
+                                              const QString& new_name)
+{
+    const QString name = QFileInfo(path).fileName();
+    // if no longer current level
+    if (::pathJoin(current_path_, name) != path)
+        return;
+    table_model_->renameItemNamed(name, new_name);
 }
 
 void FileBrowserDialog::onDirentRenameFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Rename failed"), this);
+}
+
+void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
+{
+    const QString name = QFileInfo(path).fileName();
+    // if no longer current level
+    if (::pathJoin(current_path_, name) != path)
+        return;
+    table_model_->removeItemNamed(name);
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)

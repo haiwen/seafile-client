@@ -67,6 +67,9 @@ public:
 
     const SeafDirent* direntAt(int index) const;
 
+    void removeItemNamed(const QString &name);
+    void renameItemNamed(const QString &name, const QString &new_name);
+
     void onResize(const QSize &size);
 
 private:

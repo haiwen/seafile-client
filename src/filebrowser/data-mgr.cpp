@@ -121,18 +121,24 @@ void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
 
 void DataManager::onRenameDirentSuccess()
 {
-    RenameDirentRequest *req = static_cast<RenameDirentRequest*>(sender());
+    RenameDirentRequest *req = qobject_cast<RenameDirentRequest*>(sender());
+
+    if(req == NULL)
+        return;
 
     removeDirentsCache(req->repoId(), req->path(), req->isFile());
-    emit renameDirentSuccess();
+    emit renameDirentSuccess(req->path(), req->newName());
 }
 
 void DataManager::onRemoveDirentSuccess()
 {
-    RemoveDirentRequest *req = static_cast<RemoveDirentRequest*>(sender());
+    RemoveDirentRequest *req = qobject_cast<RemoveDirentRequest*>(sender());
+
+    if(req == NULL)
+        return;
 
     removeDirentsCache(req->repoId(), req->path(), req->isFile());
-    emit removeDirentSuccess();
+    emit removeDirentSuccess(req->path());
 }
 
 void DataManager::removeDirentsCache(const QString& repo_id,

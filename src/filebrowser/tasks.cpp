@@ -174,8 +174,11 @@ FileUploadTask::FileUploadTask(const Account& account,
                                const QString& repo_id,
                                const QString& path,
                                const QString& local_path,
-                               bool not_update)
-    : FileNetworkTask(account, repo_id, path, local_path), not_update_(not_update)
+                               const QString& name,
+                               const bool not_update)
+    : FileNetworkTask(account, repo_id, path, local_path),
+    name_(name.isEmpty() ? QFileInfo(local_path_).fileName() : name),
+    not_update_(not_update)
 {
 }
 
@@ -186,7 +189,8 @@ void FileUploadTask::createGetLinkRequest()
 
 void FileUploadTask::createFileServerTask(const QString& link)
 {
-    fileserver_task_ = new PostFileTask(link, path_, local_path_, not_update_);
+    fileserver_task_ = new PostFileTask(link, path_, local_path_,
+                                        name_, not_update_);
 }
 
 QNetworkAccessManager* FileServerTask::network_mgr_;
@@ -385,9 +389,11 @@ void GetFileTask::onHttpRequestFinished()
 PostFileTask::PostFileTask(const QUrl& url,
                            const QString& parent_dir,
                            const QString& local_path,
-                           bool not_update)
+                           const QString& name,
+                           const bool not_update)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
+      name_(name),
       not_update_(not_update)
 {
 }
@@ -425,12 +431,11 @@ void PostFileTask::sendRequest()
     parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
                              not_update_ ? kParentDirParam : kTargetFileParam);
     parentdir_part.setBody(toCStr(not_update_ ? parent_dir_ :
-        (::pathJoin(parent_dir_, QFileInfo(local_path_).fileName())) ));
+        (::pathJoin(parent_dir_, name_)) ));
 
     // "file" param
-    QString fname = QFileInfo(local_path_).fileName();
     file_part.setHeader(QNetworkRequest::ContentDispositionHeader,
-                        QString(kFileParamTemplate).arg(fname));
+                        QString(kFileParamTemplate).arg(name_));
     file_part.setHeader(QNetworkRequest::ContentTypeHeader,
                         kContentTypeApplicationOctetStream);
     file_part.setBodyDevice(file_);

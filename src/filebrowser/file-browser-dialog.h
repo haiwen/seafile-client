@@ -56,12 +56,24 @@ private slots:
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
     void openCacheFolder();
+
+    // specify name directly
+    void uploadFile(const QString& path, const QString& name);
+    void updateFile(const QString& path, const QString& name);
+
+    // the same as above except these grab name from path
     void uploadFile(const QString& path);
+    void updateFile(const QString& path);
+
+    // prompt a dialog for user to choose whether upload or update
+    void uploadOrUpdateFile(const QString& path);
+
     void onNavigatorClick(int id);
 
     void onGetDirentRename(const SeafDirent& dirent, QString new_name = QString());
     void onGetDirentRemove(const SeafDirent& dirent);
     void onGetDirentShare(const SeafDirent& dirent);
+    void onGetDirentUpdate(const SeafDirent& dirent);
 
     void onDirentRenameSuccess(const QString& path, const QString& new_name);
     void onDirentRenameFailed(const ApiError& error);

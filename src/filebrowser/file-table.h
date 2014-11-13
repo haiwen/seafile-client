@@ -25,6 +25,7 @@ signals:
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
     void direntShare(const SeafDirent& dirent);
+    void direntUpdate(const SeafDirent& dirent);
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);
@@ -32,6 +33,7 @@ private slots:
     void onRename();
     void onRemove();
     void onShare();
+    void onUpdate();
 
 private:
     void setupContextMenu();
@@ -47,6 +49,7 @@ private:
     ServerRepo repo_;
     QMenu *context_menu_;
     QAction *download_action_;
+    QAction *update_action_;
     QWidget *parent_;
 };
 

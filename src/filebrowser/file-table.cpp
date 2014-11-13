@@ -345,6 +345,31 @@ const SeafDirent* FileTableModel::direntAt(int index) const
     return &dirents_[index];
 }
 
+void FileTableModel::removeItemNamed(const QString &name)
+{
+    int j = 0;
+    for (QList<SeafDirent>::iterator i = dirents_.begin(); i != dirents_.end() ; i++, j++)
+        if (i->name == name) {
+            dirents_.erase(i);
+            emit dataChanged(index(j, 0),
+                index(dirents_.size()-1, FILE_MAX_COLUMN - 1));
+            break;
+        }
+}
+
+void FileTableModel::renameItemNamed(const QString &name, const QString &new_name)
+{
+    for (int i = 0; i != dirents_.size() ; i++)
+        if (dirents_[i].name == name) {
+            dirents_[i].name = new_name;
+
+            emit dataChanged(index(i, 0),
+                index(i , FILE_MAX_COLUMN - 1));
+
+            break;
+        }
+}
+
 void FileTableModel::onResize(const QSize &size)
 {
     name_column_width_ = size.width() - kDefaultColumnSum;

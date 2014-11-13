@@ -72,10 +72,10 @@ signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
-    void renameDirentSuccess();
+    void renameDirentSuccess(const QString& path, const QString& new_name);
     void renameDirentFailed(const ApiError& error);
 
-    void removeDirentSuccess();
+    void removeDirentSuccess(const QString& path);
     void removeDirentFailed(const ApiError& error);
 
     void shareDirentSuccess(const QString& link);

@@ -47,6 +47,11 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
         if (requests_.contains(url.host())) {
             return;
         }
+
+        if (!statuses_.contains(url.host())) {
+            statuses_[url.host()] = ServerStatus(url, false);
+        }
+
         if (only_refresh_unconnected && isServerConnected(url)) {
             return;
         }

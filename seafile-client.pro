@@ -239,6 +239,8 @@ TRANSLATIONS += i18n/seafile_ca.ts \
 ICON = seafile.icns
 CONFIG += debug_and_release_target
 CONFIG += warn_on link_pkgconfig resources
+# https://stackoverflow.com/questions/16972066/using-pkg-config-with-qt-creator-qmake-on-mac-osx
+QT_CONFIG -= no-pkg-config
 PKGCONFIG += libsearpc libccnet libseafile glib-2.0 sqlite3 jansson openssl
 
 win32 {

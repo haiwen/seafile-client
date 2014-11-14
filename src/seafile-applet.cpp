@@ -34,8 +34,21 @@
 #include "seafile-applet.h"
 
 namespace {
+enum DEBUG_LEVEL {
+  DEBUG = 0,
+  WARNING
+};
 
-void myLogHandler(QtMsgType type, const char *msg)
+// -DQT_NO_DEBUG is used with cmake and qmake if it is a release build
+// if it is debug build, use DEBUG level as default
+#if !defined(QT_NO_DEBUG) || !defined(NDEBUG)
+DEBUG_LEVEL seafile_client_debug_level = DEBUG;
+#else
+// if it is release build, use WARNING level as default
+DEBUG_LEVEL seafile_client_debug_level = WARNING;
+#endif
+
+void myLogHandlerDebug(QtMsgType type, const char *msg)
 {
     switch (type) {
     case QtDebugMsg:
@@ -50,6 +63,23 @@ void myLogHandler(QtMsgType type, const char *msg)
     case QtFatalMsg:
         g_critical("%s", msg);
         abort();
+    }
+}
+
+void myLogHandler(QtMsgType type, const char *msg)
+{
+    switch (type) {
+    case QtWarningMsg:
+        g_warning("%s", msg);
+        break;
+    case QtCriticalMsg:
+        g_critical("%s", msg);
+        break;
+    case QtFatalMsg:
+        g_critical("%s", msg);
+        abort();
+    default:
+        break;
     }
 }
 
@@ -240,7 +270,17 @@ void SeafileApplet::initLog()
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
         errorAndExit(tr("Failed to initialize log"));
     } else {
-        qInstallMsgHandler(myLogHandler);
+        // give a change to override DEBUG_LEVEL by environment
+        QString debug_level = qgetenv("SEAFILE_CLIENT_DEBUG");
+        if (!debug_level.isEmpty() && debug_level != "false" &&
+            debug_level != "0")
+            seafile_client_debug_level = DEBUG;
+
+        // set up log handler respectively
+        if (seafile_client_debug_level == DEBUG)
+            qInstallMsgHandler(myLogHandlerDebug);
+        else
+            qInstallMsgHandler(myLogHandler);
     }
 }
 

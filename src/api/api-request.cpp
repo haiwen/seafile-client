@@ -39,17 +39,15 @@ void SeafileApiRequest::send()
         api_client_->setToken(token_);
     }
 
+    url_.setEncodedQueryItems(params_);
     switch (method_) {
     case METHOD_GET:
-        url_.setEncodedQueryItems(params_);
         api_client_->get(url_);
         break;
     case METHOD_DELETE:
-        url_.setEncodedQueryItems(params_);
         api_client_->deleteResource(url_);
         break;
     case METHOD_POST:
-        url_.setEncodedQueryItems(params_);
         if (!form_params_.isEmpty()) {
             QUrl params;
             params.setEncodedQueryItems(form_params_);
@@ -58,7 +56,6 @@ void SeafileApiRequest::send()
         api_client_->post(url_, data_);
         break;
     case METHOD_PUT:
-        url_.setEncodedQueryItems(params_);
         if (!form_params_.isEmpty()) {
             QUrl params;
             params.setEncodedQueryItems(form_params_);

@@ -135,7 +135,7 @@ public:
                    const QString& path,
                    const QString& local_path,
                    const QString& name,
-                   const bool not_update = true);
+                   const bool use_upload = true);
 
     TaskType type() const { return Upload; }
 
@@ -145,7 +145,7 @@ protected:
 
 private:
     const QString name_;
-    const bool not_update_;
+    const bool use_upload_;
 };
 
 /**
@@ -239,7 +239,7 @@ public:
                  const QString& parent_dir,
                  const QString& local_path,
                  const QString& name,
-                 const bool not_update);
+                 const bool use_upload);
     ~PostFileTask();
 
 protected:
@@ -251,7 +251,7 @@ private:
     const QString parent_dir_;
     QFile *file_;
     const QString &name_;
-    const bool not_update_;
+    const bool use_upload_;
 };
 
 #endif // SEAFILE_CLIETN_FILEBROWSER_TAKS_H

@@ -63,7 +63,7 @@ while [ $# -ge 1 ]; do
         "build2" )
             echo "build ${target}.app with xctool -j${num_cpus}"
             rm -rf Release
-            xctool -find-target ${target} -configuration $configuration -jobs $num_cpus
+            xctool -scheme ${target} -configuration $configuration -jobs $num_cpus
             rm -rf ${top_dir}/${target}.app
             cp -rf Release/${target}.app ${top_dir}/${target}.app
             ;;

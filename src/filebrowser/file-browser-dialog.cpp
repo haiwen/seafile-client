@@ -30,7 +30,7 @@ enum {
 const char *kLoadingFaieldLabelName = "loadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
-const int kStatusCodePasswordNeeded = 400;
+//const int kStatusCodePasswordNeeded = 400;
 
 void openFile(const QString& path)
 {
@@ -368,42 +368,19 @@ void FileBrowserDialog::downloadFile(const QString& path)
     dialog.exec();
 }
 
-void FileBrowserDialog::uploadFile(const QString& path, const QString& name)
+void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
+                                   const bool overwrite)
 {
     // if empty, return
     if (name.isEmpty())
         return;
 
-    FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_,
-                                                       path, name);
+    FileUploadTask *task =
+      data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     FileBrowserProgressDialog dialog(task, this);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
     task->start();
     dialog.exec();
-}
-
-void FileBrowserDialog::updateFile(const QString& path, const QString& name)
-{
-    // if empty, return
-    if (name.isEmpty())
-        return;
-
-    FileUploadTask *task = data_mgr_->createUpdateTask(repo_.id, current_path_,
-                                                       path, name);
-    FileBrowserProgressDialog dialog(task, this);
-    connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    task->start();
-    dialog.exec();
-}
-
-void FileBrowserDialog::uploadFile(const QString& path)
-{
-    uploadFile(path, QFileInfo(path).fileName());
-}
-
-void FileBrowserDialog::updateFile(const QString& path)
-{
-    updateFile(path, QFileInfo(path).fileName());
 }
 
 void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
@@ -432,7 +409,8 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
         if (ret == QMessageBox::Cancel) {
             return;
         } else if (ret == QMessageBox::Yes) {
-            updateFile(path, name);
+            // overwrite the file
+            uploadFile(path, name, true);
             return;
         }
     }
@@ -443,12 +421,14 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
-    FileNetworkTask *task = (FileNetworkTask *)sender();
+    FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
+    if (task == NULL)
+        return;
     if (success) {
         openFile(task->localFilePath());
     } else {
         if (repo_.encrypted &&
-            setPasswordAndRetry(task, &FileBrowserDialog::downloadFile)) {
+            setPasswordAndRetry(task)) {
             return;
         }
 
@@ -459,26 +439,31 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 
 void FileBrowserDialog::onUploadFinished(bool success)
 {
-    FileNetworkTask *task = (FileNetworkTask *)sender();
+    FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
+    if (task == NULL)
+        return;
     if (success) {
         forceRefresh();
     } else {
         if (repo_.encrypted &&
-            setPasswordAndRetry(task, &FileBrowserDialog::uploadFile)) {
+            setPasswordAndRetry(task)) {
             return;
         }
+
         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);
     }
 }
 
-bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task,
-                                            void (FileBrowserDialog::*func)(const QString&))
+bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
 {
     if (task->httpErrorCode() == 400) {
         SetRepoPasswordDialog password_dialog(repo_, this);
         if (password_dialog.exec() == QDialog::Accepted) {
-            (this->*func)(task->path());
+            if (task->type() == FileNetworkTask::Download)
+                downloadFile(task->path());
+            else
+                uploadOrUpdateFile(task->path());
             return true;
         }
     }
@@ -534,7 +519,7 @@ void FileBrowserDialog::chooseFileToUpload()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Select a file to upload"));
     if (!path.isEmpty()) {
-        uploadFile(path);
+        uploadOrUpdateFile(path);
     }
 }
 
@@ -607,7 +592,7 @@ void FileBrowserDialog::onGetDirentUpdate(const SeafDirent& dirent)
     QString path = QFileDialog::getOpenFileName(this,
         tr("Select a file to update %1").arg(dirent.name));
     if (!path.isEmpty()) {
-        updateFile(path, dirent.name);
+        uploadFile(path, dirent.name, true);
     }
 }
 

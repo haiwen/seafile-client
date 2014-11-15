@@ -190,20 +190,11 @@ void DataManager::onFileDownloadFinished(bool success)
 FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
                                               const QString& path,
                                               const QString& local_path,
-                                              const QString& name)
+                                              const QString& name,
+                                              const bool overwrite)
 {
     FileUploadTask *task = new FileUploadTask(account_, repo_id, path,
-                                              local_path, name, true);
-    return task;
-}
-
-FileUploadTask* DataManager::createUpdateTask(const QString& repo_id,
-                                              const QString& path,
-                                              const QString& local_path,
-                                              const QString& name)
-{
-    FileUploadTask *task = new FileUploadTask(account_, repo_id, path,
-                                              local_path, name, false);
+                                              local_path, name, !overwrite);
     return task;
 }
 

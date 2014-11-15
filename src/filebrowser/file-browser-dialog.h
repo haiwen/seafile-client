@@ -57,14 +57,6 @@ private slots:
     void onUploadFinished(bool success);
     void openCacheFolder();
 
-    // specify name directly
-    void uploadFile(const QString& path, const QString& name);
-    void updateFile(const QString& path, const QString& name);
-
-    // the same as above except these grab name from path
-    void uploadFile(const QString& path);
-    void updateFile(const QString& path);
-
     // prompt a dialog for user to choose whether upload or update
     void uploadOrUpdateFile(const QString& path);
 
@@ -93,14 +85,15 @@ private:
     void updateTable(const QList<SeafDirent>& dirents);
     void enterPath(const QString& path);
     void downloadFile(const QString& path);
+    void uploadFile(const QString& path, const QString& name,
+                    const bool overwrite = false);
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);
 
     void fetchDirents(bool force_refresh);
 
-    bool setPasswordAndRetry(FileNetworkTask *task,
-                             void (FileBrowserDialog::*func)(const QString&));
+    bool setPasswordAndRetry(FileNetworkTask *task);
 
     ServerRepo repo_;
     // current path

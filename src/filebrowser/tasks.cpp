@@ -174,19 +174,23 @@ FileUploadTask::FileUploadTask(const Account& account,
                                const QString& repo_id,
                                const QString& path,
                                const QString& local_path,
-                               bool not_update)
-    : FileNetworkTask(account, repo_id, path, local_path), not_update_(not_update)
+                               const QString& name,
+                               const bool use_upload)
+    : FileNetworkTask(account, repo_id, path, local_path),
+    name_(name.isEmpty() ? QFileInfo(local_path_).fileName() : name),
+    use_upload_(use_upload)
 {
 }
 
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, not_update_);
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, use_upload_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)
 {
-    fileserver_task_ = new PostFileTask(link, path_, local_path_, not_update_);
+    fileserver_task_ = new PostFileTask(link, path_, local_path_,
+                                        name_, use_upload_);
 }
 
 QNetworkAccessManager* FileServerTask::network_mgr_;
@@ -385,10 +389,12 @@ void GetFileTask::onHttpRequestFinished()
 PostFileTask::PostFileTask(const QUrl& url,
                            const QString& parent_dir,
                            const QString& local_path,
-                           bool not_update)
+                           const QString& name,
+                           const bool use_upload)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
-      not_update_(not_update)
+      name_(name),
+      use_upload_(use_upload)
 {
 }
 
@@ -423,14 +429,13 @@ void PostFileTask::sendRequest()
     // parent_dir param
     QHttpPart parentdir_part, file_part;
     parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
-                             not_update_ ? kParentDirParam : kTargetFileParam);
-    parentdir_part.setBody(toCStr(not_update_ ? parent_dir_ :
-        (::pathJoin(parent_dir_, QFileInfo(local_path_).fileName())) ));
+                             use_upload_ ? kParentDirParam : kTargetFileParam);
+    parentdir_part.setBody(toCStr(use_upload_ ? parent_dir_ :
+        (::pathJoin(parent_dir_, name_)) ));
 
     // "file" param
-    QString fname = QFileInfo(local_path_).fileName();
     file_part.setHeader(QNetworkRequest::ContentDispositionHeader,
-                        QString(kFileParamTemplate).arg(fname));
+                        QString(kFileParamTemplate).arg(name_));
     file_part.setHeader(QNetworkRequest::ContentTypeHeader,
                         kContentTypeApplicationOctetStream);
     file_part.setBodyDevice(file_);

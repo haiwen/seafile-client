@@ -83,6 +83,9 @@ void FileTableView::setupContextMenu()
     connect(share_action_, SIGNAL(triggered()),
             this, SLOT(onShare()));
 
+    update_action_ = new QAction(tr("&Update"), this);
+    connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
+
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
     context_menu_->addAction(share_action_);
@@ -90,7 +93,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
     context_menu_->addSeparator();
-    context_menu_->addAction(dialog->upload_action_);
+    context_menu_->addAction(update_action_);
 
     download_action_->setIconVisibleInMenu(false);
     dialog->upload_action_->setIconVisibleInMenu(false);
@@ -110,9 +113,11 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_ == NULL)
         return;
     if (item_->isDir()) {
+        update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
         download_action_->setIcon(QIcon(":images/filebrowser/open-folder.png"));
     } else {
+        update_action_->setVisible(true);
         download_action_->setText(tr("&Download"));
         download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
     }
@@ -161,6 +166,13 @@ void FileTableView::onShare()
     if (item_ == NULL)
         return;
     emit direntShare(*item_);
+}
+
+void FileTableView::onUpdate()
+{
+    if (item_ == NULL)
+        return;
+    emit direntUpdate(*item_);
 }
 
 void FileTableView::dropEvent(QDropEvent *event)

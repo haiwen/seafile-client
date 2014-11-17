@@ -61,7 +61,8 @@ public:
     FileUploadTask* createUploadTask(const QString& repo_id,
                                      const QString& path,
                                      const QString& local_path,
-                                     bool not_update = true);
+                                     const QString& name,
+                                     const bool overwrite);
 
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);

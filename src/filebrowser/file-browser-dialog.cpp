@@ -30,7 +30,7 @@ enum {
 const char *kLoadingFaieldLabelName = "loadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
-const int kStatusCodePasswordNeeded = 400;
+//const int kStatusCodePasswordNeeded = 400;
 
 void openFile(const QString& path)
 {
@@ -83,6 +83,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentRemove(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntShare(const SeafDirent&)),
             this, SLOT(onGetDirentShare(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
+            this, SLOT(onGetDirentUpdate(const SeafDirent&)));
 
     //dirents <--> data_mgr_
     connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
@@ -209,7 +211,7 @@ void FileBrowserDialog::createFileTable()
     table_view_->setModel(table_model_);
 
     connect(table_view_, SIGNAL(dropFile(const QString&)),
-            this, SLOT(uploadFile(const QString&)));
+            this, SLOT(uploadOrUpdateFile(const QString&)));
 }
 
 void FileBrowserDialog::forceRefresh()
@@ -366,49 +368,63 @@ void FileBrowserDialog::downloadFile(const QString& path)
     dialog.exec();
 }
 
-void FileBrowserDialog::uploadFile(const QString& path)
+void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
+                                   const bool overwrite)
 {
-    bool not_update = true;
-    QString name = QFileInfo(path).fileName();
-    // find if there exist a file with the same name
-    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
-    {
-        if (dirent.name == name) {
-            not_update = false;
-            break;
-        }
-    }
-    // if found
-    // prompt a dialog to confirm to overwrite the current file
-    if (!not_update) {
-        int ret = QMessageBox::question(
-            this, getBrand(),
-            tr("File %1 already exists.<br/>"
-            "Do you like to overwrite it?<br/>"
-            "<small>(Choose No to upload using an alternative name).</small>").arg(name),
-            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
-        if (ret == QMessageBox::Cancel)
-            return;
-        else if (ret != QMessageBox::Yes)
-            not_update = true;
-        // otherwise not_update is false
-    }
-    FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path, not_update);
+    FileUploadTask *task =
+      data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     FileBrowserProgressDialog dialog(task, this);
-    connect(task, SIGNAL(finished(bool)),
-            this, SLOT(onUploadFinished(bool)));
+    connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
     task->start();
     dialog.exec();
 }
 
+void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
+{
+    const QString name = QFileInfo(path).fileName();
+
+    bool found_conflict = false;
+    // find if there exist a file with the same name
+    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
+    {
+        if (dirent.name == name) {
+            found_conflict = true;
+            break;
+        }
+    }
+
+    // prompt a dialog to confirm to overwrite the current file
+    if (found_conflict) {
+        int ret = QMessageBox::question(
+            this, getBrand(),
+            tr("File %1 already exists.<br/>"
+            "Do you like to overwrite it?<br/>"
+            "<small>(Choose No to upload using an alternative name).</small>").
+            arg(name),
+            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if (ret == QMessageBox::Cancel) {
+            return;
+        } else if (ret == QMessageBox::Yes) {
+            // overwrite the file
+            uploadFile(path, name, true);
+            return;
+        }
+    }
+
+    // in other cases, use upload
+    uploadFile(path, name);
+}
+
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
-    FileNetworkTask *task = (FileNetworkTask *)sender();
+    FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
+    if (task == NULL)
+        return;
     if (success) {
         openFile(task->localFilePath());
     } else {
         if (repo_.encrypted &&
-            setPasswordAndRetry(task, &FileBrowserDialog::downloadFile)) {
+            setPasswordAndRetry(task)) {
             return;
         }
 
@@ -419,26 +435,31 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 
 void FileBrowserDialog::onUploadFinished(bool success)
 {
-    FileNetworkTask *task = (FileNetworkTask *)sender();
+    FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
+    if (task == NULL)
+        return;
     if (success) {
         forceRefresh();
     } else {
         if (repo_.encrypted &&
-            setPasswordAndRetry(task, &FileBrowserDialog::uploadFile)) {
+            setPasswordAndRetry(task)) {
             return;
         }
+
         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);
     }
 }
 
-bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task,
-                                            void (FileBrowserDialog::*func)(const QString&))
+bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
 {
     if (task->httpErrorCode() == 400) {
         SetRepoPasswordDialog password_dialog(repo_, this);
         if (password_dialog.exec() == QDialog::Accepted) {
-            (this->*func)(task->path());
+            if (task->type() == FileNetworkTask::Download)
+                downloadFile(task->path());
+            else
+                uploadOrUpdateFile(task->path());
             return true;
         }
     }
@@ -494,7 +515,7 @@ void FileBrowserDialog::chooseFileToUpload()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Select a file to upload"));
     if (!path.isEmpty()) {
-        uploadFile(path);
+        uploadOrUpdateFile(path);
     }
 }
 
@@ -560,6 +581,15 @@ void FileBrowserDialog::onDirentRenameSuccess(const QString& path,
     if (::pathJoin(current_path_, name) != path)
         return;
     table_model_->renameItemNamed(name, new_name);
+}
+
+void FileBrowserDialog::onGetDirentUpdate(const SeafDirent& dirent)
+{
+    QString path = QFileDialog::getOpenFileName(this,
+        tr("Select a file to update %1").arg(dirent.name));
+    if (!path.isEmpty()) {
+        uploadFile(path, dirent.name, true);
+    }
 }
 
 void FileBrowserDialog::onDirentRenameFailed(const ApiError&error)

@@ -131,10 +131,10 @@ void CreateDirentRequest::requestSuccess(QNetworkReply& reply)
 
 GetFileUploadLinkRequest::GetFileUploadLinkRequest(const Account &account,
                                                    const QString &repo_id,
-                                                   bool not_update)
+                                                   bool use_upload)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(
-              not_update ? kGetFileUploadUrl : kGetFileUpdateUrl).arg(repo_id)),
+              use_upload ? kGetFileUploadUrl : kGetFileUpdateUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_GET, account.token)
 {
 }

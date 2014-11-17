@@ -138,6 +138,9 @@ public:
                    const bool use_upload = true);
 
     TaskType type() const { return Upload; }
+    const QString& name() const { return name_; }
+    const QString& localPath() const { return local_path_; }
+    const bool useUpload() const { return use_upload_; }
 
 protected:
     void createFileServerTask(const QString& link);

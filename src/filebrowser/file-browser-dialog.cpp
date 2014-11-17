@@ -435,11 +435,22 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 
 void FileBrowserDialog::onUploadFinished(bool success)
 {
-    FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
+    FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
         return;
     if (success) {
-        forceRefresh();
+        QFileInfo file = task->localPath();
+        SeafDirent dirent = {
+          SeafDirent::FILE,
+          "-", //TODO: use the return id
+          task->name(),
+          file.size(),
+          file.lastModified().toTime_t()
+        };
+        if (task->useUpload())
+            table_model_->appendItem(dirent);
+        else
+            table_model_->replaceItem(task->name(), dirent);
     } else {
         if (repo_.encrypted &&
             setPasswordAndRetry(task)) {

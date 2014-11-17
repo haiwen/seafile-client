@@ -10,6 +10,7 @@
 #include <glib-object.h>
 #include <cstdio>
 
+#include "crash-handler.h"
 #include "utils/utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
@@ -51,6 +52,13 @@ int main(int argc, char *argv[])
 #endif
 
     QDir::setCurrent(QApplication::applicationDirPath());
+
+#ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
+    // if we have built with breakpad, load it in run time
+    Breakpad::CrashHandler::instance()->Init(
+        QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
+#endif
+
     app.setStyle(new SeafileProxyStyle());
 
     // initialize i18n

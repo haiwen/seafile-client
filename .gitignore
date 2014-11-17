@@ -82,6 +82,9 @@ test_*
 docs
 Doxyfile
 
+## breakpad related
+third_party/gyp
+third_party/breakpad
 
 /GPATH
 /GTAGS

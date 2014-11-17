@@ -15,9 +15,12 @@ IF (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
   ADD_DEFINITIONS(-DSEAFILE_CLIENT_REVISION=${SEAFILE_CLIENT_REVISION})
 ENDIF()
 
+## Build crash repoter on release build as default
 IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)
 ENDIF()
+
+SET(PATH_TO_BREAKPAD_ROOT CACHE "Path to breakpad's root" "")
 
 OPTION(BUILD_TESTING "Build Test" OFF)
 
@@ -399,7 +402,7 @@ ENDIF()
 #     LINK_LIBS libs
 #     )
 FUNCTION(ADD_SC_LIBRARY name)
-    MESSAGE(STATUS "Found Seafile-Client Library: ${name}")
+    MESSAGE(STATUS "Found internal library: ${name}")
     CMAKE_PARSE_ARGUMENTS(ARG
       ""
       ""
@@ -453,6 +456,40 @@ SET(SC_LIBS utils)
 ###### end: lib
 ####################
 
+
+####################
+###### begin: crash reporter
+####################
+
+# if you haven't installed it, please visit
+# https://code.google.com/p/google-breakpad/ to get a copy of it
+# or run the script build_breakpad.sh under the scripts directory
+
+## set up our crash reporter: breakpad
+
+IF (PATH_TO_BREAKPAD_ROOT)
+    FIND_LIBRARY(BREAKPAD_LIBRARY breakpad
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Debug_Base
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Default/obj
+      NO_DEFAULT_PATH)
+    FIND_LIBRARY(BREAKPAD_UTILITIES_LIBRARY breakpad_utilities
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Debug_Base
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Default/obj
+      NO_DEFAULT_PATH)
+    MESSAGE(STATUS "Found library: ${BREAKPAD_LIBRARY}")
+    MESSAGE(STATUS "Found library: ${BREAKPAD_UTILITIES_LIBRARY}")
+
+    SET(seafile_client_sources ${seafile_client_sources} src/crash-handler.cpp)
+    INCLUDE_DIRECTORIES()
+    ADD_DEFINITIONS(-DSEAFILE_CLIENT_HAS_CRASH_REPORTER)
+    SET_SOURCE_FILES_PROPERTIES(src/crash-handler.cpp
+        PROPERTIES COMPILE_FLAGS "-I${PATH_TO_BREAKPAD_ROOT}/src")
+    SET(EXTRA_LIBS ${EXTRA_LIBS} ${BREAKPAD_LIBRARY} ${BREAKPAD_UTILITIES_LIBRARY})
+ENDIF()
+
+####################
+###### end: crash reporter
+####################
 
 ####################
 ###### start: freedesktop files

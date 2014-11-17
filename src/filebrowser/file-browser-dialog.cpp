@@ -552,8 +552,12 @@ void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
         // if cancelled or empty
         if (new_name.isEmpty())
             return;
+        // if no change
+        if (dirent.name == new_name)
+            return;
     }
-    data_mgr_->renameDirent(repo_.id, pathJoin(current_path_, dirent.name),
+    data_mgr_->renameDirent(repo_.id,
+                            ::pathJoin(current_path_, dirent.name),
                             new_name,
                             dirent.isFile());
 }
@@ -569,7 +573,8 @@ void FileBrowserDialog::onGetDirentRemove(const SeafDirent& dirent)
 
 void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
 {
-    data_mgr_->shareDirent(repo_.id, pathJoin(current_path_, dirent.name),
+    data_mgr_->shareDirent(repo_.id,
+                           ::pathJoin(current_path_, dirent.name),
                            dirent.isFile());
 }
 

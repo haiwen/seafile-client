@@ -53,7 +53,7 @@ void SeafileApiRequest::send()
             params.setEncodedQueryItems(form_params_);
             setData(params.encodedQuery());
         }
-        api_client_->post(url_, data_);
+        api_client_->post(url_, data_, false);
         break;
     case METHOD_PUT:
         if (!form_params_.isEmpty()) {

@@ -220,8 +220,6 @@ bool SeafileApiClient::handleHttpRedirect()
         return true;
     }
 
-    reply_->deleteLater();
-
     QUrl redirect_url = redirect_attr.toUrl();
     if (redirect_url.isRelative()) {
         redirect_url =  reply_->url().resolved(redirect_url);
@@ -232,19 +230,23 @@ bool SeafileApiClient::handleHttpRedirect()
 
     switch (reply_->operation()) {
     case QNetworkAccessManager::GetOperation:
+        reply_->deleteLater();
         get(redirect_url);
         break;
     case QNetworkAccessManager::PostOperation:
-        post(redirect_url, body_);
-        break;
+        // don't handle with this, since rename operation returns a 301
+        //post(redirect_url, body_, false);
+        return false;
     case QNetworkAccessManager::PutOperation:
         post(redirect_url, body_, true);
         break;
     case QNetworkAccessManager::DeleteOperation:
+        reply_->deleteLater();
         deleteResource(redirect_url);
         break;
     default:
-        qDebug() << "unsupported redirect" << reply_->operation()
+        reply_->deleteLater();
+        qWarning() << "unsupported redirect" << reply_->operation()
           << "to" << redirect_url.toString()
           << "from" << reply_->url().toString();
         break;

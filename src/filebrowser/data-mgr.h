@@ -41,15 +41,15 @@ public:
     void renameDirent(const QString &repo_id,
                       const QString &path,
                       const QString &new_path,
-                      bool is_file = true);
+                      bool is_file);
 
     void removeDirent(const QString &repo_id,
                       const QString &path,
-                      bool is_file = true);
+                      bool is_file);
 
     void shareDirent(const QString &repo_id,
                      const QString &path,
-                     bool is_file = true);
+                     bool is_file);
 
     QString getLocalCachedFile(const QString& repo_id,
                                const QString& path,

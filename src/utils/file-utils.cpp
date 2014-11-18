@@ -670,7 +670,7 @@ QString pathJoin(const QString& a, const QStringList& rest)
         bool resultEndsWithSlash = result.endsWith("/");
         bool bStartWithSlash = b.startsWith("/");
         if (resultEndsWithSlash && bStartWithSlash) {
-            result.append(b.right(1));
+            result.append(b.right(b.size() - 1));
         } else if (resultEndsWithSlash || bStartWithSlash) {
             result.append(b);
         } else {

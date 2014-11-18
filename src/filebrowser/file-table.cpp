@@ -3,6 +3,9 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seaf-dirent.h"
+#ifdef Q_WS_MAC
+#include "utils/utils-mac.h"
+#endif
 
 #include "file-table.h"
 #include "file-browser-dialog.h"
@@ -188,6 +191,10 @@ void FileTableView::dropEvent(QDropEvent *event)
 
     // since we supports processing only one file at a time, skip the rest
     QString file_name = urls.first().toLocalFile();
+#ifdef Q_WS_MAC
+    if (file_name.startsWith("/.file/id="))
+        file_name = __mac_get_path_from_fileId_url("file://" + file_name);
+#endif
 
     if(file_name.isEmpty())
         return;

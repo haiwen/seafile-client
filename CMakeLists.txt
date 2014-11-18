@@ -33,6 +33,8 @@ ELSEIF (APPLE)
       src/utils/process-mac.cpp src/application.cpp
       src/utils/utils-mac.mm
     )
+    SET_SOURCE_FILES_PROPERTIES(src/utils/utils-mac.mm
+      PROPERTIES COMPILE_FLAGS -fobjc-arc)
 
     FIND_LIBRARY(COCOA_LIBRARY Cocoa)
     MARK_AS_ADVANCED (COCOA_LIBRARY)

@@ -249,6 +249,7 @@ win32 {
 linux {
     SOURCES += src/utils/process-linux.cpp
 }
+## deprecated, use cmake -G Xcode instead
 macx {
     system("mkdir -p libs; cp -f `which ccnet` libs/; cp -f `which seaf-daemon` libs/")
     SOURCES += src/utils/process-mac.cpp src/application.cpp

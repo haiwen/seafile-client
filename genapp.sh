@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 top_dir=${PWD}
 
 dylibs="/usr/local/lib/libccnet.0.dylib /usr/local/lib/libseafile.0.dylib \
@@ -18,6 +20,7 @@ all=$dylibs" ${exes}"
 
 target=seafile-applet
 configuration=Release
+num_cpus=$(sysctl -n hw.ncpu)
 function change_otool() {
     DIR=$1
     pushd ${DIR}
@@ -43,19 +46,26 @@ function change_otool() {
 while [ $# -ge 1 ]; do
     case $1 in
         "xcode" )
-            mkdir -p libs
-            cp -f `which ccnet` libs/
-            cp -f `which seaf-daemon` libs/
-            qmake -spec macx-xcode
+            export CC=clang
+            export CXX=clang++
+            cmake -G Xcode -DCMAKE_BUILD_TYPE=${configuration} .
             ;;
 
         "build" )
-            echo "build ${target}.app for Mac OS X 10.6"
-            rm -rf build
-            lrelease seafile-client.pro
-            xcodebuild -target ${target} -configuration ${configuration}
+            echo "build ${target}.app with -j${num_cpus}"
+            rm -rf Release
+            xcodebuild -target ${target} -configuration $configuration -jobs $num_cpus
             rm -rf ${top_dir}/${target}.app
-            cp -rf build/Release/${target}.app ${top_dir}/${target}.app
+            cp -rf Release/${target}.app ${top_dir}/${target}.app
+            ;;
+
+        # use xctool, provide better output (experimental)
+        "build2" )
+            echo "build ${target}.app with xctool -j${num_cpus}"
+            rm -rf Release
+            xctool -scheme ${target} -configuration $configuration -jobs $num_cpus
+            rm -rf ${top_dir}/${target}.app
+            cp -rf Release/${target}.app ${top_dir}/${target}.app
             ;;
 
         "libs" )

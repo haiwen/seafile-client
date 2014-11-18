@@ -34,10 +34,10 @@ ELSEIF (APPLE)
       src/utils/utils-mac.mm
     )
 
-    FIND_LIBRARY(COCOA_LIBRARY Cocoa )
+    FIND_LIBRARY(COCOA_LIBRARY Cocoa)
     MARK_AS_ADVANCED (COCOA_LIBRARY)
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${COCOA_LIBRARY})
-endif()
+ENDIF()
 
 ####################
 ###### BEGIN: QT configuration
@@ -49,7 +49,6 @@ ENDIF()
 FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus})
 
 INCLUDE(${QT_USE_FILE})
-
 
 # MOC FILES
 SET(moc_headers
@@ -392,7 +391,6 @@ ADD_EXECUTABLE(seafile-applet ${GUI_TYPE}
 
 INSTALL(TARGETS seafile-applet DESTINATION bin)
 
-
 TARGET_LINK_LIBRARIES(seafile-applet
   ${QT_LIBRARIES}
   ${QT_QTNETWORK_LIBRARY}
@@ -405,15 +403,34 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
+## QtBus
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   TARGET_LINK_LIBRARIES(seafile-applet
     ${QT_QTDBUS_LIBRARIES}
   )
 ENDIF()
 
+### Xcode-related, build as a osx bundle
+IF(CMAKE_GENERATOR STREQUAL Xcode)
+  ADD_DEFINITIONS(-DXCODE_APP)
+  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES
+    MACOSX_BUNDLE true
+    MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
+  )
+  FIND_PROGRAM(ccnet ccnet)
+  FIND_PROGRAM(seaf-daemon seaf-daemon)
+  SET(RESOURCES_DIR ${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/seafile-applet.app/Contents/Resources)
+  ADD_CUSTOM_COMMAND(TARGET seafile-applet
+      POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E make_directory ${RESOURCES_DIR}
+      COMMAND ${CMAKE_COMMAND} -E copy seafile.icns ${RESOURCES_DIR}/.
+      COMMAND ${CMAKE_COMMAND} -E copy ${ccnet} ${RESOURCES_DIR}/.
+      COMMAND ${CMAKE_COMMAND} -E copy ${seaf-daemon} ${RESOURCES_DIR}/.
+  )
+ENDIF()
 
-set(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
-add_custom_target(dist
+SET(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
+ADD_CUSTOM_TARGET(dist
     COMMAND git archive -v --prefix=${ARCHIVE_NAME}/ HEAD
         | gzip > ${CMAKE_BINARY_DIR}/${ARCHIVE_NAME}.tar.gz
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

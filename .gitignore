@@ -65,3 +65,10 @@ i18n/*.qm
 .ninja_log
 build.ninja
 rules.ninja
+
+## xcode related
+Debug
+Release
+seafile-client.xcodeproj
+CMakeScripts
+seafile-applet.app

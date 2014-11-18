@@ -439,10 +439,10 @@ void FileBrowserDialog::onUploadFinished(bool success)
     if (task == NULL)
         return;
     if (success) {
-        QFileInfo file = task->localPath();
-        SeafDirent dirent = {
+        const QFileInfo file = task->localPath();
+        const SeafDirent dirent = {
           SeafDirent::FILE,
-          "-", //TODO: use the return id
+          task->oid(),
           task->name(),
           file.size(),
           file.lastModified().toTime_t()

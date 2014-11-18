@@ -84,6 +84,7 @@ signals:
 
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
+    void onFileUploadFinished(bool success);
     void onFileDownloadFinished(bool success);
 
     void onRenameDirentSuccess();

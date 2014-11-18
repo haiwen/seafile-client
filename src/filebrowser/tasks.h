@@ -141,7 +141,6 @@ public:
 
     TaskType type() const { return Upload; }
     const QString& name() const { return name_; }
-    const QString& localPath() const { return local_path_; }
     bool useUpload() const { return use_upload_; }
 
 protected:

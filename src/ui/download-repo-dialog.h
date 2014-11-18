@@ -18,6 +18,8 @@ public:
                        const ServerRepo& repo,
                        QWidget *parent=0);
 
+    void setMergeWithExisting(const QString& localPath);
+
 private slots:
     void onOkBtnClicked();
     void chooseDirAction();

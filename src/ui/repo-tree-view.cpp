@@ -553,6 +553,7 @@ void RepoTreeView::resyncRepo()
     if (server_repo.encrypted) {
         DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(),
                                   RepoService::instance()->getRepo(server_repo.id), this);
+        dialog.setMergeWithExisting(local_repo.worktree);
         dialog.exec();
         return;
     } else {

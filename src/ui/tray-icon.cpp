@@ -170,7 +170,7 @@ void SeafileTrayIcon::prepareContextMenu()
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
 {
 #if defined(Q_WS_MAC)
-    QIcon icon(":/images/info.png");
+    QIcon icon(":/images/tray-icon/info.png");
     TrayNotificationWidget* trayNotification = new TrayNotificationWidget(icon.pixmap(32, 32), title, content);
     tnm->append(trayNotification);
 #else
@@ -261,7 +261,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
 #if defined(Q_WS_WIN)
-    QString prefix = ":/images/win/";
+    QString prefix = ":/images/tray-icon/win/";
 
     switch (state) {
     case STATE_DAEMON_UP:
@@ -282,36 +282,36 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 #elif defined(Q_WS_MAC)
     switch (state) {
     case STATE_DAEMON_UP:
-        return getIcon(":/images/mac/daemon_up.png");
+        return getIcon(":/images/tray-icon/mac/daemon_up.png");
     case STATE_DAEMON_DOWN:
-        return getIcon(":/images/mac/daemon_down.png");
+        return getIcon(":/images/tray-icon/mac/daemon_down.png");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(":/images/mac/seafile_auto_sync_disabled.png");
+        return getIcon(":/images/tray-icon/mac/seafile_auto_sync_disabled.png");
     case STATE_TRANSFER_1:
-        return getIcon(":/images/mac/seafile_transfer_1.png");
+        return getIcon(":/images/tray-icon/mac/seafile_transfer_1.png");
     case STATE_TRANSFER_2:
-        return getIcon(":/images/mac/seafile_transfer_2.png");
+        return getIcon(":/images/tray-icon/mac/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(":/images/mac/seafile_warning.png");
+        return getIcon(":/images/tray-icon/mac/seafile_warning.png");
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/mac/notification.png");
+        return getIcon(":/images/tray-icon/mac/notification.png");
     }
 #else
     switch (state) {
     case STATE_DAEMON_UP:
-        return getIcon(":/images/daemon_up.png");
+        return getIcon(":/images/tray-icon/daemon_up.png");
     case STATE_DAEMON_DOWN:
-        return getIcon(":/images/daemon_down.png");
+        return getIcon(":/images/tray-icon/daemon_down.png");
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(":/images/seafile_auto_sync_disabled.png");
+        return getIcon(":/images/tray-icon/seafile_auto_sync_disabled.png");
     case STATE_TRANSFER_1:
-        return getIcon(":/images/seafile_transfer_1.png");
+        return getIcon(":/images/tray-icon/seafile_transfer_1.png");
     case STATE_TRANSFER_2:
-        return getIcon(":/images/seafile_transfer_2.png");
+        return getIcon(":/images/tray-icon/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(":/images/seafile_warning.png");
+        return getIcon(":/images/tray-icon/seafile_warning.png");
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/notification.png");
+        return getIcon(":/images/tray-icon/notification.png");
     }
 #endif
 }

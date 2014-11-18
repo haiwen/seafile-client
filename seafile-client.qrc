@@ -3,34 +3,33 @@
     <file>images/seafile.png</file>
     <file>images/seafile-24.png</file>
     <file>images/seafile-32.png</file>
-    <file>images/account.png</file>
-    <file>images/account-36.png</file>
-    <file>images/repo.png</file>
-    <file>images/encrypted-repo.png</file>
-    <file>images/readonly-repo.png</file>
+    <file>images/repos/repo.png</file>
+    <file>images/repos/encrypted-repo.png</file>
+    <file>images/repos/readonly-repo.png</file>
     <file>images/folder.png</file>
     <file>images/loading.gif</file>
-    <file>images/daemon_up.png</file>
-    <file>images/daemon_down.png</file>
-    <file>images/seafile_auto_sync_disabled.png</file>
-    <file>images/seafile_transfer_1.png</file>
-    <file>images/seafile_transfer_2.png</file>
-    <file>images/seafile_warning.png</file>
-    <file>images/notification.png</file>
-    <file>images/win/daemon_up.ico</file>
-    <file>images/win/daemon_down.ico</file>
-    <file>images/win/seafile_warning.ico</file>
-    <file>images/win/seafile_auto_sync_disabled.ico</file>
-    <file>images/win/seafile_transfer_1.ico</file>
-    <file>images/win/seafile_transfer_2.ico</file>
-    <file>images/win/notification.ico</file>
-    <file>images/mac/daemon_up.png</file>
-    <file>images/mac/daemon_down.png</file>
-    <file>images/mac/seafile_warning.png</file>
-    <file>images/mac/seafile_auto_sync_disabled.png</file>
-    <file>images/mac/seafile_transfer_1.png</file>
-    <file>images/mac/seafile_transfer_2.png</file>
-    <file>images/mac/notification.png</file>
+    <file>images/tray-icon/info.png</file>
+    <file>images/tray-icon/daemon_up.png</file>
+    <file>images/tray-icon/daemon_down.png</file>
+    <file>images/tray-icon/seafile_auto_sync_disabled.png</file>
+    <file>images/tray-icon/seafile_transfer_1.png</file>
+    <file>images/tray-icon/seafile_transfer_2.png</file>
+    <file>images/tray-icon/seafile_warning.png</file>
+    <file>images/tray-icon/notification.png</file>
+    <file>images/tray-icon/win/daemon_up.ico</file>
+    <file>images/tray-icon/win/daemon_down.ico</file>
+    <file>images/tray-icon/win/seafile_warning.ico</file>
+    <file>images/tray-icon/win/seafile_auto_sync_disabled.ico</file>
+    <file>images/tray-icon/win/seafile_transfer_1.ico</file>
+    <file>images/tray-icon/win/seafile_transfer_2.ico</file>
+    <file>images/tray-icon/win/notification.ico</file>
+    <file>images/tray-icon/mac/daemon_up.png</file>
+    <file>images/tray-icon/mac/daemon_down.png</file>
+    <file>images/tray-icon/mac/seafile_warning.png</file>
+    <file>images/tray-icon/mac/seafile_auto_sync_disabled.png</file>
+    <file>images/tray-icon/mac/seafile_transfer_1.png</file>
+    <file>images/tray-icon/mac/seafile_transfer_2.png</file>
+    <file>images/tray-icon/mac/notification.png</file>
     <file>images/refresh.png</file>
     <file>images/plus.png</file>
     <file>images/minus.png</file>
@@ -45,7 +44,6 @@
     <file>images/folder-open-gray.png</file>
     <file>images/folder-open-gray@2x.png</file>
     <file>images/browser.png</file>
-    <file>images/info.png</file>
     <file>images/info-gray.png</file>
     <file>images/info-gray@2x.png</file>
     <file>images/play.png</file>
@@ -65,7 +63,6 @@
     <file>images/remove-gray.png</file>
     <file>images/remove-gray@2x.png</file>
     <file>images/remove-red.png</file>
-    <file>images/seafile-download-library.png</file>
     <file>images/link-green.png</file>
     <file>images/link-red.png</file>
     <file>images/arrow-down.png</file>
@@ -95,30 +92,32 @@
     <file>images/files/file_text.png</file>
     <file>images/files/file_video.png</file>
     <file>images/files/file_unknown.png</file>
-    <file>images/files_v2/file_audio.png</file>
-    <file>images/files_v2/file_folder.png</file>
-    <file>images/files_v2/file_image.png</file>
-    <file>images/files_v2/file_ms_excel.png</file>
-    <file>images/files_v2/file_ms_ppt.png</file>
-    <file>images/files_v2/file_ms_word.png</file>
-    <file>images/files_v2/file_pdf.png</file>
-    <file>images/files_v2/file_text.png</file>
-    <file>images/files_v2/file_video.png</file>
-    <file>images/files_v2/file_unknown.png</file>
-    <file>images/caret-down.png</file>
-    <file>images/caret-down@2x.png</file>
-    <file>images/caret-up.png</file>
-    <file>images/caret-up@2x.png</file>
-    <file>images/caret-right.png</file>
-    <file>images/caret-right@2x.png</file>
-    <file>images/account-settings.png</file>
-    <file>images/account-settings@2x.png</file>
-    <file>images/add-account.png</file>
-    <file>images/add-account@2x.png</file>
-    <file>images/delete-account.png</file>
-    <file>images/delete-account@2x.png</file>
-    <file>images/account-checked.png</file>
-    <file>images/account-checked@2x.png</file>
+    <file>images/files/v2/file_audio.png</file>
+    <file>images/files/v2/file_folder.png</file>
+    <file>images/files/v2/file_image.png</file>
+    <file>images/files/v2/file_ms_excel.png</file>
+    <file>images/files/v2/file_ms_ppt.png</file>
+    <file>images/files/v2/file_ms_word.png</file>
+    <file>images/files/v2/file_pdf.png</file>
+    <file>images/files/v2/file_text.png</file>
+    <file>images/files/v2/file_video.png</file>
+    <file>images/files/v2/file_unknown.png</file>
+    <file>images/caret/down.png</file>
+    <file>images/caret/down@2x.png</file>
+    <file>images/caret/up.png</file>
+    <file>images/caret/up@2x.png</file>
+    <file>images/caret/right.png</file>
+    <file>images/caret/right@2x.png</file>
+    <file>images/account/account.png</file>
+    <file>images/account/account-36.png</file>
+    <file>images/account/account-settings.png</file>
+    <file>images/account/account-settings@2x.png</file>
+    <file>images/account/add-account.png</file>
+    <file>images/account/add-account@2x.png</file>
+    <file>images/account/delete-account.png</file>
+    <file>images/account/delete-account@2x.png</file>
+    <file>images/account/account-checked.png</file>
+    <file>images/account/account-checked@2x.png</file>
     <file>images/filebrowser/backward.png</file>
     <file>images/filebrowser/backward@2x.png</file>
     <file>images/filebrowser/download.png</file>

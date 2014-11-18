@@ -230,7 +230,7 @@ QImage AvatarService::getAvatar(const QString& email)
 
     if (img.isNull()) {
         queue_->enqueue(email);
-        return QImage(":/images/account-36.png");
+        return QImage(":/images/account/account-36.png");
     } else {
         return img;
     }

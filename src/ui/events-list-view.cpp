@@ -100,7 +100,7 @@ void EventItemDelegate::paint(QPainter *painter,
         avatar = AvatarService::instance()->getAvatar(event.author);
     }
     if (avatar.size() != QSize(kAvatarWidth, kAvatarHeight)) {
-        avatar = QImage(":/images/account-36.png");
+        avatar = QImage(":/images/account/account-36.png");
     }
     QPoint avatar_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     avatar_pos += option.rect.topLeft();

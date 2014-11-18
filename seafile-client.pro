@@ -257,7 +257,7 @@ macx {
     CONFIG += target_predeps objective_c
 
     QMAKE_INFO_PLIST = Info.plist
-    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"4.0.0"'
+    DEFINES += XCODE_APP SEAFILE_CLIENT_VERSION='"4.0.1"'
     exe.path = Contents/Resources/
     exe.files = $$PWD/libs/ccnet $$PWD/libs/seaf-daemon
     QMAKE_BUNDLE_DATA += exe

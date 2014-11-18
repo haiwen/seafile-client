@@ -719,7 +719,7 @@ int SeafileRpcClient::setRepoProperty(const QString &repo_id,
                                       const QString& value)
 {
     GError *error = NULL;
-    char *ret = searpc_client_call__string (
+    int ret = searpc_client_call__int (
         seafile_rpc_client_,
         "seafile_set_repo_property",
         &error, 3,
@@ -730,5 +730,5 @@ int SeafileRpcClient::setRepoProperty(const QString &repo_id,
     if (error) {
         return -1;
     }
-    return 0;
+    return ret;
 }

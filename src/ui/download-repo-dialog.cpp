@@ -257,3 +257,9 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
 
     setAllInputsEnabled(true);
 }
+
+void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
+    mode_ = MERGE_WITH_EXISTING_FOLDER;
+    updateSyncMode();
+    mDirectory->setText(localPath);
+}

@@ -70,6 +70,8 @@ public:
 
     const SeafDirent* direntAt(int index) const;
 
+    void appendItem(const SeafDirent &dirent);
+    void replaceItem(const QString &name, const SeafDirent &dirent);
     void removeItemNamed(const QString &name);
     void renameItemNamed(const QString &name, const QString &new_name);
 

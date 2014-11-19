@@ -38,7 +38,7 @@ class FileNetworkTask : public QObject {
 public:
     enum TaskType {
         Upload,
-        Download,
+        Download
     };
 
     FileNetworkTask(const Account& account,
@@ -54,12 +54,13 @@ public:
     QString path() const { return path_; };
     QString localFilePath() const { return local_path_; }
     QString fileName() const;
+    QString oid() const { return oid_; }
 
     enum TaskError {
         NoError = 0,
         ApiRequestError,
         FileIOError,
-        TaskCanceled,
+        TaskCanceled
     };
     const TaskError& error() const { return error_; }
     const QString& errorString() const { return error_string_; }
@@ -91,6 +92,7 @@ protected:
     QString repo_id_;
     QString path_;
     QString local_path_;
+    QString oid_;
 
     TaskError error_;
     QString error_string_;
@@ -138,6 +140,8 @@ public:
                    const bool use_upload = true);
 
     TaskType type() const { return Upload; }
+    const QString& name() const { return name_; }
+    bool useUpload() const { return use_upload_; }
 
 protected:
     void createFileServerTask(const QString& link);
@@ -162,13 +166,14 @@ class FileServerTask : public QObject {
     Q_OBJECT
 public:
     FileServerTask(const QUrl& url,
-                 const QString& local_path);
+                   const QString& local_path);
     virtual ~FileServerTask();
 
     // accessors
     const FileNetworkTask::TaskError& error() const { return error_; }
     const QString& errorString() const { return error_string_; }
     int httpErrorCode() const { return http_error_code_; }
+    const QString& oid() const { return oid_; }
 
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
@@ -204,6 +209,7 @@ protected:
     static QNetworkAccessManager *network_mgr_;
     QUrl url_;
     QString local_path_;
+    QString oid_;
 
     QNetworkReply *reply_;
     bool canceled_;

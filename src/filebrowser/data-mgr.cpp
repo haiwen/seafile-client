@@ -148,7 +148,7 @@ void DataManager::removeDirentsCache(const QString& repo_id,
     // expire its parent's cache
     dirents_cache_->expireCachedDirents(repo_id, ::getParentPath(path));
     // if the object is a folder, then expire its self cache
-    if (is_file)
+    if (!is_file)
         dirents_cache_->expireCachedDirents(repo_id, path);
 }
 
@@ -179,7 +179,9 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
 
 void DataManager::onFileDownloadFinished(bool success)
 {
-    FileDownloadTask *task = (FileDownloadTask *)sender();
+    FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());
+    if (task == NULL)
+        return;
     if (success) {
         filecache_db_->saveCachedFileId(task->repoId(),
                                         task->path(),
@@ -195,7 +197,22 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
 {
     FileUploadTask *task = new FileUploadTask(account_, repo_id, path,
                                               local_path, name, !overwrite);
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onFileUploadFinished(bool)));
+
     return task;
+}
+
+void DataManager::onFileUploadFinished(bool success)
+{
+    FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
+    if (task == NULL)
+        return;
+    if (success) {
+        //expire the parent path
+        dirents_cache_->expireCachedDirents(task->repoId(),
+                                            task->path());
+    }
 }
 
 QString DataManager::getLocalCacheFilePath(const QString& repo_id,

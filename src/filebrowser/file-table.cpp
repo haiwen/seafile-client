@@ -364,6 +364,24 @@ const SeafDirent* FileTableModel::direntAt(int index) const
     return &dirents_[index];
 }
 
+void FileTableModel::replaceItem(const QString &name, const SeafDirent &dirent)
+{
+    for (int i = 0; i != dirents_.size() ; i++)
+        if (dirents_[i].name == name) {
+            dirents_[i] = dirent;
+
+            emit dataChanged(index(i, 0), index(i , FILE_MAX_COLUMN - 1));
+
+            break;
+        }
+}
+
+void FileTableModel::appendItem(const SeafDirent &dirent)
+{
+    dirents_.push_back(dirent);
+    emit layoutChanged();
+}
+
 void FileTableModel::removeItemNamed(const QString &name)
 {
     int j = 0;
@@ -382,8 +400,7 @@ void FileTableModel::renameItemNamed(const QString &name, const QString &new_nam
         if (dirents_[i].name == name) {
             dirents_[i].name = new_name;
 
-            emit dataChanged(index(i, 0),
-                index(i , FILE_MAX_COLUMN - 1));
+            emit dataChanged(index(i, 0), index(i , FILE_MAX_COLUMN - 1));
 
             break;
         }

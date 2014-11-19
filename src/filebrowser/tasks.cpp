@@ -126,6 +126,7 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
         error_string_ = fileserver_task_->errorString();
         http_error_code_ = fileserver_task_->httpErrorCode();
     }
+    oid_ = fileserver_task_->oid();
     onFinished(success);
 }
 
@@ -466,6 +467,8 @@ void PostFileTask::onHttpRequestFinished()
     if (handleHttpRedirect()) {
         return;
     }
+
+    oid_ = reply_->readAll();
 
     emit finished(true);
 }

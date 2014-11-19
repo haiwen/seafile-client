@@ -72,3 +72,6 @@ Release
 seafile-client.xcodeproj
 CMakeScripts
 seafile-applet.app
+
+## unittest related
+test_*

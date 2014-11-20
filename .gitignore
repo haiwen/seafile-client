@@ -75,3 +75,5 @@ seafile-applet.app
 
 ## unittest related
 test_*
+!test_*.cpp
+!test_*.h

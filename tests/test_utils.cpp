@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "test_utils.h"
 #include <QtTest/QtTest>
 
 #include "../src/utils/utils.h"

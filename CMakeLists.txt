@@ -445,18 +445,21 @@ IF (BUILD_TESTING)
        LIST(APPEND test_additional src/utils/utils-mac.mm)
     ENDIF()
     MACRO(ADD_QTEST testname)
-        QT4_WRAP_CPP(test_${testname}_MOCHEADER tests/${testname}.h)
-        SET(test_${testname}_SRCS tests/${testname}.cpp ${test_${testname}_MOCHEADER})
+        QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        SET(${testname}_SRCS tests/${testname}.cpp ${${testname}_MOCHEADER})
 
-        ADD_EXECUTABLE(test_${testname} ${test_${testname}_SRCS} ${test_additional})
-        TARGET_LINK_LIBRARIES(test_${testname} ${QT_LIBRARIES}
+        ADD_EXECUTABLE(${testname} ${${testname}_SRCS} ${test_additional})
+
+        TARGET_LINK_LIBRARIES(${testname} ${QT_LIBRARIES}
                 ${QT_QTTEST_LIBRARY} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
                 ${EXTRA_LIBS} -lglib-2.0)
+        SET_TARGET_PROPERTIES(${testname} PROPERTIES
+          RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 
-        ADD_TEST(test_${testname} test_${testname})
+        ADD_TEST(${testname} ${CMAKE_CURRENT_BINARY_DIR}/tests/${testname})
     ENDMACRO(ADD_QTEST)
 
     ENABLE_TESTING()
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/tests)
-    ADD_QTEST(utils)
+    ADD_QTEST(test_utils)
 ENDIF()

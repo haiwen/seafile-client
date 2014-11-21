@@ -28,8 +28,9 @@ before_install:
  - cd deps/seafile && ./autogen.sh && ./configure --disable-fuse
  - make -j8 && sudo make install && cd ../..
 script:
- - cmake .
+ - cmake -DBUILD_TESTING=on .
  - make -j8
+ - make test
 notifications:
   email:
     recipients:

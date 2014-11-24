@@ -157,6 +157,5 @@
     <file>i18n/seafile_sk_SK.qm</file>
     <file>i18n/seafile_uk.qm</file>
     <file>i18n/seafile_zh_CN.qm</file>
-    <file>assets/commit_details.html</file>
 </qresource>
 </RCC>

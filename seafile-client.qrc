@@ -32,6 +32,8 @@
     <file>images/mac/seafile_transfer_2.png</file>
     <file>images/mac/notification.png</file>
     <file>images/refresh.png</file>
+    <file>images/resync.png</file>
+    <file>images/resync@2x.png</file>
     <file>images/plus.png</file>
     <file>images/minus.png</file>
     <file>images/minus-gray.png</file>

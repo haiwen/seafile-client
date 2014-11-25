@@ -89,9 +89,11 @@ public:
     int getRepoProperty(const QString& repo_id,
                         const QString& name,
                         QString *value);
+
     int setRepoProperty(const QString& repo_id,
                         const QString& name,
                         const QString& value);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

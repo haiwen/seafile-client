@@ -56,6 +56,7 @@ private slots:
     void cancelDownload();
     void loadExpandedCategries();
     void saveExpandedCategries();
+    void resyncRepo();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
@@ -82,6 +83,7 @@ private:
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
     QAction *cancel_download_action_;
+    QAction *resync_action_;
 
     QSet<QString> expanded_categroies_;
 };

@@ -13,6 +13,22 @@
 
 namespace {
 
+QString buildMoreInfo(ServerRepo& repo)
+{
+    json_t *object = NULL;
+    char *info = NULL;
+
+    object = json_object();
+    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
+
+    info = json_dumps(object, 0);
+    QString ret = QString::fromUtf8(info);
+    json_decref (object);
+    free (info);
+    return ret;
+}
+
+
 } // namespace
 
 DownloadRepoDialog::DownloadRepoDialog(const Account& account,
@@ -239,4 +255,10 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
     seafApplet->warningBox(msg, this);
 
     setAllInputsEnabled(true);
+}
+
+void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
+    mode_ = MERGE_WITH_EXISTING_FOLDER;
+    updateSyncMode();
+    mDirectory->setText(localPath);
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QUrl>
 
+#include "api/server-repo.h"
 #include "account.h"
 
 class QTemporaryFile;
@@ -42,7 +43,7 @@ public:
     };
 
     FileNetworkTask(const Account& account,
-                    const QString& repo_id,
+                    const ServerRepo& repo,
                     const QString& path,
                     const QString& local_path);
 
@@ -50,7 +51,8 @@ public:
 
     // accessors
     virtual TaskType type() const = 0;
-    QString repoId() const { return repo_id_; };
+    const QString& repoId() const { return repo_.id; };
+    const ServerRepo& repo() const { return repo_; };
     QString path() const { return path_; };
     QString localFilePath() const { return local_path_; }
     QString fileName() const;
@@ -88,8 +90,8 @@ protected:
     FileServerTask *fileserver_task_;
     SeafileApiRequest *get_link_req_;
 
-    Account account_;
-    QString repo_id_;
+    const Account account_;
+    const ServerRepo repo_;
     QString path_;
     QString local_path_;
     QString oid_;
@@ -111,7 +113,7 @@ class FileDownloadTask : public FileNetworkTask {
     Q_OBJECT
 public:
     FileDownloadTask(const Account& account,
-                     const QString& repo_id,
+                     const ServerRepo& repo,
                      const QString& path,
                      const QString& local_path);
 
@@ -133,11 +135,15 @@ class FileUploadTask : public FileNetworkTask {
     Q_OBJECT
 public:
     FileUploadTask(const Account& account,
-                   const QString& repo_id,
+                   const ServerRepo& repo,
                    const QString& path,
                    const QString& local_path,
                    const QString& name,
                    const bool use_upload = true);
+
+    // this copy constructor
+    // duplicate a task same with the old one, excluding its internal stage
+    FileUploadTask(const FileUploadTask& rhs);
 
     TaskType type() const { return Upload; }
     const QString& name() const { return name_; }
@@ -148,6 +154,9 @@ protected:
     void createGetLinkRequest();
 
 private:
+    // the copy assignment, delete it;
+    FileUploadTask &operator=(const FileUploadTask& rhs);
+
     const QString name_;
     const bool use_upload_;
 };

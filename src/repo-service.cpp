@@ -149,7 +149,7 @@ void RepoService::openLocalFile(const QString& repo_id,
 
         // endless loop for setPasswordDialog
         while(1) {
-            FileDownloadTask *task = data_mgr.createDownloadTask(repo_id, path);
+            FileDownloadTask *task = data_mgr.createDownloadTask(repo, path);
             FileBrowserProgressDialog dialog(task, dialog_parent);
             task->start();
             if (dialog.exec()) {

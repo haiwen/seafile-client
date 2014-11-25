@@ -21,6 +21,11 @@
 #include "filebrowser/file-browser-dialog.h"
 #include "repo-service.h"
 
+#include "utils/utils-mac.h"
+#include "filebrowser/tasks.h"
+#include "filebrowser/progress-dialog.h"
+#include "ui/set-repo-password-dialog.h"
+
 #include "repo-tree-view.h"
 
 namespace {
@@ -85,6 +90,9 @@ RepoTreeView::RepoTreeView(QWidget *parent)
             this, SLOT(saveExpandedCategries()));
     connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
             this, SLOT(loadExpandedCategries()));
+
+    setAcceptDrops(true);
+    setDefaultDropAction(Qt::CopyAction);
 }
 
 void RepoTreeView::loadExpandedCategries()
@@ -678,3 +686,121 @@ void RepoTreeView::resyncRepo()
 
     updateRepoActions();
 }
+
+void RepoTreeView::dropEvent(QDropEvent *event)
+{
+    const QModelIndex index = indexAt(event->pos());
+    QStandardItem *standard_item = getRepoItem(index);
+    if (!standard_item || standard_item->type() != REPO_ITEM_TYPE) {
+        return;
+    }
+    RepoItem *item = static_cast<RepoItem*>(standard_item);
+    const ServerRepo &repo = item->repo();
+    const QUrl url = event->mimeData()->urls().at(0);
+
+    QString local_path = url.toLocalFile();
+#ifdef Q_WS_MAC
+    if (local_path.startsWith("/.file/id="))
+        local_path = __mac_get_path_from_fileId_url("file://" + local_path);
+#endif
+    const QString file_name = QFileInfo(local_path).fileName();
+
+    // if the repo is synced
+    LocalRepo local_repo;
+    if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) >= 0) {
+        if (!QFile::copy(local_path,
+                    QDir(local_repo.worktree).absoluteFilePath(file_name))) {
+
+            QString msg =
+              tr("File \"%1\" copying failed").arg(file_name);
+            seafApplet->warningBox(msg);
+        }
+        return;
+    }
+
+    FileUploadTask *task = new FileUploadTask(seafApplet->accountManager()->currentAccount(),
+          repo, "/", local_path, file_name);
+    uploadFileStart(task);
+}
+
+void RepoTreeView::dragMoveEvent(QDragMoveEvent *event)
+{
+    DropIndicatorPosition position = dropIndicatorPosition();
+    if (position == QAbstractItemView::OnItem) {
+        event->setDropAction(Qt::CopyAction);
+        event->accept();
+        //TODO highlight the selected item, and dehightlight when it's over
+        // const QModelIndex index = indexAt(event->pos());
+        // RepoItem *item = static_cast<RepoItem*>(getRepoItem(index));
+        // if (!item || item->type() != REPO_ITEM_TYPE) {
+        //     return;
+        // }
+    } else {
+        event->setDropAction(Qt::IgnoreAction);
+        event->accept();
+    }
+}
+
+void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls() && event->mimeData()->urls().size() == 1) {
+        const QUrl url = event->mimeData()->urls().at(0);
+        if (url.scheme() == "file") {
+
+            QString file_name = url.toLocalFile();
+#ifdef Q_WS_MAC
+            if (file_name.startsWith("/.file/id="))
+                file_name = __mac_get_path_from_fileId_url("file://" + file_name);
+#endif
+
+            if (QFileInfo(file_name).isFile()) {
+                event->setDropAction(Qt::CopyAction);
+                event->accept();
+            }
+        }
+    }
+}
+
+void RepoTreeView::uploadFileStart(FileUploadTask *task)
+{
+    // take over the resource of the task
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(uploadFileFinished(bool)));
+
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    const QPoint global = this->mapToGlobal(rect().center());
+    dialog->move(global.x() - dialog->width() / 2,
+                 global.y() - dialog->height() / 2);
+    dialog->raise();
+    dialog->activateWindow();
+
+    task->start();
+}
+
+void RepoTreeView::uploadFileFinished(const bool success)
+{
+    FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
+    if (task == NULL)
+        return;
+
+    if (!success) {
+        // if the user cancel the task, don't bother him(or her) with it
+        if (task->error() == FileNetworkTask::TaskCanceled)
+            return;
+        // failed and it is a encrypted repository
+        if (task->repo().encrypted && task->httpErrorCode() == 400) {
+            SetRepoPasswordDialog password_dialog(task->repo(), this);
+            if (password_dialog.exec()) {
+                FileUploadTask *new_task = new FileUploadTask(*task);
+                uploadFileStart(new_task);
+            }
+            return;
+        }
+
+        QString msg = tr("Failed to upload file: %1").arg(task->errorString());
+        seafApplet->warningBox(msg, this);
+    }
+}
+

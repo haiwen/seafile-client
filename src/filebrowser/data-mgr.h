@@ -55,10 +55,10 @@ public:
                                const QString& path,
                                const QString& file_id);
 
-    FileDownloadTask *createDownloadTask(const QString& repo_id,
+    FileDownloadTask *createDownloadTask(const ServerRepo& repo,
                                          const QString& path);
 
-    FileUploadTask* createUploadTask(const QString& repo_id,
+    FileUploadTask* createUploadTask(const ServerRepo& repo,
                                      const QString& parent_dir,
                                      const QString& local_path,
                                      const QString& name,

@@ -150,7 +150,7 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
 {
     int i = 0;
     for (i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i].serverUrl == old_account.serverUrl
+        if (accounts_[i].serverUrl.toString() == old_account.serverUrl.toString()
             && accounts_[i].username == old_account.username) {
             accounts_.erase(accounts_.begin() + i);
             break;

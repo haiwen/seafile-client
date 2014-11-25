@@ -312,7 +312,9 @@ void RepoTreeView::createActions()
 
     connect(view_on_web_action_, SIGNAL(triggered()), this, SLOT(viewRepoOnWeb()));
 
+    QIcon q_resync = ::getMenuIconSet(":/images/resync.png");
     resync_action_ = new QAction(tr("&Resync this library"), this);
+    resync_action_->setIcon(q_resync);
     resync_action_->setStatusTip(tr("unsync and resync this library"));
 
     connect(resync_action_, SIGNAL(triggered()), this, SLOT(resyncRepo()));

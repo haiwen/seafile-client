@@ -436,7 +436,7 @@ void PostFileTask::sendRequest()
 
     // "file" param
     file_part.setHeader(QNetworkRequest::ContentDispositionHeader,
-                        QString(kFileParamTemplate).arg(name_));
+                        QString(kFileParamTemplate).arg(name_).toUtf8());
     file_part.setHeader(QNetworkRequest::ContentTypeHeader,
                         kContentTypeApplicationOctetStream);
     file_part.setBodyDevice(file_);

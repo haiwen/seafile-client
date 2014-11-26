@@ -10,12 +10,26 @@
 #include "api/requests.h"
 #include "ui/main-window.h"
 #include "ui/download-repo-dialog.h"
+#include "utils/utils.h"
+
+#include "filebrowser/data-mgr.h"
+#include "filebrowser/progress-dialog.h"
+#include "filebrowser/tasks.h"
 
 #include "repo-service.h"
 
 namespace {
 
 const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
+
+void openFile(const QString& path)
+{
+    if (!::openInNativeExtension(path) && !::showInGraphicalShell(path)) {
+        QString file_name = QFileInfo(path).fileName();
+        QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
+        seafApplet->warningBox(msg);
+    }
+}
 
 } // namespace
 
@@ -121,21 +135,33 @@ void RepoService::openLocalFile(const QString& repo_id,
     if (r.isValid()) {
         QString path = QDir(r.worktree).filePath(path_in_repo);
 
-        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+        openFile(path);
     } else {
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
             return;
         }
 
-        QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
-        if (seafApplet->yesOrNoBox(msg, NULL, true)) {
-            Account account = seafApplet->accountManager()->currentAccount();
-            if (account.isValid()) {
-                QWidget *parent = dialog_parent ? dialog_parent : seafApplet->mainWindow();
-                DownloadRepoDialog dialog(account, repo, parent);
-                dialog.exec();
-            }
+        const QString path = "/" + path_in_repo;
+        const Account account = seafApplet->accountManager()->currentAccount();
+        DataManager data_mgr(account);
+
+        FileDownloadTask *task = data_mgr.createDownloadTask(repo_id, path);
+        FileBrowserProgressDialog dialog(task, dialog_parent);
+        task->start();
+        if (dialog.exec()) {
+            // after exec, the object task is deleted. don't use it.
+            // use dialog's method instead
+            QString full_path = data_mgr.getLocalCachedFile(repo_id, path, dialog.fileId());
+            if (!full_path.isEmpty())
+                openFile(full_path);
+            return;
+        }
+        // if the user canceled the task, don't bother it
+        if (!dialog.isCanceled()) {
+            QString msg =
+                QObject::tr("Unable to download item \"%1\"").arg(path_in_repo);
+            seafApplet->warningBox(msg);
         }
     }
 }

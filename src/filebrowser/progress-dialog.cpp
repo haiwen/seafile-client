@@ -12,7 +12,8 @@
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
-          task_(task)
+          task_(task),
+          canceled_(false)
 {
     setWindowModality(Qt::WindowModal);
 
@@ -85,9 +86,14 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 void FileBrowserProgressDialog::onTaskFinished(bool success)
 {
     if (success) {
+        FileDownloadTask* download_task = qobject_cast<FileDownloadTask*>(sender());
+        if (download_task)
+            file_id_ = download_task->fileId();
         // printf ("progress dialog: task success\n");
         accept();
     } else {
+        if (task_->error() == FileNetworkTask::TaskCanceled)
+           canceled_ = true;
         // printf ("progress dialog: task failed\n");
         reject();
     }

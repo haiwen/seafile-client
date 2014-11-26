@@ -16,10 +16,6 @@ MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 IF (WIN32)
     SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
-    SET(platform_specific_sources
-      src/utils/process-win.cpp
-      src/utils/registry.cpp
-    )
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)
     ENDIF()
@@ -27,14 +23,10 @@ ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BS
     INCLUDE_DIRECTORIES(${QT_QTDBUS_INCLUDE_DIR})
     LINK_DIRECTORIES(${QT_QTDBUS_LIBRARIES})
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${QT_QTDBUS_LIBRARIES})
-    SET(platform_specific_sources
-      src/utils/process-linux.cpp
-    )
 ELSEIF (APPLE)
-    SET(platform_specific_sources
-      src/utils/process-mac.cpp src/application.cpp
-      src/utils/utils-mac.mm
-    )
+    SET(platform_specific_sources src/application.cpp)
+    ## Enforce ARC for this file, since ARC is only supported after the objc
+    ## runtime changes in os x 10.10
     SET_SOURCE_FILES_PROPERTIES(src/utils/utils-mac.mm
       PROPERTIES COMPILE_FLAGS -fobjc-arc)
 
@@ -226,14 +218,7 @@ SET(seafile_client_sources
   src/ui/download-repo-dialog.cpp
   src/ui/tray-icon.cpp
   src/ui/cloud-view.cpp
-  src/utils/rsa.cpp
-  src/utils/utils.cpp
-  src/utils/paint-utils.cpp
-  src/utils/file-utils.cpp
-  src/utils/translate-commit-desc.cpp
   src/utils/uninstall-helpers.cpp
-  src/utils/json-utils.cpp
-  src/utils/log.c
   src/ui/repo-item.cpp
   src/ui/repo-tree-model.cpp
   src/ui/repo-tree-view.cpp
@@ -352,6 +337,73 @@ QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
 ###### end: translations
 ####################
 
+####################
+###### begin: lib
+####################
+
+# Helper Function to Add Seafile-Client Library
+# Usage:
+# ADD_SC_LIBRARY (name sources
+#     MOC_HEADERS moc_headers
+#     UI_FILES ui_files
+#     DEPENDS part
+#     LINK_LIBS libs
+#     )
+FUNCTION(ADD_SC_LIBRARY name)
+    MESSAGE(STATUS "Found Seafile-Client Library: ${name}")
+    CMAKE_PARSE_ARGUMENTS(ARG
+      ""
+      ""
+      "MOC_HEADERS;UI_FILES;DEPENDS;LINK_LIBS"
+      ${ARGN})
+    IF(ARG_MOC_HEADERS)
+        QT4_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
+    ENDIF()
+    IF(ARG_UI_FILES)
+        QT4_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
+    ENDIF()
+
+    ADD_LIBRARY(${name} STATIC ${ARG_UNPARSED_ARGUMENTS}
+      ${MOC_OUTPUT} ${UI_OUTPUT})
+
+    TARGET_LINK_LIBRARIES(${name} ${QT_LIBRARIES}
+        ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
+        ${EXTRA_LIBS} -lglib-2.0 ${ARG_LINK_LIBS})
+ENDFUNCTION(ADD_SC_LIBRARY)
+
+# library utils
+LIST(APPEND utils_sources
+    src/utils/utils.cpp
+    src/utils/rsa.cpp
+    src/utils/paint-utils.cpp
+    src/utils/file-utils.cpp
+    src/utils/translate-commit-desc.cpp
+    src/utils/json-utils.cpp
+    src/utils/log.c
+    )
+IF (WIN32)
+    LIST(APPEND utils_sources
+        src/utils/process-win.cpp
+        src/utils/registry.cpp
+        )
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
+    LIST(APPEND utils_sources
+        src/utils/process-linux.cpp
+        )
+ELSEIF(APPLE)
+    LIST(APPEND utils_sources
+        src/utils/process-mac.cpp
+        src/utils/utils-mac.mm)
+ENDIF()
+
+ADD_SC_LIBRARY(utils ${utils_sources})
+
+SET(SC_LIBS utils)
+
+####################
+###### end: lib
+####################
+
 
 ####################
 ###### start: freedesktop files
@@ -396,6 +448,7 @@ ADD_EXECUTABLE(seafile-applet ${GUI_TYPE}
 INSTALL(TARGETS seafile-applet DESTINATION bin)
 
 TARGET_LINK_LIBRARIES(seafile-applet
+  ${SC_LIBS}
   ${QT_LIBRARIES}
   ${OPENSSL_LIBRARIES}
   ${SQLITE3_LIBRARIES}
@@ -440,19 +493,15 @@ ADD_CUSTOM_TARGET(dist
 
 ### Test related
 IF (BUILD_TESTING)
-    SET(test_additional src/utils/utils.cpp)
-    IF(APPLE)
-       LIST(APPEND test_additional src/utils/utils-mac.mm)
-    ENDIF()
     MACRO(ADD_QTEST testname)
         QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
         SET(${testname}_SRCS tests/${testname}.cpp ${${testname}_MOCHEADER})
 
-        ADD_EXECUTABLE(${testname} ${${testname}_SRCS} ${test_additional})
+        ADD_EXECUTABLE(${testname} ${${testname}_SRCS})
 
         TARGET_LINK_LIBRARIES(${testname} ${QT_LIBRARIES}
                 ${QT_QTTEST_LIBRARY} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
-                ${EXTRA_LIBS} -lglib-2.0)
+                ${EXTRA_LIBS} -lglib-2.0 ${SC_LIBS})
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 

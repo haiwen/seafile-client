@@ -80,6 +80,11 @@ void FileNetworkTask::start()
 
 void FileNetworkTask::onLinkGet(const QString& link)
 {
+    // if it is handled don't do this
+    // fix a bug, success signals triggers twice
+    if (fileserver_task_)
+        return;
+
     startFileServerTask(link);
 }
 

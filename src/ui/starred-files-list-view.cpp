@@ -177,28 +177,5 @@ void StarredFilesListView::onItemDoubleClicked(const QModelIndex& index)
 
 void StarredFilesListView::openLocalFile(const StarredFile& file)
 {
-    RepoService::instance()->openLocalFile(file.repo_id, file.path.mid(1));
-    // LocalRepo r;
-
-    // seafApplet->rpcClient()->getLocalRepo(file.repo_id, &r);
-
-    // if (r.isValid()) {
-    //     QString path = QDir(r.worktree).filePath(file.path.mid(1));
-
-    //     QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-    // } else {
-    //     ServerRepo repo = RepoService::instance()->getRepo(file.repo_id);
-    //     if (!repo.isValid()) {
-    //         return;
-    //     }
-
-    //     QString msg = tr("The library of this file is not synced yet. Do you want to sync it now?");
-    //     if (seafApplet->yesOrNoBox(msg, NULL, true)) {
-    //         Account account = seafApplet->accountManager()->currentAccount();
-    //         if (account.isValid()) {
-    //             DownloadRepoDialog dialog(account, repo, this);
-    //             dialog.exec();
-    //         }
-    //     }
-    // }
+    RepoService::instance()->openLocalFile(file.repo_id, file.path.mid(1), this);
 }

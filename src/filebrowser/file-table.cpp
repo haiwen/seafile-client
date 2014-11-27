@@ -3,9 +3,7 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seaf-dirent.h"
-#ifdef Q_WS_MAC
 #include "utils/utils-mac.h"
-#endif
 
 #include "file-table.h"
 #include "file-browser-dialog.h"

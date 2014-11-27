@@ -59,7 +59,7 @@ public:
                                          const QString& path);
 
     FileUploadTask* createUploadTask(const QString& repo_id,
-                                     const QString& path,
+                                     const QString& parent_dir,
                                      const QString& local_path,
                                      const QString& name,
                                      const bool overwrite);

@@ -177,8 +177,8 @@ FileUploadTask::FileUploadTask(const Account& account,
                                const QString& name,
                                const bool use_upload)
     : FileNetworkTask(account, repo_id, path, local_path),
-    name_(name.isEmpty() ? QFileInfo(local_path_).fileName() : name),
-    use_upload_(use_upload)
+      name_(name),
+      use_upload_(use_upload)
 {
 }
 
@@ -428,10 +428,15 @@ void PostFileTask::sendRequest()
     QHttpMultiPart *multipart = new QHttpMultiPart(QHttpMultiPart::FormDataType, this);
     // parent_dir param
     QHttpPart parentdir_part, file_part;
-    parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
-                             use_upload_ ? kParentDirParam : kTargetFileParam);
-    parentdir_part.setBody(toCStr(use_upload_ ? parent_dir_ :
-        (::pathJoin(parent_dir_, name_)) ));
+    if (use_upload_) {
+        parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
+                                 kParentDirParam);
+        parentdir_part.setBody(toCStr(parent_dir_));
+    } else {
+        parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
+                                 kTargetFileParam);
+        parentdir_part.setBody(toCStr(::pathJoin(parent_dir_, name_)));
+    }
 
     // "file" param
     file_part.setHeader(QNetworkRequest::ContentDispositionHeader,

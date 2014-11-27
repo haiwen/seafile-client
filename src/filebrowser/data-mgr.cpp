@@ -190,12 +190,12 @@ void DataManager::onFileDownloadFinished(bool success)
 }
 
 FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
-                                              const QString& path,
+                                              const QString& parent_dir,
                                               const QString& local_path,
                                               const QString& name,
                                               const bool overwrite)
 {
-    FileUploadTask *task = new FileUploadTask(account_, repo_id, path,
+    FileUploadTask *task = new FileUploadTask(account_, repo_id, parent_dir,
                                               local_path, name, !overwrite);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileUploadFinished(bool)));

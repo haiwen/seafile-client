@@ -6,6 +6,7 @@
 #include "utils/paint-utils.h"
 #include "utils/file-utils.h"
 #include "seafile-applet.h"
+#include "main-window.h"
 #include "rpc/rpc-client.h"
 #include "starred-files-list-model.h"
 #include "starred-file-item.h"
@@ -66,12 +67,11 @@ QSize StarredFileItemDelegate::sizeHint(const QStyleOptionViewItem &option,
 QSize StarredFileItemDelegate::sizeHintForItem(const QStyleOptionViewItem &option,
                                                const StarredFileItem *item) const
 {
-
-    int width = kMarginLeft + kFileIconWidth
+    static const int width = kMarginLeft + kFileIconWidth
         + kMarginBetweenFileIconAndName + kFileNameWidth
         + kMarginRight + kPadding * 2;
 
-    int height = kFileIconHeight + kPadding * 2 + kMarginTop + kMarginBottom;
+    static const int height = kFileIconHeight + kPadding * 2 + kMarginTop + kMarginBottom;
 
     return QSize(width, height);
 }
@@ -113,16 +113,20 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     painter->drawPixmap(file_icon_pos, icon);
     painter->restore();
 
+    // Calculate the file column by the delta of mainwindow's width
+    const int file_name_width = kFileNameWidth
+      + seafApplet->mainWindow()->width() - seafApplet->mainWindow()->minimumWidth();
+
     // Paint file name
     painter->save();
     QPoint file_name_pos = file_icon_pos + QPoint(kFileIconWidth + kMarginBetweenFileIconAndName, 0);
-    QRect file_name_rect(file_name_pos, QSize(kFileNameWidth, kFileNameHeight));
+    QRect file_name_rect(file_name_pos, QSize(file_name_width, kFileNameHeight));
     painter->setPen(QColor(selected ? kFileNameColorHighlighted : kFileNameColor));
     painter->setFont(changeFontSize(painter->font(), kFileNameFontSize));
 
     painter->drawText(file_name_rect,
                       Qt::AlignLeft | Qt::AlignTop,
-                      fitTextToWidth(file.name(), option.font, kFileNameWidth),
+                      fitTextToWidth(file.name(), option.font, file_name_width),
                       &file_name_rect);
     painter->restore();
 

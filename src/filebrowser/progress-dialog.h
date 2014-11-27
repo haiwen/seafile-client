@@ -3,18 +3,18 @@
 
 #include <QProgressDialog>
 #include <QObject>
+#include <QScopedPointer>
+
+#include "tasks.h"
 
 class QProgressBar;
 class QLabel;
-class FileNetworkTask;
 
 
 class FileBrowserProgressDialog : public QProgressDialog {
     Q_OBJECT
 public:
     FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent=0);
-    const QString& fileId() { return file_id_; }
-    bool isCanceled() { return canceled_; }
 
 public slots:
     void cancel();
@@ -26,12 +26,10 @@ private slots:
 private:
     void initTaskInfo();
 
-    FileNetworkTask *task_;
+    QScopedPointer<FileNetworkTask> task_;
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
-    QString file_id_;
-    bool canceled_;
 };
 
 

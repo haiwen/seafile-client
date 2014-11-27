@@ -133,7 +133,6 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
 void FileNetworkTask::onFinished(bool success)
 {
     emit finished(success);
-    deleteLater();
 }
 
 void FileNetworkTask::onGetLinkFailed(const ApiError& error)

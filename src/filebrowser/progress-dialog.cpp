@@ -6,14 +6,12 @@
 #include <QDesktopServices>
 #include <QDebug>
 
-#include "tasks.h"
 #include "utils/utils.h"
 #include "progress-dialog.h"
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
-          task_(task),
-          canceled_(false)
+          task_(task)
 {
     setWindowModality(Qt::WindowModal);
 
@@ -64,10 +62,10 @@ void FileBrowserProgressDialog::initTaskInfo()
     setMaximum(0);
     setValue(0);
 
-    connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
+    connect(task_.data(), SIGNAL(progressUpdate(qint64, qint64)),
             this, SLOT(onProgressUpdate(qint64, qint64)));
-    connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
-    connect(this, SIGNAL(canceled()), task_, SLOT(cancel()));
+    connect(task_.data(), SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
+    connect(this, SIGNAL(canceled()), task_.data(), SLOT(cancel()));
 
     show();
 }
@@ -86,14 +84,9 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 void FileBrowserProgressDialog::onTaskFinished(bool success)
 {
     if (success) {
-        FileDownloadTask* download_task = qobject_cast<FileDownloadTask*>(sender());
-        if (download_task)
-            file_id_ = download_task->fileId();
         // printf ("progress dialog: task success\n");
         accept();
     } else {
-        if (task_->error() == FileNetworkTask::TaskCanceled)
-           canceled_ = true;
         // printf ("progress dialog: task failed\n");
         reject();
     }

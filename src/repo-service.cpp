@@ -15,6 +15,7 @@
 #include "filebrowser/data-mgr.h"
 #include "filebrowser/progress-dialog.h"
 #include "filebrowser/tasks.h"
+#include "ui/set-repo-password-dialog.h"
 
 #include "repo-service.h"
 
@@ -146,22 +147,32 @@ void RepoService::openLocalFile(const QString& repo_id,
         const Account account = seafApplet->accountManager()->currentAccount();
         DataManager data_mgr(account);
 
-        FileDownloadTask *task = data_mgr.createDownloadTask(repo_id, path);
-        FileBrowserProgressDialog dialog(task, dialog_parent);
-        task->start();
-        if (dialog.exec()) {
-            // after exec, the object task is deleted. don't use it.
-            // use dialog's method instead
-            QString full_path = data_mgr.getLocalCachedFile(repo_id, path, dialog.fileId());
-            if (!full_path.isEmpty())
-                openFile(full_path);
-            return;
-        }
-        // if the user canceled the task, don't bother it
-        if (!dialog.isCanceled()) {
+        // endless loop for setPasswordDialog
+        while(1) {
+            FileDownloadTask *task = data_mgr.createDownloadTask(repo_id, path);
+            FileBrowserProgressDialog dialog(task, dialog_parent);
+            task->start();
+            if (dialog.exec()) {
+                QString full_path = data_mgr.getLocalCachedFile(repo_id, path, task->fileId());
+                if (!full_path.isEmpty())
+                    openFile(full_path);
+                break;
+            }
+            // if the user canceled the task, don't bother it
+            if (task->error() == FileNetworkTask::TaskCanceled)
+                break;
+            // if the repository is encrypted and password is incorrect
+            if (repo.encrypted && task->httpErrorCode() == 400) {
+                SetRepoPasswordDialog password_dialog(repo, dialog_parent);
+                if (password_dialog.exec())
+                    continue;
+                // the user cancel the dialog here? skip
+                break;
+            }
             QString msg =
                 QObject::tr("Unable to download item \"%1\"").arg(path_in_repo);
             seafApplet->warningBox(msg);
-        }
+            break;
+        };
     }
 }

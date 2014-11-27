@@ -2,10 +2,7 @@
 #define SEAFILE_CLIENT_PAINT_UTILS_H_
 
 #include <QFont>
-
-#ifdef Q_WS_MAC
 #include "utils-mac.h"
-#endif
 
 QString fitTextToWidth(const QString& text, const QFont& font, int width);
 

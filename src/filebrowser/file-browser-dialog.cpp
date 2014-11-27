@@ -439,6 +439,9 @@ void FileBrowserDialog::onDownloadFinished(bool success)
             return;
         }
 
+        if (task->error() == FileNetworkTask::TaskCanceled)
+            return;
+
         QString msg = tr("Failed to download file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);
     }
@@ -467,6 +470,9 @@ void FileBrowserDialog::onUploadFinished(bool success)
             setPasswordAndRetry(task)) {
             return;
         }
+
+        if (task->error() == FileNetworkTask::TaskCanceled)
+            return;
 
         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);

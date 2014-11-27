@@ -11,26 +11,6 @@
 #include "api/server-repo.h"
 #include "download-repo-dialog.h"
 
-namespace {
-
-QString buildMoreInfo(ServerRepo& repo)
-{
-    json_t *object = NULL;
-    char *info = NULL;
-
-    object = json_object();
-    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
-
-    info = json_dumps(object, 0);
-    QString ret = QString::fromUtf8(info);
-    json_decref (object);
-    free (info);
-    return ret;
-}
-
-
-} // namespace
-
 DownloadRepoDialog::DownloadRepoDialog(const Account& account,
                                        const ServerRepo& repo,
                                        QWidget *parent)

@@ -125,7 +125,9 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
+#if defined(Q_WS_WIN)
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
+#endif // Q_WS_WIN
 const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";

@@ -222,9 +222,6 @@ void FileTableView::dropEvent(QDropEvent *event)
     if(file_name.isEmpty())
         return;
 
-    if(QFileInfo(file_name).isDir())
-        return;
-
     event->accept();
 
     emit dropFile(file_name);

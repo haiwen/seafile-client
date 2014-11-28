@@ -440,6 +440,11 @@ void FileBrowserDialog::downloadFile(const QString& path)
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    const bool overwrite)
 {
+    if (QFileInfo(path).isDir() && !seafApplet->isPro()) {
+        seafApplet->warningBox(tr("Feature not supported"), this);
+        return;
+    }
+
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);

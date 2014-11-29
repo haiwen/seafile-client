@@ -14,6 +14,7 @@ class AutoUpdateManager : public QObject {
 
 public:
     void start();
+    void removeWatch(const QString& path);
     void watchCachedFile(const Account& account,
                          const QString& repo_id,
                          const QString& path);

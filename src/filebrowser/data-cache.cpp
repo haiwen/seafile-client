@@ -106,7 +106,8 @@ bool FileCacheDB::getCacheEntryCB(sqlite3_stmt *stmt, void *data)
     CacheEntry *entry = (CacheEntry *)data;
     entry->repo_id = (const char *)sqlite3_column_text (stmt, 0);
     entry->path = QString::fromUtf8((const char *)sqlite3_column_text (stmt, 1));
-    entry->account_sig = (const char *)sqlite3_column_text (stmt, 2);
+    entry->file_id = (const char *)sqlite3_column_text (stmt, 2);
+    entry->account_sig = (const char *)sqlite3_column_text (stmt, 3);
     return true;
 }
 
@@ -119,7 +120,7 @@ QString FileCacheDB::getCachedFileId(const QString& repo_id,
 FileCacheDB::CacheEntry FileCacheDB::getCacheEntry(const QString& repo_id,
                                                    const QString& path)
 {
-    QString sql = "SELECT repo_id, file_id, account_sig"
+    QString sql = "SELECT repo_id, path, file_id, account_sig"
         "  FROM FileCacheV1"
         "  WHERE repo_id = '%1'"
         "    AND path = '%2'";

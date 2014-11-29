@@ -73,6 +73,7 @@ private slots:
     void onDirentRemoveFailed(const ApiError& error);
     void onDirentShareSuccess(const QString& link);
     void onDirentShareFailed(const ApiError& error);
+    void onFileAutoUpdated(const QString& repo_id, const QString& path);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)

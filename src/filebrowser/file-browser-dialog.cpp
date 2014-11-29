@@ -16,6 +16,7 @@
 #include "tasks.h"
 #include "ui/set-repo-password-dialog.h"
 #include "sharedlink-dialog.h"
+#include "auto-update-mgr.h"
 
 #include "file-browser-dialog.h"
 
@@ -109,6 +110,9 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onDirentShareSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
             this, SLOT(onDirentShareFailed(const ApiError&)));
+
+    connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
+            this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
 
     QTimer::singleShot(0, this, SLOT(fetchDirents()));
 }
@@ -354,6 +358,8 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(cached_file);
         return;
     } else {
+        AutoUpdateManager::instance()->removeWatch(
+            DataManager::getLocalCacheFilePath(repo_.id, fpath));
         downloadFile(fpath);
     }
 }
@@ -654,3 +660,9 @@ void FileBrowserDialog::onDirentShareFailed(const ApiError&error)
     seafApplet->warningBox(tr("Share failed"), this);
 }
 
+void FileBrowserDialog::onFileAutoUpdated(const QString& repo_id, const QString& path)
+{
+    if (repo_id == repo_.id && path == current_path_) {
+        forceRefresh();
+    }
+}

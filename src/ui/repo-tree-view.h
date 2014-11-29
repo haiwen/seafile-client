@@ -60,7 +60,8 @@ private slots:
     void resyncRepo();
 
     void uploadFileStart(FileUploadTask *task);
-    void uploadFileFinished(const bool success);
+    void uploadFileFinished(bool success);
+    void copyFileFailed();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;

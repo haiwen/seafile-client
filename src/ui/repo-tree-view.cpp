@@ -61,6 +61,41 @@ QString getRepoProperty(const QString& repo_id, const QString& name)
     return value;
 }
 
+// A Helper Class to copy file
+//
+class FileCopyHelper : public QRunnable {
+public:
+    FileCopyHelper(const QString &source, const QString &target,
+                   RepoTreeView *parent)
+    : source_(source),
+      target_(target),
+      parent_(parent) {
+    }
+signals:
+    void success(bool);
+private:
+    void run() {
+        if (!QFile::copy(source_, target_)) {
+            // cannot do GUI operations in this thread
+            // callback to the main thread
+            QMetaObject::invokeMethod(parent_, "copyFileFailed");
+        }
+    }
+    bool autoDelete() {
+        return true;
+    }
+    const QString source_;
+    const QString target_;
+    RepoTreeView *parent_;
+};
+
+FileCopyHelper* copyFile(const QString &source, const QString &target, RepoTreeView *parent) {
+      FileCopyHelper* helper = new FileCopyHelper(source, target, parent);
+      QThreadPool *pool = QThreadPool::globalInstance();
+      pool->start(helper);
+      return helper;
+}
+
 }
 
 RepoTreeView::RepoTreeView(QWidget *parent)
@@ -708,13 +743,10 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     // if the repo is synced
     LocalRepo local_repo;
     if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) >= 0) {
-        if (!QFile::copy(local_path,
-                    QDir(local_repo.worktree).absoluteFilePath(file_name))) {
+        copyFile(local_path,
+                 QDir(local_repo.worktree).absoluteFilePath(file_name),
+                 this);
 
-            QString msg =
-              tr("File \"%1\" copying failed").arg(file_name);
-            seafApplet->warningBox(msg);
-        }
         return;
     }
 
@@ -779,7 +811,7 @@ void RepoTreeView::uploadFileStart(FileUploadTask *task)
     task->start();
 }
 
-void RepoTreeView::uploadFileFinished(const bool success)
+void RepoTreeView::uploadFileFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
@@ -802,5 +834,11 @@ void RepoTreeView::uploadFileFinished(const bool success)
         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);
     }
+}
+
+void RepoTreeView::copyFileFailed()
+{
+    QString msg = QObject::tr("copy failed");
+    seafApplet->warningBox(msg);
 }
 

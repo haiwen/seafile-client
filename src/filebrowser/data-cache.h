@@ -8,6 +8,9 @@
 
 template<typename Key, typename T> class QCache;
 
+struct sqlite3;
+struct sqlite3_stmt;
+
 /**
  * Cache dirents by (repo_id + path, dirents) in memory
  */
@@ -41,16 +44,31 @@ private:
 class FileCacheDB {
     SINGLETON_DEFINE(FileCacheDB)
 public:
+    struct CacheEntry {
+        QString repo_id;
+        QString path;
+        QString file_id;
+        QString account_sig;
+    };
+
     void start();
+
     QString getCachedFileId(const QString& repo_id,
                             const QString& path);
+    CacheEntry getCacheEntry(const QString& repo_id,
+                             const QString& path);
     void saveCachedFileId(const QString& repo_id,
                           const QString& path,
-                          const QString& file_id);
+                          const QString& file_id,
+                          const QString& account_sig);
+
+    QList<CacheEntry> getAllCachedFiles();
+
 private:
     FileCacheDB();
     ~FileCacheDB();
-    static bool getCacheIdCB(sqlite3_stmt *stmt, void *data);
+    static bool getCacheEntryCB(sqlite3_stmt *stmt, void *data);
+    static bool collectCachedFile(sqlite3_stmt *stmt, void *data);
 
     sqlite3 *db_;
 };

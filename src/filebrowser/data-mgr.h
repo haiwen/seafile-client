@@ -69,6 +69,9 @@ public:
 
     QString getRepoCacheFolder(const QString& repo_id) const;
 
+    static QString getLocalCacheFilePath(const QString& repo_id,
+                                         const QString& path);
+
 signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
@@ -91,8 +94,6 @@ private slots:
     void onRemoveDirentSuccess();
 
 private:
-    QString getLocalCacheFilePath(const QString& repo_id,
-                                  const QString& path);
     void removeDirentsCache(const QString& repo_id,
                             const QString& path,
                             bool is_file);

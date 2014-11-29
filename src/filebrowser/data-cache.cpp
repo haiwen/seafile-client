@@ -88,42 +88,72 @@ void FileCacheDB::start()
         return;
     }
 
-    sql = "CREATE TABLE IF NOT EXISTS FileCache ("
+    sql = "DROP TABLE IF EXISTS FileCache";
+    sqlite_query_exec (db, sql);
+
+    sql = "CREATE TABLE IF NOT EXISTS FileCacheV1 ("
         "     repo_id VARCHAR(36), "
         "     path VARCHAR(4096), "
         "     file_id VARCHAR(40) NOT NULL, "
+        "     account_sig VARCHAR(40) NOT NULL, "
         "     PRIMARY KEY (repo_id, path))";
-    sqlite_query_exec (db, sql);
 
     db_ = db;
 }
 
-bool FileCacheDB::getCacheIdCB(sqlite3_stmt *stmt, void *data)
+bool FileCacheDB::getCacheEntryCB(sqlite3_stmt *stmt, void *data)
 {
-    QString *id = (QString *)data;
-    const char *file_id = (const char *)sqlite3_column_text (stmt, 0);
-    *id = file_id;
+    CacheEntry *entry = (CacheEntry *)data;
+    entry->repo_id = (const char *)sqlite3_column_text (stmt, 0);
+    entry->path = QString::fromUtf8((const char *)sqlite3_column_text (stmt, 1));
+    entry->account_sig = (const char *)sqlite3_column_text (stmt, 2);
     return true;
 }
 
 QString FileCacheDB::getCachedFileId(const QString& repo_id,
                                      const QString& path)
 {
-    QString sql = "SELECT file_id"
-        "  FROM FileCache"
+    return getCacheEntry(repo_id, path).file_id;
+}
+
+FileCacheDB::CacheEntry FileCacheDB::getCacheEntry(const QString& repo_id,
+                                                   const QString& path)
+{
+    QString sql = "SELECT repo_id, file_id, account_sig"
+        "  FROM FileCacheV1"
         "  WHERE repo_id = '%1'"
         "    AND path = '%2'";
     sql = sql.arg(repo_id).arg(path);
-    QString file_id;
-    sqlite_foreach_selected_row (db_, toCStr(sql), getCacheIdCB, &file_id);
-    return file_id;
+    CacheEntry entry;
+    sqlite_foreach_selected_row (db_, toCStr(sql), getCacheEntryCB, &entry);
+    return entry;
 }
 
 void FileCacheDB::saveCachedFileId(const QString& repo_id,
                                    const QString& path,
-                                   const QString& file_id)
+                                   const QString& file_id,
+                                   const QString& account_sig)
 {
-    QString sql = "REPLACE INTO FileCache VALUES ('%1', '%2', '%3')";
-    sql = sql.arg(repo_id).arg(path).arg(file_id);
+    QString sql = "REPLACE INTO FileCacheV1 VALUES ('%1', '%2', '%3', '%4')";
+    sql = sql.arg(repo_id).arg(path).arg(file_id).arg(account_sig);
     sqlite_query_exec (db_, toCStr(sql));
+}
+
+bool FileCacheDB::collectCachedFile(sqlite3_stmt *stmt, void *data)
+{
+    QList<CacheEntry> *list = (QList<CacheEntry> *)data;
+    CacheEntry entry;
+    entry.repo_id = (const char *)sqlite3_column_text (stmt, 0);
+    entry.path = QString::fromUtf8((const char *)sqlite3_column_text (stmt, 1));
+    entry.account_sig = (const char *)sqlite3_column_text (stmt, 2);
+    list->append(entry);
+    return true;
+}
+
+QList<FileCacheDB::CacheEntry> FileCacheDB::getAllCachedFiles()
+{
+    QString sql = "SELECT repo_id, path, account_sig FROM FileCacheV1";
+    QList<CacheEntry> list;
+    sqlite_foreach_selected_row (db_, toCStr(sql), collectCachedFile, &list);
+    return list;
 }

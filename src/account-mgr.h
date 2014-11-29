@@ -36,6 +36,11 @@ public:
     int replaceAccount(const Account& old_account,
                        const Account& new_account);
 
+    Account getAccountByHostAndUsername(const QString& host,
+                                        const QString& username) const;
+
+    Account getAccountBySignature(const QString& account_sig) const;
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 signals:

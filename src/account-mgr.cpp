@@ -183,3 +183,27 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
 
     return 0;
 }
+
+Account AccountManager::getAccountByHostAndUsername(const QString& host,
+                                                    const QString& username) const
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].serverUrl.host() == host
+            && accounts_[i].username == username) {
+            return accounts_[i];
+        }
+    }
+
+    return Account();
+}
+
+Account AccountManager::getAccountBySignature(const QString& account_sig) const
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].getSignature() == account_sig) {
+            return accounts_[i];
+        }
+    }
+
+    return Account();
+}

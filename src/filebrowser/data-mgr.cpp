@@ -10,6 +10,7 @@
 #include "seafile-applet.h"
 #include "file-browser-requests.h"
 #include "tasks.h"
+#include "auto-update-mgr.h"
 
 #include "data-cache.h"
 #include "data-mgr.h"
@@ -185,7 +186,10 @@ void DataManager::onFileDownloadFinished(bool success)
     if (success) {
         filecache_db_->saveCachedFileId(task->repoId(),
                                         task->path(),
-                                        task->fileId());
+                                        task->fileId(),
+                                        account_.getSignature());
+        AutoUpdateManager::instance()->watchCachedFile(
+            account_, task->repoId(), task->path());
     }
 }
 
@@ -216,7 +220,7 @@ void DataManager::onFileUploadFinished(bool success)
 }
 
 QString DataManager::getLocalCacheFilePath(const QString& repo_id,
-                                        const QString& path)
+                                           const QString& path)
 {
     QString seafdir = seafApplet->configurator()->seafileDir();
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id, path);

@@ -28,6 +28,7 @@
 #include "avatar-service.h"
 #include "seahub-notifications-monitor.h"
 #include "filebrowser/data-cache.h"
+#include "filebrowser/auto-update-mgr.h"
 #include "rpc/local-repo.h"
 #include "server-status-service.h"
 
@@ -167,6 +168,7 @@ void SeafileApplet::start()
     certs_mgr_->start();
 
     FileCacheDB::instance()->start();
+    AutoUpdateManager::instance()->start();
 
     AvatarService::instance()->start();
     SeahubNotificationsMonitor::instance()->start();

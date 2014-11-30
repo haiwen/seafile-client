@@ -97,6 +97,7 @@ void FileCacheDB::start()
         "     file_id VARCHAR(40) NOT NULL, "
         "     account_sig VARCHAR(40) NOT NULL, "
         "     PRIMARY KEY (repo_id, path))";
+    sqlite_query_exec (db, sql);
 
     db_ = db;
 }

@@ -40,7 +40,7 @@ void AutoUpdateManager::start()
             entry.account_sig);
         if (!account.isValid()) {
             // The account might have been deleted
-            // printf ("account of file %s already deleted\n", toCStr(entry.path));
+            printf ("account of file %s already deleted\n", toCStr(entry.path));
             return;
         }
         watchCachedFile(account, entry.repo_id, entry.path);
@@ -53,12 +53,12 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 {
     QString local_path = DataManager::getLocalCacheFilePath(repo_id, path);
     if (!QFileInfo(local_path).exists()) {
-        // printf("cached file %s does not exist anymore\n",
-        //        toCStr(local_path));
+        printf("cached file %s does not exist anymore\n",
+               toCStr(local_path));
         return;
     }
 
-    // printf("watch local file %s\n", toCStr(local_path));
+    printf("watch local file %s\n", toCStr(local_path));
     watcher_.addPath(local_path);
     watch_infos_[local_path] = WatchedFileInfo(account, repo_id, path);
 }
@@ -77,20 +77,20 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
     if (!QFileInfo(local_path).exists()) {
-        // printf("watched file no long exists: %s\n", toCStr(local_path));
+        printf("watched file no long exists: %s\n", toCStr(local_path));
         removeWatch(local_path);
         return;
     }
 
     WatchedFileInfo& info = watch_infos_[local_path];
 
-    // printf("repo %s, path %s\n",
-    //        toCStr(info.repo_id), toCStr(info.path_in_repo));
+    printf("repo %s, path %s\n",
+           toCStr(info.repo_id), toCStr(info.path_in_repo));
     LocalRepo repo;
     seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo);
     if (repo.isValid()) {
-        // printf ("repo %s already downloaded to local, no need to update\n",
-        //         toCStr(repo.id));
+        printf ("repo %s already downloaded to local, no need to update\n",
+                toCStr(repo.id));
         return;
     }
 
@@ -126,7 +126,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
 
 void AutoUpdateManager::removeWatch(const QString& path)
 {
-    // printf ("remove watch for %s\n", toCStr(path));
+    printf ("remove watch for %s\n", toCStr(path));
     watcher_.removePath(path);
     watch_infos_.remove(path);
 }

@@ -368,16 +368,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
 void FileBrowserDialog::downloadFile(const QString& path)
 {
     FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
-    task->start();
-
-    // set dialog attributes
-    dialog->setAttribute(Qt::WA_DeleteOnClose);
-    dialog->setWindowModality(Qt::WindowModal);
-    dialog->show();
-    dialog->raise();
-    dialog->activateWindow();
 }
 
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,

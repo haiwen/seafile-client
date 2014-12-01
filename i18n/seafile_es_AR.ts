@@ -733,7 +733,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>Seleccione un archivo para actualizar %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="87"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>Act&amp;ualizar</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="122"/>
@@ -928,7 +928,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"/>
+        <translation>Escoja carpeta Seafile</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -938,7 +938,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>Por favor, escoja una carpeta. Se creará una subcarpeta Seafile en ella. Esta carpeta será donde se guardarán las bibliotecas descargadas.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1171,17 +1171,17 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>Servidor:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Por ejemplo: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>ó http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="262"/>
@@ -1600,7 +1600,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/repo-service.cpp" line="173"/>
         <source>Unable to download item &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>No es posible descargar el ítem &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1829,12 +1829,12 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Resincronizar esta biblioteca</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>desincronizar y resincronizar esta biblioteca</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
@@ -1864,13 +1864,14 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="638"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Seguro que desea desincronizar  y resincronizar la biblioteca &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="675"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al agregar tarea de descarga:
+%1</translation>
     </message>
 </context>
 <context>
@@ -2140,12 +2141,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>Iniciar automáticamente Seafile después del inicio de sesión</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"/>
+        <translation>Ocultar el icono de Seafile de la barra</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2190,12 +2191,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="231"/>
         <source>Enable file syncing with HTTP protocol</source>
-        <translation type="unfinished"/>
+        <translation>Habilitar sincronización utilizando protocolo HTTP</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="232"/>
         <source>Do not verify server certificate in HTTP syncing</source>
-        <translation type="unfinished"/>
+        <translation>No verificar el certificado del servidor en sincronización HTTP</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="233"/>

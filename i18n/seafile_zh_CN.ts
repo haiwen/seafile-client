@@ -2180,12 +2180,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="231"/>
         <source>Enable file syncing with HTTP protocol</source>
-        <translation>开启文件同步的HTTP 协议支持</translation>
+        <translation>使用 HTTP 协议进行文件同步</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="232"/>
         <source>Do not verify server certificate in HTTP syncing</source>
-        <translation>HTTP同步过程中无法验证服务器证书</translation>
+        <translation>HTTP 同步时不验证服务器证书</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="233"/>

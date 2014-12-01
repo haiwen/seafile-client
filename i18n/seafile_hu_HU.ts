@@ -448,7 +448,7 @@
         <location filename="../src/ui/create-repo-dialog.cpp" line="189"/>
         <source>Failed to create library on the server:
 %1</source>
-        <translation>A könyvtár nem hozható létre a szerveren:
+        <translation>A kötet nem hozható létre a szerveren:
 %1</translation>
     </message>
     <message>
@@ -733,7 +733,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>Fájl kiválasztása feltöltéshez: %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="87"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Frissít</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="122"/>
@@ -928,7 +928,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"/>
+        <translation>Seafile könyvtár választás</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -938,7 +938,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>Válasszon könyvtárat. A könyvtárban egy Seafile alkönyvtárat hozunk létre. Ha egy kötetet letölt alapértelmezetten abba lesz lementve.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -982,14 +982,14 @@ A funkció használatához a szoftver 2.1-es vagy újabb verzióját kell futtat
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="136"/>
         <source>Failed to get default library:
 %1</source>
-        <translation>Az alapértelmezett könyvtár lekérdezése nem sikerült:
+        <translation>Az alapértelmezett kötet lekérdezése nem sikerült:
 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="152"/>
         <source>Failed to create default library:
 %1</source>
-        <translation>Az alapértelmezett könyvtár létrehozása nem sikerült:
+        <translation>Az alapértelmezett kötet létrehozása nem sikerült:
 %1</translation>
     </message>
     <message>
@@ -1001,7 +1001,7 @@ A funkció használatához a szoftver 2.1-es vagy újabb verzióját kell futtat
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="188"/>
         <source>Failed to download default library:
 %1</source>
-        <translation>Az alapértelmezett könyvtár letöltése nem sikerült:
+        <translation>Az alapértelmezett kötet letöltése nem sikerült:
 %1</translation>
     </message>
     <message>
@@ -1171,17 +1171,17 @@ Letölti az alapértelmezett kötetet és létrehoz egy virtuális lemezt hozzá
     <message>
         <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>Szerver:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Példa: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>vagy: http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="262"/>
@@ -1403,7 +1403,7 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Library is damaged on server</source>
-        <translation>A könyvtár szerveren tárolt másolata sérült</translation>
+        <translation>A kötet szerveren tárolt másolata sérült</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="166"/>
@@ -1600,7 +1600,7 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/repo-service.cpp" line="173"/>
         <source>Unable to download item &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nem lehet letölteni: &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1829,12 +1829,12 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kötet újraszinkronizálása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>kötet szinkronizálásának megszüntetése és újraszinkronizálása</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
@@ -1864,13 +1864,14 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="638"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Biztos, hogy újraszinkronizálja a kötetet? &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="675"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>A letöltési feladat hozzáadása nem sikerült:
+%1</translation>
     </message>
 </context>
 <context>
@@ -2140,12 +2141,12 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>Seafile elindítása bejelentkezéskor</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"/>
+        <translation>Ne jelenjen meg a Seafile ikonja az értesítési területen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2190,12 +2191,12 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="231"/>
         <source>Enable file syncing with HTTP protocol</source>
-        <translation type="unfinished"/>
+        <translation>Fájl szinkronizáció engedélyezése HTTP protokollon keresztül</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="232"/>
         <source>Do not verify server certificate in HTTP syncing</source>
-        <translation type="unfinished"/>
+        <translation>Ne ellenőrizze a tanúsítványt HTTP-n folyó szinkronizációnál</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="233"/>

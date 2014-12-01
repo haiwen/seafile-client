@@ -734,7 +734,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>%1을(를) 업데이트할 파일을 선택하십시오</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
@@ -860,7 +860,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="87"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>업데이트(&amp;U)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="122"/>
@@ -929,7 +929,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"/>
+        <translation>Seafile 폴더 선택</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -939,7 +939,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>폴더를 선택하십시오. 시파일 하위 폴더를 만들겠습니다. 라이브러리를 다운로드하면 기본으로 해당 위치에 저장합니다.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1172,17 +1172,17 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>서버:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;예: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>또는 http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="262"/>
@@ -1601,7 +1601,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/repo-service.cpp" line="173"/>
         <source>Unable to download item &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 항목을 다운로드할 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -1830,12 +1830,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>이 라이브러리 다시 동기화(&amp;R)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>이 라이브러리 동기화를 해제하고 다시 동기화합니다</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
@@ -1865,13 +1865,14 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="638"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>정말로 &quot;%1&quot; 라이브러리 동기화를 해제하고 다시 동기화하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="675"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>다운로드 작업 추가에 실패했습니다:
+%1</translation>
     </message>
 </context>
 <context>
@@ -2141,12 +2142,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>로그인 후 Seafile 자동 시작</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"/>
+        <translation>도크의 Seafile 아이콘 숨기기</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2191,12 +2192,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="231"/>
         <source>Enable file syncing with HTTP protocol</source>
-        <translation type="unfinished"/>
+        <translation>HTTP 프로토콜 파일 동기화 활성화</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="232"/>
         <source>Do not verify server certificate in HTTP syncing</source>
-        <translation type="unfinished"/>
+        <translation>HTTP 동기화시 서버 인증서 검증하지 않음</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="233"/>

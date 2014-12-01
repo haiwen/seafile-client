@@ -733,7 +733,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>Wybierz plik do aktualizacji %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="87"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>Akt&amp;ualizuj</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="122"/>
@@ -928,7 +928,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"/>
+        <translation>Wybierz folder Seafile</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -938,7 +938,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>Proszę wybrać folder wewnątrz którego zostanie utworzony podfolder Seafile. Gdy pobierzesz bibliotekę, zostanie ona tam domyślnie zapisana.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1171,17 +1171,17 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
     <message>
         <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>Serwer:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Na przykład: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>lub http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="262"/>
@@ -1600,7 +1600,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/repo-service.cpp" line="173"/>
         <source>Unable to download item &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nie można pobrać elementu &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1767,7 +1767,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
         <source>Show &amp;Details</source>
-        <translation>Pokaż szczegóły</translation>
+        <translation>Pokaż &amp;szczegóły</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="105"/>
@@ -1829,12 +1829,12 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>Synch&amp;ronizuj tę bibliotekę ponownie</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>przestań synchronizować, a następnie ponownie zsynchronizuj tę bibliotekę</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
@@ -1864,13 +1864,14 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="638"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Na pewno chcesz przestać synchronizować, a następnie ponownie zsynchronizować bibliotekę &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="675"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się dodać zadania pobierania:
+%1</translation>
     </message>
 </context>
 <context>
@@ -2140,12 +2141,12 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>Automatycznie uruchom Seafile po zalogowaniu</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"/>
+        <translation>Ukryj ikonę Seafile</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2190,12 +2191,12 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="231"/>
         <source>Enable file syncing with HTTP protocol</source>
-        <translation type="unfinished"/>
+        <translation>Włącz synchronizację plików przez protokół HTTP</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="232"/>
         <source>Do not verify server certificate in HTTP syncing</source>
-        <translation type="unfinished"/>
+        <translation>Nie weryfikuj certyfikatu serwera podczas synchronizacji przez HTTP</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="233"/>

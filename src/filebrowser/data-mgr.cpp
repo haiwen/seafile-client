@@ -244,7 +244,7 @@ void DataManager::setRepoPasswordSet(const QString& repo_id)
         QDateTime::currentMSecsSinceEpoch() + kPasswordCacheExpirationMSecs;
 }
 
-QString DataManager::getRepoCacheFolder(const QString& repo_id) const
+QString DataManager::getRepoCacheFolder(const QString& repo_id)
 {
     QString seafdir = seafApplet->configurator()->seafileDir();
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id);

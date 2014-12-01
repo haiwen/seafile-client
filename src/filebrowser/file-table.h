@@ -46,7 +46,7 @@ private:
     Q_DISABLE_COPY(FileTableView)
 
     QScopedPointer<const SeafDirent> item_;
-    ServerRepo repo_;
+    const ServerRepo &repo_;
     QMenu *context_menu_;
     QAction *download_action_;
     QAction *update_action_;
@@ -57,7 +57,9 @@ class FileTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    FileTableModel(QObject *parent=0);
+    FileTableModel(const ServerRepo &repo,
+                   const QString &current_path,
+                   QObject *parent=0);
 
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
@@ -80,7 +82,16 @@ public:
 private:
     Q_DISABLE_COPY(FileTableModel)
 
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    Qt::DropActions supportedDropActions() const;
+
+    QStringList mimeTypes() const;
+    QMimeData *mimeData(const QModelIndexList &indexes) const;
+
     QList<SeafDirent> dirents_;
+
+    const ServerRepo &repo_;
+    const QString &current_path_;
 
     int name_column_width_;
 };

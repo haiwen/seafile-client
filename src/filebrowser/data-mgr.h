@@ -67,7 +67,10 @@ public:
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);
 
-    QString getRepoCacheFolder(const QString& repo_id) const;
+    static QString getRepoCacheFolder(const QString& repo_id);
+
+    static QString getLocalCacheFilePath(const QString& repo_id,
+                                         const QString& path);
 
     static QString getLocalCacheFilePath(const QString& repo_id,
                                          const QString& path);

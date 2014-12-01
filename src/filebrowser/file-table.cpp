@@ -53,9 +53,8 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    setMouseTracking(true);
-    setAcceptDrops(true);
-    setDragDropMode(QAbstractItemView::DropOnly);
+    setDragDropMode(QAbstractItemView::DragDrop);
+    setDefaultDropAction(Qt::CopyAction);
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
@@ -178,14 +177,19 @@ void FileTableView::onUpdate()
 
 void FileTableView::dropEvent(QDropEvent *event)
 {
-    // only handle external source currently
-    if(event->source() != NULL)
+    // drag item from inside to inside should not be here
+    if(event->source() != NULL) {
+        event->ignore();
         return;
+    }
+    // drag item from outside
 
     QList<QUrl> urls = event->mimeData()->urls();
 
-    if(urls.isEmpty())
+    if(urls.isEmpty()) {
+        event->ignore();
         return;
+    }
 
     // since we supports processing only one file at a time, skip the rest
     QString file_name = urls.first().toLocalFile();
@@ -194,12 +198,12 @@ void FileTableView::dropEvent(QDropEvent *event)
         file_name = __mac_get_path_from_fileId_url("file://" + file_name);
 #endif
 
-    if(file_name.isEmpty())
+    if(file_name.isEmpty() || QFileInfo(file_name).isDir()) {
+        event->ignore();
         return;
+    }
 
-    if(QFileInfo(file_name).isDir())
-        return;
-
+    setState(NoState);
     event->accept();
 
     emit dropFile(file_name);
@@ -207,22 +211,27 @@ void FileTableView::dropEvent(QDropEvent *event)
 
 void FileTableView::dragMoveEvent(QDragMoveEvent *event)
 {
-    // this is needed
+    // if event come from inside
+    if (event->source() != NULL) {
+        return;
+    }
+    // if event come from outside
     event->accept();
 }
 
 void FileTableView::dragEnterEvent(QDragEnterEvent *event)
 {
-    // only handle external source currently
-    if(event->source() != NULL)
+    // if event come from inside
+    if (event->source() != NULL)
         return;
 
-    // Otherwise it might be a MoveAction which is unacceptable
-    event->setDropAction(Qt::CopyAction);
-
-    // trivial check
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    // if event come from outside
+    if(event->mimeData()->hasUrls()) {
+        // Otherwise it might be a MoveAction/LinkAction which is unacceptable
+        event->setDropAction(Qt::CopyAction);
         event->accept();
+        setState(DraggingState);
+    }
 }
 
 void FileTableView::resizeEvent(QResizeEvent *event)
@@ -231,10 +240,14 @@ void FileTableView::resizeEvent(QResizeEvent *event)
     static_cast<FileTableModel*>(model())->onResize(event->size());
 }
 
-FileTableModel::FileTableModel(QObject *parent)
+FileTableModel::FileTableModel(const ServerRepo &repo,
+                               const QString &current_path,
+                               QObject *parent)
     : QAbstractTableModel(parent),
+    repo_(repo), current_path_(current_path),
     name_column_width_(kFileNameColumnWidth)
 {
+    setSupportedDragActions(Qt::CopyAction);
 }
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
@@ -411,3 +424,74 @@ void FileTableModel::onResize(const QSize &size)
     emit dataChanged(index(0, FILE_COLUMN_NAME),
                      index(dirents_.size()-1 , FILE_COLUMN_NAME));
 }
+
+Qt::ItemFlags FileTableModel::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags flags = QAbstractTableModel::flags(index)
+      & ~Qt::ItemIsDropEnabled;
+
+    if (index.isValid())
+        return Qt::ItemIsDragEnabled | flags;
+
+    return flags;
+}
+
+Qt::DropActions FileTableModel::supportedDropActions() const
+{
+    return Qt::CopyAction;
+}
+
+QStringList FileTableModel::mimeTypes() const
+{
+    QStringList mime_types;
+    mime_types << "text/uri-list";
+    return mime_types;
+}
+
+QMimeData *FileTableModel::mimeData(const QModelIndexList &indexes_) const
+{
+    // remove duplicated items from indexes_ to indexes
+    QModelIndexList indexes;
+    Q_FOREACH(const QModelIndex &index_, indexes_)
+    {
+        bool duplicated = false;
+        Q_FOREACH(const QModelIndex &index, indexes)
+        {
+            if (index.row() == index_.row()) {
+                duplicated = true;
+                break;
+            }
+        }
+
+        if (!duplicated)
+            indexes.push_back(index_);
+    }
+
+    QMimeData *mime_data = new QMimeData();
+    QList<QUrl> urls;
+    urls.reserve(indexes.size());
+
+    // handle only one item
+    const QModelIndex &index = indexes.first();
+    if (!index.isValid())
+        return mime_data;
+    const SeafDirent &dirent = *direntAt(index.row());
+    // if it is not a file, skip
+    if (!dirent.isFile())
+        return mime_data;
+
+    const QString path = pathJoin(current_path_, dirent.name);
+    const QString local_path = DataManager::getLocalCacheFilePath(repo_.id, path);
+    // if not exist
+    if (!QFileInfo(local_path).exists())
+        return mime_data;
+
+    urls.push_back(QUrl::fromLocalFile(local_path));
+    const QString mimetype = mimeTypeFromFileName(dirent.name);
+    // mime_data->setImageData(QImage(local_path));
+    // mime_data->setText(QFile(path));
+
+    mime_data->setUrls(urls);
+    return mime_data;
+}
+

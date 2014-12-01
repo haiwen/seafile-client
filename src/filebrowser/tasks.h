@@ -43,7 +43,7 @@ public:
     };
 
     FileNetworkTask(const Account& account,
-                    const ServerRepo& repo,
+                    const QString& repo_id,
                     const QString& path,
                     const QString& local_path);
 
@@ -51,8 +51,7 @@ public:
 
     // accessors
     virtual TaskType type() const = 0;
-    const QString& repoId() const { return repo_.id; };
-    const ServerRepo& repo() const { return repo_; };
+    const QString& repoId() const { return repo_id_; };
     QString path() const { return path_; };
     QString localFilePath() const { return local_path_; }
     QString fileName() const;
@@ -91,7 +90,7 @@ protected:
     SeafileApiRequest *get_link_req_;
 
     const Account account_;
-    const ServerRepo repo_;
+    const QString repo_id_;
     QString path_;
     QString local_path_;
     QString oid_;
@@ -113,7 +112,7 @@ class FileDownloadTask : public FileNetworkTask {
     Q_OBJECT
 public:
     FileDownloadTask(const Account& account,
-                     const ServerRepo& repo,
+                     const QString& repo_id,
                      const QString& path,
                      const QString& local_path);
 
@@ -135,7 +134,7 @@ class FileUploadTask : public FileNetworkTask {
     Q_OBJECT
 public:
     FileUploadTask(const Account& account,
-                   const ServerRepo& repo,
+                   const QString& repo_id,
                    const QString& path,
                    const QString& local_path,
                    const QString& name,

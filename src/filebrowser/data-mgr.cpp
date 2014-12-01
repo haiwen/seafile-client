@@ -167,11 +167,11 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
     return cached_file_id == file_id ? local_file_path : "";
 }
 
-FileDownloadTask* DataManager::createDownloadTask(const ServerRepo& repo,
+FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
                                                   const QString& path)
 {
-    QString local_path = getLocalCacheFilePath(repo.id, path);
-    FileDownloadTask *task = new FileDownloadTask(account_, repo, path, local_path);
+    QString local_path = getLocalCacheFilePath(repo_id, path);
+    FileDownloadTask *task = new FileDownloadTask(account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)));
 
@@ -193,13 +193,13 @@ void DataManager::onFileDownloadFinished(bool success)
     }
 }
 
-FileUploadTask* DataManager::createUploadTask(const ServerRepo& repo,
+FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
                                               const QString& parent_dir,
                                               const QString& local_path,
                                               const QString& name,
                                               const bool overwrite)
 {
-    FileUploadTask *task = new FileUploadTask(account_, repo, parent_dir,
+    FileUploadTask *task = new FileUploadTask(account_, repo_id, parent_dir,
                                               local_path, name, !overwrite);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileUploadFinished(bool)));

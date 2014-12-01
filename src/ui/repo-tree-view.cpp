@@ -729,6 +729,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     if (!standard_item || standard_item->type() != REPO_ITEM_TYPE) {
         return;
     }
+
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
     const QUrl url = event->mimeData()->urls().at(0);
@@ -739,6 +740,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
         local_path = __mac_get_path_from_fileId_url("file://" + local_path);
 #endif
     const QString file_name = QFileInfo(local_path).fileName();
+
 
     // if the repo is synced
     LocalRepo local_repo;
@@ -751,7 +753,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     }
 
     FileUploadTask *task = new FileUploadTask(seafApplet->accountManager()->currentAccount(),
-          repo, "/", local_path, file_name);
+          repo.id, "/", local_path, file_name);
     uploadFileStart(task);
 }
 
@@ -822,8 +824,9 @@ void RepoTreeView::uploadFileFinished(bool success)
         if (task->error() == FileNetworkTask::TaskCanceled)
             return;
         // failed and it is a encrypted repository
-        if (task->repo().encrypted && task->httpErrorCode() == 400) {
-            SetRepoPasswordDialog password_dialog(task->repo(), this);
+        ServerRepo repo = RepoService::instance()->getRepo(task->repoId());
+        if (repo.encrypted && task->httpErrorCode() == 400) {
+            SetRepoPasswordDialog password_dialog(repo, this);
             if (password_dialog.exec()) {
                 FileUploadTask *new_task = new FileUploadTask(*task);
                 uploadFileStart(new_task);
@@ -841,4 +844,3 @@ void RepoTreeView::copyFileFailed()
     QString msg = QObject::tr("copy failed");
     seafApplet->warningBox(msg);
 }
-

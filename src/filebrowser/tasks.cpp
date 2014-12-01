@@ -38,11 +38,11 @@ const int kMaxRedirects = 3;
 QThread* FileNetworkTask::worker_thread_;
 
 FileNetworkTask::FileNetworkTask(const Account& account,
-                                 const ServerRepo& repo,
+                                 const QString& repo_id,
                                  const QString& path,
                                  const QString& local_path)
     : account_(account),
-      repo_(repo),
+      repo_id_(repo_id),
       path_(path),
       local_path_(local_path),
       canceled_(false)
@@ -146,16 +146,16 @@ void FileNetworkTask::onGetLinkFailed(const ApiError& error)
 }
 
 FileDownloadTask::FileDownloadTask(const Account& account,
-                                   const ServerRepo& repo,
+                                   const QString& repo_id,
                                    const QString& path,
                                    const QString& local_path)
-    : FileNetworkTask(account, repo, path, local_path)
+    : FileNetworkTask(account, repo_id, path, local_path)
 {
 }
 
 void FileDownloadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileDownloadLinkRequest(account_, repo_.id, path_);
+    get_link_req_ = new GetFileDownloadLinkRequest(account_, repo_id_, path_);
 }
 
 void FileDownloadTask::onLinkGet(const QString& link)
@@ -171,19 +171,19 @@ void FileDownloadTask::createFileServerTask(const QString& link)
 }
 
 FileUploadTask::FileUploadTask(const Account& account,
-                               const ServerRepo& repo,
+                               const QString& repo_id,
                                const QString& path,
                                const QString& local_path,
                                const QString& name,
                                const bool use_upload)
-    : FileNetworkTask(account, repo, path, local_path),
+    : FileNetworkTask(account, repo_id, path, local_path),
       name_(name),
       use_upload_(use_upload)
 {
 }
 
 FileUploadTask::FileUploadTask(const FileUploadTask& rhs)
-    : FileNetworkTask(rhs.account_, rhs.repo_, rhs.path_, rhs.local_path_),
+    : FileNetworkTask(rhs.account_, rhs.repo_id_, rhs.path_, rhs.local_path_),
       name_(rhs.name_),
       use_upload_(rhs.use_upload_)
 {
@@ -191,7 +191,7 @@ FileUploadTask::FileUploadTask(const FileUploadTask& rhs)
 
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_.id, use_upload_);
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, use_upload_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)

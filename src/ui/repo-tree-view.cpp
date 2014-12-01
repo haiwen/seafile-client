@@ -729,6 +729,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     if (!standard_item || standard_item->type() != REPO_ITEM_TYPE) {
         return;
     }
+    event->accept();
 
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();

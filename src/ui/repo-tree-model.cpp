@@ -58,6 +58,11 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 
     refresh_local_timer_->start(kRefreshLocalReposInterval);
 }
+RepoTreeModel::~RepoTreeModel()
+{
+    if (item(kIndexOfVirtualReposCategory) != virtual_repos_catetory_)
+        delete virtual_repos_catetory_;
+}
 
 void RepoTreeModel::initialize()
 {

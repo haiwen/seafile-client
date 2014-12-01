@@ -564,16 +564,6 @@ void init()
     types_map->insert("~", "application/x-trash");
 }
 
-QString mimeTypeFromFileName(const QString& fileName)
-{
-    if (types_map == 0) {
-        init();
-    }
-
-    QString suffix = QFileInfo(fileName).suffix().toLower();
-
-    return types_map->value(suffix);
-}
 
 QString iconNameFromFileName(const QString& fileName)
 {
@@ -616,6 +606,17 @@ QString iconNameFromFileName(const QString& fileName)
 }
 
 } // namespace
+
+QString mimeTypeFromFileName(const QString& fileName)
+{
+    if (types_map == 0) {
+        init();
+    }
+
+    QString suffix = QFileInfo(fileName).suffix().toLower();
+
+    return types_map->value(suffix);
+}
 
 QString getIconByFileName(const QString& fileName)
 {

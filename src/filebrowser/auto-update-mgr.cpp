@@ -1,5 +1,6 @@
 #include <QDir>
 #include <QFileInfo>
+#include <QDateTime>
 
 #include "seafile-applet.h"
 #include "configurator.h"
@@ -64,15 +65,20 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
-    // printf("detected file change: %s\n", toCStr(local_path));
+    printf("detected file change: %s\n", toCStr(local_path));
+#ifdef Q_WS_MAC
+    if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
+        return;
+    }
+#endif
+    watcher_.removePath(local_path);
     QString repo_id, path_in_repo;
     if (!watch_infos_.contains(local_path)) {
         return;
     }
     if (!QFileInfo(local_path).exists()) {
         // printf("watched file no long exists: %s\n", toCStr(local_path));
-        watch_infos_.remove(local_path);
-        watcher_.removePath(local_path);
+        removeWatch(local_path);
         return;
     }
 
@@ -108,12 +114,14 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
     const QString local_path = task->localFilePath();
     if (success) {
         emit fileUpdated(task->repoId(), task->path());
+        watcher_.addPath(local_path);
+        WatchedFileInfo& info = watch_infos_[local_path];
+        info.uploading = false;
     } else {
         qDebug("failed to auto update %s\n", toCStr(local_path));
+        watch_infos_.remove(local_path);
+        return;
     }
-    watcher_.addPath(local_path);
-    WatchedFileInfo& info = watch_infos_[local_path];
-    info.uploading = false;
 }
 
 void AutoUpdateManager::removeWatch(const QString& path)
@@ -121,4 +129,29 @@ void AutoUpdateManager::removeWatch(const QString& path)
     // printf ("remove watch for %s\n", toCStr(path));
     watcher_.removePath(path);
     watch_infos_.remove(path);
+}
+
+SINGLETON_IMPL(MacImageFilesWorkAround)
+
+MacImageFilesWorkAround::MacImageFilesWorkAround()
+{
+}
+
+void MacImageFilesWorkAround::fileOpened(const QString& path)
+{
+    QString mimetype = ::mimeTypeFromFileName(path);
+    if (mimetype.startsWith("image")) {
+        images_[path] = QDateTime::currentMSecsSinceEpoch();
+    }
+}
+
+bool MacImageFilesWorkAround::isRecentOpenedImage(const QString& path)
+{
+    qint64 ts = images_.value(path, 0);
+    if (QDateTime::currentMSecsSinceEpoch() < ts + 1000 * 10) {
+        printf ("false auto update signal\n");
+        return true;
+    } else {
+        return false;
+    }
 }

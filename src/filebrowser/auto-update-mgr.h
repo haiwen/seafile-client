@@ -51,4 +51,20 @@ private:
     QHash<QString, WatchedFileInfo> watch_infos_;
 };
 
+/**
+ * On MacOSX, when open an image file in Preview app, a file modificatin event
+ * would be triggered, but the file is not modified. We need to work around
+ * this so the auto update manager would not be fooled by this false signal.
+ */
+class MacImageFilesWorkAround {
+    SINGLETON_DEFINE(MacImageFilesWorkAround)
+public:
+    MacImageFilesWorkAround();
+    bool isRecentOpenedImage(const QString& path);
+    void fileOpened(const QString& path);
+
+private:
+    QHash<QString, qint64> images_;
+};
+
 #endif // SEAFILE_CLIENT_FILE_BROWSER_AUTO_UPDATE_MANAGER_H

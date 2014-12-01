@@ -3,6 +3,8 @@
 
 class QStringList;
 
+QString mimeTypeFromFileName(const QString& fileName);
+
 QString getIconByFileName(const QString& fileName);
 QString getIconByFileNameV2(const QString& fileName);
 

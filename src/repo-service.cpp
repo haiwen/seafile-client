@@ -149,7 +149,7 @@ void RepoService::openLocalFile(const QString& repo_id,
 
         // endless loop for setPasswordDialog
         while(1) {
-            FileDownloadTask *task = data_mgr.createDownloadTask(repo_id, path);
+            FileDownloadTask *task = data_mgr.createDownloadTask(repo, path);
             FileBrowserProgressDialog dialog(task, dialog_parent);
             task->start();
             if (dialog.exec()) {
@@ -166,13 +166,13 @@ void RepoService::openLocalFile(const QString& repo_id,
                 SetRepoPasswordDialog password_dialog(repo, dialog_parent);
                 if (password_dialog.exec())
                     continue;
-                // the user cancel the dialog here? skip
+                // the user canceled the dialog? skip
                 break;
             }
             QString msg =
                 QObject::tr("Unable to download item \"%1\"").arg(path_in_repo);
             seafApplet->warningBox(msg);
             break;
-        };
+        }
     }
 }

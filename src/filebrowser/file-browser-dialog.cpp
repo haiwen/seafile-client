@@ -366,7 +366,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
 
 void FileBrowserDialog::downloadFile(const QString& path)
 {
-    FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
+    FileDownloadTask *task = data_mgr_->createDownloadTask(repo_, path);
     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
     task->start();
@@ -383,7 +383,7 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    const bool overwrite)
 {
     FileUploadTask *task =
-      data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
+      data_mgr_->createUploadTask(repo_, current_path_, path, name, overwrite);
     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
     task->start();

@@ -17,6 +17,7 @@ class RepoItem;
 class RepoCategoryItem;
 
 class CloneTasksDialog;
+class FileUploadTask;
 
 class RepoTreeView : public QTreeView {
     Q_OBJECT
@@ -58,6 +59,10 @@ private slots:
     void saveExpandedCategries();
     void resyncRepo();
 
+    void uploadFileStart(FileUploadTask *task);
+    void uploadFileFinished(bool success);
+    void copyFileFailed();
+
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
 
@@ -72,6 +77,10 @@ private:
     void showRepoCategoryItemToolTip(const RepoCategoryItem *item,
                                      const QPoint& pos,
                                      const QRect& rect);
+
+    void dropEvent(QDropEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
 
     QAction *download_action_;
     QAction *download_toolbar_action_;

@@ -11,6 +11,8 @@ ENDIF()
 
 OPTION(BUILD_TESTING "Build Test" OFF)
 
+OPTION(BUILD_DOCS "Build Documents" OFF)
+
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 IF (WIN32)
@@ -338,6 +340,29 @@ QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
 ####################
 ###### end: translations
 ####################
+
+###################
+##### begin: doxygen
+##################
+FIND_PACKAGE(Doxygen)
+
+IF (DOXYGEN_FOUND)
+  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
+    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+
+  ADD_CUSTOM_TARGET(doxygen
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating doxygen documentation." VERBATIM)
+
+  IF(BUILD_DOCS)
+    ADD_CUSTOM_TARGET(doxygen ALL)
+  ENDIF()
+ENDIF()
+
+###################
+##### end: doxygen
+##################
 
 ####################
 ###### begin: lib

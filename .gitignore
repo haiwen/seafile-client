@@ -77,3 +77,7 @@ seafile-applet.app
 test_*
 !test_*.cpp
 !test_*.h
+
+## doxygen related
+docs
+Doxyfile

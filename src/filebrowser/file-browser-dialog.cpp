@@ -284,7 +284,7 @@ void FileBrowserDialog::createLoadingFailedView()
     label->setAlignment(Qt::AlignCenter);
 
     connect(label, SIGNAL(linkActivated(const QString&)),
-            this, SLOT(fetchDirents()));
+            this, SLOT(forceRefresh()));
 
     layout->addWidget(label);
 }

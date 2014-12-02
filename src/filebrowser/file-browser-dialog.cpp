@@ -17,6 +17,7 @@
 #include "ui/set-repo-password-dialog.h"
 #include "sharedlink-dialog.h"
 #include "auto-update-mgr.h"
+#include "transfer-mgr.h"
 
 #include "file-browser-dialog.h"
 
@@ -87,6 +88,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentShare(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
             this, SLOT(onGetDirentUpdate(const SeafDirent&)));
+    connect(table_view_, SIGNAL(cancelDownload(const SeafDirent&)),
+            this, SLOT(onCancelDownload(const SeafDirent&)));
 
     //dirents <--> data_mgr_
     connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
@@ -212,7 +215,7 @@ void FileBrowserDialog::createFileTable()
 {
     loading_view_ = new LoadingView;
     table_view_ = new FileTableView(repo_, this);
-    table_model_ = new FileTableModel();
+    table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
 
     connect(table_view_, SIGNAL(dropFile(const QString&)),
@@ -359,6 +362,9 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(cached_file);
         return;
     } else {
+        if (TransferManager::instance()->hasDownloadTask(repo_.id, fpath)) {
+            return;
+        }
         AutoUpdateManager::instance()->removeWatch(
             DataManager::getLocalCacheFilePath(repo_.id, fpath));
         downloadFile(fpath);
@@ -657,4 +663,10 @@ void FileBrowserDialog::onFileAutoUpdated(const QString& repo_id, const QString&
     if (repo_id == repo_.id && path == current_path_) {
         forceRefresh();
     }
+}
+
+void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
+{
+    TransferManager::instance()->cancelDownload(repo_.id,
+        ::pathJoin(current_path_, dirent.name));
 }

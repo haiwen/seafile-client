@@ -1,13 +1,17 @@
 #include <QtGui>
+#include <QTimer>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seaf-dirent.h"
 #include "utils/utils-mac.h"
 
-#include "file-table.h"
 #include "file-browser-dialog.h"
 #include "data-mgr.h"
+#include "transfer-mgr.h"
+#include "tasks.h"
+
+#include "file-table.h"
 
 namespace {
 
@@ -17,6 +21,7 @@ enum {
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
     FILE_COLUMN_KIND,
+    FILE_COLUMN_PROGRESS,
     FILE_MAX_COLUMN
 };
 
@@ -25,8 +30,10 @@ const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
 const int kColumnIconAlign = 8;
 const int kColumnExtraAlign = 40;
-const int kDefaultColumnSum = kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign + kColumnExtraAlign;
+const int kDefaultColumnSum = kDefaultColumnWidth * 4 + kColumnIconSize + kColumnIconAlign + kColumnExtraAlign;
 const int kFileNameColumnWidth = 200;
+
+const int kRefreshProgressInterval = 1000;
 
 } // namespace
 
@@ -64,8 +71,6 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 }
 void FileTableView::setupContextMenu()
 {
-    FileBrowserDialog *dialog = static_cast<FileBrowserDialog*>(parent_);
-
     context_menu_ = new QMenu(this);
     download_action_ = new QAction(tr("&Open"), this);
     download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
@@ -87,6 +92,10 @@ void FileTableView::setupContextMenu()
     update_action_ = new QAction(tr("&Update"), this);
     connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
 
+    cancel_download_action_ = new QAction(tr("&Cancel Download"), this);
+    connect(cancel_download_action_, SIGNAL(triggered()),
+            this, SLOT(onCancelDownload()));
+
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
     context_menu_->addAction(share_action_);
@@ -95,10 +104,11 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(remove_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(update_action_);
+    context_menu_->addAction(cancel_download_action_);
 
     download_action_->setIconVisibleInMenu(false);
-    dialog->upload_action_->setIconVisibleInMenu(false);
 }
+
 void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 {
     QPoint pos = event->pos();
@@ -109,10 +119,11 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     FileTableModel *model = (FileTableModel *)this->model();
 
-    item_.reset(new SeafDirent(*model->direntAt(row)));
+    const SeafDirent *dirent = model->direntAt(row);
+    item_.reset(new SeafDirent(*dirent));
 
-    if (item_ == NULL)
-        return;
+    download_action_->setVisible(true);
+    cancel_download_action_->setVisible(false);
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
@@ -121,6 +132,13 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         update_action_->setVisible(true);
         download_action_->setText(tr("&Download"));
         download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
+
+        FileBrowserDialog *dialog = (FileBrowserDialog *)parent_;
+        if (TransferManager::instance()->hasDownloadTask(dialog->repo_.id,
+            ::pathJoin(dialog->current_path_, dirent->name))) {
+            cancel_download_action_->setVisible(true);
+            download_action_->setVisible(false);
+        }
     }
 
     pos = viewport()->mapToGlobal(pos);
@@ -174,6 +192,13 @@ void FileTableView::onUpdate()
     if (item_ == NULL)
         return;
     emit direntUpdate(*item_);
+}
+
+void FileTableView::onCancelDownload()
+{
+    if (item_ == NULL)
+        return;
+    emit cancelDownload(*item_);
 }
 
 void FileTableView::dropEvent(QDropEvent *event)
@@ -235,11 +260,16 @@ FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent),
     name_column_width_(kFileNameColumnWidth)
 {
+    task_progress_timer_ = new QTimer(this);
+    connect(task_progress_timer_, SIGNAL(timeout()),
+            this, SLOT(updateDownloadInfo()));
+    task_progress_timer_->start(kRefreshProgressInterval);
 }
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
     dirents_ = dirents;
+    progresses_.clear();
     reset();
 }
 
@@ -319,9 +349,16 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
       return dirent.isDir() ?
         tr("Folder") :
         tr("Document");
+    case FILE_COLUMN_PROGRESS:
+        return getTransferProgress(dirent);
     default:
       return QVariant();
     }
+}
+
+QString FileTableModel::getTransferProgress(const SeafDirent& dirent) const
+{
+    return progresses_[dirent.name];
 }
 
 QVariant FileTableModel::headerData(int section,
@@ -410,4 +447,21 @@ void FileTableModel::onResize(const QSize &size)
     // name_column_width_ should be always larger than kFileNameColumnWidth
     emit dataChanged(index(0, FILE_COLUMN_NAME),
                      index(dirents_.size()-1 , FILE_COLUMN_NAME));
+}
+
+void FileTableModel::updateDownloadInfo()
+{
+    FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
+    QList<FileDownloadTask*> tasks= TransferManager::instance()->getDownloadTasks(
+        dialog->repo_.id, dialog->current_path_);
+
+    progresses_.clear();
+
+    foreach (const FileDownloadTask *task, tasks) {
+        QString progress = task->progress().toString();
+        progresses_[::getBaseName(task->path())] = progress;
+    }
+
+    emit dataChanged(index(0, FILE_COLUMN_PROGRESS),
+                     index(dirents_.size() - 1 , FILE_COLUMN_PROGRESS));
 }

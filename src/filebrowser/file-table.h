@@ -26,6 +26,7 @@ signals:
     void direntRemove(const SeafDirent& dirent);
     void direntShare(const SeafDirent& dirent);
     void direntUpdate(const SeafDirent& dirent);
+    void cancelDownload(const SeafDirent& dirent);
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);
@@ -34,6 +35,7 @@ private slots:
     void onRemove();
     void onShare();
     void onUpdate();
+    void onCancelDownload();
 
 private:
     void setupContextMenu();
@@ -50,6 +52,7 @@ private:
     QMenu *context_menu_;
     QAction *download_action_;
     QAction *update_action_;
+    QAction *cancel_download_action_;
     QWidget *parent_;
 };
 
@@ -77,12 +80,21 @@ public:
 
     void onResize(const QSize &size);
 
+private slots:
+    void updateDownloadInfo();
+
 private:
     Q_DISABLE_COPY(FileTableModel)
 
+    QString getTransferProgress(const SeafDirent& dirent) const;
+
     QList<SeafDirent> dirents_;
 
+    QHash<QString, QString> progresses_;
+
     int name_column_width_;
+
+    QTimer *task_progress_timer_;
 };
 
 

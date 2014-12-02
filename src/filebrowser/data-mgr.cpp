@@ -172,10 +172,10 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
                                                   const QString& path)
 {
     QString local_path = getLocalCacheFilePath(repo_id, path);
-    // FileDownloadTask *task = new FileDownloadTask(account_, repo_id, path, local_path);
-    FileDownloadTask *task = TransferManager::instance()->addDownloadTask(account_, repo_id, path, local_path);
+    FileDownloadTask *task = TransferManager::instance()->addDownloadTask(
+        account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
-            this, SLOT(onFileDownloadFinished(bool)));
+            this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
 
     return task;
 }

@@ -42,6 +42,13 @@ public:
         Download
     };
 
+    class Progress {
+    public:
+        Progress(qint64 transferred, qint64 total);
+        QString toString() const;
+        qint64 transferred, total;
+    };
+
     FileNetworkTask(const Account& account,
                     const QString& repo_id,
                     const QString& path,
@@ -56,6 +63,7 @@ public:
     QString localFilePath() const { return local_path_; }
     QString fileName() const;
     QString oid() const { return oid_; }
+    Progress progress() const { return progress_; };
 
     enum TaskError {
         NoError = 0,
@@ -76,6 +84,7 @@ signals:
     void finished(bool success);
 
 protected slots:
+    void onFileServerTaskProgressUpdate(qint64 transferred, qint64 total);
     virtual void onLinkGet(const QString& link);
     virtual void onGetLinkFailed(const ApiError& error);
     virtual void startFileServerTask(const QString& link);
@@ -99,6 +108,8 @@ protected:
     QString error_string_;
     int http_error_code_;
     bool canceled_;
+
+    Progress progress_;
 
     static QThread *worker_thread_;
 };

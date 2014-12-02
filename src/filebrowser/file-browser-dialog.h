@@ -42,6 +42,7 @@ public:
     ~FileBrowserDialog();
 
     friend class FileTableView;
+    friend class FileTableModel;
 
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
@@ -66,6 +67,7 @@ private slots:
     void onGetDirentRemove(const SeafDirent& dirent);
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
+    void onCancelDownload(const SeafDirent& dirent);
 
     void onDirentRenameSuccess(const QString& path, const QString& new_name);
     void onDirentRenameFailed(const ApiError& error);

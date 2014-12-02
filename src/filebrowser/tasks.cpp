@@ -45,7 +45,8 @@ FileNetworkTask::FileNetworkTask(const Account& account,
       repo_id_(repo_id),
       path_(path),
       local_path_(local_path),
-      canceled_(false)
+      canceled_(false),
+      progress_(0, 0)
 {
     fileserver_task_ = NULL;
     get_link_req_ = NULL;
@@ -75,7 +76,13 @@ void FileNetworkTask::start()
     connect(get_link_req_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onGetLinkFailed(const ApiError&)));
     get_link_req_->send();
+}
 
+void FileNetworkTask::onFileServerTaskProgressUpdate(qint64 transferred, qint64 total)
+{
+    progress_.transferred = transferred;
+    progress_.total = total;
+    emit progressUpdate(transferred, total);
 }
 
 void FileNetworkTask::onLinkGet(const QString& link)
@@ -88,7 +95,7 @@ void FileNetworkTask::startFileServerTask(const QString& link)
     createFileServerTask(link);
 
     connect(fileserver_task_, SIGNAL(progressUpdate(qint64, qint64)),
-            this, SIGNAL(progressUpdate(qint64, qint64)));
+            this, SLOT(onFileServerTaskProgressUpdate(qint64, qint64)));
     connect(fileserver_task_, SIGNAL(finished(bool)),
             this, SLOT(onFileServerTaskFinished(bool)));
 
@@ -143,6 +150,20 @@ void FileNetworkTask::onGetLinkFailed(const ApiError& error)
         http_error_code_ = error.httpErrorCode();
     }
     onFinished(false);
+}
+
+FileNetworkTask::Progress::Progress(qint64 transferred, qint64 total)
+{
+    this->transferred = transferred;
+    this->total = total;
+}
+
+QString FileNetworkTask::Progress::toString() const
+{
+    if (total > 0) {
+        return QString::number(100 * transferred / total) + "%";
+    }
+    return tr("pending");
 }
 
 FileDownloadTask::FileDownloadTask(const Account& account,

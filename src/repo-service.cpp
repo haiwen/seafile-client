@@ -14,6 +14,7 @@
 
 #include "filebrowser/data-mgr.h"
 #include "filebrowser/progress-dialog.h"
+#include "filebrowser/auto-update-mgr.h"
 #include "filebrowser/tasks.h"
 #include "ui/set-repo-password-dialog.h"
 
@@ -23,13 +24,16 @@ namespace {
 
 const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
 
-void openFile(const QString& path)
+void openFile(const QString& path, bool work_around_mac_auto_udpate)
 {
     if (!::openInNativeExtension(path) && !::showInGraphicalShell(path)) {
         QString file_name = QFileInfo(path).fileName();
         QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
         seafApplet->warningBox(msg);
     }
+#ifdef Q_WS_MAC
+    MacImageFilesWorkAround::instance()->fileOpened(path);
+#endif
 }
 
 } // namespace
@@ -136,7 +140,7 @@ void RepoService::openLocalFile(const QString& repo_id,
     if (r.isValid()) {
         QString path = QDir(r.worktree).filePath(path_in_repo);
 
-        openFile(path);
+        openFile(path, false);
     } else {
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
@@ -151,11 +155,10 @@ void RepoService::openLocalFile(const QString& repo_id,
         while(1) {
             FileDownloadTask *task = data_mgr.createDownloadTask(repo.id, path);
             FileBrowserProgressDialog dialog(task, dialog_parent);
-            task->start();
             if (dialog.exec()) {
                 QString full_path = data_mgr.getLocalCachedFile(repo_id, path, task->fileId());
                 if (!full_path.isEmpty())
-                    openFile(full_path);
+                    openFile(full_path, true);
                 break;
             }
             // if the user canceled the task, don't bother it

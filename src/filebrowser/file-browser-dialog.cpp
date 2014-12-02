@@ -37,7 +37,9 @@ const int kStatusBarIconSize = 24;
 void openFile(const QString& path)
 {
     ::openInNativeExtension(path) || ::showInGraphicalShell(path);
+#ifdef Q_WS_MAC
     MacImageFilesWorkAround::instance()->fileOpened(path);
+#endif
 }
 
 } // namespace

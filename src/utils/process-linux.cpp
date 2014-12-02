@@ -7,19 +7,25 @@
 #include <glib.h>
 
 #include "process.h"
+#if !defined(PATH_MAX)
+#define PATH_MAX 512
+#endif
+namespace {
+const int kBUFFSIZE = 4096;
+}
 
 static int
 find_process_in_dirent(struct dirent *dir, const char *process_name)
 {
-    char path[512];
-    /* fisrst construct a path like /proc/123/exe */
-    if (sprintf (path, "/proc/%s/exe", dir->d_name) < 0) {
+    char path[PATH_MAX];
+    /* first construct a path like /proc/123/exe */
+    if (snprintf (path, PATH_MAX, "/proc/%s/exe", dir->d_name) < 0) {
         return -1;
     }
 
-    char buf[4096];
+    char buf[kBUFFSIZE];
     /* get the full path of exe */
-    ssize_t l = readlink(path, buf, 4096);
+    ssize_t l = readlink(path, buf, kBUFFSIZE - 1);
 
     if (l < 0)
         return -1;

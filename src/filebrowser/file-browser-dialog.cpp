@@ -658,7 +658,7 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     const SeafDirent dirent = { SeafDirent::DIR, "", name, 0,
         QDateTime::currentDateTime().toTime_t()
     };
-    table_model_->appendItem(dirent);
+    table_model_->insertItem(dirent);
 }
 
 void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)

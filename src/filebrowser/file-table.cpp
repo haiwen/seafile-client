@@ -411,6 +411,12 @@ void FileTableModel::replaceItem(const QString &name, const SeafDirent &dirent)
         }
 }
 
+void FileTableModel::insertItem(const SeafDirent &dirent)
+{
+    dirents_.insert(0, dirent);
+    emit layoutChanged();
+}
+
 void FileTableModel::appendItem(const SeafDirent &dirent)
 {
     dirents_.push_back(dirent);

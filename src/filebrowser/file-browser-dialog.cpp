@@ -294,8 +294,25 @@ void FileBrowserDialog::onMkdirButtonClicked()
         return;
 
     // invalid name
-    if (name.contains("/"))
-        seafApplet->warningBox(tr("Invalid folder name!"));
+    if (name.contains("/")) {
+        seafApplet->warningBox(tr("Invalid folder name!"), this);
+        return;
+    }
+
+    bool found_conflict = false;
+    // find if there exist a file with the same name
+    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
+    {
+        if (dirent.name == name) {
+            found_conflict = true;
+            break;
+        }
+    }
+    if (found_conflict) {
+        seafApplet->warningBox(
+            tr("The name \"%1\" is already taken.").arg(name), this);
+        return;
+    }
 
     createDirectory(name);
 }

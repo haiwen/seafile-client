@@ -44,18 +44,12 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
     event.etype = getStringFromJson(json, "etype");
     event.desc = getStringFromJson(json, "desc");
 
-    // the server might return float type integer which needs to be handled
-    // neatly.
-    event.timestamp = json_number_value(json_object_get(json, "time"));
+    event.timestamp = json_integer_value(json_object_get(json, "time"));
 
     if (event.etype == kEventTypeRepoCreate) {
         event.desc = QObject::tr("Created library \"%1\"").arg(event.repo_name);
-        // handle neatly with the server returning
-        event.timestamp /= 1000;
     } else if (event.etype == kEventTypeRepoDelete) {
         event.desc = QObject::tr("Deleted library \"%1\"").arg(event.repo_name);
-        // handle neatly with the server returning
-        event.timestamp /= 1000;
     }
 
     event.desc = translateCommitDesc(event.desc);

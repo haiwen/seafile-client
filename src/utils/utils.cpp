@@ -422,7 +422,7 @@ QString mapToJson(QMap<QString, QVariant> map)
 
 QString translateCommitTime(qint64 timestamp) {
     qint64 now = QDateTime::currentMSecsSinceEpoch();
-    if ((now / timestamp) > 100) {
+    if (timestamp && (now / timestamp) > 100) {
         // The timestamp is in seconds, convert it to milliseconds
         timestamp *= 1000;
     }

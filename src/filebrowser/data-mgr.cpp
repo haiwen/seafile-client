@@ -66,6 +66,20 @@ void DataManager::getDirentsFromServer(const QString& repo_id,
     get_dirents_req_->send();
 }
 
+void DataManager::createDirectory(const QString &repo_id,
+                                  const QString &path)
+{
+    CreateDirectoryRequest *req = new CreateDirectoryRequest(account_, repo_id, path);
+    connect(req, SIGNAL(success()),
+            SLOT(onCreateDirectorySuccess()));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(createDirectoryFailed(const ApiError&)));
+
+    req->send();
+    reqs_.push_back(req);
+}
+
 void DataManager::renameDirent(const QString &repo_id,
                                const QString &path,
                                const QString &new_path,
@@ -81,6 +95,7 @@ void DataManager::renameDirent(const QString &repo_id,
     req->send();
     reqs_.push_back(req);
 }
+
 
 void DataManager::removeDirent(const QString &repo_id,
                                const QString &path,
@@ -119,6 +134,17 @@ void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
                                       dirents);
 
     emit getDirentsSuccess(dirents);
+}
+
+void DataManager::onCreateDirectorySuccess()
+{
+    CreateDirectoryRequest *req = qobject_cast<CreateDirectoryRequest*>(sender());
+
+    if(req == NULL)
+        return;
+
+    removeDirentsCache(req->repoId(), req->path(), false);
+    emit createDirectorySuccess(req->path());
 }
 
 void DataManager::onRenameDirentSuccess()

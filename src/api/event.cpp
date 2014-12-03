@@ -50,8 +50,12 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
 
     if (event.etype == kEventTypeRepoCreate) {
         event.desc = QObject::tr("Created library \"%1\"").arg(event.repo_name);
+        // handle neatly with the server returning
+        event.timestamp /= 1000;
     } else if (event.etype == kEventTypeRepoDelete) {
         event.desc = QObject::tr("Deleted library \"%1\"").arg(event.repo_name);
+        // handle neatly with the server returning
+        event.timestamp /= 1000;
     }
 
     event.desc = translateCommitDesc(event.desc);

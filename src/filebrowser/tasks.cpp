@@ -507,11 +507,11 @@ void PostFileTask::sendRequest()
     if (use_upload_) {
         parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
                                  kParentDirParam);
-        parentdir_part.setBody(toCStr(parent_dir_));
+        parentdir_part.setBody(parent_dir_.toUtf8());
     } else {
         parentdir_part.setHeader(QNetworkRequest::ContentDispositionHeader,
                                  kTargetFileParam);
-        parentdir_part.setBody(toCStr(::pathJoin(parent_dir_, name_)));
+        parentdir_part.setBody(::pathJoin(parent_dir_, name_).toUtf8());
     }
     multipart->append(parentdir_part);
 
@@ -520,7 +520,7 @@ void PostFileTask::sendRequest()
         QHttpPart part;
         part.setHeader(QNetworkRequest::ContentDispositionHeader,
                        kRelativePathParam);
-        part.setBody(toCStr(relative_path_));
+        part.setBody(relative_path_.toUtf8());
         multipart->append(part);
     }
 

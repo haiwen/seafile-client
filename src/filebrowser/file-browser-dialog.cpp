@@ -42,6 +42,19 @@ void openFile(const QString& path)
 #endif
 }
 
+bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) {
+    bool found_conflict = false;
+    // find if there exist a file with the same name
+    Q_FOREACH(const SeafDirent &dirent, dirents)
+    {
+        if (dirent.name == name) {
+            found_conflict = true;
+            break;
+        }
+    }
+    return found_conflict;
+}
+
 } // namespace
 
 FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
@@ -203,7 +216,7 @@ void FileBrowserDialog::createStatusBar()
     status_bar_->addAction(mkdir_action_);
     if (repo_.readonly) {
         mkdir_action_->setEnabled(false);
-        mkdir_action_->setToolTip(tr("You don't have permission to create directories to this library"));
+        mkdir_action_->setToolTip(tr("You don't have permission to create directories in this library"));
     }
 
     details_label_ = new QLabel;
@@ -299,16 +312,7 @@ void FileBrowserDialog::onMkdirButtonClicked()
         return;
     }
 
-    bool found_conflict = false;
-    // find if there exist a file with the same name
-    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
-    {
-        if (dirent.name == name) {
-            found_conflict = true;
-            break;
-        }
-    }
-    if (found_conflict) {
+    if (findConflict(name, table_model_->dirents())) {
         seafApplet->warningBox(
             tr("The name \"%1\" is already taken.").arg(name), this);
         return;
@@ -454,18 +458,8 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 {
     const QString name = QFileInfo(path).fileName();
 
-    bool found_conflict = false;
-    // find if there exist a file with the same name
-    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
-    {
-        if (dirent.name == name) {
-            found_conflict = true;
-            break;
-        }
-    }
-
     // prompt a dialog to confirm to overwrite the current file
-    if (found_conflict) {
+    if (findConflict(name, table_model_->dirents())) {
         int ret = QMessageBox::question(
             this, getBrand(),
             tr("File %1 already exists.<br/>"

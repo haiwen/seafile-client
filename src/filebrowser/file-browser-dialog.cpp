@@ -555,9 +555,12 @@ void FileBrowserDialog::chooseFileToUpload()
 
 void FileBrowserDialog::openCacheFolder()
 {
-    QString folder = data_mgr_->getRepoCacheFolder(repo_.id);
-    ::createDirIfNotExists(folder);
-    QDesktopServices::openUrl(QUrl::fromLocalFile(folder));
+    QString folder =
+      ::pathJoin(data_mgr_->getRepoCacheFolder(repo_.id), current_path_);
+    if (!::createDirIfNotExists(folder))
+        seafApplet->warningBox(tr("Unable to create cache folder"), this);
+    if (!QDesktopServices::openUrl(QUrl::fromLocalFile(folder)))
+        seafApplet->warningBox(tr("Unable to open cache folder"), this);
 }
 
 void FileBrowserDialog::onNavigatorClick(int id)

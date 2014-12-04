@@ -746,9 +746,18 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     // if the repo is synced
     LocalRepo local_repo;
     if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) >= 0) {
-        copyFile(local_path,
-                 QDir(local_repo.worktree).absoluteFilePath(file_name),
-                 this);
+        QString target_path = QDir(local_repo.worktree).absoluteFilePath(file_name);
+
+        if (QFileInfo(target_path).exists()) {
+            if (!seafApplet->yesOrNoBox(tr("Are you sure to overwrite file \"%1\"").arg(file_name)))
+                return;
+            if (!QFile(target_path).remove()) {
+                seafApplet->warningBox(tr("Unable to delete file \"%1\"").arg(file_name));
+                return;
+            }
+        }
+
+        copyFile(local_path, target_path, this);
 
         return;
     }

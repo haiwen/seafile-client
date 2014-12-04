@@ -513,6 +513,19 @@ void FileBrowserDialog::onUploadFinished(bool success)
         return;
     if (success) {
         const QFileInfo file = task->localFilePath();
+
+        if (file.isDir()) {
+            const SeafDirent dir = {
+              SeafDirent::DIR,
+              "",
+              task->name(),
+              0,
+              QDateTime::currentDateTime().toTime_t()
+            };
+            // TODO: change it to insertItem
+            table_model_->appendItem(dir);
+            return;
+        }
         const SeafDirent dirent = {
           SeafDirent::FILE,
           task->oid(),

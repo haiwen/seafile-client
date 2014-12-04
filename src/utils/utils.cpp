@@ -76,11 +76,11 @@ bool openInNativeExtension(const QString &path) {
 
 bool showInGraphicalShell(const QString& path) {
 #if defined(Q_WS_WIN)
-    QString param;
+    QStringList params;
     if (!QFileInfo(path).isDir())
-        param = QLatin1String("/select,");
-    param += QDir::toNativeSeparators(path);
-    return QProcess::startDetached(QLatin1String("explorer.exe"), QStringList(param));
+        params << QLatin1String("/select,");
+    params << QDir::toNativeSeparators(path);
+    return QProcess::startDetached(QLatin1String("explorer.exe"), params);
 #elif defined(Q_WS_MAC)
     QStringList scriptArgs;
     scriptArgs << QLatin1String("-e")

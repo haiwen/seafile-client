@@ -140,7 +140,7 @@ MacImageFilesWorkAround::MacImageFilesWorkAround()
 void MacImageFilesWorkAround::fileOpened(const QString& path)
 {
     QString mimetype = ::mimeTypeFromFileName(path);
-    if (mimetype.startsWith("image")) {
+    if (mimetype.startsWith("image") || mimetype == "application/pdf") {
         printf ("auto update: work around for %s\n", ::getBaseName(path).toUtf8().data());
         images_[path] = QDateTime::currentMSecsSinceEpoch();
     }

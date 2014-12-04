@@ -465,7 +465,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
           task->oid(),
           task->name(),
           file.size(),
-          file.lastModified().toTime_t()
+          QDateTime::currentDateTime().toTime_t()
         };
         if (task->useUpload())
             table_model_->appendItem(dirent);

@@ -11,21 +11,18 @@ matrix:
         CXXFLAGS="-Woverloaded-virtual $CFLAGS"
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install -qq valac uuid-dev libevent-dev libarchive-dev intltool re2c libjansson-dev libqt4-dev
- - git clone --depth=1 --branch=release-2-11-3 https://bitbucket.org/tildeslash/libzdb.git deps/libzdb
+ - sudo apt-get install -qq valac uuid-dev libevent-dev libarchive-dev re2c libjansson-dev libqt4-dev
  - git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc
  - git clone --depth=1 --branch=master git://github.com/haiwen/ccnet.git deps/ccnet
  - git clone --depth=1 --branch=master git://github.com/haiwen/seafile.git deps/seafile
- # build libzdb, required by ccnet/seafile
- - cd deps/libzdb && ./bootstrap && ./configure --without-postgresql --without-mysql && make -j8 && sudo make install && cd -
  # build libsearpc
  - cd deps/libsearpc && ./autogen.sh && ./configure
  - make -j8 && sudo make install && cd ../..
  # build ccnet
- - cd deps/ccnet && ./autogen.sh && ./configure --enable-client --enable-server
+ - cd deps/ccnet && ./autogen.sh && ./configure --enable-client --disable-server
  - make -j8 && sudo make install && cd ../..
  # build seafile
- - cd deps/seafile && ./autogen.sh && ./configure --disable-fuse
+ - cd deps/seafile && ./autogen.sh && ./configure --disable-fuse --disable-server --enable-client
  - make -j8 && sudo make install && cd ../..
 script:
  - cmake -DBUILD_TESTING=on .

@@ -102,7 +102,7 @@ int SeafileRpcClient::downloadRepo(const QString& id,
                                    QString *error_ret)
 {
     GError *error = NULL;
-    searpc_client_call__string(
+    char *ret = searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_download",
         &error, 14,
@@ -128,6 +128,7 @@ int SeafileRpcClient::downloadRepo(const QString& id,
         return -1;
     }
 
+    g_free(ret);
     return 0;
 }
 
@@ -142,7 +143,7 @@ int SeafileRpcClient::cloneRepo(const QString& id,
                                 QString *error_ret)
 {
     GError *error = NULL;
-    searpc_client_call__string(
+    char *ret = searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_clone",
         &error, 14,
@@ -168,6 +169,7 @@ int SeafileRpcClient::cloneRepo(const QString& id,
         return -1;
     }
 
+    g_free(ret);
     return 0;
 }
 
@@ -206,6 +208,8 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
         return -1;
     }
     *value = QString::fromUtf8(ret);
+
+    g_free (ret);
     return 0;
 }
 
@@ -219,6 +223,8 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
         return -1;
     }
     *value = QString::fromUtf8(ret);
+
+    g_free (ret);
     return 0;
 }
 
@@ -710,6 +716,8 @@ int SeafileRpcClient::getRepoProperty(const QString &repo_id,
         return -1;
     }
     *value = QString::fromUtf8(ret);
+
+    g_free(ret);
     return 0;
 }
 

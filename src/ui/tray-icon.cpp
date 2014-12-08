@@ -64,7 +64,8 @@ isWindowsVistaOrHigher()
 SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     : QSystemTrayIcon(parent),
       nth_trayicon_(0),
-      rotate_counter_(0)
+      rotate_counter_(0),
+      state_(STATE_DAEMON_UP)
 {
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);

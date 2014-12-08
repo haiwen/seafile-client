@@ -524,7 +524,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="106"/>
         <source>Create a new sync folder at:</source>
-        <translation>Hier einen neuen Synchronisationsordner erstellen:</translation>
+        <translation>Hier einen neuen Synchronisierungsordner erstellen:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="146"/>
@@ -564,7 +564,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="113"/>
         <source>create a new sync folder</source>
-        <translation>einen neuen Synchronisations-Ordner erstellen</translation>
+        <translation>einen neuen Synchronisierungs-Ordner erstellen</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="116"/>
@@ -688,7 +688,6 @@
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="212"/>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="302"/>
         <source>Create a folder</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="219"/>
@@ -894,7 +893,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="84"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Löschen</translastion>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="88"/>
@@ -904,12 +903,12 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="92"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Aktualisieren</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="95"/>
         <source>&amp;Cancel Download</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Herunterladen abbrechen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="133"/>
@@ -2210,12 +2209,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>Seafile nach der Anmeldung automatisch starten</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
         <source>Hide Seafile Icon from the docker</source>
-        <translation type="unfinished"/>
+        <translation>Verstecke das Seafile-Symbol in der Benachrichtigungsleiste</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2250,22 +2249,22 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="229"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation>Synchronisieren nicht aufheben, wenn Bibliothek nicht auf dem Server gefunden wurde</translation>
+        <translation>Synchronisierung nicht aufheben, wenn Bibliothek nicht auf dem Server gefunden wurde</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="230"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation>Das Synchronisieren nicht automatisch aufheben, wenn die Bibliothek nicht auf dem Server gefunden wurde</translation>
+        <translation>Die Synchronisierung nicht automatisch aufheben, wenn die Bibliothek nicht auf dem Server gefunden wurde</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="231"/>
         <source>Enable file syncing with HTTP protocol</source>
-        <translation type="unfinished"/>
+        <translation>Datei-Synchronisierung über das HTTP-Protokoll ermöglichen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="232"/>
         <source>Do not verify server certificate in HTTP syncing</source>
-        <translation type="unfinished"/>
+        <translation>Server-Zertifikat bei der HTTP-Synchronisierung nicht überprüfen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="233"/>
@@ -2288,22 +2287,22 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="9"/>
         <source>Share Link</source>
-        <translation type="unfinished"/>
+        <translation>Link teilen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="12"/>
         <source>Share link:</source>
-        <translation type="unfinished"/>
+        <translation>Link teilen:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="33"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>In die Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="37"/>
         <source>Ok</source>
-        <translation type="unfinished"/>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -2382,7 +2381,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="80"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation>Es konnten keine favorisiert Dateiinformationen erhalten werden&lt;br/&gt;Bitte %1</translation>
+        <translation>Es konnten keine favorisierten Dateiinformationen erhalten werden&lt;br/&gt;Bitte %1</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="101"/>
@@ -2395,7 +2394,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/filebrowser/transfer-mgr.cpp" line="97"/>
         <source>pending</source>
-        <translation type="unfinished"/>
+        <translation>unerledigt</translation>
     </message>
 </context>
 <context>

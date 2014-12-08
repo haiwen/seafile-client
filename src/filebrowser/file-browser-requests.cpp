@@ -110,23 +110,22 @@ void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
     emit success(reply_content);
 }
 
-CreateDirentRequest::CreateDirentRequest(const Account &account,
-                                         const QString &repo_id,
-                                         const QString &path)
+CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,
+                                               const QString &repo_id,
+                                               const QString &path)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kGetDirentsUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_GET, account.token)
+          SeafileApiRequest::METHOD_POST, account.token),
+    repo_id_(repo_id), path_(path)
 {
     setUrlParam("p", path);
 
     setFormParam("operation", "mkdir");
 }
 
-void CreateDirentRequest::requestSuccess(QNetworkReply& reply)
+void CreateDirectoryRequest::requestSuccess(QNetworkReply& reply)
 {
-    QString reply_content(reply.readAll());
-
-    emit success(reply_content);
+    emit success();
 }
 
 GetFileUploadLinkRequest::GetFileUploadLinkRequest(const Account &account,

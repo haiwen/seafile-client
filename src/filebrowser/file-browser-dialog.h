@@ -47,6 +47,7 @@ public:
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
     void onGetDirentsFailed(const ApiError& error);
+    void onMkdirButtonClicked();
     void fetchDirents();
     void onDirentClicked(const SeafDirent& dirent);
     void forceRefresh();
@@ -69,6 +70,8 @@ private slots:
     void onGetDirentUpdate(const SeafDirent& dirent);
     void onCancelDownload(const SeafDirent& dirent);
 
+    void onDirectoryCreateSuccess(const QString& path);
+    void onDirectoryCreateFailed(const ApiError& error);
     void onDirentRenameSuccess(const QString& path, const QString& new_name);
     void onDirentRenameFailed(const ApiError& error);
     void onDirentRemoveSuccess(const QString& path);
@@ -87,6 +90,7 @@ private:
     void showLoading();
     void updateTable(const QList<SeafDirent>& dirents);
     void enterPath(const QString& path);
+    void createDirectory(const QString &name);
     void downloadFile(const QString& path);
     void uploadFile(const QString& path, const QString& name,
                     const bool overwrite = false);
@@ -115,6 +119,7 @@ private:
 
     QToolBar *status_bar_;
     QAction *upload_action_;
+    QAction *mkdir_action_;
     QLabel *details_label_;
     QAction *open_cache_dir_action_;
 

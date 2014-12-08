@@ -42,6 +42,19 @@ void openFile(const QString& path)
 #endif
 }
 
+bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) {
+    bool found_conflict = false;
+    // find if there exist a file with the same name
+    Q_FOREACH(const SeafDirent &dirent, dirents)
+    {
+        if (dirent.name == name) {
+            found_conflict = true;
+            break;
+        }
+    }
+    return found_conflict;
+}
+
 } // namespace
 
 FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
@@ -98,6 +111,12 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
+
+    //create <--> data_mgr_
+    connect(data_mgr_, SIGNAL(createDirectorySuccess(const QString&)),
+            this, SLOT(onDirectoryCreateSuccess(const QString&)));
+    connect(data_mgr_, SIGNAL(createDirectoryFailed(const ApiError&)),
+            this, SLOT(onDirectoryCreateFailed(const ApiError&)));
 
     //rename <--> data_mgr_
     connect(data_mgr_, SIGNAL(renameDirentSuccess(const QString&, const QString&)),
@@ -190,6 +209,16 @@ void FileBrowserDialog::createStatusBar()
         upload_action_->setToolTip(tr("You don't have permission to upload files to this library"));
     }
 
+    mkdir_action_ = new QAction(tr("Create a folder"), this);
+    mkdir_action_->setIcon(
+        getIconSet(":/images/filebrowser/mkdir.png", kStatusBarIconSize, kStatusBarIconSize));
+    connect(mkdir_action_, SIGNAL(triggered()), this, SLOT(onMkdirButtonClicked()));
+    status_bar_->addAction(mkdir_action_);
+    if (repo_.readonly) {
+        mkdir_action_->setEnabled(false);
+        mkdir_action_->setToolTip(tr("You don't have permission to create directories in this library"));
+    }
+
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     details_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -266,6 +295,30 @@ void FileBrowserDialog::onGetDirentsSuccess(const QList<SeafDirent>& dirents)
 void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
 {
     stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+}
+
+void FileBrowserDialog::onMkdirButtonClicked()
+{
+    QString name = QInputDialog::getText(this, tr("Create a folder"),
+        tr("Create a folder under current directory"));
+    name = name.trimmed();
+
+    if (name.isEmpty())
+        return;
+
+    // invalid name
+    if (name.contains("/")) {
+        seafApplet->warningBox(tr("Invalid folder name!"), this);
+        return;
+    }
+
+    if (findConflict(name, table_model_->dirents())) {
+        seafApplet->warningBox(
+            tr("The name \"%1\" is already taken.").arg(name), this);
+        return;
+    }
+
+    createDirectory(name);
 }
 
 void FileBrowserDialog::createLoadingFailedView()
@@ -373,6 +426,11 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
     }
 }
 
+void FileBrowserDialog::createDirectory(const QString &name)
+{
+    data_mgr_->createDirectory(repo_.id, ::pathJoin(current_path_, name));
+}
+
 void FileBrowserDialog::downloadFile(const QString& path)
 {
     FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
@@ -400,18 +458,8 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 {
     const QString name = QFileInfo(path).fileName();
 
-    bool found_conflict = false;
-    // find if there exist a file with the same name
-    Q_FOREACH(const SeafDirent &dirent, table_model_->dirents())
-    {
-        if (dirent.name == name) {
-            found_conflict = true;
-            break;
-        }
-    }
-
     // prompt a dialog to confirm to overwrite the current file
-    if (found_conflict) {
+    if (findConflict(name, table_model_->dirents())) {
         int ret = QMessageBox::question(
             this, getBrand(),
             tr("File %1 already exists.<br/>"
@@ -613,6 +661,23 @@ void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
     data_mgr_->shareDirent(repo_.id,
                            ::pathJoin(current_path_, dirent.name),
                            dirent.isFile());
+}
+
+void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
+{
+    const QString name = QFileInfo(path).fileName();
+    // if no longer current level
+    if (::pathJoin(current_path_, name) != path)
+        return;
+    const SeafDirent dirent = { SeafDirent::DIR, "", name, 0,
+        QDateTime::currentDateTime().toTime_t()
+    };
+    table_model_->insertItem(dirent);
+}
+
+void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Create folder failed"), this);
 }
 
 void FileBrowserDialog::onDirentRenameSuccess(const QString& path,

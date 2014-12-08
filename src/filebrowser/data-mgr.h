@@ -38,6 +38,9 @@ public:
     void getDirentsFromServer(const QString& repo_id,
                               const QString& path);
 
+    void createDirectory(const QString &repo_id,
+                         const QString &path);
+
     void renameDirent(const QString &repo_id,
                       const QString &path,
                       const QString &new_path,
@@ -76,6 +79,9 @@ signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
+    void createDirectorySuccess(const QString& path);
+    void createDirectoryFailed(const ApiError& error);
+
     void renameDirentSuccess(const QString& path, const QString& new_name);
     void renameDirentFailed(const ApiError& error);
 
@@ -90,6 +96,7 @@ private slots:
     void onFileUploadFinished(bool success);
     void onFileDownloadFinished(bool success);
 
+    void onCreateDirectorySuccess();
     void onRenameDirentSuccess();
     void onRemoveDirentSuccess();
 

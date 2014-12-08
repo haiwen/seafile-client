@@ -53,20 +53,26 @@ private:
     QString file_id_;
 };
 
-class CreateDirentRequest : public SeafileApiRequest {
+// TODO:
+// intergrate file creation into this class
+class CreateDirectoryRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    CreateDirentRequest(const Account &account, const QString &repo_id,
-                        const QString &path);
+    CreateDirectoryRequest(const Account &account, const QString &repo_id,
+                           const QString &path);
+    const QString &repoId() { return repo_id_; }
+    const QString &path() { return path_; }
 
 signals:
-    void success(const QString& url);
+    void success();
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(CreateDirentRequest)
+    Q_DISABLE_COPY(CreateDirectoryRequest)
+    const QString repo_id_;
+    const QString path_;
 };
 
 class RenameDirentRequest : public SeafileApiRequest {

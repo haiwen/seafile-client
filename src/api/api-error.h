@@ -17,7 +17,7 @@ class QByteArray;
 class ApiError {
 public:
     enum ErrorType {
-        NO_ERROR = 0,
+        NOT_AN_ERROR = 0,
         // network error, like connection refused
         NETWORK_ERROR,
         // ssl error, like invalid ssl certificate

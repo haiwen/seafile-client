@@ -67,7 +67,7 @@ QString ApiError::toString() const {
 
 ApiError ApiError::NoError() {
     ApiError error;
-    error.type_ = NO_ERROR;
+    error.type_ = NOT_AN_ERROR;
     return error;
 }
 
@@ -79,7 +79,7 @@ bool ApiError::operator==(const ApiError& other)
 
     bool same;
     switch (type_) {
-    case NO_ERROR:
+    case NOT_AN_ERROR:
         same = true;
         break;
     case HTTP_ERROR:

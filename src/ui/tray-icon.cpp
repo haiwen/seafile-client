@@ -30,13 +30,16 @@ extern "C" {
 #include <QDBusPendingCall>
 #endif
 
+#if defined(Q_WS_WIN)
+#include <windows.h>
+#endif
+
 namespace {
 
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 
 #if defined(Q_WS_WIN)
-#include <windows.h>
 bool
 isWindowsVistaOrHigher()
 {

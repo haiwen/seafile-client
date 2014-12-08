@@ -656,98 +656,139 @@
 <context>
     <name>FileBrowserDialog</name>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="53"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="71"/>
         <source>Cloud File Browser</source>
         <translation>클라우드 파일 브라우저</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="131"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="160"/>
         <source>Back</source>
         <translation>뒤로</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="137"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="166"/>
         <source>Forward</source>
         <translation>앞으로</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="143"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="172"/>
         <source>Home</source>
         <translation>처음</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="173"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="202"/>
         <source>Upload</source>
         <translation>업로드</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="180"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="209"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>이 라이브러리에 파일을 업로드할 권한이 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="270"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="212"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="302"/>
+        <source>Create a folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="219"/>
+        <source>You don&apos;t have permission to create directories in this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="303"/>
+        <source>Create a folder under current directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="311"/>
+        <source>Invalid folder name!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="317"/>
+        <source>The name &quot;%1&quot; is already taken.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="333"/>
         <source>retry</source>
         <translation>다시 시도</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="271"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="334"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>파일 정보 가져오기에 실패했습니다&lt;br/&gt;
 %1 하십시오</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="411"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="465"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>%1 파일이 존재합니다.&lt;br/&gt;덮어쓰시겠습니까?&lt;br/&gt;&lt;small&gt;(다른 이름으로 업로드 하려면 아니요를 선택하십시오).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="445"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="499"/>
         <source>Failed to download file: %1</source>
         <translation>파일 다운로드에 실패했습니다: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="477"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="531"/>
         <source>Failed to upload file: %1</source>
         <translation>파일 업로드에 실패했습니다: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="544"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="598"/>
         <source>Select a file to upload</source>
         <translation>업로드할 파일을 선택하십시오</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="574"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="609"/>
+        <source>Unable to create cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="611"/>
+        <source>Unable to open cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="631"/>
         <source>Rename</source>
         <translation>이름 바꾸기</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="596"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="653"/>
         <source>Do you really want to delete file &quot;%1&quot;</source>
         <translation>정말로 &quot;%1&quot; 파일을 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="597"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="654"/>
         <source>Do you really want to delete folder &quot;%1&quot;</source>
         <translation>정말로 &quot;%1&quot; 폴더를 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="680"/>
+        <source>Create folder failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="696"/>
         <source>Select a file to update %1</source>
         <translation>%1을(를) 업데이트할 파일을 선택하십시오</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="704"/>
         <source>Rename failed</source>
         <translation>이름 바꾸기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="644"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="718"/>
         <source>Remove failed</source>
         <translation>제거에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="654"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="728"/>
         <source>Share failed</source>
         <translation>공유에 실패했습니다</translation>
     </message>
@@ -788,15 +829,20 @@
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="115"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="122"/>
         <source>Operation canceled</source>
         <translation>동작을 취소했습니다</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="166"/>
+        <source>pending</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="493"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="521"/>
         <source>Internal Server Error</source>
         <translation>내부 서버 오류</translation>
     </message>
@@ -804,32 +850,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="350"/>
         <source>Folder</source>
         <translation>폴더</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="321"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="351"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="344"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
         <source>Name</source>
         <translation>이름 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="346"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="383"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="348"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="385"/>
         <source>Last Modified</source>
         <translation>마지막 수정</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="350"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="387"/>
         <source>Kind</source>
         <translation>종류</translation>
     </message>
@@ -837,33 +883,38 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="70"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="118"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="75"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="129"/>
         <source>&amp;Open</source>
         <translation>열기(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="75"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="80"/>
         <source>&amp;Rename</source>
         <translation>제거(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="79"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="84"/>
         <source>&amp;Delete</source>
         <translation>삭제(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="83"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="88"/>
         <source>&amp;Generate Share Link</source>
         <translation>공유 링크 만들기(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="87"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="92"/>
         <source>&amp;Update</source>
         <translation>업데이트(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="122"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="95"/>
+        <source>&amp;Cancel Download</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="133"/>
         <source>&amp;Download</source>
         <translation>다운로드(&amp;D)</translation>
     </message>
@@ -871,28 +922,28 @@
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="311"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="352"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="339"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="380"/>
         <source>Failed to create folders</source>
         <translation>폴더 만들기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="320"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="348"/>
         <source>Failed to create temporary files</source>
         <translation>임시 파일 만들기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="367"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="395"/>
         <source>Failed to write file to disk</source>
         <translation>디스크로의 파일 기록에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="373"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="401"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>다운로드한 파일의 이전 버전 삭제에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="379"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="407"/>
         <source>Failed to move file</source>
         <translation>파일 이동에 실패했습니다</translation>
     </message>
@@ -900,24 +951,24 @@
 <context>
     <name>InitSeafileDialog</name>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="65"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="66"/>
         <source>%1 Initialization</source>
         <translation>%1 초기화</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="95"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="110"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="96"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="111"/>
         <source>Please choose a directory</source>
         <translation>디렉토리를 선택해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="138"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="149"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="139"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="150"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation>초기화를 끝내지 않았습니다. 정말 빠져나갈까요?</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="118"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="119"/>
         <source>The folder %1 does not exist</source>
         <translation>%1 폴더가 없습니다</translation>
     </message>
@@ -1265,8 +1316,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="410"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="415"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="438"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
         <source>File does not exist</source>
         <translation>파일이 없습니다</translation>
     </message>
@@ -1574,17 +1625,17 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
-        <location filename="../src/repo-service.cpp" line="30"/>
+        <location filename="../src/repo-service.cpp" line="31"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
         <translation>%1이(가) %2 파일을 열 프로그램을 찾을 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/api/event.cpp" line="52"/>
+        <location filename="../src/api/event.cpp" line="50"/>
         <source>Created library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리를 만들었습니다</translation>
     </message>
     <message>
-        <location filename="../src/api/event.cpp" line="54"/>
+        <location filename="../src/api/event.cpp" line="52"/>
         <source>Deleted library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리를 삭제했습니다</translation>
     </message>
@@ -1594,14 +1645,19 @@ The library owner&apos;s storage space is used up.</source>
         <translation>파일 캐시 데이터베이스 열기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="575"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="632"/>
         <source>Rename %1 to</source>
         <translation>%1 이름 바꾸기:</translation>
     </message>
     <message>
-        <location filename="../src/repo-service.cpp" line="173"/>
+        <location filename="../src/repo-service.cpp" line="176"/>
         <source>Unable to download item &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 항목을 다운로드할 수 없습니다</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="854"/>
+        <source>copy failed</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1707,27 +1763,27 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="69"/>
         <source>Recently Updated</source>
         <translation>최근 업로드</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="70"/>
         <source>My Libraries</source>
         <translation>내 라이브러리</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="71"/>
         <source>Sub Libraries</source>
         <translation>하위 라이브러리</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="72"/>
         <source>Private Shares</source>
         <translation>개인 공유</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="237"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="242"/>
         <source>Organization</source>
         <translation>조직</translation>
     </message>
@@ -1735,121 +1791,121 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="221"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="222"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="264"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="265"/>
         <source>Disable auto sync</source>
         <translation>자동 동기화 비활성화</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="225"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="226"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="339"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="340"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="268"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="269"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="382"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="383"/>
         <source>Enable auto sync</source>
         <translation>자동 동기화 활성화</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="286"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="329"/>
         <source>Show details of this library</source>
         <translation>이 라이브러리 세부 정보 표시</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="291"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="298"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="334"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="341"/>
         <source>&amp;Sync this library</source>
         <translation>이 라이브러리 동기화(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="293"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="300"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="336"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="343"/>
         <source>Sync this library</source>
         <translation>이 라이브러리 동기화</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="327"/>
         <source>Show &amp;Details</source>
         <translation>세부 정보 표시(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="105"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="148"/>
         <source>Recently Updated</source>
         <translation>최근 업데이트 항목</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="305"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
         <source>Sync &amp;Now</source>
         <translation>지금 동기화(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="307"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
         <source>Sync this library immediately</source>
         <translation>이 라이브러리 바로 동기화</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="312"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
         <source>&amp;Cancel download</source>
         <translation>다운로드 취소(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="314"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="357"/>
         <source>Cancel download of this library</source>
         <translation>이 라이브러리 다운로드 취소</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="319"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="326"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="362"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
         <source>&amp;Open folder</source>
         <translation>폴더 열기(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="321"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="328"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="364"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
         <source>open local folder</source>
         <translation>로컬 폴더 열기</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="333"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="376"/>
         <source>&amp;Unsync</source>
         <translation>동기화 해제(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="334"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="377"/>
         <source>unsync this library</source>
         <translation>이 라이브러리 동기화 해제</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="345"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="388"/>
         <source>&amp;View on cloud</source>
         <translation>클라우드에서 보기(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="347"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
         <source>view this library on seahub</source>
         <translation>시허브에서 이 라이브러리 보기</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
         <source>&amp;Resync this library</source>
         <translation>이 라이브러리 다시 동기화(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="398"/>
         <source>unsync and resync this library</source>
         <translation>이 라이브러리 동기화를 해제하고 다시 동기화합니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="439"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>정말로 &quot;%1&quot; 라이브러리를 동기화 해제 할까요?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="649"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="451"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="692"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리 동기화 해제에 실패했습니다.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="585"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="628"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -1858,21 +1914,36 @@ The library owner&apos;s storage space is used up.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="589"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="632"/>
         <source>The download has been canceled</source>
         <translation>다운로드를 취소했습니다.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="638"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="681"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation>정말로 &quot;%1&quot; 라이브러리 동기화를 해제하고 다시 동기화하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="675"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="718"/>
         <source>Failed to add download task:
  %1</source>
         <translation>다운로드 작업 추가에 실패했습니다:
 %1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="752"/>
+        <source>Are you sure to overwrite file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="755"/>
+        <source>Unable to delete file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="847"/>
+        <source>Failed to upload file: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1904,12 +1975,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="271"/>
+        <location filename="../src/seafile-applet.cpp" line="273"/>
         <source>Failed to initialize log</source>
         <translation>로그 초기화에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="384"/>
+        <location filename="../src/seafile-applet.cpp" line="386"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 클라이언트(%2)의 새 버전이 있습니다.
@@ -1924,20 +1995,20 @@ Do you want to visit the download page?</source>
         <translation>%1 ccnet 설정 디렉터리 불러오기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="461"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="478"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="542"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="691"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="460"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="477"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="541"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="690"/>
         <source>Unknown error</source>
         <translation>알 수 없는 오류</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="657"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="656"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>&quot;%1&quot; 경로가 시스템 경로와 충돌합니다</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="659"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="658"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>&quot;%1&quot; 경로가 기존 라이브러리와 충돌합니다</translation>
     </message>
@@ -1945,98 +2016,98 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="97"/>
+        <location filename="../src/ui/tray-icon.cpp" line="100"/>
         <source>Disable auto sync</source>
         <translation>자동 동기화 비활성화</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="103"/>
         <source>Enable auto sync</source>
         <translation>자동 동기화 활성화</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="106"/>
         <source>View unread notifications</source>
         <translation>읽지 않은 알림 보기</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="107"/>
+        <location filename="../src/ui/tray-icon.cpp" line="110"/>
         <source>&amp;Quit</source>
         <translation>끝내기(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="110"/>
-        <location filename="../src/ui/tray-icon.cpp" line="162"/>
+        <location filename="../src/ui/tray-icon.cpp" line="113"/>
+        <location filename="../src/ui/tray-icon.cpp" line="165"/>
         <source>Show main window</source>
         <translation>메인 창 표시</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="113"/>
+        <location filename="../src/ui/tray-icon.cpp" line="116"/>
         <source>Settings</source>
         <translation>설정</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="116"/>
+        <location filename="../src/ui/tray-icon.cpp" line="119"/>
         <source>Open &amp;logs folder</source>
         <translation>기록 폴더 열기(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="117"/>
+        <location filename="../src/ui/tray-icon.cpp" line="120"/>
         <source>open seafile log directory</source>
         <translation>시 파일 기록 디렉터리 열기</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="120"/>
+        <location filename="../src/ui/tray-icon.cpp" line="123"/>
         <source>&amp;About</source>
         <translation>정보(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="121"/>
+        <location filename="../src/ui/tray-icon.cpp" line="124"/>
         <source>Show the application&apos;s About box</source>
         <translation>프로그램 정보 상자 표시</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="124"/>
+        <location filename="../src/ui/tray-icon.cpp" line="127"/>
         <source>&amp;Online help</source>
         <translation>온라인 도움말(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="125"/>
+        <location filename="../src/ui/tray-icon.cpp" line="128"/>
         <source>open seafile online help</source>
         <translation>Seafile 온라인 도움말 열기</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="131"/>
+        <location filename="../src/ui/tray-icon.cpp" line="134"/>
         <source>Help</source>
         <translation>도움말</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="164"/>
+        <location filename="../src/ui/tray-icon.cpp" line="167"/>
         <source>Hide main window</source>
         <translation>메인 창 숨김</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="409"/>
+        <location filename="../src/ui/tray-icon.cpp" line="412"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>메시지 %n개가 있습니다</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="415"/>
+        <location filename="../src/ui/tray-icon.cpp" line="418"/>
         <source>auto sync is disabled</source>
         <translation>자동 동기화를 비활성화했습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="331"/>
+        <location filename="../src/ui/tray-icon.cpp" line="334"/>
         <source>About %1</source>
         <translation>%1 정보</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="332"/>
+        <location filename="../src/ui/tray-icon.cpp" line="335"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 클라이언트 %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="420"/>
+        <location filename="../src/ui/tray-icon.cpp" line="423"/>
         <source>some servers not connected</source>
         <translation>일부 서버에 연결하지 않았습니다</translation>
     </message>
@@ -2320,6 +2391,14 @@ Do you want to visit the download page?</source>
         <location filename="../src/ui/starred-files-tab.cpp" line="101"/>
         <source>You have no starred files yet.</source>
         <translation>아직 중요 표시한 파일이 없습니다.</translation>
+    </message>
+</context>
+<context>
+    <name>TransferManager</name>
+    <message>
+        <location filename="../src/filebrowser/transfer-mgr.cpp" line="97"/>
+        <source>pending</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

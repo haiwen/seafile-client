@@ -99,6 +99,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentRename(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntRemove(const SeafDirent&)),
             this, SLOT(onGetDirentRemove(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntRemove(const QList<const SeafDirent*> &)),
+            this, SLOT(onGetDirentRemove(const QList<const SeafDirent*> &)));
     connect(table_view_, SIGNAL(direntShare(const SeafDirent&)),
             this, SLOT(onGetDirentShare(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
@@ -686,6 +688,18 @@ void FileBrowserDialog::onGetDirentRemove(const SeafDirent& dirent)
                                 dirent.isFile());
 }
 
+void FileBrowserDialog::onGetDirentRemove(const QList<const SeafDirent*> &dirents)
+{
+    if (!seafApplet->yesOrNoBox(tr("Do you really want to delete these items"), this, false))
+        return;
+
+    Q_FOREACH(const SeafDirent* dirent, dirents)
+    {
+        data_mgr_->removeDirent(repo_.id, pathJoin(current_path_, dirent->name),
+                                dirent->isFile());
+    }
+}
+
 void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
 {
     data_mgr_->shareDirent(repo_.id,
@@ -740,6 +754,7 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
+    // TODO: if the removed item is the current selection, deselect it!
     table_model_->removeItemNamed(name);
 }
 

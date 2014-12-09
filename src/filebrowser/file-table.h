@@ -24,6 +24,7 @@ signals:
     void dropFile(const QString& file_name);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
+    void direntRemove(const QList<const SeafDirent*> &dirents);
     void direntShare(const SeafDirent& dirent);
     void direntUpdate(const SeafDirent& dirent);
     void cancelDownload(const SeafDirent& dirent);
@@ -47,10 +48,14 @@ private:
 
     Q_DISABLE_COPY(FileTableView)
 
+    // the exact item where right click event occurs
     QScopedPointer<const SeafDirent> item_;
     ServerRepo repo_;
     QMenu *context_menu_;
     QAction *download_action_;
+    QAction *rename_action_;
+    QAction *remove_action_;
+    QAction *share_action_;
     QAction *update_action_;
     QAction *cancel_download_action_;
     QWidget *parent_;

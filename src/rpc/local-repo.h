@@ -37,6 +37,16 @@ public:
     QString sync_state_str;
     QString sync_error_str;
 
+    LocalRepo()
+        : encrypted(false),
+        auto_sync(false),
+        worktree_invalid(false),
+        version(0),
+        last_sync_time(0),
+        sync_state(SYNC_STATE_DISABLED)
+    {
+    }
+
     static LocalRepo fromGObject(_GObject *obj);
 
     bool operator==(const LocalRepo& rhs) const {

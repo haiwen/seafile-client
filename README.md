@@ -33,7 +33,7 @@ First you need to install **Qt Linguist**:
 - Windows/MacOS: download it from [here](http://qt-apps.org/content/show.php?content=89360)
 - Linux users:
 
-    `sudo apt-get install libqt4-dev`
+    `sudo apt-get install qt4-dev-tools`
 
 ### Do the translation
 

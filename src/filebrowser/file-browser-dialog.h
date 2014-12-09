@@ -13,6 +13,8 @@ class QStackedWidget;
 class QLineEdit;
 class QLabel;
 class QButtonGroup;
+class QMenu;
+class QAction;
 
 class ApiError;
 class FileTableView;
@@ -58,6 +60,9 @@ private slots:
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
     void openCacheFolder();
+
+    // prompt a menu for user to choose a upload action
+    void uploadFileOrMkdir();
 
     // prompt a dialog for user to choose whether upload or update
     void uploadOrUpdateFile(const QString& path);
@@ -118,7 +123,9 @@ private:
     QAction *refresh_action_;
 
     QToolBar *status_bar_;
-    QAction *upload_action_;
+    QPushButton *upload_button_;
+    QMenu *upload_menu_;
+    QAction *upload_file_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
     QAction *open_cache_dir_action_;

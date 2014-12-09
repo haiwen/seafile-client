@@ -482,3 +482,13 @@ ReposTab QLineEdit#repoNameFilter {
     border: 1px solid #BCBCBE;
     border-radius: 3px;
 }
+
+FileBrowserDialog QPushButton#uploadButton {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    qproperty-focusPolicy: NoFocus;
+}
+FileBrowserDialog QPushButton#uploadButton:hover {
+    border: 1px solid #ccc;
+}

@@ -305,7 +305,7 @@ void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
 void FileBrowserDialog::onMkdirButtonClicked()
 {
     QString name = QInputDialog::getText(this, tr("Create a folder"),
-        tr("Create a folder under current directory"));
+        tr("Folder name"));
     name = name.trimmed();
 
     if (name.isEmpty())

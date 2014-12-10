@@ -534,8 +534,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
               0,
               QDateTime::currentDateTime().toTime_t()
             };
-            // TODO: change it to insertItem
-            table_model_->appendItem(dir);
+            // TODO: insert the Item prior to the item where uploading occurs
+            table_model_->insertItem(dir);
             return;
         }
         const SeafDirent dirent = {

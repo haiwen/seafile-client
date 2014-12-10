@@ -199,24 +199,29 @@ void FileBrowserDialog::createStatusBar()
     spacer1->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     status_bar_->addWidget(spacer1);
 
-    upload_action_ = new QAction(tr("Upload"), this);
-    upload_action_->setIcon(
-        getIconSet(":/images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
-    connect(upload_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
-    status_bar_->addAction(upload_action_);
-    if (repo_.readonly) {
-        upload_action_->setEnabled(false);
-        upload_action_->setToolTip(tr("You don't have permission to upload files to this library"));
-    }
+    // Submenu
+    upload_menu_ = new QMenu(status_bar_);
 
-    mkdir_action_ = new QAction(tr("Create a folder"), this);
-    mkdir_action_->setIcon(
-        getIconSet(":/images/filebrowser/mkdir.png", kStatusBarIconSize, kStatusBarIconSize));
+    // Submenu's Action 1: Upload File
+    upload_file_action_ = new QAction(tr("Upload a file"), upload_menu_);
+    connect(upload_file_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
+    upload_menu_->addAction(upload_file_action_);
+
+    // Submenu's Action 2: Make a new directory
+    mkdir_action_ = new QAction(tr("Create a folder"), upload_menu_);
     connect(mkdir_action_, SIGNAL(triggered()), this, SLOT(onMkdirButtonClicked()));
-    status_bar_->addAction(mkdir_action_);
+    upload_menu_->addAction(mkdir_action_);
+
+    // Action to trigger Submenu
+    upload_button_ = new QPushButton;
+    upload_button_->setObjectName("uploadButton");
+    upload_button_->setIcon(getIconSet(":/images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
+    connect(upload_button_, SIGNAL(clicked()), this, SLOT(uploadFileOrMkdir()));
+    status_bar_->addWidget(upload_button_);
+
     if (repo_.readonly) {
-        mkdir_action_->setEnabled(false);
-        mkdir_action_->setToolTip(tr("You don't have permission to create directories in this library"));
+        upload_button_->setEnabled(false);
+        upload_button_->setToolTip(tr("You don't have permission to upload files to this library"));
     }
 
     details_label_ = new QLabel;
@@ -300,7 +305,7 @@ void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
 void FileBrowserDialog::onMkdirButtonClicked()
 {
     QString name = QInputDialog::getText(this, tr("Create a folder"),
-        tr("Create a folder under current directory"));
+        tr("Folder name"));
     name = name.trimmed();
 
     if (name.isEmpty())
@@ -355,7 +360,7 @@ void FileBrowserDialog::showLoading()
 {
     forward_action_->setEnabled(false);
     backward_action_->setEnabled(false);
-    upload_action_->setEnabled(false);
+    upload_button_->setEnabled(false);
     gohome_action_->setEnabled(false);
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
 }
@@ -452,6 +457,13 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
+}
+
+void FileBrowserDialog::uploadFileOrMkdir()
+{
+    // the menu shows in the right-down corner
+    upload_menu_->exec(upload_button_->mapToGlobal(
+        QPoint(upload_button_->width()-2, upload_button_->height()/2)));
 }
 
 void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
@@ -588,7 +600,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
         backward_action_->setEnabled(false);
     }
     if (!repo_.readonly) {
-        upload_action_->setEnabled(true);
+        upload_button_->setEnabled(true);
     }
     gohome_action_->setEnabled(true);
 }

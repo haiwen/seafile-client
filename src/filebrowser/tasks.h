@@ -163,12 +163,26 @@ protected:
     void createFileServerTask(const QString& link);
     void createGetLinkRequest();
 
+    const QString name_;
+
 private:
     // the copy assignment, delete it;
     FileUploadTask &operator=(const FileUploadTask& rhs);
 
-    const QString name_;
     const bool use_upload_;
+};
+
+class FileUploadDirectoryTask : public FileUploadTask {
+    Q_OBJECT
+public:
+    FileUploadDirectoryTask(const Account& account,
+                            const QString& repo_id,
+                            const QString& path,
+                            const QString& local_path,
+                            const QString& name);
+
+protected:
+    void createFileServerTask(const QString& link);
 };
 
 /**
@@ -265,6 +279,12 @@ public:
                  const QString& local_path,
                  const QString& name,
                  const bool use_upload);
+
+    PostFileTask(const QUrl& url,
+                 const QString& parent_dir,
+                 const QString& local_path,
+                 const QString& name,
+                 const QString& relative_path);
     ~PostFileTask();
 
 protected:
@@ -275,8 +295,54 @@ protected:
 private:
     const QString parent_dir_;
     QFile *file_;
-    const QString &name_;
+    const QString name_;
     const bool use_upload_;
+    const QString relative_path_;
+};
+
+class PostFilesTask : public FileServerTask {
+    Q_OBJECT
+public:
+    PostFilesTask(const QUrl& url,
+                  const QString& parent_dir,
+                  const QString& local_path,
+                  const QStringList& names,
+                  const bool use_relative);
+    ~PostFilesTask();
+    int currentNum();
+
+protected:
+    void prepare();
+    void sendRequest();
+    void startNext();
+
+private slots:
+    void onPostTaskProgressUpdate(qint64, qint64);
+    void onPostTaskFinished(bool success);
+
+private:
+    // never used
+    void onHttpRequestFinished() {}
+
+    // deleter
+    template<typename T>
+    struct doDeleteLater
+    {
+        static inline void cleanup(T *pointer) {
+            pointer->deleteLater();
+        }
+    };
+
+    const QString parent_dir_;
+    const QString name_;
+    QList<qint64> file_sizes;
+    const QStringList names_;
+
+    QScopedPointer<PostFileTask, doDeleteLater<PostFileTask> > task_;
+    int current_num_;
+    qint64 current_bytes_;
+    qint64 total_bytes_;
+    const bool use_relative_;
 };
 
 #endif // SEAFILE_CLIETN_FILEBROWSER_TAKS_H

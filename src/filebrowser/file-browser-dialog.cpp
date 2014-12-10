@@ -445,6 +445,11 @@ void FileBrowserDialog::downloadFile(const QString& path)
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    const bool overwrite)
 {
+    if (QFileInfo(path).isDir() && !seafApplet->isPro()) {
+        seafApplet->warningBox(tr("Feature not supported"), this);
+        return;
+    }
+
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
@@ -520,6 +525,19 @@ void FileBrowserDialog::onUploadFinished(bool success)
         return;
     if (success) {
         const QFileInfo file = task->localFilePath();
+
+        if (file.isDir()) {
+            const SeafDirent dir = {
+              SeafDirent::DIR,
+              "",
+              task->name(),
+              0,
+              QDateTime::currentDateTime().toTime_t()
+            };
+            // TODO: change it to insertItem
+            table_model_->appendItem(dir);
+            return;
+        }
         const SeafDirent dirent = {
           SeafDirent::FILE,
           task->oid(),

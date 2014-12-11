@@ -8,6 +8,7 @@
 #include "api/server-repo.h"
 
 class QToolBar;
+class QToolButton;
 class QAction;
 class QStackedWidget;
 class QLineEdit;
@@ -123,7 +124,7 @@ private:
     QAction *refresh_action_;
 
     QToolBar *status_bar_;
-    QPushButton *upload_button_;
+    QToolButton *upload_button_;
     QMenu *upload_menu_;
     QAction *upload_file_action_;
     QAction *mkdir_action_;

@@ -213,7 +213,7 @@ void FileBrowserDialog::createStatusBar()
     upload_menu_->addAction(mkdir_action_);
 
     // Action to trigger Submenu
-    upload_button_ = new QPushButton;
+    upload_button_ = new QToolButton;
     upload_button_->setObjectName("uploadButton");
     upload_button_->setIcon(getIconSet(":/images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(upload_button_, SIGNAL(clicked()), this, SLOT(uploadFileOrMkdir()));

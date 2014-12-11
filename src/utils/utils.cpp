@@ -295,6 +295,21 @@ set_seafile_auto_start(bool on)
     return result;
 }
 
+#elif defined(Q_WS_MAC)
+int
+get_seafile_auto_start()
+{
+    return __mac_get_auto_start();
+}
+
+int
+set_seafile_auto_start(bool on)
+{
+    bool was_on = __mac_get_auto_start();
+    if (on != was_on)
+        __mac_set_auto_start(on);
+    return on;
+}
 #else
 int
 get_seafile_auto_start()

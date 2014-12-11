@@ -98,7 +98,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
-#if !defined(Q_WS_WIN)
+#if !defined(Q_WS_WIN) && !defined(Q_WS_MAC)
     mAutoStartCheckBox->hide();
 #endif
 

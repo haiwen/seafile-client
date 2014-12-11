@@ -130,7 +130,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setIcon(QIcon(":images/filebrowser/open-folder.png"));
     } else {
         update_action_->setVisible(true);
-        download_action_->setText(tr("&Download"));
+        download_action_->setText(tr("D&ownload"));
         download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
 
         FileBrowserDialog *dialog = (FileBrowserDialog *)parent_;

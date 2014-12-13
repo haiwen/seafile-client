@@ -235,6 +235,8 @@ void LocalRepo::translateSyncError(QString error)
     } else if (error == "Failed to download blocks.") {
         sync_error_str = QObject::tr("Failed to sync this library");
 
+    } else if (error == "Files are locked by other application") {
+        sync_error_str = QObject::tr("Files are locked by other application");
     } else {
         sync_error_str = error;
     }

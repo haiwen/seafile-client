@@ -38,7 +38,7 @@
       <string notr="true">background: white;</string>
      </property>
      <property name="text">
-      <string>Welcome to use the seafile client</string>
+      <string>Welcome to the seafile client</string>
      </property>
      <property name="margin">
       <number>15</number>

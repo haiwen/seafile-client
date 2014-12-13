@@ -676,119 +676,119 @@
         <translation>根目錄</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="202"/>
-        <source>Upload</source>
-        <translation>上傳</translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="209"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="224"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>妳沒有權限上傳文件到這個資料庫</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="212"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="302"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="211"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="307"/>
         <source>Create a folder</source>
         <translation>新建目錄</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="219"/>
-        <source>You don&apos;t have permission to create directories in this library</source>
-        <translation>妳沒有在此資料庫中新建目錄的權限</translation>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="206"/>
+        <source>Upload a file</source>
+        <translation>上傳文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="303"/>
-        <source>Create a folder under current directory</source>
-        <translation>在當前目錄中創建目錄</translation>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="308"/>
+        <source>Folder name</source>
+        <translation>文件夾名稱</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="311"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="316"/>
         <source>Invalid folder name!</source>
         <translation>無效的目錄名稱！</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="317"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="322"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>名稱 &quot;%1&quot; 已經被佔用了。</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="333"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="338"/>
         <source>retry</source>
         <translation>重新嘗試</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="334"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>無法獲取文件信息&lt;br/&gt;
 請 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="465"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="449"/>
+        <source>Feature not supported</source>
+        <translation>操作不被支援</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="482"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>文件 %1 已經存在。&lt;br/&gt;妳想覆蓋它嗎？&lt;br/&gt;&lt;small&gt;（選 否 會使用不同的名字）。&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="499"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
         <source>Failed to download file: %1</source>
         <translation>無法下載文件：%1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="531"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="561"/>
         <source>Failed to upload file: %1</source>
         <translation>無法上載文件：%1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="598"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="628"/>
         <source>Select a file to upload</source>
         <translation>請選擇需要上傳的文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="609"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="639"/>
         <source>Unable to create cache folder</source>
         <translation>無法創建緩存目錄</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="611"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="641"/>
         <source>Unable to open cache folder</source>
         <translation>無法打開緩存目錄</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="631"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="661"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="653"/>
-        <source>Do you really want to delete file &quot;%1&quot;</source>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="683"/>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>妳真的想刪移文件 &quot;%1&quot; 嗎？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="654"/>
-        <source>Do you really want to delete folder &quot;%1&quot;</source>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="684"/>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>妳真的想刪移目錄 &quot;%1&quot; 嗎？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="680"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="710"/>
         <source>Create folder failed</source>
         <translation>創建目錄失敗</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="726"/>
         <source>Select a file to update %1</source>
         <translation>請選擇需要上傳的文件 以更新 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="704"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="734"/>
         <source>Rename failed</source>
         <translation>重命名失敗</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="718"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="748"/>
         <source>Remove failed</source>
         <translation>刪移失敗</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="728"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
         <source>Share failed</source>
         <translation>共享失敗</translation>
     </message>
@@ -829,12 +829,12 @@
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="122"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="124"/>
         <source>Operation canceled</source>
         <translation>操作已取消</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="166"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="168"/>
         <source>pending</source>
         <translation>等待中</translation>
     </message>
@@ -842,7 +842,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="521"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="659"/>
         <source>Internal Server Error</source>
         <translation>內部伺服器錯誤</translation>
     </message>
@@ -850,32 +850,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="350"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="347"/>
         <source>Folder</source>
         <translation>文件夾</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="351"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="348"/>
         <source>Document</source>
         <translation>文檔</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
         <source>Name</source>
         <translation>名稱</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="383"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="380"/>
         <source>Size</source>
         <translation>檔案大小</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="385"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="382"/>
         <source>Last Modified</source>
         <translation>最後修改日期</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="387"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="384"/>
         <source>Kind</source>
         <translation>類型</translation>
     </message>
@@ -886,64 +886,64 @@
         <location filename="../src/filebrowser/file-table.cpp" line="75"/>
         <location filename="../src/filebrowser/file-table.cpp" line="129"/>
         <source>&amp;Open</source>
-        <translation>(&amp;O) 打開</translation>
+        <translation>打開(&amp;O)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="80"/>
         <source>&amp;Rename</source>
-        <translation>(&amp;R) 重命名</translation>
+        <translation>重命名(&amp;R)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="84"/>
         <source>&amp;Delete</source>
-        <translation>(&amp;D) 刪移</translation>
+        <translation>刪移(&amp;D)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="88"/>
         <source>&amp;Generate Share Link</source>
-        <translation>(&amp;G) 生產共享鏈接</translation>
+        <translation>生產共享鏈接(&amp;G)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="92"/>
         <source>&amp;Update</source>
-        <translation>(&amp;U) 更新</translation>
+        <translation>更新(&amp;U)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="95"/>
         <source>&amp;Cancel Download</source>
-        <translation>(&amp;C) 取消下載</translation>
+        <translation>取消下載(&amp;C)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="133"/>
         <source>&amp;Download</source>
-        <translation>(&amp;D) 下載</translation>
+        <translation>下載(&amp;D)</translation>
     </message>
 </context>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="339"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="380"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="374"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="415"/>
         <source>Failed to create folders</source>
         <translation>無法創建文件夾</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="348"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="383"/>
         <source>Failed to create temporary files</source>
         <translation>無法創建臨時文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="395"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="430"/>
         <source>Failed to write file to disk</source>
         <translation>無法將文件寫入磁盤</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="401"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="436"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>無法刪移已下載的文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="407"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="442"/>
         <source>Failed to move file</source>
         <translation>無法刪移文件</translation>
     </message>
@@ -1316,8 +1316,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="438"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="486"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="491"/>
         <source>File does not exist</source>
         <translation>文件不存在</translation>
     </message>
@@ -1514,6 +1514,11 @@ The library owner&apos;s storage space is used up.</source>
         <translation>無法同步此資料庫</translation>
     </message>
     <message>
+        <location filename="../src/rpc/local-repo.cpp" line="239"/>
+        <source>Files are locked by other application</source>
+        <translation>文件已被其他應用程式鎖住</translation>
+    </message>
+    <message>
         <location filename="../src/rpc/local-repo.cpp" line="160"/>
         <source>Library is deleted on server</source>
         <translation>伺服器已刪移此資料庫</translation>
@@ -1645,7 +1650,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>無法創建文件緩存數據庫</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="632"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="662"/>
         <source>Rename %1 to</source>
         <translation>將 %1 重命名為</translation>
     </message>
@@ -1834,7 +1839,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
         <source>Sync &amp;Now</source>
-        <translation>同步 (&amp;N) 馬上</translation>
+        <translation>立即同步 (&amp;N) </translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
@@ -1844,7 +1849,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
         <source>&amp;Cancel download</source>
-        <translation>(&amp;C) 取消下載</translation>
+        <translation>取消下載(&amp;C)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="357"/>
@@ -1855,7 +1860,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="362"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
         <source>&amp;Open folder</source>
-        <translation>(&amp;O) 打開此文件夾</translation>
+        <translation>打開此文件夾(&amp;O)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="364"/>
@@ -1866,7 +1871,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="376"/>
         <source>&amp;Unsync</source>
-        <translation>(&amp;U) 取消同步</translation>
+        <translation>取消同步(&amp;U)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="377"/>
@@ -1876,7 +1881,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="388"/>
         <source>&amp;View on cloud</source>
-        <translation>(&amp;V) 在瀏覽器中訪問</translation>
+        <translation>在瀏覽器中訪問(&amp;V)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
@@ -1886,7 +1891,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
         <source>&amp;Resync this library</source>
-        <translation>(&amp;R) 重新同步</translation>
+        <translation>重新同步(&amp;R)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="398"/>
@@ -1996,20 +2001,20 @@ Do you want to visit the download page?</source>
         <translation>無法載入ccnet的配置目錄 %1</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="460"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="477"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="541"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="690"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="466"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="483"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="547"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="696"/>
         <source>Unknown error</source>
         <translation>遭遇未知錯誤</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="656"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="662"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>路徑 %1 和系統路徑衝突</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="658"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="664"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>路徑 %1 和現有資料庫衝突</translation>
     </message>
@@ -2017,98 +2022,98 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="100"/>
+        <location filename="../src/ui/tray-icon.cpp" line="101"/>
         <source>Disable auto sync</source>
         <translation>取消自動同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="103"/>
+        <location filename="../src/ui/tray-icon.cpp" line="104"/>
         <source>Enable auto sync</source>
         <translation>開啓自動同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="106"/>
+        <location filename="../src/ui/tray-icon.cpp" line="107"/>
         <source>View unread notifications</source>
         <translation>閱讀未讀消息</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="110"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>&amp;Quit</source>
-        <translation>(&amp;Q) 退出</translation>
+        <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="113"/>
-        <location filename="../src/ui/tray-icon.cpp" line="165"/>
+        <location filename="../src/ui/tray-icon.cpp" line="114"/>
+        <location filename="../src/ui/tray-icon.cpp" line="166"/>
         <source>Show main window</source>
         <translation>顯示主界面</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="116"/>
+        <location filename="../src/ui/tray-icon.cpp" line="117"/>
         <source>Settings</source>
         <translation>設置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="119"/>
+        <location filename="../src/ui/tray-icon.cpp" line="120"/>
         <source>Open &amp;logs folder</source>
-        <translation>打開 (&amp;l) 日誌文件夾</translation>
+        <translation>打開日誌文件夾(&amp;l) </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="120"/>
+        <location filename="../src/ui/tray-icon.cpp" line="121"/>
         <source>open seafile log directory</source>
         <translation>打開Seafile 日誌文件夾</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="123"/>
+        <location filename="../src/ui/tray-icon.cpp" line="124"/>
         <source>&amp;About</source>
-        <translation>(&amp;A) 關於我們</translation>
+        <translation>關於我們(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="124"/>
+        <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>Show the application&apos;s About box</source>
         <translation>顯示應用程式的關於對話框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="127"/>
+        <location filename="../src/ui/tray-icon.cpp" line="128"/>
         <source>&amp;Online help</source>
-        <translation>(&amp;O) 在線幫助</translation>
+        <translation>在線幫助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="128"/>
+        <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>open seafile online help</source>
         <translation>打開Seafile的在線幫助</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="134"/>
+        <location filename="../src/ui/tray-icon.cpp" line="135"/>
         <source>Help</source>
         <translation>幫助</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="167"/>
+        <location filename="../src/ui/tray-icon.cpp" line="168"/>
         <source>Hide main window</source>
         <translation>隱藏主界面</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="412"/>
+        <location filename="../src/ui/tray-icon.cpp" line="413"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>妳有 %n 條未讀消息</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="418"/>
+        <location filename="../src/ui/tray-icon.cpp" line="419"/>
         <source>auto sync is disabled</source>
         <translation>自動同步已被禁用</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="334"/>
+        <location filename="../src/ui/tray-icon.cpp" line="335"/>
         <source>About %1</source>
         <translation>關於 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="335"/>
+        <location filename="../src/ui/tray-icon.cpp" line="336"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt; %1 客戶端 %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="423"/>
+        <location filename="../src/ui/tray-icon.cpp" line="424"/>
         <source>some servers not connected</source>
         <translation>到伺服器的鏈接部分運作中</translation>
     </message>
@@ -2358,7 +2363,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="36"/>
         <source>&amp;Open</source>
-        <translation>(&amp;O) 打開</translation>
+        <translation>打開(&amp;O)</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="39"/>
@@ -2368,7 +2373,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="45"/>
         <source>view on &amp;Web</source>
-        <translation>在 (&amp;W) 瀏覽器中訪問</translation>
+        <translation>在瀏覽器中訪問(&amp;W)</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="48"/>

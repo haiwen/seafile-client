@@ -754,7 +754,7 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
-    // TODO: if the removed item is the current selection, deselect it!
+    table_view_->unselectItemNamed(name);
     table_model_->removeItemNamed(name);
 }
 

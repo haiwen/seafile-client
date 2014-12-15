@@ -69,6 +69,19 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 
     setupContextMenu();
 }
+
+void FileTableView::unselectItemNamed(const QString &name)
+{
+    FileTableModel *model = static_cast<FileTableModel *>(this->model());
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+    for (int i = 0; i < selected.size(); i++) {
+        const SeafDirent *dirent = model->direntAt(selected[i].row());
+        if (dirent->name == name)
+            selections->select(selected[i], QItemSelectionModel::Deselect | QItemSelectionModel::Current);
+    }
+}
+
 void FileTableView::setupContextMenu()
 {
     context_menu_ = new QMenu(this);

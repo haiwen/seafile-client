@@ -93,7 +93,9 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     }
         break;
     default:
-        QStyledItemDelegate::paint(painter, option, index);
+        // never reached here
+        // QStyledItemDelegate::paint(painter, option, index);
+        qDebug() << "invalid item (row)";
         break;
     }
 }

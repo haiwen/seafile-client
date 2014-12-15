@@ -35,7 +35,68 @@ const int kFileNameColumnWidth = 200;
 
 const int kRefreshProgressInterval = 1000;
 
+const QColor kSelectedItemBackgroundcColor("#F9E0C7");
+const QColor kItemBackgroundColor("white");
+const QColor kItemBottomBorderColor("#f3f3f3");
+const QColor kItemColor("black");
+
 } // namespace
+
+FileTableViewDelegate::FileTableViewDelegate(QObject *parent)
+  : QStyledItemDelegate(parent) {
+}
+
+void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    const FileTableModel *model = static_cast<const FileTableModel*>(index.model());
+
+    // draw item's background
+    painter->save();
+    if (option.state & QStyle::State_Selected)
+        painter->fillRect(option.rect, kSelectedItemBackgroundcColor);
+    else
+        painter->fillRect(option.rect, kItemBackgroundColor);
+    painter->restore();
+
+    // draw item's border bottom
+    QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
+    painter->save();
+    static const QPen borderPen(kItemBottomBorderColor, 1);
+    painter->setPen(borderPen);
+    painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
+    painter->restore();
+
+    // draw item
+    switch (index.column()) {
+    case FILE_COLUMN_ICON:
+    {
+        QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
+        int alignX = (size.width() - pixmap.width()); // AlignRight
+        int alignY = (size.height() - pixmap.height()) / 2; //AlignVCenter
+        painter->save();
+        painter->drawPixmap(option.rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
+        painter->restore();
+    }
+        break;
+    case FILE_COLUMN_NAME:
+    case FILE_COLUMN_MTIME:
+    case FILE_COLUMN_SIZE:
+    case FILE_COLUMN_KIND:
+    case FILE_COLUMN_PROGRESS:
+    {
+        QString text = model->data(index, Qt::DisplayRole).value<QString>();
+        QFont font = model->data(index, Qt::FontRole).value<QFont>();
+        QRect rect(option.rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
+        painter->setPen(kItemColor);
+        painter->setFont(font);
+        painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+    }
+        break;
+    default:
+        QStyledItemDelegate::paint(painter, option, index);
+        break;
+    }
+}
 
 FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     : QTableView(parent),
@@ -50,7 +111,6 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     horizontalHeader()->setHighlightSections(false);
     horizontalHeader()->setSortIndicatorShown(false);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    horizontalHeader()->setStyleSheet("background-color: white");
 
     setGridStyle(Qt::NoPen);
     setShowGrid(false);
@@ -63,6 +123,7 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     setMouseTracking(true);
     setAcceptDrops(true);
     setDragDropMode(QAbstractItemView::DropOnly);
+    setItemDelegate(new FileTableViewDelegate(this));
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
@@ -297,12 +358,6 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
           pixmap(kColumnIconSize, kColumnIconSize);
     }
 
-    if (role == Qt::TextAlignmentRole && column == FILE_COLUMN_ICON)
-        return Qt::AlignRight + Qt::AlignVCenter;
-
-    if (role == Qt::TextAlignmentRole && column == FILE_COLUMN_NAME)
-        return Qt::AlignLeft + Qt::AlignVCenter;
-
     if (role == Qt::SizeHintRole) {
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
         switch (column) {
@@ -324,13 +379,11 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return qsize;
     }
 
-    //change color only for file name column
-    if (role == Qt::ForegroundRole && column == FILE_COLUMN_NAME)
-        return QColor("#e83");
-
     if (role != Qt::DisplayRole) {
         return QVariant();
     }
+
+    // DisplayRole
 
     switch (column) {
     case FILE_COLUMN_NAME:

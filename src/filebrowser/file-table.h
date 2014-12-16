@@ -13,6 +13,13 @@
 
 class DataManager;
 
+class FileTableViewDelegate : public QStyledItemDelegate {
+    Q_OBJECT
+public:
+    FileTableViewDelegate(QObject *parent);
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+};
+
 class FileTableView : public QTableView
 {
     Q_OBJECT
@@ -97,6 +104,5 @@ private:
 
     QTimer *task_progress_timer_;
 };
-
 
 #endif  // SEAFILE_CLIENT_FILE_TABLE_H

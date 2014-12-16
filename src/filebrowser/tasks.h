@@ -214,7 +214,7 @@ signals:
 
 public slots:
     void start();
-    void cancel();
+    virtual void cancel();
 
 protected slots:
     void onSslErrors(const QList<QSslError>& errors);
@@ -317,6 +317,7 @@ protected:
     void startNext();
 
 private slots:
+    void cancel();
     void onPostTaskProgressUpdate(qint64, qint64);
     void onPostTaskFinished(bool success);
 

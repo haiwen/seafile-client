@@ -596,6 +596,12 @@ void PostFilesTask::prepare()
     }
 }
 
+void PostFilesTask::cancel()
+{
+    canceled_ = true;
+    task_->cancel();
+}
+
 void PostFilesTask::sendRequest()
 {
     startNext();

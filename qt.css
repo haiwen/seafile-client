@@ -408,7 +408,7 @@ ActivitiesTab, EventsListView
 
 FileBrowserDialog {
     background-color: white;
-    min-width: 760px;
+    min-width: 640px;
     min-height: 456px;
 }
 

@@ -120,7 +120,7 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
-    setSelectionMode(QAbstractItemView::SingleSelection);
+    setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     setMouseTracking(true);
     setAcceptDrops(true);
@@ -132,6 +132,19 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 
     setupContextMenu();
 }
+
+void FileTableView::unselectItemNamed(const QString &name)
+{
+    FileTableModel *model = static_cast<FileTableModel *>(this->model());
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+    for (int i = 0; i < selected.size(); i++) {
+        const SeafDirent *dirent = model->direntAt(selected[i].row());
+        if (dirent->name == name)
+            selections->select(selected[i], QItemSelectionModel::Deselect | QItemSelectionModel::Current);
+    }
+}
+
 void FileTableView::setupContextMenu()
 {
     context_menu_ = new QMenu(this);
@@ -140,15 +153,15 @@ void FileTableView::setupContextMenu()
     connect(download_action_, SIGNAL(triggered()),
             this, SLOT(onOpen()));
 
-    QAction *rename_action_ = new QAction(tr("&Rename"), this);
+    rename_action_ = new QAction(tr("&Rename"), this);
     connect(rename_action_, SIGNAL(triggered()),
             this, SLOT(onRename()));
 
-    QAction *remove_action_ = new QAction(tr("&Delete"), this);
+    remove_action_ = new QAction(tr("&Delete"), this);
     connect(remove_action_, SIGNAL(triggered()),
             this, SLOT(onRemove()));
 
-    QAction *share_action_ = new QAction(tr("&Generate Share Link"), this);
+    share_action_ = new QAction(tr("&Generate Share Link"), this);
     connect(share_action_, SIGNAL(triggered()),
             this, SLOT(onShare()));
 
@@ -180,7 +193,40 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         return;
     }
 
-    FileTableModel *model = (FileTableModel *)this->model();
+    FileTableModel *model = static_cast<FileTableModel *>(this->model());
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+
+    // find if the item is in the selection
+    int i;
+    for (i = 0; i < selected.size(); i++)
+    {
+        if (row == selected[i].row())
+            break;
+    }
+    // if the item is and it is a multi-selection
+    if (i != selected.size() && selected.size() != 1) {
+        item_.reset(NULL);
+
+        download_action_->setVisible(true);
+
+        download_action_->setVisible(true);
+        download_action_->setText(tr("&Download"));
+        download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
+        rename_action_->setVisible(false);
+        share_action_->setVisible(false);
+        update_action_->setVisible(false);
+        cancel_download_action_->setVisible(false);
+        pos = viewport()->mapToGlobal(pos);
+        context_menu_->exec(pos);
+        return;
+    }
+
+    // if the item is not
+    rename_action_->setVisible(true);
+    share_action_->setVisible(true);
+    update_action_->setVisible(true);
+    cancel_download_action_->setVisible(true);
 
     const SeafDirent *dirent = model->direntAt(row);
     item_.reset(new SeafDirent(*dirent));
@@ -221,8 +267,20 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
 
 void FileTableView::onOpen()
 {
-    if (item_ == NULL)
+    if (item_ == NULL) {
+        FileTableModel *model = static_cast<FileTableModel *>(this->model());
+        QItemSelectionModel *selections = this->selectionModel();
+        QModelIndexList selected = selections->selectedRows();
+        const SeafDirent *dirent;
+        for (int i = 0; i < selected.size(); i++) {
+            dirent = model->direntAt(selected[i].row());
+            if (dirent->isDir())
+                continue;
+
+            emit direntClicked(*dirent);
+        }
         return;
+    }
 
     emit direntClicked(*item_);
 }
@@ -237,8 +295,17 @@ void FileTableView::onRename()
 
 void FileTableView::onRemove()
 {
-    if (item_ == NULL)
+    if (item_ == NULL) {
+        FileTableModel *model = static_cast<FileTableModel *>(this->model());
+        QItemSelectionModel *selections = this->selectionModel();
+        QModelIndexList selected = selections->selectedRows();
+        QList<const SeafDirent*> dirents;
+        for (int i = 0; i < selected.size(); i++) {
+            dirents.push_back(model->direntAt(selected[i].row()));
+        }
+        emit direntRemove(dirents);
         return;
+    }
 
     emit direntRemove(*item_);
 }

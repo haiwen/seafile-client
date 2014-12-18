@@ -153,6 +153,21 @@ SeafileApplet::SeafileApplet()
       is_pro_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+}
+
+SeafileApplet::~SeafileApplet()
+{
+    delete tray_icon_;
+    delete certs_mgr_;
+    delete settings_dialog_;
+    delete message_listener_;
+    delete rpc_client_;
+    delete daemon_mgr_;
+    delete account_mgr_;
+    delete configurator_;
+    if (main_win_)
+        delete main_win_;
 }
 
 void SeafileApplet::start()
@@ -242,21 +257,18 @@ void SeafileApplet::checkInitVDrive()
     }
 }
 
-// cleanup before exit
-void SeafileApplet::exit(int code)
+void SeafileApplet::onAboutToQuit()
 {
     daemon_mgr_->stopAll();
-    // Remove tray icon from system tray
-    delete tray_icon_;
+    tray_icon_->hide();
     if (main_win_) {
         main_win_->writeSettings();
     }
 }
-
 // stop the main event loop and return to the main function
 void SeafileApplet::errorAndExit(const QString& error)
 {
-    if (in_exit_) {
+    if (in_exit_ || QCoreApplication::closingDown()) {
         return;
     }
 

@@ -140,10 +140,13 @@ int main(int argc, char *argv[])
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();
 
-    seafApplet = new SeafileApplet;
-    seafApplet->start();
+    {
+        SeafileApplet mApplet;
+        seafApplet = &mApplet;
+        seafApplet->start();
+        ret = app.exec();
+        //destroy SeafileApplet instance after QEventLoop returns
+    }
 
-    ret = app.exec();
-    seafApplet->exit(ret);
     return ret;
 }

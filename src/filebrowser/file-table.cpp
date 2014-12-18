@@ -60,15 +60,23 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->fillRect(option.rect, kItemBackgroundColor);
     painter->restore();
 
-    // draw item's border bottom
-    QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
-    painter->save();
     static const QPen borderPen(kItemBottomBorderColor, 1);
+    // draw item's border for the first row only
+    if (index.row() == 0) {
+        painter->save();
+        painter->setPen(borderPen);
+        painter->drawLine(option.rect.topLeft(), option.rect.topRight());
+        painter->restore();
+    }
+
+    // draw item's border bottom
+    painter->save();
     painter->setPen(borderPen);
     painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
     painter->restore();
 
     // draw item
+    QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
     switch (index.column()) {
     case FILE_COLUMN_ICON:
     {

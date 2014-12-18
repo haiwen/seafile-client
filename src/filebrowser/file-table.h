@@ -26,6 +26,7 @@ class FileTableView : public QTableView
 public:
     FileTableView(const ServerRepo& repo, QWidget *parent);
     void unselectItemNamed(const QString &name);
+    void setModel(QAbstractTableModel *model);
 
 signals:
     void direntClicked(const SeafDirent& dirent);

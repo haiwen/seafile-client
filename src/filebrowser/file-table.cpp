@@ -29,9 +29,8 @@ const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
 const int kColumnIconAlign = 8;
-const int kColumnExtraAlign = 40;
-const int kDefaultColumnSum = kDefaultColumnWidth * 4 + kColumnIconSize + kColumnIconAlign + kColumnExtraAlign;
 const int kFileNameColumnWidth = 200;
+const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign;
 
 const int kRefreshProgressInterval = 1000;
 
@@ -39,6 +38,9 @@ const QColor kSelectedItemBackgroundcColor("#F9E0C7");
 const QColor kItemBackgroundColor("white");
 const QColor kItemBottomBorderColor("#f3f3f3");
 const QColor kItemColor("black");
+const QString kProgressBarStyle("QProgressBar "
+        "{ border: 1px solid grey; border-radius: 2px; } "
+        "QProgressBar::chunk { background-color: #f0f0f0; width: 20px; }");
 
 } // namespace
 
@@ -58,15 +60,23 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->fillRect(option.rect, kItemBackgroundColor);
     painter->restore();
 
-    // draw item's border bottom
-    QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
-    painter->save();
     static const QPen borderPen(kItemBottomBorderColor, 1);
+    // draw item's border for the first row only
+    if (index.row() == 0) {
+        painter->save();
+        painter->setPen(borderPen);
+        painter->drawLine(option.rect.topLeft(), option.rect.topRight());
+        painter->restore();
+    }
+
+    // draw item's border bottom
+    painter->save();
     painter->setPen(borderPen);
     painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
     painter->restore();
 
     // draw item
+    QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
     switch (index.column()) {
     case FILE_COLUMN_ICON:
     {
@@ -78,11 +88,35 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->restore();
     }
         break;
+    case FILE_COLUMN_SIZE:
+    {
+        // if we has progress, draw the progress bar
+        QString text_progress = model->data(model->index(index.row(), FILE_COLUMN_PROGRESS), Qt::DisplayRole).value<QString>();
+        if (!text_progress.isEmpty()) {
+            // get the progress value from the Model
+            if (text_progress.endsWith('%'))
+                text_progress.resize(text_progress.size() - 1);
+            const int progress = text_progress.toInt();
+
+            // Customize style using style-sheet..
+            QProgressBar progressBar;
+            progressBar.resize(QSize(size.width() - 10, size.height() / 2 - 4));
+            progressBar.setMinimum(0);
+            progressBar.setMaximum(100);
+            progressBar.setValue(progress);
+            progressBar.setAlignment(Qt::AlignCenter);
+            progressBar.setStyleSheet(kProgressBarStyle);
+            painter->save();
+            painter->translate(option.rect.topLeft() + QPoint(0, size.height() / 4 - 1));
+            progressBar.render(painter);
+            painter->restore();
+            break;
+        }
+        // else, draw the text only
+    }
     case FILE_COLUMN_NAME:
     case FILE_COLUMN_MTIME:
-    case FILE_COLUMN_SIZE:
     case FILE_COLUMN_KIND:
-    case FILE_COLUMN_PROGRESS:
     {
         QString text = model->data(index, Qt::DisplayRole).value<QString>();
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
@@ -91,6 +125,9 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->setFont(font);
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
     }
+        break;
+    case FILE_COLUMN_PROGRESS:
+        // don't do anything
         break;
     default:
         // never reached here
@@ -143,6 +180,12 @@ void FileTableView::unselectItemNamed(const QString &name)
         if (dirent->name == name)
             selections->select(selected[i], QItemSelectionModel::Deselect | QItemSelectionModel::Current);
     }
+}
+
+void FileTableView::setModel(QAbstractTableModel *model)
+{
+    QTableView::setModel(model);
+    setColumnHidden(FILE_COLUMN_PROGRESS, true);
 }
 
 void FileTableView::setupContextMenu()
@@ -431,19 +474,17 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
         switch (column) {
         case FILE_COLUMN_ICON:
-          qsize.setWidth(kColumnIconSize + kColumnIconAlign / 2 + 2);
-          break;
+            qsize.setWidth(kColumnIconSize + kColumnIconAlign / 2 + 2);
+            break;
         case FILE_COLUMN_NAME:
-          qsize.setWidth(name_column_width_);
-          break;
+            qsize.setWidth(name_column_width_);
+            break;
+        case FILE_COLUMN_PROGRESS:
         case FILE_COLUMN_SIZE:
-          break;
         case FILE_COLUMN_MTIME:
-          break;
         case FILE_COLUMN_KIND:
-          break;
         default:
-          break;
+            break;
         }
         return qsize;
     }
@@ -456,22 +497,20 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     switch (column) {
     case FILE_COLUMN_NAME:
-      return dirent.name;
+        return dirent.name;
     case FILE_COLUMN_SIZE:
-      if (dirent.isDir())
-        return "";
-      return ::readableFileSize(dirent.size);
+        if (dirent.isDir())
+            return "";
+        return ::readableFileSize(dirent.size);
     case FILE_COLUMN_MTIME:
-      return ::translateCommitTime(dirent.mtime);
+        return ::translateCommitTime(dirent.mtime);
     case FILE_COLUMN_KIND:
       //TODO: mime file information
-      return dirent.isDir() ?
-        tr("Folder") :
-        tr("Document");
+        return dirent.isDir() ?  tr("Folder") : tr("Document");
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:
-      return QVariant();
+        return QVariant();
     }
 }
 
@@ -568,7 +607,7 @@ void FileTableModel::renameItemNamed(const QString &name, const QString &new_nam
 
 void FileTableModel::onResize(const QSize &size)
 {
-    name_column_width_ = size.width() - kDefaultColumnSum;
+    name_column_width_ = size.width() - kDefaultColumnSum + kFileNameColumnWidth;
     // name_column_width_ should be always larger than kFileNameColumnWidth
     emit dataChanged(index(0, FILE_COLUMN_NAME),
                      index(dirents_.size()-1 , FILE_COLUMN_NAME));
@@ -587,6 +626,6 @@ void FileTableModel::updateDownloadInfo()
         progresses_[::getBaseName(task->path())] = progress;
     }
 
-    emit dataChanged(index(0, FILE_COLUMN_PROGRESS),
-                     index(dirents_.size() - 1 , FILE_COLUMN_PROGRESS));
+    emit dataChanged(index(0, FILE_COLUMN_SIZE),
+                     index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
 }

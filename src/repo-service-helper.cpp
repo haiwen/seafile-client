@@ -10,6 +10,7 @@
 
 #include <QDir>
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "seafile-applet.h"
 
 void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto_udpate)
@@ -40,7 +41,7 @@ void FileDownloadHelper::start()
     if (req_)
         return;
     const QString file_name = QFileInfo(path_).fileName();
-    const QString dirent_path = path_.left(path_.size() - file_name.size() - 1);
+    const QString dirent_path = ::getParentPath(path_);
     req_ = new GetDirentsRequest(account_, repo_.id, dirent_path);
     connect(req_, SIGNAL(success(const QList<SeafDirent> &)),
             this, SLOT(onGetDirentsSuccess(const QList<SeafDirent> &)));

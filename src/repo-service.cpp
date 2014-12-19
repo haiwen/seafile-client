@@ -12,29 +12,12 @@
 #include "ui/download-repo-dialog.h"
 #include "utils/utils.h"
 
-#include "filebrowser/data-mgr.h"
-#include "filebrowser/progress-dialog.h"
-#include "filebrowser/auto-update-mgr.h"
-#include "filebrowser/tasks.h"
-#include "ui/set-repo-password-dialog.h"
-
 #include "repo-service.h"
+#include "repo-service-helper.h"
 
 namespace {
 
 const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
-
-void openFile(const QString& path, bool work_around_mac_auto_udpate)
-{
-    if (!::openInNativeExtension(path) && !::showInGraphicalShell(path)) {
-        QString file_name = QFileInfo(path).fileName();
-        QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
-        seafApplet->warningBox(msg);
-    }
-#ifdef Q_WS_MAC
-    MacImageFilesWorkAround::instance()->fileOpened(path);
-#endif
-}
 
 } // namespace
 
@@ -138,9 +121,9 @@ void RepoService::openLocalFile(const QString& repo_id,
     seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
 
     if (r.isValid()) {
-        QString path = QDir(r.worktree).filePath(path_in_repo);
+        QString local_path = QDir(r.worktree).filePath(path_in_repo);
 
-        openFile(path, false);
+        FileDownloadHelper::openFile(local_path, false);
     } else {
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
@@ -149,33 +132,9 @@ void RepoService::openLocalFile(const QString& repo_id,
 
         const QString path = "/" + path_in_repo;
         const Account account = seafApplet->accountManager()->currentAccount();
-        DataManager data_mgr(account);
-
-        // endless loop for setPasswordDialog
-        while(1) {
-            FileDownloadTask *task = data_mgr.createDownloadTask(repo.id, path);
-            FileBrowserProgressDialog dialog(task, dialog_parent);
-            if (dialog.exec()) {
-                QString full_path = data_mgr.getLocalCachedFile(repo_id, path, task->fileId());
-                if (!full_path.isEmpty())
-                    openFile(full_path, true);
-                break;
-            }
-            // if the user canceled the task, don't bother it
-            if (task->error() == FileNetworkTask::TaskCanceled)
-                break;
-            // if the repository is encrypted and password is incorrect
-            if (repo.encrypted && task->httpErrorCode() == 400) {
-                SetRepoPasswordDialog password_dialog(repo, dialog_parent);
-                if (password_dialog.exec())
-                    continue;
-                // the user canceled the dialog? skip
-                break;
-            }
-            QString msg =
-                QObject::tr("Unable to download item \"%1\"").arg(path_in_repo);
-            seafApplet->warningBox(msg);
-            break;
-        }
+        FileDownloadHelper *helper =
+          new FileDownloadHelper(account, repo, path, dialog_parent);
+        helper->setParent(dialog_parent);
+        helper->start();
     }
 }

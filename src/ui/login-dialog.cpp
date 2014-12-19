@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QtNetwork>
+#include <QInputDialog>
 
 #include "settings-mgr.h"
 #include "account-mgr.h"
@@ -8,11 +9,13 @@
 #include "api/requests.h"
 #include "login-dialog.h"
 #include "utils/utils.h"
+#include "shib/shib-login-dialog.h"
 
 namespace {
 
 const QString kDefaultServerAddr1 = "https://seacloud.cc";
 const QString kDefaultServerAddr2 = "https://cloud.seafile.com";
+
 
 } // namespace
 
@@ -40,6 +43,16 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     const QRect screen = QApplication::desktop()->screenGeometry();
     move(screen.center() - this->rect().center());
+
+    setupShibLoginLink();
+}
+
+void LoginDialog::setupShibLoginLink()
+{
+    QString txt = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("Shibboleth Login"));
+    mShibLoginLink->setText(txt);
+    connect(mShibLoginLink, SIGNAL(linkActivated(const QString&)),
+            this, SLOT(loginWithShib()));
 }
 
 void LoginDialog::doLogin()
@@ -206,4 +219,35 @@ void LoginDialog::onHttpError(int code)
 void LoginDialog::showWarning(const QString& msg)
 {
     seafApplet->warningBox(msg, this);
+}
+
+void LoginDialog::loginWithShib()
+{
+    QString serverAddr = seafApplet->settingsManager()->getLastShibUrl();
+    serverAddr = QInputDialog::getText(this, tr("Shibboleth Login"),
+                                       tr("Seafile Server Address"),
+                                       QLineEdit::Normal,
+                                       serverAddr);
+    serverAddr = serverAddr.trimmed();
+    if (serverAddr.isEmpty()) {
+        return;
+    }
+
+    if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
+        showWarning(tr("%1 is not a valid server address").arg(serverAddr));
+        return;
+    }
+
+    QUrl url = QUrl(serverAddr, QUrl::StrictMode);
+    if (!url.isValid()) {
+        showWarning(tr("%1 is not a valid server address").arg(serverAddr));
+        return;
+    }
+
+    seafApplet->settingsManager()->setLastShibUrl(serverAddr);
+
+    ShibLoginDialog shib_dialog(url, this);
+    if (shib_dialog.exec() == QDialog::Accepted) {
+        accept();
+    }
 }

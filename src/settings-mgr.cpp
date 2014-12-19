@@ -23,6 +23,7 @@ const char *kBehaviorGroup = "Behavior";
 
 const char *kSettingsGroup = "Settings";
 const char *kComputerName = "computerName";
+const char *kLastShibUrl = "lastShiburl";
 
 } // namespace
 
@@ -326,5 +327,25 @@ void SettingsManager::setComputerName(const QString& computerName)
     QSettings settings;
     settings.beginGroup(kSettingsGroup);
     settings.setValue(kComputerName, computerName);
+    settings.endGroup();
+}
+
+QString SettingsManager::getLastShibUrl()
+{
+    QSettings settings;
+    QString url;
+
+    settings.beginGroup(kSettingsGroup);
+    url = settings.value(kLastShibUrl, "").toString();
+    settings.endGroup();
+
+    return url;
+}
+
+void SettingsManager::setLastShibUrl(const QString& url)
+{
+    QSettings settings;
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kLastShibUrl, url);
     settings.endGroup();
 }

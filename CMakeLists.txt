@@ -44,7 +44,7 @@ IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   SET(QtDBus "QtDBus")
 ENDIF()
 
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus})
+FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} QtWebKit)
 
 INCLUDE(${QT_USE_FILE})
 
@@ -68,6 +68,7 @@ SET(moc_headers
   src/api/api-request.h
   src/api/requests.h
   src/rpc/rpc-client.h
+  src/shib/shib-login-dialog.h
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
@@ -214,6 +215,7 @@ SET(seafile_client_sources
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
+  src/shib/shib-login-dialog.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp

@@ -334,7 +334,12 @@ void SeafileTrayIcon::about()
 {
     QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(getBrand()),
                        tr("<h2>%1 Client %2</h2>").arg(getBrand()).arg(
-                           STRINGIZE(SEAFILE_CLIENT_VERSION)));
+                           STRINGIZE(SEAFILE_CLIENT_VERSION))
+#if defined(SEAFILE_CLIENT_REVISION)
+                       .append("<h4> REV %1 </h4>")
+                       .arg(STRINGIZE(SEAFILE_CLIENT_REVISION))
+#endif
+                       );
 }
 
 void SeafileTrayIcon::openHelp()

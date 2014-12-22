@@ -75,6 +75,7 @@ private slots:
     void onGetDirentRemove(const QList<const SeafDirent*> &dirents);
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
+    void onGetDirentsPaste();
     void onCancelDownload(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
@@ -85,10 +86,19 @@ private slots:
     void onDirentRemoveFailed(const ApiError& error);
     void onDirentShareSuccess(const QString& link);
     void onDirentShareFailed(const ApiError& error);
+
+    void onDirentsCopySuccess();
+    void onDirentsCopyFailed(const ApiError& error);
+    void onDirentsMoveSuccess();
+    void onDirentsMoveFailed(const ApiError& error);
+
     void onFileAutoUpdated(const QString& repo_id, const QString& path);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
+
+    bool hasFilesToBePasted();
+    void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 
     void createToolBar();
     void createStatusBar();
@@ -115,6 +125,9 @@ private:
     QStringList current_lpath_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
+    QStringList file_names_to_be_pasted_;
+    QString dir_path_to_be_pasted_from_;
+    bool is_copyed_when_pasted_;
 
     QToolBar *toolbar_;
     QAction *backward_action_;

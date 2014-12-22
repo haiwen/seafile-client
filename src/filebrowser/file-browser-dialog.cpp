@@ -105,6 +105,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentShare(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
             this, SLOT(onGetDirentUpdate(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntPaste()),
+            this, SLOT(onGetDirentsPaste()));
     connect(table_view_, SIGNAL(cancelDownload(const SeafDirent&)),
             this, SLOT(onCancelDownload(const SeafDirent&)));
 
@@ -137,6 +139,18 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onDirentShareSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
             this, SLOT(onDirentShareFailed(const ApiError&)));
+
+    //copy <--> data_mgr_
+    connect(data_mgr_, SIGNAL(copyDirentsSuccess()),
+            this, SLOT(onDirentsCopySuccess()));
+    connect(data_mgr_, SIGNAL(copyDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsCopyFailed(const ApiError&)));
+
+    //move <--> data_mgr_
+    connect(data_mgr_, SIGNAL(moveDirentsSuccess()),
+            this, SLOT(onDirentsMoveSuccess()));
+    connect(data_mgr_, SIGNAL(moveDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsMoveFailed(const ApiError&)));
 
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
@@ -784,4 +798,51 @@ void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
 {
     TransferManager::instance()->cancelDownload(repo_.id,
         ::pathJoin(current_path_, dirent.name));
+}
+
+bool FileBrowserDialog::hasFilesToBePasted() {
+    return !file_names_to_be_pasted_.empty();
+}
+
+void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file_names)
+{
+    is_copyed_when_pasted_ = is_copy;
+    dir_path_to_be_pasted_from_ = current_path_;
+    file_names_to_be_pasted_ = file_names;
+}
+
+void FileBrowserDialog::onGetDirentsPaste()
+{
+    if (current_path_ == dir_path_to_be_pasted_from_) {
+        seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
+        return;
+    }
+    if (is_copyed_when_pasted_)
+        data_mgr_->copyDirents(repo_.id,
+                               dir_path_to_be_pasted_from_,
+                               file_names_to_be_pasted_,
+                               current_path_);
+    else
+        data_mgr_->moveDirents(repo_.id,
+                               dir_path_to_be_pasted_from_,
+                               file_names_to_be_pasted_,
+                               current_path_);
+}
+
+void FileBrowserDialog::onDirentsCopySuccess()
+{
+    forceRefresh();
+}
+void FileBrowserDialog::onDirentsCopyFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Copy failed"), this);
+}
+void FileBrowserDialog::onDirentsMoveSuccess()
+{
+    file_names_to_be_pasted_.clear();
+    forceRefresh();
+}
+void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Move failed"), this);
 }

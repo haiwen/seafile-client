@@ -140,7 +140,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     : QTableView(parent),
       repo_(repo),
-      parent_(parent)
+      parent_(qobject_cast<FileBrowserDialog*>(parent))
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
@@ -186,6 +186,7 @@ void FileTableView::setModel(QAbstractItemModel *model)
 {
     QTableView::setModel(model);
     setColumnHidden(FILE_COLUMN_PROGRESS, true);
+    connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
 }
 
 void FileTableView::setupContextMenu()
@@ -211,6 +212,15 @@ void FileTableView::setupContextMenu()
     update_action_ = new QAction(tr("&Update"), this);
     connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
 
+    copy_action_ = new QAction(tr("&Copy"), this);
+    connect(copy_action_, SIGNAL(triggered()), this, SLOT(onCopy()));
+
+    move_action_ = new QAction(tr("&Cut"), this);
+    connect(move_action_, SIGNAL(triggered()), this, SLOT(onMove()));
+
+    paste_action_ = new QAction(tr("&Paste"), this);
+    connect(paste_action_, SIGNAL(triggered()), this, SIGNAL(direntPaste()));
+
     cancel_download_action_ = new QAction(tr("&Cancel Download"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));
@@ -219,8 +229,11 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(download_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addSeparator();
+    context_menu_->addAction(move_action_);
+    context_menu_->addAction(copy_action_);
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
+    context_menu_->addAction(paste_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
@@ -239,6 +252,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     FileTableModel *model = static_cast<FileTableModel *>(this->model());
     QItemSelectionModel *selections = this->selectionModel();
     QModelIndexList selected = selections->selectedRows();
+
+    // paste_action show only if there are files in the clipboard
+    paste_action_->setVisible(parent_->hasFilesToBePasted());
 
     // find if the item is in the selection
     int i;
@@ -285,9 +301,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setText(tr("D&ownload"));
         download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
 
-        FileBrowserDialog *dialog = (FileBrowserDialog *)parent_;
-        if (TransferManager::instance()->hasDownloadTask(dialog->repo_.id,
-            ::pathJoin(dialog->current_path_, dirent->name))) {
+        if (TransferManager::instance()->hasDownloadTask(parent_->repo_.id,
+            ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_download_action_->setVisible(true);
             download_action_->setVisible(false);
         }
@@ -295,6 +310,11 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     pos = viewport()->mapToGlobal(pos);
     context_menu_->exec(pos);
+}
+
+void FileTableView::onAboutToReset()
+{
+    item_.reset(NULL);
 }
 
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
@@ -365,6 +385,43 @@ void FileTableView::onUpdate()
     if (item_ == NULL)
         return;
     emit direntUpdate(*item_);
+}
+
+void FileTableView::onCopy()
+{
+    QStringList file_names;
+
+    if (item_ == NULL) {
+        FileTableModel *model = static_cast<FileTableModel *>(this->model());
+        QItemSelectionModel *selections = this->selectionModel();
+        QModelIndexList selected = selections->selectedRows();
+        for (int i = 0; i < selected.size(); i++) {
+            file_names.push_back(model->direntAt(selected[i].row())->name);
+        }
+    } else {
+        file_names.push_back(item_->name);
+    }
+
+
+    parent_->setFilesToBePasted(true, file_names);
+}
+
+void FileTableView::onMove()
+{
+    QStringList file_names;
+
+    if (item_ == NULL) {
+        FileTableModel *model = static_cast<FileTableModel *>(this->model());
+        QItemSelectionModel *selections = this->selectionModel();
+        QModelIndexList selected = selections->selectedRows();
+        for (int i = 0; i < selected.size(); i++) {
+            file_names.push_back(model->direntAt(selected[i].row())->name);
+        }
+    } else {
+        file_names.push_back(item_->name);
+    }
+
+    parent_->setFilesToBePasted(false, file_names);
 }
 
 void FileTableView::onCancelDownload()

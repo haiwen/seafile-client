@@ -16,6 +16,8 @@ const char kGetFileSharedLinkUrl[] = "api2/repos/%1/file/shared-link/";
 const char kGetFileUploadUrl[] = "api2/repos/%1/upload-link/";
 const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
+const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
+const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
@@ -201,8 +203,8 @@ void RemoveDirentRequest::requestSuccess(QNetworkReply& reply)
 MoveFileRequest::MoveFileRequest(const Account &account,
                                  const QString &repo_id,
                                  const QString &path,
-                                 const QString &new_repo_id,
-                                 const QString &new_path)
+                                 const QString &dst_repo_id,
+                                 const QString &dst_dir_path)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_POST, account.token)
@@ -210,8 +212,8 @@ MoveFileRequest::MoveFileRequest(const Account &account,
     setUrlParam("p", path);
 
     setFormParam("operation", "move");
-    setFormParam("dst_repo", new_repo_id);
-    setFormParam("dst_dir", new_path);
+    setFormParam("dst_repo", dst_repo_id);
+    setFormParam("dst_dir", dst_dir_path);
 }
 
 void MoveFileRequest::requestSuccess(QNetworkReply& reply)
@@ -219,6 +221,55 @@ void MoveFileRequest::requestSuccess(QNetworkReply& reply)
     emit success();
 }
 
+CopyMultipleFilesRequest::CopyMultipleFilesRequest(const Account &account,
+                                                   const QString &repo_id,
+                                                   const QString &src_dir_path,
+                                                   const QStringList &src_file_names,
+                                                   const QString &dst_repo_id,
+                                                   const QString &dst_dir_path)
+    : SeafileApiRequest(
+        account.getAbsoluteUrl(QString(kFileOperationCopy).arg(repo_id)),
+    SeafileApiRequest::METHOD_POST, account.token),
+    repo_id_(repo_id),
+    src_dir_path_(src_dir_path),
+    src_file_names_(src_file_names)
+{
+    setUrlParam("p", src_dir_path);
+
+    setFormParam("file_names", src_file_names.join(":"));
+    setFormParam("dst_repo", dst_repo_id);
+    setFormParam("dst_dir", dst_dir_path);
+}
+
+void CopyMultipleFilesRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
+
+MoveMultipleFilesRequest::MoveMultipleFilesRequest(const Account &account,
+                                                   const QString &repo_id,
+                                                   const QString &src_dir_path,
+                                                   const QStringList &src_file_names,
+                                                   const QString &dst_repo_id,
+                                                   const QString &dst_dir_path)
+    : SeafileApiRequest(
+        account.getAbsoluteUrl(QString(kFileOperationMove).arg(repo_id)),
+    SeafileApiRequest::METHOD_POST, account.token),
+    repo_id_(repo_id),
+    src_dir_path_(src_dir_path),
+    src_file_names_(src_file_names)
+{
+    setUrlParam("p", src_dir_path);
+
+    setFormParam("file_names", src_file_names.join(":"));
+    setFormParam("dst_repo", dst_repo_id);
+    setFormParam("dst_dir", dst_dir_path);
+}
+
+void MoveMultipleFilesRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
 
 StarFileRequest::StarFileRequest(const Account &account,
                                  const QString &repo_id,

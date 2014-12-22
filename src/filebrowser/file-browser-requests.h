@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H
 
 #include <QList>
+#include <QStringList>
 
 #include "api/api-request.h"
 #include "seaf-dirent.h"
@@ -160,14 +161,15 @@ private:
     Q_DISABLE_COPY(GetFileUploadLinkRequest)
 };
 
+// Single File only
 class MoveFileRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
     MoveFileRequest(const Account &account,
                     const QString &repo_id,
                     const QString &path,
-                    const QString &new_repo_id,
-                    const QString &new_path);
+                    const QString &dst_repo_id,
+                    const QString &dst_dir_path);
 
 signals:
     void success();
@@ -177,6 +179,58 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(MoveFileRequest)
+};
+
+class CopyMultipleFilesRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    CopyMultipleFilesRequest(const Account &account,
+                             const QString &repo_id,
+                             const QString &src_dir_path,
+                             const QStringList &src_file_names,
+                             const QString &dst_repo_id,
+                             const QString &dst_dir_path);
+    const QString& repoId() { return repo_id_; }
+    const QString& srcPath() { return src_dir_path_; }
+    const QStringList& srcFileNames() { return src_file_names_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(CopyMultipleFilesRequest)
+    const QString repo_id_;
+    const QString src_dir_path_;
+    const QStringList src_file_names_;
+};
+
+class MoveMultipleFilesRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    MoveMultipleFilesRequest(const Account &account,
+                             const QString &repo_id,
+                             const QString &src_dir_path,
+                             const QStringList &src_file_names,
+                             const QString &dst_repo_id,
+                             const QString &dst_dir_path);
+    const QString& repoId() { return repo_id_; }
+    const QString& srcPath() { return src_dir_path_; }
+    const QStringList& srcFileNames() { return src_file_names_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(MoveMultipleFilesRequest)
+    const QString repo_id_;
+    const QString src_dir_path_;
+    const QStringList src_file_names_;
 };
 
 class StarFileRequest : public SeafileApiRequest {

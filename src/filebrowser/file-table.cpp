@@ -182,7 +182,7 @@ void FileTableView::unselectItemNamed(const QString &name)
     }
 }
 
-void FileTableView::setModel(QAbstractTableModel *model)
+void FileTableView::setModel(QAbstractItemModel *model)
 {
     QTableView::setModel(model);
     setColumnHidden(FILE_COLUMN_PROGRESS, true);

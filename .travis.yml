@@ -1,33 +1,18 @@
 language: cpp
+os:
+  - linux
+  - osx
+compiler:
+  - gcc
+  - clang
 matrix:
-  include:
-    - compiler: gcc
-      env:
-        CFLAGS="-Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -pedantic"
-        CXXFLAGS="-Woverloaded-virtual $CFLAGS"
-    - compiler: clang
-      env:
-        CFLAGS="-Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -pedantic -fcolor-diagnostics"
-        CXXFLAGS="-Woverloaded-virtual $CFLAGS"
+  exclude:
+    - os: osx
+      compiler: gcc
 before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq valac uuid-dev libevent-dev libarchive-dev re2c libjansson-dev libqt4-dev
- - git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc
- - git clone --depth=1 --branch=master git://github.com/haiwen/ccnet.git deps/ccnet
- - git clone --depth=1 --branch=master git://github.com/haiwen/seafile.git deps/seafile
- # build libsearpc
- - cd deps/libsearpc && ./autogen.sh && ./configure
- - make -j8 && sudo make install && cd ../..
- # build ccnet
- - cd deps/ccnet && ./autogen.sh && ./configure --enable-client --disable-server
- - make -j8 && sudo make install && cd ../..
- # build seafile
- - cd deps/seafile && ./autogen.sh && ./configure --disable-fuse --disable-server --enable-client
- - make -j8 && sudo make install && cd ../..
+ - ./scripts/install-deps-${TRAVIS_OS_NAME}.sh
 script:
- - cmake -DBUILD_TESTING=on .
- - make -j8
- - make test
+ - ./scripts/ci-build.sh
 notifications:
   email:
     recipients:

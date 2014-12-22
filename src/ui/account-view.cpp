@@ -116,7 +116,7 @@ void AccountView::onAccountChanged()
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (i == 0) {
-                action->setIcon(::getMenuIconSet(":/images/account-checked.png"));
+                action->setIcon(::getMenuIconSet(":/images/account/account-checked.png"));
                 action->setIconVisibleInMenu(true);
             }
             account_menu_->addAction(action);
@@ -127,21 +127,21 @@ void AccountView::onAccountChanged()
 
     if (!accounts.empty()) {
         account_settings_action_ = new QAction(tr("Account settings"), this);
-        account_settings_action_->setIcon(::getMenuIconSet(":/images/account-settings.png"));
+        account_settings_action_->setIcon(::getMenuIconSet(":/images/account/account-settings.png"));
         account_settings_action_->setIconVisibleInMenu(true);
         connect(account_settings_action_, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
         account_menu_->addAction(account_settings_action_);
     }
 
     add_account_action_ = new QAction(tr("Add an account"), this);
-    add_account_action_->setIcon(::getMenuIconSet(":/images/add-account.png"));
+    add_account_action_->setIcon(::getMenuIconSet(":/images/account/add-account.png"));
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
     account_menu_->addAction(add_account_action_);
 
     if (!accounts.empty()) {
         delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(::getMenuIconSet(":/images/delete-account.png"));
+        delete_account_action_->setIcon(::getMenuIconSet(":/images/account/delete-account.png"));
         delete_account_action_->setIconVisibleInMenu(true);
         connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
         account_menu_->addAction(delete_account_action_);
@@ -179,7 +179,7 @@ void AccountView::updateAvatar()
     mAccountBtn->setIconSize(QSize(w, w));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {
-        mAccountBtn->setIcon(QIcon(":/images/account.png"));
+        mAccountBtn->setIcon(QIcon(":/images/account/account.png"));
         return;
     }
 
@@ -191,7 +191,7 @@ void AccountView::updateAvatar()
         return;
     }
 
-    mAccountBtn->setIcon(QIcon(":/images/account.png"));
+    mAccountBtn->setIcon(QIcon(":/images/account/account.png"));
     // will trigger a GetAvatarRequest
     service->getAvatar(account.username);
 }

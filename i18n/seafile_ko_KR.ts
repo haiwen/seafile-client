@@ -661,134 +661,139 @@
         <translation>클라우드 파일 브라우저</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="160"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="162"/>
         <source>Back</source>
         <translation>뒤로</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="166"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="168"/>
         <source>Forward</source>
         <translation>앞으로</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="172"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="174"/>
         <source>Home</source>
         <translation>처음</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="224"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="226"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>이 라이브러리에 파일을 업로드할 권한이 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="211"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="213"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="309"/>
         <source>Create a folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="206"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="208"/>
         <source>Upload a file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="308"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="310"/>
         <source>Folder name</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="316"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
         <source>Invalid folder name!</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="322"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="324"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="338"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="340"/>
         <source>retry</source>
         <translation>다시 시도</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="341"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>파일 정보 가져오기에 실패했습니다&lt;br/&gt;
 %1 하십시오</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="449"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="451"/>
         <source>Feature not supported</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="482"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="484"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>%1 파일이 존재합니다.&lt;br/&gt;덮어쓰시겠습니까?&lt;br/&gt;&lt;small&gt;(다른 이름으로 업로드 하려면 아니요를 선택하십시오).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="518"/>
         <source>Failed to download file: %1</source>
         <translation>파일 다운로드에 실패했습니다: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="561"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="563"/>
         <source>Failed to upload file: %1</source>
         <translation>파일 업로드에 실패했습니다: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="628"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
         <source>Select a file to upload</source>
         <translation>업로드할 파일을 선택하십시오</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="639"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="641"/>
         <source>Unable to create cache folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="641"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="643"/>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="661"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="663"/>
         <source>Rename</source>
         <translation>이름 바꾸기</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="683"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="685"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="684"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="686"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="710"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="693"/>
+        <source>Do you really want to delete these items</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="724"/>
         <source>Create folder failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="726"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="740"/>
         <source>Select a file to update %1</source>
         <translation>%1을(를) 업데이트할 파일을 선택하십시오</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="734"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="748"/>
         <source>Rename failed</source>
         <translation>이름 바꾸기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="748"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="763"/>
         <source>Remove failed</source>
         <translation>제거에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="773"/>
         <source>Share failed</source>
         <translation>공유에 실패했습니다</translation>
     </message>
@@ -842,7 +847,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="659"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="665"/>
         <source>Internal Server Error</source>
         <translation>내부 서버 오류</translation>
     </message>
@@ -850,32 +855,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="347"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="509"/>
         <source>Folder</source>
         <translation>폴더</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="348"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="509"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="539"/>
         <source>Name</source>
         <translation>이름 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="380"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="541"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="382"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="543"/>
         <source>Last Modified</source>
         <translation>마지막 수정</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="384"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="545"/>
         <source>Kind</source>
         <translation>종류</translation>
     </message>
@@ -883,40 +888,45 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="75"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="129"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="194"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
         <source>&amp;Open</source>
         <translation>열기(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="80"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="199"/>
         <source>&amp;Rename</source>
         <translation>제거(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="84"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="203"/>
         <source>&amp;Delete</source>
         <translation>삭제(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="88"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="207"/>
         <source>&amp;Generate Share Link</source>
         <translation>공유 링크 만들기(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="92"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="211"/>
         <source>&amp;Update</source>
         <translation>업데이트(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="95"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="214"/>
         <source>&amp;Cancel Download</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="133"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="257"/>
         <source>&amp;Download</source>
         <translation>다운로드(&amp;D)</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="285"/>
+        <source>D&amp;ownload</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1630,7 +1640,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
-        <location filename="../src/repo-service.cpp" line="31"/>
+        <location filename="../src/repo-service-helper.cpp" line="20"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
         <translation>%1이(가) %2 파일을 열 프로그램을 찾을 수 없습니다</translation>
     </message>
@@ -1650,12 +1660,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>파일 캐시 데이터베이스 열기에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="664"/>
         <source>Rename %1 to</source>
         <translation>%1 이름 바꾸기:</translation>
     </message>
     <message>
-        <location filename="../src/repo-service.cpp" line="176"/>
+        <location filename="../src/repo-service-helper.cpp" line="110"/>
         <source>Unable to download item &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 항목을 다운로드할 수 없습니다</translation>
     </message>

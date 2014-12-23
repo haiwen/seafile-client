@@ -655,133 +655,138 @@
         <translation>云端文件浏览器</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="160"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="162"/>
         <source>Back</source>
         <translation>后退</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="166"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="168"/>
         <source>Forward</source>
         <translation>前进</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="172"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="174"/>
         <source>Home</source>
         <translation>根目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="224"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="226"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>你没有权限上传到文件这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="211"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="213"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="309"/>
         <source>Create a folder</source>
         <translation>创建文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="206"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="208"/>
         <source>Upload a file</source>
         <translation>上传新文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="308"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="310"/>
         <source>Folder name</source>
         <translation>文件夹名称</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="316"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
         <source>Invalid folder name!</source>
         <translation>无效的文件夹名！</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="322"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="324"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>文件名 &quot;%1&quot; 已经被使用了。</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="338"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="340"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="341"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>获取文件信息失败&lt;br/&gt;请 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="449"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="451"/>
         <source>Feature not supported</source>
         <translation>不支持当前操作</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="482"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="484"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>文件 &quot;%1&quot; 已经存在。&lt;br/&gt;你想覆盖此文件吗？&lt;br/&gt;&lt;small&gt;(选择 否 用其他文件名上传)&lt;/small&gt; </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="518"/>
         <source>Failed to download file: %1</source>
         <translation>下载文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="561"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="563"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="628"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="630"/>
         <source>Select a file to upload</source>
         <translation>请选择要上传的文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="639"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="641"/>
         <source>Unable to create cache folder</source>
         <translation>无法创建缓存文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="641"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="643"/>
         <source>Unable to open cache folder</source>
         <translation>无法打开缓存文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="661"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="663"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="683"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="685"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>你真的想删除文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="684"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="686"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>你真的想删除目录 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="710"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="693"/>
+        <source>Do you really want to delete these items</source>
+        <translation>你真的想删除这些文件吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="724"/>
         <source>Create folder failed</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="726"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="740"/>
         <source>Select a file to update %1</source>
         <translation>请选择要需要上传的文件 以更新 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="734"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="748"/>
         <source>Rename failed</source>
         <translation>重命名失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="748"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="763"/>
         <source>Remove failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="773"/>
         <source>Share failed</source>
         <translation>共享失败</translation>
     </message>
@@ -835,7 +840,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="659"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="665"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
@@ -843,32 +848,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="347"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="509"/>
         <source>Folder</source>
         <translation>文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="348"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="509"/>
         <source>Document</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="539"/>
         <source>Name</source>
         <translation>文件名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="380"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="541"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="382"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="543"/>
         <source>Last Modified</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="384"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="545"/>
         <source>Kind</source>
         <translation>类型</translation>
     </message>
@@ -876,40 +881,45 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="75"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="129"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="194"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
         <source>&amp;Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="80"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="199"/>
         <source>&amp;Rename</source>
         <translation>重命名(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="84"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="203"/>
         <source>&amp;Delete</source>
         <translation>删除 (&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="88"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="207"/>
         <source>&amp;Generate Share Link</source>
         <translation>生成共享链接(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="92"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="211"/>
         <source>&amp;Update</source>
         <translation>更新 (&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="95"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="214"/>
         <source>&amp;Cancel Download</source>
         <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="133"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="257"/>
         <source>&amp;Download</source>
         <translation>下载(&amp;D)</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="285"/>
+        <source>D&amp;ownload</source>
+        <translation>下载 (&amp;D)</translation>
     </message>
 </context>
 <context>
@@ -1621,7 +1631,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/open-local-helper.cpp" line="172"/>
-        <location filename="../src/repo-service.cpp" line="31"/>
+        <location filename="../src/repo-service-helper.cpp" line="20"/>
         <source>%1 couldn&apos;t find an application to open file %2</source>
         <translation>%1 找不到合适的程序来打开文件 %2</translation>
     </message>
@@ -1641,12 +1651,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>打开文件缓存数据库失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="664"/>
         <source>Rename %1 to</source>
         <translation>将 %1 重命名为</translation>
     </message>
     <message>
-        <location filename="../src/repo-service.cpp" line="176"/>
+        <location filename="../src/repo-service-helper.cpp" line="110"/>
         <source>Unable to download item &quot;%1&quot;</source>
         <translation>无法下载 &quot;%1&quot;</translation>
     </message>

@@ -216,7 +216,7 @@ public:
                              const QStringList &src_file_names,
                              const QString &dst_repo_id,
                              const QString &dst_dir_path);
-    const QString& repoId() { return repo_id_; }
+    const QString& srcRepoId() { return repo_id_; }
     const QString& srcPath() { return src_dir_path_; }
     const QStringList& srcFileNames() { return src_file_names_; }
 

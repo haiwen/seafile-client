@@ -125,9 +125,10 @@ private:
     QStringList current_lpath_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
-    QStringList file_names_to_be_pasted_;
-    QString dir_path_to_be_pasted_from_;
-    bool is_copyed_when_pasted_;
+    static QStringList file_names_to_be_pasted_;
+    static QString dir_path_to_be_pasted_from_;
+    static QString repo_id_to_be_pasted_from_;
+    static bool is_copyed_when_pasted_;
 
     QToolBar *toolbar_;
     QAction *backward_action_;

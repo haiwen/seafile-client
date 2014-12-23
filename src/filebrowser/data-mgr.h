@@ -57,11 +57,13 @@ public:
     void copyDirents(const QString &repo_id,
                      const QString &dir_path,
                      const QStringList &file_names,
+                     const QString &dst_repo_id,
                      const QString &dst_dir_path);
 
     void moveDirents(const QString &repo_id,
                      const QString &dir_path,
                      const QStringList &file_names,
+                     const QString &dst_repo_id,
                      const QString &dst_dir_path);
 
     QString getLocalCachedFile(const QString& repo_id,

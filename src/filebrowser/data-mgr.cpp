@@ -130,11 +130,12 @@ void DataManager::shareDirent(const QString &repo_id,
 void DataManager::copyDirents(const QString &repo_id,
                               const QString &dir_path,
                               const QStringList &file_names,
+                              const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
     CopyMultipleFilesRequest *req =
       new CopyMultipleFilesRequest(account_, repo_id, dir_path, file_names,
-                                   repo_id,
+                                   dst_repo_id,
                                    dst_dir_path);
     connect(req, SIGNAL(success()),
             SLOT(onCopyDirentsSuccess()));
@@ -148,11 +149,12 @@ void DataManager::copyDirents(const QString &repo_id,
 void DataManager::moveDirents(const QString &repo_id,
                               const QString &dir_path,
                               const QStringList &file_names,
+                              const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
     MoveMultipleFilesRequest *req =
       new MoveMultipleFilesRequest(account_, repo_id, dir_path, file_names,
-                                   repo_id,
+                                   dst_repo_id,
                                    dst_dir_path);
     connect(req, SIGNAL(success()),
             SLOT(onMoveDirentsSuccess()));
@@ -213,7 +215,7 @@ void DataManager::onCopyDirentsSuccess()
 void DataManager::onMoveDirentsSuccess()
 {
     MoveMultipleFilesRequest *req = qobject_cast<MoveMultipleFilesRequest*>(sender());
-    dirents_cache_->expireCachedDirents(req->repoId(), req->srcPath());
+    dirents_cache_->expireCachedDirents(req->srcRepoId(), req->srcPath());
 
     emit moveDirentsSuccess();
 }

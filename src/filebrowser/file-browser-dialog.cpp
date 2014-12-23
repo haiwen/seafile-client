@@ -57,6 +57,11 @@ bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) 
 
 } // namespace
 
+QStringList FileBrowserDialog::file_names_to_be_pasted_;
+QString FileBrowserDialog::dir_path_to_be_pasted_from_;
+QString FileBrowserDialog::repo_id_to_be_pasted_from_;
+bool FileBrowserDialog::is_copyed_when_pasted_;
+
 FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
       repo_(repo)
@@ -809,23 +814,27 @@ void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file
     is_copyed_when_pasted_ = is_copy;
     dir_path_to_be_pasted_from_ = current_path_;
     file_names_to_be_pasted_ = file_names;
+    repo_id_to_be_pasted_from_ = repo_.id;
 }
 
 void FileBrowserDialog::onGetDirentsPaste()
 {
-    if (current_path_ == dir_path_to_be_pasted_from_) {
+    if (repo_id_to_be_pasted_from_ == repo_.id &&
+        current_path_ == dir_path_to_be_pasted_from_) {
         seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
         return;
     }
     if (is_copyed_when_pasted_)
-        data_mgr_->copyDirents(repo_.id,
+        data_mgr_->copyDirents(repo_id_to_be_pasted_from_,
                                dir_path_to_be_pasted_from_,
                                file_names_to_be_pasted_,
+                               repo_.id,
                                current_path_);
     else
-        data_mgr_->moveDirents(repo_.id,
+        data_mgr_->moveDirents(repo_id_to_be_pasted_from_,
                                dir_path_to_be_pasted_from_,
                                file_names_to_be_pasted_,
+                               repo_.id,
                                current_path_);
 }
 

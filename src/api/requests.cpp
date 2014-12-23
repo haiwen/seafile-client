@@ -157,6 +157,7 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     info.magic = dict["magic"].toString();
     info.random_key = dict["random_key"].toString();
     info.enc_version = dict.value("enc_version", 1).toInt();
+    info.readonly = read_only;
 
     QUrl url = url_in;
     url.setPath("/");

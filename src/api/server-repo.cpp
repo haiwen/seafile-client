@@ -37,6 +37,9 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
     if (repo.type == "grepo") {
         repo.group_name = repo.owner;
         repo.group_id = json_integer_value(json_object_get(json, "groupid"));
+    } else {
+        repo.group_name = QString();
+        repo.group_id = 0;
     }
 
     return repo;

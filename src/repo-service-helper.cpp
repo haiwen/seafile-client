@@ -69,7 +69,7 @@ void FileDownloadHelper::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
     }
     // critally important
     if (!found_file) {
-        qDebug("File %s doesn't exist any more", file_name_.toUtf8().data());
+        qWarning("File %s doesn't exist any more", file_name_.toUtf8().data());
     }
 
 }

@@ -200,7 +200,7 @@ get_win_run_key (HKEY *pKey)
                                0L,KEY_WRITE | KEY_READ,
                                pKey);
     if (result != ERROR_SUCCESS) {
-        qDebug("Failed to open Registry key %s\n", key_run);
+        qWarning("Failed to open Registry key %s\n", key_run);
     }
 
     return result;
@@ -222,7 +222,7 @@ add_to_auto_start (const wchar_t *appname_w, const wchar_t *path_w)
 
     RegCloseKey(hKey);
     if (result != ERROR_SUCCESS) {
-        qDebug("Failed to create auto start value\n");
+        qWarning("Failed to create auto start value\n");
         return -1;
     }
 
@@ -241,7 +241,7 @@ delete_from_auto_start(const wchar_t *appname)
     result = RegDeleteValueW (hKey, appname);
     RegCloseKey(hKey);
     if (result != ERROR_SUCCESS) {
-        qDebug("Failed to remove auto start value");
+        qWarning("Failed to remove auto start value");
         return -1;
     }
 

@@ -30,8 +30,8 @@ int AccountManager::start()
     QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
     if (sqlite3_open (toCStr(db_path), &db)) {
         errmsg = sqlite3_errmsg (db);
-        qDebug("failed to open account database %s: %s",
-               toCStr(db_path), errmsg ? errmsg : "no error given");
+        qWarning("failed to open account database %s: %s",
+                toCStr(db_path), errmsg ? errmsg : "no error given");
 
         seafApplet->errorAndExit(tr("failed to open account database"));
         return -1;

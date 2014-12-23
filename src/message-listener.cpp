@@ -92,7 +92,7 @@ void MessageListener::connectDaemon()
     socket_notifier_ = new QSocketNotifier(async_client_->connfd, QSocketNotifier::Read);
     connect(socket_notifier_, SIGNAL(activated(int)), this, SLOT(readConnfd()));
 
-    qDebug("[MessageListener] connected to daemon");
+    qWarning("[MessageListener] connected to daemon");
 
     startMqClient();
 }
@@ -122,14 +122,14 @@ void MessageListener::startMqClient()
 
 void MessageListener::handleMessage(CcnetMessage *message)
 {
-    // qDebug("got a message: %s %s.", message->app, message->body);
+    // qWarning("got a message: %s %s.", message->app, message->body);
 
     char *type = NULL;
     char *content = NULL;
 
     if (IS_APP_MSG(message, kAppletCommandsMQ)) {
         if (g_strcmp0(message->body, "quit") == 0) {
-            qDebug("[Message Listener] Got a quit command. Quit now.");
+            qWarning("[Message Listener] Got a quit command. Quit now.");
             QCoreApplication::exit(0);
             return;
         }
@@ -150,12 +150,12 @@ void MessageListener::handleMessage(CcnetMessage *message)
             seafApplet->trayIcon()->rotate(true);
 
             if (!content) {
-                qDebug("Handle empty notification");
+                qWarning("Handle empty notification");
                 return;
             }
             QString buf;
             bool ret = parse_key_value_pairs(content, (KeyValueFunc)collect_transfer_info, &buf);
-            // qDebug() << "ret="<< ret << buf;
+            // qWarning() << "ret="<< ret << buf;
             if (ret)
                 seafApplet->trayIcon()->setToolTip(buf);
 
@@ -166,7 +166,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             /* format: repo_name \t repo_id \t description */
             QStringList slist = QString::fromUtf8(content).split("\t");
             if (slist.count() != 3) {
-                qDebug("Bad sync.done message format");
+                qWarning("Bad sync.done message format");
                 return;
             }
 
@@ -179,7 +179,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             /* format: <repo_name\trepo_id> */
             QStringList slist = QString::fromUtf8(content).split("\t");
             if (slist.count() != 2) {
-                qDebug("Bad sync.access_denied message format");
+                qWarning("Bad sync.access_denied message format");
                 return;
             }
             QString buf = tr("\"%1\" failed to sync. \nAccess denied to service").arg(slist.at(0));
@@ -189,7 +189,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             /* format: <repo_name\trepo_id> */
             QStringList slist = QString::fromUtf8(content).split("\t");
             if (slist.count() != 2) {
-                qDebug("Bad sync.quota_full message format");
+                qWarning("Bad sync.quota_full message format");
                 return;
             }
 

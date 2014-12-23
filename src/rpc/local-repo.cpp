@@ -53,8 +53,8 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
 
 void LocalRepo::setSyncInfo(QString state, QString error)
 {
-    // qDebug("error: %s\n", toCStr(error));
-    // qDebug("state: %s\n", toCStr(state));
+    // qWarning("error: %s\n", toCStr(error));
+    // qWarning("state: %s\n", toCStr(state));
     if (error.length() > 0) {
         translateSyncError(error);
     } else {
@@ -105,7 +105,7 @@ void LocalRepo::translateSyncState(QString status)
         sync_state = SYNC_STATE_DISABLED;
 
     } else {
-        qDebug("unknown sync status: %s\n", toCStr(status));
+        qWarning("unknown sync status: %s\n", toCStr(status));
         sync_state_str = QObject::tr("unknown");
         sync_state = SYNC_STATE_UNKNOWN;
     }

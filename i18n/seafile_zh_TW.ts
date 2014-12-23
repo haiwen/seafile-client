@@ -926,7 +926,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="285"/>
         <source>D&amp;ownload</source>
-        <translation>下載 (&amp;D)</translation>
+        <translation>下載 (&amp;O)</translation>
     </message>
 </context>
 <context>

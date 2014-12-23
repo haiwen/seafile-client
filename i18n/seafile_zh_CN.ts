@@ -919,7 +919,7 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="285"/>
         <source>D&amp;ownload</source>
-        <translation>下载 (&amp;D)</translation>
+        <translation>下载 (&amp;O)</translation>
     </message>
 </context>
 <context>

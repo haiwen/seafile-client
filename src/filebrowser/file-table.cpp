@@ -221,6 +221,11 @@ void FileTableView::setupContextMenu()
     paste_action_ = new QAction(tr("&Paste"), this);
     connect(paste_action_, SIGNAL(triggered()), this, SIGNAL(direntPaste()));
 
+    if (parent_->repo_.readonly) {
+        move_action_->setEnabled(false);
+        paste_action_->setEnabled(false);
+    }
+
     cancel_download_action_ = new QAction(tr("&Cancel Download"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));

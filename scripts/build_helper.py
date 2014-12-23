@@ -9,7 +9,9 @@ def get_dependencies_by_otool(path):
     if path.endswith('.app') and os.path.isdir(path):
         path = os.path.join(path, 'Contents', 'MacOS', os.path.basename(path))
     lines = check_string_output(['otool', '-L', path]).split('\n')[1:]
-    outputs = [path]
+    outputs = []
+    if path.endswith('.dylib'):
+        outputs.append(path);
 
     for line in lines:
         name = line.split('(')[0].strip()
@@ -23,8 +25,8 @@ def get_dependencies_by_otool(path):
         # skip system libraries
         if name.startswith('/usr/lib') or name.startswith('/System'):
             continue
-        # skip Frameworks (TODO: support frameworks)
-        if re.search(r'(\w+)\.framework/Versions/[A-Z]/(\1)$', name):
+        # skip Frameworks (TODO: support frameworks, except Qt's framewroks)
+        if re.search(r'(\w+)\.framework/Versions/[A-Z0-9]/(\1)$', name):
             continue
         # if file not found
         if not os.path.exists(name):

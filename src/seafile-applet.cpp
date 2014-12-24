@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QTimer>
 
+#include <errno.h>
 #include <glib.h>
 
 #include "utils/utils.h"
@@ -270,7 +271,7 @@ void SeafileApplet::errorAndExit(const QString& error)
 void SeafileApplet::initLog()
 {
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
-        errorAndExit(tr("Failed to initialize log"));
+        errorAndExit(tr("Failed to initialize log: %s").arg(g_strerror(errno)));
     } else {
         // give a change to override DEBUG_LEVEL by environment
         QString debug_level = qgetenv("SEAFILE_CLIENT_DEBUG");

@@ -60,18 +60,19 @@ bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) 
 QStringList FileBrowserDialog::file_names_to_be_pasted_;
 QString FileBrowserDialog::dir_path_to_be_pasted_from_;
 QString FileBrowserDialog::repo_id_to_be_pasted_from_;
+Account FileBrowserDialog::account_to_be_pasted_from_;
 bool FileBrowserDialog::is_copyed_when_pasted_;
 
 FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
+      account_(seafApplet->accountManager()->currentAccount()),
       repo_(repo)
 {
     current_path_ = "/";
     // since root is special, the next step is unnecessary
     // current_lpath_.push_back("");
 
-    const Account& account = seafApplet->accountManager()->currentAccount();
-    data_mgr_ = new DataManager(account);
+    data_mgr_ = new DataManager(account_);
 
     setWindowTitle(tr("Cloud File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -815,6 +816,7 @@ void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file
     dir_path_to_be_pasted_from_ = current_path_;
     file_names_to_be_pasted_ = file_names;
     repo_id_to_be_pasted_from_ = repo_.id;
+    account_to_be_pasted_from_ = account_;
 }
 
 void FileBrowserDialog::onGetDirentsPaste()

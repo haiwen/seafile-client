@@ -3,8 +3,8 @@
 
 #include <QStack>
 #include <QDialog>
-// #include "ui_file-browser-dialog.h"
 
+#include "account.h"
 #include "api/server-repo.h"
 
 class QToolBar;
@@ -119,6 +119,7 @@ private:
 
     bool setPasswordAndRetry(FileNetworkTask *task);
 
+    const Account account_;
     ServerRepo repo_;
     // current path
     QString current_path_;
@@ -128,6 +129,7 @@ private:
     static QStringList file_names_to_be_pasted_;
     static QString dir_path_to_be_pasted_from_;
     static QString repo_id_to_be_pasted_from_;
+    static Account account_to_be_pasted_from_;
     static bool is_copyed_when_pasted_;
 
     QToolBar *toolbar_;

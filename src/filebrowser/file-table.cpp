@@ -260,6 +260,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     // paste_action show only if there are files in the clipboard
     paste_action_->setVisible(parent_->hasFilesToBePasted());
+    // paste_action show enabled only if it comes from the same account
+    paste_action_->setEnabled(!parent_->repo_.readonly &&
+        parent_->account_to_be_pasted_from_ == parent_->account_);
 
     // find if the item is in the selection
     int i;

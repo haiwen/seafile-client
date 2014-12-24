@@ -60,14 +60,12 @@ applet_log_init (const char *ccnet_dir)
     char *logdir = g_build_filename (ccnet_dir, "logs", NULL);
     char *file = g_build_filename(logdir, "applet.log", NULL);
 
-    checkdir_with_mkdir (logdir);
+    if (checkdir_with_mkdir (logdir) < 0) {
+        g_free (logdir);
+        return -1;
+    }
+
     g_free (logdir);
-
-    g_log_set_handler (NULL, G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
-                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
-
-    g_log_set_handler ("Ccnet", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
-                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
 
     /* record all log message */
     applet_log_level = G_LOG_LEVEL_DEBUG;
@@ -78,8 +76,13 @@ applet_log_init (const char *ccnet_dir)
         return -1;
     }
 
+    g_log_set_handler (NULL, G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
+                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
+
+    g_log_set_handler ("Ccnet", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
+                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
+
     g_free (file);
 
     return 0;
 }
-

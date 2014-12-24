@@ -95,7 +95,7 @@ def postbuild_patchelf():
 def execute_buildscript(generator = 'xcode', build_type = 'Release'):
     print "executing build scripts..."
     if generator == 'xcode':
-        command = ['xcodebuild', '-target', target, '-configuration', build_type, '-jobs', num_cpus]
+        command = ['xcodebuild', '-target', 'ALL_BUILD', '-configuration', build_type, '-jobs', num_cpus]
     elif generator == 'ninja':
         command = ['ninja']
     else:
@@ -139,6 +139,8 @@ if __name__ == '__main__':
         configuration = 'Debug'
     else:
         configuration = 'Release'
+
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
     prebuild_cleanup()
     generate_buildscript(build_type=configuration)

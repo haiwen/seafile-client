@@ -19,6 +19,7 @@
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 
+#include "file-browser-manager.h"
 #include "file-browser-dialog.h"
 
 namespace {
@@ -851,6 +852,10 @@ void FileBrowserDialog::onDirentsCopyFailed(const ApiError& error)
 void FileBrowserDialog::onDirentsMoveSuccess()
 {
     file_names_to_be_pasted_.clear();
+    FileBrowserDialog *dialog =
+        FileBrowserManager::getInstance()->getDialog(account_to_be_pasted_from_, repo_id_to_be_pasted_from_);
+    if (dialog != NULL && dialog->current_path_ == dir_path_to_be_pasted_from_)
+        dialog->forceRefresh();
     forceRefresh();
 }
 void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)

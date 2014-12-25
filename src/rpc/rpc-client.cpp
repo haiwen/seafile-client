@@ -51,7 +51,7 @@ void SeafileRpcClient::connectDaemon()
     seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
     ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
 
-    qDebug("[Rpc Client] connected to daemon");
+    qWarning("[Rpc Client] connected to daemon");
 }
 
 int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)

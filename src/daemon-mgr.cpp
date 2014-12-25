@@ -67,7 +67,7 @@ void DaemonManager::startCcnetDaemon()
     QStringList args;
     args << "-c" << config_dir;
     ccnet_daemon_->start(RESOURCE_PATH(kCcnetDaemonExecutable), args);
-    qDebug() << "starting ccnet: " << args;
+    qWarning() << "starting ccnet: " << args;
 }
 
 void DaemonManager::startSeafileDaemon()
@@ -84,7 +84,7 @@ void DaemonManager::startSeafileDaemon()
     QStringList args;
     args << "-c" << config_dir << "-d" << seafile_dir << "-w" << worktree_dir;
     seaf_daemon_->start(RESOURCE_PATH(kSeafileDaemonExecutable), args);
-    qDebug() << "starting seaf-daemon: " << args;
+    qWarning() << "starting seaf-daemon: " << args;
 }
 
 void DaemonManager::onCcnetDaemonStarted()
@@ -99,7 +99,7 @@ void DaemonManager::systemShutDown()
 
 void DaemonManager::onSeafDaemonStarted()
 {
-    qDebug("seafile daemon is now running");
+    qWarning("seafile daemon is now running");
     emit daemonStarted();
 }
 
@@ -119,7 +119,7 @@ void DaemonManager::onSeafDaemonExited()
 
 void DaemonManager::stopAll()
 {
-    qDebug("[Daemon Mgr] stopping ccnet/seafile daemon");
+    qWarning("[Daemon Mgr] stopping ccnet/seafile daemon");
     if (seaf_daemon_)
         seaf_daemon_->kill();
     if (ccnet_daemon_)
@@ -128,14 +128,14 @@ void DaemonManager::stopAll()
 
 void DaemonManager::tryConnCcnet()
 {
-    qDebug("trying to connect to ccnet daemon...\n");
+    qWarning("trying to connect to ccnet daemon...\n");
 
     if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {
         return;
     } else {
         conn_daemon_timer_->stop();
 
-        qDebug("connected to ccnet daemon\n");
+        qWarning("connected to ccnet daemon\n");
 
         startSeafileDaemon();
     }

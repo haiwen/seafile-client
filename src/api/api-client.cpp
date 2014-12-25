@@ -54,7 +54,7 @@ void SeafileApiClient::get(const QUrl& url)
         request.setRawHeader(kAuthHeader, buf);
     }
 
-    // qDebug("send request, url = %s\n, token = %s\n",
+    // qWarning("send request, url = %s\n, token = %s\n",
     //        request.url().toString().toUtf8().data(),
     //        request.rawHeader(kAuthHeader).data());
 
@@ -114,7 +114,7 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
     if (cert.isNull()) {
         // The server has no ssl certificate, we do nothing and let the
         // request fail
-        qDebug("the certificate for %s is null", url.toString().toUtf8().data());
+        qWarning("the certificate for %s is null", url.toString().toUtf8().data());
         return;
     }
 
@@ -124,8 +124,8 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 
     if (saved_cert.isNull()) {
         // dump certificate information
-        qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
-        qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+        qWarning() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+        qWarning() << "\n= Certificate =\n" << dumpCertificate(cert);
 
         // This is the first time when the client connects to the server.
         if (seafApplet->detailedYesOrNoBox(
@@ -143,9 +143,9 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
         return;
     } else {
         // dump certificate information
-        qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
-        qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
-        qDebug() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
+        qWarning() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+        qWarning() << "\n= Certificate =\n" << dumpCertificate(cert);
+        qWarning() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
 
         /**
          * The cert which the user had chosen to trust has been changed. It
@@ -182,7 +182,7 @@ void SeafileApiClient::httpRequestFinished()
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
         if (!shouldIgnoreRequestError(reply_)) {
-            qDebug("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
+            qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
                    reply_->errorString().toUtf8().data());
         }
         emit networkError(reply_->error(), reply_->errorString());
@@ -195,7 +195,7 @@ void SeafileApiClient::httpRequestFinished()
 
     if ((code / 100) == 4 || (code / 100) == 5) {
         if (!shouldIgnoreRequestError(reply_)) {
-            qDebug("request failed for %s: status code %d\n",
+            qWarning("request failed for %s: status code %d\n",
                    reply_->url().toString().toUtf8().data(), code);
         }
         emit requestFailed(code);
@@ -215,7 +215,7 @@ bool SeafileApiClient::handleHttpRedirect()
     if (redirect_count_++ > kMaxRedirects) {
         // simply treat too many redirects as server side error
         emit requestFailed(500);
-        qDebug("too many redirects for %s\n",
+        qWarning("too many redirects for %s\n",
                reply_->url().toString().toUtf8().data());
         return true;
     }
@@ -225,7 +225,7 @@ bool SeafileApiClient::handleHttpRedirect()
         redirect_url =  reply_->url().resolved(redirect_url);
     }
 
-    // qDebug("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
+    // qWarning("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
     //        reply_->url().toString().toUtf8().data());
 
     switch (reply_->operation()) {

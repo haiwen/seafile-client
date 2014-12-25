@@ -25,6 +25,7 @@ class GetDirentsRequest;
 class FileBrowserCache;
 class DataManager;
 class FileNetworkTask;
+class FileBrowserManager;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -39,8 +40,9 @@ class FileBrowserDialog : public QDialog
                           // public Ui::FileBrowserDialog
 {
     Q_OBJECT
+    friend class FileBrowserManager;
 public:
-    FileBrowserDialog(const ServerRepo& repo,
+    FileBrowserDialog(const Account &account, const ServerRepo& repo,
                       QWidget *parent=0);
     ~FileBrowserDialog();
 
@@ -120,7 +122,7 @@ private:
     bool setPasswordAndRetry(FileNetworkTask *task);
 
     const Account account_;
-    ServerRepo repo_;
+    const ServerRepo repo_;
     // current path
     QString current_path_;
     QStringList current_lpath_;

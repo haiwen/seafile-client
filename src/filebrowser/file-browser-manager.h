@@ -1,0 +1,36 @@
+#ifndef SEAFILE_CLIENT_FILE_BROWSER_MANAGER_H
+#define SEAFILE_CLIENT_FILE_BROWSER_MANAGER_H
+#include <QObject>
+#include <QList>
+#include <QWeakPointer>
+#include "api/server-repo.h"
+#include "account.h"
+
+class FileBrowserDialog;
+
+class FileBrowserManager : public QObject {
+  Q_OBJECT
+public:
+  static FileBrowserManager* getInstance() {
+    if (!instance_) {
+        static FileBrowserManager instance;
+        instance_ = &instance;
+    }
+    return instance_;
+  }
+
+  FileBrowserDialog *openOrActivateDialog(const Account &account, const ServerRepo &repo);
+
+  FileBrowserDialog *getDialog(const Account &account, const QString &repo_id);
+
+private:
+  FileBrowserManager(const FileBrowserManager*); // DELETED
+  FileBrowserManager& operator=(const FileBrowserManager*); // DELETED
+
+  FileBrowserManager() {}
+  static FileBrowserManager *instance_;
+  QList<QWeakPointer<FileBrowserDialog> > dialogs_;
+};
+
+
+#endif // SEAFILE_CLIENT_FILE_BROWSER_MANAGER_H

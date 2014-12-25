@@ -63,9 +63,9 @@ QString FileBrowserDialog::repo_id_to_be_pasted_from_;
 Account FileBrowserDialog::account_to_be_pasted_from_;
 bool FileBrowserDialog::is_copyed_when_pasted_;
 
-FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
+FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
-      account_(seafApplet->accountManager()->currentAccount()),
+      account_(account),
       repo_(repo)
 {
     current_path_ = "/";

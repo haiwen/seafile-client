@@ -41,27 +41,27 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-settings-dialog.h" line="107"/>
+        <location filename="../ui/account-settings-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-settings-dialog.h" line="108"/>
+        <location filename="../ui/account-settings-dialog.ui" line="22"/>
         <source>Server Address</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-settings-dialog.h" line="109"/>
+        <location filename="../ui/account-settings-dialog.ui" line="32"/>
         <source>Email</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-settings-dialog.h" line="110"/>
+        <location filename="../ui/account-settings-dialog.ui" line="59"/>
         <source>OK</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-settings-dialog.h" line="111"/>
+        <location filename="../ui/account-settings-dialog.ui" line="66"/>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
@@ -104,22 +104,22 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="82"/>
+        <location filename="../ui/account-view.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="83"/>
+        <location filename="../ui/account-view.ui" line="20"/>
         <source>Account</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui/account-view.ui" line="41"/>
         <source>email</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui/account-view.ui" line="53"/>
         <source>server</source>
         <translation type="unfinished"/>
     </message>
@@ -173,17 +173,17 @@
         <translation>Momentálne nie sú žiadne úlohy na stiahnutie. </translation>
     </message>
     <message>
-        <location filename="../ui_clone-tasks-dialog.h" line="69"/>
+        <location filename="../ui/clone-tasks-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_clone-tasks-dialog.h" line="70"/>
+        <location filename="../ui/clone-tasks-dialog.ui" line="22"/>
         <source>Clear</source>
         <translation>Vyčistiť</translation>
     </message>
     <message>
-        <location filename="../ui_clone-tasks-dialog.h" line="71"/>
+        <location filename="../ui/clone-tasks-dialog.ui" line="42"/>
         <source>Close</source>
         <translation>Zavrieť</translation>
     </message>
@@ -307,62 +307,62 @@
         <translation>Obnoviť</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="231"/>
+        <location filename="../ui/cloud-view.ui" line="14"/>
         <source>Form</source>
         <translation>Formulár</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="232"/>
+        <location filename="../ui/cloud-view.ui" line="44"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="233"/>
+        <location filename="../ui/cloud-view.ui" line="51"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="234"/>
+        <location filename="../ui/cloud-view.ui" line="75"/>
         <source>minimize</source>
         <translation>minimalizovať</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="235"/>
+        <location filename="../ui/cloud-view.ui" line="82"/>
         <source>close</source>
         <translation>zatvoriť</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="238"/>
+        <location filename="../ui/cloud-view.ui" line="230"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="236"/>
+        <location filename="../ui/cloud-view.ui" line="161"/>
         <source>Select</source>
         <translation>Vybrať</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="237"/>
+        <location filename="../ui/cloud-view.ui" line="171"/>
         <source>or Drop Folder to Sync</source>
         <translation>alebo vyberte adresár, ktorý chcete synchronizovať</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="239"/>
+        <location filename="../ui/cloud-view.ui" line="255"/>
         <source>download rate</source>
         <translation>rýchlosť sťahovania</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="240"/>
+        <location filename="../ui/cloud-view.ui" line="262"/>
         <source>downarrow</source>
         <translation>šípka dole</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="241"/>
+        <location filename="../ui/cloud-view.ui" line="273"/>
         <source>upload rate</source>
         <translation>rýchlosť nahrávania</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="242"/>
+        <location filename="../ui/cloud-view.ui" line="280"/>
         <source>uparrow</source>
         <translation>šípka hore</translation>
     </message>
@@ -451,57 +451,57 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui/create-repo-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui/create-repo-dialog.ui" line="35"/>
         <source>Path:</source>
         <translation>Cesta:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui/create-repo-dialog.ui" line="47"/>
         <source>Choose</source>
         <translation>Vyber</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui/create-repo-dialog.ui" line="56"/>
         <source>Name:</source>
         <translation>Meno:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
+        <location filename="../ui/create-repo-dialog.ui" line="73"/>
         <source>Description:</source>
         <translation>Popis:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui/create-repo-dialog.ui" line="83"/>
         <source>encrypted</source>
         <translation>zašifrovaná</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui/create-repo-dialog.ui" line="90"/>
         <source>Password:</source>
         <translation>Heslo:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui/create-repo-dialog.ui" line="110"/>
         <source>Password Again:</source>
         <translation>Heslo znova:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui/create-repo-dialog.ui" line="138"/>
         <source>status text</source>
         <translation>text stavu</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui/create-repo-dialog.ui" line="158"/>
         <source>OK</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui/create-repo-dialog.ui" line="165"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
@@ -585,27 +585,27 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="224"/>
+        <location filename="../ui/download-repo-dialog.ui" line="14"/>
         <source>Download Library</source>
         <translation>Stiahnuť knižnicu</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="225"/>
+        <location filename="../ui/download-repo-dialog.ui" line="109"/>
         <source>choose...</source>
         <translation>vyber...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="226"/>
+        <location filename="../ui/download-repo-dialog.ui" line="131"/>
         <source>Password for this library:</source>
         <translation>Heslo pre túto knižnicu:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="227"/>
+        <location filename="../ui/download-repo-dialog.ui" line="246"/>
         <source>OK</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="228"/>
+        <location filename="../ui/download-repo-dialog.ui" line="253"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
@@ -980,37 +980,37 @@
         <translation>Adresár %1 neexistuje</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="190"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="191"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="38"/>
         <source>Choose Seafile folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="192"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="61"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="193"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="111"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="194"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="139"/>
         <source>Choose...</source>
         <translation>Vyber...</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="195"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="216"/>
         <source>Next</source>
         <translation>Ďaľší</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="196"/>
+        <location filename="../ui/init-seafile-dialog.ui" line="223"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
@@ -1085,50 +1085,50 @@ Pre zobrazenie môžete kliknúť na tlačítko &quot;Otvoriť&quot;.</translati
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialógové okno</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="106"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
         <translation>Seafile organizuje súbory do knižnic.
 Prajete si stiahnuť predvolenú knižnicu a vytvoriť virtuálny disk?</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="178"/>
         <source>Skip</source>
         <translation>Preskočiť</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="185"/>
         <source>Run in Background</source>
         <translation>Bežať na pozadí</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="192"/>
         <source>Open</source>
         <translation>Otvoriť</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="199"/>
         <source>Finish</source>
         <translation>Koniec</translation>
     </message>
     <message>
+        <location filename="../ui/init-vdrive-dialog.ui" line="46"/>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="34"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>Download Default Library</source>
         <translation>Stiahnutie predvolenej knižnice</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="171"/>
         <source>Yes</source>
         <translation>Áno</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui/init-vdrive-dialog.ui" line="66"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
@@ -1136,141 +1136,155 @@ Prajete si stiahnuť predvolenú knižnicu a vytvoriť virtuálny disk?</transla
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="22"/>
-        <location filename="../ui_login-dialog.h" line="257"/>
+        <location filename="../ui/login-dialog.ui" line="55"/>
+        <location filename="../src/ui/login-dialog.cpp" line="25"/>
         <source>Add an account</source>
         <translation>Pridať účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="50"/>
+        <location filename="../src/ui/login-dialog.cpp" line="63"/>
         <source>Logging in...</source>
         <translation>Prihlasujem...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="88"/>
+        <location filename="../src/ui/login-dialog.cpp" line="101"/>
         <source>Network Error:
  %1</source>
         <translation>Sieťová chyba:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="100"/>
+        <location filename="../src/ui/login-dialog.cpp" line="113"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Upozornenie:&lt;/b&gt; SSL certifikát servera nie ne dôveryhodný, pokračovať?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="114"/>
+        <location filename="../src/ui/login-dialog.cpp" line="127"/>
         <source>Please enter the server address</source>
         <translation>Prosím zadajte adresu servera</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="118"/>
-        <location filename="../src/ui/login-dialog.cpp" line="124"/>
+        <location filename="../src/ui/login-dialog.cpp" line="131"/>
+        <location filename="../src/ui/login-dialog.cpp" line="137"/>
+        <location filename="../src/ui/login-dialog.cpp" line="237"/>
+        <location filename="../src/ui/login-dialog.cpp" line="243"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 nie je platná adresa servera</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="131"/>
+        <location filename="../src/ui/login-dialog.cpp" line="144"/>
         <source>Please enter the username</source>
         <translation>Prosím zadajte užívateľské meno</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="142"/>
+        <location filename="../src/ui/login-dialog.cpp" line="155"/>
         <source>Please enter the computer name</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="159"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Failed to save current account</source>
         <translation>Nepodarilo sa uložiť aktuálny účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="136"/>
+        <location filename="../src/ui/login-dialog.cpp" line="228"/>
+        <source>Seafile Server Address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="149"/>
         <source>Please enter the password</source>
         <translation>Prosím zadajte heslo</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="186"/>
+        <location filename="../src/ui/login-dialog.cpp" line="199"/>
         <source>Incorrect email or password</source>
         <translation>Neplatná mailová adresa alebo heslo</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="188"/>
+        <location filename="../src/ui/login-dialog.cpp" line="201"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="190"/>
+        <location filename="../src/ui/login-dialog.cpp" line="203"/>
         <source>Internal Server Error</source>
         <translation>Interná chyba na servery</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="194"/>
+        <location filename="../src/ui/login-dialog.cpp" line="207"/>
         <source>Failed to login: %1</source>
         <translation>Nepodarilo sa prihlásiť: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="196"/>
+        <location filename="../src/ui/login-dialog.cpp" line="209"/>
         <source>Failed to login</source>
         <translation>Nepodarilo sa prihlásiť</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="256"/>
+        <location filename="../ui/login-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="258"/>
+        <location filename="../ui/login-dialog.ui" line="75"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="259"/>
+        <location filename="../ui/login-dialog.ui" line="125"/>
         <source>Server:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="260"/>
+        <location filename="../ui/login-dialog.ui" line="145"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="261"/>
+        <location filename="../ui/login-dialog.ui" line="164"/>
         <source>or http://192.168.1.24:8000</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="262"/>
+        <location filename="../ui/login-dialog.ui" line="174"/>
         <source>Email:</source>
         <translation>Mailová adresa:</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="263"/>
+        <location filename="../ui/login-dialog.ui" line="187"/>
         <source>Password:</source>
         <translation>Heslo:</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="266"/>
+        <location filename="../ui/login-dialog.ui" line="230"/>
         <source>status text</source>
         <translation>text stavu</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="264"/>
+        <location filename="../ui/login-dialog.ui" line="204"/>
         <source>Computer Name:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="265"/>
+        <location filename="../ui/login-dialog.ui" line="220"/>
         <source>e.g. Jim&apos;s laptop</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="267"/>
+        <location filename="../ui/login-dialog.ui" line="291"/>
+        <location filename="../src/ui/login-dialog.cpp" line="52"/>
+        <location filename="../src/ui/login-dialog.cpp" line="227"/>
+        <source>Shibboleth Login</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/login-dialog.ui" line="311"/>
         <source>Login</source>
         <translation>Prihlásiť</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="268"/>
+        <location filename="../ui/login-dialog.ui" line="318"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
@@ -1668,6 +1682,138 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <source>copy failed</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
+        <source>Added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Deleted</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <source>Removed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <source>Modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <source>Renamed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <source>Moved</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <source>Added directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <source>Removed directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <source>Renamed directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <source>Moved directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <source>files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <source>directories</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <source>and %1 more</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <source>Reverted library to status at</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <source>Reverted file &quot;%1&quot; to status at %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <source>Recovered deleted directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <source>Changed library name or description</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <source>Auto merge by seafile system</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="442"/>
+        <location filename="../src/utils/utils.cpp" line="470"/>
+        <location filename="../src/utils/utils.cpp" line="473"/>
+        <source>Just now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="458"/>
+        <source>1 day ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="458"/>
+        <source>%1 days ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="462"/>
+        <source>1 hour ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="462"/>
+        <source>%1 hours ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="466"/>
+        <source>1 minute ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="466"/>
+        <source>%1 minutes ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="608"/>
+        <source>&lt;Not Part of Certificate&gt;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -1688,75 +1834,75 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
         <translation>Chyba:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="215"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="20"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="216"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="50"/>
         <source>RepoIcon</source>
         <translation>RepoIcon</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="217"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="68"/>
         <source>RepoName</source>
         <translation>RepoName</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="218"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="78"/>
         <source>Description:</source>
         <translation>Popis:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="219"/>
-        <location filename="../ui_repo-detail-dialog.h" line="221"/>
-        <location filename="../ui_repo-detail-dialog.h" line="225"/>
-        <location filename="../ui_repo-detail-dialog.h" line="227"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="85"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="102"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="143"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="170"/>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="220"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="95"/>
         <source>Owner:</source>
         <translation>Vlastník:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="222"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="122"/>
         <source>Last Modified:</source>
         <translation>Naposledy zmenené:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="223"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="129"/>
         <source>mtime</source>
         <translation>mtime</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="224"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="136"/>
         <source>Size:</source>
         <translation>Veľkosť:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="226"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="163"/>
         <source>Local Path:</source>
         <translation>Lokálna cesta:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="228"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="180"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="229"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="199"/>
         <source>RepoStatus</source>
         <translation>RepoStatus</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="230"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="225"/>
         <source>Name:</source>
         <translation>Meno:</translation>
     </message>
     <message>
-        <location filename="../ui_repo-detail-dialog.h" line="231"/>
+        <location filename="../ui/repo-detail-dialog.ui" line="252"/>
         <source>Close</source>
         <translation>Zatvoriť</translation>
     </message>
@@ -1983,12 +2129,12 @@ Diskový priestor vlastníka knižnice je zaplnený.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="273"/>
-        <source>Failed to initialize log</source>
-        <translation>Nepodarila sa inicializácia log súboru</translation>
+        <location filename="../src/seafile-applet.cpp" line="274"/>
+        <source>Failed to initialize log: %s</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="386"/>
+        <location filename="../src/seafile-applet.cpp" line="387"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Je dostupná nová verzia %1 klienta (%2).
@@ -2095,12 +2241,12 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation>Skryť hlavné okno</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="418"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="419"/>
+        <location filename="../src/ui/tray-icon.cpp" line="424"/>
         <source>auto sync is disabled</source>
         <translation>automatická synchronizácia je vypnutá</translation>
     </message>
@@ -2115,9 +2261,50 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation>&lt;h2&gt;%1 Klient %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="424"/>
+        <location filename="../src/ui/tray-icon.cpp" line="429"/>
         <source>some servers not connected</source>
         <translation>niektoré servery nie sú pripojené</translation>
+    </message>
+</context>
+<context>
+    <name>ServerRepoItem</name>
+    <message>
+        <location filename="../ui/server-repo-item.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/server-repo-item.ui" line="20"/>
+        <source>repoicon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/server-repo-item.ui" line="27"/>
+        <source>reponame</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/server-repo-item.ui" line="34"/>
+        <source>download</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <location filename="../ui/server-repos-view.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/server-repos-view.ui" line="39"/>
+        <source>Refresh</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/server-repos-view.ui" line="59"/>
+        <source>Add a repo</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2138,12 +2325,12 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation>odpojený</translation>
     </message>
     <message>
-        <location filename="../ui_server-status-dialog.h" line="70"/>
+        <location filename="../ui/server-status-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_server-status-dialog.h" line="71"/>
+        <location filename="../ui/server-status-dialog.ui" line="38"/>
         <source>Close</source>
         <translation>Zavrieť</translation>
     </message>
@@ -2176,17 +2363,17 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_set-repo-password-dialog.h" line="115"/>
+        <location filename="../ui/set-repo-password-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_set-repo-password-dialog.h" line="116"/>
+        <location filename="../ui/set-repo-password-dialog.ui" line="97"/>
         <source>OK</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_set-repo-password-dialog.h" line="117"/>
+        <location filename="../ui/set-repo-password-dialog.ui" line="104"/>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
@@ -2199,97 +2386,97 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation>Nastavenia</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="217"/>
+        <location filename="../ui/settings-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="218"/>
+        <location filename="../ui/settings-dialog.ui" line="30"/>
         <source>Hide main window when started</source>
         <translation>Po spustení skryť hlavné okno</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="219"/>
+        <location filename="../ui/settings-dialog.ui" line="37"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Upozorniť keď sú knižnice synchronizované</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="220"/>
+        <location filename="../ui/settings-dialog.ui" line="44"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="221"/>
+        <location filename="../ui/settings-dialog.ui" line="51"/>
         <source>Auto start Seafile after login</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="222"/>
+        <location filename="../ui/settings-dialog.ui" line="58"/>
         <source>Hide Seafile Icon from the docker</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="223"/>
+        <location filename="../ui/settings-dialog.ui" line="65"/>
         <source>Check for new version on startup</source>
         <translation>Skontrolovať novú verziu pri spustení</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="224"/>
+        <location filename="../ui/settings-dialog.ui" line="80"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Limit rýchlosti sťahovania (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="225"/>
+        <location filename="../ui/settings-dialog.ui" line="87"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Limit rýchlosti nahrávania (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="226"/>
+        <location filename="../ui/settings-dialog.ui" line="24"/>
         <source>Basic</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="227"/>
+        <location filename="../ui/settings-dialog.ui" line="135"/>
         <source>Do not automatically unsync a library</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="228"/>
+        <location filename="../ui/settings-dialog.ui" line="142"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="229"/>
+        <location filename="../ui/settings-dialog.ui" line="152"/>
         <source>Do not unsync a library when not found on server</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="230"/>
+        <location filename="../ui/settings-dialog.ui" line="159"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="231"/>
+        <location filename="../ui/settings-dialog.ui" line="169"/>
         <source>Enable file syncing with HTTP protocol</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="232"/>
+        <location filename="../ui/settings-dialog.ui" line="176"/>
         <source>Do not verify server certificate in HTTP syncing</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="233"/>
+        <location filename="../ui/settings-dialog.ui" line="129"/>
         <source>Advanced</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="234"/>
+        <location filename="../ui/settings-dialog.ui" line="218"/>
         <source>OK</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="235"/>
+        <location filename="../ui/settings-dialog.ui" line="225"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
@@ -2318,6 +2505,19 @@ Chcete navštíviť stránku na stiahnutie?</translation>
     </message>
 </context>
 <context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
+        <source>Failed to save current account</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SslConfirmDialog</name>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
@@ -2340,22 +2540,22 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
+        <location filename="../ui/ssl-confirm-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
+        <location filename="../ui/ssl-confirm-dialog.ui" line="30"/>
         <source>Remember my choice</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
+        <location filename="../ui/ssl-confirm-dialog.ui" line="65"/>
         <source>Yes</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_ssl-confirm-dialog.h" line="99"/>
+        <location filename="../ui/ssl-confirm-dialog.ui" line="72"/>
         <source>No</source>
         <translation type="unfinished"/>
     </message>
@@ -2427,24 +2627,52 @@ Chcete navštíviť stránku na stiahnutie?</translation>
         <translation>Odstraňujem informácie o účte...</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="106"/>
+        <location filename="../ui/uninstall-helper-dialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialóg</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="107"/>
+        <location filename="../ui/uninstall-helper-dialog.ui" line="35"/>
         <source>text</source>
         <translation>text</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="108"/>
+        <location filename="../ui/uninstall-helper-dialog.ui" line="92"/>
         <source>Yes</source>
         <translation>Áno</translation>
     </message>
     <message>
-        <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
+        <location filename="../ui/uninstall-helper-dialog.ui" line="99"/>
         <source>No</source>
         <translation>Nie</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <location filename="../ui/welcome-dialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/welcome-dialog.ui" line="41"/>
+        <source>Welcome to the seafile client</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/welcome-dialog.ui" line="58"/>
+        <source>HelpImage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/welcome-dialog.ui" line="74"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/welcome-dialog.ui" line="121"/>
+        <source>Next</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

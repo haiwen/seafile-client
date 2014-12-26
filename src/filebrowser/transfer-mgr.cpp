@@ -1,8 +1,10 @@
-#include <QDir>
-#include <sqlite3.h>
 #include <errno.h>
 #include <stdio.h>
+#include <sqlite3.h>
+
 #include <QDateTime>
+#include <QTimer>
+#include <QDir>
 
 #include "utils/file-utils.h"
 #include "utils/utils.h"
@@ -67,14 +69,18 @@ QSharedPointer<FileDownloadTask> TransferManager::addDownloadTask(const Account&
     return task;
 }
 
-void TransferManager::onDownloadTaskFinished(bool success)
+void TransferManager::runNextTask()
 {
+    current_download_.clear();
     if (!pending_downloads_.empty()) {
         QSharedPointer<FileDownloadTask> task = pending_downloads_.dequeue();
         startDownloadTask(task);
-    } else {
-        current_download_.clear();
     }
+}
+
+void TransferManager::onDownloadTaskFinished(bool success)
+{
+    QTimer::singleShot(0, this, SLOT(runNextTask()));
 }
 
 void TransferManager::startDownloadTask(QSharedPointer<FileDownloadTask> task)

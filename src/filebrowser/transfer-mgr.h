@@ -61,6 +61,7 @@ public:
 
 private slots:
     void onDownloadTaskFinished(bool success);
+    void runNextTask();
 
 private:
     void startDownloadTask(QSharedPointer<FileDownloadTask> task);

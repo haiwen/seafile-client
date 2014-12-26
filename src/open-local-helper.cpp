@@ -93,7 +93,8 @@ OpenLocalHelper*
 OpenLocalHelper::instance()
 {
     if (singleton_ == NULL) {
-        singleton_ = new OpenLocalHelper;
+        static OpenLocalHelper instance;
+        singleton_ = &instance;
     }
 
     return singleton_;

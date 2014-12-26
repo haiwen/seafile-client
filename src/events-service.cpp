@@ -16,7 +16,8 @@ EventsService* EventsService::singleton_;
 EventsService* EventsService::instance()
 {
     if (singleton_ == NULL) {
-        singleton_ = new EventsService;
+        static EventsService instance;
+        singleton_ = &instance;
     }
 
     return singleton_;

@@ -28,7 +28,8 @@
     CLASS* CLASS::singleton_; \
     CLASS* CLASS::instance() { \
         if (singleton_ == NULL) { \
-            singleton_ = new CLASS; \
+            static CLASS instance; \
+            singleton_ = &instance; \
         } \
         return singleton_; \
     }

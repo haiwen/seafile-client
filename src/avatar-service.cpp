@@ -110,7 +110,8 @@ AvatarService* AvatarService::singleton_;
 AvatarService* AvatarService::instance()
 {
     if (singleton_ == NULL) {
-        singleton_ = new AvatarService;
+        static AvatarService instance;
+        singleton_ = &instance;
     }
 
     return singleton_;

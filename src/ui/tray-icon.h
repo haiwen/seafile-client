@@ -6,6 +6,7 @@
 
 class QAction;
 class QMenu;
+class QMenuBar;
 #if defined(Q_WS_MAC)
 class TrayNotificationManager;
 #endif
@@ -58,12 +59,15 @@ private:
 
     void createActions();
     void createContextMenu();
+    void createGlobalMenuBar();
 
     QIcon stateToIcon(TrayState state);
     QIcon getIcon(const QString& name);
 
     QMenu *context_menu_;
     QMenu *help_menu_;
+    QMenu *global_menu_;
+    QMenuBar *global_menubar_;
 
     // Actions for tray icon menu
     QAction *enable_auto_sync_action_;

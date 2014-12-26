@@ -16,8 +16,8 @@ class DaemonManager : public QObject {
 
 public:
     DaemonManager();
+    ~DaemonManager();
     void startCcnetDaemon();
-    void stopAll();
 
 signals:
     void daemonStarted();
@@ -34,6 +34,7 @@ private:
     Q_DISABLE_COPY(DaemonManager)
 
     void startSeafileDaemon();
+    void stopAllDaemon();
 
     QTimer *conn_daemon_timer_;
     QProcess *ccnet_daemon_;

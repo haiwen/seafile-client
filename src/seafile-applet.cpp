@@ -260,7 +260,6 @@ void SeafileApplet::checkInitVDrive()
 
 void SeafileApplet::onAboutToQuit()
 {
-    daemon_mgr_->stopAll();
     tray_icon_->hide();
     if (main_win_) {
         main_win_->writeSettings();

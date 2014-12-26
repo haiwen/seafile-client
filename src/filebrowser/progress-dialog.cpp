@@ -9,7 +9,7 @@
 #include "utils/utils.h"
 #include "progress-dialog.h"
 
-FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
+FileBrowserProgressDialog::FileBrowserProgressDialog(QSharedPointer<FileNetworkTask> task, QWidget *parent)
         : QProgressDialog(parent),
           task_(task)
 {

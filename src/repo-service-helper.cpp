@@ -86,7 +86,7 @@ void FileDownloadHelper::downloadFile(const QString &id)
 
     // endless loop for setPasswordDialog
     while(true) {
-        FileDownloadTask *task = data_mgr.createDownloadTask(repo_.id, path_);
+        QSharedPointer<FileDownloadTask> task = data_mgr.createDownloadTask(repo_.id, path_);
         FileBrowserProgressDialog dialog(task, parent_);
         if (dialog.exec()) {
             QString full_path =

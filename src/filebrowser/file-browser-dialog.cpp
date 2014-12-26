@@ -461,8 +461,8 @@ void FileBrowserDialog::createDirectory(const QString &name)
 
 void FileBrowserDialog::downloadFile(const QString& path)
 {
-    FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
-    connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+    QSharedPointer<FileDownloadTask> task = data_mgr_->createDownloadTask(repo_.id, path);
+    connect(task.data(), SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
 }
 
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
@@ -475,8 +475,9 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
 
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(
+        QSharedPointer<FileNetworkTask>(task, &QObject::deleteLater), this);
     task->start();
 
     // set dialog attributes

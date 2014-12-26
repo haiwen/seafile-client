@@ -57,11 +57,10 @@ public:
      * Return all download tasks for files in the `parent_dir`
      */
     QList<QSharedPointer<FileDownloadTask> > getDownloadTasks(const QString& repo_id,
-                                                             const QString& parent_dir);
+                                                              const QString& parent_dir);
 
 private slots:
     void onDownloadTaskFinished(bool success);
-    void runNextTask();
 
 private:
     void startDownloadTask(QSharedPointer<FileDownloadTask> task);

@@ -58,7 +58,8 @@ QSharedPointer<FileDownloadTask> TransferManager::addDownloadTask(const Account&
         return existing_task;
     }
 
-    QSharedPointer<FileDownloadTask> task(new FileDownloadTask(account, repo_id, path, local_path));
+    QSharedPointer<FileDownloadTask> task(new FileDownloadTask(account, repo_id, path, local_path),
+                                          &QObject::deleteLater);
     connect(task.data(), SIGNAL(finished(bool)),
             this, SLOT(onDownloadTaskFinished(bool)));
     if (current_download_) {
@@ -69,18 +70,13 @@ QSharedPointer<FileDownloadTask> TransferManager::addDownloadTask(const Account&
     return task;
 }
 
-void TransferManager::runNextTask()
+void TransferManager::onDownloadTaskFinished(bool success)
 {
     current_download_.clear();
     if (!pending_downloads_.empty()) {
         QSharedPointer<FileDownloadTask> task = pending_downloads_.dequeue();
         startDownloadTask(task);
     }
-}
-
-void TransferManager::onDownloadTaskFinished(bool success)
-{
-    QTimer::singleShot(0, this, SLOT(runNextTask()));
 }
 
 void TransferManager::startDownloadTask(QSharedPointer<FileDownloadTask> task)

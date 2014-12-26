@@ -476,7 +476,8 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(QSharedPointer<FileNetworkTask>(task), this);
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(
+        QSharedPointer<FileNetworkTask>(task, &QObject::deleteLater), this);
     task->start();
 
     // set dialog attributes

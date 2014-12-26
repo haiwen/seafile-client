@@ -389,7 +389,7 @@ void FileTableView::dropEvent(QDropEvent *event)
     QString file_name = urls.first().toLocalFile();
 #ifdef Q_WS_MAC
     if (file_name.startsWith("/.file/id="))
-        file_name = __mac_get_path_from_fileId_url("file://" + file_name);
+        file_name = utils::mac::get_path_from_fileId_url("file://" + file_name);
 #endif
 
     if(file_name.isEmpty())

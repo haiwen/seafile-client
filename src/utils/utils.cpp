@@ -299,15 +299,15 @@ set_seafile_auto_start(bool on)
 int
 get_seafile_auto_start()
 {
-    return __mac_get_auto_start();
+    return utils::mac::get_auto_start();
 }
 
 int
 set_seafile_auto_start(bool on)
 {
-    bool was_on = __mac_get_auto_start();
+    bool was_on = utils::mac::get_auto_start();
     if (on != was_on)
-        __mac_set_auto_start(on);
+        utils::mac::set_auto_start(on);
     return on;
 }
 #else
@@ -329,7 +329,7 @@ int
 set_seafile_dock_icon_style(bool hidden)
 {
 #if defined(Q_WS_MAC)
-    __mac_setDockIconStyle(hidden);
+    utils::mac::setDockIconStyle(hidden);
 #endif
     return 0;
 }

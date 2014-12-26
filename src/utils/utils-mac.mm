@@ -13,8 +13,14 @@
 #define MAC_OS_X_VERSION_10_10      101000
 #endif
 
+namespace utils {
+namespace mac {
+
+namespace {
 static bool checked = false;
 static double scaleFactor = 1.0;
+}
+
 inline static void checkFactor() {
     if (!checked){
 #if (__MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7)
@@ -27,19 +33,19 @@ inline static void checkFactor() {
     }
 }
 
-int __mac_isHiDPI() {
+int isHiDPI() {
     checkFactor();
     return (scaleFactor > 1.0);
 }
 
-double __mac_getScaleFactor() {
+double getScaleFactor() {
     checkFactor();
     return scaleFactor;
 }
 
 //TransformProcessType is not encouraged to use, aha
 //Sorry but not functional for OSX 10.7
-void __mac_setDockIconStyle(bool hidden) {
+void setDockIconStyle(bool hidden) {
     //https://developer.apple.com/library/mac/documentation/AppKit/Reference/NSRunningApplication_Class/Reference/Reference.html
     if (hidden) {
         [[NSApplication sharedApplication] setActivationPolicy: NSApplicationActivationPolicyAccessory];
@@ -53,7 +59,7 @@ void __mac_setDockIconStyle(bool hidden) {
 // https://bugreports.qt-project.org/browse/QTBUG-40449
 // NSString *fileIdURL = @"file:///.file/id=6571367.1000358";
 // NSString *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];
-QString __mac_get_path_from_fileId_url(const QString &url) {
+QString get_path_from_fileId_url(const QString &url) {
     NSString *fileIdURL = [NSString stringWithCString:url.toUtf8().data()
                                     encoding:NSUTF8StringEncoding];
     NSURL *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];
@@ -66,7 +72,7 @@ QString __mac_get_path_from_fileId_url(const QString &url) {
 
 // original idea come from growl framework
 // http://growl.info/about
-bool __mac_get_auto_start()
+bool get_auto_start()
 {
     NSURL *itemURL = [[NSBundle mainBundle] bundleURL];
     Boolean found = false;
@@ -100,7 +106,7 @@ bool __mac_get_auto_start()
     return found;
 }
 
-void __mac_set_auto_start(bool enabled)
+void set_auto_start(bool enabled)
 {
     NSURL *itemURL = [[NSBundle mainBundle] bundleURL];
     OSStatus status;
@@ -163,3 +169,6 @@ void __mac_set_auto_start(bool enabled)
     }
 }
 
+
+} // namespace mac
+} // namespace utils

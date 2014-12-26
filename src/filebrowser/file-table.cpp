@@ -681,12 +681,12 @@ void FileTableModel::onResize(const QSize &size)
 void FileTableModel::updateDownloadInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-    QList<FileDownloadTask*> tasks= TransferManager::instance()->getDownloadTasks(
+    QList<QSharedPointer<FileDownloadTask> > tasks= TransferManager::instance()->getDownloadTasks(
         dialog->repo_.id, dialog->current_path_);
 
     progresses_.clear();
 
-    foreach (const FileDownloadTask *task, tasks) {
+    foreach (const QSharedPointer<FileDownloadTask>& task, tasks) {
         QString progress = task->progress().toString();
         progresses_[::getBaseName(task->path())] = progress;
     }

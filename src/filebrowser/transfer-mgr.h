@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QQueue>
+#include <QSharedPointer>
 
 #include "api/api-error.h"
 #include "seaf-dirent.h"
@@ -25,9 +26,8 @@ class FileNetworkTask;
 /**
  * TransferManager manages all upload/download tasks.
  *
- * There are two pending tasks queues: one for upload tasks and one for
- * download tasks. At any moment only one upload/download task is running,
- * others are waiting in the queue.
+ * There is a pending tasks queue for all download tasks. At any moment only
+ * one download task is running, others are waiting in the queue.
  *
  */
 class TransferManager : public QObject {
@@ -37,18 +37,18 @@ public:
     TransferManager();
     ~TransferManager();
 
-    FileDownloadTask *addDownloadTask(const Account& account,
-                                      const QString& repo_id,
-                                      const QString& path,
-                                      const QString& local_path);
+    QSharedPointer<FileDownloadTask> addDownloadTask(const Account& account,
+                                                     const QString& repo_id,
+                                                     const QString& path,
+                                                     const QString& local_path);
 
     QString getDownloadProgress(const QString& repo_id,
                                 const QString& path);
 
     bool hasDownloadTask(const QString& repo_id, const QString& path);
 
-    FileDownloadTask* getDownloadTask(const QString& repo_id,
-                                      const QString& path);
+    QSharedPointer<FileDownloadTask> getDownloadTask(const QString& repo_id,
+                                                     const QString& path);
 
     void cancelDownload(const QString& repo_id,
                         const QString& path);
@@ -56,17 +56,17 @@ public:
     /**
      * Return all download tasks for files in the `parent_dir`
      */
-    QList<FileDownloadTask *> getDownloadTasks(const QString& repo_id,
-                                               const QString& parent_dir);
+    QList<QSharedPointer<FileDownloadTask> > getDownloadTasks(const QString& repo_id,
+                                                             const QString& parent_dir);
 
 private slots:
     void onDownloadTaskFinished(bool success);
 
 private:
-    void startDownloadTask(FileDownloadTask *task);
+    void startDownloadTask(QSharedPointer<FileDownloadTask> task);
 
-    FileDownloadTask *current_download_;
-    QQueue<FileDownloadTask *> pending_downloads_;
+    QSharedPointer<FileDownloadTask> current_download_;
+    QQueue<QSharedPointer<FileDownloadTask> > pending_downloads_;
 };
 
 

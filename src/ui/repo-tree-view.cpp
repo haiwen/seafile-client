@@ -798,7 +798,7 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
 void RepoTreeView::uploadFileStart(FileUploadTask *task)
 {
     // take over the resource of the task
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(QSharedPointer<FileUploadTask>(task), this);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(uploadFileFinished(bool)));
 

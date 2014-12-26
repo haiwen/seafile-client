@@ -172,6 +172,24 @@ private:
     const bool use_upload_;
 };
 
+class FileUploadMultipleTask : public FileUploadTask {
+    Q_OBJECT
+public:
+    FileUploadMultipleTask(const Account& account,
+                           const QString& repo_id,
+                           const QString& path,
+                           const QString& local_dir_path,
+                           const QStringList& names,
+                           bool use_upload);
+
+    const QStringList& names() const { return names_; }
+
+protected:
+    void createFileServerTask(const QString& link);
+
+    const QStringList names_;
+};
+
 class FileUploadDirectoryTask : public FileUploadTask {
     Q_OBJECT
 public:

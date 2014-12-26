@@ -223,6 +223,22 @@ void FileUploadTask::createFileServerTask(const QString& link)
                                         name_, use_upload_);
 }
 
+FileUploadMultipleTask::FileUploadMultipleTask(const Account& account,
+                                               const QString& repo_id,
+                                               const QString& path,
+                                               const QString& local_path,
+                                               const QStringList& names,
+                                               bool use_upload)
+  : FileUploadTask(account, repo_id, path, local_path, QString(), use_upload),
+  names_(names)
+{
+}
+
+void FileUploadMultipleTask::createFileServerTask(const QString& link)
+{
+    fileserver_task_ = new PostFilesTask(link, path_, local_path_, names_, false);
+}
+
 FileUploadDirectoryTask::FileUploadDirectoryTask(const Account& account,
                                                  const QString& repo_id,
                                                  const QString& path,
@@ -303,7 +319,7 @@ void FileServerTask::httpRequestFinished()
 {
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
-        qDebug("[file server task] network error: %s\n", toCStr(reply_->errorString()));
+        qWarning("[file server task] network error: %s\n", toCStr(reply_->errorString()));
         setError(FileNetworkTask::ApiRequestError, reply_->errorString());
         emit finished(false);
         return;
@@ -314,7 +330,7 @@ void FileServerTask::httpRequestFinished()
     }
 
     if ((code / 100) == 4 || (code / 100) == 5) {
-        qDebug("request failed for %s: status code %d\n",
+        qWarning("request failed for %s: status code %d\n",
                toCStr(reply_->url().toString()), code);
         setHttpError(code);
         emit finished(false);
@@ -335,7 +351,7 @@ bool FileServerTask::handleHttpRedirect()
         // simply treat too many redirects as server side error
         setHttpError(500);
         emit finished(false);
-        qDebug("too many redirects for %s\n",
+        qWarning("too many redirects for %s\n",
                toCStr(reply_->url().toString()));
         return true;
     }
@@ -344,7 +360,7 @@ bool FileServerTask::handleHttpRedirect()
     if (url_.isRelative()) {
         url_ = reply_->url().resolved(url_);
     }
-    qDebug("redirect to %s (from %s)\n", toCStr(url_.toString()),
+    qWarning("redirect to %s (from %s)\n", toCStr(url_.toString()),
            toCStr(reply_->url().toString()));
     reply_->deleteLater();
     sendRequest();
@@ -634,7 +650,9 @@ void PostFilesTask::startNext()
     }
     const QString& file_path = names_[current_num_];
     QString file_name = QFileInfo(file_path).fileName();
-    QString relative_path = file_path.left(file_path.size() - file_name.size());
+    QString relative_path;
+    if (use_relative_)
+        relative_path = file_path.left(file_path.size() - file_name.size());
 
     // relative_path might be empty, and should be safe to use as well
     task_.reset(new PostFileTask(url_,
@@ -652,7 +670,7 @@ void PostFilesTask::startNext()
 void FileServerTask::setError(FileNetworkTask::TaskError error,
                               const QString& error_string)
 {
-    qDebug("[file server task] error: %s\n", toCStr(error_string));
+    qWarning("[file server task] error: %s\n", toCStr(error_string));
     error_ = error;
     error_string_ = error_string;
 }

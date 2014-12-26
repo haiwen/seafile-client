@@ -79,6 +79,12 @@ public:
                                      const QString& name,
                                      const bool overwrite);
 
+    FileUploadTask* createUploadMultipleTask(const QString& repo_id,
+                                             const QString& parent_dir,
+                                             const QString& local_path,
+                                             const QStringList& names,
+                                             const bool overwrite);
+
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);
 

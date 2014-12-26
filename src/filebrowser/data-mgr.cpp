@@ -292,6 +292,21 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
     return task;
 }
 
+FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
+                                                      const QString& parent_dir,
+                                                      const QString& local_path,
+                                                      const QStringList& names,
+                                                      const bool overwrite)
+{
+    FileUploadTask *task = new FileUploadMultipleTask(account_, repo_id, parent_dir,
+                                                      local_path, names, !overwrite);
+
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onFileUploadFinished(bool)));
+
+    return task;
+}
+
 void DataManager::onFileUploadFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());

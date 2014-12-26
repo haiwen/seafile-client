@@ -20,6 +20,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
+class FileBrowserDialog;
 class FileTableView : public QTableView
 {
     Q_OBJECT
@@ -34,17 +35,23 @@ signals:
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
     void direntRemove(const QList<const SeafDirent*> &dirents);
-    void direntShare(const SeafDirent& dirent);
     void direntUpdate(const SeafDirent& dirent);
+    void direntShare(const SeafDirent& dirent);
+    void direntPaste();
+
     void cancelDownload(const SeafDirent& dirent);
 
 private slots:
+    void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
     void onOpen();
     void onRename();
     void onRemove();
     void onShare();
     void onUpdate();
+    void onCopy();
+    void onMove();
+
     void onCancelDownload();
 
 private:
@@ -66,8 +73,11 @@ private:
     QAction *remove_action_;
     QAction *share_action_;
     QAction *update_action_;
+    QAction *copy_action_;
+    QAction *move_action_;
+    QAction *paste_action_;
     QAction *cancel_download_action_;
-    QWidget *parent_;
+    FileBrowserDialog *parent_;
 };
 
 class FileTableModel : public QAbstractTableModel

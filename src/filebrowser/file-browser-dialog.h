@@ -3,8 +3,8 @@
 
 #include <QStack>
 #include <QDialog>
-// #include "ui_file-browser-dialog.h"
 
+#include "account.h"
 #include "api/server-repo.h"
 
 class QToolBar;
@@ -25,6 +25,7 @@ class GetDirentsRequest;
 class FileBrowserCache;
 class DataManager;
 class FileNetworkTask;
+class FileBrowserManager;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -39,8 +40,9 @@ class FileBrowserDialog : public QDialog
                           // public Ui::FileBrowserDialog
 {
     Q_OBJECT
+    friend class FileBrowserManager;
 public:
-    FileBrowserDialog(const ServerRepo& repo,
+    FileBrowserDialog(const Account &account, const ServerRepo& repo,
                       QWidget *parent=0);
     ~FileBrowserDialog();
 
@@ -75,6 +77,7 @@ private slots:
     void onGetDirentRemove(const QList<const SeafDirent*> &dirents);
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
+    void onGetDirentsPaste();
     void onCancelDownload(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
@@ -85,10 +88,19 @@ private slots:
     void onDirentRemoveFailed(const ApiError& error);
     void onDirentShareSuccess(const QString& link);
     void onDirentShareFailed(const ApiError& error);
+
+    void onDirentsCopySuccess();
+    void onDirentsCopyFailed(const ApiError& error);
+    void onDirentsMoveSuccess();
+    void onDirentsMoveFailed(const ApiError& error);
+
     void onFileAutoUpdated(const QString& repo_id, const QString& path);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
+
+    bool hasFilesToBePasted();
+    void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 
     void createToolBar();
     void createStatusBar();
@@ -109,12 +121,18 @@ private:
 
     bool setPasswordAndRetry(FileNetworkTask *task);
 
-    ServerRepo repo_;
+    const Account account_;
+    const ServerRepo repo_;
     // current path
     QString current_path_;
     QStringList current_lpath_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
+    static QStringList file_names_to_be_pasted_;
+    static QString dir_path_to_be_pasted_from_;
+    static QString repo_id_to_be_pasted_from_;
+    static Account account_to_be_pasted_from_;
+    static bool is_copyed_when_pasted_;
 
     QToolBar *toolbar_;
     QAction *backward_action_;

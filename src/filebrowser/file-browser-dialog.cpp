@@ -19,6 +19,7 @@
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 
+#include "file-browser-manager.h"
 #include "file-browser-dialog.h"
 
 namespace {
@@ -57,16 +58,22 @@ bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) 
 
 } // namespace
 
-FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
+QStringList FileBrowserDialog::file_names_to_be_pasted_;
+QString FileBrowserDialog::dir_path_to_be_pasted_from_;
+QString FileBrowserDialog::repo_id_to_be_pasted_from_;
+Account FileBrowserDialog::account_to_be_pasted_from_;
+bool FileBrowserDialog::is_copyed_when_pasted_;
+
+FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
+      account_(account),
       repo_(repo)
 {
     current_path_ = "/";
     // since root is special, the next step is unnecessary
     // current_lpath_.push_back("");
 
-    const Account& account = seafApplet->accountManager()->currentAccount();
-    data_mgr_ = new DataManager(account);
+    data_mgr_ = new DataManager(account_);
 
     setWindowTitle(tr("Cloud File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -105,6 +112,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentShare(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
             this, SLOT(onGetDirentUpdate(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntPaste()),
+            this, SLOT(onGetDirentsPaste()));
     connect(table_view_, SIGNAL(cancelDownload(const SeafDirent&)),
             this, SLOT(onCancelDownload(const SeafDirent&)));
 
@@ -137,6 +146,18 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onDirentShareSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
             this, SLOT(onDirentShareFailed(const ApiError&)));
+
+    //copy <--> data_mgr_
+    connect(data_mgr_, SIGNAL(copyDirentsSuccess()),
+            this, SLOT(onDirentsCopySuccess()));
+    connect(data_mgr_, SIGNAL(copyDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsCopyFailed(const ApiError&)));
+
+    //move <--> data_mgr_
+    connect(data_mgr_, SIGNAL(moveDirentsSuccess()),
+            this, SLOT(onDirentsMoveSuccess()));
+    connect(data_mgr_, SIGNAL(moveDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsMoveFailed(const ApiError&)));
 
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
@@ -784,4 +805,60 @@ void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
 {
     TransferManager::instance()->cancelDownload(repo_.id,
         ::pathJoin(current_path_, dirent.name));
+}
+
+bool FileBrowserDialog::hasFilesToBePasted() {
+    return !file_names_to_be_pasted_.empty();
+}
+
+void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file_names)
+{
+    is_copyed_when_pasted_ = is_copy;
+    dir_path_to_be_pasted_from_ = current_path_;
+    file_names_to_be_pasted_ = file_names;
+    repo_id_to_be_pasted_from_ = repo_.id;
+    account_to_be_pasted_from_ = account_;
+}
+
+void FileBrowserDialog::onGetDirentsPaste()
+{
+    if (repo_id_to_be_pasted_from_ == repo_.id &&
+        current_path_ == dir_path_to_be_pasted_from_) {
+        seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
+        return;
+    }
+    if (is_copyed_when_pasted_)
+        data_mgr_->copyDirents(repo_id_to_be_pasted_from_,
+                               dir_path_to_be_pasted_from_,
+                               file_names_to_be_pasted_,
+                               repo_.id,
+                               current_path_);
+    else
+        data_mgr_->moveDirents(repo_id_to_be_pasted_from_,
+                               dir_path_to_be_pasted_from_,
+                               file_names_to_be_pasted_,
+                               repo_.id,
+                               current_path_);
+}
+
+void FileBrowserDialog::onDirentsCopySuccess()
+{
+    forceRefresh();
+}
+void FileBrowserDialog::onDirentsCopyFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Copy failed"), this);
+}
+void FileBrowserDialog::onDirentsMoveSuccess()
+{
+    file_names_to_be_pasted_.clear();
+    FileBrowserDialog *dialog =
+        FileBrowserManager::getInstance()->getDialog(account_to_be_pasted_from_, repo_id_to_be_pasted_from_);
+    if (dialog != NULL && dialog->current_path_ == dir_path_to_be_pasted_from_)
+        dialog->forceRefresh();
+    forceRefresh();
+}
+void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Move failed"), this);
 }

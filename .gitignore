@@ -81,3 +81,9 @@ test_*
 ## doxygen related
 docs
 Doxyfile
+
+
+/GPATH
+/GTAGS
+/GRTAGS
+/gtags.files

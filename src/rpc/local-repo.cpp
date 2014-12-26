@@ -51,7 +51,7 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
-void LocalRepo::setSyncInfo(QString state, QString error)
+void LocalRepo::setSyncInfo(const QString &state, const QString &error)
 {
     // qWarning("error: %s\n", toCStr(error));
     // qWarning("state: %s\n", toCStr(state));
@@ -62,7 +62,7 @@ void LocalRepo::setSyncInfo(QString state, QString error)
     }
 }
 
-void LocalRepo::translateSyncState(QString status)
+void LocalRepo::translateSyncState(const QString &status)
 {
     if (status == "synchronized") {
         sync_state_str = QObject::tr("synchronized");
@@ -116,7 +116,7 @@ void LocalRepo::translateSyncState(QString status)
     }
 }
 
-void LocalRepo::translateSyncError(QString error)
+void LocalRepo::translateSyncError(const QString &error)
 {
     sync_state = SYNC_STATE_ERROR;
 

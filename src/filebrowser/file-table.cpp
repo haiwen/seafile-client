@@ -309,7 +309,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setText(tr("D&ownload"));
         download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
 
-        if (TransferManager::instance()->hasDownloadTask(parent_->repo_.id,
+        if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_download_action_->setVisible(true);
             download_action_->setVisible(false);
@@ -685,12 +685,12 @@ void FileTableModel::onResize(const QSize &size)
 void FileTableModel::updateDownloadInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-    QList<QSharedPointer<FileDownloadTask> > tasks= TransferManager::instance()->getDownloadTasks(
+    QList<FileDownloadTask*> tasks= TransferManager::instance()->getDownloadTasks(
         dialog->repo_.id, dialog->current_path_);
 
     progresses_.clear();
 
-    foreach (const QSharedPointer<FileDownloadTask>& task, tasks) {
+    Q_FOREACH (FileDownloadTask *task, tasks) {
         QString progress = task->progress().toString();
         progresses_[::getBaseName(task->path())] = progress;
     }

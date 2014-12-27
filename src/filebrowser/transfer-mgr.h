@@ -37,33 +37,27 @@ public:
     TransferManager();
     ~TransferManager();
 
-    QSharedPointer<FileDownloadTask> addDownloadTask(const Account& account,
-                                                     const QString& repo_id,
-                                                     const QString& path,
-                                                     const QString& local_path);
+    FileDownloadTask* addDownloadTask(const Account& account,
+                                      const QString& repo_id,
+                                      const QString& path,
+                                      const QString& local_path);
 
-    QString getDownloadProgress(const QString& repo_id,
-                                const QString& path);
+    FileDownloadTask* getDownloadTask(const QString& repo_id,
+                                      const QString& path);
 
-    bool hasDownloadTask(const QString& repo_id, const QString& path);
-
-    QSharedPointer<FileDownloadTask> getDownloadTask(const QString& repo_id,
-                                                     const QString& path);
-
-    void cancelDownload(const QString& repo_id,
-                        const QString& path);
+    void cancelDownload(const QString& repo_id, const QString& path);
 
     /**
      * Return all download tasks for files in the `parent_dir`
      */
-    QList<QSharedPointer<FileDownloadTask> > getDownloadTasks(const QString& repo_id,
-                                                              const QString& parent_dir);
+    QList<FileDownloadTask*> getDownloadTasks(const QString& repo_id,
+                                              const QString& parent_dir);
 
 private slots:
     void onDownloadTaskFinished(bool success);
 
 private:
-    void startDownloadTask(QSharedPointer<FileDownloadTask> task);
+    void startDownloadTask(const QSharedPointer<FileDownloadTask> &task);
 
     QSharedPointer<FileDownloadTask> current_download_;
     QQueue<QSharedPointer<FileDownloadTask> > pending_downloads_;

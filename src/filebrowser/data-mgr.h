@@ -70,8 +70,8 @@ public:
                                const QString& path,
                                const QString& file_id);
 
-    QSharedPointer<FileDownloadTask> createDownloadTask(const QString& repo_id,
-                                                        const QString& path);
+    FileDownloadTask* createDownloadTask(const QString& repo_id,
+                                         const QString& path);
 
     FileUploadTask* createUploadTask(const QString& repo_id,
                                      const QString& parent_dir,

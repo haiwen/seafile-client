@@ -454,7 +454,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(cached_file);
         return;
     } else {
-        if (TransferManager::instance()->hasDownloadTask(repo_.id, fpath)) {
+        if (TransferManager::instance()->getDownloadTask(repo_.id, fpath)) {
             return;
         }
         AutoUpdateManager::instance()->removeWatch(
@@ -470,8 +470,8 @@ void FileBrowserDialog::createDirectory(const QString &name)
 
 void FileBrowserDialog::downloadFile(const QString& path)
 {
-    QSharedPointer<FileDownloadTask> task = data_mgr_->createDownloadTask(repo_.id, path);
-    connect(task.data(), SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+    FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
+    connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
 }
 
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
@@ -485,8 +485,7 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(
-        QSharedPointer<FileNetworkTask>(task, &QObject::deleteLater), this);
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
 
     // set dialog attributes
@@ -517,8 +516,7 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
       data_mgr_->createUploadMultipleTask(repo_.id, current_path_, path, fnames,
                                           overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(
-        QSharedPointer<FileNetworkTask>(task, &QObject::deleteLater), this);
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
 
     // set dialog attributes

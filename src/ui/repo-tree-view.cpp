@@ -799,8 +799,7 @@ void RepoTreeView::uploadFileStart(FileUploadTask *task)
 {
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(uploadFileFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(
-        QSharedPointer<FileUploadTask>(task, &QObject::deleteLater), this);
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
 
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();

@@ -27,7 +27,7 @@ if [ -d out/Debug_Base ]; then
 elif [ -d out/Default ]; then
   ninja -C out/Default
 else
-  echo "unable to fild build.ninja, exiting"
+  echo "unable to find build.ninja, exiting"
 fi
 
 echo "breakpad was built successfuly"

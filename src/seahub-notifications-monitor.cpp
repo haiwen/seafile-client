@@ -20,7 +20,8 @@ SeahubNotificationsMonitor* SeahubNotificationsMonitor::singleton_;
 SeahubNotificationsMonitor* SeahubNotificationsMonitor::instance()
 {
     if (singleton_ == NULL) {
-        singleton_ = new SeahubNotificationsMonitor;
+        static SeahubNotificationsMonitor instance;
+        singleton_ = &instance;
     }
 
     return singleton_;

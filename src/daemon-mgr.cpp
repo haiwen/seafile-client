@@ -49,6 +49,10 @@ DaemonManager::DaemonManager()
             this, SLOT(systemShutDown()));
 }
 
+DaemonManager::~DaemonManager() {
+    stopAllDaemon();
+}
+
 void DaemonManager::startCcnetDaemon()
 {
     sync_client_ = ccnet_client_new();
@@ -117,13 +121,20 @@ void DaemonManager::onSeafDaemonExited()
     // }
 }
 
-void DaemonManager::stopAll()
+void DaemonManager::stopAllDaemon()
 {
     qWarning("[Daemon Mgr] stopping ccnet/seafile daemon");
-    if (seaf_daemon_)
+
+    if (conn_daemon_timer_)
+        conn_daemon_timer_->stop();
+    if (seaf_daemon_) {
         seaf_daemon_->kill();
-    if (ccnet_daemon_)
+        seaf_daemon_->waitForFinished(50);
+    }
+    if (ccnet_daemon_) {
         ccnet_daemon_->kill();
+        ccnet_daemon_->waitForFinished(10);
+    }
 }
 
 void DaemonManager::tryConnCcnet()

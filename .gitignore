@@ -90,3 +90,5 @@ third_party/breakpad
 /GTAGS
 /GRTAGS
 /gtags.files
+
+.deps

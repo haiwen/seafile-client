@@ -235,6 +235,14 @@ void CloudView::onCloseBtnClicked()
 
 bool CloudView::eventFilter(QObject *obj, QEvent *event)
 {
+// work around for QTBUG-43073
+// https://bugreports.qt-project.org/browse/QTBUG-43073
+#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+    if(event->type()==QEvent::Wheel && static_cast<QMenu*>(qApp->activePopupWidget())){
+        return true;
+    }
+#endif
+
     if (obj == mHeader) {
         static QPoint oldPos;
         if (event->type() == QEvent::MouseButtonPress) {

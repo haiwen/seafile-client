@@ -42,14 +42,15 @@ $(BUILDDIR)/%.o : %.cpp
 	$(CXX) $(CXXFLAGS) $< -c -o $@
 
 $(BUILDDIR)/%.x64.o : %.cpp
+	@mkdir -p $(BUILDDIR)
 	$(CXX) $(CXXFLAGS) $< -c -o $@
 
 $(TARGET): $(OBJECTS) seafile_shell_ext.def .deps
 	$(DLLWRAP) $(DLLWRAPFLAGS) --def seafile_shell_ext.def \
 	$(OBJECTS) -o $@ \
-	-luuid -loleaut32 -lole32 -lws2_32 -lpsapi -lshlwapi -luserenv -L. -lstdc++
+	-luuid -loleaut32 -lole32 -lws2_32 -lpsapi -lshlwapi -luserenv  -static -lstdc++
 
 clean:
-	rm -f $(OBJECTS) $(BUILDDIR)/*.dll .deps
+	rm -rf *.o *.dll build/ .deps
 
 .PHONY: all clean

@@ -271,14 +271,21 @@ void FileTableView::setupContextMenu()
     this->addAction(update_action_);
     this->addAction(cancel_download_action_);
 
-    download_action_->setIconVisibleInMenu(false);
+    paste_only_menu_ = new QMenu(this);
+    paste_only_menu_->addAction(paste_action_);
 }
 
 void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 {
     QPoint pos = event->pos();
     int row = rowAt(pos.y());
+
+    // show paste only menu for no items
     if (row == -1) {
+        if (parent_->hasFilesToBePasted()) {
+            pos = viewport()->mapToGlobal(pos);
+            paste_only_menu_->exec(pos);
+        }
         return;
     }
 

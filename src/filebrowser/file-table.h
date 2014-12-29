@@ -56,6 +56,8 @@ private slots:
 
 private:
     void setupContextMenu();
+    // if we have one and only one item in seleceted
+    const SeafDirent *getSelectedItem();
     void contextMenuEvent(QContextMenuEvent *event);
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);

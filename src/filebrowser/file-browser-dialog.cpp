@@ -183,12 +183,14 @@ void FileBrowserDialog::createToolBar()
     backward_action_ = new QAction(tr("Back"), this);
     backward_action_->setIcon(getIconSet(":/images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
     backward_action_->setEnabled(false);
+    backward_action_->setShortcut(QKeySequence::Back);
     toolbar_->addAction(backward_action_);
     connect(backward_action_, SIGNAL(triggered()), this, SLOT(goBackward()));
 
     forward_action_ = new QAction(tr("Forward"), this);
     forward_action_->setIcon(getIconSet(":/images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
     forward_action_->setEnabled(false);
+    forward_action_->setShortcut(QKeySequence::Forward);
     connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
     toolbar_->addAction(forward_action_);
 
@@ -257,6 +259,7 @@ void FileBrowserDialog::createStatusBar()
     refresh_action_->setIcon(
         getIconSet(":/images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
+    refresh_action_->setShortcut(QKeySequence::Refresh);
     status_bar_->addAction(refresh_action_);
 
     open_cache_dir_action_ = new QAction(this);

@@ -1,0 +1,33 @@
+Windows Registry Editor Version 5.00
+
+# approved ext
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"="Seafile"
+
+
+# register shell extension
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}]
+@="Seafile"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Seafile]
+"executable"="F:\\dev\\seafile-client\\seafile-applet.exe"
+
+# context menu handler
+[HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"

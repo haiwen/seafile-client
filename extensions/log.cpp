@@ -58,7 +58,7 @@ void Logger::write(std::string msg, Level lvl)
         break;
     }
 
-    lvlstr = "[" + lvlstr + "]";
+    lvlstr = "[" + lvlstr + "] ";
 
     t = time(NULL);
     tm = localtime(&t);

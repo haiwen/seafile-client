@@ -193,7 +193,6 @@ void FileTableView::setupContextMenu()
 {
     context_menu_ = new QMenu(this);
     download_action_ = new QAction(tr("&Open"), this);
-    download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
     connect(download_action_, SIGNAL(triggered()),
             this, SLOT(onOpen()));
 
@@ -215,7 +214,7 @@ void FileTableView::setupContextMenu()
     copy_action_ = new QAction(tr("&Copy"), this);
     connect(copy_action_, SIGNAL(triggered()), this, SLOT(onCopy()));
 
-    move_action_ = new QAction(tr("&Cut"), this);
+    move_action_ = new QAction(tr("Cu&t"), this);
     connect(move_action_, SIGNAL(triggered()), this, SLOT(onMove()));
 
     paste_action_ = new QAction(tr("&Paste"), this);
@@ -226,7 +225,7 @@ void FileTableView::setupContextMenu()
         paste_action_->setEnabled(false);
     }
 
-    cancel_download_action_ = new QAction(tr("&Cancel Download"), this);
+    cancel_download_action_ = new QAction(tr("Cancel Download (&E)"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));
 
@@ -236,9 +235,10 @@ void FileTableView::setupContextMenu()
     context_menu_->addSeparator();
     context_menu_->addAction(move_action_);
     context_menu_->addAction(copy_action_);
+    context_menu_->addAction(paste_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
-    context_menu_->addAction(paste_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
@@ -278,8 +278,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setVisible(true);
 
         download_action_->setVisible(true);
-        download_action_->setText(tr("&Download"));
-        download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
+        download_action_->setText(tr("D&ownload"));
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
         update_action_->setVisible(false);
@@ -303,11 +302,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
-        download_action_->setIcon(QIcon(":images/filebrowser/open-folder.png"));
     } else {
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
-        download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
 
         if (TransferManager::instance()->hasDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {

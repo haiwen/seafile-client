@@ -622,6 +622,16 @@ void FileBrowserDialog::onUploadFinished(bool success)
       local_path = QFileInfo(local_path).absoluteFilePath();
     }
 
+    // require a forceRefresh if conflicting filename found
+    Q_FOREACH(const QString &name, names)
+    {
+        if (findConflict(name, table_model_->dirents())) {
+            forceRefresh();
+            return;
+        }
+    }
+
+    // add the items to tableview
     Q_FOREACH(const QString &name, names) {
         const QFileInfo file = QDir(local_path).filePath(name);
 

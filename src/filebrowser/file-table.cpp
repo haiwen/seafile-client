@@ -495,6 +495,7 @@ void FileTableView::onCancelDownload()
         for (int i = 0; i < selected.size(); i++) {
             emit cancelDownload(*model->direntAt(selected[i].row()));
         }
+        return;
     }
     emit cancelDownload(*item_);
 }

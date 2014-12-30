@@ -25,6 +25,7 @@ FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &accou
         dialogs_.push_back(dialog);
     }
     dialog->raise();
+    dialog->activateWindow();
     return dialog;
 }
 

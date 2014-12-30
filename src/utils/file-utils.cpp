@@ -695,11 +695,14 @@ QString getParentPath(const QString& path)
     }
 
     QString p = QDir::fromNativeSeparators(path);
-    int pos = path.lastIndexOf("/", path.endsWith("/") ? -2 : -1);
-    if (pos == -1) {
+    if (p == "/")
+        return p;
+    int pos = p.lastIndexOf("/", p.endsWith("/") ? - 2 : -1);
+    if (pos == -1)
         return "";
-    }
-    return p.left(pos + 1);
+    if (pos == 0)
+        return "/";
+    return p.left(pos);
 }
 
 QString getBaseName(const QString& path)
@@ -709,9 +712,9 @@ QString getBaseName(const QString& path)
     }
 
     QString p = QDir::fromNativeSeparators(path);
-    int pos = path.lastIndexOf("/", path.endsWith("/") ? -2 : -1);
+    int pos = p.lastIndexOf("/", p.endsWith("/") ? -2 : -1);
     if (pos == -1) {
-        return path;
+        return p;
     }
     return p.mid(pos + 1);
 }

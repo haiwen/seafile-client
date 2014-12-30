@@ -8,7 +8,9 @@ void FileUtils::getParentPath() {
     QVERIFY(getParentPath("/") == "/");
     QVERIFY(getParentPath("//") == "/");
     QVERIFY(getParentPath("/usr") == "/");
+    QVERIFY(getParentPath("/usr/") == "/");
     QVERIFY(getParentPath("/usr/bin") == "/usr");
+    QVERIFY(getParentPath("/usr/bin/") == "/usr");
     QVERIFY(getParentPath("/usr.complicate") == "/");
     QVERIFY(getParentPath("/usr/bin.pdf") == "/usr");
     QVERIFY(getParentPath(QString::fromUtf8("/usr/測試")) == QString::fromUtf8("/usr"));
@@ -21,7 +23,9 @@ void FileUtils::getBaseName() {
     QVERIFY(getBaseName("/") == "/");
     QVERIFY(getBaseName("//") == "/");
     QVERIFY(getBaseName("/usr") == "usr");
+    QVERIFY(getBaseName("/usr/") == "usr");
     QVERIFY(getBaseName("/usr/bin") == "bin");
+    QVERIFY(getBaseName("/usr/bin/") == "bin");
     QVERIFY(getBaseName("/usr.complicate") == "usr.complicate");
     QVERIFY(getBaseName("/usr/bin.pdf") == "bin.pdf");
     QVERIFY(getBaseName(QString::fromUtf8("/usr/測試")) == QString::fromUtf8("測試"));

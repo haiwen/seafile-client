@@ -246,6 +246,7 @@ void FileTableView::setupContextMenu()
     cancel_download_action_ = new QAction(tr("Cancel Download (&E)"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));
+    cancel_download_action_->setShortcut(Qt::ALT + Qt::Key_C);
 
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
@@ -492,7 +493,7 @@ void FileTableView::onCancelDownload()
         QItemSelectionModel *selections = this->selectionModel();
         QModelIndexList selected = selections->selectedRows();
         for (int i = 0; i < selected.size(); i++) {
-            cancelDownload(*model->direntAt(selected[i].row()));
+            emit cancelDownload(*model->direntAt(selected[i].row()));
         }
     }
     emit cancelDownload(*item_);

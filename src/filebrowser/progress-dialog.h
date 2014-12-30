@@ -14,7 +14,7 @@ class QLabel;
 class FileBrowserProgressDialog : public QProgressDialog {
     Q_OBJECT
 public:
-    FileBrowserProgressDialog(QSharedPointer<FileNetworkTask> task, QWidget *parent=0);
+    FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent=0);
 
 public slots:
     void cancel();

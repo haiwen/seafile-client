@@ -60,6 +60,7 @@ private slots:
     void goBackward();
     void goHome();
     void chooseFileToUpload();
+    void chooseDirectoryToUpload();
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
     void openCacheFolder();
@@ -69,6 +70,7 @@ private slots:
 
     // prompt a dialog for user to choose whether upload or update
     void uploadOrUpdateFile(const QString& path);
+    void uploadOrUpdateMutipleFile(const QStringList& paths);
 
     void onNavigatorClick(int id);
 
@@ -112,7 +114,8 @@ private:
     void createDirectory(const QString &name);
     void downloadFile(const QString& path);
     void uploadFile(const QString& path, const QString& name,
-                    const bool overwrite = false);
+                    bool overwrite = false);
+    void uploadMultipleFile(const QStringList& paths, bool overwrite = false);
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);
@@ -146,6 +149,7 @@ private:
     QToolButton *upload_button_;
     QMenu *upload_menu_;
     QAction *upload_file_action_;
+    QAction *upload_directory_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
     QAction *open_cache_dir_action_;

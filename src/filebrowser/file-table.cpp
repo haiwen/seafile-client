@@ -309,7 +309,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setText(tr("D&ownload"));
         download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
 
-        if (TransferManager::instance()->hasDownloadTask(parent_->repo_.id,
+        if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_download_action_->setVisible(true);
             download_action_->setVisible(false);
@@ -450,19 +450,23 @@ void FileTableView::dropEvent(QDropEvent *event)
     if(urls.isEmpty())
         return;
 
-    // since we supports processing only one file at a time, skip the rest
-    QString file_name = urls.first().toLocalFile();
+    QStringList paths;
+    Q_FOREACH(const QUrl& url, urls)
+    {
+        QString path = url.toLocalFile();
 #ifdef Q_WS_MAC
-    if (file_name.startsWith("/.file/id="))
-        file_name = utils::mac::get_path_from_fileId_url("file://" + file_name);
+        if (path.startsWith("/.file/id="))
+            path = utils::mac::get_path_from_fileId_url("file://" + path);
 #endif
 
-    if(file_name.isEmpty())
-        return;
+        if(path.isEmpty())
+            continue;
+        paths.push_back(path);
+    }
 
     event->accept();
 
-    emit dropFile(file_name);
+    emit dropFile(paths);
 }
 
 void FileTableView::dragMoveEvent(QDragMoveEvent *event)
@@ -681,12 +685,12 @@ void FileTableModel::onResize(const QSize &size)
 void FileTableModel::updateDownloadInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-    QList<QSharedPointer<FileDownloadTask> > tasks= TransferManager::instance()->getDownloadTasks(
+    QList<FileDownloadTask*> tasks= TransferManager::instance()->getDownloadTasks(
         dialog->repo_.id, dialog->current_path_);
 
     progresses_.clear();
 
-    foreach (const QSharedPointer<FileDownloadTask>& task, tasks) {
+    Q_FOREACH (FileDownloadTask *task, tasks) {
         QString progress = task->progress().toString();
         progresses_[::getBaseName(task->path())] = progress;
     }

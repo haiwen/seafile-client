@@ -31,7 +31,7 @@ public:
 
 signals:
     void direntClicked(const SeafDirent& dirent);
-    void dropFile(const QString& file_name);
+    void dropFile(const QStringList& paths);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
     void direntRemove(const QList<const SeafDirent*> &dirents);

@@ -70,14 +70,20 @@ public:
                                const QString& path,
                                const QString& file_id);
 
-    QSharedPointer<FileDownloadTask> createDownloadTask(const QString& repo_id,
-                                                        const QString& path);
+    FileDownloadTask* createDownloadTask(const QString& repo_id,
+                                         const QString& path);
 
     FileUploadTask* createUploadTask(const QString& repo_id,
                                      const QString& parent_dir,
                                      const QString& local_path,
                                      const QString& name,
                                      const bool overwrite);
+
+    FileUploadTask* createUploadMultipleTask(const QString& repo_id,
+                                             const QString& parent_dir,
+                                             const QString& local_path,
+                                             const QStringList& names,
+                                             const bool overwrite);
 
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);

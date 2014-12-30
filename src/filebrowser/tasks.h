@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QUrl>
+#include <QSharedPointer>
 
 #include "api/server-repo.h"
 #include "account.h"
@@ -75,6 +76,19 @@ public:
     const QString& errorString() const { return error_string_; }
     int httpErrorCode() const { return http_error_code_; }
 
+    // shared_from_this
+    // Usage: (for example, FileDownloadTask)
+    //  FileDownloadTask *task = new FileDownloadTask(...);
+    //  SharedPointer<FileNetworkTask> sharePtr = task->sharedFromThis();
+    //  SharedPointer<FileDownloadTask> sharePtr =
+    //  task->sharedFromThis().objectCast<FileDownloadTask>();
+    //
+    QSharedPointer<FileNetworkTask> sharedFromThis() {
+        QSharedPointer<FileNetworkTask> shared_ptr(__weak_ptr.toStrongRef());
+        __shared_ptr.clear();
+        return shared_ptr;
+    }
+
 public slots:
     virtual void start();
     virtual void cancel();
@@ -112,6 +126,10 @@ protected:
     Progress progress_;
 
     static QThread *worker_thread_;
+    // keep a copy of shared_ptr
+    // for we can't get shared_ptr from weak_ptr
+    QSharedPointer<FileNetworkTask> __shared_ptr;
+    QWeakPointer<FileNetworkTask> __weak_ptr;
 };
 
 
@@ -170,6 +188,24 @@ private:
     FileUploadTask &operator=(const FileUploadTask& rhs);
 
     const bool use_upload_;
+};
+
+class FileUploadMultipleTask : public FileUploadTask {
+    Q_OBJECT
+public:
+    FileUploadMultipleTask(const Account& account,
+                           const QString& repo_id,
+                           const QString& path,
+                           const QString& local_dir_path,
+                           const QStringList& names,
+                           bool use_upload);
+
+    const QStringList& names() const { return names_; }
+
+protected:
+    void createFileServerTask(const QString& link);
+
+    const QStringList names_;
 };
 
 class FileUploadDirectoryTask : public FileUploadTask {

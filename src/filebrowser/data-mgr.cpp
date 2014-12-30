@@ -245,13 +245,13 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
     return cached_file_id == file_id ? local_file_path : "";
 }
 
-QSharedPointer<FileDownloadTask> DataManager::createDownloadTask(const QString& repo_id,
-                                                                 const QString& path)
+FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
+                                                  const QString& path)
 {
     QString local_path = getLocalCacheFilePath(repo_id, path);
-    QSharedPointer<FileDownloadTask> task = TransferManager::instance()->addDownloadTask(
+    FileDownloadTask* task = TransferManager::instance()->addDownloadTask(
         account_, repo_id, path, local_path);
-    connect(task.data(), SIGNAL(finished(bool)),
+    connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
 
     return task;
@@ -285,6 +285,21 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
     else
         task = new FileUploadDirectoryTask(account_, repo_id, parent_dir,
                                            local_path, name);
+
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onFileUploadFinished(bool)));
+
+    return task;
+}
+
+FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
+                                                      const QString& parent_dir,
+                                                      const QString& local_path,
+                                                      const QStringList& names,
+                                                      const bool overwrite)
+{
+    FileUploadTask *task = new FileUploadMultipleTask(account_, repo_id, parent_dir,
+                                                      local_path, names, !overwrite);
 
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileUploadFinished(bool)));

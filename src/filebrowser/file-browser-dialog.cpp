@@ -226,11 +226,20 @@ void FileBrowserDialog::createStatusBar()
     upload_menu_ = new QMenu(status_bar_);
 
     // Submenu's Action 1: Upload File
-    upload_file_action_ = new QAction(tr("Upload a file"), upload_menu_);
+    upload_file_action_ = new QAction(tr("Upload files"), upload_menu_);
     connect(upload_file_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     upload_menu_->addAction(upload_file_action_);
 
-    // Submenu's Action 2: Make a new directory
+    // Submenu's Action 2: Upload File (only pro version's server supports it)
+    if (seafApplet->isPro()) {
+        upload_directory_action_ = new QAction(tr("Upload a directory"), upload_menu_);
+        connect(upload_directory_action_, SIGNAL(triggered()), this, SLOT(chooseDirectoryToUpload()));
+        upload_menu_->addAction(upload_directory_action_);
+    } else {
+        upload_directory_action_ = NULL;
+    }
+
+    // Submenu's Action 3: Make a new directory
     mkdir_action_ = new QAction(tr("Create a folder"), upload_menu_);
     connect(mkdir_action_, SIGNAL(triggered()), this, SLOT(onMkdirButtonClicked()));
     upload_menu_->addAction(mkdir_action_);
@@ -277,8 +286,8 @@ void FileBrowserDialog::createFileTable()
     table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
 
-    connect(table_view_, SIGNAL(dropFile(const QString&)),
-            this, SLOT(uploadOrUpdateFile(const QString&)));
+    connect(table_view_, SIGNAL(dropFile(const QStringList&)),
+            this, SLOT(uploadOrUpdateMutipleFile(const QStringList&)));
 }
 
 void FileBrowserDialog::forceRefresh()
@@ -445,7 +454,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(cached_file);
         return;
     } else {
-        if (TransferManager::instance()->hasDownloadTask(repo_.id, fpath)) {
+        if (TransferManager::instance()->getDownloadTask(repo_.id, fpath)) {
             return;
         }
         AutoUpdateManager::instance()->removeWatch(
@@ -461,12 +470,12 @@ void FileBrowserDialog::createDirectory(const QString &name)
 
 void FileBrowserDialog::downloadFile(const QString& path)
 {
-    QSharedPointer<FileDownloadTask> task = data_mgr_->createDownloadTask(repo_.id, path);
-    connect(task.data(), SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+    FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
+    connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
 }
 
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
-                                   const bool overwrite)
+                                   bool overwrite)
 {
     if (QFileInfo(path).isDir() && !seafApplet->isPro()) {
         seafApplet->warningBox(tr("Feature not supported"), this);
@@ -476,8 +485,38 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(
-        QSharedPointer<FileNetworkTask>(task, &QObject::deleteLater), this);
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
+    task->start();
+
+    // set dialog attributes
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->setWindowModality(Qt::WindowModal);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
+void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
+                                           bool overwrite)
+{
+    if (names.empty())
+        return;
+    const QString path = QFileInfo(names.front()).path();
+    QStringList fnames;
+    Q_FOREACH(const QString &name, names) {
+        const QFileInfo file = name;
+        // only files are allowed
+        if (!file.isDir() && file.path() == path
+            /* && !seafApplet->isPro()*/) {
+            fnames.push_back(file.fileName());
+        }
+    }
+
+    FileUploadTask *task =
+      data_mgr_->createUploadMultipleTask(repo_.id, current_path_, path, fnames,
+                                          overwrite);
+    connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
 
     // set dialog attributes
@@ -521,6 +560,14 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
     uploadFile(path, name);
 }
 
+void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)
+{
+    if (paths.size() == 1)
+        uploadOrUpdateFile(paths.front());
+    else
+        uploadMultipleFile(paths);
+}
+
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
     FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
@@ -547,33 +594,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
         return;
-    if (success) {
-        const QFileInfo file = task->localFilePath();
 
-        if (file.isDir()) {
-            const SeafDirent dir = {
-              SeafDirent::DIR,
-              "",
-              task->name(),
-              0,
-              QDateTime::currentDateTime().toTime_t()
-            };
-            // TODO: insert the Item prior to the item where uploading occurs
-            table_model_->insertItem(dir);
-            return;
-        }
-        const SeafDirent dirent = {
-          SeafDirent::FILE,
-          task->oid(),
-          task->name(),
-          file.size(),
-          QDateTime::currentDateTime().toTime_t()
-        };
-        if (task->useUpload())
-            table_model_->appendItem(dirent);
-        else
-            table_model_->replaceItem(task->name(), dirent);
-    } else {
+    if (!success) {
         if (repo_.encrypted &&
             setPasswordAndRetry(task)) {
             return;
@@ -584,6 +606,58 @@ void FileBrowserDialog::onUploadFinished(bool success)
 
         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);
+        return;
+    }
+
+    QString local_path = task->localFilePath();
+    QStringList names;
+
+    FileUploadMultipleTask *multi_task = qobject_cast<FileUploadMultipleTask *>(sender());
+
+    if (multi_task == NULL) {
+      names.push_back(task->name());
+      local_path = QFileInfo(local_path).absolutePath();
+    } else {
+      names = multi_task->names();
+      local_path = QFileInfo(local_path).absoluteFilePath();
+    }
+
+    // require a forceRefresh if conflicting filename found
+    Q_FOREACH(const QString &name, names)
+    {
+        if (findConflict(name, table_model_->dirents())) {
+            forceRefresh();
+            return;
+        }
+    }
+
+    // add the items to tableview
+    Q_FOREACH(const QString &name, names) {
+        const QFileInfo file = QDir(local_path).filePath(name);
+
+        if (file.isDir()) {
+            const SeafDirent dir = {
+              SeafDirent::DIR,
+              "",
+              name,
+              0,
+              QDateTime::currentDateTime().toTime_t()
+            };
+            // TODO: insert the Item prior to the item where uploading occurs
+            table_model_->insertItem(dir);
+            return;
+        }
+        const SeafDirent dirent = {
+          SeafDirent::FILE,
+          "",
+          name,
+          file.size(),
+          QDateTime::currentDateTime().toTime_t()
+        };
+        if (task->useUpload())
+            table_model_->appendItem(dirent);
+        else
+            table_model_->replaceItem(name, dirent);
     }
 }
 
@@ -649,10 +723,14 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 
 void FileBrowserDialog::chooseFileToUpload()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Select a file to upload"));
-    if (!path.isEmpty()) {
-        uploadOrUpdateFile(path);
-    }
+    QStringList paths = QFileDialog::getOpenFileNames(this, tr("Select a file to upload"));
+    uploadOrUpdateMutipleFile(paths);
+}
+
+void FileBrowserDialog::chooseDirectoryToUpload()
+{
+    QString path = QFileDialog::getExistingDirectory(this, tr("Select a directory to upload"));
+    uploadOrUpdateFile(path);
 }
 
 void FileBrowserDialog::openCacheFolder()

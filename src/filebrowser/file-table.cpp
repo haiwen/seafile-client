@@ -189,46 +189,64 @@ void FileTableView::setModel(QAbstractItemModel *model)
     connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
 }
 
+const SeafDirent *FileTableView::getSelectedItem()
+{
+    FileTableModel *model = static_cast<FileTableModel *>(this->model());
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+    if (selected.size() == 1)
+        return model->direntAt(selected.front().row());
+    return NULL;
+}
+
 void FileTableView::setupContextMenu()
 {
     context_menu_ = new QMenu(this);
     download_action_ = new QAction(tr("&Open"), this);
-    download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
     connect(download_action_, SIGNAL(triggered()),
             this, SLOT(onOpen()));
+    download_action_->setShortcut(QKeySequence::InsertParagraphSeparator);
 
     rename_action_ = new QAction(tr("&Rename"), this);
     connect(rename_action_, SIGNAL(triggered()),
             this, SLOT(onRename()));
+    rename_action_->setShortcut(Qt::ALT + Qt::Key_R);
 
     remove_action_ = new QAction(tr("&Delete"), this);
     connect(remove_action_, SIGNAL(triggered()),
             this, SLOT(onRemove()));
+    remove_action_->setShortcut(QKeySequence::Delete);
 
     share_action_ = new QAction(tr("&Generate Share Link"), this);
     connect(share_action_, SIGNAL(triggered()),
             this, SLOT(onShare()));
+    share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
     update_action_ = new QAction(tr("&Update"), this);
     connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
+    update_action_->setShortcut(Qt::ALT + Qt::Key_U);
 
     copy_action_ = new QAction(tr("&Copy"), this);
     connect(copy_action_, SIGNAL(triggered()), this, SLOT(onCopy()));
+    copy_action_->setShortcut(QKeySequence::Copy);
 
-    move_action_ = new QAction(tr("&Cut"), this);
+    move_action_ = new QAction(tr("Cu&t"), this);
     connect(move_action_, SIGNAL(triggered()), this, SLOT(onMove()));
+    move_action_->setShortcut(QKeySequence::Cut);
 
     paste_action_ = new QAction(tr("&Paste"), this);
     connect(paste_action_, SIGNAL(triggered()), this, SIGNAL(direntPaste()));
+    paste_action_->setShortcut(QKeySequence::Paste);
 
     if (parent_->repo_.readonly) {
         move_action_->setEnabled(false);
         paste_action_->setEnabled(false);
     }
 
-    cancel_download_action_ = new QAction(tr("&Cancel Download"), this);
+    cancel_download_action_ = new QAction(tr("Cancel Download (&E)"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));
+    cancel_download_action_->setShortcut(Qt::ALT + Qt::Key_C);
 
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
@@ -236,21 +254,39 @@ void FileTableView::setupContextMenu()
     context_menu_->addSeparator();
     context_menu_->addAction(move_action_);
     context_menu_->addAction(copy_action_);
+    context_menu_->addAction(paste_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
-    context_menu_->addAction(paste_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
 
-    download_action_->setIconVisibleInMenu(false);
+    this->addAction(download_action_);
+    this->addAction(share_action_);
+    this->addAction(move_action_);
+    this->addAction(copy_action_);
+    this->addAction(paste_action_);
+    this->addAction(rename_action_);
+    this->addAction(remove_action_);
+    this->addAction(update_action_);
+    this->addAction(cancel_download_action_);
+
+    paste_only_menu_ = new QMenu(this);
+    paste_only_menu_->addAction(paste_action_);
 }
 
 void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 {
     QPoint pos = event->pos();
     int row = rowAt(pos.y());
+
+    // show paste only menu for no items
     if (row == -1) {
+        if (parent_->hasFilesToBePasted()) {
+            pos = viewport()->mapToGlobal(pos);
+            paste_only_menu_->exec(pos);
+        }
         return;
     }
 
@@ -278,8 +314,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setVisible(true);
 
         download_action_->setVisible(true);
-        download_action_->setText(tr("&Download"));
-        download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
+        download_action_->setText(tr("D&ownload"));
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
         update_action_->setVisible(false);
@@ -303,11 +338,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
-        download_action_->setIcon(QIcon(":images/filebrowser/open-folder.png"));
     } else {
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
-        download_action_->setIcon(QIcon(":images/filebrowser/download.png"));
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
@@ -317,7 +350,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     }
 
     pos = viewport()->mapToGlobal(pos);
-    context_menu_->exec(pos);
+    context_menu_->exec(pos); // synchronously
+    item_.reset(NULL); // reset it to NULL, when it is done
 }
 
 void FileTableView::onAboutToReset()
@@ -343,6 +377,14 @@ void FileTableView::onOpen()
         QItemSelectionModel *selections = this->selectionModel();
         QModelIndexList selected = selections->selectedRows();
         const SeafDirent *dirent;
+        // if we are going to open a directory
+        if (selected.size() == 1 &&
+            (dirent = model->direntAt(selected.front().row())) &&
+            dirent->isDir()) {
+            emit direntClicked(*dirent);
+            return;
+        }
+        // in other cases, download files only
         for (int i = 0; i < selected.size(); i++) {
             dirent = model->direntAt(selected[i].row());
             if (dirent->isDir())
@@ -358,8 +400,12 @@ void FileTableView::onOpen()
 
 void FileTableView::onRename()
 {
-    if (item_ == NULL)
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItem();
+        if (selected_item)
+            emit direntRename(*selected_item);
         return;
+    }
 
     emit direntRename(*item_);
 }
@@ -383,15 +429,23 @@ void FileTableView::onRemove()
 
 void FileTableView::onShare()
 {
-    if (item_ == NULL)
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItem();
+        if (selected_item && selected_item->isFile())
+            emit direntShare(*selected_item);
         return;
+    }
     emit direntShare(*item_);
 }
 
 void FileTableView::onUpdate()
 {
-    if (item_ == NULL)
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItem();
+        if (selected_item && selected_item->isFile())
+            emit direntUpdate(*selected_item);
         return;
+    }
     emit direntUpdate(*item_);
 }
 
@@ -434,8 +488,14 @@ void FileTableView::onMove()
 
 void FileTableView::onCancelDownload()
 {
-    if (item_ == NULL)
-        return;
+    if (item_ == NULL) {
+        FileTableModel *model = static_cast<FileTableModel *>(this->model());
+        QItemSelectionModel *selections = this->selectionModel();
+        QModelIndexList selected = selections->selectedRows();
+        for (int i = 0; i < selected.size(); i++) {
+            emit cancelDownload(*model->direntAt(selected[i].row()));
+        }
+    }
     emit cancelDownload(*item_);
 }
 

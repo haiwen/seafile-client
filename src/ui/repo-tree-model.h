@@ -69,9 +69,9 @@ private:
     QModelIndex proxiedIndexFromItem(const QStandardItem* item);
 
     RepoCategoryItem *recent_updated_category_;
-    RepoCategoryItem *my_repos_catetory_;
-    RepoCategoryItem *virtual_repos_catetory_;
-    RepoCategoryItem *shared_repos_catetory_;
+    RepoCategoryItem *my_repos_category_;
+    RepoCategoryItem *virtual_repos_category_;
+    RepoCategoryItem *shared_repos_category_;
 
     QTimer *refresh_local_timer_;
 

@@ -716,9 +716,10 @@ void FileTableModel::removeItemNamed(const QString &name)
     int j = 0;
     for (QList<SeafDirent>::iterator i = dirents_.begin(); i != dirents_.end() ; i++, j++)
         if (i->name == name) {
+            int last_pos = dirents_.size() - 1;
             dirents_.erase(i);
             emit dataChanged(index(j, 0),
-                index(dirents_.size()-1, FILE_MAX_COLUMN - 1));
+                index(last_pos, FILE_MAX_COLUMN - 1));
             break;
         }
 }
@@ -739,6 +740,8 @@ void FileTableModel::onResize(const QSize &size)
 {
     name_column_width_ = size.width() - kDefaultColumnSum + kFileNameColumnWidth;
     // name_column_width_ should be always larger than kFileNameColumnWidth
+    if (dirents_.empty())
+        return;
     emit dataChanged(index(0, FILE_COLUMN_NAME),
                      index(dirents_.size()-1 , FILE_COLUMN_NAME));
 }
@@ -756,6 +759,8 @@ void FileTableModel::updateDownloadInfo()
         progresses_[::getBaseName(task->path())] = progress;
     }
 
+    if (dirents_.empty())
+        return;
     emit dataChanged(index(0, FILE_COLUMN_SIZE),
                      index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
 }

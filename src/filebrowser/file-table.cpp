@@ -16,8 +16,7 @@
 namespace {
 
 enum {
-    FILE_COLUMN_ICON = 0,
-    FILE_COLUMN_NAME,
+    FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
     FILE_COLUMN_KIND,
@@ -28,9 +27,8 @@ enum {
 const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
-const int kColumnIconAlign = 8;
 const int kFileNameColumnWidth = 200;
-const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kColumnIconSize + kColumnIconAlign;
+const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3;
 
 const int kRefreshProgressInterval = 1000;
 
@@ -60,34 +58,49 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->fillRect(option.rect, kItemBackgroundColor);
     painter->restore();
 
-    static const QPen borderPen(kItemBottomBorderColor, 1);
+    //
+    // draw item's border
+    //
+
     // draw item's border for the first row only
+    static const QPen borderPen(kItemBottomBorderColor, 1);
     if (index.row() == 0) {
         painter->save();
         painter->setPen(borderPen);
         painter->drawLine(option.rect.topLeft(), option.rect.topRight());
         painter->restore();
     }
-
-    // draw item's border bottom
+    // draw item's border under the bottom
     painter->save();
     painter->setPen(borderPen);
     painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
     painter->restore();
 
+    //
     // draw item
+    //
+
     QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
     switch (index.column()) {
-    case FILE_COLUMN_ICON:
+    case FILE_COLUMN_NAME:
     {
+        // draw icon
         QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
-        int alignX = (size.width() - pixmap.width()); // AlignRight
+        int alignX = 4; // AlignLeft
         int alignY = (size.height() - pixmap.height()) / 2; //AlignVCenter
         painter->save();
         painter->drawPixmap(option.rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
+
+        // draw text
+        QString text = model->data(index, Qt::DisplayRole).value<QString>();
+        QFont font = model->data(index, Qt::FontRole).value<QFont>();
+        QRect rect(option.rect.topLeft() + QPoint(alignX * 2 + pixmap.width(), -2), size - QSize(pixmap.width(), 0));
+        painter->setPen(kItemColor);
+        painter->setFont(font);
+        painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
     }
-        break;
+    break;
     case FILE_COLUMN_SIZE:
     {
         // if we has progress, draw the progress bar
@@ -114,7 +127,6 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         }
         // else, draw the text only
     }
-    case FILE_COLUMN_NAME:
     case FILE_COLUMN_MTIME:
     case FILE_COLUMN_KIND:
     {
@@ -125,15 +137,15 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->setFont(font);
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
     }
-        break;
+    break;
     case FILE_COLUMN_PROGRESS:
-        // don't do anything
-        break;
+    // don't do anything
+    break;
     default:
-        // never reached here
-        // QStyledItemDelegate::paint(painter, option, index);
-        qDebug() << "invalid item (row)";
-        break;
+    // never reached here
+    // QStyledItemDelegate::paint(painter, option, index);
+    qWarning() << "invalid item (row)";
+    break;
     }
 }
 
@@ -614,7 +626,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     const int row = index.row();
     const SeafDirent& dirent = dirents_[row];
 
-    if (role == Qt::DecorationRole && column == FILE_COLUMN_ICON) {
+    if (role == Qt::DecorationRole && column == FILE_COLUMN_NAME) {
         return (dirent.isDir() ?
             QIcon(":/images/files_v2/file_folder.png") :
             QIcon(getIconByFileNameV2(dirent.name))).
@@ -624,9 +636,6 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     if (role == Qt::SizeHintRole) {
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
         switch (column) {
-        case FILE_COLUMN_ICON:
-            qsize.setWidth(kColumnIconSize + kColumnIconAlign / 2 + 2);
-            break;
         case FILE_COLUMN_NAME:
             qsize.setWidth(name_column_width_);
             break;
@@ -684,8 +693,6 @@ QVariant FileTableModel::headerData(int section,
         return QVariant();
 
     switch (section) {
-    case FILE_COLUMN_ICON:
-        return "";
     case FILE_COLUMN_NAME:
         return tr("Name");
     case FILE_COLUMN_SIZE:

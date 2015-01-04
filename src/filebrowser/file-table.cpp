@@ -139,8 +139,9 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
 FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     : QTableView(parent),
-      repo_(repo),
-      parent_(qobject_cast<FileBrowserDialog*>(parent))
+      parent_(qobject_cast<FileBrowserDialog*>(parent)),
+      source_model_(NULL),
+      proxy_model_(NULL)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
@@ -148,7 +149,7 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
-    horizontalHeader()->setSortIndicatorShown(false);
+    horizontalHeader()->setSortIndicatorShown(true);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     setGridStyle(Qt::NoPen);
@@ -172,11 +173,10 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 
 void FileTableView::unselectItemNamed(const QString &name)
 {
-    FileTableModel *model = static_cast<FileTableModel *>(this->model());
     QItemSelectionModel *selections = this->selectionModel();
     QModelIndexList selected = selections->selectedRows();
     for (int i = 0; i < selected.size(); i++) {
-        const SeafDirent *dirent = model->direntAt(selected[i].row());
+        const SeafDirent *dirent = source_model_->direntAt(selected[i].row());
         if (dirent->name == name)
             selections->select(selected[i], QItemSelectionModel::Deselect | QItemSelectionModel::Current);
     }
@@ -184,19 +184,37 @@ void FileTableView::unselectItemNamed(const QString &name)
 
 void FileTableView::setModel(QAbstractItemModel *model)
 {
-    QTableView::setModel(model);
+    source_model_ = qobject_cast<FileTableModel*>(model);
+    if (!source_model_)
+        return;
+    proxy_model_ = new QSortFilterProxyModel(source_model_);
+    proxy_model_->setSourceModel(source_model_);
+    QTableView::setModel(proxy_model_);
+
     setColumnHidden(FILE_COLUMN_PROGRESS, true);
     connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
+    setSortingEnabled(true);
 }
 
-const SeafDirent *FileTableView::getSelectedItem()
+const SeafDirent *FileTableView::getSelectedItemFromSource()
 {
-    FileTableModel *model = static_cast<FileTableModel *>(this->model());
     QItemSelectionModel *selections = this->selectionModel();
     QModelIndexList selected = selections->selectedRows();
     if (selected.size() == 1)
-        return model->direntAt(selected.front().row());
+        return source_model_->direntAt(proxy_model_->mapToSource(selected.front()).row());
     return NULL;
+}
+
+QList<const SeafDirent *> FileTableView::getSelectedItemsFromSource()
+{
+    QList<const SeafDirent *> results;
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+    results.reserve(selected.size());
+    for (int i = 0; i != selected.size() ; i++) {
+        results.push_back(source_model_->direntAt(proxy_model_->mapToSource(selected[i]).row()));
+    }
+    return results;
 }
 
 void FileTableView::setupContextMenu()
@@ -278,40 +296,53 @@ void FileTableView::setupContextMenu()
 
 void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 {
-    QPoint pos = event->pos();
-    int row = rowAt(pos.y());
+    QPoint position = event->pos();
+    const QModelIndex proxy_index = indexAt(position);
+    position = viewport()->mapToGlobal(position);
 
+    //
     // show paste only menu for no items
-    if (row == -1) {
+    // paste-dedicated menu
+    //
+    if (!proxy_index.isValid()) {
         if (parent_->hasFilesToBePasted()) {
-            pos = viewport()->mapToGlobal(pos);
-            paste_only_menu_->exec(pos);
+            paste_only_menu_->exec(position);
         }
         return;
     }
 
-    FileTableModel *model = static_cast<FileTableModel *>(this->model());
-    QItemSelectionModel *selections = this->selectionModel();
-    QModelIndexList selected = selections->selectedRows();
-
-    // paste_action show only if there are files in the clipboard
+    //
+    // paste_action shows only if there are files in the clipboard
+    // and is enabled only if it comes from the same account
+    //
     paste_action_->setVisible(parent_->hasFilesToBePasted());
-    // paste_action show enabled only if it comes from the same account
     paste_action_->setEnabled(!parent_->repo_.readonly &&
         parent_->account_to_be_pasted_from_ == parent_->account_);
 
+    //
+    // map back to the source index from FileTableModel
+    //
+    const QModelIndex index = proxy_model_->mapToSource(proxy_index);
+    const int row = index.row();
+
+    //
     // find if the item is in the selection
-    int i;
-    for (i = 0; i < selected.size(); i++)
+    // get selections
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+    int pos;
+    for (pos = 0; pos < selected.size(); pos++)
     {
-        if (row == selected[i].row())
+        if (row == proxy_model_->mapToSource(selected[pos]).row())
             break;
     }
-    // if the item is and it is a multi-selection
-    if (i != selected.size() && selected.size() != 1) {
+    //
+    // if the item is in the selction and it is a multi-selection
+    // the situation is different from the single-selection
+    // supports: download only (and cancel download action perhaps?)
+    //
+    if (pos != selected.size() && selected.size() != 1) {
         item_.reset(NULL);
-
-        download_action_->setVisible(true);
 
         download_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
@@ -319,18 +350,20 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_action_->setVisible(false);
         update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
-        pos = viewport()->mapToGlobal(pos);
-        context_menu_->exec(pos);
+        context_menu_->exec(position);
         return;
     }
 
-    // if the item is not
+    //
+    // if the item is not in the selection
+    // it is the single-selection situation
+    //
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
 
-    const SeafDirent *dirent = model->direntAt(row);
+    const SeafDirent *dirent = source_model_->direntAt(row);
     item_.reset(new SeafDirent(*dirent));
 
     download_action_->setVisible(true);
@@ -349,9 +382,12 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         }
     }
 
-    pos = viewport()->mapToGlobal(pos);
-    context_menu_->exec(pos); // synchronously
-    item_.reset(NULL); // reset it to NULL, when it is done
+    context_menu_->exec(position); // synchronously
+
+    //
+    // reset it to NULL, when the menu exec is done
+    //
+    item_.reset(NULL);
 }
 
 void FileTableView::onAboutToReset()
@@ -361,8 +397,8 @@ void FileTableView::onAboutToReset()
 
 void FileTableView::onItemDoubleClicked(const QModelIndex& index)
 {
-    FileTableModel *model = (FileTableModel *)this->model();
-    const SeafDirent *dirent = model->direntAt(index.row());
+    const SeafDirent *dirent =
+      source_model_->direntAt(proxy_model_->mapToSource(index).row());
 
     if (dirent == NULL)
         return;
@@ -373,24 +409,20 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
 void FileTableView::onOpen()
 {
     if (item_ == NULL) {
-        FileTableModel *model = static_cast<FileTableModel *>(this->model());
-        QItemSelectionModel *selections = this->selectionModel();
-        QModelIndexList selected = selections->selectedRows();
-        const SeafDirent *dirent;
+        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
         // if we are going to open a directory
-        if (selected.size() == 1 &&
-            (dirent = model->direntAt(selected.front().row())) &&
-            dirent->isDir()) {
-            emit direntClicked(*dirent);
+        if (dirents.size() == 1 &&
+            dirents.front()->isDir()) {
+            emit direntClicked(*dirents.front());
             return;
         }
         // in other cases, download files only
-        for (int i = 0; i < selected.size(); i++) {
-            dirent = model->direntAt(selected[i].row());
-            if (dirent->isDir())
+        for (int i = 0; i < dirents.size(); i++) {
+            // ignore directories since we have no support for them
+            if (dirents[i]->isDir())
                 continue;
 
-            emit direntClicked(*dirent);
+            emit direntClicked(*dirents[i]);
         }
         return;
     }
@@ -401,7 +433,7 @@ void FileTableView::onOpen()
 void FileTableView::onRename()
 {
     if (item_ == NULL) {
-        const SeafDirent *selected_item = getSelectedItem();
+        const SeafDirent *selected_item = getSelectedItemFromSource();
         if (selected_item)
             emit direntRename(*selected_item);
         return;
@@ -413,13 +445,7 @@ void FileTableView::onRename()
 void FileTableView::onRemove()
 {
     if (item_ == NULL) {
-        FileTableModel *model = static_cast<FileTableModel *>(this->model());
-        QItemSelectionModel *selections = this->selectionModel();
-        QModelIndexList selected = selections->selectedRows();
-        QList<const SeafDirent*> dirents;
-        for (int i = 0; i < selected.size(); i++) {
-            dirents.push_back(model->direntAt(selected[i].row()));
-        }
+        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
         emit direntRemove(dirents);
         return;
     }
@@ -430,7 +456,7 @@ void FileTableView::onRemove()
 void FileTableView::onShare()
 {
     if (item_ == NULL) {
-        const SeafDirent *selected_item = getSelectedItem();
+        const SeafDirent *selected_item = getSelectedItemFromSource();
         if (selected_item && selected_item->isFile())
             emit direntShare(*selected_item);
         return;
@@ -441,7 +467,7 @@ void FileTableView::onShare()
 void FileTableView::onUpdate()
 {
     if (item_ == NULL) {
-        const SeafDirent *selected_item = getSelectedItem();
+        const SeafDirent *selected_item = getSelectedItemFromSource();
         if (selected_item && selected_item->isFile())
             emit direntUpdate(*selected_item);
         return;
@@ -454,11 +480,9 @@ void FileTableView::onCopy()
     QStringList file_names;
 
     if (item_ == NULL) {
-        FileTableModel *model = static_cast<FileTableModel *>(this->model());
-        QItemSelectionModel *selections = this->selectionModel();
-        QModelIndexList selected = selections->selectedRows();
-        for (int i = 0; i < selected.size(); i++) {
-            file_names.push_back(model->direntAt(selected[i].row())->name);
+        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
+        for (int i = 0; i < dirents.size(); i++) {
+            file_names.push_back(dirents[i]->name);
         }
     } else {
         file_names.push_back(item_->name);
@@ -473,11 +497,9 @@ void FileTableView::onMove()
     QStringList file_names;
 
     if (item_ == NULL) {
-        FileTableModel *model = static_cast<FileTableModel *>(this->model());
-        QItemSelectionModel *selections = this->selectionModel();
-        QModelIndexList selected = selections->selectedRows();
-        for (int i = 0; i < selected.size(); i++) {
-            file_names.push_back(model->direntAt(selected[i].row())->name);
+        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
+        for (int i = 0; i < dirents.size(); i++) {
+            file_names.push_back(dirents[i]->name);
         }
     } else {
         file_names.push_back(item_->name);
@@ -489,11 +511,9 @@ void FileTableView::onMove()
 void FileTableView::onCancelDownload()
 {
     if (item_ == NULL) {
-        FileTableModel *model = static_cast<FileTableModel *>(this->model());
-        QItemSelectionModel *selections = this->selectionModel();
-        QModelIndexList selected = selections->selectedRows();
-        for (int i = 0; i < selected.size(); i++) {
-            emit cancelDownload(*model->direntAt(selected[i].row()));
+        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
+        for (int i = 0; i < dirents.size(); i++) {
+            emit cancelDownload(*dirents[i]);
         }
         return;
     }
@@ -553,7 +573,8 @@ void FileTableView::dragEnterEvent(QDragEnterEvent *event)
 void FileTableView::resizeEvent(QResizeEvent *event)
 {
     QTableView::resizeEvent(event);
-    static_cast<FileTableModel*>(model())->onResize(event->size());
+    if (source_model_)
+        source_model_->onResize(event->size());
 }
 
 FileTableModel::FileTableModel(QObject *parent)

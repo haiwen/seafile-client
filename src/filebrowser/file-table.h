@@ -7,6 +7,7 @@
 #include <QStyledItemDelegate>
 #include <QModelIndex>
 #include <QScopedPointer>
+#include <QSortFilterProxyModel>
 
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
@@ -21,6 +22,7 @@ public:
 };
 
 class FileBrowserDialog;
+class FileTableModel;
 class FileTableView : public QTableView
 {
     Q_OBJECT
@@ -56,8 +58,16 @@ private slots:
 
 private:
     void setupContextMenu();
-    // if we have one and only one item in seleceted
-    const SeafDirent *getSelectedItem();
+
+    // \brief get current selection item
+    // it returns non-NULL if only we have one and only one item in seleceted
+    // the index it uses internally is mapped to source model
+    const SeafDirent *getSelectedItemFromSource();
+
+    // \brief get current selection items
+    // it returns the list of all of selected SeafDirents
+    // the indexes it uses internally is mapped to source model
+    QList<const SeafDirent *> getSelectedItemsFromSource();
     void contextMenuEvent(QContextMenuEvent *event);
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
@@ -66,9 +76,9 @@ private:
 
     Q_DISABLE_COPY(FileTableView)
 
-    // the exact item where right click event occurs
+    // \brief the copy of the exact item where right click event occurs
+    // its lifetime is valid during the menu event and exec and invalid outside
     QScopedPointer<const SeafDirent> item_;
-    ServerRepo repo_;
     QMenu *context_menu_;
     QMenu *paste_only_menu_;
     QAction *download_action_;
@@ -81,6 +91,11 @@ private:
     QAction *paste_action_;
     QAction *cancel_download_action_;
     FileBrowserDialog *parent_;
+
+    // source model
+    FileTableModel *source_model_;
+    // proxy model
+    QSortFilterProxyModel *proxy_model_;
 };
 
 class FileTableModel : public QAbstractTableModel

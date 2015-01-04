@@ -188,7 +188,7 @@ void FileTableView::unselectItemNamed(const QString &name)
     QItemSelectionModel *selections = this->selectionModel();
     QModelIndexList selected = selections->selectedRows();
     for (int i = 0; i < selected.size(); i++) {
-        const SeafDirent *dirent = source_model_->direntAt(selected[i].row());
+        const SeafDirent *dirent = source_model_->direntAt(proxy_model_->mapToSource(selected[i]).row());
         if (dirent->name == name)
             selections->select(selected[i], QItemSelectionModel::Deselect | QItemSelectionModel::Current);
     }

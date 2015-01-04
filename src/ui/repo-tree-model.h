@@ -56,6 +56,7 @@ private:
     void checkVirtualRepo(const ServerRepo& repo);
     void checkSharedRepo(const ServerRepo& repo);
     void checkGroupRepo(const ServerRepo& repo);
+    void checkSyncedRepo(const ServerRepo& repo);
     void initialize();
     void updateRepoItem(RepoItem *item, const ServerRepo& repo);
     void refreshRepoItem(RepoItem *item, void *data);
@@ -72,6 +73,7 @@ private:
     RepoCategoryItem *my_repos_category_;
     RepoCategoryItem *virtual_repos_category_;
     RepoCategoryItem *shared_repos_category_;
+    RepoCategoryItem *synced_repos_category_;
 
     QTimer *refresh_local_timer_;
 

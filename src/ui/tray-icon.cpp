@@ -78,6 +78,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIcon()));
+    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIconToolTip()));
 
     createActions();
     createContextMenu();
@@ -463,6 +464,38 @@ void SeafileTrayIcon::refreshTrayIcon()
     }
 
     setState(STATE_DAEMON_UP);
+}
+
+void SeafileTrayIcon::refreshTrayIconToolTip()
+{
+    if (!seafApplet->settingsManager()->autoSync())
+        return;
+
+    int up_rate, down_rate;
+    if (seafApplet->rpcClient()->getUploadRate(&up_rate) < 0 ||
+        seafApplet->rpcClient()->getDownloadRate(&down_rate) < 0) {
+        return;
+    }
+
+    if (up_rate <= 0 && down_rate <= 0) {
+        return;
+    }
+
+    QString uploadStr = tr("Uploading");
+    QString downloadStr =  tr("Downloading");
+    if (up_rate > 0 && down_rate > 0) {
+        setToolTip(QString("%1 %2/s, %3 %4/s\n").
+                   arg(uploadStr).arg(readableFileSize(up_rate)).
+                   arg(downloadStr).arg(readableFileSize(down_rate)));
+    } else if (up_rate > 0) {
+        setToolTip(QString("%1 %2/s\n").
+                   arg(uploadStr).arg(readableFileSize(up_rate)));
+    } else /* down_rate > 0*/ {
+        setToolTip(QString("%1 %2/s\n").
+                   arg(downloadStr).arg(readableFileSize(down_rate)));
+    }
+
+    rotate(true);
 }
 
 void SeafileTrayIcon::onSeahubNotificationsChanged()

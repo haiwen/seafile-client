@@ -23,6 +23,10 @@
 #define APPNAME "seafile-applet"
 
 namespace {
+#ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
+const char *kEnvOptionDisableCrashReporter = "SEAFILE_CLIENT_DISABLE_CRASH_REPORTER";
+#endif // SEAFILE_CLIENT_HAS_CRASH_REPORTER
+
 void initGlib()
 {
 #if !GLIB_CHECK_VERSION(2, 35, 0)
@@ -36,9 +40,14 @@ void initGlib()
 void initBreakpad()
 {
 #ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
-    // if we have built with breakpad, load it in run time
-    Breakpad::CrashHandler::instance()->Init(
-        QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
+    //
+    // We can override to disable crashreporter at runtime
+    //
+    if (qgetenv(kEnvOptionDisableCrashReporter).isEmpty()) {
+        // if we have built with breakpad, load it in run time
+        Breakpad::CrashHandler::instance()->Init(
+            QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
+    }
 #endif
 }
 

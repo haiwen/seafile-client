@@ -12,9 +12,9 @@
 #endif
 
 namespace Breakpad {
-/************************************************************************/
-/* CrashHandlerPrivate                                                  */
-/************************************************************************/
+//
+//  Implementation for Crash Handler
+//
 class CrashHandlerPrivate
 {
 public:
@@ -109,9 +109,6 @@ bool CrashHandlerPrivate::DumpCallback(const char* _dump_dir,const char* _minidu
         fprintf(stderr, "[breakpad] initialized\n");
     }
 
-    /************************************************************************/
-    /* CrashHandler                                                         */
-    /************************************************************************/
     CrashHandler* CrashHandler::instance()
     {
         static CrashHandler globalHandler;

@@ -1,16 +1,18 @@
 #include <QtGui>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "init-seafile-dialog.h"
 
+#if defined(Q_WS_WIN)
+#include <ShlObj.h>
+#include <shlwapi.h>
+#endif
+
 namespace {
 
 #if defined(Q_WS_WIN)
-
-#include <ShlObj.h>
-#include <shlwapi.h>
-
 static QString
 get_largest_drive()
 {

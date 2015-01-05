@@ -55,3 +55,29 @@ ui_*.h
 qrc_*.cxx
 
 i18n/*.qm
+
+### emacs files
+.emacs*
+.#*
+
+### ninja files
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja
+
+## xcode related
+Debug
+Release
+seafile-client.xcodeproj
+CMakeScripts
+seafile-applet.app
+
+## unittest related
+test_*
+!test_*.cpp
+!test_*.h
+
+## doxygen related
+docs
+Doxyfile

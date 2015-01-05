@@ -15,6 +15,7 @@ public:
     enum SyncState {
         SYNC_STATE_DISABLED,
         SYNC_STATE_WAITING,
+        SYNC_STATE_INIT,
         SYNC_STATE_ING,
         SYNC_STATE_DONE,
         SYNC_STATE_ERROR,
@@ -28,11 +29,23 @@ public:
     bool encrypted;
     bool auto_sync;
     bool worktree_invalid;
+    int version;
+    QString relay_id;
 
     qint64 last_sync_time;
     SyncState sync_state;
     QString sync_state_str;
     QString sync_error_str;
+
+    LocalRepo()
+        : encrypted(false),
+        auto_sync(false),
+        worktree_invalid(false),
+        version(0),
+        last_sync_time(0),
+        sync_state(SYNC_STATE_DISABLED)
+    {
+    }
 
     static LocalRepo fromGObject(_GObject *obj);
 
@@ -54,7 +67,6 @@ public:
 
     bool isValid() const { return id.length() > 0; }
 
-    QIcon getIcon() const;
     void setSyncInfo(QString state, QString error = QString());
 
 private:

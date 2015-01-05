@@ -8,33 +8,32 @@
 #include <QDir>
 
 #include <glib-object.h>
-#include <stdio.h>
+#include <cstdio>
 
+#include "utils/utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
 #include "ui/proxy-style.h"
 #include "seafile-applet.h"
 #include "QtAwesome.h"
 #include "open-local-helper.h"
-#ifdef Q_WS_MAC
-#include "Application.h"
+#if defined(Q_WS_MAC)
+#include "application.h"
 #endif
 
 #define APPNAME "seafile-applet"
 
-namespace {
-
-
-} // namespace
-
-
 int main(int argc, char *argv[])
 {
-#ifdef Q_WS_MAC
+    int ret = 0;
+    char c;
+#if defined(Q_WS_MAC)
     if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
         // fix Mac OS X 10.9 (mavericks) font issue
         // https://bugreports.qt-project.org/browse/QTBUG-32789
         QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
+        // https://bugreports.qt-project.org/browse/QTBUG-40833
+        QFont::insertSubstitution(".Helvetica Neue DeskInterface", "Helvetica Neue");
     }
 #endif
 
@@ -45,7 +44,7 @@ int main(int argc, char *argv[])
     g_thread_init(NULL);
 #endif
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC)
     Application app(argc, argv);
 #else
     QApplication app(argc, argv);
@@ -65,12 +64,22 @@ int main(int argc, char *argv[])
     app.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
-#if QT_VERSION >= 0x040800 && not defined(Q_WS_MAC)
-    myappTranslator.load(QLocale::system(), // locale
-                         "",                // file name
-                         "seafile_",        // prefix
-                         ":/i18n/",         // folder
-                         ".qm");            // suffix
+#if QT_VERSION >= 0x040800 && !defined(Q_WS_MAC)
+    QLocale loc = QLocale::system();
+    QString lang = QLocale::languageToString(loc.language());
+
+    if (lang != "en") {
+        bool success;
+        success = myappTranslator.load(QLocale::system(), // locale
+                                       "",                // file name
+                                       "seafile_",        // prefix
+                                       ":/i18n/",         // folder
+                                       ".qm");            // suffix
+
+        if (!success) {
+            myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
+        }
+    }
 #else
     myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
 #endif
@@ -88,7 +97,6 @@ int main(int argc, char *argv[])
         { NULL, 0, NULL, 0, },
     };
 
-    char c;
     while ((c = getopt_long (argc, argv, short_options,
                              long_options, NULL)) != EOF) {
         switch (c) {
@@ -135,5 +143,7 @@ int main(int argc, char *argv[])
     seafApplet = new SeafileApplet;
     seafApplet->start();
 
-    return app.exec();
+    ret = app.exec();
+    seafApplet->exit(ret);
+    return ret;
 }

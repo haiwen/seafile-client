@@ -12,7 +12,7 @@
 
 namespace {
 
-const int kUpdateTasksInterval = 1000;
+//const int kUpdateTasksInterval = 1000;
 
 enum {
     INDEX_EMPTY_VIEW = 0,
@@ -66,7 +66,7 @@ void CloneTasksDialog::onModelReset()
         //table_->justifyColumnWidth();
     }
 }
-        
+
 
 void CloneTasksDialog::createEmptyView()
 {

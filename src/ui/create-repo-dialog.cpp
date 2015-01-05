@@ -1,5 +1,6 @@
 #include <QtGui>
 
+#include "utils/utils.h"
 #include "account-mgr.h"
 #include "seafile-applet.h"
 #include "configurator.h"
@@ -12,8 +13,8 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
                                    const QString& worktree,
                                    QWidget *parent)
     : QDialog(parent),
-      request_(NULL),
       path_(worktree),
+      request_(NULL),
       account_(account)
 {
     setupUi(this);
@@ -168,6 +169,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         info.email,
         info.random_key,
         info.enc_version,
+        info.more_info,
         &error);
 
     if (ret < 0) {

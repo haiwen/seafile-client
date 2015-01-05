@@ -1,4 +1,5 @@
-## seafile-client ##
+## seafile-client [![Build Status](https://secure.travis-ci.org/haiwen/seafile-client.png?branch=master)](http://travis-ci.org/haiwen/seafile-client)
+
 
 New version of Seafile desktop client.
 
@@ -32,7 +33,7 @@ First you need to install **Qt Linguist**:
 - Windows/MacOS: download it from [here](http://qt-apps.org/content/show.php?content=89360)
 - Linux users:
 
-    `sudo apt-get install libqt4-dev`
+    `sudo apt-get install qt4-dev-tools`
 
 ### Do the translation
 
@@ -44,7 +45,7 @@ For example, if you like to add Russian translation.
 
 ### Contribute your translation
 
-Please submit translations via Transifex: https://www.transifex.com/projects/p/seahub/
+Please submit translations via Transifex: https://www.transifex.com/projects/p/seafile-client/
 
 Steps:
 

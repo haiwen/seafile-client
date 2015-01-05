@@ -37,6 +37,18 @@ certFromBase64(const char *data)
     return cert;
 }
 
+// Remove path and query params from url before converting to string
+QString urlToString(const QUrl& url)
+{
+    QUrl u;
+
+    u.setScheme(url.scheme());
+    u.setHost(url.host());
+    u.setPort(url.port());
+
+    return u.toString();
+}
+
 } // namespace
 
 CertsManager::CertsManager()
@@ -97,25 +109,23 @@ void CertsManager::loadCertificates()
 }
 
 void
-CertsManager::saveCertificate(const QUrl& url_in, const QSslCertificate& cert)
+CertsManager::saveCertificate(const QUrl& url, const QSslCertificate& cert)
 {
-    QUrl url(url_in);
-    url.setPath("/");
-    certs_[url.toString()] = cert;
+    QString key = urlToString(url);
+    certs_[key] = cert;
 
     QString sql = "REPLACE INTO Certs VALUES ('%1', '%2')";
-    sql = sql.arg(url.toString()).arg(certToBase64(cert));
+    sql = sql.arg(key).arg(certToBase64(cert));
     sqlite_query_exec (db, toCStr(sql));
 }
 
-
 QSslCertificate
-CertsManager::getCertificate(const QUrl& url_in)
+CertsManager::getCertificate(const QUrl& url)
 {
-    QUrl url(url_in);
-    url.setPath("/");
-    if (certs_.contains(url.toString())) {
-        return certs_[url.toString()];
+    QString key = urlToString(url);
+
+    if (certs_.contains(key)) {
+        return certs_[key];
     }
     QSslCertificate cert;
     return cert;

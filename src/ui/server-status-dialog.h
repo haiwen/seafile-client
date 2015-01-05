@@ -4,8 +4,6 @@
 #include <QDialog>
 #include "ui_server-status-dialog.h"
 
-class QTimer;
-
 class ServerStatusDialog : public QDialog,
                            public Ui::ServerStatusDialog
 {
@@ -18,8 +16,6 @@ private slots:
 
 private:
     Q_DISABLE_COPY(ServerStatusDialog)
-
-    QTimer *refresh_timer_;
 };
 
 #endif // SEAFILE_CLIENT_SERVER_STATUS_DIALOG_H

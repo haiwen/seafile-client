@@ -64,3 +64,34 @@ QString ApiError::toString() const {
 
     return "";
 }
+
+ApiError ApiError::NoError() {
+    ApiError error;
+    error.type_ = NOT_AN_ERROR;
+    return error;
+}
+
+bool ApiError::operator==(const ApiError& other)
+{
+    if (type_ != other.type_) {
+        return false;
+    }
+
+    bool same;
+    switch (type_) {
+    case NOT_AN_ERROR:
+        same = true;
+        break;
+    case HTTP_ERROR:
+        same = http_error_code_ == other.http_error_code_;
+        break;
+    case NETWORK_ERROR:
+        same = network_error_ == other.network_error_;
+        break;
+    case SSL_ERROR:
+        same = ssl_errors_ == other.ssl_errors_;
+        break;
+    }
+
+    return same;
+}

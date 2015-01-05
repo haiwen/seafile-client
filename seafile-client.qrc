@@ -4,8 +4,11 @@
     <file>images/seafile-24.png</file>
     <file>images/seafile-32.png</file>
     <file>images/account.png</file>
+    <file>images/account-36.png</file>
     <file>images/repo.png</file>
     <file>images/encrypted-repo.png</file>
+    <file>images/readonly-repo.png</file>
+    <file>images/folder.png</file>
     <file>images/loading.gif</file>
     <file>images/daemon_up.png</file>
     <file>images/daemon_down.png</file>
@@ -13,32 +16,57 @@
     <file>images/seafile_transfer_1.png</file>
     <file>images/seafile_transfer_2.png</file>
     <file>images/seafile_warning.png</file>
+    <file>images/notification.png</file>
     <file>images/win/daemon_up.ico</file>
     <file>images/win/daemon_down.ico</file>
     <file>images/win/seafile_warning.ico</file>
     <file>images/win/seafile_auto_sync_disabled.ico</file>
     <file>images/win/seafile_transfer_1.ico</file>
     <file>images/win/seafile_transfer_2.ico</file>
+    <file>images/win/notification.ico</file>
     <file>images/mac/daemon_up.png</file>
     <file>images/mac/daemon_down.png</file>
     <file>images/mac/seafile_warning.png</file>
     <file>images/mac/seafile_auto_sync_disabled.png</file>
     <file>images/mac/seafile_transfer_1.png</file>
     <file>images/mac/seafile_transfer_2.png</file>
+    <file>images/mac/notification.png</file>
     <file>images/refresh.png</file>
+    <file>images/resync.png</file>
+    <file>images/resync@2x.png</file>
     <file>images/plus.png</file>
     <file>images/minus.png</file>
+    <file>images/minus-gray.png</file>
+    <file>images/minus-gray@2x.png</file>
     <file>images/download.png</file>
+    <file>images/download@2x.png</file>
     <file>images/download-gray.png</file>
+    <file>images/download-gray@2x.png</file>
     <file>images/folder-open.png</file>
+    <file>images/folder-open@2x.png</file>
+    <file>images/folder-open-gray.png</file>
+    <file>images/folder-open-gray@2x.png</file>
     <file>images/browser.png</file>
     <file>images/info.png</file>
+    <file>images/info-gray.png</file>
+    <file>images/info-gray@2x.png</file>
     <file>images/play.png</file>
+    <file>images/play-gray.png</file>
+    <file>images/play-gray@2x.png</file>
     <file>images/pause.png</file>
+    <file>images/pause-gray.png</file>
+    <file>images/pause-gray@2x.png</file>
     <file>images/cloud.png</file>
+    <file>images/cloud-gray.png</file>
+    <file>images/cloud-gray@2x.png</file>
     <file>images/close.png</file>
     <file>images/sync_now.png</file>
+    <file>images/sync_now-gray.png</file>
+    <file>images/sync_now-gray@2x.png</file>
     <file>images/remove.png</file>
+    <file>images/remove-gray.png</file>
+    <file>images/remove-gray@2x.png</file>
+    <file>images/remove-red.png</file>
     <file>images/seafile-download-library.png</file>
     <file>images/link-green.png</file>
     <file>images/link-red.png</file>
@@ -55,23 +83,83 @@
     <file>images/bell-orange.png</file>
     <file>images/ok-48.png</file>
     <file>images/download-48.png</file>
+    <file>images/avatar-mask.png</file>
+    <file>images/avatar-mask-highlighted.png</file>
+    <file>images/tabs/repos.png</file>
+    <file>images/tabs/starred.png</file>
+    <file>images/tabs/activities.png</file>
+    <file>images/files/file_audio.png</file>
+    <file>images/files/file_image.png</file>
+    <file>images/files/file_ms_excel.png</file>
+    <file>images/files/file_ms_ppt.png</file>
+    <file>images/files/file_ms_word.png</file>
+    <file>images/files/file_pdf.png</file>
+    <file>images/files/file_text.png</file>
+    <file>images/files/file_video.png</file>
+    <file>images/files/file_unknown.png</file>
+    <file>images/files_v2/file_audio.png</file>
+    <file>images/files_v2/file_folder.png</file>
+    <file>images/files_v2/file_image.png</file>
+    <file>images/files_v2/file_ms_excel.png</file>
+    <file>images/files_v2/file_ms_ppt.png</file>
+    <file>images/files_v2/file_ms_word.png</file>
+    <file>images/files_v2/file_pdf.png</file>
+    <file>images/files_v2/file_text.png</file>
+    <file>images/files_v2/file_video.png</file>
+    <file>images/files_v2/file_unknown.png</file>
+    <file>images/caret-down.png</file>
+    <file>images/caret-down@2x.png</file>
+    <file>images/caret-up.png</file>
+    <file>images/caret-up@2x.png</file>
+    <file>images/caret-right.png</file>
+    <file>images/caret-right@2x.png</file>
+    <file>images/account-settings.png</file>
+    <file>images/account-settings@2x.png</file>
+    <file>images/add-account.png</file>
+    <file>images/add-account@2x.png</file>
+    <file>images/delete-account.png</file>
+    <file>images/delete-account@2x.png</file>
+    <file>images/account-checked.png</file>
+    <file>images/account-checked@2x.png</file>
+    <file>images/filebrowser/backward.png</file>
+    <file>images/filebrowser/backward@2x.png</file>
+    <file>images/filebrowser/download.png</file>
+    <file>images/filebrowser/download@2x.png</file>
+    <file>images/filebrowser/forward.png</file>
+    <file>images/filebrowser/forward@2x.png</file>
+    <file>images/filebrowser/home.png</file>
+    <file>images/filebrowser/home@2x.png</file>
+    <file>images/filebrowser/mkdir.png</file>
+    <file>images/filebrowser/mkdir@2x.png</file>
+    <file>images/filebrowser/open-folder.png</file>
+    <file>images/filebrowser/open-folder@2x.png</file>
+    <file>images/filebrowser/upload.png</file>
+    <file>images/filebrowser/upload@2x.png</file>
+    <file>images/filebrowser/refresh.png</file>
+    <file>images/filebrowser/refresh@2x.png</file>
+    <file>images/filebrowser/settings.png</file>
+    <file>images/filebrowser/settings@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>
     <file>i18n/seafile_ca.qm</file>
     <file>i18n/seafile_de_DE.qm</file>
+    <file>i18n/seafile_es.qm</file>
     <file>i18n/seafile_es_AR.qm</file>
     <file>i18n/seafile_es_MX.qm</file>
-    <file>i18n/seafile_es.qm</file>
     <file>i18n/seafile_fr_FR.qm</file>
     <file>i18n/seafile_he_IL.qm</file>
     <file>i18n/seafile_hu_HU.qm</file>
+    <file>i18n/seafile_is.qm</file>
+    <file>i18n/seafile_it.qm</file>
+    <file>i18n/seafile_ko_KR.qm</file>
     <file>i18n/seafile_nl_BE.qm</file>
     <file>i18n/seafile_pl_PL.qm</file>
     <file>i18n/seafile_pt_BR.qm</file>
     <file>i18n/seafile_pt_PT.qm</file>
     <file>i18n/seafile_ru.qm</file>
     <file>i18n/seafile_sk_SK.qm</file>
+    <file>i18n/seafile_uk.qm</file>
     <file>i18n/seafile_zh_CN.qm</file>
 </qresource>
 </RCC>

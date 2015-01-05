@@ -2,9 +2,10 @@
 #include <QApplication>
 #include <QPixmap>
 #include <QToolTip>
+#include <QSortFilterProxyModel>
 
-#include "QtAwesome.h"
 #include "utils/utils.h"
+#include "utils/paint-utils.h"
 #include "seafile-applet.h"
 #include "api/server-repo.h"
 #include "repo-item.h"
@@ -42,7 +43,7 @@ const int kRepoCategoryIndicatorHeight = 16;
 const int kMarginBetweenIndicatorAndName = 5;
 
 const int kMarginBetweenRepoIconAndName = 10;
-const int kMarginBetweenRepoNameAndStatus = 5;
+const int kMarginBetweenRepoNameAndStatus = 10;
 
 const char *kRepoNameColor = "#3F3F3F";
 const char *kRepoNameColorHighlighted = "#544D49";
@@ -55,61 +56,10 @@ const char *kRepoItemBackgroundColor = "white";
 const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
 
 const char *kRepoCategoryColor = "#3F3F3F";
-const char *kRepoCategoryColorHighlighted = "#FAF5FB";
+//const char *kRepoCategoryColorHighlighted = "#FAF5FB";
 
 const char *kRepoCategoryBackgroundColor = "white";
-const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
-
-
-QString fitTextToWidth(const QString& text, const QFont& font, int width)
-{
-    static QString ELLIPSISES = "...";
-
-	QFontMetrics qfm(font);
-	QSize size = qfm.size(0, text);
-	if (size.width() <= width)
-		return text;				// it fits, so just display it
-
-	// doesn't fit, so we need to truncate and add ellipses
-	QSize sizeElippses = qfm.size(0, ELLIPSISES); // we need to cut short enough to add these
-	QString s = text;
-	while (s.length() > 20)     // never cut shorter than this...
-	{
-		int len = s.length();
-		s = text.left(len-1);
-		size = qfm.size(0, s);
-		if (size.width() <= (width - sizeElippses.width()))
-			break;              // we are finally short enough
-	}
-
-	return (s + ELLIPSISES);
-}
-
-QFont zoomFont(const QFont& font_in, double ratio)
-{
-    QFont font(font_in);
-
-    if (font.pointSize() > 0) {
-        font.setPointSize((int)(font.pointSize() * ratio));
-    } else {
-        font.setPixelSize((int)(font.pixelSize() * ratio));
-    }
-
-    return font;
-}
-
-QFont changeFontSize(const QFont& font_in, int size)
-{
-    QFont font(font_in);
-
-    if (font.pointSize() > 0) {
-        font.setPointSize(size);
-    } else {
-        font.setPixelSize(size);
-    }
-
-    return font;
-}
+//const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
 
 } // namespace
@@ -141,7 +91,7 @@ QSize RepoItemDelegate::sizeHintForRepoItem(const QStyleOptionViewItem &option,
 
     int width = kMarginLeft + kRepoIconWidth
         + kMarginBetweenRepoIconAndName + kRepoNameWidth
-        + kMarginBetweenRepoNameAndStatus + kRepoStatusIconWidth;
+        + kMarginBetweenRepoNameAndStatus + kRepoStatusIconWidth
         + kMarginRight + kPadding * 2;
 
     int height = kRepoIconHeight + kPadding * 2 + kMarginTop + kMarginBottom;
@@ -212,24 +162,30 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QPoint repo_icon_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     repo_icon_pos += option.rect.topLeft();
     painter->save();
-    painter->drawPixmap(repo_icon_pos,
-                        repo.getPixmap());
+
+    QPixmap repo_icon(repo.getPixmap());
+
+    QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
+    painter->drawPixmap(repo_icon_rect, repo_icon);
     painter->restore();
 
     // Paint repo name
     painter->save();
     QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidth + kMarginBetweenRepoIconAndName, 0);
-    QRect repo_name_rect(repo_name_pos, QSize(kRepoNameWidth, kRepoNameHeight));
+    int repo_name_width = option.rect.width() - kRepoIconWidth - kMarginBetweenRepoIconAndName
+        - kRepoStatusIconWidth  - kMarginBetweenRepoNameAndStatus
+        - kPadding * 2 - kMarginLeft - kMarginRight;
+    QRect repo_name_rect(repo_name_pos, QSize(repo_name_width, kRepoNameHeight));
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
     painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
     painter->drawText(repo_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(repo.name, option.font, kRepoNameWidth),
+                      fitTextToWidth(repo.name, option.font, repo_name_width),
                       &repo_name_rect);
 
     // Paint repo description
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
-    QRect repo_desc_rect(repo_desc_pos, QSize(kRepoNameWidth, kRepoNameHeight));
+    QRect repo_desc_rect(repo_desc_pos, QSize(repo_name_width, kRepoNameHeight));
     painter->setFont(changeFontSize(painter->font(), kTimestampFontSize));
     painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
 
@@ -258,7 +214,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(description, option.font, kRepoNameWidth),
+                      fitTextToWidth(description, option.font, repo_name_width),
                       &repo_desc_rect);
     painter->restore();
 
@@ -268,13 +224,13 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
 
     painter->save();
-    painter->drawPixmap(status_icon_pos, getSyncStatusIcon(item));
+    painter->drawPixmap(status_icon_rect, getSyncStatusIcon(item));
     painter->restore();
 
     // Update the metrics of this item
     RepoItem::Metrics metrics;
     QPoint shift(-option.rect.topLeft().x(), -option.rect.topLeft().y());
-    metrics.icon_rect = QRect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
+    metrics.icon_rect = repo_icon_rect;
     metrics.name_rect = repo_name_rect;
     metrics.subtitle_rect = repo_desc_rect;
     metrics.status_icon_rect = status_icon_rect;
@@ -292,15 +248,12 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                              const RepoCategoryItem *item) const
 {
     QBrush backBrush;
-    bool hover = false;
+    //bool hover = false;
     bool selected = false;
 
+    backBrush = QColor(kRepoCategoryBackgroundColor);
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
-        backBrush = QColor(kRepoCategoryBackgroundColorHighlighted);
         selected = true;
-
-    } else {
-        backBrush = QColor(kRepoCategoryBackgroundColor);
     }
 
     painter->save();
@@ -310,17 +263,21 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     // Paint the expand/collapse indicator
     RepoTreeModel *model = (RepoTreeModel *)item->model();
     RepoTreeView *view = model->treeView();
-    bool expanded = view->isExpanded(model->indexFromItem(item));
 
-    QRect indicator_rect(option.rect.topLeft(),
-                         option.rect.bottomLeft() + QPoint(option.rect.height(), 0));
+    QModelIndex index = ((QSortFilterProxyModel *)view->model())->mapFromSource(model->indexFromItem(item));
+    bool expanded = view->isExpanded(index);
+
+    QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
+                         QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     painter->save();
-    painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
-    painter->setFont(awesome->font(16));
-    painter->drawText(indicator_rect,
-                      Qt::AlignCenter,
-                      QChar(expanded ? icon_caret_down : icon_caret_right),
-                      &indicator_rect);
+    QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "right");
+    QString icon_2x_path = QString(":/images/caret-%1@2x.png").arg(expanded ? "down" : "right");
+    QIcon icon = QIcon();
+    icon.addFile(icon_path, QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
+    icon.addFile(icon_2x_path, QSize(kRepoCategoryIndicatorWidth * 2, kRepoCategoryIndicatorHeight * 2));
+
+    painter->drawPixmap(indicator_rect,
+                       icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
     painter->restore();
 
     // Paint category name
@@ -328,10 +285,11 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QPoint category_name_pos = indicator_rect.topRight() + QPoint(kMarginBetweenIndicatorAndName, 0);
     QRect category_name_rect(category_name_pos,
                              option.rect.bottomRight() - QPoint(kPadding, 0));
-    painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+    // painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+    painter->setPen(QColor(kRepoCategoryColor));
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->rowCount()),
+                      fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->matchedReposCount()),
                                      option.font, category_name_rect.width()));
     painter->restore();
 }
@@ -363,10 +321,17 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
         case LocalRepo::SYNC_STATE_UNKNOWN:
             icon = "question";
             break;
+        case LocalRepo::SYNC_STATE_INIT:
+            // If the repo is in "sync init", we just display the previous
+            // icon.
+            icon = last_icon_map_.value(repo.id, "waiting");
+            break;
         }
     }
 
-    return prefix + icon + ".png";
+    last_icon_map_[repo.id] = icon;
+
+    return ::getIconPathByDPI(prefix + icon + ".png");
 }
 
 QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const
@@ -374,8 +339,9 @@ QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const
     if (!index.isValid()) {
         return NULL;
     }
-    const RepoTreeModel *model = (const RepoTreeModel*)index.model();
-    QStandardItem *item = model->itemFromIndex(index);
+    QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)index.model();
+    RepoTreeModel *tree_model_ = (RepoTreeModel *)(proxy->sourceModel());
+    QStandardItem *item = tree_model_->itemFromIndex(proxy->mapToSource(index));
     if (item->type() != REPO_ITEM_TYPE &&
         item->type() != REPO_CATEGORY_TYPE) {
         return NULL;
@@ -394,10 +360,6 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
 
     QPoint viewpos = viewport->mapFromGlobal(global_pos);
     viewpos -= rect.topLeft();
-
-    // QRect r(status_icon_rect);
-    // qDebug("rect: (%d, %d) w = %d, h = %d; pos: (%d, %d)\n",
-    //        r.topLeft().x(), r.topLeft().y(), r.width(), r.height(), viewpos.x(), viewpos.y());
 
     if (!status_icon_rect.contains(viewpos)) {
         return;

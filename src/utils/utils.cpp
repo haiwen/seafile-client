@@ -1,19 +1,22 @@
-
-#include <assert.h>
+#include <cassert>
 #include <errno.h>
 #include <dirent.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <unistd.h>
 #include <sqlite3.h>
 #include <glib.h>
-#include <string.h>
+#include <cstring>
+#include <QObject>
 #include <QString>
-#include <string>
+#include <QSettings>
+#include <QProcess>
+#include <QDesktopServices>
 #include <jansson.h>
 
 #if defined(Q_WS_MAC)
     #include <sys/sysctl.h>
+    #include "utils-mac.h"
 #elif defined(Q_WS_WIN)
     #include <windows.h>
     #include <psapi.h>
@@ -23,14 +26,16 @@
 #include <QVariant>
 #include <QDebug>
 #include <QDateTime>
-
-#include "seafile-applet.h"
+#include <QCryptographicHash>
+#include <QSslCipher>
+#include <QSslCertificate>
 
 #include "utils.h"
 
 
 namespace {
 
+const char *kSeafileClientBrand = "DataDupe";
 #if defined(Q_WS_WIN)
 const char *kCcnetConfDir = "ccnet";
 #else
@@ -47,6 +52,49 @@ QString defaultCcnetDir() {
     } else {
         return QDir::home().filePath(kCcnetConfDir);
     }
+}
+
+bool openInNativeExtension(const QString &path) {
+#if defined(Q_WS_WIN)
+    //call ShellExecute internally
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+#elif defined(Q_WS_MAC)
+    QProcess open_process;
+    open_process.start(QLatin1String("open"), QStringList(path));
+    open_process.waitForFinished(-1);
+    return open_process.exitCode() == 0;
+#elif defined(Q_WS_X11)
+    //xdg-open is sufficient
+    QProcess open_process;
+    open_process.start(QLatin1String("xdg-open"), QStringList(path));
+    open_process.waitForFinished(-1);
+    return open_process.exitCode() == 0;
+#else
+    return false;
+#endif
+}
+
+bool showInGraphicalShell(const QString& path) {
+#if defined(Q_WS_WIN)
+    QStringList params;
+    if (!QFileInfo(path).isDir())
+        params << QLatin1String("/select,");
+    params << QDir::toNativeSeparators(path);
+    return QProcess::startDetached(QLatin1String("explorer.exe"), params);
+#elif defined(Q_WS_MAC)
+    QStringList scriptArgs;
+    scriptArgs << QLatin1String("-e")
+               << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
+                                     .arg(path);
+    QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
+    scriptArgs.clear();
+    scriptArgs << QLatin1String("-e")
+               << QLatin1String("tell application \"Finder\" to activate");
+    QProcess::execute("/usr/bin/osascript", scriptArgs);
+    return true;
+#else
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(path).absolutePath()));
+#endif
 }
 
 typedef bool (*SqliteRowFunc) (sqlite3_stmt *stmt, void *data);
@@ -125,7 +173,7 @@ int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
 
 int checkdir_with_mkdir (const char *dir)
 {
-#ifdef WIN32
+#if defined(Q_WS_WIN)
     int ret;
     char *path = g_strdup(dir);
     char *p = (char *)path + strlen(path) - 1;
@@ -247,6 +295,21 @@ set_seafile_auto_start(bool on)
     return result;
 }
 
+#elif defined(Q_WS_MAC)
+int
+get_seafile_auto_start()
+{
+    return __mac_get_auto_start();
+}
+
+int
+set_seafile_auto_start(bool on)
+{
+    bool was_on = __mac_get_auto_start();
+    if (on != was_on)
+        __mac_set_auto_start(on);
+    return on;
+}
 #else
 int
 get_seafile_auto_start()
@@ -261,6 +324,15 @@ set_seafile_auto_start(bool /* on */)
 }
 
 #endif
+
+int
+set_seafile_dock_icon_style(bool hidden)
+{
+#if defined(Q_WS_MAC)
+    __mac_setDockIconStyle(hidden);
+#endif
+    return 0;
+}
 
 bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
 {
@@ -291,6 +363,11 @@ bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data)
         line = next + 1;
     }
     return true;
+}
+
+QString getBrand()
+{
+    return QString::fromUtf8(kSeafileClientBrand);
 }
 
 QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
@@ -332,6 +409,32 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
     return dict;
 }
 
+QString mapToJson(QMap<QString, QVariant> map)
+{
+    json_t *object = NULL;
+    char *info = NULL;
+    object = json_object();
+
+    foreach (const QString &k, map.keys()) {
+        QVariant v = map.value(k);
+        switch (v.type()) {
+        case QVariant::String:
+            json_object_set_new(object, toCStr(k), json_string(toCStr(v.toString())));
+            break;
+        case QVariant::Int:
+            json_object_set_new(object, toCStr(k), json_integer(v.toInt()));
+            break;
+            // TODO: support other types
+        }
+    }
+
+    info = json_dumps(object, 0);
+    QString ret = QString::fromUtf8(info);
+    json_decref (object);
+    free (info);
+    return ret;
+}
+
 QString translateCommitTime(qint64 timestamp) {
     timestamp *= 1000;          // use milli seconds
     qint64 now = QDateTime::currentMSecsSinceEpoch();
@@ -371,3 +474,175 @@ QString translateCommitTime(qint64 timestamp) {
     }
 }
 
+QString readableFileSize(qint64 size)
+{
+    QString str;
+
+    if (size <= 1024) {
+        str = "B";
+    } else if (size > 1024 && size <= 1024*1024) {
+        size = size / 1024;
+        str = "KB";
+    } else if (size > 1024*1024 && size <= 1024*1024*1024) {
+        size = size / 1024 / 1024;
+        str = "MB";
+    } else if (size > 1024*1024*1024) {
+        size = size / 1024 / 1024 / 1024;
+        str = "GB";
+    }
+
+    return QString::number(size) + str;
+}
+
+QString readableFileSizeV2(qint64 size)
+{
+    if (size <= 0)
+        return "0 B";
+    //max size is 1 x 7 + 1
+    const int bufsize = 10;
+    char buf[bufsize];
+
+    int size_unit_b = size & 1023; //B
+    int size_unit_k = size >> 10 & 1023; //K
+    int size_unit_m = size >> 20 & 1023; //M
+    int size_unit_g = size >> 30 & 1023; //G
+    int size_unit_t = size >> 40 & 1023; //T
+    int size_unit_p = size >> 50 & 1023; //P
+    //omit all size large than 1PB
+
+    if (size_unit_p)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dP",
+                 size_unit_p, (size_unit_t * 100) >> 10);
+    else if (size_unit_t)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dT",
+                 size_unit_t, (size_unit_g * 100) >> 10);
+    else if (size_unit_g)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dG",
+                 size_unit_g, (size_unit_m * 100) >> 10);
+    else if (size_unit_m)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dM",
+                 size_unit_m, (size_unit_k * 100) >> 10);
+    else if (size_unit_k)
+        snprintf(buf, bufsize - 1,
+                 "%d.%.2dK",
+                 size_unit_k, (size_unit_b * 100) >> 10);
+    else
+        snprintf(buf, bufsize - 1,
+                 "%dB",
+                 size_unit_b);
+
+    return buf; // return by a new QString item
+}
+
+QString md5(const QString& s)
+{
+    return QCryptographicHash::hash(s.toUtf8(), QCryptographicHash::Md5).toHex();
+}
+
+QUrl urlJoin(const QUrl& head, const QString& tail)
+{
+    QString a = head.toString();
+    QString b = tail;
+
+    if (!a.endsWith("/")) {
+        a += "/";
+    }
+    while (b.startsWith("/")) {
+        b = b.right(1);
+    }
+    return QUrl(a + b);
+}
+
+void removeDirRecursively(const QString &path)
+{
+    QFileInfo file_info(path);
+    if (file_info.isDir()) {
+        QDir dir(path);
+        QStringList file_list = dir.entryList();
+        for (int i = 0; i < file_list.count(); ++i) {
+            removeDirRecursively(file_list.at(i));
+        }
+        removeDirRecursively(path);
+    } else {
+        QFile::remove(path);
+    }
+}
+
+QString dumpHexPresentation(const QByteArray &bytes)
+{
+    if (bytes.size() < 2)
+      return QString(bytes).toUpper();
+    QString output((char)bytes[0]);
+    output += (char)bytes[1];
+    for (int i = 2 ; i != bytes.size() ; i++) {
+      if (i % 2 == 0)
+        output += ':';
+      output += (char)bytes[i];
+    }
+    return output.toUpper();
+}
+
+QString dumpCipher(const QSslCipher &cipher)
+{
+    QString s;
+    s += "Authentication:  " + cipher.authenticationMethod() + "\n";
+    s += "Encryption:      " + cipher.encryptionMethod() + "\n";
+    s += "Key Exchange:    " + cipher.keyExchangeMethod() + "\n";
+    s += "Cipher Name:     " + cipher.name() + "\n";
+    s += "Protocol:        " +  cipher.protocolString() + "\n";
+    s += "Supported Bits:  " + QString(cipher.supportedBits()) + "\n";
+    s += "Used Bits:       " + QString(cipher.usedBits()) + "\n";
+    return s;
+}
+
+QString dumpCertificate(const QSslCertificate &cert)
+{
+    if (cert.isNull())
+      return "\n-\n";
+
+    QString s;
+    QString s_none = QObject::tr("<Not Part of Certificate>");
+    #define CERTIFICATE_STR(x) ( ((x) == "" ) ? s_none : (x) )
+
+    s += "\nIssued To\n";
+    s += "CommonName(CN):             " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::CommonName)) + "\n";
+    s += "Organization(O):            " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::Organization)) + "\n";
+    s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
+    s += "Serial Number:              " + CERTIFICATE_STR(dumpHexPresentation(cert.serialNumber())) + "\n";
+
+    s += "\nIssued By\n";
+    s += "CommonName(CN):             " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::CommonName)) + "\n";
+    s += "Organization(O):            " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::Organization)) + "\n";
+    s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
+
+    s += "\nPeriod Of Validity\n";
+    s += "Begins On:    " + cert.effectiveDate().toString() + "\n";
+    s += "Expires On:   " + cert.expiryDate().toString() + "\n";
+    s += "IsValid:      " + (cert.isValid() ? QString("Yes") : QString("No")) + "\n";
+
+    s += "\nFingerprints\n";
+    s += "SHA1 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Sha1) + "\n";
+    s += "MD5 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Md5) + "\n";
+
+    return s;
+}
+
+QString dumpCertificateFingerprint(const QSslCertificate &cert, const QCryptographicHash::Algorithm &algorithm)
+{
+    if(cert.isNull())
+      return "";
+    return dumpHexPresentation(cert.digest(algorithm).toHex());
+}
+
+QString dumpSslErrors(const QList<QSslError> &errors)
+{
+    QString s;
+    foreach (const QSslError &error, errors) {
+        s += error.errorString() + "\n";
+    }
+    return s;
+}

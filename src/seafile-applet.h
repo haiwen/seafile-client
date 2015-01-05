@@ -14,11 +14,6 @@ class SettingsManager;
 class SettingsDialog;
 class CertsManager;
 
-#define SEAFILE_CLIENT_BRAND "DataDupe"
-
-QString getBrand();
-
-
 /**
  * The central class of seafile-client
  */
@@ -35,6 +30,7 @@ public:
     void messageBox(const QString& msg, QWidget *parent=0);
     void warningBox(const QString& msg, QWidget *parent=0);
     bool yesOrNoBox(const QString& msg, QWidget *parent=0, bool default_val=true);
+    bool detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val=true);
 
     // normal exit
     void exit(int code);
@@ -61,6 +57,9 @@ public:
 
     CertsManager *certsManager() { return certs_mgr_; }
 
+    bool isPro() const { return is_pro_; }
+    void setPro(bool val) { is_pro_ = val; }
+
     bool started() { return started_; }
     bool inExit() { return in_exit_; }
 
@@ -68,6 +67,7 @@ private slots:
     void onDaemonStarted();
     void checkInitVDrive();
     void onGetLatestVersionInfoSuccess(const QString&);
+    void updateReposPropertyForHttpSync();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)
@@ -103,6 +103,8 @@ private:
     bool in_exit_;
 
     QString style_;
+
+    bool is_pro_;
 };
 
 /**

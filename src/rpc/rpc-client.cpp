@@ -58,7 +58,7 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
 {
     GError *error = NULL;
     GList *repos = seafile_get_repo_list(seafile_rpc_client_, 0, 0, &error);
-    if (repos == NULL) {
+    if (error != NULL) {
         qWarning("failed to get repo list: %s\n", error->message);
         return -1;
     }
@@ -98,13 +98,14 @@ int SeafileRpcClient::downloadRepo(const QString& id,
                                    const QString& magic, const QString& peerAddr,
                                    const QString& port, const QString& email,
                                    const QString& random_key, int enc_version,
+                                   const QString& more_info,
                                    QString *error_ret)
 {
     GError *error = NULL;
-    searpc_client_call__string(
+    char *ret = searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_download",
-        &error, 13,
+        &error, 14,
         "string", toCStr(id),
         "int", repo_version,
         "string", toCStr(relayId),
@@ -117,7 +118,8 @@ int SeafileRpcClient::downloadRepo(const QString& id,
         "string", toCStr(port),
         "string", toCStr(email),
         "string", toCStr(random_key),
-        "int", enc_version);
+        "int", enc_version,
+        "string", toCStr(more_info));
 
     if (error != NULL) {
         if (error_ret) {
@@ -126,6 +128,7 @@ int SeafileRpcClient::downloadRepo(const QString& id,
         return -1;
     }
 
+    g_free(ret);
     return 0;
 }
 
@@ -136,13 +139,14 @@ int SeafileRpcClient::cloneRepo(const QString& id,
                                 const QString &magic, const QString &peerAddr,
                                 const QString &port, const QString &email,
                                 const QString& random_key, int enc_version,
+                                const QString& more_info,
                                 QString *error_ret)
 {
     GError *error = NULL;
-    searpc_client_call__string(
+    char *ret = searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_clone",
-        &error, 13,
+        &error, 14,
         "string", toCStr(id),
         "int", repo_version,
         "string", toCStr(relayId),
@@ -155,7 +159,8 @@ int SeafileRpcClient::cloneRepo(const QString& id,
         "string", toCStr(port),
         "string", toCStr(email),
         "string", toCStr(random_key),
-        "int", enc_version);
+        "int", enc_version,
+        "string", toCStr(more_info));
 
     if (error != NULL) {
         if (error_ret) {
@@ -164,6 +169,7 @@ int SeafileRpcClient::cloneRepo(const QString& id,
         return -1;
     }
 
+    g_free(ret);
     return 0;
 }
 
@@ -202,6 +208,8 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
         return -1;
     }
     *value = QString::fromUtf8(ret);
+
+    g_free (ret);
     return 0;
 }
 
@@ -215,6 +223,8 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
         return -1;
     }
     *value = QString::fromUtf8(ret);
+
+    g_free (ret);
     return 0;
 }
 
@@ -666,4 +676,66 @@ int SeafileRpcClient::checkPathForClone(const QString& path, QString *err_msg)
 QString SeafileRpcClient::getCcnetPeerId()
 {
     return sync_client_ ? sync_client_->base.id : "";
+}
+
+int SeafileRpcClient::updateReposServerHost(const QString& old_host,
+                                            const QString& new_host,
+                                            QString *err)
+{
+    GError *error = NULL;
+    int ret =  searpc_client_call__int (seafile_rpc_client_,
+                                        "seafile_update_repos_server_host",
+                                        &error, 2,
+                                        "string", toCStr(old_host),
+                                        "string", toCStr(new_host));
+
+    if (ret < 0) {
+        if (error) {
+            *err = QString::fromUtf8(error->message);
+        } else {
+            *err = tr("Unknown error");
+        }
+    }
+
+    return ret;
+}
+
+int SeafileRpcClient::getRepoProperty(const QString &repo_id,
+                                      const QString& name,
+                                      QString *value)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (
+        seafile_rpc_client_,
+        "seafile_get_repo_property",
+        &error, 2,
+        "string", toCStr(repo_id),
+        "string", toCStr(name)
+        );
+    if (error) {
+        return -1;
+    }
+    *value = QString::fromUtf8(ret);
+
+    g_free(ret);
+    return 0;
+}
+
+int SeafileRpcClient::setRepoProperty(const QString &repo_id,
+                                      const QString& name,
+                                      const QString& value)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (
+        seafile_rpc_client_,
+        "seafile_set_repo_property",
+        &error, 3,
+        "string", toCStr(repo_id),
+        "string", toCStr(name),
+        "string", toCStr(value)
+        );
+    if (error) {
+        return -1;
+    }
+    return ret;
 }

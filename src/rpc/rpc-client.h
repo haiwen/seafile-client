@@ -33,6 +33,7 @@ public:
                      const QString& magic, const QString& peerAddr,
                      const QString& port, const QString& email,
                      const QString& random_key, int enc_version,
+                     const QString& more_info,
                      QString *error);
 
     int cloneRepo(const QString& id,
@@ -42,6 +43,7 @@ public:
                   const QString& magic, const QString& peerAddr,
                   const QString& port, const QString& email,
                   const QString& random_key, int enc_version,
+                  const QString& more_info,
                   QString *error);
 
     int ccnetGetConfig(const QString& key, QString *value);
@@ -79,6 +81,18 @@ public:
     int getServers(_GList** servers);
 
     QString getCcnetPeerId();
+
+    int updateReposServerHost(const QString& old_host,
+                              const QString& new_host,
+                              QString *err);
+
+    int getRepoProperty(const QString& repo_id,
+                        const QString& name,
+                        QString *value);
+
+    int setRepoProperty(const QString& repo_id,
+                        const QString& name,
+                        const QString& value);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)

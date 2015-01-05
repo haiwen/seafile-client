@@ -1,4 +1,5 @@
 #include <QtGui>
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "utils/uninstall-helpers.h"
 
@@ -47,7 +48,7 @@ void UninstallHelperDialog::onYesClicked()
 
 void UninstallHelperDialog::doExit()
 {
-    ::exit(0);
+    QCoreApplication::exit(0);
 }
 
 bool UninstallHelperDialog::loadQss(const QString& path)

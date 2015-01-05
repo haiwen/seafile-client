@@ -9,23 +9,37 @@ extern "C" {
 #include <QSet>
 #include <QDebug>
 
+#include "utils/utils.h"
 #include "seafile-applet.h"
+#include "configurator.h"
 #include "rpc/rpc-client.h"
 #include "main-window.h"
 #include "settings-dialog.h"
 #include "settings-mgr.h"
+#include "seahub-notifications-monitor.h"
+#include "server-status-service.h"
+
 #include "tray-icon.h"
 #if defined(Q_WS_MAC)
 #include "traynotificationmanager.h"
 #endif
 
-namespace {
-
-const int kRefreshInterval = 5000;
-const int kRotateTrayIconIntervalMilli = 250;
+#ifdef Q_WS_X11
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusPendingCall>
+#endif
 
 #if defined(Q_WS_WIN)
 #include <windows.h>
+#endif
+
+namespace {
+
+const int kRefreshInterval = 1000;
+const int kRotateTrayIconIntervalMilli = 250;
+
+#if defined(Q_WS_WIN)
 bool
 isWindowsVistaOrHigher()
 {
@@ -50,9 +64,9 @@ isWindowsVistaOrHigher()
 SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     : QSystemTrayIcon(parent),
       nth_trayicon_(0),
-      rotate_counter_(0)
+      rotate_counter_(0),
+      state_(STATE_DAEMON_UP)
 {
-    setToolTip(getBrand());
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
     connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));
@@ -65,6 +79,9 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
+
+    connect(SeahubNotificationsMonitor::instance(), SIGNAL(notificationsChanged()),
+            this, SLOT(onSeahubNotificationsChanged()));
 
     hide();
 
@@ -87,6 +104,10 @@ void SeafileTrayIcon::createActions()
     enable_auto_sync_action_ = new QAction(tr("Enable auto sync"), this);
     connect(enable_auto_sync_action_, SIGNAL(triggered()), this, SLOT(enableAutoSync()));
 
+    view_unread_seahub_notifications_action_ = new QAction(tr("View unread notifications"), this);
+    connect(view_unread_seahub_notifications_action_, SIGNAL(triggered()),
+            this, SLOT(viewUnreadNotifications()));
+
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
 
@@ -95,6 +116,10 @@ void SeafileTrayIcon::createActions()
 
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
+
+    open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
+    open_log_directory_action_->setStatusTip(tr("open seafile log directory"));
+    connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
 
     about_action_ = new QAction(tr("&About"), this);
     about_action_->setStatusTip(tr("Show the application's About box"));
@@ -112,8 +137,10 @@ void SeafileTrayIcon::createContextMenu()
     help_menu_->addAction(open_help_action_);
 
     context_menu_ = new QMenu(NULL);
+    context_menu_->addAction(view_unread_seahub_notifications_action_);
     context_menu_->addAction(toggle_main_window_action_);
     context_menu_->addAction(settings_action_);
+    context_menu_->addAction(open_log_directory_action_);
     context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
     context_menu_->addAction(enable_auto_sync_action_);
@@ -140,6 +167,8 @@ void SeafileTrayIcon::prepareContextMenu()
     } else {
         toggle_main_window_action_->setText(tr("Hide main window"));
     }
+
+    view_unread_seahub_notifications_action_->setVisible(state_ == STATE_HAVE_UNREAD_MESSAGE);
 }
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
@@ -166,6 +195,22 @@ void SeafileTrayIcon::rotate(bool start)
     }
 }
 
+void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+{
+#ifdef Q_WS_X11
+    QVariantMap hints;
+    hints["resident"] = QVariant(true);
+    hints["desktop-entry"] = QVariant("seafile");
+    QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "seafile"
+                                             << title << message << QStringList () << hints << qint32(-1);
+    QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "org.freedesktop.Notifications", "Notify");
+    method.setArguments(args);
+    QDBusConnection::sessionBus().asyncCall(method);
+#else
+    QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
+#endif
+}
+
 void SeafileTrayIcon::rotateTrayIcon()
 {
     if (rotate_counter_ >= 8 || !seafApplet->settingsManager()->autoSync()) {
@@ -185,18 +230,14 @@ void SeafileTrayIcon::rotateTrayIcon()
     rotate_counter_++;
 }
 
-void SeafileTrayIcon::resetToolTip ()
+void SeafileTrayIcon::setState(TrayState state, const QString& tip)
 {
-    QString tip(getBrand());
-    if (!seafApplet->settingsManager()->autoSync()) {
-        tip = tr("auto sync is disabled");
+    if (state_ == state) {
+        return;
     }
 
-    setToolTip(tip);
-}
+    QString tool_tip = tip.isEmpty() ? getBrand() : tip;
 
-void SeafileTrayIcon::setState(TrayState state)
-{
     setIcon(stateToIcon(state));
 
     // the following two lines solving the problem of tray icon
@@ -206,8 +247,7 @@ void SeafileTrayIcon::setState(TrayState state)
     show();
 #endif
 
-    if (state != STATE_DAEMON_DOWN)
-        resetToolTip();
+    setToolTip(tool_tip);
 }
 
 QIcon SeafileTrayIcon::getIcon(const QString& name)
@@ -240,6 +280,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return getIcon(prefix + "seafile_transfer_2.ico");
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(prefix + "seafile_warning.ico");
+    case STATE_HAVE_UNREAD_MESSAGE:
+        return getIcon(prefix + "notification.ico");
     }
 #elif defined(Q_WS_MAC)
     switch (state) {
@@ -255,6 +297,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return getIcon(":/images/mac/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(":/images/mac/seafile_warning.png");
+    case STATE_HAVE_UNREAD_MESSAGE:
+        return getIcon(":/images/mac/notification.png");
     }
 #else
     switch (state) {
@@ -270,6 +314,8 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         return getIcon(":/images/seafile_transfer_2.png");
     case STATE_SERVERS_NOT_CONNECTED:
         return getIcon(":/images/seafile_warning.png");
+    case STATE_HAVE_UNREAD_MESSAGE:
+        return getIcon(":/images/notification.png");
     }
 #endif
 }
@@ -288,12 +334,23 @@ void SeafileTrayIcon::about()
 {
     QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(getBrand()),
                        tr("<h2>%1 Client %2</h2>").arg(getBrand()).arg(
-                           STRINGIZE(SEAFILE_CLIENT_VERSION)));
+                           STRINGIZE(SEAFILE_CLIENT_VERSION))
+#if defined(SEAFILE_CLIENT_REVISION)
+                       .append("<h4> REV %1 </h4>")
+                       .arg(STRINGIZE(SEAFILE_CLIENT_REVISION))
+#endif
+                       );
 }
 
 void SeafileTrayIcon::openHelp()
 {
     QDesktopServices::openUrl(QUrl("http://datadupe.com/documentation/"));
+}
+
+void SeafileTrayIcon::openLogDirectory()
+{
+    QString log_path = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
+    QDesktopServices::openUrl(QUrl::fromLocalFile(log_path));
 }
 
 void SeafileTrayIcon::showSettingsWindow()
@@ -310,12 +367,21 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:
     case QSystemTrayIcon::DoubleClick:
-        toggleMainWindow();
+        onClick();
         break;
     default:
         return;
     }
 #endif
+}
+
+void SeafileTrayIcon::onClick()
+{
+    if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
+        viewUnreadNotifications();
+    } else {
+        toggleMainWindow();
+    }
 }
 
 void SeafileTrayIcon::disableAutoSync()
@@ -330,48 +396,45 @@ void SeafileTrayIcon::enableAutoSync()
 
 void SeafileTrayIcon::quitSeafile()
 {
-    seafApplet->exit(0);
+    QCoreApplication::exit(0);
 }
 
 void SeafileTrayIcon::refreshTrayIcon()
 {
-    bool all_server_connected = allServersConnected();
-    if (state_ == STATE_DAEMON_UP && !all_server_connected) {
-        setState(STATE_SERVERS_NOT_CONNECTED);
-        setToolTip(tr("some servers not connected"));
-    } else if (state_ == STATE_SERVERS_NOT_CONNECTED && all_server_connected) {
-        setState(STATE_DAEMON_UP);
-        setToolTip(getBrand());
+    if (rotate_timer_->isActive()) {
+        return;
+    }
+
+    int n_unread_msg = SeahubNotificationsMonitor::instance()->getUnreadNotifications();
+    if (n_unread_msg > 0) {
+        setState(STATE_HAVE_UNREAD_MESSAGE,
+                 tr("You have %n message(s)", "", n_unread_msg));
+        return;
+    }
+
+    if (!seafApplet->settingsManager()->autoSync()) {
+        setState(STATE_DAEMON_AUTOSYNC_DISABLED,
+                 tr("auto sync is disabled"));
+        return;
+    }
+
+    if (!ServerStatusService::instance()->allServersConnected()) {
+        setState(STATE_SERVERS_NOT_CONNECTED, tr("some servers not connected"));
+        return;
+    }
+
+    setState(STATE_DAEMON_UP);
+}
+
+void SeafileTrayIcon::onSeahubNotificationsChanged()
+{
+    if (!rotate_timer_->isActive()) {
+        refreshTrayIcon();
     }
 }
 
-bool SeafileTrayIcon::allServersConnected()
+void SeafileTrayIcon::viewUnreadNotifications()
 {
-    if (!seafApplet->started()) {
-        return true;
-    }
-
-    GList *servers = NULL;
-    if (seafApplet->rpcClient()->getServers(&servers) < 0) {
-        return true;
-    }
-
-    if (!servers) {
-        return true;
-    }
-
-    GList *ptr;
-    bool all_server_connected = true;
-    for (ptr = servers; ptr ; ptr = ptr->next) {
-        CcnetPeer *server = (CcnetPeer *)ptr->data;
-        if (server->net_state != PEER_CONNECTED) {
-            all_server_connected = false;
-            break;
-        }
-    }
-
-    g_list_foreach (servers, (GFunc)g_object_unref, NULL);
-    g_list_free (servers);
-
-    return all_server_connected;
+    SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
+    refreshTrayIcon();
 }

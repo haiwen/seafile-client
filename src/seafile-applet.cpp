@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QTimer>
 
+#include <errno.h>
 #include <glib.h>
 
 #include "utils/utils.h"
@@ -25,12 +26,31 @@
 #include "ui/init-vdrive-dialog.h"
 #include "ui/login-dialog.h"
 #include "open-local-helper.h"
+#include "avatar-service.h"
+#include "seahub-notifications-monitor.h"
+#include "filebrowser/data-cache.h"
+#include "filebrowser/auto-update-mgr.h"
+#include "rpc/local-repo.h"
+#include "server-status-service.h"
 
 #include "seafile-applet.h"
 
 namespace {
+enum DEBUG_LEVEL {
+  DEBUG = 0,
+  WARNING
+};
 
-void myLogHandler(QtMsgType type, const char *msg)
+// -DQT_NO_DEBUG is used with cmake and qmake if it is a release build
+// if it is debug build, use DEBUG level as default
+#if !defined(QT_NO_DEBUG) || !defined(NDEBUG)
+DEBUG_LEVEL seafile_client_debug_level = DEBUG;
+#else
+// if it is release build, use WARNING level as default
+DEBUG_LEVEL seafile_client_debug_level = WARNING;
+#endif
+
+void myLogHandlerDebug(QtMsgType type, const char *msg)
 {
     switch (type) {
     case QtDebugMsg:
@@ -45,6 +65,23 @@ void myLogHandler(QtMsgType type, const char *msg)
     case QtFatalMsg:
         g_critical("%s", msg);
         abort();
+    }
+}
+
+void myLogHandler(QtMsgType type, const char *msg)
+{
+    switch (type) {
+    case QtWarningMsg:
+        g_warning("%s", msg);
+        break;
+    case QtCriticalMsg:
+        g_critical("%s", msg);
+        break;
+    case QtFatalMsg:
+        g_critical("%s", msg);
+        abort();
+    default:
+        break;
     }
 }
 
@@ -89,9 +126,13 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
 }
 
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
+const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
 const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";
+
+const char *kRepoServerUrlProperty = "server-url";
+const char *kRepoRelayAddrProperty = "relay-address";
 
 } // namespace
 
@@ -109,7 +150,8 @@ SeafileApplet::SeafileApplet()
       settings_mgr_(new SettingsManager),
       certs_mgr_(new CertsManager),
       started_(false),
-      in_exit_(false)
+      in_exit_(false),
+      is_pro_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
 }
@@ -125,6 +167,13 @@ void SeafileApplet::start()
     account_mgr_->start();
 
     certs_mgr_->start();
+
+    FileCacheDB::instance()->start();
+    AutoUpdateManager::instance()->start();
+
+    AvatarService::instance()->start();
+    SeahubNotificationsMonitor::instance()->start();
+    ServerStatusService::instance()->start();
 
 #if defined(Q_WS_WIN)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
@@ -145,6 +194,10 @@ void SeafileApplet::onDaemonStarted()
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
     seafApplet->settingsManager()->loadSettings();
+
+#if defined(Q_WS_MAC)
+    seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
+#endif
 
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         LoginDialog login_dialog;
@@ -170,6 +223,9 @@ void SeafileApplet::onDaemonStarted()
     }
 
     OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
+
+    QTimer::singleShot(kIntervalForUpdateRepoProperty,
+                       this, SLOT(updateReposPropertyForHttpSync()));
 }
 
 void SeafileApplet::checkInitVDrive()
@@ -187,19 +243,18 @@ void SeafileApplet::checkInitVDrive()
     }
 }
 
+// cleanup before exit
 void SeafileApplet::exit(int code)
 {
-    // Must use the global namespace, or the "exit" would call itself util
-    // stack overflow
     daemon_mgr_->stopAll();
     // Remove tray icon from system tray
     delete tray_icon_;
     if (main_win_) {
         main_win_->writeSettings();
     }
-    ::exit(code);
 }
 
+// stop the main event loop and return to the main function
 void SeafileApplet::errorAndExit(const QString& error)
 {
     if (in_exit_) {
@@ -209,15 +264,26 @@ void SeafileApplet::errorAndExit(const QString& error)
     in_exit_ = true;
 
     warningBox(error);
-    this->exit(1);
+    // stop eventloop before exit and return to the main function
+    QCoreApplication::exit(1);
 }
 
 void SeafileApplet::initLog()
 {
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {
-        errorAndExit(tr("Failed to initialize log"));
+        errorAndExit(tr("Failed to initialize log: %s").arg(g_strerror(errno)));
     } else {
-        qInstallMsgHandler(myLogHandler);
+        // give a change to override DEBUG_LEVEL by environment
+        QString debug_level = qgetenv("SEAFILE_CLIENT_DEBUG");
+        if (!debug_level.isEmpty() && debug_level != "false" &&
+            debug_level != "0")
+            seafile_client_debug_level = DEBUG;
+
+        // set up log handler respectively
+        if (seafile_client_debug_level == DEBUG)
+            qInstallMsgHandler(myLogHandlerDebug);
+        else
+            qInstallMsgHandler(myLogHandler);
     }
 }
 
@@ -276,6 +342,22 @@ bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default
                                  default_btn) == QMessageBox::Yes;
 }
 
+bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val)
+{
+    QMessageBox *msgBox = new QMessageBox(QMessageBox::Question,
+                       getBrand(),
+                       msg,
+                       QMessageBox::Yes | QMessageBox::No,
+                       parent != 0 ? parent : main_win_);
+    msgBox->setDetailedText(detailed_text);
+    // Turns out the layout box in the QMessageBox is a grid
+    // You can force the resize using a spacer this way:
+    QSpacerItem* horizontalSpacer = new QSpacerItem(400, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    QGridLayout* layout = (QGridLayout*)msgBox->layout();
+layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+    msgBox->setDefaultButton(default_val ? QMessageBox::Yes : QMessageBox::No);
+    return msgBox->exec() == QMessageBox::Yes;
+}
 
 void SeafileApplet::checkLatestVersionInfo()
 {
@@ -319,7 +401,41 @@ void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
     QDesktopServices::openUrl(url);
 }
 
-QString getBrand()
+/**
+ * For each repo, add the "server-url" property (inferred from account url),
+ * which would be used for http sync.
+ */
+void SeafileApplet::updateReposPropertyForHttpSync()
 {
-    return QString::fromUtf8(SEAFILE_CLIENT_BRAND);
+    std::vector<LocalRepo> repos;
+    if (rpc_client_->listLocalRepos(&repos) < 0) {
+        QTimer::singleShot(kIntervalForUpdateRepoProperty,
+                           this, SLOT(updateReposPropertyForHttpSync()));
+        return;
+    }
+
+    const std::vector<Account>& accounts = account_mgr_->accounts();
+    for (int i = 0; i < repos.size(); i++) {
+        const LocalRepo& repo = repos[i];
+        QString repo_server_url;
+        QString relay_addr;
+        if (rpc_client_->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
+            continue;
+        }
+        if (!repo_server_url.isEmpty()) {
+            continue;
+        }
+        if (rpc_client_->getRepoProperty(repo.id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+            continue;
+        }
+        for (int i = 0; i < accounts.size(); i++) {
+            const Account& account = accounts[i];
+            if (account.serverUrl.host() == relay_addr) {
+                QUrl url(account.serverUrl);
+                url.setPath("/");
+                rpc_client_->setRepoProperty(repo.id, kRepoServerUrlProperty, url.toString());
+                break;
+            }
+        }
+    }
 }

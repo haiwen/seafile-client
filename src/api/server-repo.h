@@ -24,6 +24,7 @@ public:
     QString root;
 
     bool encrypted;
+    bool readonly;
 
     // "virtual" is a reserved word in C++
     bool _virtual;
@@ -33,6 +34,8 @@ public:
     QString permission;
     QString group_name;
     int group_id;
+
+    bool isValid() const { return !id.isEmpty(); }
 
     bool isPersonalRepo() const { return type == "repo"; }
     bool isSharedRepo() const { return type == "srepo"; }

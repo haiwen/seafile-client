@@ -69,6 +69,10 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
 
     mRepoIcon->setPixmap(repo_.getPixmap());
     mRepoName->setText(repo_.name);
+    #ifdef Q_WS_MAC
+    layout()->setContentsMargins(8, 9, 9, 4);
+    layout()->setSpacing(5);
+    #endif
 
     resize(sizeHint());
     updateRepoStatus();

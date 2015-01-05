@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QTreeView>
+#include <QSet>
 
 class QAction;
 class QContextMenuEvent;
@@ -14,16 +15,26 @@ class QStandardItem;
 
 class RepoItem;
 class RepoCategoryItem;
-class CloudView;
 
 class CloneTasksDialog;
+class FileUploadTask;
 
 class RepoTreeView : public QTreeView {
     Q_OBJECT
 public:
-    RepoTreeView(CloudView *view, QWidget *parent=0);
+    RepoTreeView(QWidget *parent=0);
 
     std::vector<QAction*> getToolBarActions();
+
+    void expand(const QModelIndex& index, bool remember=true);
+    void collapse(const QModelIndex& index, bool remember=true);
+
+    /**
+     * Restore the expanded repo categories when:
+     * 1. applet startup
+     * 1. restore from filtering repos
+     */
+    void restoreExpandedCategries();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -44,6 +55,13 @@ private slots:
     void unsyncRepo();
     void syncRepoImmediately();
     void cancelDownload();
+    void loadExpandedCategries();
+    void saveExpandedCategries();
+    void resyncRepo();
+
+    void uploadFileStart(FileUploadTask *task);
+    void uploadFileFinished(bool success);
+    void copyFileFailed();
 
 private:
     QStandardItem* getRepoItem(const QModelIndex &index) const;
@@ -60,16 +78,23 @@ private:
                                      const QPoint& pos,
                                      const QRect& rect);
 
+    void dropEvent(QDropEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+
     QAction *download_action_;
+    QAction *download_toolbar_action_;
     QAction *show_detail_action_;
     QAction *open_local_folder_action_;
+    QAction *open_local_folder_toolbar_action_;
     QAction *unsync_action_;
     QAction *view_on_web_action_;
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
     QAction *cancel_download_action_;
+    QAction *resync_action_;
 
-    CloudView *cloud_view_;
+    QSet<QString> expanded_categroies_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

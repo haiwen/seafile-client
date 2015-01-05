@@ -24,10 +24,24 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
     return a.mtime > b.mtime;
 }
 
-bool isSameRepo(const ServerRepo& a, const ServerRepo& b)
+/**
+ * The default sorting order of repo categroies.
+ */
+enum RepoCategoryIndex {
+    CAT_INDEX_RECENT_UPDATED = 0,
+    CAT_INDEX_MY_REPOS,
+    CAT_INDEX_VIRTUAL_REPOS,
+    CAT_INDEX_SHARED_REPOS,
+    CAT_INDEX_PUBLIC_REPOS,
+    CAT_INDEX_GROUP_REPOS,
+};
+
+QRegExp makeFilterRegExp(const QString& text)
 {
-    return a.id == b.id;
+    return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),
+                   Qt::CaseInsensitive);
 }
+
 
 } // namespace
 
@@ -44,13 +58,18 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 
     refresh_local_timer_->start(kRefreshLocalReposInterval);
 }
+RepoTreeModel::~RepoTreeModel()
+{
+    if (item(kIndexOfVirtualReposCategory) != virtual_repos_catetory_)
+        delete virtual_repos_catetory_;
+}
 
 void RepoTreeModel::initialize()
 {
-    recent_updated_category_ = new RepoCategoryItem(tr("Recently Updated"));
-    my_repos_catetory_ = new RepoCategoryItem(tr("My Libraries"));
-    virtual_repos_catetory_ = new RepoCategoryItem(tr("Sub Libraries"));
-    shared_repos_catetory_ = new RepoCategoryItem(tr("Private Shares"));
+    recent_updated_category_ = new RepoCategoryItem(CAT_INDEX_RECENT_UPDATED, tr("Recently Updated"));
+    my_repos_catetory_ = new RepoCategoryItem(CAT_INDEX_MY_REPOS, tr("My Libraries"));
+    virtual_repos_catetory_ = new RepoCategoryItem(CAT_INDEX_VIRTUAL_REPOS, tr("Sub Libraries"));
+    shared_repos_catetory_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Private Shares"));
 
     appendRow(recent_updated_category_);
     appendRow(my_repos_catetory_);
@@ -58,14 +77,21 @@ void RepoTreeModel::initialize()
     appendRow(shared_repos_catetory_);
 
     if (tree_view_) {
-        tree_view_->expand(indexFromItem(recent_updated_category_));
+        tree_view_->restoreExpandedCategries();
     }
+}
+
+QModelIndex RepoTreeModel::proxiedIndexFromItem(const QStandardItem* item)
+{
+    QSortFilterProxyModel *proxy_model = (QSortFilterProxyModel *)tree_view_->model();
+    return proxy_model->mapFromSource(indexFromItem(item));
 }
 
 void RepoTreeModel::clear()
 {
     QStandardItemModel::clear();
     initialize();
+    reset();
 }
 
 void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
@@ -213,11 +239,11 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
     }
     if (!group) {
         if (repo.group_name == "Organization") {
-            group = new RepoCategoryItem(tr("Organization"), repo.group_id);
+            group = new RepoCategoryItem(CAT_INDEX_PUBLIC_REPOS, tr("Organization"), repo.group_id);
             // Insert pub repos after "recent updated", "my libraries", "shared libraries"
             insertRow(3, group);
         } else {
-            group = new RepoCategoryItem(repo.group_name, repo.group_id);
+            group = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, repo.group_name, repo.group_id);
             appendRow(group);
         }
     }
@@ -274,7 +300,7 @@ void RepoTreeModel::refreshLocalRepos()
 
 void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
 {
-    if (!tree_view_->isExpanded(indexFromItem(item->parent()))) {
+    if (!tree_view_->isExpanded(proxiedIndexFromItem(item->parent()))) {
         return;
     }
 
@@ -290,7 +316,8 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
         item->setLocalRepo(local_repo);
         QModelIndex index = indexFromItem(item);
         emit dataChanged(index,index);
-        // qDebug("repo %s is changed\n", toCStr(item->repo().name));
+        emit repoStatusChanged(index);
+        // printf("repo %s is changed\n", toCStr(item->repo().name));
     }
 
     item->setCloneTask();
@@ -304,6 +331,7 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
                 item->setCloneTask(clone_task);
                 QModelIndex index = indexFromItem(item);
                 emit dataChanged(index,index);
+                emit repoStatusChanged(index);
             }
         }
     }
@@ -323,8 +351,129 @@ void RepoTreeModel::updateRepoItemAfterSyncNow(RepoItem *item, void *data)
         // We manually set the sync state of the repo to "SYNC_STATE_ING" to give
         // the user immediate feedback
 
+        r.setSyncInfo("initializing");
         r.sync_state = LocalRepo::SYNC_STATE_ING;
         item->setLocalRepo(r);
         item->setSyncNowClicked(true);
     }
+}
+
+void RepoTreeModel::onFilterTextChanged(const QString& text)
+{
+    // Recalculate the matched repos count for each category
+    QStandardItem *root = invisibleRootItem();
+    int row, n;
+    n = root->rowCount();
+    QRegExp re = makeFilterRegExp(text);
+    for (row = 0; row < n; row++) {
+        RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
+        int j, total, matched = 0;
+        total = category->rowCount();
+        for (j = 0; j < total; j++) {
+            RepoItem *item = (RepoItem *)category->child(j);
+            if (item->repo().name.contains(re)) {
+                matched++;
+            }
+        }
+        category->setMatchedReposCount(matched);
+    }
+}
+
+RepoFilterProxyModel::RepoFilterProxyModel(QObject *parent)
+    : QSortFilterProxyModel(parent),
+      has_filter_(false)
+{
+}
+
+void RepoFilterProxyModel::setSourceModel(QAbstractItemModel *source_model)
+{
+    QSortFilterProxyModel::setSourceModel(source_model);
+    RepoTreeModel *tree_model = (RepoTreeModel *)source_model;
+    connect(tree_model, SIGNAL(repoStatusChanged(const QModelIndex&)),
+            this, SLOT(onRepoStatusChanged(const QModelIndex&)));
+}
+
+void RepoFilterProxyModel::onRepoStatusChanged(const QModelIndex& source_index)
+{
+    QModelIndex index = mapFromSource(source_index);
+    emit dataChanged(index, index);
+}
+
+bool RepoFilterProxyModel::filterAcceptsRow(int source_row,
+                        const QModelIndex & source_parent) const
+{
+    RepoTreeModel *tree_model = (RepoTreeModel *)(sourceModel());
+    QModelIndex index = tree_model->index(source_row, 0, source_parent);
+    QStandardItem *item = tree_model->itemFromIndex(index);
+    if (item->type() == REPO_CATEGORY_TYPE) {
+        RepoCategoryItem *category = (RepoCategoryItem *)item;
+        // We don't filter repo categories, only filter repos by name.
+        return true;
+    } else if (item->type() == REPO_ITEM_TYPE) {
+        // Use default filtering (filter by item DisplayRole, i.e. repo name)
+        bool match = QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+        if (match) {
+            RepoCategoryItem *category = (RepoCategoryItem *)(item->parent());
+        }
+        return match;
+    }
+
+    return false;
+}
+
+void RepoFilterProxyModel::setFilterText(const QString& text)
+{
+    has_filter_ = !text.isEmpty();
+    invalidate();
+    setFilterRegExp(makeFilterRegExp(text));
+}
+
+// void RepoFilterProxyModel::sort()
+// {
+// }
+
+bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
+                                    const QModelIndex &right) const
+{
+    RepoTreeModel *tree_model = (RepoTreeModel *)(sourceModel());
+    QStandardItem *item_l = tree_model->itemFromIndex(left);
+    QStandardItem *item_r = tree_model->itemFromIndex(right);
+
+    /**
+     * When we have filter: sort category by matched repos count
+     * When we have no filter: sort category by category index order
+     *
+     */
+    if (item_l->type() == REPO_CATEGORY_TYPE) {
+        // repo categories
+        RepoCategoryItem *cl = (RepoCategoryItem *)item_l;
+        RepoCategoryItem *cr = (RepoCategoryItem *)item_r;
+        if (has_filter_) {
+            // printf ("%s matched: %d, %s matched: %d\n",
+            //         cl->name().toUtf8().data(), cl->matchedReposCount(),
+            //         cr->name().toUtf8().data(), cr->matchedReposCount());
+            return cl->matchedReposCount() > cr->matchedReposCount();
+        } else {
+            int cat_l = cl->categoryIndex();
+            int cat_r = cr->categoryIndex();
+            if (cat_l == cat_r) {
+                return cl->name() < cr->name();
+            } else {
+                return cat_l < cat_r;
+            }
+        }
+    } else {
+        // repos
+        RepoItem *cl = (RepoItem *)item_l;
+        RepoItem *cr = (RepoItem *)item_r;
+        return cl->repo().mtime > cr->repo().mtime;
+    }
+
+    return false;
+}
+
+Qt::ItemFlags RepoFilterProxyModel::flags(const QModelIndex& index) const
+{
+    Qt::ItemFlags flgs =  QSortFilterProxyModel::flags(index);
+    return flgs & ~Qt::ItemIsEditable;
 }

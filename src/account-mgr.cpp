@@ -70,8 +70,7 @@ const std::vector<Account>& AccountManager::loadAccounts()
 
 int AccountManager::saveAccount(const Account& account)
 {
-    int i = 0;
-    for (i = 0; i < accounts_.size(); i++) {
+    for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == account.serverUrl
             && accounts_[i].username == account.username) {
             accounts_.erase(accounts_.begin() + i);
@@ -88,7 +87,7 @@ int AccountManager::saveAccount(const Account& account)
     sql = sql.arg(url).arg(account.username).arg(account.token).arg(QString::number(timestamp));
     sqlite_query_exec (db, toCStr(sql));
 
-    emit accountAdded(account);
+    emit accountsChanged();
 
     return 0;
 }
@@ -104,7 +103,7 @@ int AccountManager::removeAccount(const Account& account)
     accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
                     accounts_.end());
 
-    emit accountRemoved(account);
+    emit accountsChanged();
 
     return 0;
 }
@@ -121,7 +120,7 @@ void AccountManager::updateAccountLastVisited(const Account& account)
     sqlite_query_exec (db, toCStr(sql));
 }
 
-bool AccountManager::hasAccount(const QUrl& url, const QString& username)
+bool AccountManager::accountExists(const QUrl& url, const QString& username)
 {
     int i, n = accounts_.size();
     for (i = 0; i < n; i++) {
@@ -131,4 +130,80 @@ bool AccountManager::hasAccount(const QUrl& url, const QString& username)
     }
 
     return false;
+}
+
+bool AccountManager::setCurrentAccount(const Account& account)
+{
+    if (account == currentAccount()) {
+        return false;
+    }
+
+    emit beforeAccountChanged();
+
+    // Would emit "accountsChanged" signal
+    saveAccount(account);
+
+    return true;
+}
+
+int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
+{
+    int i = 0;
+    for (i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].serverUrl.toString() == old_account.serverUrl.toString()
+            && accounts_[i].username == old_account.username) {
+            accounts_.erase(accounts_.begin() + i);
+            break;
+        }
+    }
+
+    accounts_.insert(accounts_.begin(), new_account);
+
+    QString old_url = old_account.serverUrl.toEncoded().data();
+    QString new_url = new_account.serverUrl.toEncoded().data();
+
+    qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
+
+    QString sql =
+        "UPDATE Accounts "
+        "SET url = '%1', "
+        "    username = '%2', "
+        "    token = '%3', "
+        "    lastVisited = '%4' "
+        "WHERE url = '%5' "
+        "  AND username = '%2'";
+
+    sql = sql.arg(new_url).arg(new_account.username). \
+        arg(new_account.token).arg(QString::number(timestamp)) \
+        .arg(old_url);
+
+    sqlite_query_exec (db, toCStr(sql));
+
+    emit accountsChanged();
+
+    return 0;
+}
+
+Account AccountManager::getAccountByHostAndUsername(const QString& host,
+                                                    const QString& username) const
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].serverUrl.host() == host
+            && accounts_[i].username == username) {
+            return accounts_[i];
+        }
+    }
+
+    return Account();
+}
+
+Account AccountManager::getAccountBySignature(const QString& account_sig) const
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].getSignature() == account_sig) {
+            return accounts_[i];
+        }
+    }
+
+    return Account();
 }

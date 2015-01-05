@@ -169,7 +169,7 @@ void OpenLocalHelper::openLocalFile(const char *url_in)
         }
         if (!QDesktopServices::openUrl(QUrl::fromLocalFile(full_path))) {
             QString file_name = QFileInfo(full_path).fileName();
-            QString msg = QObject::tr("Seafile couldn't find an application to open file %1").arg(file_name);
+            QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
             messageBox(msg);
         }
     }

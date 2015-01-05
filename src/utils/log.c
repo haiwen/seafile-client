@@ -28,7 +28,8 @@ static void
 applet_log (const gchar *log_domain, GLogLevelFlags log_level,
             const gchar *message, gpointer user_data)
 {
-    if (log_level > applet_log_level)
+#define BUFSIZE 1024
+    if (log_level > applet_log_level || message == NULL)
         return;
 
     if (log_level & G_LOG_FLAG_FATAL)
@@ -36,23 +37,21 @@ applet_log (const gchar *log_domain, GLogLevelFlags log_level,
 
     time_t t;
     struct tm *tm;
-    char buf[1024];
+    char buf[BUFSIZE];
     size_t len;
-
-    if (log_level > applet_log_level)
-        return;
 
     t = time(NULL);
     tm = localtime(&t);
-    len = strftime (buf, 1024, "[%x %X] ", tm);
-    g_return_if_fail (len < 1024);
+    len = strftime (buf, BUFSIZE, "[%x %X]", tm);
+    g_return_if_fail (len < BUFSIZE);
     fputs (buf, logfp);
     fputs (message, logfp);
 
-    if (message && strlen(message) > 0 && message[strlen(message) - 1] != '\n') {
+    if (strlen(message) > 0 && message[strlen(message) - 1] != '\n') {
         fputs("\n", logfp);
     }
     fflush (logfp);
+#undef BUFSIZE
 }
 
 int
@@ -61,14 +60,12 @@ applet_log_init (const char *ccnet_dir)
     char *logdir = g_build_filename (ccnet_dir, "logs", NULL);
     char *file = g_build_filename(logdir, "applet.log", NULL);
 
-    checkdir_with_mkdir (logdir);
+    if (checkdir_with_mkdir (logdir) < 0) {
+        g_free (logdir);
+        return -1;
+    }
+
     g_free (logdir);
-
-    g_log_set_handler (NULL, G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
-                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
-
-    g_log_set_handler ("Ccnet", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
-                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
 
     /* record all log message */
     applet_log_level = G_LOG_LEVEL_DEBUG;
@@ -79,8 +76,13 @@ applet_log_init (const char *ccnet_dir)
         return -1;
     }
 
+    g_log_set_handler (NULL, G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
+                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
+
+    g_log_set_handler ("Ccnet", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
+                       | G_LOG_FLAG_RECURSION, applet_log, NULL);
+
     g_free (file);
 
     return 0;
 }
-

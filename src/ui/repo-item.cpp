@@ -42,16 +42,30 @@ bool RepoItem::repoDownloadable() const
     return false;
 }
 
-RepoCategoryItem::RepoCategoryItem(const QString& name)
-    : name_(name),
-      group_id_(-1)
+QVariant RepoItem::data(int role) const
+{
+    if (role != Qt::DisplayRole) {
+        return QVariant();
+    }
+
+    return repo_.name;
+
+}
+
+RepoCategoryItem::RepoCategoryItem(int cat_index, const QString& name, int group_id)
+    : cat_index_(cat_index),
+      name_(name),
+      group_id_(group_id),
+      matched_repos_(-1)
 {
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 }
 
-RepoCategoryItem::RepoCategoryItem(const QString& name, int group_id)
-    : name_(name),
-      group_id_(group_id)
+QVariant RepoCategoryItem::data(int role) const
 {
-    setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    if (role != Qt::DisplayRole) {
+        return QVariant();
+    }
+
+    return name_;
 }

@@ -6,8 +6,12 @@
 #include <QDir>
 #include <QCoreApplication>
 
-#include "QtAwesome.h"
+#include <QDialog>
+#include <QTabBar>
+#include <QVBoxLayout>
+
 #include "cloud-view.h"
+#include "utils/utils.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "tray-icon.h"
@@ -22,6 +26,34 @@ enum WIDGET_INDEX {
     INDEX_CLOUD_VIEW = 0,
     INDEX_LOCAL_VIEW
 };
+
+/*
+void showTestDialog(QWidget *parent)
+{
+    static QDialog *dialog;
+
+    if (!dialog) {
+        dialog = new QDialog(parent);
+
+        QVBoxLayout *layout = new QVBoxLayout;
+        dialog->setLayout(layout);
+
+        QTabBar *bar = new QTabBar;
+        bar->setExpanding(true);
+        bar->addTab("TabA");
+        bar->addTab("TabB");
+        bar->addTab("TabC");
+
+        layout->addWidget(bar);
+    }
+
+    // dialog.exec();
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+*/
+
 
 } // namespace
 
@@ -84,26 +116,34 @@ bool MainWindow::event(QEvent *ev)
 
 void MainWindow::changeEvent(QEvent *event)
 {
-#ifdef Q_WS_WIN
-    /*
-     * Solve the problem of restoring a minimized frameless window on Windows
-     * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
-     */
-    if(event->type() == QEvent::WindowStateChange) {
-        if(windowState() & Qt::WindowMinimized ) {
-            //do something after minimize
-        } else {
-            cloud_view_->hide();
-            cloud_view_->show();
-        }
-    }
-#endif
+// #ifdef Q_WS_WIN
+//     /*
+//      * Solve the problem of restoring a minimized frameless window on Windows
+//      * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
+//      */
+//     if(event->type() == QEvent::WindowStateChange) {
+//         if(windowState() & Qt::WindowMinimized ) {
+//             //do something after minimize
+//         } else {
+//             cloud_view_->hide();
+//             cloud_view_->show();
+//         }
+//     }
+// #endif
 }
 
 void MainWindow::showEvent(QShowEvent *event)
 {
     readSettings();
-    QMainWindow::showEvent(event);
+#ifdef Q_WS_WIN
+    /*
+     * Another hack to Solve the problem of restoring a minimized frameless window on Windows
+     * See http://qt-project.org/forums/viewthread/7081
+     */
+    QApplication::postEvent(this, new QEvent(QEvent::UpdateRequest), Qt::LowEventPriority);
+#endif
+    QWidget::showEvent(event);
+
 }
 
 void MainWindow::createActions()
@@ -118,6 +158,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         refreshQss();
         return;
     }
+
+    // if (event->key() == Qt::Key_F6) {
+    //     showTestDialog(this);
+    //     return;
+    // }
 
     QMainWindow::keyPressEvent(event);
 }

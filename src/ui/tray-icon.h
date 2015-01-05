@@ -23,13 +23,16 @@ public:
         STATE_TRANSFER_1,
         STATE_TRANSFER_2,
         STATE_SERVERS_NOT_CONNECTED,
+        STATE_HAVE_UNREAD_MESSAGE,
     };
 
     void start();
 
-    void setState(TrayState);
+    void setState(TrayState state, const QString& tip=QString());
     void notify(const QString &title, const QString &content);
     void rotate(bool start);
+
+    void showMessage(const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000);
 
 public slots:
     void showSettingsWindow();
@@ -41,21 +44,23 @@ private slots:
     void onActivated(QSystemTrayIcon::ActivationReason);
     void prepareContextMenu();
     void toggleMainWindow();
+    void onClick();
     void rotateTrayIcon();
     void refreshTrayIcon();
     void openHelp();
+    void openLogDirectory();
     void about();
+    void onSeahubNotificationsChanged();
+    void viewUnreadNotifications();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
 
     void createActions();
     void createContextMenu();
-    bool allServersConnected();
 
     QIcon stateToIcon(TrayState state);
     QIcon getIcon(const QString& name);
-    void resetToolTip();
 
     QMenu *context_menu_;
     QMenu *help_menu_;
@@ -66,6 +71,8 @@ private:
     QAction *quit_action_;
     QAction *toggle_main_window_action_;
     QAction *settings_action_;
+    QAction *open_log_directory_action_;
+    QAction *view_unread_seahub_notifications_action_;
 
     QAction *about_action_;
     QAction *open_help_action_;

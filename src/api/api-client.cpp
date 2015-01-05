@@ -8,6 +8,7 @@
 #include "certs-mgr.h"
 #include "ui/main-window.h"
 #include "ui/ssl-confirm-dialog.h"
+#include "utils/utils.h"
 
 #include "api-client.h"
 
@@ -16,11 +17,20 @@ namespace {
 const char *kContentTypeForm = "application/x-www-form-urlencoded";
 const char *kAuthHeader = "Authorization";
 
+const int kMaxRedirects = 3;
+
+bool shouldIgnoreRequestError(const QNetworkReply* reply)
+{
+    return reply->url().toString().contains("/api2/events");
+}
+
 } // namespace
 
 QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
 
-SeafileApiClient::SeafileApiClient()
+SeafileApiClient::SeafileApiClient(QObject *parent)
+    : QObject(parent),
+      redirect_count_(0)
 {
     if (!na_mgr_) {
         na_mgr_ = new QNetworkAccessManager();
@@ -56,8 +66,9 @@ void SeafileApiClient::get(const QUrl& url)
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 }
 
-void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
+void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put)
 {
+    body_ = data;
     QNetworkRequest request(url);
     if (token_.length() > 0) {
         char buf[1024];
@@ -66,7 +77,10 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
     }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
-    reply_ = na_mgr_->post(request, encodedParams);
+    if (is_put)
+        reply_ = na_mgr_->put(request, body_);
+    else
+        reply_ = na_mgr_->post(request, body_);
 
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 
@@ -74,10 +88,29 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& encodedParams)
             this, SLOT(onSslErrors(const QList<QSslError>&)));
 }
 
+void SeafileApiClient::deleteResource(const QUrl& url)
+{
+    QNetworkRequest request(url);
+
+    if (token_.length() > 0) {
+        char buf[1024];
+        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
+        request.setRawHeader(kAuthHeader, buf);
+    }
+
+    reply_ = na_mgr_->deleteResource(request);
+
+    connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
+            this, SLOT(onSslErrors(const QList<QSslError>&)));
+
+    connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
+}
+
 void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 {
     QUrl url = reply_->url();
     QSslCertificate cert = reply_->sslConfiguration().peerCertificate();
+
     if (cert.isNull()) {
         // The server has no ssl certificate, we do nothing and let the
         // request fail
@@ -88,13 +121,20 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
     CertsManager *mgr = seafApplet->certsManager();
 
     QSslCertificate saved_cert = mgr->getCertificate(url.toString());
+
     if (saved_cert.isNull()) {
+        // dump certificate information
+        qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+        qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+
         // This is the first time when the client connects to the server.
-        QString question = tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?");
-        if (seafApplet->yesOrNoBox(question)) {
+        if (seafApplet->detailedYesOrNoBox(
+            tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
+            dumpSslErrors(errors) + dumpCertificate(cert), 0, false)) {
             mgr->saveCertificate(url, cert);
             reply_->ignoreSslErrors();
         }
+
 
         return;
     } else if (saved_cert == cert) {
@@ -102,6 +142,11 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
         reply_->ignoreSslErrors();
         return;
     } else {
+        // dump certificate information
+        qDebug() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+        qDebug() << "\n= Certificate =\n" << dumpCertificate(cert);
+        qDebug() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
+
         /**
          * The cert which the user had chosen to trust has been changed. It
          * may be either:
@@ -111,8 +156,10 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
          *
          * Anyway, we'll prompt the user
          */
-
-        SslConfirmDialog dialog(url, seafApplet->mainWindow());
+        SslConfirmDialog dialog(url,
+                                dumpCertificateFingerprint(cert),
+                                dumpCertificateFingerprint(saved_cert),
+                                seafApplet->mainWindow());
         if (dialog.exec() == QDialog::Accepted) {
             reply_->ignoreSslErrors();
             if (dialog.rememberChoice()) {
@@ -134,16 +181,76 @@ void SeafileApiClient::httpRequestFinished()
 {
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
-        qDebug("[api] network error: %s\n", reply_->errorString().toUtf8().data());
+        if (!shouldIgnoreRequestError(reply_)) {
+            qDebug("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
+                   reply_->errorString().toUtf8().data());
+        }
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
 
+    if (handleHttpRedirect()) {
+        return;
+    }
+
     if ((code / 100) == 4 || (code / 100) == 5) {
-        qDebug("request failed : status code %d\n", code);
+        if (!shouldIgnoreRequestError(reply_)) {
+            qDebug("request failed for %s: status code %d\n",
+                   reply_->url().toString().toUtf8().data(), code);
+        }
         emit requestFailed(code);
         return;
     }
 
     emit requestSuccess(*reply_);
+}
+
+bool SeafileApiClient::handleHttpRedirect()
+{
+    QVariant redirect_attr = reply_->attribute(QNetworkRequest::RedirectionTargetAttribute);
+    if (redirect_attr.isNull()) {
+        return false;
+    }
+
+    if (redirect_count_++ > kMaxRedirects) {
+        // simply treat too many redirects as server side error
+        emit requestFailed(500);
+        qDebug("too many redirects for %s\n",
+               reply_->url().toString().toUtf8().data());
+        return true;
+    }
+
+    QUrl redirect_url = redirect_attr.toUrl();
+    if (redirect_url.isRelative()) {
+        redirect_url =  reply_->url().resolved(redirect_url);
+    }
+
+    // qDebug("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
+    //        reply_->url().toString().toUtf8().data());
+
+    switch (reply_->operation()) {
+    case QNetworkAccessManager::GetOperation:
+        reply_->deleteLater();
+        get(redirect_url);
+        break;
+    case QNetworkAccessManager::PostOperation:
+        // don't handle with this, since rename operation returns a 301
+        //post(redirect_url, body_, false);
+        return false;
+    case QNetworkAccessManager::PutOperation:
+        post(redirect_url, body_, true);
+        break;
+    case QNetworkAccessManager::DeleteOperation:
+        reply_->deleteLater();
+        deleteResource(redirect_url);
+        break;
+    default:
+        reply_->deleteLater();
+        qWarning() << "unsupported redirect" << reply_->operation()
+          << "to" << redirect_url.toString()
+          << "from" << reply_->url().toString();
+        break;
+    }
+
+    return true;
 }

@@ -30,12 +30,16 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
     repo.type = getStringFromJson(json, "type");
     repo.owner = getStringFromJson(json, "owner");
     repo.permission = getStringFromJson(json, "permission");
+    repo.readonly = (repo.permission == "r") ? true : false;
 
     repo._virtual = json_is_true(json_object_get(json, "virtual"));
 
     if (repo.type == "grepo") {
         repo.group_name = repo.owner;
         repo.group_id = json_integer_value(json_object_get(json, "groupid"));
+    } else {
+        repo.group_name = QString();
+        repo.group_id = 0;
     }
 
     return repo;
@@ -56,6 +60,8 @@ QIcon ServerRepo::getIcon() const
 {
     if (encrypted) {
         return QIcon(":/images/encrypted-repo.png");
+    } else if (readonly) {
+        return QIcon(":/images/readonly-repo.png");
     } else {
         return QIcon(":/images/repo.png");
     }
@@ -65,6 +71,8 @@ QPixmap ServerRepo::getPixmap() const
 {
     if (encrypted) {
         return QPixmap(":/images/encrypted-repo.png");
+    } else if (readonly) {
+        return QPixmap(":/images/readonly-repo.png");
     } else {
         return QPixmap(":/images/repo.png");
     }

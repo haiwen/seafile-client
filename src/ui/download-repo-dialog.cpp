@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <jansson.h>
 
 #include "account-mgr.h"
 #include "utils/utils.h"
@@ -11,6 +12,22 @@
 #include "download-repo-dialog.h"
 
 namespace {
+
+QString buildMoreInfo(ServerRepo& repo)
+{
+    json_t *object = NULL;
+    char *info = NULL;
+
+    object = json_object();
+    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
+
+    info = json_dumps(object, 0);
+    QString ret = QString::fromUtf8(info);
+    json_decref (object);
+    free (info);
+    return ret;
+}
+
 
 } // namespace
 
@@ -26,10 +43,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    QString icon_path = repo_.encrypted
-                    ? ":/images/encrypted-repo.png"
-                    : ":/images/repo.png";
-    mRepoIcon->setPixmap(QPixmap(icon_path));
+    mRepoIcon->setPixmap(repo.getPixmap());
     mRepoName->setText(repo_.name);
 
     mDirectory->setPlaceholderText(tr("Choose a folder"));
@@ -40,17 +54,19 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     } else {
         mPassword->setVisible(false);
         mPasswordLabel->setVisible(false);
-#ifdef Q_WS_MAC
-        setMaximumSize(QSize(size().width(), 200));
-#endif
     }
 
-    int min_height = 250, max_height = 250;
+    int height = 250;
+#ifdef Q_WS_MAC
+    layout()->setContentsMargins(8, 9, 9, 5);
+    layout()->setSpacing(6);
+    verticalLayout_3->setSpacing(6);
+#endif
     if (repo.encrypted) {
-        max_height += 100;
+        height += 100;
     }
-    setMinimumHeight(min_height);
-    setMaximumHeight(max_height);
+    setMinimumHeight(height);
+    setMaximumHeight(height);
 
     saved_create_new_path_ = seafApplet->configurator()->worktreeDir();
 
@@ -144,7 +160,7 @@ void DownloadRepoDialog::onOkBtnClicked()
 
     setAllInputsEnabled(false);
 
-    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id);
+    DownloadRepoRequest *req = new DownloadRepoRequest(account_, repo_.id, repo_.readonly);
     connect(req, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(onDownloadRepoRequestSuccess(const RepoDownloadInfo&)));
     connect(req, SIGNAL(failed(const ApiError&)),
@@ -198,6 +214,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     QString password = repo_.encrypted ? mPassword->text() : QString();
     int ret;
     QString error;
+
     if (mode_ == MERGE_WITH_EXISTING_FOLDER) {
         ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
                                                  info.relay_id,
@@ -206,6 +223,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.magic, info.relay_addr,
                                                  info.relay_port, info.email,
                                                  info.random_key, info.enc_version,
+                                                 info.more_info,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
@@ -215,6 +233,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                     info.magic, info.relay_addr,
                                                     info.relay_port, info.email,
                                                     info.random_key, info.enc_version,
+                                                    info.more_info,
                                                     &error);
     }
 
@@ -236,4 +255,10 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
     seafApplet->warningBox(msg, this);
 
     setAllInputsEnabled(true);
+}
+
+void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
+    mode_ = MERGE_WITH_EXISTING_FOLDER;
+    updateSyncMode();
+    mDirectory->setText(localPath);
 }

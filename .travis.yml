@@ -1,0 +1,19 @@
+language: cpp
+os:
+  - linux
+  - osx
+compiler:
+  - gcc
+  - clang
+matrix:
+  exclude:
+    - os: osx
+      compiler: gcc
+before_install:
+ - ./scripts/install-deps-${TRAVIS_OS_NAME}.sh
+script:
+ - ./scripts/ci-build.sh
+notifications:
+  email:
+    recipients:
+      - linshuai2012@gmail.com

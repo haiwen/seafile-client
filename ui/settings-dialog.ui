@@ -39,9 +39,23 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mSyncExtraTempFileCheckBox">
+         <property name="text">
+          <string>Enable sync temporary files of MSOffice/Libreoffice</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="mAutoStartCheckBox">
          <property name="text">
-          <string>Auto start DataDupe after login (Windows only)</string>
+          <string>Auto start DataDupe after login</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="mHideDockIconCheckBox">
+         <property name="text">
+          <string>Hide DataDupe Icon from the docker</string>
          </property>
         </widget>
        </item>
@@ -125,10 +139,41 @@
        <item>
         <widget class="QLabel" name="desc">
          <property name="text">
-          <string>Do not automatically unsync a library when its local directory is removed or unaccessable for other reasons.</string>
+          <string>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="mAllowRepoNotFoundCheckBox">
+         <property name="text">
+          <string>Do not unsync a library when not found on server</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="desc_2">
+         <property name="text">
+          <string>Do not automatically unsync a library when it's not found on server</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="mEnableHttpSyncCheckBox">
+         <property name="text">
+          <string>Enable file syncing with HTTP protocol</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="mDisableVerifyHttpSyncCert">
+         <property name="text">
+          <string>Do not verify server certificate in HTTP syncing</string>
          </property>
         </widget>
        </item>

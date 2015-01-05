@@ -9,7 +9,6 @@
 #include "server-repo.h"
 
 class QNetworkAccessManager;
-class QByteArray;
 class QSslError;
 
 /**
@@ -19,11 +18,12 @@ class SeafileApiClient : public QObject {
     Q_OBJECT
 
 public:
-    SeafileApiClient();
+    SeafileApiClient(QObject *parent=0);
     ~SeafileApiClient();
     void setToken(const QString& token) { token_ = token; };
     void get(const QUrl& url);
-    void post(const QUrl& url, const QByteArray& encodedParams);
+    void post(const QUrl& url, const QByteArray& body, bool is_put);
+    void deleteResource(const QUrl& url);
 
 signals:
     void requestSuccess(QNetworkReply& reply);
@@ -38,11 +38,17 @@ private slots:
 private:
     Q_DISABLE_COPY(SeafileApiClient)
 
+    bool handleHttpRedirect();
+
     static QNetworkAccessManager *na_mgr_;
 
     QString token_;
 
+    QByteArray body_;
+
     QNetworkReply *reply_;
+
+    int redirect_count_;
 };
 
 #endif  // SEAFILE_API_CLIENT_H

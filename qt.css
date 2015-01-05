@@ -1,5 +1,5 @@
 QWidget#mainWrapper {
-    min-width: 300px;
+    min-width: 320px;
     min-height: 550px;
     border: 1px solid #333;
     border-radius: 5px;
@@ -10,72 +10,6 @@ QLabel {
     font-family: Arial;
 }
 
-MainWindow QTabWidget {
-    qproperty-tabPosition: North;
-}
-
-/* The tab widget frame */
-MainWindow QTabWidget::pane {
-    border-top: 1px solid #C2C7CB;
-    position: absolute;
-    padding: 0;
-}
-
-MainWindow QTabWidget::tab-bar {
-    alignment: left;
-    left: 5px;
-}
-
-/**
- * Style the tab using the tab sub-control. Note that
- *  it reads QTabBar _not_ QTabWidget
- */
-MainWindow QTabBar::tab {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-    border: 1px solid #C4C4C3;
-    border-bottom: 0px;
-    border-bottom-color: #C2C7CB; /* same as the pane color */
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    min-width: 160px;
-    max-width: 160px;
-    min-height: 25px;
-    max-height: 25px;
-
-    padding: 5px;
-}
-
-MainWindow QTabBar::tab:selected, MainWindow QTabBar::tab:hover {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,
-                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
-}
-
-MainWindow QTabBar::tab:selected {
-    border-color: #9B9B9B;
-    border-bottom-color: #C2C7CB; /* same as pane color */
-}
-/* make use of negative margins for overlapping tabs */
-MainWindow QTabBar::tab:selected {
-    /* expand/overlap to the left and right by 4px */
-    margin-left: -2px;
-    margin-right: -2px;
-}
-/* QTabBar::tab:first:selected { */
-/*     margin-left: 0; /\* the first selected tab has nothing to overlap with on the left *\/ */
-/* } */
-
-/* QTabBar::tab:last:selected { */
-/*     margin-right: 0; /\* the last selected tab has nothing to overlap with on the right *\/ */
-/* } */
-
-/* QTabBar::tab:only-one { */
-/*     margin: 0; /\* if there is only one tab, we don't want overlapping margins *\/ */
-/* } */
-
-/* Cloud Tab */
 CloudView {
     min-width: 300px;
     /* max-width: 300px; */
@@ -88,6 +22,7 @@ QToolButton#mAccountBtn
     margin-right: 6px;
     background: white;
     padding: 1px;
+    padding-left: 2px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -97,9 +32,14 @@ QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
 }
 
 CloudView QToolBar {
-    qproperty-iconSize: 24px;
     border: 0;
     /* max-width: 290px; */
+    border-bottom: 1px solid #DCDCDE;
+}
+
+CloudView QToolBar QWidget#spacerWidget {
+    min-width: 6px;
+    max-width: 6px;
 }
 
 QToolBar QAbstractButton {
@@ -131,15 +71,6 @@ QDialog QLabel#mTitle {
 
 QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
     background: white;
-}
-
-QToolButton#mSeahubMessagesBtn
-{
-    margin-left: 0px;
-    padding: 1px;
-    margin-right: 10px;
-    border: 0;
-    qproperty-iconSize: 24px;
 }
 
 QWidget#mHeader {
@@ -182,10 +113,10 @@ RepoTreeView
 {
     background: white;
     border: 0;
-    margin: 0 1px;
     font-size: 14px;
-    border-top: 1px solid #DCDCDE;
-    border-bottom: 1px solid #DCDCDE;
+    /* border-top: 1px solid #DCDCDE; */
+    /* border-bottom: 1px solid #DCDCDE; */
+    padding-top: 8px;
 }
 
 RepoTreeView QScrollBar {
@@ -198,7 +129,6 @@ CloudView QWidget#mDropArea {
     background: #F5F5F7;
     padding: 0;
     padding-top: 10px;
-    margin: 0 1px;
 }
 
 CloudView QFrame#mDropInner {
@@ -284,8 +214,12 @@ CreateRepoDialog QLabel#mDesc {
 
 QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
-    qproperty-iconSize: 18px;
     margin-top: 3px;
+    qproperty-focusPolicy: NoFocus;
+}
+
+ServerStatusDialog QListView {
+    qproperty-focusPolicy: NoFocus;
 }
 
 ServerStatusDialog QListView:item {
@@ -322,6 +256,7 @@ QLabel#loadingFailedText {
     color: #777;
     font-size: 16px;
     margin-top: -120px;
+    qproperty-wordWrap: true;
 }
 
 SettingsDialog {
@@ -332,7 +267,9 @@ SettingsDialog {
     max-height: 350px;
 }
 
-SettingsDialog QTabWidget::pane QLabel#desc {
+SettingsDialog QTabWidget::pane QLabel#desc,
+SettingsDialog QTabWidget::pane QLabel#desc_2
+{
     font-size: 12px;
     color: #555;
     padding-left: 20px;
@@ -378,4 +315,167 @@ DownloadRepoDialog QLabel#mRepoIcon {
 }
 
 DownloadRepoDialog QPushButton#mSwitchToSyncBtn {
+}
+
+SeafileTabWidget {
+    border: 0;
+    margin: 0;
+}
+
+SeafileTabBar {
+    alignment: left;
+    border: 0;
+}
+
+SeafileTabBar::tab {
+    background: white;
+
+    min-height: 36px;
+    max-height: 36px;
+
+    min-width: 100px;
+
+    padding: 0;
+    border: 0;
+}
+
+StarredFilesListView {
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+QWidget#EmptyPlaceHolder,
+LoadingView
+{
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+QWidget#EventsContainerView {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #DCDCDE;
+}
+
+QWidget#EventsContainerView LoadingView,
+QWidget#EventsContainerView QToolButton
+{
+    max-height: 40px;
+    min-height: 40px;
+}
+
+QWidget#EventsContainerView LoadingView {
+    /* border: 1px solid red; */
+    border: 0;
+    background: white;
+    margin: 0;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+EventsListView {
+    border: 0;
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+EventDetailsDialog {
+    margin: 20px;
+    min-width: 300px;
+    min-height: 300px;
+}
+
+EventDetailsTreeView
+{
+    background: white;
+    border: 0;
+    font-size: 16px;
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
+}
+
+EventDetailsTreeView {
+    qproperty-iconSize: 36px;
+}
+
+EventDetailsTreeView QScrollBar {
+    margin-right: 1px;
+}
+
+ActivitiesTab, EventsListView
+{
+    qproperty-focusPolicy: NoFocus;
+}
+
+FileBrowserDialog {
+    background-color: white;
+    min-width: 640px;
+    min-height: 456px;
+}
+
+FileBrowserDialog QToolBar#topBar {
+    border: 0;
+    margin: 0px 24px 6px 12px;
+    min-height: 36px;
+    max-height: 36px;
+}
+
+FileBrowserDialog QToolBar QPushButton {
+    padding: 3px;
+    margin: 1px;
+    qproperty-focusPolicy: NoFocus;
+}
+
+FileBrowserDialog QToolBar QLabel {
+    margin-left: 2px;
+}
+
+FileBrowserDialog QToolBar QPushButton:hover {
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    color: #FF9A2A;
+}
+
+FileTableView {
+    border: 0;
+    margin: 0;
+    padding-left: 4px;
+    qproperty-focusPolicy: NoFocus;
+}
+
+FileTableView QHeaderView::section {
+    border: 0;
+    padding: 8px;
+    outline: 0px;
+    color: #b3b3b3;
+    background-color: white;
+    font-size: 12px;
+}
+
+FileTableView::item {
+    border-top: 1px solid #e0e0e0;
+}
+
+FileBrowserDialog QToolBar#statusBar {
+    border: 0;
+    border-top: 1px solid white;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+FileBrowserProgressDialog {
+    min-width: 320px;
+    max-width: 420px;
+}
+
+SeafileTabWidget QWidget#pane {
+    background-color: white;
+}
+
+ReposTab QLineEdit#repoNameFilter {
+    min-height: 25px;
+    margin: 5px;
+    margin-bottom: 0;
+    padding: 0 5px;
+    border: 1px solid #BCBCBE;
+    border-radius: 3px;
 }

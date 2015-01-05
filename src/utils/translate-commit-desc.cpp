@@ -97,7 +97,7 @@ translateCommitDesc(const QString& input)
     } else if (value.startsWith("Changed library")) {
         return value.replace("Changed library name or description", QObject::tr("Changed library name or description"));
     } else if (value.startsWith("Merged") || value.startsWith("Auto merge")) {
-        return QObject::tr("Auto merge by seafile system");
+        return QObject::tr("Auto merge by DataDupe system");
     }
 
     QStringList lines = value.split("\n");

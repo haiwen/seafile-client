@@ -118,7 +118,7 @@ void SeafileTrayIcon::createActions()
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
 
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
-    open_log_directory_action_->setStatusTip(tr("open seafile log directory"));
+    open_log_directory_action_->setStatusTip(tr("open DataDupe log directory"));
     connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
 
     about_action_ = new QAction(tr("&About"), this);
@@ -126,7 +126,7 @@ void SeafileTrayIcon::createActions()
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
     open_help_action_ = new QAction(tr("&Online help"), this);
-    open_help_action_->setStatusTip(tr("open seafile online help"));
+    open_help_action_->setStatusTip(tr("open datadupe online help"));
     connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
 }
 

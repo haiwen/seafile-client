@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="zh_CN">
 <context>
     <name>AccountManager</name>
     <message>
@@ -132,9 +134,13 @@
         <translation>更多</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="150"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation>文件活动功能仅在 Seafile 专业版中提供。</translation>
+        <translation type="obsolete">文件活动功能仅在 Seafile 专业版中提供。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/activities-tab.cpp" line="150"/>
+        <source>File Activities are only supported in DataDupe Server Professional Edition.</source>
+        <translation>文件活动功能仅在 DataDupe 专业版中提供。</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="152"/>
@@ -683,7 +689,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="208"/>
         <source>Upload a file</source>
-        <translation>上传新文件</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="310"/>
@@ -909,12 +915,12 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="214"/>
         <source>&amp;Cancel Download</source>
-        <translation>取消下载(&amp;C)</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="257"/>
         <source>&amp;Download</source>
-        <translation>下载(&amp;D)</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="285"/>
@@ -981,9 +987,8 @@
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation>选择 Seafile 文件夹</translation>
+        <translation type="obsolete">选择 Seafile 文件夹</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -991,9 +996,18 @@
         <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>请选择一个文件夹。我们会在这个文件夹下创建 Seafile 目录，您下载的资料库将默认保存在此处。</translation>
+        <translation type="obsolete">请选择一个文件夹。我们会在这个文件夹下创建 Seafile 目录，您下载的资料库将默认保存在此处。</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
+        <source>Choose DataDupe folder</source>
+        <translation>选择 DataDupe 文件夹</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-seafile-dialog.h" line="193"/>
+        <source>Please choose a folder. We will create a DataDupe subfolder in it. When you download a library, it will be saved there by default.</source>
+        <translation>请选择一个文件夹。我们会在这个文件夹下创建 DataDupe 目录，您下载的资料库将默认保存在此处。</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1082,50 +1096,56 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>下载资料库 “%1” 失败</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="183"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation>Seafile用资料库的方式来组织文件。
+        <translation type="obsolete">Seafile用资料库的方式来组织文件。
 你想要下载你的默认资料库并创建一个虚拟磁盘吗？</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <source>DataDupe organizes files by libraries. 
+Do you like to download your default library and create a virtual disk?</source>
+        <translation>DataDupe用资料库的方式来组织文件。
+你想要下载你的默认资料库并创建一个虚拟磁盘吗？</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
         <source>Run in Background</source>
         <translation>后台运行</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="34"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="184"/>
         <source>Download Default Library</source>
         <translation>下载默认资料库</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
@@ -1133,141 +1153,153 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="22"/>
-        <location filename="../ui_login-dialog.h" line="257"/>
+        <location filename="../src/ui/login-dialog.cpp" line="25"/>
+        <location filename="../ui_login-dialog.h" line="227"/>
         <source>Add an account</source>
         <translation>添加帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="50"/>
+        <location filename="../src/ui/login-dialog.cpp" line="59"/>
         <source>Logging in...</source>
         <translation>登录中...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="88"/>
+        <location filename="../src/ui/login-dialog.cpp" line="95"/>
         <source>Network Error:
  %1</source>
         <translation>网络错误：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="100"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="114"/>
         <source>Please enter the server address</source>
-        <translation>请输入服务器地址</translation>
+        <translation type="obsolete">请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="118"/>
-        <location filename="../src/ui/login-dialog.cpp" line="124"/>
+        <location filename="../src/ui/login-dialog.cpp" line="212"/>
+        <location filename="../src/ui/login-dialog.cpp" line="218"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 不是合法的服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="131"/>
+        <location filename="../src/ui/login-dialog.cpp" line="118"/>
         <source>Please enter the username</source>
         <translation>请输入邮箱</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="142"/>
+        <location filename="../src/ui/login-dialog.cpp" line="129"/>
         <source>Please enter the computer name</source>
         <translation>请填写计算机名</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="159"/>
+        <location filename="../src/ui/login-dialog.cpp" line="147"/>
         <source>Failed to save current account</source>
         <translation>保存帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="136"/>
+        <source>Seafile Server Address</source>
+        <translation type="obsolete">Seafile 服务器地址</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="123"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="186"/>
+        <location filename="../src/ui/login-dialog.cpp" line="174"/>
         <source>Incorrect email or password</source>
         <translation>错误的邮箱或密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="188"/>
+        <location filename="../src/ui/login-dialog.cpp" line="176"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>登录过于频繁，请稍后再试</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="190"/>
+        <location filename="../src/ui/login-dialog.cpp" line="178"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="194"/>
+        <location filename="../src/ui/login-dialog.cpp" line="182"/>
         <source>Failed to login: %1</source>
         <translation>登录失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="196"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>Failed to login</source>
         <translation>登录失败</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="256"/>
+        <location filename="../src/ui/login-dialog.cpp" line="203"/>
+        <source>DataDupe Server Address</source>
+        <translation>DataDupe 服务器地址</translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="226"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="258"/>
+        <location filename="../ui_login-dialog.h" line="228"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
-        <translation>服务器：</translation>
+        <translation type="obsolete">服务器：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;例如： https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;例如： https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation>或者 http://192.168.1.24:8000</translation>
+        <translation type="obsolete">或者 http://192.168.1.24:8000</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="262"/>
+        <location filename="../ui_login-dialog.h" line="229"/>
         <source>Email:</source>
         <translation>邮箱：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="263"/>
+        <location filename="../ui_login-dialog.h" line="230"/>
         <source>Password:</source>
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="266"/>
+        <location filename="../ui_login-dialog.h" line="233"/>
         <source>status text</source>
         <translation>状态文本</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="264"/>
+        <location filename="../ui_login-dialog.h" line="231"/>
         <source>Computer Name:</source>
         <translation>计算机名：</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="265"/>
+        <location filename="../ui_login-dialog.h" line="232"/>
         <source>e.g. Jim&apos;s laptop</source>
         <translation>例如：小王的工作笔记本</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="267"/>
+        <location filename="../src/ui/login-dialog.cpp" line="48"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../ui_login-dialog.h" line="234"/>
+        <source>Shibboleth Login</source>
+        <translation>Shibboleth 登陆</translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="235"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="268"/>
+        <location filename="../ui_login-dialog.h" line="236"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1665,6 +1697,142 @@ The library owner&apos;s storage space is used up.</source>
         <source>copy failed</source>
         <translation>复制文件失败</translation>
     </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
+        <source>Added</source>
+        <translation>添加了</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Deleted</source>
+        <translation>删除了</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <source>Removed</source>
+        <translation>删除了</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <source>Modified</source>
+        <translation>修改了</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <source>Renamed</source>
+        <translation>重命名了</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <source>Moved</source>
+        <translation>移动了</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <source>Added directory</source>
+        <translation>添加了文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <source>Removed directory</source>
+        <translation>删除了文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <source>Renamed directory</source>
+        <translation>重命名了文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <source>Moved directory</source>
+        <translation>移动了文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <source>files</source>
+        <translation>文件</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <source>directories</source>
+        <translation>文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <source>and %1 more</source>
+        <translation>及其他 %1 个</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <source>Reverted library to status at</source>
+        <translation>资料库状态恢复到</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <source>Reverted file &quot;%1&quot; to status at %2.</source>
+        <translation>文件 &quot;%1&quot; 状态恢复到 %2。</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <source>Recovered deleted directory</source>
+        <translation>恢复了删除的文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <source>Changed library name or description</source>
+        <translation>更改了资料库的名字或描述</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <source>Auto merge by DataDupe system</source>
+        <translation>系统自动合并更改</translation>
+    </message>
+    <message>
+        <source>Auto merge by seafile system</source>
+        <translation type="obsolete">系统自动合并更改</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="442"/>
+        <location filename="../src/utils/utils.cpp" line="470"/>
+        <location filename="../src/utils/utils.cpp" line="473"/>
+        <source>Just now</source>
+        <translation>刚才</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="458"/>
+        <source>1 day ago</source>
+        <translation>1 天前</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="458"/>
+        <source>%1 days ago</source>
+        <translation>%1 天前</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="462"/>
+        <source>1 hour ago</source>
+        <translation>1 小时前</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="462"/>
+        <source>%1 hours ago</source>
+        <translation>%1 小时前</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="466"/>
+        <source>1 minute ago</source>
+        <translation>1 分钟前</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="466"/>
+        <source>%1 minutes ago</source>
+        <translation>%1 分钟前</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="608"/>
+        <source>&lt;Not Part of Certificate&gt;</source>
+        <translation>&lt;不包含这部分信息&gt;</translation>
+    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -1978,12 +2146,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="273"/>
-        <source>Failed to initialize log</source>
-        <translation>初始化日志失败</translation>
+        <location filename="../src/seafile-applet.cpp" line="274"/>
+        <source>Failed to initialize log: %s</source>
+        <translation>初始化日志失败: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="386"/>
+        <location filename="../src/seafile-applet.cpp" line="387"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -2055,9 +2223,8 @@ Do you want to visit the download page?</source>
         <translation>打开日志文件夹(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="121"/>
         <source>open seafile log directory</source>
-        <translation>打开 seafile 日志文件夹</translation>
+        <translation type="obsolete">打开 seafile 日志文件夹</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="124"/>
@@ -2075,9 +2242,8 @@ Do you want to visit the download page?</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>open seafile online help</source>
-        <translation>打开 Seafile 在线帮助文档</translation>
+        <translation type="obsolete">打开 Seafile 在线帮助文档</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="135"/>
@@ -2090,12 +2256,14 @@ Do you want to visit the download page?</source>
         <translation>关闭主窗口</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="411"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
+        <translation>
+            <numerusform>你有 %n 条未读消息</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="419"/>
+        <location filename="../src/ui/tray-icon.cpp" line="417"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
@@ -2105,14 +2273,58 @@ Do you want to visit the download page?</source>
         <translation>关于 %1</translation>
     </message>
     <message>
+        <location filename="../src/ui/tray-icon.cpp" line="121"/>
+        <source>open DataDupe log directory</source>
+        <translation>打开 DataDupe 日志文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="129"/>
+        <source>open datadupe online help</source>
+        <translation>打开 DataDupe 在线帮助文档</translation>
+    </message>
+    <message>
         <location filename="../src/ui/tray-icon.cpp" line="336"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="424"/>
+        <location filename="../src/ui/tray-icon.cpp" line="422"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
+    </message>
+</context>
+<context>
+    <name>ServerRepoItem</name>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Form</translation>
+    </message>
+    <message>
+        <source>repoicon</source>
+        <translation type="obsolete">资料库图标</translation>
+    </message>
+    <message>
+        <source>reponame</source>
+        <translation type="obsolete">资料库名字</translation>
+    </message>
+    <message>
+        <source>download</source>
+        <translation type="obsolete">下载</translation>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Form</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="obsolete">刷新</translation>
+    </message>
+    <message>
+        <source>Add a repo</source>
+        <translation type="obsolete">新增资料库</translation>
     </message>
 </context>
 <context>
@@ -2214,14 +2426,22 @@ Do you want to visit the download page?</source>
         <translation>允许同步 office 临时文件</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation>开机自动启动 Seafile</translation>
+        <translation type="obsolete">开机自动启动 Seafile</translation>
+    </message>
+    <message>
+        <source>Hide Seafile Icon from the docker</source>
+        <translation type="obsolete">不要在 docker 中显示 seafile 图标</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="221"/>
+        <source>Auto start DataDupe after login</source>
+        <translation>开机自动启动 DataDupe</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
-        <source>Hide Seafile Icon from the docker</source>
-        <translation>不要在 docker 中显示 seafile 图标</translation>
+        <source>Hide DataDupe Icon from the docker</source>
+        <translation>不要在 docker 中显示 DataDupe 图标</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2310,6 +2530,19 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="37"/>
         <source>Ok</source>
         <translation>确定</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
+        <source>Login with Shibboleth</source>
+        <translation>Shibboleth 方式登陆</translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
+        <source>Failed to save current account</source>
+        <translation>保存帐户失败</translation>
     </message>
 </context>
 <context>
@@ -2440,6 +2673,25 @@ Do you want to visit the download page?</source>
         <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
         <source>No</source>
         <translation>否</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="obsolete">对话框</translation>
+    </message>
+    <message>
+        <source>Welcome to the seafile client</source>
+        <translation type="obsolete">欢迎使用 Seafile 客户端</translation>
+    </message>
+    <message>
+        <source>HelpImage</source>
+        <translation type="obsolete">帮助图片</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">下一步</translation>
     </message>
 </context>
 </TS>

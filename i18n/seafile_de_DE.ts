@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de_DE" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="de_DE">
 <context>
     <name>AccountManager</name>
     <message>
@@ -132,9 +134,13 @@
         <translation>Mehr</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="150"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation>&lt;b&gt;Aktivitäten&lt;/b&gt; werden nur in der &quot;Seafile Professional Edition&quot; unterstützt.</translation>
+        <translation type="obsolete">&lt;b&gt;Aktivitäten&lt;/b&gt; werden nur in der &quot;Seafile Professional Edition&quot; unterstützt.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/activities-tab.cpp" line="150"/>
+        <source>File Activities are only supported in DataDupe Server Professional Edition.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="152"/>
@@ -688,7 +694,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="208"/>
         <source>Upload a file</source>
-        <translation>Datei hochladen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="310"/>
@@ -914,12 +920,12 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="214"/>
         <source>&amp;Cancel Download</source>
-        <translation>Herunterladen &amp;abbrechen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="257"/>
         <source>&amp;Download</source>
-        <translation>&amp;Herunterladen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="285"/>
@@ -986,9 +992,8 @@
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation>Einen Seafile-Ordner auswählen</translation>
+        <translation type="obsolete">Einen Seafile-Ordner auswählen</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -996,9 +1001,18 @@
         <translation>Logo</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Bitte wählen Sie einen Ordner. Der Seafile-Ordner wird darin erstellt. Wenn Sie einen Bibliothek herunterladen, wird sie standardmässig dort gespeichert.</translation>
+        <translation type="obsolete">Bitte wählen Sie einen Ordner. Der Seafile-Ordner wird darin erstellt. Wenn Sie einen Bibliothek herunterladen, wird sie standardmässig dort gespeichert.</translation>
+    </message>
+    <message>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
+        <source>Choose DataDupe folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_init-seafile-dialog.h" line="193"/>
+        <source>Please choose a folder. We will create a DataDupe subfolder in it. When you download a library, it will be saved there by default.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1089,50 +1103,55 @@ Sie können den „Öffnen“-Schaltfläche klicken, um sie anzusehen.</translat
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="183"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation>Seafile organisiert Dateien in Bibliotheken.
+        <translation type="obsolete">Seafile organisiert Dateien in Bibliotheken.
 Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk anlegen?</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <source>DataDupe organizes files by libraries. 
+Do you like to download your default library and create a virtual disk?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Skip</source>
         <translation>Überspringen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
         <source>Run in Background</source>
         <translation>Im Hintergrund laufen lassen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Finish</source>
         <translation>Abschließen</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="34"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="184"/>
         <source>Download Default Library</source>
         <translation>Standardbibliothek herunterladen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
         <source>logo</source>
         <translation>Logo</translation>
     </message>
@@ -1140,141 +1159,153 @@ Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk a
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="22"/>
-        <location filename="../ui_login-dialog.h" line="257"/>
+        <location filename="../src/ui/login-dialog.cpp" line="25"/>
+        <location filename="../ui_login-dialog.h" line="227"/>
         <source>Add an account</source>
         <translation>Konto hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="50"/>
+        <location filename="../src/ui/login-dialog.cpp" line="59"/>
         <source>Logging in...</source>
         <translation>Anmeldung wird durchgeführt ...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="88"/>
+        <location filename="../src/ui/login-dialog.cpp" line="95"/>
         <source>Network Error:
  %1</source>
         <translation>Netzwerkfehler:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="100"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Warnung:&lt;/b&gt; Das SSL-Zertifikat dieses Servers ist nicht vertrauenswürdig. Trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="114"/>
         <source>Please enter the server address</source>
-        <translation>Bitte die Serveradresse eingeben</translation>
+        <translation type="obsolete">Bitte die Serveradresse eingeben</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="118"/>
-        <location filename="../src/ui/login-dialog.cpp" line="124"/>
+        <location filename="../src/ui/login-dialog.cpp" line="212"/>
+        <location filename="../src/ui/login-dialog.cpp" line="218"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 ist keine gültige Serveradresse</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="131"/>
+        <location filename="../src/ui/login-dialog.cpp" line="118"/>
         <source>Please enter the username</source>
         <translation>Bitte geben Sie den Benutzernamen ein</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="142"/>
+        <location filename="../src/ui/login-dialog.cpp" line="129"/>
         <source>Please enter the computer name</source>
         <translation>Bitte den Rechnernamen eingeben</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="159"/>
+        <location filename="../src/ui/login-dialog.cpp" line="147"/>
         <source>Failed to save current account</source>
         <translation>Aktuelles Konto konnte nicht gespeichert werden</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="136"/>
+        <source>Seafile Server Address</source>
+        <translation type="obsolete">Seafile Serveradresse</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="123"/>
         <source>Please enter the password</source>
         <translation>Bitte das Passwort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="186"/>
+        <location filename="../src/ui/login-dialog.cpp" line="174"/>
         <source>Incorrect email or password</source>
         <translation>E-Mail-Adresse oder Passwort sind ungültig</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="188"/>
+        <location filename="../src/ui/login-dialog.cpp" line="176"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>Anmeldung zu häufig, bitte warten Sie eine Minute</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="190"/>
+        <location filename="../src/ui/login-dialog.cpp" line="178"/>
         <source>Internal Server Error</source>
         <translation>Interner Serverfehler</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="194"/>
+        <location filename="../src/ui/login-dialog.cpp" line="182"/>
         <source>Failed to login: %1</source>
         <translation>Fehler beim Anmelden: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="196"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>Failed to login</source>
         <translation>Fehler beim Anmelden</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="256"/>
+        <location filename="../src/ui/login-dialog.cpp" line="203"/>
+        <source>DataDupe Server Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="226"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="258"/>
+        <location filename="../ui_login-dialog.h" line="228"/>
         <source>logo</source>
         <translation>Logo</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="259"/>
         <source>Server:</source>
-        <translation>Server:</translation>
+        <translation type="obsolete">Server:</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zum Beispiel: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zum Beispiel: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="261"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation>oder http://192.168.1.24:8000</translation>
+        <translation type="obsolete">oder http://192.168.1.24:8000</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="262"/>
+        <location filename="../ui_login-dialog.h" line="229"/>
         <source>Email:</source>
         <translation>E-Mail:</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="263"/>
+        <location filename="../ui_login-dialog.h" line="230"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="266"/>
+        <location filename="../ui_login-dialog.h" line="233"/>
         <source>status text</source>
         <translation>Statustext</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="264"/>
+        <location filename="../ui_login-dialog.h" line="231"/>
         <source>Computer Name:</source>
         <translation>Rechnername:</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="265"/>
+        <location filename="../ui_login-dialog.h" line="232"/>
         <source>e.g. Jim&apos;s laptop</source>
         <translation>z.B. Freyas Laptop</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="267"/>
+        <location filename="../src/ui/login-dialog.cpp" line="48"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../ui_login-dialog.h" line="234"/>
+        <source>Shibboleth Login</source>
+        <translation>Shibboleth Login</translation>
+    </message>
+    <message>
+        <location filename="../ui_login-dialog.h" line="235"/>
         <source>Login</source>
         <translation>Anmelden</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="268"/>
+        <location filename="../ui_login-dialog.h" line="236"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -1672,6 +1703,142 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <source>copy failed</source>
         <translation>Fehler beim Kopieren</translation>
     </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
+        <source>Added</source>
+        <translation>Hinzugefügt</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Deleted</source>
+        <translation>Gelöscht</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <source>Removed</source>
+        <translation>Entfernt</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <source>Modified</source>
+        <translation>Bearbeitet</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <source>Renamed</source>
+        <translation>Umbenannt</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <source>Moved</source>
+        <translation>Verschoben</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <source>Added directory</source>
+        <translation>Hinzugefügter Ordner</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <source>Removed directory</source>
+        <translation>Entfernter Ordner</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <source>Renamed directory</source>
+        <translation>Umbenannter Ordner</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <source>Moved directory</source>
+        <translation>Verschobener Ordner</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <source>files</source>
+        <translation>Dateien</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <source>directories</source>
+        <translation>Ordner</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <source>and %1 more</source>
+        <translation>und %1 mehr</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <source>Reverted library to status at</source>
+        <translation>Bibliothek zurückgesetzt zum Status von</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <source>Reverted file &quot;%1&quot; to status at %2.</source>
+        <translation>Datei &quot;%1&quot; zurückgesetzt auf den Status von %2.</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <source>Recovered deleted directory</source>
+        <translation>Gelöschter Ordner wiederhergestellt</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <source>Changed library name or description</source>
+        <translation>Bibliotheksname oder Beschreibung geändert</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <source>Auto merge by DataDupe system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto merge by seafile system</source>
+        <translation type="obsolete">Automatische Zusammenführung durch Seafile</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="442"/>
+        <location filename="../src/utils/utils.cpp" line="470"/>
+        <location filename="../src/utils/utils.cpp" line="473"/>
+        <source>Just now</source>
+        <translation>gerade eben</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="458"/>
+        <source>1 day ago</source>
+        <translation>vor 1 Tag</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="458"/>
+        <source>%1 days ago</source>
+        <translation>vor %1 Tagen</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="462"/>
+        <source>1 hour ago</source>
+        <translation>vor 1 Stunde</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="462"/>
+        <source>%1 hours ago</source>
+        <translation>vor %1 Stunden</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="466"/>
+        <source>1 minute ago</source>
+        <translation>Vor 1 Minute</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="466"/>
+        <source>%1 minutes ago</source>
+        <translation>Vor %1 Minuten</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/utils.cpp" line="608"/>
+        <source>&lt;Not Part of Certificate&gt;</source>
+        <translation>&lt;Nicht Teil des Zertifikates&gt;</translation>
+    </message>
 </context>
 <context>
     <name>RepoDetailDialog</name>
@@ -1988,12 +2155,12 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="273"/>
-        <source>Failed to initialize log</source>
-        <translation>Fehler beim Initialisieren des Protokolls</translation>
+        <location filename="../src/seafile-applet.cpp" line="274"/>
+        <source>Failed to initialize log: %s</source>
+        <translation>Log konnte nicht initialisiert werden: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="386"/>
+        <location filename="../src/seafile-applet.cpp" line="387"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Eine neue Version des %1 Client (%2) ist verfügbar.
@@ -2065,9 +2232,8 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <translation>&amp;Protokollordner öffnen</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="121"/>
         <source>open seafile log directory</source>
-        <translation>Seafile-Protokollverzeichnis öffnen</translation>
+        <translation type="obsolete">Seafile-Protokollverzeichnis öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="124"/>
@@ -2085,9 +2251,8 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <translation>&amp;On­line­hil­fe</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>open seafile online help</source>
-        <translation>Seafile On­line­hil­fe öffnen</translation>
+        <translation type="obsolete">Seafile On­line­hil­fe öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="135"/>
@@ -2100,12 +2265,15 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <translation>Hauptfenster verstecken</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="411"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>Sie haben %n Nachricht</numerusform><numerusform>Sie haben %n Nachrichten</numerusform></translation>
+        <translation>
+            <numerusform>Sie haben %n Nachricht</numerusform>
+            <numerusform>Sie haben %n Nachrichten</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="419"/>
+        <location filename="../src/ui/tray-icon.cpp" line="417"/>
         <source>auto sync is disabled</source>
         <translation>Automatische Synchronisierung ist deaktiviert</translation>
     </message>
@@ -2115,14 +2283,58 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <translation>Über %1</translation>
     </message>
     <message>
+        <location filename="../src/ui/tray-icon.cpp" line="121"/>
+        <source>open DataDupe log directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="129"/>
+        <source>open datadupe online help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/tray-icon.cpp" line="336"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="424"/>
+        <location filename="../src/ui/tray-icon.cpp" line="422"/>
         <source>some servers not connected</source>
         <translation>Einige Server nicht verbunden</translation>
+    </message>
+</context>
+<context>
+    <name>ServerRepoItem</name>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Formular</translation>
+    </message>
+    <message>
+        <source>repoicon</source>
+        <translation type="obsolete">RepoIcon</translation>
+    </message>
+    <message>
+        <source>reponame</source>
+        <translation type="obsolete">RepoName</translation>
+    </message>
+    <message>
+        <source>download</source>
+        <translation type="obsolete">Herunterladen</translation>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Formular</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="obsolete">Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Add a repo</source>
+        <translation type="obsolete">Repo hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -2224,14 +2436,22 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <translation>Synchronisieren temporärer Dateien von MSOffice/Libreoffice aktivieren</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="221"/>
         <source>Auto start Seafile after login</source>
-        <translation>Seafile nach der Anmeldung automatisch starten</translation>
+        <translation type="obsolete">Seafile nach der Anmeldung automatisch starten</translation>
+    </message>
+    <message>
+        <source>Hide Seafile Icon from the docker</source>
+        <translation type="obsolete">Das Seafile-Symbol in der Benachrichtigungsleiste nicht anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="221"/>
+        <source>Auto start DataDupe after login</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="222"/>
-        <source>Hide Seafile Icon from the docker</source>
-        <translation>Das Seafile-Symbol in der Benachrichtigungsleiste nicht anzeigen</translation>
+        <source>Hide DataDupe Icon from the docker</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="223"/>
@@ -2323,6 +2543,19 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     </message>
 </context>
 <context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
+        <source>Login with Shibboleth</source>
+        <translation>Mit Shibboleth einloggen</translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
+        <source>Failed to save current account</source>
+        <translation>Aktuelles Konto konnte nicht gespeichert werden</translation>
+    </message>
+</context>
+<context>
     <name>SslConfirmDialog</name>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
@@ -2411,7 +2644,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/filebrowser/transfer-mgr.cpp" line="97"/>
         <source>pending</source>
-        <translation>ausführend</translation>
+        <translation type="unfinished">ausführend</translation>
     </message>
 </context>
 <context>
@@ -2450,6 +2683,29 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
         <location filename="../ui_uninstall-helper-dialog.h" line="109"/>
         <source>No</source>
         <translation>Nein</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="obsolete">Dialog</translation>
+    </message>
+    <message>
+        <source>Welcome to the seafile client</source>
+        <translation type="obsolete">Willkommen beim Seafile Client</translation>
+    </message>
+    <message>
+        <source>HelpImage</source>
+        <translation type="obsolete">HelpImage</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Um Dateien mit einem Seafile Server zu synchronisieren:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Konto hinzufügen (Mit Server-Adresse und Ihrer E-Mail-Adresse)&lt;/p&gt;&lt;p&gt;2. Eine Bibliothek herunterladen&lt;/p&gt;&lt;p&gt;3. Dateien zur Bibliothek hinzufügen. Sie werden automatisch zum Server hochgeladen&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Sie können auch eine Biliothek auf Basis eines beliebigen lokalen Ordners erstellen. Besuchen Sie auch die &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Seafile Online-Hilfe&lt;/span&gt;&lt;/a&gt; für weitere Informationen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Weiter</translation>
     </message>
 </context>
 </TS>

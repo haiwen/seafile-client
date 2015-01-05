@@ -304,87 +304,6 @@ LINK_DIRECTORIES(
 )
 
 ####################
-###### start: translations
-####################
-
-SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${moc_output} ${ui_output})
-SET(LANGUAGES
-  ca
-  de_DE
-  en
-  es
-  es_AR
-  es_MX
-  fr_FR
-  he_IL
-  hu_HU
-  is
-  it
-  ko_KR
-  nl_BE
-  pl_PL
-  pt_BR
-  pt_PT
-  ru
-  sk_SK
-  uk
-  zh_CN
-  zh_TW
-  )
-
-SET(LANGUAGE_TS_FILES)
-SET(SEAFILE_TS_TARGETS)
-FOREACH(LANGUAGE ${LANGUAGES})
-  SET(TS_FILE "${PROJECT_SOURCE_DIR}/i18n/seafile_${LANGUAGE}.ts")
-  SET(LANGUAGE_TS_FILES ${LANGUAGE_TS_FILES} ${TS_FILE})
-  SET_SOURCE_FILES_PROPERTIES(${TS_FILE} PROPERTIES OUTPUT_LOCATION "${CMAKE_BINARY_DIR}/i18n")
-
-  SET(TS_TARGET "${LANGUAGE}_ts")
-  ADD_CUSTOM_TARGET(${TS_TARGET}
-    COMMAND ${QT_LUPDATE_EXECUTABLE} ${SEAFILE_TRANSLATE_SOURCES}
-        -ts "${PROJECT_SOURCE_DIR}/i18n/seafile_${LANGUAGE}.ts"
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-
-  SET(SEAFILE_TS_TARGETS ${SEAFILE_TS_TARGETS} ${TS_TARGET})
-
-ENDFOREACH(LANGUAGE ${LANGUAGES})
-
-QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
-
-ADD_CUSTOM_TARGET(update-ts
-  DEPENDS ${qm_files}
-  DEPENDS ${moc_output}
-  DEPENDS ${ui_output}
-  )
-
-####################
-###### end: translations
-####################
-
-###################
-##### begin: doxygen
-##################
-FIND_PACKAGE(Doxygen)
-
-IF (DOXYGEN_FOUND)
-  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
-    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-
-  ADD_CUSTOM_TARGET(doxygen
-    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Generating doxygen documentation." VERBATIM)
-
-  IF(BUILD_DOCS)
-    ADD_CUSTOM_TARGET(doxygen ALL)
-  ENDIF()
-ENDIF()
-
-###################
-##### end: doxygen
-##################
-
-####################
 ###### begin: lib
 ####################
 
@@ -451,6 +370,84 @@ SET(SC_LIBS utils)
 ###### end: lib
 ####################
 
+####################
+###### start: translations
+####################
+
+SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${utils_sources} ${moc_output} ${ui_output})
+SET(LANGUAGES
+  ca
+  de_DE
+  en
+  es
+  es_AR
+  es_MX
+  fr_FR
+  he_IL
+  hu_HU
+  is
+  it
+  ko_KR
+  nl_BE
+  pl_PL
+  pt_BR
+  pt_PT
+  ru
+  sk_SK
+  uk
+  zh_CN
+  zh_TW
+  )
+
+SET(LANGUAGE_TS_FILES)
+SET(SEAFILE_TS_TARGETS)
+FOREACH(LANGUAGE ${LANGUAGES})
+  SET(TS_FILE "${PROJECT_SOURCE_DIR}/i18n/seafile_${LANGUAGE}.ts")
+  SET(LANGUAGE_TS_FILES ${LANGUAGE_TS_FILES} ${TS_FILE})
+  SET_SOURCE_FILES_PROPERTIES(${TS_FILE} PROPERTIES OUTPUT_LOCATION "${CMAKE_BINARY_DIR}/i18n")
+
+  SET(TS_TARGET "${LANGUAGE}_ts")
+  ADD_CUSTOM_TARGET(${TS_TARGET}
+    COMMAND ${QT_LUPDATE_EXECUTABLE} ${SEAFILE_TRANSLATE_SOURCES}
+        -ts "${PROJECT_SOURCE_DIR}/i18n/seafile_${LANGUAGE}.ts"
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+  SET(SEAFILE_TS_TARGETS ${SEAFILE_TS_TARGETS} ${TS_TARGET})
+
+ENDFOREACH(LANGUAGE ${LANGUAGES})
+
+QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+
+ADD_CUSTOM_TARGET(update-ts
+  DEPENDS ${SEAFILE_TS_TARGETS}
+  )
+
+####################
+###### end: translations
+####################
+
+###################
+##### begin: doxygen
+##################
+FIND_PACKAGE(Doxygen)
+
+IF (DOXYGEN_FOUND)
+  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
+    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+
+  ADD_CUSTOM_TARGET(doxygen
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating doxygen documentation." VERBATIM)
+
+  IF(BUILD_DOCS)
+    ADD_CUSTOM_TARGET(doxygen ALL)
+  ENDIF()
+ENDIF()
+
+###################
+##### end: doxygen
+##################
 
 ####################
 ###### start: freedesktop files

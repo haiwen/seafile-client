@@ -56,9 +56,6 @@ public:
     QString getComputerName();
     void setComputerName(const QString& computerName);
 
-    QString getLastShibUrl();
-    void setLastShibUrl(const QString& url);
-
 public:
 
     // Remove all settings from system when uninstall

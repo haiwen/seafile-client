@@ -25,17 +25,9 @@ private slots:
     void doLogin();
     void loginSuccess(const QString& token);
     void loginFailed(const ApiError& error);
-    void loginWithShib();
 
 private:
     Q_DISABLE_COPY(LoginDialog);
-
-    enum LoginMode {
-        LOGIN_NORMAL = 0,
-        LOGIN_SHIB
-    };
-
-    void setupShibLoginLink();
     bool validateInputs();
     void disableInputs();
     void enableInputs();
@@ -50,8 +42,6 @@ private:
     QString password_;
     QString computer_name_;
     LoginRequest *request_;
-
-    LoginMode mode_;
 };
 
 #endif // SEAFILE_CLIENT_LOGIN_DIALOG_H

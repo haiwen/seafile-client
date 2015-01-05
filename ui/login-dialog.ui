@@ -22,16 +22,7 @@ min-width: 260px;
    <property name="spacing">
     <number>0</number>
    </property>
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
@@ -224,25 +215,9 @@ min-width: 260px;
      <property name="spacing">
       <number>10</number>
      </property>
-     <property name="leftMargin">
+     <property name="margin">
       <number>9</number>
      </property>
-     <property name="topMargin">
-      <number>9</number>
-     </property>
-     <property name="rightMargin">
-      <number>9</number>
-     </property>
-     <property name="bottomMargin">
-      <number>9</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="mShibLoginLink">
-       <property name="text">
-        <string>Shibboleth Login</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">

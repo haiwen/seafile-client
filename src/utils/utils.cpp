@@ -42,6 +42,50 @@ const char *kCcnetConfDir = "ccnet";
 const char *kCcnetConfDir = ".ccnet";
 #endif
 
+#ifdef Q_WS_X11
+/// \brief call xdg-mime to find out the mime filetype X11 recognizes it as
+/// xdg-mime's usage:
+/// xdg-mime query filetype <filename>
+/// stdout: mime-type
+bool getMimeTypeFromXdgUtils(const QString &filepath, QString *mime)
+{
+    QProcess subprocess;
+    QStringList args("query");
+    args.push_back("filetype");
+    args.push_back(filepath);
+    subprocess.start(QLatin1String("xdg-mime"), args);
+    subprocess.waitForFinished(-1);
+    if (subprocess.exitCode())
+        return false;
+    *mime = subprocess.readAllStandardOutput();
+    *mime = mime->trimmed();
+    if (mime->isEmpty())
+        return false;
+    return true;
+}
+
+/// \brief call xdg-mime to find out the application X11 opens with by mime filetype
+/// xdg-mime's usage:
+/// xdg-mime query default <filename>
+/// stdout: application
+bool getOpenApplicationFromXdgUtils(const QString &mime, QString *application)
+{
+    QProcess subprocess;
+    QStringList args("query");
+    args.push_back("default");
+    args.push_back(mime);
+    subprocess.start(QLatin1String("xdg-mime"), args);
+    subprocess.waitForFinished(-1);
+    if (subprocess.exitCode())
+        return false;
+    *application = subprocess.readAllStandardOutput();
+    *application = application->trimmed();
+    if (application->isEmpty())
+        return false;
+    return true;
+}
+#endif
+
 } // namespace
 
 
@@ -59,16 +103,34 @@ bool openInNativeExtension(const QString &path) {
     //call ShellExecute internally
     return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
 #elif defined(Q_WS_MAC)
-    QProcess open_process;
-    open_process.start(QLatin1String("open"), QStringList(path));
-    open_process.waitForFinished(-1);
-    return open_process.exitCode() == 0;
+    // mac's open program, it will fork to open the file in a subprocess
+    // so we will wait for it to check whether it succeeds or not
+    QProcess subprocess;
+    subprocess.start(QLatin1String("open"), QStringList(path));
+    subprocess.waitForFinished(-1);
+    return subprocess.exitCode() == 0;
 #elif defined(Q_WS_X11)
-    //xdg-open is sufficient
-    QProcess open_process;
-    open_process.start(QLatin1String("xdg-open"), QStringList(path));
-    open_process.waitForFinished(-1);
-    return open_process.exitCode() == 0;
+    // unlike mac's open program, xdg-open won't fork a new subprocess to open
+    // the file will block until the application returns, so we won't wait for it
+    // and we need another approach to check if it works
+
+    // find out if the file can be opened by xdg-open, xdg-mime
+    // usually they are installed in xdg-utils installed by default
+    QString mime_type;
+    if (!getMimeTypeFromXdgUtils(path, &mime_type))
+        return false;
+    // don't open this type of files from xdg-mime
+    if (mime_type == "application/octet-stream")
+        return false;
+    // in fact we need to filter out files like application/x-executable
+    // but it is not necessary since getMimeTypeFromXdg will return false for
+    // it!
+    QString application;
+    if (!getOpenApplicationFromXdgUtils(mime_type, &application))
+        return false;
+
+    return QProcess::startDetached(QLatin1String("xdg-open"),
+                                   QStringList(path));
 #else
     return false;
 #endif

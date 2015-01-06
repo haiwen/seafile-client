@@ -192,11 +192,11 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="mInternationalTab">
+     <widget class="QWidget" name="mLanguageTab">
       <attribute name="title">
-       <string>International</string>
+       <string>Language</string>
       </attribute>
-      <layout class="QVBoxLayout" name="internationalLayout">
+      <layout class="QVBoxLayout" name="languageTabLayout">
        <item>
         <layout class="QHBoxLayout" name="languageLayout">
          <item>

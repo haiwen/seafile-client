@@ -647,7 +647,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
               QDateTime::currentDateTime().toTime_t()
             };
             // TODO: insert the Item prior to the item where uploading occurs
-            table_model_->insertItem(dir);
+            table_model_->insertItem(0, dir);
             return;
         }
         const SeafDirent dirent = {
@@ -819,7 +819,8 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     const SeafDirent dirent = { SeafDirent::DIR, "", name, 0,
         QDateTime::currentDateTime().toTime_t()
     };
-    table_model_->insertItem(dirent);
+    // TODO insert to the pos where the drop event triggered
+    table_model_->insertItem(0, dirent);
 }
 
 void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)
@@ -857,7 +858,6 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
-    table_view_->unselectItemNamed(name);
     table_model_->removeItemNamed(name);
 }
 

@@ -183,17 +183,6 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
     setupContextMenu();
 }
 
-void FileTableView::unselectItemNamed(const QString &name)
-{
-    QItemSelectionModel *selections = this->selectionModel();
-    QModelIndexList selected = selections->selectedRows();
-    for (int i = 0; i < selected.size(); i++) {
-        const SeafDirent *dirent = source_model_->direntAt(proxy_model_->mapToSource(selected[i]).row());
-        if (dirent->name == name)
-            selections->select(selected[i], QItemSelectionModel::Deselect | QItemSelectionModel::Current);
-    }
-}
-
 void FileTableView::setModel(QAbstractItemModel *model)
 {
     source_model_ = qobject_cast<FileTableModel*>(model);
@@ -706,60 +695,51 @@ QVariant FileTableModel::headerData(int section,
     }
 }
 
-const SeafDirent* FileTableModel::direntAt(int index) const
+const SeafDirent* FileTableModel::direntAt(int row) const
 {
-    if (index > dirents_.size()) {
+    if (row > dirents_.size()) {
         return NULL;
     }
 
-    return &dirents_[index];
+    return &dirents_[row];
 }
 
 void FileTableModel::replaceItem(const QString &name, const SeafDirent &dirent)
 {
-    for (int i = 0; i != dirents_.size() ; i++)
-        if (dirents_[i].name == name) {
-            dirents_[i] = dirent;
-
-            emit dataChanged(index(i, 0), index(i , FILE_MAX_COLUMN - 1));
-
+    for (int pos = 0; pos != dirents_.size() ; pos++)
+        if (dirents_[pos].name == name) {
+            dirents_[pos] = dirent;
+            emit dataChanged(index(pos, 0), index(pos , FILE_MAX_COLUMN - 1));
             break;
         }
 }
 
-void FileTableModel::insertItem(const SeafDirent &dirent)
+void FileTableModel::insertItem(int pos, const SeafDirent &dirent)
 {
-    dirents_.insert(0, dirent);
-    emit layoutChanged();
-}
-
-void FileTableModel::appendItem(const SeafDirent &dirent)
-{
-    dirents_.push_back(dirent);
-    emit layoutChanged();
+    if (pos > dirents_.size())
+        return;
+    beginInsertRows(QModelIndex(), pos, pos);
+    dirents_.insert(pos, dirent);
+    endInsertRows();
 }
 
 void FileTableModel::removeItemNamed(const QString &name)
 {
-    int j = 0;
-    for (QList<SeafDirent>::iterator i = dirents_.begin(); i != dirents_.end() ; i++, j++)
-        if (i->name == name) {
-            int last_pos = dirents_.size() - 1;
-            dirents_.erase(i);
-            emit dataChanged(index(j, 0),
-                index(last_pos, FILE_MAX_COLUMN - 1));
+    for (int pos = 0; pos != dirents_.size() ; pos++)
+        if (dirents_[pos].name == name) {
+            beginRemoveRows(QModelIndex(), pos, pos);
+            dirents_.removeAt(pos);
+            endRemoveRows();
             break;
         }
 }
 
 void FileTableModel::renameItemNamed(const QString &name, const QString &new_name)
 {
-    for (int i = 0; i != dirents_.size() ; i++)
-        if (dirents_[i].name == name) {
-            dirents_[i].name = new_name;
-
-            emit dataChanged(index(i, 0), index(i , FILE_MAX_COLUMN - 1));
-
+    for (int pos = 0; pos != dirents_.size() ; pos++)
+        if (dirents_[pos].name == name) {
+            dirents_[pos].name = new_name;
+            emit dataChanged(index(pos, 0), index(pos , FILE_MAX_COLUMN - 1));
             break;
         }
 }

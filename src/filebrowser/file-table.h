@@ -28,7 +28,6 @@ class FileTableView : public QTableView
     Q_OBJECT
 public:
     FileTableView(const ServerRepo& repo, QWidget *parent);
-    void unselectItemNamed(const QString &name);
     void setModel(QAbstractItemModel *model);
 
 signals:
@@ -113,10 +112,12 @@ public:
     void setDirents(const QList<SeafDirent>& dirents);
     const QList<SeafDirent>& dirents() const { return dirents_; }
 
-    const SeafDirent* direntAt(int index) const;
+    const SeafDirent* direntAt(int row) const;
 
-    void insertItem(const SeafDirent &dirent);
-    void appendItem(const SeafDirent &dirent);
+    void insertItem(int pos, const SeafDirent &dirent);
+    void appendItem(const SeafDirent &dirent) {
+        insertItem(rowCount(), dirent);
+    }
     void replaceItem(const QString &name, const SeafDirent &dirent);
     void removeItemNamed(const QString &name);
     void renameItemNamed(const QString &name, const QString &new_name);

@@ -309,10 +309,77 @@ LINK_DIRECTORIES(
 )
 
 ####################
+###### begin: lib
+####################
+
+# Helper Function to Add Seafile-Client Library
+# Usage:
+# ADD_SC_LIBRARY (name sources
+#     MOC_HEADERS moc_headers
+#     UI_FILES ui_files
+#     DEPENDS part
+#     LINK_LIBS libs
+#     )
+FUNCTION(ADD_SC_LIBRARY name)
+    MESSAGE(STATUS "Found internal library: ${name}")
+    CMAKE_PARSE_ARGUMENTS(ARG
+      ""
+      ""
+      "MOC_HEADERS;UI_FILES;DEPENDS;LINK_LIBS"
+      ${ARGN})
+    IF(ARG_MOC_HEADERS)
+        QT4_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
+    ENDIF()
+    IF(ARG_UI_FILES)
+        QT4_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
+    ENDIF()
+
+    ADD_LIBRARY(${name} STATIC ${ARG_UNPARSED_ARGUMENTS}
+      ${MOC_OUTPUT} ${UI_OUTPUT})
+
+    TARGET_LINK_LIBRARIES(${name} ${QT_LIBRARIES}
+        ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
+        ${EXTRA_LIBS} -lglib-2.0 ${ARG_LINK_LIBS})
+ENDFUNCTION(ADD_SC_LIBRARY)
+
+# library utils
+LIST(APPEND utils_sources
+    src/utils/utils.cpp
+    src/utils/rsa.cpp
+    src/utils/paint-utils.cpp
+    src/utils/file-utils.cpp
+    src/utils/translate-commit-desc.cpp
+    src/utils/json-utils.cpp
+    src/utils/log.c
+    )
+IF (WIN32)
+    LIST(APPEND utils_sources
+        src/utils/process-win.cpp
+        src/utils/registry.cpp
+        )
+ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
+    LIST(APPEND utils_sources
+        src/utils/process-linux.cpp
+        )
+ELSEIF(APPLE)
+    LIST(APPEND utils_sources
+        src/utils/process-mac.cpp
+        src/utils/utils-mac.mm)
+ENDIF()
+
+ADD_SC_LIBRARY(utils ${utils_sources})
+
+SET(SC_LIBS utils)
+
+####################
+###### end: lib
+####################
+
+####################
 ###### start: translations
 ####################
 
-SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${moc_output} ${ui_output})
+SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${utils_sources} ${moc_output} ${ui_output})
 SET(LANGUAGES
   ca
   de_DE
@@ -388,74 +455,6 @@ ENDIF()
 ###################
 ##### end: doxygen
 ##################
-
-####################
-###### begin: lib
-####################
-
-# Helper Function to Add Seafile-Client Library
-# Usage:
-# ADD_SC_LIBRARY (name sources
-#     MOC_HEADERS moc_headers
-#     UI_FILES ui_files
-#     DEPENDS part
-#     LINK_LIBS libs
-#     )
-FUNCTION(ADD_SC_LIBRARY name)
-    MESSAGE(STATUS "Found internal library: ${name}")
-    CMAKE_PARSE_ARGUMENTS(ARG
-      ""
-      ""
-      "MOC_HEADERS;UI_FILES;DEPENDS;LINK_LIBS"
-      ${ARGN})
-    IF(ARG_MOC_HEADERS)
-        QT4_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
-    ENDIF()
-    IF(ARG_UI_FILES)
-        QT4_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
-    ENDIF()
-
-    ADD_LIBRARY(${name} STATIC ${ARG_UNPARSED_ARGUMENTS}
-      ${MOC_OUTPUT} ${UI_OUTPUT})
-
-    TARGET_LINK_LIBRARIES(${name} ${QT_LIBRARIES}
-        ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
-        ${EXTRA_LIBS} -lglib-2.0 ${ARG_LINK_LIBS})
-ENDFUNCTION(ADD_SC_LIBRARY)
-
-# library utils
-LIST(APPEND utils_sources
-    src/utils/utils.cpp
-    src/utils/rsa.cpp
-    src/utils/paint-utils.cpp
-    src/utils/file-utils.cpp
-    src/utils/translate-commit-desc.cpp
-    src/utils/json-utils.cpp
-    src/utils/log.c
-    )
-IF (WIN32)
-    LIST(APPEND utils_sources
-        src/utils/process-win.cpp
-        src/utils/registry.cpp
-        )
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
-    LIST(APPEND utils_sources
-        src/utils/process-linux.cpp
-        )
-ELSEIF(APPLE)
-    LIST(APPEND utils_sources
-        src/utils/process-mac.cpp
-        src/utils/utils-mac.mm)
-ENDIF()
-
-ADD_SC_LIBRARY(utils ${utils_sources})
-
-SET(SC_LIBS utils)
-
-####################
-###### end: lib
-####################
-
 
 ####################
 ###### begin: crash reporter

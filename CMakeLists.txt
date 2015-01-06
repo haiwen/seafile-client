@@ -199,6 +199,7 @@ PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 
 # c/cpp sources
 SET(seafile_client_sources
+  src/i18n.cpp
   src/main.cpp
   src/seafile-applet.cpp
   src/account.cpp
@@ -402,6 +403,7 @@ SET(LANGUAGES
   uk
   zh_CN
   zh_TW
+  tr
   )
 
 SET(LANGUAGE_TS_FILES)

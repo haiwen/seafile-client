@@ -10,6 +10,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/clone-task.h"
 #include "rpc/local-repo.h"
+#include "utils/utils.h"
 
 #include "repo-detail-dialog.h"
 
@@ -32,23 +33,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     mDesc->setText(repo.description);
     mTimeLabel->setText(translateCommitTime(repo.mtime));
     mOwnerLabel->setText(repo.owner);
-
-    gint64 res = repo.size;
-    QString filetyperes;
-
-    if (res <= 1024) {
-        filetyperes = "B";
-    } else if (res > 1024 && res <= 1024*1024) {
-        res = res / 1024;
-        filetyperes = "KB";
-    } else if (res > 1024*1024 && res <= 1024*1024*1024) {
-        res = res / 1024 / 1024;
-        filetyperes = "MB";
-    } else if (res > 1024*1024*1024) {
-        res = res / 1024 / 1024 / 1024;
-        filetyperes = "GB";
-    }
-    mSizeLabel->setText(QString::number(res) + filetyperes);
+    mSizeLabel->setText(readableFileSize(repo.size));
 
     LocalRepo lrepo;
     seafApplet->rpcClient()->getLocalRepo(repo.id, &lrepo);

@@ -40,22 +40,6 @@ static int parse_seafile_notification (char *msg, char **type, char **body)
     return 0;
 }
 
-static bool
-collect_transfer_info (QString *msg, char *info, char *repo_name)
-{
-    char *p;
-    if (! (p = strchr (info, '\t')))
-        return false;
-    *p = '\0';
-
-    int rate = atoi(p + 1) / 1024;
-    QString uploadStr = (strcmp(info, "upload") == 0) ? QObject::tr("Uploading") : QObject::tr("Downloading");
-    QString buf = QString("%1 %2, %3 %4 KB/s\n").arg(uploadStr).arg(QString::fromUtf8(repo_name)).arg(QObject::tr("Speed")).arg(rate);
-    msg->append(buf);
-    return true;
-}
-
-
 /**
  * Wrapper callback for mq-client
  */
@@ -144,21 +128,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             return;
 
         if (strcmp(type, "transfer") == 0) {
-            if (!seafApplet->settingsManager()->autoSync())
-                return;
-
-            seafApplet->trayIcon()->rotate(true);
-
-            if (!content) {
-                qWarning("Handle empty notification");
-                return;
-            }
-            QString buf;
-            bool ret = parse_key_value_pairs(content, (KeyValueFunc)collect_transfer_info, &buf);
-            // qWarning() << "ret="<< ret << buf;
-            if (ret)
-                seafApplet->trayIcon()->setToolTip(buf);
-
+            // empty
         } else if (strcmp(type, "repo.deleted_on_relay") == 0) {
             QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(QString::fromUtf8(content));
             seafApplet->trayIcon()->notify(getBrand(), buf);

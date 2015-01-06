@@ -48,6 +48,7 @@ private slots:
     void onClick();
     void rotateTrayIcon();
     void refreshTrayIcon();
+    void refreshTrayIconToolTip();
     void openHelp();
     void openLogDirectory();
     void about();

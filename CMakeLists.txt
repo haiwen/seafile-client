@@ -423,11 +423,7 @@ ENDFOREACH(LANGUAGE ${LANGUAGES})
 
 QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
 
-ADD_CUSTOM_TARGET(update-ts
-  DEPENDS ${qm_files}
-  DEPENDS ${moc_output}
-  DEPENDS ${ui_output}
-  )
+ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
 ####################
 ###### end: translations

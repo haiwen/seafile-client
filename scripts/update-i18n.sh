@@ -30,7 +30,7 @@ function regenerate_source() {
 
 function git_diff() {
     set +e
-    git diff
+    git diff i18n/seafile_en.ts
     set -e
 }
 

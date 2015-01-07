@@ -47,6 +47,7 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     g_free (name);
     g_free (desc);
     g_free (worktree);
+    g_free (relay_id);
 
     return repo;
 }

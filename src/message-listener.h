@@ -16,6 +16,7 @@ class MessageListener : QObject {
     Q_OBJECT
 public:
     MessageListener();
+    ~MessageListener();
 
     void connectDaemon();
     void handleMessage(_CcnetMessage *message);

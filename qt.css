@@ -451,6 +451,16 @@ FileTableView QHeaderView::section {
     font-size: 12px;
 }
 
+FileTableView QHeaderView::down-arrow {
+    width: 15px;
+    height: 5px;
+    subcontrol-position: center right;
+}
+
+FileTableView QHeaderView::up-arrow {
+    subcontrol-position: center right;
+}
+
 FileTableView::item {
     border-top: 1px solid #e0e0e0;
 }

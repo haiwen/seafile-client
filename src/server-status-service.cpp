@@ -42,7 +42,7 @@ void ServerStatusService::stop()
 void ServerStatusService::refresh(bool only_refresh_unconnected)
 {
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-    for (int i = 0; i < accounts.size(); i++) {
+    for (size_t i = 0; i < accounts.size(); i++) {
         const QUrl& url = accounts[i].serverUrl;
         if (requests_.contains(url.host())) {
             return;
@@ -77,7 +77,7 @@ void ServerStatusService::onPingServerSuccess()
     PingServerRequest *req = (PingServerRequest *)sender();
     statuses_[req->url().host()] = ServerStatus(req->url(), true);
     emit serverStatusChanged();
-    requests_.remove(req->url().host());
+    requests_.take(req->url().host())->deleteLater();
 }
 
 void ServerStatusService::onPingServerFailed()
@@ -85,7 +85,7 @@ void ServerStatusService::onPingServerFailed()
     PingServerRequest *req = (PingServerRequest *)sender();
     statuses_[req->url().host()] = ServerStatus(req->url(), false);
     emit serverStatusChanged();
-    requests_.remove(req->url().host());
+    requests_.take(req->url().host())->deleteLater();
 }
 
 bool ServerStatusService::allServersConnected() const

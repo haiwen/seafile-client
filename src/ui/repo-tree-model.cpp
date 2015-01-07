@@ -75,9 +75,9 @@ void RepoTreeModel::initialize()
 
     appendRow(recent_updated_category_);
     appendRow(my_repos_category_);
+    appendRow(synced_repos_category_);
     // appendRow(virtual_repos_category_);
     appendRow(shared_repos_category_);
-    appendRow(synced_repos_category_);
 
     if (tree_view_) {
         tree_view_->restoreExpandedCategries();

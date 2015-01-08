@@ -47,8 +47,6 @@ StarredFilesTab::StarredFilesTab(QWidget *parent)
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
 
-    get_starred_files_req_ = NULL;
-
     refresh();
 }
 
@@ -58,7 +56,10 @@ void StarredFilesTab::createStarredFilesListView()
     files_list_model_ = new StarredFilesListModel;
 
     files_list_view_->setModel(files_list_model_);
-    files_list_view_->setItemDelegate(new StarredFileItemDelegate);
+
+    // QAbstractItemView::setItemDelegate won't take ownship of delegate,
+    // you need to manage its resource yourself
+    files_list_view_->setItemDelegate(new StarredFileItemDelegate(this));
 }
 
 void StarredFilesTab::createLoadingView()
@@ -122,14 +123,13 @@ void StarredFilesTab::refresh()
         return;
     }
 
-    if (get_starred_files_req_) {
-        delete get_starred_files_req_;
-    }
+    get_starred_files_req_.reset(new GetStarredFilesRequest(accounts[0]));
 
-    get_starred_files_req_ = new GetStarredFilesRequest(accounts[0]);
-    connect(get_starred_files_req_, SIGNAL(success(const std::vector<StarredFile>&)),
+    connect(get_starred_files_req_.data(),
+            SIGNAL(success(const std::vector<StarredFile>&)),
             this, SLOT(refreshStarredFiles(const std::vector<StarredFile>&)));
-    connect(get_starred_files_req_, SIGNAL(failed(const ApiError&)),
+    connect(get_starred_files_req_.data(),
+            SIGNAL(failed(const ApiError&)),
             this, SLOT(refreshStarredFilesFailed(const ApiError&)));
     get_starred_files_req_->send();
 }
@@ -138,8 +138,7 @@ void StarredFilesTab::refreshStarredFiles(const std::vector<StarredFile>& files)
 {
     in_refresh_ = false;
 
-    get_starred_files_req_->deleteLater();
-    get_starred_files_req_ = NULL;
+    get_starred_files_req_.take()->deleteLater();
 
     files_list_model_->setFiles(files);
     if (files.empty()) {

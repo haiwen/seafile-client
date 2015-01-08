@@ -16,6 +16,7 @@ class SeafileTrayIcon : public QSystemTrayIcon {
 
 public:
     explicit SeafileTrayIcon(QObject *parent=0);
+    ~SeafileTrayIcon();
 
     enum TrayState {
         STATE_DAEMON_UP = 0,

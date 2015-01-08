@@ -154,6 +154,8 @@ int main(int argc, char *argv[])
     }
 
     // init qtawesome component
+    // we are leaking memory here, (with QFontDatabase)
+    // it is strange,but i have no way to fix currently
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();
 

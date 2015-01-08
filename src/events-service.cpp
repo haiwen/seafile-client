@@ -28,7 +28,6 @@ EventsService::EventsService(QObject *parent)
 {
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
-    get_events_req_ = NULL;
     in_refresh_ = false;
     more_offset_ = -1;
 }
@@ -57,16 +56,14 @@ void EventsService::refresh()
 
     in_refresh_ = true;
 
-    if (get_events_req_) {
-        delete get_events_req_;
-    }
+    get_events_req_.reset(new GetEventsRequest(account, more_offset_));
 
-    get_events_req_ = new GetEventsRequest(account, more_offset_);
-
-    connect(get_events_req_, SIGNAL(success(const std::vector<SeafEvent>&, int)),
+    connect(get_events_req_.data(),
+            SIGNAL(success(const std::vector<SeafEvent>&, int)),
             this, SLOT(onRefreshSuccess(const std::vector<SeafEvent>&, int)));
 
-    connect(get_events_req_, SIGNAL(failed(const ApiError&)),
+    connect(get_events_req_.data(),
+            SIGNAL(failed(const ApiError&)),
             this, SLOT(onRefreshFailed(const ApiError&)));
 
     get_events_req_->send();

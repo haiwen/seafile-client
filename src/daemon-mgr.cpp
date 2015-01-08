@@ -55,6 +55,7 @@ DaemonManager::~DaemonManager() {
 
 void DaemonManager::startCcnetDaemon()
 {
+    // we are leaking memory here
     sync_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();

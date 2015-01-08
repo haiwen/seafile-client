@@ -1,12 +1,13 @@
 #ifndef SEAFILE_CLIENT_UI_STARRED_FILES_TAB_H
 #define SEAFILE_CLIENT_UI_STARRED_FILES_TAB_H
 
+#include <QScopedPointer>
 #include "tab-view.h"
+#include "api/requests.h"
 
 class QTimer;
 class QListWidget;
 
-class GetStarredFilesRequest;
 class ApiError;
 class StarredFile;
 class StarredFilesListView;
@@ -48,7 +49,7 @@ private:
     QWidget *loading_failed_view_;
     QWidget *empty_view_;
 
-    GetStarredFilesRequest *get_starred_files_req_;
+    QScopedPointer<GetStarredFilesRequest> get_starred_files_req_;
 };
 
 #endif // SEAFILE_CLIENT_UI_STARRED_FILES_TAB_H

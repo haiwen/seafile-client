@@ -68,6 +68,7 @@ MessageListener::~MessageListener()
 
 void MessageListener::connectDaemon()
 {
+    // we have memory leaks here
     async_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();

@@ -7,6 +7,7 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QTimer>
+#include <QScopedPointer>
 
 #include <errno.h>
 #include <glib.h>
@@ -134,6 +135,8 @@ const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";
 const char *kRepoServerUrlProperty = "server-url";
 const char *kRepoRelayAddrProperty = "relay-address";
 
+QScopedPointer<GetLatestVersionRequest> get_latest_version_req;
+
 } // namespace
 
 
@@ -159,8 +162,10 @@ SeafileApplet::SeafileApplet()
 
 SeafileApplet::~SeafileApplet()
 {
+    get_latest_version_req.take()->deleteLater();
     delete tray_icon_;
     delete certs_mgr_;
+    delete settings_mgr_;
     delete settings_dialog_;
     delete message_listener_;
     delete rpc_client_;
@@ -389,10 +394,10 @@ void SeafileApplet::checkLatestVersionInfo()
     QString id = rpc_client_->getCcnetPeerId();
     QString version = STRINGIZE(SEAFILE_CLIENT_VERSION);
 
-    GetLatestVersionRequest *req = new GetLatestVersionRequest(id, version);
-    req->send();
+    get_latest_version_req.reset(new GetLatestVersionRequest(id, version));
+    get_latest_version_req->send();
 
-    connect(req, SIGNAL(success(const QString&)),
+    connect(get_latest_version_req.data(), SIGNAL(success(const QString&)),
             this, SLOT(onGetLatestVersionInfoSuccess(const QString&)));
 }
 

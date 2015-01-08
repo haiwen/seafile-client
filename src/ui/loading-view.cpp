@@ -16,6 +16,8 @@ LoadingView::LoadingView(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
     setLayout(layout);
 
+    // QLabel::setMovie won't take the ownship of
+    // QMovie, you need to delete it youself
     gif_ = new QMovie(":/images/loading.gif");
     gif_->setParent(this);
     QLabel *label = new QLabel;
@@ -24,6 +26,11 @@ LoadingView::LoadingView(QWidget *parent)
 
     layout->addWidget(label);
     layout->setContentsMargins(0, 0, 0, 0);
+}
+
+LoadingView::~LoadingView() {
+    gif_->stop();
+    delete gif_;
 }
 
 void LoadingView::showEvent(QShowEvent *event)

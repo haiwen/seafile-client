@@ -131,6 +131,7 @@ void RepoItemDelegate::paint(QPainter *painter,
                              const QStyleOptionViewItem& option,
                              const QModelIndex& index) const
 {
+    // are we leaking memory here?
     QStandardItem *item = getItem(index);
     if (!item) {
         QStyledItemDelegate::paint(painter, option, index);

@@ -61,7 +61,8 @@ AccountView::AccountView(QWidget *parent)
     setupUi(this);
 
     // Init account drop down menu
-    account_menu_ = new QMenu;
+    account_menu_ = new QMenu(this);
+    // QToolButton::setMenu won't take the ownship of the menu.
     mAccountBtn->setMenu(account_menu_);
     mAccountBtn->setPopupMode(QToolButton::InstantPopup);
     mAccountBtn->setFixedSize(QSize(AvatarService::kAvatarSize, AvatarService::kAvatarSize));

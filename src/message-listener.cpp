@@ -70,6 +70,7 @@ MessageListener::~MessageListener()
 
 void MessageListener::connectDaemon()
 {
+    // we have memory leaks here
     async_client_ = ccnet_client_new();
     sync_client_ = ccnet_client_new();
 

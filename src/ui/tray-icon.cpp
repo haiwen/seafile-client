@@ -59,7 +59,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     : QSystemTrayIcon(parent),
       nth_trayicon_(0),
       rotate_counter_(0),
-      state_(STATE_DAEMON_UP)
+      state_(STATE_DAEMON_UP),
+      help_menu_(NULL)
 {
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
@@ -89,6 +90,17 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 #if defined(Q_OS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif
+}
+
+SeafileTrayIcon::~SeafileTrayIcon()
+{
+    refresh_timer_->stop();
+    rotate_timer_->stop();
+#ifdef Q_OS_MAC
+    delete global_menubar_;
+    delete global_menu_;
+#endif
+    delete help_menu_;
 }
 
 void SeafileTrayIcon::start()
@@ -145,6 +157,9 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
+
+    // Unlike QMenu::addAction, QMenu::addMenu won't take ownship of QMenu,
+    // you need to delete helper_menu_ yourself
     context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
     context_menu_->addAction(enable_auto_sync_action_);

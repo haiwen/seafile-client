@@ -51,6 +51,8 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 }
 RepoTreeModel::~RepoTreeModel()
 {
+    // FIXME we have a memory leak here
+    // however no perfect solution is provided so I left it alone
     if (item(kIndexOfVirtualReposCategory) != virtual_repos_category_)
         delete virtual_repos_category_;
 }

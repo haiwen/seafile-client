@@ -7,17 +7,15 @@
 class TrayNotificationManager : public QObject
 {
     Q_OBJECT
-signals:
-
-public slots:
-    void removeFirst(TrayNotificationWidget *widget);
-
 public:
     TrayNotificationManager(QObject *parent);
     ~TrayNotificationManager();
     void append(TrayNotificationWidget *widget);
     void clear();
     void setMaxTrayNotificationWidgets(int max);
+
+private slots:
+    void removeWidget();
 
 private:
     QList<TrayNotificationWidget*>* notificationWidgets;

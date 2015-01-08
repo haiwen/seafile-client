@@ -116,7 +116,7 @@ bool LoginDialog::validateInputs()
         showWarning(tr("Please enter the computer name"));
     }
 
-    url_ = "http://login.datadupe.com";
+    url_ = "http://sync.datadupe.com";
 
     username_ = mUsername->text();
     password_ = mPassword->text();

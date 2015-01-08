@@ -63,8 +63,8 @@ ReposTab::ReposTab(QWidget *parent)
 
 void ReposTab::createRepoTree()
 {
-    repos_tree_ = new RepoTreeView;
-    repos_model_ = new RepoTreeModel;
+    repos_tree_ = new RepoTreeView(this);
+    repos_model_ = new RepoTreeModel(this);
     repos_model_->setTreeView(repos_tree_);
 
     filter_model_ = new RepoFilterProxyModel(this);

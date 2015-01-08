@@ -59,6 +59,13 @@ MessageListener::MessageListener()
 {
 }
 
+MessageListener::~MessageListener()
+{
+    if (socket_notifier_) {
+        delete socket_notifier_;
+    }
+}
+
 void MessageListener::connectDaemon()
 {
     async_client_ = ccnet_client_new();

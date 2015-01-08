@@ -12,13 +12,11 @@ public:
 
 private:
     QTimer* timeout;
-
 signals:
-    void deleted(TrayNotificationWidget*);
+    void deleted();
 
-public slots:
-   void fadeOut();
-
+private slots:
+    void fadeOut();
 };
 
 #endif // TRAYNOTIFICATIONWIDGET_H

@@ -21,6 +21,46 @@
 #include "application.h"
 #endif
 
+#ifndef Q_OS_WIN32
+#include <signal.h>
+#endif
+
+namespace {
+
+#ifndef Q_OS_WIN32 // windows don't need these handlers
+
+void sigintHandler(int /* unused*/)
+{
+    qWarning("[signal] SIGINT received, exiting");
+    QCoreApplication::exit();
+}
+
+bool setSignalHandler()
+{
+    struct sigaction sigint_action;
+    sigint_action.sa_handler = sigintHandler;
+    sigemptyset(&sigint_action.sa_mask);
+    sigint_action.sa_flags = 0;
+    sigint_action.sa_flags |= SA_RESTART;
+
+    // 0 if okay, -1 if failed
+    if (sigaction(SIGINT, &sigint_action, 0) < 0)
+        return false;
+    return true;
+}
+
+#else // Q_OS_WIN32
+
+bool setSignalHandler()
+{
+    return true;
+}
+
+#endif // Q_OS_WIN32
+
+} // anonymous namespace
+
+
 #define APPNAME "seafile-applet"
 
 namespace {
@@ -213,6 +253,9 @@ int main(int argc, char *argv[])
     SeafileApplet mApplet;
     seafApplet = &mApplet;
     seafApplet->start();
+    if (!setSignalHandler()) {
+        qWarning("[signal] failed to set up sigint's handler");
+    }
 
     // start qt eventloop
     ret = app.exec();

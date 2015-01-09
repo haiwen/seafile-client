@@ -29,7 +29,7 @@ OPTION(BUILD_DOCS "Build Documents" OFF)
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 IF (WIN32)
-    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi event rpcrt4 uuid)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)

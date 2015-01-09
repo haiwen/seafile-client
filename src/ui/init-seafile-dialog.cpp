@@ -6,7 +6,7 @@
 #include "init-seafile-dialog.h"
 
 #if defined(Q_WS_WIN)
-#include <ShlObj.h>
+#include <shlobj.h>
 #include <shlwapi.h>
 #endif
 

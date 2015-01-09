@@ -81,3 +81,12 @@ test_*
 ## doxygen related
 docs
 Doxyfile
+
+## breakpad related
+third_party/gyp
+third_party/breakpad
+
+/GPATH
+/GTAGS
+/GRTAGS
+/gtags.files

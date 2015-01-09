@@ -10,6 +10,7 @@
 #include <glib-object.h>
 #include <cstdio>
 
+#include "crash-handler.h"
 #include "utils/utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
@@ -51,6 +52,13 @@ int main(int argc, char *argv[])
 #endif
 
     QDir::setCurrent(QApplication::applicationDirPath());
+
+#ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
+    // if we have built with breakpad, load it in run time
+    Breakpad::CrashHandler::instance()->Init(
+        QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
+#endif
+
     app.setStyle(new SeafileProxyStyle());
 
     // initialize i18n
@@ -140,10 +148,13 @@ int main(int argc, char *argv[])
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();
 
-    seafApplet = new SeafileApplet;
-    seafApplet->start();
+    {
+        SeafileApplet mApplet;
+        seafApplet = &mApplet;
+        seafApplet->start();
+        ret = app.exec();
+        //destroy SeafileApplet instance after QEventLoop returns
+    }
 
-    ret = app.exec();
-    seafApplet->exit(ret);
     return ret;
 }

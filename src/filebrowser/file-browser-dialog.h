@@ -3,8 +3,8 @@
 
 #include <QStack>
 #include <QDialog>
-// #include "ui_file-browser-dialog.h"
 
+#include "account.h"
 #include "api/server-repo.h"
 
 class QToolBar;
@@ -25,6 +25,7 @@ class GetDirentsRequest;
 class FileBrowserCache;
 class DataManager;
 class FileNetworkTask;
+class FileBrowserManager;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -39,8 +40,9 @@ class FileBrowserDialog : public QDialog
                           // public Ui::FileBrowserDialog
 {
     Q_OBJECT
+    friend class FileBrowserManager;
 public:
-    FileBrowserDialog(const ServerRepo& repo,
+    FileBrowserDialog(const Account &account, const ServerRepo& repo,
                       QWidget *parent=0);
     ~FileBrowserDialog();
 
@@ -58,6 +60,7 @@ private slots:
     void goBackward();
     void goHome();
     void chooseFileToUpload();
+    void chooseDirectoryToUpload();
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
     void openCacheFolder();
@@ -67,6 +70,7 @@ private slots:
 
     // prompt a dialog for user to choose whether upload or update
     void uploadOrUpdateFile(const QString& path);
+    void uploadOrUpdateMutipleFile(const QStringList& paths);
 
     void onNavigatorClick(int id);
 
@@ -75,6 +79,7 @@ private slots:
     void onGetDirentRemove(const QList<const SeafDirent*> &dirents);
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
+    void onGetDirentsPaste();
     void onCancelDownload(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
@@ -85,10 +90,19 @@ private slots:
     void onDirentRemoveFailed(const ApiError& error);
     void onDirentShareSuccess(const QString& link);
     void onDirentShareFailed(const ApiError& error);
+
+    void onDirentsCopySuccess();
+    void onDirentsCopyFailed(const ApiError& error);
+    void onDirentsMoveSuccess();
+    void onDirentsMoveFailed(const ApiError& error);
+
     void onFileAutoUpdated(const QString& repo_id, const QString& path);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
+
+    bool hasFilesToBePasted();
+    void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 
     void createToolBar();
     void createStatusBar();
@@ -100,7 +114,8 @@ private:
     void createDirectory(const QString &name);
     void downloadFile(const QString& path);
     void uploadFile(const QString& path, const QString& name,
-                    const bool overwrite = false);
+                    bool overwrite = false);
+    void uploadMultipleFile(const QStringList& paths, bool overwrite = false);
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);
@@ -109,12 +124,18 @@ private:
 
     bool setPasswordAndRetry(FileNetworkTask *task);
 
-    ServerRepo repo_;
+    const Account account_;
+    const ServerRepo repo_;
     // current path
     QString current_path_;
     QStringList current_lpath_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
+    static QStringList file_names_to_be_pasted_;
+    static QString dir_path_to_be_pasted_from_;
+    static QString repo_id_to_be_pasted_from_;
+    static Account account_to_be_pasted_from_;
+    static bool is_copyed_when_pasted_;
 
     QToolBar *toolbar_;
     QAction *backward_action_;
@@ -128,6 +149,7 @@ private:
     QToolButton *upload_button_;
     QMenu *upload_menu_;
     QAction *upload_file_action_;
+    QAction *upload_directory_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
     QAction *open_cache_dir_action_;

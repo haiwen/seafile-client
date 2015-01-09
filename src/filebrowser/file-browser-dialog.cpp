@@ -19,6 +19,7 @@
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 
+#include "file-browser-manager.h"
 #include "file-browser-dialog.h"
 
 namespace {
@@ -57,16 +58,22 @@ bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) 
 
 } // namespace
 
-FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
+QStringList FileBrowserDialog::file_names_to_be_pasted_;
+QString FileBrowserDialog::dir_path_to_be_pasted_from_;
+QString FileBrowserDialog::repo_id_to_be_pasted_from_;
+Account FileBrowserDialog::account_to_be_pasted_from_;
+bool FileBrowserDialog::is_copyed_when_pasted_;
+
+FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& repo, QWidget *parent)
     : QDialog(parent),
+      account_(account),
       repo_(repo)
 {
     current_path_ = "/";
     // since root is special, the next step is unnecessary
     // current_lpath_.push_back("");
 
-    const Account& account = seafApplet->accountManager()->currentAccount();
-    data_mgr_ = new DataManager(account);
+    data_mgr_ = new DataManager(account_);
 
     setWindowTitle(tr("Cloud File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -105,6 +112,8 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
             this, SLOT(onGetDirentShare(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
             this, SLOT(onGetDirentUpdate(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntPaste()),
+            this, SLOT(onGetDirentsPaste()));
     connect(table_view_, SIGNAL(cancelDownload(const SeafDirent&)),
             this, SLOT(onCancelDownload(const SeafDirent&)));
 
@@ -138,6 +147,18 @@ FileBrowserDialog::FileBrowserDialog(const ServerRepo& repo, QWidget *parent)
     connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
             this, SLOT(onDirentShareFailed(const ApiError&)));
 
+    //copy <--> data_mgr_
+    connect(data_mgr_, SIGNAL(copyDirentsSuccess()),
+            this, SLOT(onDirentsCopySuccess()));
+    connect(data_mgr_, SIGNAL(copyDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsCopyFailed(const ApiError&)));
+
+    //move <--> data_mgr_
+    connect(data_mgr_, SIGNAL(moveDirentsSuccess()),
+            this, SLOT(onDirentsMoveSuccess()));
+    connect(data_mgr_, SIGNAL(moveDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsMoveFailed(const ApiError&)));
+
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
 
@@ -162,12 +183,14 @@ void FileBrowserDialog::createToolBar()
     backward_action_ = new QAction(tr("Back"), this);
     backward_action_->setIcon(getIconSet(":/images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
     backward_action_->setEnabled(false);
+    backward_action_->setShortcut(QKeySequence::Back);
     toolbar_->addAction(backward_action_);
     connect(backward_action_, SIGNAL(triggered()), this, SLOT(goBackward()));
 
     forward_action_ = new QAction(tr("Forward"), this);
     forward_action_->setIcon(getIconSet(":/images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
     forward_action_->setEnabled(false);
+    forward_action_->setShortcut(QKeySequence::Forward);
     connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
     toolbar_->addAction(forward_action_);
 
@@ -205,11 +228,20 @@ void FileBrowserDialog::createStatusBar()
     upload_menu_ = new QMenu(status_bar_);
 
     // Submenu's Action 1: Upload File
-    upload_file_action_ = new QAction(tr("Upload a file"), upload_menu_);
+    upload_file_action_ = new QAction(tr("Upload files"), upload_menu_);
     connect(upload_file_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     upload_menu_->addAction(upload_file_action_);
 
-    // Submenu's Action 2: Make a new directory
+    // Submenu's Action 2: Upload File (only pro version's server supports it)
+    if (seafApplet->isPro()) {
+        upload_directory_action_ = new QAction(tr("Upload a directory"), upload_menu_);
+        connect(upload_directory_action_, SIGNAL(triggered()), this, SLOT(chooseDirectoryToUpload()));
+        upload_menu_->addAction(upload_directory_action_);
+    } else {
+        upload_directory_action_ = NULL;
+    }
+
+    // Submenu's Action 3: Make a new directory
     mkdir_action_ = new QAction(tr("Create a folder"), upload_menu_);
     connect(mkdir_action_, SIGNAL(triggered()), this, SLOT(onMkdirButtonClicked()));
     upload_menu_->addAction(mkdir_action_);
@@ -236,6 +268,7 @@ void FileBrowserDialog::createStatusBar()
     refresh_action_->setIcon(
         getIconSet(":/images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
+    refresh_action_->setShortcut(QKeySequence::Refresh);
     status_bar_->addAction(refresh_action_);
 
     open_cache_dir_action_ = new QAction(this);
@@ -256,8 +289,8 @@ void FileBrowserDialog::createFileTable()
     table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
 
-    connect(table_view_, SIGNAL(dropFile(const QString&)),
-            this, SLOT(uploadOrUpdateFile(const QString&)));
+    connect(table_view_, SIGNAL(dropFile(const QStringList&)),
+            this, SLOT(uploadOrUpdateMutipleFile(const QStringList&)));
 }
 
 void FileBrowserDialog::forceRefresh()
@@ -424,7 +457,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(cached_file);
         return;
     } else {
-        if (TransferManager::instance()->hasDownloadTask(repo_.id, fpath)) {
+        if (TransferManager::instance()->getDownloadTask(repo_.id, fpath)) {
             return;
         }
         AutoUpdateManager::instance()->removeWatch(
@@ -445,7 +478,7 @@ void FileBrowserDialog::downloadFile(const QString& path)
 }
 
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
-                                   const bool overwrite)
+                                   bool overwrite)
 {
     if (QFileInfo(path).isDir() && !seafApplet->isPro()) {
         seafApplet->warningBox(tr("Feature not supported"), this);
@@ -454,8 +487,39 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
 
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
+    task->start();
+
+    // set dialog attributes
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->setWindowModality(Qt::WindowModal);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
+void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
+                                           bool overwrite)
+{
+    if (names.empty())
+        return;
+    const QString path = QFileInfo(names.front()).path();
+    QStringList fnames;
+    Q_FOREACH(const QString &name, names) {
+        const QFileInfo file = name;
+        // only files are allowed
+        if (!file.isDir() && file.path() == path
+            /* && !seafApplet->isPro()*/) {
+            fnames.push_back(file.fileName());
+        }
+    }
+
+    FileUploadTask *task =
+      data_mgr_->createUploadMultipleTask(repo_.id, current_path_, path, fnames,
+                                          overwrite);
+    connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
 
     // set dialog attributes
@@ -499,6 +563,14 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
     uploadFile(path, name);
 }
 
+void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)
+{
+    if (paths.size() == 1)
+        uploadOrUpdateFile(paths.front());
+    else
+        uploadMultipleFile(paths);
+}
+
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
     FileNetworkTask *task = qobject_cast<FileNetworkTask *>(sender());
@@ -525,33 +597,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
         return;
-    if (success) {
-        const QFileInfo file = task->localFilePath();
 
-        if (file.isDir()) {
-            const SeafDirent dir = {
-              SeafDirent::DIR,
-              "",
-              task->name(),
-              0,
-              QDateTime::currentDateTime().toTime_t()
-            };
-            // TODO: insert the Item prior to the item where uploading occurs
-            table_model_->insertItem(dir);
-            return;
-        }
-        const SeafDirent dirent = {
-          SeafDirent::FILE,
-          task->oid(),
-          task->name(),
-          file.size(),
-          QDateTime::currentDateTime().toTime_t()
-        };
-        if (task->useUpload())
-            table_model_->appendItem(dirent);
-        else
-            table_model_->replaceItem(task->name(), dirent);
-    } else {
+    if (!success) {
         if (repo_.encrypted &&
             setPasswordAndRetry(task)) {
             return;
@@ -562,6 +609,58 @@ void FileBrowserDialog::onUploadFinished(bool success)
 
         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
         seafApplet->warningBox(msg, this);
+        return;
+    }
+
+    QString local_path = task->localFilePath();
+    QStringList names;
+
+    FileUploadMultipleTask *multi_task = qobject_cast<FileUploadMultipleTask *>(sender());
+
+    if (multi_task == NULL) {
+      names.push_back(task->name());
+      local_path = QFileInfo(local_path).absolutePath();
+    } else {
+      names = multi_task->names();
+      local_path = QFileInfo(local_path).absoluteFilePath();
+    }
+
+    // require a forceRefresh if conflicting filename found
+    Q_FOREACH(const QString &name, names)
+    {
+        if (findConflict(name, table_model_->dirents())) {
+            forceRefresh();
+            return;
+        }
+    }
+
+    // add the items to tableview
+    Q_FOREACH(const QString &name, names) {
+        const QFileInfo file = QDir(local_path).filePath(name);
+
+        if (file.isDir()) {
+            const SeafDirent dir = {
+              SeafDirent::DIR,
+              "",
+              name,
+              0,
+              QDateTime::currentDateTime().toTime_t()
+            };
+            // TODO: insert the Item prior to the item where uploading occurs
+            table_model_->insertItem(0, dir);
+            return;
+        }
+        const SeafDirent dirent = {
+          SeafDirent::FILE,
+          "",
+          name,
+          file.size(),
+          QDateTime::currentDateTime().toTime_t()
+        };
+        if (task->useUpload())
+            table_model_->appendItem(dirent);
+        else
+            table_model_->replaceItem(name, dirent);
     }
 }
 
@@ -627,10 +726,14 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 
 void FileBrowserDialog::chooseFileToUpload()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Select a file to upload"));
-    if (!path.isEmpty()) {
-        uploadOrUpdateFile(path);
-    }
+    QStringList paths = QFileDialog::getOpenFileNames(this, tr("Select a file to upload"));
+    uploadOrUpdateMutipleFile(paths);
+}
+
+void FileBrowserDialog::chooseDirectoryToUpload()
+{
+    QString path = QFileDialog::getExistingDirectory(this, tr("Select a directory to upload"));
+    uploadOrUpdateFile(path);
 }
 
 void FileBrowserDialog::openCacheFolder()
@@ -716,7 +819,8 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     const SeafDirent dirent = { SeafDirent::DIR, "", name, 0,
         QDateTime::currentDateTime().toTime_t()
     };
-    table_model_->insertItem(dirent);
+    // TODO insert to the pos where the drop event triggered
+    table_model_->insertItem(0, dirent);
 }
 
 void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)
@@ -754,7 +858,6 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
-    table_view_->unselectItemNamed(name);
     table_model_->removeItemNamed(name);
 }
 
@@ -784,4 +887,60 @@ void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
 {
     TransferManager::instance()->cancelDownload(repo_.id,
         ::pathJoin(current_path_, dirent.name));
+}
+
+bool FileBrowserDialog::hasFilesToBePasted() {
+    return !file_names_to_be_pasted_.empty();
+}
+
+void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file_names)
+{
+    is_copyed_when_pasted_ = is_copy;
+    dir_path_to_be_pasted_from_ = current_path_;
+    file_names_to_be_pasted_ = file_names;
+    repo_id_to_be_pasted_from_ = repo_.id;
+    account_to_be_pasted_from_ = account_;
+}
+
+void FileBrowserDialog::onGetDirentsPaste()
+{
+    if (repo_id_to_be_pasted_from_ == repo_.id &&
+        current_path_ == dir_path_to_be_pasted_from_) {
+        seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
+        return;
+    }
+    if (is_copyed_when_pasted_)
+        data_mgr_->copyDirents(repo_id_to_be_pasted_from_,
+                               dir_path_to_be_pasted_from_,
+                               file_names_to_be_pasted_,
+                               repo_.id,
+                               current_path_);
+    else
+        data_mgr_->moveDirents(repo_id_to_be_pasted_from_,
+                               dir_path_to_be_pasted_from_,
+                               file_names_to_be_pasted_,
+                               repo_.id,
+                               current_path_);
+}
+
+void FileBrowserDialog::onDirentsCopySuccess()
+{
+    forceRefresh();
+}
+void FileBrowserDialog::onDirentsCopyFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Copy failed"), this);
+}
+void FileBrowserDialog::onDirentsMoveSuccess()
+{
+    file_names_to_be_pasted_.clear();
+    FileBrowserDialog *dialog =
+        FileBrowserManager::getInstance()->getDialog(account_to_be_pasted_from_, repo_id_to_be_pasted_from_);
+    if (dialog != NULL && dialog->current_path_ == dir_path_to_be_pasted_from_)
+        dialog->forceRefresh();
+    forceRefresh();
+}
+void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Move failed"), this);
 }

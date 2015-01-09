@@ -11,7 +11,7 @@
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
-          task_(task)
+          task_(task->sharedFromThis())
 {
     setWindowModality(Qt::WindowModal);
 

@@ -47,14 +47,15 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     g_free (name);
     g_free (desc);
     g_free (worktree);
+    g_free (relay_id);
 
     return repo;
 }
 
-void LocalRepo::setSyncInfo(QString state, QString error)
+void LocalRepo::setSyncInfo(const QString &state, const QString &error)
 {
-    // qDebug("error: %s\n", toCStr(error));
-    // qDebug("state: %s\n", toCStr(state));
+    // qWarning("error: %s\n", toCStr(error));
+    // qWarning("state: %s\n", toCStr(state));
     if (error.length() > 0) {
         translateSyncError(error);
     } else {
@@ -62,7 +63,7 @@ void LocalRepo::setSyncInfo(QString state, QString error)
     }
 }
 
-void LocalRepo::translateSyncState(QString status)
+void LocalRepo::translateSyncState(const QString &status)
 {
     if (status == "synchronized") {
         sync_state_str = QObject::tr("synchronized");
@@ -105,7 +106,7 @@ void LocalRepo::translateSyncState(QString status)
         sync_state = SYNC_STATE_DISABLED;
 
     } else {
-        qDebug("unknown sync status: %s\n", toCStr(status));
+        qWarning("unknown sync status: %s\n", toCStr(status));
         sync_state_str = QObject::tr("unknown");
         sync_state = SYNC_STATE_UNKNOWN;
     }
@@ -116,7 +117,7 @@ void LocalRepo::translateSyncState(QString status)
     }
 }
 
-void LocalRepo::translateSyncError(QString error)
+void LocalRepo::translateSyncError(const QString &error)
 {
     sync_state = SYNC_STATE_ERROR;
 

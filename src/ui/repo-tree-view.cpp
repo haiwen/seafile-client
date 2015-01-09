@@ -18,9 +18,10 @@
 #include "repo-tree-model.h"
 #include "repo-detail-dialog.h"
 #include "utils/paint-utils.h"
-#include "filebrowser/file-browser-dialog.h"
 #include "repo-service.h"
 
+#include "filebrowser/file-browser-manager.h"
+#include "filebrowser/file-browser-dialog.h"
 #include "utils/utils-mac.h"
 #include "filebrowser/tasks.h"
 #include "filebrowser/progress-dialog.h"
@@ -487,20 +488,9 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
             QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
         } else {
             // open seahub repo page for not downloaded repo
-            // if (seafApplet->isPro()) {
-            FileBrowserDialog* dialog = new FileBrowserDialog(it->repo(), this);
-            const QRect screen = QApplication::desktop()->screenGeometry();
-            dialog->setAttribute(Qt::WA_DeleteOnClose, true);
-            dialog->show();
-            dialog->move(screen.center() - dialog->rect().center());
-            dialog->raise();
-            // } else {
-            //     const Account& account = seafApplet->accountManager()->accounts()[0];
-            //     if (account.isValid()) {
-            //         QUrl url = account.getAbsoluteUrl("repo/" + it->repo().id);
-            //         QDesktopServices::openUrl(url);
-            //     }
-            // }
+            FileBrowserManager::getInstance()->openOrActivateDialog(
+                seafApplet->accountManager()->currentAccount(),
+                it->repo());
         }
     }
 }
@@ -738,7 +728,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     QString local_path = url.toLocalFile();
 #ifdef Q_WS_MAC
     if (local_path.startsWith("/.file/id="))
-        local_path = __mac_get_path_from_fileId_url("file://" + local_path);
+        local_path = utils::mac::get_path_from_fileId_url("file://" + local_path);
 #endif
     const QString file_name = QFileInfo(local_path).fileName();
 
@@ -794,7 +784,7 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
             QString file_name = url.toLocalFile();
 #ifdef Q_WS_MAC
             if (file_name.startsWith("/.file/id="))
-                file_name = __mac_get_path_from_fileId_url("file://" + file_name);
+                file_name = utils::mac::get_path_from_fileId_url("file://" + file_name);
 #endif
 
             if (QFileInfo(file_name).isFile()) {
@@ -807,10 +797,9 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
 
 void RepoTreeView::uploadFileStart(FileUploadTask *task)
 {
-    // take over the resource of the task
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(uploadFileFinished(bool)));
+    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
 
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();

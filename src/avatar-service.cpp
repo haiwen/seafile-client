@@ -110,7 +110,8 @@ AvatarService* AvatarService::singleton_;
 AvatarService* AvatarService::instance()
 {
     if (singleton_ == NULL) {
-        singleton_ = new AvatarService;
+        static AvatarService instance;
+        singleton_ = &instance;
     }
 
     return singleton_;
@@ -137,7 +138,7 @@ void AvatarService::start()
     QDir seafile_dir(seafApplet->configurator()->seafileDir());
 
     if (!seafile_dir.mkpath(kAvatarsDirName)) {
-        qDebug("Failed to create avatars folder");
+        qWarning("Failed to create avatars folder");
         QString err_msg = tr("Failed to create avatars folder");
         seafApplet->errorAndExit(err_msg);
     }

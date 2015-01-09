@@ -8,6 +8,7 @@ extern "C" {
 #include <QDesktopServices>
 #include <QSet>
 #include <QDebug>
+#include <QMenuBar>
 
 #include "utils/utils.h"
 #include "seafile-applet.h"
@@ -22,6 +23,10 @@ extern "C" {
 #include "tray-icon.h"
 #if defined(Q_WS_MAC)
 #include "traynotificationmanager.h"
+// QT's platform apis
+// http://qt-project.org/doc/qt-4.8/exportedfunctions.html
+extern void qt_mac_set_native_menubar(bool enable);
+extern void qt_mac_set_dock_menu(QMenu *menu);
 #endif
 
 #ifdef Q_WS_X11
@@ -73,6 +78,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIcon()));
+    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIconToolTip()));
 
     createActions();
     createContextMenu();
@@ -85,6 +91,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     hide();
 
+    createGlobalMenuBar();
 #if defined(Q_WS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif
@@ -169,6 +176,32 @@ void SeafileTrayIcon::prepareContextMenu()
     }
 
     view_unread_seahub_notifications_action_->setVisible(state_ == STATE_HAVE_UNREAD_MESSAGE);
+}
+
+void SeafileTrayIcon::createGlobalMenuBar()
+{
+    // support it only on mac os x currently
+    // TODO: destroy the objects when seafile closes
+#ifdef Q_WS_MAC
+    // create qmenu used in menubar and docker menu
+    global_menu_ = new QMenu(tr("File"));
+    global_menu_->addAction(view_unread_seahub_notifications_action_);
+    global_menu_->addAction(toggle_main_window_action_);
+    global_menu_->addAction(settings_action_);
+    global_menu_->addAction(open_log_directory_action_);
+    global_menu_->addSeparator();
+    global_menu_->addAction(enable_auto_sync_action_);
+    global_menu_->addAction(disable_auto_sync_action_);
+    connect(global_menu_, SIGNAL(aboutToShow()), this, SLOT(prepareContextMenu()));
+
+    global_menubar_ = new QMenuBar(0);
+    global_menubar_->setNativeMenuBar(true);
+    global_menubar_->addMenu(global_menu_);
+    global_menubar_->addMenu(help_menu_);
+    qt_mac_set_native_menubar(true);
+    qt_mac_set_dock_menu(global_menu_);
+    // create QMenuBar that has no parent, so we can share the global menubar
+#endif // Q_WS_MAC
 }
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
@@ -424,6 +457,38 @@ void SeafileTrayIcon::refreshTrayIcon()
     }
 
     setState(STATE_DAEMON_UP);
+}
+
+void SeafileTrayIcon::refreshTrayIconToolTip()
+{
+    if (!seafApplet->settingsManager()->autoSync())
+        return;
+
+    int up_rate, down_rate;
+    if (seafApplet->rpcClient()->getUploadRate(&up_rate) < 0 ||
+        seafApplet->rpcClient()->getDownloadRate(&down_rate) < 0) {
+        return;
+    }
+
+    if (up_rate <= 0 && down_rate <= 0) {
+        return;
+    }
+
+    QString uploadStr = tr("Uploading");
+    QString downloadStr =  tr("Downloading");
+    if (up_rate > 0 && down_rate > 0) {
+        setToolTip(QString("%1 %2/s, %3 %4/s\n").
+                   arg(uploadStr).arg(readableFileSize(up_rate)).
+                   arg(downloadStr).arg(readableFileSize(down_rate)));
+    } else if (up_rate > 0) {
+        setToolTip(QString("%1 %2/s\n").
+                   arg(uploadStr).arg(readableFileSize(up_rate)));
+    } else /* down_rate > 0*/ {
+        setToolTip(QString("%1 %2/s\n").
+                   arg(downloadStr).arg(readableFileSize(down_rate)));
+    }
+
+    rotate(true);
 }
 
 void SeafileTrayIcon::onSeahubNotificationsChanged()

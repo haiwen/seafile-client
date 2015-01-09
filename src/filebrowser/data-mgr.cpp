@@ -127,6 +127,44 @@ void DataManager::shareDirent(const QString &repo_id,
     req->send();
 }
 
+void DataManager::copyDirents(const QString &repo_id,
+                              const QString &dir_path,
+                              const QStringList &file_names,
+                              const QString &dst_repo_id,
+                              const QString &dst_dir_path)
+{
+    CopyMultipleFilesRequest *req =
+      new CopyMultipleFilesRequest(account_, repo_id, dir_path, file_names,
+                                   dst_repo_id,
+                                   dst_dir_path);
+    connect(req, SIGNAL(success()),
+            SLOT(onCopyDirentsSuccess()));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(copyDirentsFailed(const ApiError&)));
+    reqs_.push_back(req);
+    req->send();
+}
+
+void DataManager::moveDirents(const QString &repo_id,
+                              const QString &dir_path,
+                              const QStringList &file_names,
+                              const QString &dst_repo_id,
+                              const QString &dst_dir_path)
+{
+    MoveMultipleFilesRequest *req =
+      new MoveMultipleFilesRequest(account_, repo_id, dir_path, file_names,
+                                   dst_repo_id,
+                                   dst_dir_path);
+    connect(req, SIGNAL(success()),
+            SLOT(onMoveDirentsSuccess()));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(moveDirentsFailed(const ApiError&)));
+    reqs_.push_back(req);
+    req->send();
+}
+
 void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
 {
     dirents_cache_->saveCachedDirents(get_dirents_req_->repoId(),
@@ -169,6 +207,19 @@ void DataManager::onRemoveDirentSuccess()
     emit removeDirentSuccess(req->path());
 }
 
+void DataManager::onCopyDirentsSuccess()
+{
+    emit copyDirentsSuccess();
+}
+
+void DataManager::onMoveDirentsSuccess()
+{
+    MoveMultipleFilesRequest *req = qobject_cast<MoveMultipleFilesRequest*>(sender());
+    dirents_cache_->expireCachedDirents(req->srcRepoId(), req->srcPath());
+
+    emit moveDirentsSuccess();
+}
+
 void DataManager::removeDirentsCache(const QString& repo_id,
                                      const QString& path,
                                      bool is_file)
@@ -198,7 +249,7 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
                                                   const QString& path)
 {
     QString local_path = getLocalCacheFilePath(repo_id, path);
-    FileDownloadTask *task = TransferManager::instance()->addDownloadTask(
+    FileDownloadTask* task = TransferManager::instance()->addDownloadTask(
         account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
@@ -234,6 +285,21 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
     else
         task = new FileUploadDirectoryTask(account_, repo_id, parent_dir,
                                            local_path, name);
+
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onFileUploadFinished(bool)));
+
+    return task;
+}
+
+FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
+                                                      const QString& parent_dir,
+                                                      const QString& local_path,
+                                                      const QStringList& names,
+                                                      const bool overwrite)
+{
+    FileUploadTask *task = new FileUploadMultipleTask(account_, repo_id, parent_dir,
+                                                      local_path, names, !overwrite);
 
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileUploadFinished(bool)));

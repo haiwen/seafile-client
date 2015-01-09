@@ -84,7 +84,7 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("failed to parse json:%s\n", error.text);
+        qWarning("failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -93,12 +93,12 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
 
     const char *token = json_string_value(json_object_get(json.data(), "token"));
     if (token == NULL) {
-        qDebug("failed to parse json:%s\n", error.text);
+        qWarning("failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
 
-    qDebug("login successful, token is %s\n", token);
+    qWarning("login successful, token is %s\n", token);
 
     emit success(token);
 }
@@ -118,7 +118,7 @@ void ListReposRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("ListReposRequest:failed to parse json:%s\n", error.text);
+        qWarning("ListReposRequest:failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -177,7 +177,7 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("failed to parse json:%s\n", error.text);
+        qWarning("failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -200,7 +200,7 @@ CreateRepoRequest::CreateRepoRequest(const Account& account, QString &name, QStr
     this->setFormParam(QString("name"), name);
     this->setFormParam(QString("desc"), desc);
     if (!passwd.isNull()) {
-        qDebug("Encrypted repo");
+        qWarning("Encrypted repo");
         this->setFormParam(QString("passwd"), passwd);
     }
 }
@@ -210,7 +210,7 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("failed to parse json:%s\n", error.text);
+        qWarning("failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -236,7 +236,7 @@ void GetUnseenSeahubNotificationsRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetUnseenSeahubNotificationsRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetUnseenSeahubNotificationsRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -265,7 +265,7 @@ void GetDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
+        qWarning("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -307,7 +307,7 @@ void CreateDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
+        qWarning("CreateDefaultRepoRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -337,7 +337,7 @@ void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetLatestVersionRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetLatestVersionRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -348,7 +348,7 @@ void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
 
     if (dict.contains(kOsName)) {
         QString version = dict.value(kOsName).toString();
-        qDebug("The latest version is %s", toCStr(version));
+        qWarning("The latest version is %s", toCStr(version));
         emit success(version);
         return;
     }
@@ -367,7 +367,7 @@ void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetStarredFilesRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetStarredFilesRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -392,7 +392,7 @@ void GetEventsRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetEventsRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetEventsRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -427,7 +427,7 @@ void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetCommitDetailsRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetCommitDetailsRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -466,7 +466,7 @@ void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetAvatarRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetAvatarRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -476,7 +476,7 @@ void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
     const char *avatar_url = json_string_value(json_object_get(json.data(), "url"));
 
     if (!avatar_url) {
-        qDebug("GetAvatarRequest: no 'url' value in response\n");
+        qWarning("GetAvatarRequest: no 'url' value in response\n");
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -503,7 +503,7 @@ void FetchImageRequest::requestSuccess(QNetworkReply& reply)
     img.loadFromData(reply.readAll());
 
     if (img.isNull()) {
-        qDebug("FetchImageRequest: invalid image data\n");
+        qWarning("FetchImageRequest: invalid image data\n");
         emit failed(ApiError::fromHttpError(400));
     } else {
         emit success(img);

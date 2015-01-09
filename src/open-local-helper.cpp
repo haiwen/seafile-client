@@ -58,7 +58,7 @@ LocalFileInfo LocalFileInfo::fromEncoded(const QString& url)
 
     json_t *root = json_loads(bytes.data(), 0, &error);
     if (!root) {
-        qDebug("invalid open local url %s\n", toCStr(url));
+        qWarning("invalid open local url %s\n", toCStr(url));
         return LocalFileInfo();
     }
 
@@ -72,7 +72,7 @@ LocalFileInfo LocalFileInfo::fromEncoded(const QString& url)
     path = dict["path"].toString();
 
     if (repo_id.length() != 36 || repo_name.isEmpty()) {
-        qDebug("invalid repo_id %s\n", toCStr(repo_id));
+        qWarning("invalid repo_id %s\n", toCStr(repo_id));
         return LocalFileInfo();
     }
 
@@ -93,7 +93,8 @@ OpenLocalHelper*
 OpenLocalHelper::instance()
 {
     if (singleton_ == NULL) {
-        singleton_ = new OpenLocalHelper;
+        static OpenLocalHelper instance;
+        singleton_ = &instance;
     }
 
     return singleton_;
@@ -153,7 +154,7 @@ void OpenLocalHelper::openLocalFile(const char *url_in)
         return;
     }
 
-    qDebug("[OpenLocalHelper] open local file: repo %s, path %s\n",
+    qWarning("[OpenLocalHelper] open local file: repo %s, path %s\n",
            info.repo_id.toUtf8().data(), info.path.toUtf8().data());
 
     LocalRepo repo;
@@ -163,7 +164,7 @@ void OpenLocalHelper::openLocalFile(const char *url_in)
     } else {
         QString full_path = QDir(repo.worktree).filePath(info.path);
         if (!QFile(full_path).exists()) {
-            qDebug("[OpenLocalHelper] file %s in library %s does not exist, open library folder instead\n",
+            qWarning("[OpenLocalHelper] file %s in library %s does not exist, open library folder instead\n",
                    info.path.toUtf8().data(), repo.id.toUtf8().data());
             full_path = repo.worktree;
         }

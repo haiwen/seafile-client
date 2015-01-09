@@ -54,11 +54,23 @@ public:
                      const QString &path,
                      bool is_file);
 
+    void copyDirents(const QString &repo_id,
+                     const QString &dir_path,
+                     const QStringList &file_names,
+                     const QString &dst_repo_id,
+                     const QString &dst_dir_path);
+
+    void moveDirents(const QString &repo_id,
+                     const QString &dir_path,
+                     const QStringList &file_names,
+                     const QString &dst_repo_id,
+                     const QString &dst_dir_path);
+
     QString getLocalCachedFile(const QString& repo_id,
                                const QString& path,
                                const QString& file_id);
 
-    FileDownloadTask *createDownloadTask(const QString& repo_id,
+    FileDownloadTask* createDownloadTask(const QString& repo_id,
                                          const QString& path);
 
     FileUploadTask* createUploadTask(const QString& repo_id,
@@ -66,6 +78,12 @@ public:
                                      const QString& local_path,
                                      const QString& name,
                                      const bool overwrite);
+
+    FileUploadTask* createUploadMultipleTask(const QString& repo_id,
+                                             const QString& parent_dir,
+                                             const QString& local_path,
+                                             const QStringList& names,
+                                             const bool overwrite);
 
     bool isRepoPasswordSet(const QString& repo_id) const;
     void setRepoPasswordSet(const QString& repo_id);
@@ -91,6 +109,12 @@ signals:
     void shareDirentSuccess(const QString& link);
     void shareDirentFailed(const ApiError& error);
 
+    void copyDirentsSuccess();
+    void copyDirentsFailed(const ApiError& error);
+
+    void moveDirentsSuccess();
+    void moveDirentsFailed(const ApiError& error);
+
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
     void onFileUploadFinished(bool success);
@@ -99,6 +123,8 @@ private slots:
     void onCreateDirectorySuccess();
     void onRenameDirentSuccess();
     void onRemoveDirentSuccess();
+    void onCopyDirentsSuccess();
+    void onMoveDirentsSuccess();
 
 private:
     void removeDirentsCache(const QString& repo_id,

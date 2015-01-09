@@ -605,6 +605,25 @@ QString iconNameFromFileName(const QString& fileName)
     return "";
 }
 
+QString splitPath(const QString& path, int *pos)
+{
+    if (path.isEmpty()) {
+        return "";
+    }
+
+    QString p = QDir::fromNativeSeparators(path);
+    while (p.endsWith('/') && p.size() > 1) {
+        p = p.left(p.size() - 1);
+    }
+    if (p.size() == 1) {
+        return p;
+    }
+
+    *pos = p.lastIndexOf("/");
+    return p;
+}
+
+
 } // namespace
 
 QString mimeTypeFromFileName(const QString& fileName)
@@ -690,28 +709,29 @@ bool createDirIfNotExists(const QString& path)
 
 QString getParentPath(const QString& path)
 {
-    if (path.isEmpty()) {
-        return "";
+    int pos;
+    QString p = splitPath(path, &pos);
+    if (p.size() <= 1) {
+        return p;
     }
 
-    QString p = QDir::fromNativeSeparators(path);
-    int pos = path.lastIndexOf("/", path.endsWith("/") ? -2 : -1);
-    if (pos == -1) {
+    if (pos == -1)
         return "";
-    }
-    return p.left(pos + 1);
+    if (pos == 0)
+        return "/";
+    return p.left(pos);
 }
 
 QString getBaseName(const QString& path)
 {
-    if (path.isEmpty()) {
-        return "";
+    int pos;
+    QString p = splitPath(path, &pos);
+    if (p.size() <= 1) {
+        return p;
     }
 
-    QString p = QDir::fromNativeSeparators(path);
-    int pos = path.lastIndexOf("/", path.endsWith("/") ? -2 : -1);
     if (pos == -1) {
-        return path;
+        return p;
     }
     return p.mid(pos + 1);
 }

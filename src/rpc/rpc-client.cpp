@@ -51,7 +51,7 @@ void SeafileRpcClient::connectDaemon()
     seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
     ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
 
-    qDebug("[Rpc Client] connected to daemon");
+    qWarning("[Rpc Client] connected to daemon");
 }
 
 int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
@@ -60,6 +60,7 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
     GList *repos = seafile_get_repo_list(seafile_rpc_client_, 0, 0, &error);
     if (error != NULL) {
         qWarning("failed to get repo list: %s\n", error->message);
+        g_error_free(error);
         return -1;
     }
 
@@ -76,19 +77,23 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
 int SeafileRpcClient::setAutoSync(bool autoSync)
 {
     GError *error = NULL;
+    int ret;
     if (autoSync) {
-        int ret = searpc_client_call__int (seafile_rpc_client_,
-                                           "seafile_enable_auto_sync",
-                                           &error, 0);
-        return ret;
+        ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_enable_auto_sync",
+                                       &error, 0);
     } else {
-        int ret = searpc_client_call__int (seafile_rpc_client_,
-                                           "seafile_disable_auto_sync",
-                                           &error, 0);
-        return ret;
+        ret = searpc_client_call__int (seafile_rpc_client_,
+                                       "seafile_disable_auto_sync",
+                                       &error, 0);
     }
 
-    return 0;
+    if (error) {
+        qWarning("failed to set auto_sync: %s\n", error->message);
+        g_error_free(error);
+    }
+
+    return ret;
 }
 
 int SeafileRpcClient::downloadRepo(const QString& id,
@@ -125,6 +130,7 @@ int SeafileRpcClient::downloadRepo(const QString& id,
         if (error_ret) {
             *error_ret = error->message;
         }
+        g_error_free(error);
         return -1;
     }
 
@@ -164,8 +170,10 @@ int SeafileRpcClient::cloneRepo(const QString& id,
 
     if (error != NULL) {
         if (error_ret) {
+            // copy string
             *error_ret = error->message;
         }
+        g_error_free(error);
         return -1;
     }
 
@@ -184,6 +192,7 @@ int SeafileRpcClient::getLocalRepo(const QString& repo_id, LocalRepo *repo)
         "string", toCStr(repo_id));
 
     if (error != NULL) {
+        g_error_free(error);
         return -1;
     }
 
@@ -205,6 +214,7 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
                                             "get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
+        g_error_free(error);
         return -1;
     }
     *value = QString::fromUtf8(ret);
@@ -220,6 +230,7 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
                                             "seafile_get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
+        g_error_free(error);
         return -1;
     }
     *value = QString::fromUtf8(ret);
@@ -235,6 +246,7 @@ int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
+        g_error_free(error);
         return -1;
     }
     return 0;
@@ -248,6 +260,7 @@ int SeafileRpcClient::ccnetSetConfig(const QString &key, const QString &value)
                              2, "string", toCStr(key),
                              "string", toCStr(value));
     if (error) {
+        g_error_free(error);
         return -1;
     }
     return 0;
@@ -261,6 +274,7 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
                              2, "string", toCStr(key),
                              "string", toCStr(value));
     if (error) {
+        g_error_free(error);
         return -1;
     }
     return 0;
@@ -284,6 +298,7 @@ int SeafileRpcClient::setRateLimit(bool upload, int limit)
                              rpc, &error,
                              1, "int", limit);
     if (error) {
+        g_error_free(error);
         return -1;
     }
     return 0;
@@ -297,6 +312,7 @@ int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
                              2, "string", toCStr(key),
                              "int", value);
     if (error) {
+        g_error_free(error);
         return -1;
     }
     return 0;
@@ -328,6 +344,7 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
                                     "string", toCStr(repo.id));
     if (error) {
         repo.setSyncInfo("unknown");
+        g_error_free(error);
         return;
     }
 
@@ -358,6 +375,7 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
         &error, 0);
 
     if (error) {
+        g_error_free(error);
         return -1;
     }
 
@@ -394,6 +412,7 @@ void SeafileRpcClient::getTransferDetail(CloneTask* task)
         "string", toCStr(task->repo_id));
 
     if (error != NULL) {
+        g_error_free(error);
         return;
     }
 
@@ -432,6 +451,7 @@ void SeafileRpcClient::getCheckOutDetail(CloneTask *task)
         "string", toCStr(task->repo_id));
 
     if (error != NULL) {
+        g_error_free(error);
         return;
     }
 
@@ -465,6 +485,9 @@ int SeafileRpcClient::cancelCloneTask(const QString& repo_id, QString *err)
         if (err) {
             *err = error ? error->message : tr("Unknown error");
         }
+        if (error) {
+            g_error_free(error);
+        }
     }
 
     return ret;
@@ -482,6 +505,9 @@ int SeafileRpcClient::removeCloneTask(const QString& repo_id, QString *err)
         if (err) {
             *err = error ? error->message : tr("Unknown error");
         }
+        if (error) {
+            g_error_free(error);
+        }
     }
 
     return ret;
@@ -497,6 +523,7 @@ int SeafileRpcClient::getCloneTasksCount(int *count)
         &error, 0);
 
     if (error) {
+        g_error_free(error);
         return -1;
     }
 
@@ -521,6 +548,7 @@ int SeafileRpcClient::getServers(GList** servers)
         "string", "MyRelay");
 
     if (error) {
+        g_error_free(error);
         return -1;
     }
 
@@ -540,9 +568,10 @@ int SeafileRpcClient::unsyncReposByAccount(const QString& server_addr,
                                         "string", toCStr(server_addr),
                                         "string", toCStr(email));
 
-    if (ret < 0) {
+    if (ret < 0 && err) {
         if (error) {
             *err = QString::fromUtf8(error->message);
+            g_error_free(error);
         } else {
             *err = tr("Unknown error");
         }
@@ -559,6 +588,7 @@ int SeafileRpcClient::getDownloadRate(int *rate)
                                        &error, 0);
 
     if (error) {
+        g_error_free(error);
         return -1;
     }
 
@@ -574,6 +604,7 @@ int SeafileRpcClient::getUploadRate(int *rate)
                                        &error, 0);
 
     if (error) {
+        g_error_free(error);
         return -1;
     }
 
@@ -591,15 +622,23 @@ void SeafileRpcClient::setRepoAutoSync(const QString& repo_id, bool auto_sync)
                             "string", toCStr(repo_id),
                             "string", "auto-sync",
                             "string", auto_sync ? "true" : "false");
+    if (error) {
+        g_error_free(error);
+    }
 }
 
 int SeafileRpcClient::unsync(const QString& repo_id)
 {
     GError *error = NULL;
-    return searpc_client_call__int(seafile_rpc_client_,
-                                   "seafile_destroy_repo",
-                                   &error, 1,
-                                   "string", toCStr(repo_id));
+    int ret = searpc_client_call__int(seafile_rpc_client_,
+                                      "seafile_destroy_repo",
+                                      &error, 1,
+                                      "string", toCStr(repo_id));
+    if (error) {
+        g_error_free(error);
+    }
+
+    return ret;
 }
 
 int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int *percent)
@@ -610,7 +649,9 @@ int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int
                                                 SEAFILE_TYPE_TASK,
                                                 &error, 1,
                                                 "string", toCStr(repo_id));
-    if (error) {return -1;
+    if (error) {
+        g_error_free(error);
+        return -1;
     }
 
     if (!task) {
@@ -665,6 +706,7 @@ int SeafileRpcClient::checkPathForClone(const QString& path, QString *err_msg)
     } else {
         err = QString::fromUtf8(msg);
     }
+    g_error_free(error);
 
     if (err_msg) {
         *err_msg = err;
@@ -692,6 +734,7 @@ int SeafileRpcClient::updateReposServerHost(const QString& old_host,
     if (ret < 0) {
         if (error) {
             *err = QString::fromUtf8(error->message);
+            g_error_free(error);
         } else {
             *err = tr("Unknown error");
         }
@@ -713,6 +756,7 @@ int SeafileRpcClient::getRepoProperty(const QString &repo_id,
         "string", toCStr(name)
         );
     if (error) {
+        g_error_free(error);
         return -1;
     }
     *value = QString::fromUtf8(ret);
@@ -735,6 +779,7 @@ int SeafileRpcClient::setRepoProperty(const QString &repo_id,
         "string", toCStr(value)
         );
     if (error) {
+        g_error_free(error);
         return -1;
     }
     return ret;

@@ -3,7 +3,7 @@
 
 #include <QProgressDialog>
 #include <QObject>
-#include <QScopedPointer>
+#include <QSharedPointer>
 
 #include "tasks.h"
 
@@ -26,15 +26,7 @@ private slots:
 private:
     void initTaskInfo();
 
-    // deleter
-    template<typename T>
-    struct doDeleteLater
-    {
-        static inline void cleanup(T *pointer) {
-          pointer->deleteLater();
-        }
-    };
-    QScopedPointer<FileNetworkTask, doDeleteLater<FileNetworkTask> > task_;
+    QSharedPointer<FileNetworkTask> task_;
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;

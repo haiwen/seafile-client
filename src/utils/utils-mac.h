@@ -3,13 +3,19 @@
 #ifdef Q_WS_MAC
 #include <QString>
 
-int __mac_isHiDPI(void);
-double __mac_getScaleFactor(void);
-void __mac_setDockIconStyle(bool);
-bool __mac_get_auto_start();
-void __mac_set_auto_start(bool enabled);
+namespace utils {
+namespace mac {
 
-QString __mac_get_path_from_fileId_url(const QString &url);
+int isHiDPI(void);
+double getScaleFactor(void);
+void setDockIconStyle(bool);
+bool get_auto_start();
+void set_auto_start(bool enabled);
+
+QString get_path_from_fileId_url(const QString &url);
+
+} // namespace mac
+} // namespace utils
 
 #endif /* Q_WS_MAC */
 #endif /* SEAFILE_CLIENT_UTILS_MAC_H_ */

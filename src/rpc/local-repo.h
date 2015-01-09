@@ -67,11 +67,11 @@ public:
 
     bool isValid() const { return id.length() > 0; }
 
-    void setSyncInfo(QString state, QString error = QString());
+    void setSyncInfo(const QString &state, const QString &error = QString());
 
 private:
-    void translateSyncError(QString error);
-    void translateSyncState(QString state);
+    void translateSyncError(const QString &error);
+    void translateSyncState(const QString &state);
 };
 
 Q_DECLARE_METATYPE(LocalRepo)

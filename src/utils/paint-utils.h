@@ -18,7 +18,7 @@ inline bool isHighDPI()
         return true;
     }
 #ifdef Q_WS_MAC
-    return __mac_isHiDPI();
+    return utils::mac::isHiDPI();
 #else
     return false;
 #endif
@@ -27,7 +27,7 @@ inline bool isHighDPI()
 inline double getScaleFactor()
 {
 #ifdef Q_WS_MAC
-    return __mac_getScaleFactor();
+    return utils::mac::getScaleFactor();
 #else
     return 1.0;
 #endif

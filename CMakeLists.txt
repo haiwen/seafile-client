@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(seafile-client)
-SET(PROJECT_VERSION "4.0.5")
+SET(PROJECT_VERSION "4.0.6")
 ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 INCLUDE(FindPkgConfig)
 
@@ -15,9 +15,12 @@ IF (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
   ADD_DEFINITIONS(-DSEAFILE_CLIENT_REVISION=${SEAFILE_CLIENT_REVISION})
 ENDIF()
 
+## Build crash repoter on release build as default
 IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)
 ENDIF()
+
+SET(PATH_TO_BREAKPAD_ROOT CACHE "Path to breakpad's root" "")
 
 OPTION(BUILD_TESTING "Build Test" OFF)
 
@@ -112,6 +115,7 @@ SET(moc_headers
   src/ui/event-details-dialog.h
   src/ui/event-details-tree.h
   src/ui/set-repo-password-dialog.h
+  src/filebrowser/file-browser-manager.h
   src/filebrowser/file-browser-dialog.h
   src/filebrowser/file-browser-requests.h
   src/filebrowser/file-table.h
@@ -262,6 +266,7 @@ SET(seafile_client_sources
   src/ui/event-details-dialog.cpp
   src/ui/event-details-tree.cpp
   src/ui/set-repo-password-dialog.cpp
+  src/filebrowser/file-browser-manager.cpp
   src/filebrowser/file-browser-dialog.cpp
   src/filebrowser/file-browser-requests.cpp
   src/filebrowser/data-mgr.cpp
@@ -314,7 +319,7 @@ LINK_DIRECTORIES(
 #     LINK_LIBS libs
 #     )
 FUNCTION(ADD_SC_LIBRARY name)
-    MESSAGE(STATUS "Found Seafile-Client Library: ${name}")
+    MESSAGE(STATUS "Found internal library: ${name}")
     CMAKE_PARSE_ARGUMENTS(ARG
       ""
       ""
@@ -416,9 +421,7 @@ ENDFOREACH(LANGUAGE ${LANGUAGES})
 
 QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
 
-ADD_CUSTOM_TARGET(update-ts
-  DEPENDS ${SEAFILE_TS_TARGETS}
-  )
+ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
 ####################
 ###### end: translations
@@ -446,6 +449,40 @@ ENDIF()
 ###################
 ##### end: doxygen
 ##################
+
+####################
+###### begin: crash reporter
+####################
+
+# if you haven't installed it, please visit
+# https://code.google.com/p/google-breakpad/ to get a copy of it
+# or run the script build_breakpad.sh under the scripts directory
+
+## set up our crash reporter: breakpad
+
+IF (PATH_TO_BREAKPAD_ROOT)
+    FIND_LIBRARY(BREAKPAD_LIBRARY breakpad
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Debug_Base
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Default/obj
+      NO_DEFAULT_PATH)
+    FIND_LIBRARY(BREAKPAD_UTILITIES_LIBRARY breakpad_utilities
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Debug_Base
+      PATHS ${PATH_TO_BREAKPAD_ROOT}/out/Default/obj
+      NO_DEFAULT_PATH)
+    MESSAGE(STATUS "Found library: ${BREAKPAD_LIBRARY}")
+    MESSAGE(STATUS "Found library: ${BREAKPAD_UTILITIES_LIBRARY}")
+
+    SET(seafile_client_sources ${seafile_client_sources} src/crash-handler.cpp)
+    INCLUDE_DIRECTORIES()
+    ADD_DEFINITIONS(-DSEAFILE_CLIENT_HAS_CRASH_REPORTER)
+    SET_SOURCE_FILES_PROPERTIES(src/crash-handler.cpp
+        PROPERTIES COMPILE_FLAGS "-I${PATH_TO_BREAKPAD_ROOT}/src")
+    SET(EXTRA_LIBS ${EXTRA_LIBS} ${BREAKPAD_LIBRARY} ${BREAKPAD_UTILITIES_LIBRARY})
+ENDIF()
+
+####################
+###### end: crash reporter
+####################
 
 ####################
 ###### start: freedesktop files
@@ -525,6 +562,9 @@ IF(CMAKE_GENERATOR STREQUAL Xcode)
       COMMAND ${CMAKE_COMMAND} -E copy ${ccnet} ${RESOURCES_DIR}/.
       COMMAND ${CMAKE_COMMAND} -E copy ${seaf-daemon} ${RESOURCES_DIR}/.
   )
+  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
+  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
+  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES XCODE_ATTRIBUTE_GCC_ENABLE_PASCAL_STRINGS "NO")
 ENDIF()
 
 SET(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
@@ -553,4 +593,5 @@ IF (BUILD_TESTING)
     ENABLE_TESTING()
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/tests)
     ADD_QTEST(test_utils)
+    ADD_QTEST(test_file-utils)
 ENDIF()

@@ -7,6 +7,7 @@
 #include <QStyledItemDelegate>
 #include <QModelIndex>
 #include <QScopedPointer>
+#include <QSortFilterProxyModel>
 
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
@@ -20,35 +21,52 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
+class FileBrowserDialog;
+class FileTableModel;
 class FileTableView : public QTableView
 {
     Q_OBJECT
 public:
     FileTableView(const ServerRepo& repo, QWidget *parent);
-    void unselectItemNamed(const QString &name);
     void setModel(QAbstractItemModel *model);
 
 signals:
     void direntClicked(const SeafDirent& dirent);
-    void dropFile(const QString& file_name);
+    void dropFile(const QStringList& paths);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
     void direntRemove(const QList<const SeafDirent*> &dirents);
-    void direntShare(const SeafDirent& dirent);
     void direntUpdate(const SeafDirent& dirent);
+    void direntShare(const SeafDirent& dirent);
+    void direntPaste();
+
     void cancelDownload(const SeafDirent& dirent);
 
 private slots:
+    void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
     void onOpen();
     void onRename();
     void onRemove();
     void onShare();
     void onUpdate();
+    void onCopy();
+    void onMove();
+
     void onCancelDownload();
 
 private:
     void setupContextMenu();
+
+    // \brief get current selection item
+    // it returns non-NULL if only we have one and only one item in seleceted
+    // the index it uses internally is mapped to source model
+    const SeafDirent *getSelectedItemFromSource();
+
+    // \brief get current selection items
+    // it returns the list of all of selected SeafDirents
+    // the indexes it uses internally is mapped to source model
+    QList<const SeafDirent *> getSelectedItemsFromSource();
     void contextMenuEvent(QContextMenuEvent *event);
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
@@ -57,17 +75,26 @@ private:
 
     Q_DISABLE_COPY(FileTableView)
 
-    // the exact item where right click event occurs
+    // \brief the copy of the exact item where right click event occurs
+    // its lifetime is valid during the menu event and exec and invalid outside
     QScopedPointer<const SeafDirent> item_;
-    ServerRepo repo_;
     QMenu *context_menu_;
+    QMenu *paste_only_menu_;
     QAction *download_action_;
     QAction *rename_action_;
     QAction *remove_action_;
     QAction *share_action_;
     QAction *update_action_;
+    QAction *copy_action_;
+    QAction *move_action_;
+    QAction *paste_action_;
     QAction *cancel_download_action_;
-    QWidget *parent_;
+    FileBrowserDialog *parent_;
+
+    // source model
+    FileTableModel *source_model_;
+    // proxy model
+    QSortFilterProxyModel *proxy_model_;
 };
 
 class FileTableModel : public QAbstractTableModel
@@ -85,10 +112,12 @@ public:
     void setDirents(const QList<SeafDirent>& dirents);
     const QList<SeafDirent>& dirents() const { return dirents_; }
 
-    const SeafDirent* direntAt(int index) const;
+    const SeafDirent* direntAt(int row) const;
 
-    void insertItem(const SeafDirent &dirent);
-    void appendItem(const SeafDirent &dirent);
+    void insertItem(int pos, const SeafDirent &dirent);
+    void appendItem(const SeafDirent &dirent) {
+        insertItem(rowCount(), dirent);
+    }
     void replaceItem(const QString &name, const SeafDirent &dirent);
     void removeItemNamed(const QString &name);
     void renameItemNamed(const QString &name, const QString &new_name);

@@ -101,7 +101,20 @@ def get_dependencies_recursively(path):
         raise IOError('not supported in platform %s' % sys.platform)
 
 def check_string_output(command):
-    return subprocess.check_output(command).decode().strip()
+    return subprocess.check_output(command, stderr=subprocess.STDOUT).decode().strip()
+
+_output = sys.stdout
+def set_output(output=sys.stdout):
+    global _output
+    _output = output
+
+def close_output():
+    if _output != sys.stdout:
+        _output.close()
+
+def write_output(command):
+    proc = subprocess.Popen(command, stdout=_output, stderr=_output, shell=False)
+    proc.communicate()
 
 if __name__ == '__main__':
     if (len(sys.argv) < 2):

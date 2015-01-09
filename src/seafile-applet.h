@@ -22,6 +22,7 @@ class SeafileApplet : QObject {
 
 public:
     SeafileApplet();
+    ~SeafileApplet();
 
     void start();
 
@@ -31,9 +32,6 @@ public:
     void warningBox(const QString& msg, QWidget *parent=0);
     bool yesOrNoBox(const QString& msg, QWidget *parent=0, bool default_val=true);
     bool detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val=true);
-
-    // normal exit
-    void exit(int code);
 
     // Show error in a messagebox and exit
     void errorAndExit(const QString& error);
@@ -68,6 +66,7 @@ private slots:
     void checkInitVDrive();
     void onGetLatestVersionInfoSuccess(const QString&);
     void updateReposPropertyForHttpSync();
+    void onAboutToQuit();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)

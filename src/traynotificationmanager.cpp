@@ -45,11 +45,8 @@ void TrayNotificationManager::setMaxTrayNotificationWidgets(int max)
 void TrayNotificationManager::append(TrayNotificationWidget* widget)
 {
     connect(widget, SIGNAL(deleted(TrayNotificationWidget*)), this, SLOT(removeFirst(TrayNotificationWidget*)));
-    qDebug() << "Count: " + QVariant(notificationWidgets->count()).toString();
     if(notificationWidgets->count() < m_maxTrayNotificationWidgets)
     {
-        qDebug() << "Before: " + QVariant(m_deltaY).toString();
-
         if(notificationWidgets->count() > 0)
         {
             if(m_up)
@@ -60,8 +57,6 @@ void TrayNotificationManager::append(TrayNotificationWidget* widget)
 
         if(notificationWidgets->count() == 0)
             m_deltaY = 0;
-
-        qDebug() << "After: " + QVariant(m_deltaY).toString();
     }
     else
     {
@@ -75,13 +70,10 @@ void TrayNotificationManager::append(TrayNotificationWidget* widget)
 void TrayNotificationManager::removeFirst(TrayNotificationWidget *widget)
 {
     int i = notificationWidgets->indexOf(widget);
-    qDebug() << "Count: " + QVariant(notificationWidgets->count()).toString();
-    qDebug() << "Index: " + QVariant(i).toString();
 
     if(notificationWidgets->count() > 0)
     {
         notificationWidgets->takeAt(i)->deleteLater();
-        qDebug() << "Removing TrayNotificationWidget";
     }
 }
 
@@ -90,6 +82,5 @@ void TrayNotificationManager::clear()
     for(int i = 0; i < notificationWidgets->count(); i++)
     {
         delete notificationWidgets->takeAt(i);
-        qDebug() << "Removing TrayNotificationWidget";
     }
 }

@@ -34,6 +34,7 @@ enum RepoCategoryIndex {
     CAT_INDEX_SHARED_REPOS,
     CAT_INDEX_PUBLIC_REPOS,
     CAT_INDEX_GROUP_REPOS,
+    CAT_INDEX_SYNCED_REPOS,
 };
 
 QRegExp makeFilterRegExp(const QString& text)
@@ -60,21 +61,23 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 }
 RepoTreeModel::~RepoTreeModel()
 {
-    if (item(kIndexOfVirtualReposCategory) != virtual_repos_catetory_)
-        delete virtual_repos_catetory_;
+    if (item(kIndexOfVirtualReposCategory) != virtual_repos_category_)
+        delete virtual_repos_category_;
 }
 
 void RepoTreeModel::initialize()
 {
     recent_updated_category_ = new RepoCategoryItem(CAT_INDEX_RECENT_UPDATED, tr("Recently Updated"));
-    my_repos_catetory_ = new RepoCategoryItem(CAT_INDEX_MY_REPOS, tr("My Libraries"));
-    virtual_repos_catetory_ = new RepoCategoryItem(CAT_INDEX_VIRTUAL_REPOS, tr("Sub Libraries"));
-    shared_repos_catetory_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Private Shares"));
+    my_repos_category_ = new RepoCategoryItem(CAT_INDEX_MY_REPOS, tr("My Libraries"));
+    virtual_repos_category_ = new RepoCategoryItem(CAT_INDEX_VIRTUAL_REPOS, tr("Sub Libraries"));
+    shared_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Private Shares"));
+    synced_repos_category_ = new RepoCategoryItem(CAT_INDEX_SYNCED_REPOS, tr("Synced Libraries"));
 
     appendRow(recent_updated_category_);
-    appendRow(my_repos_catetory_);
-    // appendRow(virtual_repos_catetory_);
-    appendRow(shared_repos_catetory_);
+    appendRow(my_repos_category_);
+    // appendRow(virtual_repos_category_);
+    appendRow(shared_repos_category_);
+    appendRow(synced_repos_category_);
 
     if (tree_view_) {
         tree_view_->restoreExpandedCategries();
@@ -116,12 +119,18 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
             checkGroupRepo(repo);
         }
 
+        LocalRepo local_repo;
+        if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) == 0)
+          checkSyncedRepo(repo);
+
         map[repo.id] = repo;
     }
 
     QList<ServerRepo> list = map.values();
     // sort all repos by timestamp
-    std::sort(list.begin(), list.end(), compareRepoByTimestamp);
+    // use std::sort for qt containers will force additional copy.
+    // anyway, we can use qt's alternative qSort for it
+    qSort(list.begin(), list.end(), compareRepoByTimestamp);
 
     n = qMin(list.size(), kMaxRecentUpdatedRepos);
     for (i = 0; i < n; i++) {
@@ -173,9 +182,9 @@ void RepoTreeModel::removeReposDeletedOnServer(const std::vector<ServerRepo>& re
 
 void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
 {
-    int row, n = my_repos_catetory_->rowCount();
+    int row, n = my_repos_category_->rowCount();
     for (row = 0; row < n; row++) {
-        RepoItem *item = (RepoItem *)(my_repos_catetory_->child(row));
+        RepoItem *item = (RepoItem *)(my_repos_category_->child(row));
         if (item->repo().id == repo.id) {
             updateRepoItem(item, repo);
             return;
@@ -184,18 +193,18 @@ void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
 
     // The repo is new
     RepoItem *item = new RepoItem(repo);
-    my_repos_catetory_->appendRow(item);
+    my_repos_category_->appendRow(item);
 }
 
 void RepoTreeModel::checkVirtualRepo(const ServerRepo& repo)
 {
-    if (item(kIndexOfVirtualReposCategory) != virtual_repos_catetory_) {
-        insertRow(kIndexOfVirtualReposCategory, virtual_repos_catetory_);
+    if (item(kIndexOfVirtualReposCategory) != virtual_repos_category_) {
+        insertRow(kIndexOfVirtualReposCategory, virtual_repos_category_);
     }
 
-    int row, n = virtual_repos_catetory_->rowCount();
+    int row, n = virtual_repos_category_->rowCount();
     for (row = 0; row < n; row++) {
-        RepoItem *item = (RepoItem *)(virtual_repos_catetory_->child(row));
+        RepoItem *item = (RepoItem *)(virtual_repos_category_->child(row));
         if (item->repo().id == repo.id) {
             updateRepoItem(item, repo);
             return;
@@ -204,23 +213,23 @@ void RepoTreeModel::checkVirtualRepo(const ServerRepo& repo)
 
     // The repo is new
     RepoItem *item = new RepoItem(repo);
-    virtual_repos_catetory_->appendRow(item);
+    virtual_repos_category_->appendRow(item);
 }
 
 void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
 {
-    int row, n = shared_repos_catetory_->rowCount();
+    int row, n = shared_repos_category_->rowCount();
     for (row = 0; row < n; row++) {
-        RepoItem *item = (RepoItem *)(shared_repos_catetory_->child(row));
+        RepoItem *item = (RepoItem *)(shared_repos_category_->child(row));
         if (item->repo().id == repo.id) {
             updateRepoItem(item, repo);
             return;
         }
     }
 
-    // The repo is new
+    // the repo is a new one
     RepoItem *item = new RepoItem(repo);
-    shared_repos_catetory_->appendRow(item);
+    shared_repos_category_->appendRow(item);
 }
 
 void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
@@ -261,6 +270,22 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
     // Current repo not in this group yet
     RepoItem *item = new RepoItem(repo);
     group->appendRow(item);
+}
+
+void RepoTreeModel::checkSyncedRepo(const ServerRepo& repo)
+{
+    int row, n = synced_repos_category_->rowCount();
+    for (row = 0; row < n; row++) {
+        RepoItem *item = (RepoItem *)(synced_repos_category_->child(row));
+        if (item->repo().id == repo.id) {
+            updateRepoItem(item, repo);
+            return;
+        }
+    }
+
+    // The repo is new
+    RepoItem *item = new RepoItem(repo);
+    synced_repos_category_->appendRow(item);
 }
 
 void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)

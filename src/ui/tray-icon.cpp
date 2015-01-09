@@ -192,7 +192,6 @@ void SeafileTrayIcon::createGlobalMenuBar()
     global_menu_->addSeparator();
     global_menu_->addAction(enable_auto_sync_action_);
     global_menu_->addAction(disable_auto_sync_action_);
-    connect(global_menu_, SIGNAL(aboutToShow()), this, SLOT(prepareContextMenu()));
 
     global_menubar_ = new QMenuBar(0);
     global_menubar_->setNativeMenuBar(true);

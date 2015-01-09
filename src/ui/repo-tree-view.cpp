@@ -40,13 +40,18 @@ const int kRepoTreeToolbarIconHeight = 24;
 const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
 const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
 
-QString buildMoreInfo(ServerRepo& repo)
+QString buildMoreInfo(ServerRepo& repo, const QUrl& url_in)
 {
     json_t *object = NULL;
     char *info = NULL;
 
     object = json_object();
     json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
+
+    QUrl url(url_in);
+    url.setPath("/");
+    json_object_set_new(
+        object, "server_url", json_string(url.toString().toUtf8().data()));
 
     info = json_dumps(object, 0);
     QString ret = QString::fromUtf8(info);
@@ -690,8 +695,9 @@ void RepoTreeView::resyncRepo()
         dialog.exec();
         return;
     } else {
-        QString more_info = buildMoreInfo(server_repo);
-        QString email = seafApplet->accountManager()->currentAccount().username;
+        const Account account = seafApplet->accountManager()->currentAccount();
+        QString more_info = buildMoreInfo(server_repo, account.serverUrl);
+        QString email = account.username;
         QString error;
 
         // unused fields

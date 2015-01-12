@@ -4,19 +4,19 @@
 #include "class-factory.h"
 #include "shell-ext.h"
 
-CShellExtClassFactory::CShellExtClassFactory()
+ShellExtClassFactory::ShellExtClassFactory()
 {
     m_cRef = 0L;
 
     InterlockedIncrement(&g_cRefThisDll);
 }
 
-CShellExtClassFactory::~CShellExtClassFactory()
+ShellExtClassFactory::~ShellExtClassFactory()
 {
     InterlockedDecrement(&g_cRefThisDll);
 }
 
-STDMETHODIMP CShellExtClassFactory::QueryInterface(REFIID riid,
+STDMETHODIMP ShellExtClassFactory::QueryInterface(REFIID riid,
                                                    LPVOID FAR *ppv)
 {
     if (ppv == 0)
@@ -36,12 +36,12 @@ STDMETHODIMP CShellExtClassFactory::QueryInterface(REFIID riid,
     return E_NOINTERFACE;
 }
 
-STDMETHODIMP_(ULONG) CShellExtClassFactory::AddRef()
+STDMETHODIMP_(ULONG) ShellExtClassFactory::AddRef()
 {
     return ++m_cRef;
 }
 
-STDMETHODIMP_(ULONG) CShellExtClassFactory::Release()
+STDMETHODIMP_(ULONG) ShellExtClassFactory::Release()
 {
     if (--m_cRef)
         return m_cRef;
@@ -51,7 +51,7 @@ STDMETHODIMP_(ULONG) CShellExtClassFactory::Release()
     return 0L;
 }
 
-STDMETHODIMP CShellExtClassFactory::CreateInstance(LPUNKNOWN pUnkOuter,
+STDMETHODIMP ShellExtClassFactory::CreateInstance(LPUNKNOWN pUnkOuter,
                                                    REFIID riid,
                                                    LPVOID *ppvObj)
 {
@@ -69,7 +69,7 @@ STDMETHODIMP CShellExtClassFactory::CreateInstance(LPUNKNOWN pUnkOuter,
     // QueryInterface with IID_IShellExtInit--this is how shell extensions are
     // initialized.
 
-    CShellExt* pShellExt = new CShellExt; // Create the CShellExt object
+    ShellExt* pShellExt = new ShellExt; // Create the ShellExt object
 
     const HRESULT hr = pShellExt->QueryInterface(riid, ppvObj);
     if(FAILED(hr))
@@ -77,7 +77,7 @@ STDMETHODIMP CShellExtClassFactory::CreateInstance(LPUNKNOWN pUnkOuter,
     return hr;
 }
 
-STDMETHODIMP CShellExtClassFactory::LockServer(BOOL /*fLock*/)
+STDMETHODIMP ShellExtClassFactory::LockServer(BOOL /*fLock*/)
 {
     return E_NOTIMPL;
 }

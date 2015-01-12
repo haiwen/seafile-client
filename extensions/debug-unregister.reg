@@ -1,0 +1,23 @@
+Windows Registry Editor Version 5.00
+
+# approved ext
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}"=-
+
+# register shell extension
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}\InProcServer32]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Seafile2]
+
+# context menu handler
+[-HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\Seafile2]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Seafile2]
+
+[-HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\Seafile2]
+
+[-HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\Seafile2]
+
+[-HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Seafile2]

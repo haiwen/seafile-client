@@ -33,6 +33,10 @@
 #include "rpc/local-repo.h"
 #include "server-status-service.h"
 
+#if defined(Q_WS_WIN)
+#include "ext-handler.h"
+#endif
+
 #include "seafile-applet.h"
 
 namespace {
@@ -241,6 +245,10 @@ void SeafileApplet::onDaemonStarted()
 
     QTimer::singleShot(kIntervalForUpdateRepoProperty,
                        this, SLOT(updateReposPropertyForHttpSync()));
+
+#if defined(Q_WS_WIN)
+    SeafileExtensionHandler::instance()->start();
+#endif
 }
 
 void SeafileApplet::checkInitVDrive()

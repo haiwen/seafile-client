@@ -1,36 +1,14 @@
 #ifndef SEAFILE_CLIENT_EXTENSION_LOG_H
 #define SEAFILE_CLIENT_EXTENSION_LOG_H
 
-#include <fstream>
+void seaf_ext_log_start();
+void seaf_ext_log_stop();
 
-class Logger {
-public:
-    enum Level {
-        DEBUG,
-        INFO,
-        WARNING,
-        FATAL,
-    };
+void seaf_ext_log_aux(const char *format, ...);
 
-    static Logger* instance();
-    ~Logger();
-
-    static void debug(std::string msg) { log(msg, DEBUG); }
-    static void info(std::string msg) { log(msg, INFO); }
-    static void warning(std::string msg) { log(msg, WARNING); }
-    static void fatal(std::string msg) { log(msg, FATAL); }
-
-private:
-    Logger();
-
-    void write(std::string msg, Level lvl);
-
-    static void log(std::string msg, Level lvl);
-
-    static Logger *singleton_;
-
-    std::ofstream ofs_;
-};
+#define seaf_ext_log(format, ... )                                  \
+    seaf_ext_log_aux("%s(line %d) %s: " format,                     \
+                     __FILE__, __LINE__, __func__, ##__VA_ARGS__)   \
 
 
 #endif  // SEAFILE_CLIENT_EXTENSION_LOG_H

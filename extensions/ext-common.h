@@ -14,12 +14,10 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <ws2tcpip.h>
-#include <windows.h>
 #include <commctrl.h>
 
-#include <commctrl.h>
 #include <shlobj.h>
-#include <shlwapi.h>
+#include <shlguid.h>
 #include <wininet.h>
 #include <aclapi.h>
 

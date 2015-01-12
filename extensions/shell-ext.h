@@ -1,11 +1,18 @@
 #ifndef SEAFILE_EXT_SHELL_EXT_H
 #define SEAFILE_EXT_SHELL_EXT_H
 
+#include <string>
+
 extern  volatile LONG       g_cRefThisDll;          // Reference count of this DLL.
 extern  HINSTANCE           g_hmodThisDll;          // Instance handle for this DLL
 extern  HINSTANCE           g_hResInst;
 
-class CShellExt : public IContextMenu3,
+struct SeafileMenuItem {
+    std::string text;           /* displayed in the menu */
+    std::string help;           /* displayed in the status bar */
+};
+
+class ShellExt : public IContextMenu3,
                          IShellExtInit
 {
 protected:
@@ -24,8 +31,8 @@ protected:
     STDMETHODIMP    Initialize_Wrap(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID);
 
 public:
-    CShellExt();
-    virtual ~CShellExt();
+    ShellExt();
+    virtual ~ShellExt();
 
     // IUnknown members
     STDMETHODIMP         QueryInterface(REFIID, LPVOID FAR *);
@@ -43,6 +50,33 @@ public:
 
      // IShellExtInit methods
     STDMETHODIMP    Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID);
+
+private:
+    void buildSubMenu();
+    bool insertMainMenu();
+    void tweakMenu(HMENU menu);
+
+    /* the file/dir current clicked on */
+    std::string path_;
+
+    /* The main menu */
+    HMENU main_menu_;
+    /* The popup seafile submenu */
+    HMENU sub_menu_;
+    UINT index_;
+    UINT first_;
+    UINT last_;
+    UINT next_active_item_;
+    // struct menu_item *active_menu;
+    // bool add_sep;
+
+    // unsigned int count;
+    // unsigned int selection;
+
+    /* non-empety if in a repo dir */
+    std::string repo_id;
+    /* repo top wt, non-empty if in a repo dir */
+    std::string repo_wt;
 };
 
 #endif // SEAFILE_EXT_SHELL_EXT_H

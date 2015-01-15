@@ -44,7 +44,7 @@ private slots:
     void quitSeafile();
     void onActivated(QSystemTrayIcon::ActivationReason);
     void prepareContextMenu();
-    void toggleMainWindow();
+    void showMainWindow();
     void onClick();
     void rotateTrayIcon();
     void refreshTrayIcon();
@@ -74,7 +74,7 @@ private:
     QAction *enable_auto_sync_action_;
     QAction *disable_auto_sync_action_;
     QAction *quit_action_;
-    QAction *toggle_main_window_action_;
+    QAction *show_main_window_action_;
     QAction *settings_action_;
     QAction *open_log_directory_action_;
     QAction *view_unread_seahub_notifications_action_;

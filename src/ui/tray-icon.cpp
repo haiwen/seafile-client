@@ -118,8 +118,8 @@ void SeafileTrayIcon::createActions()
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
 
-    toggle_main_window_action_ = new QAction(tr("Show main window"), this);
-    connect(toggle_main_window_action_, SIGNAL(triggered()), this, SLOT(toggleMainWindow()));
+    show_main_window_action_ = new QAction(tr("Show main window"), this);
+    connect(show_main_window_action_, SIGNAL(triggered()), this, SLOT(showMainWindow()));
 
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
@@ -145,7 +145,7 @@ void SeafileTrayIcon::createContextMenu()
 
     context_menu_ = new QMenu(NULL);
     context_menu_->addAction(view_unread_seahub_notifications_action_);
-    context_menu_->addAction(toggle_main_window_action_);
+    context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
     context_menu_->addMenu(help_menu_);
@@ -169,12 +169,6 @@ void SeafileTrayIcon::prepareContextMenu()
         disable_auto_sync_action_->setVisible(false);
     }
 
-    if (!seafApplet->mainWindow()->isVisible()) {
-        toggle_main_window_action_->setText(tr("Show main window"));
-    } else {
-        toggle_main_window_action_->setText(tr("Hide main window"));
-    }
-
     view_unread_seahub_notifications_action_->setVisible(state_ == STATE_HAVE_UNREAD_MESSAGE);
 }
 
@@ -186,7 +180,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     // create qmenu used in menubar and docker menu
     global_menu_ = new QMenu(tr("File"));
     global_menu_->addAction(view_unread_seahub_notifications_action_);
-    global_menu_->addAction(toggle_main_window_action_);
+    global_menu_->addAction(show_main_window_action_);
     global_menu_->addAction(settings_action_);
     global_menu_->addAction(open_log_directory_action_);
     global_menu_->addSeparator();
@@ -352,14 +346,10 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 #endif
 }
 
-void SeafileTrayIcon::toggleMainWindow()
+void SeafileTrayIcon::showMainWindow()
 {
     MainWindow *main_win = seafApplet->mainWindow();
-    if (!main_win->isVisible()) {
-        main_win->showWindow();
-    } else {
-        main_win->hide();
-    }
+    main_win->showWindow();
 }
 
 void SeafileTrayIcon::about()
@@ -419,7 +409,7 @@ void SeafileTrayIcon::onClick()
     if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
         viewUnreadNotifications();
     } else {
-        toggleMainWindow();
+        showMainWindow();
     }
 }
 

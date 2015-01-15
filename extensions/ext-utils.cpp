@@ -7,6 +7,9 @@
 #include <ctype.h>
 #include <userenv.h>
 
+#include <sstream>
+#include <algorithm>
+
 #include "ext-common.h"
 #include "log.h"
 #include "ext-utils.h"
@@ -140,7 +143,6 @@ pipeReadN (HANDLE pipe,
            bool *connected)
 {
     resetOverlapped(ol);
-    DWORD bytes_read;
     bool ret= ReadFile(
         pipe,                  // handle to pipe
         buf,                    // buffer to write from
@@ -219,6 +221,26 @@ std::string formatErrorMessage()
     return buf;
 }
 
+std::vector<std::string> split(const std::string &s, char delim)
+{
+    std::vector<std::string> elems;
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim) && !item.empty()) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+std::string normalizedPath(const std::string& path)
+{
+    std::string p = path;
+    std::replace(p.begin(), p.end(), '\\', '/');
+    while (p.empty() && p[p.size() - 1] == '/') {
+        p = p.substr(0, p.size() - 1);
+    }
+    return p;
+}
 
 } // namespace utils
 } // namespace seafile

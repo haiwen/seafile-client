@@ -33,7 +33,7 @@ private slots:
 
 private:
     ExtHandlerThread *handler_thread_;
-    
+
     Account findAccountByRepo(const QString& repo_id);
 };
 
@@ -48,9 +48,13 @@ signals:
                            bool is_file);
 
 private:
-    void handleOneConnection(HANDLE hPipe);
-    void handleGenShareLink(const QString& path);
+    void serveOneConnection(HANDLE hPipe);
     QList<LocalRepo> listLocalRepos();
+    bool readRequest(HANDLE pipe, QStringList *args);
+    bool sendRespose(HANDLE pipe, const QString& resp);
+
+    void handleGenShareLink(const QStringList& args);
+    QString handleListRepos(const QStringList& args);
 
     SeafileRpcClient *rpc_;
 

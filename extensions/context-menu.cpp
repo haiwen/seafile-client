@@ -1,4 +1,5 @@
 #include "ext-common.h"
+#include "ext-utils.h"
 #include "shell-ext.h"
 #include "log.h"
 #include "commands.h"
@@ -50,7 +51,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
        When right click on a file, it's NULL */
     if (folder) {
         SHGetPathFromIDList(folder, path);
-        path_ = path;
+        path_ = seafile::utils::normalizedPath(path);
     }
 
     /* if 'data' is NULL, then it's a background click, we have set
@@ -74,7 +75,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     else if (!DragQueryFile(drop, 0, path, sizeof(path)))
         result = E_INVALIDARG;
 
-    path_ = path;
+    path_ = seafile::utils::normalizedPath(path);
     GlobalUnlock(stg.hGlobal);
     ReleaseStgMedium(&stg);
 
@@ -104,6 +105,11 @@ STDMETHODIMP ShellExt::QueryContextMenu_Wrap(HMENU menu,
 
     if (shouldIgnorePath(path_)) {
         seaf_ext_log("ignore context menu for %s", path_.c_str());
+        return S_OK;
+    }
+
+    std::string path_in_repo;
+    if (!pathInRepo(path_, &path_in_repo) || path_in_repo.size() <= 1) {
         return S_OK;
     }
 

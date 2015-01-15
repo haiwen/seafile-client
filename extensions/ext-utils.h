@@ -2,6 +2,7 @@
 #define SEAFILE_EXTENSION_EXT_UTILS_H
 
 #include <string>
+#include <vector>
 #include <stdint.h>
 
 namespace seafile {
@@ -28,6 +29,9 @@ bool pipeWriteN (HANDLE hPipe,
 
 bool doInThread(LPTHREAD_START_ROUTINE func, void *data);
 
+std::vector<std::string> split(const std::string &s, char delim);
+
+std::string normalizedPath(const std::string& path);
 
 } // namespace utils
 } // namespace seafile

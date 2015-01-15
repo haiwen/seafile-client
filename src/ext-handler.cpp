@@ -11,6 +11,7 @@
 #include <QList>
 #include <QVector>
 #include <QDir>
+#include <string>
 
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
@@ -78,13 +79,30 @@ extPipeWriteN(HANDLE pipe, void *buf, size_t len)
 /**
  * Replace "\" with "/", and remove the trailing slash
  */
-QString uniformPath(const QString& path)
+QString normalizedPath(const QString& path)
 {
     QString p = QDir::fromNativeSeparators(path);
     if (p.endsWith("/")) {
         p = p.left(p.size() - 1);
     }
     return p;
+}
+
+std::string formatErrorMessage()
+{
+    DWORD error_code = ::GetLastError();
+    if (error_code == 0) {
+        return "no error";
+    }
+    char buf[256] = {0};
+    ::FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
+                    NULL,
+                    error_code,
+                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+                    buf,
+                    sizeof(buf) - 1,
+                    NULL);
+    return buf;
 }
 
 } // namespace
@@ -133,7 +151,11 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
 
 void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 {
-    SharedLinkDialog(link, NULL).exec();
+    SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
 }
 
 void ExtHandlerThread::run()
@@ -175,51 +197,42 @@ void ExtHandlerThread::run()
 
         qDebug ("[ext pipe] Accepted an extension pipe client\n");
         /* TODO: use a seperate thread to communicate with this pipe client */
-        handleOneConnection(pipe);
+        serveOneConnection(pipe);
     }
 }
 
-void ExtHandlerThread::handleOneConnection(HANDLE pipe)
+void ExtHandlerThread::serveOneConnection(HANDLE pipe)
 {
-    uint32_t len;
-    char *buf;
-    char *reply;
-
-    qDebug("ExtHandlerThread::handleOneConnection() called");
-
+    qDebug("ExtHandlerThread::serveOneConnection() called");
     while (1) {
-        if (!extPipeReadN(pipe, &len, sizeof(len)) || len == 0)
+        QStringList args;
+        if (!readRequest(pipe, &args)) {
+            qWarning ("failed to read request from shell extension: %s",
+                      formatErrorMessage().c_str());
             break;
+        }
 
-        QScopedPointer<char> buf(new char[len + 1]);
-        if (!extPipeReadN(pipe, buf.data(), len))
+        QString cmd = args.takeAt(0);
+        QString resp;
+        if (cmd == "list-repos") {
+            resp = handleListRepos(args);
+        } else if (cmd == "get-share-link") {
+            handleGenShareLink(args);
+        } else {
+            qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
+        }
+
+        if (!sendRespose(pipe, resp)) {
+            qWarning ("failed to write response to shell extension: %s",
+                      formatErrorMessage().c_str());
             break;
-
-        buf.data()[len] = 0;
-
-        qWarning("[ext] get command: %s\n", buf.data());
-
-        handleGenShareLink(uniformPath(buf.data()));
-
-        // reply = ext_handle_input (buf);
-        // if (!reply)
-        //     continue;
-        // len = strlen(reply) + 1;
-
-        // if (ext_pipe_writen(pipe, &len, sizeof(len)) < 0) {
-        //     g_free (reply);
-        //     break;
-        // }
-
-        // if (ext_pipe_writen(pipe, reply, len) < 0) {
-        //     g_free (reply);
-        //     break;
-        // }
-
-        // g_free (reply);
+        }
     }
 
-    // ext_pipe_on_exit(pipe);
+    qWarning ("An extension client is disconnected: GLE=%lu\n",
+              GetLastError());
+    DisconnectNamedPipe(pipe);
+    CloseHandle(pipe);
 }
 
 
@@ -232,10 +245,14 @@ QList<LocalRepo> ExtHandlerThread::listLocalRepos()
     return QVector<LocalRepo>::fromStdVector(repos).toList();
 }
 
-void ExtHandlerThread::handleGenShareLink(const QString& path)
+void ExtHandlerThread::handleGenShareLink(const QStringList& args)
 {
+    if (args.size() != 1) {
+        return;
+    }
+    QString path = normalizedPath(args[0]);
     foreach (const LocalRepo& repo, listLocalRepos()) {
-        QString wt = uniformPath(repo.worktree);
+        QString wt = normalizedPath(repo.worktree);
         qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
         if (path.startsWith(wt)) {
             QString path_in_repo = path.mid(wt.size());
@@ -243,4 +260,58 @@ void ExtHandlerThread::handleGenShareLink(const QString& path)
             emit generateShareLink(repo.id, path_in_repo, is_file);
         }
     }
+}
+
+QString ExtHandlerThread::handleListRepos(const QStringList& args)
+{
+    if (args.size() != 0) {
+        return "";
+    }
+    QStringList infos;
+    foreach (const LocalRepo& repo, listLocalRepos()) {
+        infos << QString("%1\t%2").arg(repo.id).arg(normalizedPath(repo.worktree));
+    }
+
+    return infos.join("\n");
+}
+
+bool ExtHandlerThread::readRequest(HANDLE pipe, QStringList *args)
+{
+    uint32_t len;
+    if (!extPipeReadN(pipe, &len, sizeof(len)) || len == 0)
+        return false;
+
+    QScopedPointer<char> buf(new char[len + 1]);
+    buf.data()[len] = 0;
+    if (!extPipeReadN(pipe, buf.data(), len))
+        return false;
+
+    QStringList list = QString::fromUtf8(buf.data()).split('\t', QString::SkipEmptyParts);
+    if (list.empty()) {
+        qWarning("[ext] got an empty request");
+        return false;
+    }
+    foreach (const QString& part, list) {
+        qWarning("command: %s", part.toUtf8().data());
+    }
+    qWarning("[ext] get command: %s\n", list[0].toUtf8().data());
+    *args = list;
+    return true;
+}
+
+bool ExtHandlerThread::sendRespose(HANDLE pipe, const QString& resp)
+{
+    QByteArray raw_resp = resp.toUtf8();
+    uint32_t len = raw_resp.length();
+
+    qWarning("send response (%d bytes): %s", len, raw_resp.data());
+    if (!extPipeWriteN(pipe, &len, sizeof(len))) {
+        return false;
+    }
+    if (len > 0) {
+        if (!extPipeWriteN(pipe, raw_resp.data(), len)) {
+            return false;
+        }
+    }
+    return true;
 }

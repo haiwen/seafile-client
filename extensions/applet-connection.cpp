@@ -19,7 +19,7 @@ struct ThreadData {
 DWORD WINAPI sendDataWrapper (void *vdata)
 {
     ThreadData *tdata = (ThreadData *)vdata;
-    bool ret = tdata->conn->communicate(tdata->cmd);
+    bool ret = tdata->conn->sendCommandAndWait(tdata->cmd, NULL);
     delete tdata;
     ExitThread(ret);
     return 0;
@@ -92,9 +92,6 @@ AppletConnection::prepare()
 }
 
 
-/**
- * Create a new thread and send the command to seafile client.
- */
 bool AppletConnection::sendCommand(const std::string& cmd)
 {
     seaf_ext_log("Thread (%lu) send command: %s", GetCurrentThreadId(), cmd.c_str());
@@ -106,18 +103,32 @@ bool AppletConnection::sendCommand(const std::string& cmd)
     return true;
 }
 
-/**
- * Send the command through the pipe. This function should always be called in
- * a separate thread since it may block.
- */
-bool AppletConnection::communicate(const std::string& cmd)
+bool AppletConnection::sendCommandAndWait(const std::string& cmd, std::string *resp)
 {
     if (!connected_ && !connect()) {
         seaf_ext_log("failed to connect to seafile client: %s", utils::formatErrorMessage().c_str());
         return false;
     }
-    seaf_ext_log("Thread (%lu) communicate: %s", GetCurrentThreadId(), cmd.c_str());
+    if (!writeRequest(cmd)) {
+        return false;
+    }
+
+    std::string r;
+    if (!readResponse(&r)) {
+        return false;
+    }
+
+    if (resp != NULL) {
+        *resp = r;
+    }
+
+    return true;
+}
+
+bool AppletConnection::writeRequest(const std::string& cmd)
+{
     uint32_t len = cmd.size();
+    seaf_ext_log("Thread (%lu) communicate: %s", GetCurrentThreadId(), cmd.c_str());
     if (!utils::pipeWriteN(pipe_, &len, sizeof(len), &ol_, &connected_)) {
         seaf_ext_log("failed to send command: %s", utils::formatErrorMessage().c_str());
         return false;
@@ -126,6 +137,25 @@ bool AppletConnection::communicate(const std::string& cmd)
     if (!utils::pipeWriteN(pipe_, cmd.c_str(), len, &ol_, &connected_)) {
         seaf_ext_log("failed to send command: %s", utils::formatErrorMessage().c_str());
         return false;
+    }
+    return true;
+}
+
+bool AppletConnection::readResponse(std::string *out)
+{
+    uint32_t len;
+    if (!utils::pipeReadN(pipe_, &len, sizeof(len), &ol_, &connected_) || len == 0) {
+        return false;
+    }
+
+    std::shared_ptr<char> buf(new char[len + 1]);
+    buf.get()[len] = 0;
+    if (!utils::pipeReadN(pipe_, buf.get(), len, &ol_, &connected_)) {
+        return false;
+    }
+
+    if (out != NULL) {
+        *out = buf.get();
     }
 
     return true;

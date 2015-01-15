@@ -56,6 +56,8 @@ private:
     bool insertMainMenu();
     void tweakMenu(HMENU menu);
 
+    bool pathInRepo(const std::string path, std::string *path_in_repo);
+
     /* the file/dir current clicked on */
     std::string path_;
 

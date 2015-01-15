@@ -5,8 +5,6 @@
 
 namespace seafile {
 
-class AppletCommand;
-
 /**
  * Connection to the seafile appplet, thourgh which the shell extension would
  * execute an `AppletCommand`.
@@ -20,11 +18,20 @@ public:
     bool prepare();
     bool connect();
 
+    /**
+     * Send the command in a separate thread, returns immediately
+     */
     bool sendCommand(const std::string& data);
-    bool communicate(const std::string& data);
+
+    /**
+     * Send the command and blocking wait for response.
+     */
+    bool sendCommandAndWait(const std::string& data, std::string *resp);
 
 private:
     AppletConnection();
+    bool readResponse(std::string *out);
+    bool writeRequest(const std::string& cmd);
 
     static AppletConnection *singleton_;
 

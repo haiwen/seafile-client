@@ -3,6 +3,8 @@
 #include "guids.h"
 
 #include "ext-common.h"
+#include "ext-utils.h"
+#include "commands.h"
 #include "shell-ext.h"
 
 
@@ -70,4 +72,24 @@ STDMETHODIMP_(ULONG) ShellExt::Release()
     delete this;
 
     return 0L;
+}
+
+bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
+{
+    seafile::ListReposCommand cmd;
+    seafile::WorktreeList worktrees;
+    if (!cmd.sendAndWait(&worktrees)) {
+        return false;
+    }
+    std::string p = seafile::utils::normalizedPath(path);
+
+    for (size_t i = 0; i < worktrees.size(); i++) {
+        std::string wt = worktrees[i];
+        if (path.size() >= wt.size() && path.substr(0, wt.size()) == wt) {
+            *path_in_repo = path.substr(wt.size(), path.size() - wt.size());
+            return true;
+        }
+    }
+
+    return false;
 }

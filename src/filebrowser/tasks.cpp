@@ -609,7 +609,9 @@ void PostFilesTask::prepare()
     Q_FOREACH(const QString &name, names_)
     {
         QString local_path = ::pathJoin(local_path_, name);
-        qint64 file_size = QFileInfo(local_path).size();
+        // approximate the bytes used by http protocol (e.g. the bytes of
+        // header)
+        qint64 file_size = QFileInfo(local_path).size() + 1024;
         file_sizes.push_back(file_size);
         total_bytes_ += file_size;
     }
@@ -626,7 +628,7 @@ void PostFilesTask::sendRequest()
     startNext();
 }
 
-void PostFilesTask::onPostTaskProgressUpdate(qint64 bytes, qint64 /* sum_bytes*/)
+void PostFilesTask::onPostTaskProgressUpdate(qint64 bytes, qint64 /* sum_bytes */)
 {
     emit progressUpdate(current_bytes_ + bytes, total_bytes_);
 }
@@ -641,7 +643,7 @@ void PostFilesTask::onPostTaskFinished(bool success)
     }
     error_ = task_->error();
     error_string_ = task_->errorString();
-    http_error_code_ =  task_->httpErrorCode();
+    http_error_code_ = task_->httpErrorCode();
     emit finished(false);
 }
 

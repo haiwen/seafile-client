@@ -14,6 +14,7 @@
 #include "init-vdrive-dialog.h"
 #include "avatar-service.h"
 #include "utils/paint-utils.h"
+#include "filebrowser/file-browser-manager.h"
 
 #include "account-view.h"
 
@@ -57,6 +58,7 @@ void AccountView::deleteAccount()
 
     if (seafApplet->yesOrNoBox(question, this, false)) {
         const Account& account = seafApplet->accountManager()->currentAccount();
+        FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
         QString error, server_addr = account.serverUrl.host();
         if (seafApplet->rpcClient()->unsyncReposByAccount(server_addr,
                                                           account.username,

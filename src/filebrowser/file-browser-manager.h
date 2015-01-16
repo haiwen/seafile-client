@@ -23,6 +23,8 @@ public:
 
   FileBrowserDialog *getDialog(const Account &account, const QString &repo_id);
 
+  void closeAllDialogByAccount(const Account &account);
+
 private:
   FileBrowserManager(const FileBrowserManager*); // DELETED
   FileBrowserManager& operator=(const FileBrowserManager*); // DELETED

@@ -366,7 +366,8 @@ private:
     struct doDeleteLater
     {
         static inline void cleanup(T *pointer) {
-            pointer->deleteLater();
+            if (pointer != NULL)
+                pointer->deleteLater();
         }
     };
 

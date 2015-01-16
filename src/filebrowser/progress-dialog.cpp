@@ -74,6 +74,12 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 {
     if (maximum() != total_bytes)
         setMaximum(total_bytes);
+
+    // if the value is less than the maxmium, this dialog will close itself
+    // add this guard for safety
+    if (processed_bytes >= total_bytes)
+        setMaximum(processed_bytes + 1);
+
     setValue(processed_bytes);
 
     more_details_label_->setText(tr("%1 of %2")

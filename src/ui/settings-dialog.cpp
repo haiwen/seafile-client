@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QDebug>
 
+#include "i18n.h"
 #include "account-mgr.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
@@ -33,6 +34,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
         mCheckLatestVersionBox->setVisible(false);
     }
 
+    mLanguageComboBox->addItems(I18NHelper::getInstance()->getLanguages());
+
     #ifdef Q_WS_MAC
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
@@ -58,6 +61,8 @@ void SettingsDialog::updateSettings()
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
         mgr->setCheckLatestVersionEnabled(enabled);
     }
+
+    I18NHelper::getInstance()->setPreferredLanguage(mLanguageComboBox->currentIndex());
 }
 
 void SettingsDialog::closeEvent(QCloseEvent *event)
@@ -121,6 +126,8 @@ void SettingsDialog::showEvent(QShowEvent *event)
         state = mgr->isCheckLatestVersionEnabled() ? Qt::Checked : Qt::Unchecked;
         mCheckLatestVersionBox->setCheckState(state);
     }
+
+    mLanguageComboBox->setCurrentIndex(I18NHelper::getInstance()->preferredLanguage());
 
     QDialog::showEvent(event);
 }

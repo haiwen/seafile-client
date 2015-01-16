@@ -1,15 +1,13 @@
 #include <getopt.h>
 #include <QApplication>
 #include <QMessageBox>
-#include <QTranslator>
-#include <QLocale>
-#include <QLibraryInfo>
 #include <QWidget>
 #include <QDir>
 
 #include <glib-object.h>
 #include <cstdio>
 
+#include "i18n.h"
 #include "crash-handler.h"
 #include "utils/utils.h"
 #include "utils/process.h"
@@ -59,40 +57,16 @@ int main(int argc, char *argv[])
         QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
 #endif
 
-    app.setStyle(new SeafileProxyStyle());
+    // see QSettings documentation
+    QCoreApplication::setOrganizationName(getBrand());
+    QCoreApplication::setOrganizationDomain("seafile.com");
+    QCoreApplication::setApplicationName(QString("%1 Client").arg(getBrand()));
 
     // initialize i18n
-    QTranslator qtTranslator;
-#if defined(Q_WS_WIN)
-    qtTranslator.load("qt_" + QLocale::system().name());
-#else
-    qtTranslator.load("qt_" + QLocale::system().name(),
-                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-#endif
-    app.installTranslator(&qtTranslator);
+    //
+    I18NHelper::getInstance()->init();
 
-    QTranslator myappTranslator;
-#if QT_VERSION >= 0x040800 && !defined(Q_WS_MAC)
-    QLocale loc = QLocale::system();
-    QString lang = QLocale::languageToString(loc.language());
-
-    if (lang != "en") {
-        bool success;
-        success = myappTranslator.load(QLocale::system(), // locale
-                                       "",                // file name
-                                       "seafile_",        // prefix
-                                       ":/i18n/",         // folder
-                                       ".qm");            // suffix
-
-        if (!success) {
-            myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
-        }
-    }
-#else
-    myappTranslator.load(QString(":/i18n/seafile_%1.qm").arg(QLocale::system().name()));
-#endif
-
-    app.installTranslator(&myappTranslator);
+    app.setStyle(new SeafileProxyStyle());
 
     static const char *short_options = "KXc:d:f:";
     static const struct option long_options[] = {
@@ -139,11 +113,6 @@ int main(int argc, char *argv[])
     }
 
     app.setQuitOnLastWindowClosed(false);
-
-    // see QSettings documentation
-    QCoreApplication::setOrganizationName(getBrand());
-    QCoreApplication::setOrganizationDomain("seafile.com");
-    QCoreApplication::setApplicationName(QString("%1 Client").arg(getBrand()));
 
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();

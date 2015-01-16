@@ -144,6 +144,7 @@
     <file>qt-mac.css</file>
     <file>i18n/seafile_ca.qm</file>
     <file>i18n/seafile_de_DE.qm</file>
+    <file>i18n/seafile_en.qm</file>
     <file>i18n/seafile_es.qm</file>
     <file>i18n/seafile_es_AR.qm</file>
     <file>i18n/seafile_es_MX.qm</file>
@@ -161,5 +162,7 @@
     <file>i18n/seafile_sk_SK.qm</file>
     <file>i18n/seafile_uk.qm</file>
     <file>i18n/seafile_zh_CN.qm</file>
+    <file>i18n/seafile_zh_TW.qm</file>
+    <file>i18n/seafile_tr.qm</file>
 </qresource>
 </RCC>

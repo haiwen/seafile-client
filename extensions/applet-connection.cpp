@@ -105,6 +105,7 @@ bool AppletConnection::sendCommand(const std::string& cmd)
 
 bool AppletConnection::sendCommandAndWait(const std::string& cmd, std::string *resp)
 {
+    utils::MutexLocker lock(&mutex_);
     if (!connected_ && !connect()) {
         seaf_ext_log("failed to connect to seafile client: %s", utils::formatErrorMessage().c_str());
         return false;

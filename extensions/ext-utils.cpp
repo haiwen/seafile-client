@@ -23,6 +23,46 @@ const int kPipeWaitTimeMSec = 1000;
 namespace seafile {
 namespace utils {
 
+
+Mutex::Mutex()
+{
+    handle_ = CreateMutex
+        (NULL,                  /* securitry attr */
+         FALSE,                 /* own the mutex immediately after create */
+         NULL);                 /* name */
+}
+
+Mutex::~Mutex()
+{
+    CloseHandle(handle_);
+}
+
+void Mutex::lock()
+{
+    while (1) {
+        DWORD ret = WaitForSingleObject(handle_, INFINITE);
+        if (ret == WAIT_OBJECT_0)
+            return;
+    }
+}
+
+void Mutex::unlock()
+{
+    ReleaseMutex(handle_);
+}
+
+MutexLocker::MutexLocker(Mutex *mutex)
+    : mu_(mutex)
+{
+    mu_->lock();
+}
+
+MutexLocker::~MutexLocker()
+{
+    mu_->unlock();
+}
+
+
 void regulatePath(char *p)
 {
     if (!p)
@@ -240,6 +280,25 @@ std::string normalizedPath(const std::string& path)
         p = p.substr(0, p.size() - 1);
     }
     return p;
+}
+
+uint64_t currentMSecsSinceEpoch()
+{
+    SYSTEMTIME st;
+    FILETIME ft;
+    GetSystemTime(&st);
+    SystemTimeToFileTime(&st, &ft);
+
+    ULARGE_INTEGER u;
+    u.LowPart  = ft.dwLowDateTime;
+    u.HighPart = ft.dwHighDateTime;
+
+#define TICKS_PER_MSEC 10000
+#define EPOCH_DIFFERENCE 11644473600000LL
+    uint64_t temp;
+    temp = u.QuadPart / TICKS_PER_MSEC; //convert from 100ns intervals to milli seconds;
+    temp = temp - EPOCH_DIFFERENCE; //subtract number of seconds between epochs
+    return temp;
 }
 
 } // namespace utils

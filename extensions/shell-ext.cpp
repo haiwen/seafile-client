@@ -5,8 +5,17 @@
 #include "ext-common.h"
 #include "ext-utils.h"
 #include "commands.h"
+#include "log.h"
 #include "shell-ext.h"
 
+namespace {
+
+const int kWorktreeCacheExpireMSecs = 10 * 1000;
+
+} // namespace
+
+std::unique_ptr<seafile::WorktreeList> ShellExt::wts_cache_;
+uint64_t ShellExt::cache_ts_;
 
 // *********************** ShellExt *************************
 ShellExt::ShellExt()
@@ -74,11 +83,35 @@ STDMETHODIMP_(ULONG) ShellExt::Release()
     return 0L;
 }
 
-bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
+bool ShellExt::getReposList(seafile::WorktreeList *wts)
 {
+    uint64_t now = seafile::utils::currentMSecsSinceEpoch();
+    if (wts_cache_ && now < cache_ts_ + kWorktreeCacheExpireMSecs) {
+        *wts = *(wts_cache_.get());
+        seaf_ext_log("use cached wt info");
+        return true;
+    }
+
+    seaf_ext_log("read wts from seafile client");
+
+    // no cached worktree list, send request to seafile client
     seafile::ListReposCommand cmd;
     seafile::WorktreeList worktrees;
     if (!cmd.sendAndWait(&worktrees)) {
+        return false;
+    }
+
+    cache_ts_ = seafile::utils::currentMSecsSinceEpoch();
+    wts_cache_.reset(new seafile::WorktreeList(worktrees));
+
+    *wts = worktrees;
+    return true;
+}
+
+bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
+{
+    seafile::WorktreeList worktrees;
+    if (!getReposList(&worktrees)) {
         return false;
     }
     std::string p = seafile::utils::normalizedPath(path);

@@ -2,6 +2,8 @@
 #define SEAFILE_EXT_SHELL_EXT_H
 
 #include <string>
+#include <memory>
+#include "commands.h"
 
 extern  volatile LONG       g_cRefThisDll;          // Reference count of this DLL.
 extern  HINSTANCE           g_hmodThisDll;          // Instance handle for this DLL
@@ -56,6 +58,7 @@ private:
     bool insertMainMenu();
     void tweakMenu(HMENU menu);
 
+    bool getReposList(seafile::WorktreeList *wts);
     bool pathInRepo(const std::string path, std::string *path_in_repo);
 
     /* the file/dir current clicked on */
@@ -79,6 +82,9 @@ private:
     std::string repo_id;
     /* repo top wt, non-empty if in a repo dir */
     std::string repo_wt;
+
+    static std::unique_ptr<seafile::WorktreeList> wts_cache_;
+    static uint64_t cache_ts_;
 };
 
 #endif // SEAFILE_EXT_SHELL_EXT_H

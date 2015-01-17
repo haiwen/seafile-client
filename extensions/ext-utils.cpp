@@ -293,6 +293,7 @@ uint64_t currentMSecsSinceEpoch()
     u.LowPart  = ft.dwLowDateTime;
     u.HighPart = ft.dwHighDateTime;
 
+    // See http://stackoverflow.com/questions/6161776/convert-windows-filetime-to-second-in-unix-linux
 #define TICKS_PER_MSEC 10000
 #define EPOCH_DIFFERENCE 11644473600000LL
     uint64_t temp;

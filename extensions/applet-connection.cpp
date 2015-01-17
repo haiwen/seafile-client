@@ -1,7 +1,7 @@
+#include "ext-common.h"
 
 #include <memory>
 
-#include "ext-common.h"
 #include "ext-utils.h"
 #include "log.h"
 

@@ -3,6 +3,10 @@
 
 // This header should be the first include of each cpp source file
 
+// A workaround for some mingw problem.
+// See http://stackoverflow.com/questions/3445312/swprintf-and-vswprintf-not-declared
+#undef __STRICT_ANSI__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

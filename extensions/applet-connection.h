@@ -2,6 +2,7 @@
 #define SEAFILE_EXTENSION_APPLET_CONNECTION_H
 
 #include <string>
+#include "ext-utils.h"
 
 namespace seafile {
 
@@ -35,9 +36,6 @@ private:
 
     static AppletConnection *singleton_;
 
-    class Lock {
-    };
-
     bool connected_;
     HANDLE pipe_;
 
@@ -45,10 +43,10 @@ private:
      * We have only one connection for each explorer process, so when sending
      * a command to seafile client we need to ensure exclusive access.
      */
-    Lock lock_;
+    utils::Mutex mutex_;
     OVERLAPPED ol_;
 };
 
-}
+} // namespace seafile
 
 #endif // SEAFILE_EXTENSION_APPLET_CONNECTION_H

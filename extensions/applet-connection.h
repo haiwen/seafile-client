@@ -34,6 +34,13 @@ private:
     bool readResponse(std::string *out);
     bool writeRequest(const std::string& cmd);
 
+    /**
+     * When sending request to seafile client, we would retry one
+     * more time if we're sure the connection to seafile client is broken.
+     * This normally happens when seafile client was restarted.
+     */
+    bool sendWithReconnect(const std::string& cmd);
+
     static AppletConnection *singleton_;
 
     bool connected_;

@@ -106,11 +106,7 @@ bool AppletConnection::sendCommand(const std::string& cmd)
 bool AppletConnection::sendCommandAndWait(const std::string& cmd, std::string *resp)
 {
     utils::MutexLocker lock(&mutex_);
-    if (!connected_ && !connect()) {
-        seaf_ext_log("failed to connect to seafile client: %s", utils::formatErrorMessage().c_str());
-        return false;
-    }
-    if (!writeRequest(cmd)) {
+    if (!sendWithReconnect(cmd)) {
         return false;
     }
 
@@ -160,6 +156,28 @@ bool AppletConnection::readResponse(std::string *out)
     }
 
     return true;
+}
+
+bool AppletConnection::sendWithReconnect(const std::string& cmd)
+{
+    if (!connected_) {
+        if (connect() && writeRequest(cmd)) {
+            return true;
+        }
+    } else {
+        if (writeRequest(cmd)) {
+            return true;
+        } else if (!connected_ && connect()) {
+            // Retry one more time when connection is broken. This normally
+            // happens when seafile client was restarted.
+            seaf_ext_log ("reconnected to seafile cient");
+            if (writeRequest(cmd)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 } // namespace seafile

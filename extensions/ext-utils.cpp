@@ -218,7 +218,7 @@ pipeWriteN(HANDLE pipe,
     if (!ret && !checkLastError(connected))
         return false;
 
-    if (!doPipeWait (pipe, ol, (DWORD)len))
+    if (!doPipeWait(pipe, ol, (DWORD)len))
         return false;
 
     return true;

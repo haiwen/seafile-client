@@ -2,10 +2,17 @@
 
 set -e
 
-platform=$(python -c 'import platform; print 64 if "64" in platform.machine() else 32')
+SCRIPT=$(readlink -f "$0")
+SRCDIR=$(dirname "${SCRIPT}")
 
-if [[ $platform == "64" ]]; then
-    make x64
-else
-    make
-fi
+cd $SRCDIR
+
+rm -rf CMakeCache.txt CMakeFiles
+export CXX=g++
+cmake -DX32=ON -G "MSYS Makefiles" .
+make
+
+rm -rf CMakeCache.txt CMakeFiles
+export CXX=x86_64-w64-mingw32-g++
+cmake -G "MSYS Makefiles" .
+make

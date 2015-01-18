@@ -6,6 +6,7 @@
 
 #include <string>
 
+namespace utils = seafile::utils;
 
 namespace {
 
@@ -51,7 +52,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
        When right click on a file, it's NULL */
     if (folder) {
         SHGetPathFromIDList(folder, path);
-        path_ = seafile::utils::normalizedPath(path);
+        path_ = utils::normalizedPath(utils::localeToUtf8(path));
     }
 
     /* if 'data' is NULL, then it's a background click, we have set
@@ -75,7 +76,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     else if (!DragQueryFile(drop, 0, path, sizeof(path)))
         result = E_INVALIDARG;
 
-    path_ = seafile::utils::normalizedPath(path);
+    path_ = utils::normalizedPath(utils::localeToUtf8(path));
     GlobalUnlock(stg.hGlobal);
     ReleaseStgMedium(&stg);
 

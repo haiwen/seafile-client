@@ -9,6 +9,7 @@
 
 #include <sstream>
 #include <algorithm>
+#include <memory>
 
 #include "ext-common.h"
 #include "log.h"
@@ -301,6 +302,86 @@ uint64_t currentMSecsSinceEpoch()
     temp = temp - EPOCH_DIFFERENCE; //subtract number of seconds between epochs
     return temp;
 }
+
+std::string convertEncoding(const std::string& src, UINT from_encoding, UINT to_encoding)
+{
+    if (src.empty())
+        return NULL;
+
+    std::unique_ptr<char> dst;
+    int len, res;
+
+    len = res = 0;
+    /* first get wchar length of the src str */
+    len = MultiByteToWideChar
+        (from_encoding,         /* multibyte code page */
+         0,                     /* flags */
+         src.c_str(),           /* src */
+         -1,                    /* src len, -1 for all including \0 */
+         NULL,                  /* dst */
+         0);                    /* dst buf len */
+
+    if (len <= 0)
+        return NULL;
+
+    std::unique_ptr<wchar_t> tmp_wchar(new wchar_t[len]);
+    res = MultiByteToWideChar
+        (from_encoding,         /* multibyte code page */
+         0,                     /* flags */
+         src.c_str(),           /* src */
+         -1,                    /* src len, -1 for all includes \0 */
+         tmp_wchar.get(),       /* dst */
+         len);                  /* dst buf len */
+
+    if (res <= 0) {
+        return "";
+    }
+
+    /* Now we have the widechar, we can convert it into dst */
+    /* first get dst str length */
+    len = WideCharToMultiByte
+        (to_encoding,           /* multibyte code page */
+         0,                     /* flags */
+         tmp_wchar.get(),       /* src */
+         -1,                    /* src len, -1 for all includes \0 */
+         NULL,                  /* dst */
+         0,                     /* dst buf len */
+         NULL,                  /* default char */
+         NULL);                 /* BOOL flag indicates default char is used */
+
+    if (len <= 0) {
+        return NULL;
+    }
+
+    dst.reset(new char[len]);
+    res = WideCharToMultiByte
+        (to_encoding,           /* multibyte code page */
+         0,                     /* flags */
+         tmp_wchar.get(),       /* src */
+         -1,                    /* src len, -1 for all includes \0 */
+         dst.get(),             /* dst */
+         len,                   /* dst buf len */
+         NULL,                  /* default char */
+         NULL);                 /* BOOL flag indicates default char is used */
+
+    if (res <= 0) {
+        return NULL;
+    }
+
+    return dst.get();
+}
+
+std::string localeFromUtf8(const std::string& src)
+{
+    return convertEncoding(src, CP_UTF8, CP_ACP);
+}
+
+std::string localeToUtf8(const std::string& src)
+{
+    return convertEncoding(src, CP_ACP, CP_UTF8);
+}
+
+
 
 } // namespace utils
 } // namespace seafile

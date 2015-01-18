@@ -8,6 +8,8 @@
 #include "log.h"
 #include "shell-ext.h"
 
+namespace utils = seafile::utils;
+
 namespace {
 
 const int kWorktreeCacheExpireMSecs = 10 * 1000;
@@ -85,7 +87,7 @@ STDMETHODIMP_(ULONG) ShellExt::Release()
 
 bool ShellExt::getReposList(seafile::WorktreeList *wts)
 {
-    uint64_t now = seafile::utils::currentMSecsSinceEpoch();
+    uint64_t now = utils::currentMSecsSinceEpoch();
     if (wts_cache_ && now < cache_ts_ + kWorktreeCacheExpireMSecs) {
         *wts = *(wts_cache_.get());
         seaf_ext_log("use cached wt info");
@@ -101,7 +103,7 @@ bool ShellExt::getReposList(seafile::WorktreeList *wts)
         return false;
     }
 
-    cache_ts_ = seafile::utils::currentMSecsSinceEpoch();
+    cache_ts_ = utils::currentMSecsSinceEpoch();
     wts_cache_.reset(new seafile::WorktreeList(worktrees));
 
     *wts = worktrees;
@@ -114,7 +116,7 @@ bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
     if (!getReposList(&worktrees)) {
         return false;
     }
-    std::string p = seafile::utils::normalizedPath(path);
+    std::string p = utils::normalizedPath(path);
 
     for (size_t i = 0; i < worktrees.size(); i++) {
         std::string wt = worktrees[i];

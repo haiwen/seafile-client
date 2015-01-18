@@ -57,6 +57,10 @@ std::string normalizedPath(const std::string& path);
 
 uint64_t currentMSecsSinceEpoch();
 
+std::string localeFromUtf8(const std::string& src);
+
+std::string localeToUtf8(const std::string& src);
+
 } // namespace utils
 } // namespace seafile
 

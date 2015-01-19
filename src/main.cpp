@@ -22,12 +22,30 @@
 
 #define APPNAME "seafile-applet"
 
-int main(int argc, char *argv[])
+namespace {
+void initGlib()
 {
-    int ret = 0;
-    char c;
+#if !GLIB_CHECK_VERSION(2, 35, 0)
+    g_type_init();
+#endif
+#if !GLIB_CHECK_VERSION(2, 31, 0)
+    g_thread_init(NULL);
+#endif
+}
+
+void initBreakpad()
+{
+#ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
+    // if we have built with breakpad, load it in run time
+    Breakpad::CrashHandler::instance()->Init(
+        QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
+#endif
+}
+
+void setupFontFix()
+{
 #if defined(Q_WS_MAC)
-    if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
+    if (QSysInfo::MacintoshVersion > QSysInfo::MV_10_8) {
         // fix Mac OS X 10.9 (mavericks) font issue
         // https://bugreports.qt-project.org/browse/QTBUG-32789
         QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
@@ -35,39 +53,19 @@ int main(int argc, char *argv[])
         QFont::insertSubstitution(".Helvetica Neue DeskInterface", "Helvetica Neue");
     }
 #endif
+}
 
-#if !GLIB_CHECK_VERSION(2, 35, 0)
-    g_type_init();
-#endif
-#if !GLIB_CHECK_VERSION(2, 31, 0)
-    g_thread_init(NULL);
-#endif
-
-#if defined(Q_WS_MAC)
-    Application app(argc, argv);
-#else
-    QApplication app(argc, argv);
-#endif
-
-    QDir::setCurrent(QApplication::applicationDirPath());
-
-#ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
-    // if we have built with breakpad, load it in run time
-    Breakpad::CrashHandler::instance()->Init(
-        QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
-#endif
-
+void setupSettingDomain()
+{
     // see QSettings documentation
     QCoreApplication::setOrganizationName(getBrand());
     QCoreApplication::setOrganizationDomain("seafile.com");
     QCoreApplication::setApplicationName(QString("%1 Client").arg(getBrand()));
+}
 
-    // initialize i18n
-    //
-    I18NHelper::getInstance()->init();
-
-    app.setStyle(new SeafileProxyStyle());
-
+void handleCommandLineOption(int argc, char *argv[])
+{
+    char c;
     static const char *short_options = "KXc:d:f:";
     static const struct option long_options[] = {
         { "config-dir", required_argument, NULL, 'c' },
@@ -105,6 +103,49 @@ int main(int argc, char *argv[])
         }
     }
 
+}
+
+} // anonymous namespace
+
+int main(int argc, char *argv[])
+{
+    int ret = 0;
+
+    // call glib's init functions
+    initGlib();
+
+    // initialize breakpad if enabled
+    initBreakpad();
+
+    // TODO imple if we have to restart the application
+    // the manual at http://qt-project.org/wiki/ApplicationRestart
+#if defined(Q_WS_MAC)
+    Application app(argc, argv);
+#else
+    QApplication app(argc, argv);
+#endif
+    // change the current directory
+    QDir::setCurrent(QApplication::applicationDirPath());
+
+    // don't quit even if the last windows is closed
+    app.setQuitOnLastWindowClosed(false);
+
+    // apply some ui fixes for mac
+    setupFontFix();
+
+    // set the domains of settings
+    setupSettingDomain();
+
+    // initialize i18n settings
+    I18NHelper::getInstance()->init();
+
+    // initialize style settings
+    app.setStyle(new SeafileProxyStyle());
+
+    // handle with the command arguments
+    handleCommandLineOption(argc, argv);
+
+    // count if we have any instance running now. if more than one, exit
     if (count_process(APPNAME) > 1) {
         QMessageBox::warning(NULL, getBrand(),
                              QObject::tr("%1 is already running").arg(getBrand()),
@@ -112,18 +153,17 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    app.setQuitOnLastWindowClosed(false);
-
+    // init qtawesome component
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();
 
-    {
-        SeafileApplet mApplet;
-        seafApplet = &mApplet;
-        seafApplet->start();
-        ret = app.exec();
-        //destroy SeafileApplet instance after QEventLoop returns
-    }
+    // start applet
+    SeafileApplet mApplet;
+    seafApplet = &mApplet;
+    seafApplet->start();
+
+    // start qt eventloop
+    ret = app.exec();
 
     return ret;
 }

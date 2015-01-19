@@ -24,19 +24,6 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
     return a.mtime > b.mtime;
 }
 
-/**
- * The default sorting order of repo categroies.
- */
-enum RepoCategoryIndex {
-    CAT_INDEX_RECENT_UPDATED = 0,
-    CAT_INDEX_MY_REPOS,
-    CAT_INDEX_VIRTUAL_REPOS,
-    CAT_INDEX_SHARED_REPOS,
-    CAT_INDEX_PUBLIC_REPOS,
-    CAT_INDEX_GROUP_REPOS,
-    CAT_INDEX_SYNCED_REPOS,
-};
-
 QRegExp makeFilterRegExp(const QString& text)
 {
     return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),

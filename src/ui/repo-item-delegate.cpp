@@ -13,6 +13,7 @@
 #include "repo-tree-model.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
+#include "account-mgr.h"
 
 #include "repo-item-delegate.h"
 
@@ -51,6 +52,7 @@ const char *kTimestampColor = "#959595";
 const char *kTimestampColorHighlighted = "#9D9B9A";
 const int kRepoNameFontSize = 14;
 const int kTimestampFontSize = 12;
+const int kOwnerFontSize = 12;
 
 const char *kRepoItemBackgroundColor = "white";
 const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
@@ -182,8 +184,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
                       fitTextToWidth(repo.name, option.font, repo_name_width),
                       &repo_name_rect);
+    painter->restore();
 
     // Paint repo description
+    painter->save();
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
     QRect repo_desc_rect(repo_desc_pos, QSize(repo_name_width, kRepoNameHeight));
     painter->setFont(changeFontSize(painter->font(), kTimestampFontSize));
@@ -217,6 +221,27 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                       fitTextToWidth(description, option.font, repo_name_width),
                       &repo_desc_rect);
     painter->restore();
+
+    // Paint repo sharing owner for private share
+    if (static_cast<RepoCategoryItem*>(item->parent())->categoryIndex() ==
+        RepoTreeModel::CAT_INDEX_SHARED_REPOS) {
+        painter->save();
+
+        QString shared_from_owner = tr(", %1").arg(item->repo().owner.split('@').front());
+        int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
+        if (width < 3)
+          width = 3;
+        QPoint repo_owner_pos = repo_desc_rect.topRight();
+        QRect repo_owner_rect(repo_owner_pos, QSize(width, kRepoNameHeight));
+        painter->setFont(changeFontSize(painter->font(), kOwnerFontSize));
+        painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
+        painter->drawText(repo_owner_rect,
+                          Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+                          fitTextToWidth(shared_from_owner, option.font, width),
+                          &repo_owner_rect);
+
+        painter->restore();
+    }
 
     // Paint repo status icon
     QPoint status_icon_pos = option.rect.topRight() - QPoint(40, 0);

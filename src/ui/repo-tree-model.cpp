@@ -79,9 +79,10 @@ QModelIndex RepoTreeModel::proxiedIndexFromItem(const QStandardItem* item)
 
 void RepoTreeModel::clear()
 {
+    beginResetModel();
     QStandardItemModel::clear();
     initialize();
-    reset();
+    endResetModel();
 }
 
 void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)

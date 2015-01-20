@@ -45,7 +45,7 @@ void AccountView::showAddAccountDialog()
         && account_mgr->accounts().size() == 1) {
 
         InitVirtualDriveDialog dialog(account_mgr->currentAccount(), seafApplet->mainWindow());
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
         dialog.exec();
 #endif
     }
@@ -118,7 +118,7 @@ void AccountView::onAccountChanged()
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (i == 0) {
-                action->setIcon(::getMenuIconSet(":/images/account-checked.png"));
+                action->setIcon(QIcon(":/images/account-checked.png"));
                 action->setIconVisibleInMenu(true);
             }
             account_menu_->addAction(action);
@@ -129,21 +129,21 @@ void AccountView::onAccountChanged()
 
     if (!accounts.empty()) {
         account_settings_action_ = new QAction(tr("Account settings"), this);
-        account_settings_action_->setIcon(::getMenuIconSet(":/images/account-settings.png"));
+        account_settings_action_->setIcon(QIcon(":/images/account-settings.png"));
         account_settings_action_->setIconVisibleInMenu(true);
         connect(account_settings_action_, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
         account_menu_->addAction(account_settings_action_);
     }
 
     add_account_action_ = new QAction(tr("Add an account"), this);
-    add_account_action_->setIcon(::getMenuIconSet(":/images/add-account.png"));
+    add_account_action_->setIcon(QIcon(":/images/add-account.png"));
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
     account_menu_->addAction(add_account_action_);
 
     if (!accounts.empty()) {
         delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(::getMenuIconSet(":/images/delete-account.png"));
+        delete_account_action_->setIcon(QIcon(":/images/delete-account.png"));
         delete_account_action_->setIconVisibleInMenu(true);
         connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
         account_menu_->addAction(delete_account_action_);
@@ -177,8 +177,7 @@ void AccountView::onAccountItemClicked()
 
 void AccountView::updateAvatar()
 {
-    int w = ::getDPIScaledSize(32);
-    mAccountBtn->setIconSize(QSize(w, w));
+    mAccountBtn->setIconSize(QSize(32, 32));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {
         mAccountBtn->setIcon(QIcon(":/images/account.png"));

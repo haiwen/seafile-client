@@ -1,4 +1,9 @@
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QDesktopServices>
 
 #include "seafile-applet.h"
@@ -38,7 +43,7 @@ const int kStatusBarIconSize = 24;
 void openFile(const QString& path)
 {
     ::openInNativeExtension(path) || ::showInGraphicalShell(path);
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     MacImageFilesWorkAround::instance()->fileOpened(path);
 #endif
 }
@@ -173,29 +178,25 @@ FileBrowserDialog::~FileBrowserDialog()
 void FileBrowserDialog::createToolBar()
 {
     toolbar_ = new QToolBar;
-
-    const int w = ::getDPIScaledSize(kToolBarIconSize);
-    toolbar_->setIconSize(QSize(w, w));
-
     toolbar_->setObjectName("topBar");
-    toolbar_->setIconSize(QSize(w, w));
+    toolbar_->setIconSize(QSize(kToolBarIconSize, kToolBarIconSize));
 
     backward_action_ = new QAction(tr("Back"), this);
-    backward_action_->setIcon(getIconSet(":/images/filebrowser/backward.png", kToolBarIconSize, kToolBarIconSize));
+    backward_action_->setIcon(QIcon(":/images/filebrowser/backward.png"));
     backward_action_->setEnabled(false);
     backward_action_->setShortcut(QKeySequence::Back);
     toolbar_->addAction(backward_action_);
     connect(backward_action_, SIGNAL(triggered()), this, SLOT(goBackward()));
 
     forward_action_ = new QAction(tr("Forward"), this);
-    forward_action_->setIcon(getIconSet(":/images/filebrowser/forward.png", kToolBarIconSize, kToolBarIconSize));
+    forward_action_->setIcon(QIcon(":/images/filebrowser/forward.png"));
     forward_action_->setEnabled(false);
     forward_action_->setShortcut(QKeySequence::Forward);
     connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
     toolbar_->addAction(forward_action_);
 
     gohome_action_ = new QAction(tr("Home"), this);
-    gohome_action_->setIcon(getIconSet(":images/filebrowser/home.png", kToolBarIconSize, kToolBarIconSize));
+    gohome_action_->setIcon(QIcon(":images/filebrowser/home.png"));
     connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
     toolbar_->addAction(gohome_action_);
 
@@ -215,10 +216,8 @@ void FileBrowserDialog::createToolBar()
 void FileBrowserDialog::createStatusBar()
 {
     status_bar_ = new QToolBar;
-
-    const int w = ::getDPIScaledSize(kStatusBarIconSize);
     status_bar_->setObjectName("statusBar");
-    status_bar_->setIconSize(QSize(w, w));
+    status_bar_->setIconSize(QSize(kStatusBarIconSize, kStatusBarIconSize));
 
     QWidget *spacer1 = new QWidget;
     spacer1->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -249,7 +248,7 @@ void FileBrowserDialog::createStatusBar()
     // Action to trigger Submenu
     upload_button_ = new QToolButton;
     upload_button_->setObjectName("uploadButton");
-    upload_button_->setIcon(getIconSet(":/images/filebrowser/upload.png", kStatusBarIconSize, kStatusBarIconSize));
+    upload_button_->setIcon(QIcon(":/images/filebrowser/upload.png"));
     connect(upload_button_, SIGNAL(clicked()), this, SLOT(uploadFileOrMkdir()));
     status_bar_->addWidget(upload_button_);
 
@@ -261,19 +260,16 @@ void FileBrowserDialog::createStatusBar()
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     details_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    details_label_->setFixedHeight(w);
     status_bar_->addWidget(details_label_);
 
     refresh_action_ = new QAction(this);
-    refresh_action_->setIcon(
-        getIconSet(":/images/filebrowser/refresh.png", kStatusBarIconSize, kStatusBarIconSize));
+    refresh_action_->setIcon(QIcon(":/images/filebrowser/refresh.png"));
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
     refresh_action_->setShortcut(QKeySequence::Refresh);
     status_bar_->addAction(refresh_action_);
 
     open_cache_dir_action_ = new QAction(this);
-    open_cache_dir_action_->setIcon(
-        getIconSet(":/images/filebrowser/open-folder.png", kStatusBarIconSize, kStatusBarIconSize));
+    open_cache_dir_action_->setIcon(QIcon(":/images/filebrowser/open-folder.png"));
     connect(open_cache_dir_action_, SIGNAL(triggered()), this, SLOT(openCacheFolder()));
     status_bar_->addAction(open_cache_dir_action_);
 
@@ -887,6 +883,12 @@ void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
 {
     TransferManager::instance()->cancelDownload(repo_.id,
         ::pathJoin(current_path_, dirent.name));
+}
+
+void FileBrowserDialog::closeEvent(QCloseEvent *event)
+{
+    emit aboutToClose();
+    QDialog::closeEvent(event);
 }
 
 bool FileBrowserDialog::hasFilesToBePasted() {

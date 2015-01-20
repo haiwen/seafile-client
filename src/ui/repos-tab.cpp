@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 #include <QStackedWidget>
 #include <QSortFilterProxyModel>
@@ -39,7 +45,7 @@ ReposTab::ReposTab(QWidget *parent)
     filter_text_ = new QLineEdit;
     filter_text_->setPlaceholderText(tr("Search libraries..."));
     filter_text_->setObjectName("repoNameFilter");
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     filter_text_->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
     connect(filter_text_, SIGNAL(textChanged(const QString&)),

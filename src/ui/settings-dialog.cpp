@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QDebug>
 
 #include "i18n.h"
@@ -36,7 +42,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     mLanguageComboBox->addItems(I18NHelper::getInstance()->getLanguages());
 
-    #ifdef Q_WS_MAC
+    #if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
     #endif
@@ -103,14 +109,14 @@ void SettingsDialog::showEvent(QShowEvent *event)
     // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
-#if !defined(Q_WS_WIN) && !defined(Q_WS_MAC)
+#if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
     mAutoStartCheckBox->hide();
 #endif
 
     // currently supports mac only
     state = mgr->hideDockIcon() ? Qt::Checked : Qt::Unchecked;
     mHideDockIconCheckBox->setCheckState(state);
-#if !defined(Q_WS_MAC)
+#if !defined(Q_OS_MAC)
     mHideDockIconCheckBox->hide();
 #endif
 

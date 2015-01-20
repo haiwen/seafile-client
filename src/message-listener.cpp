@@ -172,7 +172,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
 
             QString buf = tr("\"%1\" failed to sync.\nThe library owner's storage space is used up.").arg(slist.at(0));
             seafApplet->trayIcon()->notify(getBrand(), buf);
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
         } else if (strcmp(type, "repo.setwktree") == 0) {
             //seafile_set_repofolder_icns (content);
         } else if (strcmp(type, "repo.unsetwktree") == 0) {

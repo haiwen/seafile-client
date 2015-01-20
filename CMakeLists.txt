@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
 
 PROJECT(seafile-client)
 SET(PROJECT_VERSION "4.1.0")
@@ -20,6 +20,14 @@ IF (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git AND NOT (${CMAKE_BUILD_TYPE} MATCHES
   ADD_DEFINITIONS(-DSEAFILE_CLIENT_REVISION=${SEAFILE_CLIENT_REVISION})
 ENDIF()
 
+IF (APPLE)
+    OPTION(USE_QT5
+      "Build seafile-client against Qt5 instead" ON)
+ELSE ()
+    OPTION(USE_QT5
+      "Build seafile-client against Qt5 instead" OFF)
+ENDIF ()
+
 SET(PATH_TO_BREAKPAD_ROOT CACHE "Path to breakpad's root" "")
 
 OPTION(BUILD_TESTING "Build Test" OFF)
@@ -29,6 +37,12 @@ OPTION(BUILD_DOCS "Build Documents" OFF)
 OPTION(BUILD_SHIBBOLETH_SUPPORT "Build Shibboleth support" OFF)
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
+
+## build in PIC mode
+IF (NOT WIN32)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+ENDIF()
 
 IF (WIN32)
     SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
@@ -57,17 +71,35 @@ ENDIF()
 ####################
 ###### BEGIN: QT configuration
 ####################
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
-  SET(QtDBus "QtDBus")
-ENDIF()
-IF (BUILD_SHIBBOLETH_SUPPORT)
-  SET(QtWebKit "QtWebKit")
-  ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+IF(USE_QT5)
+    SET(QT_VERSION_MAJOR 5)
+ELSE()
+    SET(QT_VERSION_MAJOR 4)
 ENDIF()
 
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
-
-INCLUDE(${QT_USE_FILE})
+IF(USE_QT5)
+    SET(USE_QT_LIBRARIES
+      Core Gui Widgets LinguistTools Network Test
+      )
+    IF (BUILD_SHIBBOLETH_SUPPORT)
+      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "WebKit" "WebKitWidgets")
+      ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+    ENDIF()
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "DBus")
+    ENDIF()
+    FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
+ELSE()
+    IF (BUILD_SHIBBOLETH_SUPPORT)
+      SET(QtWebKit "QtWebKit")
+      ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+    ENDIF()
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        SET(QtDBus "QtDBus")
+    ENDIF()
+    FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
+    INCLUDE(${QT_USE_FILE})
+ENDIF()
 
 # MOC FILES
 SET(moc_headers
@@ -172,13 +204,25 @@ SET(qrc_files
 )
 
 # preprocess ui files
-QT4_WRAP_UI(ui_output ${ui_files})
+IF(USE_QT5)
+  QT5_WRAP_UI(ui_output ${ui_files})
+ELSE()
+  QT4_WRAP_UI(ui_output ${ui_files})
+ENDIF()
 
 # meta object compliation(moc)
-QT4_WRAP_CPP(moc_output ${moc_headers})
+IF(USE_QT5)
+  QT5_WRAP_CPP(moc_output ${moc_headers})
+ELSE()
+  QT4_WRAP_CPP(moc_output ${moc_headers})
+ENDIF()
 
 # resources files
-QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
+IF(USE_QT5)
+  QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
+ELSE()
+  QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
+ENDIF()
 
 # MESSAGE("moc output: ${moc_output}")
 # MESSAGE("ui output: ${ui_output}")
@@ -302,10 +346,8 @@ ENDIF()
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
-  ${PROJECT_SOURCE_DIR}/src
-  ${PROJECT_SOURCE_DIR}/third_party/QtAwesome
-  ${QT_INCLUDE_DIR}
-  ${QT_QTNETWORK_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/QtAwesome
   ${OPENSSL_INCLUDE_DIRS}
   ${SQLITE3_INCLUDE_DIRS}
   ${JANSSON_INCLUDE_DIRS}
@@ -313,6 +355,16 @@ INCLUDE_DIRECTORIES(
   ${LIBCCNET_INCLUDE_DIRS}
   ${LIBSEAFILE_INCLUDE_DIRS}
 )
+
+IF(USE_QT5)
+  FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
+  INCLUDE_DIRECTORIES(
+    ${Qt5${USE_QT_LIBRARY}_INCLUDE_DIRS}
+    )
+  ENDFOREACH()
+ELSE()
+  INCLUDE_DIRECTORIES(${QT_INCLUDES})
+ENDIF()
 
 LINK_DIRECTORIES(
   ${QT_LIBRARY_DIR}
@@ -437,7 +489,11 @@ FOREACH(LANGUAGE ${LANGUAGES})
 
 ENDFOREACH(LANGUAGE ${LANGUAGES})
 
-QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+IF(USE_QT5)
+  QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+ELSE()
+  QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+ENDIF()
 
 ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
@@ -556,11 +612,18 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
+IF(USE_QT5)
+  QT5_USE_MODULES(seafile-applet Core Gui Widgets Network WebKit WebKitWidgets)
+ENDIF(USE_QT5)
+
 ## QtBus
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   TARGET_LINK_LIBRARIES(seafile-applet
     ${QT_QTDBUS_LIBRARIES}
   )
+  IF(USE_QT5)
+    QT5_USE_MODULES(seafile-applet ${USE_QT_LIBRARIES})
+  ENDIF(USE_QT5)
 ENDIF()
 
 ### Xcode-related, build as a osx bundle
@@ -594,7 +657,12 @@ ADD_CUSTOM_TARGET(dist
 ### Test related
 IF (BUILD_TESTING)
     MACRO(ADD_QTEST testname)
-        QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        IF(USE_QT5)
+          QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        ELSE()
+          QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        ENDIF()
+
         SET(${testname}_SRCS tests/${testname}.cpp ${${testname}_MOCHEADER})
 
         ADD_EXECUTABLE(${testname} ${${testname}_SRCS})
@@ -605,7 +673,12 @@ IF (BUILD_TESTING)
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 
+        IF(USE_QT5)
+          QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES})
+        ENDIF(USE_QT5)
+
         ADD_TEST(${testname} ${CMAKE_CURRENT_BINARY_DIR}/tests/${testname})
+
     ENDMACRO(ADD_QTEST)
 
     ENABLE_TESTING()

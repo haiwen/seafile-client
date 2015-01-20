@@ -101,14 +101,14 @@ bool I18NHelper::setLanguage(int langIndex) {
 
     const QLocale &locale = locales[langIndex];
     qDebug() << "[i18n] using language :" << (langIndex == 0 ? "system locale" : locale.name());
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     qt_translator_->load("qt_" + locale.name());
 #else
     qt_translator_->load("qt_" + locale.name(),
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 #endif
 
-#if QT_VERSION >= 0x040800 && !defined(Q_WS_MAC)
+#if QT_VERSION >= QT_VERSION_CHECK(4, 8, 0) && !defined(Q_OS_MAC)
     QString lang = QLocale::languageToString(locale.language());
 
     if (lang != "en") {

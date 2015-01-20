@@ -23,7 +23,7 @@ AccountSettingsDialog::AccountSettingsDialog(const Account& account, QWidget *pa
     mUsername->setText(account_.username);
     mUsername->setEnabled(false);
 
-    #if defined(Q_WS_MAC)
+    #if defined(Q_OS_MAC)
     layout()->setContentsMargins(9, 9, 9, 9);
     layout()->setSpacing(6);
     formLayout->setSpacing(6);

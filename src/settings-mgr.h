@@ -56,8 +56,10 @@ public:
     QString getComputerName();
     void setComputerName(const QString& computerName);
 
+#ifdef HAVE_SHIBBOLETH_SUPPORT
     QString getLastShibUrl();
     void setLastShibUrl(const QString& url);
+#endif // HAVE_SHIBBOLETH_SUPPORT
 
 public:
 

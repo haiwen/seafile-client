@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(seafile-client)
-SET(PROJECT_VERSION "4.0.6")
+SET(PROJECT_VERSION "4.0.7")
 ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 INCLUDE(FindPkgConfig)
 
@@ -25,6 +25,8 @@ SET(PATH_TO_BREAKPAD_ROOT CACHE "Path to breakpad's root" "")
 OPTION(BUILD_TESTING "Build Test" OFF)
 
 OPTION(BUILD_DOCS "Build Documents" OFF)
+
+OPTION(BUILD_SHIBBOLETH_SUPPORT "Build Shibboleth support" OFF)
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
@@ -56,8 +58,12 @@ ENDIF()
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   SET(QtDBus "QtDBus")
 ENDIF()
+IF (BUILD_SHIBBOLETH_SUPPORT)
+  SET(QtWebKit "QtWebKit")
+  ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+ENDIF()
 
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} QtWebKit)
+FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
 
 INCLUDE(${QT_USE_FILE})
 
@@ -81,7 +87,6 @@ SET(moc_headers
   src/api/api-request.h
   src/api/requests.h
   src/rpc/rpc-client.h
-  src/shib/shib-login-dialog.h
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
@@ -132,6 +137,10 @@ SET(moc_headers
 
 IF (APPLE)
   SET(moc_headers ${moc_headers} src/application.h)
+ENDIF()
+
+IF (BUILD_SHIBBOLETH_SUPPORT)
+  SET(moc_headers ${moc_headers} src/shib/shib-login-dialog.h)
 ENDIF()
 
 # UI FILES
@@ -230,7 +239,6 @@ SET(seafile_client_sources
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
-  src/shib/shib-login-dialog.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
@@ -284,6 +292,10 @@ SET(seafile_client_sources
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )
+
+IF (BUILD_SHIBBOLETH_SUPPORT)
+  SET(seafile_client_sources ${seafile_client_sources} src/shib/shib-login-dialog.cpp)
+ENDIF()
 
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}

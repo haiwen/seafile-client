@@ -260,11 +260,11 @@ QLabel#loadingFailedText {
 }
 
 SettingsDialog {
-    min-width: 450px;
-    max-width: 450px;
+    min-width: 560px;
+    max-width: 560px;
 
-    min-height: 350px;
-    max-height: 350px;
+    min-height: 390px;
+    max-height: 390px;
 }
 
 SettingsDialog QTabWidget::pane QLabel#desc,

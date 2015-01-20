@@ -46,3 +46,14 @@ FileBrowserDialog *FileBrowserManager::getDialog(const Account &account, const Q
     return NULL;
 }
 
+void FileBrowserManager::closeAllDialogByAccount(const Account& account)
+{
+    Q_FOREACH(const QWeakPointer<FileBrowserDialog> &dialog, dialogs_)
+    {
+        if (dialog.isNull())
+            continue;
+        if (dialog.data()->account_ == account)
+            dialog.data()->deleteLater();
+    }
+}
+

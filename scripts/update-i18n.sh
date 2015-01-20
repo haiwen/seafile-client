@@ -15,8 +15,10 @@ fi
 
 function regenerate_source() {
     if [ -f build.ninja ]; then
+        cmake -DBUILD_SHIBBOLETH_SUPPORT=on
         ninja update-ts
     elif [ -f Makefile ]; then
+        cmake -DBUILD_SHIBBOLETH_SUPPORT=on
         make update-ts
     else
         local SEAFILE_PROJECT="seafile-client.pro"

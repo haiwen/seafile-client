@@ -295,14 +295,9 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     painter->save();
-    QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "right");
-    QString icon_2x_path = QString(":/images/caret-%1@2x.png").arg(expanded ? "down" : "right");
-    QIcon icon = QIcon();
-    icon.addFile(icon_path, QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
-    icon.addFile(icon_2x_path, QSize(kRepoCategoryIndicatorWidth * 2, kRepoCategoryIndicatorHeight * 2));
+    QIcon icon(QString(":/images/caret-%1.png").arg(expanded ? "down" : "right"));
 
-    painter->drawPixmap(indicator_rect,
-                       icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
+    painter->drawPixmap(indicator_rect, icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
     painter->restore();
 
     // Paint category name
@@ -356,7 +351,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
 
     last_icon_map_[repo.id] = icon;
 
-    return ::getIconPathByDPI(prefix + icon + ".png");
+    return prefix + icon + ".png";
 }
 
 QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const

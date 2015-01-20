@@ -620,7 +620,10 @@ TARGET_LINK_LIBRARIES(seafile-applet
 )
 
 IF(USE_QT5)
-  QT5_USE_MODULES(seafile-applet Core Gui Widgets Network WebKit WebKitWidgets)
+  QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
+  IF (BUILD_SHIBBOLETH_SUPPORT)
+    QT5_USE_MODULES(seafile-applet WebKit WebKitWidgets)
+  ENDIF()
 ENDIF(USE_QT5)
 
 ## QtBus

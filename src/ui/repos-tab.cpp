@@ -45,6 +45,10 @@ ReposTab::ReposTab(QWidget *parent)
     filter_text_ = new QLineEdit;
     filter_text_->setPlaceholderText(tr("Search libraries..."));
     filter_text_->setObjectName("repoNameFilter");
+    // This property was introduced in Qt 5.2.
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+    filter_text_->setClearButtonEnabled(true);
+#endif
 #ifdef Q_OS_MAC
     filter_text_->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif

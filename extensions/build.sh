@@ -2,6 +2,8 @@
 
 set -e
 
+unset -v CPPFLAGS CFLAGS CXXFLAGS LDFLAGS
+
 SCRIPT=$(readlink -f "$0")
 SRCDIR=$(dirname "${SCRIPT}")
 

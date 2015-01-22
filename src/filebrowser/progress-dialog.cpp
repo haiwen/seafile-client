@@ -44,6 +44,10 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     initTaskInfo();
 }
 
+FileBrowserProgressDialog::~FileBrowserProgressDialog()
+{
+}
+
 void FileBrowserProgressDialog::initTaskInfo()
 {
     QString title, label;
@@ -72,8 +76,14 @@ void FileBrowserProgressDialog::initTaskInfo()
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
 {
+    // if the value is less than the maxmium, this dialog will close itself
+    // add this guard for safety
+    if (processed_bytes >= total_bytes)
+        total_bytes = processed_bytes + 1;
+
     if (maximum() != total_bytes)
         setMaximum(total_bytes);
+
     setValue(processed_bytes);
 
     more_details_label_->setText(tr("%1 of %2")

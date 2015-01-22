@@ -354,6 +354,7 @@ protected:
 
 private slots:
     void cancel();
+    void onProgressUpdate();
     void onPostTaskProgressUpdate(qint64, qint64);
     void onPostTaskFinished(bool success);
 
@@ -366,7 +367,8 @@ private:
     struct doDeleteLater
     {
         static inline void cleanup(T *pointer) {
-            pointer->deleteLater();
+            if (pointer != NULL)
+                pointer->deleteLater();
         }
     };
 
@@ -377,8 +379,14 @@ private:
 
     QScopedPointer<PostFileTask, doDeleteLater<PostFileTask> > task_;
     int current_num_;
+    // transferred bytes in the current tasks
     qint64 current_bytes_;
+    // the total bytes of completely transferred tasks
+    qint64 transferred_bytes_;
+    // the total bytes of all tasks
     qint64 total_bytes_;
+    // deal with the qt4 eventloop's bug
+    QTimer *progress_update_timer_;
     const bool use_relative_;
 };
 

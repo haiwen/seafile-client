@@ -15,6 +15,7 @@ class FileBrowserProgressDialog : public QProgressDialog {
     Q_OBJECT
 public:
     FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent=0);
+    ~FileBrowserProgressDialog();
 
 public slots:
     void cancel();

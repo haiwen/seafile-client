@@ -650,7 +650,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
           SeafDirent::FILE,
           "",
           name,
-          file.size(),
+          static_cast<quint64>(file.size()),
           QDateTime::currentDateTime().toTime_t()
         };
         if (task->useUpload())

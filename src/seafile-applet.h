@@ -36,6 +36,7 @@ public:
 
     // Show error in a messagebox and exit
     void errorAndExit(const QString& error);
+    void restartApp();
 
     // accessors
     AccountManager *accountManager() { return account_mgr_; }

@@ -279,6 +279,20 @@ void SeafileApplet::errorAndExit(const QString& error)
     QCoreApplication::exit(1);
 }
 
+void SeafileApplet::restartApp()
+{
+    if (in_exit_ || QCoreApplication::closingDown()) {
+        return;
+    }
+
+    in_exit_ = true;
+
+    QStringList args = QApplication::arguments();
+    args.removeFirst();
+    QProcess::startDetached(QApplication::applicationFilePath(), args);
+    QCoreApplication::quit();
+}
+
 void SeafileApplet::initLog()
 {
     if (applet_log_init(toCStr(configurator_->ccnetDir())) < 0) {

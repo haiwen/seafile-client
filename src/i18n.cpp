@@ -68,14 +68,14 @@ I18NHelper::I18NHelper()
     : qt_translator_(new QTranslator),
       my_translator_(new QTranslator)
 {
-    qApp->installTranslator(qt_translator_.data());
-    qApp->installTranslator(my_translator_.data());
 }
 
 I18NHelper::~I18NHelper() {
 }
 
 void I18NHelper::init() {
+    qApp->installTranslator(qt_translator_.data());
+    qApp->installTranslator(my_translator_.data());
     int pos = preferredLanguage();
     if (langs[pos] == NULL) // NULL is reserved for system locale
         setLanguage(0);
@@ -100,7 +100,6 @@ bool I18NHelper::setLanguage(int langIndex) {
         return false;
 
     const QLocale &locale = locales[langIndex];
-    qDebug() << "[i18n] using language :" << (langIndex == 0 ? "system locale" : locale.name());
 #if defined(Q_WS_WIN)
     qt_translator_->load("qt_" + locale.name());
 #else

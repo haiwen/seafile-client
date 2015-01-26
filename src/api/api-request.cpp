@@ -45,15 +45,16 @@ void SeafileApiRequest::send()
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     if (!params_.isEmpty()) {
-        QList<QPair<QString, QString> > queries;
-
-        for (int i = 0; i < params_.size(); i++) {
-            queries.push_back(
-                QPair<QString, QString> (QUrl::fromPercentEncoding(params_[i].first),
-                                         QUrl::fromPercentEncoding(params_[i].second)));
-        }
         QUrlQuery url_query;
-        url_query.setQueryItems(queries);
+        for (int i = 0; i < params_.size(); i++) {
+            // QUrlQuery never encodes the space character to "+" and will never decode "+" to a space character
+            // http://doc.qt.io/qt-5/qurlquery.html
+            url_query.addQueryItem(
+                QUrl::fromPercentEncoding(params_[i].first)
+                    .replace('+', QString::fromLatin1("%2B")),
+                QUrl::fromPercentEncoding(params_[i].second)
+                    .replace('+', QString::fromLatin1("%2B")));
+        }
         url_.setQuery(url_query);
     }
 
@@ -65,32 +66,21 @@ void SeafileApiRequest::send()
         api_client_->deleteResource(url_);
         break;
     case METHOD_POST:
-        if (!form_params_.isEmpty()) {
-            QList<QPair<QString, QString> > form_queries;
-            for (int i = 0; i < form_params_.size(); i++) {
-                form_queries.push_back(
-                    QPair<QString, QString> (QUrl::fromPercentEncoding(form_params_[i].first),
-                                             QUrl::fromPercentEncoding(form_params_[i].second)));
-            }
-            QUrlQuery form_query;
-            form_query.setQueryItems(form_queries);
-            setData(form_query.query(QUrl::FullyEncoded).toUtf8());
-        }
-        api_client_->post(url_, data_, false);
-        break;
     case METHOD_PUT:
         if (!form_params_.isEmpty()) {
-            QList<QPair<QString, QString> > form_queries;
-            for (int i = 0; i < form_params_.size(); i++) {
-                form_queries.push_back(
-                    QPair<QString, QString> (QUrl::fromPercentEncoding(form_params_[i].first),
-                                             QUrl::fromPercentEncoding(form_params_[i].second)));
-            }
             QUrlQuery form_query;
-            form_query.setQueryItems(form_queries);
+            for (int i = 0; i < form_params_.size(); i++) {
+                form_query.addQueryItem(QUrl::fromPercentEncoding(form_params_[i].first),
+                                        QUrl::fromPercentEncoding(form_params_[i].second));
+                form_query.addQueryItem(
+                    QUrl::fromPercentEncoding(form_params_[i].first)
+                        .replace('+', QString::fromLatin1("%2B")),
+                    QUrl::fromPercentEncoding(form_params_[i].second)
+                        .replace('+', QString::fromLatin1("%2B")));
+            }
             setData(form_query.query(QUrl::FullyEncoded).toUtf8());
         }
-        api_client_->post(url_, data_, true);
+        api_client_->post(url_, data_, method_ == METHOD_PUT);
         break;
     default:
         qWarning("unknown method %d\n", method_);
@@ -106,20 +96,13 @@ void SeafileApiRequest::send()
         api_client_->deleteResource(url_);
         break;
     case METHOD_POST:
-        if (!form_params_.isEmpty()) {
-            QUrl params;
-            params.setEncodedQueryItems(form_params_);
-            setData(params.encodedQuery());
-        }
-        api_client_->post(url_, data_, false);
-        break;
     case METHOD_PUT:
         if (!form_params_.isEmpty()) {
             QUrl params;
             params.setEncodedQueryItems(form_params_);
             setData(params.encodedQuery());
         }
-        api_client_->post(url_, data_, true);
+        api_client_->post(url_, data_, method_ == METHOD_PUT);
         break;
     default:
         qWarning("unknown method %d\n", method_);

@@ -112,15 +112,15 @@ SINGLETON_IMPL(SeafileExtensionHandler)
 
 SeafileExtensionHandler::SeafileExtensionHandler()
 {
-    handler_thread_ = new ExtHandlerThread;
+    listener_thread_ = new ExtConnectionListenerThread;
 
-    connect(handler_thread_, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
+    connect(listener_thread_, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
             this, SLOT(generateShareLink(const QString&, const QString&, bool)));
 }
 
 void SeafileExtensionHandler::start()
 {
-    handler_thread_->start();
+    listener_thread_->start();
 }
 
 Account SeafileExtensionHandler::findAccountByRepo(const QString& repo_id)
@@ -158,10 +158,8 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
     dialog->activateWindow();
 }
 
-void ExtHandlerThread::run()
+void ExtConnectionListenerThread::run()
 {
-    rpc_ = new SeafileRpcClient;
-    rpc_->connectDaemon();
     while (1) {
         HANDLE pipe = INVALID_HANDLE_VALUE;
         bool connected = false;
@@ -196,17 +194,33 @@ void ExtHandlerThread::run()
         }
 
         qDebug ("[ext pipe] Accepted an extension pipe client\n");
-        /* TODO: use a seperate thread to communicate with this pipe client */
-        serveOneConnection(pipe);
+        servePipeInNewThread(pipe);
     }
 }
 
-void ExtHandlerThread::serveOneConnection(HANDLE pipe)
+void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
 {
-    qDebug("ExtHandlerThread::serveOneConnection() called");
+    ExtCommandsHandler *t = new ExtCommandsHandler(pipe);
+
+    connect(t, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
+            this, SIGNAL(generateShareLink(const QString&, const QString&, bool)));
+    t->start();
+}
+
+QMutex ExtCommandsHandler::rpc_mutex_;
+
+ExtCommandsHandler::ExtCommandsHandler(HANDLE pipe)
+{
+    pipe_ = pipe;
+}
+
+void ExtCommandsHandler::run()
+{
+    rpc_ = new SeafileRpcClient;
+    rpc_->connectDaemon();
     while (1) {
         QStringList args;
-        if (!readRequest(pipe, &args)) {
+        if (!readRequest(&args)) {
             qWarning ("failed to read request from shell extension: %s",
                       formatErrorMessage().c_str());
             break;
@@ -222,7 +236,7 @@ void ExtHandlerThread::serveOneConnection(HANDLE pipe)
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
 
-        if (!sendRespose(pipe, resp)) {
+        if (!sendResponse(resp)) {
             qWarning ("failed to write response to shell extension: %s",
                       formatErrorMessage().c_str());
             break;
@@ -231,21 +245,61 @@ void ExtHandlerThread::serveOneConnection(HANDLE pipe)
 
     qWarning ("An extension client is disconnected: GLE=%lu\n",
               GetLastError());
-    DisconnectNamedPipe(pipe);
-    CloseHandle(pipe);
+    DisconnectNamedPipe(pipe_);
+    CloseHandle(pipe_);
 }
 
-
-QList<LocalRepo> ExtHandlerThread::listLocalRepos()
+bool ExtCommandsHandler::readRequest(QStringList *args)
 {
-    QMutexLocker lock(&mutex_);
+    uint32_t len;
+    if (!extPipeReadN(pipe_, &len, sizeof(len)) || len == 0)
+        return false;
+
+    QScopedPointer<char> buf(new char[len + 1]);
+    buf.data()[len] = 0;
+    if (!extPipeReadN(pipe_, buf.data(), len))
+        return false;
+
+    QStringList list = QString::fromUtf8(buf.data()).split('\t', QString::SkipEmptyParts);
+    if (list.empty()) {
+        qWarning("[ext] got an empty request");
+        return false;
+    }
+    foreach (const QString& part, list) {
+        qWarning("command: %s", part.toUtf8().data());
+    }
+    qWarning("[ext] get command: %s\n", list[0].toUtf8().data());
+    *args = list;
+    return true;
+}
+
+bool ExtCommandsHandler::sendResponse(const QString& resp)
+{
+    QByteArray raw_resp = resp.toUtf8();
+    uint32_t len = raw_resp.length();
+
+    qWarning("send response (%d bytes): %s", len, raw_resp.data());
+    if (!extPipeWriteN(pipe_, &len, sizeof(len))) {
+        return false;
+    }
+    if (len > 0) {
+        if (!extPipeWriteN(pipe_, raw_resp.data(), len)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+QList<LocalRepo> ExtCommandsHandler::listLocalRepos()
+{
+    QMutexLocker lock(&rpc_mutex_);
 
     std::vector<LocalRepo> repos;
     rpc_->listLocalRepos(&repos);
     return QVector<LocalRepo>::fromStdVector(repos).toList();
 }
 
-void ExtHandlerThread::handleGenShareLink(const QStringList& args)
+void ExtCommandsHandler::handleGenShareLink(const QStringList& args)
 {
     if (args.size() != 1) {
         return;
@@ -262,7 +316,7 @@ void ExtHandlerThread::handleGenShareLink(const QStringList& args)
     }
 }
 
-QString ExtHandlerThread::handleListRepos(const QStringList& args)
+QString ExtCommandsHandler::handleListRepos(const QStringList& args)
 {
     if (args.size() != 0) {
         return "";
@@ -273,45 +327,4 @@ QString ExtHandlerThread::handleListRepos(const QStringList& args)
     }
 
     return infos.join("\n");
-}
-
-bool ExtHandlerThread::readRequest(HANDLE pipe, QStringList *args)
-{
-    uint32_t len;
-    if (!extPipeReadN(pipe, &len, sizeof(len)) || len == 0)
-        return false;
-
-    QScopedPointer<char> buf(new char[len + 1]);
-    buf.data()[len] = 0;
-    if (!extPipeReadN(pipe, buf.data(), len))
-        return false;
-
-    QStringList list = QString::fromUtf8(buf.data()).split('\t', QString::SkipEmptyParts);
-    if (list.empty()) {
-        qWarning("[ext] got an empty request");
-        return false;
-    }
-    foreach (const QString& part, list) {
-        qWarning("command: %s", part.toUtf8().data());
-    }
-    qWarning("[ext] get command: %s\n", list[0].toUtf8().data());
-    *args = list;
-    return true;
-}
-
-bool ExtHandlerThread::sendRespose(HANDLE pipe, const QString& resp)
-{
-    QByteArray raw_resp = resp.toUtf8();
-    uint32_t len = raw_resp.length();
-
-    qWarning("send response (%d bytes): %s", len, raw_resp.data());
-    if (!extPipeWriteN(pipe, &len, sizeof(len))) {
-        return false;
-    }
-    if (len > 0) {
-        if (!extPipeWriteN(pipe, raw_resp.data(), len)) {
-            return false;
-        }
-    }
-    return true;
 }

@@ -33,7 +33,7 @@ seaf_ext_log_start ()
 
     if (log_fp) {
         seaf_ext_log ("\n----------------------------------\n"
-                      "log file initialized: %s"
+                      "log file initialized: 4.1.0 %s"
                       "\n----------------------------------\n"
                       , log_path.c_str());
     } else {

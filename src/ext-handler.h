@@ -13,7 +13,7 @@
 #include "account.h"
 
 class SeafileRpcClient;
-class ExtHandlerThread;
+class ExtConnectionListenerThread;
 
 /**
  * Handles commands from seafile shell extension
@@ -32,12 +32,19 @@ private slots:
                            bool is_file);
 
 private:
-    ExtHandlerThread *handler_thread_;
+    ExtConnectionListenerThread *listener_thread_;
 
     Account findAccountByRepo(const QString& repo_id);
 };
 
-class ExtHandlerThread : public QThread {
+/**
+ * Creates the named pipe and listen for incoming connections in a separate
+ * thread.
+ *
+ * When a connection is accepted, create a new ExtCommandsHandler thread to
+ * servce it.
+ */
+class ExtConnectionListenerThread : public QThread {
     Q_OBJECT
 public:
     void run();
@@ -48,17 +55,39 @@ signals:
                            bool is_file);
 
 private:
-    void serveOneConnection(HANDLE hPipe);
+    void servePipeInNewThread(HANDLE pipe);
+
+};
+
+/**
+ * Serves one extension connection.
+ *
+ * It's a endless loop of "read request" -> "handle request" -> "send response".
+ */
+class ExtCommandsHandler: public QThread {
+    Q_OBJECT
+public:
+    ExtCommandsHandler(HANDLE pipe);
+    void run();
+
+signals:
+    void generateShareLink(const QString& repo_id,
+                           const QString& path_in_repo,
+                           bool is_file);
+
+private:
+    HANDLE pipe_;
+
     QList<LocalRepo> listLocalRepos();
-    bool readRequest(HANDLE pipe, QStringList *args);
-    bool sendRespose(HANDLE pipe, const QString& resp);
+    bool readRequest(QStringList *args);
+    bool sendResponse(const QString& resp);
 
     void handleGenShareLink(const QStringList& args);
     QString handleListRepos(const QStringList& args);
 
     SeafileRpcClient *rpc_;
 
-    QMutex mutex_;
+    static QMutex rpc_mutex_;
 };
 
 #endif // SEAFILE_CLIENT_EXT_HANLDER_H

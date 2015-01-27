@@ -39,7 +39,7 @@
 #include "rpc/local-repo.h"
 #include "server-status-service.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 #include "ext-handler.h"
 #endif
 
@@ -291,7 +291,7 @@ void SeafileApplet::onDaemonStarted()
     QTimer::singleShot(kIntervalForUpdateRepoProperty,
                        this, SLOT(updateReposPropertyForHttpSync()));
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     SeafileExtensionHandler::instance()->start();
 #endif
 }

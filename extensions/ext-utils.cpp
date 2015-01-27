@@ -130,7 +130,6 @@ doPipeWait (HANDLE pipe, OVERLAPPED *ol, DWORD len)
     if (result == WAIT_OBJECT_0) {
         DWORD error = GetLastError();
         if (error == ERROR_IO_PENDING) {
-            seaf_ext_log ("After WaitForSingleObject(), GLE = ERROR_IO_PENDING");
             if (!GetOverlappedResult(pipe, ol, &bytes_rw, false)
                 || bytes_rw != len) {
                 seaf_ext_log ("async read failed: %s",

@@ -99,13 +99,11 @@ STDMETHODIMP ShellExt::QueryContextMenu_Wrap(HMENU menu,
                                               UINT last_command,
                                               UINT flags)
 {
-    seaf_ext_log("QueryContextMenu called on %s", path_.c_str());
     /* do nothing when user is double clicking */
     if (flags & CMF_DEFAULTONLY)
         return S_OK;
 
     if (shouldIgnorePath(path_)) {
-        seaf_ext_log("ignore context menu for %s", path_.c_str());
         return S_OK;
     }
 
@@ -141,7 +139,6 @@ void ShellExt::tweakMenu(HMENU menu)
 
 STDMETHODIMP ShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi)
 {
-    seaf_ext_log("InvokeCommand called");
     return InvokeCommand_Wrap(lpcmi);
 }
 

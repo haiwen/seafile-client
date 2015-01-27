@@ -70,7 +70,6 @@ AppletConnection::connect ()
     }
 
     connected_ = true;
-    seaf_ext_log("connected to seafile client");
     return true;
 }
 
@@ -94,8 +93,6 @@ AppletConnection::prepare()
 
 bool AppletConnection::sendCommand(const std::string& cmd)
 {
-    seaf_ext_log("Thread (%lu) send command: %s", GetCurrentThreadId(), cmd.c_str());
-
     ThreadData *tdata = new ThreadData;
     tdata->conn = this;
     tdata->cmd = cmd;
@@ -125,7 +122,6 @@ bool AppletConnection::sendCommandAndWait(const std::string& cmd, std::string *r
 bool AppletConnection::writeRequest(const std::string& cmd)
 {
     uint32_t len = cmd.size();
-    seaf_ext_log("Thread (%lu) communicate: %s", GetCurrentThreadId(), cmd.c_str());
     if (!utils::pipeWriteN(pipe_, &len, sizeof(len), &ol_, &connected_)) {
         seaf_ext_log("failed to send command: %s", utils::formatErrorMessage().c_str());
         return false;

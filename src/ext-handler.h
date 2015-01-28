@@ -65,7 +65,7 @@ private:
 /**
  * Serves one extension connection.
  *
- * It's a endless loop of "read request" -> "handle request" -> "send response".
+ * It's an endless loop of "read request" -> "handle request" -> "send response".
  */
 class ExtCommandsHandler: public QThread {
     Q_OBJECT

@@ -24,6 +24,7 @@ namespace {
 
 const char *kSeafExtPipeName = "\\\\.\\pipe\\seafile_ext_pipe";
 const int kPipeBufSize = 1024;
+const char *kRepoRelayAddrProperty = "relay-address";
 
 bool
 extPipeReadN (HANDLE pipe, void *buf, size_t len)
@@ -125,9 +126,22 @@ void SeafileExtensionHandler::start()
 
 Account SeafileExtensionHandler::findAccountByRepo(const QString& repo_id)
 {
-    // TODO: get the account the repo belongs to
-    return seafApplet->accountManager()->currentAccount();
-    // return Account();
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    if (!accounts_cache_.contains(repo_id)) {
+        QString relay_addr;
+        if (rpc->getRepoProperty(repo_id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+            return Account();
+        }
+        const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+        for (int i = 0; i < accounts.size(); i++) {
+            const Account& account = accounts[i];
+            if (account.serverUrl.host() == relay_addr) {
+                accounts_cache_[repo_id] = account;
+                break;
+            }
+        }
+    }
+    return accounts_cache_.value(repo_id, Account());
 }
 
 void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
@@ -265,10 +279,6 @@ bool ExtCommandsHandler::readRequest(QStringList *args)
         qWarning("[ext] got an empty request");
         return false;
     }
-    foreach (const QString& part, list) {
-        qWarning("command: %s", part.toUtf8().data());
-    }
-    qWarning("[ext] get command: %s\n", list[0].toUtf8().data());
     *args = list;
     return true;
 }
@@ -278,7 +288,6 @@ bool ExtCommandsHandler::sendResponse(const QString& resp)
     QByteArray raw_resp = resp.toUtf8();
     uint32_t len = raw_resp.length();
 
-    qWarning("send response (%d bytes): %s", len, raw_resp.data());
     if (!extPipeWriteN(pipe_, &len, sizeof(len))) {
         return false;
     }

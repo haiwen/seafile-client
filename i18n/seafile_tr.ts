@@ -830,27 +830,27 @@
         <translation>İptal et</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="51"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
         <source>Upload</source>
         <translation>Yükle</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="52"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="56"/>
         <source>Uploading %1</source>
         <translation>Yüklüyor %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="54"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="58"/>
         <source>Download</source>
         <translation>İndir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="59"/>
         <source>Downloading %1</source>
         <translation>İndiriyor %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="79"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="89"/>
         <source>%1 of %2</source>
         <translation>%2 de %1</translation>
     </message>
@@ -871,7 +871,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="686"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
         <source>Internal Server Error</source>
         <translation>İç Sunucu Hatası</translation>
     </message>
@@ -1643,7 +1643,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
         <translation>İç hata.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="110"/>
+        <location filename="../src/main.cpp" line="151"/>
         <source>%1 is already running</source>
         <translation>%1 izaten çalışıyor.</translation>
     </message>
@@ -1936,7 +1936,12 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="371"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
+        <source>, %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
         <source>This library has not been downloaded</source>
         <translation>Bu kütüphane henüz indirilmedi</translation>
     </message>
@@ -1944,32 +1949,32 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="70"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="57"/>
         <source>Recently Updated</source>
         <translation>Yeni Güncellenen</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="71"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="58"/>
         <source>My Libraries</source>
         <translation>Kütüphanelerim</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="72"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="59"/>
         <source>Sub Libraries</source>
         <translation>Alt Kütüphaneler</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="73"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
         <source>Private Shares</source>
         <translation>Özel Paylaşımlar</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="74"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Synced Libraries</source>
         <translation>Senkronize Kütüphaneler</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="251"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
         <source>Organization</source>
         <translation>Organizasyon</translation>
     </message>
@@ -2161,12 +2166,12 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="285"/>
+        <location filename="../src/seafile-applet.cpp" line="299"/>
         <source>Failed to initialize log: %s</source>
         <translation>Log %s başlatılamadı</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="398"/>
+        <location filename="../src/seafile-applet.cpp" line="412"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 istemci (%2)&apos;nin yeni bir versiyonu mevcut.
@@ -2384,6 +2389,11 @@ Do you want to visit the download page?</source>
         <location filename="../src/ui/settings-dialog.cpp" line="23"/>
         <source>Settings</source>
         <translation>Ayarlar</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="69"/>
+        <source>You have changed languange. Restart to apply it?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>

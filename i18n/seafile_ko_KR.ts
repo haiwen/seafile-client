@@ -831,27 +831,27 @@
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="51"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
         <source>Upload</source>
         <translation>업로드</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="52"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="56"/>
         <source>Uploading %1</source>
         <translation>%1 업로드 중</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="54"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="58"/>
         <source>Download</source>
         <translation>다운로드</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="59"/>
         <source>Downloading %1</source>
         <translation>%1 다운로드 중</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="79"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="89"/>
         <source>%1 of %2</source>
         <translation>%2 중 %1</translation>
     </message>
@@ -872,7 +872,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="686"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
         <source>Internal Server Error</source>
         <translation>내부 서버 오류</translation>
     </message>
@@ -1644,7 +1644,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>내부 오류.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="110"/>
+        <location filename="../src/main.cpp" line="151"/>
         <source>%1 is already running</source>
         <translation>%1이(가) 여전히 실행중입니다</translation>
     </message>
@@ -1937,7 +1937,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="371"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
+        <source>, %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
         <source>This library has not been downloaded</source>
         <translation>이 라이브러리는 다운로드하지 않았습니다</translation>
     </message>
@@ -1945,32 +1950,32 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="70"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="57"/>
         <source>Recently Updated</source>
         <translation>최근 업로드</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="71"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="58"/>
         <source>My Libraries</source>
         <translation>내 라이브러리</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="72"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="59"/>
         <source>Sub Libraries</source>
         <translation>하위 라이브러리</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="73"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
         <source>Private Shares</source>
         <translation>개인 공유</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="74"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Synced Libraries</source>
         <translation>동기화한 라이브러리</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="251"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
         <source>Organization</source>
         <translation>조직</translation>
     </message>
@@ -2162,12 +2167,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="285"/>
+        <location filename="../src/seafile-applet.cpp" line="299"/>
         <source>Failed to initialize log: %s</source>
         <translation>로그 초기화에 실패했습니다: %1</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="398"/>
+        <location filename="../src/seafile-applet.cpp" line="412"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 클라이언트(%2)의 새 버전이 있습니다.
@@ -2385,6 +2390,11 @@ Do you want to visit the download page?</source>
         <location filename="../src/ui/settings-dialog.cpp" line="23"/>
         <source>Settings</source>
         <translation>설정</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="69"/>
+        <source>You have changed languange. Restart to apply it?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>

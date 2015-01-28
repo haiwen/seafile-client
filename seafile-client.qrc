@@ -164,5 +164,12 @@
     <file>i18n/seafile_zh_CN.qm</file>
     <file>i18n/seafile_zh_TW.qm</file>
     <file>i18n/seafile_tr.qm</file>
+    <file>i18n/seafile_nl_NL.qm</file>
+    <file>i18n/seafile_lv.qm</file>
+    <file>i18n/seafile_ja.qm</file>
+    <file>i18n/seafile_sv.qm</file>
+    <file>i18n/seafile_cs_CZ.qm</file>
+    <file>i18n/seafile_el_GR.qm</file>
+    <file>i18n/seafile_nb_NO.qm</file>
 </qresource>
 </RCC>

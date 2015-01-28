@@ -62,7 +62,13 @@ void SettingsDialog::updateSettings()
         mgr->setCheckLatestVersionEnabled(enabled);
     }
 
-    I18NHelper::getInstance()->setPreferredLanguage(mLanguageComboBox->currentIndex());
+    if (mLanguageComboBox->currentIndex() != I18NHelper::getInstance()->preferredLanguage()) {
+
+        I18NHelper::getInstance()->setPreferredLanguage(mLanguageComboBox->currentIndex());
+
+        if (seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
+            seafApplet->restartApp();
+    }
 }
 
 void SettingsDialog::closeEvent(QCloseEvent *event)

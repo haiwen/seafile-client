@@ -112,6 +112,8 @@ STDMETHODIMP ShellExt::QueryContextMenu_Wrap(HMENU menu,
         return S_OK;
     }
 
+    next_active_item_ = 0;
+
     main_menu_ = menu;
     first_ = first_command;
     last_ = last_command;
@@ -143,8 +145,20 @@ STDMETHODIMP ShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi)
 }
 
 // This is called when you invoke a command on the menu
-STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO lpcmi)
+STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO info)
 {
+    // see http://stackoverflow.com/questions/11443282/winapi-shell-extension-overriding-windows-command
+    if (HIWORD(info->lpVerb))
+        return E_INVALIDARG;
+
+    if (path_.empty()) {
+        return E_INVALIDARG;
+    }
+
+    UINT id = LOWORD(info->lpVerb);
+    if (id == 0)
+        return S_OK;
+
     seafile::GetShareLinkCommand cmd(path_);
     cmd.send();
     return S_OK;

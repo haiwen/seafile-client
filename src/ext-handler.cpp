@@ -317,10 +317,11 @@ void ExtCommandsHandler::handleGenShareLink(const QStringList& args)
     foreach (const LocalRepo& repo, listLocalRepos()) {
         QString wt = normalizedPath(repo.worktree);
         qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
-        if (path.startsWith(wt)) {
+        if (path.length() > wt.length() && path.startsWith(wt) and path.at(wt.length()) == '/') {
             QString path_in_repo = path.mid(wt.size());
             bool is_file = QFileInfo(path).isFile();
             emit generateShareLink(repo.id, path_in_repo, is_file);
+            break;
         }
     }
 }

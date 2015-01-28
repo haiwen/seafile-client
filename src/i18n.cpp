@@ -30,6 +30,13 @@ const char* langs[] = {
     "zh_CN",
     "zh_TW",
     "tr",
+    "nl_NL",
+    "lv",
+    "ja",
+    "sv",
+    "cs_CZ",
+    "el_GR",
+    "nb_NO",
     NULL
     };
 void saveCurrentLanguage(int langIndex) {

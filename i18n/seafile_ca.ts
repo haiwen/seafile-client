@@ -828,27 +828,27 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="51"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
         <source>Upload</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="52"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="56"/>
         <source>Uploading %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="54"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="58"/>
         <source>Download</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="59"/>
         <source>Downloading %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="79"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="89"/>
         <source>%1 of %2</source>
         <translation type="unfinished"/>
     </message>
@@ -869,7 +869,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="686"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
         <source>Internal Server Error</source>
         <translation type="unfinished"/>
     </message>
@@ -1639,7 +1639,7 @@ Perquè s&apos;ha superat el límit de capacitat al compte del propietari.</tran
         <translation>Error intern.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="110"/>
+        <location filename="../src/main.cpp" line="151"/>
         <source>%1 is already running</source>
         <translation>%1 s&apos;està executant</translation>
     </message>
@@ -1932,7 +1932,12 @@ Perquè s&apos;ha superat el límit de capacitat al compte del propietari.</tran
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="371"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
+        <source>, %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
         <source>This library has not been downloaded</source>
         <translation>Aquesta llibreria no s&apos;ha descarregat</translation>
     </message>
@@ -1940,32 +1945,32 @@ Perquè s&apos;ha superat el límit de capacitat al compte del propietari.</tran
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="70"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="57"/>
         <source>Recently Updated</source>
         <translation>Actualitzat recenment</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="71"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="58"/>
         <source>My Libraries</source>
         <translation>Llibreries personals</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="72"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="59"/>
         <source>Sub Libraries</source>
         <translation>Sub-Llibreries</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="73"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
         <source>Private Shares</source>
         <translation>Compartit en privat</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="74"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Synced Libraries</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="251"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
         <source>Organization</source>
         <translation>Organització</translation>
     </message>
@@ -2156,12 +2161,12 @@ Perquè s&apos;ha superat el límit de capacitat al compte del propietari.</tran
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="285"/>
+        <location filename="../src/seafile-applet.cpp" line="299"/>
         <source>Failed to initialize log: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="398"/>
+        <location filename="../src/seafile-applet.cpp" line="412"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Hi ha una nova versió de %1 terminal (%2) disponible.
@@ -2379,6 +2384,11 @@ Voleu anar a la pàgina web de descarrega?</translation>
         <location filename="../src/ui/settings-dialog.cpp" line="23"/>
         <source>Settings</source>
         <translation>Configuració</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="69"/>
+        <source>You have changed languange. Restart to apply it?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>

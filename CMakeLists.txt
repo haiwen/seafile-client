@@ -416,6 +416,13 @@ SET(LANGUAGES
   zh_CN
   zh_TW
   tr
+  nl_NL
+  lv
+  ja
+  sv
+  cs_CZ
+  el_GR
+  nb_NO
   )
 
 SET(LANGUAGE_TS_FILES)

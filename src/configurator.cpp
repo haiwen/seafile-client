@@ -83,7 +83,7 @@ void Configurator::initSeafile()
             this, SLOT(onSeafileDirSet(const QString&)));
 
     if (dialog.exec() != QDialog::Accepted) {
-        QCoreApplication::exit(1);
+        exit(1);
         return;
     }
 

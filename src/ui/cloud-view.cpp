@@ -16,6 +16,7 @@ extern "C" {
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
@@ -269,6 +270,10 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
                 const QUrl url = ev->mimeData()->urls().at(0);
                 if (url.scheme() == "file") {
                     QString path = url.toLocalFile();
+#ifdef Q_OS_MAC
+                    if (path.startsWith("/.file/id="))
+                        path = utils::mac::get_path_from_fileId_url("file://" + path);
+#endif
                     if (QFileInfo(path).isDir()) {
                         ev->acceptProposedAction();
                     }
@@ -279,6 +284,10 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
             QDropEvent *ev = (QDropEvent *)event;
             const QUrl url = ev->mimeData()->urls().at(0);
             QString path = url.toLocalFile();
+#ifdef Q_OS_MAC
+            if (path.startsWith("/.file/id="))
+                path = utils::mac::get_path_from_fileId_url("file://" + path);
+#endif
             showCreateRepoDialog(path);
             return true;
         }

@@ -57,7 +57,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     }
 
     /* if 'data' is NULL, then it's a background click, we have set
-     * this_->name to folder's name above, and the Init work is done */
+     * path_ to folder's name above, and the Init work is done */
     if (!data)
         return S_OK;
 
@@ -77,9 +77,12 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     else if (!DragQueryFile(drop, 0, path, sizeof(path)))
         result = E_INVALIDARG;
 
-    path_ = utils::normalizedPath(utils::localeToUtf8(path));
     GlobalUnlock(stg.hGlobal);
     ReleaseStgMedium(&stg);
+
+    if (result == S_OK) {
+        path_ = utils::normalizedPath(utils::localeToUtf8(path));
+    }
 
     return result;
 }

@@ -195,6 +195,10 @@ void FileTableView::setModel(QAbstractItemModel *model)
     setColumnHidden(FILE_COLUMN_PROGRESS, true);
     connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
     setSortingEnabled(true);
+
+    // set default sort by folder
+    sortByColumn(FILE_COLUMN_NAME, Qt::AscendingOrder);
+    sortByColumn(FILE_COLUMN_KIND, Qt::DescendingOrder);
 }
 
 const SeafDirent *FileTableView::getSelectedItemFromSource()

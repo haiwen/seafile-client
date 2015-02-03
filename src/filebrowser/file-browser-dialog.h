@@ -104,6 +104,7 @@ private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
     void closeEvent(QCloseEvent *event);
+    void reject();
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 

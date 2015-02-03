@@ -891,6 +891,12 @@ void FileBrowserDialog::closeEvent(QCloseEvent *event)
     QDialog::closeEvent(event);
 }
 
+// pressing esc accept as close event
+void FileBrowserDialog::reject() {
+    close();
+    QDialog::reject();
+}
+
 bool FileBrowserDialog::hasFilesToBePasted() {
     return !file_names_to_be_pasted_.empty();
 }

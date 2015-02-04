@@ -494,7 +494,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="202"/>
         <source>status text</source>
-        <translation type="unfinished"/>
+        <translation>stavový text</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="203"/>
@@ -512,7 +512,7 @@
     <message>
         <location filename="../src/daemon-mgr.cpp" line="63"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"/>
+        <translation>selhalo načtení konfiguračního adresáře ccnet %1</translation>
     </message>
 </context>
 <context>
@@ -809,7 +809,7 @@ Prosím %1</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
         <source>Cannot paste files from the same folder</source>
-        <translation type="unfinished"/>
+        <translation>Nelze vložit soubory z toho samého adresáře</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
@@ -879,32 +879,32 @@ Prosím %1</translation>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="658"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
         <source>Folder</source>
         <translation>Složka</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="658"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="686"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="688"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
         <source>Last Modified</source>
         <translation>Poslední úprava</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
         <source>Kind</source>
         <translation>Druh</translation>
     </message>
@@ -912,54 +912,54 @@ Prosím %1</translation>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="224"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="374"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="229"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
         <source>&amp;Rename</source>
         <translation>&amp;Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="234"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
         <source>&amp;Delete</source>
         <translation>&amp;Smazat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
         <source>&amp;Generate Share Link</source>
         <translation>&amp;Vytvořit odkaz pro sdílení</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
         <source>&amp;Update</source>
         <translation>&amp;Aktualizovat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
         <source>Cu&amp;t</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="265"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
         <source>Cancel Download (&amp;E)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="349"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="377"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
         <source>D&amp;ownload</source>
         <translation>S&amp;táhnou</translation>
     </message>
@@ -1229,7 +1229,7 @@ Chcete stáhnout vaši výchozí knihovnu a vytvořit virtuální disk?</transla
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="237"/>
         <source>Seafile Server Address</source>
-        <translation type="unfinished"/>
+        <translation>Adresa serveru Seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
@@ -1316,7 +1316,7 @@ Chcete stáhnout vaši výchozí knihovnu a vytvořit virtuální disk?</transla
         <location filename="../src/ui/login-dialog.cpp" line="236"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
-        <translation type="unfinished"/>
+        <translation>Login Shibboleth</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="272"/>
@@ -1935,7 +1935,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
@@ -2138,7 +2138,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="40"/>
         <source>Search libraries...</source>
-        <translation type="unfinished"/>
+        <translation>Prohledat knihovny...</translation>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="92"/>
@@ -2250,7 +2250,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="132"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"/>
+        <translation>Zobrazit informace O aplikaci</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="135"/>
@@ -2270,7 +2270,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="181"/>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>Soubor</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="440"/>
@@ -2285,12 +2285,12 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="473"/>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Nahrávání</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="474"/>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Stahování</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="357"/>
@@ -2389,7 +2389,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="69"/>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Byla provedena změna jazyka. Restartovat pro použití?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>
@@ -2484,7 +2484,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="266"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Jazyk</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="267"/>
@@ -2525,12 +2525,12 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
         <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <translation>Přihlášení s Shibboleth</translation>
     </message>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"/>
+        <translation>Chyba při ukládání informací o účtu</translation>
     </message>
 </context>
 <context>

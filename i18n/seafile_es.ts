@@ -879,32 +879,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="658"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
         <source>Folder</source>
         <translation>Carpeta</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="658"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="686"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="688"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
         <source>Last Modified</source>
         <translation>Modificado</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
         <source>Kind</source>
         <translation>Tipo</translation>
     </message>
@@ -912,54 +912,54 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="224"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="374"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
         <source>&amp;Open</source>
         <translation>&amp;Abrir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="229"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
         <source>&amp;Rename</source>
         <translation>&amp;Renombrar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="234"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
         <source>&amp;Delete</source>
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
         <source>&amp;Generate Share Link</source>
         <translation>&amp;Generar Enlace para Compartir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
         <source>&amp;Update</source>
         <translation>Act&amp;ualizar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copiar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
         <source>Cu&amp;t</source>
         <translation>Cor&amp;tar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
         <source>&amp;Paste</source>
         <translation>&amp;Pegar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="265"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
         <source>Cancel Download (&amp;E)</source>
         <translation>Cancelar Descarga (&amp;N)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="349"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="377"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
         <source>D&amp;ownload</source>
         <translation>&amp;Descargar</translation>
     </message>
@@ -1938,7 +1938,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
@@ -2393,7 +2393,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="69"/>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Ha cambiado el idioma. ¿Desea reiniciar para aplicar el cambio?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>

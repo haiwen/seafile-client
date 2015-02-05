@@ -44,6 +44,19 @@ IF (NOT WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 ENDIF()
 
+## color diagnostics fix
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  execute_process(COMMAND ${CMAKE_CXX_COMPILER}
+    -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+  if(GCC_VERSION VERSION_GREATER 4.9 OR GCC_VERSION VERSION_EQUAL 4.9)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-color=always")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always")
+  endif()
+endif()
+
 IF (WIN32)
     SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)

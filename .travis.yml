@@ -19,3 +19,5 @@ notifications:
       - rwindz0@gmail.com
   slack:
     secure: RhwjY2BL0bR6MD+ASvFptH9GJmT0CshRN4YoZgK80D/H1kK60nVjfYIwU0apmhG8J3Sz9jqQ5xGPBUXvAgKB9VzdGQVgo23kGm9P2AY6xM43HHcPJvuXEBeX6zCx1O2HyGmENq36Z9ZnDWxW9yswnXKmeb05lE+PisBn1XvWQrs=
+    on_success: change
+    on_failure: always

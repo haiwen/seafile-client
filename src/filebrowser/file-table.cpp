@@ -3,6 +3,7 @@
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
+#include "utils/paint-utils.h"
 #include "seaf-dirent.h"
 #include "utils/utils-mac.h"
 
@@ -81,6 +82,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     //
 
     QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
+    QString text = model->data(index, Qt::DisplayRole).value<QString>();
     switch (index.column()) {
     case FILE_COLUMN_NAME:
     {
@@ -93,12 +95,13 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->restore();
 
         // draw text
-        QString text = model->data(index, Qt::DisplayRole).value<QString>();
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option.rect.topLeft() + QPoint(alignX * 2 + pixmap.width(), -2), size - QSize(pixmap.width(), 0));
         painter->setPen(kItemColor);
         painter->setFont(font);
-        painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+        painter->drawText(rect,
+                          Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
+                          fitTextToWidth(text, option.font, rect.width() - 20));
     }
     break;
     case FILE_COLUMN_SIZE:
@@ -127,15 +130,23 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         }
         // else, draw the text only
     }
+    // FILE_COLUMN_SIZE comes here
+        if (!text.isEmpty())
+            text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
+    // no break, continue
     case FILE_COLUMN_MTIME:
+        if (index.column() == FILE_COLUMN_MTIME)
+            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>());
+    // no break, continue
     case FILE_COLUMN_KIND:
     {
-        QString text = model->data(index, Qt::DisplayRole).value<QString>();
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option.rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
+        painter->save();
         painter->setPen(kItemColor);
         painter->setFont(font);
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+        painter->restore();
     }
     break;
     case FILE_COLUMN_PROGRESS:
@@ -195,6 +206,10 @@ void FileTableView::setModel(QAbstractItemModel *model)
     setColumnHidden(FILE_COLUMN_PROGRESS, true);
     connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
     setSortingEnabled(true);
+
+    // set default sort by folder
+    sortByColumn(FILE_COLUMN_NAME, Qt::AscendingOrder);
+    sortByColumn(FILE_COLUMN_KIND, Qt::DescendingOrder);
 }
 
 const SeafDirent *FileTableView::getSelectedItemFromSource()
@@ -650,9 +665,9 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     case FILE_COLUMN_SIZE:
         if (dirent.isDir())
             return "";
-        return ::readableFileSize(dirent.size);
+        return dirent.size;
     case FILE_COLUMN_MTIME:
-        return ::translateCommitTime(dirent.mtime);
+        return dirent.mtime;
     case FILE_COLUMN_KIND:
       //TODO: mime file information
         return dirent.isDir() ?  tr("Folder") : tr("Document");

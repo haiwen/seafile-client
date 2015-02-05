@@ -879,32 +879,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="658"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
         <source>Folder</source>
         <translation>Mappa</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="658"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="686"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
         <source>Name</source>
         <translation>Név</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="688"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
         <source>Size</source>
         <translation>Méret</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
         <source>Last Modified</source>
         <translation>Utoljára módosítva</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
         <source>Kind</source>
         <translation>Típus</translation>
     </message>
@@ -912,54 +912,54 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="224"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="374"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
         <source>&amp;Open</source>
         <translation>&amp;Megnyitás</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="229"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
         <source>&amp;Rename</source>
         <translation>Á&amp;tnevezés</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="234"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
         <source>&amp;Delete</source>
         <translation>&amp;Töröl</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
         <source>&amp;Generate Share Link</source>
         <translation>Link &amp;generálása megosztáshoz</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
         <source>&amp;Update</source>
         <translation>&amp;Frissít</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
         <source>&amp;Copy</source>
         <translation>&amp;Másolás</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Kivágás</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
         <source>&amp;Paste</source>
         <translation>&amp;Beillesztés</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="265"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
         <source>Cancel Download (&amp;E)</source>
         <translation>Letöltés megszakítása (&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="349"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="377"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
         <source>D&amp;ownload</source>
         <translation>&amp;Letöltés</translation>
     </message>

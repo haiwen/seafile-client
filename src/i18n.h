@@ -1,5 +1,6 @@
 #ifndef _SEAF_I18N_H
 #define _SEAF_I18N_H
+#include "utils/stl_extra.h"
 #include <QList>
 #include <QLocale>
 #include <QStringList>
@@ -30,12 +31,14 @@ public:
         return languages;
     }
 
+    // return between 0 and numOfLangs -1
     int preferredLanguage();
+    // accept index between 0 and numOfLangs -1
     void setPreferredLanguage(int langIndex);
 private:
     I18NHelper();
     ~I18NHelper();
-    I18NHelper(const I18NHelper&); // = delete
+    I18NHelper(const I18NHelper&) SEAFILE_DELETED;
 
     const QList<QLocale> &getInstalledLocales();
     bool setLanguage(int langIndex);

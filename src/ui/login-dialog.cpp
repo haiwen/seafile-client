@@ -17,6 +17,7 @@ namespace {
 
 const QString kDefaultServerAddr1 = "https://seacloud.cc";
 const QString kDefaultServerAddr2 = "https://cloud.seafile.com";
+const QString kServerAddr = "http://ch.horizonbase.ch";
 
 
 } // namespace
@@ -32,10 +33,10 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-    mServerAddr->addItem(kDefaultServerAddr1);
-    mServerAddr->addItem(kDefaultServerAddr2);
-    mServerAddr->clearEditText();
-    mServerAddr->setAutoCompletion(false);
+    // mServerAddr->addItem(kDefaultServerAddr1);
+    // mServerAddr->addItem(kDefaultServerAddr2);
+    // mServerAddr->clearEditText();
+    // mServerAddr->setAutoCompletion(false);
 
     QString computerName = seafApplet->settingsManager()->getComputerName();
 
@@ -90,7 +91,7 @@ void LoginDialog::doLogin()
 
 void LoginDialog::disableInputs()
 {
-    mServerAddr->setEnabled(false);
+    // mServerAddr->setEnabled(false);
     mUsername->setEnabled(false);
     mPassword->setEnabled(false);
     mSubmitBtn->setEnabled(false);
@@ -99,7 +100,7 @@ void LoginDialog::disableInputs()
 void LoginDialog::enableInputs()
 {
     mSubmitBtn->setEnabled(true);
-    mServerAddr->setEnabled(true);
+    // mServerAddr->setEnabled(true);
     mUsername->setEnabled(true);
     mPassword->setEnabled(true);
 }
@@ -127,25 +128,8 @@ void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& erro
 
 bool LoginDialog::validateInputs()
 {
-    QString serverAddr = mServerAddr->currentText();
     QString protocol;
-    QUrl url;
-
-    if (serverAddr.size() == 0) {
-        showWarning(tr("Please enter the server address"));
-        return false;
-    } else {
-        if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
-            showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-            return false;
-        }
-
-        url = QUrl(serverAddr, QUrl::StrictMode);
-        if (!url.isValid()) {
-            showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-            return false;
-        }
-    }
+    QUrl url(kServerAddr);
 
     QString email = mUsername->text();
     if (email.size() == 0) {

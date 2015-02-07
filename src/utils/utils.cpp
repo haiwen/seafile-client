@@ -35,7 +35,7 @@
 
 namespace {
 
-const char *kSeafileClientBrand = "Seafile";
+const char *kSeafileClientBrand = "HorizonBase";
 #if defined(Q_WS_WIN)
 const char *kCcnetConfDir = "ccnet";
 #else

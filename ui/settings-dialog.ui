@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="mTabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="mBasicTab">
       <attribute name="title">
@@ -48,14 +48,14 @@
        <item>
         <widget class="QCheckBox" name="mAutoStartCheckBox">
          <property name="text">
-          <string>Auto start Seafile after login</string>
+          <string>Auto start HorizonBase after login</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="mHideDockIconCheckBox">
          <property name="text">
-          <string>Hide Seafile Icon from the docker</string>
+          <string>Hide HorizonBase Icon from the docker</string>
          </property>
         </widget>
        </item>

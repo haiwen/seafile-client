@@ -74,8 +74,8 @@ QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
 }
 
 QWidget#mHeader {
-    min-height: 35px;
-    max-height: 35px;
+    min-height: 39px;
+    max-height: 39px;
 }
 
 QWidget#mHeader QPushButton {

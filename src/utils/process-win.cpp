@@ -13,6 +13,7 @@
 
 namespace {
 
+/// always ignore current process
 HANDLE
 get_process_handle (const char *process_name_in)
 {
@@ -32,12 +33,13 @@ get_process_handle (const char *process_name_in)
     cProcesses = cbNeeded / sizeof(DWORD);
 
     HANDLE hProcess;
+    DWORD hCurrentProcessId = GetCurrentProcessId();
     HMODULE hMod;
     char process_name[4096];
     unsigned int i;
 
     for (i = 0; i < cProcesses; i++) {
-        if(aProcesses[i] == 0)
+        if(aProcesses[i] == 0 || aProcesses[i] == hCurrentProcessId)
             continue;
         hProcess = OpenProcess (PROCESS_ALL_ACCESS, FALSE, aProcesses[i]);
         if (!hProcess)

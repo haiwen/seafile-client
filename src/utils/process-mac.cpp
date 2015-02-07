@@ -130,10 +130,12 @@ void shutdown_process (const char *name)
 {
     struct kinfo_proc *mylist = NULL;
     size_t mycount = 0;
+    pid_t current_pid = getpid();
     GetBSDProcessList (&mylist, &mycount);
     for (size_t k = 0; k < mycount; k++) {
         kinfo_proc *proc =  &mylist[k];
-        if (strcmp (proc->kp_proc.p_comm, name) == 0){
+        if (strcmp (proc->kp_proc.p_comm, name) == 0 &&
+            proc->kp_proc.p_pid != current_pid){
             kill (proc->kp_proc.p_pid, SIGKILL);
         }
     }

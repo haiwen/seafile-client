@@ -80,4 +80,6 @@ QString dumpCertificate(const QSslCertificate &cert);
 QString dumpCertificateFingerprint(const QSslCertificate &cert,
                                    const QCryptographicHash::Algorithm &algorithm = QCryptographicHash::Md5);
 
+void msleep(int mseconds);
+
 #endif

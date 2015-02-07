@@ -34,27 +34,38 @@ get_process_handle (const char *process_name_in)
 
     HANDLE hProcess;
     DWORD hCurrentProcessId = GetCurrentProcessId();
-    HMODULE hMod;
     char process_name[4096];
     unsigned int i;
+    DWORD length;
 
     for (i = 0; i < cProcesses; i++) {
         if(aProcesses[i] == 0 || aProcesses[i] == hCurrentProcessId)
             continue;
-        hProcess = OpenProcess (PROCESS_ALL_ACCESS, FALSE, aProcesses[i]);
+        hProcess = OpenProcess (PROCESS_QUERY_INFORMATION |
+                                PROCESS_TERMINATE |
+                                PROCESS_VM_READ |
+                                SYNCHRONIZE , FALSE, aProcesses[i]);
         if (!hProcess)
             continue;
 
-        if (EnumProcessModules(hProcess, &hMod, sizeof(hMod), &cbNeeded)) {
-            GetModuleBaseName(hProcess, hMod, process_name,
-                              sizeof(process_name)/sizeof(char));
+        // The GetProcessImageFileName function returns the path in device form, rather than drive letters
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms683196%28v=vs.85%29.aspx
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms683217%28v=vs.85%29.aspx
+        if (!(length = GetProcessImageFileName(hProcess, process_name, sizeof(process_name)))) {
+            CloseHandle(hProcess);
+            continue;
+        }
+        char *basename = strrchr(process_name, '\\');
+        length -= (basename - process_name);
+
+        // if basename doesn't start with `\` or not mached
+        if (*basename != '\\' ||
+            strncasecmp(name, ++basename, length) != 0) {
+            CloseHandle(hProcess);
+            continue;
         }
 
-        if (strcasecmp(process_name, name) == 0)
-            return hProcess;
-        else {
-            CloseHandle(hProcess);
-        }
+        return hProcess;
     }
     /* Not found */
     return NULL;
@@ -101,7 +112,7 @@ int count_process (const char *process_name_in)
     char process_name[MAX_PATH];
     DWORD aProcesses[1024], cbNeeded, cProcesses;
     HANDLE hProcess;
-    HMODULE hMods[1024];
+    DWORD length;
     int count = 0;
     int i, j;
 
@@ -126,16 +137,21 @@ int count_process (const char *process_name_in)
             continue;
         }
 
-        if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded)) {
-            for (j = 0; j < cbNeeded / sizeof(HMODULE); j++) {
-                if (GetModuleBaseName(hProcess, hMods[j], process_name,
-                                      sizeof(process_name))) {
-                    if (strcasecmp(process_name, name) == 0)
-                        count++;
-                }
-            }
+        if (!(length = GetProcessImageFileName(hProcess, process_name, sizeof(process_name)))) {
+            CloseHandle(hProcess);
+            continue;
+        }
+        char *basename = strrchr(process_name, '\\');
+        length -= (basename - process_name);
+
+        // if basename doesn't start with `\` or not mached
+        if (*basename != '\\' ||
+            strncasecmp(name, ++basename, length) != 0) {
+            CloseHandle(hProcess);
+            continue;
         }
 
+        count++;
         CloseHandle(hProcess);
     }
 

@@ -141,7 +141,7 @@ void set_auto_start(bool enabled)
         }
 
         if (enabled && (existingItem == NULL)) {
-            NSString *displayName = @"Seafile Client";
+            NSString *displayName = @"HorizonBase";
             IconRef icon = NULL;
             FSRef ref;
             //TODO: replace the deprecated CFURLGetFSRef

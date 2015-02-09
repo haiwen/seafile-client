@@ -4,7 +4,7 @@
     <file>images/seafile-24.png</file>
     <file>images/seafile-32.png</file>
     <file>images/account.png</file>
-    <file>images/account-36.png</file>
+    <file>images/account@2x.png</file>
     <file>images/folder.png</file>
     <file>images/loading.gif</file>
     <file>images/daemon_up.png</file>
@@ -66,8 +66,6 @@
     <file>images/sync/question.png</file>
     <file>images/sync/rotate.png</file>
     <file>images/download-48.png</file>
-    <file>images/avatar-mask.png</file>
-    <file>images/avatar-mask-highlighted.png</file>
     <file>images/tabs/files.png</file>
     <file>images/tabs/files@2x.png</file>
     <file>images/tabs/history.png</file>

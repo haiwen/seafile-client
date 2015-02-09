@@ -128,6 +128,7 @@ void CloudView::setupHeader()
 void CloudView::createAccountView()
 {
     account_view_ = new AccountView;
+    account_view_->setContentsMargins(0, 0, 0, -8);
 }
 
 void CloudView::createTabs()

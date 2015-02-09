@@ -33,6 +33,7 @@ private:
 
     QAction *makeAccountAction(const Account& account);
     void updateAccountInfoDisplay();
+    bool eventFilter(QObject *obj, QEvent *event);
 
     // Account operations
     QAction *add_account_action_;

@@ -18,13 +18,9 @@ CloudView {
 
 QToolButton#mAccountBtn
 {
-    margin-left: 0px;
-    margin-right: 6px;
-    background: white;
-    padding: 1px;
-    padding-left: 2px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {

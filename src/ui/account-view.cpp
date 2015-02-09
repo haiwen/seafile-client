@@ -2,6 +2,7 @@
 #include <QAction>
 #include <QToolButton>
 #include <QScopedPointer>
+#include <QPainter>
 
 #include "account.h"
 #include "account.h"
@@ -17,6 +18,9 @@
 #include "filebrowser/file-browser-manager.h"
 
 #include "account-view.h"
+namespace {
+const int kAvatarSize = 48;
+}
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -27,6 +31,7 @@ AccountView::AccountView(QWidget *parent)
     account_menu_ = new QMenu;
     mAccountBtn->setMenu(account_menu_);
     mAccountBtn->setPopupMode(QToolButton::InstantPopup);
+    mAccountBtn->setFixedSize(QSize(kAvatarSize, kAvatarSize));
 
     onAccountChanged();
 
@@ -34,6 +39,7 @@ AccountView::AccountView(QWidget *parent)
             this, SLOT(updateAvatar()));
 
     mAccountBtn->setCursor(Qt::PointingHandCursor);
+    mAccountBtn->installEventFilter(this);
 }
 
 void AccountView::showAddAccountDialog()
@@ -177,10 +183,10 @@ void AccountView::onAccountItemClicked()
 
 void AccountView::updateAvatar()
 {
-    mAccountBtn->setIconSize(QSize(32, 32));
+    mAccountBtn->setIconSize(QSize(kAvatarSize, kAvatarSize));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {
-        mAccountBtn->setIcon(QIcon(":/images/account.png"));
+        mAccountBtn->setIcon(QIcon(":/images/account@2x.png"));
         return;
     }
 
@@ -192,7 +198,41 @@ void AccountView::updateAvatar()
         return;
     }
 
-    mAccountBtn->setIcon(QIcon(":/images/account.png"));
+    mAccountBtn->setIcon(QIcon(":/images/account@2x.png"));
     // will trigger a GetAvatarRequest
     service->getAvatar(account.username);
+}
+
+bool AccountView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == mAccountBtn && event->type() == QEvent::Paint) {
+        QRect rect(0, 0, kAvatarSize, kAvatarSize);
+        QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(devicePixelRatio() * rect.size()));
+        QRect actualRect(QPoint(0, 0), image.size());
+
+        QImage masked_image(actualRect.size(), QImage::Format_ARGB32_Premultiplied);
+        masked_image.fill(Qt::transparent);
+        QPainter mask_painter;
+        mask_painter.begin(&masked_image);
+        mask_painter.setRenderHint(QPainter::Antialiasing);
+        mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        mask_painter.setPen(Qt::NoPen);
+        mask_painter.setBrush(Qt::white);
+        mask_painter.drawEllipse(actualRect);
+        mask_painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+        mask_painter.drawPixmap(actualRect, image);
+        mask_painter.setCompositionMode(QPainter::CompositionMode_DestinationOver);
+        mask_painter.fillRect(actualRect, Qt::transparent);
+        mask_painter.end();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        masked_image.setDevicePixelRatio(devicePixelRatio());
+#endif // QT5
+
+        QPainter p(mAccountBtn);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        p.drawImage(QPoint(0,0), masked_image);
+        return true;
+    }
+    return QObject::eventFilter(obj, event);
 }

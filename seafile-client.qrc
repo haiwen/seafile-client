@@ -34,8 +34,6 @@
     <file>images/refresh.png</file>
     <file>images/resync.png</file>
     <file>images/resync@2x.png</file>
-    <file>images/plus.png</file>
-    <file>images/minus.png</file>
     <file>images/minus-gray.png</file>
     <file>images/minus-gray@2x.png</file>
     <file>images/download.png</file>
@@ -46,28 +44,20 @@
     <file>images/folder-open@2x.png</file>
     <file>images/folder-open-gray.png</file>
     <file>images/folder-open-gray@2x.png</file>
-    <file>images/browser.png</file>
     <file>images/info.png</file>
     <file>images/info-gray.png</file>
     <file>images/info-gray@2x.png</file>
-    <file>images/play.png</file>
     <file>images/play-gray.png</file>
     <file>images/play-gray@2x.png</file>
-    <file>images/pause.png</file>
     <file>images/pause-gray.png</file>
     <file>images/pause-gray@2x.png</file>
-    <file>images/cloud.png</file>
     <file>images/cloud-gray.png</file>
     <file>images/cloud-gray@2x.png</file>
-    <file>images/close.png</file>
-    <file>images/sync_now.png</file>
     <file>images/sync_now-gray.png</file>
     <file>images/sync_now-gray@2x.png</file>
-    <file>images/remove.png</file>
     <file>images/remove-gray.png</file>
     <file>images/remove-gray@2x.png</file>
     <file>images/remove-red.png</file>
-    <file>images/seafile-download-library.png</file>
     <file>images/link-green.png</file>
     <file>images/link-red.png</file>
     <file>images/arrow-down.png</file>
@@ -80,7 +70,6 @@
     <file>images/sync/rotate.png</file>
     <file>images/sync/cloud.png</file>
     <file>images/sync/waiting.png</file>
-    <file>images/bell-orange.png</file>
     <file>images/ok-48.png</file>
     <file>images/download-48.png</file>
     <file>images/avatar-mask.png</file>
@@ -129,8 +118,6 @@
     <file>images/filebrowser/forward@2x.png</file>
     <file>images/filebrowser/home.png</file>
     <file>images/filebrowser/home@2x.png</file>
-    <file>images/filebrowser/mkdir.png</file>
-    <file>images/filebrowser/mkdir@2x.png</file>
     <file>images/filebrowser/open-folder.png</file>
     <file>images/filebrowser/open-folder@2x.png</file>
     <file>images/filebrowser/upload.png</file>

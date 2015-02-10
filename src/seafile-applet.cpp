@@ -65,6 +65,10 @@ void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const 
 {
     QByteArray localMsg = msg.toLocal8Bit();
     switch (type) {
+// Note: By default, this information (QMessageLogContext) is recorded only in debug builds.
+// You can overwrite this explicitly by defining QT_MESSAGELOGCONTEXT or QT_NO_MESSAGELOGCONTEXT.
+// from http://doc.qt.io/qt-5/qmessagelogcontext.html
+#ifdef QT_MESSAGELOGCONTEXT
     case QtDebugMsg:
         g_debug("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
         break;
@@ -77,12 +81,29 @@ void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const 
     case QtFatalMsg:
         g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
         abort();
+#else // QT_MESSAGELOGCONTEXT
+    case QtDebugMsg:
+        g_debug("%s\n", localMsg.constData());
+        break;
+    case QtWarningMsg:
+        g_warning("%s\n", localMsg.constData());
+        break;
+    case QtCriticalMsg:
+        g_critical("%s\n", localMsg.constData());
+        break;
+    case QtFatalMsg:
+        g_critical("%s\n", localMsg.constData());
+        abort();
+#endif // QT_MESSAGELOGCONTEXT
+    default:
+        break;
     }
 }
 void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     QByteArray localMsg = msg.toLocal8Bit();
     switch (type) {
+#ifdef QT_MESSAGELOGCONTEXT
     case QtWarningMsg:
         g_warning("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
         break;
@@ -92,6 +113,17 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
     case QtFatalMsg:
         g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
         abort();
+#else // QT_MESSAGELOGCONTEXT
+    case QtWarningMsg:
+        g_warning("%s\n", localMsg.constData());
+        break;
+    case QtCriticalMsg:
+        g_critical("%s\n", localMsg.constData());
+        break;
+    case QtFatalMsg:
+        g_critical("%s\n", localMsg.constData());
+        abort();
+#endif // QT_MESSAGELOGCONTEXT
     default:
         break;
     }

@@ -717,3 +717,19 @@ QString dumpSslErrors(const QList<QSslError> &errors)
     }
     return s;
 }
+
+void msleep(int mseconds)
+{
+#ifdef Q_OS_WIN32
+    ::Sleep(secs);
+#else
+    struct timespec ts;
+    ts.tv_sec = mseconds / 1000;
+    ts.tv_nsec = mseconds % 1000 * 1000 * 1000;
+
+    int r;
+    do {
+        r = ::nanosleep(&ts, &ts);
+    } while (r == -1 && errno == EINTR);
+#endif
+}

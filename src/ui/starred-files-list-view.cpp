@@ -38,7 +38,7 @@ StarredFilesListView::StarredFilesListView(QWidget *parent)
 void StarredFilesListView::createActions()
 {
     open_file_action_ = new QAction(tr("&Open"), this);
-    open_file_action_->setIcon(QIcon(":/images/folder-open-gray.png"));
+    open_file_action_->setIcon(QIcon(":/images/toolbar/file-gray.png"));
     open_file_action_->setIconVisibleInMenu(true);
     open_file_action_->setStatusTip(tr("Open this file"));
     connect(open_file_action_, SIGNAL(triggered()), this, SLOT(openLocalFile()));

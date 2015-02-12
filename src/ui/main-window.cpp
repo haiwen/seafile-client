@@ -169,7 +169,7 @@ void MainWindow::checkShowWindow()
 
 void MainWindow::createActions()
 {
-    refresh_qss_action_ = new QAction(QIcon(":/images/refresh.png"), tr("Refresh"), this);
+    refresh_qss_action_ = new QAction(QIcon(":/images/toolbar/refresh-gray.png"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
 }
 

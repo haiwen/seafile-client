@@ -336,13 +336,13 @@ void RepoTreeView::createActions()
     connect(show_detail_action_, SIGNAL(triggered()), this, SLOT(showRepoDetail()));
 
     download_action_ = new QAction(tr("&Sync this library"), this);
-    download_action_->setIcon(QIcon(":/images/download-gray.png"));
+    download_action_->setIcon(QIcon(":/images/toolbar/download-gray.png"));
     download_action_->setStatusTip(tr("Sync this library"));
     download_action_->setIconVisibleInMenu(true);
     connect(download_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
     download_toolbar_action_ = new QAction(tr("&Sync this library"), this);
-    download_toolbar_action_->setIcon(QIcon(":/images/download.png"));
+    download_toolbar_action_->setIcon(QIcon(":/images/toolbar/download.png"));
     download_toolbar_action_->setStatusTip(tr("Sync this library"));
     download_toolbar_action_->setIconVisibleInMenu(false);
     connect(download_toolbar_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
@@ -359,13 +359,13 @@ void RepoTreeView::createActions()
     connect(cancel_download_action_, SIGNAL(triggered()), this, SLOT(cancelDownload()));
 
     open_local_folder_action_ = new QAction(tr("&Open folder"), this);
-    open_local_folder_action_->setIcon(QIcon(":/images/folder-open-gray.png"));
+    open_local_folder_action_->setIcon(QIcon(":/images/toolbar/file-gray.png"));
     open_local_folder_action_->setStatusTip(tr("open local folder"));
     open_local_folder_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));
 
     open_local_folder_toolbar_action_ = new QAction(tr("&Open folder"), this);
-    open_local_folder_toolbar_action_->setIcon(QIcon(":/images/folder-open.png"));
+    open_local_folder_toolbar_action_->setIcon(QIcon(":/images/toolbar/file.png"));
     open_local_folder_toolbar_action_->setStatusTip(tr("open local folder"));
     open_local_folder_toolbar_action_->setIconVisibleInMenu(true);
     connect(open_local_folder_toolbar_action_, SIGNAL(triggered()), this, SLOT(openLocalFolder()));

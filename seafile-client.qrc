@@ -31,19 +31,10 @@
     <file>images/mac/seafile_transfer_1.png</file>
     <file>images/mac/seafile_transfer_2.png</file>
     <file>images/mac/notification.png</file>
-    <file>images/refresh.png</file>
     <file>images/resync.png</file>
     <file>images/resync@2x.png</file>
     <file>images/minus-gray.png</file>
     <file>images/minus-gray@2x.png</file>
-    <file>images/download.png</file>
-    <file>images/download@2x.png</file>
-    <file>images/download-gray.png</file>
-    <file>images/download-gray@2x.png</file>
-    <file>images/folder-open.png</file>
-    <file>images/folder-open@2x.png</file>
-    <file>images/folder-open-gray.png</file>
-    <file>images/folder-open-gray@2x.png</file>
     <file>images/info.png</file>
     <file>images/info-gray.png</file>
     <file>images/info-gray@2x.png</file>
@@ -118,14 +109,24 @@
     <file>images/filebrowser/forward@2x.png</file>
     <file>images/filebrowser/home.png</file>
     <file>images/filebrowser/home@2x.png</file>
-    <file>images/filebrowser/open-folder.png</file>
-    <file>images/filebrowser/open-folder@2x.png</file>
-    <file>images/filebrowser/upload.png</file>
-    <file>images/filebrowser/upload@2x.png</file>
-    <file>images/filebrowser/refresh.png</file>
-    <file>images/filebrowser/refresh@2x.png</file>
     <file>images/filebrowser/settings.png</file>
     <file>images/filebrowser/settings@2x.png</file>
+    <file>images/toolbar/add.png</file>
+    <file>images/toolbar/add@2x.png</file>
+    <file>images/toolbar/add-gray.png</file>
+    <file>images/toolbar/add-gray@2x.png</file>
+    <file>images/toolbar/download.png</file>
+    <file>images/toolbar/download@2x.png</file>
+    <file>images/toolbar/download-gray.png</file>
+    <file>images/toolbar/download-gray@2x.png</file>
+    <file>images/toolbar/file.png</file>
+    <file>images/toolbar/file@2x.png</file>
+    <file>images/toolbar/file-gray.png</file>
+    <file>images/toolbar/file-gray@2x.png</file>
+    <file>images/toolbar/refresh.png</file>
+    <file>images/toolbar/refresh@2x.png</file>
+    <file>images/toolbar/refresh-gray.png</file>
+    <file>images/toolbar/refresh-gray@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

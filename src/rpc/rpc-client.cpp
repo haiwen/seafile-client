@@ -230,6 +230,7 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
                                             "seafile_get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
+        qWarning("Unable to get config value %s", key.toUtf8().data());
         g_error_free(error);
         return -1;
     }
@@ -246,6 +247,7 @@ int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
+        qWarning("Unable to get config (int) value %s", key.toUtf8().data());
         g_error_free(error);
         return -1;
     }
@@ -274,6 +276,7 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
                              2, "string", toCStr(key),
                              "string", toCStr(value));
     if (error) {
+        qWarning("Unable to set config value %s", key.toUtf8().data());
         g_error_free(error);
         return -1;
     }

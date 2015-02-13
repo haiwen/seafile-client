@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="36"/>
         <source>failed to open account database</source>
-        <translation type="unfinished"/>
+        <translation>Mislykkes i å åpne kontoens database</translation>
     </message>
 </context>
 <context>
@@ -12,58 +12,58 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation type="unfinished"/>
+        <translation>Kontoinnstillinger</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>Please enter the server address</source>
-        <translation type="unfinished"/>
+        <translation>Skriv inn serveradressen</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="57"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="63"/>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished"/>
+        <translation>%1 er ikke en gyldig serveradresse</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="83"/>
         <source>Failed to save account information</source>
-        <translation type="unfinished"/>
+        <translation>Mislykkes i å lagre kontoinformasjonen</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="89"/>
         <source>Failed to save the changes: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mislykkes med å lagre endringene: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="94"/>
         <source>Successfully updated current account information</source>
-        <translation type="unfinished"/>
+        <translation>Oppdateringen av kontoinformasjonen gikk bra.</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation type="unfinished"/>
+        <translation>Serveradresse</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>E-post</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="110"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="111"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Avbryt</translation>
     </message>
 </context>
 <context>
@@ -71,7 +71,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="56"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Er du sikker på at du vil fjerne denne kontoen? &lt;br&gt;&lt;b&gt;Advarsel: Alle bibliotekene tilhørende denne kontoen vil bli usynkroniserte!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="67"/>
@@ -871,32 +871,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Document</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="701"/>
         <source>Name</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="703"/>
         <source>Size</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="705"/>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="707"/>
         <source>Kind</source>
         <translation type="unfinished"/>
     </message>
@@ -904,54 +904,54 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="389"/>
         <source>&amp;Open</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
         <source>&amp;Rename</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="249"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Generate Share Link</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="259"/>
         <source>&amp;Update</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="263"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="267"/>
         <source>Cu&amp;t</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="271"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="280"/>
         <source>Cancel Download (&amp;E)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="364"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="392"/>
         <source>D&amp;ownload</source>
         <translation type="unfinished"/>
     </message>

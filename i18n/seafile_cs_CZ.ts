@@ -879,32 +879,32 @@ Prosím %1</translation>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Folder</source>
         <translation>Složka</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="701"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="703"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="705"/>
         <source>Last Modified</source>
         <translation>Poslední úprava</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="707"/>
         <source>Kind</source>
         <translation>Druh</translation>
     </message>
@@ -912,54 +912,54 @@ Prosím %1</translation>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="389"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
         <source>&amp;Rename</source>
         <translation>&amp;Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="249"/>
         <source>&amp;Delete</source>
         <translation>&amp;Smazat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Generate Share Link</source>
         <translation>&amp;Vytvořit odkaz pro sdílení</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="259"/>
         <source>&amp;Update</source>
         <translation>&amp;Aktualizovat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="263"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="267"/>
         <source>Cu&amp;t</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="271"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="280"/>
         <source>Cancel Download (&amp;E)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="364"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="392"/>
         <source>D&amp;ownload</source>
         <translation>S&amp;táhnou</translation>
     </message>

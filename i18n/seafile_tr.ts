@@ -879,32 +879,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Folder</source>
         <translation>Klasör</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Document</source>
         <translation>Doküman</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="701"/>
         <source>Name</source>
         <translation>İsim</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="703"/>
         <source>Size</source>
         <translation>Boyut</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="705"/>
         <source>Last Modified</source>
         <translation>En son Değiştirme</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="707"/>
         <source>Kind</source>
         <translation>Tür</translation>
     </message>
@@ -912,54 +912,54 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="389"/>
         <source>&amp;Open</source>
         <translation>&amp;Aç</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
         <source>&amp;Rename</source>
         <translation>&amp;Yeniden Adlandır</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="249"/>
         <source>&amp;Delete</source>
         <translation>&amp;Sil</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Generate Share Link</source>
         <translation>&amp;Paylaşım Bağlantısı Oluştur</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="259"/>
         <source>&amp;Update</source>
         <translation>&amp;Güncelle</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="263"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopyala</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="267"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Kes</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="271"/>
         <source>&amp;Paste</source>
         <translation>&amp;Yapıştır</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="280"/>
         <source>Cancel Download (&amp;E)</source>
         <translation>İndirmeyi İptal Et ()</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="364"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="392"/>
         <source>D&amp;ownload</source>
         <translation>&amp;İndir</translation>
     </message>

@@ -721,7 +721,7 @@ QString dumpSslErrors(const QList<QSslError> &errors)
 void msleep(int mseconds)
 {
 #ifdef Q_OS_WIN32
-    ::Sleep(secs);
+    ::Sleep(mseconds);
 #else
     struct timespec ts;
     ts.tv_sec = mseconds / 1000;

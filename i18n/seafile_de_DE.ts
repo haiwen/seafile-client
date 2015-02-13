@@ -677,12 +677,12 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="231"/>
         <source>Upload files</source>
-        <translation type="unfinished"/>
+        <translation>Dateien hochladen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="237"/>
         <source>Upload a directory</source>
-        <translation type="unfinished"/>
+        <translation>Verzeichnis hochladen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="258"/>
@@ -748,7 +748,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="735"/>
         <source>Select a directory to upload</source>
-        <translation type="unfinished"/>
+        <translation>Wählen Sie ein Verzeichnis zum Hochladen aus</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
@@ -808,17 +808,17 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
         <source>Cannot paste files from the same folder</source>
-        <translation type="unfinished"/>
+        <translation>Dateien aus dem selben Ordner können nicht eingefügt werden</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
         <source>Copy failed</source>
-        <translation type="unfinished"/>
+        <translation>Kopieren fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
         <source>Move failed</source>
-        <translation type="unfinished"/>
+        <translation>Verschieben fehlgeschlagen</translation>
     </message>
 </context>
 <context>
@@ -878,32 +878,32 @@
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Folder</source>
         <translation>Ordner</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="662"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="690"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="701"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="692"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="703"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="694"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="705"/>
         <source>Last Modified</source>
         <translation>Zuletzt geändert</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="707"/>
         <source>Kind</source>
         <translation>Kind</translation>
     </message>
@@ -911,54 +911,54 @@
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="228"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="378"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="239"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="389"/>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="233"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="244"/>
         <source>&amp;Rename</source>
         <translation>&amp;Umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="238"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="249"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="243"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Generate Share Link</source>
         <translation>Link zum &amp;Teilen generieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="259"/>
         <source>&amp;Update</source>
         <translation>&amp;Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="252"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="263"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"/>
+        <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="256"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="267"/>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="260"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="271"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="280"/>
         <source>Cancel Download (&amp;E)</source>
-        <translation type="unfinished"/>
+        <translation>Download abbrechen (&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="381"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="364"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="392"/>
         <source>D&amp;ownload</source>
         <translation>Herunterladen</translation>
     </message>
@@ -1937,7 +1937,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
@@ -1970,7 +1970,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Synced Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisierte Bibliotheken</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
@@ -2273,7 +2273,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="181"/>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>Datei</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="440"/>
@@ -2288,12 +2288,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="473"/>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Wird hochgeladen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="474"/>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Wird heruntergeladen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="357"/>
@@ -2392,7 +2392,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="69"/>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben die Sprache geändert. Möchte Sie neustarten um die neue Sprache zu verwenden?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>
@@ -2482,12 +2482,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="265"/>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>Sprache (Neustart notwendig)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="266"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Sprache</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="267"/>
@@ -2528,12 +2528,12 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
         <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <translation>Mit Shibboleth einloggen</translation>
     </message>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"/>
+        <translation>Konto konnte nicht gespeichert werden</translation>
     </message>
 </context>
 <context>

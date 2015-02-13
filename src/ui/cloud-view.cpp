@@ -138,7 +138,7 @@ void CloudView::createTabs()
     repos_tab_ = new ReposTab;
 
     QString base_icon_path = ":/images/tabs/";
-    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "repos.png");
+    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "files.png");
 
     starred_files_tab_ = new StarredFilesTab;
     tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png");
@@ -156,7 +156,7 @@ void CloudView::addActivitiesTab()
 {
     if (tabs_->count() < 3) {
         QString base_icon_path = ":/images/tabs/";
-        tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
+        tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "history.png");
         tabs_->adjustTabsWidth(rect().width());
     }
 
@@ -177,19 +177,19 @@ void CloudView::setupFooter()
     // mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
-    mServerStatusBtn->setIcon(QIcon(":/images/link-green.png"));
+    mServerStatusBtn->setIcon(QIcon(":/images/main-panel/link-green.png"));
     mServerStatusBtn->setIconSize(QSize(18, 18));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
     // mDownloadRateArrow->setText(QChar(icon_arrow_down));
     // mDownloadRateArrow->setFont(awesome->font(16));
-    mDownloadRateArrow->setPixmap(QPixmap(":/images/arrow-down.png"));
+    mDownloadRateArrow->setPixmap(QPixmap(":/images/main-panel/down.png"));
     mDownloadRate->setText("0 kB/s");
     mDownloadRate->setToolTip(tr("current download rate"));
 
     // mUploadRateArrow->setText(QChar(icon_arrow_up));
     // mUploadRateArrow->setFont(awesome->font(16));
-    mUploadRateArrow->setPixmap(QPixmap(":/images/arrow-up.png"));
+    mUploadRateArrow->setPixmap(QPixmap(":/images/main-panel/up.png"));
     mUploadRate->setText("0 kB/s");
     mUploadRate->setToolTip(tr("current upload rate"));
 }
@@ -344,7 +344,7 @@ void CloudView::refreshServerStatus()
         tool_tip = tr("some servers not connected");
     }
     mServerStatusBtn->setIcon(QIcon(service->allServersConnected()
-                                    ? ":/images/link-green.png"
+                                    ? ":/images/main-panel/link-green.png"
                                     : ":/images/link-red.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 }

@@ -28,7 +28,7 @@ void ServerStatusDialog::refreshStatus()
         item->setData(Qt::DisplayRole, status.url.host());
 
         if (status.connected) {
-            item->setData(Qt::DecorationRole, QIcon(":/images/sync/ok.png"));
+            item->setData(Qt::DecorationRole, QIcon(":/images/sync/done.png"));
             item->setData(Qt::ToolTipRole, tr("connected"));
         } else {
             item->setData(Qt::DecorationRole, QIcon(":/images/remove-red.png"));

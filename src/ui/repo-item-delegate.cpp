@@ -168,6 +168,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QPixmap repo_icon(repo.getPixmap());
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
+    // TODO retina draw here
     painter->drawPixmap(repo_icon_rect, repo_icon);
     painter->restore();
 
@@ -324,7 +325,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     } else {
         switch (repo.sync_state) {
         case LocalRepo::SYNC_STATE_DONE:
-            icon = "ok";
+            icon = "done";
             break;
         case LocalRepo::SYNC_STATE_ING:
             icon = "rotate";

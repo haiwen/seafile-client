@@ -205,7 +205,7 @@ void InitVirtualDriveDialog::finish()
     QString msg = tr("The default library has been downloaded.\n"
                      "You can click the \"Open\" button to view it.");
     setStatusText(msg);
-    setStatusIcon(":/images/ok-48.png");
+    setStatusIcon(":/images/sync/done@2x.png");
 
     mFinishBtn->setVisible(true);
     mOpenBtn->setVisible(true);

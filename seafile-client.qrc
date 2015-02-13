@@ -5,9 +5,6 @@
     <file>images/seafile-32.png</file>
     <file>images/account.png</file>
     <file>images/account-36.png</file>
-    <file>images/repo.png</file>
-    <file>images/encrypted-repo.png</file>
-    <file>images/readonly-repo.png</file>
     <file>images/folder.png</file>
     <file>images/loading.gif</file>
     <file>images/daemon_up.png</file>
@@ -49,25 +46,34 @@
     <file>images/remove-gray.png</file>
     <file>images/remove-gray@2x.png</file>
     <file>images/remove-red.png</file>
-    <file>images/link-green.png</file>
     <file>images/link-red.png</file>
-    <file>images/arrow-down.png</file>
-    <file>images/arrow-up.png</file>
-    <file>images/sync/ok.png</file>
+    <file>images/main-panel/up.png</file>
+    <file>images/main-panel/down.png</file>
+    <file>images/main-panel/link-green.png</file>
+    <file>images/main-panel/library.png</file>
+    <file>images/main-panel/library-encrypted.png</file>
+    <file>images/main-panel/library-readonly.png</file>
+    <file>images/sync/done.png</file>
+    <file>images/sync/done@2x.png</file>
+    <file>images/sync/pause.png</file>
+    <file>images/sync/pause@2x.png</file>
+    <file>images/sync/cloud.png</file>
+    <file>images/sync/cloud@2x.png</file>
+    <file>images/sync/waiting.png</file>
+    <file>images/sync/waiting-gray@2x.png</file>
     <file>images/sync/exclamation.png</file>
     <file>images/sync/minus-sign.png</file>
-    <file>images/sync/pause.png</file>
     <file>images/sync/question.png</file>
     <file>images/sync/rotate.png</file>
-    <file>images/sync/cloud.png</file>
-    <file>images/sync/waiting.png</file>
-    <file>images/ok-48.png</file>
     <file>images/download-48.png</file>
     <file>images/avatar-mask.png</file>
     <file>images/avatar-mask-highlighted.png</file>
-    <file>images/tabs/repos.png</file>
+    <file>images/tabs/files.png</file>
+    <file>images/tabs/files@2x.png</file>
+    <file>images/tabs/history.png</file>
+    <file>images/tabs/history@2x.png</file>
     <file>images/tabs/starred.png</file>
-    <file>images/tabs/activities.png</file>
+    <file>images/tabs/starred@2x.png</file>
     <file>images/files/file_audio.png</file>
     <file>images/files/file_image.png</file>
     <file>images/files/file_ms_excel.png</file>
@@ -103,8 +109,6 @@
     <file>images/account-checked@2x.png</file>
     <file>images/filebrowser/backward.png</file>
     <file>images/filebrowser/backward@2x.png</file>
-    <file>images/filebrowser/download.png</file>
-    <file>images/filebrowser/download@2x.png</file>
     <file>images/filebrowser/forward.png</file>
     <file>images/filebrowser/forward@2x.png</file>
     <file>images/filebrowser/home.png</file>

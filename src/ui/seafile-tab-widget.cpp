@@ -46,6 +46,7 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         // initStyleOption(&tab, index);
 
         QPixmap icon(icons_[index]);
+        //TODO support retina draw here
 
         // Draw the tab background
         painter.fillRect(rect, QColor(kTabsBackgroundColor));

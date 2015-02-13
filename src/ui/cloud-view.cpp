@@ -408,7 +408,7 @@ void CloudView::createToolBar()
     tool_bar_->addWidget(spacer);
 
     refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(QIcon(":/images/toolbar/refresh-gray.png"));
+    refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
     tool_bar_->addAction(refresh_action_);

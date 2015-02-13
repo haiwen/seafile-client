@@ -215,6 +215,7 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         QPainter mask_painter;
         mask_painter.begin(&masked_image);
         mask_painter.setRenderHint(QPainter::Antialiasing);
+        mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
         mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
         mask_painter.setPen(Qt::NoPen);
         mask_painter.setBrush(Qt::white);
@@ -230,6 +231,7 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
 
         QPainter p(mAccountBtn);
         p.setRenderHint(QPainter::Antialiasing);
+        p.setRenderHint(QPainter::HighQualityAntialiasing);
         p.setCompositionMode(QPainter::CompositionMode_SourceOver);
         p.drawImage(QPoint(0,0), masked_image);
         return true;

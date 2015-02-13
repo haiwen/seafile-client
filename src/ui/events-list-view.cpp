@@ -94,6 +94,8 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->save();
     painter->fillRect(option.rect, backBrush);
     painter->restore();
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setRenderHint(QPainter::HighQualityAntialiasing);
 
     // paint avatar
     QImage avatar;
@@ -112,6 +114,7 @@ void EventItemDelegate::paint(QPainter *painter,
     QPainter mask_painter;
     mask_painter.begin(&masked_image);
     mask_painter.setRenderHint(QPainter::Antialiasing);
+    mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
     mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     mask_painter.setPen(Qt::NoPen);
     mask_painter.setBrush(Qt::white);

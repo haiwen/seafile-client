@@ -727,12 +727,16 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 void FileBrowserDialog::chooseFileToUpload()
 {
     QStringList paths = QFileDialog::getOpenFileNames(this, tr("Select a file to upload"));
+    if (paths.empty())
+        return;
     uploadOrUpdateMutipleFile(paths);
 }
 
 void FileBrowserDialog::chooseDirectoryToUpload()
 {
     QString path = QFileDialog::getExistingDirectory(this, tr("Select a directory to upload"));
+    if (path.isEmpty())
+        return;
     uploadOrUpdateFile(path);
 }
 

@@ -12,7 +12,12 @@
 #include <QSettings>
 #include <QProcess>
 #include <QDesktopServices>
+#include <QHostInfo>
 #include <jansson.h>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QUrlQuery>
+#endif
+
 #include "utils-mac.h"
 
 #if defined(Q_OS_MAC)
@@ -30,6 +35,10 @@
 #include <QSslCipher>
 #include <QSslCertificate>
 
+#include "seafile-applet.h"
+#include "rpc/rpc-client.h"
+
+#include "utils.h"
 #include "utils.h"
 
 
@@ -731,5 +740,52 @@ void msleep(int mseconds)
     do {
         r = ::nanosleep(&ts, &ts);
     } while (r == -1 && errno == EINTR);
+#endif
+}
+
+QUrl includeQueryParams(const QUrl& url,
+                        const QHash<QString, QString>& params)
+{
+    QUrl u(url);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QString escaped_plus = QString::fromLatin1("%2B");
+    QUrlQuery query;
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        // To support encoding like that of HTML forms, QUrlQuery also never decodes
+        // the "%2B" sequence to a plus sign nor encode a plus sign. In fact, any
+        // "%2B" or "+" sequences found in the keys, values, or query string are left
+        // exactly like written (except for the uppercasing of "%2b" to "%2B").
+        query.addQueryItem(key, value.replace('+', escaped_plus));
+    }
+    u.setQuery(query);
+#else
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
+                              QUrl::toPercentEncoding(value));
+    }
+#endif
+    return u;
+}
+
+QByteArray buildFormData(const QHash<QString, QString>& params)
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QString escaped_plus = QString::fromLatin1("%2B");
+    QUrlQuery query;
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        query.addQueryItem(key, value.replace('+', escaped_plus));
+    }
+    return query.query(QUrl::FullyEncoded).toUtf8();
+#else
+    QUrl u;
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
+                              QUrl::toPercentEncoding(value));
+    }
+    return u.encodedQuery();
 #endif
 }

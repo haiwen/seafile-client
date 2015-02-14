@@ -8,9 +8,9 @@ public:
     virtual ~Utils() {};
 
 private slots:
-    void dummy();
-    void readableFileSize();
-    void readableFileSizeV2();
+    void testReadableFileSize();
+    void testReadableFileSizeV2();
+    void testIncludeUrlParams();
 };
 
 #endif // TESTS_UTILS_H

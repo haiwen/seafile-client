@@ -27,14 +27,12 @@ SeafileApiRequest::~SeafileApiRequest()
 
 void SeafileApiRequest::setUrlParam(const QString& name, const QString& value)
 {
-    params_.push_back(QPair<QByteArray, QByteArray>(
-            QUrl::toPercentEncoding(name), QUrl::toPercentEncoding(value)));
+    params_[name] = value;
 }
 
 void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
 {
-    form_params_.push_back(QPair<QByteArray, QByteArray>(
-            QUrl::toPercentEncoding(name), QUrl::toPercentEncoding(value)));
+    form_params_[name] = value;
 }
 
 void SeafileApiRequest::send()
@@ -43,20 +41,11 @@ void SeafileApiRequest::send()
         api_client_->setToken(token_);
     }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     if (!params_.isEmpty()) {
-        QUrlQuery url_query;
-        for (int i = 0; i < params_.size(); i++) {
-            // QUrlQuery never encodes the space character to "+" and will never decode "+" to a space character
-            // http://doc.qt.io/qt-5/qurlquery.html
-            url_query.addQueryItem(
-                QUrl::fromPercentEncoding(params_[i].first)
-                    .replace('+', QString::fromLatin1("%2B")),
-                QUrl::fromPercentEncoding(params_[i].second)
-                    .replace('+', QString::fromLatin1("%2B")));
-        }
-        url_.setQuery(url_query);
+        url_ = ::includeQueryParams(url_, params_);
     }
+
+    QByteArray post_data = ::buildFormData(form_params_);
 
     switch (method_) {
     case METHOD_GET:
@@ -67,48 +56,12 @@ void SeafileApiRequest::send()
         break;
     case METHOD_POST:
     case METHOD_PUT:
-        if (!form_params_.isEmpty()) {
-            QUrlQuery form_query;
-            for (int i = 0; i < form_params_.size(); i++) {
-                form_query.addQueryItem(QUrl::fromPercentEncoding(form_params_[i].first),
-                                        QUrl::fromPercentEncoding(form_params_[i].second));
-                form_query.addQueryItem(
-                    QUrl::fromPercentEncoding(form_params_[i].first)
-                        .replace('+', QString::fromLatin1("%2B")),
-                    QUrl::fromPercentEncoding(form_params_[i].second)
-                        .replace('+', QString::fromLatin1("%2B")));
-            }
-            setData(form_query.query(QUrl::FullyEncoded).toUtf8());
-        }
-        api_client_->post(url_, data_, method_ == METHOD_PUT);
+        api_client_->post(url_, post_data, method_ == METHOD_PUT);
         break;
     default:
         qWarning("unknown method %d\n", method_);
         return;
     }
-#else /* Qt 4.x */
-    url_.setEncodedQueryItems(params_);
-    switch (method_) {
-    case METHOD_GET:
-        api_client_->get(url_);
-        break;
-    case METHOD_DELETE:
-        api_client_->deleteResource(url_);
-        break;
-    case METHOD_POST:
-    case METHOD_PUT:
-        if (!form_params_.isEmpty()) {
-            QUrl params;
-            params.setEncodedQueryItems(form_params_);
-            setData(params.encodedQuery());
-        }
-        api_client_->post(url_, data_, method_ == METHOD_PUT);
-        break;
-    default:
-        qWarning("unknown method %d\n", method_);
-        return;
-    }
-#endif /* Qt 4.x */
 
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),
             this, SLOT(requestSuccess(QNetworkReply&)));

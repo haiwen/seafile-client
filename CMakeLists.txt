@@ -692,6 +692,7 @@ IF (BUILD_TESTING)
         IF(USE_QT5)
           QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
         ELSE()
+          SET(QTESTLIB ${QT_QTTEST_LIBRARY})
           QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
         ENDIF()
 
@@ -700,7 +701,7 @@ IF (BUILD_TESTING)
         ADD_EXECUTABLE(${testname} ${${testname}_SRCS})
 
         TARGET_LINK_LIBRARIES(${testname} ${QT_LIBRARIES}
-                ${QT_QTTEST_LIBRARY} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
+                ${QTESTLIB} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
                 ${EXTRA_LIBS} -lglib-2.0 ${SC_LIBS})
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )

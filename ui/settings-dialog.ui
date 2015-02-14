@@ -254,6 +254,9 @@
           <property name="verticalSpacing">
            <number>6</number>
           </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="mProxyMethodLabel">
             <property name="sizePolicy">

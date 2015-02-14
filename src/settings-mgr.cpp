@@ -381,7 +381,7 @@ void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QStr
     proxy.setType(use_proxy_type_ == HttpProxy ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy);
     proxy.setHostName(proxy_host_);
     proxy.setPort(proxy_port_);
-    if (use_proxy_type_ == HttpProxy && !proxy_username_.isEmpty()) {
+    if (use_proxy_type_ == HttpProxy && !proxy_username_.isEmpty() && !proxy_password_.isEmpty()) {
         proxy.setUser(proxy_username_);
         proxy.setPassword(proxy_password_);
     }

@@ -75,12 +75,12 @@ void SettingsDialog::updateSettings()
     switch(proxy_type) {
         case SettingsManager::HttpProxy:
             if (mProxyRequirePassword->checkState() == Qt::Checked)
-                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text(), mProxyPort->value(), mProxyUsername->text(), mProxyPassword->text());
+                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text().trimmed(), mProxyPort->value(), mProxyUsername->text().trimmed(), mProxyPassword->text().trimmed());
             else
-                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text(), mProxyPort->value());
+                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text().trimmed(), mProxyPort->value());
             break;
         case SettingsManager::SocksProxy:
-            mgr->setProxy(SettingsManager::SocksProxy, mProxyHost->text(), mProxyPort->value());
+            mgr->setProxy(SettingsManager::SocksProxy, mProxyHost->text().trimmed(), mProxyPort->value());
             break;
         case SettingsManager::NoneProxy:
         default:

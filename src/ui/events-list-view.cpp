@@ -3,6 +3,7 @@
 #include <QPixmap>
 #include <QToolTip>
 #include <QLayout>
+#include <QDebug>
 
 #include "seafile-applet.h"
 #include "main-window.h"
@@ -93,6 +94,8 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->save();
     painter->fillRect(option.rect, backBrush);
     painter->restore();
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setRenderHint(QPainter::HighQualityAntialiasing);
 
     // paint avatar
     QImage avatar;
@@ -100,16 +103,35 @@ void EventItemDelegate::paint(QPainter *painter,
         avatar = AvatarService::instance()->getAvatar(event.author);
     }
     if (avatar.size() != QSize(kAvatarWidth, kAvatarHeight)) {
-        avatar = QImage(":/images/account-36.png");
+        avatar = devicePixelRatio() > 1 ?
+          QImage(":/images/account@2x.png") : QImage(":/images/account.png");
     }
+
+    QRect actualRect(0, 0, kAvatarWidth * devicePixelRatio() , kAvatarHeight * devicePixelRatio());
+    avatar.scaled(actualRect.size());
+    QImage masked_image(actualRect.size(), QImage::Format_ARGB32_Premultiplied);
+    masked_image.fill(Qt::transparent);
+    QPainter mask_painter;
+    mask_painter.begin(&masked_image);
+    mask_painter.setRenderHint(QPainter::Antialiasing);
+    mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
+    mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    mask_painter.setPen(Qt::NoPen);
+    mask_painter.setBrush(Qt::white);
+    mask_painter.drawEllipse(actualRect);
+    mask_painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    mask_painter.drawImage(actualRect, avatar);
+    mask_painter.setCompositionMode(QPainter::CompositionMode_DestinationOver);
+    mask_painter.fillRect(actualRect, Qt::transparent);
+    mask_painter.end();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    masked_image.setDevicePixelRatio(devicePixelRatio());
+#endif // QT5
+
     QPoint avatar_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     avatar_pos += option.rect.topLeft();
     painter->save();
-    painter->drawImage(avatar_pos, avatar);
-    QImage mask(selected ? ":/images/avatar-mask-highlighted.png"
-                : ":/images/avatar-mask.png");
-    painter->setRenderHint(QPainter::Antialiasing);
-    painter->drawImage(avatar_pos, mask);
+    painter->drawImage(avatar_pos, masked_image);
     painter->restore();
 
     int time_width = qMin(kTimeWidth,

@@ -8,6 +8,7 @@
 #include "configurator.h"
 #include "account-mgr.h"
 #include "api/requests.h"
+#include "utils/paint-utils.h"
 #include "utils/utils.h"
 
 #include "avatar-service.h"
@@ -185,7 +186,8 @@ void AvatarService::fetchImageFromServer(const QString& email)
         return;
     }
 
-    get_avatar_req_ = new GetAvatarRequest(account, email, 36);
+    // TODO update all old avatars to newer version
+    get_avatar_req_ = new GetAvatarRequest(account, email, devicePixelRatio() * 48);
 
     connect(get_avatar_req_, SIGNAL(success(const QImage&)),
             this, SLOT(onGetAvatarSuccess(const QImage&)));
@@ -231,7 +233,8 @@ QImage AvatarService::getAvatar(const QString& email)
 
     if (img.isNull()) {
         queue_->enqueue(email);
-        return QImage(":/images/account-36.png");
+        return devicePixelRatio() > 1 ?
+          QImage(":/images/account@2x.png") : QImage(":/images/account.png");
     } else {
         return img;
     }

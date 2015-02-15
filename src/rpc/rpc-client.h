@@ -84,6 +84,7 @@ public:
 
     int updateReposServerHost(const QString& old_host,
                               const QString& new_host,
+                              const QString& new_server_url,
                               QString *err);
 
     int getRepoProperty(const QString& repo_id,

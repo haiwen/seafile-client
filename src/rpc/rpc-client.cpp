@@ -722,14 +722,16 @@ QString SeafileRpcClient::getCcnetPeerId()
 
 int SeafileRpcClient::updateReposServerHost(const QString& old_host,
                                             const QString& new_host,
+                                            const QString& new_server_url,
                                             QString *err)
 {
     GError *error = NULL;
     int ret =  searpc_client_call__int (seafile_rpc_client_,
                                         "seafile_update_repos_server_host",
-                                        &error, 2,
+                                        &error, 3,
                                         "string", toCStr(old_host),
-                                        "string", toCStr(new_host));
+                                        "string", toCStr(new_host),
+                                        "string", toCStr(new_server_url));
 
     if (ret < 0) {
         if (error) {

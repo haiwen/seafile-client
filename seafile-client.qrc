@@ -46,13 +46,20 @@
     <file>images/remove-gray.png</file>
     <file>images/remove-gray@2x.png</file>
     <file>images/remove-red.png</file>
-    <file>images/link-red.png</file>
     <file>images/main-panel/up.png</file>
+    <file>images/main-panel/up@2x.png</file>
     <file>images/main-panel/down.png</file>
+    <file>images/main-panel/down@2x.png</file>
     <file>images/main-panel/link-green.png</file>
+    <file>images/main-panel/link-green@2x.png</file>
+    <file>images/main-panel/link-red.png</file>
+    <file>images/main-panel/link-red@2x.png</file>
     <file>images/main-panel/library.png</file>
+    <file>images/main-panel/library@2x.png</file>
     <file>images/main-panel/library-encrypted.png</file>
+    <file>images/main-panel/library-encrypted@2x.png</file>
     <file>images/main-panel/library-readonly.png</file>
+    <file>images/main-panel/library-readonly@2x.png</file>
     <file>images/sync/done.png</file>
     <file>images/sync/done@2x.png</file>
     <file>images/sync/pause.png</file>

@@ -340,7 +340,7 @@ void CloudView::refreshServerStatus()
     }
     mServerStatusBtn->setIcon(QIcon(service->allServersConnected()
                                     ? ":/images/main-panel/link-green.png"
-                                    : ":/images/link-red.png"));
+                                    : ":/images/main-panel/link-red.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 }
 

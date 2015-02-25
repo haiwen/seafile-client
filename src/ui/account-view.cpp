@@ -204,7 +204,17 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == mAccountBtn && event->type() == QEvent::Paint) {
         QRect rect(0, 0, AvatarService::kAvatarSize, AvatarService::kAvatarSize);
-        QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(devicePixelRatio() * rect.size()));
+        QPainter painter(mAccountBtn);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setRenderHint(QPainter::HighQualityAntialiasing);
+
+        // get the device pixel radio from current painter device
+        int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        scale_factor = painter.device()->devicePixelRatio();
+#endif // QT5
+
+        QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(scale_factor * rect.size()));
         QRect actualRect(QPoint(0, 0), image.size());
 
         QImage masked_image(actualRect.size(), QImage::Format_ARGB32_Premultiplied);
@@ -223,14 +233,11 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         mask_painter.fillRect(actualRect, Qt::transparent);
         mask_painter.end();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        masked_image.setDevicePixelRatio(devicePixelRatio());
+        masked_image.setDevicePixelRatio(scale_factor);
 #endif // QT5
 
-        QPainter p(mAccountBtn);
-        p.setRenderHint(QPainter::Antialiasing);
-        p.setRenderHint(QPainter::HighQualityAntialiasing);
-        p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-        p.drawImage(QPoint(0,0), masked_image);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        painter.drawImage(QPoint(0,0), masked_image);
         return true;
     }
     return QObject::eventFilter(obj, event);

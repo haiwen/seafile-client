@@ -165,10 +165,17 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
     painter->save();
 
-    QPixmap repo_icon(repo.getPixmap());
+    // get the device pixel radio from current painter device
+    int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    scale_factor = painter->device()->devicePixelRatio();
+#endif // QT5
+    QPixmap repo_icon(repo.getIcon().pixmap(QSize(kRepoIconWidth, kRepoIconHeight) * scale_factor));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    repo_icon.setDevicePixelRatio(scale_factor);
+#endif // QT5
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
-    // TODO retina draw here
     painter->drawPixmap(repo_icon_rect, repo_icon);
     painter->restore();
 

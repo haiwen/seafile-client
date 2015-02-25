@@ -21,7 +21,7 @@ if [ -z "$SEAFILE_BRANCH" ]; then
 fi
 
 sudo add-apt-repository -y ppa:smspillaz/cmake-2.8.12
-sudo add-apt-repository -y ppa:beineri/opt-qt54
+sudo add-apt-repository -y ppa:beineri/opt-qt541
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo apt-get update -qq
 sudo apt-get install -y gcc-4.8 g++-4.8

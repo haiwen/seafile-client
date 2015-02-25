@@ -182,7 +182,7 @@ void CloudView::setupFooter()
     // mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
-    mServerStatusBtn->setIcon(QIcon(":/images/main-panel/link-green.png"));
+    mServerStatusBtn->setIcon(QIcon(":/images/main-panel/connected.png"));
     mServerStatusBtn->setIconSize(QSize(18, 18));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
@@ -339,8 +339,8 @@ void CloudView::refreshServerStatus()
         tool_tip = tr("some servers not connected");
     }
     mServerStatusBtn->setIcon(QIcon(service->allServersConnected()
-                                    ? ":/images/main-panel/link-green.png"
-                                    : ":/images/main-panel/link-red.png"));
+                                    ? ":/images/main-panel/connected.png"
+                                    : ":/images/main-panel/unconnected.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 }
 

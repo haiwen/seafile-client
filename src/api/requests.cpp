@@ -8,6 +8,7 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
+#include "utils/api-utils.h"
 #include "api-error.h"
 #include "server-repo.h"
 #include "starred-file.h"
@@ -69,14 +70,10 @@ LoginRequest::LoginRequest(const QUrl& serverAddr,
     setFormParam("username", username);
     setFormParam("password", password);
 
-    QString client_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
-    QString device_id = seafApplet->rpcClient()->getCcnetPeerId();
-
-    setFormParam("platform", kOsName);
-    setFormParam("device_id", device_id);
-    setFormParam("device_name", computer_name);
-    setFormParam("client_version", client_version);
-    setFormParam("platform_version", "");
+    QHash<QString, QString> params = ::getSeafileLoginParams(computer_name);
+    foreach (const QString& key, params.keys()) {
+        setFormParam(key, params[key]);
+    }
 }
 
 void LoginRequest::requestSuccess(QNetworkReply& reply)

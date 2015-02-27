@@ -27,6 +27,8 @@ public:
     QString getAvatarFilePath(const QString& email);
     bool avatarFileExists(const QString& email);
 
+    static const int kAvatarSize;
+
 signals:
     void avatarUpdated(const QString& email, const QImage& avatar);
 

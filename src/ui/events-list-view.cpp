@@ -102,10 +102,6 @@ void EventItemDelegate::paint(QPainter *painter,
     if (!event.anonymous) {
         avatar = AvatarService::instance()->getAvatar(event.author);
     }
-    if (avatar.size() != QSize(kAvatarWidth, kAvatarHeight)) {
-        avatar = devicePixelRatio() > 1 ?
-          QImage(":/images/account@2x.png") : QImage(":/images/account.png");
-    }
 
     QRect actualRect(0, 0, kAvatarWidth * devicePixelRatio() , kAvatarHeight * devicePixelRatio());
     avatar.scaled(actualRect.size());

@@ -20,6 +20,8 @@ const char *kAvatarsDirName = "avatars";
 
 } // namespace
 
+const int AvatarService::kAvatarSize = 48;
+
 struct PendingRequestInfo {
     int last_wait;
     int time_to_wait;
@@ -156,14 +158,11 @@ QImage AvatarService::loadAvatarFromLocal(const QString& email)
         return cache_.value(email);
     }
 
-    QString path = avatarPathForEmail(seafApplet->accountManager()->currentAccount(),
-                                    email);
+    QImage ret;
+    if (avatarFileExists(email))
+        ret = QImage(getAvatarFilePath(email));
 
-    if (QFileInfo(path).exists()) {
-        return QImage(path);
-    }
-
-    return QImage();
+    return ret;
 }
 
 QString AvatarService::avatarPathForEmail(const Account& account, const QString& email)
@@ -186,8 +185,7 @@ void AvatarService::fetchImageFromServer(const QString& email)
         return;
     }
 
-    // TODO update all old avatars to newer version
-    get_avatar_req_ = new GetAvatarRequest(account, email, devicePixelRatio() * 48);
+    get_avatar_req_ = new GetAvatarRequest(account, email, devicePixelRatio() * kAvatarSize);
 
     connect(get_avatar_req_, SIGNAL(success(const QImage&)),
             this, SLOT(onGetAvatarSuccess(const QImage&)));
@@ -248,7 +246,19 @@ QString AvatarService::getAvatarFilePath(const QString& email)
 
 bool AvatarService::avatarFileExists(const QString& email)
 {
-    return QFileInfo(getAvatarFilePath(email)).exists();
+    QString path = getAvatarFilePath(email);
+    bool ret = QFileInfo(path).exists();
+    if (ret) {
+        QImage target(path);
+        // remove old avatar which is too small
+        if (target.size().width() < kAvatarSize ||
+            target.size().height() < kAvatarSize ) {
+            if (!QFile::remove(path))
+                qWarning("Unable to remove old avatar file %s", path.toUtf8().data());
+            ret = false;
+        }
+    }
+    return ret;
 }
 
 void AvatarService::checkPendingRequests()

@@ -261,7 +261,7 @@ void LoginDialog::loginWithShib()
 
     seafApplet->settingsManager()->setLastShibUrl(serverAddr);
 
-    ShibLoginDialog shib_dialog(url, this);
+    ShibLoginDialog shib_dialog(url, mComputerName->text(), this);
     if (shib_dialog.exec() == QDialog::Accepted) {
         accept();
     }

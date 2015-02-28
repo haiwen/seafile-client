@@ -41,6 +41,13 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     }
 
     mLanguageComboBox->addItems(I18NHelper::getInstance()->getLanguages());
+    mProxyMethodComboBox->insertItem(SettingsManager::NoneProxy, tr("None"));
+    mProxyMethodComboBox->insertItem(SettingsManager::HttpProxy, tr("HTTP Proxy"));
+    mProxyMethodComboBox->insertItem(SettingsManager::SocksProxy, tr("Socks5 Proxy"));
+    connect(mProxyMethodComboBox, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(proxyMethodChanged(int)));
+    connect(mProxyRequirePassword, SIGNAL(stateChanged(int)),
+            this, SLOT(proxyRequirePasswordChanged(int)));
 
     #if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
@@ -62,6 +69,24 @@ void SettingsDialog::updateSettings()
     mgr->setHttpSyncEnabled(mEnableHttpSyncCheckBox->checkState() == Qt::Checked);
     mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
+
+
+    SettingsManager::ProxyType proxy_type = static_cast<SettingsManager::ProxyType>(mProxyMethodComboBox->currentIndex());
+    switch(proxy_type) {
+        case SettingsManager::HttpProxy:
+            if (mProxyRequirePassword->checkState() == Qt::Checked)
+                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text().trimmed(), mProxyPort->value(), mProxyUsername->text().trimmed(), mProxyPassword->text().trimmed());
+            else
+                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text().trimmed(), mProxyPort->value());
+            break;
+        case SettingsManager::SocksProxy:
+            mgr->setProxy(SettingsManager::SocksProxy, mProxyHost->text().trimmed(), mProxyPort->value());
+            break;
+        case SettingsManager::NoneProxy:
+        default:
+            mgr->setProxy(SettingsManager::NoneProxy);
+            break;
+    }
 
     if (isCheckLatestVersionEnabled()) {
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
@@ -139,6 +164,21 @@ void SettingsDialog::showEvent(QShowEvent *event)
         mCheckLatestVersionBox->setCheckState(state);
     }
 
+    SettingsManager::ProxyType proxy_type;
+    QString proxy_host;
+    QString proxy_username;
+    QString proxy_password;
+    int proxy_port;
+    mgr->getProxy(proxy_type, proxy_host, proxy_port, proxy_password, proxy_password);
+    proxyMethodChanged(proxy_type);
+    mProxyMethodComboBox->setCurrentIndex(proxy_type);
+    mProxyHost->setText(proxy_host);
+    mProxyPort->setValue(proxy_port);
+    mProxyUsername->setText(proxy_username);
+    mProxyPassword->setText(proxy_password);
+    if (!proxy_username.isEmpty())
+        mProxyRequirePassword->setChecked(true);
+
     mLanguageComboBox->setCurrentIndex(I18NHelper::getInstance()->preferredLanguage());
 
     QDialog::showEvent(event);
@@ -176,4 +216,61 @@ void SettingsDialog::uploadChanged(int value)
 {
     qDebug("%s :%d", __func__, value);
     seafApplet->settingsManager()->setMaxUploadRatio(mUploadSpinBox->value());
+}
+
+void SettingsDialog::proxyRequirePasswordChanged(int state)
+{
+    if (state == Qt::Checked) {
+        mProxyUsername->setEnabled(true);
+        mProxyUsernameLabel->setEnabled(true);
+        mProxyPassword->setEnabled(true);
+        mProxyPasswordLabel->setEnabled(true);
+    } else {
+        mProxyUsername->setEnabled(false);
+        mProxyUsernameLabel->setEnabled(false);
+        mProxyPassword->setEnabled(false);
+        mProxyPasswordLabel->setEnabled(false);
+    }
+}
+
+void SettingsDialog::proxyMethodChanged(int state)
+{
+    SettingsManager::ProxyType proxy_type =
+        static_cast<SettingsManager::ProxyType>(state);
+    switch(proxy_type) {
+        case SettingsManager::HttpProxy:
+            mProxyHost->setVisible(true);
+            mProxyHostLabel->setVisible(true);
+            mProxyPort->setVisible(true);
+            mProxyPortLabel->setVisible(true);
+            mProxyRequirePassword->setVisible(true);
+            mProxyUsername->setVisible(true);
+            mProxyUsernameLabel->setVisible(true);
+            mProxyPassword->setVisible(true);
+            mProxyPasswordLabel->setVisible(true);
+            break;
+        case SettingsManager::SocksProxy:
+            mProxyHost->setVisible(true);
+            mProxyHostLabel->setVisible(true);
+            mProxyPort->setVisible(true);
+            mProxyPortLabel->setVisible(true);
+            mProxyRequirePassword->setVisible(false);
+            mProxyUsername->setVisible(false);
+            mProxyUsernameLabel->setVisible(false);
+            mProxyPassword->setVisible(false);
+            mProxyPasswordLabel->setVisible(false);
+            break;
+        case SettingsManager::NoneProxy:
+        default:
+            mProxyHost->setVisible(false);
+            mProxyHostLabel->setVisible(false);
+            mProxyPort->setVisible(false);
+            mProxyPortLabel->setVisible(false);
+            mProxyRequirePassword->setVisible(false);
+            mProxyUsername->setVisible(false);
+            mProxyUsernameLabel->setVisible(false);
+            mProxyPassword->setVisible(false);
+            mProxyPasswordLabel->setVisible(false);
+            break;
+    }
 }

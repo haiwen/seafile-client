@@ -159,8 +159,10 @@ QImage AvatarService::loadAvatarFromLocal(const QString& email)
     }
 
     QImage ret;
-    if (avatarFileExists(email))
+    if (avatarFileExists(email)) {
         ret = QImage(getAvatarFilePath(email));
+        cache_[email] = ret;
+    }
 
     return ret;
 }
@@ -282,4 +284,5 @@ void AvatarService::onAccountChanged()
         delete get_avatar_req_;
         get_avatar_req_ = 0;
     }
+    cache_.clear();
 }

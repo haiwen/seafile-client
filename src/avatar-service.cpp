@@ -20,7 +20,7 @@ const char *kAvatarsDirName = "avatars";
 
 } // namespace
 
-const int AvatarService::kAvatarSize = 48;
+const int AvatarService::kAvatarSize = 42;
 
 struct PendingRequestInfo {
     int last_wait;

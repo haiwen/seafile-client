@@ -232,7 +232,9 @@ QImage AvatarService::getAvatar(const QString& email)
     QImage img = loadAvatarFromLocal(email);
 
     if (img.isNull()) {
-        queue_->enqueue(email);
+        if (!get_avatar_req_ || get_avatar_req_->email() != email) {
+            queue_->enqueue(email);
+        }
         return devicePixelRatio() > 1 ?
           QImage(":/images/account@2x.png") : QImage(":/images/account.png");
     } else {

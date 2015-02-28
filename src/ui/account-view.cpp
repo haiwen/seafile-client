@@ -18,9 +18,6 @@
 #include "filebrowser/file-browser-manager.h"
 
 #include "account-view.h"
-namespace {
-const int kAvatarSize = 48;
-}
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -31,7 +28,7 @@ AccountView::AccountView(QWidget *parent)
     account_menu_ = new QMenu;
     mAccountBtn->setMenu(account_menu_);
     mAccountBtn->setPopupMode(QToolButton::InstantPopup);
-    mAccountBtn->setFixedSize(QSize(kAvatarSize, kAvatarSize));
+    mAccountBtn->setFixedSize(QSize(AvatarService::kAvatarSize, AvatarService::kAvatarSize));
 
     onAccountChanged();
 
@@ -183,10 +180,10 @@ void AccountView::onAccountItemClicked()
 
 void AccountView::updateAvatar()
 {
-    mAccountBtn->setIconSize(QSize(kAvatarSize, kAvatarSize));
+    mAccountBtn->setIconSize(QSize(AvatarService::kAvatarSize, AvatarService::kAvatarSize));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {
-        mAccountBtn->setIcon(QIcon(":/images/account@2x.png"));
+        mAccountBtn->setIcon(QIcon(":/images/account.png"));
         return;
     }
 
@@ -198,7 +195,7 @@ void AccountView::updateAvatar()
         return;
     }
 
-    mAccountBtn->setIcon(QIcon(":/images/account@2x.png"));
+    mAccountBtn->setIcon(QIcon(":/images/account.png"));
     // will trigger a GetAvatarRequest
     service->getAvatar(account.username);
 }
@@ -206,7 +203,7 @@ void AccountView::updateAvatar()
 bool AccountView::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == mAccountBtn && event->type() == QEvent::Paint) {
-        QRect rect(0, 0, kAvatarSize, kAvatarSize);
+        QRect rect(0, 0, AvatarService::kAvatarSize, AvatarService::kAvatarSize);
         QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(devicePixelRatio() * rect.size()));
         QRect actualRect(QPoint(0, 0), image.size());
 

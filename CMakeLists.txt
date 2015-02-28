@@ -102,6 +102,7 @@ IF(USE_QT5)
       SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "DBus")
     ENDIF()
     FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
+    SET(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
     # from QT 5.4.0 Changelog
     # The Qt binary packages are now configured with C++11 enabled.
     # this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3

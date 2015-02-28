@@ -721,9 +721,8 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     const QUrl url = event->mimeData()->urls().at(0);
 
     QString local_path = url.toLocalFile();
-#ifdef Q_OS_MAC
-    if (local_path.startsWith("/.file/id="))
-        local_path = utils::mac::get_path_from_fileId_url("file://" + local_path);
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+        local_path = utils::mac::fix_file_id_url(local_path);
 #endif
     const QString file_name = QFileInfo(local_path).fileName();
 
@@ -777,9 +776,8 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
         if (url.scheme() == "file") {
 
             QString file_name = url.toLocalFile();
-#ifdef Q_OS_MAC
-            if (file_name.startsWith("/.file/id="))
-                file_name = utils::mac::get_path_from_fileId_url("file://" + file_name);
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+            file_name = utils::mac::fix_file_id_url(file_name);
 #endif
 
             if (QFileInfo(file_name).isFile()) {

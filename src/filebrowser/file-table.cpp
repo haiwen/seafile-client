@@ -560,9 +560,8 @@ void FileTableView::dropEvent(QDropEvent *event)
     Q_FOREACH(const QUrl& url, urls)
     {
         QString path = url.toLocalFile();
-#ifdef Q_OS_MAC
-        if (path.startsWith("/.file/id="))
-            path = utils::mac::get_path_from_fileId_url("file://" + path);
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+        path = utils::mac::fix_file_id_url(path);
 #endif
 
         if(path.isEmpty())

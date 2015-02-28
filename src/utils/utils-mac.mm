@@ -27,12 +27,12 @@ void setDockIconStyle(bool hidden) {
     }
 }
 
-// Yosemite uses a new url format called fileId url, use this helper to transform
-// it to the old style.
-// https://bugreports.qt-project.org/browse/QTBUG-40449
-// NSString *fileIdURL = @"file:///.file/id=6571367.1000358";
-// NSString *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];
-QString get_path_from_fileId_url(const QString &url) {
+// https://bugreports.qt-project.org/browse/QTBUG-40449 is fixed in QT 5.4.1
+// TODO remove this and related code once qt 5.4.1 is widely used
+QString fix_file_id_url(const QString &path) {
+    if (!path.startsWith("/.file/id="))
+        return path;
+    const QString url = "file://" + path;
     NSString *fileIdURL = [NSString stringWithCString:url.toUtf8().data()
                                     encoding:NSUTF8StringEncoding];
     NSURL *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];

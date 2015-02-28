@@ -28,7 +28,6 @@ struct PendingRequestInfo {
 
     void backoff() {
         last_wait = qMax(last_wait, 1) * 2;
-        printf ("backoff: last_wait = %d\n", last_wait);
         time_to_wait = last_wait;
     }
 
@@ -220,7 +219,6 @@ void AvatarService::onGetAvatarSuccess(const QImage& img)
 void AvatarService::onGetAvatarFailed(const ApiError& error)
 {
     const QString email = get_avatar_req_->email();
-    printf ("get avatar failed for %s\n", email.toUtf8().data());
     get_avatar_req_->deleteLater();
     get_avatar_req_ = 0;
 

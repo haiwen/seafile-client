@@ -535,7 +535,11 @@ void FileBrowserDialog::uploadFileOrMkdir()
 
 void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 {
-    const QString name = QFileInfo(path).fileName();
+    const QString name = ::getBaseName(path);
+
+    // ignore the confirm procedure for uploading directory, which is non-sense
+    if (QFileInfo(path).isDir())
+        return uploadFile(path, name);
 
     // prompt a dialog to confirm to overwrite the current file
     if (findConflict(name, table_model_->dirents())) {
@@ -600,6 +604,10 @@ void FileBrowserDialog::onUploadFinished(bool success)
             return;
         }
 
+        // always force a refresh for uploading directory
+        if (qobject_cast<FileUploadDirectoryTask*>(sender()))
+            forceRefresh();
+
         if (task->error() == FileNetworkTask::TaskCanceled)
             return;
 
@@ -611,6 +619,21 @@ void FileBrowserDialog::onUploadFinished(bool success)
     QString local_path = task->localFilePath();
     QStringList names;
 
+    // Upload Directory Task
+    if (qobject_cast<FileUploadDirectoryTask *>(sender())) {
+        const SeafDirent dir = {
+          SeafDirent::DIR,
+          "",
+          task->name(),
+          0,
+          QDateTime::currentDateTime().toTime_t()
+        };
+        // TODO: insert the Item prior to the item where uploading occurs
+        table_model_->insertItem(0, dir);
+        return;
+    }
+
+    // Upload Multiple Task
     FileUploadMultipleTask *multi_task = qobject_cast<FileUploadMultipleTask *>(sender());
 
     if (multi_task == NULL) {
@@ -633,19 +656,6 @@ void FileBrowserDialog::onUploadFinished(bool success)
     // add the items to tableview
     Q_FOREACH(const QString &name, names) {
         const QFileInfo file = QDir(local_path).filePath(name);
-
-        if (file.isDir()) {
-            const SeafDirent dir = {
-              SeafDirent::DIR,
-              "",
-              name,
-              0,
-              QDateTime::currentDateTime().toTime_t()
-            };
-            // TODO: insert the Item prior to the item where uploading occurs
-            table_model_->insertItem(0, dir);
-            return;
-        }
         const SeafDirent dirent = {
           SeafDirent::FILE,
           "",
@@ -722,7 +732,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 
 void FileBrowserDialog::chooseFileToUpload()
 {
-    QStringList paths = QFileDialog::getOpenFileNames(this, tr("Select a file to upload"));
+    QStringList paths = QFileDialog::getOpenFileNames(this, tr("Select a file to upload"), QDir::homePath());
     if (paths.empty())
         return;
     uploadOrUpdateMutipleFile(paths);
@@ -730,7 +740,7 @@ void FileBrowserDialog::chooseFileToUpload()
 
 void FileBrowserDialog::chooseDirectoryToUpload()
 {
-    QString path = QFileDialog::getExistingDirectory(this, tr("Select a directory to upload"));
+    QString path = QFileDialog::getExistingDirectory(this, tr("Select a directory to upload"), QDir::homePath());
     if (path.isEmpty())
         return;
     uploadOrUpdateFile(path);
@@ -841,7 +851,7 @@ void FileBrowserDialog::onDirentRenameSuccess(const QString& path,
 void FileBrowserDialog::onGetDirentUpdate(const SeafDirent& dirent)
 {
     QString path = QFileDialog::getOpenFileName(this,
-        tr("Select a file to update %1").arg(dirent.name));
+        tr("Select a file to update %1").arg(dirent.name), QDir::homePath());
     if (!path.isEmpty()) {
         uploadFile(path, dirent.name, true);
     }

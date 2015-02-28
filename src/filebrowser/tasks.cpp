@@ -255,23 +255,17 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
 {
     QStringList names;
 
-    QDir dir(local_path_);
     if (local_path_ == "/")
-        qWarning() << "attempt to upload the root directory, you should avoid it";
-    const QString parent_path = QFileInfo(local_path_).absolutePath();
-    int parent_path_size = parent_path.size();
-    if (parent_path != "/")
-        parent_path_size++;
+        qWarning("attempt to upload the root directory, you should avoid it\n");
+    QDir dir(local_path_);
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
     while (iterator.hasNext()) {
         iterator.next();
-        if (!iterator.fileInfo().isDir()) {
-           QString filename = iterator.filePath();
-           names.push_back(filename.right(filename.size() - parent_path_size));
-        }
+        if (!iterator.fileInfo().isDir())
+           names.push_back(dir.relativeFilePath(iterator.filePath()));
     }
 
-    fileserver_task_ = new PostFilesTask(link, path_, parent_path, names, true);
+    fileserver_task_ = new PostFilesTask(link, path_, dir.absolutePath(), names, true);
 }
 
 
@@ -587,7 +581,8 @@ PostFilesTask::PostFilesTask(const QUrl& url,
                              const QStringList& names,
                              const bool use_relative)
     : FileServerTask(url, local_path),
-      parent_dir_(parent_dir),
+      // work around with server
+      parent_dir_(parent_dir.endsWith('/') ? parent_dir : parent_dir + "/"),
       name_(QFileInfo(local_path_).fileName()),
       names_(names),
       current_num_(-1),
@@ -676,7 +671,7 @@ void PostFilesTask::startNext()
     QString file_name = QFileInfo(file_path).fileName();
     QString relative_path;
     if (use_relative_)
-        relative_path = file_path.left(file_path.size() - file_name.size());
+        relative_path = ::pathJoin(QFileInfo(local_path_).fileName(), ::getParentPath(file_path));
 
     // relative_path might be empty, and should be safe to use as well
     task_.reset(new PostFileTask(url_,

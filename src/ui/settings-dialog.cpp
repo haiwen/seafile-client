@@ -70,36 +70,25 @@ void SettingsDialog::updateSettings()
     mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
 
-
-    SettingsManager::ProxyType proxy_type = static_cast<SettingsManager::ProxyType>(mProxyMethodComboBox->currentIndex());
-    switch(proxy_type) {
-        case SettingsManager::HttpProxy:
-            if (mProxyRequirePassword->checkState() == Qt::Checked)
-                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text().trimmed(), mProxyPort->value(), mProxyUsername->text().trimmed(), mProxyPassword->text().trimmed());
-            else
-                mgr->setProxy(SettingsManager::HttpProxy, mProxyHost->text().trimmed(), mProxyPort->value());
-            break;
-        case SettingsManager::SocksProxy:
-            mgr->setProxy(SettingsManager::SocksProxy, mProxyHost->text().trimmed(), mProxyPort->value());
-            break;
-        case SettingsManager::NoneProxy:
-        default:
-            mgr->setProxy(SettingsManager::NoneProxy);
-            break;
-    }
+    bool proxy_changed = updateProxySettings();
 
     if (isCheckLatestVersionEnabled()) {
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
         mgr->setCheckLatestVersionEnabled(enabled);
     }
 
+    bool language_changed = false;
     if (mLanguageComboBox->currentIndex() != I18NHelper::getInstance()->preferredLanguage()) {
-
+        language_changed = true;
         I18NHelper::getInstance()->setPreferredLanguage(mLanguageComboBox->currentIndex());
-
-        if (seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
-            seafApplet->restartApp();
     }
+
+    if (language_changed && seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
+        seafApplet->restartApp();
+
+    if (proxy_changed && seafApplet->yesOrNoBox(tr("You have changed proxy settings. Restart to apply it?"), this, true))
+        seafApplet->restartApp();
+
 }
 
 void SettingsDialog::closeEvent(QCloseEvent *event)
@@ -273,4 +262,56 @@ void SettingsDialog::proxyMethodChanged(int state)
             mProxyPasswordLabel->setVisible(false);
             break;
     }
+}
+
+bool SettingsDialog::updateProxySettings()
+{
+    bool proxy_changed = false;
+
+    SettingsManager *mgr = seafApplet->settingsManager();
+    SettingsManager::ProxyType old_proxy_type;
+    QString old_proxy_host;
+    QString old_proxy_username;
+    QString old_proxy_password;
+    int old_proxy_port;
+    mgr->getProxy(old_proxy_type, old_proxy_host, old_proxy_port, old_proxy_password, old_proxy_password);
+
+    SettingsManager::ProxyType proxy_type = static_cast<SettingsManager::ProxyType>(mProxyMethodComboBox->currentIndex());
+    QString proxy_host = mProxyHost->text().trimmed();
+    QString proxy_username = mProxyUsername->text().trimmed();
+    QString proxy_password = mProxyPassword->text().trimmed();
+    int proxy_port = mProxyPort->value();
+
+    switch(proxy_type) {
+        case SettingsManager::HttpProxy:
+            if (mProxyRequirePassword->checkState() == Qt::Checked) {
+                if (proxy_type == old_proxy_type && proxy_host == old_proxy_host && proxy_port && proxy_username == old_proxy_username && proxy_password == old_proxy_password)
+                    break;
+                proxy_changed = true;
+                mgr->setProxy(SettingsManager::HttpProxy, proxy_host, proxy_port, proxy_username, proxy_password);
+                break;
+            }
+            else {
+                if (proxy_type == old_proxy_type && proxy_host == old_proxy_host && proxy_port)
+                    break;
+                proxy_changed = true;
+                mgr->setProxy(SettingsManager::HttpProxy, proxy_host, proxy_port);
+            }
+            break;
+        case SettingsManager::SocksProxy:
+            if (proxy_type == old_proxy_type && proxy_host == old_proxy_host && proxy_port)
+                break;
+            proxy_changed = true;
+            mgr->setProxy(SettingsManager::SocksProxy, proxy_host, proxy_port);
+            break;
+        case SettingsManager::NoneProxy:
+        default:
+            if (proxy_type == old_proxy_type)
+                break;
+            proxy_changed = true;
+            mgr->setProxy(SettingsManager::NoneProxy);
+            break;
+    }
+
+    return proxy_changed;
 }

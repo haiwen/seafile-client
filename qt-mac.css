@@ -34,8 +34,7 @@ QToolButton#mAccountBtn
 }
 
 
-DownloadRepoDialog QFrame#mFrame,
-CreateRepoDialog QFrame#mFrame
+QFrame#mFrame
 {
     border: 0;
 }

@@ -27,5 +27,7 @@ private slots:
     void proxyMethodChanged(int state);
 
 private:
+    bool updateProxySettings();
+
     Q_DISABLE_COPY(SettingsDialog);
 };

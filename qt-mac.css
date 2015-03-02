@@ -7,7 +7,7 @@ QToolButton#mServerStatusBtn
 QToolButton:hover
 {
     border: 1px solid #ccc;
-    border-radius: 4px;    
+    border-radius: 4px;
     background-color: rgb(255,255,255);
 }
 
@@ -31,4 +31,11 @@ DownloadRepoDialog {
 QToolButton#mAccountBtn
 {
     margin-right: 0px;
+}
+
+
+DownloadRepoDialog QFrame#mFrame,
+CreateRepoDialog QFrame#mFrame
+{
+    border: 0;
 }

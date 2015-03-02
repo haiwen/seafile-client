@@ -373,7 +373,22 @@ void SeafileApplet::restartApp()
     in_exit_ = true;
 
     QStringList args = QApplication::arguments();
+
     args.removeFirst();
+
+    // append delay argument
+    bool found = false;
+    Q_FOREACH(const QString& arg, args)
+    {
+        if (arg == "--delay" || arg == "-D") {
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+        args.push_back("--delay");
+
     QProcess::startDetached(QApplication::applicationFilePath(), args);
     QCoreApplication::quit();
 }

@@ -84,11 +84,12 @@ void setupSettingDomain()
 void handleCommandLineOption(int argc, char *argv[])
 {
     char c;
-    static const char *short_options = "KXc:d:f:";
+    static const char *short_options = "KDXc:d:f:";
     static const struct option long_options[] = {
         { "config-dir", required_argument, NULL, 'c' },
         { "data-dir", required_argument, NULL, 'd' },
         { "stop", no_argument, NULL, 'K' },
+        { "delay", no_argument, NULL, 'D' },
         { "remove-user-data", no_argument, NULL, 'X' },
         { "open-local-file", no_argument, NULL, 'f' },
         { "stdout", no_argument, NULL, 'l' },
@@ -110,6 +111,9 @@ void handleCommandLineOption(int argc, char *argv[])
         case 'K':
             do_stop();
             exit(0);
+        case 'D':
+            msleep(1000);
+            break;
         case 'X':
             do_remove_user_data();
             exit(0);

@@ -264,13 +264,6 @@ void SeafileApplet::start()
 
     certs_mgr_->start();
 
-    FileCacheDB::instance()->start();
-    AutoUpdateManager::instance()->start();
-
-    AvatarService::instance()->start();
-    SeahubNotificationsMonitor::instance()->start();
-    ServerStatusService::instance()->start();
-
 #if defined(Q_OS_WIN32)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
@@ -289,7 +282,16 @@ void SeafileApplet::onDaemonStarted()
 
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
+
+    // load proxy settings
     seafApplet->settingsManager()->loadSettings();
+
+    FileCacheDB::instance()->start();
+    AutoUpdateManager::instance()->start();
+
+    AvatarService::instance()->start();
+    SeahubNotificationsMonitor::instance()->start();
+    ServerStatusService::instance()->start();
 
 #if defined(Q_OS_MAC)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());

@@ -285,24 +285,36 @@ bool SettingsDialog::updateProxySettings()
     switch(proxy_type) {
         case SettingsManager::HttpProxy:
             if (mProxyRequirePassword->checkState() == Qt::Checked) {
-                if (proxy_type == old_proxy_type && proxy_host == old_proxy_host && proxy_port && proxy_username == old_proxy_username && proxy_password == old_proxy_password)
+                if (proxy_type == old_proxy_type &&
+                    proxy_host == old_proxy_host &&
+                    proxy_port == old_proxy_port &&
+                    proxy_username == old_proxy_username &&
+                    proxy_password == old_proxy_password)
                     break;
                 proxy_changed = true;
-                mgr->setProxy(SettingsManager::HttpProxy, proxy_host, proxy_port, proxy_username, proxy_password);
+                mgr->setProxy(SettingsManager::HttpProxy,
+                              proxy_host, proxy_port,
+                              proxy_username, proxy_password);
                 break;
             }
             else {
-                if (proxy_type == old_proxy_type && proxy_host == old_proxy_host && proxy_port)
+                if (proxy_type == old_proxy_type &&
+                    proxy_host == old_proxy_host &&
+                    proxy_port == old_proxy_port)
                     break;
                 proxy_changed = true;
-                mgr->setProxy(SettingsManager::HttpProxy, proxy_host, proxy_port);
+                mgr->setProxy(SettingsManager::HttpProxy,
+                              proxy_host, proxy_port);
             }
             break;
         case SettingsManager::SocksProxy:
-            if (proxy_type == old_proxy_type && proxy_host == old_proxy_host && proxy_port)
+            if (proxy_type == old_proxy_type &&
+                proxy_host == old_proxy_host &&
+                proxy_port == old_proxy_port)
                 break;
             proxy_changed = true;
-            mgr->setProxy(SettingsManager::SocksProxy, proxy_host, proxy_port);
+            mgr->setProxy(SettingsManager::SocksProxy,
+                          proxy_host, proxy_port);
             break;
         case SettingsManager::NoneProxy:
         default:

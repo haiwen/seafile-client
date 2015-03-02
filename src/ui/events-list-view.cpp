@@ -97,13 +97,19 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setRenderHint(QPainter::HighQualityAntialiasing);
 
+    // get the device pixel radio from current painter device
+    int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    scale_factor = painter->device()->devicePixelRatio();
+#endif // QT5
+
     // paint avatar
     QImage avatar;
     if (!event.anonymous) {
         avatar = AvatarService::instance()->getAvatar(event.author);
     }
 
-    QRect actualRect(0, 0, kAvatarWidth * devicePixelRatio() , kAvatarHeight * devicePixelRatio());
+    QRect actualRect(0, 0, kAvatarWidth * scale_factor , kAvatarHeight * scale_factor);
     avatar.scaled(actualRect.size());
     QImage masked_image(actualRect.size(), QImage::Format_ARGB32_Premultiplied);
     masked_image.fill(Qt::transparent);
@@ -121,7 +127,7 @@ void EventItemDelegate::paint(QPainter *painter,
     mask_painter.fillRect(actualRect, Qt::transparent);
     mask_painter.end();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    masked_image.setDevicePixelRatio(devicePixelRatio());
+    masked_image.setDevicePixelRatio(scale_factor);
 #endif // QT5
 
     QPoint avatar_pos(kMarginLeft + kPadding, kMarginTop + kPadding);

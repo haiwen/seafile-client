@@ -45,9 +45,6 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         // QStyleOptionTabV3 tab;
         // initStyleOption(&tab, index);
 
-        QPixmap icon(icons_[index]);
-        //TODO support retina draw here
-
         // Draw the tab background
         painter.fillRect(rect, QColor(kTabsBackgroundColor));
 
@@ -55,8 +52,19 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         QPoint top_left;
         top_left.setX(rect.topLeft().x() + ((rect.width() - kTabIconSize) / 2));
         top_left.setY(rect.topLeft().y() + ((rect.height() - kTabIconSize) / 2));
+
+        QIcon icon(icons_[index]);
         QRect icon_rect(top_left, QSize(kTabIconSize, kTabIconSize));
-        painter.drawPixmap(icon_rect, icon);
+        // get the device pixel radio from current painter device
+        int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        scale_factor = painter.device()->devicePixelRatio();
+#endif // QT5
+        QPixmap icon_pixmap(icon.pixmap(QSize(kTabIconSize, kTabIconSize) * scale_factor));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        icon_pixmap.setDevicePixelRatio(scale_factor);
+#endif // QT5
+        painter.drawPixmap(icon_rect, icon_pixmap);
 
         // Draw the selected tab indicator
         if (currentIndex() == index) {

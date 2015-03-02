@@ -165,10 +165,17 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
     painter->save();
 
-    QPixmap repo_icon(repo.getPixmap());
+    // get the device pixel radio from current painter device
+    int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    scale_factor = painter->device()->devicePixelRatio();
+#endif // QT5
+    QPixmap repo_icon(repo.getIcon().pixmap(QSize(kRepoIconWidth, kRepoIconHeight) * scale_factor));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    repo_icon.setDevicePixelRatio(scale_factor);
+#endif // QT5
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
-    // TODO retina draw here
     painter->drawPixmap(repo_icon_rect, repo_icon);
     painter->restore();
 
@@ -249,8 +256,13 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeight / 2));
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
 
+    QPixmap status_icon_pixmap = getSyncStatusIcon(item).pixmap(scale_factor * status_icon_rect.size());
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    status_icon_pixmap.setDevicePixelRatio(scale_factor);
+#endif // QT5
+
     painter->save();
-    painter->drawPixmap(status_icon_rect, getSyncStatusIcon(item));
+    painter->drawPixmap(status_icon_rect, status_icon_pixmap);
     painter->restore();
 
     // Update the metrics of this item
@@ -315,7 +327,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->restore();
 }
 
-QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
+QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
 {
     const QString prefix = ":/images/sync/";
     const LocalRepo& repo = item->localRepo();
@@ -352,7 +364,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
 
     last_icon_map_[repo.id] = icon;
 
-    return prefix + icon + ".png";
+    return QIcon(prefix + icon + ".png");
 }
 
 QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const

@@ -57,9 +57,6 @@ public:
 
     CertsManager *certsManager() { return certs_mgr_; }
 
-    bool isPro() const { return is_pro_; }
-    void setPro(bool val) { is_pro_ = val; }
-
     bool started() { return started_; }
     bool inExit() { return in_exit_; }
 

@@ -10,6 +10,8 @@
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "utils/utils.h"
+#include "api/api-error.h"
+#include "api/requests.h"
 
 AccountManager::AccountManager()
 {
@@ -71,14 +73,13 @@ const std::vector<Account>& AccountManager::loadAccounts()
 int AccountManager::saveAccount(const Account& account)
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i].serverUrl == account.serverUrl
-            && accounts_[i].username == account.username) {
+        if (accounts_[i] == account) {
             accounts_.erase(accounts_.begin() + i);
             break;
         }
     }
-
     accounts_.insert(accounts_.begin(), account);
+    updateServerInfo(0);
 
     QString url = account.serverUrl.toEncoded().data();
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
@@ -122,8 +123,7 @@ void AccountManager::updateAccountLastVisited(const Account& account)
 
 bool AccountManager::accountExists(const QUrl& url, const QString& username)
 {
-    int i, n = accounts_.size();
-    for (i = 0; i < n; i++) {
+    for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == url && accounts_[i].username == username) {
             return true;
         }
@@ -148,16 +148,13 @@ bool AccountManager::setCurrentAccount(const Account& account)
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
 {
-    int i = 0;
-    for (i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i].serverUrl.toString() == old_account.serverUrl.toString()
-            && accounts_[i].username == old_account.username) {
-            accounts_.erase(accounts_.begin() + i);
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i] == old_account) {
+            accounts_[i] = new_account;
+            updateServerInfo(i);
             break;
         }
     }
-
-    accounts_.insert(accounts_.begin(), new_account);
 
     QString old_url = old_account.serverUrl.toEncoded().data();
     QString new_url = new_account.serverUrl.toEncoded().data();
@@ -206,4 +203,42 @@ Account AccountManager::getAccountBySignature(const QString& account_sig) const
     }
 
     return Account();
+}
+
+void AccountManager::updateServerInfo()
+{
+    for (size_t i = 0; i < accounts_.size(); i++)
+        updateServerInfo(i);
+}
+
+void AccountManager::updateServerInfo(unsigned index)
+{
+    ServerInfoRequest *request;
+    // request is taken owner by Account object
+    request = accounts_[index].createServerInfoRequest();
+    connect(request, SIGNAL(success(const Account&, const ServerInfo &)),
+            this, SLOT(serverInfoSuccess(const Account&, const ServerInfo &)));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(serverInfoFailed(const ApiError&)));
+    request->send();
+}
+
+
+void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo &info)
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i] == account) {
+            if (i == 0)
+                emit beforeAccountChanged();
+            accounts_[i].serverInfo = info;
+            if (i == 0)
+                emit accountsChanged();
+            break;
+        }
+    }
+}
+
+void AccountManager::serverInfoFailed(const ApiError &error)
+{
+    qWarning("update server info failed %s\n", error.toString().toUtf8().data());
 }

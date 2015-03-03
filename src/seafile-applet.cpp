@@ -293,6 +293,8 @@ void SeafileApplet::onDaemonStarted()
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();
 
+    account_mgr_->updateServerInfo();
+
 #if defined(Q_OS_MAC)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
 #endif
@@ -332,8 +334,8 @@ void SeafileApplet::onDaemonStarted()
 
 void SeafileApplet::checkInitVDrive()
 {
-    if (configurator_->firstUse() && account_mgr_->accounts().size() > 0) {
-        const Account& account = account_mgr_->accounts()[0];
+    if (configurator_->firstUse() && account_mgr_->hasAccount()) {
+        const Account account = account_mgr_->currentAccount();
         InitVirtualDriveDialog *dialog = new InitVirtualDriveDialog(account);
         // Move the dialog to the left of the main window
         int x = main_win_->pos().x() - dialog->rect().width() - 30;

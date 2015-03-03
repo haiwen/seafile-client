@@ -398,7 +398,7 @@ void RepoTreeView::createActions()
 void RepoTreeView::downloadRepo()
 {
     ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
-    DownloadRepoDialog dialog(seafApplet->accountManager()->accounts()[0], repo, this);
+    DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(), repo, this);
 
     dialog.exec();
 
@@ -492,7 +492,7 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
 void RepoTreeView::viewRepoOnWeb()
 {
     QString repo_id = view_on_web_action_->data().toString();
-    const Account& account = seafApplet->accountManager()->accounts()[0];
+    const Account account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
         QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + repo_id));
     }

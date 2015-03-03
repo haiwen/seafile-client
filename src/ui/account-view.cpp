@@ -97,7 +97,7 @@ void AccountView::updateAccountInfoDisplay()
                                "\"color:#A4A4A4; text-decoration: none;\" "
                                "href=\"%1\">%2</a>").arg(href).arg(host);
 
-        mServerAddr->setText(text);
+        mServerAddr->setText(account.isPro() ? QString("%1 <small>%2<small>").arg(text).arg(tr("pro version")) : text);
     } else {
         mEmail->setText(tr("No account"));
         mServerAddr->setText(QString());
@@ -117,7 +117,7 @@ void AccountView::onAccountChanged()
     account_menu_->clear();
 
     if (!accounts.empty()) {
-        for (int i = 0, n = accounts.size(); i < n; i++) {
+        for (size_t i = 0, n = accounts.size(); i < n; i++) {
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (i == 0) {

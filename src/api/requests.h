@@ -11,6 +11,7 @@
 
 class QNetworkReply;
 class QImage;
+class QStringList;
 
 class ServerRepo;
 class Account;
@@ -313,5 +314,45 @@ private:
     Q_DISABLE_COPY(ServerInfoRequest);
     const Account& account_;
 };
+
+class LogoutDeviceRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    LogoutDeviceRequest(const Account& account);
+
+    const Account& account() { return account_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(LogoutDeviceRequest);
+
+    Account account_;
+};
+
+class GetRepoTokensRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetRepoTokensRequest(const Account& account,
+                         const QStringList& repo_ids);
+
+    const QMap<QString, QString>& repoTokens() { return repo_tokens_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetRepoTokensRequest);
+
+    QMap<QString, QString> repo_tokens_;
+};
+
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

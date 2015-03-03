@@ -3,21 +3,51 @@
 #include <QToolButton>
 #include <QScopedPointer>
 #include <QPainter>
+#include <QStringList>
 
-#include "account.h"
 #include "account.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
 #include "account-settings-dialog.h"
 #include "rpc/rpc-client.h"
+#include "rpc/local-repo.h"
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
 #include "avatar-service.h"
 #include "utils/paint-utils.h"
 #include "filebrowser/file-browser-manager.h"
+#include "api/api-error.h"
+#include "api/requests.h"
 
 #include "account-view.h"
+namespace {
+
+QStringList collectSyncedReposForAccount(const Account& account)
+{
+    std::vector<LocalRepo> repos;
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    rpc->listLocalRepos(&repos);
+    QStringList repo_ids;
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo repo = repos[i];
+        QString repo_server_url;
+        if (rpc->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
+            continue;
+        }
+        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        QString token;
+        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+            repo_ids.append(repo.id);
+        }
+    }
+
+    return repo_ids;
+}
+
+}
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -145,6 +175,12 @@ void AccountView::onAccountChanged()
     account_menu_->addAction(add_account_action_);
 
     if (!accounts.empty()) {
+        logout_action_ = new QAction(tr("Logout"), this);
+        logout_action_->setIcon(QIcon(":/images/logout.png"));
+        logout_action_->setIconVisibleInMenu(true);
+        connect(logout_action_, SIGNAL(triggered()), this, SLOT(logoutAccount()));
+        account_menu_->addAction(logout_action_);
+
         delete_account_action_ = new QAction(tr("Delete this account"), this);
         delete_account_action_->setIcon(QIcon(":/images/delete-account.png"));
         delete_account_action_->setIconVisibleInMenu(true);
@@ -158,6 +194,9 @@ void AccountView::onAccountChanged()
 QAction* AccountView::makeAccountAction(const Account& account)
 {
     QString text = account.username + "(" + account.serverUrl.host() + ")";
+    if (!account.isValid()) {
+        text += ", " + tr("not logged in");
+    }
     QAction *action = new QAction(text, account_menu_);
     action->setData(QVariant::fromValue(account));
     // action->setCheckable(true);
@@ -175,7 +214,32 @@ void AccountView::onAccountItemClicked()
     QAction *action = (QAction *)(sender());
     Account account = qvariant_cast<Account>(action->data());
 
-    seafApplet->accountManager()->setCurrentAccount(account);
+    if (!account.isValid()) {
+        LoginDialog dialog(this);
+        dialog.initFromAccount(account);
+        if (dialog.exec() == QDialog::Accepted) {
+            getRepoTokenWhenRelogin();
+        }
+    } else {
+        seafApplet->accountManager()->setCurrentAccount(account);
+    }
+}
+
+void AccountView::getRepoTokenWhenRelogin()
+{
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    QStringList repo_ids = collectSyncedReposForAccount(account);
+    if (repo_ids.empty()) {
+        return;
+    }
+    GetRepoTokensRequest *req = new GetRepoTokensRequest(
+        account, repo_ids);
+
+    connect(req, SIGNAL(success()),
+            this, SLOT(onGetRepoTokensSuccess()));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetRepoTokensFailed(const ApiError&)));
+    req->send();
 }
 
 void AccountView::updateAvatar()
@@ -241,4 +305,66 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         return true;
     }
     return QObject::eventFilter(obj, event);
+}
+
+/**
+ * Only remove the api token of the account. The accout would still be shown
+ * in the account list.
+ */
+void AccountView::logoutAccount()
+{
+    QString question = tr("Are you sure to logout this account?");
+
+    if (!seafApplet->yesOrNoBox(question, this, false)) {
+        return;
+    }
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
+    LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
+    connect(req, SIGNAL(success()),
+            this, SLOT(onLogoutDeviceRequestSuccess()));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onLogoutDeviceRequestFailed(const ApiError&)));
+    req->send();
+}
+
+void AccountView::onLogoutDeviceRequestSuccess()
+{
+    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    const Account& account = req->account();
+    QString error;
+    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
+                                                           account.username,
+                                                           &error)  < 0) {
+        seafApplet->warningBox(tr("Failed to remove local repos sync token: %1").arg(error));
+        return;
+    }
+    seafApplet->accountManager()->clearAccountToken(account);
+    req->deleteLater();
+}
+
+void AccountView::onLogoutDeviceRequestFailed(const ApiError& error)
+{
+    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    req->deleteLater();
+    seafApplet->warningBox(
+        tr("Failed to remove information on server: %1").arg(error.toString()));
+}
+
+void AccountView::onGetRepoTokensSuccess()
+{
+    GetRepoTokensRequest *req = (GetRepoTokensRequest *)(sender());
+    foreach (const QString& repo_id, req->repoTokens().keys()) {
+        seafApplet->rpcClient()->setRepoToken(
+            repo_id, req->repoTokens().value(repo_id));
+    }
+    req->deleteLater();
+}
+
+void AccountView::onGetRepoTokensFailed(const ApiError& error)
+{
+    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    req->deleteLater();
+    seafApplet->warningBox(
+        tr("Failed to get repo sync information from server: %1").arg(error.toString()));
 }

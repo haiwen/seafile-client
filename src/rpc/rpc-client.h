@@ -61,6 +61,7 @@ public:
     int removeCloneTask(const QString& repo_id, QString *error);
 
     int unsyncReposByAccount(const QString& server_addr, const QString& email, QString *error);
+    int removeSyncTokensByAccount(const QString& server_addr, const QString& email, QString *error);
     int getUploadRate(int *rate);
     int getDownloadRate(int *rate);
 
@@ -94,6 +95,9 @@ public:
     int setRepoProperty(const QString& repo_id,
                         const QString& name,
                         const QString& value);
+
+    int setRepoToken(const QString &repo_id,
+                     const QString& token);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)

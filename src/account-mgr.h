@@ -26,6 +26,9 @@ public:
 
     int saveAccount(const Account& account);
     int removeAccount(const Account& account);
+
+    bool clearAccountToken(const Account& account);
+
     const std::vector<Account>& loadAccounts();
     bool accountExists(const QUrl& url, const QString& username);
 

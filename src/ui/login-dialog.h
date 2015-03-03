@@ -20,6 +20,7 @@ class LoginDialog : public QDialog,
     Q_OBJECT
 public:
     LoginDialog(QWidget *parent=0);
+    void initFromAccount(const Account& account);
 
 private slots:
     void doLogin();

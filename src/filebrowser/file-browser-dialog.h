@@ -82,6 +82,7 @@ private slots:
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
     void onGetDirentsPaste();
+    void onGetSyncSubdirectory(const QString &folder_name);
     void onCancelDownload(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
@@ -97,6 +98,9 @@ private slots:
     void onDirentsCopyFailed(const ApiError& error);
     void onDirentsMoveSuccess();
     void onDirentsMoveFailed(const ApiError& error);
+
+    void onCreateSubrepoSuccess(const ServerRepo& repo);
+    void onCreateSubrepoFailed(const ApiError& error);
 
     void onFileAutoUpdated(const QString& repo_id, const QString& path);
 

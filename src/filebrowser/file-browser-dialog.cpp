@@ -23,9 +23,14 @@
 #include "sharedlink-dialog.h"
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
+#include "repo-service.h"
+#include "rpc/local-repo.h"
+#include "rpc/rpc-client.h"
 
 #include "file-browser-manager.h"
 #include "file-browser-dialog.h"
+
+#include "ui/download-repo-dialog.h"
 
 namespace {
 
@@ -121,6 +126,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetDirentsPaste()));
     connect(table_view_, SIGNAL(cancelDownload(const SeafDirent&)),
             this, SLOT(onCancelDownload(const SeafDirent&)));
+    connect(table_view_, SIGNAL(syncSubdirectory(const QString&)),
+            this, SLOT(onGetSyncSubdirectory(const QString &)));
 
     //dirents <--> data_mgr_
     connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
@@ -163,6 +170,12 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirentsMoveSuccess()));
     connect(data_mgr_, SIGNAL(moveDirentsFailed(const ApiError&)),
             this, SLOT(onDirentsMoveFailed(const ApiError&)));
+
+    //subrepo <-->data_mgr_
+    connect(data_mgr_, SIGNAL(createSubrepoSuccess(const ServerRepo &)),
+            this, SLOT(onCreateSubrepoSuccess(const ServerRepo &)));
+    connect(data_mgr_, SIGNAL(createSubrepoFailed(const ApiError&)),
+            this, SLOT(onCreateSubrepoFailed(const ApiError&)));
 
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
@@ -949,10 +962,12 @@ void FileBrowserDialog::onDirentsCopySuccess()
 {
     forceRefresh();
 }
+
 void FileBrowserDialog::onDirentsCopyFailed(const ApiError& error)
 {
     seafApplet->warningBox(tr("Copy failed"), this);
 }
+
 void FileBrowserDialog::onDirentsMoveSuccess()
 {
     file_names_to_be_pasted_.clear();
@@ -962,7 +977,35 @@ void FileBrowserDialog::onDirentsMoveSuccess()
         dialog->forceRefresh();
     forceRefresh();
 }
+
 void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
 {
     seafApplet->warningBox(tr("Move failed"), this);
+}
+
+void FileBrowserDialog::onGetSyncSubdirectory(const QString &folder_name)
+{
+    data_mgr_->createSubrepo(folder_name, repo_.id, ::pathJoin(current_path_, folder_name), QString());
+}
+
+void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)
+{
+    // if we have not synced before
+    bool has_local = false;
+    if (seafApplet->rpcClient()->hasLocalRepo(repo.id)) {
+        has_local = true;
+    } else {
+        // if we have not synced, do it
+        DownloadRepoDialog dialog(account_, repo, this);
+
+        has_local = dialog.exec() == QDialog::Accepted;
+    }
+
+    if (has_local)
+        RepoService::instance()->saveSyncedSubfolder(repo);
+}
+
+void FileBrowserDialog::onCreateSubrepoFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Create library failed!"), this);
 }

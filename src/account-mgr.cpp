@@ -58,6 +58,11 @@ int AccountManager::start()
         return -1;
     }
 
+    // enabling foreign keys, it must be done manually from each connection
+    // and this feature is only supported from sqlite 3.6.19
+    sql = "PRAGMA foreign_keys=ON;";
+    sqlite_query_exec (db, sql);
+
     sql = "CREATE TABLE IF NOT EXISTS Accounts (url VARCHAR(24), "
         "username VARCHAR(15), token VARCHAR(40), lastVisited INTEGER, "
         "PRIMARY KEY(url, username))";

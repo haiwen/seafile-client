@@ -20,6 +20,10 @@ if [ -z "$SEAFILE_BRANCH" ]; then
     fi
 fi
 
+# Temporary fix
+sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list
+sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list.d/*.list
+
 sudo add-apt-repository -y ppa:smspillaz/cmake-2.8.12
 sudo add-apt-repository -y ppa:beineri/opt-qt541
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test

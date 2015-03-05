@@ -158,7 +158,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     QString proxy_username;
     QString proxy_password;
     int proxy_port;
-    mgr->getProxy(proxy_type, proxy_host, proxy_port, proxy_password, proxy_password);
+    mgr->getProxy(proxy_type, proxy_host, proxy_port, proxy_username, proxy_password);
     proxyMethodChanged(proxy_type);
     mProxyMethodComboBox->setCurrentIndex(proxy_type);
     mProxyHost->setText(proxy_host);
@@ -274,7 +274,7 @@ bool SettingsDialog::updateProxySettings()
     QString old_proxy_username;
     QString old_proxy_password;
     int old_proxy_port;
-    mgr->getProxy(old_proxy_type, old_proxy_host, old_proxy_port, old_proxy_password, old_proxy_password);
+    mgr->getProxy(old_proxy_type, old_proxy_host, old_proxy_port, old_proxy_username, old_proxy_password);
 
     SettingsManager::ProxyType proxy_type = static_cast<SettingsManager::ProxyType>(mProxyMethodComboBox->currentIndex());
     QString proxy_host = mProxyHost->text().trimmed();

@@ -6,13 +6,14 @@
 
 
 class SettingsDialog : public QDialog,
-                    public Ui::SettingsDialog
+                       public Ui::SettingsDialog
 {
     Q_OBJECT
 public:
     SettingsDialog(QWidget *parent=0);
 
 private slots:
+    void reject();
 
     void autoStartChanged(int state);
     void hideDockIconChanged(int state);
@@ -24,5 +25,6 @@ private slots:
     void updateSettings();
 
 private:
+    void readSettings();
     Q_DISABLE_COPY(SettingsDialog);
 };

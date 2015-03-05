@@ -79,14 +79,32 @@ void SettingsDialog::closeEvent(QCloseEvent *event)
     this->hide();
 }
 
+void SettingsDialog::reject()
+{
+    // reset settings
+    // this fix a bug writing discarded settings when exiting program
+    readSettings();
+
+    QDialog::reject();
+}
+
 void SettingsDialog::showEvent(QShowEvent *event)
+{
+    SettingsManager *mgr = seafApplet->settingsManager();
+
+    mgr->loadSettings();
+
+    readSettings();
+
+    QDialog::showEvent(event);
+}
+
+void SettingsDialog::readSettings()
 {
     Qt::CheckState state;
     int ratio;
 
     SettingsManager *mgr = seafApplet->settingsManager();
-
-    mgr->loadSettings();
 
     state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
     mHideMainWinCheckBox->setCheckState(state);
@@ -134,8 +152,6 @@ void SettingsDialog::showEvent(QShowEvent *event)
     }
 
     mLanguageComboBox->setCurrentIndex(I18NHelper::getInstance()->preferredLanguage());
-
-    QDialog::showEvent(event);
 }
 
 

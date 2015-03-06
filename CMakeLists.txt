@@ -133,6 +133,7 @@ SET(moc_headers
   src/avatar-service.h
   src/server-status-service.h
   src/message-listener.h
+  src/network-mgr.h
   src/settings-mgr.h
   src/traynotificationwidget.h
   src/traynotificationmanager.h
@@ -284,6 +285,7 @@ SET(seafile_client_sources
   src/configurator.cpp
   src/open-local-helper.cpp
   src/message-listener.cpp
+  src/network-mgr.cpp
   src/repo-service.cpp
   src/repo-service-helper.cpp
   src/events-service.cpp

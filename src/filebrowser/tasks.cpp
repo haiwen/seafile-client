@@ -19,6 +19,7 @@
 #include "certs-mgr.h"
 #include "api/api-error.h"
 #include "configurator.h"
+#include "network-mgr.h"
 #include "file-browser-requests.h"
 
 #include "tasks.h"
@@ -402,7 +403,9 @@ void GetFileTask::sendRequest()
 {
     QNetworkRequest request(url_);
     if (!network_mgr_) {
-        network_mgr_ = new QNetworkAccessManager;
+        static QNetworkAccessManager manager;
+        network_mgr_ = &manager;
+        NetworkManager::instance()->addWatch(network_mgr_);
     }
     reply_ = network_mgr_->get(request);
 
@@ -550,7 +553,9 @@ void PostFileTask::sendRequest()
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
     if (!network_mgr_) {
-        network_mgr_ = new QNetworkAccessManager;
+        static QNetworkAccessManager manager;
+        network_mgr_ = &manager;
+        NetworkManager::instance()->addWatch(network_mgr_);
     }
     reply_ = network_mgr_->post(request, multipart);
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),

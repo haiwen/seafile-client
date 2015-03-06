@@ -9,6 +9,7 @@
 #include "ui/main-window.h"
 #include "ui/ssl-confirm-dialog.h"
 #include "utils/utils.h"
+#include "network-mgr.h"
 
 #include "api-client.h"
 
@@ -35,6 +36,7 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
     if (!na_mgr_) {
         static QNetworkAccessManager mNetworkAccessManager;
         na_mgr_ = &mNetworkAccessManager;
+        NetworkManager::instance()->addWatch(na_mgr_);
     }
 }
 
@@ -182,6 +184,11 @@ void SeafileApiClient::httpRequestFinished()
 {
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
+        if (NetworkManager::instance()->shouldRetry(reply_->error())) {
+            qWarning("[api] network proxy error, retrying\n");
+            resendRequest(reply_->url());
+            return;
+        }
         if (!shouldIgnoreRequestError(reply_)) {
             qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
                    reply_->errorString().toUtf8().data());
@@ -228,30 +235,37 @@ bool SeafileApiClient::handleHttpRedirect()
 
     // qWarning("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
     //        reply_->url().toString().toUtf8().data());
+    // don't handle with this, since rename operation returns a 301
+    if (reply_->operation() == QNetworkAccessManager::PostOperation)
+        return false;
 
+    resendRequest(redirect_url);
+
+    return true;
+}
+
+void SeafileApiClient::resendRequest(const QUrl& url)
+{
     switch (reply_->operation()) {
     case QNetworkAccessManager::GetOperation:
         reply_->deleteLater();
-        get(redirect_url);
+        get(url);
         break;
     case QNetworkAccessManager::PostOperation:
-        // don't handle with this, since rename operation returns a 301
-        //post(redirect_url, body_, false);
-        return false;
+        post(url, body_, false);
+        break;
     case QNetworkAccessManager::PutOperation:
-        post(redirect_url, body_, true);
+        post(url, body_, true);
         break;
     case QNetworkAccessManager::DeleteOperation:
         reply_->deleteLater();
-        deleteResource(redirect_url);
+        deleteResource(url);
         break;
     default:
         reply_->deleteLater();
-        qWarning() << "unsupported redirect" << reply_->operation()
-          << "to" << redirect_url.toString()
+        qWarning() << "unsupported operation" << reply_->operation()
+          << "to" << url.toString()
           << "from" << reply_->url().toString();
         break;
     }
-
-    return true;
 }

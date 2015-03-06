@@ -6,6 +6,7 @@
 /**
  * Settings Manager handles seafile client user settings & preferences
  */
+class QNetworkProxy;
 class SettingsManager : public QObject {
     Q_OBJECT
 
@@ -29,6 +30,7 @@ public:
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
     bool allowInvalidWorktree() { return allow_invalid_worktree_; }
     bool syncExtraTempFile() { return sync_extra_temp_file_; }
+    void getProxy(QNetworkProxy *proxy);
     void getProxy(ProxyType &proxy_type, QString &proxy_host, int &proxy_port, QString &proxy_username, QString &proxy_password) {
         proxy_type = use_proxy_type_;
         proxy_host = proxy_host_;

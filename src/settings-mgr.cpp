@@ -7,6 +7,7 @@
 #include "settings-mgr.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
+#include "network-mgr.h"
 
 #if defined(Q_OS_WIN32)
 #include "utils/registry.h"
@@ -320,6 +321,15 @@ void SettingsManager::setSyncExtraTempFile(bool sync)
         sync_extra_temp_file_ = sync;
     }
 }
+void SettingsManager::getProxy(QNetworkProxy *proxy) {
+    proxy->setType(use_proxy_type_ == HttpProxy ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy);
+    proxy->setHostName(proxy_host_);
+    proxy->setPort(proxy_port_);
+    if (use_proxy_type_ == HttpProxy && !proxy_username_.isEmpty() && !proxy_password_.isEmpty()) {
+        proxy->setUser(proxy_username_);
+        proxy->setPassword(proxy_password_);
+    }
+}
 
 void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QString &proxy_host, int proxy_port, const QString &proxy_username, const QString &proxy_password) {
     // NoneProxy ?
@@ -378,14 +388,8 @@ void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QStr
 
     // apply settings
     QNetworkProxy proxy;
-    proxy.setType(use_proxy_type_ == HttpProxy ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy);
-    proxy.setHostName(proxy_host_);
-    proxy.setPort(proxy_port_);
-    if (use_proxy_type_ == HttpProxy && !proxy_username_.isEmpty() && !proxy_password_.isEmpty()) {
-        proxy.setUser(proxy_username_);
-        proxy.setPassword(proxy_password_);
-    }
-    QNetworkProxy::setApplicationProxy(proxy);
+    getProxy(&proxy);
+    NetworkManager::instance()->applyProxy(proxy);
 }
 
 void SettingsManager::setAllowRepoNotFoundOnServer(bool val)

@@ -17,7 +17,10 @@
 #include "loading-view.h"
 #include "events-service.h"
 #include "avatar-service.h"
+#include "repo-service.h"
 #include "api/api-error.h"
+#include "rpc/rpc-client.h"
+#include "rpc/local-repo.h"
 
 #include "activities-tab.h"
 
@@ -79,7 +82,20 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
     // events_loading_view_->setVisible(false);
     // load_more_btn_->setVisible(has_more);
 
-    const QModelIndex first = events_list_model_->updateEvents(events, is_loading_more);
+    // TODO use a option to control this filter
+    std::vector<SeafEvent> filtered_events;
+    ServerRepo repo;
+    for (size_t i = 0; i < events.size(); ++i) {
+        const QString &repo_id = events[i].repo_id;
+        repo = RepoService::instance()->getRepo(repo_id);
+        if ((repo.isValid() && repo.owner == seafApplet->accountManager()->currentAccount().username) ||
+            // TODO use RepoService::instace()->getLocalRepo to avoid RPC call
+            (seafApplet->rpcClient()->hasLocalRepo(repo_id))) {
+            filtered_events.push_back(events[i]);
+        }
+    }
+
+    const QModelIndex first = events_list_model_->updateEvents(filtered_events, is_loading_more);
     if (first.isValid()) {
         events_list_view_->scrollTo(first);
     }

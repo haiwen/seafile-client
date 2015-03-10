@@ -7,6 +7,7 @@
 #include "api-request.h"
 #include "server-repo.h"
 #include "account.h"
+#include "server-repo.h"
 
 class QNetworkReply;
 class QImage;
@@ -295,6 +296,22 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(SetRepoPasswordRequest);
+};
+
+class ServerInfoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    ServerInfoRequest(const Account& account);
+
+signals:
+    void success(const Account &account, const ServerInfo &info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(ServerInfoRequest);
+    const Account& account_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

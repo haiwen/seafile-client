@@ -441,6 +441,37 @@ QString getBrand()
     return QString::fromUtf8(kSeafileClientBrand);
 }
 
+static
+QList<QVariant> listFromJSON(json_t *array)
+{
+    QList<QVariant> ret;
+    size_t index;
+    size_t array_size = json_array_size(array);
+    json_t *value;
+
+    for(size_t index = 0; index < array_size &&
+        (value = json_array_get(array, index)); ++index) {
+        /* block of code that uses index and value */
+        QVariant v;
+        /*if (json_is_array(value)) {
+            v = listFromJSON(value, error);
+        } else */
+        if (json_is_string(value)) {
+            v = QString::fromUtf8(json_string_value(value));
+        } else if (json_is_integer(value)) {
+            v = json_integer_value(value);
+        } else if (json_is_real(value)) {
+            v = json_real_value(value);
+        } else if (json_is_boolean(value)) {
+            v = json_is_true(value);
+        }
+        if (v.isValid()) {
+          ret.push_back(v);
+        }
+    }
+    return ret;
+}
+
 QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
 {
     QMap<QString, QVariant> dict;
@@ -463,7 +494,9 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
         // json_is_true(const json_t *json)
         // json_is_false(const json_t *json)
         // json_is_null(const json_t *json)
-        if (json_is_string(value)) {
+        if (json_is_array(value)) {
+            v = listFromJSON(value);
+        } else if (json_is_string(value)) {
             v = QString::fromUtf8(json_string_value(value));
         } else if (json_is_integer(value)) {
             v = json_integer_value(value);

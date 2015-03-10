@@ -30,6 +30,7 @@ const char *kGetEventsUrl = "api2/events/";
 const char *kCommitDetailsUrl = "api2/repo_history_changes/";
 const char *kAvatarUrl = "api2/avatars/user/";
 const char *kSetRepoPasswordUrl = "api2/repos/";
+const char *kServerInfoUrl ="api2/server-info/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -519,4 +520,54 @@ SetRepoPasswordRequest::SetRepoPasswordRequest(const Account& account,
 void SetRepoPasswordRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+ServerInfoRequest::ServerInfoRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kServerInfoUrl),
+                         SeafileApiRequest::METHOD_GET, account.token),
+    account_(account)
+{
+}
+
+void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    ServerInfo ret;
+
+    if (dict.contains("version")) {
+        QString versionString = dict["version"].toString();
+        QStringList versionList = versionString.split('.');
+        if (versionList.size() >= 3) {
+            ret.majorVersion = versionList[0].toInt();
+            ret.minorVersion = versionList[1].toInt();
+            ret.patchVersion = versionList[2].toInt();
+        }
+    }
+
+    if (dict.contains("features")) {
+        QList<QVariant> features = dict["features"].toList();
+        Q_FOREACH(const QVariant& feature, features)
+        {
+            if (feature.toString() == "seafile-pro") {
+                ret.pro = true;
+                ret.feature |= FeatureProVersion;
+            } else if (feature.toString() == "office-preview") {
+                ret.feature |= FeatureOfficePreview;
+            } else if (feature.toString() == "file-search") {
+                ret.feature |= FeatureFileSearch;
+            }
+        }
+    }
+
+    emit success(account_, ret);
 }

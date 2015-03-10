@@ -232,7 +232,7 @@ void FileBrowserDialog::createStatusBar()
     upload_menu_->addAction(upload_file_action_);
 
     // Submenu's Action 2: Upload File (only pro version's server supports it)
-    if (seafApplet->isPro()) {
+    if (account_.isPro()) {
         upload_directory_action_ = new QAction(tr("Upload a directory"), upload_menu_);
         connect(upload_directory_action_, SIGNAL(triggered()), this, SLOT(chooseDirectoryToUpload()));
         upload_menu_->addAction(upload_directory_action_);
@@ -476,7 +476,7 @@ void FileBrowserDialog::downloadFile(const QString& path)
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    bool overwrite)
 {
-    if (QFileInfo(path).isDir() && !seafApplet->isPro()) {
+    if (QFileInfo(path).isDir() && !account_.isPro()) {
         seafApplet->warningBox(tr("Feature not supported"), this);
         return;
     }
@@ -506,7 +506,7 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
         const QFileInfo file = name;
         // only files are allowed
         if (!file.isDir() && file.path() == path
-            /* && !seafApplet->isPro()*/) {
+            /* && !account_.isPro*/) {
             fnames.push_back(file.fileName());
         }
     }

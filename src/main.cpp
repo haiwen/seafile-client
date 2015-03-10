@@ -65,7 +65,7 @@ void setupSettingDomain()
 
 void handleCommandLineOption(int argc, char *argv[])
 {
-    char c;
+    int c;
     static const char *short_options = "KXc:d:f:";
     static const struct option long_options[] = {
         { "config-dir", required_argument, NULL, 'c' },

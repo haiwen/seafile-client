@@ -3,12 +3,18 @@
 #ifdef Q_OS_MAC
 #include <QString>
 
+typedef void DarkModeChangedCallback(bool value);
+
 namespace utils {
 namespace mac {
 
 void setDockIconStyle(bool);
 bool get_auto_start();
 void set_auto_start(bool enabled);
+
+bool is_darkmode();
+void set_darkmode_watcher(DarkModeChangedCallback *cb);
+void get_current_osx_version(unsigned *major, unsigned *minor, unsigned *patch);
 
 QString fix_file_id_url(const QString &path);
 

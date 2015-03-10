@@ -17,6 +17,7 @@ extern "C" {
 #include <QMenuBar>
 
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "rpc/rpc-client.h"
@@ -69,6 +70,12 @@ isWindowsVistaOrHigher()
 }
 #endif
 
+#ifdef Q_OS_MAC
+void darkmodeWatcher(bool /*new Value*/) {
+    seafApplet->trayIcon()->reloadTrayIcon();
+}
+#endif
+
 }
 
 SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
@@ -106,6 +113,9 @@ void SeafileTrayIcon::start()
 {
     show();
     refresh_timer_->start(kRefreshInterval);
+#if defined(Q_OS_MAC)
+    utils::mac::set_darkmode_watcher(&darkmodeWatcher);
+#endif
 }
 
 void SeafileTrayIcon::createActions()
@@ -210,7 +220,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
 
 void SeafileTrayIcon::notify(const QString &title, const QString &content)
 {
-#if defined(Q_OS_MAC)
+#ifdef Q_OS_MAC
     QIcon icon(":/images/info.png");
     TrayNotificationWidget* trayNotification = new TrayNotificationWidget(icon.pixmap(32, 32), title, content);
     tnm->append(trayNotification);
@@ -287,6 +297,16 @@ void SeafileTrayIcon::setState(TrayState state, const QString& tip)
     setToolTip(tool_tip);
 }
 
+void SeafileTrayIcon::reloadTrayIcon()
+{
+    setIcon(stateToIcon(state_));
+
+#if defined(Q_OS_LINUX)
+    hide();
+    show();
+#endif
+}
+
 QIcon SeafileTrayIcon::getIcon(const QString& name)
 {
     if (icon_cache_.contains(name)) {
@@ -302,58 +322,65 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
 #if defined(Q_OS_WIN32)
-    QString prefix = ":/images/win/";
+    QString icon_name;
+    switch (state) {
+    case STATE_DAEMON_UP:
+        icon_name = ":/images/win/daemon_up.ico";
+    case STATE_DAEMON_DOWN:
+        icon_name = ":/images/win/daemon_down.ico";
+    case STATE_DAEMON_AUTOSYNC_DISABLED:
+        icon_name = ":/images/win/seafile_auto_sync_disabled.ico";
+    case STATE_TRANSFER_1:
+        icon_name = ":/images/win/seafile_transfer_1.ico";
+    case STATE_TRANSFER_2:
+        icon_name = ":/images/win/seafile_transfer_2.ico";
+    case STATE_SERVERS_NOT_CONNECTED:
+        icon_name = ":/images/win/seafile_warning.ico";
+    case STATE_HAVE_UNREAD_MESSAGE:
+        icon_name = ":/images/win/notification.ico";
+    }
+    return getIcon(icon_name);
+#elif defined(Q_OS_MAC)
+    bool isDarkMode = utils::mac::is_darkmode();
+    // filename = icon_name + ?white + .png
+    QString icon_name;
 
     switch (state) {
     case STATE_DAEMON_UP:
-        return getIcon(prefix + "daemon_up.ico");
+        icon_name = ":/images/mac/daemon_up";
     case STATE_DAEMON_DOWN:
-        return getIcon(prefix + "daemon_down.ico");
+        icon_name = ":/images/mac/daemon_down.png";
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(prefix + "seafile_auto_sync_disabled.ico");
+        icon_name = ":/images/mac/seafile_auto_sync_disabled";
     case STATE_TRANSFER_1:
-        return getIcon(prefix + "seafile_transfer_1.ico");
+        icon_name = ":/images/mac/seafile_transfer_1";
     case STATE_TRANSFER_2:
-        return getIcon(prefix + "seafile_transfer_2.ico");
+        icon_name = ":/images/mac/seafile_transfer_2";
     case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(prefix + "seafile_warning.ico");
+        icon_name = ":/images/mac/seafile_warning";
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(prefix + "notification.ico");
+        icon_name = ":/images/mac/notification";
     }
-#elif defined(Q_OS_MAC)
-    switch (state) {
-    case STATE_DAEMON_UP:
-        return getIcon(":/images/mac/daemon_up.png");
-    case STATE_DAEMON_DOWN:
-        return getIcon(":/images/mac/daemon_down.png");
-    case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(":/images/mac/seafile_auto_sync_disabled.png");
-    case STATE_TRANSFER_1:
-        return getIcon(":/images/mac/seafile_transfer_1.png");
-    case STATE_TRANSFER_2:
-        return getIcon(":/images/mac/seafile_transfer_2.png");
-    case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(":/images/mac/seafile_warning.png");
-    case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/mac/notification.png");
-    }
+    return getIcon(icon_name + (isDarkMode ? "_white" : "") + ".png");
 #else
+    QString icon_name;
     switch (state) {
     case STATE_DAEMON_UP:
-        return getIcon(":/images/daemon_up.png");
+        icon_name = ":/images/daemon_up.png";
     case STATE_DAEMON_DOWN:
-        return getIcon(":/images/daemon_down.png");
+        icon_name = ":/images/daemon_down.png";
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(":/images/seafile_auto_sync_disabled.png");
+        icon_name = ":/images/seafile_auto_sync_disabled.png";
     case STATE_TRANSFER_1:
-        return getIcon(":/images/seafile_transfer_1.png");
+        icon_name = ":/images/seafile_transfer_1.png";
     case STATE_TRANSFER_2:
-        return getIcon(":/images/seafile_transfer_2.png");
+        icon_name = ":/images/seafile_transfer_2.png";
     case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(":/images/seafile_warning.png");
+        icon_name = ":/images/seafile_warning.png";
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/notification.png");
+        icon_name = ":/images/notification.png";
     }
+    return getIcon(icon_name);
 #endif
 }
 

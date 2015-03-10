@@ -10,6 +10,10 @@ IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)
 ENDIF()
 
+IF (APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+  SET(CMAKE_OSX_DEPLOYMENT_TARGET "10.7")
+ENDIF()
+
 FIND_PROGRAM(git_executable NAMES git git.exe git.cmd)
 IF (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git AND NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   EXECUTE_PROCESS(COMMAND
@@ -106,8 +110,12 @@ IF(USE_QT5)
     # from QT 5.4.0 Changelog
     # The Qt binary packages are now configured with C++11 enabled.
     # this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-    SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "gnu++11")
+    if (CYGWIN OR MINGW)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+    else()
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    endif()
+    SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
     SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 ELSE()
     IF (BUILD_SHIBBOLETH_SUPPORT)

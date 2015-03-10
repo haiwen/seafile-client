@@ -21,13 +21,29 @@
     <file>images/win/seafile_transfer_1.ico</file>
     <file>images/win/seafile_transfer_2.ico</file>
     <file>images/win/notification.ico</file>
-    <file>images/mac/daemon_up.png</file>
     <file>images/mac/daemon_down.png</file>
-    <file>images/mac/seafile_warning.png</file>
-    <file>images/mac/seafile_auto_sync_disabled.png</file>
-    <file>images/mac/seafile_transfer_1.png</file>
-    <file>images/mac/seafile_transfer_2.png</file>
+    <file>images/mac/daemon_down@2x.png</file>
+    <file>images/mac/daemon_down_white.png</file>
+    <file>images/mac/daemon_down_white@2x.png</file>
+    <file>images/mac/daemon_up.png</file>
+    <file>images/mac/daemon_up@2x.png</file>
+    <file>images/mac/daemon_up_white.png</file>
+    <file>images/mac/daemon_up_white@2x.png</file>
     <file>images/mac/notification.png</file>
+    <file>images/mac/notification@2x.png</file>
+    <file>images/mac/notification_white.png</file>
+    <file>images/mac/seafile_auto_sync_disabled.png</file>
+    <file>images/mac/seafile_auto_sync_disabled@2x.png</file>
+    <file>images/mac/seafile_auto_sync_disabled_white.png</file>
+    <file>images/mac/seafile_auto_sync_disabled_white@2x.png</file>
+    <file>images/mac/seafile_transfer_1.png</file>
+    <file>images/mac/seafile_transfer_1_white.png</file>
+    <file>images/mac/seafile_transfer_2.png</file>
+    <file>images/mac/seafile_transfer_2_white.png</file>
+    <file>images/mac/seafile_warning.png</file>
+    <file>images/mac/seafile_warning@2x.png</file>
+    <file>images/mac/seafile_warning_white.png</file>
+    <file>images/mac/seafile_warning_white@2x.png</file>
     <file>images/resync.png</file>
     <file>images/resync@2x.png</file>
     <file>images/minus-gray.png</file>

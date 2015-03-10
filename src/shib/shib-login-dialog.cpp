@@ -10,6 +10,7 @@
 #include "utils/utils.h"
 #include "utils/api-utils.h"
 #include "account-mgr.h"
+#include "network-mgr.h"
 
 #include "shib-login-dialog.h"
 
@@ -37,6 +38,7 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
 
     CustomCookieJar *jar = new CustomCookieJar(this);
     QNetworkAccessManager *mgr = webview_->page()->networkAccessManager();
+    NetworkManager::instance()->addWatch(mgr);
     mgr->setCookieJar(jar);
 
     connect(mgr, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),

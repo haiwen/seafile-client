@@ -97,7 +97,9 @@ void AccountView::deleteAccount()
                                                           account.username,
                                                           &error) < 0) {
 
-            seafApplet->warningBox(tr("Failed to unsync libraries of this account: %1").arg(error));
+            seafApplet->warningBox(
+                tr("Failed to unsync libraries of this account: %1").arg(error),
+                this);
         }
 
         seafApplet->accountManager()->removeAccount(account);
@@ -336,7 +338,9 @@ void AccountView::onLogoutDeviceRequestSuccess()
     if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
                                                            account.username,
                                                            &error)  < 0) {
-        seafApplet->warningBox(tr("Failed to remove local repos sync token: %1").arg(error));
+        seafApplet->warningBox(
+            tr("Failed to remove local repos sync token: %1").arg(error),
+            this);
         return;
     }
     seafApplet->accountManager()->clearAccountToken(account);
@@ -347,8 +351,13 @@ void AccountView::onLogoutDeviceRequestFailed(const ApiError& error)
 {
     LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
     req->deleteLater();
-    seafApplet->warningBox(
-        tr("Failed to remove information on server: %1").arg(error.toString()));
+    QString msg;
+    if (error.httpErrorCode() == 404) {
+        msg = tr("Logging out is not supported on your server (version too low).");
+    } else {
+        msg = tr("Failed to remove information on server: %1").arg(error.toString());
+    }
+    seafApplet->warningBox(msg, this);
 }
 
 void AccountView::onGetRepoTokensSuccess()
@@ -366,5 +375,5 @@ void AccountView::onGetRepoTokensFailed(const ApiError& error)
     LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
     req->deleteLater();
     seafApplet->warningBox(
-        tr("Failed to get repo sync information from server: %1").arg(error.toString()));
+        tr("Failed to get repo sync information from server: %1").arg(error.toString()), this);
 }

@@ -31,6 +31,7 @@ QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
 
 SeafileApiClient::SeafileApiClient(QObject *parent)
     : QObject(parent),
+      reply_(NULL),
       redirect_count_(0)
 {
     if (!na_mgr_) {

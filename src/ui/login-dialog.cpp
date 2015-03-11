@@ -71,6 +71,8 @@ void LoginDialog::setupShibLoginLink()
 
 void LoginDialog::initFromAccount(const Account& account)
 {
+    setWindowTitle(tr("Re-login"));
+    mTitle->setText(tr("Re-login"));
     if (account.serverUrl.host() == "seacloud.cc") {
         mServerAddr->setCurrentIndex(0);
     } else if (account.serverUrl.host()  == "cloud.seafile.com") {

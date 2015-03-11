@@ -13,6 +13,25 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 
+namespace {
+
+bool compareAccount(const Account& a, const Account& b)
+{
+    if (!a.isValid()) {
+        return false;
+    } else if (!b.isValid()) {
+        return true;
+    } else if (a.lastVisited < b.lastVisited) {
+        return false;
+    } else if (a.lastVisited > b.lastVisited) {
+        return true;
+    }
+
+    return true;
+}
+
+}
+
 AccountManager::AccountManager()
 {
     db = NULL;
@@ -56,6 +75,10 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     const char *token = (const char *)sqlite3_column_text (stmt, 2);
     qint64 atime = (qint64)sqlite3_column_int64 (stmt, 3);
 
+    if (!token) {
+        token = "";
+    }
+
     Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime);
     mgr->accounts_.push_back(account);
     return true;
@@ -63,10 +86,11 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
 
 const std::vector<Account>& AccountManager::loadAccounts()
 {
-    const char *sql = "SELECT url, username, token, lastVisited FROM Accounts "
-        "ORDER BY lastVisited DESC";
+    const char *sql = "SELECT url, username, token, lastVisited FROM Accounts ";
     accounts_.clear();
     sqlite_foreach_selected_row (db, sql, loadAccountsCB, this);
+
+    std::stable_sort(accounts_.begin(), accounts_.end(), compareAccount);
     return accounts_;
 }
 
@@ -241,4 +265,36 @@ void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo 
 void AccountManager::serverInfoFailed(const ApiError &error)
 {
     qWarning("update server info failed %s\n", error.toString().toUtf8().data());
+}
+
+bool AccountManager::clearAccountToken(const Account& account)
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].serverUrl.toString() == account.serverUrl.toString()
+            && accounts_[i].username == account.username) {
+            accounts_.erase(accounts_.begin() + i);
+            break;
+        }
+    }
+
+    Account new_account = account;
+    new_account.token = "";
+
+    accounts_.push_back(new_account);
+
+    QString url = account.serverUrl.toEncoded().data();
+
+    QString sql =
+        "UPDATE Accounts "
+        "SET token = NULL "
+        "WHERE url = '%1' "
+        "  AND username = '%2'";
+
+    sql = sql.arg(url).arg(account.username);
+
+    sqlite_query_exec (db, toCStr(sql));
+
+    emit accountsChanged();
+
+    return true;
 }

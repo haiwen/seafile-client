@@ -31,6 +31,8 @@ const char *kCommitDetailsUrl = "api2/repo_history_changes/";
 const char *kAvatarUrl = "api2/avatars/user/";
 const char *kSetRepoPasswordUrl = "api2/repos/";
 const char *kServerInfoUrl ="api2/server-info/";
+const char *kLogoutDeviceUrl = "api2/logout-device/";
+const char *kGetRepoTokensUrl = "api2/repo-tokens/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -570,4 +572,44 @@ void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success(account_, ret);
+}
+
+LogoutDeviceRequest::LogoutDeviceRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kLogoutDeviceUrl),
+                         SeafileApiRequest::METHOD_POST, account.token),
+      account_(account)
+{
+}
+
+void LogoutDeviceRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
+
+GetRepoTokensRequest::GetRepoTokensRequest(const Account& account,
+                                           const QStringList& repo_ids)
+    : SeafileApiRequest (account.getAbsoluteUrl(kGetRepoTokensUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    setUrlParam("repos", repo_ids.join(","));
+}
+
+void GetRepoTokensRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetRepoTokensRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    foreach (const QString &repo_id, dict.keys()) {
+        repo_tokens_[repo_id] = dict[repo_id].toString();
+    }
+
+    emit success();
 }

@@ -69,6 +69,22 @@ void LoginDialog::setupShibLoginLink()
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
+void LoginDialog::initFromAccount(const Account& account)
+{
+    setWindowTitle(tr("Re-login"));
+    mTitle->setText(tr("Re-login"));
+    if (account.serverUrl.host() == "seacloud.cc") {
+        mServerAddr->setCurrentIndex(0);
+    } else if (account.serverUrl.host()  == "cloud.seafile.com") {
+        mServerAddr->setCurrentIndex(1);
+    } else {
+        mServerAddr->lineEdit()->setText(account.serverUrl.toString());
+    }
+
+    mUsername->setText(account.username);
+    mPassword->setFocus(Qt::OtherFocusReason);
+}
+
 void LoginDialog::doLogin()
 {
     if (!validateInputs()) {

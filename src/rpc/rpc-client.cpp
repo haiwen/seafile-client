@@ -789,3 +789,44 @@ int SeafileRpcClient::setRepoProperty(const QString &repo_id,
     }
     return ret;
 }
+
+int SeafileRpcClient::removeSyncTokensByAccount(const QString& server_addr,
+                                                const QString& email,
+                                                QString *err)
+{
+    GError *error = NULL;
+    int ret =  searpc_client_call__int (seafile_rpc_client_,
+                                        "seafile_remove_repo_tokens_by_account",
+                                        &error, 2,
+                                        "string", toCStr(server_addr),
+                                        "string", toCStr(email));
+
+    if (ret < 0 && err) {
+        if (error) {
+            *err = QString::fromUtf8(error->message);
+            g_error_free(error);
+        } else {
+            *err = tr("Unknown error");
+        }
+    }
+
+    return ret;
+}
+
+int SeafileRpcClient::setRepoToken(const QString &repo_id,
+                                   const QString& token)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (
+        seafile_rpc_client_,
+        "seafile_set_repo_token",
+        &error, 2,
+        "string", toCStr(repo_id),
+        "string", toCStr(token)
+        );
+    if (error) {
+        g_error_free(error);
+        return -1;
+    }
+    return ret;
+}

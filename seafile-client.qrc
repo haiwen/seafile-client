@@ -128,6 +128,8 @@
     <file>images/delete-account@2x.png</file>
     <file>images/account-checked.png</file>
     <file>images/account-checked@2x.png</file>
+    <file>images/logout.png</file>
+    <file>images/logout@2x.png</file>
     <file>images/filebrowser/backward.png</file>
     <file>images/filebrowser/backward@2x.png</file>
     <file>images/filebrowser/forward.png</file>

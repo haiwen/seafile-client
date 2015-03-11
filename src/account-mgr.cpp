@@ -269,8 +269,7 @@ void AccountManager::serverInfoFailed(const ApiError &error)
 
 bool AccountManager::clearAccountToken(const Account& account)
 {
-    int i = 0;
-    for (i = 0; i < accounts_.size(); i++) {
+    for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl.toString() == account.serverUrl.toString()
             && accounts_[i].username == account.username) {
             accounts_.erase(accounts_.begin() + i);
@@ -281,7 +280,7 @@ bool AccountManager::clearAccountToken(const Account& account)
     Account new_account = account;
     new_account.token = "";
 
-    accounts_.insert(accounts_.end(), new_account);
+    accounts_.push_back(new_account);
 
     QString url = account.serverUrl.toEncoded().data();
 

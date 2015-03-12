@@ -3,9 +3,6 @@ set -x
 set -e
 PWD=$(dirname "${BASH_SOURCE[0]}")
 
-export CFLAGS="-Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter"
-export CXXFLAGS="-Woverloaded-virtual $CFLAGS"
-
 pushd $PWD/..
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then

@@ -40,6 +40,8 @@ OPTION(BUILD_DOCS "Build Documents" OFF)
 
 OPTION(BUILD_SHIBBOLETH_SUPPORT "Build Shibboleth support" OFF)
 
+option(BUILD_ENABLE_WARNINGS "Enable compiler warnings." ON)
+
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 ## build in PIC mode
@@ -47,6 +49,12 @@ IF (NOT WIN32)
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 ENDIF()
+
+##
+if(BUILD_ENABLE_WARNINGS)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -Woverloaded-virtual  -Wno-inconsistent-missing-override")
+endif()
 
 ## color diagnostics fix
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

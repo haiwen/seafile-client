@@ -109,8 +109,11 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 
         LocalRepo local_repo;
         if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) == 0)
-          checkSyncedRepo(repo);
+            checkSyncedRepo(repo);
 
+        // we have a conflicting case, don't use group version if we can
+        if (map.contains(repo.id) && repo.isGroupRepo())
+            continue;
         map[repo.id] = repo;
     }
 

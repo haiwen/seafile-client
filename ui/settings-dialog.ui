@@ -55,7 +55,7 @@
        <item>
         <widget class="QCheckBox" name="mHideDockIconCheckBox">
          <property name="text">
-          <string>Hide Seafile Icon from the docker</string>
+          <string>Hide Seafile Icon from the dock</string>
          </property>
         </widget>
        </item>
@@ -173,7 +173,7 @@
        <item>
         <widget class="QCheckBox" name="mDisableVerifyHttpSyncCert">
          <property name="text">
-          <string>Do not verify server certificate in HTTP syncing</string>
+          <string>Do not verify server certificate in HTTPS syncing</string>
          </property>
         </widget>
        </item>

@@ -93,8 +93,6 @@ void SettingsDialog::updateSettings()
 
 void SettingsDialog::closeEvent(QCloseEvent *event)
 {
-    updateSettings();
-
     event->ignore();
     this->hide();
 }

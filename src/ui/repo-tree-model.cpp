@@ -6,6 +6,7 @@
 #include "api/server-repo.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
+#include "account-mgr.h"
 #include "main-window.h"
 #include "rpc/rpc-client.h"
 #include "repo-item.h"
@@ -19,9 +20,9 @@ const int kRefreshLocalReposInterval = 1000;
 const int kMaxRecentUpdatedRepos = 10;
 const int kIndexOfVirtualReposCategory = 2;
 
-bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
+bool compareRepoByTimestamp(const ServerRepo* a, const ServerRepo* b)
 {
-    return a.mtime > b.mtime;
+    return a->mtime > b->mtime;
 }
 
 QRegExp makeFilterRegExp(const QString& text)
@@ -117,15 +118,23 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
         map[repo.id] = repo;
     }
 
-    QList<ServerRepo> list = map.values();
+    const QList<ServerRepo> list = map.values();
+    // use pointer to avoid additional object copys
+    QList<const ServerRepo*> filtered_list;
+    const QString owner = seafApplet->accountManager()->currentAccount().username;
+    Q_FOREACH(const ServerRepo& repo, list)
+    {
+        if (repo.owner == owner || seafApplet->rpcClient()->hasLocalRepo(repo.id))
+            filtered_list.push_back(&repo);
+    }
     // sort all repos by timestamp
     // use std::sort for qt containers will force additional copy.
     // anyway, we can use qt's alternative qSort for it
-    qSort(list.begin(), list.end(), compareRepoByTimestamp);
+    qSort(filtered_list.begin(), filtered_list.end(), compareRepoByTimestamp);
 
-    n = qMin(list.size(), kMaxRecentUpdatedRepos);
+    n = qMin(filtered_list.size(), kMaxRecentUpdatedRepos);
     for (i = 0; i < n; i++) {
-        RepoItem *item = new RepoItem(list[i]);
+        RepoItem *item = new RepoItem(*filtered_list[i]);
         recent_updated_category_->appendRow(item);
     }
 }

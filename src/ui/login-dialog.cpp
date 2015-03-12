@@ -22,7 +22,7 @@
 namespace {
 
 const QString kDefaultServerAddr1 = "https://seacloud.cc";
-const QString kDefaultServerAddr2 = "https://cloud.seafile.com";
+const QString kDefaultServerAddr2 = "https://cloud.mein-seafile.de";
 
 
 } // namespace

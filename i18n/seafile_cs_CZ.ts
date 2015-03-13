@@ -2115,7 +2115,8 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="714"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Nelze přidat stahovací úlohu:
+%1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="748"/>
@@ -2179,7 +2180,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"/>
+        <translation>selhalo načtení konfiguračního adresáře ccnet %1</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="486"/>
@@ -2414,12 +2415,12 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="252"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>Spouštět Seafile po startu</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
         <source>Hide Seafile Icon from the dock</source>
-        <translation type="unfinished"/>
+        <translation>Skrýt ikonu z lišty</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="254"/>

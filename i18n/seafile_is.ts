@@ -1711,67 +1711,67 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"/>
+        <translation>Bætt við</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"/>
+        <translation>Eytt</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"/>
+        <translation>Fjarlægt</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"/>
+        <translation>Breytt</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"/>
+        <translation>Endurnefnt</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"/>
+        <translation>Fært</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"/>
+        <translation>Bætti við skráarsafni</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"/>
+        <translation>Fjarlægði skráarsafn</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"/>
+        <translation>Endurnefndi skráarsafn</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"/>
+        <translation>Færði skráarsafn</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
-        <translation type="unfinished"/>
+        <translation>skrár</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"/>
+        <translation>skráarsöfn</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
-        <translation type="unfinished"/>
+        <translation>og %1 fleiri</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
@@ -1786,12 +1786,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"/>
+        <translation>Endurheimti eyddu skráarsafni</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"/>
+        <translation>Breytti nafni eða lýsingu skráarsafns</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
@@ -1803,37 +1803,37 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <location filename="../src/utils/utils.cpp" line="532"/>
         <location filename="../src/utils/utils.cpp" line="535"/>
         <source>Just now</source>
-        <translation type="unfinished"/>
+        <translation>Rétt í þessu</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="520"/>
         <source>1 day ago</source>
-        <translation type="unfinished"/>
+        <translation>Fyrir einum degi síðan</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="520"/>
         <source>%1 days ago</source>
-        <translation type="unfinished"/>
+        <translation>Fyrir %1 dögum síðan</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="524"/>
         <source>1 hour ago</source>
-        <translation type="unfinished"/>
+        <translation>Fyrir einni klukkustund síðan</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="524"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>Fyrir %1 klukkustundum síðan</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="528"/>
         <source>1 minute ago</source>
-        <translation type="unfinished"/>
+        <translation>Fyrir einni mínútu síðan</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="528"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>Fyrir %1 mínútum síðan</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="670"/>
@@ -2289,12 +2289,12 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="473"/>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Hleð upp</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="474"/>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Hala niður</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="357"/>
@@ -2423,7 +2423,7 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
         <source>Hide Seafile Icon from the dock</source>
-        <translation type="unfinished"/>
+        <translation>Fela Seafile Smámynd frá stjórnstiku</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="254"/>
@@ -2473,7 +2473,7 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="263"/>
         <source>Do not verify server certificate in HTTPS syncing</source>
-        <translation type="unfinished"/>
+        <translation>Ekki sannreyna vottorð þjóns í HTTPS samstillingu</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="264"/>
@@ -2534,7 +2534,7 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"/>
+        <translation>Mistókst að vista reikninginn</translation>
     </message>
 </context>
 <context>

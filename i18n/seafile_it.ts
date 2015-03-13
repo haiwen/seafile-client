@@ -1023,7 +1023,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation type="unfinished"/>
+        <translation>Scegli la cartella di Seafile</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -1033,7 +1033,7 @@
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>Per favore scegli una cartella. Creeremo la cartella Seafile al suo interno. Quando effettuerai il download di una libreria verrà salvata in questa locazione predefinita.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1273,7 +1273,7 @@ Ti piacerebbe scaricare la tua libreria predefinita e creare un disco virtuale?<
     <message>
         <location filename="../ui_login-dialog.h" line="263"/>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>Server:</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="264"/>
@@ -1283,7 +1283,7 @@ Ti piacerebbe scaricare la tua libreria predefinita e creare un disco virtuale?<
     <message>
         <location filename="../ui_login-dialog.h" line="265"/>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>o http://192.168.1.24:8000</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="266"/>
@@ -1643,7 +1643,7 @@ Lo spazio del proprietario della libreria è esaurito.</translation>
     <message>
         <location filename="../src/main.cpp" line="151"/>
         <source>%1 is already running</source>
-        <translation type="unfinished"/>
+        <translation>%1 sta già funzionando</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
@@ -2286,7 +2286,7 @@ Vuoi visitare la pagina di download?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="473"/>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="474"/>
@@ -2531,7 +2531,7 @@ Vuoi visitare la pagina di download?</translation>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile salvare l&apos;account corrente</translation>
     </message>
 </context>
 <context>

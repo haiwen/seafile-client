@@ -727,97 +727,97 @@
         <translation>Función no soportada</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="548"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="552"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>El archivo %1 ya existe.&lt;br/&gt;¿Desea reemplazarlo?&lt;br/&gt;&lt;small&gt;(Elija No para subirlo con un nombre alternativo).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="590"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="594"/>
         <source>Failed to download file: %1</source>
         <translation>Fallo al descargar el archivo: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="610"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="618"/>
         <source>Failed to upload file: %1</source>
         <translation>Fallo al subir el archivo: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="729"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="739"/>
         <source>Select a file to upload</source>
         <translation>Seleccione un archivo para subir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="735"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="747"/>
         <source>Select a directory to upload</source>
         <translation>Seleccione una carpeta a subir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
         <source>Unable to create cache folder</source>
         <translation>No se puede crear carpeta de caché</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="746"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="760"/>
         <source>Unable to open cache folder</source>
         <translation>No se puede abrir carpeta de caché</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="766"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="780"/>
         <source>Rename</source>
         <translation>Renombrar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="788"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="802"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>¿Realmente desea eliminar el archivo &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="789"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="803"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>¿Realmente desea eliminar la carpeta &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="796"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="810"/>
         <source>Do you really want to delete these items</source>
         <translation>¿Realmente desea eliminar estos ítems?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="828"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="842"/>
         <source>Create folder failed</source>
         <translation>Crear carpeta falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="844"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="858"/>
         <source>Select a file to update %1</source>
         <translation>Seleccione un archivo para actualizar %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="852"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
         <source>Rename failed</source>
         <translation>Renombrar falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="880"/>
         <source>Remove failed</source>
         <translation>Eliminar falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="876"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="890"/>
         <source>Share failed</source>
         <translation>Compartir falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="923"/>
         <source>Cannot paste files from the same folder</source>
         <translation>No es posible pegar archivos en la misma carpeta</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
         <source>Copy failed</source>
         <translation>Copiar falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="959"/>
         <source>Move failed</source>
         <translation>Mover falló</translation>
     </message>
@@ -871,7 +871,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="704"/>
         <source>Internal Server Error</source>
         <translation>Error Interno del Servidor</translation>
     </message>
@@ -967,28 +967,28 @@
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="393"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="434"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="387"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="428"/>
         <source>Failed to create folders</source>
         <translation>Fallo al crear carpetas</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="402"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="396"/>
         <source>Failed to create temporary files</source>
         <translation>Fallo al crear archivos temporarios</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
         <source>Failed to write file to disk</source>
         <translation>Fallo al escribir archivo en disco</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>Fallo al eliminar la versión anterior del archivo descargado</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="461"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
         <source>Failed to move file</source>
         <translation>Fallo al mover archivo</translation>
     </message>
@@ -1375,8 +1375,8 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="505"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="510"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="499"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="504"/>
         <source>File does not exist</source>
         <translation>El archivo no existe</translation>
     </message>
@@ -1694,7 +1694,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>fallo al abrir el caché de la base de datos de archivos</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="767"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="781"/>
         <source>Rename %1 to</source>
         <translation>Renombrar %1 a</translation>
     </message>
@@ -1974,7 +1974,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>Bibliotecas Sincronizadas</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="241"/>
         <source>Organization</source>
         <translation>Organización</translation>
     </message>
@@ -2422,7 +2422,7 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
-        <source>Hide Seafile Icon from the docker</source>
+        <source>Hide Seafile Icon from the dock</source>
         <translation>Ocultar el icono de Seafile de la barra</translation>
     </message>
     <message>
@@ -2472,8 +2472,8 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="263"/>
-        <source>Do not verify server certificate in HTTP syncing</source>
-        <translation>No verificar el certificado del servidor en sincronización HTTP</translation>
+        <source>Do not verify server certificate in HTTPS syncing</source>
+        <translation>No verificar el certificado del servidor en sincronización HTTPS</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="264"/>

@@ -727,97 +727,97 @@ Prosím %1</translation>
         <translation>Funkce není podporována</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="548"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="552"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="590"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="594"/>
         <source>Failed to download file: %1</source>
         <translation>Selhalo stažení souboru: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="610"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="618"/>
         <source>Failed to upload file: %1</source>
         <translation>Selhalo nahrání souboru: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="729"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="739"/>
         <source>Select a file to upload</source>
         <translation>Vyberte soubor k nahrání</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="735"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="747"/>
         <source>Select a directory to upload</source>
         <translation>Vybrat adresář k nahrání</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
         <source>Unable to create cache folder</source>
         <translation>Není možné vytvořit odkládací adresář</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="746"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="760"/>
         <source>Unable to open cache folder</source>
         <translation>Nelze otevřít odkládací adresář</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="766"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="780"/>
         <source>Rename</source>
         <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="788"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="802"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>Opravdu chcete smazat soubor &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="789"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="803"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>Opravdu chcete smazat adresář &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="796"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="810"/>
         <source>Do you really want to delete these items</source>
         <translation>Opravdu chcete smazat tyto položky</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="828"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="842"/>
         <source>Create folder failed</source>
         <translation>Vytváření adresáře selhalo</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="844"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="858"/>
         <source>Select a file to update %1</source>
         <translation>Vybrat soubor pro aktualizaci %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="852"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
         <source>Rename failed</source>
         <translation>Přejmenování selhalo</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="880"/>
         <source>Remove failed</source>
         <translation>Odstranění selhalo</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="876"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="890"/>
         <source>Share failed</source>
         <translation>Sdílení selhalo</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="923"/>
         <source>Cannot paste files from the same folder</source>
         <translation>Nelze vložit soubory z toho samého adresáře</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
         <source>Copy failed</source>
         <translation>Kopírování selhalo</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="959"/>
         <source>Move failed</source>
         <translation>Přesun selhal</translation>
     </message>
@@ -871,7 +871,7 @@ Prosím %1</translation>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="704"/>
         <source>Internal Server Error</source>
         <translation>Vnitřní chyba serveru</translation>
     </message>
@@ -967,28 +967,28 @@ Prosím %1</translation>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="393"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="434"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="387"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="428"/>
         <source>Failed to create folders</source>
         <translation>Selhalo vytváření adresářů</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="402"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="396"/>
         <source>Failed to create temporary files</source>
         <translation>Selhalo vytváření dočasných souborů</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
         <source>Failed to write file to disk</source>
         <translation>Selhalo zapsání souboru na disk</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>Selhalo odstranění starší verze stahovaného souboru</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="461"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
         <source>Failed to move file</source>
         <translation>Selhalo přesunutí souboru</translation>
     </message>
@@ -1035,7 +1035,7 @@ Prosím %1</translation>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>Prosím, vyberte složku. Bude v ní vytvořena Seafile podsložka. Když si stáhnete knihovnu, bude uložena jako výchozí.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1372,8 +1372,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="505"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="510"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="499"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="504"/>
         <source>File does not exist</source>
         <translation>Soubor neexistuje</translation>
     </message>
@@ -1691,7 +1691,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="767"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="781"/>
         <source>Rename %1 to</source>
         <translation>Přejmenovat %1 na</translation>
     </message>
@@ -1783,12 +1783,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"/>
+        <translation>Smazaný adresář byl obnoven</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
-        <translation type="unfinished"/>
+        <translation>Název nebo popis knihovny byl změněn</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
@@ -1971,7 +1971,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="241"/>
         <source>Organization</source>
         <translation>Organizace</translation>
     </message>
@@ -2125,12 +2125,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="751"/>
         <source>Unable to delete file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nelze smazat soubor &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="842"/>
         <source>Failed to upload file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nelze nahrát soubor: %1</translation>
     </message>
 </context>
 <context>
@@ -2418,7 +2418,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
-        <source>Hide Seafile Icon from the docker</source>
+        <source>Hide Seafile Icon from the dock</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2468,7 +2468,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="263"/>
-        <source>Do not verify server certificate in HTTP syncing</source>
+        <source>Do not verify server certificate in HTTPS syncing</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2479,7 +2479,7 @@ Chcete otevřít stránku se stažením klienta?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="265"/>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>Jazyk (vyžaduje restart)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="266"/>

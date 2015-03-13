@@ -725,97 +725,97 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="548"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="552"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="590"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="594"/>
         <source>Failed to download file: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="610"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="618"/>
         <source>Failed to upload file: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="729"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="739"/>
         <source>Select a file to upload</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="735"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="747"/>
         <source>Select a directory to upload</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
         <source>Unable to create cache folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="746"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="760"/>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="766"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="780"/>
         <source>Rename</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="788"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="802"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="789"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="803"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="796"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="810"/>
         <source>Do you really want to delete these items</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="828"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="842"/>
         <source>Create folder failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="844"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="858"/>
         <source>Select a file to update %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="852"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
         <source>Rename failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="880"/>
         <source>Remove failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="876"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="890"/>
         <source>Share failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="923"/>
         <source>Cannot paste files from the same folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
         <source>Copy failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="959"/>
         <source>Move failed</source>
         <translation type="unfinished"/>
     </message>
@@ -869,7 +869,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="704"/>
         <source>Internal Server Error</source>
         <translation type="unfinished"/>
     </message>
@@ -965,28 +965,28 @@
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="393"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="434"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="387"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="428"/>
         <source>Failed to create folders</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="402"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="396"/>
         <source>Failed to create temporary files</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
         <source>Failed to write file to disk</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="461"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
         <source>Failed to move file</source>
         <translation type="unfinished"/>
     </message>
@@ -1370,8 +1370,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="505"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="510"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="499"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="504"/>
         <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>
@@ -1689,7 +1689,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="767"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="781"/>
         <source>Rename %1 to</source>
         <translation type="unfinished"/>
     </message>
@@ -1969,7 +1969,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="241"/>
         <source>Organization</source>
         <translation>ארגון</translation>
     </message>
@@ -2416,7 +2416,7 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
-        <source>Hide Seafile Icon from the docker</source>
+        <source>Hide Seafile Icon from the dock</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2466,7 +2466,7 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="263"/>
-        <source>Do not verify server certificate in HTTP syncing</source>
+        <source>Do not verify server certificate in HTTPS syncing</source>
         <translation type="unfinished"/>
     </message>
     <message>

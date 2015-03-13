@@ -344,7 +344,7 @@
     <message>
         <location filename="../ui_cloud-view.h" line="237"/>
         <source>or Drop Folder to Sync</source>
-        <translation>ya da Senkronize etmek için Klasörü Sürükle</translation>
+        <translation>ya da Sürükle</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="239"/>
@@ -727,97 +727,97 @@
         <translation>Özellik desteklenmiyor</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="548"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="552"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Dosya %1 zaten var.&lt;br/&gt;Üstüne yazmak ister misiniz?&lt;br/&gt;&lt;small&gt;(Başka bir isim kullanarak yüklemek için Hayır seçin).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="590"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="594"/>
         <source>Failed to download file: %1</source>
         <translation>Dosya indirme başarısız: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="610"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="618"/>
         <source>Failed to upload file: %1</source>
         <translation>Dosya yükleme başarsız: </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="729"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="739"/>
         <source>Select a file to upload</source>
         <translation>Yüklemek için bir dosya seçin</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="735"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="747"/>
         <source>Select a directory to upload</source>
         <translation>Yüklemek için bir dizin seçin</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
         <source>Unable to create cache folder</source>
         <translation>Ön bellek dosyası oluşturulamıyor</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="746"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="760"/>
         <source>Unable to open cache folder</source>
         <translation>Ön bellek dosyası açılamıyor</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="766"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="780"/>
         <source>Rename</source>
         <translation>Yeniden adlandır</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="788"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="802"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>&quot;%1&quot; dosyasını silmeyi gerçekten istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="789"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="803"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>&quot;%1&quot; klasörünü silmeyi gerçekten istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="796"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="810"/>
         <source>Do you really want to delete these items</source>
         <translation>Bu öğeleri silmeyi gerçekten istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="828"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="842"/>
         <source>Create folder failed</source>
         <translation>Klasör oluşturma başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="844"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="858"/>
         <source>Select a file to update %1</source>
         <translation>Güncellemek için bir dosya seç %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="852"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
         <source>Rename failed</source>
         <translation>Yeniden adlandırılamadı</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="880"/>
         <source>Remove failed</source>
         <translation>Taşıma başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="876"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="890"/>
         <source>Share failed</source>
         <translation>Paylaşma başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="923"/>
         <source>Cannot paste files from the same folder</source>
         <translation>Aynı klasörden dosyalar yapıştırılamaz</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
         <source>Copy failed</source>
         <translation>Kopyalama başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="959"/>
         <source>Move failed</source>
         <translation>Taşıma başarısız</translation>
     </message>
@@ -871,7 +871,7 @@
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="704"/>
         <source>Internal Server Error</source>
         <translation>İç Sunucu Hatası</translation>
     </message>
@@ -967,28 +967,28 @@
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="393"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="434"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="387"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="428"/>
         <source>Failed to create folders</source>
         <translation>Klasör oluşturma başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="402"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="396"/>
         <source>Failed to create temporary files</source>
         <translation>Geçici dosya oluşturma başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
         <source>Failed to write file to disk</source>
         <translation>Dosyayı diske yazma başarısız</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="449"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>İndirilen dosyanın eski versiyonu kaldırılamadı</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="461"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
         <source>Failed to move file</source>
         <translation>Dosya kaldırılamadı</translation>
     </message>
@@ -1375,8 +1375,8 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="505"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="510"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="499"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="504"/>
         <source>File does not exist</source>
         <translation>Dosya yok</translation>
     </message>
@@ -1694,7 +1694,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
         <translation>Ön bellek veritabanı açılamadı.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="767"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="781"/>
         <source>Rename %1 to</source>
         <translation>%1&apos;i Yeniden adlandır </translation>
     </message>
@@ -1938,7 +1938,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
@@ -1974,7 +1974,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
         <translation>Senkronize Kütüphaneler</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="241"/>
         <source>Organization</source>
         <translation>Organizasyon</translation>
     </message>
@@ -2015,7 +2015,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="333"/>
         <source>Show &amp;Details</source>
-        <translation>Göster &amp;Ayrıntılar</translation>
+        <translation>&amp;Ayrıntıları Göster</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="154"/>
@@ -2025,7 +2025,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
         <source>Sync &amp;Now</source>
-        <translation>Senkronize et &amp;Şimdi</translation>
+        <translation>&amp;Şimdi Senkronize et</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
@@ -2046,7 +2046,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="368"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="375"/>
         <source>&amp;Open folder</source>
-        <translation>&amp;Aç dosya</translation>
+        <translation>Dosyayı &amp;Aç </translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="370"/>
@@ -2067,7 +2067,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
         <source>&amp;View on cloud</source>
-        <translation>&amp;Bulutta görüntüle</translation>
+        <translation>&amp;Görüntüle Bulutta</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
@@ -2077,7 +2077,7 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="402"/>
         <source>&amp;Resync this library</source>
-        <translation>&amp;Bu kütüphaneyi yeniden senkronize et</translation>
+        <translation>Bu kütüphaneyi &amp;Yeniden Senkronize Et</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="404"/>
@@ -2422,8 +2422,8 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
-        <source>Hide Seafile Icon from the docker</source>
-        <translation>Seafile simgesini docker&apos;dan gizle</translation>
+        <source>Hide Seafile Icon from the dock</source>
+        <translation>Seafile simgesini dock&apos;dan gizle</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="254"/>
@@ -2472,8 +2472,8 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="263"/>
-        <source>Do not verify server certificate in HTTP syncing</source>
-        <translation>HTTP senkronizasyonunda sunucu sertifası doğrulamayın</translation>
+        <source>Do not verify server certificate in HTTPS syncing</source>
+        <translation>HTTPS senkronizasyonunda sunucu sertifası doğrulamayın</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="264"/>
@@ -2529,12 +2529,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
         <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <translation>Shibboleth ile giriş yap</translation>
     </message>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"/>
+        <translation>Mevcut hesabı kaydetme başarısız</translation>
     </message>
 </context>
 <context>
@@ -2595,7 +2595,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="45"/>
         <source>view on &amp;Web</source>
-        <translation>&amp;Web&apos;de görüntüle</translation>
+        <translation>Web&apos;de &amp;Görüntüle</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="48"/>

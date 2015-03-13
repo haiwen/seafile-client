@@ -390,7 +390,7 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="21"/>
         <source>Create a library</source>
-        <translation type="unfinished"/>
+        <translation>Izveidot bibliotēku</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="44"/>
@@ -400,7 +400,7 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="76"/>
         <source>Creating...</source>
-        <translation type="unfinished"/>
+        <translation>Izveido...</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="103"/>
@@ -472,7 +472,7 @@
     <message>
         <location filename="../ui_create-repo-dialog.h" line="198"/>
         <source>Description:</source>
-        <translation type="unfinished"/>
+        <translation>Apraksts:</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="199"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="43"/>
         <source>Sync library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Sinhronizēt bibliotēku &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="101"/>
@@ -659,27 +659,27 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="183"/>
         <source>Back</source>
-        <translation type="unfinished"/>
+        <translation>Atpakaļ</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="190"/>
         <source>Forward</source>
-        <translation type="unfinished"/>
+        <translation>Uz priekšu</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="197"/>
         <source>Home</source>
-        <translation type="unfinished"/>
+        <translation>Mājas</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="231"/>
         <source>Upload files</source>
-        <translation type="unfinished"/>
+        <translation>Augšupielādēt datnes</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="237"/>
         <source>Upload a directory</source>
-        <translation type="unfinished"/>
+        <translation>Augšupielādēt mapes</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="258"/>
@@ -690,17 +690,17 @@
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="245"/>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="342"/>
         <source>Create a folder</source>
-        <translation type="unfinished"/>
+        <translation>Izveidot mapi</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="343"/>
         <source>Folder name</source>
-        <translation type="unfinished"/>
+        <translation>Mapes vārds</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="351"/>
         <source>Invalid folder name!</source>
-        <translation type="unfinished"/>
+        <translation>Mapes vārds nederīgs!</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="357"/>
@@ -723,97 +723,97 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="548"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="552"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="590"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="594"/>
         <source>Failed to download file: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="610"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="618"/>
         <source>Failed to upload file: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="729"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="739"/>
         <source>Select a file to upload</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="735"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="747"/>
         <source>Select a directory to upload</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="758"/>
         <source>Unable to create cache folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="746"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="760"/>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="766"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="780"/>
         <source>Rename</source>
         <translation>Pārdēvēt</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="788"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="802"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="789"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="803"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="796"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="810"/>
         <source>Do you really want to delete these items</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="828"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="842"/>
         <source>Create folder failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="844"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="858"/>
         <source>Select a file to update %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="852"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
         <source>Rename failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="880"/>
         <source>Remove failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="876"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="890"/>
         <source>Share failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="923"/>
         <source>Cannot paste files from the same folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
         <source>Copy failed</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="959"/>
         <source>Move failed</source>
         <translation type="unfinished"/>
     </message>
@@ -828,22 +828,22 @@
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="55"/>
         <source>Upload</source>
-        <translation type="unfinished"/>
+        <translation>Augšupielādēt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="56"/>
         <source>Uploading %1</source>
-        <translation type="unfinished"/>
+        <translation>Augšupielādē %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="58"/>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Lejupielādēt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="59"/>
         <source>Downloading %1</source>
-        <translation type="unfinished"/>
+        <translation>Lejupielādē %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/progress-dialog.cpp" line="89"/>
@@ -861,15 +861,15 @@
     <message>
         <location filename="../src/filebrowser/tasks.cpp" line="171"/>
         <source>pending</source>
-        <translation type="unfinished"/>
+        <translation>gaida izpildi</translation>
     </message>
 </context>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="704"/>
         <source>Internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation>Iekšējā servera kļūda</translation>
     </message>
 </context>
 <context>
@@ -877,12 +877,12 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Mape</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="673"/>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Dokuments</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="701"/>
@@ -897,12 +897,12 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="705"/>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>Pēdējoreiz modificēts</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="707"/>
         <source>Kind</source>
-        <translation type="unfinished"/>
+        <translation>Veids</translation>
     </message>
 </context>
 <context>
@@ -916,12 +916,12 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="244"/>
         <source>&amp;Rename</source>
-        <translation type="unfinished"/>
+        <translation>Pārdēvēt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="249"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dzēst</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="254"/>
@@ -931,62 +931,62 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="259"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>Atjaunot</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="263"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"/>
+        <translation>Kopēt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="267"/>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"/>
+        <translation>Izgriezt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="271"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"/>
+        <translation>Ielīmēt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="280"/>
         <source>Cancel Download (&amp;E)</source>
-        <translation type="unfinished"/>
+        <translation>Atcelt lejupielādi (&amp;E)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="364"/>
         <location filename="../src/filebrowser/file-table.cpp" line="392"/>
         <source>D&amp;ownload</source>
-        <translation type="unfinished"/>
+        <translation>Lejupielādēt</translation>
     </message>
 </context>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="393"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="434"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="387"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="428"/>
         <source>Failed to create folders</source>
-        <translation type="unfinished"/>
+        <translation>Neizdevās izveidot mapes</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="402"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="396"/>
         <source>Failed to create temporary files</source>
-        <translation type="unfinished"/>
+        <translation>Neizdevās izveidot pagaidu datnes</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="443"/>
+        <source>Failed to write file to disk</source>
+        <translation>Neizdevās ierakstīt datni diskā</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/tasks.cpp" line="449"/>
-        <source>Failed to write file to disk</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="461"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="455"/>
         <source>Failed to move file</source>
-        <translation type="unfinished"/>
+        <translation>Neizdevās pārvietot datni</translation>
     </message>
 </context>
 <context>
@@ -1133,7 +1133,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Run in Background</source>
-        <translation type="unfinished"/>
+        <translation>Izpildīt fonā</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="193"/>
@@ -1143,13 +1143,13 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="194"/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>Pabeigts</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="34"/>
         <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>Download Default Library</source>
-        <translation type="unfinished"/>
+        <translation>Lejupielādēt noklusēto bibliotēku</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="190"/>
@@ -1173,13 +1173,14 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="71"/>
         <source>Logging in...</source>
-        <translation type="unfinished"/>
+        <translation>Piesakos...</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="109"/>
         <source>Network Error:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Tīkla kļūda:
+ %1</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="121"/>
@@ -1242,12 +1243,12 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Failed to login: %1</source>
-        <translation type="unfinished"/>
+        <translation>Neizdevās pieteikties: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="217"/>
         <source>Failed to login</source>
-        <translation type="unfinished"/>
+        <translation>Neizdevās pieteikties</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="260"/>
@@ -1267,7 +1268,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_login-dialog.h" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Piemēram: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="265"/>
@@ -1359,8 +1360,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="505"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="510"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="499"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="504"/>
         <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>
@@ -1385,12 +1386,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="81"/>
         <source>downloading</source>
-        <translation type="unfinished"/>
+        <translation>lejupielādē</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="85"/>
         <source>uploading</source>
-        <translation type="unfinished"/>
+        <translation>augšupielādē</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="89"/>
@@ -1559,7 +1560,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="71"/>
         <source>initializing...</source>
-        <translation type="unfinished"/>
+        <translation>inicializēšana...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="74"/>
@@ -1574,12 +1575,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="80"/>
         <source>Downloading...</source>
-        <translation type="unfinished"/>
+        <translation>Lejupielādē...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="86"/>
         <source>Creating folder...</source>
-        <translation type="unfinished"/>
+        <translation>Izveido mapi...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="92"/>
@@ -1665,12 +1666,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/api/event.cpp" line="50"/>
         <source>Created library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Izveidota bibliotēka &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/api/event.cpp" line="52"/>
         <source>Deleted library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Dzēsta bibliotēka &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/data-cache.cpp" line="87"/>
@@ -1678,9 +1679,9 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="767"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="781"/>
         <source>Rename %1 to</source>
-        <translation type="unfinished"/>
+        <translation>Pārsaukt %1 uz</translation>
     </message>
     <message>
         <location filename="../src/repo-service-helper.cpp" line="110"/>
@@ -1690,57 +1691,57 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="849"/>
         <source>copy failed</source>
-        <translation type="unfinished"/>
+        <translation>kopēt neizdevās</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation type="unfinished"/>
+        <translation>Pievienots</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
-        <translation type="unfinished"/>
+        <translation>Dzēsts</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
-        <translation type="unfinished"/>
+        <translation>Noņemts</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
-        <translation type="unfinished"/>
+        <translation>Modificēts</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
-        <translation type="unfinished"/>
+        <translation>Pārdēvēts</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
-        <translation type="unfinished"/>
+        <translation>Pārvietots</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
-        <translation type="unfinished"/>
+        <translation>Pievienota mape</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
-        <translation type="unfinished"/>
+        <translation>Noņemta mape</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
-        <translation type="unfinished"/>
+        <translation>Pārsaukta mape</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
-        <translation type="unfinished"/>
+        <translation>Pārvietota mape</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
@@ -1750,7 +1751,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
-        <translation type="unfinished"/>
+        <translation>mapes</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
@@ -1861,7 +1862,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="218"/>
         <source>Description:</source>
-        <translation type="unfinished"/>
+        <translation>Apraksts:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="219"/>
@@ -1874,12 +1875,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="220"/>
         <source>Owner:</source>
-        <translation type="unfinished"/>
+        <translation>Īpašnieks: </translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="222"/>
         <source>Last Modified:</source>
-        <translation type="unfinished"/>
+        <translation>Pēdējoreiz modificēts:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="223"/>
@@ -1922,7 +1923,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
@@ -1945,7 +1946,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="59"/>
         <source>Sub Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Apakšbibliotēkas</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
@@ -1958,7 +1959,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="238"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="241"/>
         <source>Organization</source>
         <translation>Organizācija</translation>
     </message>
@@ -2019,7 +2020,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="361"/>
         <source>&amp;Cancel download</source>
-        <translation type="unfinished"/>
+        <translation>Atcelt lejupielādi</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="363"/>
@@ -2030,7 +2031,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="368"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="375"/>
         <source>&amp;Open folder</source>
-        <translation type="unfinished"/>
+        <translation>Atvērt mapi</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="370"/>
@@ -2123,7 +2124,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="40"/>
         <source>Search libraries...</source>
-        <translation type="unfinished"/>
+        <translation>Meklē bibliotēku...</translation>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="92"/>
@@ -2269,12 +2270,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="473"/>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Augšupielādē</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="474"/>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Lejupielādē</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="357"/>
@@ -2402,7 +2403,7 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="253"/>
-        <source>Hide Seafile Icon from the docker</source>
+        <source>Hide Seafile Icon from the dock</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2452,23 +2453,23 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="263"/>
-        <source>Do not verify server certificate in HTTP syncing</source>
+        <source>Do not verify server certificate in HTTPS syncing</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="264"/>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>Uzlabot</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="265"/>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>Valoda (nepieciešama pārlāde)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="266"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Valoda</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="267"/>
@@ -2501,7 +2502,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="37"/>
         <source>Ok</source>
-        <translation type="unfinished"/>
+        <translation>Labi</translation>
     </message>
 </context>
 <context>

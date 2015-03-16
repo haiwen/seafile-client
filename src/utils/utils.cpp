@@ -519,7 +519,7 @@ QString mapToJson(QMap<QString, QVariant> map)
     char *info = NULL;
     object = json_object();
 
-    foreach (const QString &k, map.keys()) {
+    Q_FOREACH (const QString &k, map.keys()) {
         QVariant v = map.value(k);
         switch (v.type()) {
         case QVariant::String:
@@ -529,6 +529,8 @@ QString mapToJson(QMap<QString, QVariant> map)
             json_object_set_new(object, toCStr(k), json_integer(v.toInt()));
             break;
             // TODO: support other types
+        default:
+            continue;
         }
     }
 

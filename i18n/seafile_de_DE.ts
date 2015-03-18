@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="57"/>
         <source>failed to open account database</source>
-        <translation>Accountdatenbank konnte nicht geöffnet werden</translation>
+        <translation>Kontodatenbank konnte nicht geöffnet werden</translation>
     </message>
 </context>
 <context>
@@ -121,27 +121,27 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="318"/>
         <source>Are you sure to logout this account?</source>
-        <translation type="unfinished"/>
+        <translation>Sind Sie sicher, dass Sie dieses Konto abmelden wollen?</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="342"/>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Entfernen des lokalen Repository Synchronisierungstokens fehlgeschlagen: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="356"/>
         <source>Logging out is not supported on your server (version too low).</source>
-        <translation type="unfinished"/>
+        <translation>Abmelden wird auf Ihrem Server nicht unterstützt (Version nicht aktuell genug).</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="358"/>
         <source>Failed to remove information on server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Entfernen der Information auf dem Server fehlgeschlagen: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="378"/>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Empfangen der Repository Synchronisierungsinformation vom Server fehlgeschlagen: %1</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
@@ -440,7 +440,7 @@
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="82"/>
         <source>Creating...</source>
-        <translation>Erstelle...</translation>
+        <translation>Wird erstellt …</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
@@ -1225,7 +1225,7 @@ Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk a
         <location filename="../src/ui/login-dialog.cpp" line="74"/>
         <location filename="../src/ui/login-dialog.cpp" line="75"/>
         <source>Re-login</source>
-        <translation type="unfinished"/>
+        <translation>Erneut anmelden</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="93"/>
@@ -1625,7 +1625,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="74"/>
         <source>connecting server...</source>
-        <translation>Verbinde mit Server...</translation>
+        <translation>Mit Server wird verbunden …</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="77"/>
@@ -2464,7 +2464,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="89"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben die Proxy Einstellungen geändert. Möchten Sie neu starten damit diese Änderungen gültig werden?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="392"/>

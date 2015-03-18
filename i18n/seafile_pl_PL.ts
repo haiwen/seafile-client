@@ -86,7 +86,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="132"/>
         <source>pro version</source>
-        <translation type="unfinished"/>
+        <translation>wersja pro</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="134"/>
@@ -106,7 +106,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="180"/>
         <source>Logout</source>
-        <translation type="unfinished"/>
+        <translation>Wyloguj</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="186"/>
@@ -116,32 +116,32 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="200"/>
         <source>not logged in</source>
-        <translation type="unfinished"/>
+        <translation>niezalogowany</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="318"/>
         <source>Are you sure to logout this account?</source>
-        <translation type="unfinished"/>
+        <translation>Czy na pewno chcesz się wylogować z tego konta?</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="342"/>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się usunąć tokenu synchronizacji lokalnego repozytorium: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="356"/>
         <source>Logging out is not supported on your server (version too low).</source>
-        <translation type="unfinished"/>
+        <translation>Wylogowywanie nie jest obsługiwany na serwerze (zbyt stara wersja).</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="358"/>
         <source>Failed to remove information on server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się usunąć informacji na serwerze: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="378"/>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się uzyskać z serwera %1 informacji o synchonizacji repozytorium.</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
@@ -1226,7 +1226,7 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
         <location filename="../src/ui/login-dialog.cpp" line="74"/>
         <location filename="../src/ui/login-dialog.cpp" line="75"/>
         <source>Re-login</source>
-        <translation type="unfinished"/>
+        <translation>Zaloguj ponownie</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="93"/>
@@ -1884,12 +1884,12 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/main.cpp" line="176"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation type="unfinished"/>
+        <translation>Znaleziono działający inny proces %1, zabić go i uruchomić nowy?</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="197"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation type="unfinished"/>
+        <translation>Nie można uruchomić %1 z powodu niepowodzenia podczas zatrzymywania poprzedniego procesu</translation>
     </message>
 </context>
 <context>
@@ -2445,17 +2445,17 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="44"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Brak</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="45"/>
         <source>HTTP Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Proxy HTTP</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="46"/>
         <source>Socks5 Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Proxy Socks5</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="86"/>
@@ -2465,7 +2465,7 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="89"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Zmieniono ustawienia proxy. Zrestartować aplikację, aby wprowadzić zmiany?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="392"/>
@@ -2565,42 +2565,42 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Proxy Type:</source>
-        <translation type="unfinished"/>
+        <translation>Rodzaj proxy:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
         <source>Host:</source>
-        <translation type="unfinished"/>
+        <translation>Host:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="413"/>
         <source>Port:</source>
-        <translation type="unfinished"/>
+        <translation>Port:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="414"/>
         <source>0</source>
-        <translation type="unfinished"/>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="415"/>
         <source>Username:</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa użytkownika:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Password:</source>
-        <translation type="unfinished"/>
+        <translation>Hasło:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Proxy server requires a password</source>
-        <translation type="unfinished"/>
+        <translation>Serwer proxy wymaga hasła</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>Sieć</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="419"/>
@@ -2646,7 +2646,7 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="69"/>
         <source>Server Error when fetching account information</source>
-        <translation type="unfinished"/>
+        <translation>Błąd serwera podczas pobierania informacji o koncie</translation>
     </message>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="74"/>

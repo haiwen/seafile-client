@@ -86,7 +86,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="132"/>
         <source>pro version</source>
-        <translation type="unfinished"/>
+        <translation>versión pro</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="134"/>
@@ -106,7 +106,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="180"/>
         <source>Logout</source>
-        <translation type="unfinished"/>
+        <translation>Desconectarse</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="186"/>
@@ -116,32 +116,32 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="200"/>
         <source>not logged in</source>
-        <translation type="unfinished"/>
+        <translation>no está conectado</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="318"/>
         <source>Are you sure to logout this account?</source>
-        <translation type="unfinished"/>
+        <translation>¿Está seguro de desconctar esta cuenta_</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="342"/>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al eliminar el identificador de sincronzación de los repositorios locales: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="356"/>
         <source>Logging out is not supported on your server (version too low).</source>
-        <translation type="unfinished"/>
+        <translation>Su servidor no admite desconexión (versión muy baja)</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="358"/>
         <source>Failed to remove information on server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al eliminar la información en el servidor: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="378"/>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener información del servidor: %1</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="82"/>
@@ -1226,7 +1226,7 @@ Do you like to download your default library and create a virtual disk?</source>
         <location filename="../src/ui/login-dialog.cpp" line="74"/>
         <location filename="../src/ui/login-dialog.cpp" line="75"/>
         <source>Re-login</source>
-        <translation type="unfinished"/>
+        <translation>Re-conectar</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="93"/>
@@ -2465,7 +2465,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="89"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Ha cambiado la configuración. ¿Desea reiniciar para aplicar los cambios?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="392"/>

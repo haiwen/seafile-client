@@ -326,18 +326,25 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     switch (state) {
     case STATE_DAEMON_UP:
         icon_name = ":/images/win/daemon_up.ico";
+        break;
     case STATE_DAEMON_DOWN:
         icon_name = ":/images/win/daemon_down.ico";
+        break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
         icon_name = ":/images/win/seafile_auto_sync_disabled.ico";
+        break;
     case STATE_TRANSFER_1:
         icon_name = ":/images/win/seafile_transfer_1.ico";
+        break;
     case STATE_TRANSFER_2:
         icon_name = ":/images/win/seafile_transfer_2.ico";
+        break;
     case STATE_SERVERS_NOT_CONNECTED:
         icon_name = ":/images/win/seafile_warning.ico";
+        break;
     case STATE_HAVE_UNREAD_MESSAGE:
         icon_name = ":/images/win/notification.ico";
+        break;
     }
     return getIcon(icon_name);
 #elif defined(Q_OS_MAC)
@@ -348,18 +355,25 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     switch (state) {
     case STATE_DAEMON_UP:
         icon_name = ":/images/mac/daemon_up";
+        break;
     case STATE_DAEMON_DOWN:
         icon_name = ":/images/mac/daemon_down.png";
+        break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
         icon_name = ":/images/mac/seafile_auto_sync_disabled";
+        break;
     case STATE_TRANSFER_1:
         icon_name = ":/images/mac/seafile_transfer_1";
+        break;
     case STATE_TRANSFER_2:
         icon_name = ":/images/mac/seafile_transfer_2";
+        break;
     case STATE_SERVERS_NOT_CONNECTED:
         icon_name = ":/images/mac/seafile_warning";
+        break;
     case STATE_HAVE_UNREAD_MESSAGE:
         icon_name = ":/images/mac/notification";
+        break;
     }
     return getIcon(icon_name + (isDarkMode ? "_white" : "") + ".png");
 #else
@@ -367,18 +381,25 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     switch (state) {
     case STATE_DAEMON_UP:
         icon_name = ":/images/daemon_up.png";
+        break;
     case STATE_DAEMON_DOWN:
         icon_name = ":/images/daemon_down.png";
+        break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
         icon_name = ":/images/seafile_auto_sync_disabled.png";
+        break;
     case STATE_TRANSFER_1:
         icon_name = ":/images/seafile_transfer_1.png";
+        break;
     case STATE_TRANSFER_2:
         icon_name = ":/images/seafile_transfer_2.png";
+        break;
     case STATE_SERVERS_NOT_CONNECTED:
         icon_name = ":/images/seafile_warning.png";
+        break;
     case STATE_HAVE_UNREAD_MESSAGE:
         icon_name = ":/images/notification.png";
+        break;
     }
     return getIcon(icon_name);
 #endif

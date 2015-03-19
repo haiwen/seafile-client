@@ -372,7 +372,7 @@ void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QStr
             return;
     }
     // skip invalid port
-    if (proxy_type == HttpProxy && proxy_port_ == 0)
+    if (proxy_type == HttpProxy && proxy_port == 0)
         proxy_port = 80;
     if (proxy_port == 0)
         return;

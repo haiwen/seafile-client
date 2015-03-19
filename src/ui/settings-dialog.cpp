@@ -282,6 +282,7 @@ bool SettingsDialog::updateProxySettings()
 
     switch(proxy_type) {
         case SettingsManager::HttpProxy:
+                // if we setup proxy username now and previously
             if (mProxyRequirePassword->checkState() == Qt::Checked) {
                 if (proxy_type == old_proxy_type &&
                     proxy_host == old_proxy_host &&
@@ -296,9 +297,11 @@ bool SettingsDialog::updateProxySettings()
                 break;
             }
             else {
+                // and if we don't setup proxy username now and previously
                 if (proxy_type == old_proxy_type &&
                     proxy_host == old_proxy_host &&
-                    proxy_port == old_proxy_port)
+                    proxy_port == old_proxy_port &&
+                    old_proxy_username.isEmpty())
                     break;
                 proxy_changed = true;
                 mgr->setProxy(SettingsManager::HttpProxy,

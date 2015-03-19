@@ -447,6 +447,10 @@ void RepoTreeView::unsyncRepo()
                              QMessageBox::Ok);
     }
 
+    ServerRepo server_repo = RepoService::instance()->getRepo(repo.id);
+    if (server_repo.isValid() && server_repo.isSubfolder())
+        RepoService::instance()->removeSyncedSubfolder(repo.id);
+
     updateRepoActions();
 }
 

@@ -14,6 +14,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "account-mgr.h"
+#include "repo-service.h"
 
 #include "repo-item-delegate.h"
 
@@ -230,12 +231,20 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                       &repo_desc_rect);
     painter->restore();
 
+    // Paint extra description
+    QString extra_description;
+    if (repo.isSubfolder()) {
+        ServerRepo parent_repo = RepoService::instance()->getRepo(repo.parent_repo_id);
+        extra_description = tr(", %1%2").arg(parent_repo.name).arg(repo.parent_path);
+    }
     // Paint repo sharing owner for private share
     if (static_cast<RepoCategoryItem*>(item->parent())->categoryIndex() ==
-        RepoTreeModel::CAT_INDEX_SHARED_REPOS) {
+        RepoTreeModel::CAT_INDEX_SHARED_REPOS)
+        extra_description += tr(", %1").arg(repo.owner.split('@').front());
+
+    if (!extra_description.isEmpty()) {
         painter->save();
 
-        QString shared_from_owner = tr(", %1").arg(item->repo().owner.split('@').front());
         int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
         if (width < 3)
           width = 3;
@@ -245,7 +254,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
         painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
         painter->drawText(repo_owner_rect,
                           Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                          fitTextToWidth(shared_from_owner, option.font, width),
+                          fitTextToWidth(extra_description, option.font, width),
                           &repo_owner_rect);
 
         painter->restore();

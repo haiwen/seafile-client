@@ -23,6 +23,8 @@ const char *kApiPingUrl = "api2/ping/";
 const char *kApiLoginUrl = "api2/auth-token/";
 const char *kListReposUrl = "api2/repos/";
 const char *kCreateRepoUrl = "api2/repos/";
+const char *kGetRepoUrl = "api2/repos/%1/";
+const char *kCreateSubrepoUrl ="api2/repos/%1/dir/sub_repo/";
 const char *kUnseenMessagesUrl = "api2/unseen_messages/";
 const char *kDefaultRepoUrl = "api2/default-repo/";
 const char *kStarredFilesUrl = "api2/starredfiles/";
@@ -191,17 +193,44 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
 }
 
 /**
+ * GetRepoRequest
+ */
+GetRepoRequest::GetRepoRequest(const Account& account, const QString &repoid)
+    : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetRepoUrl).arg(repoid)),
+                         SeafileApiRequest::METHOD_GET, account.token)
+      , repoid_(repoid)
+{
+}
+
+void GetRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    ServerRepo repo = ServerRepo::fromJSON(root, &error);
+
+    emit success(repo);
+}
+
+/**
  * CreateRepoRequest
  */
-CreateRepoRequest::CreateRepoRequest(const Account& account, QString &name, QString &desc, QString &passwd)
+CreateRepoRequest::CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd)
     : SeafileApiRequest (account.getAbsoluteUrl(kCreateRepoUrl),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
-    this->setFormParam(QString("name"), name);
-    this->setFormParam(QString("desc"), desc);
+    setFormParam(QString("name"), name);
+    setFormParam(QString("desc"), desc);
     if (!passwd.isNull()) {
         qWarning("Encrypted repo");
-        this->setFormParam(QString("passwd"), passwd);
+        setFormParam(QString("passwd"), passwd);
     }
 }
 
@@ -220,6 +249,38 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
     RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), false);
 
     emit success(info);
+}
+
+/**
+ * CreateSubrepoRequest
+ */
+CreateSubrepoRequest::CreateSubrepoRequest(const Account& account, const QString &name, const QString &repoid , const QString &path, const QString &passwd)
+    : SeafileApiRequest (account.getAbsoluteUrl(QString(kCreateSubrepoUrl).arg(repoid)),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    // QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
+    setUrlParam(QString("p"), path);
+    setUrlParam(QString("name"), name);
+    if (!passwd.isNull()) {
+        qWarning("Encrypted repo");
+        setUrlParam(QString("passwd"), passwd);
+    }
+}
+
+void CreateSubrepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    emit success(dict["sub_repo_id"].toString());
 }
 
 /**

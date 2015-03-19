@@ -41,6 +41,7 @@ signals:
     void direntPaste();
 
     void cancelDownload(const SeafDirent& dirent);
+    void syncSubdirectory(const QString& folder_name);
 
 private slots:
     void onAboutToReset();
@@ -54,6 +55,7 @@ private slots:
     void onMove();
 
     void onCancelDownload();
+    void onSyncSubdirectory();
 
 private:
     void setupContextMenu();
@@ -89,6 +91,7 @@ private:
     QAction *move_action_;
     QAction *paste_action_;
     QAction *cancel_download_action_;
+    QAction *sync_subdirectory_action_;
     FileBrowserDialog *parent_;
 
     // source model

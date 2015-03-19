@@ -64,6 +64,7 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
         return -1;
     }
 
+    result->clear();
     for (GList *ptr = repos; ptr; ptr = ptr->next) {
         result->push_back(LocalRepo::fromGObject((GObject*)ptr->data));
     }

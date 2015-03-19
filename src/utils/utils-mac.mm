@@ -212,16 +212,16 @@ void get_current_osx_version(unsigned *major, unsigned *minor, unsigned *patch) 
         *patch = 0;
         return;
     }
-    NSArray *versionArray = [array[1] componentsSeparatedByString:@"."];
+    NSArray *versionArray = [[array objectAtIndex:1] componentsSeparatedByString:@"."];
     if (versionArray.count < 3) {
         *major = 10;
         *minor = 7;
         *patch = 0;
         return;
     }
-    *major = [versionArray[0] intValue];
-    *minor = [versionArray[1] intValue];
-    *patch = [versionArray[2] intValue];
+    *major = [[versionArray objectAtIndex:0] intValue];
+    *minor = [[versionArray objectAtIndex:1] intValue];
+    *patch = [[versionArray objectAtIndex:2] intValue];
 #endif
 }
 

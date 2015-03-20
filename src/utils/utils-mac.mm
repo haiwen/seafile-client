@@ -253,5 +253,10 @@ void copyTextToPasteboard(const QString &text) {
     [paste_board writeObjects:@[text_data]];
 }
 
+QString mainBundlePath() {
+    NSURL *url = [[NSBundle mainBundle] bundleURL];
+    return [[url path] UTF8String];
+}
+
 } // namespace mac
 } // namespace utils

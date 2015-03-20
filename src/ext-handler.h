@@ -37,10 +37,6 @@ private slots:
 private:
     ExtConnectionListenerThread *listener_thread_;
 
-    Account findAccountByRepo(const QString& repo_id);
-
-    QHash<QString, Account> accounts_cache_;
-
     QTimer *refresh_local_timer_;
 
     QList<LocalRepo> last_info_;

@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <QObject>
+#include <QHash>
 
 #include "account.h"
 
@@ -46,6 +47,10 @@ public:
 
     Account getAccountBySignature(const QString& account_sig) const;
 
+    /// \brief find the Account By Repo ID
+    /// return an invalid Account if failed
+    Account getAccountByRepo(const QString& repo_id);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 signals:
@@ -59,6 +64,8 @@ private slots:
     void serverInfoSuccess(const Account &account, const ServerInfo &info);
     void serverInfoFailed(const ApiError&);
 
+    void onAccountsChanged();
+
 private:
     Q_DISABLE_COPY(AccountManager)
 
@@ -66,6 +73,8 @@ private:
     static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
 
     void updateAccountLastVisited(const Account& account);
+
+    QHash<QString, Account> accounts_cache_;
 
     struct sqlite3 *db;
     std::vector<Account> accounts_;

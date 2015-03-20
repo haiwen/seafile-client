@@ -60,6 +60,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mFinderSyncCheckBox">
+         <property name="text">
+          <string>Enable FinderSync Extension</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="mCheckLatestVersionBox">
          <property name="text">
           <string>Check for new version on startup</string>

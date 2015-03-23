@@ -100,8 +100,6 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
         return;
     }
 
-    qWarning("login successful\n");
-
     emit success(token);
 }
 

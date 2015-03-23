@@ -15,7 +15,8 @@ struct SeafileMenuItem {
 };
 
 class ShellExt : public IContextMenu3,
-                         IShellExtInit
+                 IShellIconOverlayIdentifier,
+                 IShellExtInit
 {
 protected:
     ULONG                           m_cRef;
@@ -50,6 +51,11 @@ public:
     // IContextMenu3 members
     STDMETHODIMP    HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT *pResult);
 
+    // IShellIconOverlayIdentifier members
+    STDMETHODIMP    GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int *pIndex, DWORD *pdwFlags);
+    STDMETHODIMP    GetPriority(int *pPriority);
+    STDMETHODIMP    IsMemberOf(LPCWSTR pwszPath, DWORD dwAttrib);
+
      // IShellExtInit methods
     STDMETHODIMP    Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID);
 
@@ -60,6 +66,7 @@ private:
 
     bool getReposList(seafile::WorktreeList *wts);
     bool pathInRepo(const std::string path, std::string *path_in_repo);
+    bool isRepoTopDir(const std::string& path);
 
     /* the file/dir current clicked on */
     std::string path_;

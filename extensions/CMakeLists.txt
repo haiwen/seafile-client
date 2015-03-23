@@ -6,9 +6,11 @@ OPTION(X32 "Build 32 bit instead of 64bit dll" OFF)
 IF (X32)
   SET(WINVER 0x0501)
   SET(DLL_NAME seafile_shell_ext)
+  set(CMAKE_RC_COMPILER windres)
 ELSE(X32)
   SET(WINVER 0x0502)
   SET(DLL_NAME seafile_shell_ext64)
+  set(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
 ENDIF()
 
 IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
@@ -27,11 +29,13 @@ SET(ext_sources
   shell-ext.cpp
   class-factory.cpp
   context-menu.cpp
+  icon-overlay.cpp
   log.cpp
   applet-connection.cpp
   commands.cpp
   ext-utils.cpp
   seafile_shell_ext.def
+  seafile_shell_ext.rc
 )
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})

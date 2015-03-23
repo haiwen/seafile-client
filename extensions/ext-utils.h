@@ -58,8 +58,16 @@ std::string normalizedPath(const std::string& path);
 uint64_t currentMSecsSinceEpoch();
 
 std::string localeFromUtf8(const std::string& src);
-
 std::string localeToUtf8(const std::string& src);
+
+wchar_t *stdStringtoWString(const std::string& src);
+std::string wStringToStdString(const wchar_t *src);
+
+std::string getBaseName(const std::string& path);
+std::string getParentPath(const std::string& path);
+
+std::string getThisDllFolder();
+std::string getThisDllPath();
 
 } // namespace utils
 } // namespace seafile

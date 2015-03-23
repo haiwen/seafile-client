@@ -21,3 +21,5 @@ Windows Registry Editor Version 5.00
 [-HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\Seafile]
 
 [-HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Seafile]
+
+[-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".Seafile"]

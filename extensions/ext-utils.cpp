@@ -11,9 +11,9 @@
 #include <algorithm>
 #include <memory>
 
-#include "ext-common.h"
 #include "log.h"
 #include "ext-utils.h"
+#include "shell-ext.h"
 
 namespace {
 
@@ -276,7 +276,7 @@ std::string normalizedPath(const std::string& path)
 {
     std::string p = path;
     std::replace(p.begin(), p.end(), '\\', '/');
-    while (p.empty() && p[p.size() - 1] == '/') {
+    while (!p.empty() && p[p.size() - 1] == '/') {
         p = p.substr(0, p.size() - 1);
     }
     return p;
@@ -380,6 +380,120 @@ std::string localeToUtf8(const std::string& src)
     return convertEncoding(src, CP_ACP, CP_UTF8);
 }
 
+std::string splitPath(const std::string& path, int *pos)
+{
+    if (path.size() == 0) {
+        return "";
+    }
+
+    std::string p = normalizedPath(path);
+    while (p.size() > 1 && p[-1] == '/') {
+        p = p.substr(0, p.size() - 1);
+    }
+    if (p.size() == 1) {
+        return p;
+    }
+
+    *pos = p.rfind("/");
+    return p;
+}
+
+
+std::string getParentPath(const std::string& path)
+{
+    int pos;
+    std::string p = splitPath(path, &pos);
+    if (p.size() <= 1) {
+        return p;
+    }
+
+    if (pos == -1)
+        return "";
+    if (pos == 0)
+        return "/";
+    return p.substr(0, pos);
+}
+
+std::string getBaseName(const std::string& path)
+{
+    int pos;
+    std::string p = splitPath(path, &pos);
+    if (p.size() <= 1) {
+        return p;
+    }
+
+    if (pos == -1) {
+        return p;
+    }
+    return p.substr(pos, p.size() - pos);
+}
+
+std::string getThisDllPath()
+{
+    static char module_filename[MAX_PATH] = { 0 };
+
+    if (module_filename[0] == '\0') {
+        DWORD module_size;
+        module_size = GetModuleFileName(
+            g_hmodThisDll, module_filename, MAX_PATH);
+        if (!module_size)
+            return "";
+
+        normalizedPath(module_filename);
+    }
+
+    return module_filename;
+}
+
+std::string getThisDllFolder()
+{
+    std::string dll = getThisDllPath();
+
+    return dll.empty() ? "" : getParentPath(dll);
+}
+
+wchar_t *stdStringtoWString(const std::string& src)
+{
+    wchar_t dst[4096];
+    int len;
+
+    len = MultiByteToWideChar
+        (CP_ACP,                /* multibyte code page */
+         0,                     /* flags */
+         src.c_str(),           /* src */
+         -1,                    /* src len, -1 for all includes \0 */
+         dst,                   /* dst */
+         sizeof(dst));          /* dst buf len */
+
+    if (len <= 0) {
+        return NULL;
+    }
+
+    return wcsdup(dst);
+}
+
+
+std::string wStringToStdString(const wchar_t *src)
+{
+    char dst[4096];
+    int len;
+
+    len = WideCharToMultiByte
+        (CP_ACP,        /* multibyte code page */
+         0,             /* flags */
+         src,           /* src */
+         -1,            /* src len, -1 for all includes \0 */
+         dst,           /* dst */
+         sizeof(dst),   /* dst buf len */
+         NULL,          /* default char */
+         NULL);         /* BOOL flag indicates default char is used */
+
+    if (len <= 0) {
+        return "";
+    }
+
+    return dst;
+}
 
 
 } // namespace utils

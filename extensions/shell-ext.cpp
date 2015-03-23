@@ -53,10 +53,9 @@ STDMETHODIMP ShellExt::QueryInterface(REFIID riid, LPVOID FAR *ppv)
     else if (IsEqualIID(riid, IID_IContextMenu)) {
         *ppv = static_cast<LPCONTEXTMENU>(this);
     }
-    // else if (IsEqualIID(riid, IID_IContextMenu2))
-    // {
-    //     *ppv = static_cast<LPCONTEXTMENU2>(this);
-    // }
+    else if (IsEqualIID(riid, IID_IShellIconOverlayIdentifier)) {
+        *ppv = static_cast<IShellIconOverlayIdentifier*>(this);
+    }
     // else if (IsEqualIID(riid, IID_IContextMenu3))
     // {
     //     *ppv = static_cast<LPCONTEXTMENU3>(this);
@@ -119,6 +118,24 @@ bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
         std::string wt = worktrees[i];
         if (path.size() >= wt.size() && path.substr(0, wt.size()) == wt) {
             *path_in_repo = path.substr(wt.size(), path.size() - wt.size());
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool ShellExt::isRepoTopDir(const std::string& path)
+{
+    seafile::WorktreeList worktrees;
+    if (!getReposList(&worktrees)) {
+        return false;
+    }
+
+    std::string p = utils::normalizedPath(path);
+    for (size_t i = 0; i < worktrees.size(); i++) {
+        std::string wt = worktrees[i];
+        if (p == wt) {
             return true;
         }
     }

@@ -31,3 +31,6 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Seafile]
 @="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".Seafile"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"

@@ -207,6 +207,10 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
     if (pos_of_observed_file == mapped_observed_files_.end())
         return;
 
+    // TODO remove this to update items in the worktree
+    if (file_path != pos_of_repo->worktree)
+        return;
+
     // insert it into observed file list
     pos_of_observed_file->second.push_back(url);
 

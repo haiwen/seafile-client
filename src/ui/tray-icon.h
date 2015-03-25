@@ -31,7 +31,6 @@ public:
 
     TrayState state() const { return state_; }
     void setState(TrayState state, const QString& tip=QString());
-    void notify(const QString &title, const QString &content);
     void rotate(bool start);
 
     void reloadTrayIcon();

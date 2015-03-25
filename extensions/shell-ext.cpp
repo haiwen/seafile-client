@@ -16,17 +16,18 @@ const int kWorktreeCacheExpireMSecs = 10 * 1000;
 
 } // namespace
 
-std::unique_ptr<seafile::WorktreeList> ShellExt::wts_cache_;
+std::unique_ptr<seafile::RepoInfoList> ShellExt::repos_cache_;
 uint64_t ShellExt::cache_ts_;
 
 // *********************** ShellExt *************************
-ShellExt::ShellExt()
+ShellExt::ShellExt(seafile::RepoInfo::Status status)
 {
     m_cRef = 0L;
     InterlockedIncrement(&g_cRefThisDll);
 
     sub_menu_ = CreateMenu();
     next_active_item_ = 0;
+    status_ = status;
 
     // INITCOMMONCONTROLSEX used = {
     //     sizeof(INITCOMMONCONTROLSEX),
@@ -84,38 +85,38 @@ STDMETHODIMP_(ULONG) ShellExt::Release()
     return 0L;
 }
 
-bool ShellExt::getReposList(seafile::WorktreeList *wts)
+bool ShellExt::getReposList(seafile::RepoInfoList *wts)
 {
     uint64_t now = utils::currentMSecsSinceEpoch();
-    if (wts_cache_ && now < cache_ts_ + kWorktreeCacheExpireMSecs) {
-        *wts = *(wts_cache_.get());
+    if (repos_cache_ && now < cache_ts_ + kWorktreeCacheExpireMSecs) {
+        *wts = *(repos_cache_.get());
         return true;
     }
 
     // no cached worktree list, send request to seafile client
     seafile::ListReposCommand cmd;
-    seafile::WorktreeList worktrees;
-    if (!cmd.sendAndWait(&worktrees)) {
+    seafile::RepoInfoList repos;
+    if (!cmd.sendAndWait(&repos)) {
         return false;
     }
 
     cache_ts_ = utils::currentMSecsSinceEpoch();
-    wts_cache_.reset(new seafile::WorktreeList(worktrees));
+    repos_cache_.reset(new seafile::RepoInfoList(repos));
 
-    *wts = worktrees;
+    *wts = repos;
     return true;
 }
 
 bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
 {
-    seafile::WorktreeList worktrees;
-    if (!getReposList(&worktrees)) {
+    seafile::RepoInfoList repos;
+    if (!getReposList(&repos)) {
         return false;
     }
     std::string p = utils::normalizedPath(path);
 
-    for (size_t i = 0; i < worktrees.size(); i++) {
-        std::string wt = worktrees[i];
+    for (size_t i = 0; i < repos.size(); i++) {
+        std::string wt = repos[i].worktree;
         if (path.size() >= wt.size() && path.substr(0, wt.size()) == wt) {
             *path_in_repo = path.substr(wt.size(), path.size() - wt.size());
             return true;
@@ -127,18 +128,36 @@ bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
 
 bool ShellExt::isRepoTopDir(const std::string& path)
 {
-    seafile::WorktreeList worktrees;
-    if (!getReposList(&worktrees)) {
+    seafile::RepoInfoList repos;
+    if (!getReposList(&repos)) {
         return false;
     }
 
     std::string p = utils::normalizedPath(path);
-    for (size_t i = 0; i < worktrees.size(); i++) {
-        std::string wt = worktrees[i];
+    for (size_t i = 0; i < repos.size(); i++) {
+        std::string wt = repos[i].worktree;
         if (p == wt) {
             return true;
         }
     }
 
     return false;
+}
+
+seafile::RepoInfo ShellExt::getRepoInfoByPath(const std::string& path)
+{
+    seafile::RepoInfoList repos;
+    if (!getReposList(&repos)) {
+        return seafile::RepoInfo();
+    }
+
+    std::string p = utils::normalizedPath(path);
+    for (size_t i = 0; i < repos.size(); i++) {
+        std::string wt = repos[i].worktree;
+        if (p == wt) {
+            return repos[i];
+        }
+    }
+
+    return seafile::RepoInfo();
 }

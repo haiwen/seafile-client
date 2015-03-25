@@ -4,9 +4,10 @@
 #include "class-factory.h"
 #include "shell-ext.h"
 
-ShellExtClassFactory::ShellExtClassFactory()
+ShellExtClassFactory::ShellExtClassFactory(seafile::RepoInfo::Status status)
 {
     m_cRef = 0L;
+    status_ = status;
 
     InterlockedIncrement(&g_cRefThisDll);
 }
@@ -69,7 +70,7 @@ STDMETHODIMP ShellExtClassFactory::CreateInstance(LPUNKNOWN pUnkOuter,
     // QueryInterface with IID_IShellExtInit--this is how shell extensions are
     // initialized.
 
-    ShellExt* pShellExt = new ShellExt; // Create the ShellExt object
+    ShellExt* pShellExt = new ShellExt(status_); // Create the ShellExt object
 
     const HRESULT hr = pShellExt->QueryInterface(riid, ppvObj);
     if(FAILED(hr))

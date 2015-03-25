@@ -8,7 +8,39 @@
 
 namespace seafile {
 
-typedef std::vector<std::string> WorktreeList;
+class RepoInfo {
+public:
+    enum Status {
+        NoStatus = 0,
+        Paused,
+        Normal,
+        Syncing,
+        Error,
+        N_Status,
+    };
+
+    std::string repo_id;
+    std::string repo_name;
+    std::string worktree;
+    Status status;
+
+    RepoInfo() {}
+
+    RepoInfo(const std::string& repo_id,
+             const std::string repo_name,
+             const std::string& worktree,
+             Status status)
+        : repo_id(repo_id),
+          repo_name(repo_name),
+          worktree(worktree),
+          status(status) {}
+
+    bool isValid() {
+        return repo_id.size() > 0;
+    }
+};
+
+typedef std::vector<RepoInfo> RepoInfoList;
 
 /**
  * Abstract base class for all commands sent to seafile applet.
@@ -77,14 +109,14 @@ private:
 };
 
 
-class ListReposCommand : public AppletCommand<WorktreeList> {
+class ListReposCommand : public AppletCommand<RepoInfoList> {
 public:
     ListReposCommand();
 
 protected:
     std::string serialize();
 
-    bool parseResponse(const std::string& raw_resp, WorktreeList *worktrees);
+    bool parseResponse(const std::string& raw_resp, RepoInfoList *worktrees);
 };
 
 

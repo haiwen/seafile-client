@@ -18,6 +18,7 @@ class ShellExt : public IContextMenu3,
                  IShellIconOverlayIdentifier,
                  IShellExtInit
 {
+
 protected:
     ULONG                           m_cRef;
 
@@ -33,8 +34,10 @@ protected:
     // IShellExtInit wrapper functions to catch exceptions and send crash reports
     STDMETHODIMP    Initialize_Wrap(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID);
 
+    seafile::RepoInfo::Status status_;
+
 public:
-    ShellExt();
+    ShellExt(seafile::RepoInfo::Status status = seafile::RepoInfo::NoStatus);
     virtual ~ShellExt();
 
     // IUnknown members
@@ -64,9 +67,10 @@ private:
     bool insertMainMenu();
     void tweakMenu(HMENU menu);
 
-    bool getReposList(seafile::WorktreeList *wts);
+    bool getReposList(seafile::RepoInfoList *wts);
     bool pathInRepo(const std::string path, std::string *path_in_repo);
     bool isRepoTopDir(const std::string& path);
+    seafile::RepoInfo getRepoInfoByPath(const std::string& path);
 
     /* the file/dir current clicked on */
     std::string path_;
@@ -90,7 +94,7 @@ private:
     /* repo top wt, non-empty if in a repo dir */
     std::string repo_wt;
 
-    static std::unique_ptr<seafile::WorktreeList> wts_cache_;
+    static std::unique_ptr<seafile::RepoInfoList> repos_cache_;
     static uint64_t cache_ts_;
 };
 

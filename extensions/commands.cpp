@@ -20,7 +20,7 @@ std::string GetShareLinkCommand::serialize()
 }
 
 ListReposCommand::ListReposCommand()
-    : AppletCommand<WorktreeList>("list-repos")
+    : AppletCommand<RepoInfoList>("list-repos")
 {
 }
 
@@ -30,7 +30,7 @@ std::string ListReposCommand::serialize()
 }
 
 bool ListReposCommand::parseResponse(const std::string& raw_resp,
-                                     WorktreeList *worktrees)
+                                     RepoInfoList *infos)
 {
     std::vector<std::string> lines = utils::split(raw_resp, '\n');
     if (lines.empty()) {
@@ -39,10 +39,28 @@ bool ListReposCommand::parseResponse(const std::string& raw_resp,
     for (size_t i = 0; i < lines.size(); i++) {
         std::string line = lines[i];
         std::vector<std::string> parts = utils::split(line, '\t');
-        if (parts.size() != 2) {
+        if (parts.size() != 4) {
             continue;
         }
-        worktrees->push_back(utils::normalizedPath(parts[1]));
+        std::string repo_id, repo_name, worktree, status;
+        RepoInfo::Status st;
+        repo_id = parts[0];
+        repo_name = parts[1];
+        worktree = utils::normalizedPath(parts[2]);
+        status = parts[3];
+        if (status == "paused") {
+            st = RepoInfo::Paused;
+        } else if (status == "syncing") {
+            st = RepoInfo::Syncing;
+        } else if (status == "error") {
+            st = RepoInfo::Error;
+        } else if (status == "normal") {
+            st = RepoInfo::Normal;
+        } else {
+            // impossible
+            continue;
+        }
+        infos->push_back(RepoInfo(repo_id, repo_name, worktree, st));
     }
     return true;
 }

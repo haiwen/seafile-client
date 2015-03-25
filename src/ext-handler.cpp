@@ -106,6 +106,19 @@ std::string formatErrorMessage()
     return buf;
 }
 
+QString repoStatus(const LocalRepo& repo)
+{
+    if (!repo.auto_sync) {
+        return "paused";
+    } else if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
+        return "syncing";
+    } else if (repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
+        return "error";
+    }
+
+    return "normal";
+}
+
 } // namespace
 
 
@@ -333,7 +346,9 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
     }
     QStringList infos;
     foreach (const LocalRepo& repo, listLocalRepos()) {
-        infos << QString("%1\t%2").arg(repo.id).arg(normalizedPath(repo.worktree));
+        QStringList fields;
+        fields << repo.id << repo.name << normalizedPath(repo.worktree) << repoStatus(repo);
+        infos << fields.join("\t");
     }
 
     return infos.join("\n");

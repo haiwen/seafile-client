@@ -15,7 +15,7 @@ namespace utils = seafile::utils;
 
 STDMETHODIMP ShellExt::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pIndex, DWORD* pdwFlags)
 {
-    seaf_ext_log ("GetOverlayInfo called!");
+    seaf_ext_log ("GetOverlayInfo called for icon type %d!", (int)status_);
 
     std::string dll = utils::getThisDllPath();
 
@@ -26,7 +26,9 @@ STDMETHODIMP ShellExt::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pInd
 
     wmemcpy(pwszIconFile, ico.get(), wlen + 1);
 
-    *pdwFlags = ISIOI_ICONFILE;
+    *pdwFlags = ISIOI_ICONFILE | ISIOI_ICONINDEX;
+
+    *pIndex = (int)status_ - 1;
 
     return S_OK;
 }
@@ -34,7 +36,7 @@ STDMETHODIMP ShellExt::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pInd
 STDMETHODIMP ShellExt::GetPriority(int *priority)
 {
     /* The priority value can be 0 ~ 100, with 0 be the highest */
-    *priority = 0;
+    *priority = seafile::RepoInfo::N_Status - status_;
     return S_OK;
 }
 
@@ -68,14 +70,13 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
 
     if (access(path.c_str(), F_OK) < 0 ||
         !(GetFileAttributes(path.c_str()) & FILE_ATTRIBUTE_DIRECTORY)) {
-        ret = S_FALSE;
-
-    } else if (isRepoTopDir(utils::localeToUtf8(path))) {
-        seaf_ext_log ("[ICON] Set for %s", path.c_str());
-        ret =  S_OK;
-    } else {
-        ret =  S_FALSE;
+        return S_FALSE;
     }
 
-    return ret;
+    seafile::RepoInfo info = getRepoInfoByPath(utils::localeToUtf8(path));
+    if (info.isValid() && info.status == status_) {
+        seaf_ext_log ("[ICON] %d Set for %s", (int)status_, path.c_str());
+        return S_OK;
+    }
+    return S_FALSE;
 }

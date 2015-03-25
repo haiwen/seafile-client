@@ -1,6 +1,8 @@
 #ifndef SEAFILE_EXT_SHELL_EXT_CLASS_FACTORY_H
 #define SEAFILE_EXT_SHELL_EXT_CLASS_FACTORY_H
 
+#include "shell-ext.h"
+
 /**
  * Class factory's main responsibility is implemented in its `CreateInstance`
  * member function, which creates instances of the required shell extension
@@ -14,8 +16,10 @@ class ShellExtClassFactory : public IClassFactory
 protected:
     ULONG m_cRef;
 
+    seafile::RepoInfo::Status status_;
+
 public:
-    ShellExtClassFactory();
+    ShellExtClassFactory(seafile::RepoInfo::Status status = seafile::RepoInfo::NoStatus);
     virtual ~ShellExtClassFactory();
 
     //@{

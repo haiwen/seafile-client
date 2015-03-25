@@ -1,1 +1,4 @@
-1 ICON  DISCARDABLE "seaf_repo.ico"
+1 ICON  DISCARDABLE "paused.ico"
+2 ICON  DISCARDABLE "normal.ico"
+3 ICON  DISCARDABLE "syncing.ico"
+4 ICON  DISCARDABLE "error.ico"

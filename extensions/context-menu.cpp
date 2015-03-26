@@ -51,8 +51,9 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */
     if (folder) {
-        SHGetPathFromIDList(folder, path);
-        path_ = utils::normalizedPath(utils::localeToUtf8(path));
+        if (SHGetPathFromIDList(folder, path)) {
+            path_ = utils::normalizedPath(utils::localeToUtf8(path));
+        }
     }
 
     /* if 'data' is NULL, then it's a background click, we have set

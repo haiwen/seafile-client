@@ -157,7 +157,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetDefaultRepoRequest);
+    Q_DISABLE_COPY(GetDefaultRepoRequest)
 };
 
 class CreateDefaultRepoRequest : public SeafileApiRequest {
@@ -172,7 +172,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(CreateDefaultRepoRequest);
+    Q_DISABLE_COPY(CreateDefaultRepoRequest)
 };
 
 class GetLatestVersionRequest : public SeafileApiRequest {
@@ -187,7 +187,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetLatestVersionRequest);
+    Q_DISABLE_COPY(GetLatestVersionRequest)
 };
 
 class GetStarredFilesRequest : public SeafileApiRequest {
@@ -202,7 +202,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetStarredFilesRequest);
+    Q_DISABLE_COPY(GetStarredFilesRequest)
 };
 
 class GetEventsRequest : public SeafileApiRequest {
@@ -217,7 +217,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetEventsRequest);
+    Q_DISABLE_COPY(GetEventsRequest)
 };
 
 class GetCommitDetailsRequest : public SeafileApiRequest {
@@ -234,7 +234,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetCommitDetailsRequest);
+    Q_DISABLE_COPY(GetCommitDetailsRequest)
 };
 
 class FetchImageRequest : public SeafileApiRequest {
@@ -249,7 +249,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(FetchImageRequest);
+    Q_DISABLE_COPY(FetchImageRequest)
 };
 
 class GetAvatarRequest : public SeafileApiRequest {
@@ -271,7 +271,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetAvatarRequest);
+    Q_DISABLE_COPY(GetAvatarRequest)
 
     FetchImageRequest *fetch_img_req_;
 
@@ -294,7 +294,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(SetRepoPasswordRequest);
+    Q_DISABLE_COPY(SetRepoPasswordRequest)
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

@@ -24,5 +24,5 @@ private slots:
     void updateSettings();
 
 private:
-    Q_DISABLE_COPY(SettingsDialog);
+    Q_DISABLE_COPY(SettingsDialog)
 };

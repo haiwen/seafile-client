@@ -16,7 +16,7 @@ enum {
     COLUMN_NAME = 0,
     COLUMN_WORK_TREE,
     COLUMN_STATE,
-    MAX_COLUMN,
+    MAX_COLUMN
 };
 
 } // namespace

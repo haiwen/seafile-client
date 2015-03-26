@@ -37,7 +37,7 @@ const int kIndexOfTabWidget = 3;
 enum {
     TAB_INDEX_REPOS = 0,
     TAB_INDEX_STARRED_FILES,
-    TAB_INDEX_ACTIVITIES,
+    TAB_INDEX_ACTIVITIES
 };
 
 

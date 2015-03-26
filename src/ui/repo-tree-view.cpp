@@ -31,12 +31,6 @@
 
 namespace {
 
-const int kRepoTreeMenuIconWidth = 16;
-const int kRepoTreeMenuIconHeight = 16;
-
-const int kRepoTreeToolbarIconWidth = 24;
-const int kRepoTreeToolbarIconHeight = 24;
-
 const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
 const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
 

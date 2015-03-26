@@ -110,10 +110,10 @@ public:
     void increaseMatchedRepoCount() { matched_repos_++; };
 
 private:
+    int cat_index_;
     QString name_;
     int group_id_;
     int matched_repos_;
-    int cat_index_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_ITEM_H

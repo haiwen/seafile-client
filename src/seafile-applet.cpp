@@ -125,7 +125,9 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
+#if defined(Q_WS_WIN)
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
+#endif // Q_WS_WIN
 const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
@@ -440,7 +442,7 @@ void SeafileApplet::updateReposPropertyForHttpSync()
     }
 
     const std::vector<Account>& accounts = account_mgr_->accounts();
-    for (int i = 0; i < repos.size(); i++) {
+    for (size_t i = 0; i < repos.size(); i++) {
         const LocalRepo& repo = repos[i];
         QString repo_server_url;
         QString relay_addr;
@@ -453,7 +455,7 @@ void SeafileApplet::updateReposPropertyForHttpSync()
         if (rpc_client_->getRepoProperty(repo.id, kRepoRelayAddrProperty, &relay_addr) < 0) {
             continue;
         }
-        for (int i = 0; i < accounts.size(); i++) {
+        for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
             if (account.serverUrl.host() == relay_addr) {
                 QUrl url(account.serverUrl);

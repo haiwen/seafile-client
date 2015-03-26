@@ -22,7 +22,7 @@ private slots:
     void requestFailed(const ApiError& error);
 
 private:
-    Q_DISABLE_COPY(SetRepoPasswordDialog);
+    Q_DISABLE_COPY(SetRepoPasswordDialog)
 
     void enableInputs();
     void disableInputs();

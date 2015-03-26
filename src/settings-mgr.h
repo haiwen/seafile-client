@@ -75,9 +75,9 @@ private:
     bool transferEncrypted_;
     bool allow_invalid_worktree_;
     bool allow_repo_not_found_on_server_;
-    bool sync_extra_temp_file_;
     unsigned int maxDownloadRatio_;
     unsigned int maxUploadRatio_;
+    bool sync_extra_temp_file_;
     bool http_sync_enabled_;
     bool verify_http_sync_cert_disabled_;
 };

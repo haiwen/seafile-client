@@ -19,7 +19,7 @@ public:
         SYNC_STATE_ING,
         SYNC_STATE_DONE,
         SYNC_STATE_ERROR,
-        SYNC_STATE_UNKNOWN,
+        SYNC_STATE_UNKNOWN
     };
 
     QString id;

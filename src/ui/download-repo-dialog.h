@@ -28,14 +28,14 @@ private slots:
     void switchMode();
 
 private:
-    Q_DISABLE_COPY(DownloadRepoDialog);
+    Q_DISABLE_COPY(DownloadRepoDialog)
 
     enum SyncMode {
         CREATE_NEW_FOLDER,
         MERGE_WITH_EXISTING_FOLDER
     };
-    
-    
+
+
     bool validateInputs();
     void setAllInputsEnabled(bool enabled);
     void setDirectoryText(const QString& path);

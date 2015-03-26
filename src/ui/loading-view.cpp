@@ -17,6 +17,7 @@ LoadingView::LoadingView(QWidget *parent)
     setLayout(layout);
 
     gif_ = new QMovie(":/images/loading.gif");
+    gif_->setParent(this);
     QLabel *label = new QLabel;
     label->setMovie(gif_);
     label->setAlignment(Qt::AlignCenter);

@@ -12,7 +12,8 @@ namespace utils = seafile::utils;
 
 namespace {
 
-const int kWorktreeCacheExpireMSecs = 10 * 1000;
+// const int kWorktreeCacheExpireMSecs = 10 * 1000;
+const int kWorktreeCacheExpireMSecs = 1 * 1000;
 
 } // namespace
 

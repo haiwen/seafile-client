@@ -50,14 +50,14 @@ STDMETHODIMP ShellExt::GetPriority(int *priority)
 
 STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
 {
-    seaf_ext_log ("IsMemberOf called!");
-    HRESULT ret = S_FALSE;
     std::string path = utils::wStringToStdString(path_w);
 
     if (!path.size()) {
         seaf_ext_log ("convert to char failed");
         return S_FALSE;
     }
+
+    seaf_ext_log ("IsMemberOf called for %s!", path.c_str());
 
     /* If length of path is shorter than 3, it should be a drive path,
      * such as C:\ , which should not be a repo folder ; And the

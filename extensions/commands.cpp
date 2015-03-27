@@ -58,8 +58,10 @@ bool ListReposCommand::parseResponse(const std::string& raw_resp,
             st = RepoInfo::Normal;
         } else {
             // impossible
+            seaf_ext_log ("bad repo status \"%s\"", status.c_str());
             continue;
         }
+        seaf_ext_log ("status for %s is \"%s\"", repo_name.c_str(), status.c_str());
         infos->push_back(RepoInfo(repo_id, repo_name, worktree, st));
     }
     return true;

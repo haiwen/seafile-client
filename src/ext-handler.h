@@ -15,6 +15,7 @@
 
 class SeafileRpcClient;
 class ExtConnectionListenerThread;
+class QTimer;
 
 /**
  * Handles commands from seafile shell extension
@@ -27,6 +28,7 @@ public:
     void start();
 
 private slots:
+    void refreshRepoShellIcon();
     void onShareLinkGenerated(const QString& link);
     void generateShareLink(const QString& repo_id,
                            const QString& path_in_repo,
@@ -38,6 +40,8 @@ private:
     Account findAccountByRepo(const QString& repo_id);
 
     QHash<QString, Account> accounts_cache_;
+
+    QTimer *refresh_local_timer_;
 };
 
 /**
@@ -59,7 +63,6 @@ signals:
 
 private:
     void servePipeInNewThread(HANDLE pipe);
-
 };
 
 /**

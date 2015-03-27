@@ -6,12 +6,13 @@
 #include <ctype.h>
 #include <userenv.h>
 
+#include <string>
 #include <QMutexLocker>
 #include <QScopedPointer>
 #include <QList>
 #include <QVector>
 #include <QDir>
-#include <string>
+#include <QTimer>
 
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
@@ -25,6 +26,7 @@ namespace {
 const char *kSeafExtPipeName = "\\\\.\\pipe\\seafile_ext_pipe";
 const int kPipeBufSize = 1024;
 const char *kRepoRelayAddrProperty = "relay-address";
+const int kRefreshShellInterval = 3000;
 
 bool
 extPipeReadN (HANDLE pipe, void *buf, size_t len)
@@ -108,15 +110,21 @@ std::string formatErrorMessage()
 
 QString repoStatus(const LocalRepo& repo)
 {
+    QString status = "normal";
     if (!repo.auto_sync) {
-        return "paused";
+        status = "paused";
     } else if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
-        return "syncing";
+        status = "syncing";
     } else if (repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-        return "error";
+        status = "error";
     }
 
-    return "normal";
+    qDebug("repo %s (%s, %s): %s", repo.name.toUtf8().data(),
+           repo.sync_state_str.toUtf8().data(),
+           repo.sync_error_str.toUtf8().data(),
+           status.toUtf8().data());
+
+    return status;
 }
 
 } // namespace
@@ -128,6 +136,10 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 {
     listener_thread_ = new ExtConnectionListenerThread;
 
+    refresh_local_timer_ = new QTimer(this);
+    connect(refresh_local_timer_, SIGNAL(timeout()),
+            this, SLOT(refreshRepoShellIcon()));
+
     connect(listener_thread_, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
             this, SLOT(generateShareLink(const QString&, const QString&, bool)));
 }
@@ -135,6 +147,7 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 void SeafileExtensionHandler::start()
 {
     listener_thread_->start();
+    refresh_local_timer_->start(kRefreshShellInterval);
 }
 
 Account SeafileExtensionHandler::findAccountByRepo(const QString& repo_id)
@@ -146,7 +159,7 @@ Account SeafileExtensionHandler::findAccountByRepo(const QString& repo_id)
             return Account();
         }
         const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-        for (int i = 0; i < accounts.size(); i++) {
+        for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
             if (account.serverUrl.host() == relay_addr) {
                 accounts_cache_[repo_id] = account;
@@ -184,6 +197,21 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
     dialog->raise();
     dialog->activateWindow();
 }
+
+// Trigger the shell to update repo worktree folder icons periodically
+void SeafileExtensionHandler::refreshRepoShellIcon()
+{
+    std::vector<LocalRepo> repos;
+    seafApplet->rpcClient()->listLocalRepos(&repos);
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo repo = repos[i];
+        // TODO: only notify shell when repo sync status REALLY changes
+        QString normalized_path = QDir::toNativeSeparators(repo.worktree);
+        SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH, normalized_path.toUtf8().data(), NULL);
+        qDebug("updated shell attributes for %s", normalized_path.toUtf8().data());
+    }
+}
+
 
 void ExtConnectionListenerThread::run()
 {
@@ -318,6 +346,12 @@ QList<LocalRepo> ExtCommandsHandler::listLocalRepos()
 
     std::vector<LocalRepo> repos;
     rpc_->listLocalRepos(&repos);
+
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo& repo = repos[i];
+        rpc_->getSyncStatus(repo);
+    }
+
     return QVector<LocalRepo>::fromStdVector(repos).toList();
 }
 

@@ -179,7 +179,7 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
                                                 const QString& path_in_repo,
                                                 bool is_file)
 {
-    qDebug("path_in_repo: %s", path_in_repo.toUtf8().data());
+    // qDebug("path_in_repo: %s", path_in_repo.toUtf8().data());
     const Account account = findAccountByRepo(repo_id);
     if (!account.isValid()) {
         return;

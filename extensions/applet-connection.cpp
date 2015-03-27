@@ -31,7 +31,8 @@ namespace seafile {
 
 AppletConnection::AppletConnection()
     : connected_(false),
-      pipe_(INVALID_HANDLE_VALUE)
+      pipe_(INVALID_HANDLE_VALUE),
+      last_conn_failure_(0)
 {
 }
 
@@ -68,6 +69,7 @@ AppletConnection::connect ()
             seaf_ext_log("Failed to create named pipe: %s", utils::formatErrorMessage().c_str());
         }
         connected_ = false;
+        last_conn_failure_ = utils::currentMSecsSinceEpoch();
         return false;
     }
 
@@ -158,6 +160,10 @@ bool AppletConnection::readResponse(std::string *out)
 
 bool AppletConnection::sendWithReconnect(const std::string& cmd)
 {
+    uint64_t now = utils::currentMSecsSinceEpoch();
+    if (!connected_ && now - last_conn_failure_ < 2000) {
+        return false;
+    }
     if (!connected_) {
         if (connect() && writeRequest(cmd)) {
             return true;

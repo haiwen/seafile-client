@@ -46,6 +46,8 @@ private:
     bool connected_;
     HANDLE pipe_;
 
+    uint64_t last_conn_failure_;
+
     /**
      * We have only one connection for each explorer process, so when sending
      * a command to seafile client we need to ensure exclusive access.

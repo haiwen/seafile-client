@@ -1,4 +1,5 @@
 #include "ext-common.h"
+
 #include "log.h"
 #include "applet-connection.h"
 #include "ext-utils.h"
@@ -7,6 +8,7 @@
 
 namespace seafile {
 
+uint64_t reposInfoTimestamp = 0;
 
 GetShareLinkCommand::GetShareLinkCommand(const std::string path)
     : AppletCommand<void>("get-share-link"),
@@ -26,7 +28,9 @@ ListReposCommand::ListReposCommand()
 
 std::string ListReposCommand::serialize()
 {
-    return "";
+    char buf[512];
+    snprintf (buf, sizeof(buf), "%I64u", reposInfoTimestamp);
+    return buf;
 }
 
 bool ListReposCommand::parseResponse(const std::string& raw_resp,
@@ -64,7 +68,10 @@ bool ListReposCommand::parseResponse(const std::string& raw_resp,
         // seaf_ext_log ("status for %s is \"%s\"", repo_name.c_str(), status.c_str());
         infos->push_back(RepoInfo(repo_id, repo_name, worktree, st));
     }
+
+    reposInfoTimestamp = utils::currentMSecsSinceEpoch();
     return true;
+
 }
 
 } // namespace seafile

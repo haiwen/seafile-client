@@ -15,7 +15,7 @@ namespace utils = seafile::utils;
 
 STDMETHODIMP ShellExt::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pIndex, DWORD* pdwFlags)
 {
-    seaf_ext_log ("GetOverlayInfo called for icon type %d!", (int)status_);
+    // seaf_ext_log ("GetOverlayInfo called for icon type %d!", (int)status_);
 
     std::string dll = utils::getThisDllPath();
 

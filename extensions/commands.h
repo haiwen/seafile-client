@@ -36,7 +36,7 @@ public:
           status(status) {}
 
     bool isValid() {
-        return repo_id.size() > 0;
+        return !repo_id.empty();
     }
 };
 

@@ -65,16 +65,16 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID *ppvOut)
 
     seafile::RepoInfo::Status status = seafile::RepoInfo::NoStatus;
     if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_NORMAL)) {
-        seaf_ext_log ("DllGetClassObject called for ICON_NORMAL!");
+        // seaf_ext_log ("DllGetClassObject called for ICON_NORMAL!");
         status = seafile::RepoInfo::Normal;
     } else if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_SYNCING)) {
-        seaf_ext_log ("DllGetClassObject called for ICON_SYNCING!");
+        // seaf_ext_log ("DllGetClassObject called for ICON_SYNCING!");
         status = seafile::RepoInfo::Syncing;
     } else if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_ERROR)) {
-        seaf_ext_log ("DllGetClassObject called for ICON_ERROR!");
+        // seaf_ext_log ("DllGetClassObject called for ICON_ERROR!");
         status = seafile::RepoInfo::Error;
     } else if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_PAUSED)) {
-        seaf_ext_log ("DllGetClassObject called for ICON_PAUSED!");
+        // seaf_ext_log ("DllGetClassObject called for ICON_PAUSED!");
         status = seafile::RepoInfo::Paused;
     }
 

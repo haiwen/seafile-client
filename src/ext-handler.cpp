@@ -13,6 +13,7 @@
 #include <QVector>
 #include <QDir>
 #include <QTimer>
+#include <QDateTime>
 
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
@@ -27,6 +28,9 @@ const char *kSeafExtPipeName = "\\\\.\\pipe\\seafile_ext_pipe";
 const int kPipeBufSize = 1024;
 const char *kRepoRelayAddrProperty = "relay-address";
 const int kRefreshShellInterval = 3000;
+
+const quint64 kShellIconForceRefreshMSecs = 5000;
+const quint64 kReposInfoCacheMSecs = 2000;
 
 bool
 extPipeReadN (HANDLE pipe, void *buf, size_t len)
@@ -148,6 +152,7 @@ void SeafileExtensionHandler::start()
 {
     listener_thread_->start();
     refresh_local_timer_->start(kRefreshShellInterval);
+    ReposInfoCache::instance()->start();
 }
 
 Account SeafileExtensionHandler::findAccountByRepo(const QString& repo_id)
@@ -201,15 +206,30 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 // Trigger the shell to update repo worktree folder icons periodically
 void SeafileExtensionHandler::refreshRepoShellIcon()
 {
-    std::vector<LocalRepo> repos;
-    seafApplet->rpcClient()->listLocalRepos(&repos);
-    for (size_t i = 0; i < repos.size(); i++) {
-        LocalRepo repo = repos[i];
-        // TODO: only notify shell when repo sync status REALLY changes
-        QString normalized_path = QDir::toNativeSeparators(repo.worktree);
-        SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH, normalized_path.toUtf8().data(), NULL);
-        // qDebug("updated shell attributes for %s", normalized_path.toUtf8().data());
+    QList<LocalRepo> repos = ReposInfoCache::instance()->getReposInfo();
+    quint64 now = QDateTime::currentMSecsSinceEpoch();
+    foreach (const LocalRepo& repo, repos) {
+        bool status_changed = true;
+        quint64 last_ts = last_change_ts_.value(repo.id, 0);
+
+        // Force shell to refresh the repo icon every copule of seconds.
+        if (now - last_ts < kShellIconForceRefreshMSecs) {
+            foreach (const LocalRepo& last, last_info_) {
+                if (last.id == repo.id) {
+                    status_changed = last.sync_state != repo.sync_state;
+                    break;
+                }
+            }
+        }
+
+        if (status_changed) {
+            QString normalized_path = QDir::toNativeSeparators(repo.worktree);
+            SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH, normalized_path.toUtf8().data(), NULL);
+            // qDebug("updated shell attributes for %s", normalized_path.toUtf8().data());
+            last_change_ts_[repo.id] = now;
+        }
     }
+    last_info_ = repos;
 }
 
 
@@ -262,8 +282,6 @@ void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
     t->start();
 }
 
-QMutex ExtCommandsHandler::rpc_mutex_;
-
 ExtCommandsHandler::ExtCommandsHandler(HANDLE pipe)
 {
     pipe_ = pipe;
@@ -271,8 +289,6 @@ ExtCommandsHandler::ExtCommandsHandler(HANDLE pipe)
 
 void ExtCommandsHandler::run()
 {
-    rpc_ = new SeafileRpcClient;
-    rpc_->connectDaemon();
     while (1) {
         QStringList args;
         if (!readRequest(&args)) {
@@ -340,19 +356,9 @@ bool ExtCommandsHandler::sendResponse(const QString& resp)
     return true;
 }
 
-QList<LocalRepo> ExtCommandsHandler::listLocalRepos()
+QList<LocalRepo> ExtCommandsHandler::listLocalRepos(quint64 ts)
 {
-    QMutexLocker lock(&rpc_mutex_);
-
-    std::vector<LocalRepo> repos;
-    rpc_->listLocalRepos(&repos);
-
-    for (size_t i = 0; i < repos.size(); i++) {
-        LocalRepo& repo = repos[i];
-        rpc_->getSyncStatus(repo);
-    }
-
-    return QVector<LocalRepo>::fromStdVector(repos).toList();
+    return ReposInfoCache::instance()->getReposInfo(ts);
 }
 
 void ExtCommandsHandler::handleGenShareLink(const QStringList& args)
@@ -375,15 +381,61 @@ void ExtCommandsHandler::handleGenShareLink(const QStringList& args)
 
 QString ExtCommandsHandler::handleListRepos(const QStringList& args)
 {
-    if (args.size() != 0) {
+    if (args.size() != 1) {
         return "";
     }
+    bool ok;
+    quint64 ts = args[0].toULongLong(&ok);
+    if (!ok) {
+        return "";
+    }
+
     QStringList infos;
-    foreach (const LocalRepo& repo, listLocalRepos()) {
+    foreach (const LocalRepo& repo, listLocalRepos(ts)) {
         QStringList fields;
         fields << repo.id << repo.name << normalizedPath(repo.worktree) << repoStatus(repo);
         infos << fields.join("\t");
     }
 
     return infos.join("\n");
+}
+
+SINGLETON_IMPL(ReposInfoCache)
+
+ReposInfoCache::ReposInfoCache(QObject * parent)
+    : QObject(parent)
+{
+    cache_ts_ = 0;
+    rpc_ = new SeafileRpcClient();
+}
+
+void ReposInfoCache::start()
+{
+    rpc_->connectDaemon();
+}
+
+QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
+{
+    QMutexLocker lock(&rpc_mutex_);
+
+    quint64 now = QDateTime::currentMSecsSinceEpoch();
+
+    if (cache_ts_ != 0 && cache_ts_ > ts && now - cache_ts_ < kReposInfoCacheMSecs) {
+        // qDebug("ReposInfoCache: return cached info");
+        return cached_info_;
+    }
+    // qDebug("ReposInfoCache: fetch from daemon");
+
+    std::vector<LocalRepo> repos;
+    rpc_->listLocalRepos(&repos);
+
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo& repo = repos[i];
+        rpc_->getSyncStatus(repo);
+    }
+
+    cached_info_ = QVector<LocalRepo>::fromStdVector(repos).toList();
+    cache_ts_ = QDateTime::currentMSecsSinceEpoch();
+
+    return cached_info_;
 }

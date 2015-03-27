@@ -64,7 +64,9 @@ AppletConnection::connect ()
         NULL);                  // no template file
 
     if (pipe_ == INVALID_HANDLE_VALUE) {
-        seaf_ext_log("Failed to create named pipe: %s", utils::formatErrorMessage().c_str());
+        if (GetLastError() != ERROR_FILE_NOT_FOUND) {
+            seaf_ext_log("Failed to create named pipe: %s", utils::formatErrorMessage().c_str());
+        }
         connected_ = false;
         return false;
     }

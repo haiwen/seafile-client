@@ -42,6 +42,10 @@ private:
     QHash<QString, Account> accounts_cache_;
 
     QTimer *refresh_local_timer_;
+
+    QList<LocalRepo> last_info_;
+
+    QHash<QString, quint64> last_change_ts_;
 };
 
 /**
@@ -49,7 +53,7 @@ private:
  * thread.
  *
  * When a connection is accepted, create a new ExtCommandsHandler thread to
- * servce it.
+ * serve it.
  */
 class ExtConnectionListenerThread : public QThread {
     Q_OBJECT
@@ -84,16 +88,29 @@ signals:
 private:
     HANDLE pipe_;
 
-    QList<LocalRepo> listLocalRepos();
+    QList<LocalRepo> listLocalRepos(quint64 ts = 0);
     bool readRequest(QStringList *args);
     bool sendResponse(const QString& resp);
 
     void handleGenShareLink(const QStringList& args);
     QString handleListRepos(const QStringList& args);
+};
+
+class ReposInfoCache : public QObject {
+    SINGLETON_DEFINE(ReposInfoCache)
+    Q_OBJECT
+public:
+    ReposInfoCache(QObject *parent=0);
+    void start();
+
+    QList<LocalRepo> getReposInfo(quint64 timestamp = 0);
+
+private:
+    quint64 cache_ts_;
+    QList<LocalRepo> cached_info_;
 
     SeafileRpcClient *rpc_;
-
-    static QMutex rpc_mutex_;
+    QMutex rpc_mutex_;
 };
 
 #endif // SEAFILE_CLIENT_EXT_HANLDER_H

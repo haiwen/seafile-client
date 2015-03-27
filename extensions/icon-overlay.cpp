@@ -57,7 +57,7 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
         return S_FALSE;
     }
 
-    seaf_ext_log ("IsMemberOf called for %s!", path.c_str());
+    // seaf_ext_log ("IsMemberOf called for %s!", path.c_str());
 
     /* If length of path is shorter than 3, it should be a drive path,
      * such as C:\ , which should not be a repo folder ; And the
@@ -75,7 +75,7 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
 
     seafile::RepoInfo info = getRepoInfoByPath(utils::localeToUtf8(path));
     if (info.isValid() && info.status == status_) {
-        seaf_ext_log ("[ICON] %d Set for %s", (int)status_, path.c_str());
+        // seaf_ext_log ("[ICON] %d Set for %s", (int)status_, path.c_str());
         return S_OK;
     }
     return S_FALSE;

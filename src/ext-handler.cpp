@@ -119,10 +119,10 @@ QString repoStatus(const LocalRepo& repo)
         status = "error";
     }
 
-    qDebug("repo %s (%s, %s): %s", repo.name.toUtf8().data(),
-           repo.sync_state_str.toUtf8().data(),
-           repo.sync_error_str.toUtf8().data(),
-           status.toUtf8().data());
+    // qDebug("repo %s (%s, %s): %s", repo.name.toUtf8().data(),
+    //        repo.sync_state_str.toUtf8().data(),
+    //        repo.sync_error_str.toUtf8().data(),
+    //        status.toUtf8().data());
 
     return status;
 }
@@ -208,7 +208,7 @@ void SeafileExtensionHandler::refreshRepoShellIcon()
         // TODO: only notify shell when repo sync status REALLY changes
         QString normalized_path = QDir::toNativeSeparators(repo.worktree);
         SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH, normalized_path.toUtf8().data(), NULL);
-        qDebug("updated shell attributes for %s", normalized_path.toUtf8().data());
+        // qDebug("updated shell attributes for %s", normalized_path.toUtf8().data());
     }
 }
 
@@ -363,7 +363,7 @@ void ExtCommandsHandler::handleGenShareLink(const QStringList& args)
     QString path = normalizedPath(args[0]);
     foreach (const LocalRepo& repo, listLocalRepos()) {
         QString wt = normalizedPath(repo.worktree);
-        qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
+        // qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
         if (path.length() > wt.length() && path.startsWith(wt) and path.at(wt.length()) == '/') {
             QString path_in_repo = path.mid(wt.size());
             bool is_file = QFileInfo(path).isFile();

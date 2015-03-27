@@ -11,14 +11,19 @@
 #include "utils/paint-utils.h"
 #include "utils/utils.h"
 
+#include <sqlite3.h>
 #include "avatar-service.h"
 
-namespace {
+static const int kCheckPendingInterval = 1000; // 1s
+static const char *kAvatarsDirName = "avatars";
+static bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
+{
+    qint64* mtime = reinterpret_cast<qint64*>(data);
 
-const int kCheckPendingInterval = 1000; // 1s
-const char *kAvatarsDirName = "avatars";
+    *mtime = sqlite3_column_int64(stmt, 0);
 
-} // namespace
+    return true;
+}
 
 const int AvatarService::kAvatarSize = 42;
 
@@ -121,10 +126,8 @@ AvatarService* AvatarService::instance()
 
 
 AvatarService::AvatarService(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), get_avatar_req_(NULL)
 {
-    get_avatar_req_ = 0;
-
     queue_ = new PendingAvatarRequestQueue;
 
     timer_ = new QTimer(this);
@@ -146,6 +149,43 @@ void AvatarService::start()
     }
 
     avatars_dir_ = seafile_dir.filePath(kAvatarsDirName);
+
+    do {
+        const char *errmsg;
+        QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
+        if (sqlite3_open (db_path.toUtf8().data(), &autoupdate_db_)) {
+            errmsg = sqlite3_errmsg (autoupdate_db_);
+            qWarning("failed to avatar autoupdate database %s: %s",
+                    db_path.toUtf8().data(), errmsg ? errmsg : "no error given");
+
+            sqlite3_close(autoupdate_db_);
+            autoupdate_db_ = NULL;
+            break;
+        }
+
+        // enabling foreign keys, it must be done manually from each connection
+        // and this feature is only supported from sqlite 3.6.19
+        const char *sql = "PRAGMA foreign_keys=ON;";
+        if (sqlite_query_exec (autoupdate_db_, sql) < 0) {
+            qWarning("sqlite version is too low to support foreign key feature\n");
+            qWarning("feature avatar autoupdate is disabled\n");
+            sqlite3_close(autoupdate_db_);
+            autoupdate_db_ = NULL;
+            break;
+        }
+
+        // create SyncedSubfolder table
+        sql = "CREATE TABLE IF NOT EXISTS Avatar ("
+            "filename TEXT PRIMARY KEY, timestamp BIGINT, "
+            "url VARCHAR(24), username VARCHAR(15), "
+            "FOREIGN KEY(url, username) REFERENCES Accounts(url, username) "
+            "ON DELETE CASCADE ON UPDATE CASCADE )";
+        if (sqlite_query_exec (autoupdate_db_, sql) < 0) {
+            qWarning("failed to create avatar table\n");
+            sqlite3_close(autoupdate_db_);
+            autoupdate_db_ = NULL;
+        }
+    } while (0);
 
     timer_->start(kCheckPendingInterval);
 }
@@ -181,12 +221,20 @@ void AvatarService::fetchImageFromServer(const QString& email)
         return;
     }
 
-    const Account& account = seafApplet->accountManager()->currentAccount();
-    if (!account.isValid()) {
+    if (!seafApplet->accountManager()->hasAccount())
         return;
+    const Account& account = seafApplet->accountManager()->accounts().front();
+    qint64 mtime = 0;
+
+    if (autoupdate_db_) {
+        char *zql = sqlite3_mprintf("SELECT timestamp FROM Avatar "
+                                    "WHERE filename = %Q",
+                                    avatarPathForEmail(account, email).toUtf8().data());
+        sqlite_foreach_selected_row(autoupdate_db_, zql, loadTimeStampCB, &mtime);
+        sqlite3_free(zql);
     }
 
-    get_avatar_req_ = new GetAvatarRequest(account, email, devicePixelRatio() * kAvatarSize);
+    get_avatar_req_ = new GetAvatarRequest(account, email, mtime, devicePixelRatio() * kAvatarSize);
 
     connect(get_avatar_req_, SIGNAL(success(const QImage&)),
             this, SLOT(onGetAvatarSuccess(const QImage&)));
@@ -198,20 +246,45 @@ void AvatarService::fetchImageFromServer(const QString& email)
 
 void AvatarService::onGetAvatarSuccess(const QImage& img)
 {
+    // if no change? early return
+    if (img.isNull()) {
+        get_avatar_req_->deleteLater();
+        get_avatar_req_ = NULL;
+
+        queue_->clearWait(get_avatar_req_->email());
+        return;
+    }
+
     image_ = img;
 
-    QString email = get_avatar_req_->email();
+    const QString email = get_avatar_req_->email();
 
     cache_[email] = img;
 
     // save image to avatars/ folder
     QString path = avatarPathForEmail(get_avatar_req_->account(), email);
-    img.save(path, "PNG");
+    if (!img.save(path, "PNG")) {
+        qWarning("Unable to save new avatar file %s", path.toUtf8().data());
+    }
+
+    // update cache db
+    if (autoupdate_db_) {
+        QString mtime = QString::number(get_avatar_req_->mtime());
+        char *zql = sqlite3_mprintf(
+            "REPLACE INTO Avatar(filename, timestamp, url, username) "
+            "VALUES (%Q, %Q, %Q, %Q)",
+            path.toUtf8().data(),
+            mtime.toUtf8().data(),
+            get_avatar_req_->account().serverUrl.toEncoded().data(),
+            get_avatar_req_->account().username.toUtf8().data());
+        sqlite_query_exec(autoupdate_db_, zql);
+        sqlite3_free(zql);
+    }
 
     emit avatarUpdated(email, img);
 
     get_avatar_req_->deleteLater();
-    get_avatar_req_ = 0;
+    get_avatar_req_ = NULL;
 
     queue_->clearWait(email);
 }
@@ -220,7 +293,7 @@ void AvatarService::onGetAvatarFailed(const ApiError& error)
 {
     const QString email = get_avatar_req_->email();
     get_avatar_req_->deleteLater();
-    get_avatar_req_ = 0;
+    get_avatar_req_ = NULL;
 
     queue_->enqueueAndBackoff(email);
 }
@@ -229,12 +302,14 @@ QImage AvatarService::getAvatar(const QString& email)
 {
     QImage img = loadAvatarFromLocal(email);
 
-    if (img.isNull()) {
+    // update all avatars if feature autoupdate enabled or img is null
+    if (autoupdate_db_ || img.isNull()) {
         if (!get_avatar_req_ || get_avatar_req_->email() != email) {
             queue_->enqueue(email);
         }
-        return devicePixelRatio() > 1 ?
-          QImage(":/images/account@2x.png") : QImage(":/images/account.png");
+    }
+    if (img.isNull()) {
+        return QImage(devicePixelRatio() > 1 ? ":/images/account@2x.png" :":/images/account.png");
     } else {
         return img;
     }
@@ -242,7 +317,7 @@ QImage AvatarService::getAvatar(const QString& email)
 
 QString AvatarService::getAvatarFilePath(const QString& email)
 {
-    const Account& account = seafApplet->accountManager()->currentAccount();
+    const Account& account = seafApplet->accountManager()->accounts().front();
     return avatarPathForEmail(account, email);
 }
 
@@ -250,15 +325,11 @@ bool AvatarService::avatarFileExists(const QString& email)
 {
     QString path = getAvatarFilePath(email);
     bool ret = QFileInfo(path).exists();
-    if (ret) {
-        QImage target(path);
-        // remove old avatar which is too small
-        if (target.size().width() < kAvatarSize ||
-            target.size().height() < kAvatarSize ) {
-            if (!QFile::remove(path))
-                qWarning("Unable to remove old avatar file %s", path.toUtf8().data());
-            ret = false;
-        }
+
+    if (!ret) {
+        char *zql = sqlite3_mprintf("DELETE FROM Avatar WHERE filename = %Q", path.toUtf8().data());
+        sqlite_query_exec (autoupdate_db_, zql);
+        sqlite3_free(zql);
     }
     return ret;
 }
@@ -267,7 +338,7 @@ void AvatarService::checkPendingRequests()
 {
     queue_->tick();
 
-    if (get_avatar_req_ != 0) {
+    if (get_avatar_req_ != NULL) {
         return;
     }
 
@@ -282,7 +353,7 @@ void AvatarService::onAccountChanged()
     queue_->reset();
     if (get_avatar_req_) {
         delete get_avatar_req_;
-        get_avatar_req_ = 0;
+        get_avatar_req_ = NULL;
     }
     cache_.clear();
 }

@@ -39,6 +39,16 @@ public:
     {
     }
 
+    Account& operator=(const Account&rhs) {
+        serverInfoRequest = NULL;
+        serverInfo = rhs.serverInfo;
+        serverUrl = rhs.serverUrl;
+        username = rhs.username;
+        token = rhs.token;
+        lastVisited = rhs.lastVisited;
+        return *this;
+    }
+
     bool operator==(const Account& rhs) const {
         return serverUrl == rhs.serverUrl
             && username == rhs.username;

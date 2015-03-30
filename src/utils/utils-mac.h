@@ -13,6 +13,7 @@ void setDockIconStyle(bool hidden);
 void orderFrontRegardless(unsigned long long win_id, bool force = false);
 bool get_auto_start();
 void set_auto_start(bool enabled);
+void copyTextToPasteboard(const QString &text);
 
 bool is_darkmode();
 void set_darkmode_watcher(DarkModeChangedCallback *cb);

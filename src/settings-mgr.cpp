@@ -2,12 +2,14 @@
 #include <QHostInfo>
 #include <QNetworkProxy>
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
 #include "network-mgr.h"
+#include "ui/main-window.h"
 
 #if defined(Q_OS_WIN32)
 #include "utils/registry.h"
@@ -236,6 +238,12 @@ void SettingsManager::setHideDockIcon(bool hide)
     settings.endGroup();
 
     set_seafile_dock_icon_style(hide);
+#ifdef Q_OS_MAC
+    // for UIElement application, the main window might sink
+    // under many applications
+    // this will force it to stand before all
+    utils::mac::orderFrontRegardless(seafApplet->mainWindow()->winId());
+#endif
 }
 
 // void SettingsManager::setDefaultLibraryAlreadySetup()

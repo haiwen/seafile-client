@@ -23,6 +23,7 @@
 #include "tray-icon.h"
 #include "login-dialog.h"
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 
 #include "main-window.h"
 
@@ -194,6 +195,10 @@ void MainWindow::showWindow()
     show();
     raise();
     activateWindow();
+    // a hack with UIElement application
+#ifdef Q_OS_MAC
+    utils::mac::orderFrontRegardless(seafApplet->mainWindow()->winId());
+#endif
 }
 
 void MainWindow::refreshQss()

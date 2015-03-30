@@ -56,19 +56,39 @@ static DarkModeChangedCallback *darkModeWatcher = NULL;
 }
 @end
 
-
 namespace utils {
 namespace mac {
 
-//TransformProcessType is not encouraged to use, aha
-//Sorry but not functional for OSX 10.7
+// another solution: hide dock icon when mainwindows is closed and show when
+// mainwindows is shown
+// http://stackoverflow.com/questions/16994331/multiprocessing-qt-app-how-can-i-limit-it-to-a-single-icon-in-the-macos-x-dock
 void setDockIconStyle(bool hidden) {
-    //https://developer.apple.com/library/mac/documentation/AppKit/Reference/NSRunningApplication_Class/Reference/Reference.html
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    OSStatus err;
     if (hidden) {
-        [[NSApplication sharedApplication] setActivationPolicy: NSApplicationActivationPolicyAccessory];
+        // kProcessTransformToBackgroundApplication is not support on OSX 10.7 and before
+        // kProcessTransformToUIElementApplication is used for better fit when possible
+        unsigned major;
+        unsigned minor;
+        unsigned patch;
+        get_current_osx_version(&major, &minor, &patch);
+        if (major == 10 && minor == 7)
+            err = TransformProcessType(&psn, kProcessTransformToBackgroundApplication);
+        else
+            err = TransformProcessType(&psn, kProcessTransformToUIElementApplication);
     } else {
-        [[NSApplication sharedApplication] setActivationPolicy: NSApplicationActivationPolicyRegular];
+        // kProcessTransformToForegroundApplication is supported on OSX 10.6 or later
+        err = TransformProcessType(&psn, kProcessTransformToForegroundApplication);
     }
+    if (err != noErr)
+        qWarning("setDockIconStyle %s failure, status code: %d\n", (hidden ? "hidden" : "show"), err);
+}
+
+void orderFrontRegardless(unsigned long long win_id, bool force) {
+    NSView __weak *widget =  (__bridge NSView*)(void*)win_id;
+    NSWindow *window = [widget window];
+    if(force || [window isVisible])
+        [window performSelector:@selector(orderFrontRegardless) withObject:nil afterDelay:0.05];
 }
 
 // https://bugreports.qt-project.org/browse/QTBUG-40449 is fixed in QT 5.4.1

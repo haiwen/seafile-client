@@ -1,4 +1,5 @@
 #ifndef SEAFILE_CLIENT_UTILS_MAC_H_
+#define SEAFILE_CLIENT_UTILS_MAC_H_
 #include <QtGlobal>
 #ifdef Q_OS_MAC
 #include <QString>
@@ -8,7 +9,8 @@ typedef void DarkModeChangedCallback(bool value);
 namespace utils {
 namespace mac {
 
-void setDockIconStyle(bool);
+void setDockIconStyle(bool hidden);
+void orderFrontRegardless(unsigned long long win_id, bool force = false);
 bool get_auto_start();
 void set_auto_start(bool enabled);
 

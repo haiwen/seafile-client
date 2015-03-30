@@ -225,5 +225,13 @@ void get_current_osx_version(unsigned *major, unsigned *minor, unsigned *patch) 
 #endif
 }
 
+void copyTextToPasteboard(const QString &text) {
+    NSString *text_data = [NSString stringWithUTF8String:text.toUtf8().data()];
+    NSPasteboard *paste_board = [NSPasteboard generalPasteboard];
+    [paste_board clearContents];
+    [paste_board declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:nil];
+    [paste_board writeObjects:@[text_data]];
+}
+
 } // namespace mac
 } // namespace utils

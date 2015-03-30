@@ -196,11 +196,14 @@ void RepoService::refresh()
 
     synced_subfolders_.clear();
     if (synced_subfolder_db_) {
-        QString sql = "SELECT repo_id, parent_repo_id, parent_path FROM SyncedSubfolder "
-                      "WHERE url = '%1' AND username = '%2'";
-        sql = sql.arg(account->serverUrl.toEncoded().data()).arg(account->username);
-        sqlite_foreach_selected_row (synced_subfolder_db_, sql.toUtf8().data(),
+
+        char *zql = sqlite3_mprintf("SELECT repo_id, parent_repo_id, parent_path FROM SyncedSubfolder "
+                                    "WHERE url = %Q AND username = %Q",
+                                    account->serverUrl.toEncoded().data(),
+                                    account->username.toUtf8().data());;
+        sqlite_foreach_selected_row (synced_subfolder_db_, zql,
                                      loadSyncedFolderCB, &synced_subfolders_);
+        sqlite3_free(zql);
 
         // if repo_id is no longer in the local repos list
         for (size_t i = 0; i < synced_subfolders_.size(); ++i) {
@@ -405,9 +408,9 @@ void RepoService::saveSyncedSubfolder(const ServerRepo& subfolder)
 
 void RepoService::removeSyncedSubfolder(const QString& repo_id)
 {
-    QString sql = "DELETE FROM SyncedSubfolder WHERE repo_id = '%1'";
-    sql = sql.arg(repo_id);
-    sqlite_query_exec (synced_subfolder_db_, sql.toUtf8().data());
+    char *zql = sqlite3_mprintf("DELETE FROM SyncedSubfolder WHERE repo_id = %Q", repo_id.toUtf8().data());
+    sqlite_query_exec(synced_subfolder_db_, zql);
+    sqlite3_free(zql);
 
     SyncedSubfolderhasRepoID subfolder_helper(repo_id);
     synced_subfolders_.erase(std::remove_if(synced_subfolders_.begin(), synced_subfolders_.end(), subfolder_helper), synced_subfolders_.end());

@@ -44,42 +44,42 @@ static void initializeBadgeImages() {
     // DISABLED
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-unknown.icns"]
-                     label:@"Status Disabled"
+                     label:NSLocalizedString(@"Sync Disabled", @"Status Disabled")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_DISABLED]];
     // WAITING,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
-                     label:@"Status Waiting"
+                     label:NSLocalizedString(@"Finished", @"Status Finished")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_WAITING]];
     // INIT,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
-                     label:@"Status Init"
+                     label:NSLocalizedString(@"Finished", @"Status Finished")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_INIT]];
     // ING,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-syncing.icns"]
-                     label:@"Status Ing"
+                     label:NSLocalizedString(@"Syncing", @"Status Syncing")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_ING]];
     // DONE,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
-                     label:@"Status Done"
+                     label:NSLocalizedString(@"Finished", @"Status Finished")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_DONE]];
     // ERROR,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-error.icns"]
-                     label:@"Status Error"
+                     label:NSLocalizedString(@"Error", @"Status Erorr")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_ERROR]];
     // UNKNOWN,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-unknown.icns"]
-                     label:@"Status Unknown"
+                     label:NSLocalizedString(@"Unknown Error", @"Status Unknown")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_UNKNOWN]];
     // UNSET,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@""]
-                     label:@"Status Unknown"
+                     label:@""
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_UNSET]];
 }
 
@@ -238,7 +238,7 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
     // Produce a menu for the extension.
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     NSMenuItem *shareLinkItem =
-        [menu addItemWithTitle:@"Get Seafile Share Link"
+        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Share Link", @"Get Seafile Share Link")
                         action:@selector(shareLinkAction:)
                  keyEquivalent:@""];
     NSImage *seafileImage = [NSImage imageNamed:@"seafile.icns"];

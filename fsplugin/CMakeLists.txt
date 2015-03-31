@@ -53,9 +53,18 @@ ADD_DEFINITIONS(-fapplication-extension -fmodules)
 SET(CMAKE_EXE_LINKER_FLAGS "-fapplication-extension -e _NSExtensionMain -fobjc-arc -fobjc-link-runtime ${CMAKE_EXE_LINKER_FLAGS}")
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
-ADD_EXECUTABLE(seafile-finder-sync MACOSX_BUNDLE
+SET(FSPLUGIN_SRC
   FinderSync.mm
   FinderSyncClient.mm
+  )
+
+## update en.lproj
+ADD_CUSTOM_TARGET(update-lproj
+  COMMAND genstrings -o en.lproj ${FSPLUGIN_SRC}
+  DEPENDS ${FSPLUGIN_SRC})
+
+ADD_EXECUTABLE(seafile-finder-sync MACOSX_BUNDLE
+  ${FSPLUGIN_SRC}
 )
 
 SET_TARGET_PROPERTIES(seafile-finder-sync PROPERTIES
@@ -65,6 +74,10 @@ SET_TARGET_PROPERTIES(seafile-finder-sync PROPERTIES
   XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC "YES"
   XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11"
   XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++"
+  XCODE_ATTRIBUTE_DEVELOPMENT_LANGUAGE "English"
+  XCODE_ATTRIBUTE_LOCALIZED_RESOURCES_FOLDER_PATH "Seafile FinderSync.appex/English.lproj"
+  XCODE_ATTRIBUTE_INFOSTRINGS_PATH "Seafile FinderSync.appex/English.lproj/InfoPlist.strings"
+  XCODE_ATTRIBUTE_UNLOCALIZED_RESOURCES_FOLDER_PATH "Seafile FinderSync.appex"
   )
 
 TARGET_LINK_LIBRARIES(seafile-finder-sync
@@ -73,19 +86,54 @@ TARGET_LINK_LIBRARIES(seafile-finder-sync
   ${AppKit_LIBRARY}
 )
 
-FIND_PROGRAM(CODESIGN codesign)
+### rename to Seafile Client.appex and copy related resource files
 
 SET(BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/Seafile FinderSync.app")
 SET(TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/Seafile FinderSync.appex")
-ADD_CUSTOM_COMMAND(TARGET seafile-finder-sync
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E remove -f ${TARGET_DIR} &&
-  ${CMAKE_COMMAND} -E copy_directory ${BUILD_DIR} ${TARGET_DIR} &&
-  ${CMAKE_COMMAND} -E make_directory ${TARGET_DIR}/Contents/Resources &&
-  ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/../seafile.icns ${TARGET_DIR}/Contents/Resources/ &&
-  ${CMAKE_COMMAND} -E copy status-done.icns ${TARGET_DIR}/Contents/Resources/ &&
-  ${CMAKE_COMMAND} -E copy status-error.icns ${TARGET_DIR}/Contents/Resources/ &&
-  ${CMAKE_COMMAND} -E copy status-syncing.icns ${TARGET_DIR}/Contents/Resources/ &&
-  ${CMAKE_COMMAND} -E copy status-unknown.icns ${TARGET_DIR}/Contents/Resources/ &&
-  ${CODESIGN} --force --sign ${CODESIGN_CERTIFICATE} --entitlements ${CMAKE_CURRENT_SOURCE_DIR}/seafile-fsplugin.entitlements ${TARGET_DIR}
+
+ADD_CUSTOM_TARGET(clean_old_target
+  COMMAND ${CMAKE_COMMAND} -E remove -f ${TARGET_DIR}
+  )
+ADD_CUSTOM_TARGET(copy_fsplugin
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${BUILD_DIR} ${TARGET_DIR}
+  DEPENDS seafile-finder-sync clean_old_target
+  )
+
+ADD_CUSTOM_TARGET(create_resource_dir
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${TARGET_DIR}/Contents/Resources
+  DEPENDS copy_fsplugin
+  )
+ADD_CUSTOM_TARGET(copy_resources_icns
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/../seafile.icns ${TARGET_DIR}/Contents/Resources/
+  COMMAND ${CMAKE_COMMAND} -E copy status-done.icns ${TARGET_DIR}/Contents/Resources/
+  COMMAND ${CMAKE_COMMAND} -E copy status-error.icns ${TARGET_DIR}/Contents/Resources/
+  COMMAND ${CMAKE_COMMAND} -E copy status-syncing.icns ${TARGET_DIR}/Contents/Resources/
+  COMMAND ${CMAKE_COMMAND} -E copy status-unknown.icns ${TARGET_DIR}/Contents/Resources/
+  DEPENDS create_resource_dir
+  )
+ADD_CUSTOM_TARGET(copy_resources_lproj
+  DEPENDS create_resource_dir)
+
+SET(FSPLUGIN_LANGS)
+file(GLOB FSPLUGIN_LPROJS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.lproj")
+
+FOREACH(LPROJ ${FSPLUGIN_LPROJS})
+  STRING(REGEX REPLACE "^.*/([a-z]+)\\.lproj/.*$" "\\1" _LANG ${LPROJ})
+  LIST(FIND FSPLUGIN_LANGS "${_LANG}" _INDEX)
+  IF(_INDEX EQUAL -1)
+    LIST(APPEND FSPLUGIN_LANGS ${_LANG})
+    ADD_CUSTOM_TARGET(copy_resources_lproj_${_LANG}
+    COMMAND cp -r ${_LANG} ${TARGET_DIR}/Contents/Resources/
+      )
+    ADD_DEPENDENCIES(copy_resources_lproj copy_resources_lproj_${_LANG})
+  ENDIF(_INDEX EQUAL -1)
+ENDFOREACH()
+
+### codesign
+
+FIND_PROGRAM(CODESIGN codesign)
+
+ADD_CUSTOM_TARGET(codesign ALL
+  COMMAND ${CODESIGN} --force --sign ${CODESIGN_CERTIFICATE} --entitlements ${CMAKE_CURRENT_SOURCE_DIR}/seafile-fsplugin.entitlements ${TARGET_DIR}
+  DEPENDS copy_resources_icns copy_resources_lproj
   )

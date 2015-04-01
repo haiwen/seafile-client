@@ -38,10 +38,16 @@ function git_diff() {
 
 function push_source() {
     tx push -s
+    pushd fsplugin
+    tx push -s
+    popd
 }
 
 function pull_translations() {
     tx pull -a -f
+    pushd fsplugin
+    tx pull -a -f
+    popd
 }
 
 echo "This script will help you to regenerate sources of translations, "

@@ -69,6 +69,10 @@ void SettingsDialog::updateSettings()
     mgr->setHttpSyncEnabled(mEnableHttpSyncCheckBox->checkState() == Qt::Checked);
     mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+    if(mFinderSyncCheckBox->isEnabled())
+        mgr->setFinderSyncExtension(mFinderSyncCheckBox->checkState() == Qt::Checked);
+#endif
 
     bool proxy_changed = updateProxySettings();
 
@@ -129,6 +133,17 @@ void SettingsDialog::showEvent(QShowEvent *event)
     mAutoStartCheckBox->setCheckState(state);
 #if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
     mAutoStartCheckBox->hide();
+#endif
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+    if (mgr->getFinderSyncExtensionAvailable()) {
+        mFinderSyncCheckBox->setEnabled(true);
+        state = mgr->getFinderSyncExtension() ? Qt::Checked : Qt::Unchecked;
+        mFinderSyncCheckBox->setCheckState(state);
+    } else {
+        mFinderSyncCheckBox->setEnabled(false);
+    }
+#else
+    mFinderSyncCheckBox->hide();
 #endif
 
     // currently supports mac only

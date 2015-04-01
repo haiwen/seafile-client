@@ -12,8 +12,10 @@
 #include "utils/utils.h"
 #include "api/api-error.h"
 #include "api/requests.h"
+#include "rpc/rpc-client.h"
 
 namespace {
+const char *kRepoRelayAddrProperty = "relay-address";
 
 bool compareAccount(const Account& a, const Account& b)
 {
@@ -69,6 +71,8 @@ int AccountManager::start()
     sqlite_query_exec (db, sql);
 
     loadAccounts();
+
+    connect(this, SIGNAL(accountsChanged()), this, SLOT(onAccountsChanged()));
     return 0;
 }
 
@@ -302,4 +306,29 @@ bool AccountManager::clearAccountToken(const Account& account)
     emit accountsChanged();
 
     return true;
+}
+
+Account AccountManager::getAccountByRepo(const QString& repo_id)
+{
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    if (!accounts_cache_.contains(repo_id)) {
+        QString relay_addr;
+        if (rpc->getRepoProperty(repo_id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+            return Account();
+        }
+        const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+        for (unsigned i = 0; i < accounts.size(); i++) {
+            const Account& account = accounts[i];
+            if (account.serverUrl.host() == relay_addr) {
+                accounts_cache_[repo_id] = account;
+                break;
+            }
+        }
+    }
+    return accounts_cache_.value(repo_id, Account());
+}
+
+void AccountManager::onAccountsChanged()
+{
+    accounts_cache_.clear();
 }

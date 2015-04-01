@@ -155,32 +155,13 @@ void SeafileExtensionHandler::start()
     ReposInfoCache::instance()->start();
 }
 
-Account SeafileExtensionHandler::findAccountByRepo(const QString& repo_id)
-{
-    SeafileRpcClient *rpc = seafApplet->rpcClient();
-    if (!accounts_cache_.contains(repo_id)) {
-        QString relay_addr;
-        if (rpc->getRepoProperty(repo_id, kRepoRelayAddrProperty, &relay_addr) < 0) {
-            return Account();
-        }
-        const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-        for (size_t i = 0; i < accounts.size(); i++) {
-            const Account& account = accounts[i];
-            if (account.serverUrl.host() == relay_addr) {
-                accounts_cache_[repo_id] = account;
-                break;
-            }
-        }
-    }
-    return accounts_cache_.value(repo_id, Account());
-}
-
 void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
                                                 const QString& path_in_repo,
                                                 bool is_file)
 {
     // qDebug("path_in_repo: %s", path_in_repo.toUtf8().data());
     const Account account = findAccountByRepo(repo_id);
+    const Account account = seafApplet->accountManager()->getAccountByRepo(repo_id);
     if (!account.isValid()) {
         return;
     }

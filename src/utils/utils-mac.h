@@ -21,6 +21,8 @@ void get_current_osx_version(unsigned *major, unsigned *minor, unsigned *patch);
 
 QString fix_file_id_url(const QString &path);
 
+QString mainBundlePath();
+
 } // namespace mac
 } // namespace utils
 

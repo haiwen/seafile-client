@@ -15,6 +15,10 @@
 #include "utils/registry.h"
 #endif
 
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+#include "finder-sync/finder-sync.h"
+#endif
+
 namespace {
 
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
@@ -27,6 +31,9 @@ const char *kBehaviorGroup = "Behavior";
 
 const char *kSettingsGroup = "Settings";
 const char *kComputerName = "computerName";
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+const char *kFinderSync = "finderSync";
+#endif // HAVE_FINDER_SYNC_SUPPORT
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
@@ -46,7 +53,8 @@ SettingsManager::SettingsManager()
       maxUploadRatio_(0),
       http_sync_enabled_(false),
       verify_http_sync_cert_disabled_(false),
-      use_proxy_type_(NoneProxy)
+      use_proxy_type_(NoneProxy),
+      proxy_port_(0)
 {
 }
 
@@ -82,6 +90,7 @@ void SettingsManager::loadSettings()
     if (seafApplet->rpcClient()->seafileGetConfig("disable_verify_certificate", &str) >= 0)
         verify_http_sync_cert_disabled_ = (str == "true") ? true : false;
 
+    // reading proxy settings
     do {
         if (seafApplet->rpcClient()->seafileGetConfig("use_proxy", &str) < 0 ) {
             setProxy(NoneProxy);
@@ -128,6 +137,16 @@ void SettingsManager::loadSettings()
 
 
     autoStart_ = get_seafile_auto_start();
+
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+    // try to do a reinstall, or we may use findersync somewhere else
+    // this action won't stop findersync if running already
+    FinderSyncExtensionHelper::reinstall();
+
+    // try to sync finder sync extension settings with the actual settings
+    // i.e. enabling the finder sync if the setting is true
+    setFinderSyncExtension(getFinderSyncExtension());
+#endif // HAVE_FINDER_SYNC_SUPPORT
 }
 
 void SettingsManager::setAutoSync(bool auto_sync)
@@ -479,3 +498,37 @@ void SettingsManager::setLastShibUrl(const QString& url)
     settings.endGroup();
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+bool SettingsManager::getFinderSyncExtension() const
+{
+    QSettings settings;
+    bool enabled;
+
+    settings.beginGroup(kSettingsGroup);
+    enabled = settings.value(kFinderSync, true).toBool();
+    settings.endGroup();
+
+    return enabled;
+}
+bool SettingsManager::getFinderSyncExtensionAvailable() const
+{
+    return FinderSyncExtensionHelper::isInstalled();
+}
+void SettingsManager::setFinderSyncExtension(bool enabled)
+{
+    QSettings settings;
+
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kFinderSync, enabled);
+    settings.endGroup();
+
+    // if setting operation fails
+    if (!getFinderSyncExtensionAvailable()) {
+        qWarning("Unable to find FinderSync Extension");
+    } else if (enabled != FinderSyncExtensionHelper::isEnabled() &&
+        !FinderSyncExtensionHelper::setEnable(enabled)) {
+        qWarning("Unable to enable FinderSync Extension");
+    }
+}
+#endif // HAVE_FINDER_SYNC_SUPPORT

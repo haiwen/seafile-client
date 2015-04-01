@@ -41,6 +41,8 @@
 
 #if defined(Q_OS_WIN32)
 #include "ext-handler.h"
+#elif defined(HAVE_FINDER_SYNC_SUPPORT)
+#include "finder-sync/finder-sync-listener.h"
 #endif
 
 #include "seafile-applet.h"
@@ -240,6 +242,9 @@ SeafileApplet::SeafileApplet()
 
 SeafileApplet::~SeafileApplet()
 {
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+    finderSyncListenerStop();
+#endif
     delete tray_icon_;
     delete certs_mgr_;
     delete settings_dialog_;
@@ -329,6 +334,8 @@ void SeafileApplet::onDaemonStarted()
 
 #if defined(Q_OS_WIN32)
     SeafileExtensionHandler::instance()->start();
+#elif defined(HAVE_FINDER_SYNC_SUPPORT)
+    finderSyncListenerStart();
 #endif
 }
 

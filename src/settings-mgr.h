@@ -76,6 +76,12 @@ public:
     void setLastShibUrl(const QString& url);
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+    bool getFinderSyncExtension() const;
+    bool getFinderSyncExtensionAvailable() const;
+    void setFinderSyncExtension(bool enabled);
+#endif // HAVE_FINDER_SYNC_SUPPORT
+
 public:
 
     // Remove all settings from system when uninstall
@@ -95,6 +101,8 @@ private:
     unsigned int maxUploadRatio_;
     bool http_sync_enabled_;
     bool verify_http_sync_cert_disabled_;
+
+    // proxy settings
     ProxyType use_proxy_type_;
     QString proxy_host_;
     int proxy_port_;

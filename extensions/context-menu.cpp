@@ -103,6 +103,9 @@ STDMETHODIMP ShellExt::QueryContextMenu_Wrap(HMENU menu,
                                               UINT last_command,
                                               UINT flags)
 {
+    if (!seafile::utils::isShellExtEnabled()) {
+        return S_OK;
+    }
     /* do nothing when user is double clicking */
     if (flags & CMF_DEFAULTONLY)
         return S_OK;

@@ -20,13 +20,13 @@
 #include "rpc/rpc-client.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
+#include "settings-mgr.h"
 #include "ext-handler.h"
 
 namespace {
 
 const char *kSeafExtPipeName = "\\\\.\\pipe\\seafile_ext_pipe";
 const int kPipeBufSize = 1024;
-const char *kRepoRelayAddrProperty = "relay-address";
 const int kRefreshShellInterval = 3000;
 
 const quint64 kShellIconForceRefreshMSecs = 5000;
@@ -160,7 +160,6 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
                                                 bool is_file)
 {
     // qDebug("path_in_repo: %s", path_in_repo.toUtf8().data());
-    const Account account = findAccountByRepo(repo_id);
     const Account account = seafApplet->accountManager()->getAccountByRepo(repo_id);
     if (!account.isValid()) {
         return;
@@ -187,6 +186,9 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 // Trigger the shell to update repo worktree folder icons periodically
 void SeafileExtensionHandler::refreshRepoShellIcon()
 {
+    if (!seafApplet->settingsManager()->shellExtensionEnabled()) {
+        return;
+    }
     QList<LocalRepo> repos = ReposInfoCache::instance()->getReposInfo();
     quint64 now = QDateTime::currentMSecsSinceEpoch();
     foreach (const LocalRepo& repo, repos) {

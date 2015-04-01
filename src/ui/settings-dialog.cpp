@@ -73,6 +73,9 @@ void SettingsDialog::updateSettings()
     if(mFinderSyncCheckBox->isEnabled())
         mgr->setFinderSyncExtension(mFinderSyncCheckBox->checkState() == Qt::Checked);
 #endif
+#ifdef Q_OS_WIN32
+    mgr->setShellExtensionEnabled(mShellExtCheckBox->checkState() == Qt::Checked);
+#endif
 
     bool proxy_changed = updateProxySettings();
 
@@ -144,6 +147,11 @@ void SettingsDialog::showEvent(QShowEvent *event)
     }
 #else
     mFinderSyncCheckBox->hide();
+#endif
+
+#if defined(Q_OS_WIN32)
+    state = mgr->shellExtensionEnabled() ? Qt::Checked : Qt::Unchecked;
+    mShellExtCheckBox->setCheckState(state);
 #endif
 
     // currently supports mac only

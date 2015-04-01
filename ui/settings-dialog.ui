@@ -67,6 +67,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mShellExtCheckBox">
+         <property name="text">
+          <string>Enable Explorer Extension</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="mCheckLatestVersionBox">
          <property name="text">
           <string>Check for new version on startup</string>

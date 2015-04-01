@@ -495,6 +495,31 @@ std::string wStringToStdString(const wchar_t *src)
     return dst;
 }
 
+bool isShellExtEnabled()
+{
+    HKEY root = HKEY_CURRENT_USER;
+    HKEY parent_key;
+    LONG result = RegOpenKeyExW(root,
+                                stdStringtoWString("Software\\Seafile"),
+                                0L,
+                                KEY_ALL_ACCESS,
+                                &parent_key);
+    if (result != ERROR_SUCCESS) {
+        return true;
+    }
+
+    char buf[MAX_PATH] = {0};
+    DWORD len = sizeof(buf);
+    result = RegQueryValueExW (parent_key,
+                               stdStringtoWString("ShellExtDisabled"),
+                               NULL,             /* reserved */
+                               NULL,             /* output type */
+                               (LPBYTE)buf,      /* output data */
+                               &len);            /* output length */
+
+    return result != ERROR_SUCCESS;
+}
+
 
 } // namespace utils
 } // namespace seafile

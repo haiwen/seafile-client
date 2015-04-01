@@ -50,6 +50,10 @@ STDMETHODIMP ShellExt::GetPriority(int *priority)
 
 STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
 {
+    if (!seafile::utils::isShellExtEnabled()) {
+        return S_FALSE;
+    }
+
     std::string path = utils::wStringToStdString(path_w);
 
     if (!path.size()) {

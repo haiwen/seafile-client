@@ -69,6 +69,8 @@ std::string getParentPath(const std::string& path);
 std::string getThisDllFolder();
 std::string getThisDllPath();
 
+bool isShellExtEnabled();
+
 } // namespace utils
 } // namespace seafile
 

@@ -4,6 +4,7 @@
 #include "applet-connection.h"
 #include "guids.h"
 #include "log.h"
+#include "ext-utils.h"
 
 #include "shell-ext.h"
 
@@ -51,7 +52,7 @@ STDAPI DllCanUnloadNow(void)
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID *ppvOut)
 {
-    if (ppvOut == 0 )
+    if (ppvOut == 0)
         return E_POINTER;
     *ppvOut = NULL;
 

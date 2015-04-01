@@ -147,6 +147,12 @@ void SettingsManager::loadSettings()
     // i.e. enabling the finder sync if the setting is true
     setFinderSyncExtension(getFinderSyncExtension());
 #endif // HAVE_FINDER_SYNC_SUPPORT
+
+
+#ifdef Q_OS_WIN32
+    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "ShellExtDisabled", "");
+    shell_ext_enabled_ = !reg.exists();
+#endif
 }
 
 void SettingsManager::setAutoSync(bool auto_sync)
@@ -532,3 +538,19 @@ void SettingsManager::setFinderSyncExtension(bool enabled)
     }
 }
 #endif // HAVE_FINDER_SYNC_SUPPORT
+
+#ifdef Q_OS_WIN32
+void SettingsManager::setShellExtensionEnabled(bool enabled)
+{
+    shell_ext_enabled_ = enabled;
+
+    RegElement reg1(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "", "");
+    RegElement reg2(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "ShellExtDisabled", "1");
+    if (enabled) {
+        reg2.remove();
+    } else {
+        reg1.add();
+        reg2.add();
+    }
+}
+#endif  // Q_OS_WIN32

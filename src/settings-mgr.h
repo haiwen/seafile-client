@@ -82,6 +82,11 @@ public:
     void setFinderSyncExtension(bool enabled);
 #endif // HAVE_FINDER_SYNC_SUPPORT
 
+#ifdef Q_OS_WIN32
+    void setShellExtensionEnabled(bool enabled);
+    bool shellExtensionEnabled() const { return shell_ext_enabled_; }
+#endif // HAVE_FINDER_SYNC_SUPPORT
+
 public:
 
     // Remove all settings from system when uninstall
@@ -101,6 +106,7 @@ private:
     unsigned int maxUploadRatio_;
     bool http_sync_enabled_;
     bool verify_http_sync_cert_disabled_;
+    bool shell_ext_enabled_;
 
     // proxy settings
     ProxyType use_proxy_type_;

@@ -31,7 +31,8 @@ public:
                DWORD value);
 
     int add();
-    int remove();
+    void remove();
+    bool exists();
 
     const HKEY& root() const { return root_; }
     const QString& path() const { return path_; }
@@ -46,12 +47,12 @@ private:
 
     int openParentKey(HKEY *pKey);
 
-    DWORD type_;
     HKEY root_;
     QString path_;
     QString name_;
     QString string_value_;
     DWORD dword_value_;
+    DWORD type_;
 };
 
 #endif // SEAFILE_CLIENT_UTILS_REGISTRY_H

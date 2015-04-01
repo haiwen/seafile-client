@@ -3,6 +3,7 @@
 #include <QQueue>
 #include <QHash>
 #include <QTimer>
+#include <QDateTime>
 
 #include "seafile-applet.h"
 #include "configurator.h"
@@ -16,6 +17,7 @@
 
 static const int kCheckPendingInterval = 1000; // 1s
 static const char *kAvatarsDirName = "avatars";
+static const qint64 kExpireTimeIntevalMsec = 300 * 1000; // 5min
 static bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
 {
     qint64* mtime = reinterpret_cast<qint64*>(data);
@@ -54,6 +56,13 @@ public:
         if (q_.contains(email)) {
             return;
         }
+        // if we have set an expire time, and we haven't reached it yet
+        if (expire_time_.contains(email) &&
+            QDateTime::currentMSecsSinceEpoch() <= expire_time_[email]) {
+            return;
+        }
+        // update expire time
+        expire_time_[email] = QDateTime::currentMSecsSinceEpoch() + kExpireTimeIntevalMsec;
 
         q_.enqueue(email);
     }
@@ -67,6 +76,7 @@ public:
 
     void clearWait(const QString& email) {
         wait_.remove(email);
+        expire_time_.remove(email);
     }
 
     void tick() {
@@ -104,12 +114,14 @@ public:
     void reset() {
         q_.clear();
         wait_.clear();
+        expire_time_.clear();
     }
 
 private:
     QQueue<QString> q_;
 
     QHash<QString, PendingRequestInfo> wait_;
+    QHash<QString, qint64> expire_time_;
 };
 
 AvatarService* AvatarService::singleton_;

@@ -38,6 +38,4 @@ private:
     bool sync_with_existing_;
 
     Account account_;
-
-    QString saved_path_;
 };

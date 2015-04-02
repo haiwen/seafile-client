@@ -65,9 +65,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     setMinimumHeight(height);
     setMaximumHeight(height);
 
-    saved_path_ = QDir(seafApplet->configurator()->worktreeDir()).absoluteFilePath(repo.name);
-
-    setDirectoryText(saved_path_);
+    setDirectoryText(QDir(seafApplet->configurator()->worktreeDir()).absoluteFilePath(repo.name));
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
@@ -81,8 +79,6 @@ void DownloadRepoDialog::setDirectoryText(const QString& path)
     }
 
     mDirectory->setText(text);
-
-    saved_path_ = text;
 }
 
 void DownloadRepoDialog::chooseDirAction()
@@ -207,6 +203,5 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
 }
 
 void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
-    saved_path_ = localPath;
-    setDirectoryText(saved_path_);
+    setDirectoryText(localPath);
 }

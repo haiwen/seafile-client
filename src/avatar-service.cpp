@@ -8,6 +8,7 @@
 #include "configurator.h"
 #include "account-mgr.h"
 #include "api/requests.h"
+#include "utils/paint-utils.h"
 #include "utils/utils.h"
 
 #include "avatar-service.h"
@@ -19,13 +20,14 @@ const char *kAvatarsDirName = "avatars";
 
 } // namespace
 
+const int AvatarService::kAvatarSize = 42;
+
 struct PendingRequestInfo {
     int last_wait;
     int time_to_wait;
 
     void backoff() {
         last_wait = qMax(last_wait, 1) * 2;
-        printf ("backoff: last_wait = %d\n", last_wait);
         time_to_wait = last_wait;
     }
 
@@ -155,14 +157,13 @@ QImage AvatarService::loadAvatarFromLocal(const QString& email)
         return cache_.value(email);
     }
 
-    QString path = avatarPathForEmail(seafApplet->accountManager()->currentAccount(),
-                                    email);
-
-    if (QFileInfo(path).exists()) {
-        return QImage(path);
+    QImage ret;
+    if (avatarFileExists(email)) {
+        ret = QImage(getAvatarFilePath(email));
+        cache_[email] = ret;
     }
 
-    return QImage();
+    return ret;
 }
 
 QString AvatarService::avatarPathForEmail(const Account& account, const QString& email)
@@ -185,7 +186,7 @@ void AvatarService::fetchImageFromServer(const QString& email)
         return;
     }
 
-    get_avatar_req_ = new GetAvatarRequest(account, email, 36);
+    get_avatar_req_ = new GetAvatarRequest(account, email, devicePixelRatio() * kAvatarSize);
 
     connect(get_avatar_req_, SIGNAL(success(const QImage&)),
             this, SLOT(onGetAvatarSuccess(const QImage&)));
@@ -218,7 +219,6 @@ void AvatarService::onGetAvatarSuccess(const QImage& img)
 void AvatarService::onGetAvatarFailed(const ApiError& error)
 {
     const QString email = get_avatar_req_->email();
-    printf ("get avatar failed for %s\n", email.toUtf8().data());
     get_avatar_req_->deleteLater();
     get_avatar_req_ = 0;
 
@@ -230,8 +230,11 @@ QImage AvatarService::getAvatar(const QString& email)
     QImage img = loadAvatarFromLocal(email);
 
     if (img.isNull()) {
-        queue_->enqueue(email);
-        return QImage(":/images/account-36.png");
+        if (!get_avatar_req_ || get_avatar_req_->email() != email) {
+            queue_->enqueue(email);
+        }
+        return devicePixelRatio() > 1 ?
+          QImage(":/images/account@2x.png") : QImage(":/images/account.png");
     } else {
         return img;
     }
@@ -245,7 +248,19 @@ QString AvatarService::getAvatarFilePath(const QString& email)
 
 bool AvatarService::avatarFileExists(const QString& email)
 {
-    return QFileInfo(getAvatarFilePath(email)).exists();
+    QString path = getAvatarFilePath(email);
+    bool ret = QFileInfo(path).exists();
+    if (ret) {
+        QImage target(path);
+        // remove old avatar which is too small
+        if (target.size().width() < kAvatarSize ||
+            target.size().height() < kAvatarSize ) {
+            if (!QFile::remove(path))
+                qWarning("Unable to remove old avatar file %s", path.toUtf8().data());
+            ret = false;
+        }
+    }
+    return ret;
 }
 
 void AvatarService::checkPendingRequests()
@@ -269,4 +284,5 @@ void AvatarService::onAccountChanged()
         delete get_avatar_req_;
         get_avatar_req_ = 0;
     }
+    cache_.clear();
 }

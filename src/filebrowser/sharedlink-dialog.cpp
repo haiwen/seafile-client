@@ -1,12 +1,17 @@
 #include "sharedlink-dialog.h"
 
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
   : text_(text)
 {
-
     setWindowTitle(tr("Share Link"));
+    setWindowIcon(QIcon(":/images/seafile.png"));
     QVBoxLayout *layout = new QVBoxLayout;
 
     QLabel *label = new QLabel(tr("Share link:"));
@@ -51,4 +56,3 @@ void SharedLinkDialog::onCopyText()
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(text_);
 }
-

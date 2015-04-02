@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 #include "loading-view.h"
 
@@ -11,6 +17,7 @@ LoadingView::LoadingView(QWidget *parent)
     setLayout(layout);
 
     gif_ = new QMovie(":/images/loading.gif");
+    gif_->setParent(this);
     QLabel *label = new QLabel;
     label->setMovie(gif_);
     label->setAlignment(Qt::AlignCenter);

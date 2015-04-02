@@ -23,6 +23,11 @@ private slots:
     void showEvent(QShowEvent *event);
     void updateSettings();
 
+    void proxyRequirePasswordChanged(int state);
+    void proxyMethodChanged(int state);
+
 private:
+    bool updateProxySettings();
+
     Q_DISABLE_COPY(SettingsDialog);
 };

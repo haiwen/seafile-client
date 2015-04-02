@@ -3,7 +3,7 @@
 TrayNotificationWidget::TrayNotificationWidget(QPixmap pixmapIcon, QString headerText, QString messageText) : QWidget(0)
 {
     setWindowFlags(
-        #ifdef Q_WS_MAC
+        #if defined(Q_OS_MAC)
             Qt::SubWindow | // This type flag is the second point
         #else
             Qt::Tool |
@@ -27,17 +27,20 @@ TrayNotificationWidget::TrayNotificationWidget(QPixmap pixmapIcon, QString heade
     QLabel* icon = new QLabel;
     icon->setPixmap(pixmapIcon);
     icon->setMaximumSize(32, 32);
+
     QLabel* header = new QLabel;
     header->setStyleSheet("QLabel { color: #ffffff; font-weight: bold; font-size: 12px; }");
     header->setText(headerText);
     header->setFixedWidth(200);
     header->setWordWrap(true);
     header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+
     QTextEdit *message = new QTextEdit;
     message->setReadOnly(true);
     message->setFrameStyle(QFrame::NoFrame);
     message->setLineWrapMode(QTextEdit::WidgetWidth);
     message->setWordWrapMode(QTextOption::WrapAnywhere);
+
     QPalette pal = palette();
     pal.setColor(QPalette::Base, Qt::transparent);
     message->setPalette(pal);
@@ -48,14 +51,17 @@ TrayNotificationWidget::TrayNotificationWidget(QPixmap pixmapIcon, QString heade
     QVBoxLayout* vl = new QVBoxLayout;
     vl->addWidget(header);
     vl->addWidget(message);
+
     QHBoxLayout* displayMainLayout = new QHBoxLayout;
     displayMainLayout->addWidget(icon);
     displayMainLayout->addLayout(vl);
 
     displayWidget->setLayout(displayMainLayout);
+
     QHBoxLayout* containerLayout = new QHBoxLayout;
     containerLayout->addWidget(displayWidget);
     setLayout(containerLayout);
+
     show();
     resize(this->size().width(), (int)((message->document()->size().height() + header->height()) +70));
 
@@ -66,6 +72,8 @@ TrayNotificationWidget::TrayNotificationWidget(QPixmap pixmapIcon, QString heade
 
 void TrayNotificationWidget::fadeOut()
 {
-    emit deleted(this);
+    timeout->stop();
+
     this->hide();
+    emit deleted();
 }

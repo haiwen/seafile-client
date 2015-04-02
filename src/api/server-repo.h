@@ -13,7 +13,7 @@
  */
 class ServerRepo {
 public:
-    ServerRepo(){};
+    ServerRepo() : encrypted(false), readonly(false), _virtual(false), group_id (0) {};
 
     QString id;
     QString name;
@@ -29,6 +29,10 @@ public:
     // "virtual" is a reserved word in C++
     bool _virtual;
 
+    // subfolder attributes
+    QString parent_repo_id;
+    QString parent_path;
+
     QString type;
     QString owner;
     QString permission;
@@ -42,6 +46,7 @@ public:
     bool isGroupRepo() const { return type == "grepo"; }
 
     bool isVirtual() const { return _virtual; }
+    bool isSubfolder() const { return !parent_repo_id.isEmpty() && !parent_path.isEmpty(); }
 
     QIcon getIcon() const;
     QPixmap getPixmap() const;

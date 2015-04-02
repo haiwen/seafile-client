@@ -4,10 +4,15 @@
 #include <QList>
 #include <QSslError>
 #include <QNetworkReply>
+#include <QNetworkCookie>
+
+#include "seafile-applet.h"
+#include "utils/utils.h"
+#include "utils/api-utils.h"
+#include "account-mgr.h"
+#include "network-mgr.h"
 
 #include "shib-login-dialog.h"
-#include "seafile-applet.h"
-#include "account-mgr.h"
 
 namespace {
 
@@ -15,7 +20,9 @@ const char *kSeahubShibCookieName = "seahub_auth";
 
 } // namespace
 
-ShibLoginDialog::ShibLoginDialog(const QUrl& url, QWidget *parent)
+ShibLoginDialog::ShibLoginDialog(const QUrl& url,
+                                 const QString& computer_name,
+                                 QWidget *parent)
     : QDialog(parent),
       url_(url)
 {
@@ -31,6 +38,7 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url, QWidget *parent)
 
     CustomCookieJar *jar = new CustomCookieJar(this);
     QNetworkAccessManager *mgr = webview_->page()->networkAccessManager();
+    NetworkManager::instance()->addWatch(mgr);
     mgr->setCookieJar(jar);
 
     connect(mgr, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
@@ -39,7 +47,8 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url, QWidget *parent)
     connect(jar, SIGNAL(newCookieCreated(const QUrl&, const QNetworkCookie&)),
             this, SLOT(onNewCookieCreated(const QUrl&, const QNetworkCookie&)));
 
-    webview_->load(url_);
+    webview_->load(::includeQueryParams(
+                       url_, ::getSeafileLoginParams(computer_name, "shib_")));
 }
 
 
@@ -56,6 +65,11 @@ void ShibLoginDialog::onNewCookieCreated(const QUrl& url, const QNetworkCookie& 
         QString value = cookie.value();
 
         Account account = parseAccount(value);
+        if (!account.isValid()) {
+            seafApplet->warningBox(tr("Server Error when fetching account information"), this);
+            reject();
+            return;
+        }
         if (seafApplet->accountManager()->saveAccount(account) < 0) {
             seafApplet->warningBox(tr("Failed to save current account"), this);
             reject();

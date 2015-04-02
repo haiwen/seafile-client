@@ -1,27 +1,27 @@
 #include "traynotificationmanager.h"
 
 TrayNotificationManager::TrayNotificationManager(QObject *parent)
+  : notificationWidgets(new QList<TrayNotificationWidget*>()), QObject(parent)
 {
-    notificationWidgets = new QList<TrayNotificationWidget*>();
     QDesktopWidget* desktopWidget = QApplication::desktop();
     QRect clientRect = desktopWidget->availableGeometry();
     m_maxTrayNotificationWidgets = 4;
     m_width = 320;
     m_height = 150;
     m_onScreenCount = 0;
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     m_startX = clientRect.width() - m_width;
     m_startY = 10;
     m_up = false;
 #endif
 
-#ifdef Q_WS_X11
+#if defined(Q_OS_LINUX)
     m_startX = clientRect.width() - m_width;
     m_startY = 10;
     m_up = false;
 #endif
 
-#ifdef Q_WS_WIN
+#if defined(Q_OS_WIN32)
     m_startX = clientRect.width() - m_width;
     m_startY = clientRect.height() - m_height;
     m_up = true;
@@ -33,7 +33,10 @@ TrayNotificationManager::TrayNotificationManager(QObject *parent)
 
 TrayNotificationManager::~TrayNotificationManager()
 {
-    notificationWidgets->clear();
+    // call delete and remove all remaining widgets in notificationWidgets
+    clear();
+
+    // then delete qlist notificationWidgets
     delete notificationWidgets;
 }
 
@@ -44,19 +47,19 @@ void TrayNotificationManager::setMaxTrayNotificationWidgets(int max)
 
 void TrayNotificationManager::append(TrayNotificationWidget* widget)
 {
-    connect(widget, SIGNAL(deleted(TrayNotificationWidget*)), this, SLOT(removeFirst(TrayNotificationWidget*)));
-    if(notificationWidgets->count() < m_maxTrayNotificationWidgets)
+    connect(widget, SIGNAL(deleted()), this, SLOT(removeWidget()));
+    if (notificationWidgets->count() < m_maxTrayNotificationWidgets)
     {
-        if(notificationWidgets->count() > 0)
+        if (!notificationWidgets->empty())
         {
             if(m_up)
                 m_deltaY += -100;
             else
                 m_deltaY += 100;
-        }
-
-        if(notificationWidgets->count() == 0)
+        } else
+        {
             m_deltaY = 0;
+        }
     }
     else
     {
@@ -67,11 +70,18 @@ void TrayNotificationManager::append(TrayNotificationWidget* widget)
     notificationWidgets->append(widget);
 }
 
-void TrayNotificationManager::removeFirst(TrayNotificationWidget *widget)
+void TrayNotificationManager::removeWidget()
 {
+    TrayNotificationWidget *widget = qobject_cast<TrayNotificationWidget*>(sender());
+
+    if (widget == NULL)
+    {
+        return;
+    }
+
     int i = notificationWidgets->indexOf(widget);
 
-    if(notificationWidgets->count() > 0)
+    if (i != -1)
     {
         notificationWidgets->takeAt(i)->deleteLater();
     }
@@ -79,8 +89,9 @@ void TrayNotificationManager::removeFirst(TrayNotificationWidget *widget)
 
 void TrayNotificationManager::clear()
 {
-    for(int i = 0; i < notificationWidgets->count(); i++)
-    {
-        delete notificationWidgets->takeAt(i);
-    }
+    // call operator delete on all items in list notificationWidgets
+    qDeleteAll(*notificationWidgets);
+
+    // remove all items from it since qDeleteAll don't do it for us
+    notificationWidgets->clear();
 }

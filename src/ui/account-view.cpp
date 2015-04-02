@@ -2,21 +2,52 @@
 #include <QAction>
 #include <QToolButton>
 #include <QScopedPointer>
+#include <QPainter>
+#include <QStringList>
 
-#include "account.h"
 #include "account.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
 #include "account-settings-dialog.h"
 #include "rpc/rpc-client.h"
+#include "rpc/local-repo.h"
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
 #include "avatar-service.h"
 #include "utils/paint-utils.h"
 #include "filebrowser/file-browser-manager.h"
+#include "api/api-error.h"
+#include "api/requests.h"
 
 #include "account-view.h"
+namespace {
+
+QStringList collectSyncedReposForAccount(const Account& account)
+{
+    std::vector<LocalRepo> repos;
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    rpc->listLocalRepos(&repos);
+    QStringList repo_ids;
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo repo = repos[i];
+        QString repo_server_url;
+        if (rpc->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
+            continue;
+        }
+        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        QString token;
+        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+            repo_ids.append(repo.id);
+        }
+    }
+
+    return repo_ids;
+}
+
+}
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -27,6 +58,7 @@ AccountView::AccountView(QWidget *parent)
     account_menu_ = new QMenu;
     mAccountBtn->setMenu(account_menu_);
     mAccountBtn->setPopupMode(QToolButton::InstantPopup);
+    mAccountBtn->setFixedSize(QSize(AvatarService::kAvatarSize, AvatarService::kAvatarSize));
 
     onAccountChanged();
 
@@ -34,6 +66,7 @@ AccountView::AccountView(QWidget *parent)
             this, SLOT(updateAvatar()));
 
     mAccountBtn->setCursor(Qt::PointingHandCursor);
+    mAccountBtn->installEventFilter(this);
 }
 
 void AccountView::showAddAccountDialog()
@@ -45,7 +78,7 @@ void AccountView::showAddAccountDialog()
         && account_mgr->accounts().size() == 1) {
 
         InitVirtualDriveDialog dialog(account_mgr->currentAccount(), seafApplet->mainWindow());
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
         dialog.exec();
 #endif
     }
@@ -64,7 +97,9 @@ void AccountView::deleteAccount()
                                                           account.username,
                                                           &error) < 0) {
 
-            seafApplet->warningBox(tr("Failed to unsync libraries of this account: %1").arg(error));
+            seafApplet->warningBox(
+                tr("Failed to unsync libraries of this account: %1").arg(error),
+                this);
         }
 
         seafApplet->accountManager()->removeAccount(account);
@@ -94,7 +129,7 @@ void AccountView::updateAccountInfoDisplay()
                                "\"color:#A4A4A4; text-decoration: none;\" "
                                "href=\"%1\">%2</a>").arg(href).arg(host);
 
-        mServerAddr->setText(text);
+        mServerAddr->setText(account.isPro() ? QString("%1 <small>%2<small>").arg(text).arg(tr("pro version")) : text);
     } else {
         mEmail->setText(tr("No account"));
         mServerAddr->setText(QString());
@@ -114,11 +149,11 @@ void AccountView::onAccountChanged()
     account_menu_->clear();
 
     if (!accounts.empty()) {
-        for (int i = 0, n = accounts.size(); i < n; i++) {
+        for (size_t i = 0, n = accounts.size(); i < n; i++) {
             Account account = accounts[i];
             QAction *action = makeAccountAction(accounts[i]);
             if (i == 0) {
-                action->setIcon(::getMenuIconSet(":/images/account-checked.png"));
+                action->setIcon(QIcon(":/images/account-checked.png"));
                 action->setIconVisibleInMenu(true);
             }
             account_menu_->addAction(action);
@@ -129,21 +164,27 @@ void AccountView::onAccountChanged()
 
     if (!accounts.empty()) {
         account_settings_action_ = new QAction(tr("Account settings"), this);
-        account_settings_action_->setIcon(::getMenuIconSet(":/images/account-settings.png"));
+        account_settings_action_->setIcon(QIcon(":/images/account-settings.png"));
         account_settings_action_->setIconVisibleInMenu(true);
         connect(account_settings_action_, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
         account_menu_->addAction(account_settings_action_);
     }
 
     add_account_action_ = new QAction(tr("Add an account"), this);
-    add_account_action_->setIcon(::getMenuIconSet(":/images/add-account.png"));
+    add_account_action_->setIcon(QIcon(":/images/add-account.png"));
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
     account_menu_->addAction(add_account_action_);
 
     if (!accounts.empty()) {
+        logout_action_ = new QAction(tr("Logout"), this);
+        logout_action_->setIcon(QIcon(":/images/logout.png"));
+        logout_action_->setIconVisibleInMenu(true);
+        connect(logout_action_, SIGNAL(triggered()), this, SLOT(logoutAccount()));
+        account_menu_->addAction(logout_action_);
+
         delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(::getMenuIconSet(":/images/delete-account.png"));
+        delete_account_action_->setIcon(QIcon(":/images/delete-account.png"));
         delete_account_action_->setIconVisibleInMenu(true);
         connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
         account_menu_->addAction(delete_account_action_);
@@ -155,6 +196,9 @@ void AccountView::onAccountChanged()
 QAction* AccountView::makeAccountAction(const Account& account)
 {
     QString text = account.username + "(" + account.serverUrl.host() + ")";
+    if (!account.isValid()) {
+        text += ", " + tr("not logged in");
+    }
     QAction *action = new QAction(text, account_menu_);
     action->setData(QVariant::fromValue(account));
     // action->setCheckable(true);
@@ -172,13 +216,37 @@ void AccountView::onAccountItemClicked()
     QAction *action = (QAction *)(sender());
     Account account = qvariant_cast<Account>(action->data());
 
-    seafApplet->accountManager()->setCurrentAccount(account);
+    if (!account.isValid()) {
+        LoginDialog dialog(this);
+        dialog.initFromAccount(account);
+        if (dialog.exec() == QDialog::Accepted) {
+            getRepoTokenWhenRelogin();
+        }
+    } else {
+        seafApplet->accountManager()->setCurrentAccount(account);
+    }
+}
+
+void AccountView::getRepoTokenWhenRelogin()
+{
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    QStringList repo_ids = collectSyncedReposForAccount(account);
+    if (repo_ids.empty()) {
+        return;
+    }
+    GetRepoTokensRequest *req = new GetRepoTokensRequest(
+        account, repo_ids);
+
+    connect(req, SIGNAL(success()),
+            this, SLOT(onGetRepoTokensSuccess()));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetRepoTokensFailed(const ApiError&)));
+    req->send();
 }
 
 void AccountView::updateAvatar()
 {
-    int w = ::getDPIScaledSize(32);
-    mAccountBtn->setIconSize(QSize(w, w));
+    mAccountBtn->setIconSize(QSize(AvatarService::kAvatarSize, AvatarService::kAvatarSize));
     const Account account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid())  {
         mAccountBtn->setIcon(QIcon(":/images/account.png"));
@@ -196,4 +264,116 @@ void AccountView::updateAvatar()
     mAccountBtn->setIcon(QIcon(":/images/account.png"));
     // will trigger a GetAvatarRequest
     service->getAvatar(account.username);
+}
+
+bool AccountView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == mAccountBtn && event->type() == QEvent::Paint) {
+        QRect rect(0, 0, AvatarService::kAvatarSize, AvatarService::kAvatarSize);
+        QPainter painter(mAccountBtn);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setRenderHint(QPainter::HighQualityAntialiasing);
+
+        // get the device pixel radio from current painter device
+        int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        scale_factor = painter.device()->devicePixelRatio();
+#endif // QT5
+
+        QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(scale_factor * rect.size()));
+        QRect actualRect(QPoint(0, 0), image.size());
+
+        QImage masked_image(actualRect.size(), QImage::Format_ARGB32_Premultiplied);
+        masked_image.fill(Qt::transparent);
+        QPainter mask_painter;
+        mask_painter.begin(&masked_image);
+        mask_painter.setRenderHint(QPainter::Antialiasing);
+        mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
+        mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        mask_painter.setPen(Qt::NoPen);
+        mask_painter.setBrush(Qt::white);
+        mask_painter.drawEllipse(actualRect);
+        mask_painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+        mask_painter.drawPixmap(actualRect, image);
+        mask_painter.setCompositionMode(QPainter::CompositionMode_DestinationOver);
+        mask_painter.fillRect(actualRect, Qt::transparent);
+        mask_painter.end();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        masked_image.setDevicePixelRatio(scale_factor);
+#endif // QT5
+
+        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        painter.drawImage(QPoint(0,0), masked_image);
+        return true;
+    }
+    return QObject::eventFilter(obj, event);
+}
+
+/**
+ * Only remove the api token of the account. The accout would still be shown
+ * in the account list.
+ */
+void AccountView::logoutAccount()
+{
+    QString question = tr("Are you sure to logout this account?");
+
+    if (!seafApplet->yesOrNoBox(question, this, false)) {
+        return;
+    }
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
+    LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
+    connect(req, SIGNAL(success()),
+            this, SLOT(onLogoutDeviceRequestSuccess()));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onLogoutDeviceRequestFailed(const ApiError&)));
+    req->send();
+}
+
+void AccountView::onLogoutDeviceRequestSuccess()
+{
+    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    const Account& account = req->account();
+    QString error;
+    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
+                                                           account.username,
+                                                           &error)  < 0) {
+        seafApplet->warningBox(
+            tr("Failed to remove local repos sync token: %1").arg(error),
+            this);
+        return;
+    }
+    seafApplet->accountManager()->clearAccountToken(account);
+    req->deleteLater();
+}
+
+void AccountView::onLogoutDeviceRequestFailed(const ApiError& error)
+{
+    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    req->deleteLater();
+    QString msg;
+    if (error.httpErrorCode() == 404) {
+        msg = tr("Logging out is not supported on your server (version too low).");
+    } else {
+        msg = tr("Failed to remove information on server: %1").arg(error.toString());
+    }
+    seafApplet->warningBox(msg, this);
+}
+
+void AccountView::onGetRepoTokensSuccess()
+{
+    GetRepoTokensRequest *req = (GetRepoTokensRequest *)(sender());
+    foreach (const QString& repo_id, req->repoTokens().keys()) {
+        seafApplet->rpcClient()->setRepoToken(
+            repo_id, req->repoTokens().value(repo_id));
+    }
+    req->deleteLater();
+}
+
+void AccountView::onGetRepoTokensFailed(const ApiError& error)
+{
+    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    req->deleteLater();
+    seafApplet->warningBox(
+        tr("Failed to get repo sync information from server: %1").arg(error.toString()), this);
 }

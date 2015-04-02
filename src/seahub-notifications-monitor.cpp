@@ -9,7 +9,7 @@
 
 namespace {
 
-const int kRefreshSeahubMessagesInterval = 1000 * 60; // 1 min
+const int kRefreshSeahubMessagesInterval = 5000 * 60; // 5 min
 const char *kNotificationsUrl = "notification/list/";
 
 } // namespace

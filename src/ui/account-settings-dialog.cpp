@@ -23,7 +23,7 @@ AccountSettingsDialog::AccountSettingsDialog(const Account& account, QWidget *pa
     mUsername->setText(account_.username);
     mUsername->setEnabled(false);
 
-    #if defined(Q_WS_MAC)
+    #if defined(Q_OS_MAC)
     layout()->setContentsMargins(9, 9, 9, 9);
     layout()->setSpacing(6);
     formLayout->setSpacing(6);
@@ -85,7 +85,7 @@ void AccountSettingsDialog::onSubmitBtnClicked()
         }
         QString error;
         if (seafApplet->rpcClient()->updateReposServerHost(account_.serverUrl.host(),
-            new_account.serverUrl.host(), &error) < 0) {
+            new_account.serverUrl.host(), new_account.serverUrl.toString(), &error) < 0) {
             showWarning(tr("Failed to save the changes: %1").arg(error));
             return;
         }

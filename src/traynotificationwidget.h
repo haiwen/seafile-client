@@ -2,7 +2,14 @@
 #define TRAYNOTIFICATIONWIDGET_H
 
 #include <QWidget>
+
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 class TrayNotificationWidget : public QWidget
 {
@@ -12,13 +19,11 @@ public:
 
 private:
     QTimer* timeout;
-
 signals:
-    void deleted(TrayNotificationWidget*);
+    void deleted();
 
-public slots:
-   void fadeOut();
-
+private slots:
+    void fadeOut();
 };
 
 #endif // TRAYNOTIFICATIONWIDGET_H

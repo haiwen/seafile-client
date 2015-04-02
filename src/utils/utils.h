@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDir>
 #include <QMap>
+#include <QHash>
 #include <QUrl>
 #include <QSslError>
 
@@ -80,4 +81,11 @@ QString dumpCertificate(const QSslCertificate &cert);
 QString dumpCertificateFingerprint(const QSslCertificate &cert,
                                    const QCryptographicHash::Algorithm &algorithm = QCryptographicHash::Md5);
 
+void msleep(int mseconds);
+
+
+QUrl includeQueryParams(const QUrl& url,
+                        const QHash<QString, QString>& params);
+
+QByteArray buildFormData(const QHash<QString, QString>& params);
 #endif

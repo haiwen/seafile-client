@@ -1,7 +1,8 @@
 #include "utils-mac.h"
 
-#include <Cocoa/Cocoa.h>
 #include <AvailabilityMacros.h>
+#import <Cocoa/Cocoa.h>
+
 #include <QString>
 
 #if !__has_feature(objc_arc)
@@ -13,35 +14,51 @@
 #define MAC_OS_X_VERSION_10_10      101000
 #endif
 
-namespace utils {
-namespace mac {
+@interface DarkmodeHelper : NSObject
+- (void)getDarkMode;
+@end
 
-namespace {
-static bool checked = false;
-static double scaleFactor = 1.0;
+static bool darkMode = false;
+static DarkModeChangedCallback *darkModeWatcher = NULL;
+@implementation DarkmodeHelper
+- (id) init {
+    self = [super init];
+
+    unsigned major;
+    unsigned minor;
+    unsigned patch;
+    utils::mac::get_current_osx_version(&major, &minor, &patch);
+    // darkmode is available version >= 10.10
+    if (major == 10 && minor >= 10) {
+        [self getDarkMode];
+
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(darkModeChanged:)
+        name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    }
+    return self;
 }
 
-inline static void checkFactor() {
-    if (!checked){
-#if (__MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7)
-        if ([[NSScreen mainScreen] respondsToSelector: @selector(backingScaleFactor)])
-            scaleFactor = [[NSScreen mainScreen] backingScaleFactor];
-#else
-        scaleFactor = 1.0;
-#endif
-        checked = true;
+- (void)darkModeChanged:(NSNotification *)aNotification
+{
+    bool oldDarkMode = darkMode;
+    [self getDarkMode];
+
+    if (oldDarkMode != darkMode && darkModeWatcher) {
+        darkModeWatcher(darkMode);
     }
 }
 
-int isHiDPI() {
-    checkFactor();
-    return (scaleFactor > 1.0);
+- (void)getDarkMode {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
+    id style = [dict objectForKey:@"AppleInterfaceStyle"];
+    darkMode = ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"]);
 }
+@end
 
-double getScaleFactor() {
-    checkFactor();
-    return scaleFactor;
-}
+
+namespace utils {
+namespace mac {
 
 //TransformProcessType is not encouraged to use, aha
 //Sorry but not functional for OSX 10.7
@@ -54,12 +71,12 @@ void setDockIconStyle(bool hidden) {
     }
 }
 
-// Yosemite uses a new url format called fileId url, use this helper to transform
-// it to the old style.
-// https://bugreports.qt-project.org/browse/QTBUG-40449
-// NSString *fileIdURL = @"file:///.file/id=6571367.1000358";
-// NSString *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];
-QString get_path_from_fileId_url(const QString &url) {
+// https://bugreports.qt-project.org/browse/QTBUG-40449 is fixed in QT 5.4.1
+// TODO remove this and related code once qt 5.4.1 is widely used
+QString fix_file_id_url(const QString &path) {
+    if (!path.startsWith("/.file/id="))
+        return path;
+    const QString url = "file://" + path;
     NSString *fileIdURL = [NSString stringWithCString:url.toUtf8().data()
                                     encoding:NSUTF8StringEncoding];
     NSURL *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];
@@ -169,6 +186,44 @@ void set_auto_start(bool enabled)
     }
 }
 
+bool is_darkmode() {
+    static DarkmodeHelper *helper = nil;
+    if (!helper) {
+        helper = [[DarkmodeHelper alloc] init];
+    }
+    return darkMode;
+}
+void set_darkmode_watcher(DarkModeChangedCallback *cb) {
+    darkModeWatcher = cb;
+}
+
+void get_current_osx_version(unsigned *major, unsigned *minor, unsigned *patch) {
+#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    *major = version.majorVersion;
+    *minor = version.minorVersion;
+    *patch = version.patchVersion;
+#else
+    NSString *versionString = [[NSProcessInfo processInfo] operatingSystemVersionString];
+    NSArray *array = [versionString componentsSeparatedByString:@" "];
+    if (array.count < 2) {
+        *major = 10;
+        *minor = 7;
+        *patch = 0;
+        return;
+    }
+    NSArray *versionArray = [[array objectAtIndex:1] componentsSeparatedByString:@"."];
+    if (versionArray.count < 3) {
+        *major = 10;
+        *minor = 7;
+        *patch = 0;
+        return;
+    }
+    *major = [[versionArray objectAtIndex:0] intValue];
+    *minor = [[versionArray objectAtIndex:1] intValue];
+    *patch = [[versionArray objectAtIndex:2] intValue];
+#endif
+}
 
 } // namespace mac
 } // namespace utils

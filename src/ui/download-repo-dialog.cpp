@@ -1,4 +1,11 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
+
 #include <jansson.h>
 
 #include "account-mgr.h"
@@ -40,7 +47,10 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
       mode_(CREATE_NEW_FOLDER)
 {
     setupUi(this);
-    setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
+    if (!repo.isSubfolder())
+        setWindowTitle(tr("Sync library \"%1\"").arg(repo_.name));
+    else
+        setWindowTitle(tr("Sync folder \"%1\"").arg(repo.parent_path));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     mRepoIcon->setPixmap(repo.getPixmap());
@@ -57,7 +67,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     }
 
     int height = 250;
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 5);
     layout()->setSpacing(6);
     verticalLayout_3->setSpacing(6);

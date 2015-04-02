@@ -3,13 +3,17 @@ set -x
 set -e
 PWD=$(dirname "${BASH_SOURCE[0]}")
 
-export CFLAGS="-Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter"
-export CXXFLAGS="-Woverloaded-virtual $CFLAGS"
-
 pushd $PWD/..
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     cmake -DBUILD_TESTING=on .
+    make -j8 VERBOSE=1
+    make test VERBOSE=1
+    git clean -xfd
+    set +e
+    . /opt/qt54/bin/qt54-env.sh
+    set -e
+    cmake . -DBUILD_TESTING=on -DUSE_QT5=ON
     make -j8 VERBOSE=1
     make test VERBOSE=1
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then

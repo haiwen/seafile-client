@@ -60,7 +60,7 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         return;
     }

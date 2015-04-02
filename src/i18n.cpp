@@ -30,6 +30,13 @@ const char* langs[] = {
     "zh_CN",
     "zh_TW",
     "tr",
+    "nl_NL",
+    "lv",
+    "ja",
+    "sv",
+    "cs_CZ",
+    "el_GR",
+    "nb_NO",
     NULL
     };
 void saveCurrentLanguage(int langIndex) {
@@ -68,14 +75,14 @@ I18NHelper::I18NHelper()
     : qt_translator_(new QTranslator),
       my_translator_(new QTranslator)
 {
-    qApp->installTranslator(qt_translator_.data());
-    qApp->installTranslator(my_translator_.data());
 }
 
 I18NHelper::~I18NHelper() {
 }
 
 void I18NHelper::init() {
+    qApp->installTranslator(qt_translator_.data());
+    qApp->installTranslator(my_translator_.data());
     int pos = preferredLanguage();
     if (langs[pos] == NULL) // NULL is reserved for system locale
         setLanguage(0);
@@ -100,15 +107,14 @@ bool I18NHelper::setLanguage(int langIndex) {
         return false;
 
     const QLocale &locale = locales[langIndex];
-    qDebug() << "[i18n] using language :" << (langIndex == 0 ? "system locale" : locale.name());
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     qt_translator_->load("qt_" + locale.name());
 #else
     qt_translator_->load("qt_" + locale.name(),
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 #endif
 
-#if QT_VERSION >= 0x040800 && !defined(Q_WS_MAC)
+#if QT_VERSION >= QT_VERSION_CHECK(4, 8, 0) && !defined(Q_OS_MAC)
     QString lang = QLocale::languageToString(locale.language());
 
     if (lang != "en") {

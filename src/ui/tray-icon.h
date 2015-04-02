@@ -7,7 +7,7 @@
 class QAction;
 class QMenu;
 class QMenuBar;
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
 class TrayNotificationManager;
 #endif
 
@@ -29,9 +29,12 @@ public:
 
     void start();
 
+    TrayState state() const { return state_; }
     void setState(TrayState state, const QString& tip=QString());
     void notify(const QString &title, const QString &content);
     void rotate(bool start);
+
+    void reloadTrayIcon();
 
     void showMessage(const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000);
 
@@ -68,6 +71,7 @@ private:
     QMenu *context_menu_;
     QMenu *help_menu_;
     QMenu *global_menu_;
+    QMenu *dock_menu_;
     QMenuBar *global_menubar_;
 
     // Actions for tray icon menu
@@ -82,7 +86,7 @@ private:
     QAction *about_action_;
     QAction *open_help_action_;
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     TrayNotificationManager *tnm;
 #endif
 

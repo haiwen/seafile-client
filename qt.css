@@ -1,6 +1,6 @@
 QWidget#mainWrapper {
     min-width: 320px;
-    min-height: 550px;
+    min-height: 583px;
     border: 1px solid #333;
     border-radius: 5px;
     background: #F5F5F7;
@@ -18,13 +18,9 @@ CloudView {
 
 QToolButton#mAccountBtn
 {
-    margin-left: 0px;
-    margin-right: 6px;
-    background: white;
-    padding: 1px;
-    padding-left: 2px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
@@ -260,11 +256,11 @@ QLabel#loadingFailedText {
 }
 
 SettingsDialog {
-    min-width: 450px;
-    max-width: 450px;
+    min-width: 560px;
+    max-width: 560px;
 
-    min-height: 350px;
-    max-height: 350px;
+    min-height: 390px;
+    max-height: 390px;
 }
 
 SettingsDialog QTabWidget::pane QLabel#desc,

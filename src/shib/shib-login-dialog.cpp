@@ -47,8 +47,16 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
     connect(jar, SIGNAL(newCookieCreated(const QUrl&, const QNetworkCookie&)),
             this, SLOT(onNewCookieCreated(const QUrl&, const QNetworkCookie&)));
 
+    QUrl shib_login_url(url_);
+    QString path = shib_login_url.path();
+    if (!path.endsWith("/")) {
+        path += "/";
+    }
+    path += "shib-login";
+    shib_login_url.setPath(path);
+
     webview_->load(::includeQueryParams(
-                       url_, ::getSeafileLoginParams(computer_name, "shib_")));
+                       shib_login_url, ::getSeafileLoginParams(computer_name, "shib_")));
 }
 
 
@@ -93,6 +101,9 @@ Account ShibLoginDialog::parseAccount(const QString& cookie_value)
     int pos = txt.lastIndexOf("@");
     QString email = txt.left(pos);
     QString token = txt.right(txt.length() - pos - 1);
+    if (email.isEmpty() or token.isEmpty()) {
+        return Account();
+    }
     return Account(url_, email, token);
 }
 

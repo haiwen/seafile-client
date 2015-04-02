@@ -1,20 +1,23 @@
-#include <QDir>
-#include <sqlite3.h>
 #include <errno.h>
-#include <stdio.h>
+#include <cstdio>
+#include <sqlite3.h>
+
+#include <QDir>
 #include <QDateTime>
 
 #include "utils/file-utils.h"
 #include "utils/utils.h"
 #include "configurator.h"
 #include "seafile-applet.h"
-#include "file-browser-requests.h"
-#include "tasks.h"
 #include "auto-update-mgr.h"
-#include "transfer-mgr.h"
+#include "api/requests.h"
+#include "repo-service.h"
 
-#include "data-cache.h"
-#include "data-mgr.h"
+#include "filebrowser/file-browser-requests.h"
+#include "filebrowser/tasks.h"
+#include "filebrowser/transfer-mgr.h"
+#include "filebrowser/data-cache.h"
+#include "filebrowser/data-mgr.h"
 
 namespace {
 
@@ -348,4 +351,61 @@ QString DataManager::getRepoCacheFolder(const QString& repo_id) const
 {
     QString seafdir = seafApplet->configurator()->seafileDir();
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id);
+}
+
+void DataManager::createSubrepo(const QString &name, const QString& repo_id, const QString &path, const QString &password)
+{
+    //TODO fix password?
+    const QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
+    create_subrepo_req_.reset(new CreateSubrepoRequest(account_, name, repo_id, fixed_path, password));
+    // we might have cleaned this value when do a new request while old request is still there
+    get_repo_req_.reset(NULL);
+    create_subrepo_parent_repo_id_ = repo_id;
+    create_subrepo_parent_path_ = fixed_path;
+
+    connect(create_subrepo_req_.data(), SIGNAL(success(const QString&)),
+            this, SLOT(onCreateSubrepoSuccess(const QString&)));
+    connect(create_subrepo_req_.data(), SIGNAL(failed(const ApiError&)),
+            this, SIGNAL(createSubrepoFailed(const ApiError&)));
+
+    create_subrepo_req_->send();
+}
+
+void DataManager::onCreateSubrepoSuccess(const QString& new_repoid)
+{
+    // if we have it, we are lucky
+    ServerRepo repo = RepoService::instance()->getRepo(new_repoid);
+    if (repo.isValid()) {
+        ServerRepo fixed_repo = repo;
+        fixed_repo.parent_path = create_subrepo_parent_path_;
+        fixed_repo.parent_repo_id = create_subrepo_parent_repo_id_;
+        emit createSubrepoSuccess(fixed_repo);
+        return;
+    }
+
+    // if not found, we need call get repo (list repo is not reliable here)
+    get_repo_req_.reset(new GetRepoRequest(account_, new_repoid));
+
+    // connect
+    connect(get_repo_req_.data(), SIGNAL(success(const ServerRepo&)),
+            this, SLOT(onCreateSubrepoRefreshSuccess(const ServerRepo&)));
+    connect(get_repo_req_.data(), SIGNAL(failed(const ApiError&)),
+            this, SIGNAL(createSubrepoFailed(const ApiError&)));
+
+    get_repo_req_->send();
+}
+
+void DataManager::onCreateSubrepoRefreshSuccess(const ServerRepo& repo)
+{
+    // okay, all green
+    if (repo.isValid()) {
+        ServerRepo fixed_repo = repo;
+        fixed_repo.parent_path = create_subrepo_parent_path_;
+        fixed_repo.parent_repo_id = create_subrepo_parent_repo_id_;
+        emit createSubrepoSuccess(fixed_repo);
+        return;
+    }
+
+    // it is not expected
+    emit createSubrepoFailed(ApiError::fromHttpError(500));
 }

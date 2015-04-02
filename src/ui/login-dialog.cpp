@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QtNetwork>
 #include <QInputDialog>
 
@@ -16,7 +22,7 @@
 namespace {
 
 const QString kDefaultServerAddr1 = "https://seacloud.cc";
-const QString kDefaultServerAddr2 = "https://cloud.seafile.com";
+const QString kDefaultServerAddr2 = "https://cloud.mein-seafile.de";
 
 
 } // namespace
@@ -62,6 +68,22 @@ void LoginDialog::setupShibLoginLink()
             this, SLOT(loginWithShib()));
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+void LoginDialog::initFromAccount(const Account& account)
+{
+    setWindowTitle(tr("Re-login"));
+    mTitle->setText(tr("Re-login"));
+    if (account.serverUrl.host() == "seacloud.cc") {
+        mServerAddr->setCurrentIndex(0);
+    } else if (account.serverUrl.host()  == "cloud.seafile.com") {
+        mServerAddr->setCurrentIndex(1);
+    } else {
+        mServerAddr->lineEdit()->setText(account.serverUrl.toString());
+    }
+
+    mUsername->setText(account.username);
+    mPassword->setFocus(Qt::OtherFocusReason);
+}
 
 void LoginDialog::doLogin()
 {
@@ -255,7 +277,7 @@ void LoginDialog::loginWithShib()
 
     seafApplet->settingsManager()->setLastShibUrl(serverAddr);
 
-    ShibLoginDialog shib_dialog(url, this);
+    ShibLoginDialog shib_dialog(url, mComputerName->text(), this);
     if (shib_dialog.exec() == QDialog::Accepted) {
         accept();
     }

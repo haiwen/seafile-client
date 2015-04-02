@@ -4,11 +4,13 @@
 #include <vector>
 
 #include <QObject>
+#include <QHash>
 
 #include "account.h"
 
 struct sqlite3;
 struct sqlite3_stmt;
+class ApiError;
 
 /**
  * Load/Save seahub accounts
@@ -21,9 +23,13 @@ public:
     ~AccountManager();
 
     int start();
+    void updateServerInfo();
 
     int saveAccount(const Account& account);
     int removeAccount(const Account& account);
+
+    bool clearAccountToken(const Account& account);
+
     const std::vector<Account>& loadAccounts();
     bool accountExists(const QUrl& url, const QString& username);
 
@@ -41,6 +47,10 @@ public:
 
     Account getAccountBySignature(const QString& account_sig) const;
 
+    /// \brief find the Account By Repo ID
+    /// return an invalid Account if failed
+    Account getAccountByRepo(const QString& repo_id);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 signals:
@@ -50,12 +60,21 @@ signals:
     void beforeAccountChanged();
     void accountsChanged();
 
+private slots:
+    void serverInfoSuccess(const Account &account, const ServerInfo &info);
+    void serverInfoFailed(const ApiError&);
+
+    void onAccountsChanged();
+
 private:
     Q_DISABLE_COPY(AccountManager)
 
+    void updateServerInfo(unsigned index);
     static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
 
     void updateAccountLastVisited(const Account& account);
+
+    QHash<QString, Account> accounts_cache_;
 
     struct sqlite3 *db;
     std::vector<Account> accounts_;

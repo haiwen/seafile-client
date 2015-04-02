@@ -10,6 +10,29 @@
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "utils/utils.h"
+#include "api/api-error.h"
+#include "api/requests.h"
+#include "rpc/rpc-client.h"
+
+namespace {
+const char *kRepoRelayAddrProperty = "relay-address";
+
+bool compareAccount(const Account& a, const Account& b)
+{
+    if (!a.isValid()) {
+        return false;
+    } else if (!b.isValid()) {
+        return true;
+    } else if (a.lastVisited < b.lastVisited) {
+        return false;
+    } else if (a.lastVisited > b.lastVisited) {
+        return true;
+    }
+
+    return true;
+}
+
+}
 
 AccountManager::AccountManager()
 {
@@ -37,12 +60,19 @@ int AccountManager::start()
         return -1;
     }
 
+    // enabling foreign keys, it must be done manually from each connection
+    // and this feature is only supported from sqlite 3.6.19
+    sql = "PRAGMA foreign_keys=ON;";
+    sqlite_query_exec (db, sql);
+
     sql = "CREATE TABLE IF NOT EXISTS Accounts (url VARCHAR(24), "
         "username VARCHAR(15), token VARCHAR(40), lastVisited INTEGER, "
         "PRIMARY KEY(url, username))";
     sqlite_query_exec (db, sql);
 
     loadAccounts();
+
+    connect(this, SIGNAL(accountsChanged()), this, SLOT(onAccountsChanged()));
     return 0;
 }
 
@@ -54,6 +84,10 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     const char *token = (const char *)sqlite3_column_text (stmt, 2);
     qint64 atime = (qint64)sqlite3_column_int64 (stmt, 3);
 
+    if (!token) {
+        token = "";
+    }
+
     Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime);
     mgr->accounts_.push_back(account);
     return true;
@@ -61,24 +95,24 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
 
 const std::vector<Account>& AccountManager::loadAccounts()
 {
-    const char *sql = "SELECT url, username, token, lastVisited FROM Accounts "
-        "ORDER BY lastVisited DESC";
+    const char *sql = "SELECT url, username, token, lastVisited FROM Accounts ";
     accounts_.clear();
     sqlite_foreach_selected_row (db, sql, loadAccountsCB, this);
+
+    std::stable_sort(accounts_.begin(), accounts_.end(), compareAccount);
     return accounts_;
 }
 
 int AccountManager::saveAccount(const Account& account)
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i].serverUrl == account.serverUrl
-            && accounts_[i].username == account.username) {
+        if (accounts_[i] == account) {
             accounts_.erase(accounts_.begin() + i);
             break;
         }
     }
-
     accounts_.insert(accounts_.begin(), account);
+    updateServerInfo(0);
 
     QString url = account.serverUrl.toEncoded().data();
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
@@ -122,8 +156,7 @@ void AccountManager::updateAccountLastVisited(const Account& account)
 
 bool AccountManager::accountExists(const QUrl& url, const QString& username)
 {
-    int i, n = accounts_.size();
-    for (i = 0; i < n; i++) {
+    for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == url && accounts_[i].username == username) {
             return true;
         }
@@ -148,16 +181,13 @@ bool AccountManager::setCurrentAccount(const Account& account)
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
 {
-    int i = 0;
-    for (i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i].serverUrl.toString() == old_account.serverUrl.toString()
-            && accounts_[i].username == old_account.username) {
-            accounts_.erase(accounts_.begin() + i);
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i] == old_account) {
+            accounts_[i] = new_account;
+            updateServerInfo(i);
             break;
         }
     }
-
-    accounts_.insert(accounts_.begin(), new_account);
 
     QString old_url = old_account.serverUrl.toEncoded().data();
     QString new_url = new_account.serverUrl.toEncoded().data();
@@ -206,4 +236,99 @@ Account AccountManager::getAccountBySignature(const QString& account_sig) const
     }
 
     return Account();
+}
+
+void AccountManager::updateServerInfo()
+{
+    for (size_t i = 0; i < accounts_.size(); i++)
+        updateServerInfo(i);
+}
+
+void AccountManager::updateServerInfo(unsigned index)
+{
+    ServerInfoRequest *request;
+    // request is taken owner by Account object
+    request = accounts_[index].createServerInfoRequest();
+    connect(request, SIGNAL(success(const Account&, const ServerInfo &)),
+            this, SLOT(serverInfoSuccess(const Account&, const ServerInfo &)));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(serverInfoFailed(const ApiError&)));
+    request->send();
+}
+
+
+void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo &info)
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i] == account) {
+            if (i == 0)
+                emit beforeAccountChanged();
+            accounts_[i].serverInfo = info;
+            if (i == 0)
+                emit accountsChanged();
+            break;
+        }
+    }
+}
+
+void AccountManager::serverInfoFailed(const ApiError &error)
+{
+    qWarning("update server info failed %s\n", error.toString().toUtf8().data());
+}
+
+bool AccountManager::clearAccountToken(const Account& account)
+{
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i].serverUrl.toString() == account.serverUrl.toString()
+            && accounts_[i].username == account.username) {
+            accounts_.erase(accounts_.begin() + i);
+            break;
+        }
+    }
+
+    Account new_account = account;
+    new_account.token = "";
+
+    accounts_.push_back(new_account);
+
+    QString url = account.serverUrl.toEncoded().data();
+
+    QString sql =
+        "UPDATE Accounts "
+        "SET token = NULL "
+        "WHERE url = '%1' "
+        "  AND username = '%2'";
+
+    sql = sql.arg(url).arg(account.username);
+
+    sqlite_query_exec (db, toCStr(sql));
+
+    emit accountsChanged();
+
+    return true;
+}
+
+Account AccountManager::getAccountByRepo(const QString& repo_id)
+{
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    if (!accounts_cache_.contains(repo_id)) {
+        QString relay_addr;
+        if (rpc->getRepoProperty(repo_id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+            return Account();
+        }
+        const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+        for (unsigned i = 0; i < accounts.size(); i++) {
+            const Account& account = accounts[i];
+            if (account.serverUrl.host() == relay_addr) {
+                accounts_cache_[repo_id] = account;
+                break;
+            }
+        }
+    }
+    return accounts_cache_.value(repo_id, Account());
+}
+
+void AccountManager::onAccountsChanged()
+{
+    accounts_cache_.clear();
 }

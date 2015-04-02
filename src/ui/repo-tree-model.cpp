@@ -4,14 +4,17 @@
 #include <algorithm>            // std::sort
 
 #include "api/server-repo.h"
+
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "main-window.h"
 #include "rpc/rpc-client.h"
+#include "rpc/clone-task.h"
+#include "repo-service.h"
+
 #include "repo-item.h"
 #include "repo-tree-view.h"
 #include "repo-tree-model.h"
-#include "rpc/clone-task.h"
 
 namespace {
 
@@ -79,14 +82,15 @@ QModelIndex RepoTreeModel::proxiedIndexFromItem(const QStandardItem* item)
 
 void RepoTreeModel::clear()
 {
+    beginResetModel();
     QStandardItemModel::clear();
     initialize();
-    reset();
+    endResetModel();
 }
 
 void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 {
-    int i, n = repos.size();
+    size_t i, n = repos.size();
     // removeReposDeletedOnServer(repos);
 
     clear();
@@ -106,8 +110,7 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
             checkGroupRepo(repo);
         }
 
-        LocalRepo local_repo;
-        if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) == 0)
+        if (repo.isSubfolder() || seafApplet->rpcClient()->hasLocalRepo(repo.id))
             checkSyncedRepo(repo);
 
         // we have a conflicting case, don't use group version if we can

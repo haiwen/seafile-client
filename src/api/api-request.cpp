@@ -1,4 +1,8 @@
+#include <QtGlobal>
 #include <QtNetwork>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QUrlQuery>
+#endif
 
 #include "utils/utils.h"
 #include "api-client.h"
@@ -23,14 +27,12 @@ SeafileApiRequest::~SeafileApiRequest()
 
 void SeafileApiRequest::setUrlParam(const QString& name, const QString& value)
 {
-    params_.push_back(QPair<QByteArray, QByteArray>(
-            QUrl::toPercentEncoding(name), QUrl::toPercentEncoding(value)));
+    params_[name] = value;
 }
 
 void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
 {
-    form_params_.push_back(QPair<QByteArray, QByteArray>(
-            QUrl::toPercentEncoding(name), QUrl::toPercentEncoding(value)));
+    form_params_[name] = value;
 }
 
 void SeafileApiRequest::send()
@@ -39,7 +41,12 @@ void SeafileApiRequest::send()
         api_client_->setToken(token_);
     }
 
-    url_.setEncodedQueryItems(params_);
+    if (!params_.isEmpty()) {
+        url_ = ::includeQueryParams(url_, params_);
+    }
+
+    QByteArray post_data = ::buildFormData(form_params_);
+
     switch (method_) {
     case METHOD_GET:
         api_client_->get(url_);
@@ -48,20 +55,8 @@ void SeafileApiRequest::send()
         api_client_->deleteResource(url_);
         break;
     case METHOD_POST:
-        if (!form_params_.isEmpty()) {
-            QUrl params;
-            params.setEncodedQueryItems(form_params_);
-            setData(params.encodedQuery());
-        }
-        api_client_->post(url_, data_, false);
-        break;
     case METHOD_PUT:
-        if (!form_params_.isEmpty()) {
-            QUrl params;
-            params.setEncodedQueryItems(form_params_);
-            setData(params.encodedQuery());
-        }
-        api_client_->post(url_, data_, true);
+        api_client_->post(url_, post_data, method_ == METHOD_PUT);
         break;
     default:
         qWarning("unknown method %d\n", method_);

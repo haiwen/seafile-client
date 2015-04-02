@@ -14,6 +14,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "account-mgr.h"
+#include "repo-service.h"
 
 #include "repo-item-delegate.h"
 
@@ -165,7 +166,15 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
     painter->save();
 
-    QPixmap repo_icon(repo.getPixmap());
+    // get the device pixel radio from current painter device
+    int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    scale_factor = painter->device()->devicePixelRatio();
+#endif // QT5
+    QPixmap repo_icon(repo.getIcon().pixmap(QSize(kRepoIconWidth, kRepoIconHeight) * scale_factor));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    repo_icon.setDevicePixelRatio(scale_factor);
+#endif // QT5
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidth, kRepoIconHeight));
     painter->drawPixmap(repo_icon_rect, repo_icon);
@@ -222,12 +231,20 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                       &repo_desc_rect);
     painter->restore();
 
+    // Paint extra description
+    QString extra_description;
+    if (repo.isSubfolder()) {
+        ServerRepo parent_repo = RepoService::instance()->getRepo(repo.parent_repo_id);
+        extra_description = tr(", %1%2").arg(parent_repo.name).arg(repo.parent_path);
+    }
     // Paint repo sharing owner for private share
     if (static_cast<RepoCategoryItem*>(item->parent())->categoryIndex() ==
-        RepoTreeModel::CAT_INDEX_SHARED_REPOS) {
+        RepoTreeModel::CAT_INDEX_SHARED_REPOS)
+        extra_description += tr(", %1").arg(repo.owner.split('@').front());
+
+    if (!extra_description.isEmpty()) {
         painter->save();
 
-        QString shared_from_owner = tr(", %1").arg(item->repo().owner.split('@').front());
         int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
         if (width < 3)
           width = 3;
@@ -237,7 +254,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
         painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
         painter->drawText(repo_owner_rect,
                           Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                          fitTextToWidth(shared_from_owner, option.font, width),
+                          fitTextToWidth(extra_description, option.font, width),
                           &repo_owner_rect);
 
         painter->restore();
@@ -248,8 +265,13 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeight / 2));
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidth, kRepoStatusIconHeight));
 
+    QPixmap status_icon_pixmap = getSyncStatusIcon(item).pixmap(scale_factor * status_icon_rect.size());
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    status_icon_pixmap.setDevicePixelRatio(scale_factor);
+#endif // QT5
+
     painter->save();
-    painter->drawPixmap(status_icon_rect, getSyncStatusIcon(item));
+    painter->drawPixmap(status_icon_rect, status_icon_pixmap);
     painter->restore();
 
     // Update the metrics of this item
@@ -295,14 +317,9 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     painter->save();
-    QString icon_path = QString(":/images/caret-%1.png").arg(expanded ? "down" : "right");
-    QString icon_2x_path = QString(":/images/caret-%1@2x.png").arg(expanded ? "down" : "right");
-    QIcon icon = QIcon();
-    icon.addFile(icon_path, QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
-    icon.addFile(icon_2x_path, QSize(kRepoCategoryIndicatorWidth * 2, kRepoCategoryIndicatorHeight * 2));
+    QIcon icon(QString(":/images/caret-%1.png").arg(expanded ? "down" : "right"));
 
-    painter->drawPixmap(indicator_rect,
-                       icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
+    painter->drawPixmap(indicator_rect, icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
     painter->restore();
 
     // Paint category name
@@ -319,7 +336,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->restore();
 }
 
-QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
+QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
 {
     const QString prefix = ":/images/sync/";
     const LocalRepo& repo = item->localRepo();
@@ -329,7 +346,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     } else {
         switch (repo.sync_state) {
         case LocalRepo::SYNC_STATE_DONE:
-            icon = "ok";
+            icon = "done";
             break;
         case LocalRepo::SYNC_STATE_ING:
             icon = "rotate";
@@ -356,7 +373,7 @@ QPixmap RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
 
     last_icon_map_[repo.id] = icon;
 
-    return ::getIconPathByDPI(prefix + icon + ".png");
+    return QIcon(prefix + icon + ".png");
 }
 
 QStandardItem* RepoItemDelegate::getItem(const QModelIndex &index) const

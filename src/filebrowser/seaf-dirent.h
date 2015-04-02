@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <QString>
+#include <QList>
 #include <QMetaType>
 
 class SeafDirent {

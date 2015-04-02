@@ -12,12 +12,17 @@
 #include <QSettings>
 #include <QProcess>
 #include <QDesktopServices>
+#include <QHostInfo>
 #include <jansson.h>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QUrlQuery>
+#endif
 
-#if defined(Q_WS_MAC)
+#include "utils-mac.h"
+
+#if defined(Q_OS_MAC)
     #include <sys/sysctl.h>
-    #include "utils-mac.h"
-#elif defined(Q_WS_WIN)
+#elif defined(Q_OS_WIN32)
     #include <windows.h>
     #include <psapi.h>
 #endif
@@ -30,19 +35,23 @@
 #include <QSslCipher>
 #include <QSslCertificate>
 
+#include "seafile-applet.h"
+#include "rpc/rpc-client.h"
+
+#include "utils.h"
 #include "utils.h"
 
 
 namespace {
 
 const char *kSeafileClientBrand = "Seafile";
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 const char *kCcnetConfDir = "ccnet";
 #else
 const char *kCcnetConfDir = ".ccnet";
 #endif
 
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
 /// \brief call xdg-mime to find out the mime filetype X11 recognizes it as
 /// xdg-mime's usage:
 /// xdg-mime query filetype <filename>
@@ -99,17 +108,17 @@ QString defaultCcnetDir() {
 }
 
 bool openInNativeExtension(const QString &path) {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     //call ShellExecute internally
     return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
     // mac's open program, it will fork to open the file in a subprocess
     // so we will wait for it to check whether it succeeds or not
     QProcess subprocess;
     subprocess.start(QLatin1String("open"), QStringList(path));
     subprocess.waitForFinished(-1);
     return subprocess.exitCode() == 0;
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
     // unlike mac's open program, xdg-open won't fork a new subprocess to open
     // the file will block until the application returns, so we won't wait for it
     // and we need another approach to check if it works
@@ -137,13 +146,13 @@ bool openInNativeExtension(const QString &path) {
 }
 
 bool showInGraphicalShell(const QString& path) {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QStringList params;
     if (!QFileInfo(path).isDir())
         params << QLatin1String("/select,");
     params << QDir::toNativeSeparators(path);
     return QProcess::startDetached(QLatin1String("explorer.exe"), params);
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
     QStringList scriptArgs;
     scriptArgs << QLatin1String("-e")
                << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
@@ -235,7 +244,7 @@ int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
 
 int checkdir_with_mkdir (const char *dir)
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     int ret;
     char *path = g_strdup(dir);
     char *p = (char *)path + strlen(path) - 1;
@@ -249,7 +258,7 @@ int checkdir_with_mkdir (const char *dir)
 }
 
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 static LONG
 get_win_run_key (HKEY *pKey)
 {
@@ -357,7 +366,7 @@ set_seafile_auto_start(bool on)
     return result;
 }
 
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
 int
 get_seafile_auto_start()
 {
@@ -390,7 +399,7 @@ set_seafile_auto_start(bool /* on */)
 int
 set_seafile_dock_icon_style(bool hidden)
 {
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     utils::mac::setDockIconStyle(hidden);
 #endif
     return 0;
@@ -432,6 +441,37 @@ QString getBrand()
     return QString::fromUtf8(kSeafileClientBrand);
 }
 
+static
+QList<QVariant> listFromJSON(json_t *array)
+{
+    QList<QVariant> ret;
+    size_t index;
+    size_t array_size = json_array_size(array);
+    json_t *value;
+
+    for(size_t index = 0; index < array_size &&
+        (value = json_array_get(array, index)); ++index) {
+        /* block of code that uses index and value */
+        QVariant v;
+        /*if (json_is_array(value)) {
+            v = listFromJSON(value, error);
+        } else */
+        if (json_is_string(value)) {
+            v = QString::fromUtf8(json_string_value(value));
+        } else if (json_is_integer(value)) {
+            v = json_integer_value(value);
+        } else if (json_is_real(value)) {
+            v = json_real_value(value);
+        } else if (json_is_boolean(value)) {
+            v = json_is_true(value);
+        }
+        if (v.isValid()) {
+          ret.push_back(v);
+        }
+    }
+    return ret;
+}
+
 QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
 {
     QMap<QString, QVariant> dict;
@@ -454,7 +494,9 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
         // json_is_true(const json_t *json)
         // json_is_false(const json_t *json)
         // json_is_null(const json_t *json)
-        if (json_is_string(value)) {
+        if (json_is_array(value)) {
+            v = listFromJSON(value);
+        } else if (json_is_string(value)) {
             v = QString::fromUtf8(json_string_value(value));
         } else if (json_is_integer(value)) {
             v = json_integer_value(value);
@@ -477,7 +519,7 @@ QString mapToJson(QMap<QString, QVariant> map)
     char *info = NULL;
     object = json_object();
 
-    foreach (const QString &k, map.keys()) {
+    Q_FOREACH (const QString &k, map.keys()) {
         QVariant v = map.value(k);
         switch (v.type()) {
         case QVariant::String:
@@ -487,6 +529,8 @@ QString mapToJson(QMap<QString, QVariant> map)
             json_object_set_new(object, toCStr(k), json_integer(v.toInt()));
             break;
             // TODO: support other types
+        default:
+            continue;
         }
     }
 
@@ -668,13 +712,18 @@ QString dumpCertificate(const QSslCertificate &cert)
 
     QString s;
     QString s_none = QObject::tr("<Not Part of Certificate>");
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    #define CERTIFICATE_STR(x) ( ((x).join("") == "" ) ? s_none : (x).join(";") )
+#else
     #define CERTIFICATE_STR(x) ( ((x) == "" ) ? s_none : (x) )
+#endif
+
 
     s += "\nIssued To\n";
     s += "CommonName(CN):             " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::CommonName)) + "\n";
     s += "Organization(O):            " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::Organization)) + "\n";
     s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
-    s += "Serial Number:              " + CERTIFICATE_STR(dumpHexPresentation(cert.serialNumber())) + "\n";
+    s += "Serial Number:              " + dumpHexPresentation(cert.serialNumber()) + "\n";
 
     s += "\nIssued By\n";
     s += "CommonName(CN):             " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::CommonName)) + "\n";
@@ -684,7 +733,11 @@ QString dumpCertificate(const QSslCertificate &cert)
     s += "\nPeriod Of Validity\n";
     s += "Begins On:    " + cert.effectiveDate().toString() + "\n";
     s += "Expires On:   " + cert.expiryDate().toString() + "\n";
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    s += "IsBlacklisted:      " + (cert.isBlacklisted() ? QString("Yes") : QString("No")) + "\n";
+#else
     s += "IsValid:      " + (cert.isValid() ? QString("Yes") : QString("No")) + "\n";
+#endif
 
     s += "\nFingerprints\n";
     s += "SHA1 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Sha1) + "\n";
@@ -707,4 +760,67 @@ QString dumpSslErrors(const QList<QSslError> &errors)
         s += error.errorString() + "\n";
     }
     return s;
+}
+
+void msleep(int mseconds)
+{
+#ifdef Q_OS_WIN32
+    ::Sleep(mseconds);
+#else
+    struct timespec ts;
+    ts.tv_sec = mseconds / 1000;
+    ts.tv_nsec = mseconds % 1000 * 1000 * 1000;
+
+    int r;
+    do {
+        r = ::nanosleep(&ts, &ts);
+    } while (r == -1 && errno == EINTR);
+#endif
+}
+
+QUrl includeQueryParams(const QUrl& url,
+                        const QHash<QString, QString>& params)
+{
+    QUrl u(url);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QString escaped_plus = QString::fromLatin1("%2B");
+    QUrlQuery query;
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        // To support encoding like that of HTML forms, QUrlQuery also never decodes
+        // the "%2B" sequence to a plus sign nor encode a plus sign. In fact, any
+        // "%2B" or "+" sequences found in the keys, values, or query string are left
+        // exactly like written (except for the uppercasing of "%2b" to "%2B").
+        query.addQueryItem(key, value.replace('+', escaped_plus));
+    }
+    u.setQuery(query);
+#else
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
+                              QUrl::toPercentEncoding(value));
+    }
+#endif
+    return u;
+}
+
+QByteArray buildFormData(const QHash<QString, QString>& params)
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QString escaped_plus = QString::fromLatin1("%2B");
+    QUrlQuery query;
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        query.addQueryItem(key, value.replace('+', escaped_plus));
+    }
+    return query.query(QUrl::FullyEncoded).toUtf8();
+#else
+    QUrl u;
+    foreach (const QString& key, params.keys()) {
+        QString value = params[key];
+        u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
+                              QUrl::toPercentEncoding(value));
+    }
+    return u.encodedQuery();
+#endif
 }

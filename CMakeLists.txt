@@ -1,13 +1,17 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
 
 PROJECT(seafile-client)
-SET(PROJECT_VERSION "4.0.7")
+SET(PROJECT_VERSION "4.1.4")
 ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 INCLUDE(FindPkgConfig)
 
 ## Build crash repoter on release build as default
 IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)
+ENDIF()
+
+IF (APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+  SET(CMAKE_OSX_DEPLOYMENT_TARGET "10.7")
 ENDIF()
 
 FIND_PROGRAM(git_executable NAMES git git.exe git.cmd)
@@ -20,6 +24,14 @@ IF (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git AND NOT (${CMAKE_BUILD_TYPE} MATCHES
   ADD_DEFINITIONS(-DSEAFILE_CLIENT_REVISION=${SEAFILE_CLIENT_REVISION})
 ENDIF()
 
+IF (APPLE)
+    OPTION(USE_QT5
+      "Build seafile-client against Qt5 instead" ON)
+ELSE ()
+    OPTION(USE_QT5
+      "Build seafile-client against Qt5 instead" OFF)
+ENDIF ()
+
 SET(PATH_TO_BREAKPAD_ROOT CACHE "Path to breakpad's root" "")
 
 OPTION(BUILD_TESTING "Build Test" OFF)
@@ -28,7 +40,39 @@ OPTION(BUILD_DOCS "Build Documents" OFF)
 
 OPTION(BUILD_SHIBBOLETH_SUPPORT "Build Shibboleth support" OFF)
 
+option(BUILD_ENABLE_WARNINGS "Enable compiler warnings." ON)
+
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
+
+## build in PIC mode
+IF (NOT WIN32)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+ENDIF()
+
+## Setup warnings ouput if enabled
+## but don't warning on unsupported warnings
+if(BUILD_ENABLE_WARNINGS)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -Woverloaded-virtual")
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unknown-warning-option")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-warning-option -Wno-inconsistent-missing-override")
+  endif()
+endif()
+
+## color diagnostics fix
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  execute_process(COMMAND ${CMAKE_CXX_COMPILER}
+    -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+  if(GCC_VERSION VERSION_GREATER 4.9 OR GCC_VERSION VERSION_EQUAL 4.9)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-color=always")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always")
+  endif()
+endif()
 
 IF (WIN32)
     SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
@@ -36,6 +80,8 @@ IF (WIN32)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)
     ENDIF()
+    SET(platform_specific_moc_headers src/ext-handler.h)
+    SET(platform_specific_sources src/ext-handler.cpp)
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
     INCLUDE_DIRECTORIES(${QT_QTDBUS_INCLUDE_DIR})
     LINK_DIRECTORIES(${QT_QTDBUS_LIBRARIES})
@@ -52,20 +98,64 @@ ELSEIF (APPLE)
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${COCOA_LIBRARY})
 ENDIF()
 
+## these files using c++11 features, don't enable it for qt4
+IF(APPLE AND USE_QT5)
+    ADD_DEFINITIONS(-DHAVE_FINDER_SYNC_SUPPORT)
+    SET(platform_specific_moc_headers src/finder-sync/finder-sync-host.h)
+    SET(platform_specific_sources ${platform_specific_sources}
+        src/finder-sync/finder-sync.cpp src/finder-sync/finder-sync-listener.mm
+        src/finder-sync/finder-sync-host.cpp)
+    SET_SOURCE_FILES_PROPERTIES(src/finder-sync/finder-sync-listener.mm
+        PROPERTIES COMPILE_FLAGS -fobjc-arc)
+ENDIF()
+
 ####################
 ###### BEGIN: QT configuration
 ####################
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
-  SET(QtDBus "QtDBus")
-ENDIF()
-IF (BUILD_SHIBBOLETH_SUPPORT)
-  SET(QtWebKit "QtWebKit")
-  ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+IF(USE_QT5)
+    SET(QT_VERSION_MAJOR 5)
+ELSE()
+    SET(QT_VERSION_MAJOR 4)
 ENDIF()
 
-FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
-
-INCLUDE(${QT_USE_FILE})
+IF(USE_QT5)
+    SET(USE_QT_LIBRARIES
+      Core Gui Widgets LinguistTools Network Test
+      )
+    IF (BUILD_SHIBBOLETH_SUPPORT)
+      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "WebKit" "WebKitWidgets")
+      ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+    ENDIF()
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "DBus")
+    ENDIF()
+    FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
+    SET(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
+    # from QT 5.4.0 Changelog
+    # The Qt binary packages are now configured with C++11 enabled.
+    # this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3
+    if (CYGWIN OR MINGW)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+    else()
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    endif()
+    # for OS X, we requires libc++ instead
+    if (APPLE)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+      SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
+      SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
+    endif()
+ELSE()
+    IF (BUILD_SHIBBOLETH_SUPPORT)
+      SET(QtWebKit "QtWebKit")
+      ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+    ENDIF()
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        SET(QtDBus "QtDBus")
+    ENDIF()
+    FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
+    INCLUDE(${QT_USE_FILE})
+ENDIF()
 
 # MOC FILES
 SET(moc_headers
@@ -79,6 +169,7 @@ SET(moc_headers
   src/avatar-service.h
   src/server-status-service.h
   src/message-listener.h
+  src/network-mgr.h
   src/settings-mgr.h
   src/traynotificationwidget.h
   src/traynotificationmanager.h
@@ -170,13 +261,25 @@ SET(qrc_files
 )
 
 # preprocess ui files
-QT4_WRAP_UI(ui_output ${ui_files})
+IF(USE_QT5)
+  QT5_WRAP_UI(ui_output ${ui_files})
+ELSE()
+  QT4_WRAP_UI(ui_output ${ui_files})
+ENDIF()
 
 # meta object compliation(moc)
-QT4_WRAP_CPP(moc_output ${moc_headers})
+IF(USE_QT5)
+  QT5_WRAP_CPP(moc_output ${moc_headers})
+ELSE()
+  QT4_WRAP_CPP(moc_output ${moc_headers})
+ENDIF()
 
 # resources files
-QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
+IF(USE_QT5)
+  QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
+ELSE()
+  QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
+ENDIF()
 
 # MESSAGE("moc output: ${moc_output}")
 # MESSAGE("ui output: ${ui_output}")
@@ -218,6 +321,7 @@ SET(seafile_client_sources
   src/configurator.cpp
   src/open-local-helper.cpp
   src/message-listener.cpp
+  src/network-mgr.cpp
   src/repo-service.cpp
   src/repo-service-helper.cpp
   src/events-service.cpp
@@ -300,10 +404,21 @@ ENDIF()
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
-  ${PROJECT_SOURCE_DIR}/src
-  ${PROJECT_SOURCE_DIR}/third_party/QtAwesome
-  ${QT_INCLUDE_DIR}
-  ${QT_QTNETWORK_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/QtAwesome
+  )
+
+IF(USE_QT5)
+  FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
+  INCLUDE_DIRECTORIES(
+    ${Qt5${USE_QT_LIBRARY}_INCLUDE_DIRS}
+    )
+  ENDFOREACH()
+ELSE()
+  INCLUDE_DIRECTORIES(${QT_INCLUDES})
+ENDIF()
+
+INCLUDE_DIRECTORIES(
   ${OPENSSL_INCLUDE_DIRS}
   ${SQLITE3_INCLUDE_DIRS}
   ${JANSSON_INCLUDE_DIRS}
@@ -314,6 +429,7 @@ INCLUDE_DIRECTORIES(
 
 LINK_DIRECTORIES(
   ${QT_LIBRARY_DIR}
+  ${OPENSSL_LIBRARY_DIRS}
   ${LIBCCNET_LIBRARY_DIRS}
   ${LIBSEAFILE_LIBRARY_DIRS}
   ${LIBSEARPC_LIBRARY_DIRS}
@@ -359,6 +475,7 @@ ENDFUNCTION(ADD_SC_LIBRARY)
 LIST(APPEND utils_sources
     src/utils/utils.cpp
     src/utils/rsa.cpp
+    src/utils/api-utils.cpp
     src/utils/paint-utils.cpp
     src/utils/file-utils.cpp
     src/utils/translate-commit-desc.cpp
@@ -442,7 +559,11 @@ FOREACH(LANGUAGE ${LANGUAGES})
 
 ENDFOREACH(LANGUAGE ${LANGUAGES})
 
-QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+IF(USE_QT5)
+  QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+ELSE()
+  QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+ENDIF()
 
 ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
@@ -561,11 +682,21 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
+IF(USE_QT5)
+  QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
+  IF (BUILD_SHIBBOLETH_SUPPORT)
+    QT5_USE_MODULES(seafile-applet WebKit WebKitWidgets)
+  ENDIF()
+ENDIF(USE_QT5)
+
 ## QtBus
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   TARGET_LINK_LIBRARIES(seafile-applet
     ${QT_QTDBUS_LIBRARIES}
   )
+  IF(USE_QT5)
+    QT5_USE_MODULES(seafile-applet ${USE_QT_LIBRARIES})
+  ENDIF(USE_QT5)
 ENDIF()
 
 ### Xcode-related, build as a osx bundle
@@ -585,9 +716,10 @@ IF(CMAKE_GENERATOR STREQUAL Xcode)
       COMMAND ${CMAKE_COMMAND} -E copy ${ccnet} ${RESOURCES_DIR}/.
       COMMAND ${CMAKE_COMMAND} -E copy ${seaf-daemon} ${RESOURCES_DIR}/.
   )
-  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
-  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
-  SET_TARGET_PROPERTIES(seafile-applet PROPERTIES XCODE_ATTRIBUTE_GCC_ENABLE_PASCAL_STRINGS "NO")
+  SET(CMAKE_XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
+  SET(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
+  SET(CMAKE_XCODE_ATTRIBUTE_GCC_ENABLE_PASCAL_STRINGS "NO")
+  SET(CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC "YES")
 ENDIF()
 
 SET(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${PROJECT_VERSION})
@@ -599,18 +731,29 @@ ADD_CUSTOM_TARGET(dist
 ### Test related
 IF (BUILD_TESTING)
     MACRO(ADD_QTEST testname)
-        QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        IF(USE_QT5)
+          QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        ELSE()
+          SET(QTESTLIB ${QT_QTTEST_LIBRARY})
+          QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        ENDIF()
+
         SET(${testname}_SRCS tests/${testname}.cpp ${${testname}_MOCHEADER})
 
         ADD_EXECUTABLE(${testname} ${${testname}_SRCS})
 
         TARGET_LINK_LIBRARIES(${testname} ${QT_LIBRARIES}
-                ${QT_QTTEST_LIBRARY} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
+                ${QTESTLIB} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
                 ${EXTRA_LIBS} -lglib-2.0 ${SC_LIBS})
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 
+        IF(USE_QT5)
+          QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES})
+        ENDIF(USE_QT5)
+
         ADD_TEST(${testname} ${CMAKE_CURRENT_BINARY_DIR}/tests/${testname})
+
     ENDMACRO(ADD_QTEST)
 
     ENABLE_TESTING()

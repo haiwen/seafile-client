@@ -77,13 +77,15 @@ void shutdown_process (const char *name)
     }
 
     struct dirent *subdir = NULL;
+    pid_t current_pid = getpid();
     while ((subdir = readdir(proc_dir))) {
         char first = subdir->d_name[0];
         /* /proc/[1-9][0-9]* */
         if (first > '9' || first < '1')
             continue;
         int pid = find_process_in_dirent(subdir, name);
-        if (pid > 0) {
+        // don't kill itself!
+        if (pid > 0 && pid != current_pid) {
             kill (pid, SIGKILL);
         }
     }

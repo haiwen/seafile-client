@@ -12,7 +12,7 @@
 #include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 #include "utils/registry.h"
 #include <shlobj.h>
 #include <shlwapi.h>
@@ -23,7 +23,7 @@
 
 namespace {
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 
 const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
 const char *kMyComputerNamespacePath =
@@ -113,7 +113,7 @@ void Configurator::onSeafileDirSet(const QString& path)
 
 void Configurator::setSeafileDirAttributes()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     std::wstring seafdir = seafile_dir_.toStdWString();
 
     // Make seafile-data folder hidden
@@ -156,7 +156,7 @@ void Configurator::validateExistingConfig()
     }
 
     QDir d(seafile_dir_);
-#ifndef Q_WS_WIN
+#if !defined(Q_OS_WIN32)
     QString old_client_wt = d.filePath("../seafile/");
     if (QFile(old_client_wt).exists()) {
         // old client
@@ -202,7 +202,7 @@ int Configurator::readSeafileIni(QString *content)
 int Configurator::setVirtualDrive(const QString& path, const QString& name)
 {
     printf ("Configurator::setVirtualDrive is called\n");
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QString clsid_path = QString("Software\\Classes\\CLSID\\{%1}").arg(kVirtualDriveGUID);
 
     QList<RegElement> list;
@@ -274,7 +274,7 @@ int Configurator::setVirtualDrive(const QString& path, const QString& name)
 
 void Configurator::removeVirtualDrive()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     HKEY root = HKEY_CURRENT_USER;
     QString parent, subkey;
 
@@ -290,7 +290,7 @@ void Configurator::removeVirtualDrive()
 
 void Configurator::installCustomUrlHandler()
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QList<RegElement> list;
     HKEY root = HKEY_CURRENT_USER;
 

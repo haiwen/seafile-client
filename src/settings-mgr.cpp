@@ -1,14 +1,22 @@
 #include <QSettings>
 #include <QHostInfo>
+#include <QNetworkProxy>
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "settings-mgr.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
+#include "network-mgr.h"
+#include "ui/main-window.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 #include "utils/registry.h"
+#endif
+
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+#include "finder-sync/finder-sync.h"
 #endif
 
 namespace {
@@ -23,6 +31,9 @@ const char *kBehaviorGroup = "Behavior";
 
 const char *kSettingsGroup = "Settings";
 const char *kComputerName = "computerName";
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+const char *kFinderSync = "finderSync";
+#endif // HAVE_FINDER_SYNC_SUPPORT
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
@@ -37,11 +48,13 @@ SettingsManager::SettingsManager()
       transferEncrypted_(true),
       allow_invalid_worktree_(false),
       allow_repo_not_found_on_server_(false),
+      sync_extra_temp_file_(false),
       maxDownloadRatio_(0),
       maxUploadRatio_(0),
-      sync_extra_temp_file_(false),
       http_sync_enabled_(false),
-      verify_http_sync_cert_disabled_(false)
+      verify_http_sync_cert_disabled_(false),
+      use_proxy_type_(NoneProxy),
+      proxy_port_(0)
 {
 }
 
@@ -77,7 +90,69 @@ void SettingsManager::loadSettings()
     if (seafApplet->rpcClient()->seafileGetConfig("disable_verify_certificate", &str) >= 0)
         verify_http_sync_cert_disabled_ = (str == "true") ? true : false;
 
+    // reading proxy settings
+    do {
+        if (seafApplet->rpcClient()->seafileGetConfig("use_proxy", &str) < 0 ) {
+            setProxy(NoneProxy);
+            break;
+        }
+        if (str == "false") {
+            setProxy(NoneProxy);
+            break;
+        }
+        QString proxy_host;
+        int proxy_port;
+        QString proxy_username;
+        QString proxy_password;
+        if (seafApplet->rpcClient()->seafileGetConfig("proxy_addr", &proxy_host) < 0) {
+            setProxy(NoneProxy);
+            break;
+        }
+        if (seafApplet->rpcClient()->seafileGetConfigInt("proxy_port", &proxy_port) < 0) {
+            setProxy(NoneProxy);
+            break;
+        }
+        if (seafApplet->rpcClient()->seafileGetConfig("proxy_type", &str) < 0) {
+            setProxy(NoneProxy);
+            break;
+        }
+        if (str == "http") {
+            if (seafApplet->rpcClient()->seafileGetConfig("proxy_username", &proxy_username) < 0) {
+                setProxy(NoneProxy);
+                break;
+            }
+            if (seafApplet->rpcClient()->seafileGetConfig("proxy_password", &proxy_password) < 0) {
+                setProxy(NoneProxy);
+                break;
+            }
+            setProxy(HttpProxy, proxy_host, proxy_port, proxy_username, proxy_password);
+        } else if (str == "socks") {
+            setProxy(SocksProxy, proxy_host, proxy_port);
+        } else {
+            if (!str.isEmpty())
+                qWarning("Unsupported proxy_type %s", str.toUtf8().data());
+            setProxy(NoneProxy);
+        }
+    } while(0);
+
+
     autoStart_ = get_seafile_auto_start();
+
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+    // try to do a reinstall, or we may use findersync somewhere else
+    // this action won't stop findersync if running already
+    FinderSyncExtensionHelper::reinstall();
+
+    // try to sync finder sync extension settings with the actual settings
+    // i.e. enabling the finder sync if the setting is true
+    setFinderSyncExtension(getFinderSyncExtension());
+#endif // HAVE_FINDER_SYNC_SUPPORT
+
+
+#ifdef Q_OS_WIN32
+    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "ShellExtDisabled", "");
+    shell_ext_enabled_ = !reg.exists();
+#endif
 }
 
 void SettingsManager::setAutoSync(bool auto_sync)
@@ -188,6 +263,12 @@ void SettingsManager::setHideDockIcon(bool hide)
     settings.endGroup();
 
     set_seafile_dock_icon_style(hide);
+#ifdef Q_OS_MAC
+    // for UIElement application, the main window might sink
+    // under many applications
+    // this will force it to stand before all
+    utils::mac::orderFrontRegardless(seafApplet->mainWindow()->winId());
+#endif
 }
 
 // void SettingsManager::setDefaultLibraryAlreadySetup()
@@ -217,7 +298,7 @@ void SettingsManager::removeAllSettings()
     QSettings settings;
     settings.clear();
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", getBrand());
 #endif
 }
@@ -272,6 +353,76 @@ void SettingsManager::setSyncExtraTempFile(bool sync)
         }
         sync_extra_temp_file_ = sync;
     }
+}
+void SettingsManager::getProxy(QNetworkProxy *proxy) {
+    proxy->setType(use_proxy_type_ == HttpProxy ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy);
+    proxy->setHostName(proxy_host_);
+    proxy->setPort(proxy_port_);
+    if (use_proxy_type_ == HttpProxy && !proxy_username_.isEmpty() && !proxy_password_.isEmpty()) {
+        proxy->setUser(proxy_username_);
+        proxy->setPassword(proxy_password_);
+    }
+}
+
+void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QString &proxy_host, int proxy_port, const QString &proxy_username, const QString &proxy_password) {
+    // NoneProxy ?
+    if (proxy_type == NoneProxy) {
+        if (seafApplet->rpcClient()->seafileSetConfig("use_proxy", "false") < 0)
+            return;
+        use_proxy_type_ = proxy_type;
+        QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
+        return;
+    }
+    // Use the same Https/Socks Proxy?
+    if (use_proxy_type_ == proxy_type && proxy_host_ == proxy_host && proxy_port_ == proxy_port) {
+        if (proxy_type == SocksProxy)
+            return;
+        if (proxy_type == HttpProxy && proxy_username_ == proxy_username && proxy_password_ == proxy_username)
+            return;
+    }
+    // invalid settings
+    if (proxy_type != SocksProxy && proxy_type != HttpProxy) {
+        return;
+    }
+    // invalid settings
+    if (proxy_host.isEmpty()) {
+        return;
+    }
+
+    // Otherwise, write settings
+    if (seafApplet->rpcClient()->seafileSetConfig("use_proxy", "true") < 0)
+        return;
+    if (seafApplet->rpcClient()->seafileSetConfig("proxy_type", proxy_type == HttpProxy ? "http" : "socks") < 0)
+        return;
+    if (seafApplet->rpcClient()->seafileSetConfig("proxy_addr", proxy_host.toUtf8().data()) < 0)
+        return;
+    if (seafApplet->rpcClient()->seafileSetConfig("proxy_port", QVariant(proxy_port).toString().toUtf8().data()) < 0)
+        return;
+    if (proxy_type == HttpProxy) {
+        if (seafApplet->rpcClient()->seafileSetConfig("proxy_username", proxy_username.toUtf8().data()) < 0)
+            return;
+        if (seafApplet->rpcClient()->seafileSetConfig("proxy_password", proxy_password.toUtf8().data()) < 0)
+            return;
+    }
+    // skip invalid port
+    if (proxy_type == HttpProxy && proxy_port == 0)
+        proxy_port = 80;
+    if (proxy_port == 0)
+        return;
+
+    // save settings
+    use_proxy_type_ = proxy_type;
+    proxy_host_ = proxy_host;
+    proxy_port_ = proxy_port;
+    if (proxy_type == HttpProxy) {
+        proxy_username_ = proxy_username;
+        proxy_password_ = proxy_password;
+    }
+
+    // apply settings
+    QNetworkProxy proxy;
+    getProxy(&proxy);
+    NetworkManager::instance()->applyProxy(proxy);
 }
 
 void SettingsManager::setAllowRepoNotFoundOnServer(bool val)
@@ -353,3 +504,53 @@ void SettingsManager::setLastShibUrl(const QString& url)
     settings.endGroup();
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+#ifdef HAVE_FINDER_SYNC_SUPPORT
+bool SettingsManager::getFinderSyncExtension() const
+{
+    QSettings settings;
+    bool enabled;
+
+    settings.beginGroup(kSettingsGroup);
+    enabled = settings.value(kFinderSync, true).toBool();
+    settings.endGroup();
+
+    return enabled;
+}
+bool SettingsManager::getFinderSyncExtensionAvailable() const
+{
+    return FinderSyncExtensionHelper::isInstalled();
+}
+void SettingsManager::setFinderSyncExtension(bool enabled)
+{
+    QSettings settings;
+
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kFinderSync, enabled);
+    settings.endGroup();
+
+    // if setting operation fails
+    if (!getFinderSyncExtensionAvailable()) {
+        qWarning("Unable to find FinderSync Extension");
+    } else if (enabled != FinderSyncExtensionHelper::isEnabled() &&
+        !FinderSyncExtensionHelper::setEnable(enabled)) {
+        qWarning("Unable to enable FinderSync Extension");
+    }
+}
+#endif // HAVE_FINDER_SYNC_SUPPORT
+
+#ifdef Q_OS_WIN32
+void SettingsManager::setShellExtensionEnabled(bool enabled)
+{
+    shell_ext_enabled_ = enabled;
+
+    RegElement reg1(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "", "");
+    RegElement reg2(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "ShellExtDisabled", "1");
+    if (enabled) {
+        reg2.remove();
+    } else {
+        reg1.add();
+        reg2.add();
+    }
+}
+#endif  // Q_OS_WIN32

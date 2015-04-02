@@ -1,4 +1,9 @@
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 
 #include "utils/utils.h"
@@ -6,6 +11,7 @@
 #include "utils/paint-utils.h"
 #include "seaf-dirent.h"
 #include "utils/utils-mac.h"
+#include "seafile-applet.h"
 
 #include "file-browser-dialog.h"
 #include "data-mgr.h"
@@ -168,7 +174,11 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
     horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+#endif
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -277,10 +287,19 @@ void FileTableView::setupContextMenu()
         paste_action_->setEnabled(false);
     }
 
-    cancel_download_action_ = new QAction(tr("Cancel Download (&E)"), this);
+    cancel_download_action_ = new QAction(tr("Canc&el Download"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));
     cancel_download_action_->setShortcut(Qt::ALT + Qt::Key_C);
+
+    sync_subdirectory_action_ = new QAction(tr("&Sync this directory"), this);
+    connect(sync_subdirectory_action_, SIGNAL(triggered()),
+            this, SLOT(onSyncSubdirectory()));
+    sync_subdirectory_action_->setShortcut(Qt::ALT + Qt::Key_S);
+    if (!parent_->account_.isPro() || !parent_->account_.isAtLeastVersion(4, 1, 0)) {
+        sync_subdirectory_action_->setEnabled(false);
+        sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
+    }
 
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
@@ -295,6 +314,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addSeparator();
     context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
+    context_menu_->addAction(sync_subdirectory_action_);
 
     this->addAction(download_action_);
     this->addAction(share_action_);
@@ -305,6 +325,7 @@ void FileTableView::setupContextMenu()
     this->addAction(remove_action_);
     this->addAction(update_action_);
     this->addAction(cancel_download_action_);
+    this->addAction(sync_subdirectory_action_);
 
     paste_only_menu_ = new QMenu(this);
     paste_only_menu_->addAction(paste_action_);
@@ -366,6 +387,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_action_->setVisible(false);
         update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
+        sync_subdirectory_action_->setVisible(false);
         context_menu_->exec(position);
         return;
     }
@@ -387,9 +409,11 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
+        sync_subdirectory_action_->setVisible(true);
     } else {
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
+        sync_subdirectory_action_->setVisible(false);
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
@@ -536,6 +560,12 @@ void FileTableView::onCancelDownload()
     emit cancelDownload(*item_);
 }
 
+void FileTableView::onSyncSubdirectory()
+{
+    if (item_ && item_->isDir())
+        emit syncSubdirectory(item_->name);
+}
+
 void FileTableView::dropEvent(QDropEvent *event)
 {
     // only handle external source currently
@@ -551,9 +581,8 @@ void FileTableView::dropEvent(QDropEvent *event)
     Q_FOREACH(const QUrl& url, urls)
     {
         QString path = url.toLocalFile();
-#ifdef Q_WS_MAC
-        if (path.startsWith("/.file/id="))
-            path = utils::mac::get_path_from_fileId_url("file://" + path);
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+        path = utils::mac::fix_file_id_url(path);
 #endif
 
         if(path.isEmpty())
@@ -605,9 +634,10 @@ FileTableModel::FileTableModel(QObject *parent)
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
+    beginResetModel();
     dirents_ = dirents;
     progresses_.clear();
-    reset();
+    endResetModel();
 }
 
 int FileTableModel::rowCount(const QModelIndex& parent) const

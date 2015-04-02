@@ -48,6 +48,8 @@ public:
 
     friend class FileTableView;
     friend class FileTableModel;
+signals:
+    void aboutToClose();
 
 private slots:
     void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
@@ -80,6 +82,7 @@ private slots:
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
     void onGetDirentsPaste();
+    void onGetSyncSubdirectory(const QString &folder_name);
     void onCancelDownload(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
@@ -96,11 +99,16 @@ private slots:
     void onDirentsMoveSuccess();
     void onDirentsMoveFailed(const ApiError& error);
 
+    void onCreateSubrepoSuccess(const ServerRepo& repo);
+    void onCreateSubrepoFailed(const ApiError& error);
+
     void onFileAutoUpdated(const QString& repo_id, const QString& path);
 
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
+    void closeEvent(QCloseEvent *event);
+    void reject();
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 

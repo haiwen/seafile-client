@@ -1,12 +1,18 @@
 #include "sharedlink-dialog.h"
 
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
+#include "utils/utils-mac.h"
 
 SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
   : text_(text)
 {
-
     setWindowTitle(tr("Share Link"));
+    setWindowIcon(QIcon(":/images/seafile.png"));
     QVBoxLayout *layout = new QVBoxLayout;
 
     QLabel *label = new QLabel(tr("Share link:"));
@@ -48,7 +54,12 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
 
 void SharedLinkDialog::onCopyText()
 {
-    QClipboard *clipboard = QApplication::clipboard();
-    clipboard->setText(text_);
-}
 
+// for mac, qt copys many minedatas beside public.utf8-plain-text
+// e.g. public.vcard, which we don't want to use
+#ifndef Q_OS_MAC
+    QApplication::clipboard()->setText(text_);
+#else
+    utils::mac::copyTextToPasteboard(text_);
+#endif
+}

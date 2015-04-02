@@ -15,7 +15,7 @@
 	<key>CFBundleName</key>
 	<string>Seafile</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.0.7</string>
+	<string>4.1.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>LSApplicationCategoryType</key>
@@ -31,5 +31,7 @@
 	<string>Copyright © 2014 海文互知. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
 </dict>
 </plist>

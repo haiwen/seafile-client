@@ -328,7 +328,7 @@ void SeafileApplet::onDaemonStarted()
                        this, SLOT(updateReposPropertyForHttpSync()));
 
 #if defined(Q_OS_WIN32)
-    SeafileExtensionHandler::instance()->start();
+    // SeafileExtensionHandler::instance()->start();
 #endif
 }
 

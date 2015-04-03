@@ -48,14 +48,14 @@
        <item>
         <widget class="QCheckBox" name="mAutoStartCheckBox">
          <property name="text">
-          <string>Auto start HorizonBase after login</string>
+          <string>Auto start Horizonbase after login</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="mHideDockIconCheckBox">
          <property name="text">
-          <string>Hide HorizonBase Icon from the dock</string>
+          <string>Hide Horizonbase Icon from the dock</string>
          </property>
         </widget>
        </item>

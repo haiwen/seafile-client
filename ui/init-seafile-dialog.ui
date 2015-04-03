@@ -44,7 +44,7 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>Choose HorizonBase folder</string>
+         <string>Choose Horizonbase folder</string>
         </property>
         <property name="margin">
          <number>0</number>
@@ -117,7 +117,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Please choose a folder. We will create a HorizonBase subfolder in it. When you download a library, it will be saved there by default.</string>
+          <string>Please choose a folder. We will create a Horizonbase subfolder in it. When you download a library, it will be saved there by default.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

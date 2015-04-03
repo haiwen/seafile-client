@@ -179,7 +179,7 @@
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="156"/>
-        <source>File Activities are only supported in Horizon Server Professional Edition.</source>
+        <source>File Activities are only supported in Horizonbase Server Professional Edition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -388,7 +388,7 @@
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="233"/>
-        <source>HorizonBase</source>
+        <source>Horizonbase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1107,12 +1107,12 @@
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
-        <source>Choose HorizonBase folder</source>
+        <source>Choose Horizonbase folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
-        <source>Please choose a folder. We will create a HorizonBase subfolder in it. When you download a library, it will be saved there by default.</source>
+        <source>Please choose a folder. We will create a Horizonbase subfolder in it. When you download a library, it will be saved there by default.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1215,7 +1215,7 @@ Do you like to download your default library and create a virtual disk?</source>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
-        <source>HorizonBase organizes files by libraries.
+        <source>Horizonbase organizes files by libraries.
 Do you like to download your default library and create a virtual disk?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1313,9 +1313,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>Сбой сохранения текущей учётной записи</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="240"/>
         <source>Seafile Server Address</source>
-        <translation>Адрес сервера Seafile</translation>
+        <translation type="vanished">Адрес сервера Seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="160"/>
@@ -1346,6 +1345,11 @@ Do you like to download your default library and create a virtual disk?</source>
         <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Failed to login</source>
         <translation>Сбой авторизации</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="240"/>
+        <source>Horizonbase Server Address</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="226"/>
@@ -2396,12 +2400,12 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="143"/>
-        <source>open horizon log directory</source>
+        <source>open Horizonbase log directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="151"/>
-        <source>open horizon online help</source>
+        <source>open Horizonbase online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2589,12 +2593,12 @@ Do you want to visit the download page?</source>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="396"/>
-        <source>Auto start HorizonBase after login</source>
+        <source>Auto start Horizonbase after login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="397"/>
-        <source>Hide HorizonBase Icon from the dock</source>
+        <source>Hide Horizonbase Icon from the dock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2689,6 +2693,24 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="42"/>
         <source>Ok</source>
         <translation>ОК</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="29"/>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="69"/>
+        <source>Server Error when fetching account information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="74"/>
+        <source>Failed to save current account</source>
+        <translation type="unfinished">Сбой сохранения текущей учётной записи</translation>
     </message>
 </context>
 <context>

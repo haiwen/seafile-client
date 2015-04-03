@@ -158,7 +158,7 @@ void set_auto_start(bool enabled)
         }
 
         if (enabled && (existingItem == NULL)) {
-            NSString *displayName = @"HorizonBase";
+            NSString *displayName = @"Horizonbase";
             IconRef icon = NULL;
             FSRef ref;
             //TODO: replace the deprecated CFURLGetFSRef

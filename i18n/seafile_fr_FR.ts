@@ -178,9 +178,13 @@
         <translation type="vanished">Les activités de Fichier sont seulement supportées dans la version professionnelle du Serveur Seafile.</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="156"/>
         <source>File Activities are only supported in Horizon Server Professional Edition.</source>
-        <translation>Les activités de Fichier sont seulement supportées dans la version professionnelle du Serveur Horizon.</translation>
+        <translation type="vanished">Les activités de Fichier sont seulement supportées dans la version professionnelle du Serveur Horizon.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/activities-tab.cpp" line="156"/>
+        <source>File Activities are only supported in Horizonbase Server Professional Edition.</source>
+        <translation>Les activités de Fichier sont seulement supportées dans la version professionnelle du Serveur Horizonbase.</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="158"/>
@@ -388,8 +392,8 @@
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="233"/>
-        <source>HorizonBase</source>
-        <translation>HorizonBase</translation>
+        <source>Horizonbase</source>
+        <translation>Horizonbase</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="237"/>
@@ -1108,13 +1112,13 @@
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
-        <source>Choose HorizonBase folder</source>
-        <translation>Choisissez le dossier HorizonBase</translation>
+        <source>Choose Horizonbase folder</source>
+        <translation>Choisissez le dossier Horizonbase</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
-        <source>Please choose a folder. We will create a HorizonBase subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Choisissez un dossier. Un sous dossier HorizonBase  y sera créé. Quand vous téléchargez une bibliothèque, elle y sera  enregistrée par défaut.</translation>
+        <source>Please choose a folder. We will create a Horizonbase subfolder in it. When you download a library, it will be saved there by default.</source>
+        <translation>Choisissez un dossier. Un sous dossier Horizonbase  y sera créé. Quand vous téléchargez une bibliothèque, elle y sera  enregistrée par défaut.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1217,9 +1221,9 @@ Voulez vous télécharger la bibliothèque par défaut et créer un disque virtu
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
-        <source>HorizonBase organizes files by libraries.
+        <source>Horizonbase organizes files by libraries.
 Do you like to download your default library and create a virtual disk?</source>
-        <translation>HorizonBase organise les fichiers par bibliothèques.
+        <translation>Horizonbase organise les fichiers par bibliothèques.
 Voulez vous télécharger la bibliothèque par défaut et créer un disque virtuel?</translation>
     </message>
     <message>
@@ -1315,9 +1319,8 @@ Voulez vous télécharger la bibliothèque par défaut et créer un disque virtu
         <translation>Impossible d&apos;enregistrer le compte actuel</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="240"/>
         <source>Seafile Server Address</source>
-        <translation>Adresse du serveur Seafile</translation>
+        <translation type="vanished">Adresse du serveur Seafile</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="160"/>
@@ -1348,6 +1351,11 @@ Voulez vous télécharger la bibliothèque par défaut et créer un disque virtu
         <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Failed to login</source>
         <translation>Impossible de se connecter</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="240"/>
+        <source>Horizonbase Server Address</source>
+        <translation>Adresse du serveur Horizonbase</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="226"/>
@@ -2399,12 +2407,12 @@ Voulez vous visiter la page de téléchargement?</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="143"/>
-        <source>open horizon log directory</source>
+        <source>open Horizonbase log directory</source>
         <translation>ouvrir le répertoire des logs horizon</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="151"/>
-        <source>open horizon online help</source>
+        <source>open Horizonbase online help</source>
         <translation>ouvrir l&apos;aide en ligne de horizon</translation>
     </message>
     <message>
@@ -2596,13 +2604,13 @@ Voulez vous visiter la page de téléchargement?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="396"/>
-        <source>Auto start HorizonBase after login</source>
-        <translation>Démarrage automatique de HorizonBase après la connexion</translation>
+        <source>Auto start Horizonbase after login</source>
+        <translation>Démarrage automatique de Horizonbase après la connexion</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="397"/>
-        <source>Hide HorizonBase Icon from the dock</source>
-        <translation>Cacher l’icône HorizonBase de la barre</translation>
+        <source>Hide Horizonbase Icon from the dock</source>
+        <translation>Cacher l’icône Horizonbase de la barre</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="407"/>
@@ -2701,16 +2709,19 @@ Voulez vous visiter la page de téléchargement?</translation>
 <context>
     <name>ShibLoginDialog</name>
     <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="29"/>
         <source>Login with Shibboleth</source>
-        <translation type="vanished">Connexion avec Shibboleth</translation>
+        <translation>Connexion avec Shibboleth</translation>
     </message>
     <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="69"/>
         <source>Server Error when fetching account information</source>
-        <translation type="vanished">Erreur du serveur pendant la recherche des informations du compte</translation>
+        <translation>Erreur du serveur pendant la recherche des informations du compte</translation>
     </message>
     <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="74"/>
         <source>Failed to save current account</source>
-        <translation type="vanished">Echec de l&apos;enregistrement du compte</translation>
+        <translation>Echec de l&apos;enregistrement du compte</translation>
     </message>
 </context>
 <context>

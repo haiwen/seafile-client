@@ -107,13 +107,17 @@ def execute_buildscript(generator = 'xcode'):
         shutil.copytree(os.path.join(configuration, target+ '.app'), target + '.app')
 
 
-def generate_buildscript(generator = 'xcode', os_min = '10.7'):
+def generate_buildscript(generator = 'xcode', os_min = '10.7', with_shibboleth = False):
     print "generating build scripts..."
     if not os.path.exists('CMakeLists.txt'):
         print 'Please execute this frome the top dir of the source'
         sys.exit(-1)
     cmake_args = ['cmake', '.', '-DCMAKE_BUILD_TYPE=' + configuration]
     cmake_args.append('-DCMAKE_OSX_DEPLOYMENT_TARGET=' + os_min);
+    if with_shibboleth:
+        cmake_args.append('-DBUILD_SHIBBOLETH_SUPPORT=ON')
+    else:
+        cmake_args.append('-DBUILD_SHIBBOLETH_SUPPORT=OFF')
     if generator == 'xcode':
         cmake_args.extend(['-G', 'Xcode'])
     elif generator == 'ninja':
@@ -141,6 +145,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Script to build Seafile Client and package it')
     parser.add_argument('--build_type', '-t', help='build type', default='Release')
     parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.7')
+    parser.add_argument('--with_shibboleth', help='build with shibboleth support', action='store_true')
     parser.add_argument('--output', '-o', help='output file', default='-')
     parser.add_argument('--clean', '-c', help='clean forcely', action='store_true')
     args = parser.parse_args()
@@ -160,7 +165,7 @@ if __name__ == '__main__':
         output = open(args.output, 'wb')
         build_helper.set_output(output)
 
-    generate_buildscript(os_min=args.os_min)
+    generate_buildscript(os_min=args.os_min, with_shibboleth=args.with_shibboleth)
     execute_buildscript()
     postbuild_copy_libraries()
     postbuild_fix_rpath()

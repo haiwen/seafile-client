@@ -76,7 +76,6 @@ public:
 
     void clearWait(const QString& email) {
         wait_.remove(email);
-        expire_time_.remove(email);
     }
 
     void tick() {

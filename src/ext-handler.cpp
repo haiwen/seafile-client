@@ -1,6 +1,7 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <io.h>
+#include <shlobj.h>
 #include <shlwapi.h>
 #include <fcntl.h>
 #include <ctype.h>

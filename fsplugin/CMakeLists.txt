@@ -124,7 +124,7 @@ FOREACH(LPROJ ${FSPLUGIN_LPROJS})
     LIST(APPEND FSPLUGIN_LANGS ${_LANG})
     ADD_CUSTOM_TARGET(copy_resources_lproj_${_LANG}
     COMMAND cp -r ${_LANG} ${TARGET_DIR}/Contents/Resources/
-      )
+    DEPENDS create_resource_dir)
     ADD_DEPENDENCIES(copy_resources_lproj copy_resources_lproj_${_LANG})
   ENDIF(_INDEX EQUAL -1)
 ENDFOREACH()

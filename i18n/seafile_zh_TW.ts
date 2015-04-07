@@ -12,7 +12,7 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation>賬戶設置</translation>
+        <translation>賬戶設定</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="166"/>
         <source>Account settings</source>
-        <translation>賬戶設置</translation>
+        <translation>賬戶設定</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="173"/>
@@ -2314,7 +2314,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="139"/>
         <source>Settings</source>
-        <translation>設置</translation>
+        <translation>設定檔</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="142"/>
@@ -2468,7 +2468,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="29"/>
         <source>Settings</source>
-        <translation>設置</translation>
+        <translation>設定檔</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="44"/>
@@ -2493,7 +2493,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="89"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation>妳改變了使用的代理配置。現在重啓生效嗎？</translation>
+        <translation>妳改變了使用的代理設定。現在重啓生效嗎？</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="392"/>

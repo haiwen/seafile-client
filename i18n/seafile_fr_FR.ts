@@ -595,7 +595,7 @@
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
         <source>Sync folder &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Synchroniser le répertoire &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
@@ -869,7 +869,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1010"/>
         <source>Create library failed!</source>
-        <translation type="unfinished"/>
+        <translation>Echec de la création de la bibliothèque</translation>
     </message>
 </context>
 <context>
@@ -1005,18 +1005,18 @@
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="290"/>
         <source>Canc&amp;el Download</source>
-        <translation type="unfinished"/>
+        <translation>Annul&amp;er le téléchargement</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="295"/>
         <source>&amp;Sync this directory</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Synchroniser ce dossier</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="301"/>
         <source>This feature is available in pro version only
 </source>
-        <translation type="unfinished"/>
+        <translation>Cette fonctionnalité n&apos;est  disponible qu&apos;avec la version pro</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="385"/>
@@ -2009,7 +2009,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="238"/>
         <source>, %1%2</source>
-        <translation type="unfinished"/>
+        <translation>, %1%2</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="243"/>

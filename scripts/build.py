@@ -6,6 +6,7 @@ import argparse
 target='seafile-applet'
 num_cpus=str(build_helper.num_cpus)
 configuration = 'Release'
+with_sparkle = False
 
 def postbuild_copy_libraries():
     print 'copying dependent libraries...'
@@ -83,6 +84,15 @@ def postbuild_install_name_tool():
         for dep in deps:
                 build_helper.write_output(['install_name_tool', '-change', dep, '@loader_path/../Frameworks/%s' % os.path.basename(dep), lib])
 
+    #remove unwanted rpaths
+    main_binary = os.path.join(macos_path, target);
+    build_helper.write_output_regardless(['install_name_tool', '-delete_rpath', '/usr/local/lib', main_binary])
+    build_helper.write_output_regardless(['install_name_tool', '-delete_rpath', '/opt/local/lib', main_binary])
+    if with_sparkle:
+        build_helper.write_output(['install_name_tool', '-change', '@rpath/Sparkle.framework/Versions/A/Sparkle', '@executable_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle', main_binary])
+        build_helper.write_output(['install_name_tool', '-change', '@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle', '@executable_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle', main_binary])
+        build_helper.write_output(['install_name_tool', '-delete_rpath', os.path.abspath(os.path.join('third_party', 'Sparkle', 'build', 'Release')), main_binary])
+
 def postbuild_patchelf():
     lib_path = os.path.join(target, 'lib')
     bin_path = os.path.join(target, 'bin')
@@ -111,7 +121,6 @@ def execute_buildscript(generator = 'xcode'):
     if generator == 'xcode':
         shutil.copytree(os.path.join(configuration, target+ '.app'), target + '.app')
 
-
 def generate_buildscript(generator = 'xcode', os_min = '10.7', with_shibboleth = False):
     print 'generating build scripts...'
     if not os.path.exists('CMakeLists.txt'):
@@ -123,6 +132,12 @@ def generate_buildscript(generator = 'xcode', os_min = '10.7', with_shibboleth =
         cmake_args.append('-DBUILD_SHIBBOLETH_SUPPORT=ON')
     else:
         cmake_args.append('-DBUILD_SHIBBOLETH_SUPPORT=OFF')
+
+    if with_sparkle:
+        cmake_args.append('-DBUILD_SPARKLE_SUPPORT=ON')
+    else:
+        cmake_args.append('-DBUILD_SPARKLE_SUPPORT=OFF')
+
     if generator == 'xcode':
         cmake_args.extend(['-G', 'Xcode'])
     elif generator == 'ninja':
@@ -151,6 +166,7 @@ if __name__ == '__main__':
     parser.add_argument('--build_type', '-t', help='build type', default='Release')
     parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.7')
     parser.add_argument('--with_shibboleth', help='build with shibboleth support', action='store_true')
+    parser.add_argument('--with_sparkle', help='build with sparkle support', action='store_true')
     parser.add_argument('--output', '-o', help='output file', default='-')
     parser.add_argument('--clean', '-c', help='clean forcely', action='store_true')
     args = parser.parse_args()
@@ -169,6 +185,8 @@ if __name__ == '__main__':
     else:
         output = open(args.output, 'wb')
         build_helper.set_output(output)
+
+    with_sparkle = args.with_sparkle
 
     generate_buildscript(os_min=args.os_min, with_shibboleth=args.with_shibboleth)
     execute_buildscript()

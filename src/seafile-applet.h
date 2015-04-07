@@ -60,6 +60,8 @@ public:
     bool started() { return started_; }
     bool inExit() { return in_exit_; }
 
+    void checkLatestVersionInfo(bool force = false);
+
 private slots:
     void onDaemonStarted();
     void checkInitVDrive();
@@ -73,8 +75,6 @@ private:
     void initLog();
 
     bool loadQss(const QString& path);
-
-    void checkLatestVersionInfo();
 
     Configurator *configurator_;
 

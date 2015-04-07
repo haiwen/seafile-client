@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Seafile Client Changelog</title>
+    <link>http://seafile.com/appcast/stable.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+
+    <item>
+      <title>Version 4.1.3</title>
+      <sparkle:releaseNotesLink>http://seacloud.cc/group/3/wiki/client-changelog/#41</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink xml:lang="de">https://www.seafile-server.org/seafile-client-4-1-3-veroeffentlicht-ersetzt-4-1-2/</sparkle:releaseNotesLink>
+      <sparkle:minimumSystemVersion>10.7.0</sparkle:minimumSystemVersion>
+      <pubDate>Wed, 08 Apr 2015 02:17:38 -0000</pubDate>
+      <enclosure url="https://bitbucket.org/haiwen/seafile/downloads/seafile-client-4.1.3.dmg" sparkle:version="4.1.3" length="14936939" type="application/octet-stream" />
+      <enclosure xml:lang="zhCN" url="http://download-cn.seafile.com/seafile-client-4.1.3.dmg" sparkle:version="4.1.3" length="14936939" type="application/octet-stream" />
+    </item>
+  </channel>
+</rss>

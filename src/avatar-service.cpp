@@ -258,18 +258,18 @@ void AvatarService::fetchImageFromServer(const QString& email)
 
 void AvatarService::onGetAvatarSuccess(const QImage& img)
 {
+    const QString email = get_avatar_req_->email();
+
     // if no change? early return
     if (img.isNull()) {
         get_avatar_req_->deleteLater();
         get_avatar_req_ = NULL;
 
-        queue_->clearWait(get_avatar_req_->email());
+        queue_->clearWait(email);
         return;
     }
 
     image_ = img;
-
-    const QString email = get_avatar_req_->email();
 
     cache_[email] = img;
 

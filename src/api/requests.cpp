@@ -501,16 +501,18 @@ void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
 // /api2/user/foo@foo.com/resized/36
 GetAvatarRequest::GetAvatarRequest(const Account& account,
                                    const QString& email,
+                                   qint64 mtime,
                                    int size)
     : SeafileApiRequest (account.getAbsoluteUrl(
                              kAvatarUrl
                              + email + "/resized/"
                              + QString::number(size) + "/"),
-                         SeafileApiRequest::METHOD_GET, account.token)
+                         SeafileApiRequest::METHOD_GET, account.token),
+      fetch_img_req_(NULL),
+      mtime_(mtime)
 {
     account_ = account;
     email_ = email;
-    fetch_img_req_ = 0;
 }
 
 GetAvatarRequest::~GetAvatarRequest()
@@ -533,6 +535,19 @@ void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
     const char *avatar_url = json_string_value(json_object_get(json.data(), "url"));
+
+    // we don't need to fetch all images if we have latest one
+    json_t *mtime = json_object_get(json.data(), "mtime");
+    if (!mtime) {
+        qWarning("GetAvatarRequest: no 'mtime' value in response\n");
+    } else {
+        qint64 new_mtime = json_integer_value(mtime);
+        if (new_mtime == mtime_) {
+            emit success(QImage());
+            return;
+        }
+        mtime_ = new_mtime;
+    }
 
     if (!avatar_url) {
         qWarning("GetAvatarRequest: no 'url' value in response\n");

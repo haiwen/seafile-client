@@ -15,6 +15,8 @@ class ApiError;
 class GetAvatarRequest;
 class PendingAvatarRequestQueue;
 
+struct sqlite3;
+
 class AvatarService : public QObject
 {
     Q_OBJECT
@@ -60,6 +62,8 @@ private:
     PendingAvatarRequestQueue *queue_;
 
     QTimer *timer_;
+
+    struct sqlite3 *autoupdate_db_;
 };
 
 

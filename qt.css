@@ -434,7 +434,8 @@ FileBrowserDialog QToolBar QPushButton:hover {
 FileTableView {
     border: 0;
     margin: 0;
-    padding-left: 4px;
+    margin-left: 12px;
+    margin-right: 16px;
     qproperty-focusPolicy: NoFocus;
 }
 
@@ -445,6 +446,7 @@ FileTableView QHeaderView::section {
     color: #b3b3b3;
     background-color: white;
     font-size: 12px;
+    padding-left: 10px;
 }
 
 FileTableView QHeaderView::down-arrow {
@@ -455,6 +457,14 @@ FileTableView QHeaderView::down-arrow {
 
 FileTableView QHeaderView::up-arrow {
     subcontrol-position: center right;
+}
+
+FileTableView QHeaderView::down-arrow {
+  image: url(:/images/filebrowser/down-arrow.png);
+}
+
+FileTableView QHeaderView::up-arrow {
+  image: url(:/images/filebrowser/up-arrow.png);
 }
 
 FileTableView::item {

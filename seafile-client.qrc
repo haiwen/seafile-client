@@ -138,6 +138,8 @@
     <file>images/filebrowser/home@2x.png</file>
     <file>images/filebrowser/settings.png</file>
     <file>images/filebrowser/settings@2x.png</file>
+    <file>images/filebrowser/up-arrow.png</file>
+    <file>images/filebrowser/down-arrow.png</file>
     <file>images/toolbar/add.png</file>
     <file>images/toolbar/add@2x.png</file>
     <file>images/toolbar/add-gray.png</file>

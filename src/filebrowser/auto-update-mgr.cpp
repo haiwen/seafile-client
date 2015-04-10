@@ -111,7 +111,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         info.uploading = false;
     } else {
         seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
-                                            tr("File \"%1\"\nuploaded failed.").arg(QFileInfo(local_path).fileName()));
+                                            tr("File \"%1\"\nufailed to upload.").arg(QFileInfo(local_path).fileName()));
         qDebug("failed to auto update %s\n", toCStr(local_path));
         watch_infos_.remove(local_path);
         return;

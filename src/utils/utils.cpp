@@ -114,7 +114,7 @@ QString defaultDownloadDir() {
         return list.front();
 #endif
     // qt4 don't have QStandardPaths, use glib's as fallback
-    return g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD);
+    return QString::fromUtf8(g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD));
 }
 
 bool openInNativeExtension(const QString &path) {

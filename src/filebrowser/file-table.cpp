@@ -251,6 +251,11 @@ void FileTableView::setupContextMenu()
             this, SLOT(onOpen()));
     download_action_->setShortcut(QKeySequence::InsertParagraphSeparator);
 
+    saveas_action_ = new QAction(tr("&Save As..."), this);
+    connect(saveas_action_, SIGNAL(triggered()),
+            this, SLOT(onSaveAs()));
+    saveas_action_->setShortcut(Qt::ALT + Qt::Key_S);
+
     rename_action_ = new QAction(tr("&Rename"), this);
     connect(rename_action_, SIGNAL(triggered()),
             this, SLOT(onRename()));
@@ -303,6 +308,7 @@ void FileTableView::setupContextMenu()
 
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
+    context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(move_action_);
@@ -317,6 +323,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(sync_subdirectory_action_);
 
     this->addAction(download_action_);
+    this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(move_action_);
     this->addAction(copy_action_);
@@ -374,7 +381,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             break;
     }
     //
-    // if the item is in the selction and it is a multi-selection
+    // if the item is in the selection and it is a multi-selection
     // the situation is different from the single-selection
     // supports: download only (and cancel download action perhaps?)
     //
@@ -382,6 +389,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         item_.reset(NULL);
 
         download_action_->setVisible(true);
+        saveas_action_->setVisible(false);
         download_action_->setText(tr("D&ownload"));
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
@@ -409,16 +417,19 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
+        saveas_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(true);
     } else {
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
+        saveas_action_->setVisible(true);
         sync_subdirectory_action_->setVisible(false);
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_download_action_->setVisible(true);
             download_action_->setVisible(false);
+            saveas_action_->setVisible(false);
         }
     }
 
@@ -468,6 +479,14 @@ void FileTableView::onOpen()
     }
 
     emit direntClicked(*item_);
+}
+
+void FileTableView::onSaveAs()
+{
+    if (item_ == NULL)
+      return;
+
+    emit direntSaveAs(*item_);
 }
 
 void FileTableView::onRename()

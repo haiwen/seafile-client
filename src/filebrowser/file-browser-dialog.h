@@ -57,6 +57,7 @@ private slots:
     void onMkdirButtonClicked();
     void fetchDirents();
     void onDirentClicked(const SeafDirent& dirent);
+    void onDirentSaveAs(const SeafDirent& dirent);
     void forceRefresh();
     void goForward();
     void goBackward();

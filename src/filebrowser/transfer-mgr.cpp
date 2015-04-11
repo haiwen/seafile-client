@@ -51,14 +51,15 @@ TransferManager::~TransferManager()
 FileDownloadTask* TransferManager::addDownloadTask(const Account& account,
                                                    const QString& repo_id,
                                                    const QString& path,
-                                                   const QString& local_path)
+                                                   const QString& local_path,
+                                                   bool is_save_as_task)
 {
     FileDownloadTask* existing_task = getDownloadTask(repo_id, path);
     if (existing_task) {
         return existing_task;
     }
 
-    FileDownloadTask* task = new FileDownloadTask(account, repo_id, path, local_path);
+    FileDownloadTask* task = new FileDownloadTask(account, repo_id, path, local_path, is_save_as_task);
     QSharedPointer<FileDownloadTask> shared_task = task->sharedFromThis().objectCast<FileDownloadTask>();
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onDownloadTaskFinished(bool)));

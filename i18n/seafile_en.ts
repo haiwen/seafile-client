@@ -190,9 +190,34 @@
     </message>
 </context>
 <context>
+    <name>AutoUpdateManager</name>
+    <message>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="106"/>
+        <source>Upload Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="107"/>
+        <source>File &quot;%1&quot;
+uploaded successfully.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="113"/>
+        <source>Upload Failure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="114"/>
+        <source>File &quot;%1&quot;
+failed to upload.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AvatarService</name>
     <message>
-        <location filename="../src/avatar-service.cpp" line="144"/>
+        <location filename="../src/avatar-service.cpp" line="158"/>
         <source>Failed to create avatars folder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2334,7 +2359,7 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="499"/>
+        <location filename="../src/ui/tray-icon.cpp" line="495"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -2342,32 +2367,32 @@ Do you want to visit the download page?</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="505"/>
+        <location filename="../src/ui/tray-icon.cpp" line="501"/>
         <source>auto sync is disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="532"/>
+        <location filename="../src/ui/tray-icon.cpp" line="528"/>
         <source>Uploading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="533"/>
+        <location filename="../src/ui/tray-icon.cpp" line="529"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="416"/>
+        <location filename="../src/ui/tray-icon.cpp" line="412"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="417"/>
+        <location filename="../src/ui/tray-icon.cpp" line="413"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="510"/>
+        <location filename="../src/ui/tray-icon.cpp" line="506"/>
         <source>some servers not connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2662,12 +2687,12 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="69"/>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="77"/>
         <source>Server Error when fetching account information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="74"/>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="82"/>
         <source>Failed to save current account</source>
         <translation type="unfinished"></translation>
     </message>

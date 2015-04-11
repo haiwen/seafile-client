@@ -104,10 +104,9 @@ void TransferManager::cancelDownload(const QString& repo_id,
                                      const QString& path)
 {
     FileDownloadTask* task = getDownloadTask(repo_id, path);
-    QSharedPointer<FileDownloadTask> shared_task = task->sharedFromThis().objectCast<FileDownloadTask>();
-    if (!task) {
+    if (!task)
         return;
-    }
+    QSharedPointer<FileDownloadTask> shared_task = task->sharedFromThis().objectCast<FileDownloadTask>();
     if (task == current_download_) {
         task->cancel();
     } else {

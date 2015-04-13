@@ -107,6 +107,16 @@ QString defaultCcnetDir() {
     }
 }
 
+QString defaultDownloadDir() {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    static QStringList list = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
+    if (!list.empty())
+        return list.front();
+#endif
+    // qt4 don't have QStandardPaths, use glib's as fallback
+    return QString::fromUtf8(g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD));
+}
+
 bool openInNativeExtension(const QString &path) {
 #if defined(Q_OS_WIN32)
     //call ShellExecute internally

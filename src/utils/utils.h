@@ -58,6 +58,8 @@ QString mapToJson(QMap<QString, QVariant> map);
 
 QString defaultCcnetDir();
 
+QString defaultDownloadDir();
+
 // open file use native default file handler, return false if failed
 bool openInNativeExtension(const QString &path);
 

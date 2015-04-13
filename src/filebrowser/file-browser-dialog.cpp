@@ -32,6 +32,8 @@
 
 #include "ui/download-repo-dialog.h"
 
+#include "QtAwesome.h"
+
 namespace {
 
 enum {
@@ -87,27 +89,49 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
     setWindowTitle(tr("Cloud File Browser"));
     setWindowIcon(QIcon(":/images/seafile.png"));
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog
+    setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog)
+#if !defined(Q_OS_MAC)
+                   | Qt::FramelessWindowHint
+#endif
                    | Qt::WindowMinimizeButtonHint | Qt::Window);
 
+    resizer_ = new QSizeGrip(this);
+    resizer_->resize(resizer_->sizeHint());
+    setAttribute(Qt::WA_TranslucentBackground, true);
+
+    createTitleBar();
     createToolBar();
     createStatusBar();
     createLoadingFailedView();
     createFileTable();
 
+    QWidget* widget = new QWidget;
+    widget->setObjectName("mainWidget");
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    setLayout(layout);
+    layout->addWidget(widget);
+
     QVBoxLayout *vlayout = new QVBoxLayout;
-    vlayout->setContentsMargins(0, 6, 0, 0);
+    vlayout->setContentsMargins(1, 0, 1, 0);
     vlayout->setSpacing(0);
-    setLayout(vlayout);
+    widget->setLayout(vlayout);
 
     stack_ = new QStackedWidget;
     stack_->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
+    stack_->setContentsMargins(0, 0, 0, 0);
 
+    vlayout->addWidget(header_);
     vlayout->addWidget(toolbar_);
     vlayout->addWidget(stack_);
     vlayout->addWidget(status_bar_);
+
+#ifdef Q_OS_MAC
+    header_->setVisible(false);
+#endif
 
     // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
@@ -190,25 +214,65 @@ FileBrowserDialog::~FileBrowserDialog()
     delete data_mgr_;
 }
 
+void FileBrowserDialog::createTitleBar()
+{
+    header_ = new QWidget;
+    header_->setObjectName("mHeader");
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setContentsMargins(1, 1, 1, 1);
+    layout->setSpacing(0);
+    header_->setLayout(layout);
+
+    QSpacerItem *spacer1 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    layout->addSpacerItem(spacer1);
+
+    brand_label_ = new QLabel(QString("%1 - %2").arg(windowTitle()).arg(account_.serverUrl.toString()));
+    brand_label_->setObjectName("mBrand");
+    layout->addWidget(brand_label_);
+
+    QSpacerItem *spacer2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    layout->addSpacerItem(spacer2);
+
+    minimize_button_ = new QPushButton;
+    minimize_button_->setObjectName("mMinimizeBtn");
+    minimize_button_->setToolTip(tr("Minimize"));
+    minimize_button_->setIcon(awesome->icon(icon_minus, QColor("#808081")));
+    layout->addWidget(minimize_button_);
+    connect(minimize_button_, SIGNAL(clicked()), this, SLOT(showMinimized()));
+
+    close_button_ = new QPushButton;
+    close_button_->setObjectName("mCloseBtn");
+    close_button_->setToolTip(tr("Close"));
+    close_button_->setIcon(awesome->icon(icon_remove, QColor("#808081")));
+    layout->addWidget(close_button_);
+    connect(close_button_, SIGNAL(clicked()), this, SLOT(close()));
+
+    header_->installEventFilter(this);
+}
+
 void FileBrowserDialog::createToolBar()
 {
     toolbar_ = new QToolBar;
     toolbar_->setObjectName("topBar");
     toolbar_->setIconSize(QSize(kToolBarIconSize, kToolBarIconSize));
 
-    backward_action_ = new QAction(tr("Back"), this);
-    backward_action_->setIcon(QIcon(":/images/filebrowser/backward.png"));
-    backward_action_->setEnabled(false);
-    backward_action_->setShortcut(QKeySequence::Back);
-    toolbar_->addAction(backward_action_);
-    connect(backward_action_, SIGNAL(triggered()), this, SLOT(goBackward()));
+    backward_button_ = new QToolButton(this);
+    backward_button_->setText(tr("Back"));
+    backward_button_->setObjectName("backwardButton");
+    backward_button_->setIcon(QIcon(":/images/filebrowser/backward.png"));
+    backward_button_->setEnabled(false);
+    backward_button_->setShortcut(QKeySequence::Back);
+    toolbar_->addWidget(backward_button_);
+    connect(backward_button_, SIGNAL(clicked()), this, SLOT(goBackward()));
 
-    forward_action_ = new QAction(tr("Forward"), this);
-    forward_action_->setIcon(QIcon(":/images/filebrowser/forward.png"));
-    forward_action_->setEnabled(false);
-    forward_action_->setShortcut(QKeySequence::Forward);
-    connect(forward_action_, SIGNAL(triggered()), this, SLOT(goForward()));
-    toolbar_->addAction(forward_action_);
+    forward_button_ = new QToolButton(this);
+    forward_button_->setText(tr("Forward"));
+    forward_button_->setObjectName("forwardButton");
+    forward_button_->setIcon(QIcon(":/images/filebrowser/forward.png"));
+    forward_button_->setEnabled(false);
+    forward_button_->setShortcut(QKeySequence::Forward);
+    toolbar_->addWidget(forward_button_);
+    connect(forward_button_, SIGNAL(clicked()), this, SLOT(goForward()));
 
     gohome_action_ = new QAction(tr("Home"), this);
     gohome_action_->setIcon(QIcon(":images/filebrowser/home.png"));
@@ -425,8 +489,8 @@ void FileBrowserDialog::onDirentSaveAs(const SeafDirent& dirent)
 
 void FileBrowserDialog::showLoading()
 {
-    forward_action_->setEnabled(false);
-    backward_action_->setEnabled(false);
+    forward_button_->setEnabled(false);
+    backward_button_->setEnabled(false);
     upload_button_->setEnabled(false);
     gohome_action_->setEnabled(false);
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
@@ -455,12 +519,12 @@ void FileBrowserDialog::enterPath(const QString& path)
 
     // remove all old buttons for navigator except the root
     QList<QAbstractButton *> buttons = path_navigator_->buttons();
-    foreach(QAbstractButton *button, buttons)
+    Q_FOREACH(QAbstractButton *button, buttons)
     {
         path_navigator_->removeButton(button);
         delete button;
     }
-    foreach(QLabel *label, path_navigator_separators_)
+    Q_FOREACH(QLabel *label, path_navigator_separators_)
     {
         delete label;
     }
@@ -470,6 +534,8 @@ void FileBrowserDialog::enterPath(const QString& path)
     // add new buttons for navigator except the root
     for(int i = 1; i < current_lpath_.size(); i++) {
         QLabel *separator = new QLabel("/");
+        separator->setBaseSize(4, 7);
+        separator->setPixmap(QIcon(":/images/filebrowser/path-separator.png").pixmap(QSize(4, 7)));
         path_navigator_separators_.push_back(separator);
         toolbar_->addWidget(separator);
         QPushButton* button = new QPushButton(current_lpath_[i]);
@@ -752,14 +818,14 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     table_model_->setDirents(dirents);
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     if (!forward_history_.empty()) {
-        forward_action_->setEnabled(true);
+        forward_button_->setEnabled(true);
     } else {
-        forward_action_->setEnabled(false);
+        forward_button_->setEnabled(false);
     }
     if (!backward_history_.empty()) {
-        backward_action_->setEnabled(true);
+        backward_button_->setEnabled(true);
     } else {
-        backward_action_->setEnabled(false);
+        backward_button_->setEnabled(false);
     }
     if (!repo_.readonly) {
         upload_button_->setEnabled(true);
@@ -934,6 +1000,23 @@ void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
 {
     TransferManager::instance()->cancelDownload(repo_.id,
         ::pathJoin(current_path_, dirent.name));
+}
+
+bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == header_) {
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            QRect frame_rect = frameGeometry();
+            old_pos_ = ev->globalPos() - frame_rect.topLeft();
+            return true;
+        } else if (event->type() == QEvent::MouseMove) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            move(ev->globalPos() - old_pos_);
+            return true;
+        }
+    }
+    return QDialog::eventFilter(obj, event);
 }
 
 void FileBrowserDialog::closeEvent(QCloseEvent *event)

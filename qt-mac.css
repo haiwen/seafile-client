@@ -38,3 +38,9 @@ QFrame#mFrame
 {
     border: 0;
 }
+
+FileBrowserDialog QWidget#mainWidget
+{
+    border : 0;
+    border-radius: 0px;
+}

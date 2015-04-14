@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Seafile
-Comment=Seafile desktop sync client
+Name=Horizonbase
+Comment=Horizonbase desktop sync client
 TryExec=seafile-applet
 Exec=seafile-applet
 Icon=seafile

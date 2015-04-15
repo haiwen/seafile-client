@@ -36,6 +36,7 @@ private:
     
     QWebView *webview_;
     QUrl url_;
+    bool cookie_seen_;
 };
 
 

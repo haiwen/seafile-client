@@ -93,7 +93,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 #if !defined(Q_OS_MAC)
                    | Qt::FramelessWindowHint
 #endif
-                   | Qt::WindowMinimizeButtonHint | Qt::Window);
+                   | Qt::Window);
 
     resizer_ = new QSizeGrip(this);
     resizer_->resize(resizer_->sizeHint());

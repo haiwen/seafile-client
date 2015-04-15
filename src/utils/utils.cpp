@@ -793,19 +793,15 @@ QUrl includeQueryParams(const QUrl& url,
 {
     QUrl u(url);
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QString escaped_plus = QString::fromLatin1("%2B");
     QUrlQuery query;
-    foreach (const QString& key, params.keys()) {
+    Q_FOREACH (const QString& key, params.keys()) {
         QString value = params[key];
-        // To support encoding like that of HTML forms, QUrlQuery also never decodes
-        // the "%2B" sequence to a plus sign nor encode a plus sign. In fact, any
-        // "%2B" or "+" sequences found in the keys, values, or query string are left
-        // exactly like written (except for the uppercasing of "%2b" to "%2B").
-        query.addQueryItem(key, value.replace('+', escaped_plus));
+        query.addQueryItem(QUrl::toPercentEncoding(key),
+                           QUrl::toPercentEncoding(value));
     }
     u.setQuery(query);
 #else
-    foreach (const QString& key, params.keys()) {
+    Q_FOREACH (const QString& key, params.keys()) {
         QString value = params[key];
         u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
                               QUrl::toPercentEncoding(value));
@@ -817,16 +813,17 @@ QUrl includeQueryParams(const QUrl& url,
 QByteArray buildFormData(const QHash<QString, QString>& params)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QString escaped_plus = QString::fromLatin1("%2B");
     QUrlQuery query;
-    foreach (const QString& key, params.keys()) {
+    Q_FOREACH (const QString& key, params.keys()) {
         QString value = params[key];
-        query.addQueryItem(key, value.replace('+', escaped_plus));
+        query.addQueryItem(QUrl::toPercentEncoding(key),
+                           QUrl::toPercentEncoding(value));
+
     }
     return query.query(QUrl::FullyEncoded).toUtf8();
 #else
     QUrl u;
-    foreach (const QString& key, params.keys()) {
+    Q_FOREACH (const QString& key, params.keys()) {
         QString value = params[key];
         u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
                               QUrl::toPercentEncoding(value));

@@ -368,6 +368,10 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     //
     const QModelIndex index = proxy_model_->mapToSource(proxy_index);
     const int row = index.row();
+    const SeafDirent *dirent = source_model_->direntAt(row);
+    // if invalid dirent? no sure why it comes
+    if (!dirent)
+        return;
 
     //
     // find if the item is in the selection
@@ -381,7 +385,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             break;
     }
     //
-    // if the item is in the selection and it is a multi-selection
+    // if the item is in the selection
+    // but it is a multi-selection
+    //
     // the situation is different from the single-selection
     // supports: download only (and cancel download action perhaps?)
     //
@@ -402,18 +408,20 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     //
     // if the item is not in the selection
-    // it is the single-selection situation
+    // and it is the single-selection situation
     //
+    // it is the most common case
+    //
+
+    item_.reset(new SeafDirent(*dirent));
+
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
-
-    const SeafDirent *dirent = source_model_->direntAt(row);
-    item_.reset(new SeafDirent(*dirent));
-
     download_action_->setVisible(true);
     cancel_download_action_->setVisible(false);
+
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
@@ -761,9 +769,8 @@ QVariant FileTableModel::headerData(int section,
 
 const SeafDirent* FileTableModel::direntAt(int row) const
 {
-    if (row > dirents_.size()) {
+    if (row >= dirents_.size())
         return NULL;
-    }
 
     return &dirents_[row];
 }

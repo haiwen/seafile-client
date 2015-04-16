@@ -730,168 +730,178 @@ failed to upload.</source>
         <translation>Cloud Datei Browser</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="197"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="199"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="204"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="206"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="211"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="213"/>
         <source>Home</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="243"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="245"/>
         <source>Upload files</source>
         <translation>Dateien hochladen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="249"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="251"/>
         <source>Upload a directory</source>
         <translation>Verzeichnis hochladen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="270"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="272"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>Sie haben keine Berechtigung, Dateien in diese Bibliothek hochzuladen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="257"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="351"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="259"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="353"/>
         <source>Create a folder</source>
         <translation>Einen Ordner erstellen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="352"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="354"/>
         <source>Folder name</source>
         <translation>Name des Ordners</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="360"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="362"/>
         <source>Invalid folder name!</source>
         <translation>Ungültiger Ordner-Name!</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="366"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="368"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>Der Name &quot;%1&quot; wird bereits benutzt.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="382"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="384"/>
         <source>retry</source>
         <translation>wiederholen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="383"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="385"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>Dateiinformationen konnten nicht erhalten werden&lt;br/&gt;Bitte %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="493"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="411"/>
+        <source>Enter name of file to save to...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="418"/>
+        <source>Unable to remove file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
         <source>Feature not supported</source>
         <translation>Funktion wird nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="561"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="584"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Die Datei %1 existiert bereits.&lt;br/&gt;Wollen Sie die Datei überschreiben?&lt;br/&gt;&lt;small&gt;(Wählen Sie Nein, um die Datei mit einem alternativen Namen hochzuladen).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="603"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="627"/>
         <source>Failed to download file: %1</source>
         <translation>Fehler beim Herunterladen der Datei: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="627"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="651"/>
         <source>Failed to upload file: %1</source>
         <translation>Fehler beim Hochladen der Datei: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="748"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="772"/>
         <source>Select a file to upload</source>
         <translation>Datei zum Hochladen auswählen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="756"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="780"/>
         <source>Select a directory to upload</source>
         <translation>Wählen Sie ein Verzeichnis zum Hochladen aus</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="767"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="791"/>
         <source>Unable to create cache folder</source>
         <translation>Cache-Ordner konnte nicht erstellt werden</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="769"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="793"/>
         <source>Unable to open cache folder</source>
         <translation>Cache-Ordner konnte nicht geöffnet werden</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="789"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="813"/>
         <source>Rename</source>
         <translation>Umbennenen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="811"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="835"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>Wollen Sie die Datei &quot;%1&quot; wirklich löschen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="812"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="836"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>Wollen Sie den Ordner &quot;%1&quot; wirklich löschen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="819"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="843"/>
         <source>Do you really want to delete these items</source>
         <translation>Wollen Sie die ausgewählten Objekte wirklich löschen?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="851"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="875"/>
         <source>Create folder failed</source>
         <translation>Fehler beim Erstellen des Ordners</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="867"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="891"/>
         <source>Select a file to update %1</source>
         <translation>Datei zum Hochladen auswählen %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="875"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="899"/>
         <source>Rename failed</source>
         <translation>Umbenennen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="889"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="913"/>
         <source>Remove failed</source>
         <translation>Entfernen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="899"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="923"/>
         <source>Share failed</source>
         <translation>Teilen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="944"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="968"/>
         <source>Cannot paste files from the same folder</source>
         <translation>Dateien aus dem selben Ordner können nicht eingefügt werden</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="968"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="992"/>
         <source>Copy failed</source>
         <translation>Kopieren fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="983"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1007"/>
         <source>Move failed</source>
         <translation>Verschieben fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1010"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1034"/>
         <source>Create library failed!</source>
         <translation>Das Erstellen der Bibliothek ist fehlgeschlagen!</translation>
     </message>
@@ -945,7 +955,7 @@ failed to upload.</source>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="709"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="710"/>
         <source>Internal Server Error</source>
         <translation>Interner Serverfehler</translation>
     </message>
@@ -953,32 +963,32 @@ failed to upload.</source>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="703"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="722"/>
         <source>Folder</source>
         <translation>Ordner</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="703"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="722"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="731"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="750"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="733"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="752"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="735"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="754"/>
         <source>Last Modified</source>
         <translation>Zuletzt geändert</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="737"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="756"/>
         <source>Kind</source>
         <translation>Kind</translation>
     </message>
@@ -987,65 +997,70 @@ failed to upload.</source>
     <name>FileTableView</name>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="249"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="411"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="419"/>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="254"/>
+        <source>&amp;Save As...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="259"/>
         <source>&amp;Rename</source>
         <translation>&amp;Umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="259"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="264"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="264"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
         <source>&amp;Generate Share Link</source>
         <translation>Link zum &amp;Teilen generieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="269"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="274"/>
         <source>&amp;Update</source>
         <translation>&amp;Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="273"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="278"/>
         <source>&amp;Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="277"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="282"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="286"/>
         <source>&amp;Paste</source>
         <translation>&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="290"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="295"/>
         <source>Canc&amp;el Download</source>
         <translation>Download abbrech&amp;en.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="295"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="300"/>
         <source>&amp;Sync this directory</source>
         <translation>Diesen Ordner &amp;synchronisieren.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="301"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="306"/>
         <source>This feature is available in pro version only
 </source>
         <translation>Dieses Feature ist nur in der Pro-Version verfügbar 
 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="385"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="415"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="393"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="424"/>
         <source>D&amp;ownload</source>
         <translation>Herunterladen</translation>
     </message>
@@ -1053,28 +1068,28 @@ failed to upload.</source>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="388"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="431"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="389"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="432"/>
         <source>Failed to create folders</source>
         <translation>Fehler beim Erstellen der Ordner</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="397"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="398"/>
         <source>Failed to create temporary files</source>
         <translation>Fehler beim Erstellen der temporären Dateien</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="446"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="447"/>
         <source>Failed to write file to disk</source>
         <translation>Konnte Dateien nicht auf Laufwerk schreiben</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="452"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="453"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>Fehler beim Entfernen der älteren Version der heruntergeladenen Datei</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="458"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="459"/>
         <source>Failed to move file</source>
         <translation>Konnte Datei nicht verschieben</translation>
     </message>
@@ -1467,8 +1482,8 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="502"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="507"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="503"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="508"/>
         <source>File does not exist</source>
         <translation>Datei existiert nicht</translation>
     </message>
@@ -1782,7 +1797,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <translation>Fehler beim Öffnen der Datei-Cache Datenbank </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="790"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="814"/>
         <source>Rename %1 to</source>
         <translation>%1 umbenennen zu</translation>
     </message>
@@ -1887,44 +1902,44 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <translation>Automatische Zusammenführung durch Seafile</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="548"/>
-        <location filename="../src/utils/utils.cpp" line="576"/>
-        <location filename="../src/utils/utils.cpp" line="579"/>
+        <location filename="../src/utils/utils.cpp" line="558"/>
+        <location filename="../src/utils/utils.cpp" line="586"/>
+        <location filename="../src/utils/utils.cpp" line="589"/>
         <source>Just now</source>
         <translation>gerade eben</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="564"/>
+        <location filename="../src/utils/utils.cpp" line="574"/>
         <source>1 day ago</source>
         <translation>vor 1 Tag</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="564"/>
+        <location filename="../src/utils/utils.cpp" line="574"/>
         <source>%1 days ago</source>
         <translation>vor %1 Tagen</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="568"/>
+        <location filename="../src/utils/utils.cpp" line="578"/>
         <source>1 hour ago</source>
         <translation>vor 1 Stunde</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="568"/>
+        <location filename="../src/utils/utils.cpp" line="578"/>
         <source>%1 hours ago</source>
         <translation>vor %1 Stunden</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="572"/>
+        <location filename="../src/utils/utils.cpp" line="582"/>
         <source>1 minute ago</source>
         <translation>Vor 1 Minute</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="572"/>
+        <location filename="../src/utils/utils.cpp" line="582"/>
         <source>%1 minutes ago</source>
         <translation>Vor %1 Minuten</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="714"/>
+        <location filename="../src/utils/utils.cpp" line="724"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation>&lt;Nicht Teil des Zertifikates&gt;</translation>
     </message>

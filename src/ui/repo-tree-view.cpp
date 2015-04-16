@@ -176,6 +176,7 @@ void RepoTreeView::contextMenuEvent(QContextMenuEvent *event)
     QMenu *menu = prepareContextMenu((RepoItem *)item);
     pos = viewport()->mapToGlobal(pos);
     menu->exec(pos);
+    menu->deleteLater();
 }
 
 QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)

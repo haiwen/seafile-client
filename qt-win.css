@@ -9,3 +9,7 @@ QFrame#mFrame {
 RepoTreeView {
     font-family: Microsoft YaHei;
 }
+
+FileTableView QHeaderView::section:first {
+    padding-left: 36px;
+}

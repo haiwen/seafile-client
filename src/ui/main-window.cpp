@@ -77,8 +77,7 @@ MainWindow::MainWindow()
 #if !defined(Q_OS_MAC)
                    | Qt::FramelessWindowHint
 #endif
-                   | Qt::WindowSystemMenuHint
-                   | Qt::WindowMinimizeButtonHint);
+                   | Qt::WindowSystemMenuHint);
 
     cloud_view_ = new CloudView;
 

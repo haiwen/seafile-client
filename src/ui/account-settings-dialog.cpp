@@ -84,8 +84,10 @@ void AccountSettingsDialog::onSubmitBtnClicked()
             return;
         }
         QString error;
+        QUrl new_server_url = new_account.serverUrl;
+        new_server_url.setPath("/");
         if (seafApplet->rpcClient()->updateReposServerHost(account_.serverUrl.host(),
-            new_account.serverUrl.host(), new_account.serverUrl.toString(), &error) < 0) {
+            new_account.serverUrl.host(), new_server_url.toString(), &error) < 0) {
             showWarning(tr("Failed to save the changes: %1").arg(error));
             return;
         }

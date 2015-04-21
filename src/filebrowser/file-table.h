@@ -32,6 +32,7 @@ public:
 
 signals:
     void direntClicked(const SeafDirent& dirent);
+    void direntSaveAs(const SeafDirent& dirent);
     void dropFile(const QStringList& paths);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
@@ -47,6 +48,7 @@ private slots:
     void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
     void onOpen();
+    void onSaveAs();
     void onRename();
     void onRemove();
     void onShare();
@@ -82,6 +84,7 @@ private:
     QScopedPointer<const SeafDirent> item_;
     QMenu *context_menu_;
     QMenu *paste_only_menu_;
+    QAction *saveas_action_;
     QAction *download_action_;
     QAction *rename_action_;
     QAction *remove_action_;

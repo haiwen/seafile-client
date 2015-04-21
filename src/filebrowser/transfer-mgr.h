@@ -40,7 +40,8 @@ public:
     FileDownloadTask* addDownloadTask(const Account& account,
                                       const QString& repo_id,
                                       const QString& path,
-                                      const QString& local_path);
+                                      const QString& local_path,
+                                      bool is_save_as_task = false);
 
     FileDownloadTask* getDownloadTask(const QString& repo_id,
                                       const QString& path);

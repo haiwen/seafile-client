@@ -33,7 +33,10 @@ static const NSArray *badgeIdentifiers = @[
     @"DONE",
     @"ERROR",
     @"UNKNOWN",
-    @"UNSET",
+    // According to the document
+    // https://developer.apple.com/library/mac/documentation/FinderSync/Reference/FIFinderSyncController_Class/#//apple_ref/occ/instm/FIFinderSyncController/setBadgeIdentifier:forURL:
+    // Setting the identifier to an empty string (@"") removes the badge.
+    @"",
 ];
 
 // Set up images for our badge identifiers. For demonstration purposes,
@@ -76,11 +79,6 @@ static void initializeBadgeImages() {
              setBadgeImage:[NSImage imageNamed:@"status-unknown.icns"]
                      label:NSLocalizedString(@"Unknown Error", @"Status Unknown")
         forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_UNKNOWN]];
-    // UNSET,
-    [[FIFinderSyncController defaultController]
-             setBadgeImage:[NSImage imageNamed:@""]
-                     label:@""
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_UNSET]];
 }
 
 inline static void setBadgeIdentifierFor(NSURL *url,

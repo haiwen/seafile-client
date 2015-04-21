@@ -76,6 +76,10 @@ public:
     FileDownloadTask* createDownloadTask(const QString& repo_id,
                                          const QString& path);
 
+    FileDownloadTask* createSaveAsTask(const QString& repo_id,
+                                       const QString& path,
+                                       const QString& local_path);
+
     FileUploadTask* createUploadTask(const QString& repo_id,
                                      const QString& parent_dir,
                                      const QString& local_path,

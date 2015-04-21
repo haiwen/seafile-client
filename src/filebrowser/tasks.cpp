@@ -175,8 +175,9 @@ QString FileNetworkTask::Progress::toString() const
 FileDownloadTask::FileDownloadTask(const Account& account,
                                    const QString& repo_id,
                                    const QString& path,
-                                   const QString& local_path)
-    : FileNetworkTask(account, repo_id, path, local_path)
+                                   const QString& local_path,
+                                   bool is_save_as_task)
+    : FileNetworkTask(account, repo_id, path, local_path), is_save_as_task_(is_save_as_task)
 {
 }
 

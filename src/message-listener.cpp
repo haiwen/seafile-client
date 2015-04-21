@@ -138,7 +138,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             // empty
         } else if (strcmp(type, "repo.deleted_on_relay") == 0) {
             QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(QString::fromUtf8(content));
-            seafApplet->trayIcon()->notify(getBrand(), buf);
+            seafApplet->trayIcon()->showMessage(getBrand(), buf);
         } else if (strcmp(type, "sync.done") == 0) {
             /* format: repo_name \t repo_id \t description */
             QStringList slist = QString::fromUtf8(content).split("\t");
@@ -150,7 +150,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString title = tr("\"%1\" is synchronized").arg(slist.at(0));
             QString buf = slist.at(2);
 
-            seafApplet->trayIcon()->notify(title, translateCommitDesc(buf.trimmed()));
+            seafApplet->trayIcon()->showMessage(title, translateCommitDesc(buf.trimmed()));
 
         } else if (strcmp(type, "sync.access_denied") == 0) {
             /* format: <repo_name\trepo_id> */
@@ -160,7 +160,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
             QString buf = tr("\"%1\" failed to sync. \nAccess denied to service").arg(slist.at(0));
-            seafApplet->trayIcon()->notify(getBrand(), buf);
+            seafApplet->trayIcon()->showMessage(getBrand(), buf);
 
         } else if (strcmp(type, "sync.quota_full") == 0) {
             /* format: <repo_name\trepo_id> */
@@ -171,7 +171,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             }
 
             QString buf = tr("\"%1\" failed to sync.\nThe library owner's storage space is used up.").arg(slist.at(0));
-            seafApplet->trayIcon()->notify(getBrand(), buf);
+            seafApplet->trayIcon()->showMessage(getBrand(), buf);
 #if defined(Q_OS_MAC)
         } else if (strcmp(type, "repo.setwktree") == 0) {
             //seafile_set_repofolder_icns (content);

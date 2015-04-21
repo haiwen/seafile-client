@@ -143,10 +143,12 @@ public:
     FileDownloadTask(const Account& account,
                      const QString& repo_id,
                      const QString& path,
-                     const QString& local_path);
+                     const QString& local_path,
+                     bool is_save_as_task);
 
     TaskType type() const { return Download; }
     QString fileId() const { return file_id_; }
+    bool isSaveAsTask() const { return is_save_as_task_; }
 
 protected:
     void createFileServerTask(const QString& link);
@@ -156,6 +158,7 @@ protected slots:
     void onLinkGet(const QString& link);
 
 private:
+    const bool is_save_as_task_;
     QString file_id_;
 };
 

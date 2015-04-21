@@ -260,6 +260,16 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
     return task;
 }
 
+FileDownloadTask* DataManager::createSaveAsTask(const QString& repo_id,
+                                                const QString& path,
+                                                const QString& local_path)
+{
+    FileDownloadTask* task = TransferManager::instance()->addDownloadTask(
+        account_, repo_id, path, local_path, true);
+
+    return task;
+}
+
 void DataManager::onFileDownloadFinished(bool success)
 {
     FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());

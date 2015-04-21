@@ -294,12 +294,14 @@ class GetAvatarRequest : public SeafileApiRequest {
 public:
     GetAvatarRequest(const Account& account,
                      const QString& email,
+                     qint64 mtime,
                      int size);
 
     ~GetAvatarRequest();
 
     const QString& email() const { return email_; }
     const Account& account() const { return account_; }
+    qint64 mtime() const { return mtime_; }
 
 signals:
     void success(const QImage& avatar);
@@ -315,6 +317,8 @@ private:
     QString email_;
 
     Account account_;
+
+    qint64 mtime_;
 };
 
 class SetRepoPasswordRequest : public SeafileApiRequest {

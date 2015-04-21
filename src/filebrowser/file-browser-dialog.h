@@ -16,6 +16,7 @@ class QLabel;
 class QButtonGroup;
 class QMenu;
 class QAction;
+class QSizeGrip;
 
 class ApiError;
 class FileTableView;
@@ -57,6 +58,7 @@ private slots:
     void onMkdirButtonClicked();
     void fetchDirents();
     void onDirentClicked(const SeafDirent& dirent);
+    void onDirentSaveAs(const SeafDirent& dirent);
     void forceRefresh();
     void goForward();
     void goBackward();
@@ -107,11 +109,13 @@ private slots:
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
+    bool eventFilter(QObject *obj, QEvent *event);
     void closeEvent(QCloseEvent *event);
     void reject();
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 
+    void createTitleBar();
     void createToolBar();
     void createStatusBar();
     void createFileTable();
@@ -139,20 +143,33 @@ private:
     QStringList current_lpath_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
+
+    // copy-paste related items between different instances of FileBrowserDialog
     static QStringList file_names_to_be_pasted_;
     static QString dir_path_to_be_pasted_from_;
     static QString repo_id_to_be_pasted_from_;
     static Account account_to_be_pasted_from_;
     static bool is_copyed_when_pasted_;
 
+    // title bar (windows and osx only)
+    QWidget *header_;
+    QLabel *brand_label_;
+    QPushButton *minimize_button_;
+    QPushButton *close_button_;
+    QPoint old_pos_;
+
+    QSizeGrip *resizer_;
+
+    // top toolbar
     QToolBar *toolbar_;
-    QAction *backward_action_;
-    QAction *forward_action_;
+    QToolButton *backward_button_;
+    QToolButton *forward_button_;
     QButtonGroup *path_navigator_;
     QList<QLabel*> path_navigator_separators_;
     QAction *gohome_action_;
     QAction *refresh_action_;
 
+    // status toolbar
     QToolBar *status_bar_;
     QToolButton *upload_button_;
     QMenu *upload_menu_;
@@ -162,6 +179,7 @@ private:
     QLabel *details_label_;
     QAction *open_cache_dir_action_;
 
+    // others
     QStackedWidget *stack_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;

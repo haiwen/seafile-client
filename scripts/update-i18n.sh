@@ -44,9 +44,9 @@ function push_source() {
 }
 
 function pull_translations() {
-    tx pull -a -f
+    tx pull -a -f --minimum-perc=30
     pushd fsplugin
-    tx pull -a -f
+    tx pull -a -f --minimum-perc=80
     popd
 }
 

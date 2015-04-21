@@ -218,17 +218,6 @@ void SeafileTrayIcon::createGlobalMenuBar()
 #endif // Q_OS_MAC
 }
 
-void SeafileTrayIcon::notify(const QString &title, const QString &content)
-{
-#ifdef Q_OS_MAC
-    QIcon icon(":/images/info.png");
-    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(icon.pixmap(32, 32), title, content);
-    tnm->append(trayNotification);
-#else
-    this->showMessage(title, content);
-#endif
-}
-
 void SeafileTrayIcon::rotate(bool start)
 {
     if (start) {
@@ -244,7 +233,14 @@ void SeafileTrayIcon::rotate(bool start)
 
 void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
 {
-#if defined(Q_OS_LINUX)
+#ifdef Q_OS_MAC
+    Q_UNUSED(icon);
+    Q_UNUSED(millisecondsTimeoutHint);
+    QIcon info_icon(":/images/info.png");
+    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(info_icon.pixmap(32, 32), title, message);
+    tnm->append(trayNotification);
+#elif defined(Q_OS_LINUX)
+    Q_UNUSED(icon);
     QVariantMap hints;
     hints["resident"] = QVariant(true);
     hints["desktop-entry"] = QVariant("seafile");

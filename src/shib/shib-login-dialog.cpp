@@ -24,7 +24,8 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
                                  const QString& computer_name,
                                  QWidget *parent)
     : QDialog(parent),
-      url_(url)
+      url_(url),
+      cookie_seen_(false)
 {
     setWindowTitle(tr("Login with Shibboleth"));
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -68,16 +69,18 @@ void ShibLoginDialog::sslErrorHandler(QNetworkReply* reply,
 
 void ShibLoginDialog::onNewCookieCreated(const QUrl& url, const QNetworkCookie& cookie)
 {
+    if (cookie_seen_) {
+        return;
+    }
     QString name = cookie.name();
+    QString value = cookie.value();
     if (url.host() == url_.host() && name == kSeahubShibCookieName) {
-        QString value = cookie.value();
-
         Account account = parseAccount(value);
         if (!account.isValid()) {
-            seafApplet->warningBox(tr("Server Error when fetching account information"), this);
-            reject();
+            qWarning("wrong account information from server");
             return;
         }
+        cookie_seen_ = true;
         if (seafApplet->accountManager()->saveAccount(account) < 0) {
             seafApplet->warningBox(tr("Failed to save current account"), this);
             reject();

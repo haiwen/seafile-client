@@ -31,17 +31,21 @@ void Utils::testIncludeUrlParams() {
     params.insert("simple", "c");
     params.insert("withspecial", "a?b");
     params.insert("withspace", "a b");
-    // params.insert("withplus", "a+b");
+    params.insert("username", "a123fx b");
+    params.insert("password", "!@#+-$%^12&*()qweqesaf\"';`~");
+    params.insert("withplus", "a+b");
 
     QUrl urlb = ::includeQueryParams(urla, params);
 
     QVERIFY(urla.scheme() == urlb.scheme());
     QVERIFY(urla.host() == urlb.host());
 
-    foreach (const QString& key, params.keys()) {
+    Q_FOREACH (const QString& key, params.keys()) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        QString encoded_key = QUrl::toPercentEncoding(key);
+        QString encoded_value = QUrl::toPercentEncoding(params[encoded_key]);
         QUrlQuery query = QUrlQuery(urlb.query());
-        QVERIFY(query.queryItemValue(key) == params[key]);
+        QVERIFY(query.queryItemValue(encoded_key, QUrl::FullyEncoded) == encoded_value);
 #else
         QVERIFY(urlb.queryItemValue(key) == params[key]);
 #endif

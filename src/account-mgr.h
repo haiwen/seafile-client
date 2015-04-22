@@ -53,12 +53,16 @@ public:
 
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
+
+    // invalidate current login and emit a re-login signal
+    void invalidateCurrentLogin();
 signals:
     /**
      * Account added/removed/switched.
      */
     void beforeAccountChanged();
     void accountsChanged();
+    void accountRequireRelogin(const Account& account);
 
 private slots:
     void serverInfoSuccess(const Account &account, const ServerInfo &info);

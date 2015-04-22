@@ -67,6 +67,9 @@ AccountView::AccountView(QWidget *parent)
 
     mAccountBtn->setCursor(Qt::PointingHandCursor);
     mAccountBtn->installEventFilter(this);
+
+    connect(seafApplet->accountManager(), SIGNAL(accountRequireRelogin(const Account&)),
+            this, SLOT(reloginAccount(const Account &)));
 }
 
 void AccountView::showAddAccountDialog()
@@ -217,19 +220,14 @@ void AccountView::onAccountItemClicked()
     Account account = qvariant_cast<Account>(action->data());
 
     if (!account.isValid()) {
-        LoginDialog dialog(this);
-        dialog.initFromAccount(account);
-        if (dialog.exec() == QDialog::Accepted) {
-            getRepoTokenWhenRelogin();
-        }
+        reloginAccount(account);
     } else {
         seafApplet->accountManager()->setCurrentAccount(account);
     }
 }
 
-void AccountView::getRepoTokenWhenRelogin()
+void AccountView::getRepoTokenWhenRelogin(const Account& account)
 {
-    const Account& account = seafApplet->accountManager()->currentAccount();
     QStringList repo_ids = collectSyncedReposForAccount(account);
     if (repo_ids.empty()) {
         return;
@@ -328,6 +326,15 @@ void AccountView::logoutAccount()
     connect(req, SIGNAL(failed(const ApiError&)),
             this, SLOT(onLogoutDeviceRequestFailed(const ApiError&)));
     req->send();
+}
+
+void AccountView::reloginAccount(const Account &account)
+{
+    LoginDialog dialog(this);
+    dialog.initFromAccount(account);
+    if (dialog.exec() == QDialog::Accepted) {
+        getRepoTokenWhenRelogin(account);
+    }
 }
 
 void AccountView::onLogoutDeviceRequestSuccess()

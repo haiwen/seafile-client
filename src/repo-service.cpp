@@ -260,6 +260,17 @@ void RepoService::onRefreshFailed(const ApiError& error)
 {
     in_refresh_ = false;
 
+    // for the new version of seafile server
+    // we may have a 401 response whenever invalid token is used.
+    // see more: https://github.com/haiwen/seahub/commit/94dcfe338a52304f5895914ac59540b6176c679e
+    // but we only handle this error here to avoid complicate code since it is
+    // general enough.
+    // TODO move this handling to all possible cases
+    if (error.type() == ApiError::HTTP_ERROR && error.httpErrorCode() == 401) {
+        seafApplet->accountManager()->invalidateCurrentLogin();
+        return;
+    }
+
     emit refreshFailed(error);
 }
 

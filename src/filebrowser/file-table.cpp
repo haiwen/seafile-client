@@ -308,7 +308,7 @@ void FileTableView::setupContextMenu()
             this, SLOT(onCancelDownload()));
     cancel_download_action_->setShortcut(Qt::ALT + Qt::Key_C);
 
-    sync_subdirectory_action_ = new QAction(tr("&Sync this directory"), this);
+    sync_subdirectory_action_ = new QAction(tr("&Sync this folder"), this);
     connect(sync_subdirectory_action_, SIGNAL(triggered()),
             this, SLOT(onSyncSubdirectory()));
     sync_subdirectory_action_->setShortcut(Qt::ALT + Qt::Key_S);

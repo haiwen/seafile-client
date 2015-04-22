@@ -58,7 +58,9 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
 
 QIcon ServerRepo::getIcon() const
 {
-    if (encrypted) {
+    if (this->isSubfolder()) {
+        return QIcon(":/images/main-panel/folder.png");
+    } else if (encrypted) {
         return QIcon(":/images/main-panel/library-encrypted.png");
     } else if (readonly) {
         return QIcon(":/images/main-panel/library-readonly.png");
@@ -69,7 +71,9 @@ QIcon ServerRepo::getIcon() const
 
 QPixmap ServerRepo::getPixmap() const
 {
-    if (encrypted) {
+    if (this->isSubfolder()) {
+        return QPixmap(":/images/main-panel/folder.png");
+    } else if (encrypted) {
         return QPixmap(":/images/main-panel/library-encrypted.png");
     } else if (readonly) {
         return QPixmap(":/images/main-panel/library-readonly.png");

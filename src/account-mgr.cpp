@@ -105,20 +105,21 @@ const std::vector<Account>& AccountManager::loadAccounts()
 
 int AccountManager::saveAccount(const Account& account)
 {
+    Account new_account = account;
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {
             accounts_.erase(accounts_.begin() + i);
             break;
         }
     }
-    accounts_.insert(accounts_.begin(), account);
+    accounts_.insert(accounts_.begin(), new_account);
     updateServerInfo(0);
 
-    QString url = account.serverUrl.toEncoded().data();
+    QString url = new_account.serverUrl.toEncoded().data();
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
     QString sql = "REPLACE INTO Accounts VALUES ('%1', '%2', '%3', %4) ";
-    sql = sql.arg(url).arg(account.username).arg(account.token).arg(QString::number(timestamp));
+    sql = sql.arg(url).arg(new_account.username).arg(new_account.token).arg(QString::number(timestamp));
     sqlite_query_exec (db, toCStr(sql));
 
     emit accountsChanged();
@@ -278,6 +279,9 @@ void AccountManager::serverInfoFailed(const ApiError &error)
 
 bool AccountManager::clearAccountToken(const Account& account)
 {
+    Account new_account = account;
+    new_account.token = "";
+
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl.toString() == account.serverUrl.toString()
             && accounts_[i].username == account.username) {
@@ -286,12 +290,9 @@ bool AccountManager::clearAccountToken(const Account& account)
         }
     }
 
-    Account new_account = account;
-    new_account.token = "";
-
     accounts_.push_back(new_account);
 
-    QString url = account.serverUrl.toEncoded().data();
+    QString url = new_account.serverUrl.toEncoded().data();
 
     QString sql =
         "UPDATE Accounts "
@@ -299,7 +300,7 @@ bool AccountManager::clearAccountToken(const Account& account)
         "WHERE url = '%1' "
         "  AND username = '%2'";
 
-    sql = sql.arg(url).arg(account.username);
+    sql = sql.arg(url).arg(new_account.username);
 
     sqlite_query_exec (db, toCStr(sql));
 

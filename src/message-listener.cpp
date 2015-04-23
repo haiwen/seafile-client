@@ -55,6 +55,7 @@ void messageCallback(CcnetMessage *message, void *data)
 
 MessageListener::MessageListener()
     : async_client_(0),
+      sync_client_(0),
       mqclient_proc_(0),
       socket_notifier_(0)
 {
@@ -70,6 +71,7 @@ MessageListener::~MessageListener()
 void MessageListener::connectDaemon()
 {
     async_client_ = ccnet_client_new();
+    sync_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
     const QByteArray path = config_dir.toUtf8();
@@ -78,6 +80,14 @@ void MessageListener::connectDaemon()
     }
 
     if (ccnet_client_connect_daemon(async_client_, CCNET_CLIENT_ASYNC) < 0) {
+        return;
+    }
+
+    if (ccnet_client_load_confdir(sync_client_, path.data()) < 0) {
+        seafApplet->errorAndExit(tr("failed to load ccnet config dir ").append(config_dir));
+    }
+
+    if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {
         return;
     }
 
@@ -128,10 +138,12 @@ void MessageListener::handleMessage(CcnetMessage *message)
         if (g_strcmp0(message->body, "syn_activate") == 0) {
             qWarning("[Message Listener] Got an activate command.");
             CcnetMessage *ack_message;
-            ack_message = ccnet_message_new(message->to,
-                                            message->from,
+            // TODO we may be blocked, any improvement?
+            // e.g. start a new thread to send ack?
+            ack_message = ccnet_message_new(sync_client_->base.id,
+                                            sync_client_->base.id,
                                             kAppletCommandsMQ, "ack_activate", 0);
-            ccnet_client_send_message(async_client_, ack_message);
+            ccnet_client_send_message(sync_client_, ack_message);
             ccnet_message_free(ack_message);
 
             seafApplet->mainWindow()->showWindow();

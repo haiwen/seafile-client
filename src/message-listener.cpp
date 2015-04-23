@@ -8,6 +8,7 @@ extern "C" {
 
 #include "utils/utils.h"
 #include "seafile-applet.h"
+#include "ui/main-window.h"
 #include "settings-mgr.h"
 #include "configurator.h"
 #include "ui/tray-icon.h"
@@ -123,6 +124,17 @@ void MessageListener::handleMessage(CcnetMessage *message)
             qWarning("[Message Listener] Got a quit command. Quit now.");
             QCoreApplication::exit(0);
             return;
+        }
+        if (g_strcmp0(message->body, "syn_activate") == 0) {
+            qWarning("[Message Listener] Got an activate command.");
+            CcnetMessage *ack_message;
+            ack_message = ccnet_message_new(message->to,
+                                            message->from,
+                                            kAppletCommandsMQ, "ack_activate", 0);
+            ccnet_client_send_message(async_client_, ack_message);
+            ccnet_message_free(ack_message);
+
+            seafApplet->mainWindow()->showWindow();
         }
 
         const char *kOpenLocalFilePrefix = "open-local-file\t";

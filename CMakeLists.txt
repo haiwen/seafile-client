@@ -326,6 +326,7 @@ SET(seafile_client_sources
   src/repo-service-helper.cpp
   src/events-service.cpp
   src/server-status-service.cpp
+  src/shared-application.cpp
   src/avatar-service.cpp
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp

@@ -233,6 +233,9 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
 #endif
 
 - (NSMenu *)menuForMenuKind:(FIMenuKind)whichMenu {
+    if (whichMenu != FIMenuKindContextualMenuForItems &&
+        whichMenu != FIMenuKindContextualMenuForContainer)
+        return nil;
     // Produce a menu for the extension.
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     NSMenuItem *shareLinkItem =

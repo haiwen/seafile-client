@@ -55,7 +55,7 @@ void FinderSyncHost::updateWatchSet() {
     // update watch_set_
     watch_set_.clear();
     if (rpc->listLocalRepos(&watch_set_))
-        qWarning("update watch set failed");
+        qWarning("[FinderSync] update watch set failed");
     if (seafApplet->settingsManager()->autoSync()) {
         for (LocalRepo &repo : watch_set_)
             rpc->getSyncStatus(repo);
@@ -81,16 +81,17 @@ void FinderSyncHost::doShareLink(const QString &path) {
     }
     QDir worktree_dir(worktree_path);
     QString path_in_repo = worktree_dir.relativeFilePath(path);
+    // we have a empty path_in_repo representing the root of the directory,
+    // and we are okay!
 
-    if (repo_id.isEmpty() || path_in_repo.isEmpty() ||
-        path_in_repo.startsWith(".")) {
-        qWarning("invalid path %s", path.toUtf8().data());
+    if (repo_id.isEmpty() || path_in_repo.startsWith(".")) {
+        qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
         return;
     }
 
     const Account account = seafApplet->accountManager()->getAccountByRepo(repo_id);
     if (!account.isValid()) {
-        qWarning("invalid repo_id %s", repo_id.toUtf8().data());
+        qWarning("[FinderSync] invalid repo_id %s", repo_id.toUtf8().data());
         return;
     }
 

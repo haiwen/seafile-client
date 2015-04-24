@@ -111,6 +111,7 @@ private:
 
     bool eventFilter(QObject *obj, QEvent *event);
     void closeEvent(QCloseEvent *event);
+    void resizeEvent(QResizeEvent *event);
     void reject();
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);

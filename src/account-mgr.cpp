@@ -174,12 +174,20 @@ int AccountManager::saveAccount(const Account& account)
     accounts_.insert(accounts_.begin(), new_account);
     updateServerInfo(0);
 
-    QString url = new_account.serverUrl.toEncoded().data();
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
-    QString sql = "REPLACE INTO Accounts VALUES ('%1', '%2', '%3', %4) ";
-    sql = sql.arg(url).arg(new_account.username).arg(new_account.token).arg(QString::number(timestamp));
-    sqlite_query_exec (db, toCStr(sql));
+    char *zql = sqlite3_mprintf(
+        "REPLACE INTO Accounts(url, username, token, lastVisited) VALUES (%Q, %Q, %Q, %Q) ",
+        // url
+        new_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data(),
+        // token
+        new_account.token.toUtf8().data(),
+        // lastVisited
+        QString::number(timestamp).toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     emit accountsChanged();
 
@@ -188,11 +196,14 @@ int AccountManager::saveAccount(const Account& account)
 
 int AccountManager::removeAccount(const Account& account)
 {
-    QString url = account.serverUrl.toEncoded().data();
-
-    QString sql = "DELETE FROM Accounts WHERE url = '%1' AND username = '%2'";
-    sql = sql.arg(url).arg(account.username);
-    sqlite_query_exec (db, toCStr(sql));
+    char *zql = sqlite3_mprintf(
+        "DELETE FROM Accounts WHERE url = %Q AND username = %Q",
+        // url
+        account.serverUrl.toEncoded().data(),
+        // username
+        account.username.toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
                     accounts_.end());
@@ -204,14 +215,17 @@ int AccountManager::removeAccount(const Account& account)
 
 void AccountManager::updateAccountLastVisited(const Account& account)
 {
-    const char *url = account.serverUrl.toEncoded().data();
-
-    QString sql = "UPDATE Accounts SET lastVisited = %1 "
-        "WHERE username = '%2' AND url = '%3'";
-
-    qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
-    sql = sql.arg(QString::number(timestamp)).arg(account.username).arg(url);
-    sqlite_query_exec (db, toCStr(sql));
+    char *zql = sqlite3_mprintf(
+        "UPDATE Accounts SET lastVisited = %Q "
+        "WHERE url = %Q AND username = %Q",
+        // lastVisted
+        QString::number(QDateTime::currentMSecsSinceEpoch()).toUtf8().data(),
+        // url
+        account.serverUrl.toEncoded().data(),
+        // username
+        account.username.toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 }
 
 bool AccountManager::accountExists(const QUrl& url, const QString& username)
@@ -243,31 +257,40 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == old_account) {
+            // TODO copy new_account and old_account before this operation
+            // we might have invalid old_account or new_account after it
             accounts_[i] = new_account;
             updateServerInfo(i);
             break;
         }
     }
 
-    QString old_url = old_account.serverUrl.toEncoded().data();
-    QString new_url = new_account.serverUrl.toEncoded().data();
-
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
-    QString sql =
+    char *zql = sqlite3_mprintf(
         "UPDATE Accounts "
-        "SET url = '%1', "
-        "    username = '%2', "
-        "    token = '%3', "
-        "    lastVisited = '%4' "
-        "WHERE url = '%5' "
-        "  AND username = '%2'";
+        "SET url = %Q, "
+        "    username = %Q, "
+        "    token = %Q, "
+        "    lastVisited = %Q "
+        "WHERE url = %Q "
+        "  AND username = %Q",
+        // new_url
+        new_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data(),
+        // token
+        new_account.token.toUtf8().data(),
+        // lastvisited
+        QString::number(timestamp).toUtf8().data(),
+        // old_url
+        old_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data()
+        );
 
-    sql = sql.arg(new_url).arg(new_account.username). \
-        arg(new_account.token).arg(QString::number(timestamp)) \
-        .arg(old_url);
-
-    sqlite_query_exec (db, toCStr(sql));
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     emit accountsChanged();
 
@@ -362,17 +385,18 @@ bool AccountManager::clearAccountToken(const Account& account)
 
     accounts_.push_back(new_account);
 
-    QString url = new_account.serverUrl.toEncoded().data();
-
-    QString sql =
+    char *zql = sqlite3_mprintf(
         "UPDATE Accounts "
         "SET token = NULL "
-        "WHERE url = '%1' "
-        "  AND username = '%2'";
-
-    sql = sql.arg(url).arg(new_account.username);
-
-    sqlite_query_exec (db, toCStr(sql));
+        "WHERE url = %Q "
+        "  AND username = %Q",
+        // url
+        new_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data()
+        );
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     emit accountsChanged();
 

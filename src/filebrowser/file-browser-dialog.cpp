@@ -1022,6 +1022,12 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
     return QDialog::eventFilter(obj, event);
 }
 
+void FileBrowserDialog::resizeEvent(QResizeEvent *event)
+{
+    resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
+    resizer_->raise();
+}
+
 void FileBrowserDialog::closeEvent(QCloseEvent *event)
 {
     emit aboutToClose();

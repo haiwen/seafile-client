@@ -621,28 +621,11 @@ void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
     ServerInfo ret;
 
     if (dict.contains("version")) {
-        QString versionString = dict["version"].toString();
-        QStringList versionList = versionString.split('.');
-        if (versionList.size() >= 3) {
-            ret.majorVersion = versionList[0].toInt();
-            ret.minorVersion = versionList[1].toInt();
-            ret.patchVersion = versionList[2].toInt();
-        }
+        ret.parseVersionFromString(dict["version"].toString());
     }
 
     if (dict.contains("features")) {
-        QList<QVariant> features = dict["features"].toList();
-        Q_FOREACH(const QVariant& feature, features)
-        {
-            if (feature.toString() == "seafile-pro") {
-                ret.pro = true;
-                ret.feature |= FeatureProVersion;
-            } else if (feature.toString() == "office-preview") {
-                ret.feature |= FeatureOfficePreview;
-            } else if (feature.toString() == "file-search") {
-                ret.feature |= FeatureFileSearch;
-            }
-        }
+        ret.parseFeatureFromStrings(dict["features"].toStringList());
     }
 
     emit success(account_, ret);

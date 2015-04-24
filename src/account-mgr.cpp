@@ -32,6 +32,21 @@ bool compareAccount(const Account& a, const Account& b)
     return true;
 }
 
+struct UserData {
+    std::vector<Account> *accounts;
+    struct sqlite3 *db;
+};
+
+inline void setServerInfoKeyValue(struct sqlite3 *db, const Account &account, const QString& key, const QString &value)
+{
+    char *zql = sqlite3_mprintf(
+        "REPLACE INTO ServerInfo(url, username, key, value) VALUES (%Q, %Q, %Q, %Q)",
+        account.serverUrl.toEncoded().data(), account.username.toUtf8().data(),
+        key.toUtf8().data(), value.toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
+}
+
 }
 
 AccountManager::AccountManager()
@@ -53,7 +68,7 @@ int AccountManager::start()
     QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
     if (sqlite3_open (toCStr(db_path), &db)) {
         errmsg = sqlite3_errmsg (db);
-        qWarning("failed to open account database %s: %s",
+        qCritical("failed to open account database %s: %s",
                 toCStr(db_path), errmsg ? errmsg : "no error given");
 
         seafApplet->errorAndExit(tr("failed to open account database"));
@@ -63,12 +78,36 @@ int AccountManager::start()
     // enabling foreign keys, it must be done manually from each connection
     // and this feature is only supported from sqlite 3.6.19
     sql = "PRAGMA foreign_keys=ON;";
-    sqlite_query_exec (db, sql);
+    if (sqlite_query_exec (db, sql) < 0) {
+        qCritical("sqlite version is too low to support foreign key feature\n");
+        sqlite3_close(db);
+        db = NULL;
+        return -1;
+    }
 
     sql = "CREATE TABLE IF NOT EXISTS Accounts (url VARCHAR(24), "
         "username VARCHAR(15), token VARCHAR(40), lastVisited INTEGER, "
         "PRIMARY KEY(url, username))";
-    sqlite_query_exec (db, sql);
+    if (sqlite_query_exec (db, sql) < 0) {
+        qCritical("failed to create accounts table\n");
+        sqlite3_close(db);
+        db = NULL;
+        return -1;
+    }
+
+    // create ServerInfo table
+    sql = "CREATE TABLE IF NOT EXISTS ServerInfo ("
+        "key TEXT NOT NULL, value TEXT, "
+        "url VARCHAR(24), username VARCHAR(15), "
+        "PRIMARY KEY(url, username, key), "
+        "FOREIGN KEY(url, username) REFERENCES Accounts(url, username) "
+        "ON DELETE CASCADE ON UPDATE CASCADE )";
+    if (sqlite_query_exec (db, sql) < 0) {
+        qCritical("failed to create server_info table\n");
+        sqlite3_close(db);
+        db = NULL;
+        return -1;
+    }
 
     loadAccounts();
 
@@ -78,7 +117,7 @@ int AccountManager::start()
 
 bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
 {
-    AccountManager *mgr = (AccountManager *)data;
+    UserData *userdata = static_cast<UserData*>(data);
     const char *url = (const char *)sqlite3_column_text (stmt, 0);
     const char *username = (const char *)sqlite3_column_text (stmt, 1);
     const char *token = (const char *)sqlite3_column_text (stmt, 2);
@@ -89,7 +128,26 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     }
 
     Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime);
-    mgr->accounts_.push_back(account);
+    char* zql = sqlite3_mprintf("SELECT key, value FROM ServerInfo WHERE url = %Q AND username = %Q", url, username);
+    sqlite_foreach_selected_row (userdata->db, zql, loadServerInfoCB, &account.serverInfo);
+    sqlite3_free(zql);
+
+    userdata->accounts->push_back(account);
+    return true;
+}
+
+bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
+{
+    ServerInfo *info = static_cast<ServerInfo*>(data);
+    const char *key = (const char *)sqlite3_column_text (stmt, 0);
+    const char *value = (const char *)sqlite3_column_text (stmt, 1);
+    QString key_string = key;
+    QString value_string = value;
+    if (key_string == "version") {
+        info->parseVersionFromString(value_string);
+    } else {
+        info->parseFeatureFromString(key_string, value_string.toLower() == "true");
+    }
     return true;
 }
 
@@ -97,7 +155,8 @@ const std::vector<Account>& AccountManager::loadAccounts()
 {
     const char *sql = "SELECT url, username, token, lastVisited FROM Accounts ";
     accounts_.clear();
-    sqlite_foreach_selected_row (db, sql, loadAccountsCB, this);
+    UserData userdata = { .accounts = &accounts_, .db = db };
+    sqlite_foreach_selected_row (db, sql, loadAccountsCB, &userdata);
 
     std::stable_sort(accounts_.begin(), accounts_.end(), compareAccount);
     return accounts_;
@@ -260,6 +319,17 @@ void AccountManager::updateServerInfo(unsigned index)
 
 void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo &info)
 {
+    const QStringList features = info.getFeatureStrings();
+    setServerInfoKeyValue(db, account, "version", info.getVersionString());
+    Q_FOREACH(const QString& feature, features)
+    {
+        setServerInfoKeyValue(db, account, feature, "true");
+    }
+
+    bool changed = account.serverInfo != info;
+    if (!changed)
+        return;
+
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {
             if (i == 0)

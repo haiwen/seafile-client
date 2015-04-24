@@ -63,17 +63,21 @@ public:
     }
 
     bool isPro() const {
-        return serverInfo.pro;
+        return serverInfo.proEdition;
+    }
+
+    bool hasOfficePreview() const {
+        return serverInfo.officePreview;
+    }
+
+    bool hasFileSearch() const {
+        return serverInfo.fileSearch;
     }
 
     bool isAtLeastVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {
         return serverInfo.majorVersion >= majorVersion &&
                serverInfo.minorVersion >= minorVersion &&
                serverInfo.patchVersion >= patchVersion;
-    }
-
-    unsigned feature() const {
-        return serverInfo.feature;
     }
 
     QUrl getAbsoluteUrl(const QString& relativeUrl) const;

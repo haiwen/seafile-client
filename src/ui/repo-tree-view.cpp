@@ -105,7 +105,10 @@ FileCopyHelper* copyFile(const QString &source, const QString &target, RepoTreeV
       return helper;
 }
 
-}
+} // anonymous namespace
+
+static ServerRepo selected_repo_;
+// TODO save localrepo as well to avoid many copys
 
 RepoTreeView::RepoTreeView(QWidget *parent)
     : QTreeView(parent)
@@ -191,6 +194,7 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     }
 
     menu->addAction(view_on_web_action_);
+    menu->addAction(open_in_filebrowser_action_);
 
     if (item->localRepo().isValid()) {
         menu->addSeparator();
@@ -238,6 +242,7 @@ void RepoTreeView::updateRepoActions()
         resync_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
+        open_in_filebrowser_action_->setEnabled(false);
         show_detail_action_->setEnabled(false);
         return;
     }
@@ -282,8 +287,6 @@ void RepoTreeView::updateRepoActions()
         if (item->repoDownloadable()) {
             download_action_->setEnabled(true);
             download_toolbar_action_->setEnabled(true);
-            download_action_->setData(QVariant::fromValue(item->repo()));
-            download_toolbar_action_->setData(QVariant::fromValue(item->repo()));
         } else {
             download_action_->setEnabled(false);
             download_toolbar_action_->setEnabled(false);
@@ -298,14 +301,14 @@ void RepoTreeView::updateRepoActions()
         toggle_auto_sync_action_->setEnabled(false);
     }
 
+    selected_repo_= item->repo();
     view_on_web_action_->setEnabled(true);
-    view_on_web_action_->setData(item->repo().id);
+    open_in_filebrowser_action_->setEnabled(true);
+
     show_detail_action_->setEnabled(true);
-    show_detail_action_->setData(QVariant::fromValue(item->repo()));
 
     if (item->cloneTask().isCancelable()) {
         cancel_download_action_->setEnabled(true);
-        cancel_download_action_->setData(QVariant::fromValue(item->repo()));
     } else {
         cancel_download_action_->setEnabled(false);
     }
@@ -330,7 +333,7 @@ QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
 
 void RepoTreeView::createActions()
 {
-    show_detail_action_ = new QAction(tr("Show &Details"), this);
+    show_detail_action_ = new QAction(tr("Show &details"), this);
     show_detail_action_->setIcon(QIcon(":/images/info-gray.png"));
     show_detail_action_->setStatusTip(tr("Show details of this library"));
     show_detail_action_->setIconVisibleInMenu(true);
@@ -348,7 +351,7 @@ void RepoTreeView::createActions()
     download_toolbar_action_->setIconVisibleInMenu(false);
     connect(download_toolbar_action_, SIGNAL(triggered()), this, SLOT(downloadRepo()));
 
-    sync_now_action_ = new QAction(tr("Sync &Now"), this);
+    sync_now_action_ = new QAction(tr("Sync &now"), this);
     sync_now_action_->setIcon(QIcon(":/images/sync_now-gray.png"));
     sync_now_action_->setStatusTip(tr("Sync this library immediately"));
     sync_now_action_->setIconVisibleInMenu(true);
@@ -389,6 +392,13 @@ void RepoTreeView::createActions()
 
     connect(view_on_web_action_, SIGNAL(triggered()), this, SLOT(viewRepoOnWeb()));
 
+    open_in_filebrowser_action_ = new QAction(tr("&Open cloud file browser"), this);
+    open_in_filebrowser_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    open_in_filebrowser_action_->setStatusTip(tr("open this library in embedded Cloud File Browser"));
+    open_in_filebrowser_action_->setIconVisibleInMenu(true);
+
+    connect(open_in_filebrowser_action_, SIGNAL(triggered()), this, SLOT(openInFileBrowser()));
+
     resync_action_ = new QAction(tr("&Resync this library"), this);
     resync_action_->setIcon(QIcon(":/images/resync.png"));
     resync_action_->setStatusTip(tr("unsync and resync this library"));
@@ -398,8 +408,7 @@ void RepoTreeView::createActions()
 
 void RepoTreeView::downloadRepo()
 {
-    ServerRepo repo = qvariant_cast<ServerRepo>(download_action_->data());
-    DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(), repo, this);
+    DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(), selected_repo_, this);
 
     dialog.exec();
 
@@ -408,8 +417,7 @@ void RepoTreeView::downloadRepo()
 
 void RepoTreeView::showRepoDetail()
 {
-    ServerRepo repo = qvariant_cast<ServerRepo>(show_detail_action_->data());
-    RepoDetailDialog dialog(repo, this);
+    RepoDetailDialog dialog(selected_repo_, this);
     dialog.exec();
 }
 
@@ -496,10 +504,19 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
 
 void RepoTreeView::viewRepoOnWeb()
 {
-    QString repo_id = view_on_web_action_->data().toString();
     const Account account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
-        QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + repo_id));
+        QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
+    }
+}
+
+void RepoTreeView::openInFileBrowser()
+{
+    const Account account = seafApplet->accountManager()->currentAccount();
+    if (account.isValid()) {
+        FileBrowserManager::getInstance()->openOrActivateDialog(
+            seafApplet->accountManager()->currentAccount(),
+            selected_repo_);
     }
 }
 
@@ -574,6 +591,7 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     resync_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
+    open_in_filebrowser_action_->setEnabled(false);
     show_detail_action_->setEnabled(false);
 }
 
@@ -609,10 +627,8 @@ void RepoTreeView::syncRepoImmediately()
 
 void RepoTreeView::cancelDownload()
 {
-    ServerRepo repo = qvariant_cast<ServerRepo>(cancel_download_action_->data());
-
     QString error;
-    if (seafApplet->rpcClient()->cancelCloneTask(repo.id, &error) < 0) {
+    if (seafApplet->rpcClient()->cancelCloneTask(selected_repo_.id, &error) < 0) {
         QMessageBox::warning(this, getBrand(),
                              tr("Failed to cancel this task:\n\n %1").arg(error),
                              QMessageBox::Ok);

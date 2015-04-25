@@ -49,6 +49,7 @@ private slots:
     void showRepoDetail();
     void openLocalFolder();
     void viewRepoOnWeb();
+    void openInFileBrowser();
     void onItemClicked(const QModelIndex& index);
     void onItemDoubleClicked(const QModelIndex& index);
     void toggleRepoAutoSync();
@@ -89,6 +90,7 @@ private:
     QAction *open_local_folder_toolbar_action_;
     QAction *unsync_action_;
     QAction *view_on_web_action_;
+    QAction *open_in_filebrowser_action_;
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
     QAction *cancel_download_action_;

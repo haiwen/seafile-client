@@ -333,3 +333,19 @@ void AccountManager::onAccountsChanged()
 {
     accounts_cache_.clear();
 }
+
+void AccountManager::invalidateCurrentLogin()
+{
+    // make sure we have accounts there
+    if (!hasAccount())
+        return;
+    const Account &account = accounts().front();
+    // if the token is already invalidated, ignore
+    if (account.token.isEmpty())
+        return;
+    clearAccountToken(account);
+    seafApplet->warningBox(tr("Authorization expired, please re-login"));
+
+    // we have the expire account at the last position
+    emit accountRequireRelogin(accounts().back());
+}

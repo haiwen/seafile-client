@@ -29,6 +29,7 @@ public slots:
 private slots:
     void updateAvatar();
     void logoutAccount();
+    void reloginAccount(const Account &account);
     void onLogoutDeviceRequestSuccess();
     void onLogoutDeviceRequestFailed(const ApiError& error);
     void onGetRepoTokensSuccess();
@@ -40,7 +41,7 @@ private:
     QAction *makeAccountAction(const Account& account);
     void updateAccountInfoDisplay();
     bool eventFilter(QObject *obj, QEvent *event);
-    void getRepoTokenWhenRelogin();
+    void getRepoTokenWhenRelogin(const Account& account);
 
     // Account operations
     QAction *add_account_action_;

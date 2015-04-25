@@ -408,6 +408,10 @@ FileBrowserDialog {
     min-height: 456px;
 }
 
+FileBrowserDialog QSizeGrip {
+    margin-right: 2px;
+}
+
 FileBrowserDialog QWidget#mainWidget {
     border: 1px solid #333;
     border-radius: 5px;

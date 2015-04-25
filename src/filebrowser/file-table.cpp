@@ -35,7 +35,8 @@ const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
 const int kFileNameColumnWidth = 200;
-const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3;
+const int kExtraPadding = 30;
+const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kExtraPadding;
 
 const int kRefreshProgressInterval = 1000;
 

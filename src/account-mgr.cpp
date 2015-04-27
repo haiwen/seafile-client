@@ -16,6 +16,8 @@
 
 namespace {
 const char *kRepoRelayAddrProperty = "relay-address";
+const char *kVersionKeyName = "version";
+const char *kFeaturesKeyName = "features";
 
 bool compareAccount(const Account& a, const Account& b)
 {
@@ -143,10 +145,10 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
     const char *value = (const char *)sqlite3_column_text (stmt, 1);
     QString key_string = key;
     QString value_string = value;
-    if (key_string == "version") {
+    if (key_string == kVersionKeyName) {
         info->parseVersionFromString(value_string);
-    } else {
-        info->parseFeatureFromString(key_string, value_string.toLower() == "true");
+    } else if (key_string == kFeaturesKeyName) {
+        info->parseFeatureFromStrings(value_string.split(","));
     }
     return true;
 }
@@ -342,12 +344,8 @@ void AccountManager::updateServerInfo(unsigned index)
 
 void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo &info)
 {
-    const QStringList features = info.getFeatureStrings();
-    setServerInfoKeyValue(db, account, "version", info.getVersionString());
-    Q_FOREACH(const QString& feature, features)
-    {
-        setServerInfoKeyValue(db, account, feature, "true");
-    }
+    setServerInfoKeyValue(db, account, kVersionKeyName, info.getVersionString());
+    setServerInfoKeyValue(db, account, kFeaturesKeyName, info.getFeatureStrings().join(","));
 
     bool changed = account.serverInfo != info;
     if (!changed)

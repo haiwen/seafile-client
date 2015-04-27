@@ -35,6 +35,7 @@ const char *kSetRepoPasswordUrl = "api2/repos/";
 const char *kServerInfoUrl ="api2/server-info/";
 const char *kLogoutDeviceUrl = "api2/logout-device/";
 const char *kGetRepoTokensUrl = "api2/repo-tokens/";
+const char *kGetLoginTokenUrl = "api2/client-login/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -686,4 +687,31 @@ void GetRepoTokensRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success();
+}
+
+GetLoginTokenRequest::GetLoginTokenRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kGetLoginTokenUrl),
+                         SeafileApiRequest::METHOD_POST, account.token),
+      account_(account)
+{
+}
+
+void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetLoginTokenRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    if (!dict.contains("token")) {
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    emit success(dict["token"].toString());
 }

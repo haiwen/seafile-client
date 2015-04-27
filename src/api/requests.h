@@ -393,5 +393,23 @@ private:
     QMap<QString, QString> repo_tokens_;
 };
 
+class GetLoginTokenRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetLoginTokenRequest(const Account& account);
+
+    const Account& account() { return account_; }
+
+signals:
+    void success(const QString& token);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetLoginTokenRequest);
+
+    Account account_;
+};
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

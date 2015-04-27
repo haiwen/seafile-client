@@ -153,8 +153,10 @@ void CloudView::createTabs()
     connect(tabs_, SIGNAL(currentTabChanged(int)),
             this, SLOT(onTabChanged(int)));
 
-    connect(activities_tab_, SIGNAL(activitiesSupported()),
-            this, SLOT(addActivitiesTab()));
+    bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    if (has_pro_account) {
+        addActivitiesTab();
+    }
 }
 
 void CloudView::addActivitiesTab()
@@ -435,6 +437,10 @@ void CloudView::onAccountChanged()
     refresh_action_->setEnabled(hasAccount());
 
     tabs_->removeTab(2, activities_tab_);
+    bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    if (has_pro_account) {
+        addActivitiesTab();
+    }
     tabs_->adjustTabsWidth(rect().width());
 
     repos_tab_->refresh();

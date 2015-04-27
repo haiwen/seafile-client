@@ -16,6 +16,8 @@
 
 namespace {
 const char *kRepoRelayAddrProperty = "relay-address";
+const char *kVersionKeyName = "version";
+const char *kFeaturesKeyName = "features";
 
 bool compareAccount(const Account& a, const Account& b)
 {
@@ -30,6 +32,21 @@ bool compareAccount(const Account& a, const Account& b)
     }
 
     return true;
+}
+
+struct UserData {
+    std::vector<Account> *accounts;
+    struct sqlite3 *db;
+};
+
+inline void setServerInfoKeyValue(struct sqlite3 *db, const Account &account, const QString& key, const QString &value)
+{
+    char *zql = sqlite3_mprintf(
+        "REPLACE INTO ServerInfo(url, username, key, value) VALUES (%Q, %Q, %Q, %Q)",
+        account.serverUrl.toEncoded().data(), account.username.toUtf8().data(),
+        key.toUtf8().data(), value.toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 }
 
 }
@@ -53,7 +70,7 @@ int AccountManager::start()
     QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
     if (sqlite3_open (toCStr(db_path), &db)) {
         errmsg = sqlite3_errmsg (db);
-        qWarning("failed to open account database %s: %s",
+        qCritical("failed to open account database %s: %s",
                 toCStr(db_path), errmsg ? errmsg : "no error given");
 
         seafApplet->errorAndExit(tr("failed to open account database"));
@@ -63,12 +80,36 @@ int AccountManager::start()
     // enabling foreign keys, it must be done manually from each connection
     // and this feature is only supported from sqlite 3.6.19
     sql = "PRAGMA foreign_keys=ON;";
-    sqlite_query_exec (db, sql);
+    if (sqlite_query_exec (db, sql) < 0) {
+        qCritical("sqlite version is too low to support foreign key feature\n");
+        sqlite3_close(db);
+        db = NULL;
+        return -1;
+    }
 
     sql = "CREATE TABLE IF NOT EXISTS Accounts (url VARCHAR(24), "
         "username VARCHAR(15), token VARCHAR(40), lastVisited INTEGER, "
         "PRIMARY KEY(url, username))";
-    sqlite_query_exec (db, sql);
+    if (sqlite_query_exec (db, sql) < 0) {
+        qCritical("failed to create accounts table\n");
+        sqlite3_close(db);
+        db = NULL;
+        return -1;
+    }
+
+    // create ServerInfo table
+    sql = "CREATE TABLE IF NOT EXISTS ServerInfo ("
+        "key TEXT NOT NULL, value TEXT, "
+        "url VARCHAR(24), username VARCHAR(15), "
+        "PRIMARY KEY(url, username, key), "
+        "FOREIGN KEY(url, username) REFERENCES Accounts(url, username) "
+        "ON DELETE CASCADE ON UPDATE CASCADE )";
+    if (sqlite_query_exec (db, sql) < 0) {
+        qCritical("failed to create server_info table\n");
+        sqlite3_close(db);
+        db = NULL;
+        return -1;
+    }
 
     loadAccounts();
 
@@ -78,7 +119,7 @@ int AccountManager::start()
 
 bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
 {
-    AccountManager *mgr = (AccountManager *)data;
+    UserData *userdata = static_cast<UserData*>(data);
     const char *url = (const char *)sqlite3_column_text (stmt, 0);
     const char *username = (const char *)sqlite3_column_text (stmt, 1);
     const char *token = (const char *)sqlite3_column_text (stmt, 2);
@@ -89,7 +130,26 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     }
 
     Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime);
-    mgr->accounts_.push_back(account);
+    char* zql = sqlite3_mprintf("SELECT key, value FROM ServerInfo WHERE url = %Q AND username = %Q", url, username);
+    sqlite_foreach_selected_row (userdata->db, zql, loadServerInfoCB, &account.serverInfo);
+    sqlite3_free(zql);
+
+    userdata->accounts->push_back(account);
+    return true;
+}
+
+bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
+{
+    ServerInfo *info = static_cast<ServerInfo*>(data);
+    const char *key = (const char *)sqlite3_column_text (stmt, 0);
+    const char *value = (const char *)sqlite3_column_text (stmt, 1);
+    QString key_string = key;
+    QString value_string = value;
+    if (key_string == kVersionKeyName) {
+        info->parseVersionFromString(value_string);
+    } else if (key_string == kFeaturesKeyName) {
+        info->parseFeatureFromStrings(value_string.split(","));
+    }
     return true;
 }
 
@@ -97,7 +157,8 @@ const std::vector<Account>& AccountManager::loadAccounts()
 {
     const char *sql = "SELECT url, username, token, lastVisited FROM Accounts ";
     accounts_.clear();
-    sqlite_foreach_selected_row (db, sql, loadAccountsCB, this);
+    UserData userdata = { .accounts = &accounts_, .db = db };
+    sqlite_foreach_selected_row (db, sql, loadAccountsCB, &userdata);
 
     std::stable_sort(accounts_.begin(), accounts_.end(), compareAccount);
     return accounts_;
@@ -115,12 +176,20 @@ int AccountManager::saveAccount(const Account& account)
     accounts_.insert(accounts_.begin(), new_account);
     updateServerInfo(0);
 
-    QString url = new_account.serverUrl.toEncoded().data();
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
-    QString sql = "REPLACE INTO Accounts VALUES ('%1', '%2', '%3', %4) ";
-    sql = sql.arg(url).arg(new_account.username).arg(new_account.token).arg(QString::number(timestamp));
-    sqlite_query_exec (db, toCStr(sql));
+    char *zql = sqlite3_mprintf(
+        "REPLACE INTO Accounts(url, username, token, lastVisited) VALUES (%Q, %Q, %Q, %Q) ",
+        // url
+        new_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data(),
+        // token
+        new_account.token.toUtf8().data(),
+        // lastVisited
+        QString::number(timestamp).toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     emit accountsChanged();
 
@@ -129,11 +198,14 @@ int AccountManager::saveAccount(const Account& account)
 
 int AccountManager::removeAccount(const Account& account)
 {
-    QString url = account.serverUrl.toEncoded().data();
-
-    QString sql = "DELETE FROM Accounts WHERE url = '%1' AND username = '%2'";
-    sql = sql.arg(url).arg(account.username);
-    sqlite_query_exec (db, toCStr(sql));
+    char *zql = sqlite3_mprintf(
+        "DELETE FROM Accounts WHERE url = %Q AND username = %Q",
+        // url
+        account.serverUrl.toEncoded().data(),
+        // username
+        account.username.toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
                     accounts_.end());
@@ -145,14 +217,17 @@ int AccountManager::removeAccount(const Account& account)
 
 void AccountManager::updateAccountLastVisited(const Account& account)
 {
-    const char *url = account.serverUrl.toEncoded().data();
-
-    QString sql = "UPDATE Accounts SET lastVisited = %1 "
-        "WHERE username = '%2' AND url = '%3'";
-
-    qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
-    sql = sql.arg(QString::number(timestamp)).arg(account.username).arg(url);
-    sqlite_query_exec (db, toCStr(sql));
+    char *zql = sqlite3_mprintf(
+        "UPDATE Accounts SET lastVisited = %Q "
+        "WHERE url = %Q AND username = %Q",
+        // lastVisted
+        QString::number(QDateTime::currentMSecsSinceEpoch()).toUtf8().data(),
+        // url
+        account.serverUrl.toEncoded().data(),
+        // username
+        account.username.toUtf8().data());
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 }
 
 bool AccountManager::accountExists(const QUrl& url, const QString& username)
@@ -184,31 +259,40 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == old_account) {
+            // TODO copy new_account and old_account before this operation
+            // we might have invalid old_account or new_account after it
             accounts_[i] = new_account;
             updateServerInfo(i);
             break;
         }
     }
 
-    QString old_url = old_account.serverUrl.toEncoded().data();
-    QString new_url = new_account.serverUrl.toEncoded().data();
-
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
-    QString sql =
+    char *zql = sqlite3_mprintf(
         "UPDATE Accounts "
-        "SET url = '%1', "
-        "    username = '%2', "
-        "    token = '%3', "
-        "    lastVisited = '%4' "
-        "WHERE url = '%5' "
-        "  AND username = '%2'";
+        "SET url = %Q, "
+        "    username = %Q, "
+        "    token = %Q, "
+        "    lastVisited = %Q "
+        "WHERE url = %Q "
+        "  AND username = %Q",
+        // new_url
+        new_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data(),
+        // token
+        new_account.token.toUtf8().data(),
+        // lastvisited
+        QString::number(timestamp).toUtf8().data(),
+        // old_url
+        old_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data()
+        );
 
-    sql = sql.arg(new_url).arg(new_account.username). \
-        arg(new_account.token).arg(QString::number(timestamp)) \
-        .arg(old_url);
-
-    sqlite_query_exec (db, toCStr(sql));
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     emit accountsChanged();
 
@@ -260,6 +344,13 @@ void AccountManager::updateServerInfo(unsigned index)
 
 void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo &info)
 {
+    setServerInfoKeyValue(db, account, kVersionKeyName, info.getVersionString());
+    setServerInfoKeyValue(db, account, kFeaturesKeyName, info.getFeatureStrings().join(","));
+
+    bool changed = account.serverInfo != info;
+    if (!changed)
+        return;
+
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {
             if (i == 0)
@@ -292,17 +383,18 @@ bool AccountManager::clearAccountToken(const Account& account)
 
     accounts_.push_back(new_account);
 
-    QString url = new_account.serverUrl.toEncoded().data();
-
-    QString sql =
+    char *zql = sqlite3_mprintf(
         "UPDATE Accounts "
         "SET token = NULL "
-        "WHERE url = '%1' "
-        "  AND username = '%2'";
-
-    sql = sql.arg(url).arg(new_account.username);
-
-    sqlite_query_exec (db, toCStr(sql));
+        "WHERE url = %Q "
+        "  AND username = %Q",
+        // url
+        new_account.serverUrl.toEncoded().data(),
+        // username
+        new_account.username.toUtf8().data()
+        );
+    sqlite_query_exec(db, zql);
+    sqlite3_free(zql);
 
     emit accountsChanged();
 

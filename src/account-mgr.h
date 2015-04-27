@@ -75,6 +75,7 @@ private:
 
     void updateServerInfo(unsigned index);
     static bool loadAccountsCB(struct sqlite3_stmt *stmt, void *data);
+    static bool loadServerInfoCB(struct sqlite3_stmt *stmt, void *data);
 
     void updateAccountLastVisited(const Account& account);
 

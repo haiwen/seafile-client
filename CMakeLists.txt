@@ -758,6 +758,7 @@ IF (BUILD_TESTING)
 
     ENABLE_TESTING()
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/tests)
+    ADD_QTEST(test_server-info)
     ADD_QTEST(test_utils)
     ADD_QTEST(test_file-utils)
 ENDIF()

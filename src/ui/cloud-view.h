@@ -46,7 +46,6 @@ private slots:
     void chooseFolderToSync();
     void onAccountChanged();
     void onTabChanged(int index);
-    void addActivitiesTab();
     void refreshServerStatus();
 
 private:
@@ -60,6 +59,7 @@ private:
     void createTabs();
     void setupDropArea();
     void setupFooter();
+    void addActivitiesTab();
 
     void refreshTasksInfo();
     void refreshTransferRate();

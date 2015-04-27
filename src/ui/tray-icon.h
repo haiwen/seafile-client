@@ -47,7 +47,6 @@ private slots:
     void onActivated(QSystemTrayIcon::ActivationReason);
     void prepareContextMenu();
     void showMainWindow();
-    void onClick();
     void rotateTrayIcon();
     void refreshTrayIcon();
     void refreshTrayIconToolTip();

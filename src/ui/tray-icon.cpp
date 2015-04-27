@@ -451,21 +451,12 @@ void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:
     case QSystemTrayIcon::DoubleClick:
-        onClick();
+        showMainWindow();
         break;
     default:
         return;
     }
 #endif
-}
-
-void SeafileTrayIcon::onClick()
-{
-    if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
-        viewUnreadNotifications();
-    } else {
-        showMainWindow();
-    }
 }
 
 void SeafileTrayIcon::disableAutoSync()

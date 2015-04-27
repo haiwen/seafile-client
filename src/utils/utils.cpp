@@ -668,7 +668,7 @@ QUrl urlJoin(const QUrl& head, const QString& tail)
         a += "/";
     }
     while (b.startsWith("/")) {
-        b = b.right(1);
+        b = b.mid(1);
     }
     return QUrl(a + b);
 }

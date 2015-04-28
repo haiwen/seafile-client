@@ -11,6 +11,7 @@ class LoadingView : public QWidget {
     Q_OBJECT
 public:
     LoadingView(QWidget *parent=0);
+    ~LoadingView();
     void setQssStyleForTab();
 
 protected:

@@ -71,7 +71,10 @@ void ReposTab::createRepoTree()
     filter_model_->setSourceModel(repos_model_);
     filter_model_->setDynamicSortFilter(true);
     repos_tree_->setModel(filter_model_);
-    repos_tree_->setItemDelegate(new RepoItemDelegate);
+
+    // QAbstractItemView::setItemDelegate won't take ownship of delegate,
+    // you need to manage its resource yourself
+    repos_tree_->setItemDelegate(new RepoItemDelegate(this));
 }
 
 void ReposTab::createLoadingView()

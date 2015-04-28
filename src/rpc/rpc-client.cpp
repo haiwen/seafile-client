@@ -48,6 +48,7 @@ void SeafileRpcClient::connectDaemon()
         return;
     }
 
+    // we are leaking memory here
     seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
     ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
 

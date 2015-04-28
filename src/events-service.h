@@ -3,13 +3,14 @@
 
 #include <vector>
 #include <QObject>
+#include <QScopedPointer>
 
 #include "api/event.h"
+#include "api/requests.h"
 
 class QTimer;
 
 class ApiError;
-class GetEventsRequest;
 
 class EventsService : public QObject
 {
@@ -49,7 +50,7 @@ private:
 
     const std::vector<SeafEvent> handleEventsOffset(const std::vector<SeafEvent>& new_events);
 
-    GetEventsRequest *get_events_req_;
+    QScopedPointer<GetEventsRequest> get_events_req_;
 
     std::vector<SeafEvent> events_;
 

@@ -192,24 +192,26 @@
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="106"/>
         <source>Upload Success</source>
-        <translation type="unfinished"/>
+        <translation>Upphleðsla Tókst</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="107"/>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
-        <translation type="unfinished"/>
+        <translation>Skrá &quot;%1&quot;
+hlaðið upp giftursamlega.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="113"/>
         <source>Upload Failure</source>
-        <translation type="unfinished"/>
+        <translation>Upphleðsluvilla</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="114"/>
         <source>File &quot;%1&quot;
 failed to upload.</source>
-        <translation type="unfinished"/>
+        <translation>Skrá &quot;%1&quot;
+mistókst að hlaða upp.</translation>
     </message>
 </context>
 <context>
@@ -620,7 +622,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
         <source>Sync folder &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Samstilla skráasafn &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
@@ -728,7 +730,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="88"/>
         <source>Cloud File Browser</source>
-        <translation>Skráavafri Skýs</translation>
+        <translation>Skýjavafri</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="199"/>
@@ -794,12 +796,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="411"/>
         <source>Enter name of file to save to...</source>
-        <translation type="unfinished"/>
+        <translation>Sláðu inn nafn á skrá til að vista í...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="418"/>
         <source>Unable to remove file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Gat ekki fjarlægt skránna &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
@@ -904,7 +906,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1034"/>
         <source>Create library failed!</source>
-        <translation type="unfinished"/>
+        <translation>Mistókst að búa til safn!</translation>
     </message>
 </context>
 <context>
@@ -1005,7 +1007,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Vista sem...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="259"/>
@@ -1045,18 +1047,19 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="295"/>
         <source>Canc&amp;el Download</source>
-        <translation type="unfinished"/>
+        <translation>Hætt&amp;a við niðurhal</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="300"/>
         <source>&amp;Sync this directory</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Samstilla þetta skráasafn</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="306"/>
         <source>This feature is available in pro version only
 </source>
-        <translation type="unfinished"/>
+        <translation>Þessi virkni er aðeins aðgengileg í &quot;pro&quot; útgáfunni
+</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="393"/>
@@ -2051,7 +2054,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="238"/>
         <source>, %1%2</source>
-        <translation type="unfinished"/>
+        <translation>, %1%2</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="243"/>
@@ -2612,12 +2615,12 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable FinderSync Extension</source>
-        <translation type="unfinished"/>
+        <translation>Virkja FinderSync viðbót</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Enable Explorer Extension</source>
-        <translation type="unfinished"/>
+        <translation>Virkja Explorer viðbót</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>

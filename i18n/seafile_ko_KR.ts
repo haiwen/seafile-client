@@ -192,24 +192,26 @@
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="106"/>
         <source>Upload Success</source>
-        <translation type="unfinished"/>
+        <translation>업로드 성공</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="107"/>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 파일을
+성공적으로 업로드했습니다.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="113"/>
         <source>Upload Failure</source>
-        <translation type="unfinished"/>
+        <translation>업로드 실패</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="114"/>
         <source>File &quot;%1&quot;
 failed to upload.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 파일
+업로드에 실패했습니다.</translation>
     </message>
 </context>
 <context>
@@ -620,7 +622,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
         <source>Sync folder &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 동기화 폴더</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
@@ -795,12 +797,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="411"/>
         <source>Enter name of file to save to...</source>
-        <translation type="unfinished"/>
+        <translation>저장할 파일 이름을 입력하십시오...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="418"/>
         <source>Unable to remove file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 파일을 제거할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
@@ -905,7 +907,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1034"/>
         <source>Create library failed!</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리 만들기에 실패했습니다!</translation>
     </message>
 </context>
 <context>
@@ -1006,7 +1008,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>다른 이름으로 저장(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="259"/>
@@ -1046,18 +1048,19 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="295"/>
         <source>Canc&amp;el Download</source>
-        <translation type="unfinished"/>
+        <translation>다운로드 취소(&amp;E)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="300"/>
         <source>&amp;Sync this directory</source>
-        <translation type="unfinished"/>
+        <translation>이 디렉터리 동기화(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="306"/>
         <source>This feature is available in pro version only
 </source>
-        <translation type="unfinished"/>
+        <translation>이 기능은 전문가 버전에서만 사용할 수 있습니다
+</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="393"/>
@@ -2052,7 +2055,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="238"/>
         <source>, %1%2</source>
-        <translation type="unfinished"/>
+        <translation>, %1%2</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="243"/>
@@ -2613,12 +2616,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable FinderSync Extension</source>
-        <translation type="unfinished"/>
+        <translation>FinderSync 확장 기능 활성화</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Enable Explorer Extension</source>
-        <translation type="unfinished"/>
+        <translation>Explorer 확장 기능 활성화</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>

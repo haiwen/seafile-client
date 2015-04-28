@@ -796,12 +796,12 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="411"/>
         <source>Enter name of file to save to...</source>
-        <translation type="unfinished"/>
+        <translation>Entrer le nom du fichier à enregistrer...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="418"/>
         <source>Unable to remove file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;effacer le fichier &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="516"/>
@@ -1007,7 +1007,7 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="254"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Enregistrer sous...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="259"/>

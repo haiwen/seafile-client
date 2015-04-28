@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="36"/>
         <source>failed to open account database</source>
-        <translation>Accountdatenbank konnte nicht geöffnet werden</translation>
+        <translation>Kontodatenbank konnte nicht geöffnet werden</translation>
     </message>
 </context>
 <context>

@@ -71,7 +71,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="56"/>
         <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation>Ertu viss um að þú viljir eyða þessum reikningi?&lt;br&gt;&lt;br&gt;Viðvörun: Samfösun allra safna þessa reiknings verður hætt!&lt;/b&gt;</translation>
+        <translation>Ertu viss um að þú viljir eyða þessum reikningi?&lt;br&gt;&lt;br&gt;Viðvörun: Samkeyrsla allra safna þessa reiknings verður hætt!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="67"/>
@@ -658,7 +658,7 @@
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="78"/>
         <source>Cloud File Browser</source>
-        <translation>Skráavafri Skýs</translation>
+        <translation>Skýjavafri</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="183"/>
@@ -1230,7 +1230,7 @@ Viltu hala niður sjálfgefna safninu og búa til sýndardisk?</translation>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="237"/>
         <source>Seafile Server Address</source>
-        <translation type="unfinished"/>
+        <translation>Lén Seafile Þjóns</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="157"/>
@@ -1317,7 +1317,7 @@ Viltu hala niður sjálfgefna safninu og búa til sýndardisk?</translation>
         <location filename="../src/ui/login-dialog.cpp" line="236"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
-        <translation type="unfinished"/>
+        <translation>Shibboleth Innskráning</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="272"/>
@@ -1560,7 +1560,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="240"/>
         <source>Files are locked by other application</source>
-        <translation type="unfinished"/>
+        <translation>Skrár eru læstar af öðru forriti</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="161"/>
@@ -1776,12 +1776,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"/>
+        <translation>Setti stöðu safn að</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"/>
+        <translation>Setti stöðu skrár &quot;%1&quot; að &quot;%2&quot;.</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
@@ -1796,7 +1796,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
-        <translation type="unfinished"/>
+        <translation>Sameina sjálfvirkt af seafile kerfi</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="504"/>
@@ -1838,7 +1838,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/utils/utils.cpp" line="670"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
 </context>
 <context>
@@ -1938,7 +1938,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="230"/>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="396"/>
@@ -1971,7 +1971,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Synced Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Samkeyrð Söfn</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="241"/>
@@ -2082,7 +2082,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="404"/>
         <source>unsync and resync this library</source>
-        <translation>Taka af og setja aftur á samstillingu fyrir þetta safn</translation>
+        <translation>slökkva og kveikja á samstillingu fyrir þetta safn</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="445"/>
@@ -2112,7 +2112,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="676"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation>Ertu viss um að þú viljir taka af og setja aftur á samstillingu fyrir safn &quot;%1&quot;?</translation>
+        <translation>Ertu viss um að þú viljir slökkva og kveikja á samstillingu fyrir safn &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="714"/>
@@ -2168,7 +2168,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     <message>
         <location filename="../src/seafile-applet.cpp" line="299"/>
         <source>Failed to initialize log: %s</source>
-        <translation type="unfinished"/>
+        <translation>Mistókst að frumstilla skrá: %s</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="412"/>
@@ -2274,7 +2274,7 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="181"/>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>Skrá</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="440"/>
@@ -2393,7 +2393,7 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="69"/>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Þú hefur skipt um tungumál. Viltu endurræsa til að virkja það?</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="248"/>
@@ -2448,22 +2448,22 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="258"/>
         <source>Do not automatically unsync a library</source>
-        <translation>Ekki taka samstillingu sjálfvirkt af safni</translation>
+        <translation>Ekki slökkva sjálfvirkt á samstillingu safnis</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="259"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation>Ekki taka samkeyrslu af safni þegar skráarsafn á tölvu er fjarlægt eða ekki aðgengilegt af einhverjum völdum.</translation>
+        <translation>Ekki slökkva á samstillingu safns þegar skráarsafni á tölvu er  eytt eða ekki aðgengilegt af einhverjum völdum.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="260"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation>Ekki taka samstillingu af safni þegar það finnst ekki á þjóni</translation>
+        <translation>Ekki slökkva á samstillingu safns þegar það finnst ekki á þjóni</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="261"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation>Ekki taka samstillingu af safni sjálfvirkt þegar það finnst ekki á þjóni</translation>
+        <translation>Ekki slökkva sjálfvirkt á samstillingu safns þegar það finnst ekki á þjóni</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="262"/>
@@ -2483,12 +2483,12 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="265"/>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>Tungumál (þarfnast endurræsingar)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="266"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Tungumál</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="267"/>
@@ -2529,7 +2529,7 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="22"/>
         <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <translation>Skrá inn með Shibboleth</translation>
     </message>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="60"/>

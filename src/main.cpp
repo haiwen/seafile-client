@@ -12,6 +12,7 @@
 #include "utils/utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
+#include "shared-application.h"
 #include "ui/proxy-style.h"
 #include "seafile-applet.h"
 #include "QtAwesome.h"
@@ -172,6 +173,9 @@ int main(int argc, char *argv[])
 
     // count if we have any instance running now. if more than one, exit
     if (count_process(APPNAME) > 1) {
+        // have we activated it ? exit
+        if (SharedApplication::activate())
+            return 0;
         if (QMessageBox::No == QMessageBox::warning(NULL, getBrand(),
                 QObject::tr("Found another running process of %1, kill it and start a new one?").arg(getBrand()),
                 QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes)) {
@@ -189,14 +193,14 @@ int main(int argc, char *argv[])
             shutdown_process(APPNAME);
             msleep(100);
         }
-    }
 
-    // count if we still have any instance running now. if more than one, exit
-    if (count_process(APPNAME) > 1) {
-        QMessageBox::critical(NULL, getBrand(),
-            QObject::tr("Unable to start %1 due to the failure of shutting down the previous process").arg(getBrand()),
-            QMessageBox::Ok);
-        return -1;
+        // count if we still have any instance running now. if more than one, exit
+        if (count_process(APPNAME) > 1) {
+            QMessageBox::critical(NULL, getBrand(),
+                QObject::tr("Unable to start %1 due to the failure of shutting down the previous process").arg(getBrand()),
+                QMessageBox::Ok);
+            return -1;
+        }
     }
 
     // init qtawesome component

@@ -75,9 +75,22 @@ public:
     }
 
     bool isAtLeastVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {
-        return serverInfo.majorVersion >= majorVersion &&
-               serverInfo.minorVersion >= minorVersion &&
-               serverInfo.patchVersion >= patchVersion;
+        return (serverInfo.majorVersion << 20) +
+               (serverInfo.minorVersion << 10) +
+               (serverInfo.patchVersion) >=
+               (majorVersion << 20) + (minorVersion << 10) + (patchVersion);
+    }
+
+    // require pro edtions and version at least at ...
+    // excluding OSS Version
+    bool isAtLeastProVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {
+        return isPro() && isAtLeastVersion(majorVersion, minorVersion, patchVersion);
+    }
+
+    // require oss edtions and version at least at ...
+    // excluding Pro Version
+    bool isAtLeastOSSVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {
+        return !isPro() && isAtLeastVersion(majorVersion, minorVersion, patchVersion);
     }
 
     QUrl getAbsoluteUrl(const QString& relativeUrl) const;

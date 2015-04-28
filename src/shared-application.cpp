@@ -57,7 +57,7 @@ void messageCallback(CcnetMessage *message, void *data)
 #ifndef Q_OS_WIN32
 void *askActivateSynchronically(void * /*arg*/) {
 #else
-DWORD WINAPI askActivateSynchronically(LPVOID /*arg*/) {
+unsigned __stdcall askActivateSynchronically(void * /*arg*/) {
 #endif
     _CcnetClient* async_client = ccnet_client_new();
     _CcnetClient *sync_client = ccnet_client_new();
@@ -164,10 +164,13 @@ bool SharedApplication::activate() {
         msleep(110);
     }
     if (waiting_ms == 0) {
+        // saddly, pthread_cancel don't work properly on mingw
         pthread_cancel(thread);
     }
-#else // saddly, pthread_cancel don't work properly on mingw
-    HANDLE thread = CreateThread(NULL, 0, askActivateSynchronically, NULL, 0, NULL);
+#else
+    // _beginthreadex as the document says
+    // https://msdn.microsoft.com/en-us/library/windows/desktop/ms682453%28v=vs.85%29.aspx
+    HANDLE thread = (HANDLE)_beginthreadex(NULL, 0, askActivateSynchronically, NULL, 0, NULL);
     if (!thread)
         return false;
     // keep wait for timeout or thread quiting

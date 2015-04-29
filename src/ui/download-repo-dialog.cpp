@@ -22,6 +22,7 @@
 
 namespace {
 bool isPathConflictWithExistingRepo(const QString &path, QString *repo_name) {
+    RepoService::instance()->refreshLocalRepoList();
     const std::vector<LocalRepo> & repos = RepoService::instance()->localRepos();
     for (unsigned i = 0; i < repos.size(); ++i) {
         if (repos[i].worktree == path) {

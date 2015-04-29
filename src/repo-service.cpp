@@ -167,6 +167,13 @@ void RepoService::stop()
     refresh_timer_->stop();
 }
 
+void RepoService::refreshLocalRepoList() {
+    // local_repos_.clear(); is called intenally
+    if (rpc_->listLocalRepos(&local_repos_) < 0) {
+        qWarning("unable to refresh local repos\n");
+    }
+}
+
 void RepoService::refresh()
 {
     if (in_refresh_) {
@@ -189,10 +196,7 @@ void RepoService::refresh()
         get_repo_reqs_.clear();
     }
 
-    // local_repos_.clear(); is called intenally
-    if (rpc_->listLocalRepos(&local_repos_) < 0) {
-        qWarning("unable to refresh local repos\n");
-    }
+    refreshLocalRepoList();
 
     synced_subfolders_.clear();
     if (synced_subfolder_db_) {

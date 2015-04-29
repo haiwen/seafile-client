@@ -35,6 +35,8 @@ public:
     void saveSyncedSubfolder(const ServerRepo& subfolder);
     void removeSyncedSubfolder(const QString& repo_id);
 
+    void refreshLocalRepoList();
+
     void refresh(bool force);
 
     void openLocalFile(const QString& repo_id,

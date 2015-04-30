@@ -1,6 +1,6 @@
 Windows Registry Editor Version 5.00
 
-# context menu handler & base icon
+# context menu handler
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
 "{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"="Seafile"
 

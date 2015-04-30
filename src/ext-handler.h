@@ -26,6 +26,7 @@ class SeafileExtensionHandler : public QObject {
 public:
     SeafileExtensionHandler();
     void start();
+    void stop();
 
 private slots:
     void refreshRepoShellIcon();
@@ -42,6 +43,8 @@ private:
     QList<LocalRepo> last_info_;
 
     QHash<QString, quint64> last_change_ts_;
+
+    bool started_;
 };
 
 /**
@@ -90,6 +93,7 @@ private:
 
     void handleGenShareLink(const QStringList& args);
     QString handleListRepos(const QStringList& args);
+    QString handleGetFileStatus(const QStringList& args);
 };
 
 class ReposInfoCache : public QObject {
@@ -100,6 +104,11 @@ public:
     void start();
 
     QList<LocalRepo> getReposInfo(quint64 timestamp = 0);
+
+    bool getRepoFileStatus(const QString& repo_id,
+                           const QString& path_in_repo,
+                           bool isdir,
+                           QString *status);
 
 private:
     quint64 cache_ts_;

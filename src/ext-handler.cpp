@@ -15,6 +15,7 @@
 #include <QDir>
 #include <QTimer>
 #include <QDateTime>
+#include <QDebug>
 
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
@@ -138,6 +139,7 @@ QString repoStatus(const LocalRepo& repo)
 SINGLETON_IMPL(SeafileExtensionHandler)
 
 SeafileExtensionHandler::SeafileExtensionHandler()
+: started_(false)
 {
     listener_thread_ = new ExtConnectionListenerThread;
 
@@ -154,6 +156,16 @@ void SeafileExtensionHandler::start()
     listener_thread_->start();
     refresh_local_timer_->start(kRefreshShellInterval);
     ReposInfoCache::instance()->start();
+    started_ = true;
+}
+
+void SeafileExtensionHandler::stop()
+{
+    if (started_) {
+        // Before seafile client exits, tell the shell to clean all the file
+        // status icons
+        SHChangeNotify (SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+    }
 }
 
 void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
@@ -287,6 +299,8 @@ void ExtCommandsHandler::run()
             resp = handleListRepos(args);
         } else if (cmd == "get-share-link") {
             handleGenShareLink(args);
+        } else if (cmd == "get-file-status") {
+            resp = handleGetFileStatus(args);
         } else {
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
@@ -384,6 +398,29 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
     return infos.join("\n");
 }
 
+QString ExtCommandsHandler::handleGetFileStatus(const QStringList& args)
+{
+    if (args.size() != 3) {
+        return "";
+    }
+
+    QString repo_id = args[0];
+    QString path_in_repo = args[1];
+    bool isdir = args[2] == "true";
+    if (repo_id.length() != 36 || path_in_repo.length() <= 1) {
+        return "";
+    }
+
+    QString status;
+    if (ReposInfoCache::instance()->getRepoFileStatus(repo_id, path_in_repo, isdir, &status)) {
+        // qWarning("status for %s is %s", path_in_repo.toUtf8().data(), status.toUtf8().data());
+        return status;
+    }
+
+    qWarning("failed to get file status for %s", path_in_repo.toUtf8().data());
+    return "";
+}
+
 SINGLETON_IMPL(ReposInfoCache)
 
 ReposInfoCache::ReposInfoCache(QObject * parent)
@@ -422,4 +459,13 @@ QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
     cache_ts_ = QDateTime::currentMSecsSinceEpoch();
 
     return cached_info_;
+}
+
+bool ReposInfoCache::getRepoFileStatus(const QString& repo_id,
+                                       const QString& path_in_repo,
+                                       bool isdir,
+                                       QString *status)
+{
+    QMutexLocker lock(&rpc_mutex_);
+    return rpc_->getRepoFileStatus(repo_id, path_in_repo, isdir, status) == 0;
 }

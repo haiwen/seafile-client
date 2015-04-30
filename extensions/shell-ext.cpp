@@ -90,6 +90,7 @@ bool ShellExt::getReposList(seafile::RepoInfoList *wts)
     uint64_t now = utils::currentMSecsSinceEpoch();
     if (repos_cache_ && now < cache_ts_ + kWorktreeCacheExpireMSecs) {
         *wts = *(repos_cache_.get());
+        // seaf_ext_log("use cached repos list!");
         return true;
     }
 
@@ -97,6 +98,7 @@ bool ShellExt::getReposList(seafile::RepoInfoList *wts)
     seafile::ListReposCommand cmd;
     seafile::RepoInfoList repos;
     if (!cmd.sendAndWait(&repos)) {
+        // seaf_ext_log("ListReposCommand returned false!");
         return false;
     }
 
@@ -107,7 +109,9 @@ bool ShellExt::getReposList(seafile::RepoInfoList *wts)
     return true;
 }
 
-bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
+bool ShellExt::pathInRepo(const std::string& path,
+                          std::string *path_in_repo,
+                          seafile::RepoInfo *repo)
 {
     seafile::RepoInfoList repos;
     if (!getReposList(&repos)) {
@@ -117,8 +121,12 @@ bool ShellExt::pathInRepo(const std::string path, std::string *path_in_repo)
 
     for (size_t i = 0; i < repos.size(); i++) {
         std::string wt = repos[i].worktree;
-        if (path.size() >= wt.size() && path.substr(0, wt.size()) == wt) {
-            *path_in_repo = path.substr(wt.size(), path.size() - wt.size());
+        // seaf_ext_log ("work tree is %s, path is %s\n", wt.c_str(), p.c_str());
+        if (p.size() >= wt.size() && p.substr(0, wt.size()) == wt) {
+            *path_in_repo = p.substr(wt.size(), p.size() - wt.size());
+            if (repo) {
+                *repo = repos[i];
+            }
             return true;
         }
     }
@@ -160,4 +168,19 @@ seafile::RepoInfo ShellExt::getRepoInfoByPath(const std::string& path)
     }
 
     return seafile::RepoInfo();
+}
+
+seafile::RepoInfo::Status
+ShellExt::getRepoFileStatus(const std::string& repo_id, 
+                            const std::string& path_in_repo,
+                            bool isdir)
+{
+    // TODO: get the files under the same folder in a single command to reduce overhead
+    seafile::GetFileStatusCommand cmd(repo_id, path_in_repo, isdir);
+    seafile::RepoInfo::Status status;
+    if (!cmd.sendAndWait(&status)) {
+        return seafile::RepoInfo::NoStatus;
+    }
+
+    return status;
 }

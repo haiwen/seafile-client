@@ -99,6 +99,11 @@ public:
     int setRepoToken(const QString &repo_id,
                      const QString& token);
 
+    int getRepoFileStatus(const QString& repo_id,
+                          const QString& path_in_repo,
+                          bool isdir,
+                          QString *status);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

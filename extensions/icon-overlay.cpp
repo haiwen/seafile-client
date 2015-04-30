@@ -61,7 +61,8 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
         return S_FALSE;
     }
 
-    // seaf_ext_log ("IsMemberOf called for %s!", path.c_str());
+    // seaf_ext_log ("IsMemberOf called for %s, is dir: %s", path.c_str(),
+    //               (attr & FILE_ATTRIBUTE_DIRECTORY) ? "yes": "no");
 
     /* If length of path is shorter than 3, it should be a drive path,
      * such as C:\ , which should not be a repo folder ; And the
@@ -72,15 +73,44 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
         return S_FALSE;
     }
 
-    if (access(path.c_str(), F_OK) < 0 ||
-        !(GetFileAttributes(path.c_str()) & FILE_ATTRIBUTE_DIRECTORY)) {
+    // if (access(path.c_str(), F_OK) < 0 ||
+    //     !(GetFileAttributes(path.c_str()) & FILE_ATTRIBUTE_DIRECTORY)) {
+    //     return S_FALSE;
+    // }
+
+    path = utils::localeToUtf8(path);
+
+    std::string path_in_repo;
+    seafile::RepoInfo repo;
+    if (!pathInRepo(path, &path_in_repo, &repo)) {
+        // seaf_ext_log ("pathInRepo returns false for %s\n", path.c_str());
         return S_FALSE;
     }
 
-    seafile::RepoInfo info = getRepoInfoByPath(utils::localeToUtf8(path));
-    if (info.isValid() && info.status == status_) {
-        // seaf_ext_log ("[ICON] %d Set for %s", (int)status_, path.c_str());
+    // seaf_ext_log ("path in repo: %s\n", path_in_repo.c_str());
+
+    if (path_in_repo.size() <= 1) {
+        // it's a repo top folder
+        return repo.status == status_ ? S_OK : S_FALSE;
+    }
+
+    // Now we know it's a file inside the repo
+
+    if (repo.status == seafile::RepoInfo::Paused) {
+        return S_FALSE;
+    }
+
+    // if (repo.status == seafile::RepoInfo::Normal && repo.status == status_) {
+    //     return S_OK;
+    // }
+
+    // Then check the file status.
+    seafile::RepoInfo::Status status = getRepoFileStatus(
+        repo.repo_id, path_in_repo, attr & FILE_ATTRIBUTE_DIRECTORY);
+    if (status == status_) {
+        // seaf_ext_log ("[ICON] file icon %d: %s", (int)status_, path.c_str());
         return S_OK;
     }
+
     return S_FALSE;
 }

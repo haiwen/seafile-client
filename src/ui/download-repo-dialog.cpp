@@ -150,7 +150,7 @@ bool DownloadRepoDialog::validateInputs()
         }
         sync_with_existing_ = true;
         int ret = QMessageBox::question(
-            this, getBrand(), tr("Are you sure to synchronize with the existing folder \"%1\"?")
+            this, getBrand(), tr("Are you sure to sync with the existing folder \"%1\"?")
                                   .arg(path),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (ret & QMessageBox::No)

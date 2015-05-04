@@ -97,7 +97,7 @@ MainWindow::MainWindow()
     createActions();
     setAttribute(Qt::WA_TranslucentBackground, true);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
     connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),
             this, SLOT(checkShowWindow()));
 #endif
@@ -164,7 +164,7 @@ void MainWindow::showEvent(QShowEvent *event)
 // QTBUG-10899 OS X: Add support for ApplicationState capability
 void MainWindow::checkShowWindow()
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
     if (qApp->applicationState() & Qt::ApplicationActive)
         showWindow();
 #endif

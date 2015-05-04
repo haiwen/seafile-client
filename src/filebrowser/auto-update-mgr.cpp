@@ -103,15 +103,17 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         return;
     const QString local_path = task->localFilePath();
     if (success) {
-        seafApplet->trayIcon()->showMessage(tr("Upload Success"),
-                                            tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()));
+        seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
+                                                    tr("Upload Success"),
+                                                    tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()));
         emit fileUpdated(task->repoId(), task->path());
         watcher_.addPath(local_path);
         WatchedFileInfo& info = watch_infos_[local_path];
         info.uploading = false;
     } else {
-        seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
-                                            tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()));
+        seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
+                                                    tr("Upload Failure"),
+                                                    tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()));
         qDebug("failed to auto update %s\n", toCStr(local_path));
         watch_infos_.remove(local_path);
         return;

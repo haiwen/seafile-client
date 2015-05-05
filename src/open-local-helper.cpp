@@ -4,6 +4,9 @@
 
 #include <QDesktopServices>
 #include <QUrl>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QUrlQuery>
+#endif
 #include <QVariant>
 
 extern "C" {
@@ -22,62 +25,16 @@ extern "C" {
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 
+#include "repo-service.h"
 #include "open-local-helper.h"
 
 namespace {
 
 const char *kAppletCommandsMQ = "applet.commands";
 const char *kOpenLocalFilePrefix = "open-local-file\t";
-const char *kSeafileProtocolPrefix = "seafile://";
+const char *kSeafileProtocolScheme = "seafile";
+const char *kSeafileProtocolHostOpenFile = "openfile";
 
-struct LocalFileInfo {
-    QString repo_id;
-    QString repo_name;
-    QString path;
-
-    LocalFileInfo() {}
-    LocalFileInfo(QString repo_id, QString repo_name, QString path);
-
-    bool isValid() const { return !repo_id.isEmpty() && !repo_name.isEmpty(); }
-
-    static LocalFileInfo fromEncoded(const QString& url);
-};
-
-LocalFileInfo::LocalFileInfo(QString repo_id, QString repo_name, QString path)
-    : repo_id(repo_id),
-      repo_name(repo_name),
-      path(path)
-{
-}
-
-LocalFileInfo LocalFileInfo::fromEncoded(const QString& url)
-{
-    QByteArray bytes = QByteArray::fromBase64(url.toUtf8());
-
-    json_error_t error;
-
-    json_t *root = json_loads(bytes.data(), 0, &error);
-    if (!root) {
-        qWarning("invalid open local url %s\n", toCStr(url));
-        return LocalFileInfo();
-    }
-
-    QMap<QString, QVariant> dict = mapFromJSON(root, &error);
-    json_decref(root);
-
-    QString repo_id, repo_name, path;
-
-    repo_id = dict["repo_id"].toString();
-    repo_name = dict["repo_name"].toString();
-    path = dict["path"].toString();
-
-    if (repo_id.length() != 36 || repo_name.isEmpty()) {
-        qWarning("invalid repo_id %s\n", toCStr(repo_id));
-        return LocalFileInfo();
-    }
-
-    return LocalFileInfo(repo_id, repo_name, path);
-}
 
 } // namespace
 
@@ -136,44 +93,40 @@ void OpenLocalHelper::sendOpenLocalFileMessage(const char *url)
 }
 
 
-void OpenLocalHelper::openLocalFile(const char *url_in)
+bool OpenLocalHelper::openLocalFile(const QUrl &url)
 {
-    QString url = QString::fromUtf8(url_in);
-    if (url.endsWith("/")) {
-        url = url.left(url.length() - 1);
+    if (url.scheme() != kSeafileProtocolScheme) {
+        qWarning("[OpenLocalHelper] unknown scheme %s\n", url.scheme().toUtf8().data());
+        return false;
     }
 
-    if (!url.startsWith(kSeafileProtocolPrefix)) {
-        return;
-    }
-    url = url.right(url.length() - strlen(kSeafileProtocolPrefix));
-
-
-    LocalFileInfo info = LocalFileInfo::fromEncoded(url);
-    if (!info.isValid()) {
-        return;
+    if (url.host() != kSeafileProtocolHostOpenFile) {
+        qWarning("[OpenLocalHelper] unknown command %s\n", url.host().toUtf8().data());
+        return false;
     }
 
-    qWarning("[OpenLocalHelper] open local file: repo %s, path %s\n",
-           info.repo_id.toUtf8().data(), info.path.toUtf8().data());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QUrlQuery url_query = QUrlQuery(url.query());
+    QString repo_id = url_query.queryItemValue("repo_id", QUrl::FullyDecoded);
+    QString email = url_query.queryItemValue("email", QUrl::FullyDecoded);
+    QString path = url_query.queryItemValue("path", QUrl::FullyDecoded);
+#else
+    QString repo_id = url.queryItemValue("repo_id");
+    QString email = url.queryItemValue("email");
+    QString path = url.queryItemValue("path");
+#endif
 
-    LocalRepo repo;
-    if (seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo) < 0) {
-        QString msg = QObject::tr("The library \"%1\" has not been synced yet").arg(info.repo_name);
-        messageBox(msg);
-    } else {
-        QString full_path = QDir(repo.worktree).filePath(info.path);
-        if (!QFile(full_path).exists()) {
-            qWarning("[OpenLocalHelper] file %s in library %s does not exist, open library folder instead\n",
-                   info.path.toUtf8().data(), repo.id.toUtf8().data());
-            full_path = repo.worktree;
-        }
-        if (!QDesktopServices::openUrl(QUrl::fromLocalFile(full_path))) {
-            QString file_name = QFileInfo(full_path).fileName();
-            QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
-            messageBox(msg);
-        }
+    if (repo_id.size() < 36) {
+        qWarning("[OpenLocalHelper] invalid repo_id %s\n", repo_id.toUtf8().data());
+        return false;
     }
+
+    qDebug("[OpenLocalHelper] open local file: repo %s, path %s\n",
+           repo_id.toUtf8().data(), path.toUtf8().data());
+
+    RepoService::instance()->openLocalFile(repo_id, path);
+
+    return true;
 }
 
 void OpenLocalHelper::messageBox(const QString& msg)
@@ -195,14 +148,14 @@ void OpenLocalHelper::handleOpenLocalFromCommandLine(const char *url)
         // No instance of seafile client running, we just record the url and
         // let the applet start. The local file will be opened when the applet
         // is ready.
-        url_ = strdup(url);
+        setUrl(url);
     }
 }
 
 void OpenLocalHelper::checkPendingOpenLocalRequest()
 {
-    if (url_ != NULL) {
-        openLocalFile(url_);
-        url_ = NULL;
+    if (!url_.isEmpty()) {
+        openLocalFile(QUrl::fromEncoded(url_));
+        setUrl(NULL);
     }
 }

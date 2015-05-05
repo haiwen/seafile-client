@@ -275,6 +275,9 @@ void SeafileApplet::start()
         qWarning("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
 
+    //
+    // start daemons
+    //
     daemon_mgr_->startCcnetDaemon();
 
     connect(daemon_mgr_, SIGNAL(daemonStarted()),
@@ -283,22 +286,34 @@ void SeafileApplet::start()
 
 void SeafileApplet::onDaemonStarted()
 {
-    main_win_ = new MainWindow;
-
+    //
+    // start daemon-related services
+    //
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
 
-    // load proxy settings
+    //
+    // load proxy settings (important)
+    //
     seafApplet->settingsManager()->loadSettings();
 
+    //
+    // start network-related services
+    //
     FileCacheDB::instance()->start();
     AutoUpdateManager::instance()->start();
 
     AvatarService::instance()->start();
+
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();
 
     account_mgr_->updateServerInfo();
+
+    //
+    // start ui part
+    //
+    main_win_ = new MainWindow;
 
 #if defined(Q_OS_MAC)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
@@ -332,6 +347,9 @@ void SeafileApplet::onDaemonStarted()
     QTimer::singleShot(kIntervalForUpdateRepoProperty,
                        this, SLOT(updateReposPropertyForHttpSync()));
 
+    //
+    // start finder/explorer extension handler
+    //
 #if defined(Q_OS_WIN32)
     SeafileExtensionHandler::instance()->start();
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)

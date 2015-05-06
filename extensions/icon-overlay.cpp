@@ -96,9 +96,10 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
 
     // Now we know it's a file inside the repo
 
-    if (repo.status == seafile::RepoInfo::Paused) {
-        return S_FALSE;
-    }
+    // TODO: Improve this if we later make the extension<->applet communication full duplex
+    // if (repo.status == seafile::RepoInfo::Paused) {
+    //     return S_FALSE;
+    // }
 
     // if (repo.status == seafile::RepoInfo::Normal && repo.status == status_) {
     //     return S_OK;

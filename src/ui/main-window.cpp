@@ -127,7 +127,7 @@ bool MainWindow::event(QEvent *ev)
     }
 
     if (ev->type() == QEvent::Hide) {
-      writeSettings();
+        writeSettings();
     }
 
     return ret;

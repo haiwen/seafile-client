@@ -588,101 +588,91 @@ failed to upload.</source>
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="59"/>
-        <source>Choose a folder</source>
-        <translation>Kies een folder</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="116"/>
-        <source>Create a new sync folder at:</source>
-        <translation>Maak een nieuwe synchronisatie map aan:</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="156"/>
-        <source>Please choose a directory</source>
-        <translation>Gelieve een map te kiezen</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="187"/>
-        <source>Please choose the folder to sync</source>
-        <translation>Gelieve de map, om te synchroniseren, te kiezen</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="194"/>
-        <source>The folder does not exist</source>
-        <translation>De map bestaat niet</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="202"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
         <source>Please enter the password</source>
         <translation>Gelieve het paswoord in te vullen</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="46"/>
         <source>Sync library &quot;%1&quot;</source>
         <translation>Synchronisatie bibliotheek &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="47"/>
+        <source>Sync this library to:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="50"/>
         <source>Sync folder &quot;%1&quot;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
-        <source>or</source>
-        <translation>of</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
+        <source>Sync this folder to:</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="113"/>
-        <source>sync with an existing folder</source>
-        <translation>synchronisatie met een bestaande map</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
+        <source>Please choose a folder</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="123"/>
-        <source>create a new sync folder</source>
-        <translation>een nieuwe synchronisatie map aanmaken</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="128"/>
+        <source>Please choose the folder to sync.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="126"/>
-        <source>Sync with this existing folder:</source>
-        <translation>Synchronisatie met deze bestaande map:</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
+        <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="252"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
+        <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
+        <source>Are you sure to sync with the existing folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="213"/>
         <source>Failed to add download task:
  %1</source>
         <translation>Mislukt om download taak toe te voegen:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="263"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="224"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>Mislukt om de repo download informatie te halen:
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="224"/>
+        <location filename="../ui_download-repo-dialog.h" line="203"/>
         <source>Download Library</source>
         <translation>Download Bibliotheek</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="225"/>
+        <location filename="../ui_download-repo-dialog.h" line="204"/>
         <source>choose...</source>
         <translation>kies...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="226"/>
+        <location filename="../ui_download-repo-dialog.h" line="205"/>
         <source>Password for this library:</source>
         <translation>Paswoord voor deze bibliotheek:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="227"/>
+        <location filename="../ui_download-repo-dialog.h" line="206"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="228"/>
+        <location filename="../ui_download-repo-dialog.h" line="207"/>
         <source>Cancel</source>
         <translation>Annuleer</translation>
     </message>
@@ -1455,7 +1445,7 @@ Wil je je standaard bibliotheek downloaden en een virtuele schijf aanmaken?</tra
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="175"/>
+        <location filename="../src/ui/main-window.cpp" line="198"/>
         <source>Refresh</source>
         <translation>Vernieuwen</translation>
     </message>
@@ -2310,12 +2300,12 @@ De opslagruimte van de eigenaar van de bibliotheek is opgebruikt.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="410"/>
+        <location filename="../src/seafile-applet.cpp" line="428"/>
         <source>Failed to initialize log: %s</source>
         <translation>Mislukt om de log te initialiseren: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="530"/>
+        <location filename="../src/seafile-applet.cpp" line="548"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Een nieuwe versie van %1 client (%2) is beschikbaar.

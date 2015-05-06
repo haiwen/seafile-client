@@ -590,101 +590,91 @@ failed to upload.</source>
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="59"/>
-        <source>Choose a folder</source>
-        <translation>폴더를 선택하세요</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="116"/>
-        <source>Create a new sync folder at:</source>
-        <translation>동기화 할 새 폴더 만들기:</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="156"/>
-        <source>Please choose a directory</source>
-        <translation>디렉토리를 선택해주세요</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="187"/>
-        <source>Please choose the folder to sync</source>
-        <translation>동기화할 폴더를 선택해주세요</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="194"/>
-        <source>The folder does not exist</source>
-        <translation>폴더가 없습니다</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="202"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
         <source>Please enter the password</source>
         <translation>암호를 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="46"/>
         <source>Sync library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리 동기화</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="47"/>
+        <source>Sync this library to:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="50"/>
         <source>Sync folder &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 동기화 폴더</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
-        <source>or</source>
-        <translation>또는</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
+        <source>Sync this folder to:</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="113"/>
-        <source>sync with an existing folder</source>
-        <translation>기존 폴더 동기화</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
+        <source>Please choose a folder</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="123"/>
-        <source>create a new sync folder</source>
-        <translation>새 동기화 폴더 만들기</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="128"/>
+        <source>Please choose the folder to sync.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="126"/>
-        <source>Sync with this existing folder:</source>
-        <translation>기존 폴더로 동기화:</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
+        <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="252"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
+        <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
+        <source>Are you sure to sync with the existing folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="213"/>
         <source>Failed to add download task:
  %1</source>
         <translation>다운로드 작업 추가에 실패했습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="263"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="224"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>저장소 다운로드 정보 가져오기에 실패했습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="224"/>
+        <location filename="../ui_download-repo-dialog.h" line="203"/>
         <source>Download Library</source>
         <translation>라이브러리 다운로드</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="225"/>
+        <location filename="../ui_download-repo-dialog.h" line="204"/>
         <source>choose...</source>
         <translation>선택...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="226"/>
+        <location filename="../ui_download-repo-dialog.h" line="205"/>
         <source>Password for this library:</source>
         <translation>이 라이브러리 암호:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="227"/>
+        <location filename="../ui_download-repo-dialog.h" line="206"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="228"/>
+        <location filename="../ui_download-repo-dialog.h" line="207"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
@@ -1459,7 +1449,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="175"/>
+        <location filename="../src/ui/main-window.cpp" line="198"/>
         <source>Refresh</source>
         <translation>새로고침</translation>
     </message>
@@ -2314,12 +2304,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="410"/>
+        <location filename="../src/seafile-applet.cpp" line="428"/>
         <source>Failed to initialize log: %s</source>
         <translation>로그 초기화에 실패했습니다: %1</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="530"/>
+        <location filename="../src/seafile-applet.cpp" line="548"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 클라이언트(%2)의 새 버전이 있습니다.

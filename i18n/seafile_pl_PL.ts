@@ -9,7 +9,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="439"/>
         <source>Authorization expired, please re-login</source>
-        <translation type="unfinished"/>
+        <translation>Autoryzacja wygasła, proszę zalogować się ponownie</translation>
     </message>
 </context>
 <context>
@@ -590,101 +590,91 @@ nieudane przesyłanie.</translation>
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="59"/>
-        <source>Choose a folder</source>
-        <translation>Wybierz folder</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="116"/>
-        <source>Create a new sync folder at:</source>
-        <translation>Utwórz nowy folder synchronizacji:</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="156"/>
-        <source>Please choose a directory</source>
-        <translation>Proszę wybrać folder</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="187"/>
-        <source>Please choose the folder to sync</source>
-        <translation>Proszę wybrać folder do synchronizacji</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="194"/>
-        <source>The folder does not exist</source>
-        <translation>Folder nie istnieje</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="202"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
         <source>Please enter the password</source>
         <translation>Proszę podać hasło</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="46"/>
         <source>Sync library &quot;%1&quot;</source>
         <translation>Synchronizuj bibliotekę &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="47"/>
+        <source>Sync this library to:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="50"/>
         <source>Sync folder &quot;%1&quot;</source>
         <translation>Synchronizuj folder &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
-        <source>or</source>
-        <translation>lub</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
+        <source>Sync this folder to:</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="113"/>
-        <source>sync with an existing folder</source>
-        <translation>synchronizuj z istniejącym folderem</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
+        <source>Please choose a folder</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="123"/>
-        <source>create a new sync folder</source>
-        <translation>utwórz nowy folder synchronizacji</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="128"/>
+        <source>Please choose the folder to sync.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="126"/>
-        <source>Sync with this existing folder:</source>
-        <translation>Synchronizuj z tym istniejącym folderem:</translation>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
+        <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="252"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
+        <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
+        <source>Are you sure to sync with the existing folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="213"/>
         <source>Failed to add download task:
  %1</source>
         <translation>Nie udało się dodać zadania pobierania:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="263"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="224"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>Nie udało się uzyskać informacji o pobieraniu repozytorium:
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="224"/>
+        <location filename="../ui_download-repo-dialog.h" line="203"/>
         <source>Download Library</source>
         <translation>Pobierz bibliotekę</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="225"/>
+        <location filename="../ui_download-repo-dialog.h" line="204"/>
         <source>choose...</source>
         <translation>wybierz...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="226"/>
+        <location filename="../ui_download-repo-dialog.h" line="205"/>
         <source>Password for this library:</source>
         <translation>Hasło do tej biblioteki:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="227"/>
+        <location filename="../ui_download-repo-dialog.h" line="206"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="228"/>
+        <location filename="../ui_download-repo-dialog.h" line="207"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
@@ -776,12 +766,12 @@ nieudane przesyłanie.</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="241"/>
         <source>Minimize</source>
-        <translation type="unfinished"/>
+        <translation>Minimalizuj</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="248"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="421"/>
@@ -1067,7 +1057,7 @@ nieudane przesyłanie.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="312"/>
         <source>&amp;Sync this folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Synchronizuj ten folder</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="318"/>
@@ -1458,7 +1448,7 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="175"/>
+        <location filename="../src/ui/main-window.cpp" line="198"/>
         <source>Refresh</source>
         <translation>Odśwież</translation>
     </message>
@@ -2135,7 +2125,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="336"/>
         <source>Show &amp;details</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż &amp;szczegóły</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="338"/>
@@ -2162,7 +2152,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
         <source>Sync &amp;now</source>
-        <translation type="unfinished"/>
+        <translation>Sy&amp;nchronizuj teraz</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
@@ -2214,12 +2204,12 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="395"/>
         <source>&amp;Open cloud file browser</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Otwórz przeglądarkę plików w chmurze</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="397"/>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation type="unfinished"/>
+        <translation>otwórz tę bibliotekę we wbudowanej przeglądarce plików w chmurze</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="402"/>
@@ -2313,12 +2303,12 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="410"/>
+        <location filename="../src/seafile-applet.cpp" line="428"/>
         <source>Failed to initialize log: %s</source>
         <translation>Nie udało się zainicjować logu: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="530"/>
+        <location filename="../src/seafile-applet.cpp" line="548"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Dostępna jest nowa wersja %1 klienta (%2).

@@ -120,6 +120,8 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
         *status = RepoInfo::Syncing;
     } else if (raw_resp == "synced") {
         *status = RepoInfo::Normal;
+    } else if (raw_resp == "error") {
+        *status = RepoInfo::Error;
     } else {
         *status = RepoInfo::NoStatus;
     }

@@ -41,6 +41,28 @@ struct UserData {
     _CcnetClient *ccnet_client;
 };
 
+//
+// send message synchronously
+//
+void sendOnceCallback(int sock, short what, void* data)
+{
+    UserData *user_data = static_cast<UserData*>(data);
+    _CcnetClient *sync_client = user_data->ccnet_client;
+    CcnetMessage *syn_message;
+    syn_message = ccnet_message_new(sync_client->base.id,
+                                    sync_client->base.id,
+                                    kAppletCommandsMQ, "syn_activate", 0);
+
+    // blocking io, but cancellable from pthread_cancel
+    if (ccnet_client_send_message(sync_client, syn_message) < 0) {
+        ccnet_message_free(syn_message);
+        // fatal error
+        event_base_loopbreak(user_data->ev_base);
+    }
+
+    ccnet_message_free(syn_message);
+}
+
 void readCallback(int sock, short what, void* data)
 {
     UserData *user_data = static_cast<UserData*>(data);
@@ -90,23 +112,6 @@ unsigned __stdcall askActivateSynchronically(void * /*arg*/) {
         g_object_unref(async_client);
         return 0;
     }
-    //
-    // send message synchronously
-    //
-    CcnetMessage *syn_message;
-    syn_message = ccnet_message_new(sync_client->base.id,
-                                    sync_client->base.id,
-                                    kAppletCommandsMQ, "syn_activate", 0);
-
-    // blocking io, but cancellable from pthread_cancel
-    if (ccnet_client_send_message(sync_client, syn_message) < 0) {
-        ccnet_message_free(syn_message);
-        g_object_unref(sync_client);
-        g_object_unref(async_client);
-        return 0;
-    }
-
-    ccnet_message_free(syn_message);
 
     //
     // receive message asynchronously
@@ -118,12 +123,19 @@ unsigned __stdcall askActivateSynchronically(void * /*arg*/) {
     // set timeout
     event_base_loopexit(ev_base, &timeout);
 
-    UserData user_data;
-    user_data.ev_base = ev_base;
-    user_data.ccnet_client = async_client;
+    UserData read_data;
+    read_data.ev_base = ev_base;
+    read_data.ccnet_client = async_client;
     struct event *read_event = event_new(ev_base, async_client->connfd,
-                                         EV_READ | EV_PERSIST, readCallback, &user_data);
+                                         EV_READ | EV_PERSIST, readCallback, &read_data);
     event_add(read_event, NULL);
+
+    UserData sendonce_data;
+    sendonce_data.ev_base = ev_base;
+    sendonce_data.ccnet_client = sync_client;
+    struct event *sendonce_event = event_new(ev_base, sync_client->connfd,
+                                             EV_WRITE, sendOnceCallback, &sendonce_data);
+    event_add(sendonce_event, NULL);
 
     // set message read callback
     _CcnetMqclientProc *mqclient_proc = (CcnetMqclientProc *)

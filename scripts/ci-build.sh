@@ -7,14 +7,14 @@ pushd $PWD/..
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     if [ -z "$USE_QT5" ]; then
-        cmake -DBUILD_TESTING=on  -DUSE_QT5=OFF .
+        cmake -DBUILD_TESTING=on -DBUILD_SHIBBOLETH_SUPPORT=on -DUSE_QT5=OFF .
         make -j8 VERBOSE=1
         make test VERBOSE=1
     else
         set +e
         . /opt/qt54/bin/qt54-env.sh
         set -e
-        cmake -DBUILD_TESTING=on -DUSE_QT5=ON .
+        cmake -DBUILD_TESTING=on -DBUILD_SHIBBOLETH_SUPPORT=on -DUSE_QT5=ON .
         make -j8 VERBOSE=1
         make test VERBOSE=1
     fi

@@ -20,6 +20,11 @@ if [ -z "$SEAFILE_BRANCH" ]; then
     fi
 fi
 
+## update this when major version bump
+if [ "$SEAFILE_BRANCH" = "4.2" ]; then
+    SEAFILE_BRANCH=master
+fi
+
 # Temporary fix
 sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list
 sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list.d/*.list

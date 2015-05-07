@@ -7,7 +7,7 @@
         <translation>打开帐户数据库失败</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="439"/>
+        <location filename="../src/account-mgr.cpp" line="441"/>
         <source>Authorization expired, please re-login</source>
         <translation>账号验证信息已过期，请重现登录</translation>
     </message>
@@ -585,7 +585,7 @@ failed to upload.</source>
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="165"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
@@ -610,38 +610,48 @@ failed to upload.</source>
         <translation>同步此目录到:</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="57"/>
+        <source>Sync to folder:</source>
+        <translation>同步到目录:</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="58"/>
+        <source>If a sub-folder with same name exists, its contents will be merged.</source>
+        <translation>如果已有同名的子文件夹，那么它的内容将合并。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="99"/>
         <source>Please choose a folder</source>
         <translation>请选择一个目录</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="128"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="130"/>
         <source>Please choose the folder to sync.</source>
         <translation>请选择用于同步的目录</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="141"/>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
         <translation>和已有文件 &quot;%1&quot; 冲突，请选择其他目录。</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="149"/>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
         <translation>和已同步的资料库 &quot;%1&quot; 冲突，请选择其他目录。</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="155"/>
         <source>Are you sure to sync with the existing folder &quot;%1&quot;?</source>
-        <translation>你真的确定与已有的目录 &quot;%1&quot; 进行同步吗？</translation>
+        <translation>您真的确定与已有的目录 &quot;%1&quot; 进行同步吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="213"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="215"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="224"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="226"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -737,23 +747,23 @@ failed to upload.</source>
         <translation>根目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="312"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="313"/>
         <source>Upload files</source>
         <translation>上传多个文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="319"/>
         <source>Upload a directory</source>
         <translation>上传文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="340"/>
         <source>You don&apos;t have permission to upload files to this library</source>
-        <translation>你没有权限上传到文件这个资料库</translation>
+        <translation>您没有权限上传到文件这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="326"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="420"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="327"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="421"/>
         <source>Create a folder</source>
         <translation>创建文件夹</translation>
     </message>
@@ -768,142 +778,142 @@ failed to upload.</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="421"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="422"/>
         <source>Folder name</source>
         <translation>文件夹名称</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="429"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="430"/>
         <source>Invalid folder name!</source>
         <translation>无效的文件夹名！</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="435"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="436"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>文件名 &quot;%1&quot; 已经被使用了。</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="451"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="452"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="452"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="453"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>获取文件信息失败&lt;br/&gt;请 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="478"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="479"/>
         <source>Enter name of file to save to...</source>
         <translation>请键入需要另存为的文件名...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="485"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="486"/>
         <source>Unable to remove file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="585"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="586"/>
         <source>Feature not supported</source>
         <translation>不支持当前操作</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="653"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="654"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
-        <translation>文件 &quot;%1&quot; 已经存在。&lt;br/&gt;你想覆盖此文件吗？&lt;br/&gt;&lt;small&gt;(选择 否 用其他文件名上传)&lt;/small&gt; </translation>
+        <translation>文件 &quot;%1&quot; 已经存在。&lt;br/&gt;您想覆盖此文件吗？&lt;br/&gt;&lt;small&gt;(选择 否 用其他文件名上传)&lt;/small&gt; </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="697"/>
         <source>Failed to download file: %1</source>
         <translation>下载文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="720"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="721"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="841"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="842"/>
         <source>Select a file to upload</source>
         <translation>请选择要上传的文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="849"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="850"/>
         <source>Select a directory to upload</source>
         <translation>请选择要上传的目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="860"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="861"/>
         <source>Unable to create cache folder</source>
         <translation>无法创建缓存文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="862"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="863"/>
         <source>Unable to open cache folder</source>
         <translation>无法打开缓存文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="882"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="883"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="904"/>
-        <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation>你真的想删除文件 &quot;%1&quot; 吗？</translation>
-    </message>
-    <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="905"/>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation>您真的想删除文件 &quot;%1&quot; 吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="906"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation>你真的想删除目录 &quot;%1&quot; 吗？</translation>
+        <translation>您真的想删除目录 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="912"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="913"/>
         <source>Do you really want to delete these items</source>
-        <translation>你真的想删除这些文件吗？</translation>
+        <translation>您真的想删除这些文件吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="944"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
         <source>Create folder failed</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="960"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="961"/>
         <source>Select a file to update %1</source>
         <translation>请选择要需要上传的文件 以更新 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="968"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="969"/>
         <source>Rename failed</source>
         <translation>重命名失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="982"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="983"/>
         <source>Remove failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="992"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="993"/>
         <source>Share failed</source>
         <translation>共享失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1060"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1061"/>
         <source>Cannot paste files from the same folder</source>
         <translation>无法从相同的文件夹中拷贝</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1084"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1085"/>
         <source>Copy failed</source>
         <translation>复制失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1099"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1100"/>
         <source>Move failed</source>
         <translation>移动失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1126"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1127"/>
         <source>Create library failed!</source>
         <translation>创建资料库失败!</translation>
     </message>
@@ -1207,7 +1217,7 @@ The server version must be 2.1 or higher to support this.</source>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation>默认资料库已下载。
-你可以点击“打开”按钮来查看它。</translation>
+您可以点击“打开”按钮来查看它。</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
@@ -1235,7 +1245,7 @@ You can click the &quot;Open&quot; button to view it.</source>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
         <translation>Seafile用资料库的方式来组织文件。
-你想要下载你的默认资料库并创建一个虚拟磁盘吗？</translation>
+您想要下载你的默认资料库并创建一个虚拟磁盘吗？</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="191"/>
@@ -1556,12 +1566,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <source>You have not logged in to the server</source>
-        <translation>你还没登录到服务器上</translation>
+        <translation>您还没登录到服务器上</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>You do not have permission to access this library</source>
-        <translation>你没有权限访问这个资料库</translation>
+        <translation>您没有权限访问这个资料库</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
@@ -1637,7 +1647,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="193"/>
         <source>Your %1 client is too old</source>
-        <translation>你的 %1 客户端版本太低</translation>
+        <translation>您的 %1 客户端版本太低</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="196"/>
@@ -1797,7 +1807,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>打开文件缓存数据库失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="883"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="884"/>
         <source>Rename %1 to</source>
         <translation>将 %1 重命名为</translation>
     </message>
@@ -2215,7 +2225,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="443"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation>你确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
+        <translation>您确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="455"/>
@@ -2238,7 +2248,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="686"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation>你确定要解除同步资料库 &quot;%1&quot; 然后重新同步 吗？</translation>
+        <translation>您确定要解除同步资料库 &quot;%1&quot; 然后重新同步 吗？</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="724"/>
@@ -2249,7 +2259,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="757"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
-        <translation>你真的想覆盖文件 &quot;%1&quot; 吗？</translation>
+        <translation>您真的想覆盖文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="760"/>
@@ -2291,12 +2301,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="428"/>
+        <location filename="../src/seafile-applet.cpp" line="435"/>
         <source>Failed to initialize log: %s</source>
         <translation>初始化日志失败: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="548"/>
+        <location filename="../src/seafile-applet.cpp" line="555"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -2405,7 +2415,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="486"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>你有 %n 条未读消息</numerusform></translation>
+        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="492"/>

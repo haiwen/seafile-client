@@ -54,6 +54,8 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 
     mRepoIcon->setPixmap(repo.getPixmap());
     mRepoName->setText(repo_.name);
+    mOperationText->setText(tr("Sync to folder:"));
+    mMergeHint->setText(tr("If a sub-folder with same name exists, its contents will be merged."));
 
     if (repo_.encrypted) {
         mPassword->setVisible(true);

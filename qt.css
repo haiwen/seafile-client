@@ -301,6 +301,10 @@ DownloadRepoDialog QLabel#mRepoName {
     margin-bottom: 8px;
 }
 
+DownloadRepoDialog QLabel#mMergeHint {
+    font-size: 12px;
+}
+
 DownloadRepoDialog QLabel#mRepoIcon {
     min-width: 36px;
     max-width: 36px;

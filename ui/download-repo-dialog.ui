@@ -153,7 +153,7 @@ min-width: 300px;
            </font>
           </property>
           <property name="text">
-           <string notr="true">&lt;small&gt;if a sub-folder with same name exists, its contents will be merged.&lt;/small&gt;</string>
+           <string notr="true"></string>
           </property>
          </widget>
         </item>

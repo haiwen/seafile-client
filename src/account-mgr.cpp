@@ -157,7 +157,9 @@ const std::vector<Account>& AccountManager::loadAccounts()
 {
     const char *sql = "SELECT url, username, token, lastVisited FROM Accounts ";
     accounts_.clear();
-    UserData userdata = { .accounts = &accounts_, .db = db };
+    UserData userdata;
+    userdata.accounts = &accounts_;
+    userdata.db = db;
     sqlite_foreach_selected_row (db, sql, loadAccountsCB, &userdata);
 
     std::stable_sort(accounts_.begin(), accounts_.end(), compareAccount);

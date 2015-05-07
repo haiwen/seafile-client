@@ -106,10 +106,9 @@ unsigned __stdcall askActivateSynchronically(void * /*arg*/) {
     // receive message asynchronously
     //
     struct event_base* ev_base = event_base_new();
-    struct timeval timeout = {
-        .tv_sec = 1,
-        .tv_usec = 0
-    };
+    struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
     // set timeout
     event_base_loopexit(ev_base, &timeout);
 

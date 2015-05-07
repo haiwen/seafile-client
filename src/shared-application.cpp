@@ -8,6 +8,8 @@
 #define __MSVCRT__
 #endif
 #include <process.h>
+#else
+#include <pthread.h>
 #endif
 
 #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
@@ -27,11 +29,11 @@ extern "C" {
 #include <seafile/seafile-object.h>
 
 }
-#include <pthread.h>
 
 #include "utils/utils.h"
 namespace {
 const char *kAppletCommandsMQ = "applet.commands";
+const int kWaitResponseSeconds = 6;
 bool isActivate = false;
 
 struct UserData {
@@ -111,7 +113,7 @@ unsigned __stdcall askActivateSynchronically(void * /*arg*/) {
     //
     struct event_base* ev_base = event_base_new();
     struct timeval timeout;
-    timeout.tv_sec = 1;
+    timeout.tv_sec = kWaitResponseSeconds - 1;
     timeout.tv_usec = 0;
     // set timeout
     event_base_loopexit(ev_base, &timeout);
@@ -161,12 +163,12 @@ bool SharedApplication::activate() {
         return false;
     }
     // keep wait for timeout or thread quiting
-    int waiting_ms = 10;
+    int waiting_count = kWaitResponseSeconds * 10;
     // pthread_kill: currently only a value of 0 is supported on mingw
-    while (pthread_kill(thread, 0) == 0 && --waiting_ms > 0) {
-        msleep(110);
+    while (pthread_kill(thread, 0) == 0 && --waiting_count > 0) {
+        msleep(100);
     }
-    if (waiting_ms == 0) {
+    if (waiting_count == 0) {
         // saddly, pthread_cancel don't work properly on mingw
         pthread_cancel(thread);
     }
@@ -177,7 +179,7 @@ bool SharedApplication::activate() {
     if (!thread)
         return false;
     // keep wait for timeout or thread quiting
-    if (WaitForSingleObject(thread, 1100) == WAIT_TIMEOUT) {
+    if (WaitForSingleObject(thread, kWaitResponseSeconds) == WAIT_TIMEOUT) {
         TerminateThread(thread, 128);
     }
     CloseHandle(thread);

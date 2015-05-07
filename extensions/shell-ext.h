@@ -68,9 +68,12 @@ private:
     void tweakMenu(HMENU menu);
 
     bool getReposList(seafile::RepoInfoList *wts);
-    bool pathInRepo(const std::string path, std::string *path_in_repo);
+    bool pathInRepo(const std::string& path, std::string *path_in_repo, seafile::RepoInfo *repo=0);
     bool isRepoTopDir(const std::string& path);
     seafile::RepoInfo getRepoInfoByPath(const std::string& path);
+    seafile::RepoInfo::Status getRepoFileStatus(const std::string& repo_id,
+                                                const std::string& path_in_repo,
+                                                bool isdir);
 
     /* the file/dir current clicked on */
     std::string path_;

@@ -3,11 +3,14 @@
 
 #include "class-factory.h"
 #include "shell-ext.h"
+#include "log.h"
 
 ShellExtClassFactory::ShellExtClassFactory(seafile::RepoInfo::Status status)
 {
     m_cRef = 0L;
     status_ = status;
+
+    // seaf_ext_log ("new ShellExtClassFactory created for status %d\n", int(status));
 
     InterlockedIncrement(&g_cRefThisDll);
 }

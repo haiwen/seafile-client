@@ -40,6 +40,8 @@ public:
     }
 };
 
+std::string toString(RepoInfo::Status st);
+
 typedef std::vector<RepoInfo> RepoInfoList;
 
 /**
@@ -117,6 +119,21 @@ protected:
     std::string serialize();
 
     bool parseResponse(const std::string& raw_resp, RepoInfoList *worktrees);
+};
+
+class GetFileStatusCommand : public AppletCommand<RepoInfo::Status> {
+public:
+    GetFileStatusCommand(const std::string& repo_id, const std::string& path_in_repo, bool isdir);
+
+protected:
+    std::string serialize();
+
+    bool parseResponse(const std::string& raw_resp, RepoInfo::Status *status);
+
+private:
+    std::string repo_id_;
+    std::string path_in_repo_;
+    bool isdir_;
 };
 
 

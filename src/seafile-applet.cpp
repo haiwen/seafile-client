@@ -255,6 +255,9 @@ SeafileApplet::~SeafileApplet()
     delete configurator_;
     if (main_win_)
         delete main_win_;
+#if defined(Q_OS_WIN32)
+    SeafileExtensionHandler::instance()->stop();
+#endif
 }
 
 void SeafileApplet::start()

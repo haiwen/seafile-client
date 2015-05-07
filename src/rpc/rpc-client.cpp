@@ -831,3 +831,28 @@ int SeafileRpcClient::setRepoToken(const QString &repo_id,
     }
     return ret;
 }
+
+int SeafileRpcClient::getRepoFileStatus(const QString& repo_id,
+                                        const QString& path_in_repo,
+                                        bool isdir,
+                                        QString *status)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (
+        seafile_rpc_client_,
+        "seafile_get_path_sync_status",
+        &error, 3,
+        "string", toCStr(repo_id),
+        "string", toCStr(path_in_repo),
+        "int", isdir ? 1 : 0);
+    if (error) {
+        qWarning("failed to get path status: %s\n", error->message);
+        g_error_free(error);
+        return -1;
+    }
+
+    *status = ret;
+
+    g_free (ret);
+    return 0;
+}

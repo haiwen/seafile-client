@@ -4,6 +4,10 @@
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0501
 #endif
+#ifndef __MSVCRT__
+#define __MSVCRT__
+#endif
+#include <process.h>
 #endif
 
 #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)

@@ -1,10 +1,18 @@
 language: cpp
-os:
-  - linux
-compiler:
-  - gcc
-  - clang
 matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      env: USE_QT4=1
+    - os: linux
+      compiler: gcc
+      env: USE_QT5=1
+    - os: linux
+      compiler: clang
+      env: USE_QT4=1
+    - os: linux
+      compiler: clang
+      env: USE_QT5=1
   exclude:
     - os: osx
       compiler: gcc

@@ -295,6 +295,10 @@ void SeafileApplet::onDaemonStarted()
     rpc_client_->connectDaemon();
     message_listener_->connectDaemon();
 
+    // Sleep 500 millseconds to wait seafile registering services
+
+    msleep(500);
+
     //
     // load proxy settings (important)
     //

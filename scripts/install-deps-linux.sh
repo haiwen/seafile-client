@@ -8,7 +8,7 @@ PWD=$(dirname "${BASH_SOURCE[0]}")
 SEAFILE_BRANCH="$TRAVIS_BRANCH"
 
 ## branch build and not a tag build
-if [ "a$TRAVIS_PULL_REQUEST" = "afalse" -a -z "$TRAVIS_TAG" ]; then
+if [ "a$TRAVIS_PULL_REQUEST" = "afalse" -a -z "$TRAVIS_TAG" -a "$TRAVIS_BRANCH" != "master" ]; then
     SEAFILE_BRANCH=$(grep "PROJECT_VERSION " $PWD/../CMakeLists.txt |cut -f 2-2 -d'"' | cut -f 1-2 -d '.')
 fi
 

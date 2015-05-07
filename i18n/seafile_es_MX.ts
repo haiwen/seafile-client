@@ -602,7 +602,7 @@ falló al subir.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="47"/>
         <source>Sync this library to:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizar esta biblioteca con:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="50"/>
@@ -612,32 +612,32 @@ falló al subir.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
         <source>Sync this folder to:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizar esta carpeta con:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
         <source>Please choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>Por favor escoja una carpeta</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="128"/>
         <source>Please choose the folder to sync.</source>
-        <translation type="unfinished"/>
+        <translation>Por favor escoja la carpeta a sincronizar.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Conflicto con el archivo existente &quot;%1&quot;, por favor escoja otra carpeta.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Conflicto con la biblioteca existente &quot;%1&quot;, por favor escoja otra carpeta.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
         <source>Are you sure to sync with the existing folder &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>¿Está seguro de sincronizar con la carpeta existente &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="213"/>

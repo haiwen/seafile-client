@@ -602,7 +602,7 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="47"/>
         <source>Sync this library to:</source>
-        <translation type="unfinished"/>
+        <translation>Szinkronizálja ezt a kötetet ide:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="50"/>
@@ -612,32 +612,32 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="51"/>
         <source>Sync this folder to:</source>
-        <translation type="unfinished"/>
+        <translation>Szinkronizálja ezt a könyvtárat ide:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="97"/>
         <source>Please choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>Könyvtár választás</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="128"/>
         <source>Please choose the folder to sync.</source>
-        <translation type="unfinished"/>
+        <translation>Válassz könyvtárat a szinkronizáláshoz.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; fájl konfliktus miatt válassz másik könyvtárat.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; kötet konfliktus miatt válassz másik könyvtárat.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="153"/>
         <source>Are you sure to sync with the existing folder &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Biztos, hogy a meglévő &quot;%1&quot; könyvtárral szinkronizálsz?</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="213"/>

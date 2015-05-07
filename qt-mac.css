@@ -44,3 +44,11 @@ FileBrowserDialog QWidget#mainWidget
     border : 0;
     border-radius: 0px;
 }
+
+FileBrowserDialog QToolBar QToolButton#backwardButton {
+    margin-right: 0px;
+}
+
+FileBrowserDialog QToolBar QToolButton#forwardButton {
+    margin-left: 0px;
+}

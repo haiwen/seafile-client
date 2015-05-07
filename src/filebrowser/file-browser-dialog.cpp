@@ -229,7 +229,7 @@ void FileBrowserDialog::createTitleBar()
     QSpacerItem *spacer1 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     layout->addSpacerItem(spacer1);
 
-    brand_label_ = new QLabel(QString("%1 - %2").arg(windowTitle()).arg(account_.serverUrl.toString()));
+    brand_label_ = new QLabel(windowTitle());
     brand_label_->setObjectName("mBrand");
     layout->addWidget(brand_label_);
 
@@ -288,6 +288,7 @@ void FileBrowserDialog::createToolBar()
 
     // root is special
     QPushButton *path_navigator_root_ = new QPushButton(repo_.name);
+    path_navigator_root_->setObjectName("homeButton");
     path_navigator_root_->setFlat(true);
     path_navigator_root_->setCursor(Qt::PointingHandCursor);
     connect(path_navigator_root_, SIGNAL(clicked()),

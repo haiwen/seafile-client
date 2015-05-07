@@ -427,6 +427,7 @@ FileBrowserDialog QWidget#mHeader {
 }
 
 FileBrowserDialog QWidget#mHeader QLabel {
+    padding-left: 60px;
     margin-left: 4px;
 }
 
@@ -442,6 +443,7 @@ FileBrowserDialog QToolBar#topBar {
 }
 
 FileBrowserDialog QToolBar QPushButton {
+    font-size: 13px;
     padding: 3px;
     margin: 1px;
     background-color: white;
@@ -450,7 +452,7 @@ FileBrowserDialog QToolBar QPushButton {
 
 FileBrowserDialog QToolBar QToolButton#backwardButton {
     padding: 0px 2px 0px 2px;
-    margin-right: 0px;
+    margin-right: 2px;
     border: 1px solid #DBDBDC;
     border-radius: 0px;
     background-color: white;
@@ -458,7 +460,7 @@ FileBrowserDialog QToolBar QToolButton#backwardButton {
 
 FileBrowserDialog QToolBar QToolButton#forwardButton {
     padding: 0px 2px 0px 2px;
-    margin-left: 0px;
+    margin-left: 2px;
     border: 1px solid #DBDBDC;
     border-radius: 0px;
     background-color: white;

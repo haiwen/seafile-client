@@ -416,7 +416,7 @@ void AccountView::visitServerInBrowser(const QString& link)
 void AccountView::onGetLoginTokenSuccess(const QString& token)
 {
     GetLoginTokenRequest *req = (GetLoginTokenRequest *)(sender());
-    printf("login token is %s\n", token.toUtf8().data());
+    // printf("login token is %s\n", token.toUtf8().data());
 
     QUrl url = req->account().getAbsoluteUrl("/client-login/");
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -426,7 +426,7 @@ void AccountView::onGetLoginTokenSuccess(const QString& token)
 #else
     url.addQueryItem("token", token);
 #endif
-    printf("url is %s\n", url.toEncoded().data());
+    // printf("url is %s\n", url.toEncoded().data());
     QDesktopServices::openUrl(url);
     req->deleteLater();
 }
@@ -434,7 +434,7 @@ void AccountView::onGetLoginTokenSuccess(const QString& token)
 void AccountView::onGetLoginTokenFailed(const ApiError& error)
 {
     GetLoginTokenRequest *req = (GetLoginTokenRequest *)(sender());
-    printf("get login token failed: %s\n", error.toString().toUtf8().data());
+    qWarning("get login token failed: %s\n", error.toString().toUtf8().data());
     // server doesn't support client directly login, or other errors happened.
     // We open the server url directly in this case;
     QDesktopServices::openUrl(req->account().serverUrl);

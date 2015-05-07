@@ -179,7 +179,7 @@ bool SharedApplication::activate() {
     if (!thread)
         return false;
     // keep wait for timeout or thread quiting
-    if (WaitForSingleObject(thread, kWaitResponseSeconds) == WAIT_TIMEOUT) {
+    if (WaitForSingleObject(thread, kWaitResponseSeconds * 1000) == WAIT_TIMEOUT) {
         TerminateThread(thread, 128);
     }
     CloseHandle(thread);

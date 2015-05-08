@@ -42,34 +42,10 @@ extern void qt_mac_set_dock_menu(QMenu *menu);
 #include <QDBusPendingCall>
 #endif
 
-#if defined(Q_OS_WIN32)
-#include <windows.h>
-#endif
-
 namespace {
 
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
-
-#if defined(Q_OS_WIN32)
-bool
-isWindowsVistaOrHigher()
-{
-    OSVERSIONINFOEX ver = {0};
-
-    ver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-    if (!GetVersionEx((LPOSVERSIONINFO)&ver)) {
-        return false;
-    }
-
-    if (ver.dwMajorVersion >= 6) {
-        return true;
-    }
-
-    return false;
-}
-#endif
 
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {

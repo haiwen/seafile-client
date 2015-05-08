@@ -501,6 +501,7 @@ IF (WIN32)
     LIST(APPEND utils_sources
         src/utils/process-win.cpp
         src/utils/registry.cpp
+        src/utils/utils-win.cpp
         )
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
     LIST(APPEND utils_sources

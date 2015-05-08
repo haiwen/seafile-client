@@ -13,7 +13,116 @@
 #ifndef MAC_OS_X_VERSION_10_10
 #define MAC_OS_X_VERSION_10_10      101000
 #endif
+#ifndef MAC_OS_X_VERSION_10_9
+#define MAC_OS_X_VERSION_10_9         1090
+#endif
+#ifndef MAC_OS_X_VERSION_10_8
+#define MAC_OS_X_VERSION_10_8         1080
+#endif
+#ifndef MAC_OS_X_VERSION_10_7
+#define MAC_OS_X_VERSION_10_7         1070
+#endif
 
+// ****************************************************************************
+// utils::mac::getSystemVersion
+// utils::mac::isAtLeastSystemVersion
+// ****************************************************************************
+
+namespace utils {
+namespace mac {
+namespace {
+unsigned osver_major = 0;
+unsigned osver_minor = 0;
+unsigned osver_patch = 0;
+inline bool isInitializedSystemVersion() { return osver_major != 0; }
+inline void initializeSystemVersion() {
+    if (isInitializedSystemVersion())
+        return;
+#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    osver_major = version.majorVersion;
+    osver_minor = version.minorVersion;
+    osver_patch = version.patchVersion;
+#else
+    NSString *versionString = [[NSProcessInfo processInfo] operatingSystemVersionString];
+    NSArray *array = [versionString componentsSeparatedByString:@" "];
+    if (array.count < 2) {
+        osver_major = 10;
+        osver_minor = 7;
+        osver_patch = 0;
+        return;
+    }
+    NSArray *versionArray = [[array objectAtIndex:1] componentsSeparatedByString:@"."];
+    if (versionArray.count < 3) {
+        osver_major = 10;
+        osver_minor = 7;
+        osver_patch = 0;
+        return;
+    }
+    osver_major = [[versionArray objectAtIndex:0] intValue];
+    osver_minor = [[versionArray objectAtIndex:1] intValue];
+    osver_patch = [[versionArray objectAtIndex:2] intValue];
+#endif
+}
+
+inline bool _isAtLeastSystemVersion(unsigned major, unsigned minor, unsigned patch)
+{
+    initializeSystemVersion();
+#define OSVER_TO_NUM(major, minor, patch) ((major << 20) + (minor << 10) + (patch))
+#define OSVER_SYS() OSVER_TO_NUM(osver_major, osver_minor, osver_patch)
+    if (OSVER_SYS() < OSVER_TO_NUM(major, minor, patch)) {
+        return false;
+    }
+#undef OSVER_SYS
+#undef OSVER_TO_NUM
+    return true;
+}
+// compile statically
+template<unsigned major, unsigned minor, unsigned patch>
+inline bool isAtLeastSystemVersion()
+{
+    return _isAtLeastSystemVersion(major, minor, patch);
+}
+} // anonymous namespace
+
+void getSystemVersion(unsigned *major, unsigned *minor, unsigned *patch) {
+    initializeSystemVersion();
+    *major = osver_major;
+    *minor = osver_minor;
+    *patch = osver_patch;
+}
+
+bool isAtLeastSystemVersion(unsigned major, unsigned minor, unsigned patch)
+{
+    return _isAtLeastSystemVersion(major, minor, patch);
+}
+
+bool isOSXYosemiteOrGreater()
+{
+    return isAtLeastSystemVersion<10, 10, 0>();
+}
+
+bool isOSXMavericksOrGreater()
+{
+    return isAtLeastSystemVersion<10, 9, 0>();
+}
+
+bool isOSXMountainLionOrGreater()
+{
+    return isAtLeastSystemVersion<10, 8, 0>();
+}
+
+bool isOSXLionOrGreater()
+{
+    return isAtLeastSystemVersion<10, 7, 0>();
+}
+
+} // namespace mac
+} // namesapce utils
+
+// ****************************************************************************
+// darkmode related
+// ****************************************************************************
 @interface DarkmodeHelper : NSObject
 - (void)getDarkMode;
 @end
@@ -24,12 +133,8 @@ static DarkModeChangedCallback *darkModeWatcher = NULL;
 - (id) init {
     self = [super init];
 
-    unsigned major;
-    unsigned minor;
-    unsigned patch;
-    utils::mac::get_current_osx_version(&major, &minor, &patch);
     // darkmode is available version >= 10.10
-    if (major == 10 && minor >= 10) {
+    if (utils::mac::isOSXYosemiteOrGreater()) {
         [self getDarkMode];
 
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self
@@ -56,6 +161,9 @@ static DarkModeChangedCallback *darkModeWatcher = NULL;
 }
 @end
 
+// ****************************************************************************
+// others
+// ****************************************************************************
 namespace utils {
 namespace mac {
 
@@ -71,7 +179,7 @@ void setDockIconStyle(bool hidden) {
         unsigned major;
         unsigned minor;
         unsigned patch;
-        get_current_osx_version(&major, &minor, &patch);
+        getSystemVersion(&major, &minor, &patch);
         if (major == 10 && minor == 7)
             err = TransformProcessType(&psn, kProcessTransformToBackgroundApplication);
         else
@@ -215,34 +323,6 @@ bool is_darkmode() {
 }
 void set_darkmode_watcher(DarkModeChangedCallback *cb) {
     darkModeWatcher = cb;
-}
-
-void get_current_osx_version(unsigned *major, unsigned *minor, unsigned *patch) {
-#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    *major = version.majorVersion;
-    *minor = version.minorVersion;
-    *patch = version.patchVersion;
-#else
-    NSString *versionString = [[NSProcessInfo processInfo] operatingSystemVersionString];
-    NSArray *array = [versionString componentsSeparatedByString:@" "];
-    if (array.count < 2) {
-        *major = 10;
-        *minor = 7;
-        *patch = 0;
-        return;
-    }
-    NSArray *versionArray = [[array objectAtIndex:1] componentsSeparatedByString:@"."];
-    if (versionArray.count < 3) {
-        *major = 10;
-        *minor = 7;
-        *patch = 0;
-        return;
-    }
-    *major = [[versionArray objectAtIndex:0] intValue];
-    *minor = [[versionArray objectAtIndex:1] intValue];
-    *patch = [[versionArray objectAtIndex:2] intValue];
-#endif
 }
 
 void copyTextToPasteboard(const QString &text) {

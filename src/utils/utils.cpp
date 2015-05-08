@@ -18,7 +18,8 @@
 #include <QUrlQuery>
 #endif
 
-#include "utils-mac.h"
+#include "utils/utils-mac.h"
+#include "utils/utils-win.h"
 
 #if defined(Q_OS_MAC)
     #include <sys/sysctl.h>
@@ -38,9 +39,7 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 
-#include "utils.h"
-#include "utils.h"
-
+#include "utils/utils.h"
 
 namespace {
 

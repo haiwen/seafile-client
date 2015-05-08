@@ -149,6 +149,7 @@ void ReposTab::refresh()
 void ReposTab::startRefresh()
 {
     RepoService::instance()->start();
+    RepoService::instance()->refresh(true);
 }
 
 void ReposTab::stopRefresh()

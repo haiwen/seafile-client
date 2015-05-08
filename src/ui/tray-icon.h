@@ -35,7 +35,8 @@ public:
 
     void reloadTrayIcon();
 
-    void showMessage(const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000);
+    void showMessage(const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000, bool is_repo_message = false);
+    void showMessageWithRepo(const QString& repo_id, const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000);
 
 public slots:
     void showSettingsWindow();
@@ -55,6 +56,9 @@ private slots:
     void about();
     void onSeahubNotificationsChanged();
     void viewUnreadNotifications();
+
+    // only used on windows
+    void onMessageClicked();
 
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
@@ -95,6 +99,9 @@ private:
     bool auto_sync_;
 
     TrayState state_;
+
+    // only used on windows by now, so we have only one message
+    QString repo_id_;
 
     QHash<QString, QIcon> icon_cache_;
 };

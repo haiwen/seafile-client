@@ -172,9 +172,10 @@ void MessageListener::handleMessage(CcnetMessage *message)
             }
 
             QString title = tr("\"%1\" is synchronized").arg(slist.at(0));
-            QString buf = slist.at(2);
+            QString repo_id = slist.at(1).trimmed();
+            QString buf = slist.at(2).trimmed();
 
-            seafApplet->trayIcon()->showMessage(title, translateCommitDesc(buf.trimmed()));
+            seafApplet->trayIcon()->showMessageWithRepo(repo_id, title, translateCommitDesc(buf));
 
         } else if (strcmp(type, "sync.access_denied") == 0) {
             /* format: <repo_name\trepo_id> */

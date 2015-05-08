@@ -16,6 +16,7 @@ extern "C" {
 #include <QDebug>
 #include <QMenuBar>
 
+#include "rpc/local-repo.h"
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
 #include "seafile-applet.h"
@@ -100,6 +101,11 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 
     connect(SeahubNotificationsMonitor::instance(), SIGNAL(notificationsChanged()),
             this, SLOT(onSeahubNotificationsChanged()));
+
+#ifdef Q_OS_WIN32
+    connect(this, SIGNAL(messageClicked()),
+            this, SLOT(onMessageClicked()));
+#endif
 
     hide();
 
@@ -231,8 +237,10 @@ void SeafileTrayIcon::rotate(bool start)
     }
 }
 
-void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint, bool is_repo_message)
 {
+    if (!is_repo_message)
+        repo_id_ = QString();
 #ifdef Q_OS_MAC
     Q_UNUSED(icon);
     Q_UNUSED(millisecondsTimeoutHint);
@@ -252,6 +260,12 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
 #else
     QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
 #endif
+}
+
+void SeafileTrayIcon::showMessageWithRepo(const QString& repo_id, const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+{
+    repo_id_ = repo_id;
+    showMessage(title, message, icon, millisecondsTimeoutHint, true);
 }
 
 void SeafileTrayIcon::rotateTrayIcon()
@@ -544,4 +558,15 @@ void SeafileTrayIcon::viewUnreadNotifications()
 {
     SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
     refreshTrayIcon();
+}
+
+void SeafileTrayIcon::onMessageClicked()
+{
+    if (repo_id_.isEmpty())
+        return;
+    LocalRepo repo;
+    if (seafApplet->rpcClient()->getLocalRepo(repo_id_, &repo) != 0 ||
+        !repo.isValid() || repo.worktree_invalid)
+        return;
+    showInGraphicalShell(repo.worktree);
 }

@@ -19,7 +19,7 @@ STDMETHODIMP ShellExt::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pInd
 
     std::string dll = utils::getThisDllPath();
 
-    std::unique_ptr<wchar_t> ico(utils::stdStringtoWString(dll));
+    std::unique_ptr<wchar_t> ico(utils::localeToWString(dll));
     int wlen = wcslen(ico.get());
     if (wlen + 1 > cchMax)
         return S_FALSE;
@@ -54,8 +54,7 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
         return S_FALSE;
     }
 
-    std::string path = utils::wStringToStdString(path_w);
-
+    std::string path = utils::wStringToUtf8(path_w);
     if (!path.size()) {
         seaf_ext_log ("convert to char failed");
         return S_FALSE;
@@ -77,8 +76,6 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
     //     !(GetFileAttributes(path.c_str()) & FILE_ATTRIBUTE_DIRECTORY)) {
     //     return S_FALSE;
     // }
-
-    path = utils::localeToUtf8(path);
 
     std::string path_in_repo;
     seafile::RepoInfo repo;

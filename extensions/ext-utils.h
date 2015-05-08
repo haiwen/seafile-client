@@ -60,8 +60,11 @@ uint64_t currentMSecsSinceEpoch();
 std::string localeFromUtf8(const std::string& src);
 std::string localeToUtf8(const std::string& src);
 
-wchar_t *stdStringtoWString(const std::string& src);
-std::string wStringToStdString(const wchar_t *src);
+wchar_t *localeToWString(const std::string& src);
+std::string wStringToLocale(const wchar_t *src);
+
+wchar_t *utf8ToWString(const std::string& src);
+std::string wStringToUtf8(const wchar_t *src);
 
 std::string getBaseName(const std::string& path);
 std::string getParentPath(const std::string& path);

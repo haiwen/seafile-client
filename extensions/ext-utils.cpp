@@ -452,7 +452,7 @@ std::string getThisDllFolder()
     return dll.empty() ? "" : getParentPath(dll);
 }
 
-wchar_t *stdStringtoWString(const std::string& src)
+wchar_t *localeToWString(const std::string& src)
 {
     wchar_t dst[4096];
     int len;
@@ -473,7 +473,7 @@ wchar_t *stdStringtoWString(const std::string& src)
 }
 
 
-std::string wStringToStdString(const wchar_t *src)
+std::string wStringToLocale(const wchar_t *src)
 {
     char dst[4096];
     int len;
@@ -495,12 +495,34 @@ std::string wStringToStdString(const wchar_t *src)
     return dst;
 }
 
+std::string wStringToUtf8(const wchar_t *src)
+{
+    char dst[4096];
+    int len;
+
+    len = WideCharToMultiByte
+        (CP_UTF8,               /* multibyte code page */
+         0,                     /* flags */
+         src,                   /* src */
+         -1,                    /* src len, -1 for all includes \0 */
+         dst,                   /* dst */
+         sizeof(dst),           /* dst buf len */
+         NULL,                  /* default char */
+         NULL);                 /* BOOL flag indicates default char is used */
+
+    if (len <= 0) {
+        return "";
+    }
+
+    return dst;
+}
+
 bool isShellExtEnabled()
 {
     HKEY root = HKEY_CURRENT_USER;
     HKEY parent_key;
     LONG result = RegOpenKeyExW(root,
-                                stdStringtoWString("Software\\Seafile"),
+                                localeToWString("Software\\Seafile"),
                                 0L,
                                 KEY_ALL_ACCESS,
                                 &parent_key);
@@ -511,7 +533,7 @@ bool isShellExtEnabled()
     char buf[MAX_PATH] = {0};
     DWORD len = sizeof(buf);
     result = RegQueryValueExW (parent_key,
-                               stdStringtoWString("ShellExtDisabled"),
+                               localeToWString("ShellExtDisabled"),
                                NULL,             /* reserved */
                                NULL,             /* output type */
                                (LPBYTE)buf,      /* output data */

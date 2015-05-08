@@ -46,13 +46,13 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     HDROP drop;
     UINT count;
     HRESULT result = S_OK;
-    char path[MAX_PATH] = {0};
+    wchar_t path_w[MAX_PATH] = {0};
 
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */
     if (folder) {
-        if (SHGetPathFromIDList(folder, path)) {
-            path_ = utils::normalizedPath(utils::localeToUtf8(path));
+        if (SHGetPathFromIDListW(folder, path_w)) {
+            path_ = utils::normalizedPath(utils::wStringToUtf8(path_w));
         }
     }
 
@@ -71,17 +71,17 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     if (!drop)
         return E_INVALIDARG;
 
-    count = DragQueryFile(drop, 0xFFFFFFFF, NULL, 0);
+    count = DragQueryFileW(drop, 0xFFFFFFFF, NULL, 0);
     if (count == 0)
         result = E_INVALIDARG;
-    else if (!DragQueryFile(drop, 0, path, sizeof(path)))
+    else if (!DragQueryFileW(drop, 0, path_w, sizeof(path_w)))
         result = E_INVALIDARG;
 
     GlobalUnlock(stg.hGlobal);
     ReleaseStgMedium(&stg);
 
     if (result == S_OK) {
-        path_ = utils::normalizedPath(utils::localeToUtf8(path));
+        path_ = utils::normalizedPath(utils::wStringToUtf8(path_w));
     }
 
     return result;

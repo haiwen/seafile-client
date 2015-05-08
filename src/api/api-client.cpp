@@ -120,34 +120,33 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
         if (cert.isNull()) {
             // The server has no ssl certificate, we do nothing and let the
             // request fail
+            // it is a fatal error, no way to recover
             qWarning("the certificate for %s is null", url.toString().toUtf8().data());
-            return;
+            break;
         }
 
         QSslCertificate saved_cert = mgr->getCertificate(url.toString());
 
         if (saved_cert.isNull()) {
             // dump certificate information
-            qWarning() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+            qWarning() << "\n= SslError =\n" << error.errorString();
             qWarning() << "\n= Certificate =\n" << dumpCertificate(cert);
 
             // This is the first time when the client connects to the server.
             if (seafApplet->detailedYesOrNoBox(
                 tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
-                dumpSslErrors(errors) + dumpCertificate(cert), 0, false)) {
+                error.errorString() + "\n" + dumpCertificate(cert), 0, false)) {
                 mgr->saveCertificate(url, cert);
+                // TODO handle ssl by verifying certificate chain instead
                 reply_->ignoreSslErrors();
             }
-
-
-            return;
         } else if (saved_cert == cert) {
             // The user has choosen to trust the certificate before
+            // TODO handle ssl by verifying certificate chain instead
             reply_->ignoreSslErrors();
-            return;
         } else {
             // dump certificate information
-            qWarning() << "\n= SslErrors =\n" << dumpSslErrors(errors);
+            qWarning() << "\n= SslError =\n" << error.errorString();
             qWarning() << "\n= Certificate =\n" << dumpCertificate(cert);
             qWarning() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
 
@@ -165,14 +164,15 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
                                     dumpCertificateFingerprint(saved_cert),
                                     seafApplet->mainWindow());
             if (dialog.exec() == QDialog::Accepted) {
+                // TODO handle ssl by verifying certificate chain instead
                 reply_->ignoreSslErrors();
                 if (dialog.rememberChoice()) {
                     mgr->saveCertificate(url, cert);
                 }
             } else {
                 reply_->abort();
+                break;
             }
-            return;
         }
     }
 }

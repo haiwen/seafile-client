@@ -20,8 +20,7 @@
 namespace {
 
 #if defined(Q_OS_WIN32)
-static QString
-get_largest_drive()
+QString get_largest_drive()
 {
     wchar_t drives[MAX_PATH];
     wchar_t *p, *largest_drive;
@@ -61,7 +60,7 @@ get_largest_drive()
     return ret;
 }
 
-static QString getSystemDirectory()
+QString getSystemDirectory()
 {
     std::vector<wchar_t> path;
     path.resize(MAX_PATH);
@@ -73,7 +72,8 @@ static QString getSystemDirectory()
     }
     return QString::fromWCharArray(&path[0], (int)len);
 }
-static inline bool hasSameDrive(const QString& path_a, const QString &path_b)
+
+inline bool hasSameDrive(const QString& path_a, const QString &path_b)
 {
     // to detect drive letter of a file, use QFileInfo::absoluteFilePath
     //                                   (D:\)
@@ -89,6 +89,7 @@ static inline bool hasSameDrive(const QString& path_a, const QString &path_b)
         return false;
     return true;
 }
+
 #endif
 
 

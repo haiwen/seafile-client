@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QList>
+#include <QMessageBox>
 
 #include "utils/utils.h"
 #include "seafile-applet.h"
@@ -30,6 +31,16 @@ const char *kMyComputerNamespacePath =
     "Software\\Microsoft\\Windows\\CurrentVersion"
     "\\Explorer\\MyComputer\\Namespace";
 
+const char* const kPreconfigureDirectory = "PreconfigureDirectory";
+QString getPreconfigureDirectory()
+{
+    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureDirectory, "");
+    if (!reg.exists()) {
+        return QString();
+    }
+    reg.read();
+    return reg.stringValue();
+}
 #endif
 
 } // namespace
@@ -78,6 +89,29 @@ void Configurator::initCcnet()
 
 void Configurator::initSeafile()
 {
+#if defined(Q_OS_WIN32)
+    QString preconfigure_dir = getPreconfigureDirectory();
+    if (!preconfigure_dir.isEmpty()) {
+        QDir dir(preconfigure_dir);
+        if (!dir.mkpath(".") ||
+            !dir.mkpath("Seafile/.seafile-data")) {
+            qWarning("[Configurator] unable to create preconfigure directory \"%s\"", preconfigure_dir.toUtf8().data());
+            qWarning("[Configurator] exiting from an unrecovable error.");
+            QMessageBox::warning(NULL, getBrand(),
+                                 tr("Unable to create preconfigure directory \"%1\"").arg(preconfigure_dir.toUtf8().data()),
+                                 QMessageBox::Ok);
+            exit(1);
+            return;
+        }
+        first_use_ = true;
+
+        QString seafile_dir = dir.absoluteFilePath("Seafile/.seafile-data");
+        QMetaObject::invokeMethod(this, "onSeafileDirSet",
+                                  Qt::QueuedConnection,
+                                  Q_ARG(QString, seafile_dir));
+        return;
+    }
+#endif
     InitSeafileDialog dialog;
     connect(&dialog, SIGNAL(seafileDirSet(const QString&)),
             this, SLOT(onSeafileDirSet(const QString&)));

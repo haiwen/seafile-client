@@ -7,6 +7,8 @@
 #endif
 #include <QtNetwork>
 #include <QInputDialog>
+#include <QStringList>
+#include <QSettings>
 
 #include "settings-mgr.h"
 #include "account-mgr.h"
@@ -21,9 +23,36 @@
 
 namespace {
 
-const QString kDefaultServerAddr1 = "https://seacloud.cc";
-const QString kDefaultServerAddr2 = "https://cloud.mein-seafile.de";
+const char *kDefaultServerAddr1 = "https://seacloud.cc";
+const char *kDefaultServerAddr2 = "https://cloud.mein-seafile.de";
+const char *kUsedServerAddresses = "UsedServerAddresses";
 
+QStringList getUsedServerAddresses()
+{
+    QSettings settings;
+    settings.beginGroup(kUsedServerAddresses);
+    QStringList retval = settings.value("main").toStringList();
+    settings.endGroup();
+    if (!retval.contains(kDefaultServerAddr1)) {
+        retval.push_back(kDefaultServerAddr1);
+    }
+    if (!retval.contains(kDefaultServerAddr2)) {
+        retval.push_back(kDefaultServerAddr2);
+    }
+    return retval;
+}
+
+void saveUsedServerAddresses(const QString &new_address)
+{
+    QSettings settings;
+    settings.beginGroup(kUsedServerAddresses);
+    QStringList list = settings.value("main").toStringList();
+    // put the last used address to the front
+    list.removeAll(new_address);
+    list.insert(0, new_address);
+    settings.setValue("main", list);
+    settings.endGroup();
+}
 
 } // namespace
 
@@ -38,8 +67,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-    mServerAddr->addItem(kDefaultServerAddr1);
-    mServerAddr->addItem(kDefaultServerAddr2);
+    mServerAddr->addItems(getUsedServerAddresses());
     mServerAddr->clearEditText();
     mServerAddr->setAutoCompletion(false);
 
@@ -73,13 +101,10 @@ void LoginDialog::initFromAccount(const Account& account)
 {
     setWindowTitle(tr("Re-login"));
     mTitle->setText(tr("Re-login"));
-    if (account.serverUrl.host() == "seacloud.cc") {
-        mServerAddr->setCurrentIndex(0);
-    } else if (account.serverUrl.host()  == "cloud.seafile.com") {
-        mServerAddr->setCurrentIndex(1);
-    } else {
-        mServerAddr->lineEdit()->setText(account.serverUrl.toString());
-    }
+    mServerAddr->setMaxCount(1);
+    mServerAddr->insertItem(0, account.serverUrl.toString());
+    mServerAddr->setCurrentIndex(0);
+    mServerAddr->setEditable(false);
 
     mUsername->setText(account.username);
     mPassword->setFocus(Qt::OtherFocusReason);
@@ -198,6 +223,7 @@ bool LoginDialog::validateInputs()
 void LoginDialog::loginSuccess(const QString& token)
 {
     Account account(url_, username_, token);
+    saveUsedServerAddresses(url_.toString());
     if (seafApplet->accountManager()->saveAccount(account) < 0) {
         showWarning(tr("Failed to save current account"));
     } else {

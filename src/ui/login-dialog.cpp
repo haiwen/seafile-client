@@ -20,6 +20,9 @@
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 #include "shib/shib-login-dialog.h"
 #endif // HAVE_SHIBBOLETH_SUPPORT
+#ifdef Q_OS_WIN32
+#include "utils/registry.h"
+#endif
 
 namespace {
 
@@ -27,12 +30,30 @@ const char *kDefaultServerAddr1 = "https://seacloud.cc";
 const char *kDefaultServerAddr2 = "https://cloud.mein-seafile.de";
 const char *kUsedServerAddresses = "UsedServerAddresses";
 
+#ifdef Q_OS_WIN32
+const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
+QString getPreconfigureServerAddr() {
+    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureServerAddr,
+                   "");
+    if (!reg.exists()) {
+        return QString();
+    }
+    reg.read();
+    return reg.stringValue();
+}
+#endif
 QStringList getUsedServerAddresses()
 {
     QSettings settings;
     settings.beginGroup(kUsedServerAddresses);
     QStringList retval = settings.value("main").toStringList();
     settings.endGroup();
+#ifdef Q_OS_WIN32
+    QString preconfigure_addr = getPreconfigureServerAddr();
+    if (!preconfigure_addr.isEmpty() && !retval.contains(preconfigure_addr)) {
+        retval.push_back(preconfigure_addr);
+    }
+#endif
     if (!retval.contains(kDefaultServerAddr1)) {
         retval.push_back(kDefaultServerAddr1);
     }
@@ -68,7 +89,6 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
     mServerAddr->addItems(getUsedServerAddresses());
-    mServerAddr->clearEditText();
     mServerAddr->setAutoCompletion(false);
 
     QString computerName = seafApplet->settingsManager()->getComputerName();

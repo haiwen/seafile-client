@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <shlwapi.h>
+#include <vector>
 
 
 #include "registry.h"
@@ -141,6 +142,80 @@ bool RegElement::exists()
     }
 
     return true;
+}
+
+void RegElement::read()
+{
+    string_value_.clear();
+    dword_value_ = 0;
+    HKEY parent_key;
+    LONG result = openKey(root_, path_, &parent_key);
+    if (result != ERROR_SUCCESS) {
+        return;
+    }
+    const std::wstring std_name = name_.toStdWString();
+
+    DWORD len;
+    // get value size
+    result = RegQueryValueExW (parent_key,
+                               std_name.c_str(),
+                               NULL,             /* reserved */
+                               &type_,           /* output type */
+                               NULL,             /* output data */
+                               &len);            /* output length */
+    if (result != ERROR_SUCCESS) {
+        RegCloseKey(parent_key);
+        return;
+    }
+    // get value
+    std::vector<wchar_t> buf;
+    buf.resize(len);
+    result = RegQueryValueExW (parent_key,
+                               std_name.c_str(),
+                               NULL,             /* reserved */
+                               &type_,           /* output type */
+                               (LPBYTE)&buf[0],  /* output data */
+                               &len);            /* output length */
+    buf.resize(len);
+    if (result != ERROR_SUCCESS) {
+        RegCloseKey(parent_key);
+        return;
+    }
+
+    switch (type_) {
+        case REG_EXPAND_SZ:
+        case REG_SZ:
+            string_value_ = QString::fromWCharArray(&buf[0], buf.size());
+            break;
+        case REG_NONE:
+        case REG_BINARY:
+            string_value_ = QString::fromWCharArray(&buf[0], buf.size() / 2);
+            break;
+        case REG_DWORD_BIG_ENDIAN:
+        case REG_DWORD:
+            if (buf.size() != sizeof(int))
+                return;
+            memcpy((char*)&dword_value_, buf.data(), sizeof(int));
+            break;
+        case REG_QWORD: {
+            if (buf.size() != sizeof(int))
+                return;
+            qint64 value;
+            memcpy((char*)&value, buf.data(), sizeof(int));
+            dword_value_ = (int)value;
+            break;
+        }
+        case REG_MULTI_SZ:
+        default:
+          break;
+    }
+
+    RegCloseKey(parent_key);
+
+    // workaround with a bug
+    string_value_ = QString::fromUtf8(string_value_.toUtf8());
+
+    return;
 }
 
 void RegElement::remove()

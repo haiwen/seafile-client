@@ -220,32 +220,39 @@ QString fix_file_id_url(const QString &path) {
 bool get_auto_start()
 {
     NSURL *itemURL = [[NSBundle mainBundle] bundleURL];
-    Boolean found = false;
-    CFURLRef URLToToggle = (CFURLRef)CFBridgingRetain(itemURL);
+    CFURLRef URLToToggle = (__bridge CFURLRef)itemURL;
+
+    bool found = false;
+
     LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     if (loginItems) {
         UInt32 seed = 0U;
-        NSArray *currentLoginItems = CFBridgingRelease((LSSharedFileListCopySnapshot(loginItems, &seed)));
-        for (id itemObject in currentLoginItems) {
-            LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFBridgingRetain(itemObject);
+        CFArrayRef currentLoginItems = LSSharedFileListCopySnapshot(loginItems,
+                                                                    &seed);
+        const CFIndex count = CFArrayGetCount(currentLoginItems);
+        for (CFIndex idx = 0; idx < count; ++idx) {
+            LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(currentLoginItems, idx);
+            CFURLRef outURL = NULL;
 
-            UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
-            CFURLRef URL = NULL;
+            const UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
 #if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
-            CFErrorRef err;
-            URL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, &err);
-            if (err) {
+            outURL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, /*outError*/ NULL);
+            if (outURL == NULL) {
 #else
-            OSStatus err = LSSharedFileListItemResolve(item, resolutionFlags, &URL, /*outRef*/ NULL);
-            if (err == noErr) {
+            OSStatus err = LSSharedFileListItemResolve(item, resolutionFlags, &outURL, /*outRef*/ NULL);
+            if (err != noErr || outURL == NULL) {
 #endif
-                found = CFEqual(URL, URLToToggle);
-                CFRelease(URL);
-
-                if (found)
-                    break;
+                if (outURL)
+                    CFRelease(outURL);
+                continue;
             }
+            found = CFEqual(outURL, URLToToggle);
+            CFRelease(outURL);
+
+            if (found)
+                break;
         }
+        CFRelease(currentLoginItems);
         CFRelease(loginItems);
     }
     return found;
@@ -254,62 +261,75 @@ bool get_auto_start()
 void set_auto_start(bool enabled)
 {
     NSURL *itemURL = [[NSBundle mainBundle] bundleURL];
-    OSStatus status;
-    CFURLRef URLToToggle = (CFURLRef)CFBridgingRetain(itemURL);
-    LSSharedFileListItemRef existingItem = NULL;
+    CFURLRef URLToToggle = (__bridge CFURLRef)itemURL;
+
     LSSharedFileListRef loginItems = LSSharedFileListCreate(kCFAllocatorDefault, kLSSharedFileListSessionLoginItems, /*options*/ NULL);
-    if(loginItems)
-    {
+    if (loginItems) {
         UInt32 seed = 0U;
-        NSArray *currentLoginItems = CFBridgingRelease(LSSharedFileListCopySnapshot(loginItems, &seed));
-        for (id itemObject in currentLoginItems) {
-            LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFBridgingRetain(itemObject);
+        Boolean found;
+        LSSharedFileListItemRef existingItem = NULL;
 
-            UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
-            CFURLRef URL = NULL;
+        CFArrayRef currentLoginItems = LSSharedFileListCopySnapshot(loginItems,
+                                                                    &seed);
+        const CFIndex count = CFArrayGetCount(currentLoginItems);
+        for (CFIndex idx = 0; idx < count; ++idx) {
+            LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(currentLoginItems, idx);
+            CFURLRef outURL = NULL;
+
+            const UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
 #if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
-            CFErrorRef err;
-            URL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, &err);
-            if (err) {
+            outURL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, /*outError*/ NULL);
+            if (outURL == NULL) {
 #else
-            OSStatus err = LSSharedFileListItemResolve(item, resolutionFlags, &URL, /*outRef*/ NULL);
-            if (err == noErr) {
+            OSStatus err = LSSharedFileListItemResolve(item, resolutionFlags, &outURL, /*outRef*/ NULL);
+            if (err != noErr || outURL == NULL) {
 #endif
-                Boolean found = CFEqual(URL, URLToToggle);
-                CFRelease(URL);
+                if (outURL)
+                    CFRelease(outURL);
+                continue;
+            }
+            found = CFEqual(outURL, URLToToggle);
+            CFRelease(outURL);
 
-                if (found) {
-                    existingItem = item;
-                    break;
-                }
+            if (found) {
+                existingItem = item;
+                break;
             }
         }
 
-        if (enabled && (existingItem == NULL)) {
+        if (enabled && !found) {
             NSString *displayName = @"Seafile Client";
             IconRef icon = NULL;
             FSRef ref;
-            //TODO: replace the deprecated CFURLGetFSRef
+            // TODO: replace the deprecated CFURLGetFSRef
             Boolean gotRef = CFURLGetFSRef(URLToToggle, &ref);
             if (gotRef) {
-                status = GetIconRefFromFileInfo(&ref,
-                                                /*fileNameLength*/ 0,
-                                                /*fileName*/ NULL,
-                                                kFSCatInfoNone,
-                                                /*catalogInfo*/ NULL,
-                                                kIconServicesNormalUsageFlag,
-                                                &icon,
-                                                /*outLabel*/ NULL);
-                if (status != noErr)
+                OSStatus err = GetIconRefFromFileInfo(
+                    &ref,
+                    /*fileNameLength*/ 0,
+                    /*fileName*/ NULL, kFSCatInfoNone,
+                    /*catalogInfo*/ NULL, kIconServicesNormalUsageFlag, &icon,
+                    /*outLabel*/ NULL);
+                if (err != noErr) {
+                    if (icon)
+                        CFRelease(icon);
                     icon = NULL;
+                }
             }
 
-            LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst,
-                  (CFStringRef)CFBridgingRetain(displayName), icon, URLToToggle,
-                  /*propertiesToSet*/ NULL, /*propertiesToClear*/ NULL);
-          } else if (!enabled && (existingItem != NULL))
-              LSSharedFileListItemRemove(loginItems, existingItem);
+            LSSharedFileListItemRef newItem = LSSharedFileListInsertItemURL(
+                loginItems, kLSSharedFileListItemBeforeFirst,
+                (__bridge CFStringRef)displayName, icon, URLToToggle,
+                /*propertiesToSet*/ NULL, /*propertiesToClear*/ NULL);
+            if (newItem)
+                CFRelease(newItem);
+            if (icon)
+                CFRelease(icon);
+        } else if (!enabled && found) {
+            LSSharedFileListItemRemove(loginItems, existingItem);
+        }
 
+        CFRelease(currentLoginItems);
         CFRelease(loginItems);
     }
 }

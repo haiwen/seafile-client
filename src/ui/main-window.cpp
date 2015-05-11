@@ -188,8 +188,11 @@ void MainWindow::showEvent(QShowEvent *event)
 void MainWindow::checkShowWindow()
 {
 #if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
-    if (qApp->applicationState() & Qt::ApplicationActive)
+    if (qApp->applicationState() & Qt::ApplicationActive) {
+        if (qApp->activeModalWidget() || qApp->activePopupWidget() || qApp->activeWindow())
+            return;
         showWindow();
+    }
 #endif
 }
 

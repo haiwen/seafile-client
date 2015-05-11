@@ -32,6 +32,7 @@ const char *kUsedServerAddresses = "UsedServerAddresses";
 
 #ifdef Q_OS_WIN32
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
+const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
 QString getPreconfigureServerAddr() {
     RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureServerAddr,
                    "");
@@ -40,6 +41,19 @@ QString getPreconfigureServerAddr() {
     }
     reg.read();
     return reg.stringValue();
+}
+int getPreconfigureServerAddrOnly() {
+    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureServerAddrOnly,
+                   "");
+    if (!reg.exists()) {
+        return 0;
+    }
+    reg.read();
+
+    if (!reg.stringValue().isEmpty())
+        return reg.stringValue().toInt();
+
+    return reg.dwordValue();
 }
 #endif
 QStringList getUsedServerAddresses()
@@ -88,7 +102,21 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
+#ifdef Q_OS_WIN32
+    QString preconfigure_addr = getPreconfigureServerAddr();
+    if (getPreconfigureServerAddrOnly() && !preconfigure_addr.isEmpty()) {
+        mServerAddr->setMaxCount(1);
+        mServerAddr->insertItem(0, preconfigure_addr);
+        mServerAddr->setCurrentIndex(0);
+        mServerAddr->setEditable(false);
+    } else {
+        mServerAddr->addItems(getUsedServerAddresses());
+        mServerAddr->clearEditText();
+    }
+#else
     mServerAddr->addItems(getUsedServerAddresses());
+    mServerAddr->clearEditText();
+#endif
     mServerAddr->setAutoCompletion(false);
 
     QString computerName = seafApplet->settingsManager()->getComputerName();

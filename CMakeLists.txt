@@ -75,7 +75,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 IF (WIN32)
-    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi event rpcrt4 uuid)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi rpcrt4 uuid)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} seafile-applet.rc)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)

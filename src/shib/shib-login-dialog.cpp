@@ -4,10 +4,15 @@
 #include <QList>
 #include <QSslError>
 #include <QNetworkReply>
+#include <QNetworkCookie>
+
+#include "seafile-applet.h"
+#include "utils/utils.h"
+#include "utils/api-utils.h"
+#include "account-mgr.h"
+#include "network-mgr.h"
 
 #include "shib-login-dialog.h"
-#include "seafile-applet.h"
-#include "account-mgr.h"
 
 namespace {
 
@@ -15,9 +20,12 @@ const char *kSeahubShibCookieName = "seahub_auth";
 
 } // namespace
 
-ShibLoginDialog::ShibLoginDialog(const QUrl& url, QWidget *parent)
+ShibLoginDialog::ShibLoginDialog(const QUrl& url,
+                                 const QString& computer_name,
+                                 QWidget *parent)
     : QDialog(parent),
-      url_(url)
+      url_(url),
+      cookie_seen_(false)
 {
     setWindowTitle(tr("Login with Shibboleth"));
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -31,6 +39,7 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url, QWidget *parent)
 
     CustomCookieJar *jar = new CustomCookieJar(this);
     QNetworkAccessManager *mgr = webview_->page()->networkAccessManager();
+    NetworkManager::instance()->addWatch(mgr);
     mgr->setCookieJar(jar);
 
     connect(mgr, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
@@ -39,7 +48,16 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url, QWidget *parent)
     connect(jar, SIGNAL(newCookieCreated(const QUrl&, const QNetworkCookie&)),
             this, SLOT(onNewCookieCreated(const QUrl&, const QNetworkCookie&)));
 
-    webview_->load(url_);
+    QUrl shib_login_url(url_);
+    QString path = shib_login_url.path();
+    if (!path.endsWith("/")) {
+        path += "/";
+    }
+    path += "shib-login";
+    shib_login_url.setPath(path);
+
+    webview_->load(::includeQueryParams(
+                       shib_login_url, ::getSeafileLoginParams(computer_name, "shib_")));
 }
 
 
@@ -51,11 +69,18 @@ void ShibLoginDialog::sslErrorHandler(QNetworkReply* reply,
 
 void ShibLoginDialog::onNewCookieCreated(const QUrl& url, const QNetworkCookie& cookie)
 {
+    if (cookie_seen_) {
+        return;
+    }
     QString name = cookie.name();
+    QString value = cookie.value();
     if (url.host() == url_.host() && name == kSeahubShibCookieName) {
-        QString value = cookie.value();
-
         Account account = parseAccount(value);
+        if (!account.isValid()) {
+            qWarning("wrong account information from server");
+            return;
+        }
+        cookie_seen_ = true;
         if (seafApplet->accountManager()->saveAccount(account) < 0) {
             seafApplet->warningBox(tr("Failed to save current account"), this);
             reject();
@@ -79,6 +104,9 @@ Account ShibLoginDialog::parseAccount(const QString& cookie_value)
     int pos = txt.lastIndexOf("@");
     QString email = txt.left(pos);
     QString token = txt.right(txt.length() - pos - 1);
+    if (email.isEmpty() or token.isEmpty()) {
+        return Account();
+    }
     return Account(url_, email, token);
 }
 

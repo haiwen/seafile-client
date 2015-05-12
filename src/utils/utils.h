@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDir>
 #include <QMap>
+#include <QHash>
 #include <QUrl>
 #include <QSslError>
 
@@ -57,6 +58,8 @@ QString mapToJson(QMap<QString, QVariant> map);
 
 QString defaultCcnetDir();
 
+QString defaultDownloadDir();
+
 // open file use native default file handler, return false if failed
 bool openInNativeExtension(const QString &path);
 
@@ -80,4 +83,11 @@ QString dumpCertificate(const QSslCertificate &cert);
 QString dumpCertificateFingerprint(const QSslCertificate &cert,
                                    const QCryptographicHash::Algorithm &algorithm = QCryptographicHash::Md5);
 
+void msleep(int mseconds);
+
+
+QUrl includeQueryParams(const QUrl& url,
+                        const QHash<QString, QString>& params);
+
+QByteArray buildFormData(const QHash<QString, QString>& params);
 #endif

@@ -1,6 +1,6 @@
 QWidget#mainWrapper {
     min-width: 320px;
-    min-height: 550px;
+    min-height: 583px;
     border: 1px solid #333;
     border-radius: 5px;
     background: #F5F5F7;
@@ -18,13 +18,9 @@ CloudView {
 
 QToolButton#mAccountBtn
 {
-    margin-left: 0px;
-    margin-right: 6px;
-    background: white;
-    padding: 1px;
-    padding-left: 2px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
@@ -204,8 +200,8 @@ CloudView QFrame#mFooter QLabel#mDownloadRateArrow
 
 CreateRepoDialog {
     min-width: 550px;
-    min-height: 330px;
-    max-height: 330px;
+    min-height: 247px;
+    max-height: 247px;
 }
 
 CreateRepoDialog QLabel#mDesc {
@@ -260,11 +256,11 @@ QLabel#loadingFailedText {
 }
 
 SettingsDialog {
-    min-width: 450px;
-    max-width: 450px;
+    min-width: 560px;
+    max-width: 560px;
 
-    min-height: 350px;
-    max-height: 350px;
+    min-height: 390px;
+    max-height: 390px;
 }
 
 SettingsDialog QTabWidget::pane QLabel#desc,
@@ -303,6 +299,10 @@ SslConfirmDialog QCheckBox#mRememberChoiceCheckBox {
 DownloadRepoDialog QLabel#mRepoName {
     font-size: 16px;
     margin-bottom: 8px;
+}
+
+DownloadRepoDialog QLabel#mMergeHint {
+    font-size: 12px;
 }
 
 DownloadRepoDialog QLabel#mRepoIcon {
@@ -407,22 +407,67 @@ ActivitiesTab, EventsListView
 }
 
 FileBrowserDialog {
-    background-color: white;
+    margin: 0;
     min-width: 640px;
     min-height: 456px;
 }
 
+FileBrowserDialog QSizeGrip {
+    margin-right: 2px;
+}
+
+FileBrowserDialog QWidget#mainWidget {
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
+FileBrowserDialog QWidget#mHeader {
+    min-height: 15px;
+    max-height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 1px;
+}
+
+FileBrowserDialog QWidget#mHeader QLabel {
+    padding-left: 60px;
+    margin-left: 4px;
+}
+
+FileBrowserDialog QWidget#mHeader QPushButton {
+    margin-left: 4px;
+}
+
 FileBrowserDialog QToolBar#topBar {
     border: 0;
-    margin: 0px 24px 6px 12px;
-    min-height: 36px;
-    max-height: 36px;
+    border-bottom: 1px solid #d0d0d0;
+    padding: 0;
+    min-height: 42px;
 }
 
 FileBrowserDialog QToolBar QPushButton {
+    font-size: 13px;
     padding: 3px;
     margin: 1px;
+    background-color: white;
     qproperty-focusPolicy: NoFocus;
+}
+
+FileBrowserDialog QToolBar QToolButton#backwardButton {
+    padding: 0px 2px 0px 2px;
+    margin-right: 2px;
+    border: 1px solid #DBDBDC;
+    border-radius: 0px;
+    background-color: white;
+}
+
+FileBrowserDialog QToolBar QToolButton#forwardButton {
+    padding: 0px 2px 0px 2px;
+    margin-left: 2px;
+    border: 1px solid #DBDBDC;
+    border-radius: 0px;
+    background-color: white;
 }
 
 FileBrowserDialog QToolBar QLabel {
@@ -438,7 +483,9 @@ FileBrowserDialog QToolBar QPushButton:hover {
 FileTableView {
     border: 0;
     margin: 0;
-    padding-left: 4px;
+    padding-left: 14px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: white;
     qproperty-focusPolicy: NoFocus;
 }
 
@@ -449,27 +496,45 @@ FileTableView QHeaderView::section {
     color: #b3b3b3;
     background-color: white;
     font-size: 12px;
+    padding-top: 20px;
+}
+
+FileTableView QHeaderView::section:first {
+    padding-left: 40px;
 }
 
 FileTableView QHeaderView::down-arrow {
     width: 15px;
     height: 5px;
+    padding-top: 15px;
     subcontrol-position: center right;
 }
 
 FileTableView QHeaderView::up-arrow {
+    padding-top: 15px;
     subcontrol-position: center right;
+}
+
+FileTableView QHeaderView::down-arrow {
+  image: url(:/images/filebrowser/down-arrow.png);
+}
+
+FileTableView QHeaderView::up-arrow {
+  image: url(:/images/filebrowser/up-arrow.png);
 }
 
 FileTableView::item {
     border-top: 1px solid #e0e0e0;
 }
 
+FileTableView::item :last {
+    padding-right: 13px;
+}
+
 FileBrowserDialog QToolBar#statusBar {
     border: 0;
-    border-top: 1px solid white;
     margin: 0;
-    background-color: #f2f2f2;
+    margin-top: 1px;
 }
 
 FileBrowserProgressDialog {

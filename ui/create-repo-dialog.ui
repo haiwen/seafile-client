@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>407</width>
-    <height>450</height>
+    <height>247</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,31 +67,21 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Description:</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="1">
-       <widget class="QTextEdit" name="mDesc"/>
-      </item>
-      <item row="3" column="1">
        <widget class="QCheckBox" name="mEncrypteCheckBox">
         <property name="text">
          <string>encrypted</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
          <string>Password:</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="3" column="1">
        <widget class="QLineEdit" name="mPassword">
         <property name="enabled">
          <bool>false</bool>
@@ -104,14 +94,14 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Password Again:</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="4" column="1">
        <widget class="QLineEdit" name="mPasswordAgain">
         <property name="enabled">
          <bool>false</bool>
@@ -175,7 +165,6 @@
   <tabstop>mDirectory</tabstop>
   <tabstop>mChooseDirBtn</tabstop>
   <tabstop>mName</tabstop>
-  <tabstop>mDesc</tabstop>
   <tabstop>mEncrypteCheckBox</tabstop>
   <tabstop>mPassword</tabstop>
   <tabstop>mPasswordAgain</tabstop>

@@ -3,14 +3,22 @@ extern "C" {
 #include <ccnet/peer.h>
 
 }
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QSet>
 #include <QDebug>
 #include <QMenuBar>
 
+#include "rpc/local-repo.h"
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "rpc/rpc-client.h"
@@ -21,22 +29,17 @@ extern "C" {
 #include "server-status-service.h"
 
 #include "tray-icon.h"
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
 #include "traynotificationmanager.h"
 // QT's platform apis
 // http://qt-project.org/doc/qt-4.8/exportedfunctions.html
-extern void qt_mac_set_native_menubar(bool enable);
 extern void qt_mac_set_dock_menu(QMenu *menu);
 #endif
 
-#ifdef Q_WS_X11
+#if defined(Q_OS_LINUX)
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusPendingCall>
-#endif
-
-#if defined(Q_WS_WIN)
-#include <windows.h>
 #endif
 
 namespace {
@@ -44,23 +47,9 @@ namespace {
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 
-#if defined(Q_WS_WIN)
-bool
-isWindowsVistaOrHigher()
-{
-    OSVERSIONINFOEX ver = {0};
-
-    ver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-    if (!GetVersionEx((LPOSVERSIONINFO)&ver)) {
-        return false;
-    }
-
-    if (ver.dwMajorVersion >= 6) {
-        return true;
-    }
-
-    return false;
+#ifdef Q_OS_MAC
+void darkmodeWatcher(bool /*new Value*/) {
+    seafApplet->trayIcon()->reloadTrayIcon();
 }
 #endif
 
@@ -89,10 +78,15 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     connect(SeahubNotificationsMonitor::instance(), SIGNAL(notificationsChanged()),
             this, SLOT(onSeahubNotificationsChanged()));
 
+#ifdef Q_OS_WIN32
+    connect(this, SIGNAL(messageClicked()),
+            this, SLOT(onMessageClicked()));
+#endif
+
     hide();
 
     createGlobalMenuBar();
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     tnm = new TrayNotificationManager(this);
 #endif
 }
@@ -101,6 +95,9 @@ void SeafileTrayIcon::start()
 {
     show();
     refresh_timer_->start(kRefreshInterval);
+#if defined(Q_OS_MAC)
+    utils::mac::set_darkmode_watcher(&darkmodeWatcher);
+#endif
 }
 
 void SeafileTrayIcon::createActions()
@@ -118,8 +115,8 @@ void SeafileTrayIcon::createActions()
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
 
-    toggle_main_window_action_ = new QAction(tr("Show main window"), this);
-    connect(toggle_main_window_action_, SIGNAL(triggered()), this, SLOT(toggleMainWindow()));
+    show_main_window_action_ = new QAction(tr("Show main window"), this);
+    connect(show_main_window_action_, SIGNAL(triggered()), this, SLOT(showMainWindow()));
 
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
@@ -145,7 +142,7 @@ void SeafileTrayIcon::createContextMenu()
 
     context_menu_ = new QMenu(NULL);
     context_menu_->addAction(view_unread_seahub_notifications_action_);
-    context_menu_->addAction(toggle_main_window_action_);
+    context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
     context_menu_->addMenu(help_menu_);
@@ -169,12 +166,6 @@ void SeafileTrayIcon::prepareContextMenu()
         disable_auto_sync_action_->setVisible(false);
     }
 
-    if (!seafApplet->mainWindow()->isVisible()) {
-        toggle_main_window_action_->setText(tr("Show main window"));
-    } else {
-        toggle_main_window_action_->setText(tr("Hide main window"));
-    }
-
     view_unread_seahub_notifications_action_->setVisible(state_ == STATE_HAVE_UNREAD_MESSAGE);
 }
 
@@ -182,37 +173,31 @@ void SeafileTrayIcon::createGlobalMenuBar()
 {
     // support it only on mac os x currently
     // TODO: destroy the objects when seafile closes
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     // create qmenu used in menubar and docker menu
     global_menu_ = new QMenu(tr("File"));
     global_menu_->addAction(view_unread_seahub_notifications_action_);
-    global_menu_->addAction(toggle_main_window_action_);
+    global_menu_->addAction(show_main_window_action_);
     global_menu_->addAction(settings_action_);
     global_menu_->addAction(open_log_directory_action_);
     global_menu_->addSeparator();
     global_menu_->addAction(enable_auto_sync_action_);
     global_menu_->addAction(disable_auto_sync_action_);
-    connect(global_menu_, SIGNAL(aboutToShow()), this, SLOT(prepareContextMenu()));
 
     global_menubar_ = new QMenuBar(0);
-    global_menubar_->setNativeMenuBar(true);
     global_menubar_->addMenu(global_menu_);
-    global_menubar_->addMenu(help_menu_);
-    qt_mac_set_native_menubar(true);
-    qt_mac_set_dock_menu(global_menu_);
-    // create QMenuBar that has no parent, so we can share the global menubar
-#endif // Q_WS_MAC
-}
+    // TODO fix the line below which crashes under qt5.4.0
+    //global_menubar_->addMenu(help_menu_);
+    global_menubar_->setNativeMenuBar(true);
+    qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
 
-void SeafileTrayIcon::notify(const QString &title, const QString &content)
-{
-#if defined(Q_WS_MAC)
-    QIcon icon(":/images/info.png");
-    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(icon.pixmap(32, 32), title, content);
-    tnm->append(trayNotification);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+    global_menu_->setAsDockMenu(); // available after qt5.2.0
 #else
-    this->showMessage(title, content);
+    qt_mac_set_dock_menu(global_menu_); // deprecated in latest qt
 #endif
+    // create QMenuBar that has no parent, so we can share the global menubar
+#endif // Q_OS_MAC
 }
 
 void SeafileTrayIcon::rotate(bool start)
@@ -228,9 +213,18 @@ void SeafileTrayIcon::rotate(bool start)
     }
 }
 
-void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint, bool is_repo_message)
 {
-#ifdef Q_WS_X11
+    if (!is_repo_message)
+        repo_id_ = QString();
+#ifdef Q_OS_MAC
+    Q_UNUSED(icon);
+    Q_UNUSED(millisecondsTimeoutHint);
+    QIcon info_icon(":/images/info.png");
+    TrayNotificationWidget* trayNotification = new TrayNotificationWidget(info_icon.pixmap(32, 32), title, message);
+    tnm->append(trayNotification);
+#elif defined(Q_OS_LINUX)
+    Q_UNUSED(icon);
     QVariantMap hints;
     hints["resident"] = QVariant(true);
     hints["desktop-entry"] = QVariant("seafile");
@@ -242,6 +236,12 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
 #else
     QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
 #endif
+}
+
+void SeafileTrayIcon::showMessageWithRepo(const QString& repo_id, const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
+{
+    repo_id_ = repo_id;
+    showMessage(title, message, icon, millisecondsTimeoutHint, true);
 }
 
 void SeafileTrayIcon::rotateTrayIcon()
@@ -275,12 +275,22 @@ void SeafileTrayIcon::setState(TrayState state, const QString& tip)
 
     // the following two lines solving the problem of tray icon
     // disappear in ubuntu 13.04
-#if defined(Q_WS_X11)
+#if defined(Q_OS_LINUX)
     hide();
     show();
 #endif
 
     setToolTip(tool_tip);
+}
+
+void SeafileTrayIcon::reloadTrayIcon()
+{
+    setIcon(stateToIcon(state_));
+
+#if defined(Q_OS_LINUX)
+    hide();
+    show();
+#endif
 }
 
 QIcon SeafileTrayIcon::getIcon(const QString& name)
@@ -297,70 +307,94 @@ QIcon SeafileTrayIcon::getIcon(const QString& name)
 QIcon SeafileTrayIcon::stateToIcon(TrayState state)
 {
     state_ = state;
-#if defined(Q_WS_WIN)
-    QString prefix = ":/images/win/";
+#if defined(Q_OS_WIN32)
+    QString icon_name;
+    switch (state) {
+    case STATE_DAEMON_UP:
+        icon_name = ":/images/win/daemon_up.ico";
+        break;
+    case STATE_DAEMON_DOWN:
+        icon_name = ":/images/win/daemon_down.ico";
+        break;
+    case STATE_DAEMON_AUTOSYNC_DISABLED:
+        icon_name = ":/images/win/seafile_auto_sync_disabled.ico";
+        break;
+    case STATE_TRANSFER_1:
+        icon_name = ":/images/win/seafile_transfer_1.ico";
+        break;
+    case STATE_TRANSFER_2:
+        icon_name = ":/images/win/seafile_transfer_2.ico";
+        break;
+    case STATE_SERVERS_NOT_CONNECTED:
+        icon_name = ":/images/win/seafile_warning.ico";
+        break;
+    case STATE_HAVE_UNREAD_MESSAGE:
+        icon_name = ":/images/win/notification.ico";
+        break;
+    }
+    return getIcon(icon_name);
+#elif defined(Q_OS_MAC)
+    bool isDarkMode = utils::mac::is_darkmode();
+    // filename = icon_name + ?white + .png
+    QString icon_name;
 
     switch (state) {
     case STATE_DAEMON_UP:
-        return getIcon(prefix + "daemon_up.ico");
+        icon_name = ":/images/mac/daemon_up";
+        break;
     case STATE_DAEMON_DOWN:
-        return getIcon(prefix + "daemon_down.ico");
+        icon_name = ":/images/mac/daemon_down.png";
+        break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(prefix + "seafile_auto_sync_disabled.ico");
+        icon_name = ":/images/mac/seafile_auto_sync_disabled";
+        break;
     case STATE_TRANSFER_1:
-        return getIcon(prefix + "seafile_transfer_1.ico");
+        icon_name = ":/images/mac/seafile_transfer_1";
+        break;
     case STATE_TRANSFER_2:
-        return getIcon(prefix + "seafile_transfer_2.ico");
+        icon_name = ":/images/mac/seafile_transfer_2";
+        break;
     case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(prefix + "seafile_warning.ico");
+        icon_name = ":/images/mac/seafile_warning";
+        break;
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(prefix + "notification.ico");
+        icon_name = ":/images/mac/notification";
+        break;
     }
-#elif defined(Q_WS_MAC)
-    switch (state) {
-    case STATE_DAEMON_UP:
-        return getIcon(":/images/mac/daemon_up.png");
-    case STATE_DAEMON_DOWN:
-        return getIcon(":/images/mac/daemon_down.png");
-    case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(":/images/mac/seafile_auto_sync_disabled.png");
-    case STATE_TRANSFER_1:
-        return getIcon(":/images/mac/seafile_transfer_1.png");
-    case STATE_TRANSFER_2:
-        return getIcon(":/images/mac/seafile_transfer_2.png");
-    case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(":/images/mac/seafile_warning.png");
-    case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/mac/notification.png");
-    }
+    return getIcon(icon_name + (isDarkMode ? "_white" : "") + ".png");
 #else
+    QString icon_name;
     switch (state) {
     case STATE_DAEMON_UP:
-        return getIcon(":/images/daemon_up.png");
+        icon_name = ":/images/daemon_up.png";
+        break;
     case STATE_DAEMON_DOWN:
-        return getIcon(":/images/daemon_down.png");
+        icon_name = ":/images/daemon_down.png";
+        break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        return getIcon(":/images/seafile_auto_sync_disabled.png");
+        icon_name = ":/images/seafile_auto_sync_disabled.png";
+        break;
     case STATE_TRANSFER_1:
-        return getIcon(":/images/seafile_transfer_1.png");
+        icon_name = ":/images/seafile_transfer_1.png";
+        break;
     case STATE_TRANSFER_2:
-        return getIcon(":/images/seafile_transfer_2.png");
+        icon_name = ":/images/seafile_transfer_2.png";
+        break;
     case STATE_SERVERS_NOT_CONNECTED:
-        return getIcon(":/images/seafile_warning.png");
+        icon_name = ":/images/seafile_warning.png";
+        break;
     case STATE_HAVE_UNREAD_MESSAGE:
-        return getIcon(":/images/notification.png");
+        icon_name = ":/images/notification.png";
+        break;
     }
+    return getIcon(icon_name);
 #endif
 }
 
-void SeafileTrayIcon::toggleMainWindow()
+void SeafileTrayIcon::showMainWindow()
 {
     MainWindow *main_win = seafApplet->mainWindow();
-    if (!main_win->isVisible()) {
-        main_win->showWindow();
-    } else {
-        main_win->hide();
-    }
+    main_win->showWindow();
 }
 
 void SeafileTrayIcon::about()
@@ -402,26 +436,17 @@ void SeafileTrayIcon::showSettingsWindow()
 
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
-#ifndef Q_WS_MAC
+#if !defined(Q_OS_MAC)
     switch(reason) {
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:
     case QSystemTrayIcon::DoubleClick:
-        onClick();
+        showMainWindow();
         break;
     default:
         return;
     }
 #endif
-}
-
-void SeafileTrayIcon::onClick()
-{
-    if (state_ == STATE_HAVE_UNREAD_MESSAGE) {
-        viewUnreadNotifications();
-    } else {
-        toggleMainWindow();
-    }
 }
 
 void SeafileTrayIcon::disableAutoSync()
@@ -509,4 +534,15 @@ void SeafileTrayIcon::viewUnreadNotifications()
 {
     SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
     refreshTrayIcon();
+}
+
+void SeafileTrayIcon::onMessageClicked()
+{
+    if (repo_id_.isEmpty())
+        return;
+    LocalRepo repo;
+    if (seafApplet->rpcClient()->getLocalRepo(repo_id_, &repo) != 0 ||
+        !repo.isValid() || repo.worktree_invalid)
+        return;
+    showInGraphicalShell(repo.worktree);
 }

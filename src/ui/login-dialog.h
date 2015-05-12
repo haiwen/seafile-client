@@ -20,12 +20,15 @@ class LoginDialog : public QDialog,
     Q_OBJECT
 public:
     LoginDialog(QWidget *parent=0);
+    void initFromAccount(const Account& account);
 
 private slots:
     void doLogin();
     void loginSuccess(const QString& token);
     void loginFailed(const ApiError& error);
+#ifdef HAVE_SHIBBOLETH_SUPPORT
     void loginWithShib();
+#endif // HAVE_SHIBBOLETH_SUPPORT
 
 private:
     Q_DISABLE_COPY(LoginDialog);
@@ -51,7 +54,9 @@ private:
     QString computer_name_;
     LoginRequest *request_;
 
+#ifdef HAVE_SHIBBOLETH_SUPPORT
     LoginMode mode_;
+#endif // HAVE_SHIBBOLETH_SUPPORT
 };
 
 #endif // SEAFILE_CLIENT_LOGIN_DIALOG_H

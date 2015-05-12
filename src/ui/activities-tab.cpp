@@ -1,5 +1,11 @@
 #include <cstdio>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QIcon>
 #include <QStackedWidget>
 #include <QModelIndex>
@@ -66,7 +72,6 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
                                   bool is_loading_more,
                                   bool has_more)
 {
-    emit activitiesSupported();
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
 
     // XXX: "load more events" for now
@@ -161,7 +166,10 @@ void ActivitiesTab::refreshFailed(const ApiError& error)
 
 void ActivitiesTab::startRefresh()
 {
-    EventsService::instance()->start();
+    AccountManager *mgr = seafApplet->accountManager();
+    bool has_pro_account = mgr->hasAccount() && mgr->accounts().front().isPro();
+    if (has_pro_account)
+        EventsService::instance()->start();
 }
 
 void ActivitiesTab::stopRefresh()

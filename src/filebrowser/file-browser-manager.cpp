@@ -23,6 +23,7 @@ FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &accou
         dialog->show();
         dialog->move(screen.center() - dialog->rect().center());
         dialogs_.push_back(dialog);
+        connect(dialog, SIGNAL(aboutToClose()), this, SLOT(onAboutToClose()));
     }
     dialog->raise();
     dialog->activateWindow();
@@ -31,18 +32,29 @@ FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &accou
 
 FileBrowserDialog *FileBrowserManager::getDialog(const Account &account, const QString &repo_id)
 {
-    // remove all QWeakPointer which is NULL alreadly;
-    for (int i = dialogs_.size() - 1; i >= 0; i--)
-        if (dialogs_[i].isNull())
-          dialogs_.removeAt(i);
-
     // search and find if dialog registered
     for (int i = 0; i < dialogs_.size() ; i++)
-        if (dialogs_[i].data()->account_ == account &&
-            dialogs_[i].data()->repo_.id == repo_id) {
-            return dialogs_[i].data();
+        if (dialogs_[i]->account_ == account &&
+            dialogs_[i]->repo_.id == repo_id) {
+            return dialogs_[i];
         }
     // not found
     return NULL;
 }
 
+void FileBrowserManager::closeAllDialogByAccount(const Account& account)
+{
+    Q_FOREACH(FileBrowserDialog *dialog, dialogs_)
+    {
+        if (dialog->account_ == account)
+            dialog->deleteLater();
+    }
+}
+
+void FileBrowserManager::onAboutToClose()
+{
+    FileBrowserDialog *dialog = qobject_cast<FileBrowserDialog*>(sender());
+    if (!dialog)
+      return;
+    dialogs_.removeOne(dialog);
+}

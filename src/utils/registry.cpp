@@ -4,12 +4,29 @@
 
 #include "registry.h"
 
+namespace {
+
+LONG openKey(HKEY root, const QString& path, HKEY *p_key)
+{
+    LONG result;
+    result = RegOpenKeyExW(root,
+                           path.toStdWString().c_str(),
+                           0L,
+                           KEY_ALL_ACCESS,
+                           p_key);
+
+    return result;
+}
+
+} // namespace
+
 RegElement::RegElement(const HKEY& root, const QString& path,
                        const QString& name, const QString& value, bool expand)
     : root_(root),
       path_(path),
       name_(name),
       string_value_(value),
+      dword_value_(0),
       type_(expand ? REG_EXPAND_SZ : REG_SZ)
 {
 }
@@ -19,6 +36,7 @@ RegElement::RegElement(const HKEY& root, const QString& path,
     : root_(root),
       path_(path),
       name_(name),
+      string_value_(""),
       dword_value_(value),
       type_(REG_DWORD)
 {
@@ -96,4 +114,42 @@ int RegElement::removeRegKey(HKEY root, const QString& path, const QString& subk
     if (result != ERROR_SUCCESS) {
         return -1;
     }
+
+    return 0;
+}
+
+bool RegElement::exists()
+{
+    HKEY parent_key;
+    LONG result = openKey(root_, path_, &parent_key);
+    if (result != ERROR_SUCCESS) {
+        return false;
+    }
+
+    char buf[MAX_PATH] = {0};
+    DWORD len = sizeof(buf);
+    result = RegQueryValueExW (parent_key,
+                               name_.toStdWString().c_str(),
+                               NULL,             /* reserved */
+                               NULL,             /* output type */
+                               (LPBYTE)buf,      /* output data */
+                               &len);            /* output length */
+
+    RegCloseKey(parent_key);
+    if (result != ERROR_SUCCESS) {
+        return false;
+    }
+
+    return true;
+}
+
+void RegElement::remove()
+{
+    HKEY parent_key;
+    LONG result = openKey(root_, path_, &parent_key);
+    if (result != ERROR_SUCCESS) {
+        return;
+    }
+    result = RegDeleteValueW (parent_key, name_.toStdWString().c_str());
+    RegCloseKey(parent_key);
 }

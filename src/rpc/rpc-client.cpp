@@ -64,6 +64,7 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
         return -1;
     }
 
+    result->clear();
     for (GList *ptr = repos; ptr; ptr = ptr->next) {
         result->push_back(LocalRepo::fromGObject((GObject*)ptr->data));
     }
@@ -230,6 +231,7 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
                                             "seafile_get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
+        qWarning("Unable to get config value %s", key.toUtf8().data());
         g_error_free(error);
         return -1;
     }
@@ -246,6 +248,7 @@ int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
+        qWarning("Unable to get config (int) value %s", key.toUtf8().data());
         g_error_free(error);
         return -1;
     }
@@ -274,6 +277,7 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
                              2, "string", toCStr(key),
                              "string", toCStr(value));
     if (error) {
+        qWarning("Unable to set config value %s", key.toUtf8().data());
         g_error_free(error);
         return -1;
     }
@@ -722,14 +726,16 @@ QString SeafileRpcClient::getCcnetPeerId()
 
 int SeafileRpcClient::updateReposServerHost(const QString& old_host,
                                             const QString& new_host,
+                                            const QString& new_server_url,
                                             QString *err)
 {
     GError *error = NULL;
     int ret =  searpc_client_call__int (seafile_rpc_client_,
                                         "seafile_update_repos_server_host",
-                                        &error, 2,
+                                        &error, 3,
                                         "string", toCStr(old_host),
-                                        "string", toCStr(new_host));
+                                        "string", toCStr(new_host),
+                                        "string", toCStr(new_server_url));
 
     if (ret < 0) {
         if (error) {
@@ -783,4 +789,70 @@ int SeafileRpcClient::setRepoProperty(const QString &repo_id,
         return -1;
     }
     return ret;
+}
+
+int SeafileRpcClient::removeSyncTokensByAccount(const QString& server_addr,
+                                                const QString& email,
+                                                QString *err)
+{
+    GError *error = NULL;
+    int ret =  searpc_client_call__int (seafile_rpc_client_,
+                                        "seafile_remove_repo_tokens_by_account",
+                                        &error, 2,
+                                        "string", toCStr(server_addr),
+                                        "string", toCStr(email));
+
+    if (ret < 0 && err) {
+        if (error) {
+            *err = QString::fromUtf8(error->message);
+            g_error_free(error);
+        } else {
+            *err = tr("Unknown error");
+        }
+    }
+
+    return ret;
+}
+
+int SeafileRpcClient::setRepoToken(const QString &repo_id,
+                                   const QString& token)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (
+        seafile_rpc_client_,
+        "seafile_set_repo_token",
+        &error, 2,
+        "string", toCStr(repo_id),
+        "string", toCStr(token)
+        );
+    if (error) {
+        g_error_free(error);
+        return -1;
+    }
+    return ret;
+}
+
+int SeafileRpcClient::getRepoFileStatus(const QString& repo_id,
+                                        const QString& path_in_repo,
+                                        bool isdir,
+                                        QString *status)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (
+        seafile_rpc_client_,
+        "seafile_get_path_sync_status",
+        &error, 3,
+        "string", toCStr(repo_id),
+        "string", toCStr(path_in_repo),
+        "int", isdir ? 1 : 0);
+    if (error) {
+        qWarning("failed to get path status: %s\n", error->message);
+        g_error_free(error);
+        return -1;
+    }
+
+    *status = ret;
+
+    g_free (ret);
+    return 0;
 }

@@ -32,6 +32,7 @@ public:
 
 signals:
     void direntClicked(const SeafDirent& dirent);
+    void direntSaveAs(const SeafDirent& dirent);
     void dropFile(const QStringList& paths);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
@@ -41,11 +42,13 @@ signals:
     void direntPaste();
 
     void cancelDownload(const SeafDirent& dirent);
+    void syncSubdirectory(const QString& folder_name);
 
 private slots:
     void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
     void onOpen();
+    void onSaveAs();
     void onRename();
     void onRemove();
     void onShare();
@@ -54,6 +57,7 @@ private slots:
     void onMove();
 
     void onCancelDownload();
+    void onSyncSubdirectory();
 
 private:
     void setupContextMenu();
@@ -80,6 +84,7 @@ private:
     QScopedPointer<const SeafDirent> item_;
     QMenu *context_menu_;
     QMenu *paste_only_menu_;
+    QAction *saveas_action_;
     QAction *download_action_;
     QAction *rename_action_;
     QAction *remove_action_;
@@ -89,6 +94,7 @@ private:
     QAction *move_action_;
     QAction *paste_action_;
     QAction *cancel_download_action_;
+    QAction *sync_subdirectory_action_;
     FileBrowserDialog *parent_;
 
     // source model

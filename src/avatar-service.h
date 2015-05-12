@@ -15,6 +15,8 @@ class ApiError;
 class GetAvatarRequest;
 class PendingAvatarRequestQueue;
 
+struct sqlite3;
+
 class AvatarService : public QObject
 {
     Q_OBJECT
@@ -26,6 +28,8 @@ public:
     QImage getAvatar(const QString& email);
     QString getAvatarFilePath(const QString& email);
     bool avatarFileExists(const QString& email);
+
+    static const int kAvatarSize;
 
 signals:
     void avatarUpdated(const QString& email, const QImage& avatar);
@@ -58,6 +62,8 @@ private:
     PendingAvatarRequestQueue *queue_;
 
     QTimer *timer_;
+
+    struct sqlite3 *autoupdate_db_;
 };
 
 

@@ -1,5 +1,11 @@
-#include <stdio.h>
+#include <cstdio>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 #include <QPixmap>
 #include <QFile>
@@ -199,7 +205,7 @@ void InitVirtualDriveDialog::finish()
     QString msg = tr("The default library has been downloaded.\n"
                      "You can click the \"Open\" button to view it.");
     setStatusText(msg);
-    setStatusIcon(":/images/ok-48.png");
+    setStatusIcon(":/images/sync/done@2x.png");
 
     mFinishBtn->setVisible(true);
     mOpenBtn->setVisible(true);

@@ -1,10 +1,17 @@
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QTimer>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
+#include "utils/paint-utils.h"
 #include "seaf-dirent.h"
 #include "utils/utils-mac.h"
+#include "seafile-applet.h"
 
 #include "file-browser-dialog.h"
 #include "data-mgr.h"
@@ -28,7 +35,8 @@ const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
 const int kFileNameColumnWidth = 200;
-const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3;
+const int kExtraPadding = 30;
+const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kExtraPadding;
 
 const int kRefreshProgressInterval = 1000;
 
@@ -50,12 +58,23 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 {
     const FileTableModel *model = static_cast<const FileTableModel*>(index.model());
 
+    // fix for the last item
+    QRect option_rect = option.rect;
+    if (index.column() == FILE_COLUMN_KIND) {
+        option_rect.setSize(option_rect.size() - QSize(13, 0));
+        // white the extra rect
+        const QRect last_rect = QRect(option_rect.topRight(), QSize(13, option_rect.height()));
+        painter->save();
+        painter->fillRect(last_rect, kItemBackgroundColor);
+        painter->restore();
+    }
+
     // draw item's background
     painter->save();
     if (option.state & QStyle::State_Selected)
-        painter->fillRect(option.rect, kSelectedItemBackgroundcColor);
+        painter->fillRect(option_rect, kSelectedItemBackgroundcColor);
     else
-        painter->fillRect(option.rect, kItemBackgroundColor);
+        painter->fillRect(option_rect, kItemBackgroundColor);
     painter->restore();
 
     //
@@ -67,13 +86,13 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     if (index.row() == 0) {
         painter->save();
         painter->setPen(borderPen);
-        painter->drawLine(option.rect.topLeft(), option.rect.topRight());
+        painter->drawLine(option_rect.topLeft(), option_rect.topRight());
         painter->restore();
     }
     // draw item's border under the bottom
     painter->save();
     painter->setPen(borderPen);
-    painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
+    painter->drawLine(option_rect.bottomLeft(), option_rect.bottomRight());
     painter->restore();
 
     //
@@ -81,6 +100,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     //
 
     QSize size = model->data(index, Qt::SizeHintRole).value<QSize>();
+    QString text = model->data(index, Qt::DisplayRole).value<QString>();
     switch (index.column()) {
     case FILE_COLUMN_NAME:
     {
@@ -89,16 +109,17 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         int alignX = 4; // AlignLeft
         int alignY = (size.height() - pixmap.height()) / 2; //AlignVCenter
         painter->save();
-        painter->drawPixmap(option.rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
+        painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
 
         // draw text
-        QString text = model->data(index, Qt::DisplayRole).value<QString>();
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option.rect.topLeft() + QPoint(alignX * 2 + pixmap.width(), -2), size - QSize(pixmap.width(), 0));
+        QRect rect(option_rect.topLeft() + QPoint(alignX * 2 + pixmap.width(), -2), size - QSize(pixmap.width(), 0));
         painter->setPen(kItemColor);
         painter->setFont(font);
-        painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+        painter->drawText(rect,
+                          Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
+                          fitTextToWidth(text, option.font, rect.width() - 20));
     }
     break;
     case FILE_COLUMN_SIZE:
@@ -120,22 +141,30 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             progressBar.setAlignment(Qt::AlignCenter);
             progressBar.setStyleSheet(kProgressBarStyle);
             painter->save();
-            painter->translate(option.rect.topLeft() + QPoint(0, size.height() / 4 - 1));
+            painter->translate(option_rect.topLeft() + QPoint(0, size.height() / 4 - 1));
             progressBar.render(painter);
             painter->restore();
             break;
         }
         // else, draw the text only
     }
+    // FILE_COLUMN_SIZE comes here
+        if (!text.isEmpty())
+            text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
+    // no break, continue
     case FILE_COLUMN_MTIME:
+        if (index.column() == FILE_COLUMN_MTIME)
+            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>());
+    // no break, continue
     case FILE_COLUMN_KIND:
     {
-        QString text = model->data(index, Qt::DisplayRole).value<QString>();
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option.rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
+        QRect rect(option_rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
+        painter->save();
         painter->setPen(kItemColor);
         painter->setFont(font);
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+        painter->restore();
     }
     break;
     case FILE_COLUMN_PROGRESS:
@@ -157,7 +186,11 @@ FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
     horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+#endif
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -195,6 +228,10 @@ void FileTableView::setModel(QAbstractItemModel *model)
     setColumnHidden(FILE_COLUMN_PROGRESS, true);
     connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
     setSortingEnabled(true);
+
+    // set default sort by folder
+    sortByColumn(FILE_COLUMN_NAME, Qt::AscendingOrder);
+    sortByColumn(FILE_COLUMN_KIND, Qt::DescendingOrder);
 }
 
 const SeafDirent *FileTableView::getSelectedItemFromSource()
@@ -225,6 +262,11 @@ void FileTableView::setupContextMenu()
     connect(download_action_, SIGNAL(triggered()),
             this, SLOT(onOpen()));
     download_action_->setShortcut(QKeySequence::InsertParagraphSeparator);
+
+    saveas_action_ = new QAction(tr("&Save As..."), this);
+    connect(saveas_action_, SIGNAL(triggered()),
+            this, SLOT(onSaveAs()));
+    saveas_action_->setShortcut(Qt::ALT + Qt::Key_S);
 
     rename_action_ = new QAction(tr("&Rename"), this);
     connect(rename_action_, SIGNAL(triggered()),
@@ -262,13 +304,23 @@ void FileTableView::setupContextMenu()
         paste_action_->setEnabled(false);
     }
 
-    cancel_download_action_ = new QAction(tr("Cancel Download (&E)"), this);
+    cancel_download_action_ = new QAction(tr("Canc&el Download"), this);
     connect(cancel_download_action_, SIGNAL(triggered()),
             this, SLOT(onCancelDownload()));
     cancel_download_action_->setShortcut(Qt::ALT + Qt::Key_C);
 
+    sync_subdirectory_action_ = new QAction(tr("&Sync this folder"), this);
+    connect(sync_subdirectory_action_, SIGNAL(triggered()),
+            this, SLOT(onSyncSubdirectory()));
+    sync_subdirectory_action_->setShortcut(Qt::ALT + Qt::Key_S);
+    if (!parent_->account_.isPro() || !parent_->account_.isAtLeastVersion(4, 1, 0)) {
+        sync_subdirectory_action_->setEnabled(false);
+        sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
+    }
+
     context_menu_->setDefaultAction(download_action_);
     context_menu_->addAction(download_action_);
+    context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(move_action_);
@@ -280,8 +332,10 @@ void FileTableView::setupContextMenu()
     context_menu_->addSeparator();
     context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
+    context_menu_->addAction(sync_subdirectory_action_);
 
     this->addAction(download_action_);
+    this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(move_action_);
     this->addAction(copy_action_);
@@ -290,6 +344,7 @@ void FileTableView::setupContextMenu()
     this->addAction(remove_action_);
     this->addAction(update_action_);
     this->addAction(cancel_download_action_);
+    this->addAction(sync_subdirectory_action_);
 
     paste_only_menu_ = new QMenu(this);
     paste_only_menu_->addAction(paste_action_);
@@ -325,6 +380,10 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     //
     const QModelIndex index = proxy_model_->mapToSource(proxy_index);
     const int row = index.row();
+    const SeafDirent *dirent = source_model_->direntAt(row);
+    // if invalid dirent? no sure why it comes
+    if (!dirent)
+        return;
 
     //
     // find if the item is in the selection
@@ -338,7 +397,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             break;
     }
     //
-    // if the item is in the selction and it is a multi-selection
+    // if the item is in the selection
+    // but it is a multi-selection
+    //
     // the situation is different from the single-selection
     // supports: download only (and cancel download action perhaps?)
     //
@@ -346,40 +407,49 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         item_.reset(NULL);
 
         download_action_->setVisible(true);
+        saveas_action_->setVisible(false);
         download_action_->setText(tr("D&ownload"));
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
         update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
+        sync_subdirectory_action_->setVisible(false);
         context_menu_->exec(position);
         return;
     }
 
     //
     // if the item is not in the selection
-    // it is the single-selection situation
+    // and it is the single-selection situation
     //
+    // it is the most common case
+    //
+
+    item_.reset(new SeafDirent(*dirent));
+
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
-
-    const SeafDirent *dirent = source_model_->direntAt(row);
-    item_.reset(new SeafDirent(*dirent));
-
     download_action_->setVisible(true);
     cancel_download_action_->setVisible(false);
+
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
+        saveas_action_->setVisible(false);
+        sync_subdirectory_action_->setVisible(true);
     } else {
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
+        saveas_action_->setVisible(true);
+        sync_subdirectory_action_->setVisible(false);
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_download_action_->setVisible(true);
             download_action_->setVisible(false);
+            saveas_action_->setVisible(false);
         }
     }
 
@@ -429,6 +499,14 @@ void FileTableView::onOpen()
     }
 
     emit direntClicked(*item_);
+}
+
+void FileTableView::onSaveAs()
+{
+    if (item_ == NULL)
+      return;
+
+    emit direntSaveAs(*item_);
 }
 
 void FileTableView::onRename()
@@ -521,6 +599,12 @@ void FileTableView::onCancelDownload()
     emit cancelDownload(*item_);
 }
 
+void FileTableView::onSyncSubdirectory()
+{
+    if (item_ && item_->isDir())
+        emit syncSubdirectory(item_->name);
+}
+
 void FileTableView::dropEvent(QDropEvent *event)
 {
     // only handle external source currently
@@ -536,9 +620,8 @@ void FileTableView::dropEvent(QDropEvent *event)
     Q_FOREACH(const QUrl& url, urls)
     {
         QString path = url.toLocalFile();
-#ifdef Q_WS_MAC
-        if (path.startsWith("/.file/id="))
-            path = utils::mac::get_path_from_fileId_url("file://" + path);
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+        path = utils::mac::fix_file_id_url(path);
 #endif
 
         if(path.isEmpty())
@@ -590,9 +673,10 @@ FileTableModel::FileTableModel(QObject *parent)
 
 void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
 {
+    beginResetModel();
     dirents_ = dirents;
     progresses_.clear();
-    reset();
+    endResetModel();
 }
 
 int FileTableModel::rowCount(const QModelIndex& parent) const
@@ -650,9 +734,9 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     case FILE_COLUMN_SIZE:
         if (dirent.isDir())
             return "";
-        return ::readableFileSize(dirent.size);
+        return dirent.size;
     case FILE_COLUMN_MTIME:
-        return ::translateCommitTime(dirent.mtime);
+        return dirent.mtime;
     case FILE_COLUMN_KIND:
       //TODO: mime file information
         return dirent.isDir() ?  tr("Folder") : tr("Document");
@@ -697,9 +781,8 @@ QVariant FileTableModel::headerData(int section,
 
 const SeafDirent* FileTableModel::direntAt(int row) const
 {
-    if (row > dirents_.size()) {
+    if (row >= dirents_.size())
         return NULL;
-    }
 
     return &dirents_[row];
 }

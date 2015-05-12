@@ -32,6 +32,7 @@ private slots:
     void refreshQss();
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
+    void checkShowWindow(); //dummy slot if qt version is lower than 5.2.0
 
 private:
     Q_DISABLE_COPY(MainWindow)

@@ -40,9 +40,10 @@ void CloneTasksTableModel::updateTasks()
         return;
     }
 
+    beginResetModel();
     if (tasks_.size() != tasks.size()) {
         tasks_ = tasks;
-        reset();
+        endResetModel();
         return;
     }
 
@@ -56,6 +57,7 @@ void CloneTasksTableModel::updateTasks()
         QModelIndex stop = QModelIndex().child(i, MAX_COLUMN - 1);
         emit dataChanged(start, stop);
     }
+    endResetModel();
 }
 
 int CloneTasksTableModel::rowCount(const QModelIndex& parent) const

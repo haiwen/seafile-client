@@ -1,0 +1,84 @@
+Windows Registry Editor Version 5.00
+
+# context menu handler
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"="Seafile"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}]
+@="Seafile"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+[HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Seafile]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE606}"
+
+# Icon Overlay 1 (normal repo icon)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}"="SeafileIconNormal"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}]
+@="SeafileIconNormal"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconNormal"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE607}"
+
+
+# Icon Overlay 2 (syncing icon)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE608}"="SeafileIconSyncing"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE608}]
+@="SeafileIconSyncing"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE608}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconSyncing"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE608}"
+
+# Icon Overlay 3 (error icon)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE609}"="SeafileIconError"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE609}]
+@="SeafileIconError"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE609}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconError"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE609}"
+
+# Icon Overlay 4 (paused icon)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE610}"="SeafileIconPaused"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE610}]
+@="SeafileIconPaused"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE610}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconPaused"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE610}"

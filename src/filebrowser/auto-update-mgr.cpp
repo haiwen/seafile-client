@@ -3,6 +3,7 @@
 #include <QDateTime>
 
 #include "seafile-applet.h"
+#include "ui/tray-icon.h"
 #include "configurator.h"
 #include "account-mgr.h"
 #include "rpc/rpc-client.h"
@@ -60,7 +61,7 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         return;
     }
@@ -102,11 +103,17 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         return;
     const QString local_path = task->localFilePath();
     if (success) {
+        seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
+                                                    tr("Upload Success"),
+                                                    tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()));
         emit fileUpdated(task->repoId(), task->path());
         watcher_.addPath(local_path);
         WatchedFileInfo& info = watch_infos_[local_path];
         info.uploading = false;
     } else {
+        seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
+                                                    tr("Upload Failure"),
+                                                    tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()));
         qDebug("failed to auto update %s\n", toCStr(local_path));
         watch_infos_.remove(local_path);
         return;

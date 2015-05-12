@@ -7,9 +7,11 @@
 #include "api-request.h"
 #include "server-repo.h"
 #include "account.h"
+#include "server-repo.h"
 
 class QNetworkReply;
 class QImage;
+class QStringList;
 
 class ServerRepo;
 class Account;
@@ -111,11 +113,29 @@ private:
     bool read_only_;
 };
 
+class GetRepoRequest : public SeafileApiRequest {
+    Q_OBJECT
+
+public:
+    explicit GetRepoRequest(const Account& account, const QString &repoid);
+    const QString &repoid() { return repoid_; }
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success(const ServerRepo& repo);
+
+private:
+    Q_DISABLE_COPY(GetRepoRequest)
+    const QString repoid_;
+};
+
 class CreateRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit CreateRepoRequest(const Account& account, QString &name, QString &desc, QString &passwd);
+    explicit CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -125,6 +145,23 @@ signals:
 
 private:
     Q_DISABLE_COPY(CreateRepoRequest)
+
+};
+
+class CreateSubrepoRequest : public SeafileApiRequest {
+    Q_OBJECT
+
+public:
+    explicit CreateSubrepoRequest(const Account& account, const QString &name, const QString &repoid , const QString &path, const QString &passwd);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success(const QString& sub_repoid);
+
+private:
+    Q_DISABLE_COPY(CreateSubrepoRequest)
 
 };
 
@@ -257,12 +294,14 @@ class GetAvatarRequest : public SeafileApiRequest {
 public:
     GetAvatarRequest(const Account& account,
                      const QString& email,
+                     qint64 mtime,
                      int size);
 
     ~GetAvatarRequest();
 
     const QString& email() const { return email_; }
     const Account& account() const { return account_; }
+    qint64 mtime() const { return mtime_; }
 
 signals:
     void success(const QImage& avatar);
@@ -278,6 +317,8 @@ private:
     QString email_;
 
     Account account_;
+
+    qint64 mtime_;
 };
 
 class SetRepoPasswordRequest : public SeafileApiRequest {
@@ -295,6 +336,80 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(SetRepoPasswordRequest);
+};
+
+class ServerInfoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    ServerInfoRequest(const Account& account);
+
+signals:
+    void success(const Account &account, const ServerInfo &info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(ServerInfoRequest);
+    const Account& account_;
+};
+
+class LogoutDeviceRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    LogoutDeviceRequest(const Account& account);
+
+    const Account& account() { return account_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(LogoutDeviceRequest);
+
+    Account account_;
+};
+
+class GetRepoTokensRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetRepoTokensRequest(const Account& account,
+                         const QStringList& repo_ids);
+
+    const QMap<QString, QString>& repoTokens() { return repo_tokens_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetRepoTokensRequest);
+
+    QMap<QString, QString> repo_tokens_;
+};
+
+class GetLoginTokenRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetLoginTokenRequest(const Account& account);
+
+    const Account& account() { return account_; }
+
+signals:
+    void success(const QString& token);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetLoginTokenRequest);
+
+    Account account_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

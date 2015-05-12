@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -17,6 +23,7 @@
 #include "tray-icon.h"
 #include "login-dialog.h"
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 
 #include "main-window.h"
 
@@ -57,6 +64,24 @@ void showTestDialog(QWidget *parent)
 
 } // namespace
 
+/// a little helper function to detect if the pos is outside the screens
+static bool isOutsideScreens(const QRect &rect) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QList<QScreen*> screens = QGuiApplication::screens();
+    for (int i = 0; i < screens.size(); ++i) {
+        if (screens[i]->geometry().contains(rect))
+            return false;
+    }
+#else
+    QDesktopWidget *desktop = QApplication::desktop();
+    for (int i = 0; i < desktop->numScreens(); ++i) {
+        if (desktop->screenGeometry(i).contains(rect))
+            return false;
+    }
+#endif
+    return true;
+}
+
 
 MainWindow::MainWindow()
 {
@@ -67,11 +92,13 @@ MainWindow::MainWindow()
     // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
     setWindowFlags(Qt::Window
-#ifndef Q_WS_MAC
+#if !defined(Q_OS_MAC)
                    | Qt::FramelessWindowHint
 #endif
-                   | Qt::WindowSystemMenuHint
-                   | Qt::WindowMinimizeButtonHint);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+                   | Qt::WindowMinimizeButtonHint
+#endif
+                   | Qt::WindowSystemMenuHint);
 
     cloud_view_ = new CloudView;
 
@@ -87,6 +114,11 @@ MainWindow::MainWindow()
 
     createActions();
     setAttribute(Qt::WA_TranslucentBackground, true);
+
+#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+    connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),
+            this, SLOT(checkShowWindow()));
+#endif
 }
 
 void MainWindow::hide()
@@ -111,12 +143,17 @@ bool MainWindow::event(QEvent *ev)
             writeSettings();
         }
     }
+
+    if (ev->type() == QEvent::Hide) {
+        writeSettings();
+    }
+
     return ret;
 }
 
 void MainWindow::changeEvent(QEvent *event)
 {
-// #ifdef Q_WS_WIN
+// #if defined(Q_OS_WIN32)
 //     /*
 //      * Solve the problem of restoring a minimized frameless window on Windows
 //      * See http://stackoverflow.com/questions/18614661/how-to-not-hide-taskbar-item-during-using-hide
@@ -135,7 +172,7 @@ void MainWindow::changeEvent(QEvent *event)
 void MainWindow::showEvent(QShowEvent *event)
 {
     readSettings();
-#ifdef Q_WS_WIN
+#if defined(Q_OS_WIN32)
     /*
      * Another hack to Solve the problem of restoring a minimized frameless window on Windows
      * See http://qt-project.org/forums/viewthread/7081
@@ -146,9 +183,22 @@ void MainWindow::showEvent(QShowEvent *event)
 
 }
 
+// handle osx's applicationShouldHandleReopen
+// QTBUG-10899 OS X: Add support for ApplicationState capability
+void MainWindow::checkShowWindow()
+{
+#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+    if (qApp->applicationState() & Qt::ApplicationActive) {
+        if (qApp->activeModalWidget() || qApp->activePopupWidget() || qApp->activeWindow())
+            return;
+        showWindow();
+    }
+#endif
+}
+
 void MainWindow::createActions()
 {
-    refresh_qss_action_ = new QAction(QIcon(":/images/refresh.png"), tr("Refresh"), this);
+    refresh_qss_action_ = new QAction(QIcon(":/images/toolbar/refresh-gray.png"), tr("Refresh"), this);
     connect(refresh_qss_action_, SIGNAL(triggered()), this, SLOT(refreshQss()));
 }
 
@@ -173,6 +223,10 @@ void MainWindow::showWindow()
     show();
     raise();
     activateWindow();
+    // a hack with UIElement application
+#ifdef Q_OS_MAC
+    utils::mac::orderFrontRegardless(seafApplet->mainWindow()->winId());
+#endif
 }
 
 void MainWindow::refreshQss()
@@ -216,6 +270,11 @@ void MainWindow::readSettings()
     } else {
         pos = settings.value("pos", getDefaultPosition()).toPoint();
         size = settings.value("size", QSize()).toSize();
+
+        // we don't want to be out of screen
+        // at least 1/10 size
+        if (isOutsideScreens(QRect(pos, (size.isValid() ? size : QSize(300, 600))/10)))
+            pos = getDefaultPosition();
     }
 
     first_show = false;

@@ -11,7 +11,7 @@
 #include <QSslConfiguration>
 #include <QSslCertificate>
 #include <QDirIterator>
-
+#include <QTimer>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -19,6 +19,7 @@
 #include "certs-mgr.h"
 #include "api/api-error.h"
 #include "configurator.h"
+#include "network-mgr.h"
 #include "file-browser-requests.h"
 
 #include "tasks.h"
@@ -174,8 +175,9 @@ QString FileNetworkTask::Progress::toString() const
 FileDownloadTask::FileDownloadTask(const Account& account,
                                    const QString& repo_id,
                                    const QString& path,
-                                   const QString& local_path)
-    : FileNetworkTask(account, repo_id, path, local_path)
+                                   const QString& local_path,
+                                   bool is_save_as_task)
+    : FileNetworkTask(account, repo_id, path, local_path), is_save_as_task_(is_save_as_task)
 {
 }
 
@@ -255,23 +257,17 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
 {
     QStringList names;
 
-    QDir dir(local_path_);
     if (local_path_ == "/")
-        qWarning() << "attempt to upload the root directory, you should avoid it";
-    const QString parent_path = QFileInfo(local_path_).absolutePath();
-    int parent_path_size = parent_path.size();
-    if (parent_path != "/")
-        parent_path_size++;
+        qWarning("attempt to upload the root directory, you should avoid it\n");
+    QDir dir(local_path_);
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
     while (iterator.hasNext()) {
         iterator.next();
-        if (!iterator.fileInfo().isDir()) {
-           QString filename = iterator.filePath();
-           names.push_back(filename.right(filename.size() - parent_path_size));
-        }
+        if (!iterator.fileInfo().isDir())
+           names.push_back(dir.relativeFilePath(iterator.filePath()));
     }
 
-    fileserver_task_ = new PostFilesTask(link, path_, parent_path, names, true);
+    fileserver_task_ = new PostFilesTask(link, path_, dir.absolutePath(), names, true);
 }
 
 
@@ -408,7 +404,9 @@ void GetFileTask::sendRequest()
 {
     QNetworkRequest request(url_);
     if (!network_mgr_) {
-        network_mgr_ = new QNetworkAccessManager;
+        static QNetworkAccessManager manager;
+        network_mgr_ = &manager;
+        NetworkManager::instance()->addWatch(network_mgr_);
     }
     reply_ = network_mgr_->get(request);
 
@@ -556,7 +554,9 @@ void PostFileTask::sendRequest()
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
     if (!network_mgr_) {
-        network_mgr_ = new QNetworkAccessManager;
+        static QNetworkAccessManager manager;
+        network_mgr_ = &manager;
+        NetworkManager::instance()->addWatch(network_mgr_);
     }
     reply_ = network_mgr_->post(request, multipart);
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
@@ -587,14 +587,17 @@ PostFilesTask::PostFilesTask(const QUrl& url,
                              const QStringList& names,
                              const bool use_relative)
     : FileServerTask(url, local_path),
-      parent_dir_(parent_dir),
+      // work around with server
+      parent_dir_(parent_dir.endsWith('/') ? parent_dir : parent_dir + "/"),
       name_(QFileInfo(local_path_).fileName()),
       names_(names),
       current_num_(-1),
+      progress_update_timer_(new QTimer(this)),
       use_relative_(use_relative)
 {
     // never used, set it to NULL to avoid segment fault
     reply_ = NULL;
+    connect(progress_update_timer_, SIGNAL(timeout()), this, SLOT(onProgressUpdate()));
 }
 
 PostFilesTask::~PostFilesTask()
@@ -604,12 +607,16 @@ PostFilesTask::~PostFilesTask()
 void PostFilesTask::prepare()
 {
     current_bytes_ = 0;
+    transferred_bytes_ = 0;
     total_bytes_ = 0;
+
     file_sizes.reserve(names_.size());
     Q_FOREACH(const QString &name, names_)
     {
         QString local_path = ::pathJoin(local_path_, name);
-        qint64 file_size = QFileInfo(local_path).size();
+        // approximate the bytes used by http protocol (e.g. the bytes of
+        // header)
+        qint64 file_size = QFileInfo(local_path).size() + 1024;
         file_sizes.push_back(file_size);
         total_bytes_ += file_size;
     }
@@ -617,6 +624,10 @@ void PostFilesTask::prepare()
 
 void PostFilesTask::cancel()
 {
+    if (canceled_) {
+        return;
+    }
+    progress_update_timer_->stop();
     canceled_ = true;
     task_->cancel();
 }
@@ -626,27 +637,38 @@ void PostFilesTask::sendRequest()
     startNext();
 }
 
-void PostFilesTask::onPostTaskProgressUpdate(qint64 bytes, qint64 /* sum_bytes*/)
+void PostFilesTask::onProgressUpdate()
 {
-    emit progressUpdate(current_bytes_ + bytes, total_bytes_);
+    emit progressUpdate(current_bytes_ + transferred_bytes_, total_bytes_);
+}
+
+void PostFilesTask::onPostTaskProgressUpdate(qint64 bytes, qint64 /* sum_bytes */)
+{
+    current_bytes_ = bytes;
 }
 
 void PostFilesTask::onPostTaskFinished(bool success)
 {
-    if (success) {
-        current_bytes_ += file_sizes[current_num_];
-
-        startNext();
+    if (canceled_) {
         return;
     }
-    error_ = task_->error();
-    error_string_ = task_->errorString();
-    http_error_code_ =  task_->httpErrorCode();
-    emit finished(false);
+
+    if (!success) {
+        error_ = task_->error();
+        error_string_ = task_->errorString();
+        http_error_code_ = task_->httpErrorCode();
+        progress_update_timer_->stop();
+        emit finished(false);
+        return;
+    }
+
+    transferred_bytes_ += file_sizes[current_num_];
+    startNext();
 }
 
 void PostFilesTask::startNext()
 {
+    progress_update_timer_->stop();
     if (++current_num_ == names_.size()) {
         emit finished(true);
         return;
@@ -655,7 +677,7 @@ void PostFilesTask::startNext()
     QString file_name = QFileInfo(file_path).fileName();
     QString relative_path;
     if (use_relative_)
-        relative_path = file_path.left(file_path.size() - file_name.size());
+        relative_path = ::pathJoin(QFileInfo(local_path_).fileName(), ::getParentPath(file_path));
 
     // relative_path might be empty, and should be safe to use as well
     task_.reset(new PostFileTask(url_,
@@ -667,6 +689,8 @@ void PostFilesTask::startNext()
             this, SLOT(onPostTaskProgressUpdate(qint64, qint64)));
     connect(task_.data(), SIGNAL(finished(bool)),
             this, SLOT(onPostTaskFinished(bool)));
+    current_bytes_ = 0;
+    progress_update_timer_->start(100);
     task_->start();
 }
 

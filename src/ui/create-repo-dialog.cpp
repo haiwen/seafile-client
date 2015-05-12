@@ -1,4 +1,10 @@
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
 
 #include "utils/utils.h"
 #include "account-mgr.h"
@@ -20,6 +26,11 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
     setupUi(this);
     setWindowTitle(tr("Create a library"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+#if defined(Q_OS_MAC)
+    layout()->setContentsMargins(6, 6, 6, 6);
+    layout()->setSpacing(5);
+#endif
 
     mStatusText->setText("");
 
@@ -60,7 +71,6 @@ void CreateRepoDialog::setAllInputsEnabled(bool enabled)
     mChooseDirBtn->setEnabled(enabled);
     mDirectory->setEnabled(enabled);
     mName->setEnabled(enabled);
-    mDesc->setEnabled(enabled);
     mEncrypteCheckBox->setEnabled(enabled);
 
     bool password_enabled = (mEncrypteCheckBox->checkState() == Qt::Checked) && enabled;
@@ -80,7 +90,8 @@ void CreateRepoDialog::createAction()
     if (request_) {
         delete request_;
     }
-    request_ = new CreateRepoRequest(account_, name_, desc_, passwd_);
+    // use its name as the description
+    request_ = new CreateRepoRequest(account_, name_, name_, passwd_);
 
     connect(request_, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(createSuccess(const RepoDownloadInfo&)));
@@ -113,11 +124,6 @@ bool CreateRepoDialog::validateInputs()
         return false;
     }
 
-    if (mDesc->toPlainText().isEmpty()) {
-        seafApplet->warningBox(tr("Please enter the description"), this);
-        return false;
-    }
-
     encrypted = (mEncrypteCheckBox->checkState() == Qt::Checked) ? true : false;
     if (encrypted) {
          if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
@@ -146,7 +152,6 @@ bool CreateRepoDialog::validateInputs()
     }
 
     name_ = mName->text();
-    desc_ = mDesc->toPlainText();
     path_ = mDirectory->text();
     return true;
 }

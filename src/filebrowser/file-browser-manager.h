@@ -2,7 +2,6 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_MANAGER_H
 #include <QObject>
 #include <QList>
-#include <QWeakPointer>
 #include "api/server-repo.h"
 #include "account.h"
 
@@ -23,13 +22,18 @@ public:
 
   FileBrowserDialog *getDialog(const Account &account, const QString &repo_id);
 
+  void closeAllDialogByAccount(const Account &account);
+
+private slots:
+  void onAboutToClose();
+
 private:
   FileBrowserManager(const FileBrowserManager*); // DELETED
   FileBrowserManager& operator=(const FileBrowserManager*); // DELETED
 
   FileBrowserManager() {}
   static FileBrowserManager *instance_;
-  QList<QWeakPointer<FileBrowserDialog> > dialogs_;
+  QList<FileBrowserDialog*> dialogs_;
 };
 
 

@@ -5,10 +5,18 @@ extern "C" {
 }
 
 #include <vector>
+#include <QtGlobal>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtWidgets>
+#else
 #include <QtGui>
+#endif
+#include <QWidget>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
+#include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "account-mgr.h"
@@ -85,7 +93,7 @@ CloudView::CloudView(QWidget *parent)
     connect(account_mgr, SIGNAL(accountsChanged()),
             this, SLOT(onAccountChanged()));
 
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
     mHeader->setVisible(false);
 #endif
 
@@ -120,6 +128,11 @@ void CloudView::setupHeader()
 void CloudView::createAccountView()
 {
     account_view_ = new AccountView;
+#ifdef Q_OS_MAC
+    account_view_->setContentsMargins(0, 0, 0, -8);
+#else
+    account_view_->setContentsMargins(0, -8, 0, -8);
+#endif
 }
 
 void CloudView::createTabs()
@@ -130,7 +143,7 @@ void CloudView::createTabs()
     repos_tab_ = new ReposTab;
 
     QString base_icon_path = ":/images/tabs/";
-    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "repos.png");
+    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "files.png");
 
     starred_files_tab_ = new StarredFilesTab;
     tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png");
@@ -140,19 +153,19 @@ void CloudView::createTabs()
     connect(tabs_, SIGNAL(currentTabChanged(int)),
             this, SLOT(onTabChanged(int)));
 
-    connect(activities_tab_, SIGNAL(activitiesSupported()),
-            this, SLOT(addActivitiesTab()));
+    bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    if (has_pro_account) {
+        addActivitiesTab();
+    }
 }
 
 void CloudView::addActivitiesTab()
 {
     if (tabs_->count() < 3) {
         QString base_icon_path = ":/images/tabs/";
-        tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "activities.png");
+        tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "history.png");
         tabs_->adjustTabsWidth(rect().width());
     }
-
-    seafApplet->setPro(true);
 }
 
 void CloudView::setupDropArea()
@@ -165,24 +178,23 @@ void CloudView::setupDropArea()
 void CloudView::setupFooter()
 {
     // mDownloadTasksInfo->setText("0");
-    // mDownloadTasksBtn->setIcon(QIcon(":/images/download-gray.png"));
+    // mDownloadTasksBtn->setIcon(QIcon(":/images/toobar/download-gray.png"));
     // mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
 
-    mServerStatusBtn->setIcon(QIcon(":/images/link-green.png"));
-    int w = ::getDPIScaledSize(18);
-    mServerStatusBtn->setIconSize(QSize(w, w));
+    mServerStatusBtn->setIcon(QIcon(":/images/main-panel/connected.png"));
+    mServerStatusBtn->setIconSize(QSize(18, 18));
     connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
 
     // mDownloadRateArrow->setText(QChar(icon_arrow_down));
     // mDownloadRateArrow->setFont(awesome->font(16));
-    mDownloadRateArrow->setPixmap(QPixmap(":/images/arrow-down.png"));
+    mDownloadRateArrow->setPixmap(QPixmap(":/images/main-panel/down.png"));
     mDownloadRate->setText("0 kB/s");
     mDownloadRate->setToolTip(tr("current download rate"));
 
     // mUploadRateArrow->setText(QChar(icon_arrow_up));
     // mUploadRateArrow->setFont(awesome->font(16));
-    mUploadRateArrow->setPixmap(QPixmap(":/images/arrow-up.png"));
+    mUploadRateArrow->setPixmap(QPixmap(":/images/main-panel/up.png"));
     mUploadRate->setText("0 kB/s");
     mUploadRate->setToolTip(tr("current upload rate"));
 }
@@ -190,7 +202,7 @@ void CloudView::setupFooter()
 void CloudView::chooseFolderToSync()
 {
     QString msg = tr("Please Choose a folder to sync");
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
     QString parent_dir = "C:\\";
 #else
     QString parent_dir = QDir::homePath();
@@ -255,6 +267,9 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
                 const QUrl url = ev->mimeData()->urls().at(0);
                 if (url.scheme() == "file") {
                     QString path = url.toLocalFile();
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+                    path = utils::mac::fix_file_id_url(path);
+#endif
                     if (QFileInfo(path).isDir()) {
                         ev->acceptProposedAction();
                     }
@@ -265,6 +280,9 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
             QDropEvent *ev = (QDropEvent *)event;
             const QUrl url = ev->mimeData()->urls().at(0);
             QString path = url.toLocalFile();
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+            path = utils::mac::fix_file_id_url(path);
+#endif
             showCreateRepoDialog(path);
             return true;
         }
@@ -321,8 +339,8 @@ void CloudView::refreshServerStatus()
         tool_tip = tr("some servers not connected");
     }
     mServerStatusBtn->setIcon(QIcon(service->allServersConnected()
-                                    ? ":/images/link-green.png"
-                                    : ":/images/link-red.png"));
+                                    ? ":/images/main-panel/connected.png"
+                                    : ":/images/main-panel/unconnected.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 }
 
@@ -372,12 +390,10 @@ void CloudView::showServerStatusDialog()
 void CloudView::createToolBar()
 {
     tool_bar_ = new QToolBar;
-
-    int w = ::getDPIScaledSize(24);
-    tool_bar_->setIconSize(QSize(w, w));
+    tool_bar_->setIconSize(QSize(24, 24));
 
     std::vector<QAction*> repo_actions = repos_tab_->getToolBarActions();
-    for (int i = 0, n = repo_actions.size(); i < n; i++) {
+    for (size_t i = 0, n = repo_actions.size(); i < n; i++) {
         QAction *action = repo_actions[i];
         tool_bar_->addAction(action);
     }
@@ -387,7 +403,7 @@ void CloudView::createToolBar()
     tool_bar_->addWidget(spacer);
 
     refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(QIcon(":/images/refresh.png"));
+    refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
     tool_bar_->addAction(refresh_action_);
@@ -421,6 +437,10 @@ void CloudView::onAccountChanged()
     refresh_action_->setEnabled(hasAccount());
 
     tabs_->removeTab(2, activities_tab_);
+    bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    if (has_pro_account) {
+        addActivitiesTab();
+    }
     tabs_->adjustTabsWidth(rect().width());
 
     repos_tab_->refresh();
@@ -428,8 +448,6 @@ void CloudView::onAccountChanged()
     activities_tab_->refresh();
 
     account_view_->onAccountChanged();
-
-    seafApplet->setPro(false);
 }
 
 void CloudView::onTabChanged(int index)

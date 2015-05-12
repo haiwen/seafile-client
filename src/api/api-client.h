@@ -40,6 +40,8 @@ private:
 
     bool handleHttpRedirect();
 
+    void resendRequest(const QUrl& url);
+
     static QNetworkAccessManager *na_mgr_;
 
     QString token_;

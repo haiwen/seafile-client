@@ -8,6 +8,7 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
+#include "utils/api-utils.h"
 #include "api-error.h"
 #include "server-repo.h"
 #include "starred-file.h"
@@ -22,6 +23,8 @@ const char *kApiPingUrl = "api2/ping/";
 const char *kApiLoginUrl = "api2/auth-token/";
 const char *kListReposUrl = "api2/repos/";
 const char *kCreateRepoUrl = "api2/repos/";
+const char *kGetRepoUrl = "api2/repos/%1/";
+const char *kCreateSubrepoUrl ="api2/repos/%1/dir/sub_repo/";
 const char *kUnseenMessagesUrl = "api2/unseen_messages/";
 const char *kDefaultRepoUrl = "api2/default-repo/";
 const char *kStarredFilesUrl = "api2/starredfiles/";
@@ -29,12 +32,16 @@ const char *kGetEventsUrl = "api2/events/";
 const char *kCommitDetailsUrl = "api2/repo_history_changes/";
 const char *kAvatarUrl = "api2/avatars/user/";
 const char *kSetRepoPasswordUrl = "api2/repos/";
+const char *kServerInfoUrl ="api2/server-info/";
+const char *kLogoutDeviceUrl = "api2/logout-device/";
+const char *kGetRepoTokensUrl = "api2/repo-tokens/";
+const char *kGetLoginTokenUrl = "api2/client-login/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN32)
 const char *kOsName = "windows";
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 const char *kOsName = "linux";
 #else
 const char *kOsName = "mac";
@@ -69,14 +76,10 @@ LoginRequest::LoginRequest(const QUrl& serverAddr,
     setFormParam("username", username);
     setFormParam("password", password);
 
-    QString client_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
-    QString device_id = seafApplet->rpcClient()->getCcnetPeerId();
-
-    setFormParam("platform", kOsName);
-    setFormParam("device_id", device_id);
-    setFormParam("device_name", computer_name);
-    setFormParam("client_version", client_version);
-    setFormParam("platform_version", "");
+    QHash<QString, QString> params = ::getSeafileLoginParams(computer_name);
+    foreach (const QString& key, params.keys()) {
+        setFormParam(key, params[key]);
+    }
 }
 
 void LoginRequest::requestSuccess(QNetworkReply& reply)
@@ -97,8 +100,6 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
         emit failed(ApiError::fromJsonError());
         return;
     }
-
-    qWarning("login successful, token is %s\n", token);
 
     emit success(token);
 }
@@ -191,17 +192,44 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
 }
 
 /**
+ * GetRepoRequest
+ */
+GetRepoRequest::GetRepoRequest(const Account& account, const QString &repoid)
+    : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetRepoUrl).arg(repoid)),
+                         SeafileApiRequest::METHOD_GET, account.token)
+      , repoid_(repoid)
+{
+}
+
+void GetRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    ServerRepo repo = ServerRepo::fromJSON(root, &error);
+
+    emit success(repo);
+}
+
+/**
  * CreateRepoRequest
  */
-CreateRepoRequest::CreateRepoRequest(const Account& account, QString &name, QString &desc, QString &passwd)
+CreateRepoRequest::CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd)
     : SeafileApiRequest (account.getAbsoluteUrl(kCreateRepoUrl),
                          SeafileApiRequest::METHOD_POST, account.token)
 {
-    this->setFormParam(QString("name"), name);
-    this->setFormParam(QString("desc"), desc);
+    setFormParam(QString("name"), name);
+    setFormParam(QString("desc"), desc);
     if (!passwd.isNull()) {
         qWarning("Encrypted repo");
-        this->setFormParam(QString("passwd"), passwd);
+        setFormParam(QString("passwd"), passwd);
     }
 }
 
@@ -220,6 +248,38 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
     RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), false);
 
     emit success(info);
+}
+
+/**
+ * CreateSubrepoRequest
+ */
+CreateSubrepoRequest::CreateSubrepoRequest(const Account& account, const QString &name, const QString &repoid , const QString &path, const QString &passwd)
+    : SeafileApiRequest (account.getAbsoluteUrl(QString(kCreateSubrepoUrl).arg(repoid)),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    // QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
+    setUrlParam(QString("p"), path);
+    setUrlParam(QString("name"), name);
+    if (!passwd.isNull()) {
+        qWarning("Encrypted repo");
+        setUrlParam(QString("passwd"), passwd);
+    }
+}
+
+void CreateSubrepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    emit success(dict["sub_repo_id"].toString());
 }
 
 /**
@@ -442,16 +502,18 @@ void GetCommitDetailsRequest::requestSuccess(QNetworkReply& reply)
 // /api2/user/foo@foo.com/resized/36
 GetAvatarRequest::GetAvatarRequest(const Account& account,
                                    const QString& email,
+                                   qint64 mtime,
                                    int size)
     : SeafileApiRequest (account.getAbsoluteUrl(
                              kAvatarUrl
                              + email + "/resized/"
                              + QString::number(size) + "/"),
-                         SeafileApiRequest::METHOD_GET, account.token)
+                         SeafileApiRequest::METHOD_GET, account.token),
+      fetch_img_req_(NULL),
+      mtime_(mtime)
 {
     account_ = account;
     email_ = email;
-    fetch_img_req_ = 0;
 }
 
 GetAvatarRequest::~GetAvatarRequest()
@@ -474,6 +536,19 @@ void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
     const char *avatar_url = json_string_value(json_object_get(json.data(), "url"));
+
+    // we don't need to fetch all images if we have latest one
+    json_t *mtime = json_object_get(json.data(), "mtime");
+    if (!mtime) {
+        qWarning("GetAvatarRequest: no 'mtime' value in response\n");
+    } else {
+        qint64 new_mtime = json_integer_value(mtime);
+        if (new_mtime == mtime_) {
+            emit success(QImage());
+            return;
+        }
+        mtime_ = new_mtime;
+    }
 
     if (!avatar_url) {
         qWarning("GetAvatarRequest: no 'url' value in response\n");
@@ -522,4 +597,104 @@ SetRepoPasswordRequest::SetRepoPasswordRequest(const Account& account,
 void SetRepoPasswordRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+ServerInfoRequest::ServerInfoRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kServerInfoUrl),
+                         SeafileApiRequest::METHOD_GET, account.token),
+    account_(account)
+{
+}
+
+void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    ServerInfo ret;
+
+    if (dict.contains("version")) {
+        ret.parseVersionFromString(dict["version"].toString());
+    }
+
+    if (dict.contains("features")) {
+        ret.parseFeatureFromStrings(dict["features"].toStringList());
+    }
+
+    emit success(account_, ret);
+}
+
+LogoutDeviceRequest::LogoutDeviceRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kLogoutDeviceUrl),
+                         SeafileApiRequest::METHOD_POST, account.token),
+      account_(account)
+{
+}
+
+void LogoutDeviceRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
+
+GetRepoTokensRequest::GetRepoTokensRequest(const Account& account,
+                                           const QStringList& repo_ids)
+    : SeafileApiRequest (account.getAbsoluteUrl(kGetRepoTokensUrl),
+                         SeafileApiRequest::METHOD_GET, account.token)
+{
+    setUrlParam("repos", repo_ids.join(","));
+}
+
+void GetRepoTokensRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetRepoTokensRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    foreach (const QString &repo_id, dict.keys()) {
+        repo_tokens_[repo_id] = dict[repo_id].toString();
+    }
+
+    emit success();
+}
+
+GetLoginTokenRequest::GetLoginTokenRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kGetLoginTokenUrl),
+                         SeafileApiRequest::METHOD_POST, account.token),
+      account_(account)
+{
+}
+
+void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetLoginTokenRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    if (!dict.contains("token")) {
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    emit success(dict["token"].toString());
 }

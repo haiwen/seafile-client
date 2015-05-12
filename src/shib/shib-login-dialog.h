@@ -23,7 +23,9 @@ class QNetworkReply;
 class ShibLoginDialog : public QDialog {
     Q_OBJECT
 public:
-    ShibLoginDialog(const QUrl& url, QWidget *parent=0);
+    ShibLoginDialog(const QUrl& url,
+                    const QString& computer_name,
+                    QWidget *parent=0);
 
 private slots:
     void sslErrorHandler(QNetworkReply* reply, const QList<QSslError> & ssl_errors);
@@ -34,6 +36,7 @@ private:
     
     QWebView *webview_;
     QUrl url_;
+    bool cookie_seen_;
 };
 
 

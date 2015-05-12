@@ -1,13 +1,15 @@
 #ifndef SEAFILE_API_REQUEST_H
 #define SEAFILE_API_REQUEST_H
 
+#include <jansson.h>
+
 #include <QObject>
 #include <QUrl>
 #include <QMap>
 #include <QPair>
 #include <QList>
-#include <jansson.h>
 #include <QNetworkReply>
+#include <QHash>
 
 class SeafileApiClient;
 class QSslError;
@@ -28,9 +30,6 @@ public:
     void setUrlParam(const QString& name, const QString& value);
     // set param k-v pair which appears in url-encoded form
     void setFormParam(const QString& name, const QString& value);
-    // be care of this, if formParms are set
-    // data will be overrided
-    void setData(const QByteArray& data) { data_ = data; }
 
     void send();
     void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }
@@ -74,13 +73,11 @@ private:
     Q_DISABLE_COPY(SeafileApiRequest)
 
     QUrl url_;
-    QList<QPair<QByteArray, QByteArray> > params_;
-    QList<QPair<QByteArray, QByteArray> > form_params_;
+    QHash<QString, QString> params_;
+    QHash<QString, QString> form_params_;
     Method method_;
     QString token_;
     SeafileApiClient* api_client_;
-
-    QByteArray data_;
 
     bool ignore_ssl_errors_;
 };

@@ -15,8 +15,10 @@ fi
 
 function regenerate_source() {
     if [ -f build.ninja ]; then
+        cmake -DBUILD_SHIBBOLETH_SUPPORT=on
         ninja update-ts
     elif [ -f Makefile ]; then
+        cmake -DBUILD_SHIBBOLETH_SUPPORT=on
         make update-ts
     else
         local SEAFILE_PROJECT="seafile-client.pro"
@@ -36,10 +38,16 @@ function git_diff() {
 
 function push_source() {
     tx push -s
+    pushd fsplugin
+    tx push -s
+    popd
 }
 
 function pull_translations() {
-    tx pull -a -f
+    tx pull -a -f --minimum-perc=30
+    pushd fsplugin
+    tx pull -a -f --minimum-perc=80
+    popd
 }
 
 echo "This script will help you to regenerate sources of translations, "

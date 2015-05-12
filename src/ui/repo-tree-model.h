@@ -33,6 +33,19 @@ class RepoTreeModel : public QStandardItemModel {
     Q_OBJECT
 
 public:
+    /**
+     * The default sorting order of repo categroies.
+     */
+    enum RepoCategoryIndex {
+        CAT_INDEX_RECENT_UPDATED = 0,
+        CAT_INDEX_MY_REPOS,
+        CAT_INDEX_VIRTUAL_REPOS,
+        CAT_INDEX_SHARED_REPOS,
+        CAT_INDEX_PUBLIC_REPOS,
+        CAT_INDEX_GROUP_REPOS,
+        CAT_INDEX_SYNCED_REPOS,
+    };
+
     RepoTreeModel(QObject *parent=0);
     ~RepoTreeModel();
     void setRepos(const std::vector<ServerRepo>& repos);

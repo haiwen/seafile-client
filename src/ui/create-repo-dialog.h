@@ -33,7 +33,6 @@ private:
 
     QString path_;
     QString name_;
-    QString desc_;
     QString passwd_;
     CreateRepoRequest *request_;
     Account account_;

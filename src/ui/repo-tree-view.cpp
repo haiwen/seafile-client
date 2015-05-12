@@ -506,7 +506,14 @@ void RepoTreeView::viewRepoOnWeb()
 {
     const Account account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
-        QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
+        // we adopt a new format of cloud view url from server version 4.2.0
+        if (!account.isAtLeastVersion(4, 2, 0)) {
+            QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
+        } else {
+            QUrl url = account.getAbsoluteUrl("/");
+            url.setFragment("common/lib/" + selected_repo_.id + "/");
+            QDesktopServices::openUrl(url);
+        }
     }
 }
 

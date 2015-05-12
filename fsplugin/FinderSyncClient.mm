@@ -21,7 +21,8 @@ static NSString *const kFinderSyncMachPort =
 static constexpr int kWatchDirMax = 100;
 static constexpr int kPathMaxSize = 1024;
 static std::mutex mach_msg_mutex_;
-static constexpr uint32_t kFinderSyncProtocolVersion = 1;
+static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
+static volatile int32_t message_id_;
 
 //
 // MachPort Message
@@ -120,8 +121,9 @@ void FinderSyncClient::getWatchSet() {
     if (!connect())
         return;
     mach_msg_command_send_t msg;
+    const int32_t recv_msgh_id = OSAtomicAdd32(2, &message_id_) - 1;
     bzero(&msg, sizeof(mach_msg_header_t));
-    msg.header.msgh_id = 0;
+    msg.header.msgh_id = recv_msgh_id - 1;
     msg.header.msgh_local_port = local_port_;
     msg.header.msgh_remote_port = remote_port_;
     msg.header.msgh_size = sizeof(msg);
@@ -138,10 +140,12 @@ void FinderSyncClient::getWatchSet() {
                                 100,             /*timeout, in milliseconds*/
                                 MACH_PORT_NULL); /*no notification*/
     if (kr != MACH_MSG_SUCCESS) {
+        if (kr == MACH_SEND_INVALID_DEST) {
+            connectionBecomeInvalid();
+            return;
+        }
         NSLog(@"failed to send request to Seafile Client");
         NSLog(@"mach error %s", mach_error_string(kr));
-        if (kr == MACH_SEND_INVALID_DEST)
-            connectionBecomeInvalid();
         return;
     }
 
@@ -152,15 +156,23 @@ void FinderSyncClient::getWatchSet() {
     // recv_msg.header.msgh_size = sizeof(recv_msg);
     // receive the reply
     kr = mach_msg(&recv_msg.header,                /* header*/
-                  MACH_RCV_MSG | MACH_RCV_TIMEOUT, /*option*/
+                  MACH_RCV_MSG | MACH_RCV_TIMEOUT | MACH_RCV_LARGE, /*option*/
                   0,                               /*send size*/
                   sizeof(recv_msg),                /*receive size*/
                   local_port_,                     /*receive port*/
                   100,                             /*timeout, in milliseconds*/
                   MACH_PORT_NULL);                 /*no notification*/
+    if (kr == MACH_RCV_TOO_LARGE) {
+      // retry
+    }
     if (kr != MACH_MSG_SUCCESS) {
         NSLog(@"failed to receive Seafile Client's reply");
         NSLog(@"mach error %s", mach_error_string(kr));
+        return;
+    }
+    if (recv_msg.header.msgh_id != recv_msgh_id) {
+        NSLog(@"mach error unmatched message id %d, expected %d",
+              recv_msg.header.msgh_id, recv_msgh_id);
         return;
     }
     size_t count = (recv_msg.header.msgh_size - sizeof(mach_msg_header_t)) /
@@ -189,7 +201,7 @@ void FinderSyncClient::doSharedLink(const char *fileName) {
         return;
     mach_msg_command_send_t msg;
     bzero(&msg, sizeof(msg));
-    msg.header.msgh_id = 1;
+    msg.header.msgh_id = OSAtomicIncrement32(&message_id_) - 1;
     msg.header.msgh_local_port = MACH_PORT_NULL;
     msg.header.msgh_remote_port = remote_port_;
     msg.header.msgh_size = sizeof(msg);
@@ -200,10 +212,12 @@ void FinderSyncClient::doSharedLink(const char *fileName) {
     // send a message only
     kern_return_t kr = mach_msg_send(&msg.header);
     if (kr != MACH_MSG_SUCCESS) {
-        NSLog(@"failed to send sharing link request for %s", fileName);
-        NSLog(@"mach error %s", mach_error_string(kr));
-        if (kr == MACH_SEND_INVALID_DEST)
+        if (kr == MACH_SEND_INVALID_DEST) {
             connectionBecomeInvalid();
+            return;
+        }
+        NSLog(@"failed to send sharing link request for %s", fileName);
+        NSLog(@"mach error %s from msg id %d", mach_error_string(kr), msg.header.msgh_id);
         return;
     }
 }

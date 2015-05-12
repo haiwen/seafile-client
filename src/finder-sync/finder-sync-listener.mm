@@ -54,7 +54,7 @@ static NSThread *finder_sync_listener_thread_ = nil;
 static int32_t finder_sync_started_ = 0;
 static FinderSyncListener *finder_sync_listener_ = nil;
 static std::unique_ptr<FinderSyncHost> finder_sync_host_;
-static constexpr uint32_t kFinderSyncProtocolVersion = 1;
+static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
 
 @interface FinderSyncListener ()
 @property(readwrite, nonatomic, strong) NSPort *listenerPort;
@@ -169,7 +169,7 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 1;
     mach_msg_watchdir_send_t reply_msg;
     size_t count = finder_sync_host_->getWatchSet(reply_msg.dirs, kWatchDirMax);
     bzero(&reply_msg, sizeof(mach_msg_header_t));
-    reply_msg.header.msgh_id = msg->header.msgh_id + 100;
+    reply_msg.header.msgh_id = msg->header.msgh_id + 1;
     reply_msg.header.msgh_size =
         sizeof(mach_msg_header_t) + count * sizeof(watch_dir_t);
     reply_msg.header.msgh_local_port = MACH_PORT_NULL;
@@ -181,7 +181,6 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 1;
     if (kr != MACH_MSG_SUCCESS) {
         qDebug("[FinderSync] mach error %s", mach_error_string(kr));
         qWarning("[FinderSync] failed to send reply");
-        return;
     }
 
     // destroy

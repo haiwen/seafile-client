@@ -48,7 +48,7 @@ size_t FinderSyncHost::getWatchSet(watch_dir_t *front, size_t max_size) {
 }
 
 void FinderSyncHost::updateWatchSet() {
-    std::lock_guard<std::mutex> watch_set_lock(watch_set_mutex_);
+    std::unique_lock<std::mutex> watch_set_lock(watch_set_mutex_);
 
     SeafileRpcClient *rpc = seafApplet->rpcClient();
 
@@ -63,6 +63,7 @@ void FinderSyncHost::updateWatchSet() {
         for (LocalRepo &repo : watch_set_)
             repo.sync_state = LocalRepo::SYNC_STATE_DISABLED;
     }
+    watch_set_lock.unlock();
 
     timer_->start(kUpdateWatchSetInterval);
 }
@@ -71,9 +72,9 @@ void FinderSyncHost::doShareLink(const QString &path) {
     QString repo_id;
     QString worktree_path;
     {
-        std::lock_guard<std::mutex> watch_set_lock(watch_set_mutex_);
+        std::unique_lock<std::mutex> watch_set_lock(watch_set_mutex_);
         for (const LocalRepo &repo : watch_set_)
-            if(path.startsWith(repo.worktree)) {
+            if (path.startsWith(repo.worktree)) {
                 repo_id = repo.id;
                 worktree_path = repo.worktree;
                 break;

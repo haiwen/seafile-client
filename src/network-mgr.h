@@ -42,7 +42,7 @@ private slots:
 
 private:
     std::vector<QNetworkAccessManager*> managers_;
-    NetworkManager() : should_retry_(true) {}
+    NetworkManager();
     ~NetworkManager() {}
     NetworkManager(const NetworkManager&) /* = delete */ ;
     bool should_retry_;

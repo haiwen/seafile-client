@@ -10,6 +10,7 @@
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "init-seafile-dialog.h"
+#include <vector>
 
 #if defined(Q_OS_WIN32)
 #include <ShlObj.h>
@@ -19,8 +20,7 @@
 namespace {
 
 #if defined(Q_OS_WIN32)
-static QString
-get_largest_drive()
+QString get_largest_drive()
 {
     wchar_t drives[MAX_PATH];
     wchar_t *p, *largest_drive;
@@ -59,6 +59,37 @@ get_largest_drive()
 
     return ret;
 }
+
+QString getSystemDirectory()
+{
+    std::vector<wchar_t> path;
+    path.resize(MAX_PATH);
+
+    UINT len = ::GetSystemDirectoryW(&path[0], MAX_PATH);
+    path.resize(len);
+    if (len > MAX_PATH) {
+        len = ::GetSystemDirectoryW(&path[0], len);
+    }
+    return QString::fromWCharArray(&path[0], (int)len);
+}
+
+inline bool hasSameDrive(const QString& path_a, const QString &path_b)
+{
+    // to detect drive letter of a file, use QFileInfo::absoluteFilePath
+    //                                   (D:\)
+    // On Windows this will always begin 'D:/' where D is a drive letter, except
+    // for network shares that are not mapped to a drive letter
+    // same driver letter?
+    if (path_a.length() < 3 || path_b.length() < 3)
+        return false;
+    if (path_a[0] != path_b[0])
+        return false;
+    if (path_a[1] != ':' || (path_a[2] != '/' && path_a[2] != '\\') ||
+        path_b[1] != ':' || (path_b[2] != '/' && path_b[2] != '\\'))
+        return false;
+    return true;
+}
+
 #endif
 
 
@@ -87,7 +118,15 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
 QString InitSeafileDialog::getInitialPath()
 {
 #if defined(Q_OS_WIN32)
-    return get_largest_drive();
+    QString largest_drive = get_largest_drive();
+    QString home_path = QDir::home().absolutePath();
+    QString sys_path = getSystemDirectory();
+    if (hasSameDrive(largest_drive, sys_path) ||
+        hasSameDrive(largest_drive, home_path))
+        return home_path;
+
+    // work around with UTF-16 bug?
+    return QString::fromUtf8(largest_drive.toUtf8());
 #else
     return QDir::home().path();
 #endif

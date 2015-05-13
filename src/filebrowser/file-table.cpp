@@ -158,6 +158,10 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     // no break, continue
     case FILE_COLUMN_KIND:
     {
+        if (index.column() == FILE_COLUMN_KIND) {
+            bool isDir = model->data(index, Qt::DisplayRole).toBool();
+            text = isDir ? tr("Folder") : tr("Document");
+        }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
         painter->save();
@@ -739,7 +743,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return dirent.mtime;
     case FILE_COLUMN_KIND:
       //TODO: mime file information
-        return dirent.isDir() ?  tr("Folder") : tr("Document");
+        return dirent.isDir();
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:

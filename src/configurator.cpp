@@ -106,9 +106,7 @@ void Configurator::initSeafile()
         first_use_ = true;
 
         QString seafile_dir = dir.absoluteFilePath("Seafile/.seafile-data");
-        QMetaObject::invokeMethod(this, "onSeafileDirSet",
-                                  Qt::QueuedConnection,
-                                  Q_ARG(QString, seafile_dir));
+        onSeafileDirSet(seafile_dir);
         return;
     }
 #endif

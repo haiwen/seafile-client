@@ -10,18 +10,22 @@
 #include "account-mgr.h"
 #include "seafile-applet.h"
 #include "configurator.h"
+#include "repo-service.h"
 #include "api/requests.h"
 #include "api/api-error.h"
 #include "rpc/rpc-client.h"
-#include "create-repo-dialog.h"
+#include "ui/create-repo-dialog.h"
+#include "ui/repos-tab.h"
 
 CreateRepoDialog::CreateRepoDialog(const Account& account,
                                    const QString& worktree,
+                                   ReposTab *repos_tab,
                                    QWidget *parent)
     : QDialog(parent),
       path_(worktree),
       request_(NULL),
-      account_(account)
+      account_(account),
+      repos_tab_(repos_tab)
 {
     setupUi(this);
     setWindowTitle(tr("Create a library"));
@@ -183,6 +187,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
                              QMessageBox::Ok);
         setAllInputsEnabled(true);
     } else {
+        repos_tab_->refresh();
         done(QDialog::Accepted);
     }
 }

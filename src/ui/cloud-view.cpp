@@ -223,10 +223,13 @@ void CloudView::showCreateRepoDialog(const QString& path)
     if (accounts.empty()) {
         return;
     }
-    CreateRepoDialog dialog(accounts[0], path, this);
-    if (dialog.exec() == QDialog::Accepted) {
-        repos_tab_->refresh();
-    }
+
+    CreateRepoDialog *dialog = new CreateRepoDialog(accounts[0], path, repos_tab_, this);
+
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
 }
 
 void CloudView::onMinimizeBtnClicked()
@@ -283,6 +286,8 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
 #if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
             path = utils::mac::fix_file_id_url(path);
 #endif
+            ev->setDropAction(Qt::CopyAction);
+            ev->accept();
             showCreateRepoDialog(path);
             return true;
         }

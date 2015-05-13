@@ -8,6 +8,7 @@
 class CreateRepoRequest;
 class RepoDownloadInfo;
 class ApiError;
+class ReposTab;
 
 class CreateRepoDialog : public QDialog,
                          public Ui::CreateRepoDialog
@@ -16,6 +17,7 @@ class CreateRepoDialog : public QDialog,
 public:
     CreateRepoDialog(const Account& account,
                      const QString& worktree,
+                     ReposTab *repos_tab,
                      QWidget *parent=0);
 
     ~CreateRepoDialog();
@@ -36,4 +38,5 @@ private:
     QString passwd_;
     CreateRepoRequest *request_;
     Account account_;
+    ReposTab *repos_tab_;
 };

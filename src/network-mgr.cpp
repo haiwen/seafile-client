@@ -8,6 +8,10 @@
 #include <QSslCipher>
 namespace {
 QNetworkProxy proxy_;
+template <class T, std::size_t N>
+inline size_t ArrayLengthOf(T (&)[N]) {
+  return N;
+}
 const char *const kWhitelistCiphers[] = {"ECDHE-RSA-AES256-GCM-SHA384"
                                          "ECDHE-RSA-AES128-GCM-SHA256"
                                          "DHE-RSA-AES256-GCM-SHA384"
@@ -71,7 +75,7 @@ NetworkManager::NetworkManager() : should_retry_(true) {
     Q_FOREACH(const QSslCipher &cipher, ciphers)
     {
         bool whitelisted = false;
-        for (unsigned i = 0; i < sizeof(kWhitelistCiphers); ++i) {
+        for (unsigned i = 0; i < ArrayLengthOf(kWhitelistCiphers); ++i) {
             if (cipher.name() == kWhitelistCiphers[i]) {
                 whitelisted = true;
                 break;

@@ -68,6 +68,14 @@ int textWidthInFont(const QString text, const QFont& font)
     return size.width();
 }
 
+int textHeightInFont(const QString text, const QFont& font)
+{
+	QFontMetrics qfm(font);
+	QSize size = qfm.size(Qt::TextSingleLine, text);
+
+    return size.height();
+}
+
 // it might change when screen moves
 // QIcon::addFile will add a "@2x" file if it exists.
 double devicePixelRatio()

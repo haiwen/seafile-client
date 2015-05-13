@@ -25,7 +25,7 @@ namespace {
  */
 
 const int kMarginLeft = 5;
-//const int kMarginRight = 5;
+const int kMarginRight = 5;
 const int kMarginTop = 5;
 const int kMarginBottom = 5;
 const int kPadding = 5;
@@ -39,10 +39,14 @@ const int kMarginBetweenAvatarAndNick = 10;
 
 const char *kNickColor = "#D8AC8F";
 const char *kNickColorHighlighted = "#D8AC8F";
+const char *kRepoNameColor = "#D8AC8F";
+const char *kRepoNameColorHighlighted = "#D8AC8F";
 const char *kDescriptionColor = "#3F3F3F";
 const char *kDescriptionColorHighlighted = "#544D49";
+
 const int kNickFontSize = 16;
 const int kDescriptionFontSize = 13;
+const int kDescriptionHeight = 30;
 
 const char *kEventItemBackgroundColor = "white";
 const char *kEventItemBackgroundColorHighlighted = "#F9E0C7";
@@ -51,10 +55,14 @@ const int kTimeWidth = 100;
 const int kTimeHeight = 30;
 const int kTimeFontSize = 13;
 
+const int kRepoNameWidth = 80;
+
 const char *kTimeColor = "#959595";
 const char *kTimeColorHighlighted = "#9D9B9A";
 
 const int kMarginBetweenNickAndTime = 10;
+
+const int kMarginBetweenRepoNameAndDesc = 18;
 
 
 const char *kItemBottomBorderColor = "#EEE";
@@ -136,11 +144,11 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->drawImage(avatar_pos, masked_image);
     painter->restore();
 
-    int time_width = qMin(kTimeWidth,
+    const int time_width = qMin(kTimeWidth,
         ::textWidthInFont(time_text,
             changeFontSize(painter->font(), kTimeFontSize)));
-    int nick_width = option.rect.width() - kAvatarWidth - kMarginBetweenAvatarAndNick
-        - time_width - kMarginBetweenNickAndTime - kPadding * 2;
+    int nick_width = option.rect.width() - kMarginLeft - kAvatarWidth - kMarginBetweenAvatarAndNick
+        - time_width - kMarginBetweenNickAndTime - kPadding * 2 - kMarginRight;
     nick_width = qMin(nick_width,
                       ::textWidthInFont(event.nick,
                             changeFontSize(painter->font(), kNickFontSize)));
@@ -159,33 +167,56 @@ void EventItemDelegate::paint(QPainter *painter,
 
     // Paint event time
     painter->save();
-    QPoint time_pos = nick_pos + QPoint(nick_width + kMarginBetweenNickAndTime, 0);
+    QPoint time_pos = option.rect.topRight() + QPoint(-time_width - kPadding - kMarginRight, kMarginTop + kPadding);
     QRect time_rect(time_pos, QSize(time_width, kTimeHeight));
     painter->setPen(QColor(selected ? kTimeColorHighlighted : kTimeColor));
     painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
 
     painter->drawText(time_rect,
-                      Qt::AlignLeft | Qt::AlignTop,
+                      Qt::AlignRight | Qt::AlignTop,
                       time_text,
                       &time_rect);
     painter->restore();
 
     // Paint description
     painter->save();
-    QPoint event_desc_pos = nick_rect.bottomLeft() + QPoint(0, 5);
 
-    int desc_width = option.rect.width() - kAvatarWidth - kMarginBetweenAvatarAndNick - kPadding * 2;
+    const int repo_name_width = qMin(kRepoNameWidth, ::textWidthInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize)));
+    const int repo_name_height = ::textHeightInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize));
 
-    QRect event_desc_rect(event_desc_pos, QSize(desc_width, kNickHeight));
+    int desc_width = option.rect.width() - kMarginLeft - kAvatarWidth - kMarginBetweenAvatarAndNick - kPadding * 3 - kMarginBetweenRepoNameAndDesc - repo_name_width - kMarginRight;
+    desc_width = qMin(desc_width, ::textWidthInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)));
+    const int desc_height = ::textHeightInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)) * 2;
+
+    const QPoint event_desc_pos = option.rect.bottomLeft() + QPoint(nick_rect.left(), - desc_height - kPadding - kMarginBottom);
+
+    QRect event_desc_rect(event_desc_pos, QSize(desc_width, desc_height));
     painter->setFont(changeFontSize(painter->font(), kDescriptionFontSize));
     painter->setPen(QColor(selected ? kDescriptionColorHighlighted : kDescriptionColor));
 
     QString desc = event.desc;
     desc.replace(QChar('\n'), QChar(' '));
     painter->drawText(event_desc_rect,
-                      Qt::AlignLeft | Qt::AlignTop,
-                      fitTextToWidth(desc, option.font, desc_width),
+                      Qt::AlignLeft | Qt::AlignTop | Qt::TextWrapAnywhere,
+                      // we have two lines
+                      fitTextToWidth(desc, option.font, desc_width * 2),
                       &event_desc_rect);
+    painter->restore();
+
+    // Paint repo name
+    painter->save();
+
+    const QPoint event_repo_name_pos = option.rect.bottomRight() +
+        QPoint(-repo_name_width - kPadding - kMarginRight,
+               -repo_name_height - kPadding - kMarginBottom);
+
+    QRect event_repo_name_rect(event_repo_name_pos, QSize(repo_name_width, kNickHeight));
+    painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
+    painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
+    painter->drawText(event_repo_name_rect,
+                      Qt::AlignRight | Qt::AlignTop | Qt::TextSingleLine,
+                      fitTextToWidth(event.repo_name, option.font, repo_name_width),
+                      &event_repo_name_rect);
     painter->restore();
 
     // Draw the bottom border lines
@@ -198,7 +229,7 @@ void EventItemDelegate::paint(QPainter *painter,
 QSize EventItemDelegate::sizeHint(const QStyleOptionViewItem& option,
                                   const QModelIndex& index) const
 {
-    int height = kAvatarHeight + kPadding * 2 + kMarginTop + kMarginBottom;
+    int height = kNickHeight + kDescriptionHeight + kPadding * 3;
     return QSize(option.rect.width(), height);
 }
 
@@ -279,7 +310,7 @@ bool EventsListView::viewportEvent(QEvent *event)
     QRect item_rect = visualRect(index);
 
     QString text = "<p style='white-space:pre'>";
-    text += item->event().repo_name;
+    text += item->event().desc;
     text += "</p>";
 
     QToolTip::showText(QCursor::pos(), text, viewport(), item_rect);

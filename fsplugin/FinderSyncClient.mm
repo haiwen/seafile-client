@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <servers/bootstrap.h>
 #include <mutex>
+#include "../src/utils/stl.h"
 
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
@@ -22,7 +23,8 @@ static constexpr int kWatchDirMax = 100;
 static constexpr int kPathMaxSize = 1024;
 static std::mutex mach_msg_mutex_;
 static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
-static volatile int32_t message_id_;
+static volatile int32_t message_id_ =
+    100; // we start from 100, the number below than 100 is reserved
 
 //
 // MachPort Message
@@ -33,6 +35,38 @@ static volatile int32_t message_id_;
 // - mach_msg_trailer_t trailer (for rcv only)
 //
 //
+
+// buffer
+// <----- char? ------------>1   1      1
+// <---- [worktree name] --->0<[status]>0
+static std::vector<LocalRepo> *deserializeWatchSet(const char *buffer,
+                                                   uint32_t size) {
+    std::vector<LocalRepo> *repos = new std::vector<LocalRepo>();
+    const char *const end = buffer + size - 1;
+    const char *pos;
+    unsigned worktree_size;
+    uint8_t status;
+    while (buffer != end) {
+        pos = buffer;
+
+        while (*pos != '\0' && pos != end)
+            ++pos;
+        worktree_size = pos - buffer;
+        pos += 2;
+        if (pos > end || *pos != '\0')
+            break;
+
+        status = *(pos - 1);
+        if (status >= LocalRepo::MAX_SYNC_STATE) {
+            status = LocalRepo::SYNC_STATE_UNSET;
+        }
+
+        repos->emplace_back(std::string(buffer, worktree_size),
+                            static_cast<LocalRepo::SyncState>(status));
+        buffer = ++pos;
+    }
+    return repos;
+}
 
 enum CommandType : uint32_t {
     GetWatchSet = 0,
@@ -45,17 +79,6 @@ struct mach_msg_command_send_t {
     uint32_t command;
     // used only in DoShareLink
     char body[kPathMaxSize];
-};
-
-struct watch_dir_t {
-    char body[kPathMaxSize];
-    uint32_t status;
-};
-
-struct mach_msg_watchdir_rcv_t {
-    mach_msg_header_t header;
-    watch_dir_t dirs[kWatchDirMax];
-    mach_msg_trailer_t trailer;
 };
 
 FinderSyncClient::FinderSyncClient(FinderSync *parent)
@@ -149,44 +172,54 @@ void FinderSyncClient::getWatchSet() {
         return;
     }
 
-    mach_msg_watchdir_rcv_t recv_msg;
-    bzero(&recv_msg, sizeof(mach_msg_header_t));
-    recv_msg.header.msgh_local_port = local_port_;
-    recv_msg.header.msgh_remote_port = remote_port_;
+    utils::BufferArray recv_msg;
+    recv_msg.resize(4096);
+    mach_msg_header_t *recv_msg_header =
+        reinterpret_cast<mach_msg_header_t *>(recv_msg.data());
+    bzero(recv_msg.data(), sizeof(mach_msg_header_t));
+    recv_msg_header->msgh_local_port = local_port_;
+    recv_msg_header->msgh_remote_port = remote_port_;
     // recv_msg.header.msgh_size = sizeof(recv_msg);
     // receive the reply
-    kr = mach_msg(&recv_msg.header,                /* header*/
+    kr = mach_msg(recv_msg_header,                                  /* header*/
                   MACH_RCV_MSG | MACH_RCV_TIMEOUT | MACH_RCV_LARGE, /*option*/
-                  0,                               /*send size*/
-                  sizeof(recv_msg),                /*receive size*/
-                  local_port_,                     /*receive port*/
-                  100,                             /*timeout, in milliseconds*/
-                  MACH_PORT_NULL);                 /*no notification*/
+                  0,               /*send size*/
+                  recv_msg.size(), /*receive size*/
+                  local_port_,     /*receive port*/
+                  100,             /*timeout, in milliseconds*/
+                  MACH_PORT_NULL); /*no notification*/
+    // retry
     if (kr == MACH_RCV_TOO_LARGE) {
-      // retry
+        recv_msg.resize(recv_msg_header->msgh_size +
+                        sizeof(mach_msg_trailer_t));
+        recv_msg_header =
+            reinterpret_cast<mach_msg_header_t *>(recv_msg.data());
+
+        kr = mach_msg(recv_msg_header,                 /* header*/
+                      MACH_RCV_MSG | MACH_RCV_TIMEOUT, /*option*/
+                      0,                               /*send size*/
+                      recv_msg.size(),                 /*receive size*/
+                      local_port_,                     /*receive port*/
+                      100,             /*timeout, in milliseconds*/
+                      MACH_PORT_NULL); /*no notification*/
     }
     if (kr != MACH_MSG_SUCCESS) {
         NSLog(@"failed to receive Seafile Client's reply");
         NSLog(@"mach error %s", mach_error_string(kr));
         return;
     }
-    if (recv_msg.header.msgh_id != recv_msgh_id) {
+    if (recv_msg_header->msgh_id != recv_msgh_id) {
         NSLog(@"mach error unmatched message id %d, expected %d",
-              recv_msg.header.msgh_id, recv_msgh_id);
+              recv_msg_header->msgh_id, recv_msgh_id);
         return;
     }
-    size_t count = (recv_msg.header.msgh_size - sizeof(mach_msg_header_t)) /
-                   sizeof(watch_dir_t);
+    const char *body = recv_msg.data() + sizeof(mach_msg_header_t);
+    uint32_t body_size =
+        (recv_msg_header->msgh_size - sizeof(mach_msg_header_t));
+    std::vector<LocalRepo> *repos = deserializeWatchSet(body, body_size);
     dispatch_async(dispatch_get_main_queue(), ^{
-      std::vector<LocalRepo> repos;
-      for (size_t i = 0; i != count; i++) {
-          LocalRepo repo;
-          repo.worktree = recv_msg.dirs[i].body;
-          repo.status =
-              static_cast<LocalRepo::SyncState>(recv_msg.dirs[i].status);
-          repos.emplace_back(std::move(repo));
-      }
-      [parent_ updateWatchSet:&repos];
+      [parent_ updateWatchSet:repos];
+      delete repos;
     });
 }
 
@@ -217,7 +250,8 @@ void FinderSyncClient::doSharedLink(const char *fileName) {
             return;
         }
         NSLog(@"failed to send sharing link request for %s", fileName);
-        NSLog(@"mach error %s from msg id %d", mach_error_string(kr), msg.header.msgh_id);
+        NSLog(@"mach error %s from msg id %d", mach_error_string(kr),
+              msg.header.msgh_id);
         return;
     }
 }

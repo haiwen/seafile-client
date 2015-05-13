@@ -17,8 +17,11 @@
 struct LocalRepo {
     LocalRepo() = default;
     LocalRepo(const LocalRepo &) = delete;
+    LocalRepo& operator=(const LocalRepo &) = delete;
+
     LocalRepo(LocalRepo &&) = default;
-    enum SyncState : uint32_t {
+    LocalRepo& operator=(LocalRepo &&) = default;
+    enum SyncState : uint8_t {
         SYNC_STATE_DISABLED = 0,
         SYNC_STATE_WAITING = 1,
         SYNC_STATE_INIT = 2,
@@ -27,7 +30,11 @@ struct LocalRepo {
         SYNC_STATE_ERROR = 5,
         SYNC_STATE_UNKNOWN = 6,
         SYNC_STATE_UNSET = 7,
+        MAX_SYNC_STATE,
     };
+    LocalRepo(std::string &&w, SyncState s)
+        : worktree(std::move(w)), status(s) {}
+    LocalRepo(const std::string &w, SyncState s) : worktree(w), status(s) {}
     std::string worktree;
     SyncState status;
     friend bool operator==(const LocalRepo &lhs, const LocalRepo &rhs) {

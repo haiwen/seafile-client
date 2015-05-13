@@ -21,6 +21,7 @@
 //
 //
 
+namespace {
 enum CommandType : uint32_t {
     GetWatchSet = 0,
     DoShareLink = 1,
@@ -41,19 +42,22 @@ struct mach_msg_command_rcv_t {
     char body[kPathMaxSize];
     mach_msg_trailer_t trailer;
 };
-
-struct mach_msg_watchdir_send_t {
-    mach_msg_header_t header;
-    watch_dir_t dirs[kWatchDirMax];
+template <typename T>
+struct QtLaterDeleter {
+public:
+  void operator()(T *ptr) {
+    ptr->deleteLater();
+  }
 };
+} // anonymous namespace
 
 static NSString *const kFinderSyncMachPort = @"com.seafile.seafile-client.findersync.machport";
 // listener related
 static NSThread *finder_sync_listener_thread_ = nil;
 // atomic value
-static int32_t finder_sync_started_ = 0;
+static volatile int32_t finder_sync_started_ = 0;
 static FinderSyncListener *finder_sync_listener_ = nil;
-static std::unique_ptr<FinderSyncHost> finder_sync_host_;
+static std::unique_ptr<FinderSyncHost, QtLaterDeleter<FinderSyncHost>> finder_sync_host_;
 static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
 
 @interface FinderSyncListener ()
@@ -137,8 +141,11 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
     }
 
     if (msg->version != kFinderSyncProtocolVersion) {
-        qWarning("[FinderSync] received unknown message protocol %u", msg->version);
+        NSLog(@"FinderSync uncompatible message protocol version %u", msg->version);
+        qWarning("[FinderSync] uncompatible message protocol version %u", msg->version);
         mach_msg_destroy(&msg->header);
+        // we need to quit before it cause more serious issue!
+        finderSyncListenerStop();
         return;
     }
 
@@ -166,18 +173,19 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
         mach_msg_destroy(&msg->header);
         return;
     }
-    mach_msg_watchdir_send_t reply_msg;
-    size_t count = finder_sync_host_->getWatchSet(reply_msg.dirs, kWatchDirMax);
-    bzero(&reply_msg, sizeof(mach_msg_header_t));
-    reply_msg.header.msgh_id = msg->header.msgh_id + 1;
-    reply_msg.header.msgh_size =
-        sizeof(mach_msg_header_t) + count * sizeof(watch_dir_t);
-    reply_msg.header.msgh_local_port = MACH_PORT_NULL;
-    reply_msg.header.msgh_remote_port = port;
-    reply_msg.header.msgh_bits = MACH_MSGH_BITS_REMOTE(msg->header.msgh_bits);
+    utils::BufferArray reply_msg =
+      finder_sync_host_->getWatchSet(sizeof(mach_msg_header_t));
+    bzero(reply_msg.data(), sizeof(mach_msg_header_t));
+    mach_msg_header_t *reply_msg_header =
+      reinterpret_cast<mach_msg_header_t*>(reply_msg.data());
+    reply_msg_header->msgh_id = msg->header.msgh_id + 1;
+    reply_msg_header->msgh_size = reply_msg.size();
+    reply_msg_header->msgh_local_port = MACH_PORT_NULL;
+    reply_msg_header->msgh_remote_port = port;
+    reply_msg_header->msgh_bits = MACH_MSGH_BITS_REMOTE(msg->header.msgh_bits);
 
     // send the reply
-    kern_return_t kr = mach_msg_send(&reply_msg.header);
+    kern_return_t kr = mach_msg_send(reply_msg_header);
     if (kr != MACH_MSG_SUCCESS) {
         qDebug("[FinderSync] mach error %s", mach_error_string(kr));
         qWarning("[FinderSync] failed to send reply");
@@ -185,29 +193,31 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
 
     // destroy
     mach_msg_destroy(&msg->header);
-    mach_msg_destroy(&reply_msg.header);
+    mach_msg_destroy(reply_msg_header);
 }
 
 @end
 
 void finderSyncListenerStart() {
-    if (!finder_sync_started_) {
+    if (!OSAtomicAdd32Barrier(0, &finder_sync_started_)) {
         // this value is used in different threads
         // keep it in atomic and guarenteed by barrier for safety
         OSAtomicIncrement32Barrier(&finder_sync_started_);
 
-        finder_sync_host_.reset(new FinderSyncHost);
-        finder_sync_listener_ = [[FinderSyncListener alloc] init];
-        finder_sync_listener_thread_ =
-            [[NSThread alloc] initWithTarget:finder_sync_listener_
-                                    selector:@selector(start)
-                                      object:nil];
-        [finder_sync_listener_thread_ start];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          finder_sync_host_.reset(new FinderSyncHost);
+          finder_sync_listener_ = [[FinderSyncListener alloc] init];
+          finder_sync_listener_thread_ =
+              [[NSThread alloc] initWithTarget:finder_sync_listener_
+                                      selector:@selector(start)
+                                        object:nil];
+          [finder_sync_listener_thread_ start];
+        });
     }
 }
 
 void finderSyncListenerStop() {
-    if (finder_sync_started_) {
+    if (OSAtomicAdd32Barrier(0, &finder_sync_started_)) {
         // this value is used in different threads
         // keep it in atomic and guarenteed by barrier for safety
         OSAtomicDecrement32Barrier(&finder_sync_started_);
@@ -217,6 +227,8 @@ void finderSyncListenerStop() {
                                       onThread:finder_sync_listener_thread_
                                     withObject:nil
                                  waitUntilDone:NO];
-        finder_sync_host_.reset();
+        dispatch_async(dispatch_get_main_queue(), ^{
+          finder_sync_host_.reset();
+        });
     }
 }

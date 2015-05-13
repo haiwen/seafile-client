@@ -124,8 +124,13 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
 - (instancetype)init {
     self = [super init];
 
+#ifdef NDEBUG
     NSLog(@"%s launched from %@ ; compiled at %s", __PRETTY_FUNCTION__,
-          [[NSBundle mainBundle] bundlePath], __TIME__);
+          [[NSBundle mainBundle] bundlePath], __DATE__);
+#else
+    NSLog(@"%s launched from %@ ; compiled at %s %s", __PRETTY_FUNCTION__,
+          [[NSBundle mainBundle] bundlePath], __TIME__, __DATE__);
+#endif
 
     // Set up client
     client_ = new FinderSyncClient(self);

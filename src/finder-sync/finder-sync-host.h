@@ -3,14 +3,11 @@
 #include <QObject>
 #include <QString>
 #include <cstdint>
+#include <vector>
+#include "utils/stl.h"
 
 const int kWatchDirMax = 100;
 const int kPathMaxSize = 1024;
-
-struct watch_dir_t {
-    char body[kPathMaxSize];
-    uint32_t status;
-};
 
 class QTimer;
 class FinderSyncHost : public QObject {
@@ -19,7 +16,7 @@ public:
     FinderSyncHost();
     ~FinderSyncHost();
     // called from another thread
-    size_t getWatchSet(watch_dir_t *front, size_t max_size);
+    utils::BufferArray getWatchSet(size_t header_size, int max_size = -1);
 private slots:
     void updateWatchSet();
     void doShareLink(const QString &path);

@@ -54,6 +54,8 @@ SET(CMAKE_EXE_LINKER_FLAGS "-fapplication-extension -e _NSExtensionMain -fobjc-a
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 SET(FSPLUGIN_SRC
+  ../src/utils/stl.cpp
+  ../src/utils/stl.h
   FinderSync.mm
   FinderSyncClient.mm
   )

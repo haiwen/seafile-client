@@ -35,16 +35,47 @@ FinderSyncHost::~FinderSyncHost() {
     timer_->stop();
 }
 
-size_t FinderSyncHost::getWatchSet(watch_dir_t *front, size_t max_size) {
-    std::lock_guard<std::mutex> watch_set_lock(watch_set_mutex_);
+utils::BufferArray FinderSyncHost::getWatchSet(size_t header_size, int max_size) {
+    std::unique_lock<std::mutex> watch_set_lock(watch_set_mutex_);
 
-    size_t count = (watch_set_.size() > max_size) ? max_size : watch_set_.size();
-    for (size_t i = 0; i != count; ++i, ++front) {
-        strncpy(front->body, watch_set_[i].worktree.toUtf8().data(),
-                kPathMaxSize);
-        front->status = watch_set_[i].sync_state;
+    std::vector<QByteArray> array;
+    size_t byte_count = header_size;
+
+    unsigned count = (max_size >= 0 && watch_set_.size() > (unsigned)max_size) ? max_size : watch_set_.size();
+    for (unsigned i = 0; i != count; ++i) {
+        array.emplace_back(watch_set_[i].worktree.toUtf8());
+        byte_count += array.back().size() + 3;
     }
-    return count;
+    // rount byte_count to longword-size
+    size_t round_end = byte_count & 3;
+    if (round_end)
+        byte_count += 4 - round_end;
+
+    utils::BufferArray retval;
+    retval.resize(byte_count);
+
+    // zeroize rounds
+    switch (round_end) {
+      case 1:
+          retval[byte_count - 3] = '\0';
+      case 2:
+          retval[byte_count - 2] = '\0';
+      case 3:
+          retval[byte_count - 1] = '\0';
+      default:
+        break;
+    }
+
+    assert(retval.size() == byte_count);
+    char* pos = retval.data() + header_size;
+    for (unsigned i = 0; i != count; ++i) {
+        memcpy(pos, array[i].data(), array[i].size() + 1);
+        pos += array[i].size() + 1;
+        *pos++ = watch_set_[i].sync_state;
+        *pos++ = '\0';
+    }
+
+    return retval;
 }
 
 void FinderSyncHost::updateWatchSet() {

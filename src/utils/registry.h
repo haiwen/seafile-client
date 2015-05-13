@@ -31,6 +31,7 @@ public:
                DWORD value);
 
     int add();
+    void read();
     void remove();
     bool exists();
 

@@ -25,13 +25,14 @@ namespace {
 enum CommandType : uint32_t {
     GetWatchSet = 0,
     DoShareLink = 1,
+    DoGetFileStatus = 2,
 };
 
 struct mach_msg_command_send_t {
     mach_msg_header_t header;
     uint32_t version;
     uint32_t command;
-    // used only in DoShareLink
+    char repo[36];
     char body[kPathMaxSize];
 };
 
@@ -39,9 +40,18 @@ struct mach_msg_command_rcv_t {
     mach_msg_header_t header;
     uint32_t version;
     uint32_t command;
+    char repo[36];
     char body[kPathMaxSize];
     mach_msg_trailer_t trailer;
 };
+
+struct mach_msg_file_status_send_t {
+    mach_msg_header_t header;
+    uint32_t version;
+    uint32_t command;
+    uint32_t status;
+};
+
 template <typename T>
 struct QtLaterDeleter {
 public:
@@ -59,6 +69,60 @@ static volatile int32_t finder_sync_started_ = 0;
 static FinderSyncListener *finder_sync_listener_ = nil;
 static std::unique_ptr<FinderSyncHost, QtLaterDeleter<FinderSyncHost>> finder_sync_host_;
 static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
+
+static void handleGetFileStatus(mach_msg_command_rcv_t* msg) {
+    // generate reply
+    mach_port_t port = msg->header.msgh_remote_port;
+    if (!port)
+        return;
+    mach_msg_file_status_send_t reply_msg;
+    bzero(&reply_msg, sizeof(mach_msg_header_t));
+    mach_msg_header_t *reply_msg_header =
+      reinterpret_cast<mach_msg_header_t*>(&reply_msg);
+    reply_msg_header->msgh_id = msg->header.msgh_id + 1;
+    reply_msg_header->msgh_size = sizeof(mach_msg_file_status_send_t);
+    reply_msg_header->msgh_local_port = MACH_PORT_NULL;
+    reply_msg_header->msgh_remote_port = port;
+    reply_msg_header->msgh_bits = MACH_MSGH_BITS_REMOTE(msg->header.msgh_bits);
+    reply_msg.status = finder_sync_host_->getFileStatus(msg->repo, msg->body);
+
+    // send the reply
+    kern_return_t kr = mach_msg_send(reply_msg_header);
+    if (kr != MACH_MSG_SUCCESS) {
+        qDebug("[FinderSync] mach error %s", mach_error_string(kr));
+        qWarning("[FinderSync] failed to send reply");
+    }
+
+    // destroy
+    mach_msg_destroy(reply_msg_header);
+}
+
+static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
+    // generate reply
+    mach_port_t port = msg->header.msgh_remote_port;
+    if (!port)
+        return;
+    utils::BufferArray reply_msg =
+      finder_sync_host_->getWatchSet(sizeof(mach_msg_header_t));
+    bzero(reply_msg.data(), sizeof(mach_msg_header_t));
+    mach_msg_header_t *reply_msg_header =
+      reinterpret_cast<mach_msg_header_t*>(reply_msg.data());
+    reply_msg_header->msgh_id = msg->header.msgh_id + 1;
+    reply_msg_header->msgh_size = reply_msg.size();
+    reply_msg_header->msgh_local_port = MACH_PORT_NULL;
+    reply_msg_header->msgh_remote_port = port;
+    reply_msg_header->msgh_bits = MACH_MSGH_BITS_REMOTE(msg->header.msgh_bits);
+
+    // send the reply
+    kern_return_t kr = mach_msg_send(reply_msg_header);
+    if (kr != MACH_MSG_SUCCESS) {
+        qDebug("[FinderSync] mach error %s", mach_error_string(kr));
+        qWarning("[FinderSync] failed to send reply");
+    }
+
+    // destroy
+    mach_msg_destroy(reply_msg_header);
+}
 
 @interface FinderSyncListener ()
 @property(readwrite, nonatomic, strong) NSPort *listenerPort;
@@ -150,50 +214,23 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
     }
 
     switch (msg->command) {
+    case GetWatchSet:
+        handleGetWatchSet(msg);
+        break;
     case DoShareLink:
         // handle DoShareLink
         QMetaObject::invokeMethod(finder_sync_host_.get(), "doShareLink",
                                   Qt::QueuedConnection,
                                   Q_ARG(QString, msg->body));
-        mach_msg_destroy(&msg->header);
-        return;
-    case GetWatchSet:
+        break;
+    case DoGetFileStatus:
+        handleGetFileStatus(msg);
         break;
     default:
         qWarning("[FinderSync] received unknown command %u", msg->command);
-        mach_msg_destroy(&msg->header);
-        return;
+        break;
     }
-
-    // handle GetWatchSet
-
-    // generate reply
-    mach_port_t port = msg->header.msgh_remote_port;
-    if (!port) {
-        mach_msg_destroy(&msg->header);
-        return;
-    }
-    utils::BufferArray reply_msg =
-      finder_sync_host_->getWatchSet(sizeof(mach_msg_header_t));
-    bzero(reply_msg.data(), sizeof(mach_msg_header_t));
-    mach_msg_header_t *reply_msg_header =
-      reinterpret_cast<mach_msg_header_t*>(reply_msg.data());
-    reply_msg_header->msgh_id = msg->header.msgh_id + 1;
-    reply_msg_header->msgh_size = reply_msg.size();
-    reply_msg_header->msgh_local_port = MACH_PORT_NULL;
-    reply_msg_header->msgh_remote_port = port;
-    reply_msg_header->msgh_bits = MACH_MSGH_BITS_REMOTE(msg->header.msgh_bits);
-
-    // send the reply
-    kern_return_t kr = mach_msg_send(reply_msg_header);
-    if (kr != MACH_MSG_SUCCESS) {
-        qDebug("[FinderSync] mach error %s", mach_error_string(kr));
-        qWarning("[FinderSync] failed to send reply");
-    }
-
-    // destroy
     mach_msg_destroy(&msg->header);
-    mach_msg_destroy(reply_msg_header);
 }
 
 @end

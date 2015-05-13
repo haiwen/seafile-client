@@ -10,6 +10,7 @@
 #import "FinderSyncClient.h"
 #include <utility>
 #include <map>
+#include <unordered_map>
 #include <algorithm>
 
 #if !__has_feature(objc_arc)
@@ -19,105 +20,185 @@
 @interface FinderSync ()
 
 @property(readwrite, nonatomic, strong) NSTimer *update_watch_set_timer_;
+@property(readwrite, nonatomic, strong) NSTimer *update_file_status_timer_;
 @end
 
-static std::vector<LocalRepo> watched_repos_;
-static std::map<std::string, std::vector<NSURL *>> mapped_observed_files_;
-static FinderSyncClient *client_ = nullptr;
-static constexpr double kGetWatchSetInterval = 5.0; // seconds
-static const NSArray *badgeIdentifiers = @[
-    @"DISABLED",
-    @"WAITING",
-    @"INIT",
-    @"ING",
-    @"DONE",
-    @"ERROR",
-    @"UNKNOWN",
+static const NSArray *const kBadgetIdentifiers = @[
     // According to the document
     // https://developer.apple.com/library/mac/documentation/FinderSync/Reference/FIFinderSyncController_Class/#//apple_ref/occ/instm/FIFinderSyncController/setBadgeIdentifier:forURL:
     // Setting the identifier to an empty string (@"") removes the badge.
-    @"",
+    @"",       // none
+    @"syncing", // syncing
+    @"error",   // error
+    @"",       // ignored
+    @"synced",  // synced
+    @"paused",  // paused
 ];
 
 // Set up images for our badge identifiers. For demonstration purposes,
 static void initializeBadgeImages() {
     // Set up images for our badge identifiers. For demonstration purposes,
-    // this
-    // uses off-the-shelf images.
-    // DISABLED
-    [[FIFinderSyncController defaultController]
-             setBadgeImage:[NSImage imageNamed:@"status-unknown.icns"]
-                     label:NSLocalizedString(@"Sync Disabled", @"Status Disabled")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_DISABLED]];
-    // WAITING,
-    [[FIFinderSyncController defaultController]
-             setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
-                     label:NSLocalizedString(@"Finished", @"Status Finished")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_WAITING]];
-    // INIT,
-    [[FIFinderSyncController defaultController]
-             setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
-                     label:NSLocalizedString(@"Finished", @"Status Finished")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_INIT]];
-    // ING,
+    // NONE,
+    // @""
+    // SYNCING,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-syncing.icns"]
                      label:NSLocalizedString(@"Syncing", @"Status Syncing")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_ING]];
-    // DONE,
-    [[FIFinderSyncController defaultController]
-             setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
-                     label:NSLocalizedString(@"Finished", @"Status Finished")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_DONE]];
+        forBadgeIdentifier:kBadgetIdentifiers[PathStatus::SYNC_STATUS_SYNCING]];
     // ERROR,
     [[FIFinderSyncController defaultController]
              setBadgeImage:[NSImage imageNamed:@"status-error.icns"]
                      label:NSLocalizedString(@"Error", @"Status Erorr")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_ERROR]];
-    // UNKNOWN,
+        forBadgeIdentifier:kBadgetIdentifiers[PathStatus::SYNC_STATUS_ERROR]];
+    // SYNCED,
     [[FIFinderSyncController defaultController]
-             setBadgeImage:[NSImage imageNamed:@"status-unknown.icns"]
-                     label:NSLocalizedString(@"Unknown Error", @"Status Unknown")
-        forBadgeIdentifier:badgeIdentifiers[LocalRepo::SYNC_STATE_UNKNOWN]];
+             setBadgeImage:[NSImage imageNamed:@"status-done.icns"]
+                     label:NSLocalizedString(@"Finished", @"Status Finished")
+        forBadgeIdentifier:kBadgetIdentifiers[PathStatus::SYNC_STATUS_SYNCED]];
+    // PAUSED,
+    [[FIFinderSyncController defaultController]
+             setBadgeImage:[NSImage imageNamed:@"status-ignored.icns"]
+                     label:NSLocalizedString(@"Paused", @"Status Paused")
+        forBadgeIdentifier:kBadgetIdentifiers[PathStatus::SYNC_STATUS_PAUSED]];
 }
 
-inline static void setBadgeIdentifierFor(NSURL *url,
-                                         LocalRepo::SyncState status) {
+inline static void setBadgeIdentifierFor(NSURL *url, PathStatus status) {
     [[FIFinderSyncController defaultController]
-        setBadgeIdentifier:badgeIdentifiers[status]
+        setBadgeIdentifier:kBadgetIdentifiers[status]
                     forURL:url];
 }
 
 inline static void setBadgeIdentifierFor(const std::string &path,
-                                         LocalRepo::SyncState status) {
+                                         PathStatus status) {
+    bool isDirectory = path.back() == '/';
+    std::string file = path;
+    if (isDirectory)
+        file.resize(file.size() - 1);
     setBadgeIdentifierFor(
-        [NSURL fileURLWithFileSystemRepresentation:path.c_str()
-                                       isDirectory:YES
-                                     relativeToURL:nil],
+        [NSURL fileURLWithPath:[NSString stringWithUTF8String:file.c_str()]
+                   isDirectory:isDirectory],
         status);
 }
 
+inline static bool isUnderFolderDirectly(const std::string &path,
+                                         const std::string &dir) {
+    if (strncmp(dir.data(), path.data(), dir.size()) != 0) {
+        return false;
+    }
+    const char *pos = path.data() + dir.size();
+    const char *end = pos + path.size() - (dir.size());
+    if (end == pos)
+        return true;
+    // remove the trailing "/" in the end
+    if (*(end - 1) == '/')
+        --end;
+    while (pos != end)
+        if (*pos++ == '/')
+            return false;
+    return true;
+}
+
 inline static std::vector<LocalRepo>::const_iterator
-findRepo(const std::vector<LocalRepo> &repos, const LocalRepo &repo) {
+findRepo(const std::vector<LocalRepo> &repos, const std::string &repo_id) {
     auto pos = repos.begin();
     for (; pos != repos.end(); ++pos) {
-        if (repo == *pos)
+        if (repo_id == pos->repo_id)
             break;
     }
     return pos;
+}
+
+inline static std::string getRelativePath(const std::string &path,
+                                          const std::string &prefix) {
+
+    std::string relative_path;
+    // remove the trailing "/" in the header
+    if (path.size() != prefix.size()) {
+        relative_path = std::string(path.data() + prefix.size() + 1,
+                                    path.size() - prefix.size() - 1);
+    }
+    return relative_path;
+}
+
+inline static bool isContainsPrefix(const std::string &path,
+                                    const std::string &prefix) {
+    return 0 == strncmp(prefix.data(), path.data(), prefix.size());
 }
 
 inline static std::vector<LocalRepo>::const_iterator
 findRepoContainPath(const std::vector<LocalRepo> &repos,
                     const std::string &path) {
-    auto pos = repos.begin();
-    for (; pos != repos.end(); ++pos) {
-        if (0 ==
-            strncmp(pos->worktree.data(), path.data(), pos->worktree.size()))
-            break;
+    for (auto repo = repos.begin(); repo != repos.end(); ++repo) {
+        if (isContainsPrefix(path, repo->worktree))
+            return repo;
     }
-    return pos;
+    return repos.end();
 }
+
+inline static void cleanEntireDirectoryStatus(
+    std::unordered_map<std::string, PathStatus> *file_status,
+    const std::string &dir) {
+    for (auto file = file_status->begin(); file != file_status->end();) {
+        auto pos = file++;
+        if (!isContainsPrefix(pos->first, dir))
+            continue;
+        setBadgeIdentifierFor(pos->first, PathStatus::SYNC_STATUS_NONE);
+        file_status->erase(pos);
+    }
+}
+
+inline static void
+cleanDirectoryStatus(std::unordered_map<std::string, PathStatus> *file_status,
+                     const std::string &dir) {
+    for (auto file = file_status->begin(); file != file_status->end();) {
+        auto pos = file++;
+        if (!isUnderFolderDirectly(pos->first, dir))
+            continue;
+        file_status->erase(pos);
+    }
+}
+
+static void
+cleanFileStatus(std::unordered_map<std::string, PathStatus> *file_status,
+                const std::vector<LocalRepo> &watch_set,
+                const std::vector<LocalRepo> &new_watch_set) {
+    for (const auto &repo : watch_set) {
+        bool found = false;
+        for (const auto &new_repo : new_watch_set) {
+            if (repo == new_repo) {
+                found = true;
+                break;
+            }
+        }
+        // cleanup old
+        if (!found) {
+            // clean up root
+            setBadgeIdentifierFor(repo.worktree, PathStatus::SYNC_STATUS_NONE);
+
+            // clean up leafs
+            cleanEntireDirectoryStatus(file_status, repo.worktree);
+        }
+    }
+    for (const auto &new_repo : new_watch_set) {
+        bool found = false;
+        for (const auto &repo : watch_set) {
+            if (repo == new_repo) {
+                found = true;
+                break;
+            }
+        }
+        // add new if necessary
+        if (!found)
+            file_status->emplace(new_repo.worktree + "/",
+                                 PathStatus::SYNC_STATUS_NONE);
+    }
+}
+
+static std::vector<LocalRepo> watched_repos_;
+static std::unordered_map<std::string, PathStatus> file_status_;
+static FinderSyncClient *client_ = nullptr;
+static constexpr double kGetWatchSetInterval = 5.0;   // seconds
+static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
 @implementation FinderSync
 
@@ -141,6 +222,13 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
                                        userInfo:nil
                                         repeats:YES];
 
+    self.update_file_status_timer_ = [NSTimer
+        scheduledTimerWithTimeInterval:kGetFileStatusInterval
+                                target:self
+                              selector:@selector(requestUpdateFileStatus)
+                              userInfo:nil
+                               repeats:YES];
+
     [FIFinderSyncController defaultController].directoryURLs = nil;
 
     return self;
@@ -148,77 +236,66 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
 
 - (void)dealloc {
     delete client_;
-    NSLog(@"%s unloaded ; compiled at %s", __PRETTY_FUNCTION__, __TIME__);
 }
 
 #pragma mark - Primary Finder Sync protocol methods
 
 - (void)beginObservingDirectoryAtURL:(NSURL *)url {
-    std::string file_path = url.fileSystemRepresentation;
+    // convert NFD to NFC
+    std::string absolute_path =
+        url.path.precomposedStringWithCanonicalMapping.UTF8String;
 
-    // find the worktree dir in local repos
-    auto pos_of_repo = findRepoContainPath(watched_repos_, file_path);
-    if (pos_of_repo == watched_repos_.end())
+    // find where we have it
+    auto repo = findRepoContainPath(watched_repos_, absolute_path);
+    if (repo == watched_repos_.end())
         return;
 
-    // insert the node based on worktree dir
-    auto pos_of_observed_file =
-        mapped_observed_files_.find(pos_of_repo->worktree);
-    if (pos_of_observed_file == mapped_observed_files_.end())
-        mapped_observed_files_.emplace(std::move(file_path),
-                                       std::vector<NSURL *>());
+    if (absolute_path.back() != '/')
+        absolute_path += "/";
+
+    file_status_.emplace(absolute_path, PathStatus::SYNC_STATUS_NONE);
 }
 
 - (void)endObservingDirectoryAtURL:(NSURL *)url {
-    std::string file_path = url.fileSystemRepresentation;
+    // convert NFD to NFC
+    std::string absolute_path =
+        url.path.precomposedStringWithCanonicalMapping.UTF8String;
 
-    // find the repo in watch repos
-    auto pos_of_repo = findRepoContainPath(watched_repos_, file_path);
-    if (pos_of_repo == watched_repos_.end())
-        return;
+    if (absolute_path.back() != '/')
+        absolute_path += "/";
 
-    // find the items in observed items
-    auto pos_of_observed_file =
-        mapped_observed_files_.find(pos_of_repo->worktree);
-    if (pos_of_observed_file == mapped_observed_files_.end())
-        return;
-
-    // only remove the items under the exact current dir
-    auto &filelist = pos_of_observed_file->second;
-    filelist.erase(
-        std::remove_if(filelist.begin(), filelist.end(), [&](NSURL *fileurl) {
-            return [url isEqual:[fileurl URLByDeletingLastPathComponent]];
-        }), filelist.end());
+    cleanDirectoryStatus(&file_status_, absolute_path);
 }
 
 - (void)requestBadgeIdentifierForURL:(NSURL *)url {
-    std::string file_path = url.fileSystemRepresentation;
+    // convert NFD to NFC
+    std::string file_path =
+        url.path.precomposedStringWithCanonicalMapping.UTF8String;
 
     // find where we have it
-    auto pos_of_repo = findRepoContainPath(watched_repos_, file_path);
-    if (pos_of_repo == watched_repos_.end())
+    auto repo = findRepoContainPath(watched_repos_, file_path);
+    if (repo == watched_repos_.end())
         return;
 
-    // find where we have it
-    auto pos_of_observed_file = std::find_if(
-        mapped_observed_files_.begin(), mapped_observed_files_.end(),
-        [&](decltype(mapped_observed_files_)::value_type &observed_file) {
-            return 0 == strncmp(observed_file.first.data(), file_path.data(),
-                                observed_file.first.size());
+    NSNumber *isDirectory;
+    if ([url getResourceValue:&isDirectory
+                       forKey:NSURLIsDirectoryKey
+                        error:nil] &&
+        [isDirectory boolValue]) {
+        file_path += "/";
+    }
 
+    std::string repo_id = repo->repo_id;
+    std::string relative_path = getRelativePath(file_path, repo->worktree);
+    if (relative_path.empty())
+        return;
+
+    file_status_.emplace(file_path, PathStatus::SYNC_STATUS_NONE);
+    setBadgeIdentifierFor(file_path, PathStatus::SYNC_STATUS_NONE);
+    dispatch_async(
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+          client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
         });
-    if (pos_of_observed_file == mapped_observed_files_.end())
-        return;
-
-    // TODO remove this to update items in the worktree
-    if (file_path != pos_of_repo->worktree)
-        return;
-
-    // insert it into observed file list
-    pos_of_observed_file->second.push_back(url);
-
-    // set badge image
-    setBadgeIdentifierFor(url, pos_of_repo->status);
 }
 
 #pragma mark - Menu and toolbar item support
@@ -244,7 +321,8 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
     // Produce a menu for the extension.
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     NSMenuItem *shareLinkItem =
-        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Share Link", @"Get Seafile Share Link")
+        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Share Link",
+                                                 @"Get Seafile Share Link")
                         action:@selector(shareLinkAction:)
                  keyEquivalent:@""];
     NSImage *seafileImage = [NSImage imageNamed:@"seafile.icns"];
@@ -260,21 +338,20 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
         return;
     NSURL *item = items.firstObject;
 
-    std::string fileName = [item fileSystemRepresentation];
-
     // do it in another thread
+    std::string path = [[item path] UTF8String];
     dispatch_async(
         dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-          client_->doSharedLink(fileName.c_str());
+          client_->doSharedLink(path.c_str());
         });
 }
 
 - (void)requestUpdateWatchSet {
     // do it in another thread
-    dispatch_async(
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-          client_->getWatchSet();
-        });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+                   ^{
+                     client_->getWatchSet();
+                   });
 }
 
 - (void)updateWatchSet:(void *)ptr_to_new_watched_repos {
@@ -283,57 +360,7 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
         new_watched_repos = std::move(
             *static_cast<std::vector<LocalRepo> *>(ptr_to_new_watched_repos));
 
-    // unset outdate repos
-    // (partly done by endObservingDirectoryAtURL, but it is not sufficient)
-    //
-    for (auto &repo : watched_repos_) {
-        // if confilcting, we don't need to unset it
-        if (new_watched_repos.end() != findRepo(new_watched_repos, repo))
-            continue;
-
-        // set up for the root of worktree
-        setBadgeIdentifierFor(repo.worktree, LocalRepo::SYNC_STATE_UNSET);
-
-        // update the belonging observed items if any
-        auto pos_of_observed_file = mapped_observed_files_.find(repo.worktree);
-
-        // skip if not items observed
-        if (pos_of_observed_file == mapped_observed_files_.end())
-            continue;
-
-        // update old files status
-        for (NSURL *url : pos_of_observed_file->second)
-            setBadgeIdentifierFor(url, LocalRepo::SYNC_STATE_UNSET);
-    }
-
-    // update all dirs and files in new repos
-    for (auto &new_repo : new_watched_repos) {
-        // if not conflicting repo, namely, newly-added repo
-        auto pos_of_old_repo = findRepo(watched_repos_, new_repo);
-        if (watched_repos_.end() == pos_of_old_repo) {
-            // set up for the root of worktree
-            setBadgeIdentifierFor(new_repo.worktree, new_repo.status);
-            continue;
-        }
-
-        // update for the root of worktree
-        setBadgeIdentifierFor(new_repo.worktree, new_repo.status);
-
-        // skip if not items observed
-        auto pos_of_observed_file =
-            mapped_observed_files_.find(new_repo.worktree);
-
-        // update only the ones which status has been changed
-        if (pos_of_observed_file == mapped_observed_files_.end() ||
-            pos_of_old_repo->status == new_repo.status)
-            continue;
-
-        LocalRepo::SyncState new_status = new_repo.status;
-
-        // update old files status
-        for (NSURL *url : pos_of_observed_file->second)
-            setBadgeIdentifierFor(url, new_status);
-    }
+    cleanFileStatus(&file_status_, watched_repos_, new_watched_repos);
 
     // overwrite the old watch set
     watched_repos_ = std::move(new_watched_repos);
@@ -342,22 +369,56 @@ findRepoContainPath(const std::vector<LocalRepo> &repos,
     NSMutableArray *array =
         [NSMutableArray arrayWithCapacity:watched_repos_.size()];
     for (const LocalRepo &repo : watched_repos_) {
-        [array
-            addObject:[NSURL fileURLWithFileSystemRepresentation:repo.worktree
-                                                                     .c_str()
-                                                     isDirectory:YES
-                                                   relativeToURL:nil]];
+        NSString *path = [NSString stringWithUTF8String:repo.worktree.c_str()];
+        [array addObject:[NSURL fileURLWithPath:path isDirectory:YES]];
     }
 
     [FIFinderSyncController defaultController].directoryURLs =
         [NSSet setWithArray:array];
 
     // initialize the badge images
-    static BOOL initialized = FALSE;
+    static bool initialized = false;
     if (!initialized) {
-        initialized = TRUE;
+        initialized = true;
         initializeBadgeImages();
     }
+}
+
+- (void)requestUpdateFileStatus {
+    for (const auto &pair : file_status_) {
+        auto repo = findRepoContainPath(watched_repos_, pair.first);
+        if (repo == watched_repos_.end()) /* erase it ?*/
+            continue;
+
+        std::string relative_path = getRelativePath(pair.first, repo->worktree);
+        if (relative_path.empty())
+            relative_path = "/";
+        std::string repo_id = repo->repo_id;
+        dispatch_async(
+            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+              client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
+            });
+    }
+}
+
+- (void)updateFileStatus:(const char *)repo_id
+                    path:(const char *)path
+                  status:(uint32_t)status {
+    auto repo = findRepo(watched_repos_, repo_id);
+    if (repo == watched_repos_.end())
+        return;
+
+    std::string absolute_path =
+        repo->worktree + (*path == '/' ? "" : "/") + path;
+
+    // if the path is erased, ignore it!
+    auto file = file_status_.find(absolute_path);
+    if (file == file_status_.end())
+        return;
+
+    // always set up, avoid some bugs
+    file->second = static_cast<PathStatus>(status);
+    setBadgeIdentifierFor(absolute_path, static_cast<PathStatus>(status));
 }
 
 @end

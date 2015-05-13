@@ -14,13 +14,23 @@
 #include <string>
 #include "FinderSync.h"
 
+enum PathStatus : uint32_t {
+    SYNC_STATUS_NONE = 0,
+    SYNC_STATUS_SYNCING,
+    SYNC_STATUS_ERROR,
+    SYNC_STATUS_IGNORED,
+    SYNC_STATUS_SYNCED,
+    SYNC_STATUS_PAUSED,
+    MAX_SYNC_STATUS,
+};
+
 struct LocalRepo {
     LocalRepo() = default;
     LocalRepo(const LocalRepo &) = delete;
-    LocalRepo& operator=(const LocalRepo &) = delete;
+    LocalRepo &operator=(const LocalRepo &) = delete;
 
     LocalRepo(LocalRepo &&) = default;
-    LocalRepo& operator=(LocalRepo &&) = default;
+    LocalRepo &operator=(LocalRepo &&) = default;
     enum SyncState : uint8_t {
         SYNC_STATE_DISABLED = 0,
         SYNC_STATE_WAITING = 1,
@@ -32,13 +42,15 @@ struct LocalRepo {
         SYNC_STATE_UNSET = 7,
         MAX_SYNC_STATE,
     };
-    LocalRepo(std::string &&w, SyncState s)
-        : worktree(std::move(w)), status(s) {}
-    LocalRepo(const std::string &w, SyncState s) : worktree(w), status(s) {}
+    LocalRepo(std::string &&r, std::string &&w, SyncState s)
+        : repo_id(std::move(r)), worktree(std::move(w)), status(s) {}
+    LocalRepo(const std::string &r, const std::string &w, SyncState s)
+        : repo_id(r), worktree(w), status(s) {}
+    std::string repo_id;
     std::string worktree;
     SyncState status;
     friend bool operator==(const LocalRepo &lhs, const LocalRepo &rhs) {
-        return lhs.worktree == rhs.worktree;
+        return lhs.repo_id == rhs.repo_id;
     }
     friend bool operator!=(const LocalRepo &lhs, const LocalRepo &rhs) {
         return !(lhs == rhs);
@@ -51,6 +63,7 @@ class FinderSyncClient {
     ~FinderSyncClient();
     void getWatchSet();
     void doSharedLink(const char *fileName);
+    void doGetFileStatus(const char *repo, const char *fileName);
 
   private:
     bool connect();

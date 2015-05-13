@@ -37,16 +37,18 @@ static volatile int32_t message_id_ =
 //
 
 // buffer
-// <----- char? ------------>1   1      1
-// <---- [worktree name] --->0<[status]>0
+// <-char[36]-><----- char? ------------>1   1      1
+// <-repo_id--><---- [worktree name] --->0<[status]>0
 static std::vector<LocalRepo> *deserializeWatchSet(const char *buffer,
                                                    uint32_t size) {
     std::vector<LocalRepo> *repos = new std::vector<LocalRepo>();
     const char *const end = buffer + size - 1;
     const char *pos;
-    unsigned worktree_size;
-    uint8_t status;
     while (buffer != end) {
+        unsigned worktree_size;
+        uint8_t status;
+        const char *repo_id = buffer;
+        buffer += 36;
         pos = buffer;
 
         while (*pos != '\0' && pos != end)
@@ -61,7 +63,8 @@ static std::vector<LocalRepo> *deserializeWatchSet(const char *buffer,
             status = LocalRepo::SYNC_STATE_UNSET;
         }
 
-        repos->emplace_back(std::string(buffer, worktree_size),
+        repos->emplace_back(std::string(repo_id, 36),
+                            std::string(buffer, worktree_size),
                             static_cast<LocalRepo::SyncState>(status));
         buffer = ++pos;
     }
@@ -71,6 +74,7 @@ static std::vector<LocalRepo> *deserializeWatchSet(const char *buffer,
 enum CommandType : uint32_t {
     GetWatchSet = 0,
     DoShareLink = 1,
+    DoGetFileStatus = 2,
 };
 
 struct mach_msg_command_send_t {
@@ -78,7 +82,16 @@ struct mach_msg_command_send_t {
     uint32_t version;
     uint32_t command;
     // used only in DoShareLink
+    char repo[36];
     char body[kPathMaxSize];
+};
+
+struct mach_msg_file_status_rcv_t {
+    mach_msg_header_t header;
+    uint32_t version;
+    uint32_t command;
+    uint32_t status;
+    mach_msg_trailer_t trailer;
 };
 
 FinderSyncClient::FinderSyncClient(FinderSync *parent)
@@ -97,6 +110,12 @@ FinderSyncClient::~FinderSyncClient() {
 }
 
 void FinderSyncClient::connectionBecomeInvalid() {
+    /* clean up old connection stage! */
+    if (local_port_) {
+        mach_port_mod_refs(mach_task_self(), local_port_,
+                           MACH_PORT_RIGHT_RECEIVE, -1);
+        local_port_ = MACH_PORT_NULL;
+    }
     if (remote_port_) {
         NSLog(@"lost connection with Seafile Client");
         mach_port_deallocate(mach_task_self(), remote_port_);
@@ -169,8 +188,10 @@ void FinderSyncClient::getWatchSet() {
         }
         NSLog(@"failed to send request to Seafile Client");
         NSLog(@"mach error %s", mach_error_string(kr));
+        connectionBecomeInvalid();
         return;
     }
+    mach_msg_destroy(&msg.header);
 
     utils::BufferArray recv_msg;
     recv_msg.resize(4096);
@@ -206,11 +227,13 @@ void FinderSyncClient::getWatchSet() {
     if (kr != MACH_MSG_SUCCESS) {
         NSLog(@"failed to receive Seafile Client's reply");
         NSLog(@"mach error %s", mach_error_string(kr));
+        connectionBecomeInvalid();
         return;
     }
     if (recv_msg_header->msgh_id != recv_msgh_id) {
         NSLog(@"mach error unmatched message id %d, expected %d",
               recv_msg_header->msgh_id, recv_msgh_id);
+        connectionBecomeInvalid();
         return;
     }
     const char *body = recv_msg.data() + sizeof(mach_msg_header_t);
@@ -221,6 +244,7 @@ void FinderSyncClient::getWatchSet() {
       [parent_ updateWatchSet:repos];
       delete repos;
     });
+    mach_msg_destroy(recv_msg_header);
 }
 
 void FinderSyncClient::doSharedLink(const char *fileName) {
@@ -252,6 +276,92 @@ void FinderSyncClient::doSharedLink(const char *fileName) {
         NSLog(@"failed to send sharing link request for %s", fileName);
         NSLog(@"mach error %s from msg id %d", mach_error_string(kr),
               msg.header.msgh_id);
+        connectionBecomeInvalid();
         return;
     }
+    mach_msg_destroy(&msg.header);
+}
+
+void FinderSyncClient::doGetFileStatus(const char *repo, const char *fileName) {
+    if ([NSThread isMainThread]) {
+        NSLog(@"%s isn't supported to be called from main thread",
+              __PRETTY_FUNCTION__);
+        return;
+    }
+    std::lock_guard<std::mutex> lock(mach_msg_mutex_);
+    if (!connect())
+        return;
+    mach_msg_command_send_t msg;
+    const int32_t recv_msgh_id = OSAtomicAdd32(2, &message_id_) - 1;
+    bzero(&msg, sizeof(mach_msg_header_t));
+    msg.header.msgh_id = recv_msgh_id - 1;
+    msg.header.msgh_local_port = local_port_;
+    msg.header.msgh_remote_port = remote_port_;
+    msg.header.msgh_size = sizeof(msg);
+    msg.header.msgh_bits =
+        MACH_MSGH_BITS(MACH_MSG_TYPE_COPY_SEND, MACH_MSG_TYPE_MAKE_SEND_ONCE);
+    strncpy(msg.repo, repo, 36);
+    strncpy(msg.body, fileName, kPathMaxSize);
+    msg.version = kFinderSyncProtocolVersion;
+    msg.command = DoGetFileStatus;
+    // send a message and wait for the reply
+    kern_return_t kr = mach_msg(&msg.header,                       /* header*/
+                                MACH_SEND_MSG | MACH_SEND_TIMEOUT, /*option*/
+                                sizeof(msg),                       /*send size*/
+                                0,               /*receive size*/
+                                local_port_,     /*receive port*/
+                                100,             /*timeout, in milliseconds*/
+                                MACH_PORT_NULL); /*no notification*/
+    if (kr != MACH_MSG_SUCCESS) {
+        if (kr == MACH_SEND_INVALID_DEST) {
+            connectionBecomeInvalid();
+            return;
+        }
+        NSLog(@"failed to send request to Seafile Client");
+        NSLog(@"mach error %s", mach_error_string(kr));
+        connectionBecomeInvalid();
+        return;
+    }
+    mach_msg_destroy(&msg.header);
+
+    mach_msg_file_status_rcv_t recv_msg;
+    mach_msg_header_t *recv_msg_header =
+        reinterpret_cast<mach_msg_header_t *>(&recv_msg);
+    bzero(&recv_msg, sizeof(mach_msg_header_t));
+    recv_msg_header->msgh_local_port = local_port_;
+    recv_msg_header->msgh_remote_port = remote_port_;
+    // recv_msg.header.msgh_size = sizeof(recv_msg);
+    // receive the reply
+    kr = mach_msg(recv_msg_header,                    /* header*/
+                  MACH_RCV_MSG | MACH_RCV_TIMEOUT,    /*option*/
+                  0,                                  /*send size*/
+                  sizeof(mach_msg_file_status_rcv_t), /*receive size*/
+                  local_port_,                        /*receive port*/
+                  100,             /*timeout, in milliseconds*/
+                  MACH_PORT_NULL); /*no notification*/
+    if (kr != MACH_MSG_SUCCESS) {
+        NSLog(@"failed to receive Seafile Client's reply");
+        NSLog(@"mach error %s", mach_error_string(kr));
+        connectionBecomeInvalid();
+        return;
+    }
+    if (recv_msg_header->msgh_id != recv_msgh_id) {
+        NSLog(@"mach error unmatched message id %d, expected %d",
+              recv_msg_header->msgh_id, recv_msgh_id);
+        connectionBecomeInvalid();
+        return;
+    }
+    uint32_t status = recv_msg.status;
+    if (status >= PathStatus::MAX_SYNC_STATUS)
+        status = PathStatus::SYNC_STATUS_NONE;
+
+    // copy to heap before starting block
+    std::string repo_id = repo;
+    std::string path = fileName;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [parent_ updateFileStatus:repo_id.c_str()
+                           path:path.c_str()
+                         status:status];
+    });
+    mach_msg_destroy(recv_msg_header);
 }

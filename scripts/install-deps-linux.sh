@@ -38,6 +38,7 @@ sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list.d/*.list
 sudo add-apt-repository -y ppa:smspillaz/cmake-2.8.12
 sudo apt-get update -qq
 sudo apt-get install -y valac uuid-dev libevent-dev re2c libjansson-dev cmake cmake-data libqt4-dev
+sudo apt-get install -y libnautilus-extension-dev
 
 if [ ! -z "$USE_QT5" ]; then
     sudo add-apt-repository -y ppa:beineri/opt-qt541

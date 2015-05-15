@@ -30,6 +30,7 @@ cscope*
 core
 *.pyc
 .DS_Store
+compile_commands.json
 
 # CMake files goes here
 build/
@@ -37,6 +38,7 @@ CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
+cmake_uninstall.cmake
 CTestTestfile.cmake
 Testing/
 install_manifest.txt

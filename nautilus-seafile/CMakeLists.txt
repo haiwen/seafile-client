@@ -1,0 +1,110 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(nautilus-seafile C)
+SET(PROJECT_VERSION "1.0.0")
+INCLUDE(FindPkgConfig)
+
+IF (APPLE OR NOT UNIX)
+    MESSAGE(FATAL_ERROR "Nautilus extension is not supported on your platform")
+ENDIF()
+
+option(BUILD_ENABLE_WARNINGS "Enable compiler warnings." ON)
+SET(NAUTILUS_EXTENSION_DIR CACHE "Path to Nautilus Extenstion Directory" "")
+
+if(BUILD_ENABLE_WARNINGS)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pedantic -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter")
+  if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unknown-warning-option")
+  endif()
+endif()
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,defs")
+
+## color diagnostics fix
+if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics")
+elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
+  execute_process(COMMAND ${CMAKE_C_COMPILER}
+    -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+  if(GCC_VERSION VERSION_GREATER 4.9 OR GCC_VERSION VERSION_EQUAL 4.9)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-color=always")
+  endif()
+endif()
+
+FIND_PACKAGE(PkgConfig REQUIRED)
+
+PKG_CHECK_MODULES(GLIB2 REQUIRED glib-2.0>=2.15)
+
+PKG_CHECK_MODULES(NAUTILUS REQUIRED libnautilus-extension>=2.0)
+
+PKG_CHECK_MODULES(LIBCCNET REQUIRED libccnet>=1.3)
+
+PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
+
+PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
+
+INCLUDE_DIRECTORIES(
+  ${GLIB2_INCLUDE_DIRS}
+  ${NAUTILUS_INCLUDE_DIRS}
+  ${LIBCCNET_INCLUDE_DIRS}
+  ${LIBSEARPC_INCLUDE_DIRS}
+  ${LIBSEAFILE_INCLUDE_DIRS})
+
+LINK_DIRECTORIES(
+  ${GLIB2_LIBRARY_DIRS}
+  ${NAUTILUS_LIBRARY_DIRS}
+  ${LIBCCNET_LIBRARY_DIRS}
+  ${LIBSEARPC_LIBRARY_DIRS}
+  ${LIBSEAFILE_LIBRARY_DIRS})
+
+ADD_LIBRARY(nautilus-seafile SHARED
+  seafile-module.c
+  nautilus-seafile.c
+  nautilus-seafile.h
+  seafile-rpc-client.c
+  seafile-rpc-client.h
+  )
+
+TARGET_LINK_LIBRARIES(nautilus-seafile
+  ${GLIB2_LIBRARIES}
+  ${NAUTILUS_LIBRARIES}
+  ${JANSSON_LIBRARIES}
+  ${LIBCCNET_LIBRARIES}
+  ${LIBSEARPC_LIBRARIES}
+  ${LIBSEAFILE_LIBRARIES})
+
+## Find libnautilus-extension's directory
+IF ("${NAUTILUS_EXTENSION_DIR}" STREQUAL "")
+  EXECUTE_PROCESS(
+    COMMAND ${PKG_CONFIG_EXECUTABLE} --variable=extensiondir libnautilus-extension
+    OUTPUT_VARIABLE PKGCONFIG_RESULT
+    RESULT_VARIABLE PKGCONFIG_FAILURE)
+
+  IF (PKGCONFIG_FAILURE)
+    SET(NAUTILUS_EXTENSION_DIR "lib/nautilus/extension-1.0")
+  ELSE()
+    STRING(REGEX REPLACE "[\r\n]" " " PKGCONFIG_RESULT "${PKGCONFIG_RESULT}")
+    STRING(REGEX REPLACE " +$"    ""  PKGCONFIG_RESULT "${PKGCONFIG_RESULT}")
+
+    SET(NAUTILUS_EXTENSION_DIR ${PKGCONFIG_RESULT})
+  ENDIF()
+ENDIF()
+
+INSTALL(DIRECTORY
+  ${CMAKE_CURRENT_SOURCE_DIR}/hicolor
+  DESTINATION share/icons
+  )
+
+INSTALL(TARGETS nautilus-seafile
+  DESTINATION ${NAUTILUS_EXTENSION_DIR}
+  )
+
+# uninstall target
+CONFIGURE_FILE(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY)
+
+ADD_CUSTOM_TARGET(uninstall
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)

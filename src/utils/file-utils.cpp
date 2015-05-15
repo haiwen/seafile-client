@@ -564,8 +564,84 @@ void init()
     types_map->insert("~", "application/x-trash");
 }
 
+QString splitPath(const QString& path, int *pos)
+{
+    if (path.isEmpty()) {
+        return "";
+    }
 
-QString iconNameFromFileName(const QString& fileName)
+    QString p = QDir::fromNativeSeparators(path);
+    while (p.endsWith('/') && p.size() > 1) {
+        p = p.left(p.size() - 1);
+    }
+    if (p.size() == 1) {
+        return p;
+    }
+
+    *pos = p.lastIndexOf("/");
+    return p;
+}
+
+
+} // namespace
+
+QString mimeTypeFromFileName(const QString& fileName)
+{
+    if (types_map == 0) {
+        init();
+    }
+
+    QString suffix = QFileInfo(fileName).suffix().toLower();
+
+    return types_map->value(suffix);
+}
+
+QString readableNameForFolder()
+{
+    return QObject::tr("Folder");
+}
+
+QString readableNameForFile(const QString& fileName)
+{
+    QString mimetype = mimeTypeFromFileName(fileName);
+
+    if (mimetype.isEmpty()) {
+        return QObject::tr("Document");
+    }
+
+    if (mimetype == "application/pdf") {
+        return QObject::tr("PDF Document");
+    } else if (mimetype.startsWith("image")) {
+        return QObject::tr("Image File");
+    } else if (mimetype.startsWith("text")) {
+        return QObject::tr("Text Document");
+    } else if (mimetype.startsWith("audio")) {
+        return QObject::tr("Audio File");
+    } else if (mimetype.startsWith("video")) {
+        return QObject::tr("Video File");
+    } else if (mimetype.contains("msword") || mimetype.contains("ms-word")) {
+        return QObject::tr("Word Document");
+    } else if (mimetype.contains("mspowerpoint") || mimetype.contains("ms-powerpoint")) {
+        return QObject::tr("PowerPoint Document");
+    } else if (mimetype.contains("msexcel") || mimetype.contains("ms-excel")) {
+        return QObject::tr("Excel Document");
+    } else if (mimetype.contains("openxmlformats-officedocument")) {
+        // see http://stackoverflow.com/questions/4212861/what-is-a-correct-mime-type-for-docx-pptx-etc
+        if (mimetype.contains("wordprocessingml")) {
+            return QObject::tr("Word Document");
+        } else if (mimetype.contains("spreadsheetml")) {
+            return QObject::tr("Excel Document");
+        } else if (mimetype.contains("presentationml")) {
+            return QObject::tr("PowerPoint Document");
+        }
+        // } else if (mimetype.contains("application")) {
+        //     return "binary";
+    }
+
+    return QObject::tr("Document");
+}
+
+QString iconPrefixFromFileName(const QString& fileName)
 {
     QString mimetype = mimeTypeFromFileName(fileName);
 
@@ -605,41 +681,10 @@ QString iconNameFromFileName(const QString& fileName)
     return "";
 }
 
-QString splitPath(const QString& path, int *pos)
-{
-    if (path.isEmpty()) {
-        return "";
-    }
-
-    QString p = QDir::fromNativeSeparators(path);
-    while (p.endsWith('/') && p.size() > 1) {
-        p = p.left(p.size() - 1);
-    }
-    if (p.size() == 1) {
-        return p;
-    }
-
-    *pos = p.lastIndexOf("/");
-    return p;
-}
-
-
-} // namespace
-
-QString mimeTypeFromFileName(const QString& fileName)
-{
-    if (types_map == 0) {
-        init();
-    }
-
-    QString suffix = QFileInfo(fileName).suffix().toLower();
-
-    return types_map->value(suffix);
-}
 
 QString getIconByFileName(const QString& fileName)
 {
-    QString icon = iconNameFromFileName(fileName);
+    QString icon = iconPrefixFromFileName(fileName);
 
     if (icon.isEmpty()) {
         icon = "unknown";
@@ -650,7 +695,7 @@ QString getIconByFileName(const QString& fileName)
 
 QString getIconByFileNameV2(const QString& fileName)
 {
-    QString icon = iconNameFromFileName(fileName);
+    QString icon = iconPrefixFromFileName(fileName);
 
     return QString(":/images/files_v2/file_%1").arg(icon.isEmpty() ? "unknown" : icon);
 }

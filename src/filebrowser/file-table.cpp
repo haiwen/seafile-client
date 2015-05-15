@@ -159,8 +159,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     case FILE_COLUMN_KIND:
     {
         if (index.column() == FILE_COLUMN_KIND) {
-            bool isDir = model->data(index, Qt::DisplayRole).toBool();
-            text = isDir ? tr("Folder") : tr("Document");
+            text = model->data(index, Qt::UserRole).toString();
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
@@ -235,7 +234,7 @@ void FileTableView::setModel(QAbstractItemModel *model)
 
     // set default sort by folder
     sortByColumn(FILE_COLUMN_NAME, Qt::AscendingOrder);
-    sortByColumn(FILE_COLUMN_KIND, Qt::DescendingOrder);
+    sortByColumn(FILE_COLUMN_KIND, Qt::AscendingOrder);
 }
 
 const SeafDirent *FileTableView::getSelectedItemFromSource()
@@ -726,6 +725,10 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return qsize;
     }
 
+    if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
+        return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
+    }
+
     if (role != Qt::DisplayRole) {
         return QVariant();
     }
@@ -742,8 +745,8 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     case FILE_COLUMN_MTIME:
         return dirent.mtime;
     case FILE_COLUMN_KIND:
-      //TODO: mime file information
-        return dirent.isDir();
+        // workaround with sorting
+        return dirent.isDir() ? "" : "__" + iconPrefixFromFileName(dirent.name);
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:

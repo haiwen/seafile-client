@@ -195,24 +195,24 @@
 <context>
     <name>AutoUpdateManager</name>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="106"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="107"/>
         <source>Upload Success</source>
         <translation>업로드 성공</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="107"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="108"/>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
         <translation>&quot;%1&quot; 파일을
 성공적으로 업로드했습니다.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="113"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="115"/>
         <source>Upload Failure</source>
         <translation>업로드 실패</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="114"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="116"/>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>&quot;%1&quot; 파일
@@ -353,28 +353,28 @@ failed to upload.</source>
         <translation>동기화할 폴더를 선택해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="337"/>
+        <location filename="../src/ui/cloud-view.cpp" line="342"/>
         <source>no server connected</source>
         <translation>연결한 서버 없음</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="335"/>
+        <location filename="../src/ui/cloud-view.cpp" line="340"/>
         <source>all servers connected</source>
         <translation>모든 서버에 연결했습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="339"/>
+        <location filename="../src/ui/cloud-view.cpp" line="344"/>
         <source>some servers not connected</source>
         <translation>일부 서버에 연결하지 않았습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="358"/>
-        <location filename="../src/ui/cloud-view.cpp" line="359"/>
+        <location filename="../src/ui/cloud-view.cpp" line="363"/>
+        <location filename="../src/ui/cloud-view.cpp" line="364"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="405"/>
+        <location filename="../src/ui/cloud-view.cpp" line="410"/>
         <source>Refresh</source>
         <translation>새로 고침</translation>
     </message>
@@ -442,17 +442,22 @@ failed to upload.</source>
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="73"/>
+        <location filename="../src/configurator.cpp" line="84"/>
         <source>Error when creating ccnet configuration</source>
         <translation>ccnet 설정을 만드는데 오류가 있습니다</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="187"/>
+        <location filename="../src/configurator.cpp" line="101"/>
+        <source>Unable to create preconfigure directory &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/configurator.cpp" line="219"/>
         <source>failed to read %1</source>
         <translation>%1 읽기 실패</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="232"/>
+        <location filename="../src/configurator.cpp" line="264"/>
         <source>%1 Default Library</source>
         <translation>기본 라이브러리 %1</translation>
     </message>
@@ -460,121 +465,111 @@ failed to upload.</source>
 <context>
     <name>CreateRepoDialog</name>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="27"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="31"/>
         <source>Create a library</source>
         <translation>라이브러리 만들기</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="50"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="59"/>
         <source>Please choose a directory</source>
         <translation>디렉토리를 선택해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="82"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="90"/>
         <source>Creating...</source>
         <translation>만드는 중...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="109"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
         <source>Please choose the directory to sync</source>
         <translation>동기화 할 디렉토리를 선택해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="113"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="122"/>
         <source>The folder %1 does not exist</source>
         <translation>%1 폴더가 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="127"/>
         <source>Please enter the name</source>
         <translation>이름을 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="123"/>
-        <source>Please enter the description</source>
-        <translation>설명을 입력해주세요</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="130"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="134"/>
         <source>Please enter the password</source>
         <translation>암호를 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="137"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="141"/>
         <source>Passwords don&apos;t match</source>
         <translation>암호가 일치하지 않습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="148"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="152"/>
         <source>Unknown error</source>
         <translation>알 수 없는 오류</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="183"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="186"/>
         <source>Failed to add download task:
  %1</source>
         <translation>다운로드 작업 추가에 실패했습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="195"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="199"/>
         <source>Failed to create library on the server:
 %1</source>
         <translation>서버에 라이브러리 만들기에 실패했습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="194"/>
+        <location filename="../ui_create-repo-dialog.h" line="180"/>
         <source>Dialog</source>
         <translation>대화상자</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="195"/>
+        <location filename="../ui_create-repo-dialog.h" line="181"/>
         <source>Path:</source>
         <translation>경로:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="196"/>
+        <location filename="../ui_create-repo-dialog.h" line="182"/>
         <source>Choose</source>
         <translation>선택</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="197"/>
+        <location filename="../ui_create-repo-dialog.h" line="183"/>
         <source>Name:</source>
         <translation>이름:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="198"/>
-        <source>Description:</source>
-        <translation>설명:</translation>
-    </message>
-    <message>
-        <location filename="../ui_create-repo-dialog.h" line="199"/>
+        <location filename="../ui_create-repo-dialog.h" line="184"/>
         <source>encrypted</source>
         <translation>암호화</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="200"/>
+        <location filename="../ui_create-repo-dialog.h" line="185"/>
         <source>Password:</source>
         <translation>암호:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="201"/>
+        <location filename="../ui_create-repo-dialog.h" line="186"/>
         <source>Password Again:</source>
         <translation>암호 다시입력:</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="202"/>
+        <location filename="../ui_create-repo-dialog.h" line="187"/>
         <source>status text</source>
         <translation>상태 텍스트</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="203"/>
+        <location filename="../ui_create-repo-dialog.h" line="188"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui_create-repo-dialog.h" line="204"/>
+        <location filename="../ui_create-repo-dialog.h" line="189"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
@@ -982,32 +977,22 @@ failed to upload.</source>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="742"/>
-        <source>Folder</source>
-        <translation>폴더</translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="742"/>
-        <source>Document</source>
-        <translation>문서</translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="770"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="774"/>
         <source>Name</source>
         <translation>이름 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="772"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="776"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="774"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="778"/>
         <source>Last Modified</source>
         <translation>마지막 수정</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="776"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="780"/>
         <source>Kind</source>
         <translation>종류</translation>
     </message>
@@ -1015,73 +1000,86 @@ failed to upload.</source>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="261"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="439"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="265"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="443"/>
         <source>&amp;Open</source>
         <translation>열기(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="266"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="270"/>
         <source>&amp;Save As...</source>
         <translation>다른 이름으로 저장(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="271"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="275"/>
         <source>&amp;Rename</source>
         <translation>제거(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="276"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="280"/>
         <source>&amp;Delete</source>
         <translation>삭제(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="285"/>
         <source>&amp;Generate Share Link</source>
         <translation>공유 링크 만들기(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="286"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="290"/>
         <source>&amp;Update</source>
         <translation>업데이트(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="290"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="294"/>
         <source>&amp;Copy</source>
         <translation>복사(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="294"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="298"/>
         <source>Cu&amp;t</source>
         <translation>잘라내기(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="298"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="302"/>
         <source>&amp;Paste</source>
         <translation>붙여넣기(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="311"/>
         <source>Canc&amp;el Download</source>
         <translation>다운로드 취소(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="312"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="316"/>
         <source>&amp;Sync this folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="318"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="322"/>
         <source>This feature is available in pro version only
 </source>
         <translation>이 기능은 전문가 버전에서만 사용할 수 있습니다
 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="411"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="444"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="415"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="448"/>
         <source>D&amp;ownload</source>
         <translation>다운로드(&amp;O)</translation>
+    </message>
+</context>
+<context>
+    <name>FileTableViewDelegate</name>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="163"/>
+        <source>Folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="163"/>
+        <source>Document</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1116,24 +1114,24 @@ failed to upload.</source>
 <context>
     <name>InitSeafileDialog</name>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="72"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="103"/>
         <source>%1 Initialization</source>
         <translation>%1 초기화</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="102"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="117"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="141"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="156"/>
         <source>Please choose a directory</source>
         <translation>디렉토리를 선택해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="145"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="156"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="184"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="195"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation>초기화를 끝내지 않았습니다. 정말 빠져나갈까요?</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="125"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="164"/>
         <source>The folder %1 does not exist</source>
         <translation>%1 폴더가 없습니다</translation>
     </message>
@@ -1297,94 +1295,94 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="33"/>
+        <location filename="../src/ui/login-dialog.cpp" line="97"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
         <translation>계정 추가</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="74"/>
-        <location filename="../src/ui/login-dialog.cpp" line="75"/>
+        <location filename="../src/ui/login-dialog.cpp" line="150"/>
+        <location filename="../src/ui/login-dialog.cpp" line="151"/>
         <source>Re-login</source>
         <translation>다시 로그인</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="93"/>
+        <location filename="../src/ui/login-dialog.cpp" line="166"/>
         <source>Logging in...</source>
         <translation>로그인 중...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="131"/>
+        <location filename="../src/ui/login-dialog.cpp" line="204"/>
         <source>Network Error:
  %1</source>
         <translation>네트워크 오류:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="143"/>
+        <location filename="../src/ui/login-dialog.cpp" line="216"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;경고:&lt;/b&gt; 이 서버의 ssl 인증서를 믿을 수 없습니다, 그래도 진행할까요?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="157"/>
+        <location filename="../src/ui/login-dialog.cpp" line="230"/>
         <source>Please enter the server address</source>
         <translation>서버 주소를 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="161"/>
-        <location filename="../src/ui/login-dialog.cpp" line="167"/>
-        <location filename="../src/ui/login-dialog.cpp" line="268"/>
-        <location filename="../src/ui/login-dialog.cpp" line="274"/>
+        <location filename="../src/ui/login-dialog.cpp" line="234"/>
+        <location filename="../src/ui/login-dialog.cpp" line="240"/>
+        <location filename="../src/ui/login-dialog.cpp" line="342"/>
+        <location filename="../src/ui/login-dialog.cpp" line="348"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 서버 주소가 올바르지 않습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="174"/>
+        <location filename="../src/ui/login-dialog.cpp" line="247"/>
         <source>Please enter the username</source>
         <translation>사용자 이름을 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="185"/>
+        <location filename="../src/ui/login-dialog.cpp" line="258"/>
         <source>Please enter the computer name</source>
         <translation>컴퓨터 이름을 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="276"/>
         <source>Failed to save current account</source>
         <translation>현재 계정 저장에 실패했습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="259"/>
+        <location filename="../src/ui/login-dialog.cpp" line="333"/>
         <source>Seafile Server Address</source>
         <translation>Seafile 서버 주소</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="179"/>
+        <location filename="../src/ui/login-dialog.cpp" line="252"/>
         <source>Please enter the password</source>
         <translation>암호를 입력해주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="229"/>
+        <location filename="../src/ui/login-dialog.cpp" line="303"/>
         <source>Incorrect email or password</source>
         <translation>전자메일 주소 또는 암호가 틀렸습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="231"/>
+        <location filename="../src/ui/login-dialog.cpp" line="305"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>로깅을 너무 자주 합니다, 잠시만 기다려주세요</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="233"/>
+        <location filename="../src/ui/login-dialog.cpp" line="307"/>
         <source>Internal Server Error</source>
         <translation>내부 서버 오류</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="237"/>
+        <location filename="../src/ui/login-dialog.cpp" line="311"/>
         <source>Failed to login: %1</source>
         <translation>로그인 실패: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="239"/>
+        <location filename="../src/ui/login-dialog.cpp" line="313"/>
         <source>Failed to login</source>
         <translation>로그인에 실패했습니다</translation>
     </message>
@@ -1439,8 +1437,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>e.g. 철수의 랩톱</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="65"/>
-        <location filename="../src/ui/login-dialog.cpp" line="258"/>
+        <location filename="../src/ui/login-dialog.cpp" line="141"/>
+        <location filename="../src/ui/login-dialog.cpp" line="332"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Shibboleth 로그인</translation>
@@ -1459,7 +1457,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="198"/>
+        <location filename="../src/ui/main-window.cpp" line="201"/>
         <source>Refresh</source>
         <translation>새로고침</translation>
     </message>
@@ -1485,14 +1483,14 @@ Reason: Deleted on server</source>
         <translation>&quot;%1&quot;을(를) 동기화했습니다</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="186"/>
+        <location filename="../src/message-listener.cpp" line="187"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation>&quot;%1&quot; 동기화에 실패했습니다. 
 서비스 접근이 거부되었습니다</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="197"/>
+        <location filename="../src/message-listener.cpp" line="198"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 동기화에 실패했습니다. 
@@ -1827,7 +1825,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 항목을 다운로드할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="857"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="864"/>
         <source>copy failed</source>
         <translation>복사에 실패했습니다</translation>
     </message>
@@ -1922,44 +1920,44 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Seafile 시스템에서 자동 병합</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="558"/>
-        <location filename="../src/utils/utils.cpp" line="586"/>
-        <location filename="../src/utils/utils.cpp" line="589"/>
+        <location filename="../src/utils/utils.cpp" line="557"/>
+        <location filename="../src/utils/utils.cpp" line="585"/>
+        <location filename="../src/utils/utils.cpp" line="588"/>
         <source>Just now</source>
         <translation>방금</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="574"/>
+        <location filename="../src/utils/utils.cpp" line="573"/>
         <source>1 day ago</source>
         <translation>1일 전</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="574"/>
+        <location filename="../src/utils/utils.cpp" line="573"/>
         <source>%1 days ago</source>
         <translation>%1일 전</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="578"/>
+        <location filename="../src/utils/utils.cpp" line="577"/>
         <source>1 hour ago</source>
         <translation>1시간 전</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="578"/>
+        <location filename="../src/utils/utils.cpp" line="577"/>
         <source>%1 hours ago</source>
         <translation>%1시간 전</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="582"/>
+        <location filename="../src/utils/utils.cpp" line="581"/>
         <source>1 minute ago</source>
         <translation>1분 전</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="582"/>
+        <location filename="../src/utils/utils.cpp" line="581"/>
         <source>%1 minutes ago</source>
         <translation>%1분 전</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="724"/>
+        <location filename="../src/utils/utils.cpp" line="723"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
@@ -2239,12 +2237,12 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="455"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="697"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="704"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리 동기화 해제에 실패했습니다.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="633"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="640"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2253,34 +2251,34 @@ The library owner&apos;s storage space is used up.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="637"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="644"/>
         <source>The download has been canceled</source>
         <translation>다운로드를 취소했습니다.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="686"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="693"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation>정말로 &quot;%1&quot; 라이브러리 동기화를 해제하고 다시 동기화하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="724"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="731"/>
         <source>Failed to add download task:
  %1</source>
         <translation>다운로드 작업 추가에 실패했습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="757"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="764"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 파일을 정말로 덮어쓰시겠습니까</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="760"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="767"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 파일을 삭제할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="850"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="857"/>
         <source>Failed to upload file: %1</source>
         <translation>파일 업로드에 실패했습니다: %1</translation>
     </message>
@@ -2306,7 +2304,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="136"/>
+        <location filename="../src/api/api-client.cpp" line="137"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;경고:&lt;/b&gt; 이 서버의 ssl 인증서를 믿을 수 없습니다, 그래도 진행할까요?</translation>
     </message>
@@ -2356,107 +2354,107 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="123"/>
+        <location filename="../src/ui/tray-icon.cpp" line="105"/>
         <source>Disable auto sync</source>
         <translation>자동 동기화 비활성화</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="126"/>
+        <location filename="../src/ui/tray-icon.cpp" line="108"/>
         <source>Enable auto sync</source>
         <translation>자동 동기화 활성화</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="129"/>
+        <location filename="../src/ui/tray-icon.cpp" line="111"/>
         <source>View unread notifications</source>
         <translation>읽지 않은 알림 보기</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="133"/>
+        <location filename="../src/ui/tray-icon.cpp" line="115"/>
         <source>&amp;Quit</source>
         <translation>끝내기(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="136"/>
+        <location filename="../src/ui/tray-icon.cpp" line="118"/>
         <source>Show main window</source>
         <translation>메인 창 표시</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="139"/>
+        <location filename="../src/ui/tray-icon.cpp" line="121"/>
         <source>Settings</source>
         <translation>설정</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="142"/>
+        <location filename="../src/ui/tray-icon.cpp" line="124"/>
         <source>Open &amp;logs folder</source>
         <translation>기록 폴더 열기(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="143"/>
+        <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>open seafile log directory</source>
         <translation>시 파일 기록 디렉터리 열기</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="146"/>
+        <location filename="../src/ui/tray-icon.cpp" line="128"/>
         <source>&amp;About</source>
         <translation>정보(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="147"/>
+        <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>Show the application&apos;s About box</source>
         <translation>프로그램 정보 상자 표시</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="150"/>
+        <location filename="../src/ui/tray-icon.cpp" line="132"/>
         <source>&amp;Online help</source>
         <translation>온라인 도움말(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="151"/>
+        <location filename="../src/ui/tray-icon.cpp" line="133"/>
         <source>open seafile online help</source>
         <translation>Seafile 온라인 도움말 열기</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="157"/>
+        <location filename="../src/ui/tray-icon.cpp" line="139"/>
         <source>Help</source>
         <translation>도움말</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="196"/>
+        <location filename="../src/ui/tray-icon.cpp" line="178"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="486"/>
+        <location filename="../src/ui/tray-icon.cpp" line="476"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>메시지 %n개가 있습니다</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="492"/>
+        <location filename="../src/ui/tray-icon.cpp" line="482"/>
         <source>auto sync is disabled</source>
         <translation>자동 동기화를 비활성화했습니다</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="519"/>
+        <location filename="../src/ui/tray-icon.cpp" line="509"/>
         <source>Uploading</source>
         <translation>업로드 중</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="520"/>
+        <location filename="../src/ui/tray-icon.cpp" line="510"/>
         <source>Downloading</source>
         <translation>다운로드 중</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="412"/>
+        <location filename="../src/ui/tray-icon.cpp" line="402"/>
         <source>About %1</source>
         <translation>%1 정보</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="403"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 클라이언트 %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="497"/>
+        <location filename="../src/ui/tray-icon.cpp" line="487"/>
         <source>some servers not connected</source>
         <translation>일부 서버에 연결하지 않았습니다</translation>
     </message>

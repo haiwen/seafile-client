@@ -130,7 +130,8 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
         if (saved_cert.isNull()) {
             // dump certificate information
             qWarning() << "\n= SslError =\n" << error.errorString();
-            qWarning() << "\n= Certificate =\n" << dumpCertificate(cert);
+            qWarning() << dumpCipher(reply_->sslConfiguration().sessionCipher());
+            qWarning() << dumpCertificate(cert);
 
             // This is the first time when the client connects to the server.
             if (seafApplet->detailedYesOrNoBox(
@@ -147,8 +148,9 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
         } else {
             // dump certificate information
             qWarning() << "\n= SslError =\n" << error.errorString();
-            qWarning() << "\n= Certificate =\n" << dumpCertificate(cert);
-            qWarning() << "\n= Previous Certificate =\n" << dumpCertificate(saved_cert);
+            qWarning() << dumpCipher(reply_->sslConfiguration().sessionCipher());
+            qWarning() << dumpCertificate(cert);
+            qWarning() << dumpCertificate(saved_cert);
 
             /**
              * The cert which the user had chosen to trust has been changed. It
@@ -159,10 +161,7 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
              *
              * Anyway, we'll prompt the user
              */
-            SslConfirmDialog dialog(url,
-                                    dumpCertificateFingerprint(cert),
-                                    dumpCertificateFingerprint(saved_cert),
-                                    seafApplet->mainWindow());
+            SslConfirmDialog dialog(url, cert, saved_cert, seafApplet->mainWindow());
             if (dialog.exec() == QDialog::Accepted) {
                 // TODO handle ssl by verifying certificate chain instead
                 reply_->ignoreSslErrors();

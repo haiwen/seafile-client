@@ -1,9 +1,11 @@
 #include "seafile-applet.h"
 #include "ssl-confirm-dialog.h"
 
+#include "utils/utils.h"
+
 SslConfirmDialog::SslConfirmDialog(const QUrl& url,
-                                   const QString fingerprint,
-                                   const QString prev_fingerprint,
+                                   const QSslCertificate& cert,
+                                   const QSslCertificate& prev_cert,
                                    QWidget *parent)
     : QDialog(parent),
       url_(url)
@@ -14,6 +16,9 @@ SslConfirmDialog::SslConfirmDialog(const QUrl& url,
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     QString hint = tr("%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?").arg(url_.host());
+
+    QString fingerprint = dumpCertificateFingerprint(cert);
+    QString prev_fingerprint = dumpCertificateFingerprint(prev_cert);
 
     hint += "\n\n";
     hint += tr("Current RSA key fingerprint is %1").arg(fingerprint);

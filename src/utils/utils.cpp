@@ -703,7 +703,7 @@ QString dumpHexPresentation(const QByteArray &bytes)
 
 QString dumpCipher(const QSslCipher &cipher)
 {
-    QString s;
+    QString s = "\n";
     s += "Authentication:  " + cipher.authenticationMethod() + "\n";
     s += "Encryption:      " + cipher.encryptionMethod() + "\n";
     s += "Key Exchange:    " + cipher.keyExchangeMethod() + "\n";
@@ -719,22 +719,21 @@ QString dumpCertificate(const QSslCertificate &cert)
     if (cert.isNull())
       return "\n-\n";
 
-    QString s;
-    QString s_none = QObject::tr("<Not Part of Certificate>");
+    QString s = "\n";
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    #define CERTIFICATE_STR(x) ( ((x).join("") == "" ) ? s_none : (x).join(";") )
+    s += cert.toText();
 #else
+    QString s_none = QObject::tr("<Not Part of Certificate>");
     #define CERTIFICATE_STR(x) ( ((x) == "" ) ? s_none : (x) )
-#endif
 
-
-    s += "\nIssued To\n";
+    s += "Certificate:\n";
+    s += "\nIssued To:\n";
     s += "CommonName(CN):             " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::CommonName)) + "\n";
     s += "Organization(O):            " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::Organization)) + "\n";
     s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
     s += "Serial Number:              " + dumpHexPresentation(cert.serialNumber()) + "\n";
 
-    s += "\nIssued By\n";
+    s += "\nIssued By:\n";
     s += "CommonName(CN):             " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::CommonName)) + "\n";
     s += "Organization(O):            " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::Organization)) + "\n";
     s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
@@ -742,15 +741,15 @@ QString dumpCertificate(const QSslCertificate &cert)
     s += "\nPeriod Of Validity\n";
     s += "Begins On:    " + cert.effectiveDate().toString() + "\n";
     s += "Expires On:   " + cert.expiryDate().toString() + "\n";
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    s += "IsBlacklisted:      " + (cert.isBlacklisted() ? QString("Yes") : QString("No")) + "\n";
-#else
     s += "IsValid:      " + (cert.isValid() ? QString("Yes") : QString("No")) + "\n";
-#endif
 
     s += "\nFingerprints\n";
     s += "SHA1 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Sha1) + "\n";
     s += "MD5 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Md5) + "\n";
+#endif
+
+    s += "\n\n";
+    s += cert.toPem();
 
     return s;
 }

@@ -140,10 +140,12 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
                 // TODO handle ssl by verifying certificate chain instead
                 reply_->ignoreSslErrors();
             }
+            break;
         } else if (saved_cert == cert) {
             // The user has choosen to trust the certificate before
             // TODO handle ssl by verifying certificate chain instead
             reply_->ignoreSslErrors();
+            break;
         } else {
             // dump certificate information
             qWarning() << "\n= SslError =\n" << error.errorString();
@@ -173,6 +175,7 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
                 reply_->abort();
                 break;
             }
+            break;
         }
     }
 }

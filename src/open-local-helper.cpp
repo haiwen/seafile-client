@@ -44,6 +44,8 @@ OpenLocalHelper::OpenLocalHelper()
 {
     url_ = NULL;
     sync_client_ = NULL;
+
+    QDesktopServices::setUrlHandler(kSeafileProtocolScheme, this, SLOT(openLocalFile(const QUrl&)));
 }
 
 OpenLocalHelper*

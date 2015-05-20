@@ -7,14 +7,16 @@ struct _CcnetClient;
 
 }
 
+#include <QObject>
 #include <QUrl>
 #include <QString>
 
 /**
  * Helper class to handle open local file request
  */
-class OpenLocalHelper
+class OpenLocalHelper : public QObject
 {
+    Q_OBJECT
 public:
     static OpenLocalHelper* instance();
 

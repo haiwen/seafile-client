@@ -170,6 +170,7 @@ SET(moc_headers
   src/repo-service-helper.h
   src/events-service.h
   src/avatar-service.h
+  src/open-local-helper.h
   src/server-status-service.h
   src/message-listener.h
   src/network-mgr.h

@@ -3,6 +3,8 @@
 #include <QtGlobal>
 #ifdef Q_OS_MAC
 #include <QString>
+#include <vector>
+#include <QByteArray>
 
 typedef void DarkModeChangedCallback(bool value);
 
@@ -33,6 +35,9 @@ void set_darkmode_watcher(DarkModeChangedCallback *cb);
 QString fix_file_id_url(const QString &path);
 
 QString mainBundlePath();
+
+// load the missing part of ca certificates
+std::vector<QByteArray> getSystemCaCertificates();
 
 } // namespace mac
 } // namespace utils

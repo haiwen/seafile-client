@@ -14,6 +14,7 @@
 #include "ui/main-window.h"
 #include "ui/download-repo-dialog.h"
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "rpc/rpc-client.h"
 
 #include "filebrowser/file-browser-manager.h"
@@ -320,7 +321,7 @@ void RepoService::openLocalFile(const QString& repo_id,
     seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
 
     if (r.isValid()) {
-        QString local_path = QDir(r.worktree).filePath(path_in_repo);
+        QString local_path = ::pathJoin(r.worktree, path_in_repo);
 
         FileDownloadHelper::openFile(local_path, false);
     } else {
@@ -351,7 +352,7 @@ void RepoService::openFolder(const QString &repo_id,
     seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
 
     if (r.isValid()) {
-        QString local_path = QDir(r.worktree).filePath(path_in_repo);
+        QString local_path = ::pathJoin(r.worktree, path_in_repo);
 
         FileDownloadHelper::openFile(local_path, false);
     } else {

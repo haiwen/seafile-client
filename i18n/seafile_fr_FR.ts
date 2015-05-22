@@ -449,7 +449,7 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <location filename="../src/configurator.cpp" line="101"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de créer la bibliothèque pré-configurée &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="219"/>
@@ -1072,12 +1072,12 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="163"/>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Dossier</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="163"/>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Document</translation>
     </message>
 </context>
 <context>

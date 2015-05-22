@@ -449,7 +449,7 @@ falló al subir.</translation>
     <message>
         <location filename="../src/configurator.cpp" line="101"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>No se puede crear el directorio de preconfiguración &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="219"/>
@@ -1073,12 +1073,12 @@ falló al subir.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="163"/>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Carpeta</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="163"/>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento</translation>
     </message>
 </context>
 <context>

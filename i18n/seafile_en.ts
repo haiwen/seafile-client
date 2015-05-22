@@ -1935,7 +1935,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="723"/>
+        <location filename="../src/utils/utils.cpp" line="726"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2279,7 +2279,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="137"/>
+        <location filename="../src/api/api-client.cpp" line="138"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2734,22 +2734,22 @@ Do you want to visit the download page?</source>
 <context>
     <name>SslConfirmDialog</name>
     <message>
-        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="13"/>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="15"/>
         <source>Untrusted Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="16"/>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="18"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="19"/>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="24"/>
         <source>Current RSA key fingerprint is %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="22"/>
+        <location filename="../src/ui/ssl-confirm-dialog.cpp" line="27"/>
         <source>Previous RSA key fingerprint is %1</source>
         <translation type="unfinished"></translation>
     </message>

@@ -449,7 +449,7 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/configurator.cpp" line="101"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Az előre beállított könyvtár &quot;%1&quot; nem hozható létre</translation>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="219"/>
@@ -1073,12 +1073,12 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="163"/>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Mappa</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="163"/>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Dokumentum</translation>
     </message>
 </context>
 <context>

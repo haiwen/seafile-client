@@ -105,7 +105,6 @@ void loadUserCaCertificate()
     for (unsigned i = 0; i < certs.size(); ++i)
     {
         certificates.append(QSslCertificate::fromData(certs[i], QSsl::Der));
-        qDebug() << "CommonName" << certificates.back().issuerInfo(QSslCertificate::CommonName);
     }
 
     // remove duplicates

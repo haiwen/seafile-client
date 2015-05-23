@@ -6,6 +6,7 @@
 #include <QSslConfiguration>
 #include <QSslSocket>
 #include <QSslCipher>
+#include "utils/utils-mac.h"
 namespace {
 QNetworkProxy proxy_;
 template <class T, std::size_t N>
@@ -62,12 +63,9 @@ bool isWeakCipher(const QString& cipher_name)
     }
     return false;
 }
-} // anonymous namespace
 
-NetworkManager* NetworkManager::instance_ = NULL;
-
-NetworkManager::NetworkManager() : should_retry_(true) {
-    // remove unsafe cipher
+void disableWeakCiphers()
+{
     QSslConfiguration configuration = QSslConfiguration::defaultConfiguration();
     const QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
 
@@ -97,6 +95,36 @@ NetworkManager::NetworkManager() : should_retry_(true) {
     }
     configuration.setCiphers(new_ciphers);
     QSslConfiguration::setDefaultConfiguration(configuration);
+}
+
+#ifdef Q_OS_MAC
+void loadUserCaCertificate()
+{
+    QList<QSslCertificate> certificates;
+    const std::vector<QByteArray> certs = utils::mac::getSystemCaCertificates();
+    for (unsigned i = 0; i < certs.size(); ++i)
+    {
+        certificates.append(QSslCertificate::fromData(certs[i], QSsl::Der));
+    }
+
+    // remove duplicates
+    certificates = certificates.toSet().toList();
+
+    QSslSocket::setDefaultCaCertificates(certificates);
+}
+#endif
+} // anonymous namespace
+
+NetworkManager* NetworkManager::instance_ = NULL;
+
+NetworkManager::NetworkManager() : should_retry_(true) {
+    // remove unsafe cipher
+    disableWeakCiphers();
+
+#ifdef Q_OS_MAC
+    // load user ca certificate from system, mac only
+    loadUserCaCertificate();
+#endif
 }
 
 void NetworkManager::addWatch(QNetworkAccessManager* manager)

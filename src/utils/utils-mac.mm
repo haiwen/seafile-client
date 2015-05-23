@@ -2,6 +2,7 @@
 
 #include <AvailabilityMacros.h>
 #import <Cocoa/Cocoa.h>
+#import <Security/Security.h>
 
 #include <QString>
 
@@ -356,6 +357,122 @@ void copyTextToPasteboard(const QString &text) {
 QString mainBundlePath() {
     NSURL *url = [[NSBundle mainBundle] bundleURL];
     return [[url path] UTF8String];
+}
+
+static inline bool isSslPolicy(SecPolicyRef policy) {
+    bool is_ssl = false;
+    CFDictionaryRef properties = NULL;
+    if (!policy)
+        return false;
+    if ((properties = SecPolicyCopyProperties(policy)) == NULL)
+        return false;
+    CFTypeRef value = NULL;
+    if (CFDictionaryGetValueIfPresent(properties, kSecPolicyOid,
+                                      (const void **)&value) &&
+        CFEqual(value, kSecPolicyAppleSSL))
+        is_ssl = true;
+
+    ;
+    CFRelease(properties);
+    return is_ssl;
+}
+
+static bool isCertificateDistrustedByUser(SecCertificateRef cert,
+                                          SecTrustSettingsDomain domain) {
+    CFArrayRef trustSettings;
+    // On return, an array of CFDictionary objects specifying the trust settings
+    // for the certificate
+    OSStatus status = SecTrustSettingsCopyTrustSettings(cert, domain, &trustSettings);
+    if (status != errSecSuccess)
+        return false;
+
+    bool distrusted = false;
+
+    CFNumberRef result;
+    SecTrustSettingsResult result_val;
+    CFIndex size = CFArrayGetCount(trustSettings);
+    for (CFIndex i = 0; i < size; ++i) {
+        CFDictionaryRef trustSetting = (CFDictionaryRef)CFArrayGetValueAtIndex(trustSettings, i);
+        SecPolicyRef policy = (SecPolicyRef)CFDictionaryGetValue(trustSetting, kSecTrustSettingsPolicy);
+
+        if (isSslPolicy(policy) &&
+            CFDictionaryGetValueIfPresent(trustSetting, kSecTrustSettingsResult,
+                                          (const void **)&result)) {
+            if (!CFNumberGetValue(result, kCFNumberIntType, &result_val))
+                continue;
+            switch (result_val) {
+            case kSecTrustSettingsResultTrustRoot:
+            case kSecTrustSettingsResultTrustAsRoot:
+            case kSecTrustSettingsResultUnspecified:
+                distrusted = false;
+                break;
+            case kSecTrustSettingsResultInvalid:
+            case kSecTrustSettingsResultDeny:
+            default:
+                distrusted = true;
+                break;
+            }
+
+            break;
+        }
+    }
+
+    CFRelease(trustSettings);
+
+    return distrusted;
+}
+
+static void
+appendCaCertificateFromSecurityStore(std::vector<QByteArray> *retval,
+                                     SecTrustSettingsDomain domain) {
+    CFArrayRef certs;
+    OSStatus status = 1;
+    status = SecTrustSettingsCopyCertificates(domain, &certs);
+    if (status != errSecSuccess)
+        return;
+
+    CFIndex size = CFArrayGetCount(certs);
+    for (CFIndex i = 0; i < size; ++i) {
+        SecCertificateRef cert =
+            (SecCertificateRef)CFArrayGetValueAtIndex(certs, i);
+
+        if (isCertificateDistrustedByUser(cert, kSecTrustSettingsDomainSystem) ||
+            isCertificateDistrustedByUser(cert, kSecTrustSettingsDomainAdmin) ||
+            isCertificateDistrustedByUser(cert, kSecTrustSettingsDomainUser)) {
+            CFStringRef name;
+            status = SecCertificateCopyCommonName(cert, &name);
+            if (status == errSecSuccess && name != nil) {
+                qWarning("declining a distrusted CA certificate from the system"
+                         "store with common name %s",
+                         [(__bridge NSString*)name UTF8String]);
+                CFRelease(name);
+            }
+            else
+                qWarning("declining a distrusted CA certificate from the system store");
+            continue;
+        }
+
+        // copy if trusted
+        CFDataRef data;
+        data = SecCertificateCopyData(cert);
+
+        if (data == NULL) {
+            qWarning("error retrieving a CA certificate from the system store");
+        } else {
+            QByteArray raw_data((const char *)CFDataGetBytePtr(data), CFDataGetLength(data));
+            retval->push_back(raw_data);
+            CFRelease(data);
+        }
+    }
+    CFRelease(certs);
+}
+
+std::vector<QByteArray> getSystemCaCertificates() {
+    std::vector<QByteArray> retval;
+    appendCaCertificateFromSecurityStore(&retval, kSecTrustSettingsDomainSystem);
+    appendCaCertificateFromSecurityStore(&retval, kSecTrustSettingsDomainAdmin);
+    appendCaCertificateFromSecurityStore(&retval, kSecTrustSettingsDomainUser);
+    return retval;
 }
 
 } // namespace mac

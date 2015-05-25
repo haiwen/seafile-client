@@ -62,9 +62,6 @@ public:
     void setAllowRepoNotFoundOnServer(bool enabled);
     bool allowRepoNotFoundOnServer() const { return allow_repo_not_found_on_server_; };
 
-    void setHttpSyncEnabled(bool enabled);
-    bool httpSyncEnabled() const { return http_sync_enabled_; };
-
     void setHttpSyncCertVerifyDisabled(bool disabled);
     bool httpSyncCertVerifyDisabled() const { return verify_http_sync_cert_disabled_; };
 
@@ -104,7 +101,6 @@ private:
     bool sync_extra_temp_file_;
     unsigned int maxDownloadRatio_;
     unsigned int maxUploadRatio_;
-    bool http_sync_enabled_;
     bool verify_http_sync_cert_disabled_;
     bool shell_ext_enabled_;
 

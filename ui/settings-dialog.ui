@@ -178,13 +178,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="mEnableHttpSyncCheckBox">
-         <property name="text">
-          <string>Enable file syncing with HTTP protocol</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QCheckBox" name="mDisableVerifyHttpSyncCert">
          <property name="text">
           <string>Do not verify server certificate in HTTPS syncing</string>

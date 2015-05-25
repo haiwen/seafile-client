@@ -239,8 +239,16 @@ void AccountView::getRepoTokenWhenRelogin(const Account& account)
     if (repo_ids.empty()) {
         return;
     }
+
+    /* old account object don't contains the new token */
+    QString host = account.serverUrl.host();
+    QString username = account.username;
+    Account new_account = seafApplet->accountManager()->getAccountByHostAndUsername(host, username);
+    if (!new_account.isValid())
+        return;
+
     GetRepoTokensRequest *req = new GetRepoTokensRequest(
-        account, repo_ids);
+        new_account, repo_ids);
 
     connect(req, SIGNAL(success()),
             this, SLOT(onGetRepoTokensSuccess()));
@@ -386,7 +394,7 @@ void AccountView::onGetRepoTokensSuccess()
 
 void AccountView::onGetRepoTokensFailed(const ApiError& error)
 {
-    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
+    GetRepoTokensRequest *req = (GetRepoTokensRequest *)QObject::sender();
     req->deleteLater();
     seafApplet->warningBox(
         tr("Failed to get repo sync information from server: %1").arg(error.toString()), this);

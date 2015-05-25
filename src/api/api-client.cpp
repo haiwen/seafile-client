@@ -204,6 +204,8 @@ void SeafileApiClient::httpRequestFinished()
         if (!shouldIgnoreRequestError(reply_)) {
             qWarning("request failed for %s: status code %d\n",
                    reply_->url().toString().toUtf8().data(), code);
+            qDebug("request failed for %s: %s\n",
+                   reply_->url().toString().toUtf8().data(), reply_->readAll().data());
         }
         emit requestFailed(code);
         return;

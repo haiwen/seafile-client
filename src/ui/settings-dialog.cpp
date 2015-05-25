@@ -52,6 +52,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     #if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
+
+    mDownloadSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
+    mUploadSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
     #endif
 }
 
@@ -66,7 +69,6 @@ void SettingsDialog::updateSettings()
     mgr->setMaxUploadRatio(mUploadSpinBox->value());
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
     mgr->setAllowInvalidWorktree(mAllowInvalidWorktreeCheckBox->checkState() == Qt::Checked);
-    mgr->setHttpSyncEnabled(mEnableHttpSyncCheckBox->checkState() == Qt::Checked);
     mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
 #ifdef HAVE_FINDER_SYNC_SUPPORT
@@ -124,9 +126,6 @@ void SettingsDialog::showEvent(QShowEvent *event)
 
     state = mgr->allowRepoNotFoundOnServer() ? Qt::Checked : Qt::Unchecked;
     mAllowRepoNotFoundCheckBox->setCheckState(state);
-
-    state = mgr->httpSyncEnabled() ? Qt::Checked : Qt::Unchecked;
-    mEnableHttpSyncCheckBox->setCheckState(state);
 
     state = mgr->httpSyncCertVerifyDisabled() ? Qt::Checked : Qt::Unchecked;
     mDisableVerifyHttpSyncCert->setCheckState(state);

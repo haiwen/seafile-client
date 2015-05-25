@@ -52,6 +52,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     #if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
+
+    mDownloadSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
+    mUploadSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
     #endif
 }
 

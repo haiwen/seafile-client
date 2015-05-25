@@ -185,7 +185,15 @@ void RegElement::read()
     switch (type_) {
         case REG_EXPAND_SZ:
         case REG_SZ:
-            string_value_ = QString::fromWCharArray(&buf[0], buf.size());
+            {
+                // expand environment strings
+                wchar_t expanded_buf[MAX_PATH];
+                DWORD size = ExpandEnvironmentStringsW(&buf[0], expanded_buf, MAX_PATH);
+                if (size == 0 || size > MAX_PATH)
+                    string_value_ = QString::fromWCharArray(&buf[0], buf.size());
+                else
+                    string_value_ = QString::fromWCharArray(expanded_buf, size);
+            }
             break;
         case REG_NONE:
         case REG_BINARY:

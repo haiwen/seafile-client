@@ -152,6 +152,8 @@ void SettingsDialog::showEvent(QShowEvent *event)
 #if defined(Q_OS_WIN32)
     state = mgr->shellExtensionEnabled() ? Qt::Checked : Qt::Unchecked;
     mShellExtCheckBox->setCheckState(state);
+#else
+    mShellExtCheckBox->hide();
 #endif
 
     // currently supports mac only

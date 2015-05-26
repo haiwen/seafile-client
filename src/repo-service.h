@@ -45,6 +45,9 @@ public:
 
     void openRepoOnSeahub(const QString& repo_id);
 
+    void openFolder(const QString &repo_id,
+                    const QString &path_in_repo);
+
 public slots:
     void refresh();
 

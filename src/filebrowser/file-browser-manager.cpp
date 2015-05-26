@@ -11,7 +11,7 @@ namespace {
 FileBrowserManager *FileBrowserManager::instance_ = NULL;
 
 
-FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &account, const ServerRepo &repo)
+FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &account, const ServerRepo &repo, const QString &path)
 {
     FileBrowserDialog *dialog = getDialog(account, repo.id);
     if (dialog == NULL) {
@@ -23,6 +23,8 @@ FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &accou
         dialogs_.push_back(dialog);
         connect(dialog, SIGNAL(aboutToClose()), this, SLOT(onAboutToClose()));
     }
+    if (!path.isEmpty())
+        dialog->enterPath(path.endsWith("/") ? path : path + "/");
     dialog->raise();
     dialog->activateWindow();
     return dialog;

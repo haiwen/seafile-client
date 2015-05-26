@@ -47,6 +47,9 @@ public:
                       QWidget *parent=0);
     ~FileBrowserDialog();
 
+    // only accept path ends with "/"
+    void enterPath(const QString& path);
+
     friend class FileTableView;
     friend class FileTableModel;
 signals:
@@ -123,7 +126,6 @@ private:
     void createLoadingFailedView();
     void showLoading();
     void updateTable(const QList<SeafDirent>& dirents);
-    void enterPath(const QString& path);
     void createDirectory(const QString &name);
     void downloadFile(const QString& path);
     void uploadFile(const QString& path, const QString& name,

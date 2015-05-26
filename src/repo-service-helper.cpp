@@ -12,6 +12,7 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seafile-applet.h"
+#include "repo-service.h"
 
 void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto_udpate)
 {
@@ -62,6 +63,10 @@ void FileDownloadHelper::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
     Q_FOREACH(const SeafDirent &dirent, dirents)
     {
         if (dirent.name == file_name_) {
+            if (dirent.isDir()) {
+                RepoService::instance()->openFolder(repo_.id, path_);
+                return;
+            }
             downloadFile(dirent.id);
             found_file = true;
             break;

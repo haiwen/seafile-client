@@ -19,6 +19,7 @@
 #include "rpc/local-repo.h"
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
+#include "auto-login-service.h"
 #include "avatar-service.h"
 #include "utils/paint-utils.h"
 #include "filebrowser/file-browser-manager.h"
@@ -402,49 +403,5 @@ void AccountView::onGetRepoTokensFailed(const ApiError& error)
 
 void AccountView::visitServerInBrowser(const QString& link)
 {
-    const Account& account = seafApplet->accountManager()->currentAccount();
-
-    // TODO: uncomment the following check
-    // if (!account.isAtLeastVersion(4, 2, 0)) {
-    //     QDesktopServices::openUrl(account.serverUrl);
-    //     return;
-    // }
-
-    GetLoginTokenRequest *req = new GetLoginTokenRequest(account);
-
-    connect(req, SIGNAL(success(const QString&)),
-            this, SLOT(onGetLoginTokenSuccess(const QString&)));
-
-    connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onGetLoginTokenFailed(const ApiError&)));
-
-    req->send();
-}
-
-void AccountView::onGetLoginTokenSuccess(const QString& token)
-{
-    GetLoginTokenRequest *req = (GetLoginTokenRequest *)(sender());
-    // printf("login token is %s\n", token.toUtf8().data());
-
-    QUrl url = req->account().getAbsoluteUrl("/client-login/");
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QUrlQuery q;
-    q.addQueryItem("token", token);
-    url.setQuery(q);
-#else
-    url.addQueryItem("token", token);
-#endif
-    // printf("url is %s\n", url.toEncoded().data());
-    QDesktopServices::openUrl(url);
-    req->deleteLater();
-}
-
-void AccountView::onGetLoginTokenFailed(const ApiError& error)
-{
-    GetLoginTokenRequest *req = (GetLoginTokenRequest *)(sender());
-    qWarning("get login token failed: %s\n", error.toString().toUtf8().data());
-    // server doesn't support client directly login, or other errors happened.
-    // We open the server url directly in this case;
-    QDesktopServices::openUrl(req->account().serverUrl);
-    req->deleteLater();
+    AutoLoginService::instance()->startAutoLogin("/");
 }

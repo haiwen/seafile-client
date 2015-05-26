@@ -672,10 +672,11 @@ void GetRepoTokensRequest::requestSuccess(QNetworkReply& reply)
     emit success();
 }
 
-GetLoginTokenRequest::GetLoginTokenRequest(const Account& account)
+GetLoginTokenRequest::GetLoginTokenRequest(const Account& account, const QString& next_url)
     : SeafileApiRequest (account.getAbsoluteUrl(kGetLoginTokenUrl),
                          SeafileApiRequest::METHOD_POST, account.token),
-      account_(account)
+      account_(account),
+      next_url_(next_url)
 {
 }
 

@@ -25,6 +25,7 @@
 #include "repo-detail-dialog.h"
 #include "utils/paint-utils.h"
 #include "repo-service.h"
+#include "auto-login-service.h"
 
 #include "filebrowser/file-browser-manager.h"
 #include "filebrowser/file-browser-dialog.h"
@@ -36,9 +37,6 @@
 #include "repo-tree-view.h"
 
 namespace {
-
-const int kRepoTreeMenuIconSize = 16;
-const int kRepoTreeToolbarIconSize = 24;
 
 const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
 const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
@@ -510,9 +508,7 @@ void RepoTreeView::viewRepoOnWeb()
         if (!account.isAtLeastVersion(4, 2, 0)) {
             QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
         } else {
-            QUrl url = account.getAbsoluteUrl("/");
-            url.setFragment("common/lib/" + selected_repo_.id + "/");
-            QDesktopServices::openUrl(url);
+            AutoLoginService::instance()->startAutoLogin("/#common/lib/" + selected_repo_.id + "/");
         }
     }
 }

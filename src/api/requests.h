@@ -396,9 +396,10 @@ private:
 class GetLoginTokenRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    GetLoginTokenRequest(const Account& account);
+    GetLoginTokenRequest(const Account& account, const QString& next_url);
 
     const Account& account() { return account_; }
+    const QString& nextUrl() { return next_url_; }
 
 signals:
     void success(const QString& token);
@@ -410,6 +411,7 @@ private:
     Q_DISABLE_COPY(GetLoginTokenRequest);
 
     Account account_;
+    QString next_url_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

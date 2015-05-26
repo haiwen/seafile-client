@@ -35,8 +35,6 @@ private slots:
     void onGetRepoTokensSuccess();
     void onGetRepoTokensFailed(const ApiError& error);
     void visitServerInBrowser(const QString& link);
-    void onGetLoginTokenSuccess(const QString& token);
-    void onGetLoginTokenFailed(const ApiError& error);
 
 private:
     Q_DISABLE_COPY(AccountView)

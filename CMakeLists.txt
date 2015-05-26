@@ -165,6 +165,7 @@ SET(moc_headers
   src/account-mgr.h
   src/configurator.h
   src/daemon-mgr.h
+  src/auto-login-service.h
   src/repo-service.h
   src/repo-service-helper.h
   src/events-service.h
@@ -336,6 +337,7 @@ SET(seafile_client_sources
   src/open-local-helper.cpp
   src/message-listener.cpp
   src/network-mgr.cpp
+  src/auto-login-service.cpp
   src/repo-service.cpp
   src/repo-service-helper.cpp
   src/events-service.cpp

@@ -43,6 +43,8 @@ public:
                        const QString& path_in_repo,
                        QWidget *dialog_parent=0);
 
+    void openRepoOnSeahub(const QString& repo_id);
+
 public slots:
     void refresh();
 

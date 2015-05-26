@@ -188,7 +188,7 @@ void EventItemDelegate::paint(QPainter *painter,
     desc_width = qMin(desc_width, ::textWidthInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)));
     const int desc_height = ::textHeightInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)) * 2;
 
-    const QPoint event_desc_pos = option.rect.bottomLeft() + QPoint(nick_rect.left(), - desc_height - kPadding - kMarginBottom);
+    const QPoint event_desc_pos = option.rect.bottomLeft() + QPoint(nick_rect.left(), - desc_height - kMarginBottom);
 
     QRect event_desc_rect(event_desc_pos, QSize(desc_width, desc_height));
     painter->setFont(changeFontSize(painter->font(), kDescriptionFontSize));
@@ -208,7 +208,7 @@ void EventItemDelegate::paint(QPainter *painter,
 
     const QPoint event_repo_name_pos = option.rect.bottomRight() +
         QPoint(-repo_name_width - kPadding - kMarginRight,
-               -repo_name_height - kPadding - kMarginBottom);
+               -repo_name_height - kMarginBottom);
 
     QRect event_repo_name_rect(event_repo_name_pos, QSize(repo_name_width, kNickHeight));
     painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
@@ -229,7 +229,7 @@ void EventItemDelegate::paint(QPainter *painter,
 QSize EventItemDelegate::sizeHint(const QStyleOptionViewItem& option,
                                   const QModelIndex& index) const
 {
-    int height = kNickHeight + kDescriptionHeight + kPadding * 3;
+    int height = kNickHeight + kDescriptionHeight + kPadding * 3 + kPadding / 2;
     return QSize(option.rect.width(), height);
 }
 

@@ -23,12 +23,17 @@ AutoLoginService::AutoLoginService(QObject *parent)
 void AutoLoginService::startAutoLogin(const QString& next_url)
 {
     const Account account = seafApplet->accountManager()->currentAccount();
+    QUrl absolute_url = account.getAbsoluteUrl(next_url);
     if (!account.isValid() || !account.isAtLeastVersion(4, 2, 0)) {
-        QDesktopServices::openUrl(account.getAbsoluteUrl(next_url));
+        QDesktopServices::openUrl(absolute_url);
         return;
     }
 
-    GetLoginTokenRequest *req = new GetLoginTokenRequest(account, next_url);
+    QString next = absolute_url.path();
+    if (!absolute_url.fragment().isEmpty()) {
+        next += "#" + absolute_url.fragment();
+    }
+    GetLoginTokenRequest *req = new GetLoginTokenRequest(account, next);
 
     connect(req, SIGNAL(success(const QString&)),
             this, SLOT(onGetLoginTokenSuccess(const QString&)));
@@ -52,7 +57,6 @@ void AutoLoginService::onGetLoginTokenSuccess(const QString& token)
     params.insert("next", req->nextUrl());
     url = includeQueryParams(url, params);
 
-    printf("url is %s\n", url.toEncoded().data());
     QDesktopServices::openUrl(url);
     req->deleteLater();
 }

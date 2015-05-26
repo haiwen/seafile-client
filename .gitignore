@@ -95,3 +95,5 @@ third_party/breakpad
 /gtags.files
 
 .deps
+compile_commands.json
+.ycm_extra_conf.py

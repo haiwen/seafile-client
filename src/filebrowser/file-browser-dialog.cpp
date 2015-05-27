@@ -1061,6 +1061,18 @@ void FileBrowserDialog::onGetDirentsPaste()
         seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
         return;
     }
+    bool has_conflict = false;
+    Q_FOREACH(const SeafDirent &item, table_model_->dirents())
+    {
+        if (file_names_to_be_pasted_.contains(item.name)) {
+            has_conflict = true;
+            break;
+        }
+    }
+    if (has_conflict) {
+        seafApplet->warningBox(tr("Cannot paste files when having conflicts in current folder"), this);
+        return;
+    }
     if (is_copyed_when_pasted_)
         data_mgr_->copyDirents(repo_id_to_be_pasted_from_,
                                dir_path_to_be_pasted_from_,

@@ -51,7 +51,9 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
                                         const QString& path)
 {
     QString local_path = DataManager::getLocalCacheFilePath(repo_id, path);
+    qDebug("added watch of: %s\n", toCStr(path));
     if (!QFileInfo(local_path).exists()) {
+        qDebug("but it does not exist!\n");
         return;
     }
 
@@ -61,6 +63,7 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
+    qDebug("file changed: %s\n", toCStr(local_path));
 #ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         return;
@@ -69,9 +72,11 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     watcher_.removePath(local_path);
     QString repo_id, path_in_repo;
     if (!watch_infos_.contains(local_path)) {
+        qDebug("but not info for it watch_infos_\n");
         return;
     }
     if (!QFileInfo(local_path).exists()) {
+        qDebug("but file deleted \n");
         removeWatch(local_path);
         return;
     }
@@ -81,6 +86,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     LocalRepo repo;
     seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo);
     if (repo.isValid()) {
+        qDebug("but repo invalid\n");
         return;
     }
 
@@ -92,6 +98,8 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onUpdateTaskFinished(bool)));
 
+    qDebug("started upload task\n");
+
     task->start();
     info.uploading = true;
 }
@@ -99,10 +107,13 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
-    if (task == NULL)
+    if (task == NULL) {
+        qDebug("task finished but is null");
         return;
+    }
     const QString local_path = task->localFilePath();
     if (success) {
+        qDebug("uploaded file %s successfully", toCStr(local_path));
         seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
                                                     tr("Upload Success"),
                                                     tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()));
@@ -114,7 +125,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
                                                     tr("Upload Failure"),
                                                     tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()));
-        qDebug("failed to auto update %s\n", toCStr(local_path));
+        qWarning("failed to auto update %s\n", toCStr(local_path));
         watch_infos_.remove(local_path);
         return;
     }

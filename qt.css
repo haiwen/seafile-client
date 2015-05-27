@@ -384,7 +384,7 @@ EventDetailsDialog {
     min-height: 300px;
 }
 
-EventDetailsTreeView
+EventDetailsListView
 {
     background: white;
     border: 0;
@@ -393,11 +393,11 @@ EventDetailsTreeView
     border-bottom: 1px solid #DCDCDE;
 }
 
-EventDetailsTreeView {
+EventDetailsListView {
     qproperty-iconSize: 36px;
 }
 
-EventDetailsTreeView QScrollBar {
+EventDetailsListView QScrollBar {
     margin-right: 1px;
 }
 

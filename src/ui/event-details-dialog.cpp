@@ -44,8 +44,8 @@ EventDetailsDialog::EventDetailsDialog(const SeafEvent& event, QWidget *parent)
     loading_view_ = new LoadingView;
     layout->addWidget(loading_view_);
 
-    tree_ = new EventDetailsTreeView(event);
-    model_ = new EventDetailsTreeModel(event);
+    tree_ = new EventDetailsListView(event);
+    model_ = new EventDetailsListModel(event);
     tree_->setModel(model_);
 
     layout->addWidget(tree_);
@@ -77,8 +77,6 @@ void EventDetailsDialog::updateContent(const CommitDetails& details)
     layout->setCurrentIndex(INDEX_DETAILS_VIEW);
 
     model_->setCommitDetails(details);
-
-    tree_->expandAll();
 }
 
 void EventDetailsDialog::getCommitDetailsFailed(const ApiError& error)

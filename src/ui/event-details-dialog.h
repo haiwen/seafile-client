@@ -6,8 +6,8 @@
 
 class GetCommitDetailsRequest;
 class CommitDetails;
-class EventDetailsTreeView;
-class EventDetailsTreeModel;
+class EventDetailsListView;
+class EventDetailsListModel;
 class ApiError;
 
 // Display the commit details in a simple tree view
@@ -29,8 +29,8 @@ private:
 
     GetCommitDetailsRequest *request_;
 
-    EventDetailsTreeView *tree_;
-    EventDetailsTreeModel *model_;
+    EventDetailsListView *tree_;
+    EventDetailsListModel *model_;
     QWidget *loading_view_;
 };
 

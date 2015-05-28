@@ -147,8 +147,10 @@ int main(int argc, char *argv[])
 #else
     QApplication app(argc, argv);
 #endif
+#if defined(Q_OS_WIN32)
     // change the current directory
     QDir::setCurrent(QApplication::applicationDirPath());
+#endif
 
     // don't quit even if the last windows is closed
     app.setQuitOnLastWindowClosed(false);

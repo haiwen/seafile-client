@@ -81,7 +81,7 @@ void ReposTab::createRepoTree()
     filter_model_->setSourceModel(repos_model_);
     filter_model_->setDynamicSortFilter(true);
     repos_tree_->setModel(filter_model_);
-    repos_tree_->setItemDelegate(new RepoItemDelegate);
+    repos_tree_->setItemDelegate(new RepoItemDelegate(repos_tree_));
 }
 
 void ReposTab::createLoadingView()

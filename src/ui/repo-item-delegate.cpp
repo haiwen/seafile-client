@@ -15,6 +15,7 @@
 #include "rpc/local-repo.h"
 #include "account-mgr.h"
 #include "repo-service.h"
+#include "QtAwesome.h"
 
 #include "repo-item-delegate.h"
 
@@ -39,6 +40,7 @@ const int kRepoNameHeight = 30;
 const int kRepoStatusIconWidth = 24;
 const int kRepoStatusIconHeight = 24;
 
+const char *kRepoCategoryIndicatorColor = "#AAA";
 const int kRepoCategoryNameMaxWidth = 400;
 const int kRepoCategoryIndicatorWidth = 16;
 const int kRepoCategoryIndicatorHeight = 16;
@@ -64,6 +66,8 @@ const char *kRepoCategoryColor = "#3F3F3F";
 const char *kRepoCategoryBackgroundColor = "white";
 //const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
+const int kRepoCategoryCountMarginRight = 10;
+const char *kRepoCategoryCountColor = "#BBB";
 
 } // namespace
 
@@ -136,8 +140,17 @@ void RepoItemDelegate::paint(QPainter *painter,
     if (item->type() == REPO_ITEM_TYPE) {
         paintRepoItem(painter, option, (RepoItem *)item);
     } else {
-        // QStyledItemDelegate::paint(painter, option, index);
         paintRepoCategoryItem(painter, option, (RepoCategoryItem *)item);
+    }
+
+    // fix for showing first category if hidden
+    RepoTreeView *view = static_cast<RepoTreeView*>(parent());
+    if (view->indexAt(QPoint(0, 0)).parent().isValid()) {
+        if (option.rect.contains(QPoint(0, 0))) {
+            QStyleOptionViewItem category_option = option;
+            category_option.rect = QRect(0, 0, option.rect.width(), kRepoCategoryIndicatorHeight + kPadding * 2);
+            paintRepoCategoryItem(painter, category_option, (RepoCategoryItem *)getItem(view->indexAt(QPoint(0, 0)).parent()));
+        }
     }
 }
 
@@ -294,20 +307,15 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                              const QStyleOptionViewItem& option,
                                              const RepoCategoryItem *item) const
 {
-    QBrush backBrush;
-    //bool hover = false;
-    bool selected = false;
-
-    backBrush = QColor(kRepoCategoryBackgroundColor);
-    if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
-        selected = true;
-    }
+    QBrush backBrush = QColor(kRepoCategoryBackgroundColor);
 
     painter->save();
     painter->fillRect(option.rect, backBrush);
     painter->restore();
 
     // Paint the expand/collapse indicator
+    painter->save();
+
     RepoTreeModel *model = (RepoTreeModel *)item->model();
     RepoTreeView *view = model->treeView();
 
@@ -316,23 +324,41 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
 
     QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
-    painter->save();
-    QIcon icon(QString(":/images/caret-%1.png").arg(expanded ? "down" : "right"));
-
-    painter->drawPixmap(indicator_rect, icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight)));
+    // get the device pixel radio from current painter device
+    int scale_factor = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    scale_factor = painter->device()->devicePixelRatio();
+#endif // QT5
+    QIcon icon(expanded? awesome->icon(icon_caret_down, kRepoCategoryIndicatorColor) : awesome->icon(icon_caret_right, kRepoCategoryIndicatorColor));
+    QPixmap icon_pixmap(icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorWidth) * scale_factor));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    icon_pixmap.setDevicePixelRatio(scale_factor);
+#endif // QT5
+    painter->drawPixmap(indicator_rect, icon_pixmap);
     painter->restore();
 
     // Paint category name
+    const QString category_count_text = "[" +QString::number(item->matchedReposCount()) + "]";
+    const int category_count_width = ::textWidthInFont(category_count_text, option.font);
+
     painter->save();
     QPoint category_name_pos = indicator_rect.topRight() + QPoint(kMarginBetweenIndicatorAndName, 0);
     QRect category_name_rect(category_name_pos,
-                             option.rect.bottomRight() - QPoint(kPadding, 0));
-    // painter->setPen(QColor(selected ? kRepoCategoryColorHighlighted : kRepoCategoryColor));
+                             option.rect.bottomRight() - QPoint(kPadding + category_count_width + kRepoCategoryCountMarginRight, 0));
     painter->setPen(QColor(kRepoCategoryColor));
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(item->name() + QString().sprintf(" [%d]", item->matchedReposCount()),
-                                     option.font, category_name_rect.width()));
+                      fitTextToWidth(item->name(), option.font, category_name_rect.width()));
+    painter->restore();
+
+    // Paint category count
+    painter->save();
+    QPoint category_count_pos = option.rect.topRight() + QPoint(-category_count_width - kPadding - kRepoCategoryCountMarginRight, 0);
+    QRect category_count_rect(category_count_pos, option.rect.bottomRight() - QPoint(kPadding + kRepoCategoryCountMarginRight, 0));
+    painter->setPen(QColor(kRepoCategoryCountColor));
+    painter->drawText(category_count_rect,
+                      Qt::AlignLeft | Qt::AlignTop,
+                      category_count_text);
     painter->restore();
 }
 

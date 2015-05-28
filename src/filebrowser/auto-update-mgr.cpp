@@ -1,6 +1,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QDateTime>
+#include <QTimer>
 
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
@@ -75,13 +76,19 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         qDebug("but not info for it watch_infos_\n");
         return;
     }
+
+    WatchedFileInfo info = watch_infos_[local_path];
+
     if (!QFileInfo(local_path).exists()) {
         qDebug("but file deleted \n");
         removeWatch(local_path);
+        // Some application would deleted and recreate the file when saving.
+        // We work around that by double checking whether the file gets
+        // recreated after a short period
+        QTimer::singleShot(5000, this, SLOT(checkFileRecreated()));
+        deleted_files_infos_.enqueue(info);
         return;
     }
-
-    WatchedFileInfo& info = watch_infos_[local_path];
 
     LocalRepo repo;
     seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo);
@@ -135,6 +142,22 @@ void AutoUpdateManager::removeWatch(const QString& path)
 {
     watcher_.removePath(path);
     watch_infos_.remove(path);
+}
+
+void AutoUpdateManager::checkFileRecreated()
+{
+    if (deleted_files_infos_.isEmpty()) {
+        // impossible
+        return;
+    }
+
+    const WatchedFileInfo info = deleted_files_infos_.dequeue();
+    const QString path = DataManager::getLocalCacheFilePath(info.repo_id, info.path_in_repo);
+    if (QFileInfo(path).exists()) {
+        qDebug("file %s recreated", toCStr(info.path_in_repo));
+        watcher_.addPath(path);
+        watch_infos_[path] = info;
+    }
 }
 
 SINGLETON_IMPL(MacImageFilesWorkAround)

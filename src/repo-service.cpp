@@ -16,6 +16,8 @@
 #include "utils/utils.h"
 #include "rpc/rpc-client.h"
 
+#include "filebrowser/file-browser-manager.h"
+
 #include "repo-service.h"
 #include "repo-service-helper.h"
 
@@ -308,6 +310,11 @@ void RepoService::openLocalFile(const QString& repo_id,
                                 const QString& path_in_repo,
                                 QWidget *dialog_parent)
 {
+    if (path_in_repo.endsWith("/")) {
+        openFolder(repo_id, path_in_repo.left(path_in_repo.size() - 1));
+        return;
+    }
+
     LocalRepo r;
 
     seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
@@ -319,15 +326,47 @@ void RepoService::openLocalFile(const QString& repo_id,
     } else {
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
+            qWarning("trying to open invalid repo %s", repo_id.toUtf8().data());
             return;
         }
 
         const QString path = "/" + path_in_repo;
         const Account account = seafApplet->accountManager()->currentAccount();
+        if (!account.isValid()) {
+            qWarning("no valid account found");
+            return;
+        }
         FileDownloadHelper *helper =
           new FileDownloadHelper(account, repo, path, dialog_parent);
         helper->setParent(dialog_parent);
         helper->start();
+    }
+}
+
+void RepoService::openFolder(const QString &repo_id,
+                             const QString &path_in_repo)
+{
+    LocalRepo r;
+
+    seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
+
+    if (r.isValid()) {
+        QString local_path = QDir(r.worktree).filePath(path_in_repo);
+
+        FileDownloadHelper::openFile(local_path, false);
+    } else {
+        ServerRepo repo = getRepo(repo_id);
+        if (!repo.isValid()) {
+            qWarning("trying to open invalid repo %s", repo_id.toUtf8().data());
+            return;
+        }
+
+        const Account account = seafApplet->accountManager()->currentAccount();
+        if (!account.isValid()) {
+            qWarning("no valid account found");
+            return;
+        }
+        FileBrowserManager::getInstance()->openOrActivateDialog(account, repo, path_in_repo);
     }
 }
 

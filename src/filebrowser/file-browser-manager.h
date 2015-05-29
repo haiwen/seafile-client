@@ -18,7 +18,7 @@ public:
     return instance_;
   }
 
-  FileBrowserDialog *openOrActivateDialog(const Account &account, const ServerRepo &repo);
+  FileBrowserDialog *openOrActivateDialog(const Account &account, const ServerRepo &repo, const QString &path = "/");
 
   FileBrowserDialog *getDialog(const Account &account, const QString &repo_id);
 

@@ -185,6 +185,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mEnableSyncingWithExistingFolder">
+         <property name="text">
+          <string>Enable syncing with an existing folder with a different name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

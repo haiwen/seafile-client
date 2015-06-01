@@ -68,6 +68,9 @@ public:
     QString getComputerName();
     void setComputerName(const QString& computerName);
 
+    bool isEnableSyncingWithExistingFolder() const;
+    void setEnableSyncingWithExistingFolder(bool enabled);
+
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     QString getLastShibUrl();
     void setLastShibUrl(const QString& url);

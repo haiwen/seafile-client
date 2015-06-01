@@ -44,7 +44,7 @@ class FileBrowserDialog : public QDialog
     friend class FileBrowserManager;
 public:
     FileBrowserDialog(const Account &account, const ServerRepo& repo,
-                      QWidget *parent=0);
+                      const QString &path, QWidget *parent=0);
     ~FileBrowserDialog();
 
     // only accept path ends with "/"

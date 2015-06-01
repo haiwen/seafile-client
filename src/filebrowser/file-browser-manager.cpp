@@ -14,17 +14,18 @@ FileBrowserManager *FileBrowserManager::instance_ = NULL;
 FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &account, const ServerRepo &repo, const QString &path)
 {
     FileBrowserDialog *dialog = getDialog(account, repo.id);
+    QString fixed_path = path.endsWith("/") ? path : path + "/";
     if (dialog == NULL) {
-        dialog = new FileBrowserDialog(account, repo);
+        dialog = new FileBrowserDialog(account, repo, fixed_path);
         QRect screen = QApplication::desktop()->screenGeometry();
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);
         dialog->show();
         dialog->move(screen.center() - dialog->rect().center());
         dialogs_.push_back(dialog);
         connect(dialog, SIGNAL(aboutToClose()), this, SLOT(onAboutToClose()));
+    } else if (!path.isEmpty()) {
+        dialog->enterPath(fixed_path);
     }
-    if (!path.isEmpty())
-        dialog->enterPath(path.endsWith("/") ? path : path + "/");
     dialog->raise();
     dialog->activateWindow();
     return dialog;

@@ -554,3 +554,11 @@ ReposTab QLineEdit#repoNameFilter {
     border: 1px solid #BCBCBE;
     border-radius: 3px;
 }
+
+SharedLinkDialog QLabel {
+    font-size: 12px;
+}
+
+SharedLinkDialog QCheckBox {
+    font-size: 10px;
+}

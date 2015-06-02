@@ -76,14 +76,13 @@ QString FileBrowserDialog::repo_id_to_be_pasted_from_;
 Account FileBrowserDialog::account_to_be_pasted_from_;
 bool FileBrowserDialog::is_copyed_when_pasted_;
 
-FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& repo, QWidget *parent)
+FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& repo, const QString &path, QWidget *parent)
     : QDialog(parent),
       account_(account),
-      repo_(repo)
+      repo_(repo),
+      current_path_(path)
 {
-    current_path_ = "/";
-    // since root is special, the next step is unnecessary
-    // current_lpath_.push_back("");
+    current_lpath_ = current_path_.split('/');
 
     data_mgr_ = new DataManager(account_);
 

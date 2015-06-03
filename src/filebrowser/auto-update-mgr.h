@@ -3,6 +3,7 @@
 
 #include <QFileSystemWatcher>
 #include <QHash>
+#include <QQueue>
 
 #include "utils/singleton.h"
 #include "account.h"
@@ -25,6 +26,7 @@ signals:
 private slots:
     void onFileChanged(const QString& path);
     void onUpdateTaskFinished(bool success);
+    void checkFileRecreated();
 
 private:
     AutoUpdateManager();
@@ -49,6 +51,8 @@ private:
     };
 
     QHash<QString, WatchedFileInfo> watch_infos_;
+
+    QQueue<WatchedFileInfo> deleted_files_infos_;
 };
 
 /**

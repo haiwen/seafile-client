@@ -1,6 +1,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QDateTime>
+#include <QTimer>
 
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
@@ -51,7 +52,9 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
                                         const QString& path)
 {
     QString local_path = DataManager::getLocalCacheFilePath(repo_id, path);
+    qDebug("added watch of: %s\n", toCStr(path));
     if (!QFileInfo(local_path).exists()) {
+        qDebug("but it does not exist!\n");
         return;
     }
 
@@ -61,6 +64,7 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
+    qDebug("file changed: %s\n", toCStr(local_path));
 #ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         return;
@@ -69,18 +73,27 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     watcher_.removePath(local_path);
     QString repo_id, path_in_repo;
     if (!watch_infos_.contains(local_path)) {
-        return;
-    }
-    if (!QFileInfo(local_path).exists()) {
-        removeWatch(local_path);
+        qDebug("but not info for it watch_infos_\n");
         return;
     }
 
-    WatchedFileInfo& info = watch_infos_[local_path];
+    WatchedFileInfo info = watch_infos_[local_path];
+
+    if (!QFileInfo(local_path).exists()) {
+        qDebug("but file deleted \n");
+        removeWatch(local_path);
+        // Some application would deleted and recreate the file when saving.
+        // We work around that by double checking whether the file gets
+        // recreated after a short period
+        QTimer::singleShot(5000, this, SLOT(checkFileRecreated()));
+        deleted_files_infos_.enqueue(info);
+        return;
+    }
 
     LocalRepo repo;
     seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo);
     if (repo.isValid()) {
+        qDebug("but repo invalid\n");
         return;
     }
 
@@ -92,6 +105,8 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onUpdateTaskFinished(bool)));
 
+    qDebug("started upload task\n");
+
     task->start();
     info.uploading = true;
 }
@@ -99,10 +114,13 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
-    if (task == NULL)
+    if (task == NULL) {
+        qDebug("task finished but is null");
         return;
+    }
     const QString local_path = task->localFilePath();
     if (success) {
+        qDebug("uploaded file %s successfully", toCStr(local_path));
         seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
                                                     tr("Upload Success"),
                                                     tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()));
@@ -114,7 +132,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
                                                     tr("Upload Failure"),
                                                     tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()));
-        qDebug("failed to auto update %s\n", toCStr(local_path));
+        qWarning("failed to auto update %s\n", toCStr(local_path));
         watch_infos_.remove(local_path);
         return;
     }
@@ -124,6 +142,22 @@ void AutoUpdateManager::removeWatch(const QString& path)
 {
     watcher_.removePath(path);
     watch_infos_.remove(path);
+}
+
+void AutoUpdateManager::checkFileRecreated()
+{
+    if (deleted_files_infos_.isEmpty()) {
+        // impossible
+        return;
+    }
+
+    const WatchedFileInfo info = deleted_files_infos_.dequeue();
+    const QString path = DataManager::getLocalCacheFilePath(info.repo_id, info.path_in_repo);
+    if (QFileInfo(path).exists()) {
+        qDebug("file %s recreated", toCStr(info.path_in_repo));
+        watcher_.addPath(path);
+        watch_infos_[path] = info;
+    }
 }
 
 SINGLETON_IMPL(MacImageFilesWorkAround)

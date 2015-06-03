@@ -20,13 +20,18 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
     layout->setSpacing(5);
     layout->setContentsMargins(9, 9, 9, 9);
 
-    QLineEdit *editor = new QLineEdit;
-    editor->setText(text_);
-    editor->selectAll();
-    editor->setReadOnly(true);
-    layout->addWidget(editor);
+    editor_ = new QLineEdit;
+    editor_->setText(text_);
+    editor_->selectAll();
+    editor_->setReadOnly(true);
+    layout->addWidget(editor_);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
+
+    QCheckBox *is_download_checked = new QCheckBox(tr("Direct Download"));
+    connect(is_download_checked, SIGNAL(stateChanged(int)),
+            this, SLOT(onDownloadStateChanged(int)));
+    hlayout->addWidget(is_download_checked);
 
     QWidget *spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -62,4 +67,12 @@ void SharedLinkDialog::onCopyText()
 #else
     utils::mac::copyTextToPasteboard(text_);
 #endif
+}
+
+void SharedLinkDialog::onDownloadStateChanged(int state)
+{
+    if (state == Qt::Checked)
+        editor_->setText(text_ + "?dl=1");
+    else
+        editor_->setText(text_);
 }

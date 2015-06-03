@@ -1,12 +1,17 @@
 #ifndef SEAFILE_CLIENT_FILE_UTILS_H_
 #define SEAFILE_CLIENT_FILE_UTILS_H_
 
+#include <QString>
 class QStringList;
 
 QString mimeTypeFromFileName(const QString& fileName);
+QString iconPrefixFromFileName(const QString& fileName);
 
 QString getIconByFileName(const QString& fileName);
 QString getIconByFileNameV2(const QString& fileName);
+
+QString readableNameForFolder();
+QString readableNameForFile(const QString& fileName);
 
 QString getParentPath(const QString& path);
 QString getBaseName(const QString& path);

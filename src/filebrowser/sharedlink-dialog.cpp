@@ -45,7 +45,7 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
     hlayout->addWidget(copy_to);
     connect(copy_to, SIGNAL(clicked()), this, SLOT(onCopyText()));
 
-    QPushButton *ok = new QPushButton(tr("Ok"));
+    QPushButton *ok = new QPushButton(tr("OK"));
     hlayout->addWidget(ok);
     connect(ok, SIGNAL(clicked()), this, SLOT(accept()));
 

@@ -56,7 +56,7 @@ signals:
     void aboutToClose();
 
 private slots:
-    void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
+    void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
     void onGetDirentsFailed(const ApiError& error);
     void onMkdirButtonClicked();
     void fetchDirents();
@@ -141,9 +141,11 @@ private:
 
     const Account account_;
     const ServerRepo repo_;
+
     // current path
     QString current_path_;
     QStringList current_lpath_;
+    bool current_readonly_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
 

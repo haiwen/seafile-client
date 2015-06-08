@@ -19,6 +19,7 @@ SeafDirent SeafDirent::fromJSON(const json_t *root, json_error_t */* error */)
     } else {
         dirent.type = DIR;
     }
+    dirent.readonly = json.getString("permission") == "r" ? true : false;
     dirent.mtime = json.getLong("mtime");
 
     return dirent;

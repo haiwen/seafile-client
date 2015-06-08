@@ -16,6 +16,7 @@ public:
     };
     
     Type type;
+    bool readonly;
     QString id;
     QString name;
     quint64 size;

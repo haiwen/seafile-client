@@ -74,6 +74,8 @@
     <file>images/main-panel/library-encrypted@2x.png</file>
     <file>images/main-panel/library-readonly.png</file>
     <file>images/main-panel/library-readonly@2x.png</file>
+    <file>images/main-panel/search-background.png</file>
+    <file>images/main-panel/search-background@2x.png</file>
     <file>images/main-panel/unconnected.png</file>
     <file>images/main-panel/unconnected@2x.png</file>
     <file>images/main-panel/up.png</file>
@@ -95,6 +97,8 @@
     <file>images/tabs/files@2x.png</file>
     <file>images/tabs/history.png</file>
     <file>images/tabs/history@2x.png</file>
+    <file>images/tabs/search.png</file>
+    <file>images/tabs/search@2x.png</file>
     <file>images/tabs/starred.png</file>
     <file>images/tabs/starred@2x.png</file>
     <file>images/files/file_audio.png</file>

@@ -454,7 +454,6 @@ static
 QList<QVariant> listFromJSON(json_t *array)
 {
     QList<QVariant> ret;
-    size_t index;
     size_t array_size = json_array_size(array);
     json_t *value;
 
@@ -462,10 +461,11 @@ QList<QVariant> listFromJSON(json_t *array)
         (value = json_array_get(array, index)); ++index) {
         /* block of code that uses index and value */
         QVariant v;
-        /*if (json_is_array(value)) {
-            v = listFromJSON(value, error);
-        } else */
-        if (json_is_string(value)) {
+        if (json_is_object(value)) {
+            v = mapFromJSON(value, NULL);
+        } else if (json_is_array(value)) {
+            v = listFromJSON(value);
+        } else if (json_is_string(value)) {
             v = QString::fromUtf8(json_string_value(value));
         } else if (json_is_integer(value)) {
             v = json_integer_value(value);
@@ -503,7 +503,9 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
         // json_is_true(const json_t *json)
         // json_is_false(const json_t *json)
         // json_is_null(const json_t *json)
-        if (json_is_array(value)) {
+        if (json_is_object(value)) {
+            v = mapFromJSON(json, NULL);
+        } else if (json_is_array(value)) {
             v = listFromJSON(value);
         } else if (json_is_string(value)) {
             v = QString::fromUtf8(json_string_value(value));

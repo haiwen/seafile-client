@@ -198,6 +198,8 @@ SET(moc_headers
   src/ui/clone-tasks-table-model.h
   src/ui/clone-tasks-table-view.h
   src/ui/server-status-dialog.h
+  src/ui/search-tab.h
+  src/ui/search-tab-items.h
   src/ui/init-vdrive-dialog.h
   src/ui/uninstall-helper-dialog.h
   src/ui/ssl-confirm-dialog.h
@@ -381,6 +383,8 @@ SET(seafile_client_sources
   src/ui/server-status-dialog.cpp
   src/ui/init-vdrive-dialog.cpp
   src/ui/uninstall-helper-dialog.cpp
+  src/ui/search-tab.cpp
+  src/ui/search-tab-items.cpp
   src/ui/ssl-confirm-dialog.cpp
   src/ui/proxy-style.cpp
   src/ui/account-view.cpp

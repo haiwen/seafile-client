@@ -16,6 +16,7 @@ class SeafileTabWidget;
 class ReposTab;
 class StarredFilesTab;
 class ActivitiesTab;
+class SearchTab;
 class CloneTasksDialog;
 class AccountView;
 
@@ -77,6 +78,7 @@ private:
     ReposTab *repos_tab_;
     StarredFilesTab *starred_files_tab_;
     ActivitiesTab *activities_tab_;
+    SearchTab *search_tab_;
 
     QSizeGrip *resizer_;
 

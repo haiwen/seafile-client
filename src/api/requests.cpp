@@ -6,6 +6,7 @@
 #include "account.h"
 
 #include "seafile-applet.h"
+#include "repo-service.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
 #include "utils/api-utils.h"
@@ -36,6 +37,7 @@ const char *kServerInfoUrl ="api2/server-info/";
 const char *kLogoutDeviceUrl = "api2/logout-device/";
 const char *kGetRepoTokensUrl = "api2/repo-tokens/";
 const char *kGetLoginTokenUrl = "api2/client-login/";
+const char *kFileSearchUrl = "api2/search/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -699,3 +701,47 @@ void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
     }
     emit success(dict["token"].toString());
 }
+
+FileSearchRequest::FileSearchRequest(const Account& account, const QString &keyword, int per_page)
+    : SeafileApiRequest (account.getAbsoluteUrl(kFileSearchUrl),
+                         SeafileApiRequest::METHOD_GET, account.token),
+      keyword_(keyword)
+{
+    setUrlParam("q", keyword_);
+}
+
+void FileSearchRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("FileSearchResult: failed to parse jsn:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    if (!dict.contains("results")) {
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    QList<QVariant> results = dict["results"].toList();
+    std::vector<FileSearchResult> retval;
+    Q_FOREACH(const QVariant& result, results)
+    {
+        FileSearchResult tmp;
+        QMap<QString, QVariant> map = result.toMap();
+        if (map.empty())
+            continue;
+        tmp.repo_id = map["repo_id"].toString();
+        tmp.repo_name = RepoService::instance()->getRepo(tmp.repo_id).name;
+        tmp.name = map["name"].toString();
+        tmp.oid = map["oid"].toString();
+        tmp.last_modified = map["last_modified"].toInt();
+        tmp.fullpath = map["fullpath"].toString();
+        tmp.size = map["size"].toInt();
+        retval.push_back(tmp);
+    }
+    emit success(retval);
+}
+

@@ -549,6 +549,7 @@ SeafileTabWidget QWidget#pane {
 ReposTab QLineEdit#repoNameFilter {
     min-height: 25px;
     margin: 5px;
+    margin-top: 0;
     margin-bottom: 0;
     padding: 0 5px;
     border: 1px solid #BCBCBE;
@@ -561,4 +562,19 @@ SharedLinkDialog QLabel {
 
 SharedLinkDialog QCheckBox {
     font-size: 10px;
+}
+
+SearchTab QLineEdit#searchInput {
+    min-height: 25px;
+    margin: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0 5px;
+    border: 1px solid #BCBCBE;
+    border-radius: 3px;
+}
+
+SearchTab SearchResultListView {
+    border-top: 1px solid #DCDCDE;
+    border-bottom: 1px solid #DCDCDE;
 }

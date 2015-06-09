@@ -27,6 +27,7 @@ extern "C" {
 #include "repos-tab.h"
 #include "starred-files-tab.h"
 #include "activities-tab.h"
+#include "search-tab.h"
 #include "account-view.h"
 #include "seafile-tab-widget.h"
 #include "utils/paint-utils.h"
@@ -46,6 +47,7 @@ enum {
     TAB_INDEX_REPOS = 0,
     TAB_INDEX_STARRED_FILES,
     TAB_INDEX_ACTIVITIES,
+    TAB_INDEX_SEARCH,
 };
 
 
@@ -150,6 +152,8 @@ void CloudView::createTabs()
 
     activities_tab_ = new ActivitiesTab;
 
+    search_tab_ = new SearchTab;
+
     connect(tabs_, SIGNAL(currentTabChanged(int)),
             this, SLOT(onTabChanged(int)));
 
@@ -162,8 +166,10 @@ void CloudView::createTabs()
 void CloudView::addActivitiesTab()
 {
     if (tabs_->count() < 3) {
-        QString base_icon_path = ":/images/tabs/";
-        tabs_->addTab(activities_tab_, tr("Activities"), base_icon_path + "history.png");
+        tabs_->addTab(activities_tab_, tr("Activities"), ":/images/tabs/history.png");
+        tabs_->adjustTabsWidth(rect().width());
+
+        tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png");
         tabs_->adjustTabsWidth(rect().width());
     }
 }
@@ -427,6 +433,8 @@ void CloudView::onRefreshClicked()
         starred_files_tab_->refresh();
     } else if (tabs_->currentIndex() == TAB_INDEX_ACTIVITIES) {
         activities_tab_->refresh();
+    } else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
+        search_tab_->refresh();
     }
 }
 
@@ -441,16 +449,20 @@ void CloudView::onAccountChanged()
 {
     refresh_action_->setEnabled(hasAccount());
 
-    tabs_->removeTab(2, activities_tab_);
+    bool was_pro_account = tabs_->count() > 2;
     bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
-    if (has_pro_account) {
+    if (has_pro_account && !was_pro_account) {
         addActivitiesTab();
+    } else if (!has_pro_account && was_pro_account) {
+        tabs_->removeTab(TAB_INDEX_SEARCH, search_tab_);
+        tabs_->removeTab(TAB_INDEX_ACTIVITIES, activities_tab_);
     }
     tabs_->adjustTabsWidth(rect().width());
 
     repos_tab_->refresh();
     starred_files_tab_->refresh();
     activities_tab_->refresh();
+    search_tab_->reset();
 
     account_view_->onAccountChanged();
 }

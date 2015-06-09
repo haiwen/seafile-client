@@ -140,12 +140,12 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
 
     painter->save();
     QPoint file_desc_pos = file_name_rect.bottomLeft() + QPoint(0, 5);
-    QRect file_desc_rect(file_desc_pos, QSize(kFileNameWidth, kFileNameHeight));
+    QRect file_desc_rect(file_desc_pos, QSize(file_name_width, kFileNameHeight));
     painter->setFont(changeFontSize(painter->font(), kSubtitleFontSize));
     painter->setPen(QColor(selected ? kSubtitleColorHighlighted : kSubtitleColor));
     painter->drawText(file_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop,
-                      fitTextToWidth(subtitle, option.font, kFileNameWidth),
+                      fitTextToWidth(subtitle, option.font, file_name_width),
                       &file_desc_rect);
     painter->restore();
 

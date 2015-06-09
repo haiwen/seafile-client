@@ -414,4 +414,34 @@ private:
     QString next_url_;
 };
 
+struct FileSearchResult {
+    QString repo_id;
+    QString repo_name;
+    QString name;
+    QString oid;
+    qint64 last_modified;
+    QString fullpath;
+    qint64 size;
+};
+
+Q_DECLARE_METATYPE(FileSearchResult)
+
+class FileSearchRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    FileSearchRequest(const Account& account, const QString &keyword, int per_page = 10);
+    const QString &keyword() const { return keyword_; }
+
+signals:
+    void success(const std::vector<FileSearchResult>& result);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FileSearchRequest);
+
+    const QString keyword_;
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

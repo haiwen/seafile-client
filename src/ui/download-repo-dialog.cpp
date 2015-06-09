@@ -269,7 +269,7 @@ bool DownloadRepoDialog::validateInputs()
             QString new_path = getAlternativePath(mDirectory->text(), repo_.name);
             if (new_path.isEmpty()) {
                 QMessageBox::warning(this, getBrand(),
-                                     tr("Unable to find a alternative folder name").arg(path),
+                                     tr("Unable to find an alternative folder name").arg(path),
                                      QMessageBox::Ok);
                 return false;
             }

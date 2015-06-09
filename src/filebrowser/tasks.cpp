@@ -12,6 +12,7 @@
 #include <QSslCertificate>
 #include <QDirIterator>
 #include <QTimer>
+#include <QApplication>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -404,8 +405,8 @@ void GetFileTask::sendRequest()
 {
     QNetworkRequest request(url_);
     if (!network_mgr_) {
-        static QNetworkAccessManager manager;
-        network_mgr_ = &manager;
+        static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
+        network_mgr_ = manager;
         NetworkManager::instance()->addWatch(network_mgr_);
     }
     reply_ = network_mgr_->get(request);
@@ -554,8 +555,8 @@ void PostFileTask::sendRequest()
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
     if (!network_mgr_) {
-        static QNetworkAccessManager manager;
-        network_mgr_ = &manager;
+        static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
+        network_mgr_ = manager;
         NetworkManager::instance()->addWatch(network_mgr_);
     }
     reply_ = network_mgr_->post(request, multipart);

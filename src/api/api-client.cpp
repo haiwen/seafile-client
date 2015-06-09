@@ -35,8 +35,8 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
       redirect_count_(0)
 {
     if (!na_mgr_) {
-        static QNetworkAccessManager mNetworkAccessManager;
-        na_mgr_ = &mNetworkAccessManager;
+        static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
+        na_mgr_ = manager;
         NetworkManager::instance()->addWatch(na_mgr_);
     }
 }

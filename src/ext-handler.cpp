@@ -143,10 +143,6 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 {
     listener_thread_ = new ExtConnectionListenerThread;
 
-    refresh_local_timer_ = new QTimer(this);
-    connect(refresh_local_timer_, SIGNAL(timeout()),
-            this, SLOT(refreshRepoShellIcon()));
-
     connect(listener_thread_, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
             this, SLOT(generateShareLink(const QString&, const QString&, bool)));
 }
@@ -154,7 +150,6 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 void SeafileExtensionHandler::start()
 {
     listener_thread_->start();
-    refresh_local_timer_->start(kRefreshShellInterval);
     ReposInfoCache::instance()->start();
     started_ = true;
 }
@@ -194,38 +189,6 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
-}
-
-// Trigger the shell to update repo worktree folder icons periodically
-void SeafileExtensionHandler::refreshRepoShellIcon()
-{
-    if (!seafApplet->settingsManager()->shellExtensionEnabled()) {
-        return;
-    }
-    QList<LocalRepo> repos = ReposInfoCache::instance()->getReposInfo();
-    quint64 now = QDateTime::currentMSecsSinceEpoch();
-    foreach (const LocalRepo& repo, repos) {
-        bool status_changed = true;
-        quint64 last_ts = last_change_ts_.value(repo.id, 0);
-
-        // Force shell to refresh the repo icon every copule of seconds.
-        if (now - last_ts < kShellIconForceRefreshMSecs) {
-            foreach (const LocalRepo& last, last_info_) {
-                if (last.id == repo.id) {
-                    status_changed = last.sync_state != repo.sync_state;
-                    break;
-                }
-            }
-        }
-
-        if (status_changed) {
-            QString normalized_path = QDir::toNativeSeparators(repo.worktree);
-            SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH, normalized_path.toUtf8().data(), NULL);
-            // qDebug("updated shell attributes for %s", normalized_path.toUtf8().data());
-            last_change_ts_[repo.id] = now;
-        }
-    }
-    last_info_ = repos;
 }
 
 
@@ -329,7 +292,7 @@ bool ExtCommandsHandler::readRequest(QStringList *args)
     if (!extPipeReadN(pipe_, buf.data(), len))
         return false;
 
-    QStringList list = QString::fromUtf8(buf.data()).split('\t', QString::SkipEmptyParts);
+    QStringList list = QString::fromUtf8(buf.data()).split('\t');
     if (list.empty()) {
         qWarning("[ext] got an empty request");
         return false;
@@ -407,7 +370,7 @@ QString ExtCommandsHandler::handleGetFileStatus(const QStringList& args)
     QString repo_id = args[0];
     QString path_in_repo = args[1];
     bool isdir = args[2] == "true";
-    if (repo_id.length() != 36 || path_in_repo.length() <= 1) {
+    if (repo_id.length() != 36) {
         return "";
     }
 

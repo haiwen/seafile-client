@@ -355,6 +355,7 @@ void RepoService::openFolder(const QString &repo_id,
 
         FileDownloadHelper::openFile(local_path, false);
     } else {
+        QString fixed_path = path_in_repo == "." ? "/" : path_in_repo;
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
             qWarning("trying to open invalid repo %s", repo_id.toUtf8().data());
@@ -366,7 +367,7 @@ void RepoService::openFolder(const QString &repo_id,
             qWarning("no valid account found");
             return;
         }
-        FileBrowserManager::getInstance()->openOrActivateDialog(account, repo, path_in_repo);
+        FileBrowserManager::getInstance()->openOrActivateDialog(account, repo, fixed_path);
     }
 }
 

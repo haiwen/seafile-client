@@ -1,25 +1,17 @@
 #ifndef SEAFILE_CLIENT_UI_EVENT_DETAILS_TREE_H
 #define SEAFILE_CLIENT_UI_EVENT_DETAILS_TREE_H
 
-#include <QTreeView>
+#include <QListView>
 #include <QStandardItemModel>
 #include <QStandardItem>
+#include <QStyledItemDelegate>
+#include <QIcon>
 
 #include "api/event.h"
 #include "api/commit-details.h"
 
 class QModelIndex;
-
-enum {
-    EVENT_DETAILS_FILE_ITEM_TYPE = QStandardItem::UserType,
-    EVENT_DETAILS_CATEGORY_TYPE
-};
-
-class EventDetailsCategoryItem : public QStandardItem {
-public:
-    EventDetailsCategoryItem(const QString& text);
-    virtual int type() const { return EVENT_DETAILS_CATEGORY_TYPE; }
-};
+class QMenu;
 
 class EventDetailsFileItem : public QStandardItem {
 public:
@@ -32,43 +24,54 @@ public:
         DIR_DELETED
     };
 
-    EventDetailsFileItem(const QString& path, EType etype);
+    EventDetailsFileItem(const QString& path, EType etype, const QString& original_path = "");
 
     virtual QVariant data(int role) const;
-
-    virtual int type() const { return EVENT_DETAILS_FILE_ITEM_TYPE; }
 
     bool isFileOpenable() const;
 
     // accessors
     QString name() const;
     const QString& path() const { return path_; }
+    const QString& original_path() const { return original_path_; }
     EType etype() const { return etype_; }
+    QString etype_desc() const;
+    QIcon etype_icon() const;
+    const char* etype_color() const;
 
 private:
 
     QString path_;
+    QString original_path_;
     EType etype_;
 };
 
-class EventDetailsTreeView : public QTreeView {
+class EventDetailsListView : public QListView {
     Q_OBJECT
 public:
-    EventDetailsTreeView(const SeafEvent& event, QWidget *parent=0);
+    EventDetailsListView(const SeafEvent& event, QWidget *parent=0);
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);
+    void onOpen();
+    void onOpenInFileBrowser();
 
 private:
     QStandardItem* getFileItem(const QModelIndex& index);
 
+    void contextMenuEvent(QContextMenuEvent * event);
+
     SeafEvent event_;
+    QMenu* context_menu_;
+    QAction* open_action_;
+    QAction* open_in_file_browser_action_;
+    EventDetailsFileItem* item_in_action_;
 };
 
-class EventDetailsTreeModel : public QStandardItemModel {
+class EventDetailsListModel : public QStandardItemModel {
     Q_OBJECT
 public:
-    EventDetailsTreeModel(const SeafEvent& event, QObject *parent=0);
+    EventDetailsListModel(const SeafEvent& event, QObject *parent=0);
 
     void setCommitDetails(const CommitDetails& details);
 
@@ -76,9 +79,22 @@ private:
     void processEventCategory(const std::vector<QString>& files,
                               const QString& desc,
                               EventDetailsFileItem::EType etype);
-    
+
     SeafEvent event_;
     CommitDetails details_;
+};
+
+class EventDetailsFileItemDelegate : public QStyledItemDelegate {
+    Q_OBJECT
+public:
+    explicit EventDetailsFileItemDelegate(QWidget *parent)
+        : QStyledItemDelegate(parent) {}
+    void paint(QPainter *painter,
+               const QStyleOptionViewItem& option,
+               const QModelIndex& index) const;
+
+    QSize sizeHint(const QStyleOptionViewItem& option,
+                   const QModelIndex& index) const;
 };
 
 #endif // SEAFILE_CLIENT_UI_EVENT_DETAILS_TREE_H

@@ -284,9 +284,11 @@ void EventsListView::onItemDoubleClicked(const QModelIndex& index)
         return;
     }
 
-    EventDetailsDialog dialog(event, seafApplet->mainWindow());
-
-    dialog.exec();
+    EventDetailsDialog* dialog = new EventDetailsDialog(event, seafApplet->mainWindow());
+    dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
 }
 
 bool EventsListView::viewportEvent(QEvent *event)

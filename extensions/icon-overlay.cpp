@@ -88,7 +88,7 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
 
     if (path_in_repo.size() <= 1) {
         // it's a repo top folder
-        return repo.status == status_ ? S_OK : S_FALSE;
+        path_in_repo = "";
     }
 
     // Now we know it's a file inside the repo

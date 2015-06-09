@@ -25,17 +25,27 @@ private slots:
     void chooseDirAction();
     void onDownloadRepoRequestSuccess(const RepoDownloadInfo& info);
     void onDownloadRepoRequestFailed(const ApiError& error);
+    void switchMode();
 
 private:
     Q_DISABLE_COPY(DownloadRepoDialog);
 
+    bool validateInputsManualMergeMode();
     bool validateInputs();
     void setAllInputsEnabled(bool enabled);
     void setDirectoryText(const QString& path);
+    void updateSyncMode();
 
     ServerRepo repo_;
-
-    bool sync_with_existing_;
-
     Account account_;
+
+    // if we have enabled manual merge mode
+    const bool has_manual_merge_mode_;
+
+    // if we are in manual merge mode
+    bool manual_merge_mode_;
+    // used in auto mode, and always true in manual merge mode
+    bool sync_with_existing_;
+    // save merge path
+    QString alternative_path_;
 };

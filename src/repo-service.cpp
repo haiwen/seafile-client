@@ -12,7 +12,6 @@
 #include "api/server-repo.h"
 #include "api/requests.h"
 #include "ui/main-window.h"
-#include "ui/download-repo-dialog.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "rpc/rpc-client.h"

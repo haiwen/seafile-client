@@ -24,6 +24,7 @@ namespace {
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
 const char *kHideDockIcon = "hideDockIcon";
 const char *kCheckLatestVersion = "checkLatestVersion";
+const char *kEnableSyncingWithExistingFolder = "syncingWithExistingFolder";
 const char *kBehaviorGroup = "Behavior";
 
 //const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
@@ -443,6 +444,27 @@ void SettingsManager::setHttpSyncCertVerifyDisabled(bool disabled)
         }
         verify_http_sync_cert_disabled_ = disabled;
     }
+}
+
+bool SettingsManager::isEnableSyncingWithExistingFolder() const
+{
+    bool enabled;
+    QSettings settings;
+
+    settings.beginGroup(kBehaviorGroup);
+    enabled = settings.value(kEnableSyncingWithExistingFolder, false).toBool();
+    settings.endGroup();
+
+    return enabled;
+}
+
+void SettingsManager::setEnableSyncingWithExistingFolder(bool enabled)
+{
+    QSettings settings;
+
+    settings.beginGroup(kBehaviorGroup);
+    settings.setValue(kEnableSyncingWithExistingFolder, enabled);
+    settings.endGroup();
 }
 
 QString SettingsManager::getComputerName()

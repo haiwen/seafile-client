@@ -55,6 +55,8 @@ const char *kTimestampColor = "#959595";
 const char *kTimestampColorHighlighted = "#9D9B9A";
 const int kRepoNameFontSize = 14;
 const int kTimestampFontSize = 12;
+const int kRepoCategoryNameFontSize = 14;
+const int kRepoCategoryCountFontSize = 12;
 const int kOwnerFontSize = 12;
 
 const char *kRepoItemBackgroundColor = "white";
@@ -204,7 +206,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
     painter->drawText(repo_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(repo.name, option.font, repo_name_width),
+                      fitTextToWidth(repo.name, painter->font(), repo_name_width),
                       &repo_name_rect);
     painter->restore();
 
@@ -240,7 +242,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 
     painter->drawText(repo_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(description, option.font, repo_name_width),
+                      fitTextToWidth(description, painter->font(), repo_name_width),
                       &repo_desc_rect);
     painter->restore();
 
@@ -267,7 +269,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
         painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
         painter->drawText(repo_owner_rect,
                           Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                          fitTextToWidth(extra_description, option.font, width),
+                          fitTextToWidth(extra_description, painter->font(), width),
                           &repo_owner_rect);
 
         painter->restore();
@@ -338,23 +340,33 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->restore();
 
     // Paint category name
-    const QString category_count_text = "[" +QString::number(item->matchedReposCount()) + "]";
-    const int category_count_width = ::textWidthInFont(category_count_text, option.font);
+
+    // calculate the count of synced repos
+    int synced_repos = 0;
+    for (int i = 0; i < item->rowCount(); ++i) {
+        RepoItem *repo_item = static_cast<RepoItem *>(item->child(i));
+        if (repo_item->localRepo().isValid())
+            ++synced_repos;
+    }
+    const QString category_count_text = QString::number(synced_repos) + "/" + QString::number(item->matchedReposCount());
+    const int category_count_width = ::textWidthInFont(category_count_text, changeFontSize(option.font, kRepoCategoryCountFontSize));
 
     painter->save();
     QPoint category_name_pos = indicator_rect.topRight() + QPoint(kMarginBetweenIndicatorAndName, 0);
     QRect category_name_rect(category_name_pos,
                              option.rect.bottomRight() - QPoint(kPadding + category_count_width + kRepoCategoryCountMarginRight, 0));
     painter->setPen(QColor(kRepoCategoryColor));
+    painter->setFont(changeFontSize(option.font, kRepoCategoryNameFontSize));
     painter->drawText(category_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(item->name(), option.font, category_name_rect.width()));
+                      fitTextToWidth(item->name(), painter->font(), category_name_rect.width()));
     painter->restore();
 
     // Paint category count
     painter->save();
     QPoint category_count_pos = option.rect.topRight() + QPoint(-category_count_width - kPadding - kRepoCategoryCountMarginRight, 0);
     QRect category_count_rect(category_count_pos, option.rect.bottomRight() - QPoint(kPadding + kRepoCategoryCountMarginRight, 0));
+    painter->setFont(changeFontSize(option.font, kRepoCategoryCountFontSize));
     painter->setPen(QColor(kRepoCategoryCountColor));
     painter->drawText(category_count_rect,
                       Qt::AlignLeft | Qt::AlignTop,

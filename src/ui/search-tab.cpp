@@ -75,6 +75,9 @@ void SearchTab::createSearchView()
 #ifdef Q_OS_MAC
     line_edit_->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+    line_edit_->setClearButtonEnabled(true);
+#endif
     layout->insertWidget(0, line_edit_);
 
     waiting_view_ = new QWidget;

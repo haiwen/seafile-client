@@ -163,6 +163,7 @@ void SettingsManager::setAutoSync(bool auto_sync)
         auto_sync
         ? SeafileTrayIcon::STATE_DAEMON_UP
         : SeafileTrayIcon::STATE_DAEMON_AUTOSYNC_DISABLED);
+    emit autoSyncChanged(auto_sync);
 }
 
 void SettingsManager::setNotify(bool notify)

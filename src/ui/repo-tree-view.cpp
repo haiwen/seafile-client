@@ -14,6 +14,7 @@
 
 #include "utils/utils.h"
 #include "seafile-applet.h"
+#include "settings-mgr.h"
 #include "account-mgr.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
@@ -135,6 +136,8 @@ RepoTreeView::RepoTreeView(QWidget *parent)
             this, SLOT(saveExpandedCategries()));
     connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
             this, SLOT(loadExpandedCategries()));
+    connect(seafApplet->settingsManager(), SIGNAL(autoSyncChanged(bool)),
+            this, SLOT(update()));
 
     setAcceptDrops(true);
     setDefaultDropAction(Qt::CopyAction);
@@ -268,8 +271,12 @@ void RepoTreeView::updateRepoActions()
         resync_action_->setData(QVariant::fromValue(local_repo));
         resync_action_->setEnabled(true);
 
-        toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
-        toggle_auto_sync_action_->setEnabled(true);
+        if (seafApplet->settingsManager()->autoSync()) {
+            toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
+            toggle_auto_sync_action_->setEnabled(true);
+        } else {
+            toggle_auto_sync_action_->setEnabled(false);
+        }
 
         if (local_repo.auto_sync) {
             toggle_auto_sync_action_->setText(tr("Disable auto sync"));

@@ -7,6 +7,7 @@
 #include "utils/utils.h"
 #include "utils/paint-utils.h"
 #include "seafile-applet.h"
+#include "settings-mgr.h"
 #include "api/server-repo.h"
 #include "repo-item.h"
 #include "repo-tree-view.h"
@@ -369,6 +370,8 @@ QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     QString icon;
     if (!repo.isValid()) {
         icon = "cloud";
+    } else if (!seafApplet->settingsManager()->autoSync()) {
+        icon = "pause";
     } else {
         switch (repo.sync_state) {
         case LocalRepo::SYNC_STATE_DONE:

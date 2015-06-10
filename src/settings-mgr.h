@@ -92,6 +92,9 @@ public:
     // Remove all settings from system when uninstall
     static void removeAllSettings();
 
+signals:
+    void autoSyncChanged(bool auto_sync);
+
 private:
     Q_DISABLE_COPY(SettingsManager)
 

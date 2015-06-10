@@ -105,6 +105,10 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
     // Then check the file status.
     seafile::RepoInfo::Status status = getRepoFileStatus(
         repo.repo_id, path_in_repo, attr & FILE_ATTRIBUTE_DIRECTORY);
+
+    if (status == seafile::RepoInfo::Paused && !path_in_repo.empty()) {
+        return S_FALSE;
+    }
     if (status == status_) {
         // seaf_ext_log ("[ICON] file icon %d: %s", (int)status_, path.c_str());
         return S_OK;

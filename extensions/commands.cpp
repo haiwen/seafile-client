@@ -122,6 +122,8 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
         *status = RepoInfo::Normal;
     } else if (raw_resp == "error") {
         *status = RepoInfo::Error;
+    } else if (raw_resp == "paused") {
+        *status = RepoInfo::Paused;
     } else {
         *status = RepoInfo::NoStatus;
     }

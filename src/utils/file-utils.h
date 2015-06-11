@@ -7,6 +7,8 @@ class QStringList;
 QString mimeTypeFromFileName(const QString& fileName);
 QString iconPrefixFromFileName(const QString& fileName);
 
+QString getIconByFolder();
+
 QString getIconByFileName(const QString& fileName);
 QString getIconByFileNameV2(const QString& fileName);
 

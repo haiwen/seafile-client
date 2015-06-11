@@ -225,7 +225,7 @@ void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results)
     for (unsigned i = 0; i < results.size(); ++i) {
         QListWidgetItem *item = new QListWidgetItem(results[i].name);
         if (results[i].fullpath.endsWith("/"))
-            item->setIcon(QIcon(":/images/main-panel/folder.png"));
+            item->setIcon(QIcon(getIconByFolder()));
         else
             item->setIcon(QIcon(getIconByFileName(results[i].name)));
         item->setData(Qt::UserRole, QVariant::fromValue(results[i]));

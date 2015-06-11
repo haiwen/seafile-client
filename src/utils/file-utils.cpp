@@ -693,6 +693,11 @@ QString getIconByFileName(const QString& fileName)
     return QString(":/images/files/file_%1").arg(icon);
 }
 
+QString getIconByFolder()
+{
+    return QString(":/images/files/file_folder.png");
+}
+
 QString getIconByFileNameV2(const QString& fileName)
 {
     QString icon = iconPrefixFromFileName(fileName);

@@ -260,8 +260,8 @@ bool DownloadRepoDialog::validateInputs()
             return false;
         }
         int ret = QMessageBox::question(
-            this, getBrand(), tr("Are you sure to sync with the existing folder \"%1\"?")
-                                  .arg(path) + QString("<br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
+            this, getBrand(), tr("The folder \"%1\" already exists. Are you sure to sync with it (contents will be merged)?")
+                                  .arg(path) + QString("<br/><br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
             QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes);
         if (ret & QMessageBox::Cancel)
             return false;

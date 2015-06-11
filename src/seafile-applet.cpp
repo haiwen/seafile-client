@@ -41,6 +41,7 @@
 
 #if defined(Q_OS_WIN32)
 #include "ext-handler.h"
+#include "utils/registry.h"
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)
 #include "finder-sync/finder-sync-listener.h"
 #endif
@@ -208,6 +209,22 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
+#if defined(Q_OS_WIN32)
+const char* const kHideConfigurationWizard = "HideConfigurationWizard";
+int getHideConfigurationWizard()
+{
+    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kHideConfigurationWizard, "");
+    if (!reg.exists()) {
+        return 0;
+    }
+    reg.read();
+    if (!reg.stringValue().isEmpty())
+        return reg.stringValue().toInt();
+
+    return reg.dwordValue();
+}
+#endif
+
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
 const int kIntervalForUpdateRepoProperty = 1000;
 
@@ -327,8 +344,14 @@ void SeafileApplet::onDaemonStarted()
 #endif
 
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
-        LoginDialog login_dialog;
-        login_dialog.exec();
+        do {
+#if defined(Q_OS_WIN32)
+            if (getHideConfigurationWizard())
+                break;
+#endif
+            LoginDialog login_dialog;
+            login_dialog.exec();
+        } while (0);
     }
 
     started_ = true;

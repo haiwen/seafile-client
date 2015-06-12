@@ -431,6 +431,13 @@ void AccountManager::invalidateCurrentLogin()
     // if the token is already invalidated, ignore
     if (account.token.isEmpty())
         return;
+
+    QString error;
+    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
+                                                           account.username,
+                                                           &error) < 0) {
+        qWarning("Failed to remove local repos sync token %s", error.toUtf8().data());
+    }
     clearAccountToken(account);
     seafApplet->warningBox(tr("Authorization expired, please re-login"));
 

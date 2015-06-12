@@ -105,7 +105,7 @@ void SearchResultItemDelegate::paint(QPainter *painter,
     const int file_name_width = kFileNameWidth
       + seafApplet->mainWindow()->width() - seafApplet->mainWindow()->minimumWidth();
     painter->save();
-    QPoint file_name_pos = file_icon_pos + QPoint(kFileIconWidth + kMarginBetweenFileIconAndName, 0);
+    QPoint file_name_pos = file_icon_pos + QPoint(kFileIconWidth + kMarginBetweenFileIconAndName, -kPadding);
     QRect file_name_rect(file_name_pos, QSize(file_name_width, kFileNameHeight));
     painter->setPen(QColor(selected ? kFileNameColorHighlighted : kFileNameColor));
     painter->setFont(changeFontSize(painter->font(), kFileNameFontSize));

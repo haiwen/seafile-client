@@ -372,18 +372,12 @@ void AccountManager::serverInfoFailed(const ApiError &error)
 
 bool AccountManager::clearAccountToken(const Account& account)
 {
-    Account new_account = account;
-    new_account.token = "";
-
     for (size_t i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i].serverUrl.toString() == account.serverUrl.toString()
-            && accounts_[i].username == account.username) {
-            accounts_.erase(accounts_.begin() + i);
+        if (accounts_[i] == account) {
+            accounts_[i].token = "";
             break;
         }
     }
-
-    accounts_.push_back(new_account);
 
     char *zql = sqlite3_mprintf(
         "UPDATE Accounts "
@@ -391,9 +385,9 @@ bool AccountManager::clearAccountToken(const Account& account)
         "WHERE url = %Q "
         "  AND username = %Q",
         // url
-        new_account.serverUrl.toEncoded().data(),
+        account.serverUrl.toEncoded().data(),
         // username
-        new_account.username.toUtf8().data()
+        account.username.toUtf8().data()
         );
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
@@ -440,6 +434,5 @@ void AccountManager::invalidateCurrentLogin()
     clearAccountToken(account);
     seafApplet->warningBox(tr("Authorization expired, please re-login"));
 
-    // we have the expire account at the last position
-    emit accountRequireRelogin(accounts().back());
+    emit accountRequireRelogin(account);
 }

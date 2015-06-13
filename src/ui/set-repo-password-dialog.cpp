@@ -29,9 +29,9 @@ void SetRepoPasswordDialog::onOkBtnClicked()
 {
     mErrorText->setVisible(false);
 
-    QString password = mPassword->text().trimmed();
+    password_ = mPassword->text().trimmed();
 
-    if (password.isEmpty()) {
+    if (password_.isEmpty()) {
         QString msg = tr("Please enter the password");
         seafApplet->warningBox(msg, this);
         return;
@@ -45,7 +45,7 @@ void SetRepoPasswordDialog::onOkBtnClicked()
         delete request_;
     }
 
-    request_ = new SetRepoPasswordRequest(account, repo_.id, password);
+    request_ = new SetRepoPasswordRequest(account, repo_.id, password_);
     connect(request_, SIGNAL(success()),
             this, SLOT(accept()));
     connect(request_, SIGNAL(failed(const ApiError&)),

@@ -1101,7 +1101,16 @@ void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
 
 void FileBrowserDialog::onGetSyncSubdirectory(const QString &folder_name)
 {
-    data_mgr_->createSubrepo(folder_name, repo_.id, ::pathJoin(current_path_, folder_name), QString());
+    QString password;
+    if (repo_.encrypted) {
+        SetRepoPasswordDialog password_dialog(repo_, this);
+        if (password_dialog.exec() != QDialog::Accepted)
+            return;
+        data_mgr_->setRepoPasswordSet(repo_.id);
+        password = password_dialog.password();
+    }
+
+    data_mgr_->createSubrepo(folder_name, repo_.id, ::pathJoin(current_path_, folder_name), password);
 }
 
 void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)

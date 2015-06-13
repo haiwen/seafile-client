@@ -259,12 +259,11 @@ CreateSubrepoRequest::CreateSubrepoRequest(const Account& account, const QString
     : SeafileApiRequest (account.getAbsoluteUrl(QString(kCreateSubrepoUrl).arg(repoid)),
                          SeafileApiRequest::METHOD_GET, account.token)
 {
-    // QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
     setUrlParam(QString("p"), path);
     setUrlParam(QString("name"), name);
     if (!passwd.isNull()) {
         qWarning("Encrypted repo");
-        setUrlParam(QString("passwd"), passwd);
+        setUrlParam(QString("password"), passwd);
     }
 }
 

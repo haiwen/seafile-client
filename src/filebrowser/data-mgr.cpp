@@ -365,7 +365,6 @@ QString DataManager::getRepoCacheFolder(const QString& repo_id) const
 
 void DataManager::createSubrepo(const QString &name, const QString& repo_id, const QString &path, const QString &password)
 {
-    //TODO fix password?
     const QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
     create_subrepo_req_.reset(new CreateSubrepoRequest(account_, name, repo_id, fixed_path, password));
     // we might have cleaned this value when do a new request while old request is still there

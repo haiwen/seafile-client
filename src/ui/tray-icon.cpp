@@ -121,8 +121,12 @@ void SeafileTrayIcon::createActions()
     settings_action_ = new QAction(tr("Settings"), this);
     connect(settings_action_, SIGNAL(triggered()), this, SLOT(showSettingsWindow()));
 
+    open_seafile_folder_action_ = new QAction(tr("Open %1 &folder").arg(getBrand()), this);
+    open_seafile_folder_action_->setStatusTip(tr("open %1 folder").arg(getBrand()));
+    connect(open_seafile_folder_action_, SIGNAL(triggered()), this, SLOT(openSeafileFolder()));
+
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
-    open_log_directory_action_->setStatusTip(tr("open seafile log directory"));
+    open_log_directory_action_->setStatusTip(tr("open %1 log folder").arg(getBrand()));
     connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
 
     about_action_ = new QAction(tr("&About"), this);
@@ -130,7 +134,7 @@ void SeafileTrayIcon::createActions()
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
     open_help_action_ = new QAction(tr("&Online help"), this);
-    open_help_action_->setStatusTip(tr("open seafile online help"));
+    open_help_action_->setStatusTip(tr("open %1 online help").arg(getBrand()));
     connect(open_help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
 }
 
@@ -144,6 +148,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(view_unread_seahub_notifications_action_);
     context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(settings_action_);
+    context_menu_->addAction(open_seafile_folder_action_);
     context_menu_->addAction(open_log_directory_action_);
     context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
@@ -179,6 +184,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     global_menu_->addAction(view_unread_seahub_notifications_action_);
     global_menu_->addAction(show_main_window_action_);
     global_menu_->addAction(settings_action_);
+    global_menu_->addAction(open_seafile_folder_action_);
     global_menu_->addAction(open_log_directory_action_);
     global_menu_->addSeparator();
     global_menu_->addAction(enable_auto_sync_action_);
@@ -226,9 +232,10 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
 #elif defined(Q_OS_LINUX)
     Q_UNUSED(icon);
     QVariantMap hints;
+    QString brand = getBrand();
     hints["resident"] = QVariant(true);
-    hints["desktop-entry"] = QVariant("seafile");
-    QList<QVariant> args = QList<QVariant>() << "seafile" << quint32(0) << "seafile"
+    hints["desktop-entry"] = QVariant(brand);
+    QList<QVariant> args = QList<QVariant>() << brand << quint32(0) << brand
                                              << title << message << QStringList () << hints << qint32(-1);
     QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "org.freedesktop.Notifications", "Notify");
     method.setArguments(args);
@@ -419,6 +426,11 @@ void SeafileTrayIcon::openHelp()
     }
 
     QDesktopServices::openUrl(QUrl(url));
+}
+
+void SeafileTrayIcon::openSeafileFolder()
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(seafApplet->configurator()->seafileDir()).path()));
 }
 
 void SeafileTrayIcon::openLogDirectory()

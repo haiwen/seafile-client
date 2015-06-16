@@ -209,10 +209,12 @@ int AccountManager::removeAccount(const Account& account)
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
+    bool is_current = accounts_.front() == account;
     accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
                     accounts_.end());
 
-    emit accountsChanged();
+    if (is_current)
+        emit accountsChanged();
 
     return 0;
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QHash>
 #include <QScopedPointer>
+#include <utility>
 
 #include "api/api-error.h"
 #include "account.h"
@@ -93,14 +94,19 @@ public:
                                              const bool overwrite);
 
     bool isRepoPasswordSet(const QString& repo_id) const;
-    void setRepoPasswordSet(const QString& repo_id);
+    QString repoPassword(const QString& repo_id) const {
+        if (!isRepoPasswordSet(repo_id))
+            return QString();
+        return passwords_cache_[repo_id].second;
+    }
+    void setRepoPasswordSet(const QString& repo_id, const QString& password);
 
     QString getRepoCacheFolder(const QString& repo_id) const;
 
     static QString getLocalCacheFilePath(const QString& repo_id,
                                          const QString& path);
 
-    void createSubrepo(const QString &name, const QString& repo_id, const QString &path, const QString &password);
+    void createSubrepo(const QString &name, const QString& repo_id, const QString &path);
 
 signals:
     void getDirentsSuccess(const QList<SeafDirent>& dirents);
@@ -160,7 +166,7 @@ private:
 
     DirentsCache *dirents_cache_;
 
-    static QHash<QString, qint64> passwords_cache_;
+    static QHash<QString, std::pair<qint64, QString> > passwords_cache_;
 };
 
 

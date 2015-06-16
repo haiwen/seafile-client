@@ -16,6 +16,7 @@ class DownloadRepoDialog : public QDialog,
 public:
     DownloadRepoDialog(const Account& account,
                        const ServerRepo& repo,
+                       const QString& password,
                        QWidget *parent=0);
 
     void setMergeWithExisting(const QString& localPath);

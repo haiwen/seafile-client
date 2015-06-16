@@ -389,7 +389,7 @@ void FileBrowserDialog::fetchDirents(bool force_refresh)
             reject();
             return;
         } else {
-            data_mgr_->setRepoPasswordSet(repo_.id);
+            data_mgr_->setRepoPasswordSet(repo_.id, password_dialog.password());
         }
     }
 
@@ -1028,16 +1028,10 @@ void FileBrowserDialog::resizeEvent(QResizeEvent *event)
     resizer_->raise();
 }
 
-void FileBrowserDialog::closeEvent(QCloseEvent *event)
+void FileBrowserDialog::done(int retval)
 {
     emit aboutToClose();
-    QDialog::closeEvent(event);
-}
-
-// pressing esc accept as close event
-void FileBrowserDialog::reject() {
-    close();
-    QDialog::reject();
+    QDialog::done(retval);
 }
 
 bool FileBrowserDialog::hasFilesToBePasted() {
@@ -1101,16 +1095,7 @@ void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
 
 void FileBrowserDialog::onGetSyncSubdirectory(const QString &folder_name)
 {
-    QString password;
-    if (repo_.encrypted) {
-        SetRepoPasswordDialog password_dialog(repo_, this);
-        if (password_dialog.exec() != QDialog::Accepted)
-            return;
-        data_mgr_->setRepoPasswordSet(repo_.id);
-        password = password_dialog.password();
-    }
-
-    data_mgr_->createSubrepo(folder_name, repo_.id, ::pathJoin(current_path_, folder_name), password);
+    data_mgr_->createSubrepo(folder_name, repo_.id, ::pathJoin(current_path_, folder_name));
 }
 
 void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)
@@ -1121,7 +1106,8 @@ void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)
         has_local = true;
     } else {
         // if we have not synced, do it
-        DownloadRepoDialog dialog(account_, repo, this);
+        DownloadRepoDialog dialog(account_, repo,
+                                  repo.encrypted ? data_mgr_->repoPassword(repo_.id) : QString(), this);
 
         has_local = dialog.exec() == QDialog::Accepted;
     }

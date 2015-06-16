@@ -59,6 +59,7 @@ inline QString getOperatingText(const ServerRepo &repo) {
 
 DownloadRepoDialog::DownloadRepoDialog(const Account& account,
                                        const ServerRepo& repo,
+                                       const QString& password,
                                        QWidget *parent)
     : QDialog(parent),
       repo_(repo),
@@ -81,6 +82,10 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     mOperationText->setText(tr("Sync to folder:"));
 
     if (repo_.encrypted) {
+        if (!password.isEmpty()) {
+            mPassword->setText(password);
+            mPassword->setReadOnly(true);
+        }
         mPassword->setVisible(true);
         mPasswordLabel->setVisible(true);
     } else {

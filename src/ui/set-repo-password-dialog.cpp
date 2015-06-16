@@ -20,14 +20,14 @@ SetRepoPasswordDialog::SetRepoPasswordDialog(const ServerRepo& repo, QWidget *pa
     QString name = QString("<b>%1</b>").arg(repo.name);
     mHintText->setText(tr("Provide the password for library %1").arg(name));
 
-    mErrorText->setVisible(false);
+    mErrorText->setText(QString());
 
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
 }
 
 void SetRepoPasswordDialog::onOkBtnClicked()
 {
-    mErrorText->setVisible(false);
+    mErrorText->setText(QString());
 
     QString password = mPassword->text().trimmed();
 
@@ -63,7 +63,6 @@ void SetRepoPasswordDialog::requestFailed(const ApiError& error)
         msg = tr("Unknown error");
     }
 
-    mErrorText->setVisible(true);
     mErrorText->setText(msg);
 
     enableInputs();

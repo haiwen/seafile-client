@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QStringList>
 #include <QDesktopServices>
+#include <QMouseEvent>
 #include <QUrl>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
@@ -73,6 +74,7 @@ AccountView::AccountView(QWidget *parent)
 
     mAccountBtn->setCursor(Qt::PointingHandCursor);
     mAccountBtn->installEventFilter(this);
+    account_menu_->installEventFilter(this);
 
     connect(seafApplet->accountManager(), SIGNAL(accountRequireRelogin(const Account&)),
             this, SLOT(reloginAccount(const Account &)));
@@ -97,11 +99,15 @@ void AccountView::showAddAccountDialog()
 
 void AccountView::deleteAccount()
 {
-    QString question = tr("Are you sure to remove this account?<br>"
-                          "<b>Warning: All libraries of this account would be unsynced!</b>");
+    Account account;
+    QAction *action = qobject_cast<QAction*>(sender());
+    if (action)
+        account = qvariant_cast<Account>(action->data());
+
+    QString question = tr("Are you sure to remove account from \"%1\"?<br>"
+                          "<b>Warning: All libraries of this account would be unsynced!</b>").arg(account.serverUrl.toString());
 
     if (seafApplet->yesOrNoBox(question, this, false)) {
-        const Account& account = seafApplet->accountManager()->currentAccount();
         FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
         QString error, server_addr = account.serverUrl.host();
         if (seafApplet->rpcClient()->unsyncReposByAccount(server_addr,
@@ -119,7 +125,10 @@ void AccountView::deleteAccount()
 
 void AccountView::editAccountSettings()
 {
-    const Account& account = seafApplet->accountManager()->currentAccount();
+    Account account;
+    QAction *action = qobject_cast<QAction*>(sender());
+    if (action)
+        account = qvariant_cast<Account>(action->data());
 
     AccountSettingsDialog dialog(account, this);
 
@@ -161,24 +170,58 @@ void AccountView::onAccountChanged()
 
     if (!accounts.empty()) {
         for (size_t i = 0, n = accounts.size(); i < n; i++) {
-            Account account = accounts[i];
-            QAction *action = makeAccountAction(accounts[i]);
-            if (i == 0) {
-                action->setIcon(QIcon(":/images/account-checked.png"));
-                action->setIconVisibleInMenu(true);
+            const Account &account = accounts[i];
+            QString text = account.username + "(" + account.serverUrl.host() + ")";
+            if (!account.isValid()) {
+                text += ", " + tr("not logged in");
             }
-            account_menu_->addAction(action);
+            QMenu *submenu = new QMenu(text, account_menu_);
+            if (i == 0) {
+                submenu->setIcon(QIcon(":/images/account-checked.png"));
+            } else {
+                submenu->setIcon(QIcon(":/images/account-else.png"));
+            }
+
+            QAction *submenu_action = submenu->menuAction();
+            submenu_action->setData(QVariant::fromValue(account));
+            connect(submenu_action, SIGNAL(triggered()), this, SLOT(onAccountItemClicked()));
+
+            QAction *action = new QAction(tr("Choose"), submenu);
+            action->setIcon(QIcon(":/images/account-checked.png"));
+            action->setIconVisibleInMenu(true);
+            action->setData(QVariant::fromValue(account));
+            connect(action, SIGNAL(triggered()), this, SLOT(onAccountItemClicked()));
+
+            submenu->addAction(action);
+            submenu->setDefaultAction(action);
+
+            QAction *account_settings_action = new QAction(tr("Account settings"), this);
+            account_settings_action->setIcon(QIcon(":/images/account-settings.png"));
+            account_settings_action->setIconVisibleInMenu(true);
+            account_settings_action->setData(QVariant::fromValue(account));
+            connect(account_settings_action, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
+            submenu->addAction(account_settings_action);
+
+            QAction *logout_action = new QAction(tr("Logout"), this);
+            logout_action->setIcon(QIcon(":/images/logout.png"));
+            logout_action->setIconVisibleInMenu(true);
+            logout_action->setData(QVariant::fromValue(account));
+            connect(logout_action, SIGNAL(triggered()), this, SLOT(logoutAccount()));
+            if (account.token.isEmpty())
+                logout_action->setEnabled(false);
+            submenu->addAction(logout_action);
+
+            QAction *delete_account_action = new QAction(tr("Delete"), this);
+            delete_account_action->setIcon(QIcon(":/images/delete-account.png"));
+            delete_account_action->setIconVisibleInMenu(true);
+            delete_account_action->setData(QVariant::fromValue(account));
+            connect(delete_account_action, SIGNAL(triggered()), this, SLOT(deleteAccount()));
+            submenu->addAction(delete_account_action);
+
+            account_menu_->addMenu(submenu);
         }
 
         account_menu_->addSeparator();
-    }
-
-    if (!accounts.empty()) {
-        account_settings_action_ = new QAction(tr("Account settings"), this);
-        account_settings_action_->setIcon(QIcon(":/images/account-settings.png"));
-        account_settings_action_->setIconVisibleInMenu(true);
-        connect(account_settings_action_, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
-        account_menu_->addAction(account_settings_action_);
     }
 
     add_account_action_ = new QAction(tr("Add an account"), this);
@@ -186,20 +229,6 @@ void AccountView::onAccountChanged()
     add_account_action_->setIconVisibleInMenu(true);
     connect(add_account_action_, SIGNAL(triggered()), this, SLOT(showAddAccountDialog()));
     account_menu_->addAction(add_account_action_);
-
-    if (!accounts.empty()) {
-        logout_action_ = new QAction(tr("Logout"), this);
-        logout_action_->setIcon(QIcon(":/images/logout.png"));
-        logout_action_->setIconVisibleInMenu(true);
-        connect(logout_action_, SIGNAL(triggered()), this, SLOT(logoutAccount()));
-        account_menu_->addAction(logout_action_);
-
-        delete_account_action_ = new QAction(tr("Delete this account"), this);
-        delete_account_action_->setIcon(QIcon(":/images/delete-account.png"));
-        delete_account_action_->setIconVisibleInMenu(true);
-        connect(delete_account_action_, SIGNAL(triggered()), this, SLOT(deleteAccount()));
-        account_menu_->addAction(delete_account_action_);
-    }
 
     updateAccountInfoDisplay();
 }
@@ -282,6 +311,13 @@ void AccountView::updateAvatar()
 
 bool AccountView::eventFilter(QObject *obj, QEvent *event)
 {
+    if (obj == account_menu_ && event->type() == QEvent::MouseButtonRelease) {
+        QMouseEvent *ev = (QMouseEvent*)event;
+        QAction *action = account_menu_->actionAt(ev->pos());
+        if (action) {
+            action->trigger();
+        }
+    }
     if (obj == mAccountBtn && event->type() == QEvent::Paint) {
         QRect rect(0, 0, AvatarService::kAvatarSize, AvatarService::kAvatarSize);
         QPainter painter(mAccountBtn);
@@ -329,12 +365,19 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
  */
 void AccountView::logoutAccount()
 {
-    QString question = tr("Are you sure to logout this account?");
+    Account account;
+    QAction *action = qobject_cast<QAction*>(sender());
+    if (action)
+        account = qvariant_cast<Account>(action->data());
+    if (!account.isValid())
+        return;
+
+    QString question = tr("Are you sure to logout account from \"%1\"?").arg(account.serverUrl.toString());
 
     if (!seafApplet->yesOrNoBox(question, this, false)) {
         return;
     }
-    const Account& account = seafApplet->accountManager()->currentAccount();
+
     FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
     LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
     connect(req, SIGNAL(success()),

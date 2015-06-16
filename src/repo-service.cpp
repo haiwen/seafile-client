@@ -190,6 +190,9 @@ void RepoService::refresh()
 
     const Account *account = &accounts.front();
 
+    if (!account->isValid())
+        return;
+
     in_refresh_ = true;
 
     if (!get_repo_reqs_.empty()) {

@@ -596,9 +596,9 @@ QString mimeTypeFromFileName(const QString& fileName)
     return types_map->value(suffix);
 }
 
-QString readableNameForFolder()
+QString readableNameForFolder(bool readonly)
 {
-    return QObject::tr("Folder");
+    return readonly ? QObject::tr("Readonly Folder") : QObject::tr("Folder");
 }
 
 QString readableNameForFile(const QString& fileName)

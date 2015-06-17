@@ -30,7 +30,7 @@ GetDirentsRequest::GetDirentsRequest(const Account& account,
                                      const QString& path)
     : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetDirentsUrl).arg(repo_id)),
                          SeafileApiRequest::METHOD_GET, account.token),
-      repo_id_(repo_id), path_(path)
+      repo_id_(repo_id), path_(path), readonly_(false)
 {
     setUrlParam("p", path);
 }
@@ -43,6 +43,8 @@ void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
         emit failed(ApiError::fromHttpError(500));
         return;
     }
+    // this extra header column only supported from v4.2 seahub
+    readonly_ = reply.rawHeader("dir_perm") == "r";
 
     json_t *root = parseJSON(reply, &error);
     if (!root) {
@@ -55,7 +57,7 @@ void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
 
     QList<SeafDirent> dirents;
     dirents = SeafDirent::listFromJSON(json.data(), &error);
-    emit success(dirents);
+    emit success(readonly_, dirents);
 }
 
 GetFileDownloadLinkRequest::GetFileDownloadLinkRequest(const Account &account,

@@ -47,11 +47,14 @@ DataManager::~DataManager()
 
 bool DataManager::getDirents(const QString& repo_id,
                              const QString& path,
-                             QList<SeafDirent> *dirents)
+                             QList<SeafDirent> *dirents,
+                             bool *current_readonly)
 {
-    QList<SeafDirent> *l = dirents_cache_->getCachedDirents(repo_id, path);
+    DirentsCache::ReturnEntry retval = dirents_cache_->getCachedDirents(repo_id, path);
+    QList<SeafDirent> *l = retval.second;
     if (l != NULL) {
         dirents->append(*l);
+        *current_readonly = retval.first;
         return true;
     } else {
         return false;
@@ -62,8 +65,8 @@ void DataManager::getDirentsFromServer(const QString& repo_id,
                                        const QString& path)
 {
     get_dirents_req_.reset(new GetDirentsRequest(account_, repo_id, path));
-    connect(get_dirents_req_.data(), SIGNAL(success(const QList<SeafDirent>&)),
-            this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
+    connect(get_dirents_req_.data(), SIGNAL(success(bool, const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&)));
     connect(get_dirents_req_.data(), SIGNAL(failed(const ApiError&)),
             this, SIGNAL(getDirentsFailed(const ApiError&)));
     get_dirents_req_->send();
@@ -168,13 +171,14 @@ void DataManager::moveDirents(const QString &repo_id,
     req->send();
 }
 
-void DataManager::onGetDirentsSuccess(const QList<SeafDirent> &dirents)
+void DataManager::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents)
 {
     dirents_cache_->saveCachedDirents(get_dirents_req_->repoId(),
                                       get_dirents_req_->path(),
+                                      current_readonly,
                                       dirents);
 
-    emit getDirentsSuccess(dirents);
+    emit getDirentsSuccess(current_readonly, dirents);
 }
 
 void DataManager::onCreateDirectorySuccess()
@@ -280,6 +284,7 @@ void DataManager::onFileDownloadFinished(bool success)
                                         task->path(),
                                         task->fileId(),
                                         account_.getSignature());
+        // TODO we don't want to watch readonly files
         AutoUpdateManager::instance()->watchCachedFile(
             account_, task->repoId(), task->path());
     }

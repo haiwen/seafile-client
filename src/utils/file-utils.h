@@ -12,7 +12,7 @@ QString getIconByFolder();
 QString getIconByFileName(const QString& fileName);
 QString getIconByFileNameV2(const QString& fileName);
 
-QString readableNameForFolder();
+QString readableNameForFolder(bool readonly = false);
 QString readableNameForFile(const QString& fileName);
 
 QString getParentPath(const QString& path);

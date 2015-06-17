@@ -22,7 +22,7 @@ public:
     const QString& path() const { return path_; }
 
 signals:
-    void success(const QList<SeafDirent> &dirents);
+    void success(bool current_readonly, const QList<SeafDirent> &dirents);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -32,6 +32,7 @@ private:
 
     const QString repo_id_;
     const QString path_;
+    bool readonly_;
 };
 
 class GetFileDownloadLinkRequest : public SeafileApiRequest {

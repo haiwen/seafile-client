@@ -16,14 +16,6 @@
 
 #include "auto-update-mgr.h"
 
-namespace {
-
-const char *kRelayAddressProperty = "relay-address";
-const char *kEmailProperty = "email";
-const char *kFileCacheTopDirName = "file-cache";
-
-}
-
 SINGLETON_IMPL(AutoUpdateManager)
 
 

@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_FILE_BROWSER_DATA_CACHE_H
 
 #include <QList>
+#include <utility>
 
 #include "seaf-dirent.h"
 #include "utils/singleton.h"
@@ -17,13 +18,15 @@ struct sqlite3_stmt;
 class DirentsCache {
     SINGLETON_DEFINE(DirentsCache)
 public:
-    QList<SeafDirent> *getCachedDirents(const QString& repo_id,
-                                        const QString& path);
+    typedef std::pair<bool ,QList<SeafDirent>*> ReturnEntry;
+    ReturnEntry getCachedDirents(const QString& repo_id,
+                                 const QString& path);
 
     void expireCachedDirents(const QString& repo_id, const QString& path);
 
     void saveCachedDirents(const QString& repo_id,
                            const QString& path,
+                           bool current_readonly,
                            const QList<SeafDirent>& dirents);
 
 private:
@@ -31,6 +34,7 @@ private:
     ~DirentsCache();
     struct CacheEntry {
         qint64 timestamp;
+        bool current_readonly;
         QList<SeafDirent> dirents;
     };
 

@@ -28,7 +28,7 @@ DirentsCache::~DirentsCache()
     delete cache_;
 }
 
-QList<SeafDirent>*
+DirentsCache::ReturnEntry
 DirentsCache::getCachedDirents(const QString& repo_id,
                                const QString& path)
 {
@@ -37,11 +37,11 @@ DirentsCache::getCachedDirents(const QString& repo_id,
     if (e != NULL) {
         qint64 now = QDateTime::currentMSecsSinceEpoch();
         if (now < e->timestamp + kDirentsCacheExpireTime) {
-            return &(e->dirents);
+            return ReturnEntry(e->current_readonly, &(e->dirents));
         }
     }
 
-    return NULL;
+    return ReturnEntry(false, NULL);
 }
 
 void DirentsCache::expireCachedDirents(const QString& repo_id, const QString& path)
@@ -51,10 +51,12 @@ void DirentsCache::expireCachedDirents(const QString& repo_id, const QString& pa
 
 void DirentsCache::saveCachedDirents(const QString& repo_id,
                                      const QString& path,
+                                     bool current_readonly,
                                      const QList<SeafDirent>& dirents)
 {
     CacheEntry *val = new CacheEntry;
     val->timestamp = QDateTime::currentMSecsSinceEpoch();
+    val->current_readonly = current_readonly;
     val->dirents = dirents;
     QString cache_key = repo_id + path;
     cache_->insert(cache_key, val);

@@ -181,7 +181,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     }
 }
 
-FileTableView::FileTableView(const ServerRepo& repo, QWidget *parent)
+FileTableView::FileTableView(QWidget *parent)
     : QTableView(parent),
       parent_(qobject_cast<FileBrowserDialog*>(parent)),
       source_model_(NULL),
@@ -302,7 +302,7 @@ void FileTableView::setupContextMenu()
     connect(paste_action_, SIGNAL(triggered()), this, SIGNAL(direntPaste()));
     paste_action_->setShortcut(QKeySequence::Paste);
 
-    if (parent_->repo_.readonly) {
+    if (parent_->current_readonly_) {
         move_action_->setEnabled(false);
         paste_action_->setEnabled(false);
     }
@@ -375,7 +375,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     // and is enabled only if it comes from the same account
     //
     paste_action_->setVisible(parent_->hasFilesToBePasted());
-    paste_action_->setEnabled(!parent_->repo_.readonly &&
+    paste_action_->setEnabled(!parent_->current_readonly_ &&
         parent_->account_to_be_pasted_from_ == parent_->account_);
 
     //
@@ -436,6 +436,18 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     cancel_download_action_->setVisible(true);
     download_action_->setVisible(true);
     cancel_download_action_->setVisible(false);
+
+    if (item_->readonly) {
+        move_action_->setEnabled(false);
+        rename_action_->setEnabled(false);
+        update_action_->setEnabled(false);
+        remove_action_->setEnabled(false);
+    } else {
+        move_action_->setEnabled(true);
+        rename_action_->setEnabled(true);
+        update_action_->setEnabled(true);
+        remove_action_->setEnabled(true);
+    }
 
     if (item_->isDir()) {
         update_action_->setVisible(false);
@@ -516,20 +528,34 @@ void FileTableView::onRename()
 {
     if (item_ == NULL) {
         const SeafDirent *selected_item = getSelectedItemFromSource();
-        if (selected_item)
+        if (selected_item && !selected_item->readonly)
             emit direntRename(*selected_item);
         return;
     }
 
-    emit direntRename(*item_);
+    if (!item_->readonly)
+        emit direntRename(*item_);
 }
 
 void FileTableView::onRemove()
 {
+    bool has_readonly = false;
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
-        emit direntRemove(dirents);
-        return;
+        Q_FOREACH(const SeafDirent* dirent, dirents)
+        {
+            if (dirent->readonly) {
+                has_readonly = true;
+                break;
+            }
+        }
+        if (!has_readonly) {
+            emit direntRemove(dirents);
+            return;
+        }
+    }
+    if (has_readonly || item_->readonly) {
+        seafApplet->messageBox(tr("Unable to remove readonly files"), this);
     }
 
     emit direntRemove(*item_);
@@ -550,11 +576,12 @@ void FileTableView::onUpdate()
 {
     if (item_ == NULL) {
         const SeafDirent *selected_item = getSelectedItemFromSource();
-        if (selected_item && selected_item->isFile())
+        if (selected_item && selected_item->isFile() && !selected_item->readonly)
             emit direntUpdate(*selected_item);
         return;
     }
-    emit direntUpdate(*item_);
+    if (!item_->readonly)
+        emit direntUpdate(*item_);
 }
 
 void FileTableView::onCopy()
@@ -577,14 +604,29 @@ void FileTableView::onCopy()
 void FileTableView::onMove()
 {
     QStringList file_names;
+    bool has_readonly = false;
 
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
         for (int i = 0; i < dirents.size(); i++) {
+            // unable to move readonly files
+            if (dirents[i]->readonly) {
+                has_readonly = true;
+                break;
+            }
             file_names.push_back(dirents[i]->name);
         }
     } else {
-        file_names.push_back(item_->name);
+        if (item_->readonly) {
+            has_readonly = true;
+        } else {
+            file_names.push_back(item_->name);
+        }
+    }
+
+    if (has_readonly) {
+        seafApplet->messageBox(tr("Unable to cut readonly files"), this);
+        return;
     }
 
     parent_->setFilesToBePasted(false, file_names);
@@ -703,10 +745,14 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     const SeafDirent& dirent = dirents_[row];
 
     if (role == Qt::DecorationRole && column == FILE_COLUMN_NAME) {
-        return (dirent.isDir() ?
-            QIcon(":/images/files_v2/file_folder.png") :
-            QIcon(getIconByFileNameV2(dirent.name))).
-          pixmap(kColumnIconSize, kColumnIconSize);
+      QIcon icon;
+      if (dirent.isDir())
+          icon = dirent.readonly
+                     ? QIcon(":/images/files_v2/file_folder_readonly.png")
+                     : QIcon(":/images/files_v2/file_folder.png");
+      else
+          icon = QIcon(getIconByFileNameV2(dirent.name));
+      return icon.pixmap(kColumnIconSize, kColumnIconSize);
     }
 
     if (role == Qt::SizeHintRole) {
@@ -726,7 +772,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     }
 
     if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
-        return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
+        return dirent.isDir() ? readableNameForFolder(dirent.readonly) : readableNameForFile(dirent.name);
     }
 
     if (role != Qt::DisplayRole) {
@@ -746,7 +792,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return dirent.mtime;
     case FILE_COLUMN_KIND:
         // workaround with sorting
-        return dirent.isDir() ? "" : "__" + iconPrefixFromFileName(dirent.name);
+        return dirent.isDir() ? (dirent.readonly ? "__r" : "__rw") : iconPrefixFromFileName(dirent.name);
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:

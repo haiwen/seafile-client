@@ -80,7 +80,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     : QDialog(parent),
       account_(account),
       repo_(repo),
-      current_path_(path)
+      current_path_(path),
+      current_readonly_(repo_.readonly)
 {
     current_lpath_ = current_path_.split('/');
 
@@ -158,8 +159,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetSyncSubdirectory(const QString &)));
 
     //dirents <--> data_mgr_
-    connect(data_mgr_, SIGNAL(getDirentsSuccess(const QList<SeafDirent>&)),
-            this, SLOT(onGetDirentsSuccess(const QList<SeafDirent>&)));
+    connect(data_mgr_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&)),
+            this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&)));
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
 
@@ -334,7 +335,7 @@ void FileBrowserDialog::createStatusBar()
     connect(upload_button_, SIGNAL(clicked()), this, SLOT(uploadFileOrMkdir()));
     status_bar_->addWidget(upload_button_);
 
-    if (repo_.readonly) {
+    if (current_readonly_) {
         upload_button_->setEnabled(false);
         upload_button_->setToolTip(tr("You don't have permission to upload files to this library"));
     }
@@ -363,7 +364,7 @@ void FileBrowserDialog::createStatusBar()
 void FileBrowserDialog::createFileTable()
 {
     loading_view_ = new LoadingView;
-    table_view_ = new FileTableView(repo_, this);
+    table_view_ = new FileTableView(this);
     table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
 
@@ -395,7 +396,7 @@ void FileBrowserDialog::fetchDirents(bool force_refresh)
 
     if (!force_refresh) {
         QList<SeafDirent> dirents;
-        if (data_mgr_->getDirents(repo_.id, current_path_, &dirents)) {
+        if (data_mgr_->getDirents(repo_.id, current_path_, &dirents, &current_readonly_)) {
             updateTable(dirents);
             return;
         }
@@ -405,8 +406,9 @@ void FileBrowserDialog::fetchDirents(bool force_refresh)
     data_mgr_->getDirentsFromServer(repo_.id, current_path_);
 }
 
-void FileBrowserDialog::onGetDirentsSuccess(const QList<SeafDirent>& dirents)
+void FileBrowserDialog::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents)
 {
+    current_readonly_ = current_readonly;
     updateTable(dirents);
 }
 
@@ -729,6 +731,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
     if (qobject_cast<FileUploadDirectoryTask *>(sender())) {
         const SeafDirent dir = {
           SeafDirent::DIR,
+          false,
           "",
           task->name(),
           0,
@@ -764,6 +767,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         const QFileInfo file = QDir(local_path).filePath(name);
         const SeafDirent dirent = {
           SeafDirent::FILE,
+          false,
           "",
           name,
           static_cast<quint64>(file.size()),
@@ -830,7 +834,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     } else {
         backward_button_->setEnabled(false);
     }
-    if (!repo_.readonly) {
+    if (!current_readonly_) {
         upload_button_->setEnabled(true);
     }
     gohome_action_->setEnabled(true);
@@ -932,7 +936,7 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
-    const SeafDirent dirent = { SeafDirent::DIR, "", name, 0,
+    const SeafDirent dirent = { SeafDirent::DIR, false, "", name, 0,
         QDateTime::currentDateTime().toTime_t()
     };
     // TODO insert to the pos where the drop event triggered

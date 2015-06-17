@@ -27,7 +27,7 @@ class FileTableView : public QTableView
 {
     Q_OBJECT
 public:
-    FileTableView(const ServerRepo& repo, QWidget *parent);
+    FileTableView(QWidget *parent);
     void setModel(QAbstractItemModel *model);
 
 signals:

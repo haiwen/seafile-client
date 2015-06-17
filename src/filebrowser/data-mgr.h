@@ -36,7 +36,8 @@ public:
 
     bool getDirents(const QString& repo_id,
                     const QString& path,
-                    QList<SeafDirent> *dirents);
+                    QList<SeafDirent> *dirents,
+                    bool *current_readonly);
 
     void getDirentsFromServer(const QString& repo_id,
                               const QString& path);
@@ -103,7 +104,7 @@ public:
     void createSubrepo(const QString &name, const QString& repo_id, const QString &path, const QString &password);
 
 signals:
-    void getDirentsSuccess(const QList<SeafDirent>& dirents);
+    void getDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
     void createDirectorySuccess(const QString& path);
@@ -128,7 +129,7 @@ signals:
     void createSubrepoFailed(const ApiError& error);
 
 private slots:
-    void onGetDirentsSuccess(const QList<SeafDirent>& dirents);
+    void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
     void onFileUploadFinished(bool success);
     void onFileDownloadFinished(bool success);
 

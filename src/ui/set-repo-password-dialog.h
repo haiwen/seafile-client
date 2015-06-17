@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_SET_REPO_PASSWORD_DIALOG_H
 
 #include <QDialog>
+#include <QString>
 #include "ui_set-repo-password-dialog.h"
 
 #include "api/server-repo.h"
@@ -16,6 +17,7 @@ class SetRepoPasswordDialog : public QDialog,
     Q_OBJECT
 public:
     SetRepoPasswordDialog(const ServerRepo& repo, QWidget *parent=0);
+    const QString& password() { return password_; }
 
 private slots:
     void onOkBtnClicked();
@@ -27,6 +29,7 @@ private:
     void enableInputs();
     void disableInputs();
 
+    QString password_;
     SetRepoPasswordRequest *request_;
     ServerRepo repo_;
 };

@@ -344,22 +344,22 @@ QString DataManager::getLocalCacheFilePath(const QString& repo_id,
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id, path);
 }
 
-QHash<QString, qint64> DataManager::passwords_cache_;
+QHash<QString, std::pair<qint64, QString> > DataManager::passwords_cache_;
 
 bool DataManager::isRepoPasswordSet(const QString& repo_id) const
 {
     if (!passwords_cache_.contains(repo_id)) {
         return false;
     }
-    qint64 expiration_time = passwords_cache_[repo_id];
+    qint64 expiration_time = passwords_cache_[repo_id].first;
     qint64 now = QDateTime::currentMSecsSinceEpoch();
     return now < expiration_time;
 }
 
-void DataManager::setRepoPasswordSet(const QString& repo_id)
+void DataManager::setRepoPasswordSet(const QString& repo_id, const QString& password)
 {
     passwords_cache_[repo_id] =
-        QDateTime::currentMSecsSinceEpoch() + kPasswordCacheExpirationMSecs;
+        std::pair<qint64, QString>(QDateTime::currentMSecsSinceEpoch() + kPasswordCacheExpirationMSecs, password);
 }
 
 QString DataManager::getRepoCacheFolder(const QString& repo_id) const
@@ -368,9 +368,9 @@ QString DataManager::getRepoCacheFolder(const QString& repo_id) const
     return ::pathJoin(seafdir, kFileCacheTopDirName, repo_id);
 }
 
-void DataManager::createSubrepo(const QString &name, const QString& repo_id, const QString &path, const QString &password)
+void DataManager::createSubrepo(const QString &name, const QString& repo_id, const QString &path)
 {
-    //TODO fix password?
+    const QString password = repoPassword(repo_id);
     const QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
     create_subrepo_req_.reset(new CreateSubrepoRequest(account_, name, repo_id, fixed_path, password));
     // we might have cleaned this value when do a new request while old request is still there

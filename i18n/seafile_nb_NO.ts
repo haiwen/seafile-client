@@ -7,7 +7,7 @@
         <translation>Mislykkes i å åpne kontoens database</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="441"/>
+        <location filename="../src/account-mgr.cpp" line="444"/>
         <source>Authorization expired, please re-login</source>
         <translation>Innlogging utløpt, logg inn på nytt</translation>
     </message>
@@ -74,77 +74,83 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="100"/>
-        <source>Are you sure to remove this account?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation>Er du sikker på at du vil fjerne denne kontoen? &lt;br&gt;&lt;b&gt;Advarsel: Alle bibliotekene tilhørende denne kontoen vil bli usynkroniserte!&lt;/b&gt;</translation>
+        <location filename="../src/ui/account-view.cpp" line="107"/>
+        <source>Are you sure to remove account from &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="112"/>
+        <location filename="../src/ui/account-view.cpp" line="118"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Kunne ikke frakoble synkroniseringen av denne kontoen: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="135"/>
+        <location filename="../src/ui/account-view.cpp" line="144"/>
         <source>click to open the website</source>
         <translation>klikk for å åpne websiden</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="143"/>
+        <location filename="../src/ui/account-view.cpp" line="152"/>
         <source>pro version</source>
         <translation>pro versjon</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="145"/>
+        <location filename="../src/ui/account-view.cpp" line="154"/>
         <source>No account</source>
         <translation>Ingen konto</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="177"/>
+        <location filename="../src/ui/account-view.cpp" line="189"/>
+        <source>Choose</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/account-view.cpp" line="198"/>
         <source>Account settings</source>
         <translation>Konto innstillinger</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="184"/>
+        <location filename="../src/ui/account-view.cpp" line="214"/>
+        <source>Delete</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/account-view.cpp" line="227"/>
         <source>Add an account</source>
         <translation>Legg til en konto</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="191"/>
+        <location filename="../src/ui/account-view.cpp" line="375"/>
+        <source>Are you sure to logout account from &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/account-view.cpp" line="205"/>
         <source>Logout</source>
         <translation>logg ut</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="197"/>
-        <source>Delete this account</source>
-        <translation>Slett en konto</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/account-view.cpp" line="211"/>
+        <location filename="../src/ui/account-view.cpp" line="176"/>
+        <location filename="../src/ui/account-view.cpp" line="240"/>
         <source>not logged in</source>
         <translation>ikke logget inn</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="332"/>
-        <source>Are you sure to logout this account?</source>
-        <translation>Er du sikker på at du vil logge ut?</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/account-view.cpp" line="365"/>
+        <location filename="../src/ui/account-view.cpp" line="408"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>Mislykkes med å fjerne den lokale synkroniserings-token. %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="379"/>
+        <location filename="../src/ui/account-view.cpp" line="422"/>
         <source>Logging out is not supported on your server (version too low).</source>
         <translation>Logge ut er ikke støttet på din server (versjon for lav)</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="381"/>
+        <location filename="../src/ui/account-view.cpp" line="424"/>
         <source>Failed to remove information on server: %1</source>
         <translation>Mislyktes i å ta bort informasjon på server: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="401"/>
+        <location filename="../src/ui/account-view.cpp" line="444"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>Mislyktes i få &quot;repo sync&quot; informasjon fra server. %1</translation>
     </message>
@@ -195,24 +201,24 @@
 <context>
     <name>AutoUpdateManager</name>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="125"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="117"/>
         <source>Upload Success</source>
         <translation>Opplasting fulført</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="126"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="118"/>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
         <translation>Filen &quot;%1&quot;
 ble lastet opp.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="133"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="125"/>
         <source>Upload Failure</source>
         <translation>Opplasting mislyktes</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="134"/>
+        <location filename="../src/filebrowser/auto-update-mgr.cpp" line="126"/>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Fil &quot;%1&quot;
@@ -590,105 +596,105 @@ opplasting mislyktes</translation>
 <context>
     <name>DownloadRepoDialog</name>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="220"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="283"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="225"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="288"/>
         <source>Please enter the password</source>
         <translation>Skriv inn passordet</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="71"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="72"/>
         <source>Sync library &quot;%1&quot;</source>
         <translation>Synkroniser biblioteket &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="74"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="75"/>
         <source>Sync folder &quot;%1&quot;</source>
         <translation>Synkroniser mappe &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="81"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="82"/>
         <source>Sync to folder:</source>
         <translation>Synkroniser til mappe:</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="106"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="111"/>
         <source>If a sub-folder with same name exists, its contents will be merged.</source>
         <translation>Dersom under-mappe med samme navn eksisterer, vil innholdet bli slåttsammen</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="134"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
         <source>or</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="144"/>
         <source>sync with an existing folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="143"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="148"/>
         <source>create a new sync folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="147"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="152"/>
         <source>Sync with this existing folder:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="175"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="180"/>
         <source>Please choose a folder</source>
         <translation>Velg en mappe</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="205"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="210"/>
         <source>Please choose the folder to sync</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="212"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="217"/>
         <source>The folder does not exist</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="237"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="242"/>
         <source>Please choose the folder to sync.</source>
         <translation>Velg mappen du vil synkronisere</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="250"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="255"/>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
         <translation>Konflikt med eksisterende fil &quot;%1&quot;. Vennligst velg en annen mappe.</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="258"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="263"/>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
         <translation>Konflikt med eksisterende bibliotek &quot;%1&quot;, Vennligst velg en annen mappe.</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="263"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="268"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="264"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="269"/>
         <source>Click No to sync with a new folder instead</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="272"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="277"/>
         <source>Unable to find an alternative folder name</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="334"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="339"/>
         <source>Failed to add download task:
  %1</source>
         <translation>Kunne ikke legge til nedlastingsoppgaven:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="345"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="350"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>Kunne ikke hente nedlastingsinformasjon fra lokalt kodelager:
@@ -772,193 +778,193 @@ opplasting mislyktes</translation>
 <context>
     <name>FileBrowserDialog</name>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="89"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="90"/>
         <source>Cloud File Browser</source>
         <translation>Cloud filbehandler</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="262"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="263"/>
         <source>Back</source>
         <translation>Tilbake</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="271"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="272"/>
         <source>Forward</source>
         <translation>Fremover</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="279"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="280"/>
         <source>Home</source>
         <translation>Hjem</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="312"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="313"/>
         <source>Upload files</source>
         <translation>Last opp filer</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="319"/>
         <source>Upload a directory</source>
         <translation>Last opp et bibliotek</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="340"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>Du har ikke tillatelse til å laste opp filer i dette biblioteket</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="326"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="420"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="327"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="422"/>
         <source>Create a folder</source>
         <translation>Opprett en mappe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="240"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="241"/>
         <source>Minimize</source>
         <translation>Minimere</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="247"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="248"/>
         <source>Close</source>
         <translation>Lukke</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="421"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="423"/>
         <source>Folder name</source>
         <translation>Mappenavn</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="429"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="431"/>
         <source>Invalid folder name!</source>
         <translation>Ugyldig mappenavn!</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="435"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="437"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>Navnet &quot;%1&quot; er allerede i bruk.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="451"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="453"/>
         <source>retry</source>
         <translation>prøv på nytt</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="452"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="454"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>Kunne ikke hente filinformasjon&lt;br/&gt;Vennligst %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="478"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="480"/>
         <source>Enter name of file to save to...</source>
         <translation>Skriv navnet på filen å lagre til...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="485"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="487"/>
         <source>Unable to remove file &quot;%1&quot;</source>
         <translation>Kunne ikke fjerne filen &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="585"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="587"/>
         <source>Feature not supported</source>
         <translation>Funksjonen er ikke støttet</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="653"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="655"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Filen %1 eksisterer allerede.&lt;br/&gt;Ønsker du å overskrive den?&lt;br/&gt;&lt;small&gt;(Velg &quot;nei&quot; for laste opp med et annet navn).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="696"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="698"/>
         <source>Failed to download file: %1</source>
         <translation>Kunne ikke laste ned filen: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="720"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="722"/>
         <source>Failed to upload file: %1</source>
         <translation>Kunne ikke laste opp fil: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="841"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="845"/>
         <source>Select a file to upload</source>
         <translation>Velg en fil å laste opp</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="849"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="853"/>
         <source>Select a directory to upload</source>
         <translation>Velg en mappe å laste opp</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="860"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="864"/>
         <source>Unable to create cache folder</source>
         <translation>Kunne ikke opprette mellomlagringsmappe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="862"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="866"/>
         <source>Unable to open cache folder</source>
         <translation>Kunne ikke åpne mellomglagringsmappen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="882"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="886"/>
         <source>Rename</source>
         <translation>Omdøpe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="904"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="908"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>Vil du virkelig slette filen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="905"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="909"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>Vil du virkelig slette mappen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="912"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="916"/>
         <source>Do you really want to delete these items</source>
         <translation>Vil du virkelig slette disse elementene</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="944"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="948"/>
         <source>Create folder failed</source>
         <translation>Kunne ikke opprette mappe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="960"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="964"/>
         <source>Select a file to update %1</source>
         <translation>Velg en fil å oppdatere %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="968"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="972"/>
         <source>Rename failed</source>
         <translation>Kunne ikke omdøpe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="982"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="986"/>
         <source>Remove failed</source>
         <translation>Kunne ikke fjerne</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="992"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="996"/>
         <source>Share failed</source>
         <translation>Kunne ikke dele</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1060"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1058"/>
         <source>Cannot paste files from the same folder</source>
         <translation>Kan ikke lime inn filer fra samme mappe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1084"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1082"/>
         <source>Copy failed</source>
         <translation>Kunne ikke kopiere</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1099"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1097"/>
         <source>Move failed</source>
         <translation>Kunne ikke flytte</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1126"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1125"/>
         <source>Create library failed!</source>
         <translation>Kunne ikke opprette bibliotek!</translation>
     </message>
@@ -1020,22 +1026,22 @@ opplasting mislyktes</translation>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="777"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="823"/>
         <source>Name</source>
         <translation>Navn</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="779"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="825"/>
         <source>Size</source>
         <translation>Størrelse</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="781"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="827"/>
         <source>Last Modified</source>
         <translation>Sist endret</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="783"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="829"/>
         <source>Kind</source>
         <translation>Type</translation>
     </message>
@@ -1044,7 +1050,7 @@ opplasting mislyktes</translation>
     <name>FileTableView</name>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="264"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="442"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="454"/>
         <source>&amp;Open</source>
         <translation>&amp;Åpne</translation>
     </message>
@@ -1107,9 +1113,19 @@ opplasting mislyktes</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="414"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="447"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="459"/>
         <source>D&amp;ownload</source>
         <translation>N&amp;edlasting</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="558"/>
+        <source>Unable to remove readonly files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="628"/>
+        <source>Unable to cut readonly files</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1840,12 +1856,12 @@ Bibliotekets eier har gått tom for lagringsplass.</translation>
         <translation>Slettet bibliteket &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/data-cache.cpp" line="87"/>
+        <location filename="../src/filebrowser/data-cache.cpp" line="89"/>
         <source>failed to open file cache database</source>
         <translation>kunne ikke åpne mellomlagringsdatabasen for filer</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="883"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="887"/>
         <source>Rename %1 to</source>
         <translation>Omdøpe %1 til</translation>
     </message>
@@ -2020,6 +2036,11 @@ Bibliotekets eier har gått tom for lagringsplass.</translation>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="601"/>
         <source>Folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <source>Readonly Folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2412,12 +2433,12 @@ Bibliotekets eier har gått tom for lagringsplass.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="435"/>
+        <location filename="../src/seafile-applet.cpp" line="458"/>
         <source>Failed to initialize log: %s</source>
         <translation>Kunne ikke initialisere loggen: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="555"/>
+        <location filename="../src/seafile-applet.cpp" line="578"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>En ny versjon av %1 klienten (%2) er tilgjengelig.
@@ -2485,76 +2506,86 @@ Vil du besøke nedlastingssiden?</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="124"/>
+        <source>Open %1 &amp;folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="125"/>
+        <source>open %1 folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="128"/>
         <source>Open &amp;logs folder</source>
         <translation>Åpne &amp;loggmappen</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="125"/>
-        <source>open seafile log directory</source>
-        <translation>åpne seafiles loggmappe</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="128"/>
+        <location filename="../src/ui/tray-icon.cpp" line="132"/>
         <source>&amp;About</source>
         <translation>&amp;Om</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="129"/>
+        <location filename="../src/ui/tray-icon.cpp" line="133"/>
         <source>Show the application&apos;s About box</source>
         <translation>Vis applikasjonens &quot;om&quot; boks</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="132"/>
+        <location filename="../src/ui/tray-icon.cpp" line="136"/>
         <source>&amp;Online help</source>
         <translation>&amp;Hjelp på nett</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="133"/>
-        <source>open seafile online help</source>
-        <translation>åpne Seafile hjelp på nett</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="139"/>
+        <location filename="../src/ui/tray-icon.cpp" line="143"/>
         <source>Help</source>
         <translation>Hjelp</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="178"/>
+        <location filename="../src/ui/tray-icon.cpp" line="183"/>
         <source>File</source>
         <translation>Fil</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="476"/>
+        <location filename="../src/ui/tray-icon.cpp" line="488"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>Du har &amp;n melding(er)</numerusform><numerusform>Du har %n melding(er)</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="482"/>
+        <location filename="../src/ui/tray-icon.cpp" line="494"/>
         <source>auto sync is disabled</source>
         <translation>automatisk synkronisering er avslått</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="509"/>
+        <location filename="../src/ui/tray-icon.cpp" line="521"/>
         <source>Uploading</source>
         <translation>Laster opp</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="510"/>
+        <location filename="../src/ui/tray-icon.cpp" line="522"/>
         <source>Downloading</source>
         <translation>Laster ned</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="402"/>
+        <location filename="../src/ui/tray-icon.cpp" line="409"/>
         <source>About %1</source>
         <translation>Omtrent %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="403"/>
+        <location filename="../src/ui/tray-icon.cpp" line="129"/>
+        <source>open %1 log folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="137"/>
+        <source>open %1 online help</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="410"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Klient %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="487"/>
+        <location filename="../src/ui/tray-icon.cpp" line="499"/>
         <source>some servers not connected</source>
         <translation>noen servere er ikke tilkoblet</translation>
     </message>

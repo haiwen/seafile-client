@@ -286,6 +286,10 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
+    if (parent_->repo_.encrypted) {
+        share_action_->setEnabled(false);
+    }
+
     update_action_ = new QAction(tr("&Update"), this);
     connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
     update_action_->setShortcut(Qt::ALT + Qt::Key_U);

@@ -28,7 +28,7 @@ public slots:
 
 private slots:
     void updateAvatar();
-    void logoutAccount();
+    void toggleAccount();
     void reloginAccount(const Account &account);
     void onLogoutDeviceRequestSuccess();
     void onLogoutDeviceRequestFailed(const ApiError& error);

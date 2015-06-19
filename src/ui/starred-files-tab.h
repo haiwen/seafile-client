@@ -46,6 +46,7 @@ private:
 
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+    QWidget *logout_view_;
     QWidget *empty_view_;
 
     GetStarredFilesRequest *get_starred_files_req_;

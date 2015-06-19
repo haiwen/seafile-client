@@ -64,6 +64,8 @@ signals:
     void accountsChanged();
     void accountRequireRelogin(const Account& account);
 
+    void requireAddAccount();
+
 private slots:
     void serverInfoSuccess(const Account &account, const ServerInfo &info);
     void serverInfoFailed(const ApiError&);

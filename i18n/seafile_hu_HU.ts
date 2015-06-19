@@ -76,7 +76,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="107"/>
         <source>Are you sure to remove account from &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Biztosan eltávolítja a fiókot: &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Figyelem: a fiókhoz tartozó kötetek szinkronizálása megszűnik a törlést követően!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="118"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="189"/>
         <source>Choose</source>
-        <translation type="unfinished"/>
+        <translation>Válasszon</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="198"/>
@@ -111,7 +111,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="214"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Töröl</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="227"/>
@@ -121,7 +121,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="375"/>
         <source>Are you sure to logout account from &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Biztosan kilép innen: &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="205"/>
@@ -346,7 +346,7 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="172"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Keres</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="199"/>
@@ -624,22 +624,22 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="139"/>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>vagy</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="144"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>szinkronizálás meglévő könyvtárral</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="148"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>új szinkronizáló könyvtár létrehozása</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="152"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>Szinkronizálás ezzel a létező könyvtárral:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="180"/>
@@ -649,12 +649,12 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="210"/>
         <source>Please choose the folder to sync</source>
-        <translation type="unfinished"/>
+        <translation>Kérem, válassza ki a szinkronizálandó könyvtárat</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="217"/>
         <source>The folder does not exist</source>
-        <translation type="unfinished"/>
+        <translation>A könyvtár nem létezik</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="242"/>
@@ -674,17 +674,17 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="268"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; könyvtár már létezik. Biztos, hogy ezzel szinkronizálja (a tartalmak összeadódnak)?</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="269"/>
         <source>Click No to sync with a new folder instead</source>
-        <translation type="unfinished"/>
+        <translation>Kattintson a Nem-re ha inkább egy új könyvtárral szinkronizálná</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="277"/>
         <source>Unable to find an alternative folder name</source>
-        <translation type="unfinished"/>
+        <translation>Alternatív könyvtárnév nem található</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="339"/>
@@ -739,27 +739,27 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="296"/>
         <source>Added files</source>
-        <translation type="unfinished"/>
+        <translation>Hozzáadott fájlok</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="297"/>
         <source>Deleted files</source>
-        <translation type="unfinished"/>
+        <translation>Törölt fájlok</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="298"/>
         <source>Modified files</source>
-        <translation type="unfinished"/>
+        <translation>Megváltozott fájlok</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="300"/>
         <source>Added folders</source>
-        <translation type="unfinished"/>
+        <translation>Hozzáadott könyvtárak</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="301"/>
         <source>Deleted folders</source>
-        <translation type="unfinished"/>
+        <translation>Törölt könyvtárak</translation>
     </message>
 </context>
 <context>
@@ -767,12 +767,12 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="219"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Megnyitás</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="223"/>
         <source>Open &amp;parent folder</source>
-        <translation type="unfinished"/>
+        <translation>Szülő ma&amp;ppa megnyitása</translation>
     </message>
 </context>
 <context>
@@ -1120,12 +1120,12 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="558"/>
         <source>Unable to remove readonly files</source>
-        <translation type="unfinished"/>
+        <translation>Írásvédett fájl törlése sikertelen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="628"/>
         <source>Unable to cut readonly files</source>
-        <translation type="unfinished"/>
+        <translation>Írásvédett fájl csonkolása sikertelen</translation>
     </message>
 </context>
 <context>
@@ -2026,71 +2026,71 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="53"/>
         <source>Sync this library to:</source>
-        <translation type="unfinished"/>
+        <translation>Szinkronizálja ezt a kötetet ide:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="55"/>
         <source>Sync this folder to:</source>
-        <translation type="unfinished"/>
+        <translation>Szinkronizálja ezt a könyvtárat ide:</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="601"/>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Mappa</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="601"/>
         <source>Readonly Folder</source>
-        <translation type="unfinished"/>
+        <translation>Írásvédett mappa</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="609"/>
         <location filename="../src/utils/file-utils.cpp" line="641"/>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Dokumentum</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="613"/>
         <source>PDF Document</source>
-        <translation type="unfinished"/>
+        <translation>PDF dokumentum</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="615"/>
         <source>Image File</source>
-        <translation type="unfinished"/>
+        <translation>Kép fájl</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="617"/>
         <source>Text Document</source>
-        <translation type="unfinished"/>
+        <translation>Szöveges dokumentum</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="619"/>
         <source>Audio File</source>
-        <translation type="unfinished"/>
+        <translation>Hang fájl</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="621"/>
         <source>Video File</source>
-        <translation type="unfinished"/>
+        <translation>Videó fájl</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="623"/>
         <location filename="../src/utils/file-utils.cpp" line="631"/>
         <source>Word Document</source>
-        <translation type="unfinished"/>
+        <translation>Word dokumentum</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="625"/>
         <location filename="../src/utils/file-utils.cpp" line="635"/>
         <source>PowerPoint Document</source>
-        <translation type="unfinished"/>
+        <translation>PowerPoint dokumentum</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="627"/>
         <location filename="../src/utils/file-utils.cpp" line="633"/>
         <source>Excel Document</source>
-        <translation type="unfinished"/>
+        <translation>Excel dokumentum</translation>
     </message>
 </context>
 <context>
@@ -2507,12 +2507,12 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="124"/>
         <source>Open %1 &amp;folder</source>
-        <translation type="unfinished"/>
+        <translation>%1 könyvtár &amp;megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>open %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>%1 mappa megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="128"/>
@@ -2572,12 +2572,12 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>open %1 log folder</source>
-        <translation type="unfinished"/>
+        <translation>%1 naplóállományok könyvtárának megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="137"/>
         <source>open %1 online help</source>
-        <translation type="unfinished"/>
+        <translation>%1 online súgó megnyitása</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="410"/>
@@ -2595,7 +2595,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/search-tab.cpp" line="73"/>
         <source>Search Files...</source>
-        <translation type="unfinished"/>
+        <translation>Fájlok keresése...</translation>
     </message>
 </context>
 <context>
@@ -2789,7 +2789,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
+        <translation>Szinkronizálás engedélyezése létező könyvtárral más névvel</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="422"/>
@@ -2872,7 +2872,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="31"/>
         <source>Direct Download</source>
-        <translation type="unfinished"/>
+        <translation>Közvetlen letöltés</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
@@ -2882,7 +2882,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="48"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Rendben</translation>
     </message>
 </context>
 <context>

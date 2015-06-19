@@ -336,7 +336,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="151"/>
         <source>Starred</source>
-        <translation>중요</translation>
+        <translation>별표 표시함</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="169"/>
@@ -2975,12 +2975,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="86"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation>중요 파일 정보를 가져오는데 실패했습니다&lt;br/&gt; %1 해주세요</translation>
+        <translation>별표 표시한 파일 정보 가져오기에 실패했습니다&lt;br/&gt; %1 해주세요</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="107"/>
         <source>You have no starred files yet.</source>
-        <translation>아직 중요 표시한 파일이 없습니다.</translation>
+        <translation>아직 별표 표시한 파일이 없습니다.</translation>
     </message>
 </context>
 <context>

@@ -10,5 +10,6 @@ class Application : public QApplication {
 public:
 
     Application (int& argc, char **argv);
+    bool event(QEvent * e);
     virtual ~Application() {};
 };

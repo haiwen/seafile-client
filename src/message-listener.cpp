@@ -151,7 +151,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
 
         const char *kOpenLocalFilePrefix = "open-local-file\t";
         if (strstr(message->body, kOpenLocalFilePrefix) == message->body) {
-            OpenLocalHelper::instance()->openLocalFile(message->body + strlen(kOpenLocalFilePrefix));
+            OpenLocalHelper::instance()->openLocalFile(QUrl::fromEncoded(message->body + strlen(kOpenLocalFilePrefix)));
         }
 
     } else if (IS_APP_MSG(message, kSeafileNotificationsMQ)) {

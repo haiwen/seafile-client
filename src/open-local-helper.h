@@ -7,15 +7,22 @@ struct _CcnetClient;
 
 }
 
+#include <QObject>
+#include <QUrl>
+#include <QString>
+
 /**
  * Helper class to handle open local file request
  */
-class OpenLocalHelper
+class OpenLocalHelper : public QObject
 {
+    Q_OBJECT
 public:
     static OpenLocalHelper* instance();
 
-    void openLocalFile(const char* url);
+    bool openLocalFile(const QUrl &url);
+
+    void setUrl(const char *url) { url_ = url; }
 
     void handleOpenLocalFromCommandLine(const char *url);
 
@@ -34,7 +41,7 @@ private:
 
     _CcnetClient *sync_client_;
 
-    char *url_;
+    QByteArray url_;
 };
 
 

@@ -46,7 +46,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     HDROP drop;
     UINT count;
     HRESULT result = S_OK;
-    wchar_t path_w[MAX_PATH] = {0};
+    wchar_t path_w[MAX_PATH] = {L'\0'};
 
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */

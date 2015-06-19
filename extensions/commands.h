@@ -16,6 +16,7 @@ public:
         Normal,
         Syncing,
         Error,
+        ReadOnly,
         N_Status,
     };
 

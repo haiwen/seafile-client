@@ -109,7 +109,7 @@ STDMETHODIMP ShellExt::IsMemberOf(LPCWSTR path_w, DWORD attr)
     if (status == seafile::RepoInfo::Paused && !path_in_repo.empty()) {
         return S_FALSE;
     }
-    if (status == status_) {
+    if (status == status_ || (status_ == seafile::RepoInfo::Paused && status == seafile::RepoInfo::ReadOnly)) {
         // seaf_ext_log ("[ICON] file icon %d: %s", (int)status_, path.c_str());
         return S_OK;
     }

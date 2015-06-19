@@ -22,6 +22,8 @@ std::string toString(RepoInfo::Status st) {
         return "syncing";
     case RepoInfo::Error:
         return "error";
+    case RepoInfo::ReadOnly:
+        return "readonly";
     case RepoInfo::N_Status:
         return "";
     }
@@ -125,14 +127,14 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
     } else if (raw_resp == "paused") {
         *status = RepoInfo::Paused;
     } else if (raw_resp == "readonly") {
-        *status = RepoInfo::Paused;
+        *status = RepoInfo::ReadOnly;
     } else {
         *status = RepoInfo::NoStatus;
     }
 
-    // seaf_ext_log ("[GetFileStatusCommand] status for %s is %s\n",
-    //               path_in_repo_.c_str(),
-    //               seafile::toString(*status).c_str());
+    seaf_ext_log ("[GetFileStatusCommand] status for %s is %s, raw_resp is %s\n",
+                  path_in_repo_.c_str(),
+                  seafile::toString(*status).c_str(), raw_resp.c_str());
 
     return true;
 }

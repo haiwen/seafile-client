@@ -736,9 +736,9 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         tmp.repo_name = RepoService::instance()->getRepo(tmp.repo_id).name;
         tmp.name = map["name"].toString();
         tmp.oid = map["oid"].toString();
-        tmp.last_modified = map["last_modified"].toInt();
+        tmp.last_modified = map["last_modified"].toLongLong();
         tmp.fullpath = map["fullpath"].toString();
-        tmp.size = map["size"].toInt();
+        tmp.size = map["size"].toLongLong();
         retval.push_back(tmp);
     }
     emit success(retval);

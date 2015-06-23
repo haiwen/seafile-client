@@ -76,7 +76,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="107"/>
         <source>Are you sure to remove account from &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Wollen Sie dieses Konto wirklich von &quot;%1&quot; entfernen?&lt;br&gt;&lt;b&gt;Achtung: Alle Bibliotheken dieses Kontos werden dann nicht mehr synchronisiert!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="118"/>
@@ -121,7 +121,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="375"/>
         <source>Are you sure to logout account from &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Sind Sie sicher, dass Sie dieses Konto von &quot;%1&quot; abmelden wollen?</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="205"/>
@@ -678,7 +678,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="269"/>
         <source>Click No to sync with a new folder instead</source>
-        <translation type="unfinished"/>
+        <translation>Klicke Nein um stattdessen mit einem neuen Ordner zu synchronisieren</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="277"/>
@@ -771,7 +771,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="223"/>
         <source>Open &amp;parent folder</source>
-        <translation type="unfinished"/>
+        <translation>Öffne Ordner &amp;parent</translation>
     </message>
 </context>
 <context>
@@ -1119,12 +1119,12 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="558"/>
         <source>Unable to remove readonly files</source>
-        <translation type="unfinished"/>
+        <translation>Schreibgeschützte Dateien können nicht gelöscht werden</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="628"/>
         <source>Unable to cut readonly files</source>
-        <translation type="unfinished"/>
+        <translation>Schreibgeschützte Dateien können nicht ausgeschnitten werden</translation>
     </message>
 </context>
 <context>
@@ -2788,7 +2788,7 @@ Möchten Sie die Seite zum Herunterladen besuchen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisation eines existierenden Ordners mit unterschiedlichem Namen aktivieren</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="422"/>

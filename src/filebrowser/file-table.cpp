@@ -776,7 +776,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     }
 
     if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
-        return dirent.isDir() ? readableNameForFolder(dirent.readonly) : readableNameForFile(dirent.name);
+        return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
     }
 
     if (role != Qt::DisplayRole) {
@@ -796,7 +796,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return dirent.mtime;
     case FILE_COLUMN_KIND:
         // workaround with sorting
-        return dirent.isDir() ? (dirent.readonly ? "__r" : "__rw") : iconPrefixFromFileName(dirent.name);
+        return dirent.isDir() ? "" : iconPrefixFromFileName(dirent.name);
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:

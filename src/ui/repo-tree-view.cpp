@@ -41,6 +41,7 @@ namespace {
 
 const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
 const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
+const int kRepoCategoryIndicatorWidth = 16;
 
 QString buildMoreInfo(ServerRepo& repo, const QUrl& url_in)
 {
@@ -532,7 +533,7 @@ void RepoTreeView::openInFileBrowser()
 
 bool RepoTreeView::viewportEvent(QEvent *event)
 {
-    if (event->type() != QEvent::ToolTip && event->type() != QEvent::WhatsThis) {
+    if (event->type() != QEvent::ToolTip && event->type() != QEvent::WhatsThis && event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseButtonRelease) {
         return QTreeView::viewportEvent(event);
     }
 
@@ -546,6 +547,20 @@ bool RepoTreeView::viewportEvent(QEvent *event)
     QStandardItem *item = getRepoItem(index);
     if (!item) {
         return true;
+    }
+
+    // handle the event in the top
+    const QModelIndex top_index = indexAt(QPoint(0, 0));
+    if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
+        if (index == top_index && top_index.parent().isValid() && viewport_pos.y() <= kRepoCategoryIndicatorWidth) {
+            QMouseEvent *ev = static_cast<QMouseEvent*>(event);
+            if (!(ev->buttons() & Qt::LeftButton))
+                return true;
+            const QModelIndex parent = top_index.parent();
+            setExpanded(parent, !isExpanded(parent));
+            return true;
+        }
+        return QTreeView::viewportEvent(event);
     }
 
     QRect item_rect = visualRect(index);

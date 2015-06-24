@@ -99,10 +99,10 @@ void AccountView::showAddAccountDialog()
 
 void AccountView::deleteAccount()
 {
-    Account account;
     QAction *action = qobject_cast<QAction*>(sender());
-    if (action)
-        account = qvariant_cast<Account>(action->data());
+    if (!action)
+        return;
+    Account account = qvariant_cast<Account>(action->data());
 
     QString question = tr("Are you sure to remove account from \"%1\"?<br>"
                           "<b>Warning: All libraries of this account would be unsynced!</b>").arg(account.serverUrl.toString());
@@ -125,10 +125,10 @@ void AccountView::deleteAccount()
 
 void AccountView::editAccountSettings()
 {
-    Account account;
     QAction *action = qobject_cast<QAction*>(sender());
-    if (action)
-        account = qvariant_cast<Account>(action->data());
+    if (!action)
+        return;
+    Account account = qvariant_cast<Account>(action->data());
 
     AccountSettingsDialog dialog(account, this);
 
@@ -202,14 +202,16 @@ void AccountView::onAccountChanged()
             connect(account_settings_action, SIGNAL(triggered()), this, SLOT(editAccountSettings()));
             submenu->addAction(account_settings_action);
 
-            QAction *logout_action = new QAction(tr("Logout"), this);
-            logout_action->setIcon(QIcon(":/images/logout.png"));
-            logout_action->setIconVisibleInMenu(true);
-            logout_action->setData(QVariant::fromValue(account));
-            connect(logout_action, SIGNAL(triggered()), this, SLOT(logoutAccount()));
-            if (account.token.isEmpty())
-                logout_action->setEnabled(false);
-            submenu->addAction(logout_action);
+            QAction *toggle_action = new QAction(this);
+            toggle_action->setIcon(QIcon(":/images/logout.png"));
+            toggle_action->setIconVisibleInMenu(true);
+            toggle_action->setData(QVariant::fromValue(account));
+            connect(toggle_action, SIGNAL(triggered()), this, SLOT(toggleAccount()));
+            if (account.isValid())
+                toggle_action->setText(tr("Logout"));
+            else
+                toggle_action->setText(tr("Login"));
+            submenu->addAction(toggle_action);
 
             QAction *delete_account_action = new QAction(tr("Delete"), this);
             delete_account_action->setIcon(QIcon(":/images/delete-account.png"));
@@ -363,21 +365,18 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
  * Only remove the api token of the account. The accout would still be shown
  * in the account list.
  */
-void AccountView::logoutAccount()
+void AccountView::toggleAccount()
 {
-    Account account;
     QAction *action = qobject_cast<QAction*>(sender());
-    if (action)
-        account = qvariant_cast<Account>(action->data());
-    if (!account.isValid())
+    if (!action)
         return;
-
-    QString question = tr("Are you sure to logout account from \"%1\"?").arg(account.serverUrl.toString());
-
-    if (!seafApplet->yesOrNoBox(question, this, false)) {
+    Account account = qvariant_cast<Account>(action->data());
+    if (!account.isValid()) {
+        reloginAccount(account);
         return;
     }
 
+    // logout Account
     FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
     LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
     connect(req, SIGNAL(success()),

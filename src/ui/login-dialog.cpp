@@ -189,14 +189,16 @@ void LoginDialog::disableInputs()
     mUsername->setEnabled(false);
     mPassword->setEnabled(false);
     mSubmitBtn->setEnabled(false);
+    mComputerName->setEnabled(false);
 }
 
 void LoginDialog::enableInputs()
 {
-    mSubmitBtn->setEnabled(true);
     mServerAddr->setEnabled(true);
     mUsername->setEnabled(true);
     mPassword->setEnabled(true);
+    mSubmitBtn->setEnabled(true);
+    mComputerName->setEnabled(true);
 }
 
 void LoginDialog::onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string)

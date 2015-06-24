@@ -55,6 +55,7 @@ private:
     QWidget *waiting_view_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+    QWidget *logout_view_;
 
     QLabel *loading_failed_text_;
 

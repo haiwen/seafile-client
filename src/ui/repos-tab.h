@@ -47,6 +47,7 @@ private:
     RepoTreeView *repos_tree_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+    QWidget *logout_view_;
 
     QLineEdit *filter_text_;
 

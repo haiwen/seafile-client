@@ -78,6 +78,8 @@ AccountView::AccountView(QWidget *parent)
 
     connect(seafApplet->accountManager(), SIGNAL(accountRequireRelogin(const Account&)),
             this, SLOT(reloginAccount(const Account &)));
+    connect(seafApplet->accountManager(), SIGNAL(requireAddAccount()),
+            this, SLOT(showAddAccountDialog()));
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
 }

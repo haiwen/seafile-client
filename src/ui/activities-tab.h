@@ -50,6 +50,7 @@ private:
 
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+    QWidget *logout_view_;
 
     QWidget *events_container_view_;
     EventsListView *events_list_view_;

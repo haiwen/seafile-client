@@ -15,6 +15,7 @@
 #include "api/requests.h"
 #include "api/starred-file.h"
 #include "loading-view.h"
+#include "logout-view.h"
 #include "starred-files-list-view.h"
 #include "starred-files-list-model.h"
 #include "starred-file-item-delegate.h"
@@ -31,6 +32,7 @@ enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_LOADING_FAILED_VIEW,
     INDEX_EMPTY_VIEW,
+    INDEX_LOGOUT_VIEW,
     INDEX_FILES_VIEW
 };
 
@@ -43,11 +45,17 @@ StarredFilesTab::StarredFilesTab(QWidget *parent)
     createStarredFilesListView();
     createLoadingView();
     createLoadingFailedView();
+
+    //createLogoutView
+    logout_view_ = new LogoutView;
+    static_cast<LogoutView*>(logout_view_)->setQssStyleForTab();
+
     createEmptyView();
 
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     mStack->insertWidget(INDEX_EMPTY_VIEW, empty_view_);
+    mStack->insertWidget(INDEX_LOGOUT_VIEW, logout_view_);
     mStack->insertWidget(INDEX_FILES_VIEW, files_list_view_);
 
     refresh_timer_ = new QTimer(this);
@@ -113,6 +121,11 @@ void StarredFilesTab::createEmptyView()
 
 void StarredFilesTab::refresh()
 {
+    if (!seafApplet->accountManager()->hasAccount() ||
+        !seafApplet->accountManager()->accounts().front().isValid()) {
+        mStack->setCurrentIndex(INDEX_LOGOUT_VIEW);
+        return;
+    }
     if (in_refresh_) {
         return;
     }

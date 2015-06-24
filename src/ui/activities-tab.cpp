@@ -15,6 +15,7 @@
 #include "account-mgr.h"
 #include "events-list-view.h"
 #include "loading-view.h"
+#include "logout-view.h"
 #include "events-service.h"
 #include "avatar-service.h"
 #include "api/api-error.h"
@@ -32,6 +33,7 @@ const char *kLoadingFailedLabelName = "loadingFailedText";
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_LOADING_FAILED_VIEW,
+    INDEX_LOGOUT_VIEW,
     INDEX_EVENTS_VIEW,
 };
 
@@ -46,8 +48,13 @@ ActivitiesTab::ActivitiesTab(QWidget *parent)
     createLoadingView();
     createLoadingFailedView();
 
+    //createLogoutView
+    logout_view_ = new LogoutView;
+    static_cast<LogoutView*>(logout_view_)->setQssStyleForTab();
+
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
+    mStack->insertWidget(INDEX_LOGOUT_VIEW, logout_view_);
     mStack->insertWidget(INDEX_EVENTS_VIEW, events_container_view_);
 
     connect(EventsService::instance(), SIGNAL(refreshSuccess(const std::vector<SeafEvent>&, bool, bool)),
@@ -86,6 +93,11 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
 
 void ActivitiesTab::refresh()
 {
+    if (!seafApplet->accountManager()->hasAccount() ||
+        !seafApplet->accountManager()->accounts().front().isValid()) {
+        mStack->setCurrentIndex(INDEX_LOGOUT_VIEW);
+        return;
+    }
     showLoadingView();
 
     EventsService::instance()->refresh(true);

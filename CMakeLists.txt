@@ -208,6 +208,7 @@ SET(moc_headers
   src/ui/seafile-tab-widget.h
   src/ui/tab-view.h
   src/ui/loading-view.h
+  src/ui/logout-view.h
   src/ui/repos-tab.h
   src/ui/starred-files-tab.h
   src/ui/starred-files-list-view.h
@@ -392,6 +393,7 @@ SET(seafile_client_sources
   src/ui/seafile-tab-widget.cpp
   src/ui/tab-view.cpp
   src/ui/loading-view.cpp
+  src/ui/logout-view.cpp
   src/ui/repos-tab.cpp
   src/ui/starred-files-tab.cpp
   src/ui/starred-files-list-view.cpp

@@ -20,6 +20,7 @@
 #include "api/server-repo.h"
 #include "rpc/local-repo.h"
 #include "loading-view.h"
+#include "logout-view.h"
 
 #include "repos-tab.h"
 
@@ -30,6 +31,7 @@ const char *kLoadingFaieldLabelName = "loadingFailedText";
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_LOADING_FAILED_VIEW,
+    INDEX_LOGOUT_VIEW,
     INDEX_REPOS_VIEW
 };
 
@@ -41,6 +43,10 @@ ReposTab::ReposTab(QWidget *parent)
     createRepoTree();
     createLoadingView();
     createLoadingFailedView();
+
+    //createLogoutView
+    logout_view_ = new LogoutView;
+    static_cast<LogoutView*>(logout_view_)->setQssStyleForTab();
 
     filter_text_ = new QLineEdit;
     filter_text_->setPlaceholderText(tr("Search libraries..."));
@@ -59,6 +65,7 @@ ReposTab::ReposTab(QWidget *parent)
 
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     mStack->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
+    mStack->insertWidget(INDEX_LOGOUT_VIEW, logout_view_);
     mStack->insertWidget(INDEX_REPOS_VIEW, repos_tree_);
 
     RepoService *svc = RepoService::instance();
@@ -141,6 +148,11 @@ void ReposTab::showLoadingView()
 
 void ReposTab::refresh()
 {
+    if (!seafApplet->accountManager()->hasAccount() ||
+        !seafApplet->accountManager()->accounts().front().isValid()) {
+        mStack->setCurrentIndex(INDEX_LOGOUT_VIEW);
+        return;
+    }
     filter_text_->clear();
     showLoadingView();
     RepoService::instance()->refresh(true);

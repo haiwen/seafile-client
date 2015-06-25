@@ -57,9 +57,6 @@ std::string normalizedPath(const std::string& path);
 
 uint64_t currentMSecsSinceEpoch();
 
-std::string localeFromUtf8(const std::string& src);
-std::string localeToUtf8(const std::string& src);
-
 wchar_t *localeToWString(const std::string& src);
 std::string wStringToLocale(const wchar_t *src);
 

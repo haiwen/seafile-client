@@ -42,7 +42,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
                                         HKEY /* hRegKey */)
 {
     FORMATETC format = {CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL};
-    STGMEDIUM stg = {TYMED_HGLOBAL};
+    STGMEDIUM stg = {TYMED_HGLOBAL, {L'\0'}, NULL};
     HDROP drop;
     UINT count;
     HRESULT result = S_OK;
@@ -247,7 +247,8 @@ bool ShellExt::insertMainMenu()
 
 void ShellExt::buildSubMenu()
 {
-    MENUITEMINFO minfo = {0};
+    MENUITEMINFO minfo;
+    memset(&minfo, 0, sizeof(minfo));
     minfo.cbSize = sizeof(MENUITEMINFO);
     minfo.fMask = MIIM_FTYPE | MIIM_BITMAP | MIIM_STRING | MIIM_ID;
     minfo.fType = MFT_STRING;

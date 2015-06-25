@@ -1504,7 +1504,7 @@ Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk a
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>Sie sind ausgeloggt. Bitte </translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>

@@ -1341,76 +1341,76 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="204"/>
+        <location filename="../src/ui/login-dialog.cpp" line="206"/>
         <source>Network Error:
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="216"/>
+        <location filename="../src/ui/login-dialog.cpp" line="218"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="230"/>
+        <location filename="../src/ui/login-dialog.cpp" line="232"/>
         <source>Please enter the server address</source>
         <translation type="unfinished">Ange serveradressen</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="234"/>
-        <location filename="../src/ui/login-dialog.cpp" line="240"/>
-        <location filename="../src/ui/login-dialog.cpp" line="342"/>
-        <location filename="../src/ui/login-dialog.cpp" line="348"/>
+        <location filename="../src/ui/login-dialog.cpp" line="236"/>
+        <location filename="../src/ui/login-dialog.cpp" line="242"/>
+        <location filename="../src/ui/login-dialog.cpp" line="344"/>
+        <location filename="../src/ui/login-dialog.cpp" line="350"/>
         <source>%1 is not a valid server address</source>
         <translation type="unfinished">%1 är inte en giltig serveradress</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="247"/>
+        <location filename="../src/ui/login-dialog.cpp" line="249"/>
         <source>Please enter the username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="258"/>
+        <location filename="../src/ui/login-dialog.cpp" line="260"/>
         <source>Please enter the computer name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="276"/>
+        <location filename="../src/ui/login-dialog.cpp" line="278"/>
         <source>Failed to save current account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="333"/>
+        <location filename="../src/ui/login-dialog.cpp" line="335"/>
         <source>Seafile Server Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="252"/>
+        <location filename="../src/ui/login-dialog.cpp" line="254"/>
         <source>Please enter the password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="303"/>
+        <location filename="../src/ui/login-dialog.cpp" line="305"/>
         <source>Incorrect email or password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="307"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="309"/>
         <source>Internal Server Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="311"/>
+        <location filename="../src/ui/login-dialog.cpp" line="313"/>
         <source>Failed to login: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="313"/>
+        <location filename="../src/ui/login-dialog.cpp" line="315"/>
         <source>Failed to login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1466,7 +1466,7 @@ Do you like to download your default library and create a virtual disk?</source>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="141"/>
-        <location filename="../src/ui/login-dialog.cpp" line="332"/>
+        <location filename="../src/ui/login-dialog.cpp" line="334"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation type="unfinished"></translation>

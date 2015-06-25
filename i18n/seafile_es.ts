@@ -111,7 +111,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="215"/>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>Iniciar</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="218"/>
@@ -1505,17 +1505,17 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>Sesión cerrada. Por favor </translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>login</source>
-        <translation type="unfinished"/>
+        <translation>iniciar</translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="59"/>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>Agregar una cuenta</translation>
     </message>
 </context>
 <context>

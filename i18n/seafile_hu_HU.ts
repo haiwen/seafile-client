@@ -111,7 +111,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="215"/>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>Bejelentkezés</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="218"/>
@@ -1505,17 +1505,17 @@ Letölti az alapértelmezett kötetet és létrehoz egy virtuális lemezt hozzá
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>Kijelentkezett. Kérem</translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>login</source>
-        <translation type="unfinished"/>
+        <translation>jelentkezzen be</translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="59"/>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>Fiók hozzáadása</translation>
     </message>
 </context>
 <context>

@@ -21,6 +21,10 @@ uint64_t ShellExt::cache_ts_;
 
 // *********************** ShellExt *************************
 ShellExt::ShellExt(seafile::RepoInfo::Status status)
+  : main_menu_(0),
+    index_(0),
+    first_(0),
+    last_(0)
 {
     m_cRef = 0L;
     InterlockedIncrement(&g_cRefThisDll);

@@ -302,84 +302,6 @@ uint64_t currentMSecsSinceEpoch()
     return temp;
 }
 
-std::string convertEncoding(const std::string& src, UINT from_encoding, UINT to_encoding)
-{
-    if (src.empty())
-        return NULL;
-
-    std::unique_ptr<char> dst;
-    int len, res;
-
-    len = res = 0;
-    /* first get wchar length of the src str */
-    len = MultiByteToWideChar
-        (from_encoding,         /* multibyte code page */
-         0,                     /* flags */
-         src.c_str(),           /* src */
-         -1,                    /* src len, -1 for all including \0 */
-         NULL,                  /* dst */
-         0);                    /* dst buf len */
-
-    if (len <= 0)
-        return NULL;
-
-    std::unique_ptr<wchar_t> tmp_wchar(new wchar_t[len]);
-    res = MultiByteToWideChar
-        (from_encoding,         /* multibyte code page */
-         0,                     /* flags */
-         src.c_str(),           /* src */
-         -1,                    /* src len, -1 for all includes \0 */
-         tmp_wchar.get(),       /* dst */
-         len);                  /* dst buf len */
-
-    if (res <= 0) {
-        return "";
-    }
-
-    /* Now we have the widechar, we can convert it into dst */
-    /* first get dst str length */
-    len = WideCharToMultiByte
-        (to_encoding,           /* multibyte code page */
-         0,                     /* flags */
-         tmp_wchar.get(),       /* src */
-         -1,                    /* src len, -1 for all includes \0 */
-         NULL,                  /* dst */
-         0,                     /* dst buf len */
-         NULL,                  /* default char */
-         NULL);                 /* BOOL flag indicates default char is used */
-
-    if (len <= 0) {
-        return NULL;
-    }
-
-    dst.reset(new char[len]);
-    res = WideCharToMultiByte
-        (to_encoding,           /* multibyte code page */
-         0,                     /* flags */
-         tmp_wchar.get(),       /* src */
-         -1,                    /* src len, -1 for all includes \0 */
-         dst.get(),             /* dst */
-         len,                   /* dst buf len */
-         NULL,                  /* default char */
-         NULL);                 /* BOOL flag indicates default char is used */
-
-    if (res <= 0) {
-        return NULL;
-    }
-
-    return dst.get();
-}
-
-std::string localeFromUtf8(const std::string& src)
-{
-    return convertEncoding(src, CP_UTF8, CP_ACP);
-}
-
-std::string localeToUtf8(const std::string& src)
-{
-    return convertEncoding(src, CP_ACP, CP_UTF8);
-}
-
 std::string splitPath(const std::string& path, int *pos)
 {
     if (path.size() == 0) {
@@ -463,7 +385,7 @@ wchar_t *localeToWString(const std::string& src)
          src.c_str(),           /* src */
          -1,                    /* src len, -1 for all includes \0 */
          dst,                   /* dst */
-         sizeof(dst));          /* dst buf len */
+         sizeof(dst) / sizeof(wchar_t));          /* dst buf len */
 
     if (len <= 0) {
         return NULL;
@@ -521,23 +443,27 @@ bool isShellExtEnabled()
 {
     HKEY root = HKEY_CURRENT_USER;
     HKEY parent_key;
+    wchar_t *software_seafile = localeToWString("Software\\Seafile");
     LONG result = RegOpenKeyExW(root,
-                                localeToWString("Software\\Seafile"),
+                                software_seafile,
                                 0L,
                                 KEY_ALL_ACCESS,
                                 &parent_key);
+    free(software_seafile);
     if (result != ERROR_SUCCESS) {
         return true;
     }
 
     char buf[MAX_PATH] = {0};
     DWORD len = sizeof(buf);
+    wchar_t *shell_ext_disabled = localeToWString("ShellExtDisabled");
     result = RegQueryValueExW (parent_key,
-                               localeToWString("ShellExtDisabled"),
+                               shell_ext_disabled,
                                NULL,             /* reserved */
                                NULL,             /* output type */
                                (LPBYTE)buf,      /* output data */
                                &len);            /* output length */
+    free(shell_ext_disabled);
 
     return result != ERROR_SUCCESS;
 }

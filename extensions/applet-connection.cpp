@@ -34,6 +34,7 @@ AppletConnection::AppletConnection()
       pipe_(INVALID_HANDLE_VALUE),
       last_conn_failure_(0)
 {
+    memset(&ol_, 0, sizeof(OVERLAPPED));
 }
 
 AppletConnection *AppletConnection::singleton_;
@@ -140,12 +141,17 @@ bool AppletConnection::writeRequest(const std::string& cmd)
 
 bool AppletConnection::readResponse(std::string *out)
 {
-    uint32_t len;
+    uint32_t len = 0;
     if (!utils::pipeReadN(pipe_, &len, sizeof(len), &ol_, &connected_) || len == 0) {
         return false;
     }
 
-    std::shared_ptr<char> buf(new char[len + 1]);
+    // avoid integer overflow
+    if (len == UINT32_MAX) {
+        return false;
+    }
+
+    std::unique_ptr<char[]> buf(new char[len + 1]);
     buf.get()[len] = 0;
     if (!utils::pipeReadN(pipe_, buf.get(), len, &ol_, &connected_)) {
         return false;

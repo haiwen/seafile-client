@@ -46,7 +46,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     HDROP drop;
     UINT count;
     HRESULT result = S_OK;
-    wchar_t path_w[MAX_PATH] = {L'\0'};
+    wchar_t path_w[MAX_PATH+1] = {L'\0'};
 
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */
@@ -71,10 +71,13 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     if (!drop)
         return E_INVALIDARG;
 
+    // When the function copies a file name to the buffer, the return value is a
+    // count of the characters copied, not including the terminating null
+    // character.
     count = DragQueryFileW(drop, 0xFFFFFFFF, NULL, 0);
     if (count == 0)
         result = E_INVALIDARG;
-    else if (!DragQueryFileW(drop, 0, path_w, sizeof(path_w)))
+    else if (!DragQueryFileW(drop, 0, path_w, MAX_PATH))
         result = E_INVALIDARG;
 
     GlobalUnlock(stg.hGlobal);

@@ -25,7 +25,7 @@ public:
     std::string worktree;
     Status status;
 
-    RepoInfo() {}
+    RepoInfo() :status(NoStatus) {}
 
     RepoInfo(const std::string& repo_id,
              const std::string repo_name,

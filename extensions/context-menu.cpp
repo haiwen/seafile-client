@@ -45,14 +45,16 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     STGMEDIUM stg = {TYMED_HGLOBAL, {L'\0'}, NULL};
     HDROP drop;
     UINT count;
+    UINT size;
     HRESULT result = S_OK;
-    wchar_t path_w[MAX_PATH+1] = {L'\0'};
+    wchar_t path_dir_w[4096];
+    wchar_t *path_w = NULL;
 
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */
     if (folder) {
-        if (SHGetPathFromIDListW(folder, path_w)) {
-            path_ = utils::normalizedPath(utils::wStringToUtf8(path_w));
+        if (SHGetPathFromIDListW(folder, path_dir_w)) {
+            path_ = utils::normalizedPath(utils::wStringToUtf8(path_dir_w));
         }
     }
 
@@ -75,16 +77,25 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     // count of the characters copied, not including the terminating null
     // character.
     count = DragQueryFileW(drop, 0xFFFFFFFF, NULL, 0);
-    if (count == 0)
+    if (count == 0) {
         result = E_INVALIDARG;
-    else if (!DragQueryFileW(drop, 0, path_w, MAX_PATH))
-        result = E_INVALIDARG;
+    } else {
+        size = DragQueryFileW(drop, 0, path_w, 0);
+        if (!size) {
+            result = E_INVALIDARG;
+        } else {
+            path_w = new wchar_t[size+1];
+            if (!DragQueryFileW(drop, 0, path_w, size+1))
+                result = E_INVALIDARG;
+        }
+    }
 
     GlobalUnlock(stg.hGlobal);
     ReleaseStgMedium(&stg);
 
     if (result == S_OK) {
         path_ = utils::normalizedPath(utils::wStringToUtf8(path_w));
+        delete[] path_w;
     }
 
     return result;

@@ -19,7 +19,7 @@ STDMETHODIMP ShellExt::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pInd
 
     std::string dll = utils::getThisDllPath();
 
-    std::unique_ptr<wchar_t> ico(utils::localeToWString(dll));
+    std::unique_ptr<wchar_t[]> ico(utils::localeToWString(dll));
     int wlen = wcslen(ico.get());
     if (wlen + 1 > cchMax)
         return S_FALSE;

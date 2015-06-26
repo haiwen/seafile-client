@@ -32,6 +32,7 @@ static const NSArray *const kBadgetIdentifiers = @[
     @"error",   // error
     @"",       // ignored
     @"synced",  // synced
+    @"paused",  // readonly
     @"paused",  // paused
 ];
 

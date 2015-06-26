@@ -22,12 +22,13 @@ enum PathStatus {
     SYNC_STATUS_ERROR,
     SYNC_STATUS_IGNORED,
     SYNC_STATUS_SYNCED,
+    SYNC_STATUS_READONLY,
     SYNC_STATUS_PAUSED,
     MAX_SYNC_STATUS,
 };
 
 static const char *const kPathStatus[] = {
-    "none", "syncing", "error", "ignored", "synced", "paused", NULL,
+    "none", "syncing", "error", "ignored", "synced", "readonly", "paused", NULL,
 };
 
 static inline PathStatus getPathStatusFromString(const QString &status) {

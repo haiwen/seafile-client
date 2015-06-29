@@ -44,8 +44,8 @@ void FileDownloadHelper::start()
     const QString file_name = QFileInfo(path_).fileName();
     const QString dirent_path = ::getParentPath(path_);
     req_ = new GetDirentsRequest(account_, repo_.id, dirent_path);
-    connect(req_, SIGNAL(success(bool current_readonly, const QList<SeafDirent> &)),
-            this, SLOT(onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &)));
+    connect(req_, SIGNAL(success(bool, const QList<SeafDirent> &)),
+            this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent> &)));
     connect(req_, SIGNAL(failed(const ApiError &)),
             this, SLOT(onGetDirentsFailure(const ApiError &)));
     req_->send();

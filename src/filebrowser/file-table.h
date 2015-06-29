@@ -39,6 +39,7 @@ signals:
     void direntRemove(const QList<const SeafDirent*> &dirents);
     void direntUpdate(const SeafDirent& dirent);
     void direntShare(const SeafDirent& dirent);
+    void direntShareSeafile(const SeafDirent& dirent);
     void direntPaste();
 
     void cancelDownload(const SeafDirent& dirent);
@@ -52,6 +53,7 @@ private slots:
     void onRename();
     void onRemove();
     void onShare();
+    void onShareSeafile();
     void onUpdate();
     void onCopy();
     void onMove();
@@ -89,6 +91,7 @@ private:
     QAction *rename_action_;
     QAction *remove_action_;
     QAction *share_action_;
+    QAction *share_seafile_action_;
     QAction *update_action_;
     QAction *copy_action_;
     QAction *move_action_;

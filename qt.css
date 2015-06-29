@@ -559,6 +559,14 @@ SharedLinkDialog QCheckBox {
     font-size: 10px;
 }
 
+SeafileLinkDialog QLabel {
+    font-size: 12px;
+}
+
+SeafileLinkDialog QCheckBox {
+    font-size: 10px;
+}
+
 SearchTab QLineEdit#searchInput {
     min-height: 25px;
     margin: 5px;

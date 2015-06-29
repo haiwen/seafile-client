@@ -313,6 +313,7 @@ void RepoService::openLocalFile(const QString& repo_id,
                                 const QString& path_in_repo,
                                 QWidget *dialog_parent)
 {
+    qDebug("trying to open file %s in repo %s", repo_id.toUtf8().data(), path_in_repo.toUtf8().data());
     if (path_in_repo.endsWith("/")) {
         openFolder(repo_id, path_in_repo.left(path_in_repo.size() - 1));
         return;

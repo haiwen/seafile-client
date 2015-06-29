@@ -25,6 +25,7 @@ extern "C" {
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 
+#include "account.h"
 #include "repo-service.h"
 #include "open-local-helper.h"
 
@@ -94,6 +95,39 @@ void OpenLocalHelper::sendOpenLocalFileMessage(const char *url)
     g_object_unref (sync_client_);
 }
 
+QUrl OpenLocalHelper::generateLocalFileSeafileUrl(const QString& repo_id, const Account& account, const QString& path)
+{
+    const QString& email = account.username;
+    QUrl url;
+    url.setScheme(kSeafileProtocolScheme);
+    url.setHost(kSeafileProtocolHostOpenFile);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QUrlQuery url_query;
+    url_query.addQueryItem("repo_id",  repo_id);
+    if (!email.isEmpty())
+        url_query.addQueryItem("email",  email);
+    url_query.addQueryItem("path",  path);
+    url.setQuery(url_query);
+#else
+    url.addQueryItem("repo_id",  repo_id);
+    if (!email.isEmpty())
+        url.addQueryItem("email",  email);
+    url.addQueryItem("path",  path);
+#endif
+
+    return url;
+}
+
+QUrl OpenLocalHelper::generateLocalFileWebUrl(const QString& repo_id, const Account& account, const QString& path)
+{
+    QString fixed_path = path.startsWith("/") ? path : "/" + path;
+    if (fixed_path.endsWith("/"))
+        return account.getAbsoluteUrl("/#common/lib/" + repo_id + fixed_path == "/" ?
+                                      "/" : fixed_path.left(fixed_path.size() - 1));
+    else
+        return account.getAbsoluteUrl("/lib/" + repo_id + "/file" + fixed_path);
+}
 
 bool OpenLocalHelper::openLocalFile(const QUrl &url)
 {

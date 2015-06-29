@@ -777,6 +777,10 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     LocalRepo local_repo;
     if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) >= 0) {
         QString target_path = QDir(local_repo.worktree).absoluteFilePath(file_name);
+        if (QFileInfo(target_path) == QFileInfo(local_path)) {
+            seafApplet->warningBox(tr("Unable to overwrite file \"%1\" with itself").arg(file_name));
+            return;
+        }
 
         if (QFileInfo(target_path).exists()) {
             if (!seafApplet->yesOrNoBox(tr("Are you sure to overwrite file \"%1\"").arg(file_name)))

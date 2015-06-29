@@ -123,7 +123,13 @@ inline static std::string getRelativePath(const std::string &path,
 
 inline static bool isContainsPrefix(const std::string &path,
                                     const std::string &prefix) {
-    return 0 == strncmp(prefix.data(), path.data(), prefix.size());
+    if (prefix.size() > path.size())
+        return false;
+    if (0 != strncmp(prefix.data(), path.data(), prefix.size()))
+        return false;
+    if (prefix.size() < path.size() && path[prefix.size()] != '/')
+        return false;
+    return true;
 }
 
 inline static std::vector<LocalRepo>::const_iterator

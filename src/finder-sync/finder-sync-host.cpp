@@ -41,8 +41,6 @@ static inline PathStatus getPathStatusFromString(const QString &status) {
 static std::mutex update_mutex_;
 static std::vector<LocalRepo> watch_set_;
 static std::unique_ptr<GetSharedLinkRequest> get_shared_link_req_;
-static constexpr int kUpdateWatchSetInterval = 5 * 1000;
-static constexpr int kUpdateFileStatusInterval = 2 * 1000;
 
 FinderSyncHost::FinderSyncHost() : rpc_client_(new SeafileRpcClient) {
     rpc_client_->connectDaemon();
@@ -126,13 +124,15 @@ uint32_t FinderSyncHost::getFileStatus(const char *repo_id, const char *path) {
     QString path_in_repo = path;
     QString status;
     bool isDirectory = path_in_repo.endsWith('/');
+    if (isDirectory)
+        path_in_repo.resize(path_in_repo.size() - 1);
     if (rpc_client_->getRepoFileStatus(
             repo,
-            isDirectory ? path_in_repo.left(path_in_repo.size() - 1)
-            : path_in_repo,
+            path_in_repo,
             isDirectory, &status) != 0) {
         return PathStatus::SYNC_STATUS_NONE;
     }
+
     return getPathStatusFromString(status);
 }
 

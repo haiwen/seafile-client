@@ -224,7 +224,7 @@ void FileTableView::setModel(QAbstractItemModel *model)
     source_model_ = qobject_cast<FileTableModel*>(model);
     if (!source_model_)
         return;
-    proxy_model_ = new QSortFilterProxyModel(source_model_);
+    proxy_model_ = new FileTableSortFilterProxyModel(source_model_);
     proxy_model_->setSourceModel(source_model_);
     QTableView::setModel(proxy_model_);
 
@@ -234,7 +234,6 @@ void FileTableView::setModel(QAbstractItemModel *model)
 
     // set default sort by folder
     sortByColumn(FILE_COLUMN_NAME, Qt::AscendingOrder);
-    sortByColumn(FILE_COLUMN_KIND, Qt::AscendingOrder);
 }
 
 const SeafDirent *FileTableView::getSelectedItemFromSource()

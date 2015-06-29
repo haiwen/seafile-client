@@ -147,4 +147,23 @@ private:
     QTimer *task_progress_timer_;
 };
 
+class FileTableSortFilterProxyModel : public QSortFilterProxyModel {
+    Q_OBJECT
+public:
+    FileTableSortFilterProxyModel(FileTableModel *parent)
+        : QSortFilterProxyModel(parent), source_model_(parent) {}
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const {
+        bool is_dir_left = source_model_->direntAt(left.row())->isDir();
+        bool is_dir_right = source_model_->direntAt(right.row())->isDir();
+        if (is_dir_left != is_dir_right)
+            return sortOrder() != Qt::AscendingOrder ? is_dir_right
+                                                     : !is_dir_right;
+
+        return QSortFilterProxyModel::lessThan(left, right);
+    }
+private:
+    FileTableModel* source_model_;
+};
+
+
 #endif  // SEAFILE_CLIENT_FILE_TABLE_H

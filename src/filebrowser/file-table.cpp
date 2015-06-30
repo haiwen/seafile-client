@@ -413,15 +413,26 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (pos != selected.size() && selected.size() != 1) {
         item_.reset(NULL);
 
+        bool has_dir = false;
+        for (int i = 0; i != selected.size() ; i++) {
+            if (source_model_->direntAt(proxy_model_->mapToSource(selected[i]).row())->isDir()) {
+                has_dir = true;
+                break;
+            }
+        }
+
         download_action_->setVisible(true);
-        saveas_action_->setVisible(false);
+        saveas_action_->setText(tr("&Save As To..."));
+        saveas_action_->setEnabled(!has_dir);
         download_action_->setText(tr("D&ownload"));
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
         update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(false);
+
         context_menu_->exec(position);
+
         return;
     }
 
@@ -434,13 +445,13 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     item_.reset(new SeafDirent(*dirent));
 
+    saveas_action_->setText(tr("&Save As..."));
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
     download_action_->setVisible(true);
     cancel_download_action_->setVisible(false);
-
     if (item_->readonly) {
         move_action_->setEnabled(false);
         rename_action_->setEnabled(false);
@@ -456,12 +467,12 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_->isDir()) {
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
-        saveas_action_->setVisible(false);
+        saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
     } else {
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
-        saveas_action_->setVisible(true);
+        saveas_action_->setEnabled(true);
         sync_subdirectory_action_->setVisible(false);
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
@@ -522,10 +533,15 @@ void FileTableView::onOpen()
 
 void FileTableView::onSaveAs()
 {
-    if (item_ == NULL)
-      return;
+    if (item_ == NULL) {
+        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
+        emit direntSaveAs(dirents);
+        return;
+    }
 
-    emit direntSaveAs(*item_);
+    QList<const SeafDirent*> dirents;
+    dirents.push_back(item_.data());
+    emit direntSaveAs(dirents);
 }
 
 void FileTableView::onRename()

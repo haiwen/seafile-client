@@ -262,7 +262,6 @@ CreateSubrepoRequest::CreateSubrepoRequest(const Account& account, const QString
     setUrlParam(QString("p"), path);
     setUrlParam(QString("name"), name);
     if (!passwd.isNull()) {
-        qWarning("Encrypted repo");
         setUrlParam(QString("password"), passwd);
     }
 }

@@ -726,7 +726,7 @@ void RepoTreeView::resyncRepo()
     if (server_repo.encrypted) {
         DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(),
                                   RepoService::instance()->getRepo(server_repo.id), QString(), this);
-        dialog.setMergeWithExisting(local_repo.worktree);
+        dialog.setMergeWithExisting(QFileInfo(local_repo.worktree).dir().absolutePath());
         dialog.exec();
         return;
     } else {

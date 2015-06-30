@@ -64,7 +64,8 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     : QDialog(parent),
       repo_(repo),
       account_(account),
-      has_manual_merge_mode_(seafApplet->settingsManager()->isEnableSyncingWithExistingFolder())
+      has_manual_merge_mode_(seafApplet->settingsManager()->isEnableSyncingWithExistingFolder()),
+      merge_without_question_(false)
 {
     manual_merge_mode_ = false;
     setupUi(this);
@@ -264,7 +265,7 @@ bool DownloadRepoDialog::validateInputs()
                                  QMessageBox::Ok);
             return false;
         }
-        int ret = QMessageBox::question(
+        int ret = merge_without_question_ ? QMessageBox::Yes : QMessageBox::question(
             this, getBrand(), tr("The folder \"%1\" already exists. Are you sure to sync with it (contents will be merged)?")
                                   .arg(path) + QString("<br/><br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
             QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes);
@@ -355,5 +356,6 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
 }
 
 void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
+    merge_without_question_ = true;
     setDirectoryText(localPath);
 }

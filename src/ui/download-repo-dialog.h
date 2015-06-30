@@ -47,6 +47,10 @@ private:
     bool manual_merge_mode_;
     // used in auto mode, and always true in manual merge mode
     bool sync_with_existing_;
+
+    // merge without question
+    bool merge_without_question_;
+
     // save merge path
     QString alternative_path_;
 };

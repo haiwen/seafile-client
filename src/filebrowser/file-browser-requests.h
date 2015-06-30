@@ -150,6 +150,7 @@ class GetFileUploadLinkRequest : public SeafileApiRequest {
 public:
     GetFileUploadLinkRequest(const Account &account,
                              const QString &repo_id,
+                             const QString &path,
                              bool use_upload = true);
 
 signals:

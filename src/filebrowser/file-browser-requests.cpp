@@ -134,12 +134,14 @@ void CreateDirectoryRequest::requestSuccess(QNetworkReply& reply)
 
 GetFileUploadLinkRequest::GetFileUploadLinkRequest(const Account &account,
                                                    const QString &repo_id,
+                                                   const QString &path,
                                                    bool use_upload)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(
               use_upload ? kGetFileUploadUrl : kGetFileUpdateUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_GET, account.token)
 {
+    setUrlParam("p", path);
 }
 
 void GetFileUploadLinkRequest::requestSuccess(QNetworkReply& reply)

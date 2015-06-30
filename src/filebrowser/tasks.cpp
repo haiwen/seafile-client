@@ -220,7 +220,7 @@ FileUploadTask::FileUploadTask(const FileUploadTask& rhs)
 
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, use_upload_);
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, path_, use_upload_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)

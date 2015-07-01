@@ -341,14 +341,12 @@ SeafileTabBar::tab {
 
 StarredFilesListView {
     border-top: 1px solid #DCDCDE;
-    border-bottom: 1px solid #DCDCDE;
 }
 
 QWidget#EmptyPlaceHolder,
 LoadingView
 {
     border-top: 1px solid #DCDCDE;
-    border-bottom: 1px solid #DCDCDE;
 }
 
 QWidget#EventsContainerView {
@@ -369,13 +367,11 @@ QWidget#EventsContainerView LoadingView {
     border: 0;
     background: white;
     margin: 0;
-    border-bottom: 1px solid #DCDCDE;
 }
 
 EventsListView {
     border: 0;
     border-top: 1px solid #DCDCDE;
-    border-bottom: 1px solid #DCDCDE;
 }
 
 EventDetailsDialog {
@@ -390,7 +386,6 @@ EventDetailsListView
     border: 0;
     font-size: 16px;
     border-top: 1px solid #DCDCDE;
-    border-bottom: 1px solid #DCDCDE;
 }
 
 EventDetailsListView {
@@ -574,7 +569,7 @@ SearchTab QLineEdit#searchInput {
     border-radius: 3px;
 }
 
-SearchTab SearchResultListView {
+SearchResultListView {
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
 }

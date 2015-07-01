@@ -101,6 +101,8 @@ CloudView::CloudView(QWidget *parent)
 
     connect(ServerStatusService::instance(), SIGNAL(serverStatusChanged()),
             this, SLOT(refreshServerStatus()));
+
+    onAccountChanged();
 }
 
 void CloudView::setupHeader()
@@ -465,10 +467,19 @@ void CloudView::onAccountChanged()
     search_tab_->reset();
 
     account_view_->onAccountChanged();
+    // we need update tab manually
+    onTabChanged(tabs_->currentIndex());
 }
 
 void CloudView::onTabChanged(int index)
 {
+    bool enable_sync_with_any_folder = hasAccount() && !seafApplet->accountManager()->accounts().front().hasDisableSyncWithAnyFolder();
     bool drop_area_visible = index == 0;
-    mDropArea->setVisible(drop_area_visible);
+    if (enable_sync_with_any_folder && drop_area_visible) {
+        mDropArea->setVisible(true);
+        mFooter->setStyleSheet("");
+    } else {
+        mDropArea->setVisible(false);
+        mFooter->setStyleSheet("QFrame#mFooter { border-top: 1px solid #DCDCDE; }");
+    }
 }

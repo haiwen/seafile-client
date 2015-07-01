@@ -19,6 +19,28 @@ const char *kRepoRelayAddrProperty = "relay-address";
 const char *kVersionKeyName = "version";
 const char *kFeaturesKeyName = "features";
 
+bool getColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
+{
+    bool *has_shibboleth_column = static_cast<bool*>(data);
+    const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
+
+    if (0 == strcmp("isShibboleth", column_name))
+        *has_shibboleth_column = true;
+
+    return true;
+}
+
+
+void updateAccountDatabaseForColumnShibbolethUrl(struct sqlite3* db)
+{
+    bool has_shibboleth_column = false;
+    const char* sql = "PRAGMA table_info(Accounts);";
+    sqlite_foreach_selected_row (db, sql, getColumnInfoCallBack, &has_shibboleth_column);
+    sql = "ALTER TABLE Accounts ADD COLUMN isShibboleth INTEGER";
+    if (!has_shibboleth_column && sqlite_query_exec (db, sql) < 0)
+        qCritical("unable to create isShibboleth column\n");
+}
+
 bool compareAccount(const Account& a, const Account& b)
 {
     if (!a.isValid()) {
@@ -97,6 +119,8 @@ int AccountManager::start()
         return -1;
     }
 
+    updateAccountDatabaseForColumnShibbolethUrl(db);
+
     // create ServerInfo table
     sql = "CREATE TABLE IF NOT EXISTS ServerInfo ("
         "key TEXT NOT NULL, value TEXT, "
@@ -124,12 +148,13 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     const char *username = (const char *)sqlite3_column_text (stmt, 1);
     const char *token = (const char *)sqlite3_column_text (stmt, 2);
     qint64 atime = (qint64)sqlite3_column_int64 (stmt, 3);
+    int isShibboleth = sqlite3_column_int (stmt, 4);
 
     if (!token) {
         token = "";
     }
 
-    Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime);
+    Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime, isShibboleth != 0);
     char* zql = sqlite3_mprintf("SELECT key, value FROM ServerInfo WHERE url = %Q AND username = %Q", url, username);
     sqlite_foreach_selected_row (userdata->db, zql, loadServerInfoCB, &account.serverInfo);
     sqlite3_free(zql);
@@ -155,7 +180,7 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
 
 const std::vector<Account>& AccountManager::loadAccounts()
 {
-    const char *sql = "SELECT url, username, token, lastVisited FROM Accounts ";
+    const char *sql = "SELECT url, username, token, lastVisited, isShibboleth FROM Accounts ";
     accounts_.clear();
     UserData userdata;
     userdata.accounts = &accounts_;
@@ -181,7 +206,7 @@ int AccountManager::saveAccount(const Account& account)
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
     char *zql = sqlite3_mprintf(
-        "REPLACE INTO Accounts(url, username, token, lastVisited) VALUES (%Q, %Q, %Q, %Q) ",
+        "REPLACE INTO Accounts(url, username, token, lastVisited, isShibboleth) VALUES (%Q, %Q, %Q, %Q, %Q) ",
         // url
         new_account.serverUrl.toEncoded().data(),
         // username
@@ -189,7 +214,9 @@ int AccountManager::saveAccount(const Account& account)
         // token
         new_account.token.toUtf8().data(),
         // lastVisited
-        QString::number(timestamp).toUtf8().data());
+        QString::number(timestamp).toUtf8().data(),
+        // isShibboleth
+        QString::number(new_account.isShibboleth).toUtf8().data());
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
@@ -276,7 +303,8 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
         "SET url = %Q, "
         "    username = %Q, "
         "    token = %Q, "
-        "    lastVisited = %Q "
+        "    lastVisited = %Q, "
+        "    isShibboleth = %Q "
         "WHERE url = %Q "
         "  AND username = %Q",
         // new_url
@@ -287,6 +315,8 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
         new_account.token.toUtf8().data(),
         // lastvisited
         QString::number(timestamp).toUtf8().data(),
+        // isShibboleth
+        QString::number(new_account.isShibboleth).toUtf8().data(),
         // old_url
         old_account.serverUrl.toEncoded().data(),
         // username

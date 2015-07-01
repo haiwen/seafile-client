@@ -107,7 +107,7 @@ Account ShibLoginDialog::parseAccount(const QString& cookie_value)
     if (email.isEmpty() or token.isEmpty()) {
         return Account();
     }
-    return Account(url_, email, token);
+    return Account(url_, email, token, 0, true);
 }
 
 

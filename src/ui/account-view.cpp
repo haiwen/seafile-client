@@ -15,6 +15,10 @@
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "login-dialog.h"
+#include "settings-mgr.h"
+#ifdef HAVE_SHIBBOLETH_SUPPORT
+#include "shib/shib-login-dialog.h"
+#endif // HAVE_SHIBBOLETH_SUPPORT
 #include "account-settings-dialog.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
@@ -390,9 +394,21 @@ void AccountView::toggleAccount()
 
 void AccountView::reloginAccount(const Account &account)
 {
-    LoginDialog dialog(this);
-    dialog.initFromAccount(account);
-    if (dialog.exec() == QDialog::Accepted) {
+    bool accepted;
+    do {
+#ifdef HAVE_SHIBBOLETH_SUPPORT
+        if (account.isShibboleth) {
+            ShibLoginDialog shib_dialog(account.serverUrl, seafApplet->settingsManager()->getComputerName(), this);
+            accepted = shib_dialog.exec() == QDialog::Accepted;
+            break;
+        }
+#endif
+        LoginDialog dialog(this);
+        dialog.initFromAccount(account);
+        accepted = dialog.exec() == QDialog::Accepted;
+    } while (0);
+
+    if (accepted) {
         getRepoTokenWhenRelogin(account);
     }
 }

@@ -4,24 +4,24 @@
 #include "../src/utils/utils.h"
 
 void Utils::testReadableFileSize() {
-    QVERIFY(::readableFileSize(0) == "0B");
-    QVERIFY(::readableFileSize(1024) == "1024B");
-    QVERIFY(::readableFileSize(1025) == "1KB");
-    QVERIFY(::readableFileSize(1<<20) == "1024KB");
-    QVERIFY(::readableFileSize(1L<<30) == "1024MB");
-    QVERIFY(::readableFileSize(1L<<40) == "1024GB");
+    QCOMPARE(::readableFileSize(0), QString("0B"));
+    QCOMPARE(::readableFileSize(1024), QString("1024B"));
+    QCOMPARE(::readableFileSize(1025), QString("1KB"));
+    QCOMPARE(::readableFileSize(1<<20), QString("1024KB"));
+    QCOMPARE(::readableFileSize(1L<<30), QString("1024MB"));
+    QCOMPARE(::readableFileSize(1L<<40), QString("1024GB"));
 }
 
 void Utils::testReadableFileSizeV2() {
-    QVERIFY(::readableFileSizeV2(0) == "0 B");
-    QVERIFY(::readableFileSizeV2(1) == "1B");
-    QVERIFY(::readableFileSizeV2(1<<10) == "1.00K");
-    QVERIFY(::readableFileSizeV2(1024 + 512) == "1.50K");
-    QVERIFY(::readableFileSizeV2(1<<20) == "1.00M");
-    QVERIFY(::readableFileSizeV2(1L<<30) == "1.00G");
-    QVERIFY(::readableFileSizeV2(1L<<40) == "1.00T");
-    QVERIFY(::readableFileSizeV2(1024 + (1L<<40)) == "1.00T");
-    QVERIFY(::readableFileSizeV2(1L<<50) == "1.00P");
+    QCOMPARE(::readableFileSizeV2(0), QString("0 B"));
+    QCOMPARE(::readableFileSizeV2(1), QString("1B"));
+    QCOMPARE(::readableFileSizeV2(1<<10), QString("1.00K"));
+    QCOMPARE(::readableFileSizeV2(1024 + 512), QString("1.50K"));
+    QCOMPARE(::readableFileSizeV2(1<<20), QString("1.00M"));
+    QCOMPARE(::readableFileSizeV2(1L<<30), QString("1.00G"));
+    QCOMPARE(::readableFileSizeV2(1L<<40), QString("1.00T"));
+    QCOMPARE(::readableFileSizeV2(1024 + (1L<<40)), QString("1.00T"));
+    QCOMPARE(::readableFileSizeV2(1L<<50), QString("1.00P"));
 }
 
 void Utils::testIncludeUrlParams() {
@@ -37,17 +37,17 @@ void Utils::testIncludeUrlParams() {
 
     QUrl urlb = ::includeQueryParams(urla, params);
 
-    QVERIFY(urla.scheme() == urlb.scheme());
-    QVERIFY(urla.host() == urlb.host());
+    QCOMPARE(urla.scheme(), urlb.scheme());
+    QCOMPARE(urla.host(), urlb.host());
 
     Q_FOREACH (const QString& key, params.keys()) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
         QString encoded_key = QUrl::toPercentEncoding(key);
         QString encoded_value = QUrl::toPercentEncoding(params[encoded_key]);
         QUrlQuery query = QUrlQuery(urlb.query());
-        QVERIFY(query.queryItemValue(encoded_key, QUrl::FullyEncoded) == encoded_value);
+        QCOMPARE(query.queryItemValue(encoded_key, QUrl::FullyEncoded), encoded_value);
 #else
-        QVERIFY(urlb.queryItemValue(key) == params[key]);
+        QCOMPARE(urlb.queryItemValue(key), params[key]);
 #endif
     }
 }

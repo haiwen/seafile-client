@@ -139,8 +139,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
             this, SLOT(onDirentClicked(const SeafDirent&)));
-    connect(table_view_, SIGNAL(direntSaveAs(const SeafDirent&)),
-            this, SLOT(onDirentSaveAs(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntSaveAs(const QList<const SeafDirent*>&)),
+            this, SLOT(onDirentSaveAs(const QList<const SeafDirent*>&)));
     connect(table_view_, SIGNAL(direntRename(const SeafDirent&)),
             this, SLOT(onGetDirentRename(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntRemove(const SeafDirent&)),
@@ -471,25 +471,56 @@ void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)
     }
 }
 
-void FileBrowserDialog::onDirentSaveAs(const SeafDirent& dirent)
+void FileBrowserDialog::onDirentSaveAs(const QList<const SeafDirent*>& dirents)
 {
     static QDir download_dir(defaultDownloadDir());
+    if (dirents.isEmpty())
+        return;
     if (!download_dir.exists())
         download_dir = QDir::home();
 
-    QString local_path = QFileDialog::getSaveFileName(this, tr("Enter name of file to save to..."), download_dir.filePath(dirent.name));
-    if (local_path.isEmpty())
+    // handle when we have only one file
+    if (dirents.size() == 1) {
+        const SeafDirent &dirent = *dirents.front();
+        QString local_path = QFileDialog::getSaveFileName(this, tr("Enter name of file to save to..."), download_dir.filePath(dirent.name));
+        if (local_path.isEmpty())
+            return;
+        download_dir = QFileInfo(local_path).dir();
+        if (QFileInfo(local_path).exists()) {
+          // it is asked by the QFileDialog::getSaveFileName if overwrite the file
+          if (!QFile::remove(local_path)) {
+              seafApplet->warningBox(tr("Unable to remove file \"%1\""), this);
+              return;
+          }
+        }
+        FileDownloadTask *task = data_mgr_->createSaveAsTask(repo_.id, ::pathJoin(current_path_, dirent.name), local_path);
+        connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
         return;
-    download_dir = QFileInfo(local_path).dir();
-    if (QFileInfo(local_path).exists()) {
-      // it is asked by the QFileDialog::getSaveFileName if overwrite the file
-      if (!QFile::remove(local_path)) {
-          seafApplet->warningBox(tr("Unable to remove file \"%1\""), this);
-          return;
-      }
     }
-    FileDownloadTask *task = data_mgr_->createSaveAsTask(repo_.id, ::pathJoin(current_path_, dirent.name), local_path);
-    connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+
+    QString local_dir = QFileDialog::getExistingDirectory(this, tr("Enter the path of the folder you want to save to..."), download_dir.path());
+    if (local_dir.isEmpty())
+        return;
+    download_dir = local_dir;
+    //
+    // scan for existing files and folders
+    // then begin downloading
+    //
+    Q_FOREACH(const SeafDirent* dirent, dirents) {
+        QString local_path = ::pathJoin(local_dir, dirent->name);
+        if  (QFileInfo(local_path).exists()) {
+              if (!seafApplet->yesOrNoBox(tr("Do you want to overwrite the existing file \"%1\"?").arg(dirent->name))) {
+                  return;
+              }
+              if (!QFile::remove(local_path)) {
+                  seafApplet->warningBox(tr("Unable to remove file \"%1\""), this);
+                  return;
+              }
+        }
+        // get them to be downloaded
+        FileDownloadTask *task = data_mgr_->createSaveAsTask(repo_.id, ::pathJoin(current_path_, dirent->name), local_path);
+        connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+    }
 }
 
 void FileBrowserDialog::showLoading()

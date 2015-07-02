@@ -48,7 +48,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     UINT size;
     HRESULT result = S_OK;
     wchar_t path_dir_w[4096];
-    wchar_t *path_w = NULL;
+    std::unique_ptr<wchar_t[]> path_w;
 
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */
@@ -80,12 +80,12 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     if (count == 0) {
         result = E_INVALIDARG;
     } else {
-        size = DragQueryFileW(drop, 0, path_w, 0);
+        size = DragQueryFileW(drop, 0, NULL, 0);
         if (!size) {
             result = E_INVALIDARG;
         } else {
-            path_w = new wchar_t[size+1];
-            if (!DragQueryFileW(drop, 0, path_w, size+1))
+            path_w.reset(new wchar_t[size+1]);
+            if (!DragQueryFileW(drop, 0, path_w.get(), size+1))
                 result = E_INVALIDARG;
         }
     }
@@ -94,8 +94,7 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     ReleaseStgMedium(&stg);
 
     if (result == S_OK) {
-        path_ = utils::normalizedPath(utils::wStringToUtf8(path_w));
-        delete[] path_w;
+        path_ = utils::normalizedPath(utils::wStringToUtf8(path_w.get()));
     }
 
     return result;

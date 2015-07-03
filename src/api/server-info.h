@@ -11,23 +11,28 @@ public:
   bool proEdition;
   bool officePreview;
   bool fileSearch;
+  bool disableSyncWithAnyFolder;
   ServerInfo() : majorVersion(0),
                  minorVersion(0),
                  patchVersion(0),
                  proEdition(false),
                  officePreview(false),
-                 fileSearch(false) {
+                 fileSearch(false),
+                 disableSyncWithAnyFolder(false) {
   }
   ServerInfo(const ServerInfo &rhs)
       : majorVersion(rhs.majorVersion), minorVersion(rhs.minorVersion),
-        patchVersion(rhs.patchVersion), proEdition(rhs.proEdition), officePreview(rhs.officePreview), fileSearch(rhs.fileSearch) {}
-  ServerInfo& operator=(const ServerInfo&rhs) {
+        patchVersion(rhs.patchVersion), proEdition(rhs.proEdition),
+        officePreview(rhs.officePreview), fileSearch(rhs.fileSearch),
+        disableSyncWithAnyFolder(rhs.disableSyncWithAnyFolder) {}
+  ServerInfo &operator=(const ServerInfo &rhs) {
       majorVersion = rhs.majorVersion;
       minorVersion = rhs.minorVersion;
       patchVersion = rhs.patchVersion;
       proEdition = rhs.proEdition;
       officePreview = rhs.officePreview;
       fileSearch = rhs.fileSearch;
+      disableSyncWithAnyFolder = rhs.disableSyncWithAnyFolder;
       return *this;
   }
   bool operator== (const ServerInfo &rhs) const {
@@ -36,7 +41,8 @@ public:
              patchVersion == rhs.patchVersion &&
              proEdition == rhs.proEdition &&
              officePreview == rhs.officePreview &&
-             fileSearch == rhs.fileSearch;
+             fileSearch == rhs.fileSearch &&
+             disableSyncWithAnyFolder == rhs.disableSyncWithAnyFolder;
   }
   bool operator!= (const ServerInfo &rhs) const {
       return !(*this == rhs);
@@ -54,6 +60,7 @@ public:
       proEdition = false;
       officePreview = false;
       fileSearch = false;
+      disableSyncWithAnyFolder = false;
       Q_FOREACH(const QString& key, input)
       {
           parseFeatureFromString(key);
@@ -61,21 +68,13 @@ public:
   }
   bool parseFeatureFromString(const QString& key, bool value = true) {
       if (key == "seafile-pro") {
-          if (value) {
-              proEdition = true;
-          } else {
-              proEdition = false;
-          }
+          proEdition = value;
       } else if (key == "office-preview") {
-          if (value)
-              officePreview = true;
-          else
-              officePreview = false;
+          officePreview = value;
       } else if (key == "file-search") {
-          if (value)
-              fileSearch = true;
-          else
-              fileSearch = false;
+          fileSearch = value;
+      } else if (key == "disable-sync-with-any-folder") {
+          disableSyncWithAnyFolder = value;
       } else {
           return false;
       }
@@ -95,6 +94,8 @@ public:
           result.push_back("office-preview");
       if (fileSearch)
           result.push_back("file-search");
+      if (disableSyncWithAnyFolder)
+          result.push_back("disable-sync-with-any-folder");
       return result;
   }
 };

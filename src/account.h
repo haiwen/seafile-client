@@ -74,6 +74,10 @@ public:
         return serverInfo.fileSearch;
     }
 
+    bool hasDisableSyncWithAnyFolder() const {
+        return serverInfo.disableSyncWithAnyFolder;
+    }
+
     bool isAtLeastVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {
         return (serverInfo.majorVersion << 20) +
                (serverInfo.minorVersion << 10) +

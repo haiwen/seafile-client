@@ -23,6 +23,14 @@
 
 namespace {
 const int kAlternativeTryTimes = 20;
+bool inline isPathInWorktree(const QString& worktree, const QString &path)
+{
+    QDir dir(worktree);
+    if (dir.relativeFilePath(QFileInfo(path).absoluteFilePath()).startsWith("."))
+        return false;
+    return true;
+}
+
 bool isPathConflictWithExistingRepo(const QString &path, QString *repo_name) {
     RepoService::instance()->refreshLocalRepoList();
     const std::vector<LocalRepo> & repos = RepoService::instance()->localRepos();
@@ -35,6 +43,7 @@ bool isPathConflictWithExistingRepo(const QString &path, QString *repo_name) {
     }
     return false;
 }
+
 QString getAlternativePath(const QString &dir_path, const QString &name) {
     QDir dir = QDir(dir_path);
     QFileInfo file;
@@ -48,6 +57,7 @@ QString getAlternativePath(const QString &dir_path, const QString &name) {
 
     return QString();
 }
+
 inline QString getOperatingText(const ServerRepo &repo) {
     if (!repo.isSubfolder()) {
         return QObject::tr("Sync this library to:");
@@ -205,13 +215,6 @@ void DownloadRepoDialog::onOkBtnClicked()
 
 bool DownloadRepoDialog::validateInputsManualMergeMode()
 {
-    setDirectoryText(mDirectory->text().trimmed());
-    if (mDirectory->text().isEmpty()) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Please choose the folder to sync"),
-                             QMessageBox::Ok);
-        return false;
-    }
     QDir dir(mDirectory->text());
     if (!dir.exists()) {
         QMessageBox::warning(this, getBrand(),
@@ -233,16 +236,23 @@ bool DownloadRepoDialog::validateInputsManualMergeMode()
 
 bool DownloadRepoDialog::validateInputs()
 {
-    if (has_manual_merge_mode_ && manual_merge_mode_) {
-        return validateInputsManualMergeMode();
-    }
-
     setDirectoryText(mDirectory->text().trimmed());
     if (mDirectory->text().isEmpty()) {
         QMessageBox::warning(this, getBrand(),
                              tr("Please choose the folder to sync."),
                              QMessageBox::Ok);
         return false;
+    }
+    if (account_.hasDisableSyncWithAnyFolder() &&
+        !isPathInWorktree(seafApplet->configurator()->worktreeDir(), mDirectory->text())) {
+        QMessageBox::warning(this, getBrand(),
+                             tr("Your organization disables putting a library outside %1 folder.").arg(getBrand()),
+                             QMessageBox::Ok);
+        return false;
+    }
+
+    if (has_manual_merge_mode_ && manual_merge_mode_) {
+        return validateInputsManualMergeMode();
     }
     sync_with_existing_ = false;
     alternative_path_ = QString();

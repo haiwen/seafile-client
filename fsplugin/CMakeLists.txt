@@ -54,6 +54,8 @@ SET(CMAKE_EXE_LINKER_FLAGS "-fapplication-extension -e _NSExtensionMain -fobjc-a
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 SET(FSPLUGIN_SRC
+  ../src/utils/stl.cpp
+  ../src/utils/stl.h
   FinderSync.mm
   FinderSyncClient.mm
   )
@@ -108,7 +110,7 @@ ADD_CUSTOM_TARGET(copy_resources_icns
   COMMAND ${CMAKE_COMMAND} -E copy status-done.icns ${TARGET_DIR}/Contents/Resources/
   COMMAND ${CMAKE_COMMAND} -E copy status-error.icns ${TARGET_DIR}/Contents/Resources/
   COMMAND ${CMAKE_COMMAND} -E copy status-syncing.icns ${TARGET_DIR}/Contents/Resources/
-  COMMAND ${CMAKE_COMMAND} -E copy status-unknown.icns ${TARGET_DIR}/Contents/Resources/
+  COMMAND ${CMAKE_COMMAND} -E copy status-ignored.icns ${TARGET_DIR}/Contents/Resources/
   DEPENDS create_resource_dir
   )
 ADD_CUSTOM_TARGET(copy_resources_lproj

@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <shlwapi.h>
 #include <vector>
+#include "utils/stl.h"
 
 
 #include "registry.h"
@@ -168,7 +169,11 @@ void RegElement::read()
         return;
     }
     // get value
+#ifndef UTILS_CXX11_MODE
     std::vector<wchar_t> buf;
+#else
+    utils::WBufferArray buf;
+#endif
     buf.resize(len);
     result = RegQueryValueExW (parent_key,
                                std_name.c_str(),

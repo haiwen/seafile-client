@@ -15,6 +15,7 @@
 #include "rpc/rpc-client.h"
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
+#include "filebrowser/seafilelink-dialog.h"
 
 enum PathStatus {
     SYNC_STATUS_NONE = 0,
@@ -147,30 +148,10 @@ uint32_t FinderSyncHost::getFileStatus(const char *repo_id, const char *path) {
 
 void FinderSyncHost::doShareLink(const QString &path) {
     QString repo_id;
-    QString worktree_path;
-    {
-        std::unique_lock<std::mutex> watch_set_lock(update_mutex_);
-        for (const LocalRepo &repo : watch_set_)
-            if (path.startsWith(repo.worktree)) {
-                repo_id = repo.id;
-                worktree_path = repo.worktree;
-                break;
-            }
-    }
-    QDir worktree_dir(worktree_path);
-    QString path_in_repo = worktree_dir.relativeFilePath(path);
-    // we have a empty path_in_repo representing the root of the directory,
-    // and we are okay!
-
-    if (repo_id.isEmpty() || path_in_repo.startsWith(".")) {
+    Account account;
+    QString path_in_repo;
+    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
         qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
-        return;
-    }
-
-    const Account account =
-        seafApplet->accountManager()->getAccountByRepo(repo_id);
-    if (!account.isValid()) {
-        qWarning("[FinderSync] invalid repo_id %s", repo_id.toUtf8().data());
         return;
     }
 
@@ -184,10 +165,52 @@ void FinderSyncHost::doShareLink(const QString &path) {
     get_shared_link_req_->send();
 }
 
+void FinderSyncHost::doInternalLink(const QString &path)
+{
+    QString repo_id;
+    Account account;
+    QString path_in_repo;
+    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
+        qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
+        return;
+    }
+    SeafileLinkDialog(repo_id, account, path_in_repo).exec();
+}
+
 void FinderSyncHost::onShareLinkGenerated(const QString &link) {
     SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
+}
+
+bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo)
+{
+    QString worktree;
+    // work in a mutex
+    {
+        std::unique_lock<std::mutex> watch_set_lock(update_mutex_);
+        for (const LocalRepo &repo : watch_set_)
+            if (path.startsWith(repo.worktree)) {
+                *repo_id = repo.id;
+                worktree = repo.worktree;
+                break;
+            }
+    }
+    if (worktree.isEmpty() || repo_id->isEmpty())
+        return false;
+
+    *path_in_repo = QDir(worktree).relativeFilePath(path);
+
+    // we have a empty path_in_repo representing the root of the directory,
+    // and we are okay!
+    if (path_in_repo->startsWith("."))
+        return false;
+
+    *account = seafApplet->accountManager()->getAccountByRepo(*repo_id);
+    if (!account->isValid())
+        return false;
+
+    return true;
 }

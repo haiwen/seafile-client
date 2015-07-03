@@ -26,6 +26,7 @@ enum CommandType : uint32_t {
     GetWatchSet = 0,
     DoShareLink = 1,
     DoGetFileStatus = 2,
+    DoInternalLink = 3,
 };
 
 struct mach_msg_command_send_t {
@@ -67,7 +68,7 @@ static NSThread *finder_sync_listener_thread_ = nil;
 static volatile int32_t finder_sync_started_ = 0;
 static FinderSyncListener *finder_sync_listener_ = nil;
 static std::unique_ptr<FinderSyncHost, QtLaterDeleter> finder_sync_host_;
-static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
+static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000003;
 
 static void handleGetFileStatus(mach_msg_command_rcv_t* msg) {
     // generate reply
@@ -204,8 +205,8 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
     }
 
     if (msg->version != kFinderSyncProtocolVersion) {
-        NSLog(@"FinderSync uncompatible message protocol version %u", msg->version);
-        qWarning("[FinderSync] uncompatible message protocol version %u", msg->version);
+        NSLog(@"FinderSync incompatible message protocol version %u", msg->version);
+        qWarning("[FinderSync] incompatible message protocol version %u", msg->version);
         mach_msg_destroy(&msg->header);
         // we need to quit before it cause more serious issue!
         finderSyncListenerStop();
@@ -219,6 +220,12 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
     case DoShareLink:
         // handle DoShareLink
         QMetaObject::invokeMethod(finder_sync_host_.get(), "doShareLink",
+                                  Qt::QueuedConnection,
+                                  Q_ARG(QString, msg->body));
+        break;
+    case DoInternalLink:
+        // handle DoShareLink
+        QMetaObject::invokeMethod(finder_sync_host_.get(), "doInternalLink",
                                   Qt::QueuedConnection,
                                   Q_ARG(QString, msg->body));
         break;

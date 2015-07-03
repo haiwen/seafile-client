@@ -9,6 +9,7 @@
 const int kWatchDirMax = 100;
 const int kPathMaxSize = 1024;
 
+class Account;
 class SeafileRpcClient;
 class FinderSyncHost : public QObject {
     Q_OBJECT
@@ -22,8 +23,10 @@ public:
 private slots:
     void updateWatchSet();
     void doShareLink(const QString &path);
+    void doInternalLink(const QString &path);
     void onShareLinkGenerated(const QString& link);
 private:
+    bool lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo);
     SeafileRpcClient *rpc_client_;
 };
 

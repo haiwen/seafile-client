@@ -63,7 +63,7 @@ class FinderSyncClient {
     FinderSyncClient(FinderSync *parent);
     ~FinderSyncClient();
     void getWatchSet();
-    void doSharedLink(const char *fileName);
+    void doSharedLink(const char *fileName, bool is_internal_link);
     void doGetFileStatus(const char *repo, const char *fileName);
 
   private:

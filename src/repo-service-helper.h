@@ -23,7 +23,7 @@ public:
 private slots:
 
     void onCancel();
-    void onGetDirentsSuccess(const QList<SeafDirent> &dirents);
+    void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents);
     void onGetDirentsFailure(const ApiError &)
     {
         downloadFile(QString());

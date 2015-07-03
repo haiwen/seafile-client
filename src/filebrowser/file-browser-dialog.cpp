@@ -21,6 +21,7 @@
 #include "tasks.h"
 #include "ui/set-repo-password-dialog.h"
 #include "sharedlink-dialog.h"
+#include "seafilelink-dialog.h"
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 #include "repo-service.h"
@@ -149,6 +150,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetDirentRemove(const QList<const SeafDirent*> &)));
     connect(table_view_, SIGNAL(direntShare(const SeafDirent&)),
             this, SLOT(onGetDirentShare(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntShareSeafile(const SeafDirent&)),
+            this, SLOT(onGetDirentShareSeafile(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
             this, SLOT(onGetDirentUpdate(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntPaste()),
@@ -959,6 +962,17 @@ void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
     data_mgr_->shareDirent(repo_.id,
                            ::pathJoin(current_path_, dirent.name),
                            dirent.isFile());
+}
+
+void FileBrowserDialog::onGetDirentShareSeafile(const SeafDirent& dirent)
+{
+    QString repo_id = repo_.id;
+    QString email = account_.username;
+    QString path = ::pathJoin(current_path_, dirent.name);
+    if (dirent.isDir())
+        path += "/";
+
+    SeafileLinkDialog(repo_id, account_, path, this).exec();
 }
 
 void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)

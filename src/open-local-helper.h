@@ -10,6 +10,7 @@ struct _CcnetClient;
 #include <QObject>
 #include <QUrl>
 #include <QString>
+class Account;
 
 /**
  * Helper class to handle open local file request
@@ -19,6 +20,9 @@ class OpenLocalHelper : public QObject
     Q_OBJECT
 public:
     static OpenLocalHelper* instance();
+
+    QUrl generateLocalFileSeafileUrl(const QString& repo_id, const Account& account, const QString& path);
+    QUrl generateLocalFileWebUrl(const QString& repo_id, const Account& account, const QString& path);
 
     bool openLocalFile(const QUrl &url);
 

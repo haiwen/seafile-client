@@ -85,6 +85,7 @@ private slots:
     void onGetDirentRemove(const SeafDirent& dirent);
     void onGetDirentRemove(const QList<const SeafDirent*> &dirents);
     void onGetDirentShare(const SeafDirent& dirent);
+    void onGetDirentShareSeafile(const SeafDirent& dirent);
     void onGetDirentUpdate(const SeafDirent& dirent);
     void onGetDirentsPaste();
     void onGetSyncSubdirectory(const QString &folder_name);

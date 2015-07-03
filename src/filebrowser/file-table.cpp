@@ -285,6 +285,11 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
+    share_seafile_action_ = new QAction(tr("&Generate Seafile Internal Link"), this);
+    connect(share_seafile_action_, SIGNAL(triggered()),
+            this, SLOT(onShareSeafile()));
+    share_seafile_action_->setShortcut(Qt::ALT + Qt::Key_E);
+
     if (parent_->repo_.encrypted) {
         share_action_->setEnabled(false);
     }
@@ -328,6 +333,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(download_action_);
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
+    context_menu_->addAction(share_seafile_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(move_action_);
     context_menu_->addAction(copy_action_);
@@ -343,6 +349,7 @@ void FileTableView::setupContextMenu()
     this->addAction(download_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
+    this->addAction(share_seafile_action_);
     this->addAction(move_action_);
     this->addAction(copy_action_);
     this->addAction(paste_action_);
@@ -426,6 +433,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setText(tr("D&ownload"));
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
+        share_seafile_action_->setVisible(false);
         update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(false);
@@ -447,6 +455,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     saveas_action_->setText(tr("&Save As..."));
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
+    share_seafile_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
     download_action_->setVisible(true);
@@ -590,6 +599,18 @@ void FileTableView::onShare()
     }
     emit direntShare(*item_);
 }
+
+void FileTableView::onShareSeafile()
+{
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItemFromSource();
+        if (selected_item && selected_item->isFile())
+            emit direntShareSeafile(*selected_item);
+        return;
+    }
+    emit direntShareSeafile(*item_);
+}
+
 
 void FileTableView::onUpdate()
 {

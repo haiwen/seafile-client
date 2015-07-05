@@ -97,7 +97,6 @@ void OpenLocalHelper::sendOpenLocalFileMessage(const char *url)
 
 QUrl OpenLocalHelper::generateLocalFileSeafileUrl(const QString& repo_id, const Account& account, const QString& path)
 {
-    const QString& email = account.username;
     QUrl url;
     url.setScheme(kSeafileProtocolScheme);
     url.setHost(kSeafileProtocolHostOpenFile);
@@ -105,14 +104,10 @@ QUrl OpenLocalHelper::generateLocalFileSeafileUrl(const QString& repo_id, const 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QUrlQuery url_query;
     url_query.addQueryItem("repo_id",  repo_id);
-    if (!email.isEmpty())
-        url_query.addQueryItem("email",  email);
     url_query.addQueryItem("path",  path);
     url.setQuery(url_query);
 #else
     url.addQueryItem("repo_id",  repo_id);
-    if (!email.isEmpty())
-        url.addQueryItem("email",  email);
     url.addQueryItem("path",  path);
 #endif
 

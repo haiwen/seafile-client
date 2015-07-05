@@ -123,8 +123,8 @@ QUrl OpenLocalHelper::generateLocalFileWebUrl(const QString& repo_id, const Acco
 {
     QString fixed_path = path.startsWith("/") ? path : "/" + path;
     if (fixed_path.endsWith("/"))
-        return account.getAbsoluteUrl("/#common/lib/" + repo_id + fixed_path == "/" ?
-                                      "/" : fixed_path.left(fixed_path.size() - 1));
+        return account.getAbsoluteUrl("/#common/lib/" + repo_id + (fixed_path == "/" ?
+                                      "/" : fixed_path.left(fixed_path.size() - 1)));
     else
         return account.getAbsoluteUrl("/lib/" + repo_id + "/file" + fixed_path);
 }

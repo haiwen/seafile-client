@@ -149,6 +149,9 @@ void AutoUpdateManager::checkFileRecreated()
         qDebug("file %s recreated", toCStr(info.path_in_repo));
         watcher_.addPath(path);
         watch_infos_[path] = info;
+        // Some applications like MSOffice would remove the original file and
+        // recreate it when the user modifies the file.
+        onFileChanged(path);
     }
 }
 

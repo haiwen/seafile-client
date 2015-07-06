@@ -104,6 +104,10 @@ public:
                           bool isdir,
                           QString *status);
 
+    int markFileLockState(const QString& repo_id,
+                          const QString& path_in_repo,
+                          bool lock);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

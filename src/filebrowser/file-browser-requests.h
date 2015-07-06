@@ -267,4 +267,29 @@ private:
     Q_DISABLE_COPY(UnstarFileRequest)
 };
 
+class LockFileRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    LockFileRequest(const Account& account,
+                    const QString& repo_id,
+                    const QString& path,
+                    bool lock);
+
+    bool lock() const { return lock_; }
+    const QString & repoId() const { return repo_id_; }
+    const QString & path() const { return path_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(LockFileRequest);
+    const bool lock_;
+    const QString repo_id_;
+    const QString path_;
+};
+
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

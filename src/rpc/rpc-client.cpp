@@ -856,3 +856,24 @@ int SeafileRpcClient::getRepoFileStatus(const QString& repo_id,
     g_free (ret);
     return 0;
 }
+
+int SeafileRpcClient::markFileLockState(const QString &repo_id,
+                                        const QString &path_in_repo,
+                                        bool lock)
+{
+    GError *error = NULL;
+    char *ret = searpc_client_call__string (
+        seafile_rpc_client_,
+        lock ? "seafile_mark_file_locked" : "seafile_mark_file_unlocked",
+        &error, 2,
+        "string", toCStr(repo_id),
+        "string", toCStr(path_in_repo));
+    if (error) {
+        qWarning("failed to mark file lock state: %s\n", error->message);
+        g_error_free(error);
+        return -1;
+    }
+
+    g_free (ret);
+    return 0;
+}

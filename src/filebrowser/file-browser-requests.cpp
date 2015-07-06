@@ -307,3 +307,20 @@ void UnstarFileRequest::requestSuccess(QNetworkReply& reply)
     emit success();
 }
 
+LockFileRequest::LockFileRequest(const Account &account, const QString &repo_id,
+                                 const QString &path, bool lock)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_PUT, account.token),
+      lock_(lock), repo_id_(repo_id), path_(path)
+{
+    setFormParam("p", path.startsWith("/") ? path : "/" + path);
+
+    setFormParam("operation", lock ? "lock" : "unlock");
+}
+
+void LockFileRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
+

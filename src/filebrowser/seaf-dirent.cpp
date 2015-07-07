@@ -22,6 +22,11 @@ SeafDirent SeafDirent::fromJSON(const json_t *root, json_error_t */* error */)
     dirent.readonly = json.getString("permission") == "r" ? true : false;
     dirent.mtime = json.getLong("mtime");
 
+    dirent.is_locked = json.getBool("is_locked");
+    dirent.lock_owner = json.getString("lock_owner");
+    dirent.lock_time = json.getLong("lock_time");
+    dirent.locked_by_me = json.getBool("locked_by_me");
+
     return dirent;
 }
 

@@ -34,6 +34,7 @@ signals:
     void direntClicked(const SeafDirent& dirent);
     void direntSaveAs(const QList<const SeafDirent*> &dirents);
     void dropFile(const QStringList& paths);
+    void direntLock(const SeafDirent& dirent);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
     void direntRemove(const QList<const SeafDirent*> &dirents);
@@ -50,6 +51,7 @@ private slots:
     void onItemDoubleClicked(const QModelIndex& index);
     void onOpen();
     void onSaveAs();
+    void onLock();
     void onRename();
     void onRemove();
     void onShare();
@@ -98,6 +100,7 @@ private:
     QAction *paste_action_;
     QAction *cancel_download_action_;
     QAction *sync_subdirectory_action_;
+    QAction *lock_action_;
     FileBrowserDialog *parent_;
 
     // source model

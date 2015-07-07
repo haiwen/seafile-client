@@ -81,6 +81,7 @@ private slots:
 
     void onNavigatorClick(int id);
 
+    void onGetDirentLock(const SeafDirent& dirent);
     void onGetDirentRename(const SeafDirent& dirent, QString new_name = QString());
     void onGetDirentRemove(const SeafDirent& dirent);
     void onGetDirentRemove(const QList<const SeafDirent*> &dirents);
@@ -93,6 +94,8 @@ private slots:
 
     void onDirectoryCreateSuccess(const QString& path);
     void onDirectoryCreateFailed(const ApiError& error);
+    void onFileLockSuccess(const QString& path, bool lock);
+    void onFileLockFailed(const ApiError& error);
     void onDirentRenameSuccess(const QString& path, const QString& new_name);
     void onDirentRenameFailed(const ApiError& error);
     void onDirentRemoveSuccess(const QString& path);

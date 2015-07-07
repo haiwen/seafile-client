@@ -22,6 +22,11 @@ public:
     quint64 size;
     quint64 mtime;
 
+    bool is_locked;
+    bool locked_by_me;
+    QString lock_owner;
+    quint64 lock_time;
+
     bool isDir() const { return type == DIR; }
     bool isFile() const { return type == FILE; }
 

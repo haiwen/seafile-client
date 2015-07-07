@@ -9,6 +9,7 @@
 #include "utils/utils.h"
 #include "configurator.h"
 #include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "auto-update-mgr.h"
 #include "api/requests.h"
 #include "repo-service.h"
@@ -81,6 +82,21 @@ void DataManager::createDirectory(const QString &repo_id,
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(createDirectoryFailed(const ApiError&)));
+
+    req->send();
+    reqs_.push_back(req);
+}
+
+void DataManager::lockFile(const QString &repo_id,
+                           const QString &path,
+                           bool lock)
+{
+    LockFileRequest *req = new LockFileRequest(account_, repo_id, path, lock);
+    connect(req, SIGNAL(success()),
+            SLOT(onLockFileSuccess()));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(lockFileFailed(const ApiError&)));
 
     req->send();
     reqs_.push_back(req);
@@ -190,6 +206,17 @@ void DataManager::onCreateDirectorySuccess()
 
     removeDirentsCache(req->repoId(), req->path(), false);
     emit createDirectorySuccess(req->path());
+}
+
+void DataManager::onLockFileSuccess()
+{
+    LockFileRequest *req = qobject_cast<LockFileRequest *>(sender());
+    if (!req)
+        return;
+
+    removeDirentsCache(req->repoId(), req->path(), false);
+    seafApplet->rpcClient()->markFileLockState(req->repoId(), req->path(), req->lock());
+    emit lockFileSuccess(req->path(), req->lock());
 }
 
 void DataManager::onRenameDirentSuccess()

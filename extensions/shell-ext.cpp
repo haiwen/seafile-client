@@ -91,6 +91,8 @@ STDMETHODIMP_(ULONG) ShellExt::Release()
 
 bool ShellExt::getReposList(seafile::RepoInfoList *wts)
 {
+    seafile::utils::MutexLocker lock(&repos_cache_mutex_);
+
     uint64_t now = utils::currentMSecsSinceEpoch();
     if (repos_cache_ && now < cache_ts_ + kWorktreeCacheExpireMSecs) {
         *wts = *(repos_cache_.get());
@@ -175,7 +177,7 @@ seafile::RepoInfo ShellExt::getRepoInfoByPath(const std::string& path)
 }
 
 seafile::RepoInfo::Status
-ShellExt::getRepoFileStatus(const std::string& repo_id, 
+ShellExt::getRepoFileStatus(const std::string& repo_id,
                             const std::string& path_in_repo,
                             bool isdir)
 {

@@ -659,7 +659,7 @@ nieudane przesyłanie.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="249"/>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation type="unfinished"/>
+        <translation>Twoja organizacja nie pozwala na umieszczanie biblioteki poza folderem %1.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="266"/>
@@ -867,12 +867,12 @@ nieudane przesyłanie.</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="504"/>
         <source>Enter the path of the folder you want to save to...</source>
-        <translation type="unfinished"/>
+        <translation>Podaj ścieżkę do folderu, do którego chcesz zapisać...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="515"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Czy chcesz nadpisać istniejący plik &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="621"/>
@@ -1089,7 +1089,7 @@ nieudane przesyłanie.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="288"/>
         <source>G&amp;enerate Seafile Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>Wyg&amp;eneruj wewnętrzny odnośnik Seafile</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="297"/>
@@ -1131,7 +1131,7 @@ nieudane przesyłanie.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="431"/>
         <source>&amp;Save As To...</source>
-        <translation type="unfinished"/>
+        <translation>Zapi&amp;sz jako do...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="433"/>
@@ -2425,7 +2425,7 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
-        <translation type="unfinished"/>
+        <translation>Nie można nadpisać pliku &quot;%1&quot; nim samym</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
@@ -2489,27 +2489,27 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
         <source>Seafile Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>Wewnętrzny odnośnik Seafile</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Kopiuj do schowka</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
         <source>Seafile Web Link:</source>
-        <translation type="unfinished"/>
+        <translation>Odnośnik sieciowy Seafile:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
         <source>Seafile Protocol Link:</source>
-        <translation type="unfinished"/>
+        <translation>Odnośnik protokołu Seafile:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

@@ -34,7 +34,7 @@ const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
 QString getPreconfigureServerAddr() {
-    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureServerAddr,
+    RegElement reg(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", kPreconfigureServerAddr,
                    "");
     if (!reg.exists()) {
         return QString();
@@ -43,7 +43,7 @@ QString getPreconfigureServerAddr() {
     return reg.stringValue();
 }
 int getPreconfigureServerAddrOnly() {
-    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureServerAddrOnly,
+    RegElement reg(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", kPreconfigureServerAddrOnly,
                    "");
     if (!reg.exists()) {
         return 0;

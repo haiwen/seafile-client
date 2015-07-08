@@ -27,6 +27,15 @@ enum PathStatus {
     MAX_SYNC_STATUS,
 };
 
+namespace {
+struct QtLaterDeleter {
+public:
+  void operator()(QObject *ptr) {
+    ptr->deleteLater();
+  }
+};
+} // anonymous namespace
+
 static const char *const kPathStatus[] = {
     "none", "syncing", "error", "ignored", "synced", "readonly", "paused", NULL,
 };
@@ -40,7 +49,7 @@ static inline PathStatus getPathStatusFromString(const QString &status) {
 
 static std::mutex update_mutex_;
 static std::vector<LocalRepo> watch_set_;
-static std::unique_ptr<GetSharedLinkRequest> get_shared_link_req_;
+static std::unique_ptr<GetSharedLinkRequest, QtLaterDeleter> get_shared_link_req_;
 
 FinderSyncHost::FinderSyncHost() : rpc_client_(new SeafileRpcClient) {
     rpc_client_->connectDaemon();

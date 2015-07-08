@@ -52,10 +52,9 @@ struct mach_msg_file_status_send_t {
     uint32_t status;
 };
 
-template <typename T>
 struct QtLaterDeleter {
 public:
-  void operator()(T *ptr) {
+  void operator()(QObject *ptr) {
     ptr->deleteLater();
   }
 };
@@ -67,7 +66,7 @@ static NSThread *finder_sync_listener_thread_ = nil;
 // atomic value
 static volatile int32_t finder_sync_started_ = 0;
 static FinderSyncListener *finder_sync_listener_ = nil;
-static std::unique_ptr<FinderSyncHost, QtLaterDeleter<FinderSyncHost>> finder_sync_host_;
+static std::unique_ptr<FinderSyncHost, QtLaterDeleter> finder_sync_host_;
 static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000002;
 
 static void handleGetFileStatus(mach_msg_command_rcv_t* msg) {

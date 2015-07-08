@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include "commands.h"
+#include "ext-utils.h"
 
 extern  volatile LONG       g_cRefThisDll;          // Reference count of this DLL.
 extern  HINSTANCE           g_hmodThisDll;          // Instance handle for this DLL
@@ -99,6 +100,8 @@ private:
 
     static std::unique_ptr<seafile::RepoInfoList> repos_cache_;
     static uint64_t cache_ts_;
+
+    seafile::utils::Mutex repos_cache_mutex_;
 };
 
 #endif // SEAFILE_EXT_SHELL_EXT_H

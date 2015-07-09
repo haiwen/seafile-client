@@ -283,11 +283,11 @@ void ExtCommandsHandler::run()
 
 bool ExtCommandsHandler::readRequest(QStringList *args)
 {
-    uint32_t len;
+    uint32_t len = 0;
     if (!extPipeReadN(pipe_, &len, sizeof(len)) || len == 0)
         return false;
 
-    QScopedPointer<char> buf(new char[len + 1]);
+    QScopedArrayPointer<char> buf(new char[len + 1]);
     buf.data()[len] = 0;
     if (!extPipeReadN(pipe_, buf.data(), len))
         return false;

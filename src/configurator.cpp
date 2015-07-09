@@ -34,7 +34,7 @@ const char *kMyComputerNamespacePath =
 const char* const kPreconfigureDirectory = "PreconfigureDirectory";
 QString getPreconfigureDirectory()
 {
-    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kPreconfigureDirectory, "");
+    RegElement reg(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", kPreconfigureDirectory, "");
     if (!reg.exists()) {
         return QString();
     }

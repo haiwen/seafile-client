@@ -260,6 +260,8 @@ QList<const SeafDirent *> FileTableView::getSelectedItemsFromSource()
 void FileTableView::setupContextMenu()
 {
     context_menu_ = new QMenu(this);
+    connect(parent_, SIGNAL(aboutToClose()),
+            context_menu_, SLOT(close()));
     download_action_ = new QAction(tr("&Open"), this);
     connect(download_action_, SIGNAL(triggered()),
             this, SLOT(onOpen()));

@@ -514,12 +514,14 @@ void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
 {
     QMessageBox::warning(parent != 0 ? parent : main_win_,
                          getBrand(), msg, QMessageBox::Ok);
+    qWarning("%s", msg.toUtf8().data());
 }
 
 void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
 {
     QMessageBox::information(parent != 0 ? parent : main_win_,
                              getBrand(), msg, QMessageBox::Ok);
+    qDebug("%s", msg.toUtf8().data());
 }
 
 bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default_val)

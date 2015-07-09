@@ -16,10 +16,17 @@
 
 void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto_udpate)
 {
+    QFileInfo file(path);
+    QString file_name = file.fileName();
+    if (!file.exists()) {
+        QString msg = QObject::tr("File \"%1\" doesn't exist in \"%2\"").arg(file_name).arg(path);
+        seafApplet->warningBox(msg);
+        return;
+    }
     if (!::openInNativeExtension(path) && !::showInGraphicalShell(path)) {
-        QString file_name = QFileInfo(path).fileName();
         QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
         seafApplet->warningBox(msg);
+        return;
     }
 #ifdef Q_OS_MAC
     MacImageFilesWorkAround::instance()->fileOpened(path);
@@ -75,7 +82,8 @@ void FileDownloadHelper::onGetDirentsSuccess(bool current_readonly, const QList<
     }
     // critally important
     if (!found_file) {
-        qWarning("File %s doesn't exist any more", file_name_.toUtf8().data());
+        QString msg = QObject::tr("File \"%1\" doesn't exist in \"%2\"").arg(file_name_).arg(path_);
+        seafApplet->warningBox(msg);
     }
 
 }

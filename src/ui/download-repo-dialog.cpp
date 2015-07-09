@@ -111,7 +111,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     verticalLayout_3->setSpacing(6);
 #endif
     if (repo.encrypted) {
-        height += 100;
+        height += 50;
     }
     setMinimumHeight(height);
     setMaximumHeight(height);

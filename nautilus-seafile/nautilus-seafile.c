@@ -15,7 +15,7 @@ static guint kUpdateWatchSetInterval = 4 * 1000;
 static guint kUpdateFileStatusInterval = 2 * 1000;
 static void start_autoconnect_rpc_client ();
 static GObject* find_repo_in_list (const char* path, GList *head);
-static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileInfo *file, gboolean update_file_info);
+static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileInfo *file, gboolean recheck);
 static void clean_up_single_file (gpointer data, GObject *obj);
 static void clean_up_files_in_worktree(const char *worktree);
 static void clean_up_files_in_old_watch_set (GList *watch_set, GList *new_watch_set);
@@ -91,7 +91,8 @@ static NautilusOperationResult seafile_extension_update_file_info (NautilusInfoP
         return NAUTILUS_OPERATION_COMPLETE;
     }
     /* we can change it to a asynchronize way if we want? */
-    update_file_status_by_file (client, file, TRUE);
+
+    update_file_status_by_file (client, file, FALSE);
 
 	g_object_weak_ref (G_OBJECT (file), clean_up_single_file, NULL);
 
@@ -287,7 +288,7 @@ static inline gboolean update_file_status_by_name (SearpcClient *client, const c
         g_object_unref (gfile);
         return TRUE;
     }
-    retval = update_file_status_by_file (client, file, FALSE);
+    retval = update_file_status_by_file (client, file, TRUE);
 
     g_object_unref (file);
     g_object_unref (gfile);
@@ -310,15 +311,13 @@ static inline void set_nautilus_file_info (NautilusFileInfo *file, const char *s
     }
 }
 
-static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileInfo *file, gboolean update_file_info)
+static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileInfo *file, gboolean recheck)
 {
     char *uri = NULL;
-    char* worktree;
-    char* repo_id;
+    char *worktree, *repo_id, *old_status, *status;
     GObject *repo;
     const char* path_in_repo;
     GError *error = NULL;
-    char *status;
     gchar *filename;
 
     uri = nautilus_file_info_get_uri (file);
@@ -344,38 +343,46 @@ static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileIn
     if (*path_in_repo == '/')
         ++path_in_repo;
 
-    /* we can change it to a asynchronize way if we want? */
-    status = searpc_client_call__string (
-        client,
-        "seafile_get_path_sync_status",
-        &error, 3,
-        "string", repo_id,
-        "string", path_in_repo,
-        "int", nautilus_file_info_is_directory (file));
+    status = g_hash_table_lookup (file_status_, filename);
+    if (recheck || !status) {
+        /* we can change it to a asynchronize way if we want? */
+        status = searpc_client_call__string (
+            client,
+            "seafile_get_path_sync_status",
+            &error, 3,
+            "string", repo_id,
+            "string", path_in_repo,
+            "int", nautilus_file_info_is_directory (file));
 
-    if (error)
-    {
-        gboolean is_disconnected = TRANSPORT_ERROR_CODE == error->code;
-        g_error_free (error);
-        g_free (worktree);
-        g_free (repo_id);
-        g_free (filename);
-        g_free (uri);
-        return !is_disconnected;
+        if (error)
+        {
+            gboolean is_disconnected = TRANSPORT_ERROR_CODE == error->code;
+            g_error_free (error);
+            g_free (worktree);
+            g_free (repo_id);
+            g_free (filename);
+            g_free (uri);
+            return !is_disconnected;
+        }
+
+        g_hash_table_replace (file_status_, filename, status);
     }
 
-    g_hash_table_replace (file_status_, filename, status);
+    old_status = nautilus_file_info_get_string_attribute (file, kSeafileSyncStatus);
 
-    /* TODO refine this code */
-    if (update_file_info)
+    if (old_status)
+    {
+        if (strcmp (old_status, status))
+        {
+            nautilus_file_info_invalidate_extension_info (file);
+        }
+    }
+    else if (status != NULL)
     {
         set_nautilus_file_info (file, status);
     }
-    else
-    {
-        nautilus_file_info_invalidate_extension_info (file);
-    }
 
+    g_free (old_status);
     g_free (worktree);
     g_free (repo_id);
     g_free (uri);

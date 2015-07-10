@@ -35,7 +35,6 @@ AppletConnection::AppletConnection()
       pipe_(INVALID_HANDLE_VALUE),
       last_conn_failure_(0)
 {
-    memset(&ol_, 0, sizeof(OVERLAPPED));
 }
 
 AppletConnection *AppletConnection::singleton_;
@@ -82,17 +81,15 @@ AppletConnection::connect ()
 bool
 AppletConnection::prepare()
 {
-    memset(&ol_, 0, sizeof(ol_));
-    HANDLE h_ev = CreateEvent
-        (NULL,                  /* security attribute */
-         FALSE,                 /* manual reset */
-         FALSE,                 /* initial state  */
-         NULL);                 /* event name */
+    // HANDLE h_ev = CreateEvent
+    //     (NULL,                  /* security attribute */
+    //      FALSE,                 /* manual reset */
+    //      FALSE,                 /* initial state  */
+    //      NULL);                 /* event name */
 
-    if (!h_ev) {
-        return false;
-    }
-    ol_.hEvent = h_ev;
+    // if (!h_ev) {
+    //     return false;
+    // }
     return true;
 }
 
@@ -125,15 +122,23 @@ bool AppletConnection::sendCommandAndWait(const std::string& cmd, std::string *r
     return true;
 }
 
+void AppletConnection::onPipeError()
+{
+    pipe_ = INVALID_HANDLE_VALUE;
+    connected_ = false;
+}
+
 bool AppletConnection::writeRequest(const std::string& cmd)
 {
     uint32_t len = cmd.size();
-    if (!utils::pipeWriteN(pipe_, &len, sizeof(len), &ol_, &connected_)) {
+    if (!utils::pipeWriteN(pipe_, &len, sizeof(len))) {
+        onPipeError();
         seaf_ext_log("failed to send command: %s", utils::formatErrorMessage().c_str());
         return false;
     }
 
-    if (!utils::pipeWriteN(pipe_, cmd.c_str(), len, &ol_, &connected_)) {
+    if (!utils::pipeWriteN(pipe_, cmd.c_str(), len)) {
+        onPipeError();
         seaf_ext_log("failed to send command: %s", utils::formatErrorMessage().c_str());
         return false;
     }
@@ -143,7 +148,8 @@ bool AppletConnection::writeRequest(const std::string& cmd)
 bool AppletConnection::readResponse(std::string *out)
 {
     uint32_t len = 0;
-    if (!utils::pipeReadN(pipe_, &len, sizeof(len), &ol_, &connected_) || len == 0) {
+    if (!utils::pipeReadN(pipe_, &len, sizeof(len)) || len == 0) {
+        onPipeError();
         return false;
     }
 
@@ -154,7 +160,8 @@ bool AppletConnection::readResponse(std::string *out)
 
     std::unique_ptr<char[]> buf(new char[len + 1]);
     buf.get()[len] = 0;
-    if (!utils::pipeReadN(pipe_, buf.get(), len, &ol_, &connected_)) {
+    if (!utils::pipeReadN(pipe_, buf.get(), len)) {
+        onPipeError();
         return false;
     }
 

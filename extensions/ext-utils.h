@@ -39,15 +39,11 @@ std::string formatErrorMessage();
 
 bool pipeReadN (HANDLE hPipe,
                 void *buf,
-                uint32_t len,
-                OVERLAPPED *ol,
-                bool *connected);
+                uint32_t len);
 
 bool pipeWriteN (HANDLE hPipe,
                  const void *buf,
-                 uint32_t len,
-                 OVERLAPPED *ol,
-                 bool *connected);
+                 uint32_t len);
 
 bool doInThread(LPTHREAD_START_ROUTINE func, void *data);
 

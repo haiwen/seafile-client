@@ -150,14 +150,21 @@ doPipeWait (HANDLE pipe, OVERLAPPED *ol, DWORD len)
     return true;
 }
 
-void resetOverlapped(OVERLAPPED *ol)
+void initOverlapped(OVERLAPPED *ol)
 {
     ol->Offset = ol->OffsetHigh = 0;
-    ResetEvent(ol->hEvent);
+
+    HANDLE h_ev = CreateEvent
+        (NULL,                  /* security attribute */
+         FALSE,                 /* manual reset */
+         FALSE,                 /* initial state  */
+         NULL);                 /* event name */
+
+    ol->hEvent = h_ev;
 }
 
 bool
-checkLastError(bool *connected)
+checkLastError()
 {
     DWORD last_error = GetLastError();
     if (last_error != ERROR_IO_PENDING && last_error != ERROR_SUCCESS) {
@@ -165,7 +172,6 @@ checkLastError(bool *connected)
             || last_error == ERROR_PIPE_NOT_CONNECTED) {
             seaf_ext_log ("connection broken with error: %s",
                           formatErrorMessage().c_str());
-            *connected = false;
         } else {
             seaf_ext_log ("failed to communicate with seafile client: %s",
                           formatErrorMessage().c_str());
@@ -176,25 +182,67 @@ checkLastError(bool *connected)
 }
 
 bool
-pipeReadN (HANDLE pipe,
-           void *buf,
-           uint32_t len,
-           OVERLAPPED *ol,
-           bool *connected)
+_pipeReadN (HANDLE pipe,
+            void *buf,
+            uint32_t len)
 {
-    resetOverlapped(ol);
+    OVERLAPPED ol;
+    initOverlapped(&ol);
     bool ret= ReadFile(
         pipe,                  // handle to pipe
         buf,                    // buffer to write from
         (DWORD)len,             // number of bytes to read
         NULL,                   // number of bytes read
-        ol);                    // overlapped (async) IO
+        &ol);                    // overlapped (async) IO
 
-    if (!ret && !checkLastError(connected))
+    if (!ret && !checkLastError()) {
+        return false;
+    }
+
+    if (!doPipeWait (pipe, &ol, (DWORD)len)) {
+        return false;
+    }
+
+    return true;
+}
+
+bool
+_pipeWriteN(HANDLE pipe,
+           const void *buf,
+           uint32_t len)
+{
+    OVERLAPPED ol;
+    initOverlapped(&ol);
+    bool ret = WriteFile(
+        pipe,                   // handle to pipe
+        buf,                    // buffer to write from
+        (DWORD)len,             // number of bytes to write
+        NULL,                   // number of bytes written
+        &ol);                   // overlapped (async) IO
+
+    if (!ret && !checkLastError())
         return false;
 
-    if (!doPipeWait (pipe, ol, (DWORD)len))
+    if (!doPipeWait(pipe, &ol, (DWORD)len)) {
         return false;
+    }
+
+    return true;
+}
+
+bool
+pipeReadN (HANDLE pipe,
+           void *buf,
+           uint32_t len)
+{
+    if (!_pipeReadN(pipe, buf, len)) {
+        // In some cases when the pipe io timeouts, while we return false, the
+        // data transfer might not be stopped, which would cause memory error
+        // because the io buffer would be freed. By close the pipe here we can
+        // guarantee the io is stopped when we return.
+        CloseHandle(pipe);
+        return false;
+    }
 
     return true;
 }
@@ -202,23 +250,12 @@ pipeReadN (HANDLE pipe,
 bool
 pipeWriteN(HANDLE pipe,
            const void *buf,
-           uint32_t len,
-           OVERLAPPED *ol,
-           bool *connected)
+           uint32_t len)
 {
-    resetOverlapped(ol);
-    bool ret = WriteFile(
-        pipe,                  // handle to pipe
-        buf,                    // buffer to write from
-        (DWORD)len,             // number of bytes to write
-        NULL,                   // number of bytes written
-        ol);                    // overlapped (async) IO
-
-    if (!ret && !checkLastError(connected))
+    if (!_pipeWriteN(pipe, buf, len)) {
+        CloseHandle(pipe);
         return false;
-
-    if (!doPipeWait(pipe, ol, (DWORD)len))
-        return false;
+    }
 
     return true;
 }

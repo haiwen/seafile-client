@@ -74,6 +74,16 @@ AppletConnection::connect ()
         return false;
     }
 
+    DWORD mode = PIPE_READMODE_MESSAGE;
+    if (!SetNamedPipeHandleState(pipe_, &mode, NULL, NULL)) {
+        seaf_ext_log("Failed to set named pipe mode: %s", utils::formatErrorMessage().c_str());
+        CloseHandle(pipe_);
+        pipe_ = INVALID_HANDLE_VALUE;
+        connected_ = false;
+        last_conn_failure_ = utils::currentMSecsSinceEpoch();
+        return false;
+    }
+
     connected_ = true;
     return true;
 }

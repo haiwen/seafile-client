@@ -19,6 +19,31 @@ namespace {
 
 const int kPipeWaitTimeMSec = 1000;
 
+class OverLappedWrapper
+{
+public:
+    OverLappedWrapper() {
+        memset(&ol_, 0, sizeof(ol_));
+        ol_.Offset = ol_.OffsetHigh = 0;
+        HANDLE h_ev = CreateEvent
+            (NULL,                  /* security attribute */
+             FALSE,                 /* manual reset */
+             FALSE,                 /* initial state  */
+             NULL);                 /* event name */
+
+        ol_.hEvent = h_ev;
+    }
+
+    ~OverLappedWrapper() {
+        CloseHandle(ol_.hEvent);
+    }
+
+    OVERLAPPED *get() { return &ol_; }
+
+private:
+    OVERLAPPED ol_;
+};
+
 } // namespace
 
 namespace seafile {
@@ -128,14 +153,11 @@ doPipeWait (HANDLE pipe, OVERLAPPED *ol, DWORD len)
     DWORD bytes_rw, result;
     result = WaitForSingleObject (ol->hEvent, kPipeWaitTimeMSec);
     if (result == WAIT_OBJECT_0) {
-        DWORD error = GetLastError();
-        if (error == ERROR_IO_PENDING) {
-            if (!GetOverlappedResult(pipe, ol, &bytes_rw, false)
-                || bytes_rw != len) {
-                seaf_ext_log ("async read failed: %s",
-                              formatErrorMessage().c_str());
-                return false;
-            }
+        if (!GetOverlappedResult(pipe, ol, &bytes_rw, false)
+            || bytes_rw != len) {
+            seaf_ext_log ("async read failed: %s",
+                            formatErrorMessage().c_str());
+            return false;
         }
     } else if (result == WAIT_TIMEOUT) {
         seaf_ext_log ("connection timeout");
@@ -150,14 +172,8 @@ doPipeWait (HANDLE pipe, OVERLAPPED *ol, DWORD len)
     return true;
 }
 
-void resetOverlapped(OVERLAPPED *ol)
-{
-    ol->Offset = ol->OffsetHigh = 0;
-    ResetEvent(ol->hEvent);
-}
-
 bool
-checkLastError(bool *connected)
+checkLastError()
 {
     DWORD last_error = GetLastError();
     if (last_error != ERROR_IO_PENDING && last_error != ERROR_SUCCESS) {
@@ -165,7 +181,6 @@ checkLastError(bool *connected)
             || last_error == ERROR_PIPE_NOT_CONNECTED) {
             seaf_ext_log ("connection broken with error: %s",
                           formatErrorMessage().c_str());
-            *connected = false;
         } else {
             seaf_ext_log ("failed to communicate with seafile client: %s",
                           formatErrorMessage().c_str());
@@ -178,23 +193,23 @@ checkLastError(bool *connected)
 bool
 pipeReadN (HANDLE pipe,
            void *buf,
-           uint32_t len,
-           OVERLAPPED *ol,
-           bool *connected)
+           uint32_t len)
 {
-    resetOverlapped(ol);
+    OverLappedWrapper ol;
     bool ret= ReadFile(
         pipe,                  // handle to pipe
         buf,                    // buffer to write from
         (DWORD)len,             // number of bytes to read
         NULL,                   // number of bytes read
-        ol);                    // overlapped (async) IO
+        ol.get());              // overlapped (async) IO
 
-    if (!ret && !checkLastError(connected))
+    if (!ret && !checkLastError()) {
         return false;
+    }
 
-    if (!doPipeWait (pipe, ol, (DWORD)len))
+    if (!doPipeWait (pipe, ol.get(), (DWORD)len)) {
         return false;
+    }
 
     return true;
 }
@@ -202,22 +217,21 @@ pipeReadN (HANDLE pipe,
 bool
 pipeWriteN(HANDLE pipe,
            const void *buf,
-           uint32_t len,
-           OVERLAPPED *ol,
-           bool *connected)
+           uint32_t len)
 {
-    resetOverlapped(ol);
+    OverLappedWrapper ol;
     bool ret = WriteFile(
-        pipe,                  // handle to pipe
+        pipe,                   // handle to pipe
         buf,                    // buffer to write from
         (DWORD)len,             // number of bytes to write
         NULL,                   // number of bytes written
-        ol);                    // overlapped (async) IO
+        ol.get());              // overlapped (async) IO
 
-    if (!ret && !checkLastError(connected))
+    if (!ret && !checkLastError()) {
         return false;
+    }
 
-    if (!doPipeWait(pipe, ol, (DWORD)len))
+    if (!doPipeWait(pipe, ol.get(), (DWORD)len))
         return false;
 
     return true;

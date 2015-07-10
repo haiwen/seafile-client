@@ -33,6 +33,7 @@ private:
     AppletConnection();
     bool readResponse(std::string *out);
     bool writeRequest(const std::string& cmd);
+    void onPipeError();
 
     /**
      * When sending request to seafile client, we would retry one
@@ -53,7 +54,6 @@ private:
      * a command to seafile client we need to ensure exclusive access.
      */
     utils::Mutex mutex_;
-    OVERLAPPED ol_;
 };
 
 } // namespace seafile

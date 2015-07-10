@@ -19,7 +19,7 @@ void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto
     QFileInfo file(path);
     QString file_name = file.fileName();
     if (!file.exists()) {
-        QString msg = QObject::tr("File \"%1\" doesn't exist in \"%2\"").arg(file_name).arg(path);
+        QString msg = QObject::tr("File \"%1\" doesn't exist in \"%2\"").arg(file_name).arg(file.path());
         seafApplet->warningBox(msg);
         return;
     }
@@ -82,7 +82,7 @@ void FileDownloadHelper::onGetDirentsSuccess(bool current_readonly, const QList<
     }
     // critally important
     if (!found_file) {
-        QString msg = QObject::tr("File \"%1\" doesn't exist in \"%2\"").arg(file_name_).arg(path_);
+        QString msg = QObject::tr("File \"%1\" doesn't exist in \"%2\"").arg(file_name_).arg(QFileInfo(path_).path());
         seafApplet->warningBox(msg);
     }
 

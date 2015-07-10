@@ -128,6 +128,8 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
         *status = RepoInfo::Paused;
     } else if (raw_resp == "readonly") {
         *status = RepoInfo::ReadOnly;
+    } else if (raw_resp == "ignored") {
+        *status = RepoInfo::NoStatus;
     } else {
         *status = RepoInfo::NoStatus;
 

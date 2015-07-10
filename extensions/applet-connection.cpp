@@ -77,9 +77,7 @@ AppletConnection::connect ()
     DWORD mode = PIPE_READMODE_MESSAGE;
     if (!SetNamedPipeHandleState(pipe_, &mode, NULL, NULL)) {
         seaf_ext_log("Failed to set named pipe mode: %s", utils::formatErrorMessage().c_str());
-        CloseHandle(pipe_);
-        pipe_ = INVALID_HANDLE_VALUE;
-        connected_ = false;
+        onPipeError();
         last_conn_failure_ = utils::currentMSecsSinceEpoch();
         return false;
     }
@@ -134,6 +132,7 @@ bool AppletConnection::sendCommandAndWait(const std::string& cmd, std::string *r
 
 void AppletConnection::onPipeError()
 {
+    CloseHandle(pipe_);
     pipe_ = INVALID_HANDLE_VALUE;
     connected_ = false;
 }

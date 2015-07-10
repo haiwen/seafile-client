@@ -14,9 +14,11 @@ static guint kAutoconnectInterval = 10 * 1000;
 static guint kUpdateWatchSetInterval = 4 * 1000;
 static guint kUpdateFileStatusInterval = 2 * 1000;
 static void start_autoconnect_rpc_client ();
-static GObject* find_repo (const char* path);
+static GObject* find_repo_in_list (const char* path, GList *head);
 static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileInfo *file, gboolean update_file_info);
 static void clean_up_single_file (gpointer data, GObject *obj);
+static void clean_up_files_in_worktree(const char *worktree);
+static void clean_up_files_in_old_watch_set (GList *watch_set, GList *new_watch_set);
 static void clean_up_all_data ();
 
 static GList *watch_set_ = NULL;
@@ -81,7 +83,7 @@ static NautilusOperationResult seafile_extension_update_file_info (NautilusInfoP
         return NAUTILUS_OPERATION_COMPLETE;
     }
 
-    repo = find_repo (filename);
+    repo = find_repo_in_list (filename, watch_set_);
     if (!repo)
     {
         g_free (filename);
@@ -327,7 +329,7 @@ static gboolean update_file_status_by_file (SearpcClient *client, NautilusFileIn
         return TRUE;
     }
 
-    repo = find_repo (filename);
+    repo = find_repo_in_list (filename, watch_set_);
     if (!repo)
     {
         g_free (filename);
@@ -431,29 +433,29 @@ static void update_file_status_for_repo (GObject *repo, const char *status_hint,
 static gboolean update_watch_set (gpointer data)
 {
     GError *error = NULL;
-    GList *repos;
+    GList *new_watch_set;
     SearpcClient *client = seafile_rpc_get_instance ();
     (void)data; /* unused */
 
     g_return_val_if_fail (client, FALSE);
     g_message ("%s\n", "update watch set");
 
-    repos = seafile_get_repo_list (client, 0, 0, &error);
+    new_watch_set = seafile_get_repo_list (client, 0, 0, &error);
     if (error != NULL)
     {
         gboolean is_disconnected = TRANSPORT_ERROR_CODE == error->code;
-        g_error_free(error);
+        g_error_free (error);
         /* call stop_update_watch_set when return */
-        /* TODO invalidate all old icons! */
         return !is_disconnected;
     }
     if (watch_set_)
     {
-        /* TODO cleanup all old icons! */
+        clean_up_files_in_old_watch_set (watch_set_, new_watch_set);
+
         g_list_foreach (watch_set_, (GFunc)g_object_unref, NULL);
         g_list_free (watch_set_);
     }
-    watch_set_ = repos;
+    watch_set_ = new_watch_set;
     if (watch_set_)
     {
         GList *head = watch_set_;
@@ -466,11 +468,9 @@ static gboolean update_watch_set (gpointer data)
     return TRUE;
 }
 
-static GObject* find_repo (const char* path)
+static GObject* find_repo_in_list (const char* path, GList *head)
 {
-    GList *head = watch_set_;
-
-    g_return_val_if_fail (watch_set_, NULL);
+    g_return_val_if_fail (head, NULL);
     while (head)
     {
         char* worktree;
@@ -503,6 +503,92 @@ static void clean_up_single_file (gpointer data, GObject *obj)
     g_hash_table_remove (file_status_, filename);
     g_free (uri);
     g_free (filename);
+}
+
+static void clean_up_files_in_worktree(const char *worktree)
+{
+    GHashTableIter iter;
+    gpointer key, value;
+
+    GFile *gfile;
+    NautilusFileInfo *file;
+    GList *files_to_be_removed = NULL, *head = NULL;
+
+    int worktree_len = strlen(worktree);
+
+    g_hash_table_iter_init (&iter, file_status_);
+    while (g_hash_table_iter_next (&iter, &key, &value))
+    {
+        if (strncmp(worktree, key, worktree_len) != 0)
+        {
+            continue;
+        }
+
+        files_to_be_removed = g_list_append (files_to_be_removed, g_strdup (key));
+
+        gfile = g_file_new_for_path ((const char*)key);
+        if (!gfile)
+        {
+            continue;
+        }
+        file = nautilus_file_info_lookup (gfile);
+        if (!file)
+        {
+            g_object_unref (gfile);
+            continue;
+        }
+        nautilus_file_info_invalidate_extension_info (file);
+        g_object_unref (file);
+        g_object_unref (gfile);
+    }
+    head = files_to_be_removed;
+    while (head)
+    {
+        char* file_name = head->data;
+        g_hash_table_remove (file_status_, file_name);
+        g_free (file_name);
+        head = head->next;
+    }
+    if (files_to_be_removed)
+    {
+        g_list_free (files_to_be_removed);
+    }
+}
+
+static void clean_up_files_in_old_watch_set (GList *watch_set, GList *new_watch_set)
+{
+    char *worktree, *repo_id, *new_worktree, *new_repo_id;
+    GList *head = watch_set;
+    GList *new_head = new_watch_set;
+    while (head)
+    {
+        gboolean found = FALSE;
+        GObject *repo = head->data;
+        g_object_get (repo, "worktree", &worktree, "id", &repo_id, NULL);
+        while (new_head)
+        {
+            GObject *new_repo = new_head->data;
+            g_object_get (new_repo, "worktree", &new_worktree, "id", &new_repo_id, NULL);
+            if (strcmp (worktree, new_worktree) == 0 && strcmp (repo_id, new_repo_id) == 0)
+            {
+                found = TRUE;
+            }
+            g_free (new_repo_id);
+            g_free (new_worktree);
+            if (found)
+            {
+                break;
+            }
+            new_head = new_head->next;
+        }
+        if (!found)
+        {
+            clean_up_files_in_worktree (worktree);
+        }
+        g_free (repo_id);
+        g_free (worktree);
+        head = head->next;
+    }
 }
 
 static void clean_up_all_data ()

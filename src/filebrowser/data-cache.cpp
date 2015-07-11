@@ -123,13 +123,14 @@ QString FileCacheDB::getCachedFileId(const QString& repo_id,
 FileCacheDB::CacheEntry FileCacheDB::getCacheEntry(const QString& repo_id,
                                                    const QString& path)
 {
-    QString sql = "SELECT repo_id, path, file_id, account_sig"
-        "  FROM FileCacheV1"
-        "  WHERE repo_id = '%1'"
-        "    AND path = '%2'";
-    sql = sql.arg(repo_id).arg(path);
+    char *zql = sqlite3_mprintf("SELECT repo_id, path, file_id, account_sig"
+                                "  FROM FileCacheV1"
+                                " WHERE repo_id = %Q"
+                                "   AND path = %Q",
+                                repo_id.toUtf8().data(), path.toUtf8().data());
     CacheEntry entry;
-    sqlite_foreach_selected_row (db_, toCStr(sql), getCacheEntryCB, &entry);
+    sqlite_foreach_selected_row(db_, zql, getCacheEntryCB, &entry);
+    sqlite3_free(zql);
     return entry;
 }
 
@@ -138,9 +139,11 @@ void FileCacheDB::saveCachedFileId(const QString& repo_id,
                                    const QString& file_id,
                                    const QString& account_sig)
 {
-    QString sql = "REPLACE INTO FileCacheV1 VALUES ('%1', '%2', '%3', '%4')";
-    sql = sql.arg(repo_id).arg(path).arg(file_id).arg(account_sig);
-    sqlite_query_exec (db_, toCStr(sql));
+    char *zql = sqlite3_mprintf("REPLACE INTO FileCacheV1(repo_id, path, file_id, account_sig) VALUES (%Q, %Q, %Q, %Q)",
+                                repo_id.toUtf8().data(), path.toUtf8().data(),
+                                file_id.toUtf8().data(), account_sig.toUtf8().data());
+    sqlite_query_exec(db_, zql);
+    sqlite3_free(zql);
 }
 
 bool FileCacheDB::collectCachedFile(sqlite3_stmt *stmt, void *data)
@@ -156,8 +159,8 @@ bool FileCacheDB::collectCachedFile(sqlite3_stmt *stmt, void *data)
 
 QList<FileCacheDB::CacheEntry> FileCacheDB::getAllCachedFiles()
 {
-    QString sql = "SELECT repo_id, path, account_sig FROM FileCacheV1";
+    const char* sql = "SELECT repo_id, path, account_sig FROM FileCacheV1";
     QList<CacheEntry> list;
-    sqlite_foreach_selected_row (db_, toCStr(sql), collectCachedFile, &list);
+    sqlite_foreach_selected_row(db_, sql, collectCachedFile, &list);
     return list;
 }

@@ -27,7 +27,7 @@
 namespace {
 
 const char *kDefaultServerAddr1 = "https://seacloud.cc";
-const char *kDefaultServerAddr2 = "https://cloud.mein-seafile.de";
+const char *kDefaultServerAddr2 = "https://cloud.seafile.de";
 const char *kUsedServerAddresses = "UsedServerAddresses";
 
 #ifdef Q_OS_WIN32

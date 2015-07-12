@@ -59,13 +59,12 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
 
 void SharedLinkDialog::onCopyText()
 {
-
 // for mac, qt copys many minedatas beside public.utf8-plain-text
 // e.g. public.vcard, which we don't want to use
 #ifndef Q_OS_MAC
-    QApplication::clipboard()->setText(text_);
+    QApplication::clipboard()->setText(editor_->text());
 #else
-    utils::mac::copyTextToPasteboard(text_);
+    utils::mac::copyTextToPasteboard(editor_->text());
 #endif
 }
 

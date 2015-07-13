@@ -589,8 +589,20 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
 {
     QString fpath = ::pathJoin(current_path_, file.name);
 
+    LocalRepo repo;
+    if (seafApplet->rpcClient()->getLocalRepo(repo_.id, &repo) == 0) {
+        QString synced_path = ::pathJoin(repo.worktree, fpath);
+        if (!QFileInfo(synced_path).exists()) {
+            seafApplet->warningBox(tr("File \"%1\" haven't been synced").arg(file.name));
+            return;
+        }
+        openFile(synced_path);
+        return;
+    }
     QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
-    if (!cached_file.isEmpty()) {
+    if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
+        // double-checked the watch, since it might fails sometime
+        AutoUpdateManager::instance()->watchCachedFile(account_, repo_.id, fpath);
         openFile(cached_file);
         return;
     } else {

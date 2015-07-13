@@ -31,8 +31,6 @@ private slots:
 private:
     AutoUpdateManager();
 
-    Account getAccountByRepoId(const QString& repo_id);
-
     QFileSystemWatcher watcher_;
 
     struct WatchedFileInfo {
@@ -41,13 +39,14 @@ private:
         QString path_in_repo;
         bool uploading;
 
-        WatchedFileInfo() {}
+        WatchedFileInfo() : uploading(false) {}
         WatchedFileInfo(const Account& account,
-                 const QString& repo_id,
-                 const QString& path_in_repo)
+                        const QString& repo_id,
+                        const QString& path_in_repo)
             : account(account),
               repo_id(repo_id),
-              path_in_repo(path_in_repo) {}
+              path_in_repo(path_in_repo),
+              uploading(false) {}
     };
 
     QHash<QString, WatchedFileInfo> watch_infos_;
@@ -55,6 +54,7 @@ private:
     QQueue<WatchedFileInfo> deleted_files_infos_;
 };
 
+#ifdef Q_OS_MAC
 /**
  * On MacOSX, when open an image file in Preview app, a file modificatin event
  * would be triggered, but the file is not modified. We need to work around
@@ -70,5 +70,6 @@ public:
 private:
     QHash<QString, qint64> images_;
 };
+#endif // Q_OS_MAC
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_AUTO_UPDATE_MANAGER_H

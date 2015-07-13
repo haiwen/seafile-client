@@ -16,6 +16,39 @@
 
 #include "auto-update-mgr.h"
 
+namespace {
+
+inline bool addPath(QFileSystemWatcher *watcher, const QString &file) {
+  if (watcher->files().contains(file))
+      return true;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+  bool ret = watcher->addPath(file);
+  if (!ret) {
+      qWarning("[AutoUpdateManager] failed to watch cache file %s", file.toUtf8().data());
+  }
+  return ret;
+#else
+  watcher->addPath(file);
+  return true;
+#endif
+}
+
+inline bool removePath(QFileSystemWatcher *watcher, const QString &file) {
+  if (!watcher->files().contains(file))
+      return true;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+  bool ret = watcher->removePath(file);
+  if (!ret) {
+      qWarning("[AutoUpdateManager] failed to remove watch on cache file %s", file.toUtf8().data());
+  }
+  return ret;
+#else
+  watcher->removePath(file);
+  return true;
+#endif
+}
+} // anonymous namespace
+
 SINGLETON_IMPL(AutoUpdateManager)
 
 
@@ -44,48 +77,50 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
                                         const QString& path)
 {
     QString local_path = DataManager::getLocalCacheFilePath(repo_id, path);
-    qDebug("added watch of: %s\n", toCStr(path));
+    qDebug("[AutoUpdateManager] watch cache file %s", local_path.toUtf8().data());
     if (!QFileInfo(local_path).exists()) {
-        qDebug("but it does not exist!\n");
+        qWarning("[AutoUpdateManager] unable to watch non-existent cache file %s", local_path.toUtf8().data());
         return;
     }
 
-    watcher_.addPath(local_path);
+    // do we have it in deferred list ?
+    // skip if yes
+    Q_FOREACH(const WatchedFileInfo& info, deleted_files_infos_)
+    {
+        if (repo_id == info.repo_id && path == info.path_in_repo)
+            return;
+    }
+
+    addPath(&watcher_, local_path);
     watch_infos_[local_path] = WatchedFileInfo(account, repo_id, path);
 }
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
-    qDebug("file changed: %s\n", toCStr(local_path));
+    qDebug("[AutoUpdateManager] detected cache file %s changed", local_path.toUtf8().data());
 #ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         return;
     }
 #endif
-    watcher_.removePath(local_path);
+    removePath(&watcher_, local_path);
     QString repo_id, path_in_repo;
     if (!watch_infos_.contains(local_path)) {
-        qDebug("but not info for it watch_infos_\n");
+        // filter unwanted events
         return;
     }
 
-    WatchedFileInfo info = watch_infos_[local_path];
+    WatchedFileInfo &info = watch_infos_[local_path];
 
     if (!QFileInfo(local_path).exists()) {
-        qDebug("but file deleted \n");
+        qDebug("[AutoUpdateManager] detected cache file %s renamed or removed", local_path.toUtf8().data());
+        WatchedFileInfo deferred_info = info;
         removeWatch(local_path);
         // Some application would deleted and recreate the file when saving.
         // We work around that by double checking whether the file gets
         // recreated after a short period
         QTimer::singleShot(5000, this, SLOT(checkFileRecreated()));
-        deleted_files_infos_.enqueue(info);
-        return;
-    }
-
-    LocalRepo repo;
-    seafApplet->rpcClient()->getLocalRepo(info.repo_id, &repo);
-    if (repo.isValid()) {
-        qDebug("but repo invalid\n");
+        deleted_files_infos_.enqueue(deferred_info);
         return;
     }
 
@@ -97,7 +132,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onUpdateTaskFinished(bool)));
 
-    qDebug("started upload task\n");
+    qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
 
     task->start();
     info.uploading = true;
@@ -106,34 +141,32 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
-    if (task == NULL) {
-        qDebug("task finished but is null");
+    if (task == NULL)
         return;
-    }
     const QString local_path = task->localFilePath();
     if (success) {
-        qDebug("uploaded file %s successfully", toCStr(local_path));
+        qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
         seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
                                                     tr("Upload Success"),
                                                     tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()));
         emit fileUpdated(task->repoId(), task->path());
-        watcher_.addPath(local_path);
+        addPath(&watcher_, local_path);
         WatchedFileInfo& info = watch_infos_[local_path];
         info.uploading = false;
     } else {
+        qWarning("[AutoUpdateManager] failed to upload new version of file %s", local_path.toUtf8().data());
         seafApplet->trayIcon()->showMessageWithRepo(task->repoId(),
                                                     tr("Upload Failure"),
                                                     tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()));
-        qWarning("failed to auto update %s\n", toCStr(local_path));
         watch_infos_.remove(local_path);
         return;
     }
 }
 
-void AutoUpdateManager::removeWatch(const QString& path)
+void AutoUpdateManager::removeWatch(const QString& local_path)
 {
-    watcher_.removePath(path);
-    watch_infos_.remove(path);
+    watch_infos_.remove(local_path);
+    removePath(&watcher_, local_path);
 }
 
 void AutoUpdateManager::checkFileRecreated()
@@ -146,8 +179,8 @@ void AutoUpdateManager::checkFileRecreated()
     const WatchedFileInfo info = deleted_files_infos_.dequeue();
     const QString path = DataManager::getLocalCacheFilePath(info.repo_id, info.path_in_repo);
     if (QFileInfo(path).exists()) {
-        qDebug("file %s recreated", toCStr(info.path_in_repo));
-        watcher_.addPath(path);
+        qDebug("[AutoUpdateManager] detected recreated file %s", path.toUtf8().data());
+        addPath(&watcher_, path);
         watch_infos_[path] = info;
         // Some applications like MSOffice would remove the original file and
         // recreate it when the user modifies the file.
@@ -155,6 +188,7 @@ void AutoUpdateManager::checkFileRecreated()
     }
 }
 
+#ifdef Q_OS_MAC
 SINGLETON_IMPL(MacImageFilesWorkAround)
 
 MacImageFilesWorkAround::MacImageFilesWorkAround()
@@ -178,3 +212,4 @@ bool MacImageFilesWorkAround::isRecentOpenedImage(const QString& path)
         return false;
     }
 }
+#endif

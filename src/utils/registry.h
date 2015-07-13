@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_UTILS_REGISTRY_H
 
 #include <QString>
+#include <QVariant>
 #include <windows.h>
 
 #ifndef KEY_WOW64_64KEY
@@ -31,7 +32,7 @@ public:
                DWORD value);
 
     int add();
-    void read();
+    void read(const QVariant &default_value = QVariant());
     void remove();
     bool exists();
 
@@ -39,6 +40,7 @@ public:
     const QString& path() const { return path_; }
     const QString& name() const { return name_; }
     const QString& stringValue() const { return string_value_; }
+    const QVariant& value() const { return value_; }
     DWORD dwordValue() const { return dword_value_; }
 
 public:
@@ -58,6 +60,7 @@ private:
     QString name_;
     QString string_value_;
     DWORD dword_value_;
+    QVariant value_;
     DWORD type_;
 };
 

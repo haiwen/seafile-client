@@ -209,21 +209,14 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
-#if defined(Q_OS_WIN32)
 const char* const kHideConfigurationWizard = "HideConfigurationWizard";
-int getHideConfigurationWizard()
-{
-    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kHideConfigurationWizard, "");
-    if (!reg.exists()) {
-        return 0;
-    }
-    reg.read();
-    if (!reg.stringValue().isEmpty())
-        return reg.stringValue().toInt();
-
-    return reg.dwordValue();
-}
+#if defined(Q_OS_WIN32)
+const char *const kSeafileConfigureFileName = "seafile.ini";
+const char *const kSeafileConfigurePath = "SOFTWARE\\Seafile";
+#else
+const char *const kSeafileConfigureFileName = ".seafilerc";
 #endif
+const char *const kSeafilePreconfigureGroupName = "preconfigure";
 
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
 const int kIntervalForUpdateRepoProperty = 1000;
@@ -346,7 +339,7 @@ void SeafileApplet::onDaemonStarted()
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         do {
 #if defined(Q_OS_WIN32)
-            if (getHideConfigurationWizard())
+            if (readPreconfigureEntry(kHideConfigurationWizard).toInt())
                 break;
 #endif
             LoginDialog login_dialog;
@@ -632,4 +625,29 @@ void SeafileApplet::updateReposPropertyForHttpSync()
             }
         }
     }
+}
+
+QVariant SeafileApplet::readPreconfigureEntry(const QString& key, const QVariant& default_value)
+{
+#ifdef Q_OS_WIN32
+    RegElement reg(HKEY_CURRENT_USER, kSeafileConfigurePath, key, "");
+    if (!reg.exists()) {
+        reg = RegElement(HKEY_LOCAL_MACHINE, kSeafileConfigurePath, key, "");
+        return default_value;
+    }
+    if (!reg.exists()) {
+        return default_value;
+    }
+    reg.read(default_value);
+    if (!reg.value().isNull())
+        return reg.value();
+#endif
+    QString configure_file = QDir::home().filePath(kSeafileConfigureFileName);
+    if (!QFileInfo(configure_file).exists())
+        return default_value;
+    QSettings setting(configure_file, QSettings::IniFormat);
+    setting.beginGroup(kSeafilePreconfigureGroupName);
+    QVariant value = setting.value(key, default_value);
+    setting.endGroup();
+    return value;
 }

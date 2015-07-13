@@ -29,6 +29,7 @@ RegElement::RegElement(const HKEY& root, const QString& path,
       name_(name),
       string_value_(value),
       dword_value_(0),
+      value_(value),
       type_(expand ? REG_EXPAND_SZ : REG_SZ)
 {
 }
@@ -40,6 +41,7 @@ RegElement::RegElement(const HKEY& root, const QString& path,
       name_(name),
       string_value_(""),
       dword_value_(value),
+      value_(QVariant::fromValue<unsigned long>(value)),
       type_(REG_DWORD)
 {
 }
@@ -145,10 +147,16 @@ bool RegElement::exists()
     return true;
 }
 
-void RegElement::read()
+void RegElement::read(const QVariant &default_value)
 {
-    string_value_.clear();
-    dword_value_ = 0;
+    value_ = default_value;
+    if (value_.type() == QMetaType::QString) {
+        string_value_ = value_.toString();
+        dword_value_ = 0;
+    } else {
+        string_value_.clear();
+        dword_value_ = value_.value<unsigned long>();
+    }
     HKEY parent_key;
     LONG result = openKey(root_, path_, &parent_key, KEY_READ);
     if (result != ERROR_SUCCESS) {
@@ -198,17 +206,23 @@ void RegElement::read()
                     string_value_ = QString::fromWCharArray(&buf[0], buf.size());
                 else
                     string_value_ = QString::fromWCharArray(expanded_buf, size);
+
+                // workaround with a bug
+                value_ = string_value_ = QString::fromUtf8(string_value_.toUtf8());
             }
             break;
         case REG_NONE:
         case REG_BINARY:
             string_value_ = QString::fromWCharArray(&buf[0], buf.size() / 2);
+            // workaround with a bug
+            value_ = string_value_ = QString::fromUtf8(string_value_.toUtf8());
             break;
         case REG_DWORD_BIG_ENDIAN:
         case REG_DWORD:
             if (buf.size() != sizeof(int))
                 return;
             memcpy((char*)&dword_value_, buf.data(), sizeof(int));
+            value_ = QVariant::fromValue<unsigned long>(dword_value_);
             break;
         case REG_QWORD: {
             if (buf.size() != sizeof(int))
@@ -216,6 +230,7 @@ void RegElement::read()
             qint64 value;
             memcpy((char*)&value, buf.data(), sizeof(int));
             dword_value_ = (int)value;
+            value_ = QVariant::fromValue<unsigned long>(dword_value_);
             break;
         }
         case REG_MULTI_SZ:
@@ -225,8 +240,6 @@ void RegElement::read()
 
     RegCloseKey(parent_key);
 
-    // workaround with a bug
-    string_value_ = QString::fromUtf8(string_value_.toUtf8());
 
     return;
 }

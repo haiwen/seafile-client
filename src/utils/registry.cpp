@@ -8,13 +8,13 @@
 
 namespace {
 
-LONG openKey(HKEY root, const QString& path, HKEY *p_key)
+LONG openKey(HKEY root, const QString& path, HKEY *p_key, REGSAM samDesired = KEY_ALL_ACCESS)
 {
     LONG result;
     result = RegOpenKeyExW(root,
                            path.toStdWString().c_str(),
                            0L,
-                           KEY_ALL_ACCESS,
+                           samDesired,
                            p_key);
 
     return result;
@@ -123,7 +123,7 @@ int RegElement::removeRegKey(HKEY root, const QString& path, const QString& subk
 bool RegElement::exists()
 {
     HKEY parent_key;
-    LONG result = openKey(root_, path_, &parent_key);
+    LONG result = openKey(root_, path_, &parent_key, KEY_READ);
     if (result != ERROR_SUCCESS) {
         return false;
     }
@@ -150,7 +150,7 @@ void RegElement::read()
     string_value_.clear();
     dword_value_ = 0;
     HKEY parent_key;
-    LONG result = openKey(root_, path_, &parent_key);
+    LONG result = openKey(root_, path_, &parent_key, KEY_READ);
     if (result != ERROR_SUCCESS) {
         return;
     }
@@ -234,7 +234,7 @@ void RegElement::read()
 void RegElement::remove()
 {
     HKEY parent_key;
-    LONG result = openKey(root_, path_, &parent_key);
+    LONG result = openKey(root_, path_, &parent_key, KEY_ALL_ACCESS);
     if (result != ERROR_SUCCESS) {
         return;
     }

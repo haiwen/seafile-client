@@ -19,6 +19,8 @@
 namespace {
 
 inline bool addPath(QFileSystemWatcher *watcher, const QString &file) {
+  if (watcher->files().contains(file))
+      return true;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
   bool ret = watcher->addPath(file);
   if (!ret) {
@@ -32,6 +34,8 @@ inline bool addPath(QFileSystemWatcher *watcher, const QString &file) {
 }
 
 inline bool removePath(QFileSystemWatcher *watcher, const QString &file) {
+  if (!watcher->files().contains(file))
+      return true;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
   bool ret = watcher->removePath(file);
   if (!ret) {

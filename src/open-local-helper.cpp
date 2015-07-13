@@ -162,10 +162,7 @@ bool OpenLocalHelper::openLocalFile(const QUrl &url)
 
 void OpenLocalHelper::messageBox(const QString& msg)
 {
-    MainWindow *win = seafApplet->mainWindow();
-    win->show();
-    win->raise();
-    win->activateWindow();
+    seafApplet->mainWindow()->showWindow();
     seafApplet->messageBox(msg);
 }
 

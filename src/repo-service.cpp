@@ -313,11 +313,11 @@ void RepoService::openLocalFile(const QString& repo_id,
                                 const QString& path_in_repo,
                                 QWidget *dialog_parent)
 {
-    qDebug("trying to open file %s in repo %s", repo_id.toUtf8().data(), path_in_repo.toUtf8().data());
     if (path_in_repo.endsWith("/")) {
         openFolder(repo_id, path_in_repo.left(path_in_repo.size() - 1));
         return;
     }
+    qDebug("trying to open file %s in library %s", path_in_repo.toUtf8().data(), repo_id.toUtf8().data());
 
     LocalRepo r;
 
@@ -330,11 +330,13 @@ void RepoService::openLocalFile(const QString& repo_id,
     } else {
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
-            qWarning("trying to open invalid repo %s", repo_id.toUtf8().data());
+            QString msg = tr("Unable to open file \"%1\" from nonexistent library \"%2\"").arg(path_in_repo).arg(repo_id);
+            seafApplet->warningBox(msg);
             return;
         }
 
         const QString path = "/" + path_in_repo;
+        //TODO select the correct account
         const Account account = seafApplet->accountManager()->currentAccount();
         if (!account.isValid()) {
             qWarning("no valid account found");
@@ -350,6 +352,7 @@ void RepoService::openLocalFile(const QString& repo_id,
 void RepoService::openFolder(const QString &repo_id,
                              const QString &path_in_repo)
 {
+    qDebug("trying to open folder %s in library %s", path_in_repo.toUtf8().data(), repo_id.toUtf8().data());
     LocalRepo r;
 
     seafApplet->rpcClient()->getLocalRepo(repo_id, &r);
@@ -362,10 +365,12 @@ void RepoService::openFolder(const QString &repo_id,
         QString fixed_path = path_in_repo == "." ? "/" : path_in_repo;
         ServerRepo repo = getRepo(repo_id);
         if (!repo.isValid()) {
-            qWarning("trying to open invalid repo %s", repo_id.toUtf8().data());
+            QString msg = tr("Unable to open file \"%1\" from nonexistent library \"%2\"").arg(path_in_repo).arg(repo_id);
+            seafApplet->warningBox(msg);
             return;
         }
 
+        //TODO select the correct account
         const Account account = seafApplet->accountManager()->currentAccount();
         if (!account.isValid()) {
             qWarning("no valid account found");

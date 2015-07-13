@@ -10,6 +10,7 @@ public:
 private slots:
     void getParentPath();
     void getBaseName();
+    void expandUser();
 };
 
 #endif // TESTS_FILE_UTILS_H

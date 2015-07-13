@@ -41,6 +41,8 @@ public:
 
     // Read preconfigure settings
     QVariant readPreconfigureEntry(const QString& key, const QVariant& default_value = QVariant());
+    // ExpandedVars String
+    QString readPreconfigureExpandedString(const QString& key, const QString& default_value = QString());
 
     // accessors
     AccountManager *accountManager() { return account_mgr_; }

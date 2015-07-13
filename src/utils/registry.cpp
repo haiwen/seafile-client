@@ -177,11 +177,7 @@ void RegElement::read(const QVariant &default_value)
         return;
     }
     // get value
-#ifndef UTILS_CXX11_MODE
-    std::vector<wchar_t> buf;
-#else
     utils::WBufferArray buf;
-#endif
     buf.resize(len);
     result = RegQueryValueExW (parent_key,
                                std_name.c_str(),
@@ -198,18 +194,9 @@ void RegElement::read(const QVariant &default_value)
     switch (type_) {
         case REG_EXPAND_SZ:
         case REG_SZ:
-            {
-                // expand environment strings
-                wchar_t expanded_buf[MAX_PATH];
-                DWORD size = ExpandEnvironmentStringsW(&buf[0], expanded_buf, MAX_PATH);
-                if (size == 0 || size > MAX_PATH)
-                    string_value_ = QString::fromWCharArray(&buf[0], buf.size());
-                else
-                    string_value_ = QString::fromWCharArray(expanded_buf, size);
-
-                // workaround with a bug
-                value_ = string_value_ = QString::fromUtf8(string_value_.toUtf8());
-            }
+            string_value_ = QString::fromWCharArray(&buf[0], buf.size());
+            // workaround with a bug
+            value_ = string_value_ = QString::fromUtf8(string_value_.toUtf8());
             break;
         case REG_NONE:
         case REG_BINARY:

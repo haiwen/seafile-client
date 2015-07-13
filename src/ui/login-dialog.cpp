@@ -45,7 +45,7 @@ QStringList getUsedServerAddresses()
     settings.beginGroup(kUsedServerAddresses);
     QStringList retval = settings.value("main").toStringList();
     settings.endGroup();
-    QString preconfigure_addr = seafApplet->readPreconfigureEntry(kPreconfigureServerAddr).toString();
+    QString preconfigure_addr = seafApplet->readPreconfigureExpandedString(kPreconfigureServerAddr);
     if (!preconfigure_addr.isEmpty() && !retval.contains(preconfigure_addr)) {
         retval.push_back(preconfigure_addr);
     }
@@ -83,7 +83,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-    QString preconfigure_addr = seafApplet->readPreconfigureEntry(kPreconfigureServerAddr).toString();
+    QString preconfigure_addr = seafApplet->readPreconfigureExpandedString(kPreconfigureServerAddr);
     if (seafApplet->readPreconfigureEntry(kPreconfigureServerAddrOnly).toBool() && !preconfigure_addr.isEmpty()) {
         mServerAddr->setMaxCount(1);
         mServerAddr->insertItem(0, preconfigure_addr);

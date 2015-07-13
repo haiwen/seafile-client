@@ -18,6 +18,7 @@
 #include <glib.h>
 
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "utils/log.h"
 #include "account-mgr.h"
 #include "configurator.h"
@@ -650,4 +651,12 @@ QVariant SeafileApplet::readPreconfigureEntry(const QString& key, const QVariant
     QVariant value = setting.value(key, default_value);
     setting.endGroup();
     return value;
+}
+
+QString SeafileApplet::readPreconfigureExpandedString(const QString& key, const QString& default_value)
+{
+    QVariant retval = readPreconfigureEntry(key, default_value);
+    if (retval.isNull() || retval.type() != QVariant::String)
+        return QString();
+    return expandVars(retval.toString());
 }

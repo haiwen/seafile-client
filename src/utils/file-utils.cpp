@@ -2,6 +2,11 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QStringList>
+#include "stl.h"
+
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#endif
 
 #include "file-utils.h"
 
@@ -784,4 +789,49 @@ QString getBaseName(const QString& path)
         return p;
     }
     return p.mid(pos + 1);
+}
+
+QString expandVars(const QString& origin)
+{
+#ifdef Q_OS_WIN32
+    // expand environment strings
+    QString retval;
+    std::wstring worigin = origin.toStdWString();
+    utils::WBufferArray expanded;
+    expanded.resize(MAX_PATH);
+    DWORD expanded_size = ExpandEnvironmentStringsW(&worigin[0], &expanded[0], MAX_PATH);
+    if (expanded_size > 0) {
+        expanded.resize(expanded_size);
+        if (expanded_size > MAX_PATH)
+            expanded_size = ExpandEnvironmentStringsW(&worigin[0], &expanded[0], expanded_size);
+    }
+    if (expanded_size > 0 && expanded_size == expanded.size()) {
+        retval = QString::fromWCharArray(&expanded[0], expanded_size);
+        // workaround with a bug
+        retval = QString::fromUtf8(retval.toUtf8());
+    } else {
+        retval = origin;
+    }
+#else
+    // TODO implement it
+    QString retval = origin;
+#endif
+    return retval;
+}
+
+QString expandUser(const QString& origin)
+{
+    if (origin.startsWith("~")) {
+        QChar seperator = QDir::separator();
+        int pos = 1;
+        while (pos < origin.size() && origin[pos] != seperator)
+            ++pos;
+        QString homepath;
+        if (pos == 1)
+            homepath = QDir::homePath();
+        else
+            homepath = QFileInfo(QDir::homePath()).dir().filePath(origin.mid(1, pos - 1));
+        return pathJoin(homepath, origin.right(origin.size() - pos));
+    }
+    return origin;
 }

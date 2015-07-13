@@ -23,6 +23,9 @@ QString pathJoin(const QString& a, const QString& b, const QString& c);
 QString pathJoin(const QString& a, const QString& b, const QString& c, const QString& d);
 QString pathJoin(const QString& a, const QStringList& rest);
 
+QString expandVars(const QString& origin);
+QString expandUser(const QString& origin);
+
 bool createDirIfNotExists(const QString& path);
 
 

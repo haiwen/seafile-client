@@ -10,6 +10,7 @@
 #include <QSettings>
 
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "seafile-applet.h"
 #include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
@@ -25,7 +26,6 @@
 
 namespace {
 
-const char* const kPreconfigureDirectory = "PreconfigureDirectory";
 #if defined(Q_OS_WIN32)
 const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
 const char *kMyComputerNamespacePath =
@@ -38,6 +38,12 @@ QString getPreconfigureDirectory()
     return RegElement::getPreconfigureStringValue(kPreconfigureDirectory);
 }
 #endif
+const char* const kPreconfigureDirectory = "PreconfigureDirectory";
+
+inline QString getPreconfigureDirectory()
+{
+    return expandVars(expandUser(seafApplet->readPreconfigureEntry(kPreconfigureDirectory).toString()));
+}
 
 } // namespace
 
@@ -85,7 +91,7 @@ void Configurator::initCcnet()
 
 void Configurator::initSeafile()
 {
-    QString preconfigure_dir = seafApplet->readPreconfigureEntry(kPreconfigureDirectory).toString();
+    QString preconfigure_dir = getPreconfigureDirectory();
     if (!preconfigure_dir.isEmpty()) {
         QDir dir(preconfigure_dir);
         if (!dir.mkpath(".") ||

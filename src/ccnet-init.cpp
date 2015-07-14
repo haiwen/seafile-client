@@ -60,13 +60,12 @@ void create_peerkey ()
 
 char *get_peer_name ()
 {
-    int ret;
     char buf[512];
     char computer_name[128] = {0};
 
     gethostname (computer_name, sizeof(computer_name));
 
-    ret = snprintf (buf, sizeof(buf), "%s@%s", user_name, computer_name);
+    snprintf (buf, sizeof(buf), "%s@%s", user_name, computer_name);
     return g_strdup(buf);
 }
 

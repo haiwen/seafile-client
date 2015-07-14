@@ -1,8 +1,11 @@
 #include "api-error.h"
 
 ApiError::ApiError()
+  : type_(NOT_AN_ERROR),
+    http_error_code_(200),
+    network_error_(QNetworkReply::NoError),
+    ssl_reply_(NULL)
 {
-    ssl_reply_ = NULL;
 }
 
 ApiError ApiError::fromNetworkError(const QNetworkReply::NetworkError& network_error,

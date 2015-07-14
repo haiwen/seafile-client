@@ -53,6 +53,7 @@ SettingsManager::SettingsManager()
       maxDownloadRatio_(0),
       maxUploadRatio_(0),
       verify_http_sync_cert_disabled_(false),
+      shell_ext_enabled_(false),
       use_proxy_type_(NoneProxy),
       proxy_port_(0)
 {

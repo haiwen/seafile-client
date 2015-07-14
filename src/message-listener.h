@@ -30,7 +30,6 @@ private:
     void startMqClient();
 
     _CcnetClient *async_client_;
-    _CcnetClient *sync_client_;
     _CcnetMqclientProc *mqclient_proc_;
 
     QSocketNotifier *socket_notifier_;

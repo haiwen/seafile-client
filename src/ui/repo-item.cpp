@@ -53,10 +53,10 @@ QVariant RepoItem::data(int role) const
 }
 
 RepoCategoryItem::RepoCategoryItem(int cat_index, const QString& name, int group_id)
-    : cat_index_(cat_index),
-      name_(name),
+    : name_(name),
       group_id_(group_id),
-      matched_repos_(-1)
+      matched_repos_(-1),
+      cat_index_(cat_index)
 {
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 }

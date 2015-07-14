@@ -30,7 +30,7 @@ QString get_largest_drive()
     largest_free_space.QuadPart = 0;
     largest_drive = NULL;
 
-    GetLogicalDriveStringsW (sizeof(drives), drives);
+    GetLogicalDriveStringsW (sizeof(drives) / sizeof(wchar_t), drives);
     for (p = drives; *p != L'\0'; p += wcslen(p) + 1) {
         /* Skip floppy disk, network drive, etc */
         if (GetDriveTypeW(p) != DRIVE_FIXED)

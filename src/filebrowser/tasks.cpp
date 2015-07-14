@@ -277,8 +277,10 @@ QNetworkAccessManager* FileServerTask::network_mgr_;
 FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
     : url_(url),
       local_path_(local_path),
+      reply_(NULL),
       canceled_(false),
       redirect_count_(0),
+      error_(FileNetworkTask::NoError),
       http_error_code_(0)
 {
 }
@@ -474,6 +476,7 @@ PostFileTask::PostFileTask(const QUrl& url,
                            const bool use_upload)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
+      file_(NULL),
       name_(name),
       use_upload_(use_upload)
 {
@@ -486,6 +489,7 @@ PostFileTask::PostFileTask(const QUrl& url,
                            const QString& relative_path)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
+      file_(NULL),
       name_(name),
       use_upload_(true),
       relative_path_(relative_path)
@@ -593,6 +597,9 @@ PostFilesTask::PostFilesTask(const QUrl& url,
       name_(QFileInfo(local_path_).fileName()),
       names_(names),
       current_num_(-1),
+      current_bytes_(0),
+      transferred_bytes_(0),
+      total_bytes_(0),
       progress_update_timer_(new QTimer(this)),
       use_relative_(use_relative)
 {

@@ -117,7 +117,7 @@ int count_process (const char *process_name_in)
     HANDLE hProcess;
     DWORD length;
     int count = 0;
-    int i, j;
+    unsigned i;
 
     if (strstr(process_name_in, ".exe")) {
         snprintf (name, sizeof(name), "%s", process_name_in);

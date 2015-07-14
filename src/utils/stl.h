@@ -93,7 +93,7 @@ template <typename T = char> class BasicBufferArray {
             return;
         char_type *new_data = NULL;
         if (size_ != 0) {
-            char_type *new_data = new char_type[size_];
+            new_data = new char_type[size_];
             assert(new_data != NULL);
             memcpy(new_data, data_, size_ * sizeof(char_type));
         }

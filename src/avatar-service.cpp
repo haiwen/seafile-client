@@ -137,7 +137,7 @@ AvatarService* AvatarService::instance()
 
 
 AvatarService::AvatarService(QObject *parent)
-    : QObject(parent), get_avatar_req_(NULL)
+    : QObject(parent), get_avatar_req_(NULL), autoupdate_db_(NULL)
 {
     queue_ = new PendingAvatarRequestQueue;
 

@@ -13,6 +13,7 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QTimer>
+#include <QHostInfo>
 
 #include <errno.h>
 #include <glib.h>
@@ -210,6 +211,10 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
+const char *const kPreconfigureUsername = "PreconfigureUsername";
+const char *const kPreconfigureUserToken = "PreconfigureUserToken";
+const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
+const char *const kPreconfigureComputerName = "PreconfigureComputerName";
 const char* const kHideConfigurationWizard = "HideConfigurationWizard";
 #if defined(Q_OS_WIN32)
 const char *const kSeafileConfigureFileName = "seafile.ini";
@@ -339,10 +344,23 @@ void SeafileApplet::onDaemonStarted()
 
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         do {
-#if defined(Q_OS_WIN32)
+            QString username = readPreconfigureExpandedString(kPreconfigureUsername);
+            QString token = readPreconfigureExpandedString(kPreconfigureUserToken);
+            QString url = readPreconfigureExpandedString(kPreconfigureServerAddr);
+            QString computer_name = readPreconfigureExpandedString(kPreconfigureComputerName, settingsManager()->getComputerName());
+            if (!computer_name.isEmpty())
+                settingsManager()->setComputerName(computer_name);
+            if (!username.isEmpty() && !token.isEmpty() && !url.isEmpty()) {
+                Account account(url, username, token);
+                if (accountManager()->saveAccount(account) < 0) {
+                    warningBox(tr("failed to add default account"));
+                    exit(1);
+                }
+                break;
+            }
+
             if (readPreconfigureEntry(kHideConfigurationWizard).toInt())
                 break;
-#endif
             LoginDialog login_dialog;
             login_dialog.exec();
         } while (0);

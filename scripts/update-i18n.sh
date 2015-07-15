@@ -28,11 +28,12 @@ function regenerate_source() {
         lupdate $SEAFILE_PROJECT $QUIET_FLAGS
         rm -f $SEAFILE_PROJECT
     fi
+    find fsplugin -name "*.mm" | xargs genstrings -o fsplugin/en.lproj
 }
 
 function git_diff() {
     set +e
-    git diff i18n/seafile_en.ts
+    git diff i18n/seafile_en.ts fsplugin/en.lproj
     set -e
 }
 

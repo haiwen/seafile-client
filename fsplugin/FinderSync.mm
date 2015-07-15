@@ -332,8 +332,14 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
                                                  @"Get Seafile Share Link")
                         action:@selector(shareLinkAction:)
                  keyEquivalent:@""];
+    NSMenuItem *internalLinkItem =
+        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Internal Link",
+                                                 @"Get Seafile Internal Link")
+                        action:@selector(internalLinkAction:)
+                 keyEquivalent:@""];
     NSImage *seafileImage = [NSImage imageNamed:@"seafile.icns"];
     [shareLinkItem setImage:seafileImage];
+    [internalLinkItem setImage:seafileImage];
 
     return menu;
 }
@@ -349,7 +355,22 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     std::string path = [[item path] UTF8String];
     dispatch_async(
         dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-          client_->doSharedLink(path.c_str());
+          client_->doSharedLink(path.c_str(), false);
+        });
+}
+
+- (IBAction)internalLinkAction:(id)sender {
+    NSArray *items =
+        [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return;
+    NSURL *item = items.firstObject;
+
+    // do it in another thread
+    std::string path = [[item path] UTF8String];
+    dispatch_async(
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+          client_->doSharedLink(path.c_str(), true);
         });
 }
 

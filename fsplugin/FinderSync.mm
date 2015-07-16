@@ -360,6 +360,13 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
     // do it in another thread
     std::string path = item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    NSNumber *isDirectory;
+    if ([item getResourceValue:&isDirectory
+                        forKey:NSURLIsDirectoryKey
+                         error:nil] &&
+        [isDirectory boolValue])
+        path += "/";
+
     dispatch_async(
         self.client_command_queue_, ^{
           client_->doSharedLink(path.c_str(), false);
@@ -375,6 +382,13 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
     // do it in another thread
     std::string path = item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    NSNumber *isDirectory;
+    if ([item getResourceValue:&isDirectory
+                        forKey:NSURLIsDirectoryKey
+                         error:nil] &&
+        [isDirectory boolValue])
+        path += "/";
+
     dispatch_async(
         self.client_command_queue_, ^{
           client_->doSharedLink(path.c_str(), true);

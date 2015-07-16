@@ -48,6 +48,17 @@ static inline PathStatus getPathStatusFromString(const QString &status) {
     return SYNC_STATUS_NONE;
 }
 
+inline static bool isContainsPrefix(const QString &path,
+                                    const QString &prefix) {
+    if (prefix.size() > path.size())
+        return false;
+    if (!path.startsWith(prefix))
+        return false;
+    if (prefix.size() < path.size() && path[prefix.size()] != '/')
+        return false;
+    return true;
+}
+
 static std::mutex update_mutex_;
 static std::vector<LocalRepo> watch_set_;
 static std::unique_ptr<GetSharedLinkRequest, QtLaterDeleter> get_shared_link_req_;
@@ -192,7 +203,7 @@ bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id
     {
         std::unique_lock<std::mutex> watch_set_lock(update_mutex_);
         for (const LocalRepo &repo : watch_set_)
-            if (path.startsWith(repo.worktree)) {
+            if (isContainsPrefix(path, repo.worktree)) {
                 *repo_id = repo.id;
                 worktree = repo.worktree;
                 break;
@@ -202,6 +213,8 @@ bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id
         return false;
 
     *path_in_repo = QDir(worktree).relativeFilePath(path);
+    if (path.endsWith("/"))
+        *path_in_repo += "/";
 
     // we have a empty path_in_repo representing the root of the directory,
     // and we are okay!

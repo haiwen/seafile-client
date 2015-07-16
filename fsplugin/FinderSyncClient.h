@@ -22,6 +22,8 @@ enum PathStatus : uint32_t {
     SYNC_STATUS_SYNCED,
     SYNC_STATUS_READONLY,
     SYNC_STATUS_PAUSED,
+    SYNC_STATUS_LOCKED,
+    SYNC_STATUS_LOCKED_BY_ME,
     MAX_SYNC_STATUS,
 };
 
@@ -60,10 +62,19 @@ struct LocalRepo {
 
 class FinderSyncClient {
   public:
+    enum CommandType : uint32_t {
+        GetWatchSet = 0,
+        DoShareLink = 1,
+        DoGetFileStatus = 2,
+        DoInternalLink = 3,
+        DoLockFile = 4,
+        DoUnlockFile = 5,
+    };
+
     FinderSyncClient(FinderSync *parent);
     ~FinderSyncClient();
     void getWatchSet();
-    void doSharedLink(const char *fileName, bool is_internal_link);
+    void doSendCommandWithPath(CommandType command, const char *fileName);
     void doGetFileStatus(const char *repo, const char *fileName);
 
   private:

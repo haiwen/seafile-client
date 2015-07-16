@@ -22,9 +22,11 @@ public:
     uint32_t getFileStatus(const char* repo_id, const char* path);
 private slots:
     void updateWatchSet();
+    void doLockFile(const QString &path, bool lock);
     void doShareLink(const QString &path);
     void doInternalLink(const QString &path);
     void onShareLinkGenerated(const QString& link);
+    void onLockFileSuccess();
 private:
     bool lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo);
     SeafileRpcClient *rpc_client_;

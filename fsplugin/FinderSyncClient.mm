@@ -9,7 +9,6 @@
 #import "FinderSyncClient.h"
 #include <cstdint>
 #include <servers/bootstrap.h>
-#include <mutex>
 #include "../src/utils/stl.h"
 
 #if !__has_feature(objc_arc)
@@ -21,7 +20,6 @@ static NSString *const kFinderSyncMachPort =
 
 static constexpr int kWatchDirMax = 100;
 static constexpr int kPathMaxSize = 1024;
-static std::mutex mach_msg_mutex_;
 static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000003;
 static volatile int32_t message_id_ =
     100; // we start from 100, the number below than 100 is reserved
@@ -160,7 +158,6 @@ void FinderSyncClient::getWatchSet() {
               __PRETTY_FUNCTION__);
         return;
     }
-    std::lock_guard<std::mutex> lock(mach_msg_mutex_);
     if (!connect())
         return;
     mach_msg_command_send_t msg;
@@ -254,7 +251,6 @@ void FinderSyncClient::doSharedLink(const char *fileName, bool is_internal_link)
               __PRETTY_FUNCTION__);
         return;
     }
-    std::lock_guard<std::mutex> lock(mach_msg_mutex_);
     if (!connect())
         return;
     mach_msg_command_send_t msg;
@@ -289,7 +285,6 @@ void FinderSyncClient::doGetFileStatus(const char *repo, const char *fileName) {
               __PRETTY_FUNCTION__);
         return;
     }
-    std::lock_guard<std::mutex> lock(mach_msg_mutex_);
     if (!connect())
         return;
     mach_msg_command_send_t msg;

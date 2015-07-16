@@ -21,8 +21,11 @@
 
 @property(readwrite, nonatomic, strong) NSTimer *update_watch_set_timer_;
 @property(readwrite, nonatomic, strong) NSTimer *update_file_status_timer_;
+@property(readwrite, nonatomic, strong) dispatch_queue_t client_command_queue_;
 @end
 
+static const char *const kClientCommandQueueName =
+    "com.seafile.seafile-client.findersync.ClientCommandQueue";
 static const NSArray *const kBadgetIdentifiers = @[
     // According to the document
     // https://developer.apple.com/library/mac/documentation/FinderSync/Reference/FIFinderSyncController_Class/#//apple_ref/occ/instm/FIFinderSyncController/setBadgeIdentifier:forURL:
@@ -220,6 +223,9 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
           [[NSBundle mainBundle] bundlePath], __TIME__, __DATE__);
 #endif
 
+    // Set up client queue
+    self.client_command_queue_ =
+        dispatch_queue_create(kClientCommandQueueName, DISPATCH_QUEUE_SERIAL);
     // Set up client
     client_ = new FinderSyncClient(self);
     self.update_watch_set_timer_ =
@@ -243,6 +249,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
 - (void)dealloc {
     delete client_;
+    self.client_command_queue_ = nil;
 }
 
 #pragma mark - Primary Finder Sync protocol methods
@@ -300,7 +307,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     file_status_.emplace(file_path, PathStatus::SYNC_STATUS_NONE);
     setBadgeIdentifierFor(file_path, PathStatus::SYNC_STATUS_NONE);
     dispatch_async(
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        self.client_command_queue_, ^{
           client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
         });
 }
@@ -352,9 +359,9 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     NSURL *item = items.firstObject;
 
     // do it in another thread
-    std::string path = [[item path] UTF8String];
+    std::string path = item.path.precomposedStringWithCanonicalMapping.UTF8String;
     dispatch_async(
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        self.client_command_queue_, ^{
           client_->doSharedLink(path.c_str(), false);
         });
 }
@@ -367,16 +374,16 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     NSURL *item = items.firstObject;
 
     // do it in another thread
-    std::string path = [[item path] UTF8String];
+    std::string path = item.path.precomposedStringWithCanonicalMapping.UTF8String;
     dispatch_async(
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        self.client_command_queue_, ^{
           client_->doSharedLink(path.c_str(), true);
         });
 }
 
 - (void)requestUpdateWatchSet {
     // do it in another thread
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+    dispatch_async(self.client_command_queue_,
                    ^{
                      client_->getWatchSet();
                    });
@@ -423,7 +430,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
             relative_path = "/";
         std::string repo_id = repo->repo_id;
         dispatch_async(
-            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            self.client_command_queue_, ^{
               client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
             });
     }

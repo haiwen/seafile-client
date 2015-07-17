@@ -23,27 +23,12 @@ ENDIF()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wsign-compare -Wno-long-long -Wno-unused-parameter -Woverloaded-virtual")
 
-## Find OSX SDK 10.10
-
-SET(XCRUN_COMMAND "xcrun" "--sdk" "macosx10.10" "--show-sdk-path")
-SET(SDK_PATH "" CACHE STRING "path of osx 10.10 sdk")
-EXECUTE_PROCESS(
-  COMMAND ${XCRUN_COMMAND}
-  RESULT_VARIABLE HAD_ERROR
-  OUTPUT_VARIABLE SDK_PATH
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-IF(HAS_ERROR)
-  MESSAGE(WARNING "unable to run xcrun, using default Xcode path")
-ENDIF()
-
 ## Find the dependencies
 
 FIND_LIBRARY(AppKit_LIBRARY AppKit)
 FIND_LIBRARY(FinderSync_LIBRARY FinderSync)
 FIND_LIBRARY(PlugInKit_LIBRARY PlugInKit
-  PATHS ${SDK_PATH}/System/Library/PrivateFrameworks/
-        /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/PrivateFrameworks/)
+  PATHS ${CMAKE_OSX_SYSROOT}/System/Library/PrivateFrameworks/)
 
 if (NOT PlugInKit_LIBRARY)
   MESSAGE(FATAL_ERROR "PlugInKit not found")
@@ -73,6 +58,7 @@ SET_TARGET_PROPERTIES(seafile-finder-sync PROPERTIES
   OUTPUT_NAME "Seafile FinderSync"
   MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
   XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET "10.10"
+  XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/../Frameworks @executable_path/../../../../Frameworks"
   XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC "YES"
   XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11"
   XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++"

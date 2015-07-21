@@ -20,6 +20,7 @@ getVerbsMap()
     if (!verbsMap) {
         verbsMap = new QHash<QString, QString>;
         verbsMap->insert("Added", QObject::tr("Added"));
+        verbsMap->insert("Added or modified", QObject::tr("Added or modified"));
         verbsMap->insert("Deleted", QObject::tr("Deleted"));
         verbsMap->insert("Removed", QObject::tr("Removed"));
         verbsMap->insert("Modified", QObject::tr("Modified"));

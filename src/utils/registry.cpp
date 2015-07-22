@@ -245,11 +245,18 @@ void RegElement::remove()
 int RegElement::getIntValue(HKEY root,
                             const QString& path,
                             const QString& name,
+                            bool *exists,
                             int default_val)
 {
     RegElement reg(root, path, name, "");
     if (!reg.exists()) {
+        if (exists) {
+            *exists = false;
+        }
         return default_val;
+    }
+    if (exists) {
+        *exists = true;
     }
     reg.read();
 
@@ -257,4 +264,17 @@ int RegElement::getIntValue(HKEY root,
         return reg.stringValue().toInt();
 
     return reg.dwordValue();
+}
+
+int RegElement::getPreconfigureIntValue(const QString& name)
+{
+    bool exists;
+    int ret = getIntValue(
+        HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name, &exists);
+    if (exists) {
+        return ret;
+    }
+
+    return RegElement::getIntValue(
+        HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name, NULL, 0);
 }

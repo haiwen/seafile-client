@@ -146,7 +146,7 @@ void do_stop()
 #if defined(Q_OS_WIN32)
 int hasPreconfigureKeepConfigWhenUninstall()
 {
-    return RegElement::getIntValue(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", kPreconfigureKeepConfigWhenUninstall);
+    return RegElement::getPreconfigureIntValue(kPreconfigureKeepConfigWhenUninstall);
 }
 #endif
 
@@ -155,13 +155,14 @@ void do_remove_user_data()
     do_stop();
     set_seafile_auto_start(false);
     Configurator::removeVirtualDrive();
-    SettingsManager::removeAllSettings();
 
 #if defined(Q_OS_WIN32)
     if (hasPreconfigureKeepConfigWhenUninstall()) {
         return;
     }
 #endif
+
+    SettingsManager::removeAllSettings();
 
     UninstallHelperDialog *dialog = new UninstallHelperDialog;
 

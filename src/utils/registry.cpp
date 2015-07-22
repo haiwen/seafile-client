@@ -276,5 +276,38 @@ int RegElement::getPreconfigureIntValue(const QString& name)
     }
 
     return RegElement::getIntValue(
-        HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name, NULL, 0);
+        HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name);
+}
+
+QString RegElement::getStringValue(HKEY root,
+                                   const QString& path,
+                                   const QString& name,
+                                   bool *exists,
+                                   QString default_val)
+{
+    RegElement reg(root, path, name, "");
+    if (!reg.exists()) {
+        if (exists) {
+            *exists = false;
+        }
+        return default_val;
+    }
+    if (exists) {
+        *exists = true;
+    }
+    reg.read();
+    return reg.stringValue();
+}
+
+QString RegElement::getPreconfigureStringValue(const QString& name)
+{
+    bool exists;
+    QString ret = getStringValue(
+        HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name, &exists);
+    if (exists) {
+        return ret;
+    }
+
+    return RegElement::getStringValue(
+        HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name);
 }

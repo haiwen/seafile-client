@@ -241,3 +241,20 @@ void RegElement::remove()
     result = RegDeleteValueW (parent_key, name_.toStdWString().c_str());
     RegCloseKey(parent_key);
 }
+
+int RegElement::getIntValue(HKEY root,
+                            const QString& path,
+                            const QString& name,
+                            int default_val)
+{
+    RegElement reg(root, path, name, "");
+    if (!reg.exists()) {
+        return default_val;
+    }
+    reg.read();
+
+    if (!reg.stringValue().isEmpty())
+        return reg.stringValue().toInt();
+
+    return reg.dwordValue();
+}

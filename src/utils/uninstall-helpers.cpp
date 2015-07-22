@@ -25,11 +25,16 @@ extern "C" {
 #include "settings-mgr.h"
 #include "ui/uninstall-helper-dialog.h"
 
+#if defined(Q_OS_WIN32)
+#include "utils/registry.h"
+#endif
+
 #include "uninstall-helpers.h"
 
 namespace {
 
 const char *kAppletCommandsMQ = "applet.commands";
+const char *kPreconfigureKeepConfigWhenUninstall = "PreconfigureKeepConfigWhenUninstall";
 
 } // namespace
 
@@ -138,12 +143,25 @@ void do_stop()
     g_object_unref (sync_client);
 }
 
+#if defined(Q_OS_WIN32)
+int hasPreconfigureKeepConfigWhenUninstall()
+{
+    return RegElement::getIntValue(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", kPreconfigureKeepConfigWhenUninstall);
+}
+#endif
+
 void do_remove_user_data()
 {
     do_stop();
     set_seafile_auto_start(false);
     Configurator::removeVirtualDrive();
     SettingsManager::removeAllSettings();
+
+#if defined(Q_OS_WIN32)
+    if (hasPreconfigureKeepConfigWhenUninstall()) {
+        return;
+    }
+#endif
 
     UninstallHelperDialog *dialog = new UninstallHelperDialog;
 

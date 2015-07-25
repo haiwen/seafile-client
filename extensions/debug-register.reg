@@ -82,3 +82,31 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconPaused"]
 @="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE610}"
+
+# Icon Overlay 5 (locked by me)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE611}"="SeafileIconLockedByMe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE611}]
+@="SeafileIconLockedByMe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE611}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconLockedByMe"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE611}"
+
+# Icon Overlay 6 (locked by others)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE612}"="SeafileIconLockedByOthers"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE612}]
+@="SeafileIconLockedByOthers"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE612}\InProcServer32]
+@="F:\\dev\\seafile_shell_ext64.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\".SeafileIconLockedByOthers"]
+@="{D14BEDD3-4E05-4F2F-B0DE-C0381E6AE612}"

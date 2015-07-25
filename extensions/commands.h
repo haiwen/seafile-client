@@ -16,6 +16,8 @@ public:
         Normal,
         Syncing,
         Error,
+        LockedByMe,
+        LockedByOthers,
         ReadOnly,
         N_Status,
     };
@@ -24,17 +26,20 @@ public:
     std::string repo_name;
     std::string worktree;
     Status status;
+    bool support_file_lock;
 
     RepoInfo() :status(NoStatus) {}
 
     RepoInfo(const std::string& repo_id,
              const std::string repo_name,
              const std::string& worktree,
-             Status status)
+             Status status,
+             bool support_file_lock)
         : repo_id(repo_id),
           repo_name(repo_name),
           worktree(worktree),
-          status(status) {}
+          status(status),
+          support_file_lock(support_file_lock) {}
 
     bool isValid() {
         return !repo_id.empty();
@@ -135,6 +140,28 @@ private:
     std::string repo_id_;
     std::string path_in_repo_;
     bool isdir_;
+};
+
+class LockFileCommand : public AppletCommand<void> {
+public:
+    LockFileCommand(const std::string& path);
+
+protected:
+    std::string serialize();
+
+private:
+    std::string path_;
+};
+
+class UnlockFileCommand : public AppletCommand<void> {
+public:
+    UnlockFileCommand(const std::string& path);
+
+protected:
+    std::string serialize();
+
+private:
+    std::string path_;
 };
 
 

@@ -157,7 +157,7 @@ bool AppletConnection::writeRequest(const std::string& cmd)
 bool AppletConnection::readResponse(std::string *out)
 {
     uint32_t len = 0;
-    if (!utils::pipeReadN(pipe_, &len, sizeof(len)) || len == 0) {
+    if (!utils::pipeReadN(pipe_, &len, sizeof(len))) {
         onPipeError();
         return false;
     }
@@ -165,6 +165,10 @@ bool AppletConnection::readResponse(std::string *out)
     // avoid integer overflow
     if (len == UINT32_MAX) {
         return false;
+    }
+
+    if (len == 0) {
+        return true;
     }
 
     std::unique_ptr<char[]> buf(new char[len + 1]);

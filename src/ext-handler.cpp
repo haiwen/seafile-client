@@ -20,6 +20,7 @@
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
 #include "rpc/rpc-client.h"
+#include "api/api-error.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "settings-mgr.h"
@@ -29,9 +30,7 @@ namespace {
 
 const char *kSeafExtPipeName = "\\\\.\\pipe\\seafile_ext_pipe";
 const int kPipeBufSize = 1024;
-const int kRefreshShellInterval = 3000;
 
-const quint64 kShellIconForceRefreshMSecs = 5000;
 const quint64 kReposInfoCacheMSecs = 2000;
 
 bool
@@ -145,6 +144,9 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 
     connect(listener_thread_, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
             this, SLOT(generateShareLink(const QString&, const QString&, bool)));
+
+    connect(listener_thread_, SIGNAL(lockFile(const QString&, const QString&, bool)),
+            this, SLOT(lockFile(const QString&, const QString&, bool)));
 }
 
 void SeafileExtensionHandler::start()
@@ -182,6 +184,27 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
     req->send();
 }
 
+void SeafileExtensionHandler::lockFile(const QString& repo_id,
+                                       const QString& path_in_repo,
+                                       bool lock)
+{
+    // qDebug("path_in_repo: %s", path_in_repo.toUtf8().data());
+    const Account account = seafApplet->accountManager()->getAccountByRepo(repo_id);
+    if (!account.isValid()) {
+        return;
+    }
+
+    LockFileRequest *req = new LockFileRequest(
+        account, repo_id, path_in_repo, lock);
+
+    connect(req, SIGNAL(success()),
+            this, SLOT(onLockFileSuccess()));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onLockFileFailed(const ApiError&)));
+
+    req->send();
+}
+
 void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 {
     SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
@@ -189,6 +212,25 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
+}
+
+void SeafileExtensionHandler::onLockFileSuccess()
+{
+    LockFileRequest *req = qobject_cast<LockFileRequest *>(sender());
+    LocalRepo repo;
+    seafApplet->rpcClient()->getLocalRepo(req->repoId(), &repo);
+    if (repo.isValid()) {
+        seafApplet->rpcClient()->markFileLockState(req->repoId(), req->path(), req->lock());
+        QString path = QDir::toNativeSeparators(QDir(repo.worktree).absoluteFilePath(req->path().mid(1)));
+        SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH, path.toUtf8().data(), NULL);
+    }
+}
+
+void SeafileExtensionHandler::onLockFileFailed(const ApiError& error)
+{
+    LockFileRequest *req = qobject_cast<LockFileRequest *>(sender());
+    QString str = req->lock() ? tr("Failed to lock file") : tr("Failed to unlock file");
+    seafApplet->warningBox(QString("%1: %2").arg(str, error.toString()));
 }
 
 
@@ -238,6 +280,8 @@ void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
 
     connect(t, SIGNAL(generateShareLink(const QString&, const QString&, bool)),
             this, SIGNAL(generateShareLink(const QString&, const QString&, bool)));
+    connect(t, SIGNAL(lockFile(const QString&, const QString&, bool)),
+            this, SIGNAL(lockFile(const QString&, const QString&, bool)));
     t->start();
 }
 
@@ -264,6 +308,10 @@ void ExtCommandsHandler::run()
             handleGenShareLink(args);
         } else if (cmd == "get-file-status") {
             resp = handleGetFileStatus(args);
+        } else if (cmd == "lock-file") {
+            handleLockFile(args, true);
+        } else if (cmd == "unlock-file") {
+            handleLockFile(args, false);
         } else {
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
@@ -275,8 +323,8 @@ void ExtCommandsHandler::run()
         }
     }
 
-    qWarning ("An extension client is disconnected: GLE=%lu\n",
-              GetLastError());
+    qDebug ("An extension client is disconnected: GLE=%lu\n",
+            GetLastError());
     DisconnectNamedPipe(pipe_);
     CloseHandle(pipe_);
 }
@@ -354,7 +402,8 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
     QStringList infos;
     foreach (const LocalRepo& repo, listLocalRepos(ts)) {
         QStringList fields;
-        fields << repo.id << repo.name << normalizedPath(repo.worktree) << repoStatus(repo);
+        QString file_lock = repo.account.isAtLeastProVersion(4, 3, 0) ? "file-lock-supported" : "file-lock-unsupported";
+        fields << repo.id << repo.name << normalizedPath(repo.worktree) << repoStatus(repo) << file_lock;
         infos << fields.join("\t");
     }
 
@@ -384,6 +433,22 @@ QString ExtCommandsHandler::handleGetFileStatus(const QStringList& args)
     return "";
 }
 
+void ExtCommandsHandler::handleLockFile(const QStringList& args, bool lock)
+{
+    if (args.size() != 1) {
+        return;
+    }
+    QString path = normalizedPath(args[0]);
+    foreach (const LocalRepo& repo, listLocalRepos()) {
+        QString wt = normalizedPath(repo.worktree);
+        if (path.length() > wt.length() && path.startsWith(wt) and path.at(wt.length()) == '/') {
+            QString path_in_repo = path.mid(wt.size());
+            emit lockFile(repo.id, path_in_repo, lock);
+            break;
+        }
+    }
+}
+
 SINGLETON_IMPL(ReposInfoCache)
 
 ReposInfoCache::ReposInfoCache(QObject * parent)
@@ -402,6 +467,14 @@ QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
 {
     QMutexLocker lock(&rpc_mutex_);
 
+    // There are two levels of repos lists cache in the shell extension:
+    // 1. The extension would cache the repos list in explorer side so it
+    //    doesn't need to queries the applet repeatly in situations like
+    //    entering a folder with lots of files
+    // 2. The applet would also cache the repos list (in ReposInfoCache), this
+    //    is to reduce the overhead when different extension connections askes
+    //    for the repos list simultaneously
+
     quint64 now = QDateTime::currentMSecsSinceEpoch();
 
     if (cache_ts_ != 0 && cache_ts_ > ts && now - cache_ts_ < kReposInfoCacheMSecs) {
@@ -416,6 +489,7 @@ QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
     for (size_t i = 0; i < repos.size(); i++) {
         LocalRepo& repo = repos[i];
         rpc_->getSyncStatus(repo);
+        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id);
     }
 
     cached_info_ = QVector<LocalRepo>::fromStdVector(repos).toList();

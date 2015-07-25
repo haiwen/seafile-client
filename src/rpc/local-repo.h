@@ -5,6 +5,8 @@
 #include <QIcon>
 #include <QMetaType>
 
+#include "account.h"
+
 struct _GObject;
 
 /**
@@ -31,6 +33,7 @@ public:
     bool worktree_invalid;
     int version;
     QString relay_id;
+    Account account;
 
     qint64 last_sync_time;
     SyncState sync_state;

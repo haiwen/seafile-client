@@ -15,6 +15,7 @@
 
 class SeafileRpcClient;
 class ExtConnectionListenerThread;
+class ApiError;
 
 /**
  * Handles commands from seafile shell extension
@@ -29,9 +30,14 @@ public:
 
 private slots:
     void onShareLinkGenerated(const QString& link);
+    void onLockFileSuccess();
+    void onLockFileFailed(const ApiError& error);
     void generateShareLink(const QString& repo_id,
                            const QString& path_in_repo,
                            bool is_file);
+    void lockFile(const QString& repo_id,
+                  const QString& path_in_repo,
+                  bool lock);
 
 private:
     ExtConnectionListenerThread *listener_thread_;
@@ -55,6 +61,9 @@ signals:
     void generateShareLink(const QString& repo_id,
                            const QString& path_in_repo,
                            bool is_file);
+    void lockFile(const QString& repo_id,
+                  const QString& path_in_repo,
+                  bool lock);
 
 private:
     void servePipeInNewThread(HANDLE pipe);
@@ -75,6 +84,9 @@ signals:
     void generateShareLink(const QString& repo_id,
                            const QString& path_in_repo,
                            bool is_file);
+    void lockFile(const QString& repo_id,
+                  const QString& path_in_repo,
+                  bool lock);
 
 private:
     HANDLE pipe_;
@@ -86,6 +98,7 @@ private:
     void handleGenShareLink(const QStringList& args);
     QString handleListRepos(const QStringList& args);
     QString handleGetFileStatus(const QStringList& args);
+    void handleLockFile(const QStringList& args, bool lock);
 };
 
 class ReposInfoCache : public QObject {

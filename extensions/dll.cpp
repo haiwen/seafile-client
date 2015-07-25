@@ -77,6 +77,12 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID *ppvOut)
     } else if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_PAUSED)) {
         // seaf_ext_log ("DllGetClassObject called for ICON_PAUSED!");
         status = seafile::RepoInfo::Paused;
+    } else if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_LOCKED_BY_ME)) {
+        // seaf_ext_log ("DllGetClassObject called for ICON_LOCKED_BY_ME!");
+        status = seafile::RepoInfo::LockedByMe;
+    } else if (IsEqualIID(rclsid, CLSID_SEAFILE_ICON_LOCKED_BY_OTHERS)) {
+        // seaf_ext_log ("DllGetClassObject called for ICON_LOCKED_BY_OTHERS!");
+        status = seafile::RepoInfo::LockedByOthers;
     }
 
     if (status != seafile::RepoInfo::NoStatus) {

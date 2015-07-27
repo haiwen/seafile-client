@@ -19,6 +19,9 @@ StarredFile StarredFile::fromJSON(const json_t *json, json_error_t */* error */)
 {
     StarredFile file;
     file.repo_id = getStringFromJson(json, "repo_id");
+    if (file.repo_id.isEmpty()) {
+        file.repo_id = getStringFromJson(json, "repo");
+    }
     file.repo_name = getStringFromJson(json, "repo_name");
     file.path = getStringFromJson(json, "path");
 

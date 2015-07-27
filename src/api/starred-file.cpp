@@ -18,7 +18,7 @@ QString getStringFromJson(const json_t *json, const char* key)
 StarredFile StarredFile::fromJSON(const json_t *json, json_error_t */* error */)
 {
     StarredFile file;
-    file.repo_id = getStringFromJson(json, "repo");
+    file.repo_id = getStringFromJson(json, "repo_id");
     file.repo_name = getStringFromJson(json, "repo_name");
     file.path = getStringFromJson(json, "path");
 

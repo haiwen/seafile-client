@@ -3,6 +3,9 @@
 #include "shell-ext.h"
 #include "log.h"
 #include "commands.h"
+#include "i18n.h"
+
+#define SEAFILE_TR(x) seafile::getString((x)).c_str()
 
 namespace utils = seafile::utils;
 
@@ -306,7 +309,7 @@ void ShellExt::insertSubMenuItem(const std::string& text, MenuOp op)
 
 void ShellExt::buildSubMenu(const seafile::RepoInfo& repo, const std::string& path_in_repo)
 {
-    insertSubMenuItem("get share link", GetShareLink);
+    insertSubMenuItem(SEAFILE_TR("get share link"), GetShareLink);
 
     if (!repo.support_file_lock) {
         return;
@@ -321,8 +324,8 @@ void ShellExt::buildSubMenu(const seafile::RepoInfo& repo, const std::string& pa
         repo.repo_id, path_in_repo, false);
 
     if (status == seafile::RepoInfo::LockedByMe) {
-        insertSubMenuItem("unlock this file", UnlockFile);
+        insertSubMenuItem(SEAFILE_TR("unlock this file"), UnlockFile);
     } else {
-        insertSubMenuItem("lock this file", LockFile);
+        insertSubMenuItem(SEAFILE_TR("lock this file"), LockFile);
     }
 }

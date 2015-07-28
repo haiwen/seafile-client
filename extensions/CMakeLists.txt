@@ -34,6 +34,7 @@ SET(ext_sources
   applet-connection.cpp
   commands.cpp
   ext-utils.cpp
+  i18n.cpp
   seafile_shell_ext.def
   seafile_shell_ext.rc
 )

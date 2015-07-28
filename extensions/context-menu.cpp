@@ -4,8 +4,6 @@
 #include "log.h"
 #include "commands.h"
 
-#include <string>
-
 namespace utils = seafile::utils;
 
 namespace {
@@ -49,6 +47,8 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     HRESULT result = S_OK;
     wchar_t path_dir_w[4096];
     std::unique_ptr<wchar_t[]> path_w;
+
+    active_menu_items_.clear();
 
     /* 'folder' param is not null only when clicking at the foler background;
        When right click on a file, it's NULL */
@@ -101,10 +101,10 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
 }
 
 STDMETHODIMP ShellExt::QueryContextMenu(HMENU hMenu,
-                                         UINT indexMenu,
-                                         UINT idCmdFirst,
-                                         UINT idCmdLast,
-                                         UINT uFlags)
+                                        UINT indexMenu,
+                                        UINT idCmdFirst,
+                                        UINT idCmdLast,
+                                        UINT uFlags)
 {
     return QueryContextMenu_Wrap(hMenu, indexMenu, idCmdFirst, idCmdLast, uFlags);
 }
@@ -128,7 +128,8 @@ STDMETHODIMP ShellExt::QueryContextMenu_Wrap(HMENU menu,
     }
 
     std::string path_in_repo;
-    if (!pathInRepo(path_, &path_in_repo) || path_in_repo.size() <= 1) {
+    seafile::RepoInfo repo;
+    if (!pathInRepo(path_, &path_in_repo, &repo) || path_in_repo.size() <= 1) {
         return S_OK;
     }
 
@@ -139,7 +140,7 @@ STDMETHODIMP ShellExt::QueryContextMenu_Wrap(HMENU menu,
     last_ = last_command;
     index_ = 0;
 
-    buildSubMenu();
+    buildSubMenu(repo, path_in_repo);
 
     if (!insertMainMenu()) {
         return S_FALSE;
@@ -179,8 +180,25 @@ STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO info)
     if (id == 0)
         return S_OK;
 
-    seafile::GetShareLinkCommand cmd(path_);
-    cmd.send();
+    id--;
+    if (id > active_menu_items_.size() - 1) {
+        seaf_ext_log ("invalid menu id %u", id);
+        return S_FALSE;
+    }
+
+    MenuOp op = active_menu_items_[id];
+
+    if (op == GetShareLink) {
+        seafile::GetShareLinkCommand cmd(path_);
+        cmd.send();
+    } else if (op == LockFile) {
+        seafile::LockFileCommand cmd(path_);
+        cmd.send();
+    } else if (op == UnlockFile) {
+        seafile::UnlockFileCommand cmd(path_);
+        cmd.send();
+    }
+
     return S_OK;
 }
 
@@ -258,22 +276,53 @@ bool ShellExt::insertMainMenu()
     return TRUE;
 }
 
-void ShellExt::buildSubMenu()
+MENUITEMINFO
+ShellExt::createMenuItem(const std::string& text)
 {
     MENUITEMINFO minfo;
     memset(&minfo, 0, sizeof(minfo));
     minfo.cbSize = sizeof(MENUITEMINFO);
     minfo.fMask = MIIM_FTYPE | MIIM_BITMAP | MIIM_STRING | MIIM_ID;
     minfo.fType = MFT_STRING;
-    std::string name("get share link");
-    minfo.dwTypeData = (char *)name.c_str();
-    minfo.cch = name.size();
+    minfo.dwTypeData = (char *)text.c_str();
+    minfo.cch = text.size();
     minfo.hbmpItem = HBMMENU_CALLBACK;
-    /* menu.first is used by main menu item "seafile"   */
     minfo.wID = first_ + 1 + next_active_item_++;
 
+    return minfo;
+}
+
+void ShellExt::insertSubMenuItem(const std::string& text, MenuOp op)
+{
+    MENUITEMINFO minfo;
+    minfo = createMenuItem(text);
     InsertMenuItem (sub_menu_, /* menu */
                     index_++,  /* position */
                     TRUE,      /* by position */
                     &minfo);
+    active_menu_items_.push_back(op);
+}
+
+
+void ShellExt::buildSubMenu(const seafile::RepoInfo& repo, const std::string& path_in_repo)
+{
+    insertSubMenuItem("get share link", GetShareLink);
+
+    if (!repo.support_file_lock) {
+        return;
+    }
+
+    std::unique_ptr<wchar_t[]> path_w(utils::utf8ToWString(path_));
+    if (GetFileAttributesW(path_w.get()) & FILE_ATTRIBUTE_DIRECTORY) {
+        return;
+    }
+
+    seafile::RepoInfo::Status status = getRepoFileStatus(
+        repo.repo_id, path_in_repo, false);
+
+    if (status == seafile::RepoInfo::LockedByMe) {
+        insertSubMenuItem("unlock this file", UnlockFile);
+    } else {
+        insertSubMenuItem("lock this file", LockFile);
+    }
 }

@@ -24,6 +24,10 @@ std::string toString(RepoInfo::Status st) {
         return "error";
     case RepoInfo::ReadOnly:
         return "readonly";
+    case RepoInfo::LockedByMe:
+        return "locked by me";
+    case RepoInfo::LockedByOthers:
+        return "locked by someone else";
     case RepoInfo::N_Status:
         return "";
     }
@@ -64,15 +68,18 @@ bool ListReposCommand::parseResponse(const std::string& raw_resp,
     for (size_t i = 0; i < lines.size(); i++) {
         std::string line = lines[i];
         std::vector<std::string> parts = utils::split(line, '\t');
-        if (parts.size() != 4) {
+        if (parts.size() != 5) {
             continue;
         }
         std::string repo_id, repo_name, worktree, status;
         RepoInfo::Status st;
+        bool support_file_lock;
+
         repo_id = parts[0];
         repo_name = parts[1];
         worktree = utils::normalizedPath(parts[2]);
         status = parts[3];
+        support_file_lock = parts[4] == "file-lock-supported";
         if (status == "paused") {
             st = RepoInfo::Paused;
         } else if (status == "syncing") {
@@ -87,7 +94,7 @@ bool ListReposCommand::parseResponse(const std::string& raw_resp,
             continue;
         }
         // seaf_ext_log ("status for %s is \"%s\"", repo_name.c_str(), status.c_str());
-        infos->push_back(RepoInfo(repo_id, repo_name, worktree, st));
+        infos->push_back(RepoInfo(repo_id, repo_name, worktree, st, support_file_lock));
     }
 
     reposInfoTimestamp = utils::currentMSecsSinceEpoch();
@@ -128,6 +135,10 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
         *status = RepoInfo::Paused;
     } else if (raw_resp == "readonly") {
         *status = RepoInfo::ReadOnly;
+    } else if (raw_resp == "locked") {
+        *status = RepoInfo::LockedByOthers;
+    } else if (raw_resp == "locked_by_me") {
+        *status = RepoInfo::LockedByMe;
     } else if (raw_resp == "ignored") {
         *status = RepoInfo::NoStatus;
     } else {
@@ -139,6 +150,28 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
     }
 
     return true;
+}
+
+LockFileCommand::LockFileCommand(const std::string& path)
+    : AppletCommand<void>("lock-file"),
+    path_(path)
+{
+}
+
+std::string LockFileCommand::serialize()
+{
+    return path_;
+}
+
+UnlockFileCommand::UnlockFileCommand(const std::string& path)
+    : AppletCommand<void>("unlock-file"),
+    path_(path)
+{
+}
+
+std::string UnlockFileCommand::serialize()
+{
+    return path_;
 }
 
 } // namespace seafile

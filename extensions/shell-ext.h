@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include "commands.h"
 #include "ext-utils.h"
 
@@ -64,8 +65,17 @@ public:
     STDMETHODIMP    Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID);
 
 private:
-    void buildSubMenu();
+    enum MenuOp {
+        GetShareLink,
+        LockFile,
+        UnlockFile,
+    };
+
+    void buildSubMenu(const seafile::RepoInfo& repo,
+                      const std::string& path_in_repo);
+    MENUITEMINFO createMenuItem(const std::string& text);
     bool insertMainMenu();
+    void insertSubMenuItem(const std::string& text, MenuOp op);
     void tweakMenu(HMENU menu);
 
     bool getReposList(seafile::RepoInfoList *wts);
@@ -75,9 +85,12 @@ private:
     seafile::RepoInfo::Status getRepoFileStatus(const std::string& repo_id,
                                                 const std::string& path_in_repo,
                                                 bool isdir);
-
     /* the file/dir current clicked on */
     std::string path_;
+
+    static std::unique_ptr<seafile::RepoInfoList> repos_cache_;
+    static uint64_t cache_ts_;
+    seafile::utils::Mutex repos_cache_mutex_;
 
     /* The main menu */
     HMENU main_menu_;
@@ -87,21 +100,8 @@ private:
     UINT first_;
     UINT last_;
     UINT next_active_item_;
-    // struct menu_item *active_menu;
-    // bool add_sep;
 
-    // unsigned int count;
-    // unsigned int selection;
-
-    /* non-empety if in a repo dir */
-    std::string repo_id;
-    /* repo top wt, non-empty if in a repo dir */
-    std::string repo_wt;
-
-    static std::unique_ptr<seafile::RepoInfoList> repos_cache_;
-    static uint64_t cache_ts_;
-
-    seafile::utils::Mutex repos_cache_mutex_;
+    std::vector<MenuOp> active_menu_items_;
 };
 
 #endif // SEAFILE_EXT_SHELL_EXT_H

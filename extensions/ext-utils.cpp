@@ -453,6 +453,26 @@ std::string wStringToUtf8(const wchar_t *src)
     return dst;
 }
 
+wchar_t *utf8ToWString(const std::string& src)
+{
+    wchar_t dst[4096];
+    int len;
+
+    len = MultiByteToWideChar
+        (CP_UTF8,                        /* multibyte code page */
+         0,                              /* flags */
+         src.c_str(),                    /* src */
+         -1,                             /* src len, -1 for all includes \0 */
+         dst,                            /* dst */
+         sizeof(dst) / sizeof(wchar_t)); /* dst buf len */
+
+    if (len <= 0) {
+        return NULL;
+    }
+
+    return wcsdup(dst);
+}
+
 bool isShellExtEnabled()
 {
     HKEY root = HKEY_CURRENT_USER;

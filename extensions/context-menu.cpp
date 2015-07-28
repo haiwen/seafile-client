@@ -325,7 +325,7 @@ void ShellExt::buildSubMenu(const seafile::RepoInfo& repo, const std::string& pa
 
     if (status == seafile::RepoInfo::LockedByMe) {
         insertSubMenuItem(SEAFILE_TR("unlock this file"), UnlockFile);
-    } else {
+    } else if (status != seafile::RepoInfo::LockedByOthers) {
         insertSubMenuItem(SEAFILE_TR("lock this file"), LockFile);
     }
 }

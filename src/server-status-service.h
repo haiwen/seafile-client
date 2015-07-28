@@ -15,7 +15,7 @@ class ApiError;
 
 class ServerStatus {
 public:
-    ServerStatus() {}
+    ServerStatus() : connected(false) {}
     ServerStatus(const QUrl& url, bool connected):
         url(url),
         connected(connected) {}

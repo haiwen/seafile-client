@@ -75,6 +75,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
       repo_(repo),
       account_(account),
       has_manual_merge_mode_(seafApplet->settingsManager()->isEnableSyncingWithExistingFolder()),
+      sync_with_existing_(false),
       merge_without_question_(false)
 {
     manual_merge_mode_ = false;

@@ -424,14 +424,14 @@ bool RepoFilterProxyModel::filterAcceptsRow(int source_row,
     QModelIndex index = tree_model->index(source_row, 0, source_parent);
     QStandardItem *item = tree_model->itemFromIndex(index);
     if (item->type() == REPO_CATEGORY_TYPE) {
-        RepoCategoryItem *category = (RepoCategoryItem *)item;
+        //RepoCategoryItem *category = (RepoCategoryItem *)item;
         // We don't filter repo categories, only filter repos by name.
         return true;
     } else if (item->type() == REPO_ITEM_TYPE) {
         // Use default filtering (filter by item DisplayRole, i.e. repo name)
         bool match = QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
         if (match) {
-            RepoCategoryItem *category = (RepoCategoryItem *)(item->parent());
+        //    RepoCategoryItem *category = (RepoCategoryItem *)(item->parent());
         }
         return match;
     }

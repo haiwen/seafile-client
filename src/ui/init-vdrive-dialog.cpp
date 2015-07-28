@@ -33,6 +33,9 @@ const int kCheckDownloadInterval = 2000;
 
 InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *parent)
     : QDialog(parent),
+      get_default_repo_req_(NULL),
+      create_default_repo_req_(NULL),
+      download_default_repo_req_(NULL),
       account_(account)
 {
     setupUi(this);
@@ -42,9 +45,6 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     setStatusIcon(":/images/download-48.png");
-
-    create_default_repo_req_ = NULL;
-    download_default_repo_req_ = NULL;
 
     check_download_timer_ = NULL;
     connect(mYesBtn, SIGNAL(clicked()), this, SLOT(start()));

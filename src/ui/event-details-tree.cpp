@@ -15,7 +15,7 @@
 #include "event-details-tree.h"
 namespace {
 const int kMarginLeft = 10;
-const int kMarginRight = 10;
+//const int kMarginRight = 10;
 const int kPadding = 5;
 const int kFileIconHeight = 12;
 const int kFileItemHeight = 30;
@@ -24,8 +24,6 @@ const int kFileItemWidth = 300;
 const int kFileNameWidth = 260;
 
 const int kFileNameFontSize = 14;
-const char *kFileNameColor = "#3F3F3F";
-const char *kFileNameColorHighlighted = "#544D49";
 
 const char *kFileItemBackgroundColor = "white";
 const char *kFileItemBackgroundColorHighlighted = "#F9E0C7";
@@ -40,12 +38,9 @@ void EventDetailsFileItemDelegate::paint(QPainter *painter,
                                          const QStyleOptionViewItem &option,
                                          const QModelIndex &index) const {
     QBrush backBrush;
-    bool selected = false;
 
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = QColor(kFileItemBackgroundColorHighlighted);
-        selected = true;
-
     } else {
         backBrush = QColor(kFileItemBackgroundColor);
     }
@@ -136,6 +131,8 @@ QString EventDetailsFileItem::etype_desc() const
         return QObject::tr("Added");
       case DIR_DELETED:
         return QObject::tr("Deleted");
+      default:
+        return "";
     };
 }
 
@@ -154,6 +151,8 @@ QIcon EventDetailsFileItem::etype_icon() const
         return awesome->icon(icon_plus, QColor("#6CC644"));
       case DIR_DELETED:
         return awesome->icon(icon_minus, QColor("#BD2C00"));
+      default:
+        return QIcon();
     };
 }
 
@@ -172,6 +171,8 @@ const char* EventDetailsFileItem::etype_color() const
         return "#6CC644";
       case DIR_DELETED:
         return "#BD2C00";
+      default:
+        return "#000000";
     };
 }
 
@@ -202,7 +203,8 @@ QVariant EventDetailsFileItem::data(int role) const
 
 EventDetailsListView::EventDetailsListView(const SeafEvent& event, QWidget *parent)
     : QListView(parent),
-      event_(event)
+      event_(event),
+      item_in_action_(NULL)
 {
 #if defined(Q_OS_MAC)
     this->setAttribute(Qt::WA_MacShowFocusRect, 0);

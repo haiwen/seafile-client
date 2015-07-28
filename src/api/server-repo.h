@@ -13,7 +13,9 @@
  */
 class ServerRepo {
 public:
-    ServerRepo() : encrypted(false), readonly(false), _virtual(false), group_id (0) {};
+    ServerRepo()
+        : mtime(0), size(0), encrypted(false), readonly(false),
+          _virtual(false), group_id(0){};
 
     QString id;
     QString name;

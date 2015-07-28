@@ -223,9 +223,9 @@ int getHideConfigurationWizard()
 
     return reg.dwordValue();
 }
+const int kIntervalBeforeShowInitVirtualDialog = 3000;
 #endif
 
-const int kIntervalBeforeShowInitVirtualDialog = 3000;
 const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";

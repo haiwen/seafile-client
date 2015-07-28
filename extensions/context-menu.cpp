@@ -82,6 +82,8 @@ STDMETHODIMP ShellExt::Initialize_Wrap(LPCITEMIDLIST folder,
     count = DragQueryFileW(drop, 0xFFFFFFFF, NULL, 0);
     if (count == 0) {
         result = E_INVALIDARG;
+    } else if (count > 1) {
+        result = S_FALSE;
     } else {
         size = DragQueryFileW(drop, 0, NULL, 0);
         if (!size) {

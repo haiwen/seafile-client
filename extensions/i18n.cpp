@@ -57,9 +57,9 @@ void I18NHelper::initChineseDict()
 
 void I18NHelper::initGermanDict()
 {
-    lang_dict_["get share link"] = "Link zu dieser Datei freigeben und";
-    lang_dict_["lock this file"] = "Diese Datei sperren";
-    lang_dict_["unlock this file"] = "diese Datei zu entsperren";
+    lang_dict_["get share link"] = "Freigabelink erstellen";
+    lang_dict_["lock this file"] = "Datei sperren";
+    lang_dict_["unlock this file"] = "Datei entsperren";
 }
 
 I18NHelper::I18NHelper()

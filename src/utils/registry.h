@@ -44,8 +44,10 @@ public:
 public:
     static int removeRegKey(HKEY root, const QString& path, const QString& subkey);
     static int getIntValue(HKEY root, const QString& path, const QString& name, bool *exists=NULL, int default_val=0);
+    static QString getStringValue(HKEY root, const QString& path, const QString& name, bool *exists=NULL, QString default_val=QString());
 
     static int getPreconfigureIntValue(const QString& name);
+    static QString getPreconfigureStringValue(const QString& name);
 
 private:
 

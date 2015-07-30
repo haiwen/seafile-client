@@ -129,6 +129,9 @@ bool ShellExt::pathInRepo(const std::string& path,
         std::string wt = repos[i].worktree;
         // seaf_ext_log ("work tree is %s, path is %s\n", wt.c_str(), p.c_str());
         if (p.size() >= wt.size() && p.substr(0, wt.size()) == wt) {
+            if (p.size() > wt.size() && p[wt.size()] != '/') {
+                continue;
+            }
             *path_in_repo = p.substr(wt.size(), p.size() - wt.size());
             if (repo) {
                 *repo = repos[i];

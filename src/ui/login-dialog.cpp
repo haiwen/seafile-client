@@ -20,9 +20,6 @@
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 #include "shib/shib-login-dialog.h"
 #endif // HAVE_SHIBBOLETH_SUPPORT
-#ifdef Q_OS_WIN32
-#include "utils/registry.h"
-#endif
 
 namespace {
 
@@ -31,13 +28,6 @@ const char *kDefaultServerAddr2 = "https://cloud.seafile.de";
 const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
-
-QString getPreconfigureServerAddr() {
-    return RegElement::getPreconfigureStringValue(kPreconfigureServerAddr);
-}
-int getPreconfigureServerAddrOnly() {
-    return RegElement::getPreconfigureIntValue(kPreconfigureServerAddrOnly);
-}
 
 QStringList getUsedServerAddresses()
 {

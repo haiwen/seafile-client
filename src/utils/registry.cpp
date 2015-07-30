@@ -29,7 +29,6 @@ RegElement::RegElement(const HKEY& root, const QString& path,
       name_(name),
       string_value_(value),
       dword_value_(0),
-      value_(value),
       type_(expand ? REG_EXPAND_SZ : REG_SZ)
 {
 }
@@ -41,7 +40,6 @@ RegElement::RegElement(const HKEY& root, const QString& path,
       name_(name),
       string_value_(""),
       dword_value_(value),
-      value_(QVariant::fromValue<unsigned long>(value)),
       type_(REG_DWORD)
 {
 }
@@ -147,16 +145,10 @@ bool RegElement::exists()
     return true;
 }
 
-void RegElement::read(const QVariant &default_value)
+void RegElement::read()
 {
-    value_ = default_value;
-    if (value_.type() == QMetaType::QString) {
-        string_value_ = value_.toString();
-        dword_value_ = 0;
-    } else {
-        string_value_.clear();
-        dword_value_ = value_.value<unsigned long>();
-    }
+    string_value_.clear();
+    dword_value_ = 0;
     HKEY parent_key;
     LONG result = openKey(root_, path_, &parent_key, KEY_READ);
     if (result != ERROR_SUCCESS) {
@@ -177,7 +169,11 @@ void RegElement::read(const QVariant &default_value)
         return;
     }
     // get value
+#ifndef UTILS_CXX11_MODE
+    std::vector<wchar_t> buf;
+#else
     utils::WBufferArray buf;
+#endif
     buf.resize(len);
     result = RegQueryValueExW (parent_key,
                                std_name.c_str(),
@@ -194,22 +190,25 @@ void RegElement::read(const QVariant &default_value)
     switch (type_) {
         case REG_EXPAND_SZ:
         case REG_SZ:
-            string_value_ = QString::fromWCharArray(&buf[0], buf.size());
-            // workaround with a bug
-            value_ = string_value_ = QString::fromUtf8(string_value_.toUtf8());
+            {
+                // expand environment strings
+                wchar_t expanded_buf[MAX_PATH];
+                DWORD size = ExpandEnvironmentStringsW(&buf[0], expanded_buf, MAX_PATH);
+                if (size == 0 || size > MAX_PATH)
+                    string_value_ = QString::fromWCharArray(&buf[0], buf.size());
+                else
+                    string_value_ = QString::fromWCharArray(expanded_buf, size);
+            }
             break;
         case REG_NONE:
         case REG_BINARY:
             string_value_ = QString::fromWCharArray(&buf[0], buf.size() / 2);
-            // workaround with a bug
-            value_ = string_value_ = QString::fromUtf8(string_value_.toUtf8());
             break;
         case REG_DWORD_BIG_ENDIAN:
         case REG_DWORD:
             if (buf.size() != sizeof(int))
                 return;
             memcpy((char*)&dword_value_, buf.data(), sizeof(int));
-            value_ = QVariant::fromValue<unsigned long>(dword_value_);
             break;
         case REG_QWORD: {
             if (buf.size() != sizeof(int))
@@ -217,7 +216,6 @@ void RegElement::read(const QVariant &default_value)
             qint64 value;
             memcpy((char*)&value, buf.data(), sizeof(int));
             dword_value_ = (int)value;
-            value_ = QVariant::fromValue<unsigned long>(dword_value_);
             break;
         }
         case REG_MULTI_SZ:
@@ -227,6 +225,8 @@ void RegElement::read(const QVariant &default_value)
 
     RegCloseKey(parent_key);
 
+    // workaround with a bug
+    string_value_ = QString::fromUtf8(string_value_.toUtf8());
 
     return;
 }
@@ -240,6 +240,16 @@ void RegElement::remove()
     }
     result = RegDeleteValueW (parent_key, name_.toStdWString().c_str());
     RegCloseKey(parent_key);
+}
+
+QVariant RegElement::value() const
+{
+    if (type_ == REG_SZ || type_ == REG_EXPAND_SZ
+        || type_ == REG_NONE || type_ == REG_BINARY) {
+        return string_value_;
+    } else {
+        return int(dword_value_);
+    }
 }
 
 int RegElement::getIntValue(HKEY root,
@@ -310,4 +320,23 @@ QString RegElement::getPreconfigureStringValue(const QString& name)
 
     return RegElement::getStringValue(
         HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name);
+}
+
+QVariant RegElement::getPreconfigureValue(const QString& name)
+{
+    QVariant v = getValue(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name);
+    return v.isNull() ? getValue(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name) : v;
+}
+
+QVariant RegElement::getValue(HKEY root,
+                              const QString& path,
+                              const QString& name)
+{
+    RegElement reg(root, path, name, "");
+    if (!reg.exists()) {
+        return QVariant();
+    }
+    reg.read();
+
+    return reg.value();
 }

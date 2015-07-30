@@ -352,7 +352,7 @@ void SeafileApplet::onDaemonStarted()
                 settingsManager()->setComputerName(computer_name);
             if (!username.isEmpty() && !token.isEmpty() && !url.isEmpty()) {
                 Account account(url, username, token);
-                if (accountManager()->saveAccount(account) < 0) {
+                if (account_mgr_->saveAccount(account) < 0) {
                     warningBox(tr("failed to add default account"));
                     exit(1);
                 }
@@ -649,17 +649,10 @@ void SeafileApplet::updateReposPropertyForHttpSync()
 QVariant SeafileApplet::readPreconfigureEntry(const QString& key, const QVariant& default_value)
 {
 #ifdef Q_OS_WIN32
-    RegElement reg(HKEY_CURRENT_USER, kSeafileConfigurePath, key, "");
-    if (!reg.exists()) {
-        reg = RegElement(HKEY_LOCAL_MACHINE, kSeafileConfigurePath, key, "");
-        return default_value;
+    QVariant v = RegElement::getPreconfigureValue(key);
+    if (!v.isNull()) {
+        return v;
     }
-    if (!reg.exists()) {
-        return default_value;
-    }
-    reg.read(default_value);
-    if (!reg.value().isNull())
-        return reg.value();
 #endif
     QString configure_file = QDir::home().filePath(kSeafileConfigureFileName);
     if (!QFileInfo(configure_file).exists())

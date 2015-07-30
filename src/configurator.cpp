@@ -31,13 +31,8 @@ const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
 const char *kMyComputerNamespacePath =
     "Software\\Microsoft\\Windows\\CurrentVersion"
     "\\Explorer\\MyComputer\\Namespace";
-
-const char* const kPreconfigureDirectory = "PreconfigureDirectory";
-QString getPreconfigureDirectory()
-{
-    return RegElement::getPreconfigureStringValue(kPreconfigureDirectory);
-}
 #endif
+
 const char* const kPreconfigureDirectory = "PreconfigureDirectory";
 
 inline QString getPreconfigureDirectory()

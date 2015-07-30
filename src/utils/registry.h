@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <windows.h>
 
+
 #ifndef KEY_WOW64_64KEY
 #define KEY_WOW64_64KEY 0x0100
 #endif
@@ -32,7 +33,7 @@ public:
                DWORD value);
 
     int add();
-    void read(const QVariant &default_value = QVariant());
+    void read();
     void remove();
     bool exists();
 
@@ -40,19 +41,21 @@ public:
     const QString& path() const { return path_; }
     const QString& name() const { return name_; }
     const QString& stringValue() const { return string_value_; }
-    const QVariant& value() const { return value_; }
     DWORD dwordValue() const { return dword_value_; }
+    QVariant value() const;
 
 public:
     static int removeRegKey(HKEY root, const QString& path, const QString& subkey);
+
     static int getIntValue(HKEY root, const QString& path, const QString& name, bool *exists=NULL, int default_val=0);
     static QString getStringValue(HKEY root, const QString& path, const QString& name, bool *exists=NULL, QString default_val=QString());
-
     static int getPreconfigureIntValue(const QString& name);
     static QString getPreconfigureStringValue(const QString& name);
 
-private:
+    static QVariant getPreconfigureValue(const QString& name);
+    static QVariant getValue(HKEY root, const QString& path, const QString& name);
 
+private:
     int openParentKey(HKEY *pKey);
 
     HKEY root_;
@@ -60,7 +63,6 @@ private:
     QString name_;
     QString string_value_;
     DWORD dword_value_;
-    QVariant value_;
     DWORD type_;
 };
 

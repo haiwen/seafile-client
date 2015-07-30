@@ -7,8 +7,10 @@
 #include <QDebug>
 #include <QList>
 #include <QMessageBox>
+#include <QSettings>
 
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "seafile-applet.h"
 #include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
@@ -25,18 +27,18 @@
 namespace {
 
 #if defined(Q_OS_WIN32)
-
 const char *kVirtualDriveGUID = "F817C393-A76E-435E-B6B1-485844BC9C2E";
 const char *kMyComputerNamespacePath =
     "Software\\Microsoft\\Windows\\CurrentVersion"
     "\\Explorer\\MyComputer\\Namespace";
+#endif
 
 const char* const kPreconfigureDirectory = "PreconfigureDirectory";
-QString getPreconfigureDirectory()
+
+inline QString getPreconfigureDirectory()
 {
-    return RegElement::getPreconfigureStringValue(kPreconfigureDirectory);
+    return expandVars(expandUser(seafApplet->readPreconfigureEntry(kPreconfigureDirectory).toString()));
 }
-#endif
 
 } // namespace
 
@@ -84,7 +86,6 @@ void Configurator::initCcnet()
 
 void Configurator::initSeafile()
 {
-#if defined(Q_OS_WIN32)
     QString preconfigure_dir = getPreconfigureDirectory();
     if (!preconfigure_dir.isEmpty()) {
         QDir dir(preconfigure_dir);
@@ -104,7 +105,6 @@ void Configurator::initSeafile()
         onSeafileDirSet(seafile_dir);
         return;
     }
-#endif
     InitSeafileDialog dialog;
     connect(&dialog, SIGNAL(seafileDirSet(const QString&)),
             this, SLOT(onSeafileDirSet(const QString&)));
@@ -347,4 +347,3 @@ void Configurator::installCustomUrlHandler()
     }
 #endif
 }
-

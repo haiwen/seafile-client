@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_APPLET_H
 
 #include <QObject>
+#include <QVariant>
 
 class Configurator;
 class DaemonManager;
@@ -37,6 +38,11 @@ public:
     // Show error in a messagebox and exit
     void errorAndExit(const QString& error);
     void restartApp();
+
+    // Read preconfigure settings
+    QVariant readPreconfigureEntry(const QString& key, const QVariant& default_value = QVariant());
+    // ExpandedVars String
+    QString readPreconfigureExpandedString(const QString& key, const QString& default_value = QString());
 
     // accessors
     AccountManager *accountManager() { return account_mgr_; }

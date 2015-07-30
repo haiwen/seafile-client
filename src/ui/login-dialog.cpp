@@ -20,38 +20,25 @@
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 #include "shib/shib-login-dialog.h"
 #endif // HAVE_SHIBBOLETH_SUPPORT
-#ifdef Q_OS_WIN32
-#include "utils/registry.h"
-#endif
 
 namespace {
 
 const char *kDefaultServerAddr1 = "https://seacloud.cc";
 const char *kDefaultServerAddr2 = "https://cloud.seafile.de";
 const char *kUsedServerAddresses = "UsedServerAddresses";
-
-#ifdef Q_OS_WIN32
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
-QString getPreconfigureServerAddr() {
-    return RegElement::getPreconfigureStringValue(kPreconfigureServerAddr);
-}
-int getPreconfigureServerAddrOnly() {
-    return RegElement::getPreconfigureIntValue(kPreconfigureServerAddrOnly);
-}
-#endif
+
 QStringList getUsedServerAddresses()
 {
     QSettings settings;
     settings.beginGroup(kUsedServerAddresses);
     QStringList retval = settings.value("main").toStringList();
     settings.endGroup();
-#ifdef Q_OS_WIN32
-    QString preconfigure_addr = getPreconfigureServerAddr();
+    QString preconfigure_addr = seafApplet->readPreconfigureExpandedString(kPreconfigureServerAddr);
     if (!preconfigure_addr.isEmpty() && !retval.contains(preconfigure_addr)) {
         retval.push_back(preconfigure_addr);
     }
-#endif
     if (!retval.contains(kDefaultServerAddr1)) {
         retval.push_back(kDefaultServerAddr1);
     }
@@ -86,9 +73,8 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-#ifdef Q_OS_WIN32
-    QString preconfigure_addr = getPreconfigureServerAddr();
-    if (getPreconfigureServerAddrOnly() && !preconfigure_addr.isEmpty()) {
+    QString preconfigure_addr = seafApplet->readPreconfigureExpandedString(kPreconfigureServerAddr);
+    if (seafApplet->readPreconfigureEntry(kPreconfigureServerAddrOnly).toBool() && !preconfigure_addr.isEmpty()) {
         mServerAddr->setMaxCount(1);
         mServerAddr->insertItem(0, preconfigure_addr);
         mServerAddr->setCurrentIndex(0);
@@ -97,10 +83,6 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
         mServerAddr->addItems(getUsedServerAddresses());
         mServerAddr->clearEditText();
     }
-#else
-    mServerAddr->addItems(getUsedServerAddresses());
-    mServerAddr->clearEditText();
-#endif
     mServerAddr->setAutoCompletion(false);
 
     QString computerName = seafApplet->settingsManager()->getComputerName();

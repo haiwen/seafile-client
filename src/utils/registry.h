@@ -2,7 +2,9 @@
 #define SEAFILE_CLIENT_UTILS_REGISTRY_H
 
 #include <QString>
+#include <QVariant>
 #include <windows.h>
+
 
 #ifndef KEY_WOW64_64KEY
 #define KEY_WOW64_64KEY 0x0100
@@ -40,17 +42,20 @@ public:
     const QString& name() const { return name_; }
     const QString& stringValue() const { return string_value_; }
     DWORD dwordValue() const { return dword_value_; }
+    QVariant value() const;
 
 public:
     static int removeRegKey(HKEY root, const QString& path, const QString& subkey);
+
     static int getIntValue(HKEY root, const QString& path, const QString& name, bool *exists=NULL, int default_val=0);
     static QString getStringValue(HKEY root, const QString& path, const QString& name, bool *exists=NULL, QString default_val=QString());
-
     static int getPreconfigureIntValue(const QString& name);
     static QString getPreconfigureStringValue(const QString& name);
 
-private:
+    static QVariant getPreconfigureValue(const QString& name);
+    static QVariant getValue(HKEY root, const QString& path, const QString& name);
 
+private:
     int openParentKey(HKEY *pKey);
 
     HKEY root_;

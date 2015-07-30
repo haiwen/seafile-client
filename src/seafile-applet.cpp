@@ -13,11 +13,13 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QTimer>
+#include <QHostInfo>
 
 #include <errno.h>
 #include <glib.h>
 
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "utils/log.h"
 #include "account-mgr.h"
 #include "configurator.h"
@@ -209,21 +211,18 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
-#if defined(Q_OS_WIN32)
+const char *const kPreconfigureUsername = "PreconfigureUsername";
+const char *const kPreconfigureUserToken = "PreconfigureUserToken";
+const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
+const char *const kPreconfigureComputerName = "PreconfigureComputerName";
 const char* const kHideConfigurationWizard = "HideConfigurationWizard";
-int getHideConfigurationWizard()
-{
-    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", kHideConfigurationWizard, "");
-    if (!reg.exists()) {
-        return 0;
-    }
-    reg.read();
-    if (!reg.stringValue().isEmpty())
-        return reg.stringValue().toInt();
-
-    return reg.dwordValue();
-}
+#if defined(Q_OS_WIN32)
+const char *const kSeafileConfigureFileName = "seafile.ini";
+const char *const kSeafileConfigurePath = "SOFTWARE\\Seafile";
+#else
+const char *const kSeafileConfigureFileName = ".seafilerc";
 #endif
+const char *const kSeafilePreconfigureGroupName = "preconfigure";
 
 const int kIntervalBeforeShowInitVirtualDialog = 3000;
 const int kIntervalForUpdateRepoProperty = 1000;
@@ -345,10 +344,23 @@ void SeafileApplet::onDaemonStarted()
 
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         do {
-#if defined(Q_OS_WIN32)
-            if (getHideConfigurationWizard())
+            QString username = readPreconfigureExpandedString(kPreconfigureUsername);
+            QString token = readPreconfigureExpandedString(kPreconfigureUserToken);
+            QString url = readPreconfigureExpandedString(kPreconfigureServerAddr);
+            QString computer_name = readPreconfigureExpandedString(kPreconfigureComputerName, settingsManager()->getComputerName());
+            if (!computer_name.isEmpty())
+                settingsManager()->setComputerName(computer_name);
+            if (!username.isEmpty() && !token.isEmpty() && !url.isEmpty()) {
+                Account account(url, username, token);
+                if (account_mgr_->saveAccount(account) < 0) {
+                    warningBox(tr("failed to add default account"));
+                    exit(1);
+                }
                 break;
-#endif
+            }
+
+            if (readPreconfigureEntry(kHideConfigurationWizard).toInt())
+                break;
             LoginDialog login_dialog;
             login_dialog.exec();
         } while (0);
@@ -632,4 +644,30 @@ void SeafileApplet::updateReposPropertyForHttpSync()
             }
         }
     }
+}
+
+QVariant SeafileApplet::readPreconfigureEntry(const QString& key, const QVariant& default_value)
+{
+#ifdef Q_OS_WIN32
+    QVariant v = RegElement::getPreconfigureValue(key);
+    if (!v.isNull()) {
+        return v;
+    }
+#endif
+    QString configure_file = QDir::home().filePath(kSeafileConfigureFileName);
+    if (!QFileInfo(configure_file).exists())
+        return default_value;
+    QSettings setting(configure_file, QSettings::IniFormat);
+    setting.beginGroup(kSeafilePreconfigureGroupName);
+    QVariant value = setting.value(key, default_value);
+    setting.endGroup();
+    return value;
+}
+
+QString SeafileApplet::readPreconfigureExpandedString(const QString& key, const QString& default_value)
+{
+    QVariant retval = readPreconfigureEntry(key, default_value);
+    if (retval.isNull() || retval.type() != QVariant::String)
+        return QString();
+    return expandVars(retval.toString());
 }

@@ -242,6 +242,16 @@ void RegElement::remove()
     RegCloseKey(parent_key);
 }
 
+QVariant RegElement::value() const
+{
+    if (type_ == REG_SZ || type_ == REG_EXPAND_SZ
+        || type_ == REG_NONE || type_ == REG_BINARY) {
+        return string_value_;
+    } else {
+        return int(dword_value_);
+    }
+}
+
 int RegElement::getIntValue(HKEY root,
                             const QString& path,
                             const QString& name,
@@ -310,4 +320,23 @@ QString RegElement::getPreconfigureStringValue(const QString& name)
 
     return RegElement::getStringValue(
         HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name);
+}
+
+QVariant RegElement::getPreconfigureValue(const QString& name)
+{
+    QVariant v = getValue(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name);
+    return v.isNull() ? getValue(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name) : v;
+}
+
+QVariant RegElement::getValue(HKEY root,
+                              const QString& path,
+                              const QString& name)
+{
+    RegElement reg(root, path, name, "");
+    if (!reg.exists()) {
+        return QVariant();
+    }
+    reg.read();
+
+    return reg.value();
 }

@@ -5,6 +5,7 @@
 #include <algorithm>
 
 #include <QDateTime>
+#include <QMutexLocker>
 
 #include "account-mgr.h"
 #include "configurator.h"
@@ -194,13 +195,16 @@ const std::vector<Account>& AccountManager::loadAccounts()
 int AccountManager::saveAccount(const Account& account)
 {
     Account new_account = account;
-    for (size_t i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i] == account) {
-            accounts_.erase(accounts_.begin() + i);
-            break;
+    {
+        QMutexLocker lock(&accounts_mutex_);
+        for (size_t i = 0; i < accounts_.size(); i++) {
+            if (accounts_[i] == account) {
+                accounts_.erase(accounts_.begin() + i);
+                break;
+            }
         }
+        accounts_.insert(accounts_.begin(), new_account);
     }
-    accounts_.insert(accounts_.begin(), new_account);
     updateServerInfo(0);
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
@@ -236,6 +240,7 @@ int AccountManager::removeAccount(const Account& account)
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
+    QMutexLocker lock(&accounts_mutex_);
     accounts_.erase(std::remove(accounts_.begin(), accounts_.end(), account),
                     accounts_.end());
 
@@ -286,13 +291,16 @@ bool AccountManager::setCurrentAccount(const Account& account)
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
 {
-    for (size_t i = 0; i < accounts_.size(); i++) {
-        if (accounts_[i] == old_account) {
-            // TODO copy new_account and old_account before this operation
-            // we might have invalid old_account or new_account after it
-            accounts_[i] = new_account;
-            updateServerInfo(i);
-            break;
+    {
+        QMutexLocker lock(&accounts_mutex_);
+        for (size_t i = 0; i < accounts_.size(); i++) {
+            if (accounts_[i] == old_account) {
+                // TODO copy new_account and old_account before this operation
+                // we might have invalid old_account or new_account after it
+                accounts_[i] = new_account;
+                updateServerInfo(i);
+                break;
+            }
         }
     }
 
@@ -427,16 +435,23 @@ bool AccountManager::clearAccountToken(const Account& account)
     return true;
 }
 
-Account AccountManager::getAccountByRepo(const QString& repo_id)
+Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClient *rpc)
 {
-    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    std::vector<Account> accounts;
+    {
+        QMutexLocker lock(&accounts_mutex_);
+        accounts = accounts_;
+    }
+
+    QMutexLocker cache_lock(&accounts_cache_mutex_);
+
     if (!accounts_cache_.contains(repo_id)) {
         QString relay_addr;
         if (rpc->getRepoProperty(repo_id, kRepoRelayAddrProperty, &relay_addr) < 0) {
             return Account();
         }
-        const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-        for (unsigned i = 0; i < accounts.size(); i++) {
+
+        for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
             if (account.serverUrl.host() == relay_addr) {
                 accounts_cache_[repo_id] = account;
@@ -447,8 +462,14 @@ Account AccountManager::getAccountByRepo(const QString& repo_id)
     return accounts_cache_.value(repo_id, Account());
 }
 
+Account AccountManager::getAccountByRepo(const QString& repo_id)
+{
+    return getAccountByRepo(repo_id, seafApplet->rpcClient());
+}
+
 void AccountManager::onAccountsChanged()
 {
+    QMutexLocker cache_lock(&accounts_cache_mutex_);
     accounts_cache_.clear();
 }
 
@@ -457,7 +478,7 @@ void AccountManager::invalidateCurrentLogin()
     // make sure we have accounts there
     if (!hasAccount())
         return;
-    const Account &account = accounts().front();
+    const Account &account = accounts_.front();
     // if the token is already invalidated, ignore
     if (account.token.isEmpty())
         return;

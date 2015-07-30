@@ -5,12 +5,14 @@
 
 #include <QObject>
 #include <QHash>
+#include <QMutex>
 
 #include "account.h"
 
 struct sqlite3;
 struct sqlite3_stmt;
 class ApiError;
+class SeafileRpcClient;
 
 /**
  * Load/Save seahub accounts
@@ -51,6 +53,9 @@ public:
     /// return an invalid Account if failed
     Account getAccountByRepo(const QString& repo_id);
 
+    // Also used by extension handler
+    Account getAccountByRepo(const QString& repo_id, SeafileRpcClient *rpc);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 
@@ -85,6 +90,9 @@ private:
 
     struct sqlite3 *db;
     std::vector<Account> accounts_;
+
+    QMutex accounts_mutex_;
+    QMutex accounts_cache_mutex_;
 };
 
 #endif  // _SEAF_ACCOUNT_MGR_H

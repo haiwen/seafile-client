@@ -76,8 +76,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="113"/>
         <source>Are you sure to remove account from &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation>Você quis dizer: Are you sure to remove account from &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be synced!&lt;/b&gt;
-Tem certeza que deseja remover a conta de &quot;% 1&quot; &lt;br&gt; &lt;b&gt; Aviso:?! Todas as bibliotecas de essa conta serão dessincronizadas &lt;/ b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="124"/>
@@ -102,7 +101,7 @@ Tem certeza que deseja remover a conta de &quot;% 1&quot; &lt;br&gt; &lt;b&gt; A
     <message>
         <location filename="../src/ui/account-view.cpp" line="195"/>
         <source>Choose</source>
-        <translation>Escolha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="204"/>
@@ -112,12 +111,12 @@ Tem certeza que deseja remover a conta de &quot;% 1&quot; &lt;br&gt; &lt;b&gt; A
     <message>
         <location filename="../src/ui/account-view.cpp" line="219"/>
         <source>Login</source>
-        <translation>Login</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="222"/>
         <source>Delete</source>
-        <translation>Apagar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="235"/>
@@ -345,7 +344,7 @@ falhou ao enviar.</translation>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="174"/>
         <source>Search</source>
-        <translation>Procurar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="201"/>
@@ -459,7 +458,7 @@ falhou ao enviar.</translation>
     <message>
         <location filename="../src/configurator.cpp" line="101"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation>Não foi possivel criar um diretorio pré-configurado &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/configurator.cpp" line="219"/>
@@ -623,22 +622,22 @@ falhou ao enviar.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="150"/>
         <source>or</source>
-        <translation>ou</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="155"/>
         <source>sync with an existing folder</source>
-        <translation>sincronizar com uma pasta existente</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="159"/>
         <source>create a new sync folder</source>
-        <translation>criar uma nova pasta de sincronização</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
         <source>Sync with this existing folder:</source>
-        <translation>Sincronizar com uma pasta existente:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="191"/>
@@ -648,7 +647,7 @@ falhou ao enviar.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="221"/>
         <source>The folder does not exist</source>
-        <translation>A pasta não existe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="242"/>
@@ -658,7 +657,7 @@ falhou ao enviar.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="249"/>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation>Sua organização desabilitou colocando uma biblioteca fora da 1% pasta.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="266"/>
@@ -673,18 +672,17 @@ falhou ao enviar.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="279"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
-        <translation>A pasta &quot;% 1&quot; já existe. Tem certeza que deseja sincronizar com ele ( os conteúdo serão mesclados ) ?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="280"/>
         <source>Click No to sync with a new folder instead</source>
-        <translation>Clique em Não para sincronizar com  a nova pasta.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="288"/>
         <source>Unable to find an alternative folder name</source>
-        <translation>
-Incapaz de encontrar um nome alternativo para a pasta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="350"/>
@@ -739,27 +737,27 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="296"/>
         <source>Added files</source>
-        <translation>Arquivos Adicionados</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="297"/>
         <source>Deleted files</source>
-        <translation>Arquivos Apagados</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="298"/>
         <source>Modified files</source>
-        <translation>Arquivos Modificados</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="300"/>
         <source>Added folders</source>
-        <translation>Pastas adicionadas</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="301"/>
         <source>Deleted folders</source>
-        <translation>Pastas apagadas</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -767,12 +765,12 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="219"/>
         <source>&amp;Open</source>
-        <translation>&amp;Abrir</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="223"/>
         <source>Open &amp;parent folder</source>
-        <translation>Abrir pasta &amp;pai</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -867,17 +865,17 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="504"/>
         <source>Enter the path of the folder you want to save to...</source>
-        <translation>Digite o caminho da pasta que você deseja salvar em ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="515"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
-        <translation>Você deseja substituir o arquivo existente &quot;% 1&quot;?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="596"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
-        <translation>Arquivo &quot;%1&quot; não foi  sincronizado</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="633"/>
@@ -1094,7 +1092,7 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="290"/>
         <source>G&amp;enerate Seafile Internal Link</source>
-        <translation>Gerar Link interno Seafile </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="299"/>
@@ -1136,7 +1134,7 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="433"/>
         <source>&amp;Save As To...</source>
-        <translation>&amp;Salvar Como...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="435"/>
@@ -1147,12 +1145,12 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="588"/>
         <source>Unable to remove readonly files</source>
-        <translation>Não é Possivel remover arquivos somente leitura</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="670"/>
         <source>Unable to cut readonly files</source>
-        <translation>Não é possivel recortar arquivos somente leitura</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1532,17 +1530,17 @@ Você gostaria de descarregar sua biblioteca padrão e criar um disco virtual?</
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>You are logout. Please </source>
-        <translation>Deslogue-se Por Favor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>login</source>
-        <translation>Login</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="59"/>
         <source>Add an account</source>
-        <translation>Adicionar uma conta</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1882,7 +1880,7 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
         <location filename="../src/repo-service-helper.cpp" line="22"/>
         <location filename="../src/repo-service-helper.cpp" line="85"/>
         <source>File &quot;%1&quot; doesn&apos;t exist in &quot;%2&quot;</source>
-        <translation>Arquivo &quot;%1&quot; não existe em &quot;%2&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/repo-service-helper.cpp" line="27"/>
@@ -1929,94 +1927,89 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
         <location filename="../src/ui/event-details-tree.cpp" line="138"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Deleted</source>
         <translation>Apagado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Removed</source>
         <translation>Removido</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Modified</source>
         <translation>Modificado</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Renamed</source>
         <translation>Renomeado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
-        <source>Added or modified</source>
-        <translation>Adicionado ou modificado</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Moved</source>
         <translation>Movido</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Added directory</source>
         <translation>Diretório adicionado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Removed directory</source>
         <translation>Diretório removido</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Renamed directory</source>
         <translation>Diretório renomeado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Moved directory</source>
         <translation>Diretório movido</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="60"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
         <source>files</source>
         <translation>arquivos</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="62"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>directories</source>
         <translation>diretórios</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="65"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
         <source>and %1 more</source>
         <translation>e %1 mais</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="86"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
         <source>Reverted library to status at</source>
         <translation>Biblioteca revertida para o estado em</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="93"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
         <translation>Arquivo revertido &quot;%1&quot; para o estado em %2.</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="97"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
         <source>Recovered deleted directory</source>
         <translation>Diretório apagado recuperado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="99"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Changed library name or description</source>
         <translation>Nome da biblioteca  ou descrição modificada</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Auto merge by seafile system</source>
         <translation>Auto-mesclar pelo sistema do seafile</translation>
     </message>
@@ -2075,71 +2068,71 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="63"/>
         <source>Sync this library to:</source>
-        <translation>Sincronizar esta biblioteca com:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="65"/>
         <source>Sync this folder to:</source>
-        <translation>Sincronizar esta pasta com:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="601"/>
         <source>Folder</source>
-        <translation>Pasta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="601"/>
         <source>Readonly Folder</source>
-        <translation>Pasta somente leitura</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="609"/>
         <location filename="../src/utils/file-utils.cpp" line="641"/>
         <source>Document</source>
-        <translation>Documento</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="613"/>
         <source>PDF Document</source>
-        <translation>Documento PDF</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="615"/>
         <source>Image File</source>
-        <translation>Arquivo de Imagem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="617"/>
         <source>Text Document</source>
-        <translation>Documento de Texto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="619"/>
         <source>Audio File</source>
-        <translation>Arquivo de Audio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="621"/>
         <source>Video File</source>
-        <translation>Arquivo de Video</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="623"/>
         <location filename="../src/utils/file-utils.cpp" line="631"/>
         <source>Word Document</source>
-        <translation>Documento Word</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="625"/>
         <location filename="../src/utils/file-utils.cpp" line="635"/>
         <source>PowerPoint Document</source>
-        <translation>Documento PowerPoint</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="627"/>
         <location filename="../src/utils/file-utils.cpp" line="633"/>
         <source>Excel Document</source>
-        <translation>Documento Excel</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2258,7 +2251,7 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
         <location filename="../src/repo-service.cpp" line="333"/>
         <location filename="../src/repo-service.cpp" line="368"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
-        <translation>Não foi possível abrir o arquivo &quot;% 1&quot; da biblioteca inexistente &quot;% 2&quot;</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2449,7 +2442,7 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
-        <translation>Não é possível substituir o arquivo &quot;% 1&quot; com ele mesmo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
@@ -2513,27 +2506,27 @@ Você quer visitar a página de descarregamento? </translation>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
         <source>Seafile Internal Link</source>
-        <translation>Seafile link interno</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
         <source>Copy to clipboard</source>
-        <translation>Copiar para a área de transferência</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
         <source>Seafile Web Link:</source>
-        <translation>Seafile Link Web:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
         <source>Seafile Protocol Link:</source>
-        <translation>Seafile Protocolo Link</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2598,12 +2591,12 @@ Você quer visitar a página de descarregamento? </translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>Open %1 &amp;folder</source>
-        <translation>Abrir %1 &amp;Pasta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="126"/>
         <source>open %1 folder</source>
-        <translation>abrir %1 &amp;pasta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="129"/>
@@ -2663,13 +2656,12 @@ Você quer visitar a página de descarregamento? </translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="130"/>
         <source>open %1 log folder</source>
-        <translation>abrir %1 &amp;pasta de log</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="138"/>
         <source>open %1 online help</source>
-        <translation>
-Abrir % 1 ajuda on-line</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="414"/>
@@ -2687,7 +2679,7 @@ Abrir % 1 ajuda on-line</translation>
     <message>
         <location filename="../src/ui/search-tab.cpp" line="80"/>
         <source>Search Files...</source>
-        <translation>Procurar Arquivos...</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2881,7 +2873,7 @@ Abrir % 1 ajuda on-line</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation>Ativar a sincronização com uma pasta existente com um nome diferente</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="422"/>
@@ -2964,7 +2956,7 @@ Abrir % 1 ajuda on-line</translation>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="31"/>
         <source>Direct Download</source>
-        <translation>Download direto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
@@ -2974,7 +2966,7 @@ Abrir % 1 ajuda on-line</translation>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="48"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -2,12 +2,12 @@
 <context>
     <name>AccountManager</name>
     <message>
-        <location filename="../src/account-mgr.cpp" line="98"/>
+        <location filename="../src/account-mgr.cpp" line="99"/>
         <source>failed to open account database</source>
         <translation>fallo al abrir la base de datos de las cuentas</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="472"/>
+        <location filename="../src/account-mgr.cpp" line="493"/>
         <source>Authorization expired, please re-login</source>
         <translation>La autorización expiró, por favor ingrese nuevamente</translation>
     </message>
@@ -453,22 +453,22 @@ falló al subir.</translation>
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="84"/>
+        <location filename="../src/configurator.cpp" line="81"/>
         <source>Error when creating ccnet configuration</source>
         <translation>Error al crear la configuración ccnet</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="101"/>
+        <location filename="../src/configurator.cpp" line="97"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
         <translation>No se puede crear el directorio de preconfiguración &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="219"/>
+        <location filename="../src/configurator.cpp" line="214"/>
         <source>failed to read %1</source>
         <translation>falla al leer %1</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="264"/>
+        <location filename="../src/configurator.cpp" line="259"/>
         <source>%1 Default Library</source>
         <translation>Biblioteca Predefinida de %1</translation>
     </message>
@@ -877,7 +877,7 @@ falló al subir.</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="596"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
-        <translation type="unfinished"/>
+        <translation>El archivo &quot;%1&quot; no ha sido sincronizado</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="633"/>
@@ -1368,94 +1368,94 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="97"/>
+        <location filename="../src/ui/login-dialog.cpp" line="68"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
         <translation>Agregar una cuenta</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="150"/>
-        <location filename="../src/ui/login-dialog.cpp" line="151"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
+        <location filename="../src/ui/login-dialog.cpp" line="117"/>
         <source>Re-login</source>
         <translation>Re-conectar</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="166"/>
+        <location filename="../src/ui/login-dialog.cpp" line="132"/>
         <source>Logging in...</source>
         <translation>Iniciando sesión...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="206"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation>Error de red:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="218"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Aviso:&lt;/b&gt; el certificado ssl de este servidor no es de confianza, proceder de todos modos?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="232"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation>Dirección del servidor</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="236"/>
-        <location filename="../src/ui/login-dialog.cpp" line="242"/>
-        <location filename="../src/ui/login-dialog.cpp" line="344"/>
-        <location filename="../src/ui/login-dialog.cpp" line="350"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="310"/>
+        <location filename="../src/ui/login-dialog.cpp" line="316"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 no es una dirección válida</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="249"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation>Ingrese el nombre de usuario</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="260"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
         <translation>Ingrese el nombre del equipo</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="278"/>
+        <location filename="../src/ui/login-dialog.cpp" line="244"/>
         <source>Failed to save current account</source>
         <translation>Fallo al modificar la cuenta actual</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Seafile Server Address</source>
         <translation>Dirección del Servidor Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="254"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation>Ingrese la contraseña</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="271"/>
         <source>Incorrect email or password</source>
         <translation>Contraseña o correo incorrectos</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="273"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>Demasiados intentos, por favor espere un minuto</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="309"/>
+        <location filename="../src/ui/login-dialog.cpp" line="275"/>
         <source>Internal Server Error</source>
         <translation>Error Interno del Servidor</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="313"/>
+        <location filename="../src/ui/login-dialog.cpp" line="279"/>
         <source>Failed to login: %1</source>
         <translation>Fallo al iniciar sesión: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="315"/>
+        <location filename="../src/ui/login-dialog.cpp" line="281"/>
         <source>Failed to login</source>
         <translation>Fallo al iniciar sesión</translation>
     </message>
@@ -1510,8 +1510,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>p.ej. laptop de Juan</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="141"/>
-        <location filename="../src/ui/login-dialog.cpp" line="334"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Inicio de sesión con Shibboleth</translation>
@@ -1882,7 +1882,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <location filename="../src/repo-service-helper.cpp" line="22"/>
         <location filename="../src/repo-service-helper.cpp" line="85"/>
         <source>File &quot;%1&quot; doesn&apos;t exist in &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>El archivo &quot;%1&quot; no existe en &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="../src/repo-service-helper.cpp" line="27"/>
@@ -1929,89 +1929,94 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
         <location filename="../src/ui/event-details-tree.cpp" line="138"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Deleted</source>
         <translation>Borrado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Removed</source>
         <translation>Removido</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Modified</source>
         <translation>Modificado</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Renamed</source>
         <translation>Renombrado</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Added or modified</source>
+        <translation>Agregados o modificados</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Moved</source>
         <translation>Movido</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Added directory</source>
         <translation>Carpeta agregada</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Removed directory</source>
         <translation>Carpeta removida</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Renamed directory</source>
         <translation>Carpeta renombrada</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
         <source>Moved directory</source>
         <translation>Carpeta movida</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="60"/>
         <source>files</source>
         <translation>archivos</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="62"/>
         <source>directories</source>
         <translation>carpetas</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="65"/>
         <source>and %1 more</source>
         <translation>y otros %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="86"/>
         <source>Reverted library to status at</source>
         <translation>Biblioteca revertida al estado en</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="93"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
         <translation>Archivo &quot;%1&quot; revertido al estado en %2.</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="97"/>
         <source>Recovered deleted directory</source>
         <translation>Carpeta borrada recuperada</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="99"/>
         <source>Changed library name or description</source>
         <translation>Nombre de biblioteca o descripción cambiados</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
         <source>Auto merge by seafile system</source>
         <translation>Auto fusionado por el sistema seafile</translation>
     </message>
@@ -2078,61 +2083,61 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>Sincronizar esta carpeta con:</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Folder</source>
         <translation>Carpeta</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Readonly Folder</source>
         <translation>Carpeta de sólo lectura</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="609"/>
-        <location filename="../src/utils/file-utils.cpp" line="641"/>
+        <location filename="../src/utils/file-utils.cpp" line="614"/>
+        <location filename="../src/utils/file-utils.cpp" line="646"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="613"/>
+        <location filename="../src/utils/file-utils.cpp" line="618"/>
         <source>PDF Document</source>
         <translation>Documento PDF</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="615"/>
+        <location filename="../src/utils/file-utils.cpp" line="620"/>
         <source>Image File</source>
         <translation>Archivo de Imagen</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="617"/>
+        <location filename="../src/utils/file-utils.cpp" line="622"/>
         <source>Text Document</source>
         <translation>Documento de Texto</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="619"/>
+        <location filename="../src/utils/file-utils.cpp" line="624"/>
         <source>Audio File</source>
         <translation>Archivo de Audio</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="621"/>
+        <location filename="../src/utils/file-utils.cpp" line="626"/>
         <source>Video File</source>
         <translation>Archivo de Video</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="623"/>
-        <location filename="../src/utils/file-utils.cpp" line="631"/>
+        <location filename="../src/utils/file-utils.cpp" line="628"/>
+        <location filename="../src/utils/file-utils.cpp" line="636"/>
         <source>Word Document</source>
         <translation>Documento de Word</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="625"/>
-        <location filename="../src/utils/file-utils.cpp" line="635"/>
+        <location filename="../src/utils/file-utils.cpp" line="630"/>
+        <location filename="../src/utils/file-utils.cpp" line="640"/>
         <source>PowerPoint Document</source>
         <translation>Documento de PowerPoint</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="627"/>
-        <location filename="../src/utils/file-utils.cpp" line="633"/>
+        <location filename="../src/utils/file-utils.cpp" line="632"/>
+        <location filename="../src/utils/file-utils.cpp" line="638"/>
         <source>Excel Document</source>
         <translation>Documento de Excel</translation>
     </message>
@@ -2253,7 +2258,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <location filename="../src/repo-service.cpp" line="333"/>
         <location filename="../src/repo-service.cpp" line="368"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>No es posible abrir el archivo &quot;%1&quot; desde la biblioteca &quot;%2&quot;, que no existe</translation>
     </message>
 </context>
 <context>
@@ -2491,12 +2496,17 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="458"/>
+        <location filename="../src/seafile-applet.cpp" line="356"/>
+        <source>failed to add default account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="470"/>
         <source>Failed to initialize log: %s</source>
         <translation>Fallo al crear registro: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="580"/>
+        <location filename="../src/seafile-applet.cpp" line="593"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Una nueva version (%2) del cliente %1 está disponible.

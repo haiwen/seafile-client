@@ -2,14 +2,14 @@
 <context>
     <name>AccountManager</name>
     <message>
-        <location filename="../src/account-mgr.cpp" line="98"/>
+        <location filename="../src/account-mgr.cpp" line="99"/>
         <source>failed to open account database</source>
-        <translation>Не удалось открыть базу данных учетных записей</translation>
+        <translation>Не удалось открыть базу данных аккаунтов</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="472"/>
+        <location filename="../src/account-mgr.cpp" line="493"/>
         <source>Authorization expired, please re-login</source>
-        <translation type="unfinished"/>
+        <translation>Авторизация истекла. Пожалуйста, войдите снова</translation>
     </message>
 </context>
 <context>
@@ -17,7 +17,7 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation>Настройки учетной записи</translation>
+        <translation>Настройки аккаунта</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
@@ -33,7 +33,7 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="83"/>
         <source>Failed to save account information</source>
-        <translation>Не удалось сохранить информацию об учетной записи</translation>
+        <translation>Не удалось сохранить информацию об аккаунте</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="91"/>
@@ -43,7 +43,7 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="96"/>
         <source>Successfully updated current account information</source>
-        <translation>Текущая информация об учетной записи успешно обновлена</translation>
+        <translation>Текущая информация об аккаунте успешно обновлена</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
@@ -76,12 +76,12 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="113"/>
         <source>Are you sure to remove account from &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Warning: All libraries of this account would be unsynced!&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Действительно удалить аккаунт из &quot;%1&quot;?&lt;br&gt;&lt;b&gt;Внимание: Все библиотеки этого аккаунта будут рассинхронизированы!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="124"/>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation>Не удалось рассинхронизировать библиотеки этой учетной записи: %1</translation>
+        <translation>Не удалось рассинхронизировать библиотеки этого аккаунта: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="150"/>
@@ -96,32 +96,32 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="160"/>
         <source>No account</source>
-        <translation>Нет учетной записи</translation>
+        <translation>Нет аккаунта</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="195"/>
         <source>Choose</source>
-        <translation type="unfinished"/>
+        <translation>Выберите</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="204"/>
         <source>Account settings</source>
-        <translation>Настройки учетной записи</translation>
+        <translation>Настройки аккаунта</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="219"/>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>Войти</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="222"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="235"/>
         <source>Add an account</source>
-        <translation>Добавить учетную запись</translation>
+        <translation>Добавить аккаунт</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="217"/>
@@ -162,7 +162,7 @@
     <message>
         <location filename="../ui_account-view.h" line="83"/>
         <source>Account</source>
-        <translation>Учетная запись</translation>
+        <translation>Аккаунт</translation>
     </message>
     <message>
         <location filename="../ui_account-view.h" line="84"/>
@@ -215,7 +215,7 @@ uploaded successfully.</source>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="159"/>
         <source>Upload Failure</source>
-        <translation>Сбой в ходе загрузки</translation>
+        <translation>Ошибка загрузки</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/auto-update-mgr.cpp" line="160"/>
@@ -321,7 +321,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="118"/>
         <source>Minimize</source>
-        <translation>Минимизировать</translation>
+        <translation>Свернуть</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="123"/>
@@ -346,7 +346,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="174"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Поиск</translation>
     </message>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="201"/>
@@ -407,7 +407,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="234"/>
         <source>minimize</source>
-        <translation>Минимизировать</translation>
+        <translation>Свернуть</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="235"/>
@@ -453,22 +453,22 @@ failed to upload.</source>
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="84"/>
+        <location filename="../src/configurator.cpp" line="81"/>
         <source>Error when creating ccnet configuration</source>
         <translation>Ошибка при создании конфигурации ccnet</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="101"/>
+        <location filename="../src/configurator.cpp" line="97"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно создать папку предварительной настройки &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="219"/>
+        <location filename="../src/configurator.cpp" line="214"/>
         <source>failed to read %1</source>
         <translation>Не удалось прочитать %1</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="264"/>
+        <location filename="../src/configurator.cpp" line="259"/>
         <source>%1 Default Library</source>
         <translation>%1 Библиотека по умолчанию</translation>
     </message>
@@ -547,7 +547,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="182"/>
         <source>Choose</source>
-        <translation>Укажите</translation>
+        <translation>Выберите</translation>
     </message>
     <message>
         <location filename="../ui_create-repo-dialog.h" line="183"/>
@@ -614,77 +614,77 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="93"/>
         <source>Sync to folder:</source>
-        <translation type="unfinished"/>
+        <translation>Синхронизировать с папкой:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="122"/>
         <source>If a sub-folder with same name exists, its contents will be merged.</source>
-        <translation type="unfinished"/>
+        <translation>Если подпапка с таким же именем существует, то ее содержимое будет объединено.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="150"/>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>или</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="155"/>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>синхронизировать с существующей папкой</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="159"/>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>создать новую папку для синхронизации</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="163"/>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>Синхронизировать с этой существующей папкой:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="191"/>
         <source>Please choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>Пожалуйста, выберите папку</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="221"/>
         <source>The folder does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Папка не существует</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="242"/>
         <source>Please choose the folder to sync.</source>
-        <translation type="unfinished"/>
+        <translation>Пожалуйста, выберите папку для синхронизации.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="249"/>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation type="unfinished"/>
+        <translation>Ваша организация отключила вставку в библиотеку за пределы папки %1.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="266"/>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Конфликтует с существующим файлом &quot;%1&quot;, выберите другую папку.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="274"/>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Конфликтует с существующей библиотекой &quot;%1&quot;, выберите другую папку.</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="279"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
-        <translation type="unfinished"/>
+        <translation>Папка &quot;%1&quot; уже существует. Действительно синхронизировать с ней (содержимое будет объединено)?</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="280"/>
         <source>Click No to sync with a new folder instead</source>
-        <translation type="unfinished"/>
+        <translation>Нажмите Нет для синхронизации с новой папкой вместо этого</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="288"/>
         <source>Unable to find an alternative folder name</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно найти другое имя папки</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="350"/>
@@ -731,7 +731,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/event-details-dialog.cpp" line="36"/>
         <source>Modification Details</source>
-        <translation>Подробности модификации</translation>
+        <translation>Подробности изменения</translation>
     </message>
 </context>
 <context>
@@ -739,27 +739,27 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="296"/>
         <source>Added files</source>
-        <translation type="unfinished"/>
+        <translation>Добавленные файлы</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="297"/>
         <source>Deleted files</source>
-        <translation type="unfinished"/>
+        <translation>Удаленные файлы</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="298"/>
         <source>Modified files</source>
-        <translation type="unfinished"/>
+        <translation>Измененные файлы</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="300"/>
         <source>Added folders</source>
-        <translation type="unfinished"/>
+        <translation>Добавленные файлы</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="301"/>
         <source>Deleted folders</source>
-        <translation type="unfinished"/>
+        <translation>Удаленные папки</translation>
     </message>
 </context>
 <context>
@@ -767,12 +767,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="219"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Открыть</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="223"/>
         <source>Open &amp;parent folder</source>
-        <translation type="unfinished"/>
+        <translation>Открыть &amp; родительскую папку</translation>
     </message>
 </context>
 <context>
@@ -821,12 +821,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="244"/>
         <source>Minimize</source>
-        <translation type="unfinished"/>
+        <translation>Свернуть</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="251"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="426"/>
@@ -841,7 +841,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="440"/>
         <source>The name &quot;%1&quot; is already taken.</source>
-        <translation>Имя &quot;%1&quot; уже занято</translation>
+        <translation>Имя &quot;%1&quot; уже занято.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="456"/>
@@ -856,7 +856,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="488"/>
         <source>Enter name of file to save to...</source>
-        <translation>Введите имя файла чтобы сохранить в...</translation>
+        <translation>Введите имя файла, чтобы сохранить в...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="495"/>
@@ -867,17 +867,17 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="504"/>
         <source>Enter the path of the folder you want to save to...</source>
-        <translation type="unfinished"/>
+        <translation>Введите путь к папке, в которую хотите сохранить...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="515"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Действительно перезаписать существующий файл &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="596"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
-        <translation type="unfinished"/>
+        <translation>Файл &quot;%1&quot; не был синхронизирован</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="633"/>
@@ -1054,7 +1054,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="869"/>
         <source>Last Modified</source>
-        <translation>Последняя модификация</translation>
+        <translation>Последнее изменение</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="871"/>
@@ -1094,7 +1094,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="290"/>
         <source>G&amp;enerate Seafile Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>Создать внутреннюю ссылку</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="299"/>
@@ -1124,7 +1124,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="325"/>
         <source>&amp;Sync this folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Синхронизировать эту папку</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="331"/>
@@ -1136,7 +1136,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="433"/>
         <source>&amp;Save As To...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Сохранить как...</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="435"/>
@@ -1147,12 +1147,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="588"/>
         <source>Unable to remove readonly files</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно удалить файлы только для чтения</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="670"/>
         <source>Unable to cut readonly files</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно вырезать файлы только для чтения</translation>
     </message>
 </context>
 <context>
@@ -1216,7 +1216,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation>Укажите папку Seafile</translation>
+        <translation>Выберите папку Seafile</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -1231,7 +1231,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
         <source>Choose...</source>
-        <translation>Укажите...</translation>
+        <translation>Выберите...</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="195"/>
@@ -1302,7 +1302,7 @@ You can click the &quot;Open&quot; button to view it.</source>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
         <source>Error when downloading the default library: %1</source>
-        <translation>Сбой при скачивании библиотеки по умолчанию: %1</translation>
+        <translation>Ошибка при скачивании библиотеки по умолчанию: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="270"/>
@@ -1368,94 +1368,94 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="97"/>
+        <location filename="../src/ui/login-dialog.cpp" line="68"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
-        <translation>Добавить учетную запись</translation>
+        <translation>Добавить аккаунт</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="150"/>
-        <location filename="../src/ui/login-dialog.cpp" line="151"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
+        <location filename="../src/ui/login-dialog.cpp" line="117"/>
         <source>Re-login</source>
         <translation>Войти заново</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="166"/>
+        <location filename="../src/ui/login-dialog.cpp" line="132"/>
         <source>Logging in...</source>
         <translation>Авторизуемся...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="206"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation>Сетевая ошибка:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="218"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Внимание:&lt;/b&gt; SSL-сертификат этого сервера не является доверенным. Продолжить несмотря на это?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="232"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation>Введите адрес сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="236"/>
-        <location filename="../src/ui/login-dialog.cpp" line="242"/>
-        <location filename="../src/ui/login-dialog.cpp" line="344"/>
-        <location filename="../src/ui/login-dialog.cpp" line="350"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="310"/>
+        <location filename="../src/ui/login-dialog.cpp" line="316"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 неправильный адрес сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="249"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation>Введите имя пользователя</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="260"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
-        <translation>Пожалуйста введите имя компьютера</translation>
+        <translation>Пожалуйста, введите имя компьютера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="278"/>
+        <location filename="../src/ui/login-dialog.cpp" line="244"/>
         <source>Failed to save current account</source>
-        <translation>Не удалось сохранить текущую учетную запись</translation>
+        <translation>Не удалось сохранить текущий аккаунт</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Seafile Server Address</source>
         <translation>Адрес сервера Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="254"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation>Введите пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="271"/>
         <source>Incorrect email or password</source>
-        <translation>Неверный e-mail или пароль</translation>
+        <translation>Неверный email или пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="273"/>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation>Слишком частая попытка входа. Пожалуйста, подождите минуту.</translation>
+        <translation>Слишком частые попытки входа. Пожалуйста, подождите минуту</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="309"/>
+        <location filename="../src/ui/login-dialog.cpp" line="275"/>
         <source>Internal Server Error</source>
         <translation>Внутренняя ошибка сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="313"/>
+        <location filename="../src/ui/login-dialog.cpp" line="279"/>
         <source>Failed to login: %1</source>
         <translation>Не удалось авторизоваться: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="315"/>
+        <location filename="../src/ui/login-dialog.cpp" line="281"/>
         <source>Failed to login</source>
         <translation>Не удалось авторизоваться</translation>
     </message>
@@ -1510,8 +1510,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>например, ноутбук Ивана</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="141"/>
-        <location filename="../src/ui/login-dialog.cpp" line="334"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Логин Shibboleth</translation>
@@ -1532,17 +1532,17 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>Вы вышли. Пожалуйста, </translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="55"/>
         <source>login</source>
-        <translation type="unfinished"/>
+        <translation>логин</translation>
     </message>
     <message>
         <location filename="../src/ui/logout-view.cpp" line="59"/>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>Добавить аккаунт</translation>
     </message>
 </context>
 <context>
@@ -1577,7 +1577,7 @@ Reason: Deleted on server</source>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation>&quot;%1&quot; не удалось синхронизировать. 
-Доступ к сервису запрещен.</translation>
+Доступ к сервису запрещен</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="186"/>
@@ -1674,7 +1674,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>The storage space of the library owner has been used up</source>
-        <translation>Владельцем библиотеки израсходована выделенная квота.</translation>
+        <translation>Владельцем библиотеки израсходована выделенная квота</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
@@ -1725,7 +1725,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Server version is too old</source>
-        <translation>Версия сервера устарела.</translation>
+        <translation>Версия сервера устарела</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="181"/>
@@ -1735,7 +1735,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="184"/>
         <source>The storage quota has been used up</source>
-        <translation>Квота хранения была использована</translation>
+        <translation>Квота хранения была израсходована</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="187"/>
@@ -1745,7 +1745,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="193"/>
         <source>Your %1 client is too old</source>
-        <translation>Ваш %1 клиент устарел.</translation>
+        <translation>Ваш %1 клиент устарел</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="196"/>
@@ -1821,7 +1821,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="95"/>
         <source>Done</source>
-        <translation>Сделано</translation>
+        <translation>Готово</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="98"/>
@@ -1882,7 +1882,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/repo-service-helper.cpp" line="22"/>
         <location filename="../src/repo-service-helper.cpp" line="85"/>
         <source>File &quot;%1&quot; doesn&apos;t exist in &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Файл &quot;%1&quot; не существует в &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="../src/repo-service-helper.cpp" line="27"/>
@@ -1929,89 +1929,94 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
         <location filename="../src/ui/event-details-tree.cpp" line="138"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Deleted</source>
         <translation>Удален</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Removed</source>
-        <translation>Убран</translation>
+        <translation>Удален</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Modified</source>
         <translation>Изменен</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Renamed</source>
         <translation>Переименован</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Added or modified</source>
+        <translation>Добавлено или изменено</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Moved</source>
         <translation>Перемещен</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Added directory</source>
         <translation>Добавлена папка</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Removed directory</source>
-        <translation>Убрана папка</translation>
+        <translation>Удалена папка</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Renamed directory</source>
         <translation>Переименованная папка</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
         <source>Moved directory</source>
         <translation>Папка перемещена</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="60"/>
         <source>files</source>
         <translation>файлы</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="62"/>
         <source>directories</source>
         <translation>папки</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="65"/>
         <source>and %1 more</source>
         <translation>и еще %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="86"/>
         <source>Reverted library to status at</source>
         <translation>Библиотека возвращена к статусу от</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="93"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
         <translation>Файл &quot;%1&quot; возвращен к статусу от %2.</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="97"/>
         <source>Recovered deleted directory</source>
         <translation>Удаленная папка восстановлена</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="99"/>
         <source>Changed library name or description</source>
-        <translation>Изменено наименование или описание библиотеки</translation>
+        <translation>Изменено имя или описание библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
         <source>Auto merge by seafile system</source>
         <translation>Авто слияние с seafile системой</translation>
     </message>
@@ -2055,7 +2060,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/utils.cpp" line="728"/>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Not Part of Certificate&gt;</translation>
+        <translation>&lt;Не часть сертификата&gt;</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="182"/>
@@ -2070,71 +2075,71 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="63"/>
         <source>Sync this library to:</source>
-        <translation type="unfinished"/>
+        <translation>&gt;Синхронизировать эту библиотеку с:</translation>
     </message>
     <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="65"/>
         <source>Sync this folder to:</source>
-        <translation type="unfinished"/>
+        <translation>Синхронизировать эту папку с:</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Readonly Folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка только для чтения</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="609"/>
-        <location filename="../src/utils/file-utils.cpp" line="641"/>
+        <location filename="../src/utils/file-utils.cpp" line="614"/>
+        <location filename="../src/utils/file-utils.cpp" line="646"/>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="613"/>
+        <location filename="../src/utils/file-utils.cpp" line="618"/>
         <source>PDF Document</source>
-        <translation type="unfinished"/>
+        <translation>PDF документ</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="615"/>
+        <location filename="../src/utils/file-utils.cpp" line="620"/>
         <source>Image File</source>
-        <translation type="unfinished"/>
+        <translation>Изображение</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="617"/>
+        <location filename="../src/utils/file-utils.cpp" line="622"/>
         <source>Text Document</source>
-        <translation type="unfinished"/>
+        <translation>Текстовый документ</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="619"/>
+        <location filename="../src/utils/file-utils.cpp" line="624"/>
         <source>Audio File</source>
-        <translation type="unfinished"/>
+        <translation>Аудио файл</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="621"/>
+        <location filename="../src/utils/file-utils.cpp" line="626"/>
         <source>Video File</source>
-        <translation type="unfinished"/>
+        <translation>Видео файл</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="623"/>
-        <location filename="../src/utils/file-utils.cpp" line="631"/>
+        <location filename="../src/utils/file-utils.cpp" line="628"/>
+        <location filename="../src/utils/file-utils.cpp" line="636"/>
         <source>Word Document</source>
-        <translation type="unfinished"/>
+        <translation>Word документ</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="625"/>
-        <location filename="../src/utils/file-utils.cpp" line="635"/>
+        <location filename="../src/utils/file-utils.cpp" line="630"/>
+        <location filename="../src/utils/file-utils.cpp" line="640"/>
         <source>PowerPoint Document</source>
-        <translation type="unfinished"/>
+        <translation>PowerPoint документ</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="627"/>
-        <location filename="../src/utils/file-utils.cpp" line="633"/>
+        <location filename="../src/utils/file-utils.cpp" line="632"/>
+        <location filename="../src/utils/file-utils.cpp" line="638"/>
         <source>Excel Document</source>
-        <translation type="unfinished"/>
+        <translation>Excel документ</translation>
     </message>
 </context>
 <context>
@@ -2153,7 +2158,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="83"/>
         <source>Error: </source>
-        <translation>Ошибка:</translation>
+        <translation>Ошибка: </translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="215"/>
@@ -2191,7 +2196,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="222"/>
         <source>Last Modified:</source>
-        <translation>Последняя модификация:</translation>
+        <translation>Последнее изменение:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="223"/>
@@ -2253,7 +2258,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/repo-service.cpp" line="333"/>
         <location filename="../src/repo-service.cpp" line="368"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно открыть файл &quot;%1&quot; из несуществующей библиотеки &quot;%2&quot;</translation>
     </message>
 </context>
 <context>
@@ -2271,7 +2276,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>Sub Libraries</source>
-        <translation>Библиотеки нижних уровней</translation>
+        <translation>Суб-библиотеки</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
@@ -2308,12 +2313,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="342"/>
         <source>Show &amp;details</source>
-        <translation type="unfinished"/>
+        <translation>Показать &amp;подробности</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="344"/>
         <source>Show details of this library</source>
-        <translation>Показать детали этой библиотеки</translation>
+        <translation>Показать подробности о библиотеке</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
@@ -2335,7 +2340,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
         <source>Sync &amp;now</source>
-        <translation type="unfinished"/>
+        <translation>Синхронизировать &amp;сейчас</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="362"/>
@@ -2387,12 +2392,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
         <source>&amp;Open cloud file browser</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Открыть облачный браузер</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation type="unfinished"/>
+        <translation>открыть эту библиотеку во встроенном облачном браузере</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
@@ -2442,7 +2447,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно перезаписать файл &quot;%1&quot; с самим собой</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
@@ -2452,7 +2457,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="789"/>
         <source>Unable to delete file &quot;%1&quot;</source>
-        <translation>Не удалось удалить файл: %1</translation>
+        <translation>Не удалось удалить файл &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="879"/>
@@ -2465,7 +2470,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="52"/>
         <source>Search libraries...</source>
-        <translation>Найти библиотеку...</translation>
+        <translation>Поиск библиотек...</translation>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="109"/>
@@ -2489,12 +2494,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="458"/>
+        <location filename="../src/seafile-applet.cpp" line="356"/>
+        <source>failed to add default account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="470"/>
         <source>Failed to initialize log: %s</source>
         <translation>Ошибка инициализации лога: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="580"/>
+        <location filename="../src/seafile-applet.cpp" line="593"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Доступна новая версия %1 клиентского приложения (%2).
@@ -2506,27 +2516,27 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
         <source>Seafile Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>Seafile внутренняя ссылка</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Копировать в буфер обмена</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
         <source>Seafile Web Link:</source>
-        <translation type="unfinished"/>
+        <translation>Seafile веб ссылка:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
         <source>Seafile Protocol Link:</source>
-        <translation type="unfinished"/>
+        <translation>Seafile протокол ссылка:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
@@ -2591,12 +2601,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>Open %1 &amp;folder</source>
-        <translation type="unfinished"/>
+        <translation>Открыть %1 &amp;папку</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="126"/>
         <source>open %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>открыть %1 папку</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="129"/>
@@ -2616,12 +2626,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="137"/>
         <source>&amp;Online help</source>
-        <translation>&amp;Онлайн помощь</translation>
+        <translation>&amp;Онлайн справка</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="144"/>
         <source>Help</source>
-        <translation>Помощь</translation>
+        <translation>Справка</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="184"/>
@@ -2656,12 +2666,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="130"/>
         <source>open %1 log folder</source>
-        <translation type="unfinished"/>
+        <translation>открыть %1 папку с логами</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="138"/>
         <source>open %1 online help</source>
-        <translation type="unfinished"/>
+        <translation>открыть %1 онлайн справку</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="414"/>
@@ -2679,7 +2689,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/search-tab.cpp" line="80"/>
         <source>Search Files...</source>
-        <translation type="unfinished"/>
+        <translation>Поиск файлов...</translation>
     </message>
 </context>
 <context>
@@ -2768,12 +2778,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="45"/>
         <source>HTTP Proxy</source>
-        <translation>HTTP Прокси</translation>
+        <translation>HTTP прокси</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="46"/>
         <source>Socks5 Proxy</source>
-        <translation>Socks5 Прокси</translation>
+        <translation>Socks5 прокси</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="96"/>
@@ -2873,7 +2883,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
+        <translation>Включить синхронизацию для папки с другим именем</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="422"/>
@@ -2946,7 +2956,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="14"/>
         <source>Share Link</source>
-        <translation>Ссылка:</translation>
+        <translation>Ссылка</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="18"/>
@@ -2956,7 +2966,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="31"/>
         <source>Direct Download</source>
-        <translation type="unfinished"/>
+        <translation>Прямое скачивание</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
@@ -2966,7 +2976,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="48"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
@@ -2979,7 +2989,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="85"/>
         <source>Failed to save current account</source>
-        <translation>Не удалось сохранить текущую учетную запись</translation>
+        <translation>Не удалось сохранить текущий аккаунт</translation>
     </message>
 </context>
 <context>
@@ -2987,7 +2997,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="15"/>
         <source>Untrusted Connection</source>
-        <translation>Недоверенное Соединение</translation>
+        <translation>Недоверенное соединение</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="18"/>
@@ -3002,7 +3012,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="27"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation>Прошлый отпечаток RSA %1</translation>
+        <translation>Предыдущий отпечаток RSA %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
@@ -3071,17 +3081,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="21"/>
         <source>Uninstall %1</source>
-        <translation>Деинсталяция %1</translation>
+        <translation>Деинсталляция %1</translation>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="24"/>
         <source>Do you want to remove the %1 account information?</source>
-        <translation>Желаете удалить информацию об учетной записи %1?</translation>
+        <translation>Желаете удалить информацию об аккаунте %1?</translation>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="49"/>
         <source>Removing account information...</source>
-        <translation>Удаление информации об учетной записи...</translation>
+        <translation>Удаление информации об аккаунте...</translation>
     </message>
     <message>
         <location filename="../ui_uninstall-helper-dialog.h" line="106"/>

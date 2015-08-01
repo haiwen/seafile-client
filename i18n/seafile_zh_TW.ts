@@ -1,13 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_TW">
 <context>
     <name>AccountManager</name>
     <message>
-        <location filename="../src/account-mgr.cpp" line="98"/>
+        <location filename="../src/account-mgr.cpp" line="99"/>
         <source>failed to open account database</source>
         <translation>無法開啟帳號數據庫</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="472"/>
+        <location filename="../src/account-mgr.cpp" line="493"/>
         <source>Authorization expired, please re-login</source>
         <translation>帳號驗證訊息已過期，請重新登入</translation>
     </message>
@@ -453,22 +455,22 @@ failed to upload.</source>
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="84"/>
+        <location filename="../src/configurator.cpp" line="81"/>
         <source>Error when creating ccnet configuration</source>
         <translation>在建立ccnet設定檔案時候遭遇錯誤</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="101"/>
+        <location filename="../src/configurator.cpp" line="97"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
         <translation>無法建立預配置資料夾 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="219"/>
+        <location filename="../src/configurator.cpp" line="214"/>
         <source>failed to read %1</source>
         <translation>無法讀取 %1</translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="264"/>
+        <location filename="../src/configurator.cpp" line="259"/>
         <source>%1 Default Library</source>
         <translation>默認資料庫 ％1</translation>
     </message>
@@ -1369,94 +1371,94 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="97"/>
+        <location filename="../src/ui/login-dialog.cpp" line="68"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
         <translation>增加新的帳號</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="150"/>
-        <location filename="../src/ui/login-dialog.cpp" line="151"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
+        <location filename="../src/ui/login-dialog.cpp" line="117"/>
         <source>Re-login</source>
         <translation>重新登陸</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="166"/>
+        <location filename="../src/ui/login-dialog.cpp" line="132"/>
         <source>Logging in...</source>
         <translation>登入中...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="206"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation>網路錯誤：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="218"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告：&lt;/b&gt; 伺服器的SSL證書不被信任，請問還需要繼續操作嗎？</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="232"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation>請輸入伺服器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="236"/>
-        <location filename="../src/ui/login-dialog.cpp" line="242"/>
-        <location filename="../src/ui/login-dialog.cpp" line="344"/>
-        <location filename="../src/ui/login-dialog.cpp" line="350"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="310"/>
+        <location filename="../src/ui/login-dialog.cpp" line="316"/>
         <source>%1 is not a valid server address</source>
         <translation>％1 不是有效的伺服器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="249"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation>請輸入用戶名</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="260"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
         <translation>請輸入此計算機的代號</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="278"/>
+        <location filename="../src/ui/login-dialog.cpp" line="244"/>
         <source>Failed to save current account</source>
         <translation>無法儲存目前帳號</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Seafile Server Address</source>
         <translation>Seafile 伺服器位置</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="254"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation>請輸入保護密碼</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="271"/>
         <source>Incorrect email or password</source>
         <translation>無法理解的郵件地址或者密碼</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="273"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>嘗試展登入過於頻繁，請稍後嘗試</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="309"/>
+        <location filename="../src/ui/login-dialog.cpp" line="275"/>
         <source>Internal Server Error</source>
         <translation>內部伺服器錯誤</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="313"/>
+        <location filename="../src/ui/login-dialog.cpp" line="279"/>
         <source>Failed to login: %1</source>
         <translation>無法登入：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="315"/>
+        <location filename="../src/ui/login-dialog.cpp" line="281"/>
         <source>Failed to login</source>
         <translation>無法登入</translation>
     </message>
@@ -1511,8 +1513,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>比如 Jim 的本本</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="141"/>
-        <location filename="../src/ui/login-dialog.cpp" line="334"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Shibboleth 登入</translation>
@@ -1930,89 +1932,94 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
         <location filename="../src/ui/event-details-tree.cpp" line="138"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Deleted</source>
         <translation>刪除的</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Removed</source>
         <translation>已被被刪除的</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Modified</source>
         <translation>修改的</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Renamed</source>
         <translation>重命名的</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <source>Added or modified</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Moved</source>
         <translation>移動的</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Added directory</source>
         <translation>新增的資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Removed directory</source>
         <translation>已被被刪除的資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Renamed directory</source>
         <translation>重命名的資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
         <source>Moved directory</source>
         <translation>移動的資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="59"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="60"/>
         <source>files</source>
         <translation>檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="62"/>
         <source>directories</source>
         <translation>目錄</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="64"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="65"/>
         <source>and %1 more</source>
         <translation>還有 %1 等等</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="85"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="86"/>
         <source>Reverted library to status at</source>
         <translation>恢復資料庫到狀態</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="92"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="93"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
         <translation>恢復檔案 %1 到狀態 %2</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="96"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="97"/>
         <source>Recovered deleted directory</source>
         <translation>恢復被刪除的資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="99"/>
         <source>Changed library name or description</source>
         <translation>改變資料庫的名稱或者描述詞</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
         <source>Auto merge by seafile system</source>
         <translation>智能合併，Seafile認證</translation>
     </message>
@@ -2079,61 +2086,61 @@ The library owner&apos;s storage space is used up.</source>
         <translation>將此資料夾同步與：</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Folder</source>
         <translation>資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Readonly Folder</source>
         <translation>只讀資料夾</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="609"/>
-        <location filename="../src/utils/file-utils.cpp" line="641"/>
+        <location filename="../src/utils/file-utils.cpp" line="614"/>
+        <location filename="../src/utils/file-utils.cpp" line="646"/>
         <source>Document</source>
         <translation>檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="613"/>
+        <location filename="../src/utils/file-utils.cpp" line="618"/>
         <source>PDF Document</source>
         <translation>PDF 檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="615"/>
+        <location filename="../src/utils/file-utils.cpp" line="620"/>
         <source>Image File</source>
         <translation>圖像檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="617"/>
+        <location filename="../src/utils/file-utils.cpp" line="622"/>
         <source>Text Document</source>
         <translation>文檔檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="619"/>
+        <location filename="../src/utils/file-utils.cpp" line="624"/>
         <source>Audio File</source>
         <translation>音樂檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="621"/>
+        <location filename="../src/utils/file-utils.cpp" line="626"/>
         <source>Video File</source>
         <translation>視頻檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="623"/>
-        <location filename="../src/utils/file-utils.cpp" line="631"/>
+        <location filename="../src/utils/file-utils.cpp" line="628"/>
+        <location filename="../src/utils/file-utils.cpp" line="636"/>
         <source>Word Document</source>
         <translation>Word檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="625"/>
-        <location filename="../src/utils/file-utils.cpp" line="635"/>
+        <location filename="../src/utils/file-utils.cpp" line="630"/>
+        <location filename="../src/utils/file-utils.cpp" line="640"/>
         <source>PowerPoint Document</source>
         <translation>PowerPoint檔案</translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="627"/>
-        <location filename="../src/utils/file-utils.cpp" line="633"/>
+        <location filename="../src/utils/file-utils.cpp" line="632"/>
+        <location filename="../src/utils/file-utils.cpp" line="638"/>
         <source>Excel Document</source>
         <translation>Excel檔案</translation>
     </message>
@@ -2493,12 +2500,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="458"/>
+        <location filename="../src/seafile-applet.cpp" line="356"/>
+        <source>failed to add default account</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="470"/>
         <source>Failed to initialize log: %s</source>
         <translation>無法初始化日誌: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="580"/>
+        <location filename="../src/seafile-applet.cpp" line="593"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>客戶端(%2)新版本 %1  已上線。
@@ -2635,7 +2647,9 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="492"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>您有 %n 條未讀消息</numerusform></translation>
+        <translation>
+            <numerusform>您有 %n 條未讀消息</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="498"/>

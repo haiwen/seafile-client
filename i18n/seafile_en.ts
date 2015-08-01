@@ -4,12 +4,12 @@
 <context>
     <name>AccountManager</name>
     <message>
-        <location filename="../src/account-mgr.cpp" line="98"/>
+        <location filename="../src/account-mgr.cpp" line="99"/>
         <source>failed to open account database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="472"/>
+        <location filename="../src/account-mgr.cpp" line="493"/>
         <source>Authorization expired, please re-login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -449,22 +449,22 @@ failed to upload.</source>
 <context>
     <name>Configurator</name>
     <message>
-        <location filename="../src/configurator.cpp" line="84"/>
+        <location filename="../src/configurator.cpp" line="81"/>
         <source>Error when creating ccnet configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="101"/>
+        <location filename="../src/configurator.cpp" line="97"/>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="219"/>
+        <location filename="../src/configurator.cpp" line="214"/>
         <source>failed to read %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configurator.cpp" line="264"/>
+        <location filename="../src/configurator.cpp" line="259"/>
         <source>%1 Default Library</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1351,93 +1351,93 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="97"/>
+        <location filename="../src/ui/login-dialog.cpp" line="68"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="150"/>
-        <location filename="../src/ui/login-dialog.cpp" line="151"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
+        <location filename="../src/ui/login-dialog.cpp" line="117"/>
         <source>Re-login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="166"/>
+        <location filename="../src/ui/login-dialog.cpp" line="132"/>
         <source>Logging in...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="206"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="218"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="232"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="236"/>
-        <location filename="../src/ui/login-dialog.cpp" line="242"/>
-        <location filename="../src/ui/login-dialog.cpp" line="344"/>
-        <location filename="../src/ui/login-dialog.cpp" line="350"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="310"/>
+        <location filename="../src/ui/login-dialog.cpp" line="316"/>
         <source>%1 is not a valid server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="249"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="260"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="278"/>
+        <location filename="../src/ui/login-dialog.cpp" line="244"/>
         <source>Failed to save current account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Seafile Server Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="254"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="271"/>
         <source>Incorrect email or password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="273"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="309"/>
+        <location filename="../src/ui/login-dialog.cpp" line="275"/>
         <source>Internal Server Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="313"/>
+        <location filename="../src/ui/login-dialog.cpp" line="279"/>
         <source>Failed to login: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="315"/>
+        <location filename="../src/ui/login-dialog.cpp" line="281"/>
         <source>Failed to login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1492,8 +1492,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="141"/>
-        <location filename="../src/ui/login-dialog.cpp" line="334"/>
+        <location filename="../src/ui/login-dialog.cpp" line="107"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation type="unfinished"></translation>
@@ -2062,61 +2062,61 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="601"/>
+        <location filename="../src/utils/file-utils.cpp" line="606"/>
         <source>Readonly Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="609"/>
-        <location filename="../src/utils/file-utils.cpp" line="641"/>
+        <location filename="../src/utils/file-utils.cpp" line="614"/>
+        <location filename="../src/utils/file-utils.cpp" line="646"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="613"/>
+        <location filename="../src/utils/file-utils.cpp" line="618"/>
         <source>PDF Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="615"/>
+        <location filename="../src/utils/file-utils.cpp" line="620"/>
         <source>Image File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="617"/>
+        <location filename="../src/utils/file-utils.cpp" line="622"/>
         <source>Text Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="619"/>
+        <location filename="../src/utils/file-utils.cpp" line="624"/>
         <source>Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="621"/>
+        <location filename="../src/utils/file-utils.cpp" line="626"/>
         <source>Video File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="623"/>
-        <location filename="../src/utils/file-utils.cpp" line="631"/>
+        <location filename="../src/utils/file-utils.cpp" line="628"/>
+        <location filename="../src/utils/file-utils.cpp" line="636"/>
         <source>Word Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="625"/>
-        <location filename="../src/utils/file-utils.cpp" line="635"/>
+        <location filename="../src/utils/file-utils.cpp" line="630"/>
+        <location filename="../src/utils/file-utils.cpp" line="640"/>
         <source>PowerPoint Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/file-utils.cpp" line="627"/>
-        <location filename="../src/utils/file-utils.cpp" line="633"/>
+        <location filename="../src/utils/file-utils.cpp" line="632"/>
+        <location filename="../src/utils/file-utils.cpp" line="638"/>
         <source>Excel Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2472,12 +2472,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="458"/>
+        <location filename="../src/seafile-applet.cpp" line="356"/>
+        <source>failed to add default account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="470"/>
         <source>Failed to initialize log: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="580"/>
+        <location filename="../src/seafile-applet.cpp" line="593"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>

@@ -25,6 +25,8 @@ enum PathStatus {
     SYNC_STATUS_SYNCED,
     SYNC_STATUS_READONLY,
     SYNC_STATUS_PAUSED,
+    SYNC_STATUS_LOCKED,
+    SYNC_STATUS_LOCKED_BY_ME,
     MAX_SYNC_STATUS,
 };
 
@@ -38,7 +40,7 @@ public:
 } // anonymous namespace
 
 static const char *const kPathStatus[] = {
-    "none", "syncing", "error", "ignored", "synced", "readonly", "paused", NULL,
+    "none", "syncing", "error", "ignored", "synced", "readonly", "paused", "locked", "locked_by_me", NULL,
 };
 
 static inline PathStatus getPathStatusFromString(const QString &status) {
@@ -62,6 +64,7 @@ inline static bool isContainsPrefix(const QString &path,
 static std::mutex update_mutex_;
 static std::vector<LocalRepo> watch_set_;
 static std::unique_ptr<GetSharedLinkRequest, QtLaterDeleter> get_shared_link_req_;
+static std::unique_ptr<LockFileRequest, QtLaterDeleter> lock_file_req_;
 
 FinderSyncHost::FinderSyncHost() : rpc_client_(new SeafileRpcClient) {
     rpc_client_->connectDaemon();
@@ -69,6 +72,7 @@ FinderSyncHost::FinderSyncHost() : rpc_client_(new SeafileRpcClient) {
 
 FinderSyncHost::~FinderSyncHost() {
     get_shared_link_req_.reset();
+    lock_file_req_.reset();
 }
 
 utils::BufferArray FinderSyncHost::getWatchSet(size_t header_size,
@@ -188,12 +192,37 @@ void FinderSyncHost::doInternalLink(const QString &path)
     SeafileLinkDialog(repo_id, account, path_in_repo).exec();
 }
 
-void FinderSyncHost::onShareLinkGenerated(const QString &link) {
+void FinderSyncHost::doLockFile(const QString &path, bool lock)
+{
+    QString repo_id;
+    Account account;
+    QString path_in_repo;
+    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
+        qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
+        return;
+    }
+    lock_file_req_.reset(new LockFileRequest(account, repo_id, path_in_repo, lock));
+
+    connect(lock_file_req_.get(), SIGNAL(success()),
+            this, SLOT(onLockFileSuccess()));
+    lock_file_req_->send();
+}
+
+void FinderSyncHost::onShareLinkGenerated(const QString &link)
+{
     SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
+}
+
+void FinderSyncHost::onLockFileSuccess()
+{
+    LockFileRequest* req = qobject_cast<LockFileRequest*>(sender());
+    if (!req)
+        return;
+    rpc_client_->markFileLockState(req->repoId(), req->path(), req->lock());
 }
 
 bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo)

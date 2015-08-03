@@ -30,13 +30,15 @@ static const NSArray *const kBadgetIdentifiers = @[
     // According to the document
     // https://developer.apple.com/library/mac/documentation/FinderSync/Reference/FIFinderSyncController_Class/#//apple_ref/occ/instm/FIFinderSyncController/setBadgeIdentifier:forURL:
     // Setting the identifier to an empty string (@"") removes the badge.
-    @"",       // none
-    @"syncing", // syncing
-    @"error",   // error
-    @"",       // ignored
-    @"synced",  // synced
-    @"paused",  // readonly
-    @"paused",  // paused
+    @"",            // none
+    @"syncing",      // syncing
+    @"error",        // error
+    @"",            // ignored
+    @"synced",       // synced
+    @"paused",       // readonly
+    @"paused",       // paused
+    @"locked",       // locked
+    @"locked_by_me", // locked by me
 ];
 
 // Set up images for our badge identifiers. For demonstration purposes,
@@ -64,6 +66,17 @@ static void initializeBadgeImages() {
              setBadgeImage:[NSImage imageNamed:@"status-ignored.icns"]
                      label:NSLocalizedString(@"Paused", @"Status Paused")
         forBadgeIdentifier:kBadgetIdentifiers[PathStatus::SYNC_STATUS_PAUSED]];
+    // LOCKED,
+    [[FIFinderSyncController defaultController]
+             setBadgeImage:[NSImage imageNamed:@"status-locked.icns"]
+                     label:NSLocalizedString(@"Locked", @"Status Locked")
+        forBadgeIdentifier:kBadgetIdentifiers[PathStatus::SYNC_STATUS_LOCKED]];
+    // LOCKED_BY_ME,
+    [[FIFinderSyncController defaultController]
+             setBadgeImage:[NSImage imageNamed:@"status-locked-by-me.icns"]
+                     label:NSLocalizedString(@"Locked", @"Status LockedByMe")
+        forBadgeIdentifier:kBadgetIdentifiers
+                               [PathStatus::SYNC_STATUS_LOCKED_BY_ME]];
 }
 
 inline static void setBadgeIdentifierFor(NSURL *url, PathStatus status) {
@@ -306,10 +319,9 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
     file_status_.emplace(file_path, PathStatus::SYNC_STATUS_NONE);
     setBadgeIdentifierFor(file_path, PathStatus::SYNC_STATUS_NONE);
-    dispatch_async(
-        self.client_command_queue_, ^{
-          client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
-        });
+    dispatch_async(self.client_command_queue_, ^{
+      client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
+    });
 }
 
 #pragma mark - Menu and toolbar item support
@@ -332,6 +344,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     if (whichMenu != FIMenuKindContextualMenuForItems &&
         whichMenu != FIMenuKindContextualMenuForContainer)
         return nil;
+
     // Produce a menu for the extension.
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     NSMenuItem *shareLinkItem =
@@ -348,6 +361,50 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     [shareLinkItem setImage:seafileImage];
     [internalLinkItem setImage:seafileImage];
 
+    // add a menu item for lockFile
+    NSArray *items =
+        [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return nil;
+    NSURL *item = items.firstObject;
+
+    NSNumber *isDirectory;
+    bool is_dir = [item getResourceValue:&isDirectory
+                                  forKey:NSURLIsDirectoryKey
+                                   error:nil] &&
+                  [isDirectory boolValue];
+
+    // we don't have a lock-file menuitem for folders
+    // early return
+    if (is_dir)
+        return menu;
+
+    std::string file_path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    // find where we have it
+    auto file = file_status_.find(is_dir ? file_path + "/" : file_path);
+    if (file == file_status_.end())
+        return nil;
+
+    NSString *lockFileTitle;
+    if (file->second == PathStatus::SYNC_STATUS_LOCKED) {
+        return menu;
+    } else if (file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME) {
+        lockFileTitle =
+            NSLocalizedString(@"Unlock This File", @"Unlock This File");
+    } else {
+        lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
+    }
+
+    NSMenuItem *lockFileItem = [menu addItemWithTitle:lockFileTitle
+                                               action:@selector(lockFileAction:)
+                                        keyEquivalent:@""];
+
+    [lockFileItem setImage:seafileImage];
+
+    if (file->second == PathStatus::SYNC_STATUS_LOCKED)
+        [lockFileItem setEnabled:FALSE];
+
     return menu;
 }
 
@@ -359,7 +416,8 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     NSURL *item = items.firstObject;
 
     // do it in another thread
-    std::string path = item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    std::string path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
     NSNumber *isDirectory;
     if ([item getResourceValue:&isDirectory
                         forKey:NSURLIsDirectoryKey
@@ -367,10 +425,10 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         [isDirectory boolValue])
         path += "/";
 
-    dispatch_async(
-        self.client_command_queue_, ^{
-          client_->doSharedLink(path.c_str(), false);
-        });
+    dispatch_async(self.client_command_queue_, ^{
+      client_->doSendCommandWithPath(FinderSyncClient::DoShareLink,
+                                     path.c_str());
+    });
 }
 
 - (IBAction)internalLinkAction:(id)sender {
@@ -381,7 +439,8 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     NSURL *item = items.firstObject;
 
     // do it in another thread
-    std::string path = item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    std::string path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
     NSNumber *isDirectory;
     if ([item getResourceValue:&isDirectory
                         forKey:NSURLIsDirectoryKey
@@ -389,18 +448,53 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         [isDirectory boolValue])
         path += "/";
 
-    dispatch_async(
-        self.client_command_queue_, ^{
-          client_->doSharedLink(path.c_str(), true);
-        });
+    dispatch_async(self.client_command_queue_, ^{
+      client_->doSendCommandWithPath(FinderSyncClient::DoInternalLink,
+                                     path.c_str());
+    });
+}
+
+- (IBAction)lockFileAction:(id)sender {
+    NSArray *items =
+        [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return;
+    NSURL *item = items.firstObject;
+
+    std::string path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    // find where we have it
+    auto file = file_status_.find(path);
+    if (file == file_status_.end())
+        return;
+    if (file->second == PathStatus::SYNC_STATUS_LOCKED)
+        return;
+
+    FinderSyncClient::CommandType command;
+    if (file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME)
+        command = FinderSyncClient::DoUnlockFile;
+    else
+        command = FinderSyncClient::DoLockFile;
+
+    // we cannot lock a directory
+    NSNumber *isDirectory;
+    if ([item getResourceValue:&isDirectory
+                        forKey:NSURLIsDirectoryKey
+                         error:nil] &&
+        [isDirectory boolValue])
+        return;
+
+    // do it in another thread
+    dispatch_async(self.client_command_queue_, ^{
+      client_->doSendCommandWithPath(command, path.c_str());
+    });
 }
 
 - (void)requestUpdateWatchSet {
     // do it in another thread
-    dispatch_async(self.client_command_queue_,
-                   ^{
-                     client_->getWatchSet();
-                   });
+    dispatch_async(self.client_command_queue_, ^{
+      client_->getWatchSet();
+    });
 }
 
 - (void)updateWatchSet:(void *)ptr_to_new_watched_repos {
@@ -443,10 +537,9 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         if (relative_path.empty())
             relative_path = "/";
         std::string repo_id = repo->repo_id;
-        dispatch_async(
-            self.client_command_queue_, ^{
-              client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
-            });
+        dispatch_async(self.client_command_queue_, ^{
+          client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
+        });
     }
 }
 

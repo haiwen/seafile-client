@@ -27,6 +27,8 @@ enum CommandType : uint32_t {
     DoShareLink = 1,
     DoGetFileStatus = 2,
     DoInternalLink = 3,
+    DoLockFile = 4,
+    DoUnlockFile = 5,
 };
 
 struct mach_msg_command_send_t {
@@ -68,7 +70,7 @@ static NSThread *finder_sync_listener_thread_ = nil;
 static volatile int32_t finder_sync_started_ = 0;
 static FinderSyncListener *finder_sync_listener_ = nil;
 static std::unique_ptr<FinderSyncHost, QtLaterDeleter> finder_sync_host_;
-static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000003;
+static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000004;
 
 static void handleGetFileStatus(mach_msg_command_rcv_t* msg) {
     // generate reply
@@ -231,6 +233,18 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
         break;
     case DoGetFileStatus:
         handleGetFileStatus(msg);
+        break;
+    case DoLockFile:
+        QMetaObject::invokeMethod(finder_sync_host_.get(), "doLockFile",
+                                  Qt::QueuedConnection,
+                                  Q_ARG(QString, msg->body),
+                                  Q_ARG(bool, true));
+        break;
+    case DoUnlockFile:
+        QMetaObject::invokeMethod(finder_sync_host_.get(), "doLockFile",
+                                  Qt::QueuedConnection,
+                                  Q_ARG(QString, msg->body),
+                                  Q_ARG(bool, false));
         break;
     default:
         qWarning("[FinderSync] received unknown command %u", msg->command);

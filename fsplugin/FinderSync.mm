@@ -387,12 +387,14 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         return nil;
 
     NSString *lockFileTitle;
-    if (file->second == PathStatus::SYNC_STATUS_LOCKED ||
-        file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME)
+    if (file->second == PathStatus::SYNC_STATUS_LOCKED) {
+        return menu;
+    } else if (file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME) {
         lockFileTitle =
             NSLocalizedString(@"Unlock This File", @"Unlock This File");
-    else if (file->second != PathStatus::SYNC_STATUS_LOCKED)
+    } else {
         lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
+    }
 
     NSMenuItem *lockFileItem = [menu addItemWithTitle:lockFileTitle
                                                action:@selector(lockFileAction:)

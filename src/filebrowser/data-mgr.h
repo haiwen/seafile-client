@@ -51,6 +51,10 @@ public:
                       const QString &new_path,
                       bool is_file);
 
+    void lockFile(const QString &repo_id,
+                  const QString &path,
+                  bool lock);
+
     void removeDirent(const QString &repo_id,
                       const QString &path,
                       bool is_file);
@@ -116,6 +120,9 @@ signals:
     void createDirectorySuccess(const QString& path);
     void createDirectoryFailed(const ApiError& error);
 
+    void lockFileSuccess(const QString& path, bool lock);
+    void lockFileFailed(const ApiError& error);
+
     void renameDirentSuccess(const QString& path, const QString& new_name);
     void renameDirentFailed(const ApiError& error);
 
@@ -140,6 +147,7 @@ private slots:
     void onFileDownloadFinished(bool success);
 
     void onCreateDirectorySuccess();
+    void onLockFileSuccess();
     void onRenameDirentSuccess();
     void onRemoveDirentSuccess();
     void onCopyDirentsSuccess();

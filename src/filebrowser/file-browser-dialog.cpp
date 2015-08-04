@@ -142,6 +142,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirentClicked(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntSaveAs(const QList<const SeafDirent*>&)),
             this, SLOT(onDirentSaveAs(const QList<const SeafDirent*>&)));
+    connect(table_view_, SIGNAL(direntLock(const SeafDirent&)),
+            this, SLOT(onGetDirentLock(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntRename(const SeafDirent&)),
             this, SLOT(onGetDirentRename(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntRemove(const SeafDirent&)),
@@ -172,6 +174,12 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirectoryCreateSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(createDirectoryFailed(const ApiError&)),
             this, SLOT(onDirectoryCreateFailed(const ApiError&)));
+
+    //lock <--> data_mgr_
+    connect(data_mgr_, SIGNAL(lockFileSuccess(const QString&, bool)),
+            this, SLOT(onFileLockSuccess(const QString&, bool)));
+    connect(data_mgr_, SIGNAL(lockFileFailed(const ApiError&)),
+            this, SLOT(onFileLockFailed(const ApiError&)));
 
     //rename <--> data_mgr_
     connect(data_mgr_, SIGNAL(renameDirentSuccess(const QString&, const QString&)),
@@ -781,7 +789,11 @@ void FileBrowserDialog::onUploadFinished(bool success)
           "",
           task->name(),
           0,
-          QDateTime::currentDateTime().toTime_t()
+          QDateTime::currentDateTime().toTime_t(),
+          false,
+          false,
+          "",
+          0
         };
         // TODO: insert the Item prior to the item where uploading occurs
         table_model_->insertItem(0, dir);
@@ -817,7 +829,11 @@ void FileBrowserDialog::onUploadFinished(bool success)
           "",
           name,
           static_cast<quint64>(file.size()),
-          QDateTime::currentDateTime().toTime_t()
+          QDateTime::currentDateTime().toTime_t(),
+          false,
+          false,
+          "",
+          0
         };
         if (task->useUpload())
             table_model_->appendItem(dirent);
@@ -925,6 +941,11 @@ void FileBrowserDialog::onNavigatorClick(int id)
     enterPath(path);
 }
 
+void FileBrowserDialog::onGetDirentLock(const SeafDirent& dirent)
+{
+    data_mgr_->lockFile(repo_.id, ::pathJoin(current_path_, dirent.name), !dirent.is_locked);
+}
+
 void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
                                           QString new_name)
 {
@@ -993,9 +1014,9 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
-    const SeafDirent dirent = { SeafDirent::DIR, false, "", name, 0,
-        QDateTime::currentDateTime().toTime_t()
-    };
+    const SeafDirent dirent = {SeafDirent::DIR, false, "", name, 0,
+                               QDateTime::currentDateTime().toTime_t(), false,
+                               false, "", 0};
     // TODO insert to the pos where the drop event triggered
     table_model_->insertItem(0, dirent);
 }
@@ -1003,6 +1024,33 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
 void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Create folder failed"), this);
+}
+
+void FileBrowserDialog::onFileLockSuccess(const QString& path, bool lock)
+{
+    const QString name = QFileInfo(path).fileName();
+    // if no longer current level
+    if (::pathJoin(current_path_, name) != path)
+        return;
+    const SeafDirent *old_dirent = NULL;
+    Q_FOREACH(const SeafDirent& dirent, table_model_->dirents())
+    {
+        if (dirent.name == name) {
+            old_dirent = &dirent;
+            break;
+        }
+    }
+    if (!old_dirent)
+        return;
+    SeafDirent new_dirent = *old_dirent;
+    new_dirent.is_locked = new_dirent.locked_by_me = lock;
+    new_dirent.lock_owner = account_.username;
+    table_model_->replaceItem(name, new_dirent);
+}
+
+void FileBrowserDialog::onFileLockFailed(const ApiError& error)
+{
+    seafApplet->warningBox(tr("Lock file failed"), this);
 }
 
 void FileBrowserDialog::onDirentRenameSuccess(const QString& path,

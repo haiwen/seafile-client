@@ -10,6 +10,7 @@ public:
 
     QString getString(const char *name) const;
     qint64 getLong(const char *name) const;
+    bool getBool(const char *name) const;
 
 private:
     const json_t *json_;

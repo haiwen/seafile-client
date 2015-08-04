@@ -37,6 +37,7 @@ const int kColumnIconSize = 28;
 const int kFileNameColumnWidth = 200;
 const int kExtraPadding = 30;
 const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kExtraPadding;
+const int kLockIconSize = 16;
 
 const int kRefreshProgressInterval = 1000;
 
@@ -47,6 +48,9 @@ const QColor kItemColor("black");
 const QString kProgressBarStyle("QProgressBar "
         "{ border: 1px solid grey; border-radius: 2px; } "
         "QProgressBar::chunk { background-color: #f0f0f0; width: 20px; }");
+
+const int DirentLockedRole = Qt::UserRole + 1;
+const int DirentLockOwnerRoler = Qt::UserRole + 2;
 
 } // namespace
 
@@ -111,6 +115,16 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->save();
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
+
+        bool locked = model->data(index, DirentLockedRole).toBool();
+        if (locked) {
+            painter->save();
+            QPixmap locked_pixmap = QIcon(":/images/filebrowser/locked.png").pixmap(kLockIconSize, kLockIconSize);
+            int alignX = (kColumnIconSize / 2) + 3;
+            int alignY = (kColumnIconSize / 2) + 2;
+            painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY), locked_pixmap);
+            painter->restore();
+        }
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
@@ -272,6 +286,14 @@ void FileTableView::setupContextMenu()
             this, SLOT(onSaveAs()));
     saveas_action_->setShortcut(Qt::ALT + Qt::Key_S);
 
+    lock_action_ = new QAction(tr("&Lock"), this);
+    connect(lock_action_, SIGNAL(triggered()), this, SLOT(onLock()));
+    lock_action_->setShortcut(Qt::ALT + Qt::Key_L);
+    if (!parent_->account_.isAtLeastProVersion(4, 2, 0)) {
+        lock_action_->setEnabled(false);
+        lock_action_->setToolTip(tr("This feature is available in pro version only\n"));
+    }
+
     rename_action_ = new QAction(tr("&Rename"), this);
     connect(rename_action_, SIGNAL(triggered()),
             this, SLOT(onRename()));
@@ -326,7 +348,7 @@ void FileTableView::setupContextMenu()
     connect(sync_subdirectory_action_, SIGNAL(triggered()),
             this, SLOT(onSyncSubdirectory()));
     sync_subdirectory_action_->setShortcut(Qt::ALT + Qt::Key_S);
-    if (!parent_->account_.isPro() || !parent_->account_.isAtLeastVersion(4, 1, 0)) {
+    if (!parent_->account_.isAtLeastProVersion(4, 1, 0)) {
         sync_subdirectory_action_->setEnabled(false);
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
     }
@@ -341,6 +363,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(copy_action_);
     context_menu_->addAction(paste_action_);
     context_menu_->addSeparator();
+    context_menu_->addAction(lock_action_);
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
     context_menu_->addSeparator();
@@ -355,6 +378,7 @@ void FileTableView::setupContextMenu()
     this->addAction(move_action_);
     this->addAction(copy_action_);
     this->addAction(paste_action_);
+    this->addAction(lock_action_);
     this->addAction(rename_action_);
     this->addAction(remove_action_);
     this->addAction(update_action_);
@@ -433,6 +457,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         saveas_action_->setText(tr("&Save As To..."));
         saveas_action_->setEnabled(!has_dir);
         download_action_->setText(tr("D&ownload"));
+        lock_action_->setVisible(false);
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
         share_seafile_action_->setVisible(false);
@@ -475,11 +500,22 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     }
 
     if (item_->isDir()) {
+        lock_action_->setVisible(false);
         update_action_->setVisible(false);
         download_action_->setText(tr("&Open"));
         saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
     } else {
+        if (item_->locked_by_me) {
+            lock_action_->setText(tr("Un&lock"));
+            lock_action_->setVisible(true);
+        } else if (item_->is_locked || item_->readonly) {
+            lock_action_->setVisible(false);
+        } else {
+            lock_action_->setText(tr("&Lock"));
+            lock_action_->setVisible(true);
+        }
+
         update_action_->setVisible(true);
         download_action_->setText(tr("D&ownload"));
         saveas_action_->setEnabled(true);
@@ -552,6 +588,17 @@ void FileTableView::onSaveAs()
     QList<const SeafDirent*> dirents;
     dirents.push_back(item_.data());
     emit direntSaveAs(dirents);
+}
+
+void FileTableView::onLock()
+{
+    const SeafDirent * item = item_.data();
+    if (item == NULL)
+        item = getSelectedItemFromSource();
+    if (!item || item->isDir() || item->readonly)
+        return;
+
+    emit direntLock(*item);
 }
 
 void FileTableView::onRename()
@@ -815,6 +862,18 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
         return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
+    }
+
+    if (role == DirentLockedRole && column == FILE_COLUMN_NAME) {
+        return dirent.is_locked || dirent.locked_by_me;
+    }
+
+    if (role == DirentLockOwnerRoler && column == FILE_COLUMN_NAME) {
+        return dirent.lock_owner;
+    }
+
+    if (role == Qt::ToolTipRole && column == FILE_COLUMN_NAME && !dirent.lock_owner.isEmpty()) {
+        return tr("locked by %1").arg(dirent.lock_owner);
     }
 
     if (role != Qt::DisplayRole) {

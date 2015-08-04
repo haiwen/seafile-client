@@ -37,6 +37,7 @@ const int kColumnIconSize = 28;
 const int kFileNameColumnWidth = 200;
 const int kExtraPadding = 30;
 const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kExtraPadding;
+const int kLockIconSize = 16;
 
 const int kRefreshProgressInterval = 1000;
 
@@ -118,8 +119,10 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         bool locked = model->data(index, DirentLockedRole).toBool();
         if (locked) {
             painter->save();
-            QPixmap locked_icon(":/images/filebrowser/locked.png");
-            painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), locked_icon);
+            QPixmap locked_pixmap = QIcon(":/images/filebrowser/locked.png").pixmap(kLockIconSize, kLockIconSize);
+            int alignX = (kColumnIconSize / 2) + 3;
+            int alignY = (kColumnIconSize / 2) + 2;
+            painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY), locked_pixmap);
             painter->restore();
         }
 

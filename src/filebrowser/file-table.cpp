@@ -48,6 +48,9 @@ const QString kProgressBarStyle("QProgressBar "
         "{ border: 1px solid grey; border-radius: 2px; } "
         "QProgressBar::chunk { background-color: #f0f0f0; width: 20px; }");
 
+const int DirentLockedRole = Qt::UserRole + 1;
+const int DirentLockOwnerRoler = Qt::UserRole + 2;
+
 } // namespace
 
 FileTableViewDelegate::FileTableViewDelegate(QObject *parent)
@@ -111,6 +114,14 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->save();
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
+
+        bool locked = model->data(index, DirentLockedRole).toBool();
+        if (locked) {
+            painter->save();
+            QPixmap locked_icon(":/images/filebrowser/locked.png");
+            painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), locked_icon);
+            painter->restore();
+        }
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
@@ -848,6 +859,14 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
         return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
+    }
+
+    if (role == DirentLockedRole && column == FILE_COLUMN_NAME) {
+        return dirent.is_locked || dirent.locked_by_me;
+    }
+
+    if (role == DirentLockOwnerRoler && column == FILE_COLUMN_NAME) {
+        return dirent.lock_owner;
     }
 
     if (role != Qt::DisplayRole) {

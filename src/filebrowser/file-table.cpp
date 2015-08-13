@@ -111,7 +111,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         // draw icon
         QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
         int alignX = 4; // AlignLeft
-        int alignY = (size.height() - pixmap.height()) / 2; //AlignVCenter
+        int alignY = (size.height() - kColumnIconSize) / 2; //AlignVCenter
         painter->save();
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
@@ -128,7 +128,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(alignX * 2 + pixmap.width(), -2), size - QSize(pixmap.width(), 0));
+        QRect rect(option_rect.topLeft() + QPoint(alignX * 2 + kColumnIconSize, -2), size - QSize(kColumnIconSize, 0));
         painter->setPen(kItemColor);
         painter->setFont(font);
         painter->drawText(rect,

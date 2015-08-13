@@ -695,7 +695,7 @@ QString getIconByFileName(const QString& fileName)
         icon = "unknown";
     }
 
-    return QString(":/images/files/file_%1").arg(icon);
+    return QString(":/images/files/file_%1.png").arg(icon);
 }
 
 QString getIconByFolder()
@@ -707,7 +707,7 @@ QString getIconByFileNameV2(const QString& fileName)
 {
     QString icon = iconPrefixFromFileName(fileName);
 
-    return QString(":/images/files_v2/file_%1").arg(icon.isEmpty() ? "unknown" : icon);
+    return QString(":/images/files_v2/file_%1.png").arg(icon.isEmpty() ? "unknown" : icon);
 }
 
 

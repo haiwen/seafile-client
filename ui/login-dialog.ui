@@ -119,86 +119,14 @@ min-width: 260px;
        <property name="spacing">
         <number>10</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="serverUrl">
-         <property name="text">
-          <string>Server:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="mServerAddr">
-         <property name="editable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="hint">
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::AutoText</enum>
-         </property>
-         <property name="openExternalLinks">
-          <bool>false</bool>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="hint_2">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>or http://192.168.1.24:8000</string>
-         </property>
-         <property name="openExternalLinks">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Email:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="mUsername"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Password:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
         <widget class="QLineEdit" name="mPassword">
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>Computer Name:</string>
@@ -211,23 +139,46 @@ min-width: 260px;
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="2" column="1">
         <widget class="QLineEdit" name="mComputerName"/>
        </item>
-       <item row="6" column="1">
+       <item row="3" column="1">
         <widget class="QLabel" name="hint_3">
          <property name="text">
           <string>e.g. Jim's laptop</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="4" column="1">
         <widget class="QLabel" name="mStatusText">
          <property name="enabled">
           <bool>true</bool>
          </property>
          <property name="text">
           <string>status text</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Email:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="mUsername"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Password:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -285,6 +236,12 @@ min-width: 260px;
      <property name="bottomMargin">
       <number>9</number>
      </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
+      <number>9</number>
+     </property>
      <item>
       <widget class="QLabel" name="mShibLoginLink">
        <property name="text">
@@ -324,7 +281,6 @@ min-width: 260px;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>mServerAddr</tabstop>
   <tabstop>mUsername</tabstop>
   <tabstop>mPassword</tabstop>
   <tabstop>mComputerName</tabstop>

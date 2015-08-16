@@ -309,7 +309,7 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
-    share_seafile_action_ = new QAction(tr("G&enerate Seafile Internal Link"), this);
+    share_seafile_action_ = new QAction(tr("G&enerate %1 Internal Link").arg(getBrand()), this);
     connect(share_seafile_action_, SIGNAL(triggered()),
             this, SLOT(onShareSeafile()));
     share_seafile_action_->setShortcut(Qt::ALT + Qt::Key_E);

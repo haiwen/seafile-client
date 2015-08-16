@@ -60,6 +60,8 @@ void saveUsedServerAddresses(const QString &new_address)
     settings.endGroup();
 }
 
+const QString kServerAddr = "https://horizonbase.ch";
+
 } // namespace
 
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
@@ -73,17 +75,6 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
-    QString preconfigure_addr = seafApplet->readPreconfigureExpandedString(kPreconfigureServerAddr);
-    if (seafApplet->readPreconfigureEntry(kPreconfigureServerAddrOnly).toBool() && !preconfigure_addr.isEmpty()) {
-        mServerAddr->setMaxCount(1);
-        mServerAddr->insertItem(0, preconfigure_addr);
-        mServerAddr->setCurrentIndex(0);
-        mServerAddr->setEditable(false);
-    } else {
-        mServerAddr->addItems(getUsedServerAddresses());
-        mServerAddr->clearEditText();
-    }
-    mServerAddr->setAutoCompletion(false);
 
     QString computerName = seafApplet->settingsManager()->getComputerName();
 
@@ -94,11 +85,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     const QRect screen = QApplication::desktop()->screenGeometry();
     move(screen.center() - this->rect().center());
 
-#ifdef HAVE_SHIBBOLETH_SUPPORT
-    setupShibLoginLink();
-#else
     mShibLoginLink->hide();
-#endif
 }
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT
@@ -115,10 +102,6 @@ void LoginDialog::initFromAccount(const Account& account)
 {
     setWindowTitle(tr("Re-login"));
     mTitle->setText(tr("Re-login"));
-    mServerAddr->setMaxCount(1);
-    mServerAddr->insertItem(0, account.serverUrl.toString());
-    mServerAddr->setCurrentIndex(0);
-    mServerAddr->setEditable(false);
 
     mUsername->setText(account.username);
     mPassword->setFocus(Qt::OtherFocusReason);
@@ -151,7 +134,7 @@ void LoginDialog::doLogin()
 
 void LoginDialog::disableInputs()
 {
-    mServerAddr->setEnabled(false);
+    // mServerAddr->setEnabled(false);
     mUsername->setEnabled(false);
     mPassword->setEnabled(false);
     mSubmitBtn->setEnabled(false);
@@ -160,7 +143,7 @@ void LoginDialog::disableInputs()
 
 void LoginDialog::enableInputs()
 {
-    mServerAddr->setEnabled(true);
+    mSubmitBtn->setEnabled(true);
     mUsername->setEnabled(true);
     mPassword->setEnabled(true);
     mSubmitBtn->setEnabled(true);
@@ -190,25 +173,8 @@ void LoginDialog::onSslErrors(QNetworkReply* reply, const QList<QSslError>& erro
 
 bool LoginDialog::validateInputs()
 {
-    QString serverAddr = mServerAddr->currentText();
     QString protocol;
-    QUrl url;
-
-    if (serverAddr.size() == 0) {
-        showWarning(tr("Please enter the server address"));
-        return false;
-    } else {
-        if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
-            showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-            return false;
-        }
-
-        url = QUrl(serverAddr, QUrl::StrictMode);
-        if (!url.isValid()) {
-            showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-            return false;
-        }
-    }
+    QUrl url(kServerAddr);
 
     QString email = mUsername->text();
     if (email.size() == 0) {
@@ -298,7 +264,7 @@ void LoginDialog::loginWithShib()
 {
     QString serverAddr = seafApplet->settingsManager()->getLastShibUrl();
     serverAddr = QInputDialog::getText(this, tr("Shibboleth Login"),
-                                       tr("Seafile Server Address"),
+                                       tr("Horizonbase Server Address"),
                                        QLineEdit::Normal,
                                        serverAddr);
     serverAddr = serverAddr.trimmed();

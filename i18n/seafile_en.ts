@@ -2018,7 +2018,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
-        <source>Auto merge by seafile system</source>
+        <source>Auto merge by %1 system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

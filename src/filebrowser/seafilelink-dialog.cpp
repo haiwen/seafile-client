@@ -7,6 +7,7 @@
 #include <QtGui>
 #endif
 #include "QtAwesome.h"
+#include "utils/utils.h"
 #include "utils/utils-mac.h"
 #include "open-local-helper.h"
 
@@ -14,7 +15,7 @@ SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& acco
     : web_link_(OpenLocalHelper::instance()->generateLocalFileWebUrl(repo_id, account, path).toEncoded())
     , protocol_link_(OpenLocalHelper::instance()->generateLocalFileSeafileUrl(repo_id, account, path).toEncoded())
 {
-    setWindowTitle(tr("Seafile Internal Link"));
+    setWindowTitle(tr("%1 Internal Link").arg(getBrand()));
     setWindowIcon(QIcon(":/images/seafile.png"));
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -27,7 +28,7 @@ SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& acco
     //
     // create web link related
     //
-    QLabel *web_label = new QLabel(tr("Seafile Web Link:"));
+    QLabel *web_label = new QLabel(tr("%1 Web Link:").arg(getBrand()));
     layout->addWidget(web_label);
     QHBoxLayout *web_layout = new QHBoxLayout;
 
@@ -49,7 +50,7 @@ SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& acco
     //
     // create seafile-protocol link related
     //
-    QLabel *protocol_label = new QLabel(tr("Seafile Protocol Link:"));
+    QLabel *protocol_label = new QLabel(tr("%1 Protocol Link:").arg(getBrand()));
     layout->addWidget(protocol_label);
     QHBoxLayout *protocol_layout = new QHBoxLayout;
 

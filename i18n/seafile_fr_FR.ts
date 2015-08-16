@@ -1108,9 +1108,9 @@ n&apos;a pu être envoyé.</translation>
         <translation>&amp;Générer un lien de partage</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="312"/>
-        <source>G&amp;enerate Seafile Internal Link</source>
-        <translation>G&amp;énérer un lien interne Seafile</translation>
+        <location filename="../src/filebrowser/file-table.cpp" line="290"/>
+        <source>G&amp;enerate %1 Internal Link</source>
+        <translation>G&amp;énérer un lien interne %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="321"/>
@@ -2037,8 +2037,8 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
-        <source>Auto merge by seafile system</source>
-        <translation>Fusion automatique par Seafile</translation>
+        <source>Auto merge by %1 system</source>
+        <translation>Fusion automatique par %1</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="559"/>
@@ -2537,8 +2537,8 @@ Voulez vous visiter la page de téléchargement?</translation>
     <name>SeafileLinkDialog</name>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
-        <source>Seafile Internal Link</source>
-        <translation>Lien interne Seafile</translation>
+        <source>%1 Internal Link</source>
+        <translation>Lien interne %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
@@ -2547,13 +2547,13 @@ Voulez vous visiter la page de téléchargement?</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
-        <source>Seafile Web Link:</source>
-        <translation>Lien web Seafile :</translation>
+        <source>%1 Web Link:</source>
+        <translation>Lien web %1 :</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
-        <source>Seafile Protocol Link:</source>
-        <translation>Protocole de lien Seafile</translation>
+        <source>%1 Protocol Link:</source>
+        <translation>Protocole de lien %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>

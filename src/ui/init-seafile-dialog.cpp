@@ -167,11 +167,11 @@ void InitSeafileDialog::onOkClicked()
     }
 
 #if defined(Q_OS_WIN32)
-    dir.mkpath("Seafile/seafile-data");
-    QString seafile_dir = dir.filePath("Seafile/seafile-data");
+    dir.mkpath("HorizonBase/horizonbase-data");
+    QString seafile_dir = dir.filePath("HorizonBase/horizonbase-data");
 #else
-    dir.mkpath("Seafile/.seafile-data");
-    QString seafile_dir = dir.filePath("Seafile/.seafile-data");
+    dir.mkpath("HorizonBase/.horizonbase-data");
+    QString seafile_dir = dir.filePath("HorizonBase/.horizonbase-data");
 #endif
 
     emit seafileDirSet(seafile_dir);

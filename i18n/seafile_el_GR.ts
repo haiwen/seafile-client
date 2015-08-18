@@ -142,7 +142,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="439"/>
         <source>Logging out is not supported on your server (version too low).</source>
-        <translation>Η αποσύνδεση δεν υποστηρίζετε από τον διακομιστή σας (πολύ παλιά έκδοση)</translation>
+        <translation>Η αποσύνδεση δεν υποστηρίζεται από τον διακομιστή σας (πολύ παλιά έκδοση)</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="441"/>
@@ -295,7 +295,7 @@ failed to upload.</source>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="89"/>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="91"/>
         <source>Remove this task</source>
-        <translation>απομάκρυνση της διεργασίας</translation>
+        <translation>Απομάκρυνση αυτής της διεργασίας</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-table-view.cpp" line="103"/>
@@ -422,7 +422,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="236"/>
         <source>Select</source>
-        <translation>Επιλογή</translation>
+        <translation>Επιλέξτε</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="237"/>
@@ -783,204 +783,209 @@ failed to upload.</source>
         <translation>Εξερευνητής αρχείων cloud</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="266"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="274"/>
         <source>Back</source>
         <translation>Πίσω</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="275"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="283"/>
         <source>Forward</source>
         <translation>Εμπρός</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="283"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="291"/>
         <source>Home</source>
         <translation>Αρχική</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="316"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="324"/>
         <source>Upload files</source>
         <translation>Μεταφόρτωση αρχείων</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="322"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="330"/>
         <source>Upload a directory</source>
         <translation>Μεταφόρτωση φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="343"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="351"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>Δεν έχετε δικαιώματα μεταφόρτωσης αρχείων σε αυτή τη βιβλιοθήκη</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="330"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="425"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="338"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="433"/>
         <source>Create a folder</source>
         <translation>Δημιουργία φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="244"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="252"/>
         <source>Minimize</source>
         <translation>Ελαχιστοποίηση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="251"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="259"/>
         <source>Close</source>
         <translation>Κλείσιμο</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="426"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="434"/>
         <source>Folder name</source>
         <translation>Όνομα φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="434"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="442"/>
         <source>Invalid folder name!</source>
         <translation>Μη συμβατό όνομα φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="440"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="448"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>Το όνομα &quot;%1&quot; χρησιμοποιείται ήδη.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="456"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="464"/>
         <source>retry</source>
         <translation>δοκιμάστε ξανά</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="457"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="465"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>Αποτυχία λήψης πληροφοριών αρχείων&lt;br/&gt;Παρακαλώ %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="488"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="496"/>
         <source>Enter name of file to save to...</source>
         <translation>Εισάγετε όνομα αρχείου για αποθήκευση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="495"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="519"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="503"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="527"/>
         <source>Unable to remove file &quot;%1&quot;</source>
         <translation>Αποτυχία αφαίρεσης αρχείου &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="504"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="512"/>
         <source>Enter the path of the folder you want to save to...</source>
         <translation>Εισάγετε την διαδρομή του φακέλου στον οποίο θέλετε αν αποθηκεύσετε...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="515"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="523"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
         <translation>Θέλετε να αντικαθαστήσετε το υπάρχον αρχείο &quot;%1&quot;;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="596"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="604"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
         <translation>Το αρχείο &quot;%1&quot; δεν έχει συγχρονιστεί</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="633"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="641"/>
         <source>Feature not supported</source>
         <translation>Η δυνατότητα δεν υποστηρίζεται</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="701"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="709"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Το αρχείο %1 υπάρχει ήδη.&lt;br/&gt;Θέλετε να το αντικαταστήσετε;&lt;br/&gt;&lt;small&gt;(Επιλέξτε Όχι για να μεταφορτώσετε το αρχείο με διαφορετικό όνομα).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="744"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="752"/>
         <source>Failed to download file: %1</source>
         <translation>Αποτυχία λήψης του αρχείου: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="768"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="776"/>
         <source>Failed to upload file: %1</source>
         <translation>Αποτυχία μεταφόρτωσης του αρχείου: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="891"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="907"/>
         <source>Select a file to upload</source>
         <translation>Επιλέξτε ένα αρχείο για μεταφόρτωση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="899"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="915"/>
         <source>Select a directory to upload</source>
         <translation>Επιλέξτε ένα φάκελο για μεταφόρτωση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="910"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="926"/>
         <source>Unable to create cache folder</source>
         <translation>Αδυναμία δημιουργία φακέλου προσωρινής μνήμης</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="912"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="928"/>
         <source>Unable to open cache folder</source>
         <translation>Αποτυχία φόρτωσης φακέλου προσωρινής μνήμης</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="953"/>
         <source>Rename</source>
         <translation>Μετονομασία</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="954"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="975"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
         <translation>Θέλετε πραγματικά να διαγράψετε το αρχείο &quot;%1&quot;;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="955"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="976"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>Θέλετε πραγματικά να διαγράψετε τον φάκελο &quot;%1&quot;;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="962"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="983"/>
         <source>Do you really want to delete these items</source>
         <translation>Θέλετε να διαγράψετε αυτή τα τα στοιχεία</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1005"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1026"/>
         <source>Create folder failed</source>
         <translation>Αποτυχία δημιουργία φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1021"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1053"/>
+        <source>Lock file failed</source>
+        <translation>Το κλείδωμα του αρχείου απέτυχε</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1069"/>
         <source>Select a file to update %1</source>
         <translation>Επιλέξτε ένα αρχείο για ενημέρωση %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1029"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1077"/>
         <source>Rename failed</source>
         <translation>Αποτυχία μετονομασίας</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1043"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1091"/>
         <source>Remove failed</source>
         <translation>Αποτυχία διαγραφής</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1053"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1101"/>
         <source>Share failed</source>
-        <translation>Αποτυχία διαμοιρασμού</translation>
+        <translation>Αποτυχία κοινής χρήσης</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1115"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1163"/>
         <source>Cannot paste files from the same folder</source>
         <translation>Δεν μπορείτε να επικολλήσετε αρχεία από τον ίδιο φάκελο</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1139"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1187"/>
         <source>Copy failed</source>
         <translation>Αποτυχία αντιγραφής</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1154"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1202"/>
         <source>Move failed</source>
         <translation>Αποτυχία μετακίνησης</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1182"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1230"/>
         <source>Create library failed!</source>
         <translation>Αποτυχία δημιουργίας βιβλιοθήκης!</translation>
     </message>
@@ -1042,22 +1047,27 @@ failed to upload.</source>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="865"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="876"/>
+        <source>locked by %1</source>
+        <translation>κλειδώθηκε από %1</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="924"/>
         <source>Name</source>
         <translation>Όνομα</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="867"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="926"/>
         <source>Size</source>
         <translation>Μέγεθος</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="869"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="928"/>
         <source>Last Modified</source>
         <translation>Τελευταία τροποποίηση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="871"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="930"/>
         <source>Kind</source>
         <translation>Είδος</translation>
     </message>
@@ -1065,92 +1075,104 @@ failed to upload.</source>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="265"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="479"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="279"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="505"/>
         <source>&amp;Open</source>
         <translation>&amp;Άνοιγμα</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="270"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="457"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="284"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="482"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Αποθήκευση ως...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="275"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="289"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="515"/>
+        <source>&amp;Lock</source>
+        <translation>&amp;Κλείδωμα</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="297"/>
         <source>&amp;Rename</source>
         <translation>&amp;Μετονομασία</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="280"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="302"/>
         <source>&amp;Delete</source>
         <translation>&amp;Διαγραφή</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="285"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="307"/>
         <source>&amp;Generate Share Link</source>
-        <translation>&amp;Δημιουργία συνδέσμου διαμοιρασμού</translation>
+        <translation>&amp;Δημιουργία συνδέσμου κοινής χρήσης</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="290"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="312"/>
         <source>G&amp;enerate Seafile Internal Link</source>
         <translation>&amp;Δημιουργία εσωτερικού συνδέσμου Seafile</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="299"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="321"/>
         <source>&amp;Update</source>
         <translation>&amp;Ενημέρωση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="303"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="325"/>
         <source>&amp;Copy</source>
         <translation>&amp;Αντιγραφή</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="329"/>
         <source>Cu&amp;t</source>
         <translation>Αποκ&amp;οπή</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="311"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="333"/>
         <source>&amp;Paste</source>
         <translation>&amp;Επικόλληση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="342"/>
         <source>Canc&amp;el Download</source>
         <translation>Ακύρω&amp;ση λήψης</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="325"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="347"/>
         <source>&amp;Sync this folder</source>
         <translation>&amp;Συγχρονισμός αυτού του φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="331"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="294"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="353"/>
         <source>This feature is available in pro version only
 </source>
         <translation>Αυτή η δυνατότητα είνα διαθέσιμη στην έκδοση pro
 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="433"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="457"/>
         <source>&amp;Save As To...</source>
         <translation>&amp;Αποθήκευση ως σε...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="435"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="484"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="459"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="520"/>
         <source>D&amp;ownload</source>
         <translation>Λ&amp;ήψη</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="588"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="510"/>
+        <source>Un&amp;lock</source>
+        <translation>Ξε&amp;κλείδωμα</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="635"/>
         <source>Unable to remove readonly files</source>
         <translation>Αποτυχία αφαίρεσης αρχείων μόνο για ανάγνωση</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="670"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="717"/>
         <source>Unable to cut readonly files</source>
         <translation>Αδυναμία αποκοπής αρχείων μόνο για ανάγνωση</translation>
     </message>
@@ -1905,7 +1927,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>αποτυχία ανοίγματος βάσης δεδομένων προσωρινών αρχείων</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="933"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="954"/>
         <source>Rename %1 to</source>
         <translation>Μετονομασία %1 σε</translation>
     </message>
@@ -2392,76 +2414,79 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
         <source>&amp;Open cloud file browser</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Άνοιγμα του εξερευνητή αρχείων cloud</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation type="unfinished"/>
+        <translation>ανοίξτε αυτή τη βιβλιοθηκη με τον ενσωματωμένο εξερευνητή αρχείων Cloud</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>%Επανασυγχρονισμός αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>αποσυγχρόνισμός και επανασυγχρονισμός αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="449"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Είστε σίγουροι πως θέλετε να αποσυγχρονίσετε την βιβλιοθήκη &quot;%1&quot;;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="461"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="722"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία αποσυγχρονισμού βιβλιοθήκης &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="658"/>
         <source>Failed to cancel this task:
 
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία ακύρωσης αυτής της εργασίας:
+
+ %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="662"/>
         <source>The download has been canceled</source>
-        <translation type="unfinished"/>
+        <translation>Η λήχη έχει ακυρωθεί</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Είστε σίγουροι πως θέλετε αν αποσυγχρονίσετε και να επανασυγχρονίσετε την βιβλιοθήκη &quot;%1&quot;;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="749"/>
         <source>Failed to add download task:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία προσθήκης διεργασίας λήψης:
+ %1</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
-        <translation type="unfinished"/>
+        <translation>Αδυναμία αντικατάστασης αρχείου &quot;%1&quot; με τον εαυτό του</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Είστε σίγουροι πως θέλετε να αντικαταστήσετε το αρχείο &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="789"/>
         <source>Unable to delete file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Αδυναμία διαγραφής αρχείου &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="879"/>
         <source>Failed to upload file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Αδυναμία μεταφόρτωσης αρχείου: &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -2474,12 +2499,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="109"/>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>δοκιμάστε ξανά</translation>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="110"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία λήψης πληροφοριών βιβλιοθηκών &lt;br/&gt;Παρακαλώ %1</translation>
     </message>
 </context>
 <context>
@@ -2487,7 +2512,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/api/api-client.cpp" line="138"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Προσοχή:&lt;/b&gt; Το πιστοποιητικό ssl αυτού του διακομιστή δεν είναι έμπιστο, θέλετε να συνεχίσετε;</translation>
     </message>
 </context>
 <context>
@@ -2495,18 +2520,19 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/seafile-applet.cpp" line="356"/>
         <source>failed to add default account</source>
-        <translation type="unfinished"/>
+        <translation>αποτυχία προσθήκης προεπιλεγμένου λογαριασμού</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="470"/>
         <source>Failed to initialize log: %s</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία αρχικοποιήσης αρχείου καταγραφής: %s</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="593"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
-        <translation type="unfinished"/>
+        <translation>Μια νέα έκδοση του %1 προγράμματος πελάτη (%2) είναι διαθέσιμη.
+Θέλετε να επισκεφθείτε την σελίδα λήψεων;</translation>
     </message>
 </context>
 <context>
@@ -2514,27 +2540,27 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
         <source>Seafile Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>Εσωτερικός σύνδεσμος Seafile</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Αντιγραφή στο πρόχειρο</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
         <source>Seafile Web Link:</source>
-        <translation type="unfinished"/>
+        <translation>Σύνδεσμος Web Seafile:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
         <source>Seafile Protocol Link:</source>
-        <translation type="unfinished"/>
+        <translation>Σύνδεσμος πρωτόκολλου Seafile:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>ΟΚ</translation>
     </message>
 </context>
 <context>
@@ -2542,7 +2568,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"/>
+        <translation>αποτυχία φόρτωσης του φακέλου ρύθμισης ccnet %1</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="490"/>
@@ -2556,12 +2582,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="707"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation type="unfinished"/>
+        <translation>Η διαδρομή &quot;%1&quot; συγκρούεται με την διαδρομή συστήματος</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="709"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation type="unfinished"/>
+        <translation>Η διαδρομή &quot;%1&quot; συγκρουέται με μία υπάρχουσα βιβλιοθήκη</translation>
     </message>
 </context>
 <context>
@@ -2584,7 +2610,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="116"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Αποσύνδεση</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="119"/>
@@ -2599,32 +2625,32 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>Open %1 &amp;folder</source>
-        <translation type="unfinished"/>
+        <translation>Άνοιγμα %1 &amp;φακέλου</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="126"/>
         <source>open %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>άνοιγμα %1 φακέλου</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="129"/>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"/>
+        <translation>Άνοιγμα φακέλου &amp;Καταγραφής</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="133"/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Σχετικά</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="134"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"/>
+        <translation>Προβολή του κουτιού Σχετικά με την εφαρμογή</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="137"/>
         <source>&amp;Online help</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Online βοήθεια</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="144"/>
@@ -2634,7 +2660,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="184"/>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>Αρχείο</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="492"/>
@@ -2649,37 +2675,37 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="525"/>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Μεταφόρτωση</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="526"/>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Λήψη</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="413"/>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>Σχετικά %1</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="130"/>
         <source>open %1 log folder</source>
-        <translation type="unfinished"/>
+        <translation>άνοιγμα %1 φακέλου καταγραφής</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="138"/>
         <source>open %1 online help</source>
-        <translation type="unfinished"/>
+        <translation>άνοιγμα %1 online βοήθειας</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="414"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 Πρόγραμμα πελάτης %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="503"/>
         <source>some servers not connected</source>
-        <translation type="unfinished"/>
+        <translation>κάποιοι διακομιστές δεν είναι συνδεδεμένοι</translation>
     </message>
 </context>
 <context>
@@ -2687,7 +2713,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/search-tab.cpp" line="80"/>
         <source>Search Files...</source>
-        <translation type="unfinished"/>
+        <translation>Αναζήτηση Αρχείων...</translation>
     </message>
 </context>
 <context>
@@ -2695,17 +2721,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="13"/>
         <source>Servers connection status</source>
-        <translation type="unfinished"/>
+        <translation>Κατάσταση σύνδεσης διακομιστών</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="32"/>
         <source>connected</source>
-        <translation type="unfinished"/>
+        <translation>συνδεδεμένο</translation>
     </message>
     <message>
         <location filename="../src/ui/server-status-dialog.cpp" line="35"/>
         <source>disconnected</source>
-        <translation type="unfinished"/>
+        <translation>αποσυνδεδεμένο</translation>
     </message>
     <message>
         <location filename="../ui_server-status-dialog.h" line="70"/>
@@ -2771,27 +2797,27 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="44"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Κανένα</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="45"/>
         <source>HTTP Proxy</source>
-        <translation type="unfinished"/>
+        <translation>HTTP Proxy</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="46"/>
         <source>Socks5 Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Socks5 Proxy</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="96"/>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Αλλάξατε την γλώσσα. Θέλετε να γίνει επανεκκίνηση για να εφαρμοστεί;</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="99"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Αλλάξατε τις ρυθμίσεις διακομιστή proxy. Θέλετε να γίνει επανεκκίνηση για να εφαρμοστούν;</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="404"/>
@@ -2811,77 +2837,77 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="407"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"/>
+        <translation>Ενεργόποιηση συγχρονισμού προσωρινών αρχείων του MSOffice/Libreoffice</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="408"/>
         <source>Auto start Seafile after login</source>
-        <translation type="unfinished"/>
+        <translation>Αυτόματη εκκίνηση του Seafile μετά την σύνδεση</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
         <source>Check for new version on startup</source>
-        <translation type="unfinished"/>
+        <translation>Έλεγχος για νέα έκδοση κατά την εκκίνηση</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="413"/>
         <source>Download speed limit (KB/s):</source>
-        <translation type="unfinished"/>
+        <translation>Όριο ταχύτητας λήψης (KB/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="414"/>
         <source>Upload speed limit (KB/s):</source>
-        <translation type="unfinished"/>
+        <translation>Όριο ταχύτητας μεταφόρτωσης (kb/s):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="415"/>
         <source>Basic</source>
-        <translation type="unfinished"/>
+        <translation>Βασικό</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Do not automatically unsync a library</source>
-        <translation type="unfinished"/>
+        <translation>Να μην γίνετε αυτόματος αποσυγχρονισμός βιβλιοθηκών</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation type="unfinished"/>
+        <translation>Να μην γίνετε αυτόματος αποσυγχρονισμός μίας βιβλιοθήκης όταν ο τοπικός φάκελος διαγραφεί ή είναι μη διαθέσιμος για άλλους λόγους.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation type="unfinished"/>
+        <translation>Να μην γίνετε αποσυγχρονισμός μίας βιβλιοθήκης όταν δεν βρεθεί στον διακομιστή</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation type="unfinished"/>
+        <translation>Να μην γίνετε αυτόματος αποσυγχρονισμός μίας βιβλιοθήκης όταν δεν βρεθεί στον διακομιστή</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="409"/>
         <source>Hide Seafile Icon from the dock</source>
-        <translation type="unfinished"/>
+        <translation>Απόκρυψη του εικονιδίου Seafile από την γραμμή εργασιών</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable FinderSync Extension</source>
-        <translation type="unfinished"/>
+        <translation>Ενεργοποίηση της προσθήκης FinderSync</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Enable Explorer Extension</source>
-        <translation type="unfinished"/>
+        <translation>Ενεργοποίηση προσθήκης Explorer</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="420"/>
         <source>Do not verify server certificate in HTTPS syncing</source>
-        <translation type="unfinished"/>
+        <translation>Να μην γίνετε έλεγχος του πιστοποιητικού του διακομιστή κατά τον συγχρονισμό με HTTPS</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
+        <translation>Ενεργοποίηση συγχρονισμού με υπάρχοντα φάκελο με διαφορετικό όνομα</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="422"/>
@@ -2891,52 +2917,52 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="423"/>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>Γλώσσα (απαιτείται επανεκκίνηση)</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="424"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Γλώσσα</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="425"/>
         <source>Proxy Type:</source>
-        <translation type="unfinished"/>
+        <translation>Τύπος Proxy:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="426"/>
         <source>Host:</source>
-        <translation type="unfinished"/>
+        <translation>Διακομιστής:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="427"/>
         <source>Port:</source>
-        <translation type="unfinished"/>
+        <translation>Θύρα:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="428"/>
         <source>0</source>
-        <translation type="unfinished"/>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="429"/>
         <source>Username:</source>
-        <translation type="unfinished"/>
+        <translation>Όνομα χρήστη:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="430"/>
         <source>Password:</source>
-        <translation type="unfinished"/>
+        <translation>Κωδικός πρόσβασης:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="431"/>
         <source>Proxy server requires a password</source>
-        <translation type="unfinished"/>
+        <translation>Ο διακομιστής proxy απαιτεί κωδικό πρόσβασης</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="432"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>Δίκτυο</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="433"/>
@@ -2954,27 +2980,27 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="14"/>
         <source>Share Link</source>
-        <translation type="unfinished"/>
+        <translation>Κοινή χρήση συνδέσμου</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="18"/>
         <source>Share link:</source>
-        <translation type="unfinished"/>
+        <translation>Κοινή χρήση συνδέσμου:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="31"/>
         <source>Direct Download</source>
-        <translation type="unfinished"/>
+        <translation>Άμεση Λήψη</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Αντιγραφή στο πρόχειρο</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="48"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -2982,12 +3008,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="30"/>
         <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <translation>Σύνδεση με Shibboleth</translation>
     </message>
     <message>
         <location filename="../src/shib/shib-login-dialog.cpp" line="85"/>
         <source>Failed to save current account</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία αποθήκευσης του λογαριασμού</translation>
     </message>
 </context>
 <context>
@@ -2995,22 +3021,22 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="15"/>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"/>
+        <translation>Μη έμπιστη σύνδεση</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="18"/>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
-        <translation type="unfinished"/>
+        <translation>Ο %1 χρησιμοποιεί ένα μή έγκυρο πιστοποιητικό ασφαλείας. Η σύνδεση μπορεί να είναι μη ασφαλής. Θέλετε να συνεχίσετε;</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="24"/>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"/>
+        <translation>Το τωρινό RSA key ίχνος είναι %1</translation>
     </message>
     <message>
         <location filename="../src/ui/ssl-confirm-dialog.cpp" line="27"/>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"/>
+        <translation>Το προηγούμενο RSA key ίχνος είναι %1</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="96"/>
@@ -3020,7 +3046,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="97"/>
         <source>Remember my choice</source>
-        <translation type="unfinished"/>
+        <translation>Απομνημόνευση της επιλογής μου</translation>
     </message>
     <message>
         <location filename="../ui_ssl-confirm-dialog.h" line="98"/>
@@ -3038,22 +3064,22 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="40"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Άνοιγμα</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="43"/>
         <source>Open this file</source>
-        <translation>Άνοιγμα του αρχείου</translation>
+        <translation>Άνοιγμα αυτού του αρχείου</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="46"/>
         <source>view on &amp;Web</source>
-        <translation type="unfinished"/>
+        <translation>προβολή στο &amp;Web</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-list-view.cpp" line="49"/>
         <source>view this file on website</source>
-        <translation type="unfinished"/>
+        <translation>προβολή αυτού του αρχείου στην ιστοσελίδα</translation>
     </message>
 </context>
 <context>
@@ -3061,17 +3087,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="93"/>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>δοκιμάστε ξανά</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="94"/>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>Αποτύχια λήψης πληροφορίων αρχείων με αστεράκι &lt;br/&gt; Παρακαλώ %1</translation>
     </message>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="115"/>
         <source>You have no starred files yet.</source>
-        <translation type="unfinished"/>
+        <translation>Δεν έχετε αρχεία σημειωμένα με αστεράκι ακόμη.</translation>
     </message>
 </context>
 <context>
@@ -3079,12 +3105,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="21"/>
         <source>Uninstall %1</source>
-        <translation type="unfinished"/>
+        <translation>Απεγκατάσταση %1</translation>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="24"/>
         <source>Do you want to remove the %1 account information?</source>
-        <translation type="unfinished"/>
+        <translation>Δεν μπορείτε να αφαιρέσετε τις πληροφορίες λογαριασμού %1;</translation>
     </message>
     <message>
         <location filename="../src/ui/uninstall-helper-dialog.cpp" line="49"/>

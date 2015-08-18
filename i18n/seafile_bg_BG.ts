@@ -1,10 +1,10 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="bg_BG" version="2.1">
 <context>
     <name>AccountManager</name>
     <message>
         <location filename="../src/account-mgr.cpp" line="99"/>
         <source>failed to open account database</source>
-        <translation>misslyckades med att öppna kontots databas</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/account-mgr.cpp" line="493"/>
@@ -17,58 +17,58 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="18"/>
         <source>Account Settings</source>
-        <translation>Kontoinställningar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>Please enter the server address</source>
-        <translation>Ange serveradressen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="57"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="63"/>
         <source>%1 is not a valid server address</source>
-        <translation>%1 är inte en giltig serveradress</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="83"/>
         <source>Failed to save account information</source>
-        <translation>Det gick inte att spara kontoinformation</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="91"/>
         <source>Failed to save the changes: %1</source>
-        <translation>Det gick inte att spara ändringarna: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="96"/>
         <source>Successfully updated current account information</source>
-        <translation>Uppdaterade aktuell kontoinformation</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="107"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation>Server Adress</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
         <source>Email</source>
-        <translation>e-postadress</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="110"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="111"/>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

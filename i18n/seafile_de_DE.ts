@@ -387,7 +387,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../src/ui/cloud-view.cpp" line="418"/>
         <source>Refresh</source>
-        <translation>Aktualisieren</translation>
+        <translation>Ansicht aktualisieren</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="231"/>
@@ -422,7 +422,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../ui_cloud-view.h" line="236"/>
         <source>Select</source>
-        <translation>Ordner auswählen</translation>
+        <translation>Ordner wählen</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="237"/>
@@ -738,7 +738,7 @@ Bitte %1</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="296"/>
         <source>Added files</source>
-        <translation>Hinzugefügte Dateien</translation>
+        <translation>Neue Dateien</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="297"/>
@@ -753,7 +753,7 @@ Bitte %1</translation>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="300"/>
         <source>Added folders</source>
-        <translation>Hinzugefügte Ordner</translation>
+        <translation>Neue Ordner</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="301"/>
@@ -815,7 +815,7 @@ Bitte %1</translation>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="338"/>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="433"/>
         <source>Create a folder</source>
-        <translation>Einen Ordner erstellen</translation>
+        <translation>Neuer Ordner</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="252"/>
@@ -1571,7 +1571,7 @@ Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk a
     <message>
         <location filename="../src/ui/main-window.cpp" line="201"/>
         <source>Refresh</source>
-        <translation>Aktualisieren</translation>
+        <translation>Ansicht aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -1605,7 +1605,7 @@ Zugriff auf Dienst verweigert</translation>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation>„%1“ konnte nicht synchronisiert werden.
-Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
+Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist aufgebraucht.</translation>
     </message>
 </context>
 <context>
@@ -1653,7 +1653,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="99"/>
         <source>waiting for sync</source>
-        <translation>Auf Synchronisieren wird gewartet</translation>
+        <translation>auf Synchronisieren warten</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="103"/>
@@ -1670,7 +1670,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="69"/>
         <location filename="../src/rpc/local-repo.cpp" line="111"/>
         <source>auto sync is turned off</source>
-        <translation>Synchronisieren ist ausgeschaltet</translation>
+        <translation>Synchronisieren ist angehalten</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="120"/>
@@ -1695,7 +1695,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>The storage space of the library owner has been used up</source>
-        <translation>Der Speicherplatz des Eigentümers der Bibliothek ist aufgebraucht</translation>
+        <translation>Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist aufgebraucht</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="145"/>
@@ -1945,7 +1945,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/event-details-tree.cpp" line="136"/>
         <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
         <source>Added</source>
-        <translation>Neu: </translation>
+        <translation>Neu:</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
@@ -1963,28 +1963,28 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
         <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Modified</source>
-        <translation>Geändert</translation>
+        <translation>Geändert:</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
         <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Renamed</source>
-        <translation>Umbenannt: </translation>
+        <translation>Umbenannt:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Added or modified</source>
-        <translation>Hinzugefügt oder geändert</translation>
+        <translation>Neu oder geändert:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Moved</source>
-        <translation>Verschoben</translation>
+        <translation>Verschoben:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Added directory</source>
-        <translation>Hinzugefügter Ordner</translation>
+        <translation>Neuer Ordner:</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
@@ -2212,7 +2212,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="220"/>
         <source>Owner:</source>
-        <translation>Eigentümer:</translation>
+        <translation>Eigentümer/in:</translation>
     </message>
     <message>
         <location filename="../ui_repo-detail-dialog.h" line="222"/>
@@ -2270,7 +2270,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-item-delegate.cpp" line="454"/>
         <source>This library has not been downloaded</source>
-        <translation>Diese Bibliothek ist nicht heruntergeladen worden</translation>
+        <translation>nicht heruntergeladen</translation>
     </message>
 </context>
 <context>
@@ -2287,7 +2287,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
         <source>Recently Updated</source>
-        <translation>Kürzlich aktualisiert</translation>
+        <translation>Letzte Änderungen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
@@ -2302,7 +2302,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>Private Shares</source>
-        <translation>Persönliche Freigaben</translation>
+        <translation>Für mich freigegeben</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
@@ -2321,7 +2321,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
         <source>Disable auto sync</source>
-        <translation>Synchronisieren anhalten</translation>
+        <translation>Synchronisieren aussetzen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
@@ -2329,7 +2329,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="389"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
         <source>Enable auto sync</source>
-        <translation>Synchronisieren einschalten</translation>
+        <translation>Synchronisieren fortsetzen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="342"/>
@@ -2345,18 +2345,18 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
         <source>&amp;Sync this library</source>
-        <translation>Ausgewählte Bibliothek &amp;synchronisieren</translation>
+        <translation>Herunterladen und &amp;synchronisieren</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
         <source>Sync this library</source>
-        <translation>Ausgewählte Bibliothek synchronisieren</translation>
+        <translation>Herunterladen und synchronisieren</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
         <source>Recently Updated</source>
-        <translation>Kürzlich aktualisiert</translation>
+        <translation>Letzte Änderungen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
@@ -2393,7 +2393,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="383"/>
         <source>&amp;Unsync</source>
-        <translation>&amp;Synchronisieren aufheben</translation>
+        <translation>&amp;Synchronisieren trennen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="384"/>
@@ -2423,12 +2423,12 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
         <source>&amp;Resync this library</source>
-        <translation>&amp;Diese Bibliothek neu synchronisieren</translation>
+        <translation>&amp;Neu synchronisieren</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
         <source>unsync and resync this library</source>
-        <translation>Synchronisieren aufheben und erneut ausführen</translation>
+        <translation>Synchronisieren trennen und erneut ausführen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="449"/>
@@ -2439,7 +2439,7 @@ Der Speicherplatz des Bibliothek-Eigentümers ist aufgebraucht.</translation>
         <location filename="../src/ui/repo-tree-view.cpp" line="461"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="722"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation>Fehler beim Aufheben des Synchronisierens der Bibliothek „%1“</translation>
+        <translation>Fehler beim Trennen des Synchronisierens der Bibliothek „%1“</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="658"/>
@@ -2594,12 +2594,12 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="106"/>
         <source>Disable auto sync</source>
-        <translation>Synchronisieren anhalten</translation>
+        <translation>Synchronisieren aussetzen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="109"/>
         <source>Enable auto sync</source>
-        <translation>Synchronisieren einschalten</translation>
+        <translation>Synchronisieren fortsetzen</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="112"/>
@@ -2624,7 +2624,7 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>Open %1 &amp;folder</source>
-        <translation>%1-Ordner &amp;öffnen</translation>
+        <translation>%1-Ordner</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="126"/>
@@ -2801,12 +2801,12 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="45"/>
         <source>HTTP Proxy</source>
-        <translation>HTTP Proxy</translation>
+        <translation>HTTP-Proxy</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="46"/>
         <source>Socks5 Proxy</source>
-        <translation>Socks5 Proxy</translation>
+        <translation>Socks5-Proxy</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="96"/>
@@ -2866,22 +2866,22 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Do not automatically unsync a library</source>
-        <translation>Synchronisieren einer Bibliothek trotz lokalem Fehler nicht aufheben</translation>
+        <translation>Synchronisieren einer Bibliothek trotz lokalem Fehler nicht trennen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation>Das Synchronisieren einer Bibliothek nicht automatisch aufheben, wenn sie lokal entfernt wurde oder aus anderen Gründen nicht erreichbar ist.</translation>
+        <translation>Das Synchronisieren einer Bibliothek nicht automatisch trennen, wenn sie lokal nicht gefunden wird, z.B. weil sie verschoben oder umbenannt wurde.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation>Synchronisieren einer Bibliothek trotz Server-Fehler nicht aufheben</translation>
+        <translation>Synchronisieren einer Bibliothek trotz Server-Fehler nicht trennen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation>Das Synchronisieren einer Bibliothek nicht automatisch aufheben, wenn sie auf dem Server nicht gefunden wurde.</translation>
+        <translation>Das Synchronisieren einer Bibliothek nicht automatisch trennen, wenn sie auf dem Server nicht gefunden wird.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="409"/>
@@ -2916,7 +2916,7 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="423"/>
         <source>Language (need restart)</source>
-        <translation>Sprache (Neustart notwendig)</translation>
+        <translation>Sprache (Neustart erforderlich):</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="424"/>
@@ -2926,7 +2926,7 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="425"/>
         <source>Proxy Type:</source>
-        <translation>Proxy Typ:</translation>
+        <translation>Proxy-Typ:</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="426"/>

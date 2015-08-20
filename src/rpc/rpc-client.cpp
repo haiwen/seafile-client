@@ -701,21 +701,11 @@ int SeafileRpcClient::checkPathForClone(const QString& path, QString *err_msg)
         return 0;
     }
 
-    QString err;
-    const char *msg = error->message;
-    if (g_strcmp0(msg, "Worktree conflicts system path") == 0) {
-        err = tr("The path \"%1\" conflicts with system path").arg(path);
-    } else if (g_strcmp0(msg, "Worktree conflicts existing repo") == 0) {
-        err = tr("The path \"%1\" conflicts with an existing library").arg(path);
-    } else {
-        err = QString::fromUtf8(msg);
-    }
-    g_error_free(error);
-
     if (err_msg) {
-        *err_msg = err;
+        *err_msg = QString::fromUtf8(error->message);
     }
 
+    g_error_free(error);
     return -1;
 }
 

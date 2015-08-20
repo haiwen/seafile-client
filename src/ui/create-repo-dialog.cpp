@@ -151,7 +151,7 @@ bool CreateRepoDialog::validateInputs()
         if (error.isEmpty()) {
             error = tr("Unknown error");
         }
-        seafApplet->warningBox(error, this);
+        seafApplet->warningBox(translateErrorMsg(error), this);
         return false;
     }
 
@@ -182,9 +182,8 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         &error);
 
     if (ret < 0) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Failed to add download task:\n %1").arg(error),
-                             QMessageBox::Ok);
+        error = translateErrorMsg(error);
+        seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);
     } else {
         repos_tab_->refresh();
@@ -201,4 +200,14 @@ void CreateRepoDialog::createFailed(const ApiError& error)
     seafApplet->warningBox(msg, this);
 
     setAllInputsEnabled(true);
+}
+
+QString CreateRepoDialog::translateErrorMsg(const QString& error)
+{
+    if (error == "Worktree conflicts system path") {
+        return QObject::tr("The path \"%1\" conflicts with system path").arg(path_);
+    } else if (error == "Worktree conflicts existing repo") {
+        return QObject::tr("The path \"%1\" conflicts with an existing library").arg(path_);
+    }
+    return error;
 }

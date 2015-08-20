@@ -346,9 +346,12 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
     }
 
     if (ret < 0) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Failed to add download task:\n %1").arg(error),
-                             QMessageBox::Ok);
+        if (error == "Worktree conflicts system path") {
+            error = QObject::tr("The path \"%1\" conflicts with system path").arg(worktree);
+        } else if (error == "Worktree conflicts existing repo") {
+            error = QObject::tr("The path \"%1\" conflicts with an existing library").arg(worktree);
+        }
+        seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);
     } else {
         done(QDialog::Accepted);

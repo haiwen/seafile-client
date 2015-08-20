@@ -32,6 +32,7 @@ private:
     Q_DISABLE_COPY(CreateRepoDialog);
     bool validateInputs();
     void setAllInputsEnabled(bool enabled);
+    QString translateErrorMsg(const QString& error);
 
     QString path_;
     QString name_;

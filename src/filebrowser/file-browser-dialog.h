@@ -172,7 +172,6 @@ private:
     QToolBar *toolbar_;
     QToolButton *backward_button_;
     QToolButton *forward_button_;
-    QPushButton *path_navigator_root_;
     QButtonGroup *path_navigator_;
     QList<QLabel*> path_navigator_separators_;
     QAction *gohome_action_;

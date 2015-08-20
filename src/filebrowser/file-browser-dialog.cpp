@@ -221,6 +221,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
 
     QTimer::singleShot(0, this, SLOT(fetchDirents()));
+
+    enterPath("/");
 }
 
 FileBrowserDialog::~FileBrowserDialog()
@@ -297,14 +299,6 @@ void FileBrowserDialog::createToolBar()
     connect(path_navigator_, SIGNAL(buttonClicked(int)),
             this, SLOT(onNavigatorClick(int)));
 
-    // root is special
-    QPushButton *path_navigator_root_ = new QPushButton(repo_.name);
-    path_navigator_root_->setObjectName("homeButton");
-    path_navigator_root_->setFlat(true);
-    path_navigator_root_->setCursor(Qt::PointingHandCursor);
-    connect(path_navigator_root_, SIGNAL(clicked()),
-            this, SLOT(goHome()));
-    toolbar_->addWidget(path_navigator_root_);
 }
 
 void FileBrowserDialog::createStatusBar()
@@ -577,19 +571,40 @@ void FileBrowserDialog::enterPath(const QString& path)
     }
     path_navigator_separators_.clear();
 
+    gohome_action_->setEnabled(path != "/");
 
-    // add new buttons for navigator except the root
-    for(int i = 1; i < current_lpath_.size(); i++) {
-        QLabel *separator = new QLabel("/");
-        separator->setBaseSize(4, 7);
-        separator->setPixmap(QIcon(":/images/filebrowser/path-separator.png").pixmap(QSize(4, 7)));
-        path_navigator_separators_.push_back(separator);
-        toolbar_->addWidget(separator);
-        QPushButton* button = new QPushButton(current_lpath_[i]);
-        button->setFlat(true);
-        button->setCursor(Qt::PointingHandCursor);
-        path_navigator_->addButton(button, i);
-        toolbar_->addWidget(button);
+    // root is special
+    if (path == "/") {
+        QLabel *root = new QLabel(repo_.name);
+        toolbar_->addWidget(root);
+        path_navigator_separators_.push_back(root);
+    } else {
+        QPushButton *root = new QPushButton(repo_.name);
+        root->setObjectName("homeButton");
+        root->setFlat(true);
+        root->setCursor(Qt::PointingHandCursor);
+        toolbar_->addWidget(root);
+        path_navigator_->addButton(root, 0);
+
+        // add new buttons for navigator except the root
+        for(int i = 1; i < current_lpath_.size(); i++) {
+            QLabel *separator = new QLabel("/");
+            separator->setBaseSize(4, 7);
+            separator->setPixmap(QIcon(":/images/filebrowser/path-separator.png").pixmap(QSize(4, 7)));
+            path_navigator_separators_.push_back(separator);
+            toolbar_->addWidget(separator);
+            if (i != current_lpath_.size() - 1) {
+                QPushButton* button = new QPushButton(current_lpath_[i]);
+                button->setFlat(true);
+                button->setCursor(Qt::PointingHandCursor);
+                path_navigator_->addButton(button, i);
+                toolbar_->addWidget(button);
+            } else {
+                QLabel *separator = new QLabel(current_lpath_[i]);
+                toolbar_->addWidget(separator);
+                path_navigator_separators_.push_back(separator);
+            }
+        }
     }
 }
 
@@ -899,7 +914,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     if (!current_readonly_) {
         upload_button_->setEnabled(true);
     }
-    gohome_action_->setEnabled(true);
+    gohome_action_->setEnabled(current_path_ != "/");
 }
 
 void FileBrowserDialog::chooseFileToUpload()
@@ -930,9 +945,6 @@ void FileBrowserDialog::openCacheFolder()
 
 void FileBrowserDialog::onNavigatorClick(int id)
 {
-    // root is safe, since it is handled by goHome not this function
-    // i.e. id is never equal to 0
-
     // calculate the path
     QString path = "/";
     for(int i = 1; i <= id; i++)

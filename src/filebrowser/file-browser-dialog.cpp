@@ -336,6 +336,7 @@ void FileBrowserDialog::createStatusBar()
     // Action to trigger Submenu
     upload_button_ = new QToolButton;
     upload_button_->setObjectName("uploadButton");
+    upload_button_->setToolTip(tr("Upload files"));
     upload_button_->setIcon(QIcon(":/images/toolbar/add.png"));
     connect(upload_button_, SIGNAL(clicked()), this, SLOT(uploadFileOrMkdir()));
     status_bar_->addWidget(upload_button_);
@@ -352,12 +353,14 @@ void FileBrowserDialog::createStatusBar()
 
     refresh_action_ = new QAction(this);
     refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
+    refresh_action_->setToolTip(tr("Refresh"));
     connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
     refresh_action_->setShortcut(QKeySequence::Refresh);
     status_bar_->addAction(refresh_action_);
 
     open_cache_dir_action_ = new QAction(this);
     open_cache_dir_action_->setIcon(QIcon(":/images/toolbar/file.png"));
+    open_cache_dir_action_->setToolTip(tr("Open the cache folder"));
     connect(open_cache_dir_action_, SIGNAL(triggered()), this, SLOT(openCacheFolder()));
     status_bar_->addAction(open_cache_dir_action_);
 

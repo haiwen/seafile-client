@@ -122,7 +122,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
 
-        int lock_status = model->data(index, DirentLockStatusRole).toBool();
+        int lock_status = model->data(index, DirentLockStatusRole).toInt();
         if (lock_status != NOT_LOCKED) {
             painter->save();
             QString image = QString(":/images/filebrowser/%1.png").arg(

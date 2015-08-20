@@ -165,6 +165,8 @@
     <file>images/filebrowser/down-arrow.png</file>
     <file>images/filebrowser/locked.png</file>
     <file>images/filebrowser/locked@2x.png</file>
+    <file>images/filebrowser/locked-by-me.png</file>
+    <file>images/filebrowser/locked-by-me@2x.png</file>
     <file>images/toolbar/add.png</file>
     <file>images/toolbar/add@2x.png</file>
     <file>images/toolbar/add-gray.png</file>

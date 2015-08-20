@@ -49,7 +49,13 @@ const QString kProgressBarStyle("QProgressBar "
         "{ border: 1px solid grey; border-radius: 2px; } "
         "QProgressBar::chunk { background-color: #f0f0f0; width: 20px; }");
 
-const int DirentLockedRole = Qt::UserRole + 1;
+enum {
+    NOT_LOCKED = 0,
+    LOCKED_BY_ME,
+    LOCKED_BY_OTHERS
+};
+
+const int DirentLockStatusRole = Qt::UserRole + 1;
 const int DirentLockOwnerRoler = Qt::UserRole + 2;
 
 } // namespace
@@ -116,10 +122,12 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
 
-        bool locked = model->data(index, DirentLockedRole).toBool();
-        if (locked) {
+        int lock_status = model->data(index, DirentLockStatusRole).toBool();
+        if (lock_status != NOT_LOCKED) {
             painter->save();
-            QPixmap locked_pixmap = QIcon(":/images/filebrowser/locked.png").pixmap(kLockIconSize, kLockIconSize);
+            QString image = QString(":/images/filebrowser/%1.png").arg(
+                lock_status == LOCKED_BY_ME ? "locked-by-me" : "locked");
+            QPixmap locked_pixmap = QIcon(image).pixmap(kLockIconSize, kLockIconSize);
             int alignX = (kColumnIconSize / 2) + 3;
             int alignY = (kColumnIconSize / 2) + 2;
             painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY), locked_pixmap);
@@ -864,8 +872,13 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
     }
 
-    if (role == DirentLockedRole && column == FILE_COLUMN_NAME) {
-        return dirent.is_locked || dirent.locked_by_me;
+    if (role == DirentLockStatusRole && column == FILE_COLUMN_NAME) {
+        if (dirent.locked_by_me) {
+            return (int)LOCKED_BY_ME;
+        } else if (dirent.is_locked) {
+            return (int)LOCKED_BY_OTHERS;
+        } else
+            return NOT_LOCKED;
     }
 
     if (role == DirentLockOwnerRoler && column == FILE_COLUMN_NAME) {

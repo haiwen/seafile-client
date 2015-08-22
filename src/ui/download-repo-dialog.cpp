@@ -12,6 +12,7 @@
 #include "account-mgr.h"
 #include "settings-mgr.h"
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "configurator.h"
@@ -74,7 +75,6 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     : QDialog(parent),
       repo_(repo),
       account_(account),
-      has_manual_merge_mode_(seafApplet->settingsManager()->isEnableSyncingWithExistingFolder()),
       merge_without_question_(false)
 {
     manual_merge_mode_ = false;
@@ -118,17 +118,12 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 
     setDirectoryText(seafApplet->configurator()->worktreeDir());
 
-    if (!has_manual_merge_mode_) {
-        mMergeHint->setText(tr("If a sub-folder with same name exists, its contents will be merged."));
+    connect(mSwitchModeHint, SIGNAL(linkActivated(const QString &)),
+            this, SLOT(switchMode()));
 
-        mSwitchToSyncFrame->hide();
-    } else {
-        connect(mSwitchModeHint, SIGNAL(linkActivated(const QString &)),
-                this, SLOT(switchMode()));
-        updateSyncMode();
+    updateSyncMode();
 
-        mMergeHint->hide();
-    }
+    mMergeHint->hide();
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
@@ -137,6 +132,19 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 void DownloadRepoDialog::switchMode()
 {
     manual_merge_mode_ = !manual_merge_mode_;
+
+    QString path = mDirectory->text().trimmed();
+    if (!path.isEmpty()) {
+        // from download new to merge existing
+        if (manual_merge_mode_) {
+            setDirectoryText(::pathJoin(path, repo_.name));
+        } else {
+            // from merge existing to download new
+            if (::getBaseName(path) == repo_.name) {
+                setDirectoryText(::getParentPath(path));
+            }
+        }
+    }
 
     updateSyncMode();
 }
@@ -180,7 +188,7 @@ void DownloadRepoDialog::setDirectoryText(const QString& path)
 
     mDirectory->setText(text);
 
-    if (has_manual_merge_mode_ && manual_merge_mode_) {
+    if (manual_merge_mode_) {
         alternative_path_ = text;
     }
 }
@@ -217,19 +225,8 @@ bool DownloadRepoDialog::validateInputsManualMergeMode()
 {
     QDir dir(mDirectory->text());
     if (!dir.exists()) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("The folder does not exist"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("The folder does not exist"));
         return false;
-    }
-    if (repo_.encrypted) {
-        mPassword->setText(mPassword->text().trimmed());
-        if (mPassword->text().isEmpty()) {
-            QMessageBox::warning(this, getBrand(),
-                                 tr("Please enter the password"),
-                                 QMessageBox::Ok);
-            return false;
-        }
     }
     return true;
 }
@@ -238,41 +235,45 @@ bool DownloadRepoDialog::validateInputs()
 {
     setDirectoryText(mDirectory->text().trimmed());
     if (mDirectory->text().isEmpty()) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Please choose the folder to sync."),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please choose the folder to sync."));
         return false;
     }
     if (account_.hasDisableSyncWithAnyFolder() &&
         !isPathInWorktree(seafApplet->configurator()->worktreeDir(), mDirectory->text())) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Your organization disables putting a library outside %1 folder.").arg(getBrand()),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(
+            tr("Your organization disables putting a library outside %1 folder.").arg(getBrand()));
         return false;
     }
+    if (repo_.encrypted) {
+        mPassword->setText(mPassword->text().trimmed());
+        if (mPassword->text().isEmpty()) {
+            seafApplet->warningBox(tr("Please enter the password"));
+            return false;
+        }
+    }
 
-    if (has_manual_merge_mode_ && manual_merge_mode_) {
+    if (manual_merge_mode_) {
         return validateInputsManualMergeMode();
     }
+
     sync_with_existing_ = false;
-    alternative_path_ = QString();
+    alternative_path_ = "";
+
     QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
     QFileInfo fileinfo = QFileInfo(path);
     if (fileinfo.exists()) {
         sync_with_existing_ = true;
         // exist and but not a directory ?
         if (!fileinfo.isDir()) {
-            QMessageBox::warning(this, getBrand(),
-                                 tr("Conflicting with existing file \"%1\", please choose a different folder.").arg(path),
-                                 QMessageBox::Ok);
+            seafApplet->warningBox(
+                tr("Conflicting with existing file \"%1\", please choose a different folder.").arg(path));
             return false;
         }
         // exist and but conflicting?
         QString repo_name;
         if (isPathConflictWithExistingRepo(path, &repo_name)) {
-            QMessageBox::warning(this, getBrand(),
-                                 tr("Conflicting with existing library \"%1\", please choose a different folder.").arg(repo_name),
-                                 QMessageBox::Ok);
+            seafApplet->warningBox(
+                tr("Conflicting with existing library \"%1\", please choose a different folder.").arg(repo_name));
             return false;
         }
         int ret = merge_without_question_ ? QMessageBox::Yes : QMessageBox::question(
@@ -284,21 +285,10 @@ bool DownloadRepoDialog::validateInputs()
         if (ret & QMessageBox::No) {
             QString new_path = getAlternativePath(mDirectory->text(), repo_.name);
             if (new_path.isEmpty()) {
-                QMessageBox::warning(this, getBrand(),
-                                     tr("Unable to find an alternative folder name").arg(path),
-                                     QMessageBox::Ok);
+                seafApplet->warningBox(tr("Unable to find an alternative folder name").arg(path));
                 return false;
             }
             alternative_path_ = new_path;
-        }
-    }
-    if (repo_.encrypted) {
-        mPassword->setText(mPassword->text().trimmed());
-        if (mPassword->text().isEmpty()) {
-            QMessageBox::warning(this, getBrand(),
-                                 tr("Please enter the password"),
-                                 QMessageBox::Ok);
-            return false;
         }
     }
     return true;

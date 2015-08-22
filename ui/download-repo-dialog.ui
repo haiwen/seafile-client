@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>551</width>
-    <height>310</height>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -153,7 +153,7 @@ min-width: 300px;
            </font>
           </property>
           <property name="text">
-           <string notr="true"></string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -188,7 +188,7 @@ min-width: 300px;
           <number>0</number>
          </property>
          <property name="topMargin">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="rightMargin">
           <number>0</number>

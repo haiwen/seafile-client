@@ -207,9 +207,11 @@ void SeafileApiClient::httpRequestFinished()
             qWarning("request failed for %s: %s\n",
                      reply_->url().toString().toUtf8().data(),
                      content.left(kMaxHttpErrorLogLen).data());
-            qDebug("request failed for %s: %s\n",
-                   reply_->url().toString().toUtf8().data(),
-                   content.data());
+            if (content.length() > kMaxHttpErrorLogLen) {
+                qDebug("request failed for %s: %s\n",
+                       reply_->url().toString().toUtf8().data(),
+                       content.data());
+            }
         }
         emit requestFailed(code);
         return;

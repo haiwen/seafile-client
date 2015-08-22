@@ -19,6 +19,7 @@ const char *kContentTypeForm = "application/x-www-form-urlencoded";
 const char *kAuthHeader = "Authorization";
 
 const int kMaxRedirects = 3;
+const int kMaxHttpErrorLogLen = 300;
 
 bool shouldIgnoreRequestError(const QNetworkReply* reply)
 {
@@ -202,10 +203,13 @@ void SeafileApiClient::httpRequestFinished()
 
     if ((code / 100) == 4 || (code / 100) == 5) {
         if (!shouldIgnoreRequestError(reply_)) {
-            qWarning("request failed for %s: status code %d\n",
-                   reply_->url().toString().toUtf8().data(), code);
+            QByteArray content = reply_->readAll();
+            qWarning("request failed for %s: %s\n",
+                     reply_->url().toString().toUtf8().data(),
+                     content.left(kMaxHttpErrorLogLen).data());
             qDebug("request failed for %s: %s\n",
-                   reply_->url().toString().toUtf8().data(), reply_->readAll().data());
+                   reply_->url().toString().toUtf8().data(),
+                   content.data());
         }
         emit requestFailed(code);
         return;

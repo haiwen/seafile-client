@@ -40,9 +40,6 @@ private:
     ServerRepo repo_;
     Account account_;
 
-    // if we have enabled manual merge mode
-    const bool has_manual_merge_mode_;
-
     // if we are in manual merge mode
     bool manual_merge_mode_;
     // used in auto mode, and always true in manual merge mode

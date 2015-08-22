@@ -70,7 +70,6 @@ void SettingsDialog::updateSettings()
     mgr->setHideMainWindowWhenStarted(mHideMainWinCheckBox->checkState() == Qt::Checked);
     mgr->setAllowInvalidWorktree(mAllowInvalidWorktreeCheckBox->checkState() == Qt::Checked);
     mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
-    mgr->setEnableSyncingWithExistingFolder(mEnableSyncingWithExistingFolder->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     if(mFinderSyncCheckBox->isEnabled())
@@ -131,9 +130,6 @@ void SettingsDialog::showEvent(QShowEvent *event)
     state = mgr->httpSyncCertVerifyDisabled() ? Qt::Checked : Qt::Unchecked;
     mDisableVerifyHttpSyncCert->setCheckState(state);
 
-    state = mgr->isEnableSyncingWithExistingFolder() ? Qt::Checked : Qt::Unchecked;
-    mEnableSyncingWithExistingFolder->setCheckState(state);
-
     // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
@@ -178,6 +174,8 @@ void SettingsDialog::showEvent(QShowEvent *event)
         state = mgr->isCheckLatestVersionEnabled() ? Qt::Checked : Qt::Unchecked;
         mCheckLatestVersionBox->setCheckState(state);
     }
+
+    mEnableSyncingWithExistingFolder->hide();
 
     SettingsManager::ProxyType proxy_type;
     QString proxy_host;

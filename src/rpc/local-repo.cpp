@@ -65,12 +65,6 @@ void LocalRepo::setSyncInfo(const QString &state, const QString &error)
 
 void LocalRepo::translateSyncState(const QString &status)
 {
-    if (!auto_sync && sync_state != SYNC_STATE_ING) {
-        sync_state_str = QObject::tr("auto sync is turned off");
-        sync_state = SYNC_STATE_DISABLED;
-        return;
-    }
-
     if (status == "synchronized") {
         sync_state_str = QObject::tr("synchronized");
         sync_state = SYNC_STATE_DONE;
@@ -119,6 +113,12 @@ void LocalRepo::translateSyncState(const QString &status)
         qWarning("unknown sync status: %s\n", toCStr(status));
         sync_state_str = QObject::tr("unknown");
         sync_state = SYNC_STATE_UNKNOWN;
+    }
+
+    if (!auto_sync && sync_state != SYNC_STATE_ING) {
+        sync_state_str = QObject::tr("auto sync is turned off");
+        sync_state = SYNC_STATE_DISABLED;
+        return;
     }
 }
 

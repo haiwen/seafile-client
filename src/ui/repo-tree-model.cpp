@@ -371,6 +371,7 @@ void RepoTreeModel::updateRepoItemAfterSyncNow(RepoItem *item, void *data)
 
         r.setSyncInfo("initializing");
         r.sync_state = LocalRepo::SYNC_STATE_ING;
+        r.sync_state_str = tr("sync initializing");
         item->setLocalRepo(r);
         item->setSyncNowClicked(true);
     }

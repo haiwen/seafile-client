@@ -46,6 +46,17 @@ std::string GetShareLinkCommand::serialize()
     return path_;
 }
 
+GetInternalLinkCommand::GetInternalLinkCommand(const std::string path)
+    : AppletCommand<void>("get-internal-link"),
+      path_(path)
+{
+}
+
+std::string GetInternalLinkCommand::serialize()
+{
+    return path_;
+}
+
 ListReposCommand::ListReposCommand()
     : AppletCommand<RepoInfoList>("list-repos")
 {

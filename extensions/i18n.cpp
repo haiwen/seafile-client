@@ -59,7 +59,7 @@ void I18NHelper::initChineseDict()
 void I18NHelper::initGermanDict()
 {
     lang_dict_["get share link"] = "Freigabelink erstellen";
-    // lang_dict_["get seafile internal link"] = "";
+    lang_dict_["get seafile internal link"] = "Internen Seafile Freigabelink erstellen";
     lang_dict_["lock this file"] = "Datei sperren";
     lang_dict_["unlock this file"] = "Datei entsperren";
 }

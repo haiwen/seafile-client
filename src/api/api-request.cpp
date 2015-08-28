@@ -45,7 +45,7 @@ void SeafileApiRequest::send()
         url_ = ::includeQueryParams(url_, params_);
     }
 
-    QByteArray post_data = ::buildFormData(form_params_);
+    QByteArray post_data;
 
     switch (method_) {
     case METHOD_GET:
@@ -56,6 +56,7 @@ void SeafileApiRequest::send()
         break;
     case METHOD_POST:
     case METHOD_PUT:
+        post_data = ::buildFormData(form_params_);
         api_client_->post(url_, post_data, method_ == METHOD_PUT);
         break;
     default:

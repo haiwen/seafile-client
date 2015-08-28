@@ -39,6 +39,7 @@ private:
     Q_DISABLE_COPY(SeafileApiClient)
 
     bool handleHttpRedirect();
+    bool handleRedirectForNonGetRequest();
 
     void resendRequest(const QUrl& url);
 

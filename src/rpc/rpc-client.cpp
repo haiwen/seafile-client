@@ -867,3 +867,40 @@ int SeafileRpcClient::markFileLockState(const QString &repo_id,
     g_free (ret);
     return 0;
 }
+
+int SeafileRpcClient::generateMagicAndRandomKey(int enc_version, 
+                                                const QString &repo_id,
+                                                const QString &passwd,
+                                                QString *magic,
+                                                QString *random_key)
+{
+    GError *error = NULL;
+    GObject *obj = searpc_client_call__object (
+        seafile_rpc_client_,
+        "seafile_generate_magic_and_random_key",
+        SEAFILE_TYPE_ENCRYPTION_INFO,
+        &error, 3,
+        "int", enc_version,
+        "string", toCStr(repo_id),
+        "string", toCStr(passwd));
+    if (error) {
+        qWarning("failed to generate magic and random_key : %s\n", error->message);
+        g_error_free(error);
+        return -1;
+    }
+
+    char *c_magic = NULL;
+    char *c_random_key = NULL;
+    g_object_get (obj,
+                  "magic", &c_magic,
+                  "random_key", &c_random_key,
+                  NULL);
+
+    *magic = QString(c_magic);
+    *random_key = QString(c_random_key);
+
+    g_object_unref (obj);
+    g_free (c_magic);
+    g_free (c_random_key);
+    return 0;
+}

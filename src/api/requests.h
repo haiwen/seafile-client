@@ -135,7 +135,9 @@ class CreateRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd);
+    CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd);
+    CreateRepoRequest(const Account& account, const QString &name, const QString &desc,
+                      int enc_version, const QString &repo_id, const QString& magic, const QString& random_key);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

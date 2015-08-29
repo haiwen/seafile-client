@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pt_BR" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pt_BR">
 <context>
     <name>AccountManager</name>
     <message>
@@ -122,7 +124,7 @@ Tem certeza que deseja remover a conta de &quot;% 1&quot; &lt;br&gt; &lt;b&gt; A
     <message>
         <location filename="../src/ui/account-view.cpp" line="235"/>
         <source>Add an account</source>
-        <translation>Incluir uma conta</translation>
+        <translation type="unfinished">Adicionar uma conta</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="217"/>
@@ -2665,7 +2667,10 @@ Você quer visitar a página de descarregamento? </translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="492"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>Você tem %n mensagem(ns)</numerusform><numerusform>Você tem %n mensagem(s)</numerusform></translation>
+        <translation>
+            <numerusform>Você tem %n mensagem(ns)</numerusform>
+            <numerusform>Você tem %n mensagem(s)</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="498"/>

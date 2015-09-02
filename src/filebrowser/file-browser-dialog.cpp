@@ -722,13 +722,13 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 
     // prompt a dialog to confirm to overwrite the current file
     if (findConflict(name, table_model_->dirents())) {
-        int ret = QMessageBox::question(
-            this, getBrand(),
+        QMessageBox::StandardButton ret = seafApplet->yesNoCancelBox(
             tr("File %1 already exists.<br/>"
-            "Do you like to overwrite it?<br/>"
-            "<small>(Choose No to upload using an alternative name).</small>").
-            arg(name),
-            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+               "Do you like to overwrite it?<br/>"
+               "<small>(Choose No to upload using an alternative name).</small>").arg(name),
+            this,
+            QMessageBox::Cancel);
+
         if (ret == QMessageBox::Cancel) {
             return;
         } else if (ret == QMessageBox::Yes) {

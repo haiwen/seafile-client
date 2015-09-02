@@ -276,13 +276,15 @@ bool DownloadRepoDialog::validateInputs()
                 tr("Conflicting with existing library \"%1\", please choose a different folder.").arg(repo_name));
             return false;
         }
-        int ret = merge_without_question_ ? QMessageBox::Yes : QMessageBox::question(
-            this, getBrand(), tr("The folder \"%1\" already exists. Are you sure to sync with it (contents will be merged)?")
-                                  .arg(path) + QString("<br/><br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
-            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes);
-        if (ret & QMessageBox::Cancel)
+        QMessageBox::StandardButton ret = merge_without_question_
+            ? QMessageBox::Yes
+            : seafApplet->yesNoCancelBox(
+                tr("The folder \"%1\" already exists. Are you sure to sync with it (contents will be merged)?")
+                .arg(path) + QString("<br/><br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
+                this, QMessageBox::Yes);
+        if (ret == QMessageBox::Cancel)
             return false;
-        if (ret & QMessageBox::No) {
+        if (ret == QMessageBox::No) {
             QString new_path = getAlternativePath(mDirectory->text(), repo_.name);
             if (new_path.isEmpty()) {
                 seafApplet->warningBox(tr("Unable to find an alternative folder name").arg(path));

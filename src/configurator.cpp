@@ -91,11 +91,12 @@ void Configurator::initSeafile()
         QDir dir(preconfigure_dir);
         if (!dir.mkpath(".") ||
             !dir.mkpath("Seafile/.seafile-data")) {
-            qWarning("[Configurator] unable to create preconfigure directory \"%s\"", preconfigure_dir.toUtf8().data());
+            qWarning("[Configurator] unable to create preconfigure directory \"%s\"",
+                     preconfigure_dir.toUtf8().data());
             qWarning("[Configurator] exiting from an unrecovable error.");
-            QMessageBox::warning(NULL, getBrand(),
-                                 tr("Unable to create preconfigure directory \"%1\"").arg(preconfigure_dir.toUtf8().data()),
-                                 QMessageBox::Ok);
+            seafApplet->warningBox(
+                tr("Unable to create preconfigure directory \"%1\"").arg(
+                    preconfigure_dir.toUtf8().data()));
             exit(1);
             return;
         }

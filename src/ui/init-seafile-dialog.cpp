@@ -152,17 +152,13 @@ void InitSeafileDialog::onOkClicked()
 {
     QString path = mDirectory->text();
     if (path.isEmpty()) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Please choose a directory"),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("Please choose a directory"), this);
         return;
     }
 
     QDir dir(path);
     if (!dir.exists()) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("The folder %1 does not exist").arg(path),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(tr("The folder %1 does not exist").arg(path), this);
         return;
     }
 
@@ -181,22 +177,16 @@ void InitSeafileDialog::onOkClicked()
 
 void InitSeafileDialog::onCancelClicked()
 {
-    QString question = tr("Initialization is not finished. Really quit?");
-    if (QMessageBox::question(this, getBrand(),
-                              question,
-                              QMessageBox::Yes | QMessageBox::No,
-                              QMessageBox::No) == QMessageBox::Yes) {
+    if (seafApplet->yesOrNoBox(
+            tr("Initialization is not finished. Really quit?"), this, false)) {
         reject();
     }
 }
 
 void InitSeafileDialog::closeEvent(QCloseEvent *event)
 {
-    QString question = tr("Initialization is not finished. Really quit?");
-    if (QMessageBox::question(this, getBrand(),
-                              question,
-                              QMessageBox::Yes | QMessageBox::No,
-                              QMessageBox::No) == QMessageBox::Yes) {
+    if (seafApplet->yesOrNoBox(
+            tr("Initialization is not finished. Really quit?"), this, false)) {
         QDialog::closeEvent(event);
         return;
     }

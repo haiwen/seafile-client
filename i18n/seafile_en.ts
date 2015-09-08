@@ -305,7 +305,7 @@ failed to upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="114"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="113"/>
         <source>Failed to remove this task:
 
  %1</source>
@@ -386,62 +386,62 @@ failed to upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="231"/>
+        <location filename="../ui_cloud-view.h" line="236"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="232"/>
+        <location filename="../ui_cloud-view.h" line="237"/>
         <source>logo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="233"/>
+        <location filename="../ui_cloud-view.h" line="238"/>
         <source>Seafile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="234"/>
+        <location filename="../ui_cloud-view.h" line="239"/>
         <source>minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="235"/>
+        <location filename="../ui_cloud-view.h" line="240"/>
         <source>close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="238"/>
+        <location filename="../ui_cloud-view.h" line="243"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="236"/>
+        <location filename="../ui_cloud-view.h" line="241"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="237"/>
+        <location filename="../ui_cloud-view.h" line="242"/>
         <source>or Drop Folder to Sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="239"/>
+        <location filename="../ui_cloud-view.h" line="244"/>
         <source>download rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="240"/>
+        <location filename="../ui_cloud-view.h" line="245"/>
         <source>downarrow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="241"/>
+        <location filename="../ui_cloud-view.h" line="246"/>
         <source>upload rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="242"/>
+        <location filename="../ui_cloud-view.h" line="247"/>
         <source>uparrow</source>
         <translation type="unfinished"></translation>
     </message>
@@ -660,28 +660,28 @@ failed to upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="280"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="282"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="281"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="283"/>
         <source>Click No to sync with a new folder instead</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="288"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="290"/>
         <source>Unable to find an alternative folder name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="344"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="346"/>
         <source>Failed to add download task:
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="354"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="356"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1211,18 +1211,18 @@ failed to upload.</source>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="141"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="156"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="155"/>
         <source>Please choose a directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="184"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="195"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="181"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="189"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="164"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="161"/>
         <source>The folder %1 does not exist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1921,7 +1921,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="886"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="876"/>
         <source>copy failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2149,13 +2149,13 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="208"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="340"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="342"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="210"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="342"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="344"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2438,51 +2438,51 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="461"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="722"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="456"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="712"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="658"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="651"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="662"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="653"/>
         <source>The download has been canceled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="701"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="749"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="739"/>
         <source>Failed to add download task:
  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="771"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="776"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="789"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="779"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="879"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="869"/>
         <source>Failed to upload file: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2533,25 +2533,27 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="555"/>
-        <location filename="../src/seafile-applet.cpp" line="570"/>
-        <location filename="../src/seafile-applet.cpp" line="594"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="585"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="556"/>
-        <location filename="../src/seafile-applet.cpp" line="571"/>
-        <location filename="../src/seafile-applet.cpp" line="595"/>
+        <location filename="../src/seafile-applet.cpp" line="586"/>
+        <location filename="../src/seafile-applet.cpp" line="610"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="572"/>
+        <location filename="../src/seafile-applet.cpp" line="570"/>
+        <location filename="../src/seafile-applet.cpp" line="587"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="630"/>
+        <location filename="../src/seafile-applet.cpp" line="645"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>

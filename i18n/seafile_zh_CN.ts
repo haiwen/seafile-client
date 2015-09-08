@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>AccountManager</name>
     <message>
@@ -307,7 +305,7 @@ failed to upload.</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/clone-tasks-table-view.cpp" line="114"/>
+        <location filename="../src/ui/clone-tasks-table-view.cpp" line="113"/>
         <source>Failed to remove this task:
 
  %1</source>
@@ -388,62 +386,62 @@ failed to upload.</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="231"/>
+        <location filename="../ui_cloud-view.h" line="236"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="232"/>
+        <location filename="../ui_cloud-view.h" line="237"/>
         <source>logo</source>
         <translation>标志</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="233"/>
+        <location filename="../ui_cloud-view.h" line="238"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="234"/>
+        <location filename="../ui_cloud-view.h" line="239"/>
         <source>minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="235"/>
+        <location filename="../ui_cloud-view.h" line="240"/>
         <source>close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="238"/>
+        <location filename="../ui_cloud-view.h" line="243"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="236"/>
+        <location filename="../ui_cloud-view.h" line="241"/>
         <source>Select</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="237"/>
+        <location filename="../ui_cloud-view.h" line="242"/>
         <source>or Drop Folder to Sync</source>
         <translation>或拖拽文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="239"/>
+        <location filename="../ui_cloud-view.h" line="244"/>
         <source>download rate</source>
         <translation>下载速率</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="240"/>
+        <location filename="../ui_cloud-view.h" line="245"/>
         <source>downarrow</source>
         <translation>向下的箭头</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="241"/>
+        <location filename="../ui_cloud-view.h" line="246"/>
         <source>upload rate</source>
         <translation>上传速率</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="242"/>
+        <location filename="../ui_cloud-view.h" line="247"/>
         <source>uparrow</source>
         <translation>向上的箭头</translation>
     </message>
@@ -613,10 +611,6 @@ failed to upload.</source>
         <translation>同步到目录:</translation>
     </message>
     <message>
-        <source>If a sub-folder with same name exists, its contents will be merged.</source>
-        <translation type="vanished">如果已有同名的子文件夹，那么它的内容将合并。</translation>
-    </message>
-    <message>
         <location filename="../src/ui/download-repo-dialog.cpp" line="158"/>
         <source>or</source>
         <translation>或者</translation>
@@ -667,28 +661,28 @@ failed to upload.</source>
         <translation>和已同步的资料库 &quot;%1&quot; 冲突，请选择其他目录。</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="280"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="282"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
         <translation>文件夹 &quot;%1&quot; 已存在。请问您是否和它同步 (其中内容会被合并)？</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="281"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="283"/>
         <source>Click No to sync with a new folder instead</source>
         <translation>点击“否” 与一个新的文件夹同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="288"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="290"/>
         <source>Unable to find an alternative folder name</source>
         <translation>无法找到其他可用的文件夹名称</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="344"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="346"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="354"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="356"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -1219,18 +1213,18 @@ failed to upload.</source>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="141"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="156"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="155"/>
         <source>Please choose a directory</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="184"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="195"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="181"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="189"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation>初始化未完成，确认退出？</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="164"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="161"/>
         <source>The folder %1 does not exist</source>
         <translation>文件夹 %1 不存在</translation>
     </message>
@@ -1939,7 +1933,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>无法下载 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="886"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="876"/>
         <source>copy failed</source>
         <translation>复制文件失败</translation>
     </message>
@@ -2167,13 +2161,13 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="208"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="340"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="342"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>路径 &quot;%1&quot; 与系统路径冲突</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="210"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="342"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="344"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>路径 &quot;%1&quot; 与已有资料库冲突</translation>
     </message>
@@ -2456,51 +2450,51 @@ The library owner&apos;s storage space is used up.</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="461"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="722"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="456"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="712"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>解除同步资料库 &quot;%1&quot; 失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="658"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="651"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="662"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="653"/>
         <source>The download has been canceled</source>
         <translation>下载已取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="701"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 然后重新同步 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="749"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="739"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="771"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>无法用文件 &quot;%1&quot; 覆盖自身</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="776"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>您真的想覆盖文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="789"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="779"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="879"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="869"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
@@ -2551,25 +2545,27 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="555"/>
-        <location filename="../src/seafile-applet.cpp" line="570"/>
-        <location filename="../src/seafile-applet.cpp" line="594"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="585"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="556"/>
-        <location filename="../src/seafile-applet.cpp" line="571"/>
-        <location filename="../src/seafile-applet.cpp" line="595"/>
+        <location filename="../src/seafile-applet.cpp" line="586"/>
+        <location filename="../src/seafile-applet.cpp" line="610"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="572"/>
+        <location filename="../src/seafile-applet.cpp" line="570"/>
+        <location filename="../src/seafile-applet.cpp" line="587"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="630"/>
+        <location filename="../src/seafile-applet.cpp" line="645"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -2619,14 +2615,6 @@ Do you want to visit the download page?</source>
         <location filename="../src/rpc/rpc-client.cpp" line="800"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
-    </message>
-    <message>
-        <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation type="vanished">路径 &quot;%1&quot; 与系统路径冲突</translation>
-    </message>
-    <message>
-        <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation type="vanished">路径 &quot;%1&quot; 与已有资料库冲突</translation>
     </message>
 </context>
 <context>
@@ -2704,9 +2692,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="492"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>您有 %n 条未读消息</numerusform>
-        </translation>
+        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="498"/>

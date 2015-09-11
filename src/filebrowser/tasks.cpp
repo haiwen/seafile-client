@@ -273,16 +273,16 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
         if (!iterator.fileInfo().isDir()) {
             names.push_back(relative_path);
         } else {
-            printf("a folder: %s\n", file_path.toUtf8().data());
+            // printf("a folder: %s\n", file_path.toUtf8().data());
             if (QDir(file_path).entryList().length() == 2) {
                 // only contains . and .., so an empty folder
-                printf("an empty folder: %s\n", file_path.toUtf8().data());
+                // printf("an empty folder: %s\n", file_path.toUtf8().data());
                 empty_subfolders_.append(::pathJoin(::getBaseName(local_path_), relative_path));
             }
         }
     }
 
-    printf("total empty folders: %d for %s\n", empty_subfolders_.length(), dir.absolutePath().toUtf8().data());
+    // printf("total empty folders: %d for %s\n", empty_subfolders_.length(), dir.absolutePath().toUtf8().data());
     fileserver_task_ = new PostFilesTask(link, path_, dir.absolutePath(), names, true);
 }
 

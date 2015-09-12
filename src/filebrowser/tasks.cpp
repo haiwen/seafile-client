@@ -273,11 +273,13 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
         if (!iterator.fileInfo().isDir()) {
             names.push_back(relative_path);
         } else {
-            // printf("a folder: %s\n", file_path.toUtf8().data());
-            if (QDir(file_path).entryList().length() == 2) {
-                // only contains . and .., so an empty folder
-                // printf("an empty folder: %s\n", file_path.toUtf8().data());
-                empty_subfolders_.append(::pathJoin(::getBaseName(local_path_), relative_path));
+            if (account_.isAtLeastVersion(4, 4, 0)) {
+                // printf("a folder: %s\n", file_path.toUtf8().data());
+                if (QDir(file_path).entryList().length() == 2) {
+                    // only contains . and .., so an empty folder
+                    // printf("an empty folder: %s\n", file_path.toUtf8().data());
+                    empty_subfolders_.append(::pathJoin(::getBaseName(local_path_), relative_path));
+                }
             }
         }
     }

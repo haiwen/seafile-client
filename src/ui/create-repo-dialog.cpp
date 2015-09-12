@@ -97,7 +97,7 @@ void CreateRepoDialog::createAction()
         delete request_;
     }
 
-    if (!passwd_.isEmpty()) {
+    if (!passwd_.isEmpty() && account_.isAtLeastVersion(4, 4, 0)) {
         // TODO: check server version is at least 4.3.x ?
         int enc_version = 2;
         QString repo_id = QUuid::createUuid().toString().mid(1, 36);

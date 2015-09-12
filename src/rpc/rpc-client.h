@@ -108,6 +108,12 @@ public:
                           const QString& path_in_repo,
                           bool lock);
 
+    int generateMagicAndRandomKey(int enc_version, 
+                                  const QString& repo_id,
+                                  const QString& passwd, 
+                                  QString *magic,
+                                  QString *random_key);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

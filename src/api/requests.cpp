@@ -235,6 +235,19 @@ CreateRepoRequest::CreateRepoRequest(const Account& account, const QString &name
     }
 }
 
+CreateRepoRequest::CreateRepoRequest(const Account& account, const QString &name, const QString &desc,
+                                     int enc_version, const QString &repo_id, const QString& magic, const QString& random_key)
+    : SeafileApiRequest (account.getAbsoluteUrl(kCreateRepoUrl),
+                         SeafileApiRequest::METHOD_POST, account.token)
+{
+    setFormParam("name", name);
+    setFormParam("desc", desc);
+    setFormParam("enc_version", QString::number(enc_version));
+    setFormParam("repo_id", repo_id);
+    setFormParam("magic", magic);
+    setFormParam("random_key", random_key);
+}
+
 void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
@@ -742,4 +755,3 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
     }
     emit success(retval);
 }
-

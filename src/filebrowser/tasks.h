@@ -243,7 +243,7 @@ private slots:
 
 private:
     QStringList empty_subfolders_;
-    QScopedPointer<CreateDirectoryRequest, doDeleteLater<CreateDirectoryRequest>> create_dir_req_;
+    QScopedPointer<CreateDirectoryRequest, doDeleteLater<CreateDirectoryRequest> > create_dir_req_;
 };
 
 /**

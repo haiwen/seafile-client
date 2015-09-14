@@ -113,6 +113,10 @@ void SeafileTrayIcon::createActions()
     connect(view_unread_seahub_notifications_action_, SIGNAL(triggered()),
             this, SLOT(viewUnreadNotifications()));
 
+    check_for_latest_version_action_ = new QAction(tr("Check for latest version"), this);
+    connect(check_for_latest_version_action_, SIGNAL(triggered()),
+            this, SLOT(checkLatestVersionInfo()));
+
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
 
@@ -151,6 +155,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(open_seafile_folder_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
+    context_menu_->addAction(check_for_latest_version_action_);
     context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
     context_menu_->addAction(enable_auto_sync_action_);
@@ -183,6 +188,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     // create qmenu used in menubar and docker menu
     global_menu_ = new QMenu(tr("File"));
     global_menu_->addAction(view_unread_seahub_notifications_action_);
+    global_menu_->addAction(check_for_latest_version_action_);
     global_menu_->addAction(show_main_window_action_);
     global_menu_->addAction(open_seafile_folder_action_);
     global_menu_->addAction(settings_action_);
@@ -561,4 +567,9 @@ void SeafileTrayIcon::onMessageClicked()
         !repo.isValid() || repo.worktree_invalid)
         return;
     showInGraphicalShell(repo.worktree);
+}
+
+void SeafileTrayIcon::checkLatestVersionInfo()
+{
+    seafApplet->checkLatestVersionInfo();
 }

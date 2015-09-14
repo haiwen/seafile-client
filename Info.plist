@@ -14,6 +14,8 @@
 	<string>APPL</string>
 	<key>CFBundleName</key>
 	<string>Seafile</string>
+	<key>CFBundleVersion</key>
+	<string>4.2.3</string>
 	<key>CFBundleShortVersionString</key>
 	<string>4.3.3</string>
 	<key>CFBundleSignature</key>
@@ -44,5 +46,7 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+	<key>SUFeedURL</key>
+	<string>http://seafile.com/appcast/stable.xml</string>
 </dict>
 </plist>

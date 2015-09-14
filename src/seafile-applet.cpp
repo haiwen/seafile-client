@@ -48,6 +48,10 @@
 #include "finder-sync/finder-sync-listener.h"
 #endif
 
+#if defined(HAVE_SPARKLE_SUPPORT)
+#include "sparkle-support.h"
+#endif // HAVE_SPARKLE_SUPPORT
+
 #include "seafile-applet.h"
 
 namespace {
@@ -617,8 +621,10 @@ bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detail
     return msgBox.exec() == QMessageBox::Yes;
 }
 
-void SeafileApplet::checkLatestVersionInfo()
+void SeafileApplet::checkLatestVersionInfo(bool force)
 {
+#ifndef HAVE_SPARKLE_SUPPORT
+    Q_UNUSED(force)
     QString id = rpc_client_->getCcnetPeerId();
     QString version = STRINGIZE(SEAFILE_CLIENT_VERSION);
 
@@ -627,6 +633,9 @@ void SeafileApplet::checkLatestVersionInfo()
 
     connect(req, SIGNAL(success(const QString&)),
             this, SLOT(onGetLatestVersionInfoSuccess(const QString&)));
+#else
+    SparkleHelper::checkForUpdate(force);
+#endif
 }
 
 void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)

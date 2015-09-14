@@ -57,6 +57,7 @@ private slots:
     void about();
     void onSeahubNotificationsChanged();
     void viewUnreadNotifications();
+    void checkLatestVersionInfo();
 
     // only used on windows
     void onMessageClicked();
@@ -86,6 +87,7 @@ private:
     QAction *open_seafile_folder_action_;
     QAction *open_log_directory_action_;
     QAction *view_unread_seahub_notifications_action_;
+    QAction *check_for_latest_version_action_;
 
     QAction *about_action_;
     QAction *open_help_action_;

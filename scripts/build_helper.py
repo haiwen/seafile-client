@@ -116,6 +116,12 @@ def write_output(command):
     proc = subprocess.Popen(command, stdout=_output, stderr=_output, shell=False)
     proc.communicate()
 
+def write_output_regardless(command):
+    try:
+        write_output(command)
+    except subprocess.CalledProcessError:
+        _output.write('command "%s" failed' % command)
+
 if __name__ == '__main__':
     if (len(sys.argv) < 2):
         print 'Usage: %s <input-file>' % sys.argv[0]

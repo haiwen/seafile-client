@@ -19,6 +19,10 @@
 #include "finder-sync/finder-sync.h"
 #endif
 
+#if defined(HAVE_SPARKLE_SUPPORT)
+#include "sparkle-support.h"
+#endif
+
 namespace {
 
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
@@ -308,6 +312,10 @@ void SettingsManager::setCheckLatestVersionEnabled(bool enabled)
     settings.beginGroup(kBehaviorGroup);
     settings.setValue(kCheckLatestVersion, enabled);
     settings.endGroup();
+
+#if defined(HAVE_SPARKLE_SUPPORT)
+    SparkleHelper::setAutomaticallyChecksForUpdates(enabled);
+#endif
 }
 
 bool SettingsManager::isCheckLatestVersionEnabled()
@@ -324,6 +332,10 @@ bool SettingsManager::isCheckLatestVersionEnabled()
     settings.beginGroup(kBehaviorGroup);
     enabled = settings.value(kCheckLatestVersion, true).toBool();
     settings.endGroup();
+
+#if defined(HAVE_SPARKLE_SUPPORT)
+    SparkleHelper::setAutomaticallyChecksForUpdates(enabled);
+#endif
 
     return enabled;
 }

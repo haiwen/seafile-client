@@ -43,6 +43,8 @@ OPTION(BUILD_DOCS "Build Documents" OFF)
 
 OPTION(BUILD_SHIBBOLETH_SUPPORT "Build Shibboleth support" OFF)
 
+OPTION(BUILD_SPARKLE_SUPPORT "Build Sparkle Support (OS X Only)" OFF)
+
 option(BUILD_ENABLE_WARNINGS "Enable compiler warnings." ON)
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
@@ -165,6 +167,33 @@ ELSE()
     FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
     INCLUDE(${QT_USE_FILE})
 ENDIF()
+
+###############################################################################
+## Sparkle Support (OSX Only)
+###############################################################################
+
+IF (BUILD_SPARKLE_SUPPORT AND NOT CMAKE_GENERATOR STREQUAL Xcode)
+    MESSAGE(FATAL_ERROR "Sparkle support is only supported on xcode")
+ENDIF()
+
+IF (BUILD_SPARKLE_SUPPORT)
+    ADD_DEFINITIONS(-DHAVE_SPARKLE_SUPPORT)
+    SET(platform_specific_sources ${platform_specific_sources} src/sparkle-support.mm)
+    SET_SOURCE_FILES_PROPERTIES(src/sparkle-support.mm
+      PROPERTIES COMPILE_FLAGS -fobjc-arc)
+
+    SET(SPARKLE_FRAMEWORK
+      ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Sparkle/build/Release/Sparkle.framework)
+    INCLUDE_DIRECTORIES(${SPARKLE_FRAMEWORK}/Headers)
+
+    ADD_CUSTOM_TARGET(build-sparkle
+      COMMAND xcodebuild -arch x86_64 -target Sparkle -configuration Release MACOSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Sparkle)
+ENDIF()
+
+###############################################################################
+## Qt Sources
+###############################################################################
 
 # MOC FILES
 SET(moc_headers
@@ -721,6 +750,13 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
+IF(BUILD_SPARKLE_SUPPORT)
+  ADD_DEPENDENCIES(seafile-applet build-sparkle)
+  TARGET_LINK_LIBRARIES(seafile-applet
+    ${SPARKLE_FRAMEWORK}
+    )
+ENDIF()
+
 IF(USE_QT5)
   QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
   IF (BUILD_SHIBBOLETH_SUPPORT)
@@ -755,6 +791,14 @@ IF(CMAKE_GENERATOR STREQUAL Xcode)
       COMMAND ${CMAKE_COMMAND} -E copy ${ccnet} ${RESOURCES_DIR}/.
       COMMAND ${CMAKE_COMMAND} -E copy ${seaf-daemon} ${RESOURCES_DIR}/.
   )
+  SET(FRAMEWORKS_DIR ${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/seafile-applet.app/Contents/Frameworks)
+  IF(BUILD_SPARKLE_SUPPORT)
+      ADD_CUSTOM_COMMAND(TARGET seafile-applet
+          POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E make_directory ${FRAMEWORKS_DIR}
+          COMMAND cp -r ${SPARKLE_FRAMEWORK} ${FRAMEWORKS_DIR}/.
+  )
+  ENDIF(BUILD_SPARKLE_SUPPORT)
   SET(CMAKE_XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
   SET(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
   SET(CMAKE_XCODE_ATTRIBUTE_GCC_ENABLE_PASCAL_STRINGS "NO")

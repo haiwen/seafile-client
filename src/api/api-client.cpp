@@ -49,9 +49,37 @@ SeafileApiClient::~SeafileApiClient()
     }
 }
 
+// when connecting to https://somehost.com client certificate and priv. key
+// will be loaded from ~/.ccnet/somehost.com.pem and ~/.ccnet/somehost.com.key
+void SeafileApiClient::InitSslConfiguration(const QUrl& url) {
+    // might be needed for previous qt versions (Ubuntu 14.04...)
+    ssl_config_.setCaCertificates(QSslSocket::systemCaCertificates());
+
+    //const QDir config_dir = QDir(seafApplet->configurator()->seafileDir());
+    const QDir config_dir = defaultCcnetDir();
+    QFile cert_file(config_dir.filePath(url.host() + ".pem"));
+    if (!cert_file.open(QFile::ReadOnly)) {
+        return;
+    }
+
+    QFile priv_file(config_dir.filePath(url.host() + ".key"));
+    if (!priv_file.open(QFile::ReadOnly)) {
+        return;
+    }
+
+    QSslCertificate cert(&cert_file);
+    ssl_config_.setLocalCertificate(cert);
+    QSslKey privateKey(&priv_file, QSsl::Rsa);
+    ssl_config_.setPrivateKey(privateKey);
+}
+
 void SeafileApiClient::get(const QUrl& url)
 {
     QNetworkRequest request(url);
+    if (ssl_config_.isNull()) {
+        InitSslConfiguration(url);
+    }
+    request.setSslConfiguration(ssl_config_);
 
     if (token_.length() > 0) {
         char buf[1024];
@@ -75,6 +103,11 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
 {
     body_ = data;
     QNetworkRequest request(url);
+    if (ssl_config_.isNull()) {
+        InitSslConfiguration(url);
+    }
+    request.setSslConfiguration(ssl_config_);
+
     if (token_.length() > 0) {
         char buf[1024];
         qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());

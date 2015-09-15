@@ -13,6 +13,7 @@ extern "C" {
 #include <QtGui>
 #endif
 #include <QWidget>
+#include <QImage>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -457,7 +458,12 @@ void CloudView::setupLogoAndBrand()
 {
     mLogo->setText("");
     mLogo->setToolTip(getBrand());
-    mLogo->setPixmap(QPixmap(":/images/seafile-24.png"));
+    QPixmap logo;
+    // We must get the pixmap from a QImage, otherwise the logo won't be
+    // updated when we switch between two accounts, one of which has custom
+    // logo and the other doesn't.
+    logo.convertFromImage(QImage(":/images/seafile-24.png"));
+    mLogo->setPixmap(logo);
 
     mBrand->setText(getBrand());
     mBrand->setToolTip(getBrand());

@@ -35,6 +35,11 @@ void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
     form_params_[name] = value;
 }
 
+void SeafileApiRequest::setUseCache(bool use_cache)
+{
+    api_client_->setUseCache(use_cache);
+}
+
 void SeafileApiRequest::send()
 {
     if (token_.size() > 0) {

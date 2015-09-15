@@ -30,6 +30,8 @@ public:
     void setUrlParam(const QString& name, const QString& value);
     // set param k-v pair which appears in url-encoded form
     void setFormParam(const QString& name, const QString& value);
+    // useful for static resources like images
+    void setUseCache(bool use_cache);
 
     void send();
     void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }

@@ -11,6 +11,7 @@ class QToolButton;
 class QToolBar;
 class QSizeGrip;
 class QTabWidget;
+class QUrl;
 
 class SeafileTabWidget;
 class ReposTab;
@@ -48,6 +49,7 @@ private slots:
     void onAccountChanged();
     void onTabChanged(int index);
     void refreshServerStatus();
+    void onServerLogoFetched(const QUrl& url);
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -55,6 +57,7 @@ private:
     bool hasAccount();
 
     void setupHeader();
+    void setupLogoAndBrand();
     void createAccountView();
     void createToolBar();
     void createTabs();

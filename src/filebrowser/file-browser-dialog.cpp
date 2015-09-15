@@ -220,7 +220,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
 
-    QTimer::singleShot(0, this, SLOT(fetchDirents()));
+    // QTimer::singleShot(0, this, SLOT(fetchDirents()));
 
     enterPath("/");
 }

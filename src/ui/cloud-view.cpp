@@ -110,12 +110,7 @@ CloudView::CloudView(QWidget *parent)
 
 void CloudView::setupHeader()
 {
-    mLogo->setText("");
-    mLogo->setToolTip(getBrand());
-    mLogo->setPixmap(QPixmap(":/images/seafile-24.png"));
-
-    mBrand->setText(getBrand());
-    mBrand->setToolTip(getBrand());
+    setupLogoAndBrand();
 
     mMinimizeBtn->setText("");
     mMinimizeBtn->setToolTip(tr("Minimize"));
@@ -458,8 +453,19 @@ void CloudView::onServerLogoFetched(const QUrl& url)
     }
 }
 
+void CloudView::setupLogoAndBrand()
+{
+    mLogo->setText("");
+    mLogo->setToolTip(getBrand());
+    mLogo->setPixmap(QPixmap(":/images/seafile-24.png"));
+
+    mBrand->setText(getBrand());
+    mBrand->setToolTip(getBrand());
+}
+
 void CloudView::onAccountChanged()
 {
+    setupLogoAndBrand();
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isValid() && account.isPro()) {
         if (!account.serverInfo.customBrand.isEmpty()) {
@@ -473,7 +479,8 @@ void CloudView::onAccountChanged()
         }
 
         if (!account.serverInfo.customLogo.isEmpty()) {
-            mLogo->setPixmap(CustomizationService::instance()->getServerLogo(account));
+            mLogo->setPixmap(
+                CustomizationService::instance()->getServerLogo(account));
         }
     }
 

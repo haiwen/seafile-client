@@ -38,6 +38,8 @@ private:
     Q_DISABLE_COPY(CustomizationService)
     CustomizationService(QObject* parent = 0);
 
+    void cleanUpRequest(FetchCustomLogoRequest *req);
+
     QHash<QString, FetchCustomLogoRequest*> reqs_;
 
     QNetworkDiskCache* disk_cache_;

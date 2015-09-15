@@ -57,6 +57,7 @@ private:
     bool hasAccount();
 
     void setupHeader();
+    void setupLogoAndBrand();
     void createAccountView();
     void createToolBar();
     void createTabs();

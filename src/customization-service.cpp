@@ -26,34 +26,35 @@ void CustomizationService::start()
 
 QPixmap CustomizationService::getServerLogo(const Account& account)
 {
-    QPixmap default_logo = QPixmap(":/images/seafile-24.png");
+    QPixmap logo = QPixmap(":/images/seafile-24.png");
     if (account.serverInfo.customLogo.isEmpty()) {
-        return default_logo;
+        return logo;
     }
 
     QUrl url = account.getAbsoluteUrl(account.serverInfo.customLogo);
     QIODevice* buf = disk_cache_->data(url);
     if (buf) {
-        QPixmap logo;
         logo.loadFromData(buf->readAll());
         buf->close();
         delete buf;
-        return logo;
     }
 
     if (!reqs_.contains(url.toString())) {
         FetchCustomLogoRequest* req = new FetchCustomLogoRequest(url);
-        connect(req, SIGNAL(success()), this, SLOT(onServerLogoFetched(url)));
+        connect(req,
+                SIGNAL(success(const QUrl&)),
+                this,
+                SLOT(onServerLogoFetched(const QUrl&)));
         connect(req,
                 SIGNAL(failed(const ApiError&)),
                 this,
-                SLOT(onServerLogoFetchFailed()));
+                SLOT(onServerLogoFetchFailed(const ApiError&)));
 
         req->send();
         reqs_[url.toString()] = req;
     }
 
-    return default_logo;
+    return logo;
 }
 
 void CustomizationService::onServerLogoFetched(const QUrl& url)
@@ -61,12 +62,18 @@ void CustomizationService::onServerLogoFetched(const QUrl& url)
     emit(serverLogoFetched(url));
     FetchCustomLogoRequest* req =
         qobject_cast<FetchCustomLogoRequest*>(sender());
-    req->deleteLater();
+    cleanUpRequest(req);
 }
 
 void CustomizationService::onServerLogoFetchFailed(const ApiError& error)
 {
     FetchCustomLogoRequest* req =
         qobject_cast<FetchCustomLogoRequest*>(sender());
+    cleanUpRequest(req);
+}
+
+void CustomizationService::cleanUpRequest(FetchCustomLogoRequest* req)
+{
+    reqs_.remove(req->url().toString());
     req->deleteLater();
 }

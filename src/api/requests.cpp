@@ -642,6 +642,14 @@ void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
         ret.parseFeatureFromStrings(dict["features"].toStringList());
     }
 
+    if (dict.contains("desktop-custom-logo")) {
+        ret.customLogo = dict["desktop-custom-logo"].toString();
+    }
+
+    if (dict.contains("desktop-custom-brand")) {
+        ret.customBrand = dict["desktop-custom-brand"].toString();
+    }
+
     emit success(account_, ret);
 }
 
@@ -754,4 +762,23 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         retval.push_back(tmp);
     }
     emit success(retval);
+}
+
+FetchCustomLogoRequest::FetchCustomLogoRequest(const QUrl& url)
+    : SeafileApiRequest(url, SeafileApiRequest::METHOD_GET)
+{
+    setUseCache(true);
+}
+
+void FetchCustomLogoRequest::requestSuccess(QNetworkReply& reply)
+{
+    QPixmap logo;
+    logo.loadFromData(reply.readAll());
+
+    if (logo.isNull()) {
+        qWarning("FetchCustomLogoRequest: invalid image data\n");
+        emit failed(ApiError::fromHttpError(400));
+    } else {
+        emit success(url());
+    }
 }

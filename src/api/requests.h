@@ -446,4 +446,19 @@ private:
     const QString keyword_;
 };
 
+class FetchCustomLogoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    FetchCustomLogoRequest(const QUrl &url);
+
+signals:
+    void success(const QUrl& url);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FetchCustomLogoRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

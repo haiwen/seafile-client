@@ -12,37 +12,19 @@ public:
   bool officePreview;
   bool fileSearch;
   bool disableSyncWithAnyFolder;
-  ServerInfo() : majorVersion(0),
-                 minorVersion(0),
-                 patchVersion(0),
-                 proEdition(false),
-                 officePreview(false),
-                 fileSearch(false),
-                 disableSyncWithAnyFolder(false) {
-  }
-  ServerInfo(const ServerInfo &rhs)
-      : majorVersion(rhs.majorVersion), minorVersion(rhs.minorVersion),
-        patchVersion(rhs.patchVersion), proEdition(rhs.proEdition),
-        officePreview(rhs.officePreview), fileSearch(rhs.fileSearch),
-        disableSyncWithAnyFolder(rhs.disableSyncWithAnyFolder) {}
-  ServerInfo &operator=(const ServerInfo &rhs) {
-      majorVersion = rhs.majorVersion;
-      minorVersion = rhs.minorVersion;
-      patchVersion = rhs.patchVersion;
-      proEdition = rhs.proEdition;
-      officePreview = rhs.officePreview;
-      fileSearch = rhs.fileSearch;
-      disableSyncWithAnyFolder = rhs.disableSyncWithAnyFolder;
-      return *this;
-  }
+  QString customBrand;
+  QString customLogo;
+
   bool operator== (const ServerInfo &rhs) const {
       return majorVersion == rhs.majorVersion &&
-             minorVersion == rhs.minorVersion &&
-             patchVersion == rhs.patchVersion &&
-             proEdition == rhs.proEdition &&
-             officePreview == rhs.officePreview &&
-             fileSearch == rhs.fileSearch &&
-             disableSyncWithAnyFolder == rhs.disableSyncWithAnyFolder;
+          minorVersion == rhs.minorVersion &&
+          patchVersion == rhs.patchVersion &&
+          proEdition == rhs.proEdition &&
+          officePreview == rhs.officePreview &&
+          fileSearch == rhs.fileSearch &&
+          disableSyncWithAnyFolder == rhs.disableSyncWithAnyFolder &&
+          customBrand == rhs.customBrand &&
+          customLogo == rhs.customLogo;
   }
   bool operator!= (const ServerInfo &rhs) const {
       return !(*this == rhs);

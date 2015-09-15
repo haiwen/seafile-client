@@ -5,6 +5,7 @@
 #include <QSslCertificate>
 
 #include "seafile-applet.h"
+#include "customization-service.h"
 #include "certs-mgr.h"
 #include "ui/main-window.h"
 #include "ui/ssl-confirm-dialog.h"
@@ -44,12 +45,14 @@ QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
 SeafileApiClient::SeafileApiClient(QObject *parent)
     : QObject(parent),
       reply_(NULL),
-      redirect_count_(0)
+      redirect_count_(0),
+      use_cache_(false)
 {
     if (!na_mgr_) {
         static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
         na_mgr_ = manager;
         NetworkManager::instance()->addWatch(na_mgr_);
+        na_mgr_->setCache(CustomizationService::instance()->diskCache());
     }
 }
 
@@ -60,9 +63,21 @@ SeafileApiClient::~SeafileApiClient()
     }
 }
 
+void SeafileApiClient::prepareRequest(QNetworkRequest *req)
+{
+    if (use_cache_) {
+        req->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferNetwork);
+        req->setAttribute(QNetworkRequest::CacheSaveControlAttribute, true);
+    } else {
+        req->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
+        req->setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
+    }
+}
+
 void SeafileApiClient::get(const QUrl& url)
 {
     QNetworkRequest request(url);
+    prepareRequest(&request);
 
     if (token_.length() > 0) {
         char buf[1024];
@@ -86,6 +101,8 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
 {
     body_ = data;
     QNetworkRequest request(url);
+    prepareRequest(&request);
+
     if (token_.length() > 0) {
         char buf[1024];
         qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
@@ -107,6 +124,7 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
 void SeafileApiClient::deleteResource(const QUrl& url)
 {
     QNetworkRequest request(url);
+    prepareRequest(&request);
 
     if (token_.length() > 0) {
         char buf[1024];

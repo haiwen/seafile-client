@@ -40,6 +40,7 @@
 #include "filebrowser/auto-update-mgr.h"
 #include "rpc/local-repo.h"
 #include "server-status-service.h"
+#include "customization-service.h"
 
 #if defined(Q_OS_WIN32)
 #include "ext-handler.h"
@@ -330,6 +331,7 @@ void SeafileApplet::onDaemonStarted()
 
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();
+    CustomizationService::instance()->start();
 
     account_mgr_->updateServerInfo();
 

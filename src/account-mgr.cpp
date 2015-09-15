@@ -19,6 +19,8 @@ namespace {
 const char *kRepoRelayAddrProperty = "relay-address";
 const char *kVersionKeyName = "version";
 const char *kFeaturesKeyName = "features";
+const char *kCustomBrandKeyName = "custom-brand";
+const char *kCustomLogoKeyName = "custom-logo";
 
 bool getColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
 {
@@ -175,6 +177,10 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
         info->parseVersionFromString(value_string);
     } else if (key_string == kFeaturesKeyName) {
         info->parseFeatureFromStrings(value_string.split(","));
+    } else if (key_string == kCustomBrandKeyName) {
+        info->customBrand = value_string;
+    } else if (key_string == kCustomLogoKeyName) {
+        info->customLogo = value_string;
     }
     return true;
 }
@@ -386,6 +392,8 @@ void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo 
 {
     setServerInfoKeyValue(db, account, kVersionKeyName, info.getVersionString());
     setServerInfoKeyValue(db, account, kFeaturesKeyName, info.getFeatureStrings().join(","));
+    setServerInfoKeyValue(db, account, kCustomLogoKeyName, info.customLogo);
+    setServerInfoKeyValue(db, account, kCustomBrandKeyName, info.customBrand);
 
     bool changed = account.serverInfo != info;
     if (!changed)

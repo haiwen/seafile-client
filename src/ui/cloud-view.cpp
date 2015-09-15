@@ -32,6 +32,7 @@ extern "C" {
 #include "seafile-tab-widget.h"
 #include "utils/paint-utils.h"
 #include "server-status-service.h"
+#include "customization-service.h"
 
 #include "cloud-view.h"
 
@@ -101,8 +102,10 @@ CloudView::CloudView(QWidget *parent)
 
     connect(ServerStatusService::instance(), SIGNAL(serverStatusChanged()),
             this, SLOT(refreshServerStatus()));
+    connect(CustomizationService::instance(), SIGNAL(serverLogoFetched(const QUrl&)),
+            this, SLOT(onServerLogoFetched(const QUrl&)));
 
-    onAccountChanged();
+    QTimer::singleShot(0, this, SLOT(onAccountChanged()));
 }
 
 void CloudView::setupHeader()
@@ -447,12 +450,37 @@ void CloudView::resizeEvent(QResizeEvent *event)
     tabs_->adjustTabsWidth(rect().width());
 }
 
+void CloudView::onServerLogoFetched(const QUrl& url)
+{
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    if (account.isValid() && url.host() == account.serverUrl.host()) {
+        mLogo->setPixmap(CustomizationService::instance()->getServerLogo(account));
+    }
+}
+
 void CloudView::onAccountChanged()
 {
-    refresh_action_->setEnabled(hasAccount());
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    if (account.isValid() && account.isPro()) {
+        if (!account.serverInfo.customBrand.isEmpty()) {
+            QString title = account.serverInfo.customBrand;
+            mBrand->setText(title);
+            mBrand->setToolTip(title);
+            mLogo->setToolTip(title);
+            if (seafApplet->mainWindow()) {
+                seafApplet->mainWindow()->setWindowTitle(title);
+            }
+        }
+
+        if (!account.serverInfo.customLogo.isEmpty()) {
+            mLogo->setPixmap(CustomizationService::instance()->getServerLogo(account));
+        }
+    }
+
+    refresh_action_->setEnabled(account.isValid());
 
     bool was_pro_account = tabs_->count() > 2;
-    bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    bool has_pro_account = account.isValid() && account.isPro();
     if (has_pro_account && !was_pro_account) {
         addActivitiesTab();
     } else if (!has_pro_account && was_pro_account) {

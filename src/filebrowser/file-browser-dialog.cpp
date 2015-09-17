@@ -220,14 +220,17 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
 
-    // QTimer::singleShot(0, this, SLOT(fetchDirents()));
-
-    enterPath("/");
+    QTimer::singleShot(0, this, SLOT(init()));
 }
 
 FileBrowserDialog::~FileBrowserDialog()
 {
     delete data_mgr_;
+}
+
+void FileBrowserDialog::init()
+{
+    enterPath("/");
 }
 
 void FileBrowserDialog::createTitleBar()
@@ -895,9 +898,8 @@ void FileBrowserDialog::goHome()
     if (current_path_ == "/") {
         return;
     }
-    QString path = "/";
     backward_history_.push(current_path_);
-    enterPath(path);
+    enterPath("/");
 }
 
 void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)

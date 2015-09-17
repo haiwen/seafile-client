@@ -56,6 +56,8 @@ signals:
     void aboutToClose();
 
 private slots:
+    void init();
+
     void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
     void onGetDirentsFailed(const ApiError& error);
     void onMkdirButtonClicked();

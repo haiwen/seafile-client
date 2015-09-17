@@ -163,6 +163,7 @@ CloudView QPushButton#mSelectFolderBtn:hover {
 CloudView QLabel#mDropFolderText {
     color: #525252;
     font-size: 16px;
+    margin-left: 3px;
 }
 
 CloudView QFrame#mFooter {

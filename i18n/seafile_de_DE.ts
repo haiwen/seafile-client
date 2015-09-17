@@ -2334,7 +2334,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="374"/>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>Initialisiere Synchronisierung</translation>
     </message>
 </context>
 <context>
@@ -2552,7 +2552,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <location filename="../src/seafile-applet.cpp" line="531"/>
         <location filename="../src/seafile-applet.cpp" line="544"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="555"/>
@@ -2560,20 +2560,20 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <location filename="../src/seafile-applet.cpp" line="585"/>
         <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Ja</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="556"/>
         <location filename="../src/seafile-applet.cpp" line="586"/>
         <location filename="../src/seafile-applet.cpp" line="610"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>Nein</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="570"/>
         <location filename="../src/seafile-applet.cpp" line="587"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="645"/>

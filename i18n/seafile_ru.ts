@@ -766,7 +766,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="223"/>
         <source>Open &amp;parent folder</source>
-        <translation>Открыть &amp; родительскую папку</translation>
+        <translation>Открыть &amp;родительскую папку</translation>
     </message>
 </context>
 <context>
@@ -774,7 +774,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="91"/>
         <source>Cloud File Browser</source>
-        <translation>Просмотр файлов в облаке</translation>
+        <translation>Файловый менеджер</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="276"/>
@@ -1504,7 +1504,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_login-dialog.h" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пример: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Например: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="265"/>
@@ -2335,7 +2335,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="374"/>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>инициализация синхронизации</translation>
     </message>
 </context>
 <context>
@@ -2436,12 +2436,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
         <source>&amp;Open cloud file browser</source>
-        <translation>&amp;Открыть облачный браузер</translation>
+        <translation>&amp;Открыть встроенный файловый менеджер</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation>открыть эту библиотеку во встроенном облачном браузере</translation>
+        <translation>открыть эту библиотеку во встроенном файловом менеджере</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
@@ -2551,7 +2551,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/seafile-applet.cpp" line="531"/>
         <location filename="../src/seafile-applet.cpp" line="544"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="555"/>
@@ -2559,20 +2559,20 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/seafile-applet.cpp" line="585"/>
         <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Да</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="556"/>
         <location filename="../src/seafile-applet.cpp" line="586"/>
         <location filename="../src/seafile-applet.cpp" line="610"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="570"/>
         <location filename="../src/seafile-applet.cpp" line="587"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="645"/>
@@ -2662,12 +2662,12 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="125"/>
         <source>Open %1 &amp;folder</source>
-        <translation>Открыть %1 &amp;папку</translation>
+        <translation>Открыть &amp;папку %1</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="126"/>
         <source>open %1 folder</source>
-        <translation>открыть %1 папку</translation>
+        <translation>открыть папку %1</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="129"/>
@@ -2727,7 +2727,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="130"/>
         <source>open %1 log folder</source>
-        <translation>открыть %1 папку с логами</translation>
+        <translation>открыть папку %1 с логами</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="138"/>
@@ -2834,7 +2834,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="44"/>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="45"/>
@@ -2879,7 +2879,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="408"/>
         <source>Auto start Seafile after login</source>
-        <translation>Автоматически запустить Seafile после входа</translation>
+        <translation>Автоматически запускать Seafile после входа в систему</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
@@ -2904,22 +2904,22 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Do not automatically unsync a library</source>
-        <translation>Невозможно автоматически рассинхронизировать библиотеку </translation>
+        <translation>Не рассинхронизировать библиотеку автоматически</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation>Не отменять синхронизацию библиотеки, когда локальная папка была удалена или стала недоступна по другим причинам.</translation>
+        <translation>Не рассинхронизировать библиотеку автоматически, когда локальная папка была удалена или стала недоступна по другим причинам.</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Do not unsync a library when not found on server</source>
-        <translation>Не отменять синхронизацию библиотеки, когда она не найдена на сервере</translation>
+        <translation>Не рассинхронизировать библиотеку, когда она не была найдена на сервере</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation>Не отменять синхронизацию библиотеки, когда она не была найдена на сервере</translation>
+        <translation>Не рассинхронизировать библиотеку автоматически, когда она не была найдена на сервере</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="409"/>

@@ -951,7 +951,7 @@ kon niet worden geüpload.</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1068"/>
         <source>Lock file failed</source>
-        <translation type="unfinished"/>
+        <translation>Bestandsvergrendeling mislukt</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1084"/>
@@ -1351,7 +1351,8 @@ Je kunt op de knop &quot;Openen&quot; klikken om deze te bekijken.</translation>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation type="unfinished"/>
+        <translation>Seafile ordent bestanden via bibliotheken.
+Wil je je standaardbibliotheek downloaden en een virtuele schijf aanmaken?</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="191"/>
@@ -1715,7 +1716,7 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Internal data corrupted</source>
-        <translation type="unfinished"/>
+        <translation>Interne data bechadigd</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
@@ -2333,7 +2334,7 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="374"/>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisatie initialiseren</translation>
     </message>
 </context>
 <context>
@@ -2551,7 +2552,7 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <location filename="../src/seafile-applet.cpp" line="531"/>
         <location filename="../src/seafile-applet.cpp" line="544"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="555"/>
@@ -2559,20 +2560,20 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <location filename="../src/seafile-applet.cpp" line="585"/>
         <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Ja</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="556"/>
         <location filename="../src/seafile-applet.cpp" line="586"/>
         <location filename="../src/seafile-applet.cpp" line="610"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>Nee</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="570"/>
         <location filename="../src/seafile-applet.cpp" line="587"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="645"/>
@@ -2615,7 +2616,7 @@ Wil je naar de downloadpagina?</translation>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="44"/>
         <source>failed to load ccnet config dir %1</source>
-        <translation type="unfinished"/>
+        <translation>kon ccnet-configuratiemap %1 niet laden</translation>
     </message>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="490"/>
@@ -2682,7 +2683,7 @@ Wil je naar de downloadpagina?</translation>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="134"/>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"/>
+        <translation>Toon het scherm met informatie over de applicatie</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="137"/>
@@ -2944,7 +2945,7 @@ Wil je naar de downloadpagina?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
+        <translation>Synchroniseren met een bestaande map met een andere naam inschakelen</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="422"/>

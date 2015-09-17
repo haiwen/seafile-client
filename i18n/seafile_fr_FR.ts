@@ -2333,7 +2333,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="374"/>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>initialisation de la synchronisation</translation>
     </message>
 </context>
 <context>
@@ -2551,7 +2551,7 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
         <location filename="../src/seafile-applet.cpp" line="531"/>
         <location filename="../src/seafile-applet.cpp" line="544"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="555"/>
@@ -2559,20 +2559,20 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
         <location filename="../src/seafile-applet.cpp" line="585"/>
         <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Oui</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="556"/>
         <location filename="../src/seafile-applet.cpp" line="586"/>
         <location filename="../src/seafile-applet.cpp" line="610"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>Non</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="570"/>
         <location filename="../src/seafile-applet.cpp" line="587"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../src/seafile-applet.cpp" line="645"/>

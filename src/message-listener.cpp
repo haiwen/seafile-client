@@ -175,8 +175,9 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
-            QString title = json_string_value(json_object_get(object, "repo_name"));
-            QString msg = tr("File %1 conflict").arg(json_string_value(json_object_get(object, "path")));
+            QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
+            QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
+            QString msg = tr("File %1 conflict").arg(path);
 
             seafApplet->trayIcon()->showMessage(title, msg);
 

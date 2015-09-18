@@ -49,6 +49,10 @@
 #include "finder-sync/finder-sync-listener.h"
 #endif
 
+#if defined(Q_OS_MAC)
+#include "utils/utils-mac.h"
+#endif
+
 #include "seafile-applet.h"
 
 namespace {
@@ -212,6 +216,26 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
+#ifdef Q_OS_MAC
+void writeCABundleForCurl()
+{
+    QString ca_bundle_path = QDir(seafApplet->configurator()->seafileDir()).filePath("ca-bundle.pem");
+    QFile bundle(ca_bundle_path);
+    if (bundle.exists()) {
+        bundle.remove();
+    }
+    bundle.open(QIODevice::WriteOnly);
+    const std::vector<QByteArray> certs = utils::mac::getSystemCaCertificates();
+    for (size_t i = 0; i < certs.size(); i++) {
+        QList<QSslCertificate> list = QSslCertificate::fromData(certs[i], QSsl::Der);
+        foreach (const QSslCertificate& cert, list) {
+            bundle.write(cert.toPem());
+        }
+    }
+}
+#endif
+
+
 const char *const kPreconfigureUsername = "PreconfigureUsername";
 const char *const kPreconfigureUserToken = "PreconfigureUserToken";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
@@ -293,6 +317,10 @@ void SeafileApplet::start()
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");
     if (!g_setenv ("CRASH_RPT_PATH", toCStr(crash_rpt_path), FALSE))
         qWarning("Failed to set CRASH_RPT_PATH env variable.\n");
+#endif
+
+#if defined(Q_OS_MAC)
+    writeCABundleForCurl();
 #endif
 
     //

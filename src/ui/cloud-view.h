@@ -63,7 +63,7 @@ private:
     void createTabs();
     void setupDropArea();
     void setupFooter();
-    void addActivitiesTab();
+    void showProperTabs();
 
     void refreshTasksInfo();
     void refreshTransferRate();

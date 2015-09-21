@@ -230,7 +230,7 @@ FileBrowserDialog::~FileBrowserDialog()
 
 void FileBrowserDialog::init()
 {
-    enterPath("/");
+    enterPath(current_path_);
 }
 
 void FileBrowserDialog::createTitleBar()

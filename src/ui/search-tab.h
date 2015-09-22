@@ -16,6 +16,7 @@ class QModelIndex;
 class FileSearchRequest;
 struct FileSearchResult;
 class ApiError;
+
 class SearchTab : public TabView {
     Q_OBJECT
 public:

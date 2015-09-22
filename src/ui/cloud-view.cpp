@@ -158,21 +158,11 @@ void CloudView::createTabs()
     connect(tabs_, SIGNAL(currentTabChanged(int)),
             this, SLOT(onTabChanged(int)));
 
-    bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
-    if (has_pro_account) {
-        addActivitiesTab();
-    }
-}
-
-void CloudView::addActivitiesTab()
-{
-    if (tabs_->count() < 3) {
-        tabs_->addTab(activities_tab_, tr("Activities"), ":/images/tabs/history.png");
-        tabs_->adjustTabsWidth(rect().width());
-
-        tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png");
-        tabs_->adjustTabsWidth(rect().width());
-    }
+    showProperTabs();
+    // bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    // if (has_pro_account) {
+    //     addActivitiesTab();
+    // }
 }
 
 void CloudView::setupDropArea()
@@ -492,15 +482,7 @@ void CloudView::onAccountChanged()
 
     refresh_action_->setEnabled(account.isValid());
 
-    bool was_pro_account = tabs_->count() > 2;
-    bool has_pro_account = account.isValid() && account.isPro();
-    if (has_pro_account && !was_pro_account) {
-        addActivitiesTab();
-    } else if (!has_pro_account && was_pro_account) {
-        tabs_->removeTab(TAB_INDEX_SEARCH, search_tab_);
-        tabs_->removeTab(TAB_INDEX_ACTIVITIES, activities_tab_);
-    }
-    tabs_->adjustTabsWidth(rect().width());
+    showProperTabs();
 
     repos_tab_->refresh();
     starred_files_tab_->refresh();
@@ -510,6 +492,30 @@ void CloudView::onAccountChanged()
     account_view_->onAccountChanged();
     // we need update tab manually
     onTabChanged(tabs_->currentIndex());
+}
+
+void CloudView::showProperTabs()
+{
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    bool show_activities_tab = false;
+    bool show_search_tab = false;
+    if (account.isPro()) {
+        show_activities_tab = true;
+        if (account.hasFileSearch()) {
+            show_search_tab = true;
+        }
+    }
+    if (show_activities_tab && tabs_->count() < 3) {
+        tabs_->addTab(activities_tab_, tr("Activities"), ":/images/tabs/history.png");
+    } else if (!show_activities_tab && tabs_->count() >= 3) {
+        tabs_->removeTab(TAB_INDEX_ACTIVITIES, activities_tab_);
+    }
+    if (show_search_tab && tabs_->count() < 4) {
+        tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png");
+    } else if (!show_search_tab && tabs_->count() >= 4) {
+        tabs_->removeTab(TAB_INDEX_SEARCH, search_tab_);
+    }
+    tabs_->adjustTabsWidth(rect().width());
 }
 
 void CloudView::onTabChanged(int index)

@@ -57,7 +57,7 @@ void messageCallback(CcnetMessage *message, void *data)
 void *askActivateSynchronically() {
     _CcnetClient* async_client = ccnet_client_new();
     const QString ccnet_dir = defaultCcnetDir();
-    if (ccnet_client_load_confdir(async_client, toCStr(ccnet_dir)) <  0) {
+    if (ccnet_client_load_confdir(async_client, NULL, toCStr(ccnet_dir)) <  0) {
         g_object_unref(async_client);
         return 0;
     }

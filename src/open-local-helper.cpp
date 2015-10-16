@@ -64,7 +64,7 @@ bool OpenLocalHelper::connectToCcnetDaemon()
 {
     sync_client_ = ccnet_client_new();
     const QString ccnet_dir = defaultCcnetDir();
-    if (ccnet_client_load_confdir(sync_client_, toCStr(ccnet_dir)) <  0) {
+    if (ccnet_client_load_confdir(sync_client_, NULL, toCStr(ccnet_dir)) <  0) {
         g_object_unref (sync_client_);
         sync_client_ = NULL;
         return false;

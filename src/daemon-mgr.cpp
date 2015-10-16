@@ -59,7 +59,7 @@ void DaemonManager::startCcnetDaemon()
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
     const QByteArray path = config_dir.toUtf8();
-    if (ccnet_client_load_confdir(sync_client_, path.data()) <  0) {
+    if (ccnet_client_load_confdir(sync_client_, NULL, path.data()) <  0) {
         seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir));
     }
 

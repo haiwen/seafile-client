@@ -124,7 +124,7 @@ void do_stop()
 {
     CcnetClient *sync_client = ccnet_client_new();
     const QString ccnet_dir = defaultCcnetDir();
-    if (ccnet_client_load_confdir(sync_client, toCStr(ccnet_dir)) <  0) {
+    if (ccnet_client_load_confdir(sync_client, NULL, toCStr(ccnet_dir)) <  0) {
         return;
     }
 

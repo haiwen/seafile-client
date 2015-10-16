@@ -40,7 +40,7 @@ void SeafileRpcClient::connectDaemon()
     sync_client_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
-    if (ccnet_client_load_confdir(sync_client_, toCStr(config_dir)) <  0) {
+    if (ccnet_client_load_confdir(sync_client_, NULL, toCStr(config_dir)) <  0) {
         seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir));
     }
 

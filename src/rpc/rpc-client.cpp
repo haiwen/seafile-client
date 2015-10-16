@@ -364,6 +364,10 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     repo.setSyncInfo(state,
                      g_strcmp0(state, "error") == 0 ? err : NULL);
 
+    if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
+        getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage);
+    }
+
     g_free (state);
     g_free (err);
     g_object_unref(task);
@@ -868,7 +872,7 @@ int SeafileRpcClient::markFileLockState(const QString &repo_id,
     return 0;
 }
 
-int SeafileRpcClient::generateMagicAndRandomKey(int enc_version, 
+int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
                                                 const QString &repo_id,
                                                 const QString &passwd,
                                                 QString *magic,

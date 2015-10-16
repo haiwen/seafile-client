@@ -331,6 +331,9 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
     LocalRepo local_repo;
     seafApplet->rpcClient()->getLocalRepo(item->repo().id, &local_repo);
     if (local_repo != item->localRepo()) {
+        // if (local_repo.isValid()) {
+        //     printf("local repo of %s changed\n", local_repo.name.toUtf8().data());
+        // }
         item->setLocalRepo(local_repo);
         QModelIndex index = indexFromItem(item);
         emit dataChanged(index,index);

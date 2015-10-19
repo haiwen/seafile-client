@@ -196,6 +196,9 @@ STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO info)
     if (op == GetShareLink) {
         seafile::GetShareLinkCommand cmd(path_);
         cmd.send();
+    } else if (op == GetInternalLink) {
+        seafile::GetInternalLinkCommand cmd(path_);
+        cmd.send();
     } else if (op == LockFile) {
         seafile::LockFileCommand cmd(path_);
         cmd.send();
@@ -312,6 +315,7 @@ void ShellExt::insertSubMenuItem(const std::string& text, MenuOp op)
 void ShellExt::buildSubMenu(const seafile::RepoInfo& repo, const std::string& path_in_repo)
 {
     insertSubMenuItem(SEAFILE_TR("get share link"), GetShareLink);
+    insertSubMenuItem(SEAFILE_TR("get seafile internal link"), GetInternalLink);
 
     if (!repo.support_file_lock) {
         return;

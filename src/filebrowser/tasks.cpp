@@ -21,7 +21,6 @@
 #include "api/api-error.h"
 #include "configurator.h"
 #include "network-mgr.h"
-#include "file-browser-requests.h"
 
 #include "tasks.h"
 
@@ -262,13 +261,66 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
         qWarning("attempt to upload the root directory, you should avoid it\n");
     QDir dir(local_path_);
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
+    // XXX (lins05): Move these operations into a thread
     while (iterator.hasNext()) {
         iterator.next();
-        if (!iterator.fileInfo().isDir())
-           names.push_back(dir.relativeFilePath(iterator.filePath()));
+        QString file_path = iterator.filePath();
+        QString relative_path = dir.relativeFilePath(file_path);
+        QString base_name = ::getBaseName(file_path);
+        if (base_name == "." || base_name == "..") {
+            continue;
+        }
+        if (!iterator.fileInfo().isDir()) {
+            names.push_back(relative_path);
+        } else {
+            if (account_.isAtLeastVersion(4, 4, 0)) {
+                // printf("a folder: %s\n", file_path.toUtf8().data());
+                if (QDir(file_path).entryList().length() == 2) {
+                    // only contains . and .., so an empty folder
+                    // printf("an empty folder: %s\n", file_path.toUtf8().data());
+                    empty_subfolders_.append(::pathJoin(::getBaseName(local_path_), relative_path));
+                }
+            }
+        }
     }
 
+    // printf("total empty folders: %d for %s\n", empty_subfolders_.length(), dir.absolutePath().toUtf8().data());
     fileserver_task_ = new PostFilesTask(link, path_, dir.absolutePath(), names, true);
+}
+
+void FileUploadDirectoryTask::onFinished(bool success)
+{
+    if (!success || empty_subfolders_.empty()) {
+        FileUploadTask::onFinished(success);
+        return;
+    }
+
+    nextEmptyFolder();
+}
+
+void FileUploadDirectoryTask::nextEmptyFolder()
+{
+    if (empty_subfolders_.isEmpty()) {
+        FileUploadDirectoryTask::onFinished(true);
+        return;
+    }
+
+    QString folder = empty_subfolders_.takeFirst();
+    create_dir_req_.reset(new CreateDirectoryRequest(
+                              account_, repo_id_, ::pathJoin(path_, folder), true));
+    connect(create_dir_req_.data(), SIGNAL(success()),
+            this, SLOT(nextEmptyFolder()));
+    connect(create_dir_req_.data(), SIGNAL(failed(const ApiError&)),
+            this, SLOT(onCreateDirFailed(const ApiError&)));
+    create_dir_req_->send();
+}
+
+void FileUploadDirectoryTask::onCreateDirFailed(const ApiError &error)
+{
+    error_ = ApiRequestError;
+    error_string_ = error.toString();
+    http_error_code_ = error.httpErrorCode();
+    FileUploadDirectoryTask::onFinished(false);
 }
 
 
@@ -711,4 +763,3 @@ void FileServerTask::setHttpError(int code)
         error_string_ = tr("Internal Server Error");
     }
 }
-

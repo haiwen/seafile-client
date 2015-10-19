@@ -1,11 +1,3 @@
-#include "ui/search-tab.h"
-#include "ui/search-tab-items.h"
-#include "ui/main-window.h"
-#include "utils/utils.h"
-#include "utils/paint-utils.h"
-#include "seafile-applet.h"
-#include "api/requests.h"
-
 #include <QtGlobal>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -13,6 +5,16 @@
 #else
 #include <QtGui>
 #endif
+
+#include "ui/search-tab.h"
+#include "ui/search-tab-items.h"
+#include "ui/main-window.h"
+#include "utils/utils.h"
+#include "utils/file-utils.h"
+#include "utils/paint-utils.h"
+#include "seafile-applet.h"
+#include "api/requests.h"
+#include "repo-service.h"
 
 namespace {
 const int kMarginLeft = 5;
@@ -176,4 +178,70 @@ QSize SearchResultItemDelegate::sizeHint(const QStyleOptionViewItem &option,
 
     return QSize(kMarginLeft + kFileIconWidth + kMarginBetweenFileIconAndName + kFileNameWidth + kMarginRight + kPadding * 2,
                  kFileIconHeight + kPadding * 3 + kMarginTop + kMarginBottom);
+}
+
+SearchResultListView::SearchResultListView(QWidget* parent) : QListView(parent)
+{
+#if defined(Q_OS_MAC)
+    setAttribute(Qt::WA_MacShowFocusRect, 0);
+#endif
+    createActions();
+}
+
+void SearchResultListView::createActions()
+{
+    open_parent_dir_action_ = new QAction(tr("&Open containing folder"), this);
+    open_parent_dir_action_->setIcon(QIcon(":/images/toolbar/file-gray.png"));
+    open_parent_dir_action_->setIconVisibleInMenu(true);
+    open_parent_dir_action_->setStatusTip(tr("Open containg folder"));
+    connect(open_parent_dir_action_,
+            SIGNAL(triggered()),
+            this,
+            SLOT(openParentDir()));
+}
+
+void SearchResultListView::contextMenuEvent(QContextMenuEvent* event)
+{
+    QPoint pos = event->pos();
+    QModelIndex index = indexAt(pos);
+    if (!index.isValid()) {
+        return;
+    }
+
+    const QListWidgetItem* item = getItem(index);
+    if (!item) {
+        return;
+    }
+
+    updateActions();
+    QMenu* menu = prepareContextMenu();
+    pos = viewport()->mapToGlobal(pos);
+    menu->exec(pos);
+}
+
+QMenu* SearchResultListView::prepareContextMenu()
+{
+    QMenu* menu = new QMenu(this);
+    menu->addAction(open_parent_dir_action_);
+    return menu;
+}
+
+void SearchResultListView::updateActions()
+{
+    QModelIndexList indexes = selectionModel()->selection().indexes();
+    if (indexes.size() != 0) {
+        FileSearchResult file = getSearchResult(indexes.at(0));
+        open_parent_dir_action_->setData(QVariant::fromValue(file));
+        open_parent_dir_action_->setEnabled(true);
+    } else {
+        open_parent_dir_action_->setEnabled(false);
+    }
+}
+
+void SearchResultListView::openParentDir()
+{
+    FileSearchResult result =
+        qvariant_cast<FileSearchResult>(open_parent_dir_action_->data());
+    RepoService::instance()->openFolder(result.repo_id,
+                                        ::getParentPath(result.fullpath));
 }

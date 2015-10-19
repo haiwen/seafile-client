@@ -6,6 +6,8 @@
 #include <QtGui>
 #endif
 
+#include <QUuid>
+
 #include "utils/utils.h"
 #include "account-mgr.h"
 #include "seafile-applet.h"
@@ -94,8 +96,24 @@ void CreateRepoDialog::createAction()
     if (request_) {
         delete request_;
     }
-    // use its name as the description
-    request_ = new CreateRepoRequest(account_, name_, name_, passwd_);
+
+    if (!passwd_.isEmpty() && account_.isAtLeastVersion(4, 4, 0)) {
+        // TODO: check server version is at least 4.3.x ?
+        int enc_version = 2;
+        QString repo_id = QUuid::createUuid().toString().mid(1, 36);
+        QString magic, random_key;
+        if (seafApplet->rpcClient()->generateMagicAndRandomKey(
+                enc_version, repo_id, passwd_, &magic, &random_key) < 0) {
+            seafApplet->warningBox(tr("Failed to generate encryption key for this library"), this);
+            return;
+        }
+        // printf ("magic is %s, random_key is %s\n", toCStr(magic), toCStr(random_key));
+
+        request_ = new CreateRepoRequest(
+            account_, name_, name_, enc_version, repo_id, magic, random_key);
+    } else {
+        request_ = new CreateRepoRequest(account_, name_, name_, passwd_);
+    }
 
     connect(request_, SIGNAL(success(const RepoDownloadInfo&)),
             this, SLOT(createSuccess(const RepoDownloadInfo&)));
@@ -130,18 +148,18 @@ bool CreateRepoDialog::validateInputs()
 
     encrypted = (mEncrypteCheckBox->checkState() == Qt::Checked) ? true : false;
     if (encrypted) {
-         if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
-             seafApplet->warningBox(tr("Please enter the password"), this);
-             return false;
-         }
+        if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
+            seafApplet->warningBox(tr("Please enter the password"), this);
+            return false;
+        }
 
-         passwd = mPassword->text();
-         passwdAgain = mPasswordAgain->text();
-         if (passwd != passwdAgain) {
-             seafApplet->warningBox(tr("Passwords don't match"), this);
-             return false;
-         }
-         passwd_ = passwd;
+        passwd = mPassword->text();
+        passwdAgain = mPasswordAgain->text();
+        if (passwd != passwdAgain) {
+            seafApplet->warningBox(tr("Passwords don't match"), this);
+            return false;
+        }
+        passwd_ = passwd;
     } else {
         passwd_ = QString::null;
     }

@@ -61,7 +61,7 @@ class CreateDirectoryRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
     CreateDirectoryRequest(const Account &account, const QString &repo_id,
-                           const QString &path);
+                           const QString &path, bool create_parents = false);
     const QString &repoId() { return repo_id_; }
     const QString &path() { return path_; }
 
@@ -75,6 +75,7 @@ private:
     Q_DISABLE_COPY(CreateDirectoryRequest)
     const QString repo_id_;
     const QString path_;
+    bool create_parents_;
 };
 
 class RenameDirentRequest : public SeafileApiRequest {

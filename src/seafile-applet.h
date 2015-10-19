@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QMessageBox>
 
 class Configurator;
 class DaemonManager;
@@ -34,6 +35,10 @@ public:
     void warningBox(const QString& msg, QWidget *parent=0);
     bool yesOrNoBox(const QString& msg, QWidget *parent=0, bool default_val=true);
     bool detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val=true);
+    QMessageBox::StandardButton yesNoCancelBox(const QString& msg,
+                                               QWidget *parent,
+                                               QMessageBox::StandardButton default_btn);
+    bool yesOrCancelBox(const QString& msg, QWidget *parent, bool default_ok);
 
     // Show error in a messagebox and exit
     void errorAndExit(const QString& error);

@@ -2,6 +2,8 @@ extern "C" {
 #include <ccnet.h>
 }
 
+#include <jansson.h>
+
 #include <QSocketNotifier>
 #include <QCoreApplication>
 #include <QtDebug>
@@ -165,6 +167,21 @@ void MessageListener::handleMessage(CcnetMessage *message)
 
             seafApplet->trayIcon()->showMessageWithRepo(repo_id, title, translateCommitDesc(buf));
 
+        } else if (strcmp(type, "sync.conflict") == 0) {
+            json_error_t error;
+            json_t *object = json_loads(content, 0, &error);
+            if (!object) {
+                qWarning("Failed to parse json: %s", error.text);
+                return;
+            }
+
+            QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
+            QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
+            QString msg = tr("File %1 conflict").arg(path);
+
+            seafApplet->trayIcon()->showMessage(title, msg);
+
+            json_decref(object);
         } else if (strcmp(type, "sync.access_denied") == 0) {
             /* format: <repo_name\trepo_id> */
             QStringList slist = QString::fromUtf8(content).split("\t");

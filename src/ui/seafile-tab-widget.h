@@ -10,7 +10,7 @@ class QStackedLayout;
 
 /**
  * Custom tabbar used in the custom tab widget
- */ 
+ */
 class SeafileTabBar : public QTabBar {
     Q_OBJECT
 public:
@@ -27,7 +27,7 @@ private:
 
 /**
  * Custom tab widget, allow the tabbar to expand fully
- */ 
+ */
 class SeafileTabWidget : public QWidget {
     Q_OBJECT
 public:
@@ -47,7 +47,7 @@ signals:
 
 private:
     QVBoxLayout *layout_;
-    
+
     SeafileTabBar *tabbar_;
 
     QWidget *pane_;

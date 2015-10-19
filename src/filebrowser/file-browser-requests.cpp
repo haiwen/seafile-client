@@ -116,15 +116,17 @@ void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
 
 CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,
                                                const QString &repo_id,
-                                               const QString &path)
+                                               const QString &path,
+                                               bool create_parents)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kGetDirentsUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_POST, account.token),
-    repo_id_(repo_id), path_(path)
+      repo_id_(repo_id), path_(path), create_parents_(create_parents)
 {
     setUrlParam("p", path);
 
     setFormParam("operation", "mkdir");
+    setFormParam("create_parents", create_parents ? "true" : "false");
 }
 
 void CreateDirectoryRequest::requestSuccess(QNetworkReply& reply)
@@ -323,4 +325,3 @@ void LockFileRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
 }
-

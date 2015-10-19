@@ -2,8 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
 
 PROJECT(seafile-client)
 SET(SEAFILE_CLIENT_VERSION_MAJOR 4)
-SET(SEAFILE_CLIENT_VERSION_MINOR 3)
-SET(SEAFILE_CLIENT_VERSION_PATCH 3)
+SET(SEAFILE_CLIENT_VERSION_MINOR 4)
+SET(SEAFILE_CLIENT_VERSION_PATCH 2)
 SET(PROJECT_VERSION "${SEAFILE_CLIENT_VERSION_MAJOR}.${SEAFILE_CLIENT_VERSION_MINOR}.${SEAFILE_CLIENT_VERSION_PATCH}")
 ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 INCLUDE(FindPkgConfig)
@@ -179,6 +179,7 @@ SET(moc_headers
   src/avatar-service.h
   src/open-local-helper.h
   src/server-status-service.h
+  src/customization-service.h
   src/message-listener.h
   src/network-mgr.h
   src/settings-mgr.h
@@ -354,6 +355,7 @@ SET(seafile_client_sources
   src/repo-service-helper.cpp
   src/events-service.cpp
   src/server-status-service.cpp
+  src/customization-service.cpp
   src/shared-application.cpp
   src/avatar-service.cpp
   src/settings-mgr.cpp

@@ -120,6 +120,10 @@ void SearchTab::createLoadingFailedView()
     loading_failed_text_ = new QLabel;
     loading_failed_text_->setObjectName(kLoadingFailedLabelName);
     loading_failed_text_->setAlignment(Qt::AlignCenter);
+    QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
+    QString label_text = tr("Failed to search<br/>"
+                            "Please %1").arg(link);
+    loading_failed_text_->setText(label_text);
 
     connect(loading_failed_text_, SIGNAL(linkActivated(const QString&)),
             this, SLOT(refresh()));
@@ -214,6 +218,7 @@ void SearchTab::doRealSearch()
     if (!seafApplet->accountManager()->hasAccount())
         return;
     if (request_) {
+        // request_->abort();
         request_->deleteLater();
         request_ = NULL;
     }

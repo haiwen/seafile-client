@@ -5,6 +5,7 @@
 #include <QSslCertificate>
 
 #include "seafile-applet.h"
+#include "customization-service.h"
 #include "certs-mgr.h"
 #include "ui/main-window.h"
 #include "ui/ssl-confirm-dialog.h"
@@ -26,6 +27,17 @@ bool shouldIgnoreRequestError(const QNetworkReply* reply)
     return reply->url().toString().contains("/api2/events");
 }
 
+QString getQueryValue(const QUrl& url, const QString& name)
+{
+    QString v;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    v = QUrlQuery(url.query()).queryItemValue(name);
+#else
+    v = url.queryItemValue(name);
+#endif
+    return QUrl::fromPercentEncoding(v.toUtf8());
+}
+
 } // namespace
 
 QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
@@ -33,12 +45,14 @@ QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
 SeafileApiClient::SeafileApiClient(QObject *parent)
     : QObject(parent),
       reply_(NULL),
-      redirect_count_(0)
+      redirect_count_(0),
+      use_cache_(false)
 {
     if (!na_mgr_) {
         static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
         na_mgr_ = manager;
         NetworkManager::instance()->addWatch(na_mgr_);
+        na_mgr_->setCache(CustomizationService::instance()->diskCache());
     }
 }
 
@@ -49,13 +63,9 @@ SeafileApiClient::~SeafileApiClient()
     }
 }
 
-// when connecting to https://somehost.com client certificate and priv. key
-// will be loaded from ~/.ccnet/somehost.com.pem and ~/.ccnet/somehost.com.key
+// when connecting to https://host.com/files client certificate and private
+// key will be loaded from ~/.ccnet/somehost.com.pem and ~/.ccnet/host.com.key
 void SeafileApiClient::InitSslConfiguration(const QUrl& url) {
-    // might be needed for previous qt versions (Ubuntu 14.04...)
-    ssl_config_.setCaCertificates(QSslSocket::systemCaCertificates());
-
-    //const QDir config_dir = QDir(seafApplet->configurator()->seafileDir());
     const QDir config_dir = defaultCcnetDir();
     QFile cert_file(config_dir.filePath(url.host() + ".pem"));
     if (!cert_file.open(QFile::ReadOnly)) {
@@ -73,13 +83,25 @@ void SeafileApiClient::InitSslConfiguration(const QUrl& url) {
     ssl_config_.setPrivateKey(privateKey);
 }
 
+void SeafileApiClient::prepareRequest(QNetworkRequest *req)
+{
+    if (use_cache_) {
+        req->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferNetwork);
+        req->setAttribute(QNetworkRequest::CacheSaveControlAttribute, true);
+    } else {
+        req->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
+        req->setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
+    }
+    if (ssl_config_.isNull()) {
+        InitSslConfiguration(req->url());
+    }
+    req->setSslConfiguration(ssl_config_);
+}
+
 void SeafileApiClient::get(const QUrl& url)
 {
     QNetworkRequest request(url);
-    if (ssl_config_.isNull()) {
-        InitSslConfiguration(url);
-    }
-    request.setSslConfiguration(ssl_config_);
+    prepareRequest(&request);
 
     if (token_.length() > 0) {
         char buf[1024];
@@ -103,10 +125,7 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
 {
     body_ = data;
     QNetworkRequest request(url);
-    if (ssl_config_.isNull()) {
-        InitSslConfiguration(url);
-    }
-    request.setSslConfiguration(ssl_config_);
+    prepareRequest(&request);
 
     if (token_.length() > 0) {
         char buf[1024];
@@ -129,6 +148,7 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
 void SeafileApiClient::deleteResource(const QUrl& url)
 {
     QNetworkRequest request(url);
+    prepareRequest(&request);
 
     if (token_.length() > 0) {
         char buf[1024];
@@ -253,12 +273,37 @@ void SeafileApiClient::httpRequestFinished()
     emit requestSuccess(*reply_);
 }
 
+// Return true if the request is redirected and request is resended.
 bool SeafileApiClient::handleHttpRedirect()
 {
     QVariant redirect_attr = reply_->attribute(QNetworkRequest::RedirectionTargetAttribute);
     if (redirect_attr.isNull()) {
         return false;
     }
+
+    QUrl redirect_url = redirect_attr.toUrl();
+    if (redirect_url.isRelative()) {
+        redirect_url =  reply_->url().resolved(redirect_url);
+    }
+
+    // printf("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
+    //        reply_->url().toString().toUtf8().data());
+    if (reply_->operation() == QNetworkAccessManager::PostOperation) {
+        // XXX: Special case for rename/move file api, which returns 301 on
+        // success. We need to distinguish that from a normal 301 redirect.
+        // (In contrast, Rename/move dir api returns 200 on success).
+        if (redirect_url.path().contains(QRegExp("/api2/repos/[^/]+/file/"))) {
+            QString old_name = getQueryValue(reply_->url(), "p");
+            QString new_name = getQueryValue(redirect_url, "p");
+            // Only treat it as a rename file success when old and new are different
+            if (!old_name.isEmpty() && !new_name.isEmpty() && old_name != new_name) {
+                // printf ("get 301 rename file success, old_name: %s, new_name: %s\n",
+                //         toCStr(old_name), toCStr(new_name));
+                return false;
+            }
+        }
+    }
+
 
     if (redirect_count_++ > kMaxRedirects) {
         // simply treat too many redirects as server side error
@@ -267,17 +312,6 @@ bool SeafileApiClient::handleHttpRedirect()
                reply_->url().toString().toUtf8().data());
         return true;
     }
-
-    QUrl redirect_url = redirect_attr.toUrl();
-    if (redirect_url.isRelative()) {
-        redirect_url =  reply_->url().resolved(redirect_url);
-    }
-
-    // qWarning("redirect to %s (from %s)\n", redirect_url.toString().toUtf8().data(),
-    //        reply_->url().toString().toUtf8().data());
-    // don't handle with this, since rename operation returns a 301
-    if (reply_->operation() == QNetworkAccessManager::PostOperation)
-        return false;
 
     resendRequest(redirect_url);
 

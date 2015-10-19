@@ -11,9 +11,9 @@ class ServerInfoRequest;
 class Account {
     friend class AccountManager;
     ServerInfoRequest *serverInfoRequest;
-    ServerInfo serverInfo;
     ServerInfoRequest* createServerInfoRequest();
 public:
+    ServerInfo serverInfo;
     QUrl serverUrl;
     QString username;
     QString token;

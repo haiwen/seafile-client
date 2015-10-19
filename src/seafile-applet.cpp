@@ -40,12 +40,17 @@
 #include "filebrowser/auto-update-mgr.h"
 #include "rpc/local-repo.h"
 #include "server-status-service.h"
+#include "customization-service.h"
 
 #if defined(Q_OS_WIN32)
 #include "ext-handler.h"
 #include "utils/registry.h"
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)
 #include "finder-sync/finder-sync-listener.h"
+#endif
+
+#if defined(Q_OS_MAC)
+#include "utils/utils-mac.h"
 #endif
 
 #include "seafile-applet.h"
@@ -211,6 +216,26 @@ int compareVersions(const QString& s1, const QString& s2, int *ret)
     return 0;
 }
 
+#ifdef Q_OS_MAC
+void writeCABundleForCurl()
+{
+    QString ca_bundle_path = QDir(seafApplet->configurator()->seafileDir()).filePath("ca-bundle.pem");
+    QFile bundle(ca_bundle_path);
+    if (bundle.exists()) {
+        bundle.remove();
+    }
+    bundle.open(QIODevice::WriteOnly);
+    const std::vector<QByteArray> certs = utils::mac::getSystemCaCertificates();
+    for (size_t i = 0; i < certs.size(); i++) {
+        QList<QSslCertificate> list = QSslCertificate::fromData(certs[i], QSsl::Der);
+        foreach (const QSslCertificate& cert, list) {
+            bundle.write(cert.toPem());
+        }
+    }
+}
+#endif
+
+
 const char *const kPreconfigureUsername = "PreconfigureUsername";
 const char *const kPreconfigureUserToken = "PreconfigureUserToken";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
@@ -294,6 +319,10 @@ void SeafileApplet::start()
         qWarning("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
 
+#if defined(Q_OS_MAC)
+    writeCABundleForCurl();
+#endif
+
     //
     // start daemons
     //
@@ -330,6 +359,7 @@ void SeafileApplet::onDaemonStarted()
 
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();
+    CustomizationService::instance()->start();
 
     account_mgr_->updateServerInfo();
 
@@ -524,28 +554,78 @@ void SeafileApplet::refreshQss()
 
 void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
 {
-    QMessageBox::warning(parent != 0 ? parent : main_win_,
-                         getBrand(), msg, QMessageBox::Ok);
+    QMessageBox box(parent ? parent : main_win_);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Warning);
+    box.addButton(tr("OK"), QMessageBox::YesRole);
+    box.exec();
+
     main_win_->showWindow();
     qWarning("%s", msg.toUtf8().data());
 }
 
 void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
 {
-    QMessageBox::information(parent != 0 ? parent : main_win_,
-                             getBrand(), msg, QMessageBox::Ok);
+    QMessageBox box(parent ? parent : main_win_);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Information);
+    box.addButton(tr("OK"), QMessageBox::YesRole);
+    box.exec();
     qDebug("%s", msg.toUtf8().data());
 }
 
 bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default_val)
 {
-    QMessageBox::StandardButton default_btn = default_val ? QMessageBox::Yes : QMessageBox::No;
+    QMessageBox box(parent ? parent : main_win_);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Question);
+    QPushButton *yes_btn = box.addButton(tr("Yes"), QMessageBox::YesRole);
+    QPushButton *no_btn = box.addButton(tr("No"), QMessageBox::NoRole);
+    box.setDefaultButton(default_val ? yes_btn: no_btn);
+    box.exec();
 
-    return QMessageBox::question(parent != 0 ? parent : main_win_,
-                                 getBrand(),
-                                 msg,
-                                 QMessageBox::Yes | QMessageBox::No,
-                                 default_btn) == QMessageBox::Yes;
+    return box.clickedButton() == yes_btn;
+}
+
+bool SeafileApplet::yesOrCancelBox(const QString& msg, QWidget *parent, bool default_yes)
+{
+    QMessageBox box(parent ? parent : main_win_);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Question);
+    QPushButton *yes_btn = box.addButton(tr("Yes"), QMessageBox::YesRole);
+    QPushButton *cancel_btn = box.addButton(tr("Cancel"), QMessageBox::RejectRole);
+    box.setDefaultButton(default_yes ? yes_btn: cancel_btn);
+    box.exec();
+
+    return box.clickedButton() == yes_btn;
+}
+
+
+QMessageBox::StandardButton
+SeafileApplet::yesNoCancelBox(const QString& msg, QWidget *parent, QMessageBox::StandardButton default_btn)
+{
+    QMessageBox box(parent ? parent : main_win_);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Question);
+    QPushButton *yes_btn = box.addButton(tr("Yes"), QMessageBox::YesRole);
+    QPushButton *no_btn = box.addButton(tr("No"), QMessageBox::NoRole);
+    QPushButton *cancel_btn = box.addButton(tr("Cancel"), QMessageBox::RejectRole);
+    box.setDefaultButton(default_btn);
+    box.exec();
+
+    QAbstractButton *btn = box.clickedButton();
+    if (btn == yes_btn) {
+        return QMessageBox::Yes;
+    } else if (btn == no_btn) {
+        return QMessageBox::No;
+    }
+
+    return QMessageBox::Cancel;
 }
 
 bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val)
@@ -556,6 +636,8 @@ bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detail
                        QMessageBox::Yes | QMessageBox::No,
                        parent != 0 ? parent : main_win_);
     msgBox.setDetailedText(detailed_text);
+    msgBox.setButtonText(QMessageBox::Yes, tr("Yes"));
+    msgBox.setButtonText(QMessageBox::No, tr("No"));
     // Turns out the layout box in the QMessageBox is a grid
     // You can force the resize using a spacer this way:
     QSpacerItem* horizontalSpacer = new QSpacerItem(400, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);

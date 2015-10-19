@@ -99,9 +99,8 @@ void CloneTasksTableView::cancelTask()
     QString repo_id = cancel_task_action_->data().toString();
     QString error;
     if (seafApplet->rpcClient()->cancelCloneTask(repo_id, &error) < 0) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Failed to cancel this task:\n\n %1").arg(error),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(
+            tr("Failed to cancel this task:\n\n %1").arg(error), this);
     }
 }
 
@@ -110,8 +109,7 @@ void CloneTasksTableView::removeTask()
     QString repo_id = remove_task_action_->data().toString();
     QString error;
     if (seafApplet->rpcClient()->removeCloneTask(repo_id, &error) < 0) {
-        QMessageBox::warning(this, getBrand(),
-                             tr("Failed to remove this task:\n\n %1").arg(error),
-                             QMessageBox::Ok);
+        seafApplet->warningBox(
+            tr("Failed to remove this task:\n\n %1").arg(error), this);
     }
 }

@@ -135,7 +135,9 @@ class CreateRepoRequest : public SeafileApiRequest {
     Q_OBJECT
 
 public:
-    explicit CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd);
+    CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd);
+    CreateRepoRequest(const Account& account, const QString &name, const QString &desc,
+                      int enc_version, const QString &repo_id, const QString& magic, const QString& random_key);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -442,6 +444,21 @@ private:
     Q_DISABLE_COPY(FileSearchRequest);
 
     const QString keyword_;
+};
+
+class FetchCustomLogoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    FetchCustomLogoRequest(const QUrl &url);
+
+signals:
+    void success(const QUrl& url);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FetchCustomLogoRequest);
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

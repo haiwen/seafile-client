@@ -1,14 +1,32 @@
 #ifndef SEAFILE_CLIENT_UI_SEARCH_TAB_ITEMS_H
 #define SEAFILE_CLIENT_UI_SEARCH_TAB_ITEMS_H
+
+#include <vector>
 #include <QAbstractItemModel>
 #include <QListWidgetItem>
 #include <QListView>
 #include <QStyledItemDelegate>
-#include <vector>
+
+class QAction;
+class QMenu;
 
 class SearchResultListView : public QListView {
     Q_OBJECT
 public:
+    SearchResultListView(QWidget *parent=0);
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
+
+private slots:
+    void openParentDir();
+
+private:
+    void createActions();
+    void updateActions();
+    QMenu *prepareContextMenu();
+
+    QAction *open_parent_dir_action_;
 };
 
 class SearchResultListModel : public QAbstractListModel {

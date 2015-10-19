@@ -7,6 +7,7 @@
 
 #include "api/server-repo.h"
 #include "account.h"
+#include "file-browser-requests.h"
 
 class QTemporaryFile;
 class QFile;
@@ -16,10 +17,19 @@ class QThread;
 class QSslError;
 
 class FileServerTask;
-class SeafileApiRequest;
 class ApiError;
 
 template<typename T> class QList;
+
+// deleter
+template<typename T>
+struct doDeleteLater
+{
+    static inline void cleanup(T *pointer) {
+        if (pointer != NULL)
+            pointer->deleteLater();
+    }
+};
 
 /**
  * Handles file upload/download using seafile web api.
@@ -222,6 +232,18 @@ public:
 
 protected:
     void createFileServerTask(const QString& link);
+
+protected slots:
+    // overwrited
+    virtual void onFinished(bool success);
+
+private slots:
+    void nextEmptyFolder();
+    void onCreateDirFailed(const ApiError& error);
+
+private:
+    QStringList empty_subfolders_;
+    QScopedPointer<CreateDirectoryRequest, doDeleteLater<CreateDirectoryRequest> > create_dir_req_;
 };
 
 /**
@@ -364,16 +386,6 @@ private slots:
 private:
     // never used
     void onHttpRequestFinished() {}
-
-    // deleter
-    template<typename T>
-    struct doDeleteLater
-    {
-        static inline void cleanup(T *pointer) {
-            if (pointer != NULL)
-                pointer->deleteLater();
-        }
-    };
 
     const QString parent_dir_;
     const QString name_;

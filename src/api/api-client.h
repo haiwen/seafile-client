@@ -25,6 +25,7 @@ public:
     void get(const QUrl& url);
     void post(const QUrl& url, const QByteArray& body, bool is_put);
     void deleteResource(const QUrl& url);
+    void setUseCache(bool use_cache) { use_cache_ = use_cache; }
 
 signals:
     void requestSuccess(QNetworkReply& reply);
@@ -40,6 +41,8 @@ private:
     Q_DISABLE_COPY(SeafileApiClient)
 
     bool handleHttpRedirect();
+    bool handleRedirectForNonGetRequest();
+    void prepareRequest(QNetworkRequest *req);
 
     void resendRequest(const QUrl& url);
 
@@ -56,6 +59,7 @@ private:
     QSslConfiguration ssl_config_;
 
     int redirect_count_;
+    bool use_cache_;
 };
 
 #endif  // SEAFILE_API_CLIENT_H

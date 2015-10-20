@@ -80,16 +80,16 @@ void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const 
 // from http://doc.qt.io/qt-5/qmessagelogcontext.html
 #ifdef QT_MESSAGELOGCONTEXT
     case QtDebugMsg:
-        g_debug("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_debug("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         break;
     case QtWarningMsg:
-        g_warning("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_warning("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         break;
     case QtCriticalMsg:
-        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_critical("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         break;
     case QtFatalMsg:
-        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_critical("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         abort();
 #else // QT_MESSAGELOGCONTEXT
     case QtDebugMsg:
@@ -115,13 +115,13 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
     switch (type) {
 #ifdef QT_MESSAGELOGCONTEXT
     case QtWarningMsg:
-        g_warning("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_warning("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         break;
     case QtCriticalMsg:
-        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_critical("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         break;
     case QtFatalMsg:
-        g_critical("%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        g_critical("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         abort();
 #else // QT_MESSAGELOGCONTEXT
     case QtWarningMsg:

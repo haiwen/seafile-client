@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>AccountManager</name>
     <message>
@@ -337,53 +335,53 @@ failed to upload.</source>
         <translation>星标文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="170"/>
+        <location filename="../src/ui/cloud-view.cpp" line="509"/>
         <source>Activities</source>
         <translation>文件活动</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="173"/>
+        <location filename="../src/ui/cloud-view.cpp" line="514"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="200"/>
+        <location filename="../src/ui/cloud-view.cpp" line="190"/>
         <source>current download rate</source>
         <translation>当前下载速率</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="206"/>
+        <location filename="../src/ui/cloud-view.cpp" line="196"/>
         <source>current upload rate</source>
         <translation>当前上传速率</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="211"/>
+        <location filename="../src/ui/cloud-view.cpp" line="201"/>
         <source>Please Choose a folder to sync</source>
         <translation>请选择一个文件夹来同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="349"/>
+        <location filename="../src/ui/cloud-view.cpp" line="339"/>
         <source>no server connected</source>
         <translation>服务器连接失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="347"/>
+        <location filename="../src/ui/cloud-view.cpp" line="337"/>
         <source>all servers connected</source>
         <translation>所有服务器已连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="351"/>
+        <location filename="../src/ui/cloud-view.cpp" line="341"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="370"/>
-        <location filename="../src/ui/cloud-view.cpp" line="371"/>
+        <location filename="../src/ui/cloud-view.cpp" line="360"/>
+        <location filename="../src/ui/cloud-view.cpp" line="361"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="417"/>
+        <location filename="../src/ui/cloud-view.cpp" line="407"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -1598,19 +1596,19 @@ Reason: Deleted on server</source>
         <translation>&quot;%1&quot; 已同步</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="179"/>
+        <location filename="../src/message-listener.cpp" line="180"/>
         <source>File %1 conflict</source>
         <translation>文件 %1 同步时发生冲突</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="191"/>
+        <location filename="../src/message-listener.cpp" line="192"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation>&quot;%1&quot; 同步出错。
 您没有权限访问该资料库</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="202"/>
+        <location filename="../src/message-listener.cpp" line="203"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 同步出错。
@@ -2336,7 +2334,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>机构</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="374"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="377"/>
         <source>sync initializing</source>
         <translation>初始化</translation>
     </message>
@@ -2620,11 +2618,11 @@ Do you want to visit the download page?</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="490"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="510"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="580"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="735"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="800"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="494"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="514"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="739"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="804"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -2704,9 +2702,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="492"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>您有 %n 条未读消息</numerusform>
-        </translation>
+        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="498"/>
@@ -2750,11 +2746,34 @@ Do you want to visit the download page?</source>
     </message>
 </context>
 <context>
+    <name>SearchResultListView</name>
+    <message>
+        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
+        <source>&amp;Open containing folder</source>
+        <translation>打开所在文件夹(&amp;O)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab-items.cpp" line="196"/>
+        <source>Open containg folder</source>
+        <translation>打开所在文件夹</translation>
+    </message>
+</context>
+<context>
     <name>SearchTab</name>
     <message>
         <location filename="../src/ui/search-tab.cpp" line="80"/>
         <source>Search Files...</source>
         <translation>搜索文件...</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab.cpp" line="123"/>
+        <source>retry</source>
+        <translation>重试</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab.cpp" line="124"/>
+        <source>Failed to search&lt;br/&gt;Please %1</source>
+        <translation>搜索失败&lt;br/&gt;请 %1</translation>
     </message>
 </context>
 <context>
@@ -3042,19 +3061,6 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="48"/>
         <source>OK</source>
         <translation>确认</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="30"/>
-        <source>Login with Shibboleth</source>
-        <translation>Shibboleth 方式登陆</translation>
-    </message>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="85"/>
-        <source>Failed to save current account</source>
-        <translation>保存帐户失败</translation>
     </message>
 </context>
 <context>

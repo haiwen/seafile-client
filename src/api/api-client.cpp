@@ -144,69 +144,82 @@ void SeafileApiClient::onSslErrors(const QList<QSslError>& errors)
 {
     const QUrl url = reply_->url();
     CertsManager *mgr = seafApplet->certsManager();
-    Q_FOREACH(const QSslError &error, errors) {
-        const QSslCertificate &cert = error.certificate();
 
-        if (cert.isNull()) {
-            // The server has no ssl certificate, we do nothing and let the
-            // request fail
-            // it is a fatal error, no way to recover
-            qWarning("the certificate for %s is null", url.toString().toUtf8().data());
-            break;
-        }
+    // a copy of root CA
+    QSslCertificate cert;
 
-        QSslCertificate saved_cert = mgr->getCertificate(url.toString());
-
-        if (saved_cert.isNull()) {
-            // dump certificate information
-            qWarning() << "\n= SslError =\n" << error.errorString();
-            qWarning() << dumpCipher(reply_->sslConfiguration().sessionCipher());
-            qWarning() << dumpCertificate(cert);
-
-            // This is the first time when the client connects to the server.
-            if (seafApplet->detailedYesOrNoBox(
-                tr("<b>Warning:</b> The ssl certificate of this server is not trusted, proceed anyway?"),
-                error.errorString() + "\n" + dumpCertificate(cert), 0, false)) {
-                mgr->saveCertificate(url, cert);
-                // TODO handle ssl by verifying certificate chain instead
-                reply_->ignoreSslErrors();
-            }
-            break;
-        } else if (saved_cert == cert) {
-            // The user has choosen to trust the certificate before
-            // TODO handle ssl by verifying certificate chain instead
-            reply_->ignoreSslErrors();
-            break;
-        } else {
-            // dump certificate information
-            qWarning() << "\n= SslError =\n" << error.errorString();
-            qWarning() << dumpCipher(reply_->sslConfiguration().sessionCipher());
-            qWarning() << dumpCertificate(cert);
-            qWarning() << dumpCertificate(saved_cert);
-
-            /**
-             * The cert which the user had chosen to trust has been changed. It
-             * may be either:
-             *
-             * 1. The server has changed its ssl certificate
-             * 2. The user's connection is under security attack
-             *
-             * Anyway, we'll prompt the user
-             */
-            SslConfirmDialog dialog(url, cert, saved_cert, seafApplet->mainWindow());
-            if (dialog.exec() == QDialog::Accepted) {
-                // TODO handle ssl by verifying certificate chain instead
-                reply_->ignoreSslErrors();
-                if (dialog.rememberChoice()) {
-                    mgr->saveCertificate(url, cert);
-                }
-            } else {
-                reply_->abort();
-                break;
-            }
-            break;
+    Q_FOREACH (const QSslError &error, errors)
+    {
+        if (error.error() == QSslError::SelfSignedCertificate) {
+            cert = error.certificate();
         }
     }
+
+    // if we have other kinds of ssl errors, then fallback to peerCertificateChain
+    if (cert.isNull()) {
+        cert = reply_->sslConfiguration().peerCertificateChain().back();
+    }
+
+    // no ssl certificate?
+    if (cert.isNull()) {
+        qWarning("the certificate for %s is null", url.toString().toUtf8().data());
+        reply_->abort();
+        return;
+    }
+    QSslCertificate saved_cert = mgr->getCertificate(url.toString());
+
+    //
+    // The user has choosen to trust this root CA before
+    // it is safe to ignore
+    //
+    if (saved_cert == cert) {
+        reply_->ignoreSslErrors();
+        return;
+    }
+
+    qWarning() << "\n= SslError =\n" << errors;
+    qWarning() << dumpCipher(reply_->sslConfiguration().sessionCipher());
+    qWarning() << dumpCertificate(cert);
+    if (!saved_cert.isNull())
+        qWarning() << dumpCertificate(saved_cert);
+
+    //
+    // The cert which the user had chosen to trust has been changed. It
+    // may be either:
+    //
+    // 1. The server has changed its ssl certificate
+    // 2. The user's connection is under security attack
+    //
+    // Anyway, we'll prompt the user
+    //
+    if (!saved_cert.isNull()) {
+        SslConfirmDialog dialog(url, cert, saved_cert, seafApplet->mainWindow());
+        if (dialog.exec() == QDialog::Accepted) {
+            if (dialog.rememberChoice()) {
+                mgr->saveCertificate(url, cert);
+            }
+            reply_->ignoreSslErrors();
+            return;
+        }
+        reply_->abort();
+        return;
+    }
+
+    //
+    // This is the first time when the client connects to the server.
+    //
+    if (seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> %1, proceed anyway?")
+                                           .arg(errors.front().errorString()),
+                                       errors.front().errorString() + "\n" +
+                                           dumpCertificate(cert),
+                                       0, false)) {
+        mgr->saveCertificate(url, cert);
+        reply_->ignoreSslErrors();
+        return;
+    }
+
+    // no process? abort
+    reply_->abort();
 }
 
 void SeafileApiClient::httpRequestFinished()

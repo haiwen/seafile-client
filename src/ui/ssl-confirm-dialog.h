@@ -20,6 +20,9 @@ public:
 
     bool rememberChoice() const;
 
+public slots:
+    void onShowMoreDetails();
+
 private:
     QUrl url_;
 };

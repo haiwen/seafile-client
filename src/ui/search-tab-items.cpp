@@ -190,10 +190,10 @@ SearchResultListView::SearchResultListView(QWidget* parent) : QListView(parent)
 
 void SearchResultListView::createActions()
 {
-    open_parent_dir_action_ = new QAction(tr("&Open containing folder"), this);
+    open_parent_dir_action_ = new QAction(tr("&Show in folder"), this);
     open_parent_dir_action_->setIcon(QIcon(":/images/toolbar/file-gray.png"));
     open_parent_dir_action_->setIconVisibleInMenu(true);
-    open_parent_dir_action_->setStatusTip(tr("Open containg folder"));
+    open_parent_dir_action_->setStatusTip(tr("Show in folder"));
     connect(open_parent_dir_action_,
             SIGNAL(triggered()),
             this,

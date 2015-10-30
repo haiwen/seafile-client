@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.0" language="en_US">
 <context>
     <name>AccountManager</name>
     <message>
@@ -924,16 +924,6 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="970"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="992"/>
-        <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="993"/>
-        <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2677,17 +2667,12 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="144"/>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="184"/>
+        <location filename="../src/ui/tray-icon.cpp" line="187"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="492"/>
+        <location filename="../src/ui/tray-icon.cpp" line="495"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -2695,22 +2680,22 @@ Do you want to visit the download page?</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="498"/>
+        <location filename="../src/ui/tray-icon.cpp" line="501"/>
         <source>auto sync is disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="525"/>
+        <location filename="../src/ui/tray-icon.cpp" line="528"/>
         <source>Uploading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="526"/>
+        <location filename="../src/ui/tray-icon.cpp" line="529"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="416"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2725,12 +2710,12 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="414"/>
+        <location filename="../src/ui/tray-icon.cpp" line="417"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="503"/>
+        <location filename="../src/ui/tray-icon.cpp" line="506"/>
         <source>some servers not connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2739,12 +2724,12 @@ Do you want to visit the download page?</source>
     <name>SearchResultListView</name>
     <message>
         <location filename="../src/ui/search-tab-items.cpp" line="193"/>
-        <source>&amp;Open containing folder</source>
+        <source>&amp;Show in folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/search-tab-items.cpp" line="196"/>
-        <source>Open containg folder</source>
+        <source>Show in folder</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>AccountManager</name>
     <message>
@@ -929,14 +931,12 @@ failed to upload.</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="992"/>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation>您真的想删除文件 &quot;%1&quot; 吗？</translation>
+        <translation type="obsolete">您真的想删除文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="993"/>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation>您真的想删除目录 &quot;%1&quot; 吗？</translation>
+        <translation type="obsolete">您真的想删除目录 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1000"/>
@@ -2690,37 +2690,38 @@ Do you want to visit the download page?</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="144"/>
         <source>Help</source>
-        <translation>帮助</translation>
+        <translation type="obsolete">帮助</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="184"/>
+        <location filename="../src/ui/tray-icon.cpp" line="187"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="492"/>
+        <location filename="../src/ui/tray-icon.cpp" line="495"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
+        <translation>
+            <numerusform>您有 %n 条未读消息</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="498"/>
+        <location filename="../src/ui/tray-icon.cpp" line="501"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="525"/>
+        <location filename="../src/ui/tray-icon.cpp" line="528"/>
         <source>Uploading</source>
         <translation>正在上传</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="526"/>
+        <location filename="../src/ui/tray-icon.cpp" line="529"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="416"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
@@ -2735,12 +2736,12 @@ Do you want to visit the download page?</source>
         <translation>打开 %1 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="414"/>
+        <location filename="../src/ui/tray-icon.cpp" line="417"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="503"/>
+        <location filename="../src/ui/tray-icon.cpp" line="506"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -2748,13 +2749,21 @@ Do you want to visit the download page?</source>
 <context>
     <name>SearchResultListView</name>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
         <source>&amp;Open containing folder</source>
-        <translation>打开所在文件夹(&amp;O)</translation>
+        <translation type="obsolete">打开所在文件夹(&amp;O)</translation>
+    </message>
+    <message>
+        <source>Open containg folder</source>
+        <translation type="obsolete">打开所在文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
+        <source>&amp;Show in folder</source>
+        <translation>打开所在文件夹(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/ui/search-tab-items.cpp" line="196"/>
-        <source>Open containg folder</source>
+        <source>Show in folder</source>
         <translation>打开所在文件夹</translation>
     </message>
 </context>

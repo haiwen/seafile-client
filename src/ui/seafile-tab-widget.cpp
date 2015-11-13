@@ -26,11 +26,14 @@ SeafileTabBar::SeafileTabBar(QWidget *parent)
 {
 }
 
-void SeafileTabBar::addTab(const QString& text, const QString& icon_path)
+void SeafileTabBar::addTab(const QString& text,
+                           const QString& icon_path,
+                           const QString& highlighted_icon)
 {
     int index = QTabBar::addTab(text);
     setTabToolTip(index, text);
     icons_.push_back(icon_path);
+    highlighted_icons_.push_back(highlighted_icon);
 }
 
 void SeafileTabBar::paintEvent(QPaintEvent *event)
@@ -53,7 +56,8 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         top_left.setX(rect.topLeft().x() + ((rect.width() - kTabIconSize) / 2));
         top_left.setY(rect.topLeft().y() + ((rect.height() - kTabIconSize) / 2));
 
-        QIcon icon(icons_[index]);
+        QIcon icon(currentIndex() == index ? highlighted_icons_[index]
+                                           : icons_[index]);
         QRect icon_rect(top_left, QSize(kTabIconSize, kTabIconSize));
         // get the device pixel radio from current painter device
         int scale_factor = 1;
@@ -67,12 +71,12 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         painter.drawPixmap(icon_rect, icon_pixmap);
 
         // Draw the selected tab indicator
-        if (currentIndex() == index) {
-            top_left.setX(rect.bottomLeft().x() + (rect.width() / 4));
-            top_left.setY(rect.bottomLeft().y() - kSelectedTabBorderBottomWidth + 1);
-            QRect border_bottom_rect(top_left, QSize(rect.width() / 2 , kSelectedTabBorderBottomWidth));
-            painter.fillRect(border_bottom_rect, QColor(kSelectedTabBorderBottomColor));
-        }
+        // if (currentIndex() == index) {
+        //     top_left.setX(rect.bottomLeft().x() + (rect.width() / 4));
+        //     top_left.setY(rect.bottomLeft().y() - kSelectedTabBorderBottomWidth + 1);
+        //     QRect border_bottom_rect(top_left, QSize(rect.width() / 2 , kSelectedTabBorderBottomWidth));
+        //     painter.fillRect(border_bottom_rect, QColor(kSelectedTabBorderBottomColor));
+        // }
     }
 }
 
@@ -107,9 +111,12 @@ SeafileTabWidget::SeafileTabWidget(QWidget *parent)
             this, SIGNAL(currentTabChanged(int)));
 }
 
-void SeafileTabWidget::addTab(QWidget *tab, const QString& text, const QString& icon_path)
+void SeafileTabWidget::addTab(QWidget* tab,
+                              const QString& text,
+                              const QString& icon_path,
+                              const QString& highlighted_icon)
 {
-    tabbar_->addTab(text, icon_path);
+    tabbar_->addTab(text, icon_path, highlighted_icon);
     stack_->addWidget(tab);
 }
 

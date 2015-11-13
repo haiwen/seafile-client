@@ -101,6 +101,14 @@
     <file>images/tabs/search@2x.png</file>
     <file>images/tabs/starred.png</file>
     <file>images/tabs/starred@2x.png</file>
+    <file>images/tabs/highlighted/files.png</file>
+    <file>images/tabs/highlighted/files@2x.png</file>
+    <file>images/tabs/highlighted/history.png</file>
+    <file>images/tabs/highlighted/history@2x.png</file>
+    <file>images/tabs/highlighted/search.png</file>
+    <file>images/tabs/highlighted/search@2x.png</file>
+    <file>images/tabs/highlighted/starred.png</file>
+    <file>images/tabs/highlighted/starred@2x.png</file>
     <file>images/files/file_audio.png</file>
     <file>images/files/file_image.png</file>
     <file>images/files/file_ms_excel.png</file>

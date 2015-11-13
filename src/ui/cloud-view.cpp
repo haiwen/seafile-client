@@ -146,10 +146,13 @@ void CloudView::createTabs()
     repos_tab_ = new ReposTab;
 
     QString base_icon_path = ":/images/tabs/";
-    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "files.png");
+    QString highlighted_base_icon_path = ":/images/tabs/highlighted/";
+    tabs_->addTab(repos_tab_, tr("Libraries"), base_icon_path + "files.png",
+                  highlighted_base_icon_path + "files.png");
 
     starred_files_tab_ = new StarredFilesTab;
-    tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png");
+    tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png",
+                  highlighted_base_icon_path + "starred.png");
 
     activities_tab_ = new ActivitiesTab;
 
@@ -506,13 +509,18 @@ void CloudView::showProperTabs()
         }
     }
     if (show_activities_tab && tabs_->count() < 3) {
-        tabs_->addTab(activities_tab_, tr("Activities"), ":/images/tabs/history.png");
-    } else if (!show_activities_tab && tabs_->count() >= 3) {
+        tabs_->addTab(activities_tab_, tr("Activities"),
+                      ":/images/tabs/history.png",
+                      ":/images/tabs/highlighted/history.png");
+    }
+    else if (!show_activities_tab && tabs_->count() >= 3) {
         tabs_->removeTab(TAB_INDEX_ACTIVITIES, activities_tab_);
     }
     if (show_search_tab && tabs_->count() < 4) {
-        tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png");
-    } else if (!show_search_tab && tabs_->count() >= 4) {
+        tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png",
+                      ":/images/tabs/highlighted/search.png");
+    }
+    else if (!show_search_tab && tabs_->count() >= 4) {
         tabs_->removeTab(TAB_INDEX_SEARCH, search_tab_);
     }
     tabs_->adjustTabsWidth(rect().width());

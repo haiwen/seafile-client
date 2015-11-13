@@ -11,30 +11,38 @@ class QStackedLayout;
 /**
  * Custom tabbar used in the custom tab widget
  */
-class SeafileTabBar : public QTabBar {
+class SeafileTabBar : public QTabBar
+{
     Q_OBJECT
 public:
-    SeafileTabBar(QWidget *parent=0);
+    SeafileTabBar(QWidget* parent = 0);
 
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent* event);
 
-    void addTab(const QString& text, const QString& icon_path);
+    void addTab(const QString& text,
+                const QString& icon_path,
+                const QString& highlighted_icon);
 
 private:
-
     std::vector<QString> icons_;
+    std::vector<QString> highlighted_icons_;
 };
 
 /**
  * Custom tab widget, allow the tabbar to expand fully
  */
-class SeafileTabWidget : public QWidget {
+class SeafileTabWidget : public QWidget
+{
     Q_OBJECT
 public:
-    SeafileTabWidget(QWidget *parent=0);
+    SeafileTabWidget(QWidget* parent = 0);
 
-    void addTab(QWidget *tab, const QString& text, const QString& icon_path);
-    void removeTab(int index, QWidget *widget);
+    void addTab(QWidget* tab,
+                const QString& text,
+                const QString& icon_path,
+                const QString& highlighted_icon);
+
+    void removeTab(int index, QWidget* widget);
 
     void adjustTabsWidth(int full_width);
 
@@ -46,13 +54,13 @@ signals:
     void currentTabChanged(int index);
 
 private:
-    QVBoxLayout *layout_;
+    QVBoxLayout* layout_;
 
-    SeafileTabBar *tabbar_;
+    SeafileTabBar* tabbar_;
 
-    QWidget *pane_;
+    QWidget* pane_;
 
-    QStackedLayout *stack_;
+    QStackedLayout* stack_;
 };
 
 

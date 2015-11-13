@@ -33,6 +33,7 @@ AccessModifierOffset: -4
 #   format = Format(); // Comment 2
 #
 AlignTrailingComments: false
+AllowShortFunctionsOnASingleLine: false
 
 # Good:
 #

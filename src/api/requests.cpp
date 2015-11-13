@@ -38,6 +38,7 @@ const char *kLogoutDeviceUrl = "api2/logout-device/";
 const char *kGetRepoTokensUrl = "api2/repo-tokens/";
 const char *kGetLoginTokenUrl = "api2/client-login/";
 const char *kFileSearchUrl = "api2/search/";
+const char *kAccountInfoUrl = "api2/account/info/";
 
 const char *kLatestVersionUrl = "http://seafile.com/api/client-versions/";
 
@@ -781,4 +782,32 @@ void FetchCustomLogoRequest::requestSuccess(QNetworkReply& reply)
     } else {
         emit success(url());
     }
+}
+
+FetchAccountInfoRequest::FetchAccountInfoRequest(const Account& account)
+    : SeafileApiRequest (account.getAbsoluteUrl(kAccountInfoUrl), SeafileApiRequest::METHOD_GET, account.token)
+{
+    account_ = account;
+}
+
+void FetchAccountInfoRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("FetchAccountInfoRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    AccountInfo info;
+    info.email = dict["email"].toString();
+    info.nickname = dict["nickname"].toString();
+    info.totalStorage = dict["total"].toLongLong();
+    info.usedStorage = dict["usage"].toLongLong();
+    emit success(info);
 }

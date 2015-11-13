@@ -8,12 +8,22 @@
 #include "api/server-info.h"
 
 class ServerInfoRequest;
+
+class AccountInfo {
+public:
+    QString email;
+    QString nickname;
+    qint64 totalStorage;
+    qint64 usedStorage;
+};
+
 class Account {
     friend class AccountManager;
     ServerInfoRequest *serverInfoRequest;
     ServerInfoRequest* createServerInfoRequest();
 public:
     ServerInfo serverInfo;
+    AccountInfo accountInfo;
     QUrl serverUrl;
     QString username;
     QString token;
@@ -25,6 +35,7 @@ public:
     Account(QUrl serverUrl, QString username, QString token, qint64 lastVisited=0, bool isShibboleth = false)
         : serverInfoRequest(NULL),
           serverInfo(),
+          accountInfo(),
           serverUrl(serverUrl),
           username(username),
           token(token),
@@ -99,6 +110,14 @@ public:
     // excluding Pro Version
     bool isAtLeastOSSVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {
         return !isPro() && isAtLeastVersion(majorVersion, minorVersion, patchVersion);
+    }
+
+    qint32 getTotalStorage() const {
+        return accountInfo.totalStorage;
+    }
+    
+    qint32 getUsedStorage() const {
+        return accountInfo.usedStorage;
     }
 
     QUrl getAbsoluteUrl(const QString& relativeUrl) const;

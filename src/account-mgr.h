@@ -56,11 +56,14 @@ public:
     // Also used by extension handler
     Account getAccountByRepo(const QString& repo_id, SeafileRpcClient *rpc);
 
+    void updateAccountInfo(const Account& account, const AccountInfo& info);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 
     // invalidate current login and emit a re-login signal
     void invalidateCurrentLogin();
+
 signals:
     /**
      * Account added/removed/switched.
@@ -70,6 +73,7 @@ signals:
     void accountRequireRelogin(const Account& account);
 
     void requireAddAccount();
+    void accountInfoUpdated(const Account& account);
 
 private slots:
     void serverInfoSuccess(const Account &account, const ServerInfo &info);

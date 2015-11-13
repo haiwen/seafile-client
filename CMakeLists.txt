@@ -179,6 +179,7 @@ SET(moc_headers
   src/avatar-service.h
   src/open-local-helper.h
   src/server-status-service.h
+  src/account-info-service.h
   src/customization-service.h
   src/message-listener.h
   src/network-mgr.h
@@ -355,6 +356,7 @@ SET(seafile_client_sources
   src/repo-service-helper.cpp
   src/events-service.cpp
   src/server-status-service.cpp
+  src/account-info-service.cpp
   src/customization-service.cpp
   src/shared-application.cpp
   src/avatar-service.cpp

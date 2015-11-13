@@ -14,6 +14,7 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "rpc/rpc-client.h"
+#include "account-info-service.h"
 
 namespace {
 const char *kRepoRelayAddrProperty = "relay-address";
@@ -21,6 +22,8 @@ const char *kVersionKeyName = "version";
 const char *kFeaturesKeyName = "features";
 const char *kCustomBrandKeyName = "custom-brand";
 const char *kCustomLogoKeyName = "custom-logo";
+const char *kTotalStorage = "storage.total";
+const char *kUsedStorage = "storage.used";
 
 bool getColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
 {
@@ -159,7 +162,7 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
 
     Account account = Account(QUrl(QString(url)), QString(username), QString(token), atime, isShibboleth != 0);
     char* zql = sqlite3_mprintf("SELECT key, value FROM ServerInfo WHERE url = %Q AND username = %Q", url, username);
-    sqlite_foreach_selected_row (userdata->db, zql, loadServerInfoCB, &account.serverInfo);
+    sqlite_foreach_selected_row (userdata->db, zql, loadServerInfoCB, &account);
     sqlite3_free(zql);
 
     userdata->accounts->push_back(account);
@@ -168,19 +171,23 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
 
 bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
 {
-    ServerInfo *info = static_cast<ServerInfo*>(data);
+    Account *account = static_cast<Account*>(data);
     const char *key = (const char *)sqlite3_column_text (stmt, 0);
     const char *value = (const char *)sqlite3_column_text (stmt, 1);
     QString key_string = key;
     QString value_string = value;
     if (key_string == kVersionKeyName) {
-        info->parseVersionFromString(value_string);
+        account->serverInfo.parseVersionFromString(value_string);
     } else if (key_string == kFeaturesKeyName) {
-        info->parseFeatureFromStrings(value_string.split(","));
+        account->serverInfo.parseFeatureFromStrings(value_string.split(","));
     } else if (key_string == kCustomBrandKeyName) {
-        info->customBrand = value_string;
+        account->serverInfo.customBrand = value_string;
     } else if (key_string == kCustomLogoKeyName) {
-        info->customLogo = value_string;
+        account->serverInfo.customLogo = value_string;
+    } else if (key_string == kTotalStorage) {
+        account->accountInfo.totalStorage = value_string.toLongLong();
+    } else if (key_string == kUsedStorage) {
+        account->accountInfo.usedStorage = value_string.toLongLong();
     }
     return true;
 }
@@ -292,6 +299,8 @@ bool AccountManager::setCurrentAccount(const Account& account)
     // Would emit "accountsChanged" signal
     saveAccount(account);
 
+    AccountInfoService::instance()->refresh();
+
     return true;
 }
 
@@ -385,6 +394,23 @@ void AccountManager::updateServerInfo(unsigned index)
     connect(request, SIGNAL(failed(const ApiError&)),
             this, SLOT(serverInfoFailed(const ApiError&)));
     request->send();
+}
+
+void AccountManager::updateAccountInfo(const Account& account,
+                                       const AccountInfo& info)
+{
+    setServerInfoKeyValue(db, account, kTotalStorage,
+                          QString::number(info.totalStorage));
+    setServerInfoKeyValue(db, account, kUsedStorage,
+                          QString::number(info.usedStorage));
+
+    for (size_t i = 0; i < accounts_.size(); i++) {
+        if (accounts_[i] == account) {
+            accounts_[i].accountInfo = info;
+            emit accountInfoUpdated(accounts_[i]);
+            break;
+        }
+    }
 }
 
 

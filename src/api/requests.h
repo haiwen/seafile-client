@@ -461,4 +461,23 @@ private:
     Q_DISABLE_COPY(FetchCustomLogoRequest);
 };
 
+class FetchAccountInfoRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    FetchAccountInfoRequest(const Account& account);
+
+    const Account& account() const { return account_; }
+
+signals:
+    void success(const AccountInfo& info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FetchAccountInfoRequest);
+
+    Account account_;
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

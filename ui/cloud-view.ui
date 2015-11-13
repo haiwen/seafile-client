@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>405</width>
+    <width>469</width>
     <height>579</height>
    </rect>
   </property>
@@ -246,6 +246,13 @@
         </property>
         <property name="autoRaise">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="mStorageUsage">
+        <property name="value">
+         <number>0</number>
         </property>
        </widget>
       </item>

@@ -40,6 +40,7 @@
 #include "filebrowser/auto-update-mgr.h"
 #include "rpc/local-repo.h"
 #include "server-status-service.h"
+#include "account-info-service.h"
 #include "customization-service.h"
 
 #if defined(Q_OS_WIN32)
@@ -360,6 +361,7 @@ void SeafileApplet::onDaemonStarted()
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();
     CustomizationService::instance()->start();
+    AccountInfoService::instance()->start();
 
     account_mgr_->updateServerInfo();
 
@@ -614,7 +616,7 @@ SeafileApplet::yesNoCancelBox(const QString& msg, QWidget *parent, QMessageBox::
     box.setIcon(QMessageBox::Question);
     QPushButton *yes_btn = box.addButton(tr("Yes"), QMessageBox::YesRole);
     QPushButton *no_btn = box.addButton(tr("No"), QMessageBox::NoRole);
-    QPushButton *cancel_btn = box.addButton(tr("Cancel"), QMessageBox::RejectRole);
+    box.addButton(tr("Cancel"), QMessageBox::RejectRole);
     box.setDefaultButton(default_btn);
     box.exec();
 

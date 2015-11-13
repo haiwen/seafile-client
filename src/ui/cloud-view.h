@@ -20,6 +20,7 @@ class ActivitiesTab;
 class SearchTab;
 class CloneTasksDialog;
 class AccountView;
+class Account;
 
 class CloudView : public QWidget,
                   public Ui::CloudView
@@ -50,6 +51,7 @@ private slots:
     void onTabChanged(int index);
     void refreshServerStatus();
     void onServerLogoFetched(const QUrl& url);
+    void onAccountInfoUpdated(const Account& account);
 
 private:
     Q_DISABLE_COPY(CloudView)
@@ -68,6 +70,7 @@ private:
     void refreshTasksInfo();
     void refreshTransferRate();
     void showCreateRepoDialog(const QString& path);
+    void updateStorageUsage(const Account& account);
 
     QTimer *refresh_status_bar_timer_;
 

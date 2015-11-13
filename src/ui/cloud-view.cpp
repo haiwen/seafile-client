@@ -96,6 +96,8 @@ CloudView::CloudView(QWidget *parent)
     AccountManager *account_mgr = seafApplet->accountManager();
     connect(account_mgr, SIGNAL(accountsChanged()),
             this, SLOT(onAccountChanged()));
+    connect(account_mgr, SIGNAL(accountInfoUpdated(const Account&)),
+            this, SLOT(onAccountInfoUpdated(const Account&)));
 
 #if defined(Q_OS_MAC)
     mHeader->setVisible(false);
@@ -197,6 +199,8 @@ void CloudView::setupFooter()
     mUploadRateArrow->setPixmap(QPixmap(":/images/main-panel/up.png"));
     mUploadRate->setText("0 kB/s");
     mUploadRate->setToolTip(tr("current upload rate"));
+
+    mStorageUsage->reset();
 }
 
 void CloudView::chooseFolderToSync()
@@ -495,6 +499,26 @@ void CloudView::onAccountChanged()
     account_view_->onAccountChanged();
     // we need update tab manually
     onTabChanged(tabs_->currentIndex());
+
+    updateStorageUsage(account);
+}
+
+void CloudView::updateStorageUsage(const Account& account)
+{
+    if (!account.isValid()) {
+        return;
+    }
+    const AccountInfo& info = account.accountInfo;
+    if (info.totalStorage > 0) {
+        mStorageUsage->setMaximum(info.totalStorage / 1000);
+        mStorageUsage->setValue(info.usedStorage / 1000);
+        mStorageUsage->setVisible(true);
+        mStorageUsage->setFormat(::readableFileSize(info.usedStorage) + "/" +
+                                 ::readableFileSize(info.totalStorage));
+    }
+    else {
+        mStorageUsage->setVisible(false);
+    }
 }
 
 void CloudView::showProperTabs()
@@ -536,5 +560,12 @@ void CloudView::onTabChanged(int index)
     } else {
         mDropArea->setVisible(false);
         mFooter->setStyleSheet("QFrame#mFooter { border-top: 1px solid #DCDCDE; }");
+    }
+}
+
+void CloudView::onAccountInfoUpdated(const Account& account)
+{
+    if (account == seafApplet->accountManager()->currentAccount()) {
+        updateStorageUsage(account);
     }
 }

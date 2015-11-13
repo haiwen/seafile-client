@@ -583,3 +583,20 @@ SearchResultListView {
     border-top: 1px solid #DCDCDE;
     border-bottom: 1px solid #DCDCDE;
 }
+
+QProgressBar#mStorageUsage {
+    min-width: 90px;
+    max-width: 90px;
+    max-height: 12px;
+    min-height: 12px;
+    border: 1px solid #DBDBDC;
+    border-radius: 0;
+    text-align: right;
+    margin-left: 20px;
+    font-size: 11px;
+}
+
+QProgressBar#mStorageUsage::chunk {
+    background-color: #FF9A2A;
+    width: 3px;
+}

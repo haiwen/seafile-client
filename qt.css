@@ -592,7 +592,7 @@ QProgressBar#mStorageUsage {
     border: 1px solid #DBDBDC;
     border-radius: 0;
     text-align: right;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 11px;
 }
 

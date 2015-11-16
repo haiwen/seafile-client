@@ -1,49 +1,51 @@
 extern "C" {
 
 #include <ccnet/peer.h>
-
 }
 
-#include <vector>
 #include <QtGlobal>
+#include <vector>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
 #else
 #include <QtGui>
 #endif
-#include <QWidget>
 #include <QImage>
+#include <QWidget>
 
 #include "QtAwesome.h"
-#include "utils/utils.h"
-#include "utils/utils-mac.h"
-#include "seafile-applet.h"
-#include "rpc/rpc-client.h"
 #include "account-mgr.h"
-#include "create-repo-dialog.h"
+#include "account-view.h"
+#include "activities-tab.h"
 #include "clone-tasks-dialog.h"
-#include "server-status-dialog.h"
+#include "create-repo-dialog.h"
+#include "customization-service.h"
 #include "main-window.h"
 #include "repos-tab.h"
-#include "starred-files-tab.h"
-#include "activities-tab.h"
-#include "search-tab.h"
-#include "account-view.h"
+#include "rpc/rpc-client.h"
+#include "seafile-applet.h"
 #include "seafile-tab-widget.h"
-#include "utils/paint-utils.h"
+#include "search-tab.h"
+#include "server-status-dialog.h"
 #include "server-status-service.h"
-#include "customization-service.h"
+#include "starred-files-tab.h"
+#include "utils/paint-utils.h"
+#include "utils/utils-mac.h"
+#include "utils/utils.h"
 
 #include "cloud-view.h"
 
-namespace {
-
+namespace
+{
 const int kRefreshStatusInterval = 1000;
 
 const int kIndexOfAccountView = 1;
 const int kIndexOfToolBar = 2;
 const int kIndexOfTabWidget = 3;
+const char* kQuotaColorCritical = "#FF2A2A";
+const char* kQuotaColorWarning = "#FF9A2A";
+const char* kQuotaColorGood = "#92C87A";
 
 enum {
     TAB_INDEX_REPOS = 0,
@@ -51,13 +53,10 @@ enum {
     TAB_INDEX_ACTIVITIES,
     TAB_INDEX_SEARCH,
 };
-
-
 }
 
-CloudView::CloudView(QWidget *parent)
-    : QWidget(parent),
-      clone_task_dialog_(NULL)
+CloudView::CloudView(QWidget* parent)
+    : QWidget(parent), clone_task_dialog_(NULL)
 
 {
     setupUi(this);
@@ -82,7 +81,7 @@ CloudView::CloudView(QWidget *parent)
 
     setupFooter();
 
-    QVBoxLayout *vlayout = (QVBoxLayout *)layout();
+    QVBoxLayout* vlayout = (QVBoxLayout*)layout();
     vlayout->insertWidget(kIndexOfAccountView, account_view_);
     vlayout->insertWidget(kIndexOfToolBar, tool_bar_);
     vlayout->insertWidget(kIndexOfTabWidget, tabs_);
@@ -91,13 +90,14 @@ CloudView::CloudView(QWidget *parent)
     resizer_->resize(resizer_->sizeHint());
 
     refresh_status_bar_timer_ = new QTimer(this);
-    connect(refresh_status_bar_timer_, SIGNAL(timeout()), this, SLOT(refreshStatusBar()));
+    connect(refresh_status_bar_timer_, SIGNAL(timeout()), this,
+            SLOT(refreshStatusBar()));
 
-    AccountManager *account_mgr = seafApplet->accountManager();
-    connect(account_mgr, SIGNAL(accountsChanged()),
-            this, SLOT(onAccountChanged()));
-    connect(account_mgr, SIGNAL(accountInfoUpdated(const Account&)),
-            this, SLOT(onAccountInfoUpdated(const Account&)));
+    AccountManager* account_mgr = seafApplet->accountManager();
+    connect(account_mgr, SIGNAL(accountsChanged()), this,
+            SLOT(onAccountChanged()));
+    connect(account_mgr, SIGNAL(accountInfoUpdated(const Account&)), this,
+            SLOT(onAccountInfoUpdated(const Account&)));
 
 #if defined(Q_OS_MAC)
     mHeader->setVisible(false);
@@ -105,8 +105,9 @@ CloudView::CloudView(QWidget *parent)
 
     connect(ServerStatusService::instance(), SIGNAL(serverStatusChanged()),
             this, SLOT(refreshServerStatus()));
-    connect(CustomizationService::instance(), SIGNAL(serverLogoFetched(const QUrl&)),
-            this, SLOT(onServerLogoFetched(const QUrl&)));
+    connect(CustomizationService::instance(),
+            SIGNAL(serverLogoFetched(const QUrl&)), this,
+            SLOT(onServerLogoFetched(const QUrl&)));
 
     QTimer::singleShot(0, this, SLOT(onAccountChanged()));
 }
@@ -118,7 +119,8 @@ void CloudView::setupHeader()
     mMinimizeBtn->setText("");
     mMinimizeBtn->setToolTip(tr("Minimize"));
     mMinimizeBtn->setIcon(awesome->icon(icon_minus, QColor("#808081")));
-    connect(mMinimizeBtn, SIGNAL(clicked()), this, SLOT(onMinimizeBtnClicked()));
+    connect(mMinimizeBtn, SIGNAL(clicked()), this,
+            SLOT(onMinimizeBtnClicked()));
 
     mCloseBtn->setText("");
     mCloseBtn->setToolTip(tr("Close"));
@@ -153,18 +155,20 @@ void CloudView::createTabs()
                   highlighted_base_icon_path + "files.png");
 
     starred_files_tab_ = new StarredFilesTab;
-    tabs_->addTab(starred_files_tab_, tr("Starred"), base_icon_path + "starred.png",
+    tabs_->addTab(starred_files_tab_, tr("Starred"),
+                  base_icon_path + "starred.png",
                   highlighted_base_icon_path + "starred.png");
 
     activities_tab_ = new ActivitiesTab;
 
     search_tab_ = new SearchTab;
 
-    connect(tabs_, SIGNAL(currentTabChanged(int)),
-            this, SLOT(onTabChanged(int)));
+    connect(tabs_, SIGNAL(currentTabChanged(int)), this,
+            SLOT(onTabChanged(int)));
 
     showProperTabs();
-    // bool has_pro_account = hasAccount() && seafApplet->accountManager()->accounts().front().isPro();
+    // bool has_pro_account = hasAccount() &&
+    // seafApplet->accountManager()->accounts().front().isPro();
     // if (has_pro_account) {
     //     addActivitiesTab();
     // }
@@ -174,7 +178,8 @@ void CloudView::setupDropArea()
 {
     mDropArea->setAcceptDrops(true);
     mDropArea->installEventFilter(this);
-    connect(mSelectFolderBtn, SIGNAL(clicked()), this, SLOT(chooseFolderToSync()));
+    connect(mSelectFolderBtn, SIGNAL(clicked()), this,
+            SLOT(chooseFolderToSync()));
 }
 
 void CloudView::setupFooter()
@@ -182,11 +187,13 @@ void CloudView::setupFooter()
     // mDownloadTasksInfo->setText("0");
     // mDownloadTasksBtn->setIcon(QIcon(":/images/toobar/download-gray.png"));
     // mDownloadTasksBtn->setToolTip(tr("Show download tasks"));
-    // connect(mDownloadTasksBtn, SIGNAL(clicked()), this, SLOT(showCloneTasksDialog()));
+    // connect(mDownloadTasksBtn, SIGNAL(clicked()), this,
+    // SLOT(showCloneTasksDialog()));
 
     mServerStatusBtn->setIcon(QIcon(":/images/main-panel/connected.png"));
     mServerStatusBtn->setIconSize(QSize(18, 18));
-    connect(mServerStatusBtn, SIGNAL(clicked()), this, SLOT(showServerStatusDialog()));
+    connect(mServerStatusBtn, SIGNAL(clicked()), this,
+            SLOT(showServerStatusDialog()));
 
     // mDownloadRateArrow->setText(QChar(icon_arrow_down));
     // mDownloadRateArrow->setFont(awesome->font(16));
@@ -211,9 +218,9 @@ void CloudView::chooseFolderToSync()
 #else
     QString parent_dir = QDir::homePath();
 #endif
-    QString dir = QFileDialog::getExistingDirectory(this, msg, parent_dir,
-                                                    QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks);
+    QString dir = QFileDialog::getExistingDirectory(
+        this, msg, parent_dir,
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dir.isEmpty()) {
         return;
     }
@@ -223,12 +230,14 @@ void CloudView::chooseFolderToSync()
 
 void CloudView::showCreateRepoDialog(const QString& path)
 {
-    const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+    const std::vector<Account>& accounts =
+        seafApplet->accountManager()->accounts();
     if (accounts.empty()) {
         return;
     }
 
-    CreateRepoDialog *dialog = new CreateRepoDialog(accounts[0], path, repos_tab_, this);
+    CreateRepoDialog* dialog =
+        new CreateRepoDialog(accounts[0], path, repos_tab_, this);
 
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
@@ -246,31 +255,32 @@ void CloudView::onCloseBtnClicked()
     seafApplet->mainWindow()->hide();
 }
 
-bool CloudView::eventFilter(QObject *obj, QEvent *event)
+bool CloudView::eventFilter(QObject* obj, QEvent* event)
 {
     if (obj == mHeader) {
         static QPoint oldPos;
         if (event->type() == QEvent::MouseButtonPress) {
-            QMouseEvent *ev = (QMouseEvent *)event;
+            QMouseEvent* ev = (QMouseEvent*)event;
             oldPos = ev->globalPos();
 
             return true;
-
-        } else if (event->type() == QEvent::MouseMove) {
-            QMouseEvent *ev = (QMouseEvent *)event;
+        }
+        else if (event->type() == QEvent::MouseMove) {
+            QMouseEvent* ev = (QMouseEvent*)event;
             const QPoint delta = ev->globalPos() - oldPos;
 
-            MainWindow *win = seafApplet->mainWindow();
+            MainWindow* win = seafApplet->mainWindow();
             win->move(win->x() + delta.x(), win->y() + delta.y());
 
             oldPos = ev->globalPos();
             return true;
         }
-
-    } else if (obj == mDropArea) {
+    }
+    else if (obj == mDropArea) {
         if (event->type() == QEvent::DragEnter) {
-            QDragEnterEvent *ev = (QDragEnterEvent *)event;
-            if (ev->mimeData()->hasUrls() && ev->mimeData()->urls().size() == 1) {
+            QDragEnterEvent* ev = (QDragEnterEvent*)event;
+            if (ev->mimeData()->hasUrls() &&
+                ev->mimeData()->urls().size() == 1) {
                 const QUrl url = ev->mimeData()->urls().at(0);
                 if (url.scheme() == "file") {
                     QString path = url.toLocalFile();
@@ -283,8 +293,9 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
                 }
             }
             return true;
-        } else if (event->type() == QEvent::Drop) {
-            QDropEvent *ev = (QDropEvent *)event;
+        }
+        else if (event->type() == QEvent::Drop) {
+            QDropEvent* ev = (QDropEvent*)event;
             const QUrl url = ev->mimeData()->urls().at(0);
             QString path = url.toLocalFile();
 #if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
@@ -300,7 +311,7 @@ bool CloudView::eventFilter(QObject *obj, QEvent *event)
     return QWidget::eventFilter(obj, event);
 }
 
-CloneTasksDialog *CloudView::cloneTasksDialog()
+CloneTasksDialog* CloudView::cloneTasksDialog()
 {
     if (clone_task_dialog_ == NULL) {
         clone_task_dialog_ = new CloneTasksDialog;
@@ -314,13 +325,15 @@ bool CloudView::hasAccount()
     return seafApplet->accountManager()->hasAccount();
 }
 
-void CloudView::showEvent(QShowEvent *event) {
+void CloudView::showEvent(QShowEvent* event)
+{
     QWidget::showEvent(event);
 
     refresh_status_bar_timer_->start(kRefreshStatusInterval);
 }
 
-void CloudView::hideEvent(QHideEvent *event) {
+void CloudView::hideEvent(QHideEvent* event)
+{
     QWidget::hideEvent(event);
     refresh_status_bar_timer_->stop();
 }
@@ -338,18 +351,21 @@ void CloudView::refreshTasksInfo()
 
 void CloudView::refreshServerStatus()
 {
-    ServerStatusService *service = ServerStatusService::instance();
+    ServerStatusService* service = ServerStatusService::instance();
     QString tool_tip;
     if (service->allServersConnected()) {
         tool_tip = tr("all servers connected");
-    } else if (service->allServersDisconnected()) {
+    }
+    else if (service->allServersDisconnected()) {
         tool_tip = tr("no server connected");
-    } else {
+    }
+    else {
         tool_tip = tr("some servers not connected");
     }
-    mServerStatusBtn->setIcon(QIcon(service->allServersConnected()
-                                    ? ":/images/main-panel/connected.png"
-                                    : ":/images/main-panel/unconnected.png"));
+    mServerStatusBtn->setIcon(
+        QIcon(service->allServersConnected()
+                  ? ":/images/main-panel/connected.png"
+                  : ":/images/main-panel/unconnected.png"));
     mServerStatusBtn->setToolTip(tool_tip);
 }
 
@@ -379,7 +395,7 @@ void CloudView::refreshStatusBar()
 
 void CloudView::showCloneTasksDialog()
 {
-    //CloneTasksDialog dialog(this);
+    // CloneTasksDialog dialog(this);
     if (clone_task_dialog_ == NULL) {
         clone_task_dialog_ = new CloneTasksDialog;
     }
@@ -403,21 +419,22 @@ void CloudView::createToolBar()
 
     std::vector<QAction*> repo_actions = repos_tab_->getToolBarActions();
     for (size_t i = 0, n = repo_actions.size(); i < n; i++) {
-        QAction *action = repo_actions[i];
+        QAction* action = repo_actions[i];
         tool_bar_->addAction(action);
     }
 
-    QWidget *spacer = new QWidget;
+    QWidget* spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     tool_bar_->addWidget(spacer);
 
     refresh_action_ = new QAction(tr("Refresh"), this);
     refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
     refresh_action_->setEnabled(hasAccount());
-    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(onRefreshClicked()));
+    connect(refresh_action_, SIGNAL(triggered()), this,
+            SLOT(onRefreshClicked()));
     tool_bar_->addAction(refresh_action_);
 
-    QWidget *spacer_right = new QWidget;
+    QWidget* spacer_right = new QWidget;
     spacer_right->setObjectName("spacerWidget");
     spacer_right->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     tool_bar_->addWidget(spacer_right);
@@ -427,16 +444,19 @@ void CloudView::onRefreshClicked()
 {
     if (tabs_->currentIndex() == TAB_INDEX_REPOS) {
         repos_tab_->refresh();
-    } else if (tabs_->currentIndex() == TAB_INDEX_STARRED_FILES) {
+    }
+    else if (tabs_->currentIndex() == TAB_INDEX_STARRED_FILES) {
         starred_files_tab_->refresh();
-    } else if (tabs_->currentIndex() == TAB_INDEX_ACTIVITIES) {
+    }
+    else if (tabs_->currentIndex() == TAB_INDEX_ACTIVITIES) {
         activities_tab_->refresh();
-    } else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
+    }
+    else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
         search_tab_->refresh();
     }
 }
 
-void CloudView::resizeEvent(QResizeEvent *event)
+void CloudView::resizeEvent(QResizeEvent* event)
 {
     resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
     resizer_->raise();
@@ -447,7 +467,8 @@ void CloudView::onServerLogoFetched(const QUrl& url)
 {
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isValid() && url.host() == account.serverUrl.host()) {
-        mLogo->setPixmap(CustomizationService::instance()->getServerLogo(account));
+        mLogo->setPixmap(
+            CustomizationService::instance()->getServerLogo(account));
     }
 }
 
@@ -513,12 +534,31 @@ void CloudView::updateStorageUsage(const Account& account)
         mStorageUsage->setMaximum(info.totalStorage / 1000);
         mStorageUsage->setValue(info.usedStorage / 1000);
         mStorageUsage->setVisible(true);
-        mStorageUsage->setFormat(::readableFileSize(info.usedStorage) + "/" +
-                                 ::readableFileSize(info.totalStorage));
+        QString msg = ::readableFileSize(info.usedStorage) + "/" +
+                      ::readableFileSize(info.totalStorage);
+        mStorageUsage->setFormat(msg);
+        mStorageUsage->setToolTip(msg);
+        int percent = info.usedStorage * 100.0 / info.totalStorage;
+        QString color;
+        if (percent >= 80) {
+            color = kQuotaColorCritical;
+        }
+        else if (percent >= 50) {
+            color = kQuotaColorWarning;
+        }
+        else {
+            color = kQuotaColorGood;
+        }
+        QString style =
+            QString("QProgressBar::chunk {background-color: %1; width: 3px;}")
+                .arg(color);
+        mStorageUsage->setStyleSheet(style);
     }
     else {
         mStorageUsage->setVisible(false);
+        mStorageUsage->setToolTip("");
     }
+    mStorageUsage->setTextVisible(false);
 }
 
 void CloudView::showProperTabs()
@@ -552,14 +592,20 @@ void CloudView::showProperTabs()
 
 void CloudView::onTabChanged(int index)
 {
-    bool enable_sync_with_any_folder = hasAccount() && !seafApplet->accountManager()->accounts().front().hasDisableSyncWithAnyFolder();
+    bool enable_sync_with_any_folder = hasAccount() &&
+                                       !seafApplet->accountManager()
+                                            ->accounts()
+                                            .front()
+                                            .hasDisableSyncWithAnyFolder();
     bool drop_area_visible = index == 0;
     if (enable_sync_with_any_folder && drop_area_visible) {
         mDropArea->setVisible(true);
         mFooter->setStyleSheet("");
-    } else {
+    }
+    else {
         mDropArea->setVisible(false);
-        mFooter->setStyleSheet("QFrame#mFooter { border-top: 1px solid #DCDCDE; }");
+        mFooter->setStyleSheet(
+            "QFrame#mFooter { border-top: 1px solid #DCDCDE; }");
     }
 }
 

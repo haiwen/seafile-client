@@ -182,7 +182,7 @@ CloudView QFrame#mFooter QLabel#mUploadRate
     color: #525252;
     font-size: 15px;
     padding-top: 5px;
-    min-width: 65px;
+    min-width: 60px;
     /* max-width: 80px; */
     qproperty-alignment: right;
 }

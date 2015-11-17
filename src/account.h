@@ -45,6 +45,7 @@ public:
     Account(const Account &rhs)
       : serverInfoRequest(NULL),
         serverInfo(rhs.serverInfo),
+        accountInfo(rhs.accountInfo),
         serverUrl(rhs.serverUrl),
         username(rhs.username),
         token(rhs.token),
@@ -56,6 +57,7 @@ public:
     Account& operator=(const Account&rhs) {
         serverInfoRequest = NULL;
         serverInfo = rhs.serverInfo;
+        accountInfo = rhs.accountInfo;
         serverUrl = rhs.serverUrl;
         username = rhs.username;
         token = rhs.token;

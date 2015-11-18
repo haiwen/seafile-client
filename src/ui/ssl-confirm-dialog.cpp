@@ -29,6 +29,8 @@ SslConfirmDialog::SslConfirmDialog(const QUrl& url,
 
     mHint->setText(hint);
 
+    adjustSize();
+
     connect(mYesBtn, SIGNAL(clicked()), this, SLOT(accept()));
     connect(mNoBtn, SIGNAL(clicked()), this, SLOT(reject()));
 }

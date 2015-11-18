@@ -2,12 +2,12 @@
 <context>
     <name>AccountManager</name>
     <message>
-        <location filename="../src/account-mgr.cpp" line="99"/>
+        <location filename="../src/account-mgr.cpp" line="104"/>
         <source>failed to open account database</source>
         <translation>fallo al abrir la base de datos de las cuentas</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="493"/>
+        <location filename="../src/account-mgr.cpp" line="527"/>
         <source>Authorization expired, please re-login</source>
         <translation>La autorización expiró, por favor ingrese nuevamente</translation>
     </message>
@@ -319,133 +319,133 @@ falló al subir.</translation>
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="118"/>
+        <location filename="../src/ui/cloud-view.cpp" line="120"/>
         <source>Minimize</source>
         <translation>Minimizar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="123"/>
+        <location filename="../src/ui/cloud-view.cpp" line="126"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="150"/>
+        <location filename="../src/ui/cloud-view.cpp" line="154"/>
         <source>Libraries</source>
         <translation>Bibliotecas</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="153"/>
+        <location filename="../src/ui/cloud-view.cpp" line="158"/>
         <source>Starred</source>
         <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="171"/>
+        <location filename="../src/ui/cloud-view.cpp" line="576"/>
         <source>Activities</source>
         <translation>Actividades</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="174"/>
+        <location filename="../src/ui/cloud-view.cpp" line="584"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="201"/>
+        <location filename="../src/ui/cloud-view.cpp" line="202"/>
         <source>current download rate</source>
         <translation>tasa actual de descarga</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="207"/>
+        <location filename="../src/ui/cloud-view.cpp" line="208"/>
         <source>current upload rate</source>
         <translation>tasa actual de subida</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="212"/>
+        <location filename="../src/ui/cloud-view.cpp" line="215"/>
         <source>Please Choose a folder to sync</source>
         <translation>Elija una carpeta para sincronizar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="350"/>
+        <location filename="../src/ui/cloud-view.cpp" line="360"/>
         <source>no server connected</source>
         <translation>sin servidor conectado</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="348"/>
+        <location filename="../src/ui/cloud-view.cpp" line="357"/>
         <source>all servers connected</source>
         <translation>todos los servidores conectados</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="352"/>
+        <location filename="../src/ui/cloud-view.cpp" line="363"/>
         <source>some servers not connected</source>
         <translation>algunos servidores no conectados</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="371"/>
-        <location filename="../src/ui/cloud-view.cpp" line="372"/>
+        <location filename="../src/ui/cloud-view.cpp" line="383"/>
+        <location filename="../src/ui/cloud-view.cpp" line="384"/>
         <source>%1 kB/s</source>
         <translation>%1 kB/s</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="418"/>
+        <location filename="../src/ui/cloud-view.cpp" line="430"/>
         <source>Refresh</source>
         <translation>Actualizar</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="236"/>
+        <location filename="../ui_cloud-view.h" line="245"/>
         <source>Form</source>
         <translation>De:</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="237"/>
+        <location filename="../ui_cloud-view.h" line="246"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="238"/>
+        <location filename="../ui_cloud-view.h" line="247"/>
         <source>Seafile</source>
         <translation>Seafile</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="239"/>
+        <location filename="../ui_cloud-view.h" line="248"/>
         <source>minimize</source>
         <translation>minimizar</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="240"/>
+        <location filename="../ui_cloud-view.h" line="249"/>
         <source>close</source>
         <translation>cerrar</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="243"/>
+        <location filename="../ui_cloud-view.h" line="252"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="241"/>
+        <location filename="../ui_cloud-view.h" line="250"/>
         <source>Select</source>
         <translation>Seleccione</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="242"/>
+        <location filename="../ui_cloud-view.h" line="251"/>
         <source>or Drop Folder to Sync</source>
         <translation>o arrastre la carpeta a sincronizar</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="244"/>
+        <location filename="../ui_cloud-view.h" line="253"/>
         <source>download rate</source>
         <translation>tasa de descarga</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="245"/>
+        <location filename="../ui_cloud-view.h" line="254"/>
         <source>downarrow</source>
         <translation>bajar</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="246"/>
+        <location filename="../ui_cloud-view.h" line="255"/>
         <source>upload rate</source>
         <translation>tasa de subida</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="247"/>
+        <location filename="../ui_cloud-view.h" line="256"/>
         <source>uparrow</source>
         <translation>subir</translation>
     </message>
@@ -476,59 +476,64 @@ falló al subir.</translation>
 <context>
     <name>CreateRepoDialog</name>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="31"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="33"/>
         <source>Create a library</source>
         <translation>Crear una biblioteca</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="59"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="61"/>
         <source>Please choose a directory</source>
         <translation>Elija una carpeta</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="90"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="92"/>
         <source>Creating...</source>
         <translation>Creando...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="118"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="107"/>
+        <source>Failed to generate encryption key for this library</source>
+        <translation>Fallo al generar la clave de encriptación para esta biblioteca</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
         <source>Please choose the directory to sync</source>
         <translation>Elija la carpeta para sincronizar</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="122"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="140"/>
         <source>The folder %1 does not exist</source>
         <translation>La carpeta %1 no existe</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="127"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="145"/>
         <source>Please enter the name</source>
         <translation>Ingrese un nombre</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="134"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="152"/>
         <source>Please enter the password</source>
         <translation>Defina una contraseña</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="141"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="159"/>
         <source>Passwords don&apos;t match</source>
         <translation>Las contraseñas no coinciden</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="152"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="170"/>
         <source>Unknown error</source>
         <translation>Error desconocido</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="186"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="204"/>
         <source>Failed to add download task:
  %1</source>
         <translation>Fallo al agregar descarga:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="198"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="216"/>
         <source>Failed to create library on the server:
 %1</source>
         <translation>Fallo al crear biblioteca en el servidor:
@@ -777,220 +782,210 @@ falló al subir.</translation>
         <translation>Navegador de Archivos</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="276"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="279"/>
         <source>Back</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="285"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="288"/>
         <source>Forward</source>
         <translation>Adelante</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="293"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="296"/>
         <source>Home</source>
         <translation>Inicio</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="321"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="342"/>
         <source>Upload files</source>
         <translation>Subir archivos</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="324"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="327"/>
         <source>Upload a directory</source>
         <translation>Subir una carpeta</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="346"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="349"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>No tiene permiso para subir archivos a esta biblioteca</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="332"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="430"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="335"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="433"/>
         <source>Create a folder</source>
         <translation>Crear una carpeta</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="254"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="257"/>
         <source>Minimize</source>
         <translation>Minimizar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="261"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="264"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="356"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="359"/>
         <source>Refresh</source>
         <translation>Refrescar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="363"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="366"/>
         <source>Open the cache folder</source>
         <translation>Abrir la carpeta de caché</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="431"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="434"/>
         <source>Folder name</source>
         <translation>Nombre de carpeta</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="439"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="442"/>
         <source>Invalid folder name!</source>
         <translation>¡Nombre de carpeta inválido!</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="445"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="448"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>El nombre &quot;%1&quot; ya está en uso.</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="461"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="464"/>
         <source>retry</source>
         <translation>reintentar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="462"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="465"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>Fallo al obtener información de archivos&lt;br/&gt;Por favor %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="493"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="496"/>
         <source>Enter name of file to save to...</source>
         <translation>Ingrese el nombre del archivo a guardar...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="500"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="524"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="503"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="527"/>
         <source>Unable to remove file &quot;%1&quot;</source>
         <translation>No se puede eliminar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="509"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="512"/>
         <source>Enter the path of the folder you want to save to...</source>
         <translation>Ingrese la ruta de la carpeta donde desea guardar...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="520"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="523"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
         <translation>¿Desea sobreescribir el archivo &quot;%1&quot;  existente?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="625"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
         <translation>El archivo &quot;%1&quot; no ha sido sincronizado</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="659"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="662"/>
         <source>Feature not supported</source>
         <translation>Función no soportada</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="726"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="729"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>El archivo %1 ya existe.&lt;br/&gt;¿Desea reemplazarlo?&lt;br/&gt;&lt;small&gt;(Elija No para subirlo con un nombre alternativo).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="770"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="773"/>
         <source>Failed to download file: %1</source>
         <translation>Fallo al descargar el archivo: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="794"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="797"/>
         <source>Failed to upload file: %1</source>
         <translation>Fallo al subir el archivo: %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="925"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="927"/>
         <source>Select a file to upload</source>
         <translation>Seleccione un archivo para subir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="933"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="935"/>
         <source>Select a directory to upload</source>
         <translation>Seleccione una carpeta a subir</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="944"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
         <source>Unable to create cache folder</source>
         <translation>No se puede crear carpeta de caché</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="946"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="948"/>
         <source>Unable to open cache folder</source>
         <translation>No se puede abrir carpeta de caché</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="968"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="970"/>
         <source>Rename</source>
         <translation>Renombrar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="990"/>
-        <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation>¿Realmente desea eliminar el archivo &quot;%1&quot;?</translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="991"/>
-        <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation>¿Realmente desea eliminar la carpeta &quot;%1&quot;?</translation>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="998"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1000"/>
         <source>Do you really want to delete these items</source>
         <translation>¿Realmente desea eliminar estos ítems?</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1041"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1043"/>
         <source>Create folder failed</source>
         <translation>Crear carpeta falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1068"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1070"/>
         <source>Lock file failed</source>
         <translation>Bloquear archivo falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1084"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1086"/>
         <source>Select a file to update %1</source>
         <translation>Seleccione un archivo para actualizar %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1092"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1094"/>
         <source>Rename failed</source>
         <translation>Renombrar falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1106"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1108"/>
         <source>Remove failed</source>
         <translation>Eliminar falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1116"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1118"/>
         <source>Share failed</source>
         <translation>Compartir falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1178"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1180"/>
         <source>Cannot paste files from the same folder</source>
         <translation>No es posible pegar archivos en la misma carpeta</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1202"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1204"/>
         <source>Copy failed</source>
         <translation>Copiar falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1217"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1219"/>
         <source>Move failed</source>
         <translation>Mover falló</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1245"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1247"/>
         <source>Create library failed!</source>
         <translation>Crear biblioteca falló!</translation>
     </message>
@@ -1031,12 +1026,12 @@ falló al subir.</translation>
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="128"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="127"/>
         <source>Operation canceled</source>
         <translation>Operación cancelada</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="173"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="172"/>
         <source>pending</source>
         <translation>pendiente</translation>
     </message>
@@ -1044,7 +1039,7 @@ falló al subir.</translation>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="711"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="763"/>
         <source>Internal Server Error</source>
         <translation>Error Interno del Servidor</translation>
     </message>
@@ -1185,28 +1180,28 @@ falló al subir.</translation>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="390"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="433"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="442"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="485"/>
         <source>Failed to create folders</source>
         <translation>Fallo al crear carpetas</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="399"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="451"/>
         <source>Failed to create temporary files</source>
         <translation>Fallo al crear archivos temporarios</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="448"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="500"/>
         <source>Failed to write file to disk</source>
         <translation>Fallo al escribir archivo en disco</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="454"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="506"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>Fallo al eliminar la versión anterior del archivo descargado</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="460"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="512"/>
         <source>Failed to move file</source>
         <translation>Fallo al mover archivo</translation>
     </message>
@@ -1401,88 +1396,88 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>Agregar una cuenta</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="116"/>
         <location filename="../src/ui/login-dialog.cpp" line="117"/>
+        <location filename="../src/ui/login-dialog.cpp" line="118"/>
         <source>Re-login</source>
         <translation>Re-conectar</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="132"/>
+        <location filename="../src/ui/login-dialog.cpp" line="133"/>
         <source>Logging in...</source>
         <translation>Iniciando sesión...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="172"/>
+        <location filename="../src/ui/login-dialog.cpp" line="173"/>
         <source>Network Error:
  %1</source>
         <translation>Error de red:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="184"/>
+        <location filename="../src/ui/login-dialog.cpp" line="185"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Aviso:&lt;/b&gt; el certificado ssl de este servidor no es de confianza, proceder de todos modos?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="198"/>
+        <location filename="../src/ui/login-dialog.cpp" line="199"/>
         <source>Please enter the server address</source>
         <translation>Dirección del servidor</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="202"/>
-        <location filename="../src/ui/login-dialog.cpp" line="208"/>
-        <location filename="../src/ui/login-dialog.cpp" line="310"/>
-        <location filename="../src/ui/login-dialog.cpp" line="316"/>
+        <location filename="../src/ui/login-dialog.cpp" line="203"/>
+        <location filename="../src/ui/login-dialog.cpp" line="209"/>
+        <location filename="../src/ui/login-dialog.cpp" line="336"/>
+        <location filename="../src/ui/login-dialog.cpp" line="342"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 no es una dirección válida</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="215"/>
+        <location filename="../src/ui/login-dialog.cpp" line="216"/>
         <source>Please enter the username</source>
         <translation>Ingrese el nombre de usuario</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="226"/>
+        <location filename="../src/ui/login-dialog.cpp" line="227"/>
         <source>Please enter the computer name</source>
         <translation>Ingrese el nombre del equipo</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="244"/>
+        <location filename="../src/ui/login-dialog.cpp" line="285"/>
         <source>Failed to save current account</source>
         <translation>Fallo al modificar la cuenta actual</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="301"/>
+        <location filename="../src/ui/login-dialog.cpp" line="327"/>
         <source>Seafile Server Address</source>
         <translation>Dirección del Servidor Seafile</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="220"/>
+        <location filename="../src/ui/login-dialog.cpp" line="221"/>
         <source>Please enter the password</source>
         <translation>Ingrese la contraseña</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="271"/>
+        <location filename="../src/ui/login-dialog.cpp" line="297"/>
         <source>Incorrect email or password</source>
         <translation>Contraseña o correo incorrectos</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="273"/>
+        <location filename="../src/ui/login-dialog.cpp" line="299"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>Demasiados intentos, por favor espere un minuto</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="275"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Internal Server Error</source>
         <translation>Error Interno del Servidor</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="279"/>
+        <location filename="../src/ui/login-dialog.cpp" line="305"/>
         <source>Failed to login: %1</source>
         <translation>Fallo al iniciar sesión: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="281"/>
+        <location filename="../src/ui/login-dialog.cpp" line="307"/>
         <source>Failed to login</source>
         <translation>Fallo al iniciar sesión</translation>
     </message>
@@ -1512,11 +1507,6 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>ó http://192.168.1.24:8000</translation>
     </message>
     <message>
-        <location filename="../ui_login-dialog.h" line="266"/>
-        <source>Email:</source>
-        <translation>Email:</translation>
-    </message>
-    <message>
         <location filename="../ui_login-dialog.h" line="267"/>
         <source>Password:</source>
         <translation>Contraseña:</translation>
@@ -1532,13 +1522,18 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>Nombre de equipo:</translation>
     </message>
     <message>
+        <location filename="../ui_login-dialog.h" line="266"/>
+        <source>Email / Username:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../ui_login-dialog.h" line="269"/>
         <source>e.g. Jim&apos;s laptop</source>
         <translation>p.ej. laptop de Juan</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="107"/>
-        <location filename="../src/ui/login-dialog.cpp" line="300"/>
+        <location filename="../src/ui/login-dialog.cpp" line="108"/>
+        <location filename="../src/ui/login-dialog.cpp" line="326"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Inicio de sesión con Shibboleth</translation>
@@ -1583,31 +1578,36 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MessageListener</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="77"/>
+        <location filename="../src/message-listener.cpp" line="79"/>
         <source>failed to load ccnet config dir </source>
         <translation>fallo al cargar configuración ccnet</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="152"/>
+        <location filename="../src/message-listener.cpp" line="154"/>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
         <translation>&quot;%1&quot; no está sincronizada.
 Fue eliminada del servidor</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="162"/>
+        <location filename="../src/message-listener.cpp" line="164"/>
         <source>&quot;%1&quot; is synchronized</source>
         <translation>&quot;%1&quot; está sincronizada</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="175"/>
+        <location filename="../src/message-listener.cpp" line="180"/>
+        <source>File %1 conflict</source>
+        <translation>Conflicto con archivo %1</translation>
+    </message>
+    <message>
+        <location filename="../src/message-listener.cpp" line="192"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation>&quot;%1&quot; fallo al sincronizar.
  Fue negado el acceso al servicio</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="186"/>
+        <location filename="../src/message-listener.cpp" line="203"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; fallo al sincronizar.
@@ -1617,8 +1617,8 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="504"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="509"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="556"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="561"/>
         <source>File does not exist</source>
         <translation>El archivo no existe</translation>
     </message>
@@ -1932,7 +1932,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>fallo al abrir el caché de la base de datos de archivos</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="969"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="971"/>
         <source>Rename %1 to</source>
         <translation>Renombrar %1 a</translation>
     </message>
@@ -2169,13 +2169,13 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>Documento de Excel</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="208"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="226"/>
         <location filename="../src/ui/download-repo-dialog.cpp" line="342"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>La ruta &quot;%1&quot; está en conflicto con una ruta del sistema</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="210"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="228"/>
         <location filename="../src/ui/download-repo-dialog.cpp" line="344"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>La ruta &quot;%1&quot; está en conflicto con una biblioteca existente</translation>
@@ -2333,9 +2333,9 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>Organización</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="374"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="377"/>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>inicializando sincronización</translation>
     </message>
 </context>
 <context>
@@ -2532,7 +2532,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="150"/>
+        <location filename="../src/api/api-client.cpp" line="168"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>Aviso: el certificado ssl de este servidor no es de confianza, proceder de todos modos?</translation>
     </message>
@@ -2540,44 +2540,44 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="356"/>
+        <location filename="../src/seafile-applet.cpp" line="388"/>
         <source>failed to add default account</source>
         <translation>fallo al agregar la cuenta predefinida</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="470"/>
+        <location filename="../src/seafile-applet.cpp" line="502"/>
         <source>Failed to initialize log: %s</source>
         <translation>Fallo al crear registro: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="531"/>
-        <location filename="../src/seafile-applet.cpp" line="544"/>
+        <location filename="../src/seafile-applet.cpp" line="563"/>
+        <location filename="../src/seafile-applet.cpp" line="576"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="555"/>
-        <location filename="../src/seafile-applet.cpp" line="569"/>
-        <location filename="../src/seafile-applet.cpp" line="585"/>
-        <location filename="../src/seafile-applet.cpp" line="609"/>
-        <source>Yes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/seafile-applet.cpp" line="556"/>
-        <location filename="../src/seafile-applet.cpp" line="586"/>
-        <location filename="../src/seafile-applet.cpp" line="610"/>
-        <source>No</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/seafile-applet.cpp" line="570"/>
         <location filename="../src/seafile-applet.cpp" line="587"/>
-        <source>Cancel</source>
-        <translation type="unfinished"/>
+        <location filename="../src/seafile-applet.cpp" line="601"/>
+        <location filename="../src/seafile-applet.cpp" line="617"/>
+        <location filename="../src/seafile-applet.cpp" line="641"/>
+        <source>Yes</source>
+        <translation>Si</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="645"/>
+        <location filename="../src/seafile-applet.cpp" line="588"/>
+        <location filename="../src/seafile-applet.cpp" line="618"/>
+        <location filename="../src/seafile-applet.cpp" line="642"/>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="602"/>
+        <location filename="../src/seafile-applet.cpp" line="619"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../src/seafile-applet.cpp" line="677"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Una nueva version (%2) del cliente %1 está disponible.
@@ -2620,11 +2620,11 @@ Do you want to visit the download page?</source>
         <translation>fallo al cargar configuración ccnet %1</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="490"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="510"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="580"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="735"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="800"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="494"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="514"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="739"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="804"/>
         <source>Unknown error</source>
         <translation>Error desconocido</translation>
     </message>
@@ -2692,37 +2692,32 @@ Do you want to visit the download page?</source>
         <translation>&amp;Ayuda en línea</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="144"/>
-        <source>Help</source>
-        <translation>Ayuda</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="184"/>
+        <location filename="../src/ui/tray-icon.cpp" line="187"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="492"/>
+        <location filename="../src/ui/tray-icon.cpp" line="501"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>Tiene %n mensaje(s)</numerusform><numerusform>Tiene %n mensaje(s)</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="498"/>
+        <location filename="../src/ui/tray-icon.cpp" line="507"/>
         <source>auto sync is disabled</source>
         <translation>auto sincronización desactivada</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="525"/>
+        <location filename="../src/ui/tray-icon.cpp" line="534"/>
         <source>Uploading</source>
         <translation>Subiendo</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="526"/>
+        <location filename="../src/ui/tray-icon.cpp" line="535"/>
         <source>Downloading</source>
         <translation>Descargando</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="413"/>
+        <location filename="../src/ui/tray-icon.cpp" line="422"/>
         <source>About %1</source>
         <translation>Acerca de %1</translation>
     </message>
@@ -2737,14 +2732,27 @@ Do you want to visit the download page?</source>
         <translation>abrir ayuda en línea %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="414"/>
+        <location filename="../src/ui/tray-icon.cpp" line="423"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Cliente %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="503"/>
+        <location filename="../src/ui/tray-icon.cpp" line="512"/>
         <source>some servers not connected</source>
         <translation>algunos servidores no contectados</translation>
+    </message>
+</context>
+<context>
+    <name>SearchResultListView</name>
+    <message>
+        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
+        <source>&amp;Show in folder</source>
+        <translation>&amp;Mostrar en carpeta</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab-items.cpp" line="196"/>
+        <source>Show in folder</source>
+        <translation>Mostrar en carpeta</translation>
     </message>
 </context>
 <context>
@@ -2753,6 +2761,16 @@ Do you want to visit the download page?</source>
         <location filename="../src/ui/search-tab.cpp" line="80"/>
         <source>Search Files...</source>
         <translation>Buscar Archivos...</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab.cpp" line="123"/>
+        <source>retry</source>
+        <translation>reintentar</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/search-tab.cpp" line="124"/>
+        <source>Failed to search&lt;br/&gt;Please %1</source>
+        <translation>Fallo al buscar&lt;br/&gt;Por favor %1</translation>
     </message>
 </context>
 <context>
@@ -3040,19 +3058,6 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="48"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="30"/>
-        <source>Login with Shibboleth</source>
-        <translation>Iniciar sesión con Shibboleth</translation>
-    </message>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="85"/>
-        <source>Failed to save current account</source>
-        <translation>Fallo al guardar la cuenta actual</translation>
     </message>
 </context>
 <context>

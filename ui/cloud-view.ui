@@ -277,14 +277,14 @@
         <item>
          <widget class="QLabel" name="mDownloadRate">
           <property name="text">
-           <string>drate</string>
+           <string>download rate</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="mDownloadRateArrow">
           <property name="text">
-           <string>darrow</string>
+           <string>downarrow</string>
           </property>
          </widget>
         </item>
@@ -295,14 +295,14 @@
         <item>
          <widget class="QLabel" name="mUploadRate">
           <property name="text">
-           <string>urate</string>
+           <string>upload rate</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="mUploadRateArrow">
           <property name="text">
-           <string>uarrow</string>
+           <string>uparrow</string>
           </property>
          </widget>
         </item>

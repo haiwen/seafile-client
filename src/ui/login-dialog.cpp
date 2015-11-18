@@ -70,6 +70,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     request_ = NULL;
+    account_info_req_ = NULL;
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
@@ -238,13 +239,23 @@ bool LoginDialog::validateInputs()
 
 void LoginDialog::loginSuccess(const QString& token)
 {
-    Account account(url_, username_, token);
     saveUsedServerAddresses(url_.toString());
-    if (seafApplet->accountManager()->saveAccount(account) < 0) {
-        showWarning(tr("Failed to save current account"));
-    } else {
-        done(QDialog::Accepted);
+
+    if (account_info_req_) {
+        account_info_req_->deleteLater();
     }
+    account_info_req_ =
+        new FetchAccountInfoRequest(Account(url_, username_, token));
+    connect(account_info_req_, SIGNAL(success(const AccountInfo&)), this,
+            SLOT(onFetchAccountInfoSuccess(const AccountInfo&)));
+    connect(account_info_req_, SIGNAL(failed(const ApiError&)), this,
+            SLOT(onFetchAccountInfoFailed(const ApiError&)));
+    account_info_req_->send();
+}
+
+void LoginDialog::onFetchAccountInfoFailed(const ApiError& error)
+{
+    loginFailed(error);
 }
 
 void LoginDialog::loginFailed(const ApiError& error)
@@ -261,6 +272,21 @@ void LoginDialog::loginFailed(const ApiError& error)
     default:
         // impossible
         break;
+    }
+}
+
+void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
+{
+    Account account = account_info_req_->account();
+    // The user may use the username to login, but we need to store the email
+    // to account database
+    account.username = info.email;
+    if (seafApplet->accountManager()->saveAccount(account) < 0) {
+        showWarning(tr("Failed to save current account"));
+    }
+    else {
+        seafApplet->accountManager()->updateAccountInfo(account, info);
+        done(QDialog::Accepted);
     }
 }
 

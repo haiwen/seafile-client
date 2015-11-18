@@ -13,6 +13,8 @@ class LoginRequest;
 class QNetworkReply;
 class QSslError;
 class ApiError;
+class FetchAccountInfoRequest;
+class AccountInfo;
 
 class LoginDialog : public QDialog,
                     public Ui::LoginDialog
@@ -29,6 +31,8 @@ private slots:
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     void loginWithShib();
 #endif // HAVE_SHIBBOLETH_SUPPORT
+    void onFetchAccountInfoSuccess(const AccountInfo& info);
+    void onFetchAccountInfoFailed(const ApiError&);
 
 private:
     Q_DISABLE_COPY(LoginDialog);
@@ -53,6 +57,7 @@ private:
     QString password_;
     QString computer_name_;
     LoginRequest *request_;
+    FetchAccountInfoRequest *account_info_req_;
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     LoginMode mode_;

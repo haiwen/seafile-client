@@ -26,6 +26,9 @@ namespace {
 const int kAlternativeTryTimes = 20;
 bool inline isPathInWorktree(const QString& worktree, const QString &path)
 {
+    if (path == worktree) {
+        return true;
+    }
     QDir dir(worktree);
     if (dir.relativeFilePath(QFileInfo(path).absoluteFilePath()).startsWith("."))
         return false;
@@ -151,6 +154,13 @@ void DownloadRepoDialog::switchMode()
 
 void DownloadRepoDialog::updateSyncMode()
 {
+    if (account_.hasDisableSyncWithAnyFolder()) {
+        sync_with_existing_ = false;
+        manual_merge_mode_ = false;
+        mOperationText->setVisible(false);
+        mSwitchModeHint->setVisible(false);
+        return;
+    }
     QString switch_hint_text;
     QString op_text;
     const QString link_template = "<a style=\"color:#FF9A2A\" href=\"#\">%1</a>";

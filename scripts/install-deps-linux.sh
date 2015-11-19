@@ -27,7 +27,7 @@ if [ -z "$SEAFILE_BRANCH" ]; then
 fi
 
 ## update this when major version bump
-if [ "$SEAFILE_BRANCH" = "4.2" ]; then
+if [ "$SEAFILE_BRANCH" = "4.4" ]; then
     SEAFILE_BRANCH=master
 fi
 

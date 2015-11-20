@@ -25,6 +25,12 @@ namespace {
 const char *kSeafileNotificationsMQ = "seafile.notification";
 const char *kAppletCommandsMQ = "applet.commands";
 
+#define SYNC_ERROR_ID_FILE_LOCKED_BY_APP 0
+#define SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP 1
+#define SYNC_ERROR_ID_FILE_LOCKED 2
+#define SYNC_ERROR_ID_INVALID_PATH 3
+#define SYNC_ERROR_ID_INDEX_ERROR 4
+
 #define IS_APP_MSG(msg,topic) (strcmp((msg)->app, (topic)) == 0)
 static int parse_seafile_notification (char *msg, char **type, char **body)
 {
@@ -178,6 +184,43 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
             QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
             QString msg = tr("File %1 conflict").arg(path);
+
+            seafApplet->trayIcon()->showMessage(title, msg);
+
+            json_decref(object);
+        } else if (strcmp(type, "sync.error") == 0) {
+            json_error_t error;
+            json_t *object = json_loads(content, 0, &error);
+            if (!object) {
+                qWarning("Failed to parse json: %s", error.text);
+                return;
+            }
+
+            QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
+            QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
+            int err_id = json_integer_value(json_object_get(object, "err_id"));
+            QString msg;
+            switch (err_id) {
+            case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
+                msg = tr("Failed to sync file %1\nFile is locked by other application. This file will be updated when you close the application.").arg(path);
+                break;
+            case SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP:
+                msg = tr("Failed to sync folder %1\nSome file in this folder is locked by other application. This folder will be updated when you close the application.").arg(path);
+                break;
+            case SYNC_ERROR_ID_FILE_LOCKED:
+                msg = tr("Failed to sync file %1\nFile is locked by other user on the server. Update to this file is not uploaded.").arg(path);
+                break;
+            case SYNC_ERROR_ID_INVALID_PATH:
+                msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
+                break;
+            case SYNC_ERROR_ID_INDEX_ERROR:
+                msg = tr("Failed to index file %1\nPlease check file permission and disk space.").arg(path);
+                break;
+            default:
+                qWarning("Unknown sync error id %d", err_id);
+                json_decref(object);
+                return;
+            }
 
             seafApplet->trayIcon()->showMessage(title, msg);
 

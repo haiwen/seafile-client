@@ -171,7 +171,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString repo_id = slist.at(1).trimmed();
             QString buf = slist.at(2).trimmed();
 
-            seafApplet->trayIcon()->showMessageWithRepo(repo_id, title, translateCommitDesc(buf));
+            seafApplet->trayIcon()->showMessage(title, translateCommitDesc(buf), repo_id);
 
         } else if (strcmp(type, "sync.conflict") == 0) {
             json_error_t error;

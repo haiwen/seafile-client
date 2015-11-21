@@ -47,6 +47,7 @@ namespace {
 
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
+const int kMessageDisplayTimeMSecs = 5000;
 
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {
@@ -60,7 +61,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     : QSystemTrayIcon(parent),
       nth_trayicon_(0),
       rotate_counter_(0),
-      state_(STATE_DAEMON_UP)
+      state_(STATE_DAEMON_UP),
+      next_message_msec_(0)
 {
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
@@ -69,6 +71,9 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIcon()));
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refreshTrayIconToolTip()));
+#if defined(Q_OS_WIN32)
+    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(checkTrayIconMessageQueue()));
+#endif
 
     createActions();
     createContextMenu();
@@ -229,11 +234,10 @@ void SeafileTrayIcon::rotate(bool start)
     }
 }
 
-void SeafileTrayIcon::showMessage(const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint, bool is_repo_message)
+void SeafileTrayIcon::showMessage(const QString & title, const QString & message, const QString& repo_id, MessageIcon icon, int millisecondsTimeoutHint)
 {
-    if (!is_repo_message)
-        repo_id_ = QString();
 #ifdef Q_OS_MAC
+    repo_id_ = repo_id;
     if (!utils::mac::isOSXMountainLionOrGreater()) {
         QIcon info_icon(":/images/info.png");
         TrayNotificationWidget* trayNotification = new TrayNotificationWidget(info_icon.pixmap(32, 32), title, message);
@@ -243,6 +247,7 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
 
     QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
 #elif defined(Q_OS_LINUX)
+    repo_id_ = repo_id;
     Q_UNUSED(icon);
     QVariantMap hints;
     QString brand = getBrand();
@@ -254,14 +259,13 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
     method.setArguments(args);
     QDBusConnection::sessionBus().asyncCall(method);
 #else
-    QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
+    TrayMessage msg;
+    msg.title = title;
+    msg.message = message;
+    msg.icon = icon;
+    msg.repo_id = repo_id;
+    pending_messages_.enqueue(msg);
 #endif
-}
-
-void SeafileTrayIcon::showMessageWithRepo(const QString& repo_id, const QString & title, const QString & message, MessageIcon icon, int millisecondsTimeoutHint)
-{
-    repo_id_ = repo_id;
-    showMessage(title, message, icon, millisecondsTimeoutHint, true);
 }
 
 void SeafileTrayIcon::rotateTrayIcon()
@@ -570,4 +574,20 @@ void SeafileTrayIcon::onMessageClicked()
         !repo.isValid() || repo.worktree_invalid)
         return;
     showInGraphicalShell(repo.worktree);
+}
+
+void SeafileTrayIcon::checkTrayIconMessageQueue()
+{
+    if (pending_messages_.empty()) {
+        return;
+    }
+
+    qint64 now = QDateTime::currentMSecsSinceEpoch();
+    if (now < next_message_msec_) {
+        return;
+    }
+
+    TrayMessage msg = pending_messages_.dequeue();
+    QSystemTrayIcon::showMessage(msg.title, msg.message, msg.icon, kMessageDisplayTimeMSecs);
+    next_message_msec_ = now + kMessageDisplayTimeMSecs;
 }

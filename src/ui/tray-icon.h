@@ -3,6 +3,7 @@
 
 #include <QSystemTrayIcon>
 #include <QHash>
+#include <QQueue>
 
 class QAction;
 class QMenu;
@@ -35,8 +36,11 @@ public:
 
     void reloadTrayIcon();
 
-    void showMessage(const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000, bool is_repo_message = false);
-    void showMessageWithRepo(const QString& repo_id, const QString & title, const QString & message, MessageIcon icon = Information, int millisecondsTimeoutHint = 10000);
+    void showMessage(const QString& title,
+                     const QString& message,
+                     const QString& repo_id = QString(),
+                     MessageIcon icon = Information,
+                     int millisecondsTimeoutHint = 10000);
 
 public slots:
     void showSettingsWindow();
@@ -57,6 +61,7 @@ private slots:
     void about();
     void onSeahubNotificationsChanged();
     void viewUnreadNotifications();
+    void checkTrayIconMessageQueue();
 
     // only used on windows
     void onMessageClicked();
@@ -106,7 +111,18 @@ private:
     QString repo_id_;
 
     QHash<QString, QIcon> icon_cache_;
+
+    struct TrayMessage {
+        QString title;
+        QString message;
+        MessageIcon icon;
+        QString repo_id;
+    };
+
+    // Use a queue to gurantee each tray notification message would be
+    // displayed at least several seconds.
+    QQueue<TrayMessage> pending_messages_;
+    qint64 next_message_msec_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H
-

@@ -591,26 +591,24 @@ void CloudView::showProperTabs()
     const Account& account = seafApplet->accountManager()->currentAccount();
     bool show_activities_tab = false;
     bool show_search_tab = false;
+    if (tabs_->count() > 2) {
+        tabs_->removeTab(TAB_INDEX_SEARCH, search_tab_);
+        tabs_->removeTab(TAB_INDEX_ACTIVITIES, activities_tab_);
+    }
     if (account.isPro()) {
         show_activities_tab = true;
         if (account.hasFileSearch()) {
             show_search_tab = true;
         }
-    }
-    if (show_activities_tab && tabs_->count() < 3) {
-        tabs_->addTab(activities_tab_, tr("Activities"),
-                      ":/images/tabs/history.png",
-                      ":/images/tabs/highlighted/history.png");
-    }
-    else if (!show_activities_tab && tabs_->count() >= 3) {
-        tabs_->removeTab(TAB_INDEX_ACTIVITIES, activities_tab_);
-    }
-    if (show_search_tab && tabs_->count() < 4) {
-        tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png",
-                      ":/images/tabs/highlighted/search.png");
-    }
-    else if (!show_search_tab && tabs_->count() >= 4) {
-        tabs_->removeTab(TAB_INDEX_SEARCH, search_tab_);
+        if (show_activities_tab) {
+            tabs_->addTab(activities_tab_, tr("Activities"),
+                          ":/images/tabs/history.png",
+                          ":/images/tabs/highlighted/history.png");
+        }
+        if (show_search_tab) {
+            tabs_->addTab(search_tab_, tr("Search"), ":/images/tabs/search.png",
+                          ":/images/tabs/highlighted/search.png");
+        }
     }
     tabs_->adjustTabsWidth(rect().width());
 }

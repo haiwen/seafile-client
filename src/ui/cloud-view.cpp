@@ -532,7 +532,7 @@ void CloudView::updateStorageUsage(const Account& account)
     const AccountInfo& info = account.accountInfo;
     if (info.totalStorage > 0) {
         mStorageUsage->setMaximum(info.totalStorage / 1000);
-        mStorageUsage->setValue(info.usedStorage / 1000);
+        mStorageUsage->setValue(qMax(info.usedStorage / 1000, 3 * info.totalStorage / (100 * 1000)));
         mStorageUsage->setVisible(true);
         QString msg = ::readableFileSize(info.usedStorage) + "/" +
                       ::readableFileSize(info.totalStorage);

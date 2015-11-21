@@ -70,13 +70,15 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
 #endif // QT5
         painter.drawPixmap(icon_rect, icon_pixmap);
 
+        int indicator_width = count() * rect.width() / 8;
+
         // Draw the selected tab indicator
-        // if (currentIndex() == index) {
-        //     top_left.setX(rect.bottomLeft().x() + (rect.width() / 4));
-        //     top_left.setY(rect.bottomLeft().y() - kSelectedTabBorderBottomWidth + 1);
-        //     QRect border_bottom_rect(top_left, QSize(rect.width() / 2 , kSelectedTabBorderBottomWidth));
-        //     painter.fillRect(border_bottom_rect, QColor(kSelectedTabBorderBottomColor));
-        // }
+        if (currentIndex() == index) {
+            top_left.setX(rect.bottomLeft().x() + (rect.width() / 2) - (indicator_width / 2));
+            top_left.setY(rect.bottomLeft().y() - kSelectedTabBorderBottomWidth + 1);
+            QRect border_bottom_rect(top_left, QSize(indicator_width, kSelectedTabBorderBottomWidth));
+            painter.fillRect(border_bottom_rect, QColor(kSelectedTabBorderBottomColor));
+        }
     }
 }
 

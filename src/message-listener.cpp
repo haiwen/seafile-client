@@ -181,11 +181,12 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
+            QString repo_id = QString::fromUtf8(json_string_value(json_object_get(object, "repo_id")));
             QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
             QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
             QString msg = tr("File %1 conflict").arg(path);
 
-            seafApplet->trayIcon()->showMessage(title, msg);
+            seafApplet->trayIcon()->showMessage(title, msg, repo_id);
 
             json_decref(object);
         } else if (strcmp(type, "sync.error") == 0) {
@@ -196,6 +197,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
+            QString repo_id = QString::fromUtf8(json_string_value(json_object_get(object, "repo_id")));
             QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
             QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
             int err_id = json_integer_value(json_object_get(object, "err_id"));
@@ -222,7 +224,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
-            seafApplet->trayIcon()->showMessage(title, msg);
+            seafApplet->trayIcon()->showMessage(title, msg, repo_id);
 
             json_decref(object);
         } else if (strcmp(type, "sync.access_denied") == 0) {

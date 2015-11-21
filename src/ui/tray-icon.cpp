@@ -589,5 +589,6 @@ void SeafileTrayIcon::checkTrayIconMessageQueue()
 
     TrayMessage msg = pending_messages_.dequeue();
     QSystemTrayIcon::showMessage(msg.title, msg.message, msg.icon, kMessageDisplayTimeMSecs);
+    repo_id_ = msg.repo_id;
     next_message_msec_ = now + kMessageDisplayTimeMSecs;
 }

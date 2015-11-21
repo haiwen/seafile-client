@@ -157,16 +157,16 @@ void Configurator::setSeafileDirAttributes()
         return;
     }
 
-    QString icon_path = QDir(QCoreApplication::applicationDirPath()).filePath("seafdir.ico");
+    // QString icon_path = QDir(QCoreApplication::applicationDirPath()).filePath("seafdir.ico");
 
-    QTextStream out(&desktop_ini);
-    out << "[.ShellClassInfo]\n";
-    out << QString("IconFile=%1\n").arg(icon_path);
-    out << "IconIndex=0\n";
+    // QTextStream out(&desktop_ini);
+    // out << "[.ShellClassInfo]\n";
+    // out << QString("IconFile=%1\n").arg(icon_path);
+    // out << "IconIndex=0\n";
 
-    // Make the "Desktop.ini" file hidden.
-    SetFileAttributesW (desktop_ini_path.toStdWString().c_str(),
-                        FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+    // // Make the "Desktop.ini" file hidden.
+    // SetFileAttributesW (desktop_ini_path.toStdWString().c_str(),
+    //                     FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
 #endif
 }
 

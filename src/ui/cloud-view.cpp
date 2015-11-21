@@ -53,6 +53,31 @@ enum {
     TAB_INDEX_ACTIVITIES,
     TAB_INDEX_SEARCH,
 };
+
+QString translateTransferRate(int rate)
+{
+    QString unit;
+    QString display_rate;
+    double kbps = ((double)rate) / 1024;
+    if (kbps >= 1024) {
+        unit = "MB/s";
+        double mbps = kbps / 1024;
+        if (mbps < 10) {
+            display_rate = QString::number(mbps, 'f', 1);
+        } else {
+            display_rate = QString::number(int(mbps));
+        }
+    }
+    else {
+        display_rate = kbps;
+        unit = "kB/s";
+        display_rate = QString::number(int(kbps));
+    }
+
+    return QString("%1 %2")
+        .arg(display_rate)
+        .arg(unit);
+}
 }
 
 CloudView::CloudView(QWidget* parent)
@@ -380,8 +405,8 @@ void CloudView::refreshTransferRate()
         return;
     }
 
-    mUploadRate->setText(tr("%1 kB/s").arg(up_rate / 1024));
-    mDownloadRate->setText(tr("%1 kB/s").arg(down_rate / 1024));
+    mUploadRate->setText(translateTransferRate(up_rate));
+    mDownloadRate->setText(translateTransferRate(down_rate));
 }
 
 void CloudView::refreshStatusBar()

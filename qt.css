@@ -171,7 +171,7 @@ CloudView QFrame#mFooter {
     max-height: 25px;
     padding: 0;
     padding-bottom: 3px;
-    padding-right: 5px;
+    padding-right: 0px;
     text-align: top;
 }
 
@@ -182,7 +182,7 @@ CloudView QFrame#mFooter QLabel#mUploadRate
     color: #525252;
     font-size: 15px;
     padding-top: 5px;
-    min-width: 60px;
+    min-width: 70px;
     /* max-width: 80px; */
     qproperty-alignment: right;
 }

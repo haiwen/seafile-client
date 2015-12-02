@@ -40,6 +40,7 @@ signals:
     void direntRemove(const QList<const SeafDirent*> &dirents);
     void direntUpdate(const SeafDirent& dirent);
     void direntShare(const SeafDirent& dirent);
+    void direntShareToUserOrGroup(const SeafDirent& dirent, bool to_group);
     void direntShareSeafile(const SeafDirent& dirent);
     void direntPaste();
 
@@ -55,6 +56,8 @@ private slots:
     void onRename();
     void onRemove();
     void onShare();
+    void onShareToUser();
+    void onShareToGroup();
     void onShareSeafile();
     void onUpdate();
     void onCopy();
@@ -80,6 +83,7 @@ private:
     void dragMoveEvent(QDragMoveEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
     void resizeEvent(QResizeEvent *event);
+    void onShareToUserOrGroup(bool to_group);
 
     Q_DISABLE_COPY(FileTableView)
 
@@ -93,6 +97,8 @@ private:
     QAction *rename_action_;
     QAction *remove_action_;
     QAction *share_action_;
+    QAction *share_to_user_action_;
+    QAction *share_to_group_action_;
     QAction *share_seafile_action_;
     QAction *update_action_;
     QAction *copy_action_;

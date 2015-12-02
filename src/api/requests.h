@@ -1,12 +1,13 @@
 #ifndef SEAFILE_CLIENT_API_REQUESTS_H
 #define SEAFILE_CLIENT_API_REQUESTS_H
 
-#include <vector>
 #include <QMap>
+#include <vector>
 
-#include "api-request.h"
-#include "server-repo.h"
 #include "account.h"
+#include "api-request.h"
+#include "contact-share-info.h"
+#include "server-repo.h"
 #include "server-repo.h"
 
 class QNetworkReply;
@@ -19,7 +20,8 @@ class StarredFile;
 class SeafEvent;
 class CommitDetails;
 
-class PingServerRequest : public SeafileApiRequest {
+class PingServerRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     PingServerRequest(const QUrl& serverAddr);
@@ -34,7 +36,8 @@ private:
     Q_DISABLE_COPY(PingServerRequest)
 };
 
-class LoginRequest : public SeafileApiRequest {
+class LoginRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
@@ -54,7 +57,8 @@ private:
 };
 
 
-class ListReposRequest : public SeafileApiRequest {
+class ListReposRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
@@ -71,7 +75,8 @@ private:
 };
 
 
-class RepoDownloadInfo {
+class RepoDownloadInfo
+{
 public:
     int repo_version;
     QString relay_id;
@@ -93,7 +98,8 @@ public:
                                      bool read_only);
 };
 
-class DownloadRepoRequest : public SeafileApiRequest {
+class DownloadRepoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
@@ -113,12 +119,16 @@ private:
     bool read_only_;
 };
 
-class GetRepoRequest : public SeafileApiRequest {
+class GetRepoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
-    explicit GetRepoRequest(const Account& account, const QString &repoid);
-    const QString &repoid() { return repoid_; }
+    explicit GetRepoRequest(const Account& account, const QString& repoid);
+    const QString& repoid()
+    {
+        return repoid_;
+    }
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -131,13 +141,22 @@ private:
     const QString repoid_;
 };
 
-class CreateRepoRequest : public SeafileApiRequest {
+class CreateRepoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
-    CreateRepoRequest(const Account& account, const QString &name, const QString &desc, const QString &passwd);
-    CreateRepoRequest(const Account& account, const QString &name, const QString &desc,
-                      int enc_version, const QString &repo_id, const QString& magic, const QString& random_key);
+    CreateRepoRequest(const Account& account,
+                      const QString& name,
+                      const QString& desc,
+                      const QString& passwd);
+    CreateRepoRequest(const Account& account,
+                      const QString& name,
+                      const QString& desc,
+                      int enc_version,
+                      const QString& repo_id,
+                      const QString& magic,
+                      const QString& random_key);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -147,14 +166,18 @@ signals:
 
 private:
     Q_DISABLE_COPY(CreateRepoRequest)
-
 };
 
-class CreateSubrepoRequest : public SeafileApiRequest {
+class CreateSubrepoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
-    explicit CreateSubrepoRequest(const Account& account, const QString &name, const QString &repoid , const QString &path, const QString &passwd);
+    explicit CreateSubrepoRequest(const Account& account,
+                                  const QString& name,
+                                  const QString& repoid,
+                                  const QString& path,
+                                  const QString& passwd);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -164,10 +187,10 @@ signals:
 
 private:
     Q_DISABLE_COPY(CreateSubrepoRequest)
-
 };
 
-class GetUnseenSeahubNotificationsRequest : public SeafileApiRequest {
+class GetUnseenSeahubNotificationsRequest : public SeafileApiRequest
+{
     Q_OBJECT
 
 public:
@@ -181,10 +204,10 @@ signals:
 
 private:
     Q_DISABLE_COPY(GetUnseenSeahubNotificationsRequest)
-
 };
 
-class GetDefaultRepoRequest : public SeafileApiRequest {
+class GetDefaultRepoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     GetDefaultRepoRequest(const Account& account);
@@ -199,7 +222,8 @@ private:
     Q_DISABLE_COPY(GetDefaultRepoRequest);
 };
 
-class CreateDefaultRepoRequest : public SeafileApiRequest {
+class CreateDefaultRepoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     CreateDefaultRepoRequest(const Account& account);
@@ -214,10 +238,12 @@ private:
     Q_DISABLE_COPY(CreateDefaultRepoRequest);
 };
 
-class GetLatestVersionRequest : public SeafileApiRequest {
+class GetLatestVersionRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
-    GetLatestVersionRequest(const QString& client_id, const QString& client_version);
+    GetLatestVersionRequest(const QString& client_id,
+                            const QString& client_version);
 
 signals:
     void success(const QString& latest_version);
@@ -229,7 +255,8 @@ private:
     Q_DISABLE_COPY(GetLatestVersionRequest);
 };
 
-class GetStarredFilesRequest : public SeafileApiRequest {
+class GetStarredFilesRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     GetStarredFilesRequest(const Account& account);
@@ -244,10 +271,11 @@ private:
     Q_DISABLE_COPY(GetStarredFilesRequest);
 };
 
-class GetEventsRequest : public SeafileApiRequest {
+class GetEventsRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
-    GetEventsRequest(const Account& account, int start=0);
+    GetEventsRequest(const Account& account, int start = 0);
 
 signals:
     void success(const std::vector<SeafEvent>& events, int more_offset);
@@ -259,7 +287,8 @@ private:
     Q_DISABLE_COPY(GetEventsRequest);
 };
 
-class GetCommitDetailsRequest : public SeafileApiRequest {
+class GetCommitDetailsRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     GetCommitDetailsRequest(const Account& account,
@@ -276,7 +305,8 @@ private:
     Q_DISABLE_COPY(GetCommitDetailsRequest);
 };
 
-class FetchImageRequest : public SeafileApiRequest {
+class FetchImageRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     FetchImageRequest(const QString& img_url);
@@ -291,7 +321,8 @@ private:
     Q_DISABLE_COPY(FetchImageRequest);
 };
 
-class GetAvatarRequest : public SeafileApiRequest {
+class GetAvatarRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     GetAvatarRequest(const Account& account,
@@ -301,9 +332,18 @@ public:
 
     ~GetAvatarRequest();
 
-    const QString& email() const { return email_; }
-    const Account& account() const { return account_; }
-    qint64 mtime() const { return mtime_; }
+    const QString& email() const
+    {
+        return email_;
+    }
+    const Account& account() const
+    {
+        return account_;
+    }
+    qint64 mtime() const
+    {
+        return mtime_;
+    }
 
 signals:
     void success(const QImage& avatar);
@@ -314,7 +354,7 @@ protected slots:
 private:
     Q_DISABLE_COPY(GetAvatarRequest);
 
-    FetchImageRequest *fetch_img_req_;
+    FetchImageRequest* fetch_img_req_;
 
     QString email_;
 
@@ -323,7 +363,8 @@ private:
     qint64 mtime_;
 };
 
-class SetRepoPasswordRequest : public SeafileApiRequest {
+class SetRepoPasswordRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     SetRepoPasswordRequest(const Account& account,
@@ -340,13 +381,14 @@ private:
     Q_DISABLE_COPY(SetRepoPasswordRequest);
 };
 
-class ServerInfoRequest : public SeafileApiRequest {
+class ServerInfoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     ServerInfoRequest(const Account& account);
 
 signals:
-    void success(const Account &account, const ServerInfo &info);
+    void success(const Account& account, const ServerInfo& info);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -356,12 +398,16 @@ private:
     const Account& account_;
 };
 
-class LogoutDeviceRequest : public SeafileApiRequest {
+class LogoutDeviceRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     LogoutDeviceRequest(const Account& account);
 
-    const Account& account() { return account_; }
+    const Account& account()
+    {
+        return account_;
+    }
 
 signals:
     void success();
@@ -375,13 +421,16 @@ private:
     Account account_;
 };
 
-class GetRepoTokensRequest : public SeafileApiRequest {
+class GetRepoTokensRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
-    GetRepoTokensRequest(const Account& account,
-                         const QStringList& repo_ids);
+    GetRepoTokensRequest(const Account& account, const QStringList& repo_ids);
 
-    const QMap<QString, QString>& repoTokens() { return repo_tokens_; }
+    const QMap<QString, QString>& repoTokens()
+    {
+        return repo_tokens_;
+    }
 
 signals:
     void success();
@@ -395,13 +444,20 @@ private:
     QMap<QString, QString> repo_tokens_;
 };
 
-class GetLoginTokenRequest : public SeafileApiRequest {
+class GetLoginTokenRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     GetLoginTokenRequest(const Account& account, const QString& next_url);
 
-    const Account& account() { return account_; }
-    const QString& nextUrl() { return next_url_; }
+    const Account& account()
+    {
+        return account_;
+    }
+    const QString& nextUrl()
+    {
+        return next_url_;
+    }
 
 signals:
     void success(const QString& token);
@@ -428,11 +484,17 @@ struct FileSearchResult {
 
 Q_DECLARE_METATYPE(FileSearchResult)
 
-class FileSearchRequest : public SeafileApiRequest {
+class FileSearchRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
-    FileSearchRequest(const Account& account, const QString &keyword, int per_page = 10);
-    const QString &keyword() const { return keyword_; }
+    FileSearchRequest(const Account& account,
+                      const QString& keyword,
+                      int per_page = 10);
+    const QString& keyword() const
+    {
+        return keyword_;
+    }
 
 signals:
     void success(const std::vector<FileSearchResult>& result);
@@ -446,10 +508,11 @@ private:
     const QString keyword_;
 };
 
-class FetchCustomLogoRequest : public SeafileApiRequest {
+class FetchCustomLogoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
-    FetchCustomLogoRequest(const QUrl &url);
+    FetchCustomLogoRequest(const QUrl& url);
 
 signals:
     void success(const QUrl& url);
@@ -461,12 +524,16 @@ private:
     Q_DISABLE_COPY(FetchCustomLogoRequest);
 };
 
-class FetchAccountInfoRequest : public SeafileApiRequest {
+class FetchAccountInfoRequest : public SeafileApiRequest
+{
     Q_OBJECT
 public:
     FetchAccountInfoRequest(const Account& account);
 
-    const Account& account() const { return account_; }
+    const Account& account() const
+    {
+        return account_;
+    }
 
 signals:
     void success(const AccountInfo& info);
@@ -478,6 +545,99 @@ private:
     Q_DISABLE_COPY(FetchAccountInfoRequest);
 
     Account account_;
+};
+
+class PrivateShareRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    enum ShareOperation {
+        ADD_SHARE,
+        UPDATE_SHARE,
+        REMOVE_SHARE,
+    };
+    PrivateShareRequest(const Account& account,
+                        const QString& repo_id,
+                        const QString& path,
+                        const QString& username,
+                        int group_id,
+                        SharePermission permission,
+                        ShareType share_type,
+                        ShareOperation op);
+
+    ShareOperation shareOperation() const
+    {
+        return share_operation_;
+    }
+
+    int groupId() const
+    {
+        return share_type_ == SHARE_TO_GROUP ? group_id_ : -1;
+    };
+
+    QString userName() const
+    {
+        return share_type_ == SHARE_TO_USER ? username_ : QString();
+    };
+
+    SharePermission permission() const
+    {
+        return permission_;
+    }
+
+    ShareType shareType() const
+    {
+        return share_type_;
+    }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(PrivateShareRequest);
+
+    int group_id_;
+    QString username_;
+    SharePermission permission_;
+    ShareType share_type_;
+    ShareOperation share_operation_;
+};
+
+class GetPrivateShareItemsRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetPrivateShareItemsRequest(const Account& account,
+                                const QString& repo_id,
+                                const QString& path);
+
+signals:
+    void success(const QList<GroupShareInfo>&, const QList<UserShareInfo>&);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetPrivateShareItemsRequest);
+};
+
+class FetchGroupsAndContactsRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    FetchGroupsAndContactsRequest(const Account& account);
+
+signals:
+    void success(const QList<SeafileGroup>&, const QList<SeafileContact>&);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FetchGroupsAndContactsRequest);
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

@@ -317,6 +317,14 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
+    share_to_user_action_ = new QAction(tr("Share to a User"), this);
+    connect(share_to_user_action_, SIGNAL(triggered()),
+            this, SLOT(onShareToUser()));
+
+    share_to_group_action_ = new QAction(tr("Share to a Group"), this);
+    connect(share_to_group_action_, SIGNAL(triggered()),
+            this, SLOT(onShareToGroup()));
+
     share_seafile_action_ = new QAction(tr("G&enerate Seafile Internal Link"), this);
     connect(share_seafile_action_, SIGNAL(triggered()),
             this, SLOT(onShareSeafile()));
@@ -366,6 +374,8 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addAction(share_seafile_action_);
+    context_menu_->addAction(share_to_user_action_);
+    context_menu_->addAction(share_to_group_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(move_action_);
     context_menu_->addAction(copy_action_);
@@ -469,6 +479,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
         share_seafile_action_->setVisible(false);
+        share_to_user_action_->setVisible(false);
+        share_to_group_action_->setVisible(false);
         update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(false);
@@ -513,6 +525,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setText(tr("&Open"));
         saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
+        share_to_user_action_->setVisible(true);
+        share_to_group_action_->setVisible(true);
     } else {
         if (item_->locked_by_me) {
             lock_action_->setText(tr("Un&lock"));
@@ -528,6 +542,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         download_action_->setText(tr("D&ownload"));
         saveas_action_->setEnabled(true);
         sync_subdirectory_action_->setVisible(false);
+        share_to_user_action_->setVisible(false);
+        share_to_group_action_->setVisible(false);
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
@@ -535,6 +551,11 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             download_action_->setVisible(false);
             saveas_action_->setVisible(false);
         }
+    }
+
+    if (!parent_->account_.isPro()) {
+        share_to_user_action_->setVisible(false);
+        share_to_group_action_->setVisible(false);
     }
 
     context_menu_->exec(position); // synchronously
@@ -656,6 +677,28 @@ void FileTableView::onShare()
     }
     emit direntShare(*item_);
 }
+
+void FileTableView::onShareToUser()
+{
+    onShareToUserOrGroup(false);
+}
+
+void FileTableView::onShareToGroup()
+{
+    onShareToUserOrGroup(true);
+}
+
+void FileTableView::onShareToUserOrGroup(bool to_group)
+{
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItemFromSource();
+        if (selected_item && selected_item->isDir())
+            emit direntShareToUserOrGroup(*selected_item, to_group);
+        return;
+    }
+    emit direntShareToUserOrGroup(*item_, to_group);
+}
+
 
 void FileTableView::onShareSeafile()
 {

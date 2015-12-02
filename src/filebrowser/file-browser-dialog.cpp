@@ -27,6 +27,7 @@
 #include "repo-service.h"
 #include "rpc/local-repo.h"
 #include "rpc/rpc-client.h"
+#include "ui/private-share-dialog.h"
 
 #include "file-browser-manager.h"
 #include "file-browser-dialog.h"
@@ -152,6 +153,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetDirentRemove(const QList<const SeafDirent*> &)));
     connect(table_view_, SIGNAL(direntShare(const SeafDirent&)),
             this, SLOT(onGetDirentShare(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntShareToUserOrGroup(const SeafDirent&, bool)),
+            this, SLOT(onGetDirentShareToUserOrGroup(const SeafDirent&, bool)));
     connect(table_view_, SIGNAL(direntShareSeafile(const SeafDirent&)),
             this, SLOT(onGetDirentShareSeafile(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
@@ -1012,6 +1015,15 @@ void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
     data_mgr_->shareDirent(repo_.id,
                            ::pathJoin(current_path_, dirent.name),
                            dirent.isFile());
+}
+
+void FileBrowserDialog::onGetDirentShareToUserOrGroup(const SeafDirent& dirent,
+                                                bool to_group)
+{
+    PrivateShareDialog dialog(account_, repo_.id, repo_.name,
+                              ::pathJoin(current_path_, dirent.name), to_group,
+                              this);
+    dialog.exec();
 }
 
 void FileBrowserDialog::onGetDirentShareSeafile(const SeafDirent& dirent)

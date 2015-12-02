@@ -213,6 +213,7 @@ SET(moc_headers
   src/ui/init-vdrive-dialog.h
   src/ui/uninstall-helper-dialog.h
   src/ui/ssl-confirm-dialog.h
+  src/ui/private-share-dialog.h
   src/ui/account-view.h
   src/ui/seafile-tab-widget.h
   src/ui/tab-view.h
@@ -266,6 +267,7 @@ SET(ui_files
   ui/init-vdrive-dialog.ui
   ui/uninstall-helper-dialog.ui
   ui/ssl-confirm-dialog.ui
+  ui/private-share-dialog.ui
   ui/account-view.ui
   ui/set-repo-password-dialog.ui
   ${platform_specific_ui_files}
@@ -400,6 +402,7 @@ SET(seafile_client_sources
   src/ui/search-tab.cpp
   src/ui/search-tab-items.cpp
   src/ui/ssl-confirm-dialog.cpp
+  src/ui/private-share-dialog.cpp
   src/ui/proxy-style.cpp
   src/ui/account-view.cpp
   src/ui/seafile-tab-widget.cpp

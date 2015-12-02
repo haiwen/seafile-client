@@ -597,3 +597,19 @@ QProgressBar#mStorageUsage {
     margin-right: 0;
     font-size: 11px;
 }
+
+PrivateShareDialog {
+    min-width: 550px;
+    min-height: 200px;
+}
+
+SharedItemsTableView {
+    margin-top: 10px;
+    qproperty-focusPolicy: NoFocus;
+}
+
+SharedItemsTableView QHeaderView::section {
+    /* outline: 1px; */
+    font-size: 12px;
+    padding-top: 10px;
+}

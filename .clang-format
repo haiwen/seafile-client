@@ -34,6 +34,10 @@ AccessModifierOffset: -4
 #
 AlignTrailingComments: false
 AllowShortFunctionsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
 
 # Good:
 #

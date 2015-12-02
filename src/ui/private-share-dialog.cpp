@@ -740,7 +740,7 @@ bool SharedItemsTableModel::setData(const QModelIndex& index,
                                     const QVariant& value,
                                     int role)
 {
-    PrivateShareDialog* dialog = (PrivateShareDialog*)parent();
+    PrivateShareDialog* dialog =  (PrivateShareDialog*)QObject::parent();
     if (dialog->requestInProgress()) {
         dialog->showWarning(tr("The previous operation is still in progres"));
         return false;

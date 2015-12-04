@@ -603,6 +603,10 @@ PrivateShareDialog {
     min-height: 200px;
 }
 
+/* PrivateShareDialog QLabel#mStatusText { */
+/*     padding-left: 6px; */
+/* } */
+
 SharedItemsTableView {
     margin-top: 10px;
     qproperty-focusPolicy: NoFocus;

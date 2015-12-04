@@ -67,6 +67,7 @@ private slots:
     void onGetSharedItemsSuccess(const QList<GroupShareInfo>& group_shares,
                                  const QList<UserShareInfo>& user_shares);
     void onGetSharedItemsFailed(const ApiError& error);
+    void updateUserEmail();
 
 private:
     void createTable();
@@ -76,6 +77,7 @@ private:
     void enableInputs();
     void disableInputs();
     SharePermission currentPermission();
+    SeafileGroup findGroup(const QString& name);
     QLineEdit* lineEdit() const
     {
         return to_group_ ? groupname_input_->lineEdit() : username_input_;
@@ -87,7 +89,8 @@ private:
     QString path_;
     bool to_group_;
 
-    QHash<int, QString> group_id_map_;
+    QHash<int, SeafileGroup> groups_;
+    QHash<QString, SeafileContact> contacts_;
 
     SharedItemsTableView* table_;
     SharedItemsTableModel* model_;

@@ -73,11 +73,16 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
         mInputStack->setCurrentIndex(INDEX_GROUP_NAME);
         groupname_input_->setEditable(true);
         groupname_input_->clearEditText();
-        // The place holder text for the line editor of the combo box must be set
+        // The place holder text for the line editor of the combo box must be
+        // set
         // after setEditable(true), because lineEdit() returns NULL before that.
-        groupname_input_->lineEdit()->setPlaceholderText(tr("Enter the group name"));
+        groupname_input_->lineEdit()->setPlaceholderText(
+            tr("Enter the group name"));
+        groupname_input_->completer()->setCompletionMode(
+            QCompleter::PopupCompletion);
         groupname_input_->clearEditText();
-    } else {
+    }
+    else {
         mInputStack->setCurrentIndex(INDEX_USER_NAME);
         username_input_->setPlaceholderText(tr("Enter the email address"));
     }
@@ -98,8 +103,22 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
             SLOT(onNameInputEdited()));
     connect(model_, SIGNAL(modelReset()), this, SLOT(selectFirstRow()));
 
+    if (!to_group_) {
+        connect(lineEdit(), SIGNAL(textChanged(const QString&)), this,
+                SLOT(updateUserEmail()));
+    }
+
     adjustSize();
     disableInputs();
+}
+
+void PrivateShareDialog::updateUserEmail()
+{
+    QRegExp re(QString("^[^ ]+ <(.*)>$"));
+    QString name = lineEdit()->text().trimmed();
+    if (re.exactMatch(name)) {
+        lineEdit()->setText(re.cap(1));
+    }
 }
 
 void PrivateShareDialog::selectFirstRow()
@@ -195,14 +214,14 @@ void PrivateShareDialog::onUpdateShareSuccess()
     // seafApplet->messageBox(tr("Shared successfully"), this);
     if (to_group_) {
         GroupShareInfo info;
-        info.group.id = request_.data()->groupId();
-        info.group.name = group_id_map_[info.group.id];
+        info.group = groups_[info.group.id];
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
     }
     else {
         UserShareInfo info;
         info.user.email = request_.data()->userName();
+        info.user.nickname = contacts_[info.user.email].nickname;
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
     }
@@ -277,12 +296,20 @@ void PrivateShareDialog::onFetchContactsSuccess(
     if (to_group_) {
         foreach (const SeafileGroup& group, groups) {
             candidates << group.name;
-            group_id_map_[group.id] = group.name;
+            groups_[group.id] = group;
         }
     }
     else {
         foreach (const SeafileContact& contact, contacts) {
-            candidates << contact.email;
+            contacts_[contact.email] = contact;
+            if (!contact.nickname.isEmpty()) {
+                candidates << QString("%1 <%2>")
+                                  .arg(contact.nickname)
+                                  .arg(contact.email);
+            }
+            else {
+                candidates << contact.email;
+            }
         }
     }
 
@@ -350,14 +377,20 @@ bool PrivateShareDialog::validateInputs()
     SharePermission permission = currentPermission();
 
     if (to_group_) {
-        QList<int> ids = group_id_map_.keys(name);
-        if (ids.isEmpty()) {
+        SeafileGroup group;
+        bool found = false;
+        foreach (const SeafileGroup& g, groups_.values()) {
+            if (g.name == name) {
+                group = g;
+                found = true;
+            }
+        }
+        if (!found) {
             showWarning(tr("No such group \"%1\"").arg(name));
             return false;
         }
-        int group_id = ids[0];
-        if (model_->shareExists(group_id)) {
-            GroupShareInfo info = model_->shareInfo(group_id);
+        if (model_->shareExists(group.id)) {
+            GroupShareInfo info = model_->shareInfo(group.id);
             if (info.permission == permission) {
                 showWarning(tr("Already shared to group %1").arg(name));
             }
@@ -377,6 +410,16 @@ bool PrivateShareDialog::validateInputs()
     return true;
 }
 
+SeafileGroup PrivateShareDialog::findGroup(const QString& name)
+{
+    foreach (const SeafileGroup& group, groups_.values()) {
+        if (group.name == name) {
+            return group;
+        }
+    }
+    return SeafileGroup();
+}
+
 void PrivateShareDialog::onOkBtnClicked()
 {
     if (!validateInputs()) {
@@ -389,16 +432,16 @@ void PrivateShareDialog::onOkBtnClicked()
 
     // disableInputs();
     QString username;
-    int group_id = 0;
+    SeafileGroup group;
     QString name = lineEdit()->text().trimmed();
     if (to_group_) {
-        group_id = group_id_map_.keys(name)[0];
+        group = findGroup(name);
     }
     else {
         username = name;
     }
     request_.reset(new PrivateShareRequest(
-        account_, repo_id_, path_, username, group_id, currentPermission(),
+        account_, repo_id_, path_, username, group.id, currentPermission(),
         to_group_ ? SHARE_TO_GROUP : SHARE_TO_USER,
         PrivateShareRequest::ADD_SHARE));
 
@@ -412,14 +455,14 @@ void PrivateShareDialog::onOkBtnClicked()
 
     if (to_group_) {
         GroupShareInfo info;
-        info.group.id = group_id;
-        info.group.name = name;
+        info.group = group;
         info.permission = currentPermission();
         model_->addNewShareInfo(info);
     }
     else {
         UserShareInfo info;
         info.user.email = name;
+        info.user.nickname = contacts_[info.user.email].nickname;
         info.permission = currentPermission();
         model_->addNewShareInfo(info);
     }
@@ -551,15 +594,35 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
     }
 
     if (role != Qt::DisplayRole && role != Qt::EditRole &&
-        role != Qt::SizeHintRole) {
+        role != Qt::SizeHintRole && role != Qt::ToolTipRole) {
         return QVariant();
     }
 
-    int column = index.column();
+    int row = index.row(), column = index.column();
 
     if (role == Qt::EditRole && column != COLUMN_PERMISSION) {
         return QVariant();
     }
+
+    if (role == Qt::ToolTipRole) {
+        if (column == COLUMN_PERMISSION) {
+            return tr("Double click to edit");
+        }
+        else {
+            if (isGroupShare()) {
+                const GroupShareInfo& info = group_shares_[row];
+                if (!info.group.owner.isEmpty()) {
+                    return tr("Created by %1").arg(info.group.owner);
+                }
+            }
+            else {
+                return user_shares_[row].user.email;
+            }
+        }
+        return QVariant();
+    }
+
+    // DisplayRole
 
     if (role == Qt::SizeHintRole) {
         QSize qsize(0, kDefaultColumnHeight);
@@ -573,10 +636,10 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
     }
 
     if (isGroupShare()) {
-        if (index.row() >= group_shares_.size()) {
+        if (row >= group_shares_.size()) {
             return QVariant();
         }
-        const GroupShareInfo& info = group_shares_[index.row()];
+        const GroupShareInfo& info = group_shares_[row];
 
         if (column == COLUMN_NAME) {
             return info.group.name;
@@ -592,13 +655,14 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
         }
     }
     else {
-        if (index.row() >= user_shares_.size()) {
+        if (row >= user_shares_.size()) {
             return QVariant();
         }
-        const UserShareInfo& info = user_shares_[index.row()];
+        const UserShareInfo& info = user_shares_[row];
 
         if (column == COLUMN_NAME) {
-            return info.user.email;
+            return info.user.nickname.isEmpty() ? info.user.email
+                                                : info.user.nickname;
         }
         else if (column == COLUMN_PERMISSION) {
             if (role == Qt::DisplayRole) {

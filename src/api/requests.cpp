@@ -976,6 +976,11 @@ void FetchGroupsAndContactsRequest::requestSuccess(QNetworkReply& reply)
                 SeafileGroup group;
                 group.id = group_id;
                 group.name = QString::fromUtf8(name);
+                const char* owner =
+                    json_string_value(json_object_get(group_object, "creator"));
+                if (owner) {
+                    group.owner = QString::fromUtf8(owner);
+                }
                 groups.push_back(group);
             }
         }

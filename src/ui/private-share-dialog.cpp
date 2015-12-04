@@ -1,5 +1,6 @@
 #include <QComboBox>
 #include <QCompleter>
+#include <QLineEdit>
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStringList>
@@ -16,6 +17,11 @@ enum {
     COLUMN_NAME = 0,
     COLUMN_PERMISSION,
     MAX_COLUMN,
+};
+
+enum {
+    INDEX_USER_NAME = 0,
+    INDEX_GROUP_NAME,
 };
 
 const int kPermissionColumnWidth = 150;
@@ -57,8 +63,24 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
             .arg(path.length() <= 1 ? repo_name : ::getBaseName(path)));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    mUsername->setPlaceholderText(to_group_ ? tr("Enter the group name")
-                                            : tr("Enter the email address"));
+    username_input_ = new QLineEdit(this);
+    groupname_input_ = new QComboBox(this);
+
+    mInputStack->insertWidget(INDEX_USER_NAME, username_input_);
+    mInputStack->insertWidget(INDEX_GROUP_NAME, groupname_input_);
+
+    if (to_group) {
+        mInputStack->setCurrentIndex(INDEX_GROUP_NAME);
+        groupname_input_->setEditable(true);
+        groupname_input_->clearEditText();
+        // The place holder text for the line editor of the combo box must be set
+        // after setEditable(true), because lineEdit() returns NULL before that.
+        groupname_input_->lineEdit()->setPlaceholderText(tr("Enter the group name"));
+        groupname_input_->clearEditText();
+    } else {
+        mInputStack->setCurrentIndex(INDEX_USER_NAME);
+        username_input_->setPlaceholderText(tr("Enter the email address"));
+    }
     mOkBtn->setEnabled(false);
     mPermission->setCurrentIndex(0);
     createTable();
@@ -70,9 +92,9 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
 
     connect(table_, SIGNAL(clicked(const QModelIndex&)), mStatusText,
             SLOT(clear()));
-    connect(mUsername, SIGNAL(textEdited(const QString&)), mStatusText,
+    connect(lineEdit(), SIGNAL(textChanged(const QString&)), mStatusText,
             SLOT(clear()));
-    connect(mUsername, SIGNAL(textEdited(const QString&)), this,
+    connect(lineEdit(), SIGNAL(textChanged(const QString&)), this,
             SLOT(onNameInputEdited()));
     connect(model_, SIGNAL(modelReset()), this, SLOT(selectFirstRow()));
 
@@ -117,7 +139,7 @@ void PrivateShareDialog::createTable()
 
 void PrivateShareDialog::onNameInputEdited()
 {
-    mOkBtn->setEnabled(!mUsername->text().trimmed().isEmpty());
+    mOkBtn->setEnabled(!lineEdit()->text().trimmed().isEmpty());
 }
 
 void PrivateShareDialog::fetchContacsForCompletion()
@@ -265,8 +287,15 @@ void PrivateShareDialog::onFetchContactsSuccess(
     }
 
     if (!candidates.isEmpty()) {
-        completer_.reset(new QCompleter(candidates));
-        mUsername->setCompleter(completer_.data());
+        if (!to_group_) {
+            completer_.reset(new QCompleter(candidates));
+            completer_->setFilterMode(Qt::MatchContains);
+            username_input_->setCompleter(completer_.data());
+        }
+        else {
+            groupname_input_->addItems(candidates);
+            groupname_input_->clearEditText();
+        }
     }
 
     get_shared_items_request_.reset(
@@ -311,7 +340,7 @@ SharePermission PrivateShareDialog::currentPermission()
 
 bool PrivateShareDialog::validateInputs()
 {
-    QString name = mUsername->text().trimmed();
+    QString name = lineEdit()->text().trimmed();
     if (name.isEmpty()) {
         showWarning(to_group_ ? tr("Please enter the username")
                               : tr("Please enter the group name"));
@@ -361,7 +390,7 @@ void PrivateShareDialog::onOkBtnClicked()
     // disableInputs();
     QString username;
     int group_id = 0;
-    QString name = mUsername->text().trimmed();
+    QString name = lineEdit()->text().trimmed();
     if (to_group_) {
         group_id = group_id_map_.keys(name)[0];
     }
@@ -408,7 +437,8 @@ void PrivateShareDialog::enableInputs()
 
 void PrivateShareDialog::toggleInputs(bool enabled)
 {
-    mUsername->setEnabled(enabled);
+    groupname_input_->setEnabled(enabled);
+    username_input_->setEnabled(enabled);
     mOkBtn->setEnabled(enabled);
     mCancelBtn->setEnabled(enabled);
     mPermission->setEnabled(enabled);
@@ -740,7 +770,7 @@ bool SharedItemsTableModel::setData(const QModelIndex& index,
                                     const QVariant& value,
                                     int role)
 {
-    PrivateShareDialog* dialog =  (PrivateShareDialog*)QObject::parent();
+    PrivateShareDialog* dialog = (PrivateShareDialog*)QObject::parent();
     if (dialog->requestInProgress()) {
         dialog->showWarning(tr("The previous operation is still in progres"));
         return false;

@@ -76,6 +76,10 @@ private:
     void enableInputs();
     void disableInputs();
     SharePermission currentPermission();
+    QLineEdit* lineEdit() const
+    {
+        return to_group_ ? groupname_input_->lineEdit() : username_input_;
+    }
 
     Account account_;
     QString repo_id_;
@@ -94,6 +98,9 @@ private:
     QScopedPointer<QCompleter> completer_;
 
     bool request_in_progress_;
+
+    QLineEdit* username_input_;
+    QComboBox* groupname_input_;
 };
 
 class SharedItemsHeadView : public QHeaderView

@@ -603,8 +603,9 @@ PrivateShareDialog {
     min-height: 200px;
 }
 
-/* PrivateShareDialog QLabel#mStatusText { */
-/*     padding-left: 6px; */
+/* PrivateShareDialog QPushButton#mOkBtn { */
+/*     min-width: 80px; */
+/*     max-width: 80px; */
 /* } */
 
 SharedItemsTableView {

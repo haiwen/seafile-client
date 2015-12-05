@@ -553,7 +553,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         }
     }
 
-    if (!parent_->account_.isPro()) {
+    if (!parent_->account_.isPro() ||
+        parent_->repo_.owner != parent_->account_.username) {
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
     }

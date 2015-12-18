@@ -616,4 +616,5 @@ SharedItemsTableView QHeaderView::section {
     /* outline: 1px; */
     font-size: 12px;
     padding-top: 10px;
+    font-family: Arial;
 }

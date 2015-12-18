@@ -22,6 +22,7 @@
 #include "filebrowser/seafilelink-dialog.h"
 #include "ui/private-share-dialog.h"
 #include "rpc/rpc-client.h"
+#include "repo-service.h"
 #include "api/api-error.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -453,12 +454,17 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
         QString file_lock = repo.account.isAtLeastProVersion(4, 3, 0)
                                 ? "file-lock-supported"
                                 : "file-lock-unsupported";
-        // Private share should only be supported when the current user is the
-        // repo owner, however we don't have this information here yet. so we
-        // delay this check to the PrivateShareDialog class.
-        QString private_share = repo.account.isPro()
-                                    ? "private-share-supported"
-                                    : "private-share-unsupported";
+        QString private_share = "private-share-supported";;
+        if (!repo.account.isPro()) {
+            private_share = "private-share-unsupported";
+        } else {
+            // TODO: Sometimes we can't get the repo info, e.g. when the
+            // account the repo belongs to is not the current active account.
+            ServerRepo server_repo = RepoService::instance()->getRepo(repo.id);
+            if (server_repo.isValid() && server_repo.owner != repo.account.username) {
+                private_share = "private-share-unsupported";
+            }
+        }
         fields << repo.id
                << repo.name
                << normalizedPath(repo.worktree)

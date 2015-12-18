@@ -61,6 +61,7 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
     setWindowTitle(
         tr("Share %1")
             .arg(path.length() <= 1 ? repo_name : ::getBaseName(path)));
+    setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     username_input_ = new QLineEdit(this);

@@ -70,6 +70,8 @@ private:
         GetInternalLink,
         LockFile,
         UnlockFile,
+        ShareToUser,
+        ShareToGroup,
     };
 
     void buildSubMenu(const seafile::RepoInfo& repo,

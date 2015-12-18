@@ -205,6 +205,12 @@ STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO info)
     } else if (op == UnlockFile) {
         seafile::UnlockFileCommand cmd(path_);
         cmd.send();
+    } else if (op == ShareToUser) {
+        seafile::PrivateShareCommand cmd(path_, false);
+        cmd.send();
+    } else if (op == ShareToGroup) {
+        seafile::PrivateShareCommand cmd(path_, true);
+        cmd.send();
     }
 
     return S_OK;
@@ -312,26 +318,28 @@ void ShellExt::insertSubMenuItem(const std::string& text, MenuOp op)
 }
 
 
-void ShellExt::buildSubMenu(const seafile::RepoInfo& repo, const std::string& path_in_repo)
+void ShellExt::buildSubMenu(const seafile::RepoInfo& repo,
+                            const std::string& path_in_repo)
 {
     insertSubMenuItem(SEAFILE_TR("get share link"), GetShareLink);
     insertSubMenuItem(SEAFILE_TR("get seafile internal link"), GetInternalLink);
 
-    if (!repo.support_file_lock) {
-        return;
-    }
-
     std::unique_ptr<wchar_t[]> path_w(utils::utf8ToWString(path_));
-    if (GetFileAttributesW(path_w.get()) & FILE_ATTRIBUTE_DIRECTORY) {
-        return;
+    bool is_dir = GetFileAttributesW(path_w.get()) & FILE_ATTRIBUTE_DIRECTORY;
+    if (repo.support_private_share && is_dir) {
+        insertSubMenuItem(SEAFILE_TR("share to a user"), ShareToUser);
+        insertSubMenuItem(SEAFILE_TR("share to a group"), ShareToGroup);
     }
 
-    seafile::RepoInfo::Status status = getRepoFileStatus(
-        repo.repo_id, path_in_repo, false);
+    if (repo.support_file_lock && !is_dir) {
+        seafile::RepoInfo::Status status =
+            getRepoFileStatus(repo.repo_id, path_in_repo, false);
 
-    if (status == seafile::RepoInfo::LockedByMe) {
-        insertSubMenuItem(SEAFILE_TR("unlock this file"), UnlockFile);
-    } else if (status != seafile::RepoInfo::LockedByOthers) {
-        insertSubMenuItem(SEAFILE_TR("lock this file"), LockFile);
+        if (status == seafile::RepoInfo::LockedByMe) {
+            insertSubMenuItem(SEAFILE_TR("unlock this file"), UnlockFile);
+        }
+        else if (status != seafile::RepoInfo::LockedByOthers) {
+            insertSubMenuItem(SEAFILE_TR("lock this file"), LockFile);
+        }
     }
 }

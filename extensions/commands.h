@@ -7,8 +7,8 @@
 #include "applet-connection.h"
 
 namespace seafile {
-
-class RepoInfo {
+class RepoInfo
+{
 public:
     enum Status {
         NoStatus = 0,
@@ -27,21 +27,29 @@ public:
     std::string worktree;
     Status status;
     bool support_file_lock;
+    bool support_private_share;
 
-    RepoInfo() :status(NoStatus) {}
+    RepoInfo() : status(NoStatus)
+    {
+    }
 
     RepoInfo(const std::string& repo_id,
              const std::string repo_name,
              const std::string& worktree,
              Status status,
-             bool support_file_lock)
+             bool support_file_lock,
+             bool support_private_share)
         : repo_id(repo_id),
           repo_name(repo_name),
           worktree(worktree),
           status(status),
-          support_file_lock(support_file_lock) {}
+          support_file_lock(support_file_lock),
+          support_private_share(support_private_share)
+    {
+    }
 
-    bool isValid() {
+    bool isValid()
+    {
         return !repo_id.empty();
     }
 };
@@ -175,6 +183,17 @@ private:
     std::string path_;
 };
 
+class PrivateShareCommand : public AppletCommand<void> {
+public:
+    PrivateShareCommand(const std::string& path, bool to_group);
+
+protected:
+    std::string serialize();
+
+private:
+    std::string path_;
+    bool to_group;
+};
 
 }
 

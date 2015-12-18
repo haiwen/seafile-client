@@ -39,6 +39,9 @@ private slots:
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
+    void privateShare(const QString& repo_id,
+                      const QString& path_in_repo,
+                      bool to_group);
 
 private:
     ExtConnectionListenerThread *listener_thread_;
@@ -66,6 +69,9 @@ signals:
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
+    void privateShare(const QString& repo_id,
+                      const QString& path_in_repo,
+                      bool to_group);
 
 private:
     void servePipeInNewThread(HANDLE pipe);
@@ -90,6 +96,9 @@ signals:
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
+    void privateShare(const QString& repo_id,
+                      const QString& path_in_repo,
+                      bool to_group);
 
 private:
     HANDLE pipe_;
@@ -102,6 +111,7 @@ private:
     QString handleListRepos(const QStringList& args);
     QString handleGetFileStatus(const QStringList& args);
     void handleLockFile(const QStringList& args, bool lock);
+    void handlePrivateShare(const QStringList& args, bool to_group);
 };
 
 class ReposInfoCache : public QObject {

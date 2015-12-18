@@ -70,7 +70,7 @@ std::string ListReposCommand::serialize()
 }
 
 bool ListReposCommand::parseResponse(const std::string& raw_resp,
-                                     RepoInfoList *infos)
+                                     RepoInfoList* infos)
 {
     std::vector<std::string> lines = utils::split(raw_resp, '\n');
     if (lines.empty()) {
@@ -79,38 +79,45 @@ bool ListReposCommand::parseResponse(const std::string& raw_resp,
     for (size_t i = 0; i < lines.size(); i++) {
         std::string line = lines[i];
         std::vector<std::string> parts = utils::split(line, '\t');
-        if (parts.size() != 5) {
+        if (parts.size() != 6) {
             continue;
         }
         std::string repo_id, repo_name, worktree, status;
         RepoInfo::Status st;
         bool support_file_lock;
+        bool support_private_share;
 
         repo_id = parts[0];
         repo_name = parts[1];
         worktree = utils::normalizedPath(parts[2]);
         status = parts[3];
         support_file_lock = parts[4] == "file-lock-supported";
+        support_private_share = parts[5] == "private-share-supported";
         if (status == "paused") {
             st = RepoInfo::Paused;
-        } else if (status == "syncing") {
+        }
+        else if (status == "syncing") {
             st = RepoInfo::Syncing;
-        } else if (status == "error") {
+        }
+        else if (status == "error") {
             st = RepoInfo::Error;
-        } else if (status == "normal") {
+        }
+        else if (status == "normal") {
             st = RepoInfo::Normal;
-        } else {
+        }
+        else {
             // impossible
-            seaf_ext_log ("bad repo status \"%s\"", status.c_str());
+            seaf_ext_log("bad repo status \"%s\"", status.c_str());
             continue;
         }
-        // seaf_ext_log ("status for %s is \"%s\"", repo_name.c_str(), status.c_str());
-        infos->push_back(RepoInfo(repo_id, repo_name, worktree, st, support_file_lock));
+        // seaf_ext_log ("status for %s is \"%s\"", repo_name.c_str(),
+        // status.c_str());
+        infos->push_back(RepoInfo(repo_id, repo_name, worktree, st,
+                                  support_file_lock, support_private_share));
     }
 
     reposInfoTimestamp = utils::currentMSecsSinceEpoch();
     return true;
-
 }
 
 GetFileStatusCommand::GetFileStatusCommand(const std::string& repo_id,
@@ -181,6 +188,18 @@ UnlockFileCommand::UnlockFileCommand(const std::string& path)
 }
 
 std::string UnlockFileCommand::serialize()
+{
+    return path_;
+}
+
+PrivateShareCommand::PrivateShareCommand(const std::string& path, bool to_group)
+    : AppletCommand<void>(to_group ? "private-share-to-group"
+                                   : "private-share-to-user"),
+      path_(path)
+{
+}
+
+std::string PrivateShareCommand::serialize()
 {
     return path_;
 }

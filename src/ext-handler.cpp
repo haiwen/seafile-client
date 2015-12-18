@@ -20,6 +20,7 @@
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
 #include "filebrowser/seafilelink-dialog.h"
+#include "ui/private-share-dialog.h"
 #include "rpc/rpc-client.h"
 #include "api/api-error.h"
 #include "seafile-applet.h"
@@ -148,6 +149,9 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 
     connect(listener_thread_, SIGNAL(lockFile(const QString&, const QString&, bool)),
             this, SLOT(lockFile(const QString&, const QString&, bool)));
+
+    connect(listener_thread_, SIGNAL(privateShare(const QString&, const QString&, bool)),
+            this, SLOT(privateShare(const QString&, const QString&, bool)));
 }
 
 void SeafileExtensionHandler::start()
@@ -217,6 +221,28 @@ void SeafileExtensionHandler::lockFile(const QString& repo_id,
             this, SLOT(onLockFileFailed(const ApiError&)));
 
     req->send();
+}
+
+void SeafileExtensionHandler::privateShare(const QString& repo_id,
+                                           const QString& path_in_repo,
+                                           bool to_group)
+{
+    const Account account = seafApplet->accountManager()->getAccountByRepo(repo_id);
+    if (!account.isValid()) {
+        qWarning("no account found for repo %12s", repo_id.toUtf8().data());
+        return;
+    }
+
+    LocalRepo repo;
+    seafApplet->rpcClient()->getLocalRepo(repo_id, &repo);
+    PrivateShareDialog *dialog = new PrivateShareDialog(account, repo_id, repo.name,
+                                                        path_in_repo, to_group,
+                                                        NULL);
+
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
 }
 
 void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
@@ -296,6 +322,8 @@ void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
             this, SIGNAL(generateShareLink(const QString&, const QString&, bool, bool)));
     connect(t, SIGNAL(lockFile(const QString&, const QString&, bool)),
             this, SIGNAL(lockFile(const QString&, const QString&, bool)));
+    connect(t, SIGNAL(privateShare(const QString&, const QString&, bool)),
+            this, SIGNAL(privateShare(const QString&, const QString&, bool)));
     t->start();
 }
 
@@ -328,6 +356,10 @@ void ExtCommandsHandler::run()
             handleLockFile(args, true);
         } else if (cmd == "unlock-file") {
             handleLockFile(args, false);
+        } else if (cmd == "private-share-to-group") {
+            handlePrivateShare(args, true);
+        } else if (cmd == "private-share-to-user") {
+            handlePrivateShare(args, false);
         } else {
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
@@ -395,7 +427,7 @@ void ExtCommandsHandler::handleGenShareLink(const QStringList& args, bool intern
     foreach (const LocalRepo& repo, listLocalRepos()) {
         QString wt = normalizedPath(repo.worktree);
         // qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
-        if (path.length() > wt.length() && path.startsWith(wt) and path.at(wt.length()) == '/') {
+        if (path.length() > wt.length() && path.startsWith(wt) && path.at(wt.length()) == '/') {
             QString path_in_repo = path.mid(wt.size());
             bool is_file = QFileInfo(path).isFile();
             emit generateShareLink(repo.id, path_in_repo, is_file, internal);
@@ -418,8 +450,21 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
     QStringList infos;
     foreach (const LocalRepo& repo, listLocalRepos(ts)) {
         QStringList fields;
-        QString file_lock = repo.account.isAtLeastProVersion(4, 3, 0) ? "file-lock-supported" : "file-lock-unsupported";
-        fields << repo.id << repo.name << normalizedPath(repo.worktree) << repoStatus(repo) << file_lock;
+        QString file_lock = repo.account.isAtLeastProVersion(4, 3, 0)
+                                ? "file-lock-supported"
+                                : "file-lock-unsupported";
+        // Private share should only be supported when the current user is the
+        // repo owner, however we don't have this information here yet. so we
+        // delay this check to the PrivateShareDialog class.
+        QString private_share = repo.account.isPro()
+                                    ? "private-share-supported"
+                                    : "private-share-unsupported";
+        fields << repo.id
+               << repo.name
+               << normalizedPath(repo.worktree)
+               << repoStatus(repo)
+               << file_lock
+               << private_share;
         infos << fields.join("\t");
     }
 
@@ -460,6 +505,29 @@ void ExtCommandsHandler::handleLockFile(const QStringList& args, bool lock)
         if (path.length() > wt.length() && path.startsWith(wt) and path.at(wt.length()) == '/') {
             QString path_in_repo = path.mid(wt.size());
             emit lockFile(repo.id, path_in_repo, lock);
+            break;
+        }
+    }
+}
+
+void ExtCommandsHandler::handlePrivateShare(const QStringList& args,
+                                            bool to_group)
+{
+    if (args.size() != 1) {
+        return;
+    }
+    QString path = normalizedPath(args[0]);
+    if (!QFileInfo(path).isDir()) {
+        qWarning("attempted to share %s, which is not a folder",
+                 path.toUtf8().data());
+        return;
+    }
+    foreach (const LocalRepo& repo, listLocalRepos()) {
+        QString wt = normalizedPath(repo.worktree);
+        if (path.length() > wt.length() && path.startsWith(wt) &&
+            path.at(wt.length()) == '/') {
+            QString path_in_repo = path.mid(wt.size());
+            emit privateShare(repo.id, path_in_repo, to_group);
             break;
         }
     }

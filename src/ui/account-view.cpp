@@ -145,7 +145,11 @@ void AccountView::updateAccountInfoDisplay()
 {
     if (seafApplet->accountManager()->hasAccount()) {
         const Account account = seafApplet->accountManager()->currentAccount();
-        mEmail->setText(account.username);
+        if (!account.accountInfo.nickname.isEmpty()) {
+            mEmail->setText(account.accountInfo.nickname);
+        } else {
+            mEmail->setText(account.username);
+        }
         // mServerAddr->setOpenExternalLinks(true);
         mServerAddr->setToolTip(tr("click to open the website"));
 

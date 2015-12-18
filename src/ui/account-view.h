@@ -25,6 +25,7 @@ public slots:
     void deleteAccount();
     void editAccountSettings();
     void onAccountItemClicked();
+    void updateAccountInfoDisplay();
 
 private slots:
     void updateAvatar();
@@ -40,7 +41,6 @@ private:
     Q_DISABLE_COPY(AccountView)
 
     QAction *makeAccountAction(const Account& account);
-    void updateAccountInfoDisplay();
     bool eventFilter(QObject *obj, QEvent *event);
     void getRepoTokenWhenRelogin(const Account& account);
 

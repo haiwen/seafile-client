@@ -871,6 +871,9 @@ void FetchAccountInfoRequest::requestSuccess(QNetworkReply& reply)
     info.nickname = dict["nickname"].toString();
     info.totalStorage = dict["total"].toLongLong();
     info.usedStorage = dict["usage"].toLongLong();
+    if (info.nickname.isEmpty()) {
+        info.nickname = dict["name"].toString();
+    }
     emit success(info);
 }
 

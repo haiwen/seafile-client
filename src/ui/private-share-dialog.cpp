@@ -322,7 +322,9 @@ void PrivateShareDialog::onFetchContactsSuccess(
     if (!candidates.isEmpty()) {
         if (!to_group_) {
             completer_.reset(new QCompleter(candidates));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
             completer_->setFilterMode(Qt::MatchContains);
+#endif
             username_input_->setCompleter(completer_.data());
         }
         else {

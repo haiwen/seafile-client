@@ -1661,74 +1661,74 @@ The library owner&apos;s storage space is used up.</source>
         <translation>共享 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="81"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="86"/>
         <source>Enter the group name</source>
         <translation>输入群组名称</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="88"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="93"/>
         <source>Enter the email address</source>
         <translation>输入邮件地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="231"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="236"/>
         <source>Updated successfully</source>
         <translation>操作成功</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="238"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="270"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="243"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="275"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
         <source>Share Operation Failed: %1</source>
         <translation>共享操作失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="264"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="269"/>
         <source>Removed successfully</source>
         <translation>删除共享成功</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="354"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="361"/>
         <source>Failed to get share information of the folder</source>
         <translation>获取文件夹共享信息时出错</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="360"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="367"/>
         <source>Failed to get your groups and contacts information</source>
         <translation>获取群组和联系人信息时出错</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="373"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="380"/>
         <source>Please enter the username</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="374"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="381"/>
         <source>Please enter the group name</source>
         <translation>请输入群组名</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="390"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="397"/>
         <source>No such group &quot;%1&quot;</source>
         <translation>“%1” 群组不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="396"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="403"/>
         <source>Already shared to group %1</source>
         <translation>已经共享给 “%1” 群组了</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="405"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="412"/>
         <source>Already shared to user %1</source>
         <translation>已经共享给用户 %1 了</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="430"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="437"/>
         <source>The previous operation is still in progres</source>
         <translation>上一个操作还未完成</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="497"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="504"/>
         <source>Shared successfully</source>
         <translation>共享成功</translation>
     </message>
@@ -2087,7 +2087,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>无法下载 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="876"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="918"/>
         <source>copy failed</source>
         <translation>复制文件失败</translation>
     </message>
@@ -2486,169 +2486,189 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="291"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="389"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="294"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="295"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="397"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="342"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="349"/>
         <source>Show &amp;details</source>
         <translation>详情(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="344"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="351"/>
         <source>Show details of this library</source>
         <translation>查看该资料库详细信息</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="361"/>
         <source>&amp;Sync this library</source>
         <translation>同步该资料库(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="357"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="363"/>
         <source>Sync this library</source>
         <translation>同步这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="163"/>
         <source>Recently Updated</source>
         <translation>最近修改</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="367"/>
         <source>Sync &amp;now</source>
         <translation>立即同步(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="362"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
         <source>Sync this library immediately</source>
         <translation>立即同步资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="365"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="372"/>
         <source>&amp;Cancel download</source>
         <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="367"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="374"/>
         <source>Cancel download of this library</source>
         <translation>取消下载这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="377"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="378"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="384"/>
         <source>&amp;Open folder</source>
         <translation>打开文件夹(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="373"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="379"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="380"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="386"/>
         <source>open local folder</source>
         <translation>打开本地文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="383"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
         <source>&amp;Unsync</source>
         <translation>解除同步(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="384"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="391"/>
         <source>unsync this library</source>
         <translation>解除同步这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
         <source>&amp;View on cloud</source>
         <translation>到网站上查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>view this library on seahub</source>
         <translation>到网站上查看这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
+        <source>Share to a user</source>
+        <translation>共享给其他用户</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
+        <source>Share this library to a user</source>
+        <translation>把这个资料库共享给其他用户</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="415"/>
+        <source>Share to a group</source>
+        <translation>共享给群组</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="417"/>
+        <source>Share this library to a group</source>
+        <translation>把这个资料库共享给某个群组</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="422"/>
         <source>&amp;Open cloud file browser</source>
         <translation>打开云端文件浏览器(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
         <source>open this library in embedded Cloud File Browser</source>
         <translation>用内嵌的云端文件浏览器，打开此资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="429"/>
         <source>&amp;Resync this library</source>
         <translation>重新同步此资料库 (&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="431"/>
         <source>unsync and resync this library</source>
         <translation>解除同步这个资料库 然后重新同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="449"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="470"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="456"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="712"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="477"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="754"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>解除同步资料库 &quot;%1&quot; 失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="651"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="693"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="653"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="695"/>
         <source>The download has been canceled</source>
         <translation>下载已取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="701"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="743"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 然后重新同步 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="739"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="771"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="813"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>无法用文件 &quot;%1&quot; 覆盖自身</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="776"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="818"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>您真的想覆盖文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="779"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="821"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="869"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="911"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
@@ -2762,11 +2782,11 @@ Do you want to visit the download page?</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="494"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="514"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="739"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="804"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="501"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="521"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="591"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="746"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="811"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -3177,17 +3197,17 @@ Do you want to visit the download page?</source>
 <context>
     <name>SharedItemDelegate</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="913"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="920"/>
         <source>Read Write</source>
         <translation>可读写</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="914"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="921"/>
         <source>Read Only</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="916"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="923"/>
         <source>Remove Share</source>
         <translation>删除共享</translation>
     </message>
@@ -3195,44 +3215,44 @@ Do you want to visit the download page?</source>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="617"/>
         <source>Double click to edit</source>
         <translation>双击开始编辑</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="616"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="623"/>
         <source>Created by %1</source>
         <translation>由 %1 创建</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="650"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="670"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="657"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="677"/>
         <source>Read Write</source>
         <translation>可读写</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="651"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="671"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="658"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="678"/>
         <source>Read Only</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
         <source>Group</source>
         <translation>群组</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
         <source>User</source>
         <translation>用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="711"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="718"/>
         <source>Permission</source>
         <translation>权限</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="840"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="847"/>
         <source>The previous operation is still in progres</source>
         <translation>上一个操作还未完成</translation>
     </message>

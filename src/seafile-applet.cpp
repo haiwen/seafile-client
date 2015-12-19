@@ -388,15 +388,6 @@ void SeafileApplet::onDaemonStarted()
 
     QTimer::singleShot(kIntervalForUpdateRepoProperty,
                        this, SLOT(updateReposPropertyForHttpSync()));
-
-    //
-    // start finder/explorer extension handler
-    //
-#if defined(Q_OS_WIN32)
-    SeafileExtensionHandler::instance()->start();
-#elif defined(HAVE_FINDER_SYNC_SUPPORT)
-    finderSyncListenerStart();
-#endif
 }
 
 void SeafileApplet::checkInitVDrive()

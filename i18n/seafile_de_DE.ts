@@ -185,7 +185,7 @@
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="167"/>
         <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation>&lt;b&gt;Aktivitäten&lt;/b&gt; werden nur von Seafile Pro unterstützt.</translation>
+        <translation>&lt;b&gt;Aktivitäten&lt;/b&gt; werden nur von Horizonbase Pro unterstützt.</translation>
     </message>
     <message>
         <location filename="../src/ui/activities-tab.cpp" line="169"/>
@@ -402,7 +402,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../ui_cloud-view.h" line="233"/>
         <source>Seafile</source>
-        <translation>Seafile</translation>
+        <translation>Horizonbase</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="234"/>
@@ -779,7 +779,7 @@ Bitte %1</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="91"/>
         <source>Cloud File Browser</source>
-        <translation>Seafile-Dateibrowser</translation>
+        <translation>Dateibrowser</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="274"/>
@@ -1107,9 +1107,9 @@ Bitte %1</translation>
         <translation>&amp;Freigabe-Link erstellen</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="312"/>
-        <source>G&amp;enerate Seafile Internal Link</source>
-        <translation>Internen Link erstellen</translation>
+        <location filename="../src/filebrowser/file-table.cpp" line="290"/>
+        <source>G&amp;enerate %1 Internal Link</source>
+        <translation>%1-internen Ling erzeugen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="321"/>
@@ -1237,7 +1237,7 @@ Bitte %1</translation>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose Seafile folder</source>
-        <translation>Einen Seafile-Ordner auswählen</translation>
+        <translation>Einen Horizonbase-Ordner auswählen</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
@@ -1247,7 +1247,7 @@ Bitte %1</translation>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
         <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Bitte wählen Sie einen Ort, an dem der Standard-Ordner von Seafile angelegt werden soll. Wenn Sie künftig Bibliotheken herunterladen, ist dieser Seafile-Ordner als Ziel vorausgewählt.</translation>
+        <translation>Bitte wählen Sie einen Ort, an dem der Standard-Ordner von Horizonbase angelegt werden soll. Wenn Sie künftig Bibliotheken herunterladen, ist dieser Horizonbase-Ordner als Ziel vorausgewählt.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1346,7 +1346,7 @@ Klicken Sie auf „Öffnen“, um sie anzusehen.</translation>
         <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Seafile organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation>Seafile organisiert Dateien in Bibliotheken.
+        <translation>Horizonbase organisiert Dateien in Bibliotheken.
 Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk anlegen?</translation>
     </message>
     <message>
@@ -1448,7 +1448,7 @@ Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk a
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Seafile Server Address</source>
-        <translation>Seafile-Serveradresse</translation>
+        <translation>Horizonbase-Serveradresse</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="220"/>
@@ -2038,8 +2038,8 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
-        <source>Auto merge by seafile system</source>
-        <translation>Automatische Zusammenführung durch Seafile</translation>
+        <source>Auto merge by %1 system</source>
+        <translation>Automatische Zusammenführung durch %1</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="559"/>
@@ -2413,12 +2413,12 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
         <source>&amp;Open cloud file browser</source>
-        <translation>Im &amp;Seafile-Dateibrowser ansehen</translation>
+        <translation>Im &amp;Horizonbase-Dateibrowser ansehen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation>Bibliothek im Seafile-Dateibrowser öffnen</translation>
+        <translation>Bibliothek im Horizonbase-Dateibrowser öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
@@ -2538,8 +2538,8 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <name>SeafileLinkDialog</name>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
-        <source>Seafile Internal Link</source>
-        <translation>Seafile-interner Link:</translation>
+        <source>%1 Internal Link</source>
+        <translation>%1-interner Link:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
@@ -2548,13 +2548,13 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
-        <source>Seafile Web Link:</source>
-        <translation>Seafile Web-Link:</translation>
+        <source>%1 Web Link:</source>
+        <translation>%1 Web-Link:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
-        <source>Seafile Protocol Link:</source>
-        <translation>Seafile Protokoll-Link:</translation>
+        <source>%1 Protocol Link:</source>
+        <translation>%1 Protokoll-Link:</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
@@ -2841,7 +2841,7 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="408"/>
         <source>Auto start Seafile after login</source>
-        <translation>Seafile nach der Anmeldung automatisch starten</translation>
+        <translation>Horizonbase nach der Anmeldung automatisch starten</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
@@ -2886,7 +2886,7 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../ui_settings-dialog.h" line="409"/>
         <source>Hide Seafile Icon from the dock</source>
-        <translation>Seafile-Icon aus dem Dock ausblenden</translation>
+        <translation>Horizonbase-Icon aus dem Dock ausblenden</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>

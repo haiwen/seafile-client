@@ -164,7 +164,7 @@ void ActivitiesTab::refreshFailed(const ApiError& error)
     QString text;
     if (error.type() == ApiError::HTTP_ERROR
         && error.httpErrorCode() == 404) {
-        text = tr("File Activities are only supported in Seafile Server Professional Edition.");
+        text = tr("File Activities are only supported in Horizonbase Server Professional Edition.");
     } else {
         QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
         text = tr("Failed to get actvities information. "

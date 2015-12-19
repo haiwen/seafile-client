@@ -103,7 +103,7 @@ min-width: 260px;
       <item>
        <widget class="QLabel" name="mStatusText">
         <property name="text">
-         <string>Seafile organizes files by libraries. 
+         <string>Horizonbase organizes files by libraries.
 Do you like to download your default library and create a virtual disk?</string>
         </property>
        </widget>

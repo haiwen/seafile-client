@@ -423,12 +423,13 @@ void SeafileTrayIcon::about()
 void SeafileTrayIcon::openHelp()
 {
     QString url;
-    if (QLocale::system().name() == "zh_CN") {
-        url = "http://seafile.com/help/install_v2/";
-    } else {
-        url = "http://seafile.com/en/help/install_v2/";
-    }
+    // if (QLocale::system().name() == "zh_CN") {
+    //     url = "http://seafile.com/help/install_v2/";
+    // } else {
+    //     url = "http://seafile.com/en/help/install_v2/";
+    // }
 
+    url =  "http://ch.horizonbase.ch/help";
     QDesktopServices::openUrl(QUrl(url));
 }
 

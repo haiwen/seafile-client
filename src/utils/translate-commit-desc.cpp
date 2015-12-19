@@ -6,6 +6,7 @@
 #include <QRegExp>
 #include <QStringList>
 
+#include "utils/utils.h"
 #include "translate-commit-desc.h"
 
 namespace {
@@ -98,7 +99,7 @@ translateCommitDesc(const QString& input)
     } else if (value.startsWith("Changed library")) {
         return value.replace("Changed library name or description", QObject::tr("Changed library name or description"));
     } else if (value.startsWith("Merged") || value.startsWith("Auto merge")) {
-        return QObject::tr("Auto merge by seafile system");
+        return QObject::tr("Auto merge by %1 system").arg(getBrand());
     }
 
     QStringList lines = value.split("\n");

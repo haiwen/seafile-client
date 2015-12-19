@@ -1098,12 +1098,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="320"/>
         <source>Share to a User</source>
-        <translation type="unfinished"/>
+        <translation>共享给其他用户</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="324"/>
         <source>Share to a Group</source>
-        <translation type="unfinished"/>
+        <translation>共享给群组</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="328"/>
@@ -1658,114 +1658,114 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="62"/>
         <source>Share %1</source>
-        <translation type="unfinished"/>
+        <translation>共享 %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="81"/>
         <source>Enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>输入群组名称</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="88"/>
         <source>Enter the email address</source>
-        <translation type="unfinished"/>
+        <translation>输入邮件地址</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="231"/>
         <source>Updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>操作成功</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="238"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="270"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
         <source>Share Operation Failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>共享操作失败： %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="264"/>
         <source>Removed successfully</source>
-        <translation type="unfinished"/>
+        <translation>删除共享成功</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="354"/>
         <source>Failed to get share information of the folder</source>
-        <translation type="unfinished"/>
+        <translation>获取文件夹共享信息时出错</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="360"/>
         <source>Failed to get your groups and contacts information</source>
-        <translation type="unfinished"/>
+        <translation>获取群组和联系人信息时出错</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="373"/>
         <source>Please enter the username</source>
-        <translation type="unfinished"/>
+        <translation>请输入用户名</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="374"/>
         <source>Please enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>请输入群组名</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="390"/>
         <source>No such group &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>“%1” 群组不存在</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="396"/>
         <source>Already shared to group %1</source>
-        <translation type="unfinished"/>
+        <translation>已经共享给 “%1” 群组了</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="405"/>
         <source>Already shared to user %1</source>
-        <translation type="unfinished"/>
+        <translation>已经共享给用户 %1 了</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="430"/>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>上一个操作还未完成</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="497"/>
         <source>Shared successfully</source>
-        <translation type="unfinished"/>
+        <translation>共享成功</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="142"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>对话框</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="143"/>
         <source>Share To:</source>
-        <translation type="unfinished"/>
+        <translation>共享给：</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="144"/>
         <source>Share</source>
-        <translation type="unfinished"/>
+        <translation>共享</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="145"/>
         <source>Permission:</source>
-        <translation type="unfinished"/>
+        <translation>权限：</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="148"/>
         <source>Read-Write</source>
-        <translation type="unfinished"/>
+        <translation>可读写</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="149"/>
         <source>Read-Only</source>
-        <translation type="unfinished"/>
+        <translation>只读</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="152"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>
@@ -3179,17 +3179,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="913"/>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>可读写</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="914"/>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>只读</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="916"/>
         <source>Remove Share</source>
-        <translation type="unfinished"/>
+        <translation>删除共享</translation>
     </message>
 </context>
 <context>
@@ -3197,44 +3197,44 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
         <source>Double click to edit</source>
-        <translation type="unfinished"/>
+        <translation>双击开始编辑</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="616"/>
         <source>Created by %1</source>
-        <translation type="unfinished"/>
+        <translation>由 %1 创建</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="650"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="670"/>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>可读写</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="651"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="671"/>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>只读</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>群组</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>用户</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="711"/>
         <source>Permission</source>
-        <translation type="unfinished"/>
+        <translation>权限</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="840"/>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>上一个操作还未完成</translation>
     </message>
 </context>
 <context>

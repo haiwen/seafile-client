@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="104"/>
         <source>failed to open account database</source>
-        <translation>Kontendatenbank konnte nicht geöffnet werden</translation>
+        <translation>Fehler beim Aufruf der Datenbank</translation>
     </message>
     <message>
         <location filename="../src/account-mgr.cpp" line="527"/>
@@ -1103,12 +1103,12 @@ Bitte %1</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="320"/>
         <source>Share to a User</source>
-        <translation type="unfinished"/>
+        <translation>Freigeben für Nutzer/in</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="324"/>
         <source>Share to a Group</source>
-        <translation type="unfinished"/>
+        <translation>Freigeben für Gruppe</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="328"/>
@@ -1666,114 +1666,114 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="62"/>
         <source>Share %1</source>
-        <translation type="unfinished"/>
+        <translation>Freigeben: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="81"/>
         <source>Enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>Gruppenname eingeben</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="88"/>
         <source>Enter the email address</source>
-        <translation type="unfinished"/>
+        <translation>E-Mail-Adresse eingeben</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="231"/>
         <source>Updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisiert</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="238"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="270"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
         <source>Share Operation Failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Freigabe fehlgeschlagen: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="264"/>
         <source>Removed successfully</source>
-        <translation type="unfinished"/>
+        <translation>Entfernt</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="354"/>
         <source>Failed to get share information of the folder</source>
-        <translation type="unfinished"/>
+        <translation>Informationen zur Freigabe des Ordners nicht verfügbar</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="360"/>
         <source>Failed to get your groups and contacts information</source>
-        <translation type="unfinished"/>
+        <translation>Informationen zu Ihren Gruppen und Kontakten nicht verfügbar</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="373"/>
         <source>Please enter the username</source>
-        <translation type="unfinished"/>
+        <translation>Bitte Benutzernamen eingeben</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="374"/>
         <source>Please enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>Bitte Gruppennamen eingeben</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="390"/>
         <source>No such group &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Keine Gruppe gefunden mit Namen %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="396"/>
         <source>Already shared to group %1</source>
-        <translation type="unfinished"/>
+        <translation>Bereits freigegeben für Gruppe %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="405"/>
         <source>Already shared to user %1</source>
-        <translation type="unfinished"/>
+        <translation>Bereits freigegeben für Nutzer/in %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="430"/>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>Der laufende Vorgang ist noch nicht abgeschlossen</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="497"/>
         <source>Shared successfully</source>
-        <translation type="unfinished"/>
+        <translation>Freigabe erfolgreich</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="142"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="143"/>
         <source>Share To:</source>
-        <translation type="unfinished"/>
+        <translation>Freigeben für:</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="144"/>
         <source>Share</source>
-        <translation type="unfinished"/>
+        <translation>Freigeben</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="145"/>
         <source>Permission:</source>
-        <translation type="unfinished"/>
+        <translation>Rechte:</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="148"/>
         <source>Read-Write</source>
-        <translation type="unfinished"/>
+        <translation>Lesen + Schreiben</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="149"/>
         <source>Read-Only</source>
-        <translation type="unfinished"/>
+        <translation>Nur Lesen</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="152"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -3190,17 +3190,17 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="913"/>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>Lesen + Schreiben</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="914"/>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>Nur Lesen</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="916"/>
         <source>Remove Share</source>
-        <translation type="unfinished"/>
+        <translation>Freigabe beenden</translation>
     </message>
 </context>
 <context>
@@ -3208,44 +3208,44 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
         <source>Double click to edit</source>
-        <translation type="unfinished"/>
+        <translation>Doppelklick zum Bearbeiten</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="616"/>
         <source>Created by %1</source>
-        <translation type="unfinished"/>
+        <translation>Erstellt von %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="650"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="670"/>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>Lesen + Schreiben</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="651"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="671"/>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>Nur Lesen</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Gruppe</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Nutzer/in</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="711"/>
         <source>Permission</source>
-        <translation type="unfinished"/>
+        <translation>Rechte</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="840"/>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>Der laufende Vorgang ist noch nicht abgeschlossen</translation>
     </message>
 </context>
 <context>

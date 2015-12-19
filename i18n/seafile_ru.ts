@@ -1104,12 +1104,12 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="320"/>
         <source>Share to a User</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться с пользователем</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="324"/>
         <source>Share to a Group</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться с группой</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="328"/>
@@ -1667,114 +1667,114 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="62"/>
         <source>Share %1</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="81"/>
         <source>Enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>Введите имя группы</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="88"/>
         <source>Enter the email address</source>
-        <translation type="unfinished"/>
+        <translation>Введите email</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="231"/>
         <source>Updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Успешно обновлено</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="238"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="270"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
         <source>Share Operation Failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось предоставить общий доступ: %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="264"/>
         <source>Removed successfully</source>
-        <translation type="unfinished"/>
+        <translation>Успешно удалено</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="354"/>
         <source>Failed to get share information of the folder</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось получить информацию об общей папке</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="360"/>
         <source>Failed to get your groups and contacts information</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось получить информацию о ваших группах и контактах</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="373"/>
         <source>Please enter the username</source>
-        <translation type="unfinished"/>
+        <translation>Введите имя пользователя</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="374"/>
         <source>Please enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>Введите имя группы</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="390"/>
         <source>No such group &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Нет такой группы &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="396"/>
         <source>Already shared to group %1</source>
-        <translation type="unfinished"/>
+        <translation>Уже поделились с группой %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="405"/>
         <source>Already shared to user %1</source>
-        <translation type="unfinished"/>
+        <translation>Уже поделились с пользователем %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="430"/>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>Предыдущая операция все еще выполняется</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="497"/>
         <source>Shared successfully</source>
-        <translation type="unfinished"/>
+        <translation>Успешно предоставлен общий доступ</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="142"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Диалог</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="143"/>
         <source>Share To:</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться с:</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="144"/>
         <source>Share</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="145"/>
         <source>Permission:</source>
-        <translation type="unfinished"/>
+        <translation>Разрешение:</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="148"/>
         <source>Read-Write</source>
-        <translation type="unfinished"/>
+        <translation>Чтение-Запись</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="149"/>
         <source>Read-Only</source>
-        <translation type="unfinished"/>
+        <translation>Только для чтения</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="152"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -3189,17 +3189,17 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="913"/>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>Чтение Запись</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="914"/>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>Только для чтения</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="916"/>
         <source>Remove Share</source>
-        <translation type="unfinished"/>
+        <translation>Удалить общий доступ</translation>
     </message>
 </context>
 <context>
@@ -3207,44 +3207,44 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
         <source>Double click to edit</source>
-        <translation type="unfinished"/>
+        <translation>Двойной щелчок для редактирования</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="616"/>
         <source>Created by %1</source>
-        <translation type="unfinished"/>
+        <translation>Создано %1</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="650"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="670"/>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>Чтение Запись</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="651"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="671"/>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>Только для чтения</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Группа</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="711"/>
         <source>Permission</source>
-        <translation type="unfinished"/>
+        <translation>Разрешение</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="840"/>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>Предыдущая операция все еще выполняется</translation>
     </message>
 </context>
 <context>

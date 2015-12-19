@@ -406,14 +406,14 @@ void RepoTreeView::createActions()
     connect(view_on_web_action_, SIGNAL(triggered()), this, SLOT(viewRepoOnWeb()));
 
     share_repo_to_user_action_ = new QAction(tr("Share to a user"), this);
-    // share_repo_to_user_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    share_repo_to_user_action_->setIcon(QIcon(":/images/share.png"));
     share_repo_to_user_action_->setStatusTip(tr("Share this library to a user or group"));
     share_repo_to_user_action_->setIconVisibleInMenu(true);
 
     connect(share_repo_to_user_action_, SIGNAL(triggered()), this, SLOT(shareRepoToUser()));
 
     share_repo_to_group_action_ = new QAction(tr("Share to a group"), this);
-    // share_repo_to_group_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    share_repo_to_group_action_->setIcon(QIcon(":/images/share.png"));
     share_repo_to_group_action_->setStatusTip(tr("Share this library to a user or group"));
     share_repo_to_group_action_->setIconVisibleInMenu(true);
 

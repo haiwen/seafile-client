@@ -650,8 +650,6 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     resync_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
-    share_repo_to_group_action_->setEnabled(false);
-    share_repo_to_user_action_->setEnabled(false);
     open_in_filebrowser_action_->setEnabled(false);
     show_detail_action_->setEnabled(false);
 }

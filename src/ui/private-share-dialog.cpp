@@ -64,6 +64,11 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
+#if defined(Q_OS_MAC)
+    layout()->setContentsMargins(6, 6, 6, 6);
+    layout()->setSpacing(5);
+#endif
+
     username_input_ = new QLineEdit(this);
     groupname_input_ = new QComboBox(this);
 

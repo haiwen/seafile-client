@@ -201,8 +201,10 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isPro() && account.username == item->repo().owner) {
+        menu->addSeparator();
         menu->addAction(share_repo_to_user_action_);
         menu->addAction(share_repo_to_group_action_);
+        menu->addSeparator();
     }
 
     if (item->localRepo().isValid()) {

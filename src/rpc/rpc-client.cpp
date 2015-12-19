@@ -361,6 +361,13 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     char *err = NULL;
     g_object_get(task, "state", &state, "error", &err, NULL);
 
+    // seaf-daemon would retry three times for errors like quota/permission
+    // before setting the "state" field to "error", but the GUI should display
+    // the error from the beginning.
+    if (err != NULL && strlen(err) > 0 && strcmp(err, "Success") != 0) {
+        state = g_strdup("error");
+    }
+
     repo.setSyncInfo(state,
                      g_strcmp0(state, "error") == 0 ? err : NULL);
 

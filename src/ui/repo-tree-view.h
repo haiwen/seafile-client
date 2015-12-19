@@ -49,6 +49,8 @@ private slots:
     void showRepoDetail();
     void openLocalFolder();
     void viewRepoOnWeb();
+    void shareRepoToUser();
+    void shareRepoToGroup();
     void openInFileBrowser();
     void onItemClicked(const QModelIndex& index);
     void onItemDoubleClicked(const QModelIndex& index);
@@ -82,6 +84,7 @@ private:
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
+    void shareRepo(bool to_group);
 
     QAction *download_action_;
     QAction *download_toolbar_action_;
@@ -90,6 +93,8 @@ private:
     QAction *open_local_folder_toolbar_action_;
     QAction *unsync_action_;
     QAction *view_on_web_action_;
+    QAction *share_repo_to_user_action_;
+    QAction *share_repo_to_group_action_;
     QAction *open_in_filebrowser_action_;
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;

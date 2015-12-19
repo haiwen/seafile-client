@@ -34,6 +34,7 @@
 #include "filebrowser/tasks.h"
 #include "filebrowser/progress-dialog.h"
 #include "ui/set-repo-password-dialog.h"
+#include "ui/private-share-dialog.h"
 
 #include "repo-tree-view.h"
 
@@ -197,6 +198,12 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
 
     menu->addAction(view_on_web_action_);
     menu->addAction(open_in_filebrowser_action_);
+
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    if (account.isPro() && account.username == item->repo().owner) {
+        menu->addAction(share_repo_to_user_action_);
+        menu->addAction(share_repo_to_group_action_);
+    }
 
     if (item->localRepo().isValid()) {
         menu->addSeparator();
@@ -398,6 +405,20 @@ void RepoTreeView::createActions()
 
     connect(view_on_web_action_, SIGNAL(triggered()), this, SLOT(viewRepoOnWeb()));
 
+    share_repo_to_user_action_ = new QAction(tr("Share to a user"), this);
+    // share_repo_to_user_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    share_repo_to_user_action_->setStatusTip(tr("Share this library to a user or group"));
+    share_repo_to_user_action_->setIconVisibleInMenu(true);
+
+    connect(share_repo_to_user_action_, SIGNAL(triggered()), this, SLOT(shareRepoToUser()));
+
+    share_repo_to_group_action_ = new QAction(tr("Share to a group"), this);
+    // share_repo_to_group_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    share_repo_to_group_action_->setStatusTip(tr("Share this library to a user or group"));
+    share_repo_to_group_action_->setIconVisibleInMenu(true);
+
+    connect(share_repo_to_group_action_, SIGNAL(triggered()), this, SLOT(shareRepoToGroup()));
+
     open_in_filebrowser_action_ = new QAction(tr("&Open cloud file browser"), this);
     open_in_filebrowser_action_->setIcon(QIcon(":/images/cloud-gray.png"));
     open_in_filebrowser_action_->setStatusTip(tr("open this library in embedded Cloud File Browser"));
@@ -515,6 +536,25 @@ void RepoTreeView::viewRepoOnWeb()
     }
 }
 
+void RepoTreeView::shareRepo(bool to_group)
+{
+    const Account account = seafApplet->accountManager()->currentAccount();
+    PrivateShareDialog dialog(account, selected_repo_.id, selected_repo_.name,
+                              "/", to_group,
+                              this);
+    dialog.exec();
+}
+
+void RepoTreeView::shareRepoToUser()
+{
+    shareRepo(false);
+}
+
+void RepoTreeView::shareRepoToGroup()
+{
+    shareRepo(true);
+}
+
 void RepoTreeView::openInFileBrowser()
 {
     const Account account = seafApplet->accountManager()->currentAccount();
@@ -610,6 +650,8 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     resync_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
+    share_repo_to_group_action_->setEnabled(false);
+    share_repo_to_user_action_->setEnabled(false);
     open_in_filebrowser_action_->setEnabled(false);
     show_detail_action_->setEnabled(false);
 }

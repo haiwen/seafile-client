@@ -1094,13 +1094,8 @@ failed to upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
-        <source>Share to a User</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/filebrowser/file-table.cpp" line="324"/>
-        <source>Share to a Group</source>
+        <source>Share to Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1143,6 +1138,11 @@ failed to upload.</source>
         <location filename="../src/filebrowser/file-table.cpp" line="369"/>
         <source>This feature is available in pro version only
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
+        <source>Share to User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2469,38 +2469,38 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="291"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="292"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="293"/>
         <source>Disable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="294"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="295"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="397"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="296"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="297"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="398"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="399"/>
         <source>Enable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="349"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="351"/>
         <source>Show &amp;details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="351"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
         <source>Show details of this library</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="355"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="361"/>
-        <source>&amp;Sync this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="357"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="363"/>
+        <source>&amp;Sync this library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="359"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="365"/>
         <source>Sync this library</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2510,104 +2510,104 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="367"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
         <source>Sync &amp;now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
         <source>Sync this library immediately</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="372"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="374"/>
         <source>&amp;Cancel download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="374"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="376"/>
         <source>Cancel download of this library</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="378"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="384"/>
-        <source>&amp;Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="380"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="386"/>
+        <source>&amp;Open folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="382"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="388"/>
         <source>open local folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="392"/>
         <source>&amp;Unsync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="391"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
         <source>unsync this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>&amp;View on cloud</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="405"/>
         <source>view this library on seahub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
-        <source>Share to a user</source>
+        <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
+        <source>Share to user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="412"/>
         <source>Share this library to a user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="415"/>
-        <source>Share to a group</source>
+        <location filename="../src/ui/repo-tree-view.cpp" line="417"/>
+        <source>Share to group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="417"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="419"/>
         <source>Share this library to a group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="422"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
         <source>&amp;Open cloud file browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
         <source>open this library in embedded Cloud File Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="429"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="431"/>
         <source>&amp;Resync this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="431"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="433"/>
         <source>unsync and resync this library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="470"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="472"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="477"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="479"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="754"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation type="unfinished"></translation>

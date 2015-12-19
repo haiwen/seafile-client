@@ -317,11 +317,11 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
-    share_to_user_action_ = new QAction(tr("Share to a User"), this);
+    share_to_user_action_ = new QAction(tr("Share to User"), this);
     connect(share_to_user_action_, SIGNAL(triggered()),
             this, SLOT(onShareToUser()));
 
-    share_to_group_action_ = new QAction(tr("Share to a Group"), this);
+    share_to_group_action_ = new QAction(tr("Share to Group"), this);
     connect(share_to_group_action_, SIGNAL(triggered()),
             this, SLOT(onShareToGroup()));
 

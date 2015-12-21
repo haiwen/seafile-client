@@ -41,6 +41,10 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
+    mStatusText->setText(
+        tr("%1 organizes files by libraries.\nDo you like to download your "
+           "default library and create a virtual disk?")
+            .arg(getBrand()));
     setStatusIcon(":/images/download-48.png");
 
     create_default_repo_req_ = NULL;

@@ -19,6 +19,7 @@
 #include "events-service.h"
 #include "avatar-service.h"
 #include "api/api-error.h"
+#include "utils/utils.h"
 
 #include "activities-tab.h"
 
@@ -164,7 +165,7 @@ void ActivitiesTab::refreshFailed(const ApiError& error)
     QString text;
     if (error.type() == ApiError::HTTP_ERROR
         && error.httpErrorCode() == 404) {
-        text = tr("File Activities are only supported in Seafile Server Professional Edition.");
+        text = tr("File Activities are only supported in %1 Server Professional Edition.").arg(getBrand());
     } else {
         QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
         text = tr("Failed to get actvities information. "

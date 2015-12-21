@@ -108,6 +108,11 @@ InitSeafileDialog::InitSeafileDialog(QWidget *parent)
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkClicked()));
     connect(mCancelBtn, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
 
+    mTitle->setText(tr("Choose %1 folder").arg(getBrand()));
+    mCentralText->setText(
+        tr("Please choose a folder. We will create a %1 subfolder in it. "
+           "When you download a library, it will be saved there by default.")
+            .arg(getBrand()));
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
     mDirectory->setText(getInitialPath());
 

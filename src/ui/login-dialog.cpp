@@ -324,7 +324,7 @@ void LoginDialog::loginWithShib()
 {
     QString serverAddr = seafApplet->settingsManager()->getLastShibUrl();
     serverAddr = QInputDialog::getText(this, tr("Shibboleth Login"),
-                                       tr("Seafile Server Address"),
+                                       tr("%1 Server Address").arg(getBrand()),
                                        QLineEdit::Normal,
                                        serverAddr);
     serverAddr = serverAddr.trimmed();

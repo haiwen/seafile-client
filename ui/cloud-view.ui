@@ -57,7 +57,7 @@
       <item>
        <widget class="QLabel" name="mBrand">
         <property name="text">
-         <string>Seafile</string>
+         <string>brand</string>
         </property>
        </widget>
       </item>

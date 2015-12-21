@@ -30,6 +30,12 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
+    mAutoStartCheckBox->setText(
+        tr("Auto start %1 after login").arg(getBrand()));
+
+    mHideDockIconCheckBox->setText(
+        tr("Hide %1 Icon from the dock").arg(getBrand()));
+
     mTabWidget->setCurrentIndex(0);
 
     // Since closeEvent() would not not called when accept() is called, we

@@ -178,22 +178,22 @@
 <context>
     <name>ActivitiesTab</name>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="122"/>
+        <location filename="../src/ui/activities-tab.cpp" line="123"/>
         <source>More</source>
         <translation>Daha fazla</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="167"/>
-        <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation>Dosya aktiviteleri sadece Seafile Server Professional Edition&apos;da destekleniyor.</translation>
+        <location filename="../src/ui/activities-tab.cpp" line="168"/>
+        <source>File Activities are only supported in %1 Server Professional Edition.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="169"/>
+        <location filename="../src/ui/activities-tab.cpp" line="170"/>
         <source>retry</source>
         <translation>tekrar dene</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="170"/>
+        <location filename="../src/ui/activities-tab.cpp" line="171"/>
         <source>Failed to get actvities information. Please %1</source>
         <translation>Etkinlikler bilgisi alınamadı. Lütfen %1</translation>
     </message>
@@ -394,11 +394,6 @@ yüklenemedi.</translation>
         <translation>logo</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="247"/>
-        <source>Seafile</source>
-        <translation>Seafile</translation>
-    </message>
-    <message>
         <location filename="../ui_cloud-view.h" line="248"/>
         <source>minimize</source>
         <translation>küçült</translation>
@@ -417,6 +412,11 @@ yüklenemedi.</translation>
         <location filename="../ui_cloud-view.h" line="250"/>
         <source>Select</source>
         <translation>Seç</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="247"/>
+        <source>brand</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="251"/>
@@ -1103,19 +1103,9 @@ yüklenemedi.</translation>
         <translation>&amp;Paylaşım Bağlantısı Oluştur</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
-        <source>Share to a User</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../src/filebrowser/file-table.cpp" line="324"/>
-        <source>Share to a Group</source>
+        <source>Share to Group</source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="328"/>
-        <source>G&amp;enerate Seafile Internal Link</source>
-        <translation>&amp;Seafile iç linki oluştur</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="337"/>
@@ -1153,6 +1143,16 @@ yüklenemedi.</translation>
         <source>This feature is available in pro version only
 </source>
         <translation>Bu özellik sadece pro versiyonda mevcut</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
+        <source>Share to User</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="328"/>
+        <source>G&amp;enerate %1 Internal Link</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="475"/>
@@ -1218,19 +1218,24 @@ yüklenemedi.</translation>
         <translation>%1 başlatma</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="141"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="155"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="111"/>
+        <source>Choose %1 folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="146"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="160"/>
         <source>Please choose a directory</source>
         <translation>Lütfen bir dizin seçin</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="181"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="189"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="186"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="194"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation>Başlatma henüz bitmedi. Gerçekten çıkıyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="161"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="166"/>
         <source>The folder %1 does not exist</source>
         <translation>Klasör %1 yok</translation>
     </message>
@@ -1240,19 +1245,20 @@ yüklenemedi.</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="191"/>
-        <source>Choose Seafile folder</source>
-        <translation>Seafile klasörü seçin</translation>
-    </message>
-    <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
     <message>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
+        <source>Choose a folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="113"/>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
-        <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Lütfen bir klasör seçin. Seçtiğiniz klasörde bir Seafile alt klasörü oluşturacağız ve siz bir kütüphane indirdiğinizde varsayılan olarak oraya kaydedilecek.</translation>
+        <source>Please choose a folder. We will create a %1 subfolder in it. When you download a library, it will be saved there by default.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1273,18 +1279,24 @@ yüklenemedi.</translation>
 <context>
     <name>InitVirtualDriveDialog</name>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="74"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="45"/>
+        <source>%1 organizes files by libraries.
+Do you like to download your default library and create a virtual disk?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="78"/>
         <source>Checking your default library...</source>
         <translation>Varsayılan kütüphanenizi kontrol ediyor...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="88"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="92"/>
         <source>Creating the default library...</source>
         <translation>Varsayılan kütüphane oluşturuluyor...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="139"/>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="155"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="143"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="159"/>
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
@@ -1293,100 +1305,99 @@ The server version must be 2.1 or higher to support this.</source>
 Bu işlemin desteklenmesi için Sunucu versiyonu 2.1 ya da daha yüksek olmalı.</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="142"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="146"/>
         <source>Failed to get default library:
 %1</source>
         <translation>Varsayılan kütüphaneyi alma başarısız:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="158"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="162"/>
         <source>Failed to create default library:
 %1</source>
         <translation>Varsayılan kütüphane oluşturma başarısız:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="185"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="189"/>
         <source>Downloading default library...</source>
         <translation>Varsayılan kütüphane indiriliyor...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="194"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
         <source>Failed to download default library:
 %1</source>
         <translation>Varsayılan kütüphaneyi indirme başarısız:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="205"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="209"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation>Varsayılan kütüphane indirildi.
 Görüntülemek için &quot;Aç&quot; düğmesine basabilirsiniz.</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="260"/>
         <source>Error when downloading the default library: %1</source>
         <translation>Varsayılan kütüphane indirilirken hata oluştu: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="270"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="274"/>
         <source>Creating the virtual disk...</source>
         <translation>Sanal disk oluşturuluyor...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="179"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="183"/>
         <source>Failed to download default library:
  %1</source>
         <translation>Varsayılan kütüphaneyi indirme başarısız oldu:
  %1</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="183"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
-        <source>Seafile organizes files by libraries. 
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <source>%1 organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation>Seafile dosyaları kütüphaneler biçiminde organize eder. 
-Varsayılan kütüphaneninizi indirmek ve sanal bir disk oluşturmak ister misiniz?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Skip</source>
         <translation>Atla</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
         <source>Run in Background</source>
         <translation>Arka planda yürüt</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Open</source>
         <translation>Aç</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Finish</source>
         <translation>Son</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="40"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="184"/>
         <source>Download Default Library</source>
         <translation>Varsayılan Kütüphaneyi İndir</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Yes</source>
         <translation>Evet</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
         <source>logo</source>
         <translation>logo</translation>
     </message>
@@ -1452,8 +1463,8 @@ Varsayılan kütüphaneninizi indirmek ve sanal bir disk oluşturmak ister misin
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="327"/>
-        <source>Seafile Server Address</source>
-        <translation>Seaflile Sunucu Adresi</translation>
+        <source>%1 Server Address</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="221"/>
@@ -1665,74 +1676,74 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="81"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="86"/>
         <source>Enter the group name</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="88"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="93"/>
         <source>Enter the email address</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="231"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="236"/>
         <source>Updated successfully</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="238"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="270"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="243"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="275"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
         <source>Share Operation Failed: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="264"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="269"/>
         <source>Removed successfully</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="354"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="361"/>
         <source>Failed to get share information of the folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="360"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="367"/>
         <source>Failed to get your groups and contacts information</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="373"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="380"/>
         <source>Please enter the username</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="374"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="381"/>
         <source>Please enter the group name</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="390"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="397"/>
         <source>No such group &quot;%1&quot;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="396"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="403"/>
         <source>Already shared to group %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="405"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="412"/>
         <source>Already shared to user %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="430"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="437"/>
         <source>The previous operation is still in progres</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="497"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="504"/>
         <source>Shared successfully</source>
         <translation type="unfinished"/>
     </message>
@@ -2091,110 +2102,110 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
         <translation>&quot;%1&quot; öğesi indirilemedi</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="876"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="918"/>
         <source>copy failed</source>
         <translation>kopyalama başarısız</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="128"/>
         <location filename="../src/ui/event-details-tree.cpp" line="136"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Added</source>
         <translation>Eklendi</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
         <location filename="../src/ui/event-details-tree.cpp" line="138"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Deleted</source>
         <translation>Silindi</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Removed</source>
         <translation>Kaldırıldı</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Modified</source>
         <translation>Değiştirildi</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Renamed</source>
         <translation>Yeniden adlandırıldı</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Added or modified</source>
         <translation>Eklendi ya da değiştirildi</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Moved</source>
         <translation>Taşındı</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Added directory</source>
         <translation>Eklenen dizin</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Removed directory</source>
         <translation>Kaldırılan dizin</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
         <source>Renamed directory</source>
         <translation>Yeniden adlandırılan dizin</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="33"/>
         <source>Moved directory</source>
         <translation>Taşınan dizin</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="60"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>files</source>
         <translation>dosyalar</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="62"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="63"/>
         <source>directories</source>
         <translation>dizinler</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="65"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="66"/>
         <source>and %1 more</source>
         <translation>ve %1 tane daha</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="86"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="87"/>
         <source>Reverted library to status at</source>
         <translation>Şu duruma geri çevrilmiş kütüphane</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="93"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="94"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
         <translation>%2 durumuna çevrilmiş &quot;%1&quot; dosyası</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="97"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Recovered deleted directory</source>
         <translation>Kurtarılan silinmiş kütüphane</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="99"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Changed library name or description</source>
         <translation>Değiştirilmiş kütüphane adı ya da açıklaması</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
-        <source>Auto merge by seafile system</source>
-        <translation>Seafile sistemi tarafından oto birleştirme</translation>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="102"/>
+        <source>Auto merge by %1 system</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="559"/>
@@ -2490,131 +2501,151 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="283"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="292"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="293"/>
         <source>Disable auto sync</source>
         <translation>Oto senkronizasyonu devre dışı bırak</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="287"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="389"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="296"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="297"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="398"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="399"/>
         <source>Enable auto sync</source>
         <translation>Oto senkronizasyonu etkinleştir</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="342"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="351"/>
         <source>Show &amp;details</source>
         <translation>Göster &amp;ayrıntılar</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="344"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="353"/>
         <source>Show details of this library</source>
         <translation>Bu kütüphanenin ayrıntılarını göster</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="357"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="363"/>
         <source>&amp;Sync this library</source>
         <translation>&amp;Bu kütüphaneyi senkronize et</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="359"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="365"/>
         <source>Sync this library</source>
         <translation>Bu kütüphaneyi senkronize et</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="162"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="163"/>
         <source>Recently Updated</source>
         <translation>Yeni Güncellenen</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
         <source>Sync &amp;now</source>
         <translation>Eşitle &amp;şimdi</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="362"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
         <source>Sync this library immediately</source>
         <translation>Bu kütüphaneyi hemen senkronize et</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="365"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="374"/>
         <source>&amp;Cancel download</source>
         <translation>&amp;İptal et indirme</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="367"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="376"/>
         <source>Cancel download of this library</source>
         <translation>Bu kütüphaneyi indirmeyi iptal et</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="377"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="380"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="386"/>
         <source>&amp;Open folder</source>
         <translation>Dosyayı &amp;Aç </translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="373"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="379"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="382"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="388"/>
         <source>open local folder</source>
         <translation>lokal dosya aç</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="383"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="392"/>
         <source>&amp;Unsync</source>
         <translation>&amp;Senkronizasyonu sonlandır</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="384"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
         <source>unsync this library</source>
         <translation>Bu kütüphane senkronizasyonunu sonlandır</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
         <source>&amp;View on cloud</source>
         <translation>&amp;Görüntüle Bulutta</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="405"/>
         <source>view this library on seahub</source>
         <translation>bu kütüphaneyi seahub&apos;da görüntüle</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="401"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
+        <source>Share to user</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="412"/>
+        <source>Share this library to a user</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="417"/>
+        <source>Share to group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="419"/>
+        <source>Share this library to a group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
         <source>&amp;Open cloud file browser</source>
         <translation>&amp;Aç bulut dosya tarayıcısı</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="403"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
         <source>open this library in embedded Cloud File Browser</source>
         <translation>bu kütüphaneyi Bulut Dosya Tarayıcısına gömülü aç</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="408"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="431"/>
         <source>&amp;Resync this library</source>
         <translation>Bu kütüphaneyi &amp;Yeniden Senkronize Et</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="410"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="433"/>
         <source>unsync and resync this library</source>
         <translation>bu kütüphanenin senkronizasyonu sonlandır ve yeniden senkronize et</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="449"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="472"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>&quot;%1&quot; kütüphanesinin senkronizasyonunu sonlandırmaya emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="456"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="712"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="479"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="754"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; kütüphanesinin senkronizasyonu sonlandırılamadı.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="651"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="693"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2623,39 +2654,39 @@ Kütüphane sahibinin depolama alanı tükendi.</translation>
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="653"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="695"/>
         <source>The download has been canceled</source>
         <translation>İndirme iptal edildi</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="701"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="743"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation>&quot;%1&quot; kütüphanesinin senkronizasyonunu sonlandırmaya ve tekrar senkronize etmeye emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="739"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="781"/>
         <source>Failed to add download task:
  %1</source>
         <translation>İndirme görevi eklenemedi:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="771"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="813"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation> &quot;%1&quot; dosyası kendi üzerine yazılamıyor</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="776"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="818"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>&quot;%1&quot; dosyasının üzerine yazmaya emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="779"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="821"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>&quot;%1&quot; dosyası silinemedi</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="869"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="911"/>
         <source>Failed to upload file: %1</source>
         <translation>Dosya yüklenemedi: %1</translation>
     </message>
@@ -2736,27 +2767,27 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileLinkDialog</name>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
-        <source>Seafile Internal Link</source>
-        <translation>Seafile İç Lİnki</translation>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="18"/>
+        <source>%1 Internal Link</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="25"/>
         <source>Copy to clipboard</source>
         <translation>Panoya kopyala</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
-        <source>Seafile Web Link:</source>
-        <translation>Seafile Web Linki</translation>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="31"/>
+        <source>%1 Web Link:</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
-        <source>Seafile Protocol Link:</source>
-        <translation>Seafile Protokol Linki:</translation>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="53"/>
+        <source>%1 Protocol Link:</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="86"/>
         <source>OK</source>
         <translation>Tamam</translation>
     </message>
@@ -2769,11 +2800,11 @@ Do you want to visit the download page?</source>
         <translation>ccnet config dir %1 yüklenemedi.</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="494"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="514"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="739"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="804"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="501"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="521"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="591"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="746"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="811"/>
         <source>Unknown error</source>
         <translation>Bilinmeyen hata</translation>
     </message>
@@ -3001,27 +3032,39 @@ Do you want to visit the download page?</source>
         <translation>Ayarlar</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="44"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="34"/>
+        <location filename="../ui_settings-dialog.h" line="408"/>
+        <source>Auto start %1 after login</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
+        <location filename="../ui_settings-dialog.h" line="409"/>
+        <source>Hide %1 Icon from the dock</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="50"/>
         <source>None</source>
         <translation>Hiç</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="45"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
         <source>HTTP Proxy</source>
         <translation>HTTP Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="46"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
         <source>Socks5 Proxy</source>
         <translation>Socks5 Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="95"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="101"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation>Dili değiştirdiniz. Uygulamak için yeniden başlatılsın mı?</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="98"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="104"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
         <translation>Proxy ayarlarını değiştirdiniz. Uygulamak için yeniden başlatılsın mı?</translation>
     </message>
@@ -3044,11 +3087,6 @@ Do you want to visit the download page?</source>
         <location filename="../ui_settings-dialog.h" line="407"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation>MSOffice/Libreoffice &apos;deki geçici dosyaların senkronizasyonunu etkinleştir</translation>
-    </message>
-    <message>
-        <location filename="../ui_settings-dialog.h" line="408"/>
-        <source>Auto start Seafile after login</source>
-        <translation>Giriş yaptıktan sonra Seafile&apos;ı otomatik olarak başlat</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
@@ -3089,11 +3127,6 @@ Do you want to visit the download page?</source>
         <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation>Bir kütüphane sunucuda bulunmadığında senkronize etmeyi otomatik olarak sonlandırma.</translation>
-    </message>
-    <message>
-        <location filename="../ui_settings-dialog.h" line="409"/>
-        <source>Hide Seafile Icon from the dock</source>
-        <translation>Seafile simgesini dock&apos;dan gizle</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>
@@ -3184,17 +3217,17 @@ Do you want to visit the download page?</source>
 <context>
     <name>SharedItemDelegate</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="913"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="920"/>
         <source>Read Write</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="914"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="921"/>
         <source>Read Only</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="916"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="923"/>
         <source>Remove Share</source>
         <translation type="unfinished"/>
     </message>
@@ -3202,44 +3235,44 @@ Do you want to visit the download page?</source>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="617"/>
         <source>Double click to edit</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="616"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="623"/>
         <source>Created by %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="650"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="670"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="657"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="677"/>
         <source>Read Write</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="651"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="671"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="658"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="678"/>
         <source>Read Only</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
         <source>Group</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
         <source>User</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="711"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="718"/>
         <source>Permission</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="840"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="847"/>
         <source>The previous operation is still in progres</source>
         <translation type="unfinished"/>
     </message>

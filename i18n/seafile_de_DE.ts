@@ -178,22 +178,22 @@
 <context>
     <name>ActivitiesTab</name>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="122"/>
+        <location filename="../src/ui/activities-tab.cpp" line="123"/>
         <source>More</source>
         <translation>Mehr</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="167"/>
-        <source>File Activities are only supported in Seafile Server Professional Edition.</source>
-        <translation>&lt;b&gt;Aktivitäten&lt;/b&gt; werden nur von Seafile Pro unterstützt.</translation>
+        <location filename="../src/ui/activities-tab.cpp" line="168"/>
+        <source>File Activities are only supported in %1 Server Professional Edition.</source>
+        <translation>&lt;b&gt;Aktivitäten&lt;/b&gt; werden nur von %1 Pro unterstützt.</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="169"/>
+        <location filename="../src/ui/activities-tab.cpp" line="170"/>
         <source>retry</source>
         <translation>wiederholen</translation>
     </message>
     <message>
-        <location filename="../src/ui/activities-tab.cpp" line="170"/>
+        <location filename="../src/ui/activities-tab.cpp" line="171"/>
         <source>Failed to get actvities information. Please %1</source>
         <translation>Informationen zur Aktivität waren nicht abrufbar. Bitte %1</translation>
     </message>
@@ -394,11 +394,6 @@ wurde nicht hochgeladen.</translation>
         <translation>Logo</translation>
     </message>
     <message>
-        <location filename="../ui_cloud-view.h" line="247"/>
-        <source>Seafile</source>
-        <translation>Seafile</translation>
-    </message>
-    <message>
         <location filename="../ui_cloud-view.h" line="248"/>
         <source>minimize</source>
         <translation>minimieren</translation>
@@ -417,6 +412,11 @@ wurde nicht hochgeladen.</translation>
         <location filename="../ui_cloud-view.h" line="250"/>
         <source>Select</source>
         <translation>Ordner wählen</translation>
+    </message>
+    <message>
+        <location filename="../ui_cloud-view.h" line="247"/>
+        <source>brand</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="251"/>
@@ -772,7 +772,7 @@ Bitte %1</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="92"/>
         <source>Cloud File Browser</source>
-        <translation>Seafile-Dateibrowser</translation>
+        <translation>%1-Dateibrowser</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="282"/>
@@ -1106,11 +1106,6 @@ Bitte %1</translation>
         <translation>Freigeben für Gruppe</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="328"/>
-        <source>G&amp;enerate Seafile Internal Link</source>
-        <translation>Internen Link erstellen</translation>
-    </message>
-    <message>
         <location filename="../src/filebrowser/file-table.cpp" line="337"/>
         <source>&amp;Update</source>
         <translation>&amp;Aktualisieren</translation>
@@ -1152,6 +1147,11 @@ Bitte %1</translation>
         <location filename="../src/filebrowser/file-table.cpp" line="320"/>
         <source>Share to User</source>
         <translation>Freigeben für Nutzer/in</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-table.cpp" line="328"/>
+        <source>G&amp;enerate %1 Internal Link</source>
+        <translation>Internen Link erstellen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="475"/>
@@ -1217,19 +1217,24 @@ Bitte %1</translation>
         <translation>%1 Initialisierung</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="141"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="155"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="111"/>
+        <source>Choose %1 folder</source>
+        <translation>Einen %1-Ordner auswählen</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="146"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="160"/>
         <source>Please choose a directory</source>
         <translation>Bitte wählen Sie einen Ordner</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="181"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="189"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="186"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="194"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation>Initialisierung nicht abgeschlossen. Wirklich beenden?</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="161"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="166"/>
         <source>The folder %1 does not exist</source>
         <translation>Der Ordner %1 ist nicht vorhanden</translation>
     </message>
@@ -1239,19 +1244,20 @@ Bitte %1</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_init-seafile-dialog.h" line="191"/>
-        <source>Choose Seafile folder</source>
-        <translation>Einen Seafile-Ordner auswählen</translation>
-    </message>
-    <message>
         <location filename="../ui_init-seafile-dialog.h" line="192"/>
         <source>logo</source>
         <translation>Logo</translation>
     </message>
     <message>
+        <location filename="../ui_init-seafile-dialog.h" line="191"/>
+        <source>Choose a folder</source>
+        <translation>Ordner wählen</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="113"/>
         <location filename="../ui_init-seafile-dialog.h" line="193"/>
-        <source>Please choose a folder. We will create a Seafile subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>Bitte wählen Sie einen Ort, an dem der Standard-Ordner von Seafile angelegt werden soll. Wenn Sie künftig Bibliotheken herunterladen, ist dieser Seafile-Ordner als Ziel vorausgewählt.</translation>
+        <source>Please choose a folder. We will create a %1 subfolder in it. When you download a library, it will be saved there by default.</source>
+        <translation>Bitte wählen Sie einen Ort, an dem der Standard-Ordner von %1 angelegt werden soll. Wenn Sie künftig Bibliotheken herunterladen, ist dieser %1-Ordner als Ziel vorausgewählt.</translation>
     </message>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="194"/>
@@ -1272,18 +1278,24 @@ Bitte %1</translation>
 <context>
     <name>InitVirtualDriveDialog</name>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="74"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="45"/>
+        <source>%1 organizes files by libraries.
+Do you like to download your default library and create a virtual disk?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="78"/>
         <source>Checking your default library...</source>
         <translation>Standardbibliothek wird überprüft …</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="88"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="92"/>
         <source>Creating the default library...</source>
         <translation>Standardbibliothek wird angelegt …</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="139"/>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="155"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="143"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="159"/>
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
@@ -1292,100 +1304,100 @@ The server version must be 2.1 or higher to support this.</source>
 Die Serverversion muss 2.1 oder höher sein, um dies zu unterstützen.</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="142"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="146"/>
         <source>Failed to get default library:
 %1</source>
         <translation>Fehler beim Herunterladen der Standardbibliothek:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="158"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="162"/>
         <source>Failed to create default library:
 %1</source>
         <translation>Fehler beim Erstellen der Standardbibliothek:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="185"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="189"/>
         <source>Downloading default library...</source>
         <translation>Standardbibliothek wird heruntergeladen …</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="194"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
         <source>Failed to download default library:
 %1</source>
         <translation>Fehler beim Herunterladen der Standardbibliothek:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="205"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="209"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation>Die Standardbibliothek ist heruntergeladen.
 Klicken Sie auf „Öffnen“, um sie anzusehen.</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="256"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="260"/>
         <source>Error when downloading the default library: %1</source>
         <translation>Fehler beim Herunterladen der Standardbibliothek: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="270"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="274"/>
         <source>Creating the virtual disk...</source>
         <translation>Das virtuelle Laufwerk wird erstellt …</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="179"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="183"/>
         <source>Failed to download default library:
  %1</source>
         <translation>Fehler beim Herunterladen der Standardbibliothek:
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="183"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
-        <source>Seafile organizes files by libraries. 
+        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <source>%1 organizes files by libraries. 
 Do you like to download your default library and create a virtual disk?</source>
-        <translation>Seafile organisiert Dateien in Bibliotheken.
+        <translation>%1 organisiert Dateien in Bibliotheken.
 Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk anlegen?</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="189"/>
         <source>Skip</source>
         <translation>Überspringen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
         <source>Run in Background</source>
         <translation>Im Hintergrund laufen lassen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="193"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="191"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="194"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="192"/>
         <source>Finish</source>
         <translation>Abschließen</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="40"/>
-        <location filename="../ui_init-vdrive-dialog.h" line="186"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="184"/>
         <source>Download Default Library</source>
         <translation>Standardbibliothek herunterladen</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="190"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="188"/>
         <source>Yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../ui_init-vdrive-dialog.h" line="187"/>
+        <location filename="../ui_init-vdrive-dialog.h" line="185"/>
         <source>logo</source>
         <translation>Logo</translation>
     </message>
@@ -1451,8 +1463,8 @@ Möchten Sie Ihre Standardbibliothek herunterladen und ein virtuelles Laufwerk a
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="327"/>
-        <source>Seafile Server Address</source>
-        <translation>Seafile-Serveradresse</translation>
+        <source>%1 Server Address</source>
+        <translation>%1-Serveradresse</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="221"/>
@@ -2102,103 +2114,103 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="128"/>
         <location filename="../src/ui/event-details-tree.cpp" line="136"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="22"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
         <source>Added</source>
         <translation>Neu:</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="130"/>
         <location filename="../src/ui/event-details-tree.cpp" line="138"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
         <source>Deleted</source>
         <translation>Gelöscht:</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="25"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
         <source>Removed</source>
         <translation>Entfernt</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="132"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="26"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
         <source>Modified</source>
         <translation>Geändert:</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="134"/>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="27"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
         <source>Renamed</source>
         <translation>Umbenannt:</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="23"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="24"/>
         <source>Added or modified</source>
         <translation>Neu oder geändert:</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="28"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Moved</source>
         <translation>Verschoben:</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
         <source>Added directory</source>
         <translation>Neuer Ordner:</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
         <source>Removed directory</source>
         <translation>Entfernter Ordner</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="31"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
         <source>Renamed directory</source>
         <translation>Umbenannter Ordner</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="32"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="33"/>
         <source>Moved directory</source>
         <translation>Verschobener Ordner</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="60"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="61"/>
         <source>files</source>
         <translation>Dateien</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="62"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="63"/>
         <source>directories</source>
         <translation>Ordner</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="65"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="66"/>
         <source>and %1 more</source>
         <translation>und noch %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="86"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="87"/>
         <source>Reverted library to status at</source>
         <translation>Bibliothek zurückgesetzt zum Status von</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="93"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="94"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
         <translation>Datei „%1“ zurückgesetzt auf den Status von %2.</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="97"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Recovered deleted directory</source>
         <translation>Gelöschter Ordner wiederhergestellt</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="99"/>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
         <source>Changed library name or description</source>
         <translation>Bibliotheksname oder Beschreibung geändert</translation>
     </message>
     <message>
-        <location filename="../src/utils/translate-commit-desc.cpp" line="101"/>
-        <source>Auto merge by seafile system</source>
-        <translation>Automatische Zusammenführung durch Seafile</translation>
+        <location filename="../src/utils/translate-commit-desc.cpp" line="102"/>
+        <source>Auto merge by %1 system</source>
+        <translation>Automatische Zusammenführung durch %1</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="559"/>
@@ -2609,12 +2621,12 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
         <source>&amp;Open cloud file browser</source>
-        <translation>Im &amp;Seafile-Dateibrowser ansehen</translation>
+        <translation>Im &amp;%1-Dateibrowser ansehen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation>Bibliothek im Seafile-Dateibrowser öffnen</translation>
+        <translation>Bibliothek im %1-Dateibrowser öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="431"/>
@@ -2760,27 +2772,27 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
 <context>
     <name>SeafileLinkDialog</name>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="17"/>
-        <source>Seafile Internal Link</source>
-        <translation>Seafile-interner Link:</translation>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="18"/>
+        <source>%1 Internal Link</source>
+        <translation>%1-interner Link:</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="24"/>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="25"/>
         <source>Copy to clipboard</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="30"/>
-        <source>Seafile Web Link:</source>
-        <translation>Seafile Web-Link:</translation>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="31"/>
+        <source>%1 Web Link:</source>
+        <translation>%1 Web-Link:</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="52"/>
-        <source>Seafile Protocol Link:</source>
-        <translation>Seafile Protokoll-Link:</translation>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="53"/>
+        <source>%1 Protocol Link:</source>
+        <translation>%1 Protokoll-Link:</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="85"/>
+        <location filename="../src/filebrowser/seafilelink-dialog.cpp" line="86"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -3025,27 +3037,39 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="44"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="34"/>
+        <location filename="../ui_settings-dialog.h" line="408"/>
+        <source>Auto start %1 after login</source>
+        <translation>%1 nach der Anmeldung automatisch starten</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
+        <location filename="../ui_settings-dialog.h" line="409"/>
+        <source>Hide %1 Icon from the dock</source>
+        <translation>%1-Icon aus dem Dock ausblenden</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="50"/>
         <source>None</source>
         <translation>Kein Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="45"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
         <source>HTTP Proxy</source>
         <translation>HTTP-Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="46"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
         <source>Socks5 Proxy</source>
         <translation>Socks5-Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="95"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="101"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation>Sie haben die Sprache geändert. Möchte Sie neustarten um die neue Sprache zu verwenden?</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="98"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="104"/>
         <source>You have changed proxy settings. Restart to apply it?</source>
         <translation>Sie haben die Proxy-Einstellungen geändert. Möchten Sie den Client neu starten, um die Änderungen anzuwenden?</translation>
     </message>
@@ -3068,11 +3092,6 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
         <location filename="../ui_settings-dialog.h" line="407"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation>Temporäre Dateien von MS Office und LibreOffice synchronisieren</translation>
-    </message>
-    <message>
-        <location filename="../ui_settings-dialog.h" line="408"/>
-        <source>Auto start Seafile after login</source>
-        <translation>Seafile nach der Anmeldung automatisch starten</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
@@ -3113,11 +3132,6 @@ Möchten Sie die Internetseite zum Herunterladen aufrufen?</translation>
         <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation>Das Synchronisieren einer Bibliothek nicht automatisch trennen, wenn sie auf dem Server nicht gefunden wird.</translation>
-    </message>
-    <message>
-        <location filename="../ui_settings-dialog.h" line="409"/>
-        <source>Hide Seafile Icon from the dock</source>
-        <translation>Seafile-Icon aus dem Dock ausblenden</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>

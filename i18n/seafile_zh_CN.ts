@@ -86,7 +86,7 @@
     <message>
         <location filename="../src/ui/account-view.cpp" line="154"/>
         <source>click to open the website</source>
-        <translation>点击访问网站</translation>
+        <translation>点击跳转到网页版</translation>
     </message>
     <message>
         <location filename="../src/ui/account-view.cpp" line="162"/>

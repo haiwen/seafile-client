@@ -77,9 +77,16 @@ void CloneTask::translateStateInfo()
         state_str = QObject::tr("indexing files...");
 
     } else if (state == "fetch") {
-        state_str = QObject::tr("Downloading...");
-        if (block_total != 0) {
-            state_str += calcProgress(block_done, block_total);
+        if (rt_state == "fs") {
+            state_str = QObject::tr("Downloading file list...");
+            if (fs_objects_total != 0) {
+                state_str += calcProgress(fs_objects_done, fs_objects_total);
+            }
+        } else if (rt_state == "data") {
+            state_str = QObject::tr("Downloading files...");
+            if (block_total != 0) {
+                state_str += calcProgress(block_done, block_total);
+            }
         }
 
     } else if (state == "checkout") {

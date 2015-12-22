@@ -12,6 +12,7 @@ public:
     QString repo_name;
     QString worktree;
     QString state;
+    QString rt_state;
     QString error_str;
     QString peer_id;
     QString tx_id;
@@ -19,6 +20,9 @@ public:
     QString state_str;
     int block_done;
     int block_total;
+
+    int fs_objects_done;
+    int fs_objects_total;
 
     int checkout_done;
     int checkout_total;

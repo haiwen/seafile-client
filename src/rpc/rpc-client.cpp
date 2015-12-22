@@ -439,17 +439,35 @@ void SeafileRpcClient::getTransferDetail(CloneTask* task)
         char *err = NULL;
         g_object_get(obj, "error_str", &err, NULL);
         task->error_str = err;
-    } else {
-        int block_done = 0;
-        int block_total = 0;
+    } else if (task->state == "fetch") {
+        char *rt_state = NULL;
+        g_object_get (obj, "rt_state", &rt_state, NULL);
+        task->rt_state = rt_state;
+        g_free (rt_state);
 
-        g_object_get (obj,
-                      "block_done", &block_done,
-                      "block_total", &block_total,
-                      NULL);
+        if (task->rt_state == "data") {
+            int block_done = 0;
+            int block_total = 0;
 
-        task->block_done = block_done;
-        task->block_total = block_total;
+            g_object_get (obj,
+                          "block_done", &block_done,
+                          "block_total", &block_total,
+                          NULL);
+
+            task->block_done = block_done;
+            task->block_total = block_total;
+        } else if (task->rt_state == "fs") {
+            int fs_objects_done = 0;
+            int fs_objects_total = 0;
+
+            g_object_get (obj,
+                          "fs_objects_done", &fs_objects_done,
+                          "fs_objects_total", &fs_objects_total,
+                          NULL);
+
+            task->fs_objects_done = fs_objects_done;
+            task->fs_objects_total = fs_objects_total;
+        }
     }
 
     g_object_unref (obj);

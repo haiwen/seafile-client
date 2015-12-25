@@ -227,7 +227,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
     else {
         UserShareInfo info;
         info.user.email = request_.data()->userName();
-        info.user.nickname = contacts_[info.user.email].nickname;
+        info.user.name = contacts_[info.user.email].name;
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
     }
@@ -308,9 +308,9 @@ void PrivateShareDialog::onFetchContactsSuccess(
     else {
         foreach (const SeafileContact& contact, contacts) {
             contacts_[contact.email] = contact;
-            if (!contact.nickname.isEmpty()) {
+            if (!contact.name.isEmpty()) {
                 candidates << QString("%1 <%2>")
-                                  .arg(contact.nickname)
+                                  .arg(contact.name)
                                   .arg(contact.email);
             }
             else {
@@ -470,7 +470,7 @@ void PrivateShareDialog::onOkBtnClicked()
     else {
         UserShareInfo info;
         info.user.email = name;
-        info.user.nickname = contacts_[info.user.email].nickname;
+        info.user.name = contacts_[info.user.email].name;
         info.permission = currentPermission();
         model_->addNewShareInfo(info);
     }
@@ -669,8 +669,8 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
         const UserShareInfo& info = user_shares_[row];
 
         if (column == COLUMN_NAME) {
-            return info.user.nickname.isEmpty() ? info.user.email
-                                                : info.user.nickname;
+            return info.user.name.isEmpty() ? info.user.email
+                                                : info.user.name;
         }
         else if (column == COLUMN_PERMISSION) {
             if (role == Qt::DisplayRole) {

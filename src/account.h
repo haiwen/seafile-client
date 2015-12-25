@@ -12,7 +12,7 @@ class ServerInfoRequest;
 class AccountInfo {
 public:
     QString email;
-    QString nickname;
+    QString name;
     qint64 totalStorage;
     qint64 usedStorage;
 };

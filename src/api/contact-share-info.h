@@ -12,7 +12,7 @@ struct SeafileGroup {
 
 struct SeafileContact {
     QString email;
-    QString nickname;
+    QString name;
 };
 
 enum SharePermission {

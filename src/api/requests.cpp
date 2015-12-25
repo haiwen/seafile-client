@@ -868,11 +868,11 @@ void FetchAccountInfoRequest::requestSuccess(QNetworkReply& reply)
 
     AccountInfo info;
     info.email = dict["email"].toString();
-    info.nickname = dict["nickname"].toString();
+    info.name = dict["name"].toString();
     info.totalStorage = dict["total"].toLongLong();
     info.usedStorage = dict["usage"].toLongLong();
-    if (info.nickname.isEmpty()) {
-        info.nickname = dict["name"].toString();
+    if (info.name.isEmpty()) {
+        info.name = dict["nickname"].toString();
     }
     emit success(info);
 }
@@ -1000,7 +1000,7 @@ void FetchGroupsAndContactsRequest::requestSuccess(QNetworkReply& reply)
             if (email) {
                 SeafileContact contact;
                 contact.email = QString::fromUtf8(email);
-                contact.nickname = QString::fromUtf8(
+                contact.name = QString::fromUtf8(
                     json_string_value(json_object_get(contact_object, "name")));
                 contacts.push_back(contact);
             }
@@ -1056,7 +1056,7 @@ void GetPrivateShareItemsRequest::requestSuccess(QNetworkReply& reply)
             Json user = share_info.getObject("user_info");
             UserShareInfo user_share;
             user_share.user.email = user.getString("name");
-            user_share.user.nickname = user.getString("nickname");
+            user_share.user.name = user.getString("name");
             user_share.permission = ::permissionfromString(permission);
             user_shares.push_back(user_share);
         }

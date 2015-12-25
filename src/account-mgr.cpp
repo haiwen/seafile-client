@@ -24,7 +24,7 @@ const char *kCustomBrandKeyName = "custom-brand";
 const char *kCustomLogoKeyName = "custom-logo";
 const char *kTotalStorage = "storage.total";
 const char *kUsedStorage = "storage.used";
-const char *kNickname = "nickname";
+const char *kNickname = "name";
 
 bool getColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
 {
@@ -190,7 +190,7 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
     } else if (key_string == kUsedStorage) {
         account->accountInfo.usedStorage = value_string.toLongLong();
     } else if (key_string == kNickname) {
-        account->accountInfo.nickname = value_string;
+        account->accountInfo.name = value_string;
     }
     return true;
 }
@@ -407,7 +407,7 @@ void AccountManager::updateAccountInfo(const Account& account,
     setServerInfoKeyValue(db, account, kUsedStorage,
                           QString::number(info.usedStorage));
     setServerInfoKeyValue(db, account, kNickname,
-                          info.nickname);
+                          info.name);
 
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {

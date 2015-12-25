@@ -145,8 +145,8 @@ void AccountView::updateAccountInfoDisplay()
 {
     if (seafApplet->accountManager()->hasAccount()) {
         const Account account = seafApplet->accountManager()->currentAccount();
-        if (!account.accountInfo.nickname.isEmpty()) {
-            mEmail->setText(account.accountInfo.nickname);
+        if (!account.accountInfo.name.isEmpty()) {
+            mEmail->setText(account.accountInfo.name);
         } else {
             mEmail->setText(account.username);
         }

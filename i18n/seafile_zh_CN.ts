@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>AccountManager</name>
     <message>
@@ -412,7 +414,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="247"/>
         <source>brand</source>
-        <translation type="unfinished"/>
+        <translation>brand</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="251"/>
@@ -1245,7 +1247,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_init-seafile-dialog.h" line="191"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>选择一个文件夹</translation>
     </message>
     <message>
         <location filename="../src/ui/init-seafile-dialog.cpp" line="113"/>
@@ -1275,7 +1277,8 @@ failed to upload.</source>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="45"/>
         <source>%1 organizes files by libraries.
 Do you like to download your default library and create a virtual disk?</source>
-        <translation type="unfinished"/>
+        <translation>%1用资料库的方式来组织文件。
+您想要下载您的默认资料库并创建一个虚拟磁盘吗？</translation>
     </message>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="78"/>
@@ -2873,7 +2876,9 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="505"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
+        <translation>
+            <numerusform>您有 %n 条未读消息</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="511"/>

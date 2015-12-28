@@ -39,6 +39,11 @@ const char *kFinderSync = "finderSync";
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
+QString softwareSeafile()
+{
+    return QString("SOFTWARE\\%1").arg(getBrand());
+}
+
 } // namespace
 
 
@@ -147,7 +152,7 @@ void SettingsManager::loadSettings()
 
 
 #ifdef Q_OS_WIN32
-    RegElement reg(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "ShellExtDisabled", "");
+    RegElement reg(HKEY_CURRENT_USER, softwareSeafile(), "ShellExtDisabled", "");
     shell_ext_enabled_ = !reg.exists();
 #endif
 }
@@ -551,8 +556,8 @@ void SettingsManager::setShellExtensionEnabled(bool enabled)
 {
     shell_ext_enabled_ = enabled;
 
-    RegElement reg1(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "", "");
-    RegElement reg2(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", "ShellExtDisabled", "1");
+    RegElement reg1(HKEY_CURRENT_USER, softwareSeafile(), "", "");
+    RegElement reg2(HKEY_CURRENT_USER, softwareSeafile(), "ShellExtDisabled", "1");
     if (enabled) {
         reg2.remove();
     } else {

@@ -1,7 +1,9 @@
 #include <windows.h>
 #include <shlwapi.h>
 #include <vector>
+
 #include "utils/stl.h"
+#include "utils/utils.h"
 
 
 #include "registry.h"
@@ -18,6 +20,11 @@ LONG openKey(HKEY root, const QString& path, HKEY *p_key, REGSAM samDesired = KE
                            p_key);
 
     return result;
+}
+
+QString softwareSeafile()
+{
+    return QString("SOFTWARE\\%1").arg(getBrand());
 }
 
 } // namespace
@@ -280,13 +287,13 @@ int RegElement::getPreconfigureIntValue(const QString& name)
 {
     bool exists;
     int ret = getIntValue(
-        HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name, &exists);
+        HKEY_CURRENT_USER, softwareSeafile(), name, &exists);
     if (exists) {
         return ret;
     }
 
     return RegElement::getIntValue(
-        HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name);
+        HKEY_LOCAL_MACHINE, softwareSeafile(), name);
 }
 
 QString RegElement::getStringValue(HKEY root,
@@ -313,19 +320,19 @@ QString RegElement::getPreconfigureStringValue(const QString& name)
 {
     bool exists;
     QString ret = getStringValue(
-        HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name, &exists);
+        HKEY_CURRENT_USER, softwareSeafile(), name, &exists);
     if (exists) {
         return ret;
     }
 
     return RegElement::getStringValue(
-        HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name);
+        HKEY_LOCAL_MACHINE, softwareSeafile(), name);
 }
 
 QVariant RegElement::getPreconfigureValue(const QString& name)
 {
-    QVariant v = getValue(HKEY_CURRENT_USER, "SOFTWARE\\Seafile", name);
-    return v.isNull() ? getValue(HKEY_LOCAL_MACHINE, "SOFTWARE\\Seafile", name) : v;
+    QVariant v = getValue(HKEY_CURRENT_USER, softwareSeafile(), name);
+    return v.isNull() ? getValue(HKEY_LOCAL_MACHINE, softwareSeafile(), name) : v;
 }
 
 QVariant RegElement::getValue(HKEY root,

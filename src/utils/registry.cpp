@@ -135,14 +135,12 @@ bool RegElement::exists()
         return false;
     }
 
-    char buf[MAX_PATH] = {0};
-    DWORD len = sizeof(buf);
     result = RegQueryValueExW (parent_key,
                                name_.toStdWString().c_str(),
                                NULL,             /* reserved */
                                NULL,             /* output type */
-                               (LPBYTE)buf,      /* output data */
-                               &len);            /* output length */
+                               NULL,             /* output data */
+                               NULL);            /* output length */
 
     RegCloseKey(parent_key);
     if (result != ERROR_SUCCESS) {

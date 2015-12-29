@@ -75,7 +75,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="mPasswordLabel">
         <property name="text">
          <string>Password:</string>
         </property>
@@ -95,7 +95,7 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="mPasswordAgainLabel">
         <property name="text">
          <string>Password Again:</string>
         </property>

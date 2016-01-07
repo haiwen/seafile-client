@@ -10,6 +10,7 @@
 #include <QEvent>
 #include <QShowEvent>
 #include <QHideEvent>
+#include <QInputDialog>
 #include <Qt>
 
 #include "utils/utils.h"
@@ -43,6 +44,7 @@ namespace {
 const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
 const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
 const int kRepoCategoryIndicatorWidth = 16;
+const char *kSyncIntervalProperty = "sync-interval";
 
 QString buildMoreInfo(ServerRepo& repo, const QUrl& url_in)
 {
@@ -211,6 +213,7 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
         menu->addSeparator();
         menu->addAction(toggle_auto_sync_action_);
         menu->addAction(sync_now_action_);
+        menu->addAction(set_sync_interval_action_);
         menu->addSeparator();
     }
 
@@ -251,6 +254,7 @@ void RepoTreeView::updateRepoActions()
         open_local_folder_toolbar_action_->setEnabled(false);
         unsync_action_->setEnabled(false);
         resync_action_->setEnabled(false);
+        set_sync_interval_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
         open_in_filebrowser_action_->setEnabled(false);
@@ -280,6 +284,9 @@ void RepoTreeView::updateRepoActions()
 
         resync_action_->setData(QVariant::fromValue(local_repo));
         resync_action_->setEnabled(true);
+
+        set_sync_interval_action_->setData(QVariant::fromValue(local_repo));
+        set_sync_interval_action_->setEnabled(true);
 
         if (seafApplet->settingsManager()->autoSync()) {
             toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
@@ -313,6 +320,7 @@ void RepoTreeView::updateRepoActions()
         open_local_folder_toolbar_action_->setEnabled(false);
         unsync_action_->setEnabled(false);
         resync_action_->setEnabled(false);
+        set_sync_interval_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
     }
 
@@ -433,6 +441,12 @@ void RepoTreeView::createActions()
     resync_action_->setStatusTip(tr("unsync and resync this library"));
 
     connect(resync_action_, SIGNAL(triggered()), this, SLOT(resyncRepo()));
+
+    set_sync_interval_action_ = new QAction(tr("Set sync &Interval"), this);
+    set_sync_interval_action_->setIcon(QIcon(":/images/clock.png"));
+    set_sync_interval_action_->setStatusTip(tr("unsync and resync this library"));
+
+    connect(set_sync_interval_action_, SIGNAL(triggered()), this, SLOT(setRepoSyncInterval()));
 }
 
 void RepoTreeView::downloadRepo()
@@ -650,6 +664,7 @@ void RepoTreeView::hideEvent(QHideEvent *event)
     open_local_folder_toolbar_action_->setEnabled(false);
     unsync_action_->setEnabled(false);
     resync_action_->setEnabled(false);
+    set_sync_interval_action_->setEnabled(false);
     toggle_auto_sync_action_->setEnabled(false);
     view_on_web_action_->setEnabled(false);
     open_in_filebrowser_action_->setEnabled(false);
@@ -917,4 +932,42 @@ void RepoTreeView::copyFileFailed()
 {
     QString msg = QObject::tr("copy failed");
     seafApplet->warningBox(msg);
+}
+
+void RepoTreeView::setRepoSyncInterval()
+{
+    LocalRepo local_repo =
+        qvariant_cast<LocalRepo>(set_sync_interval_action_->data());
+
+    int default_interval = 0;
+
+    QString value;
+    if (seafApplet->rpcClient()->getRepoProperty(
+            local_repo.id, kSyncIntervalProperty, &value) == 0) {
+        default_interval = value.toInt();
+    }
+
+    QInputDialog dialog(this);
+    dialog.setInputMode(QInputDialog::IntInput);
+    dialog.setIntMinimum(0);
+    dialog.setIntMaximum(2147483647);
+    dialog.setIntStep(10);
+    dialog.setIntValue(default_interval);
+    dialog.setObjectName("syncIntervalDialog");
+    dialog.setLabelText(tr("Sync Interval (In seconds):"));
+    dialog.setWindowTitle(
+        tr("Set Sync Internval For Library \"%1\"").arg(local_repo.name));
+    dialog.setWindowIcon(QIcon(":/images/seafile.png"));
+    dialog.resize(400, 100);
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+    int interval = dialog.intValue();
+
+    if (interval != 0 && interval == default_interval) {
+        return;
+    }
+
+    seafApplet->rpcClient()->setRepoProperty(
+        local_repo.id, kSyncIntervalProperty, QString::number(interval));
 }

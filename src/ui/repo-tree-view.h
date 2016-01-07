@@ -61,6 +61,7 @@ private slots:
     void loadExpandedCategries();
     void saveExpandedCategries();
     void resyncRepo();
+    void setRepoSyncInterval();
 
     void uploadFileStart(FileUploadTask *task);
     void uploadFileFinished(bool success);
@@ -100,6 +101,7 @@ private:
     QAction *sync_now_action_;
     QAction *cancel_download_action_;
     QAction *resync_action_;
+    QAction *set_sync_interval_action_;
 
     QSet<QString> expanded_categroies_;
 };

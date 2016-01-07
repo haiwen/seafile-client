@@ -92,6 +92,18 @@ void RepoDetailDialog::updateRepoStatus()
             }
         }
 
+        int sync_interval = 0;
+        QString interval_string;
+        if (seafApplet->rpcClient()->getRepoProperty(r.id, "sync-interval", &interval_string) == 0) {
+            sync_interval = interval_string.toInt();
+            if (sync_interval > 0) {
+                mSyncInterval->setText(tr("every %1 seconds").arg(sync_interval));
+            } else {
+                mSyncIntervalLabel->hide();
+                mSyncInterval->hide();
+            }
+        }
+
     } else {
         std::vector<CloneTask> tasks;
         seafApplet->rpcClient()->getCloneTasks(&tasks);
@@ -117,6 +129,9 @@ void RepoDetailDialog::updateRepoStatus()
         } else {
             text = tr("This library is not downloaded yet");
         }
+
+        mSyncIntervalLabel->hide();
+        mSyncInterval->hide();
     }
 
     mStatus->setText(text);

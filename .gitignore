@@ -98,3 +98,4 @@ third_party/breakpad
 compile_commands.json
 .ycm_extra_conf.py
 seafile-applet.rc
+*.dmp

@@ -89,7 +89,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
     data_mgr_ = new DataManager(account_);
 
-    setWindowTitle(tr("Cloud File Browser"));
+    // In German translation there is a "seafile" string, so need to use tr("..").arg(..) here
+    setWindowTitle(tr("Cloud File Browser").arg(getBrand()));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog)
 #if !defined(Q_OS_MAC)

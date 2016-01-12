@@ -2658,7 +2658,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="445"/>
         <source>Set sync &amp;Interval</source>
-        <translation>Sync-%Intervall festlegen</translation>
+        <translation>Sync-&amp;Intervall festlegen</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="486"/>

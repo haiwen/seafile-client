@@ -82,7 +82,7 @@ IF (WIN32)
       ${CMAKE_SOURCE_DIR}/seafile-applet.rc.in
       ${CMAKE_BINARY_DIR}/seafile-applet.rc
     )
-    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi)
+    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi mpr)
     SET(EXTRA_SOURCES ${EXTRA_SOURCES} ${CMAKE_BINARY_DIR}/seafile-applet.rc)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)

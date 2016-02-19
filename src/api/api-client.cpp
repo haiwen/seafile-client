@@ -63,6 +63,26 @@ SeafileApiClient::~SeafileApiClient()
     }
 }
 
+// when connecting to https://host.com/files client certificate and private
+// key will be loaded from ~/.ccnet/somehost.com.pem and ~/.ccnet/host.com.key
+void SeafileApiClient::InitSslConfiguration(const QUrl& url) {
+    const QDir config_dir = defaultCcnetDir();
+    QFile cert_file(config_dir.filePath(url.host() + ".pem"));
+    if (!cert_file.open(QFile::ReadOnly)) {
+        return;
+    }
+
+    QFile priv_file(config_dir.filePath(url.host() + ".key"));
+    if (!priv_file.open(QFile::ReadOnly)) {
+        return;
+    }
+
+    QSslCertificate cert(&cert_file);
+    ssl_config_.setLocalCertificate(cert);
+    QSslKey privateKey(&priv_file, QSsl::Rsa);
+    ssl_config_.setPrivateKey(privateKey);
+}
+
 void SeafileApiClient::prepareRequest(QNetworkRequest *req)
 {
     if (use_cache_) {
@@ -72,6 +92,10 @@ void SeafileApiClient::prepareRequest(QNetworkRequest *req)
         req->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
         req->setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
     }
+    if (ssl_config_.isNull()) {
+        InitSslConfiguration(req->url());
+    }
+    req->setSslConfiguration(ssl_config_);
 }
 
 void SeafileApiClient::get(const QUrl& url)

@@ -4,6 +4,7 @@
 #include <QString>
 #include <QObject>
 #include <QNetworkReply>
+#include <QSslConfiguration>
 
 #include "account.h"
 #include "server-repo.h"
@@ -45,6 +46,8 @@ private:
 
     void resendRequest(const QUrl& url);
 
+    void InitSslConfiguration(const QUrl& url);
+
     static QNetworkAccessManager *na_mgr_;
 
     QString token_;
@@ -52,6 +55,8 @@ private:
     QByteArray body_;
 
     QNetworkReply *reply_;
+
+    QSslConfiguration ssl_config_;
 
     int redirect_count_;
     bool use_cache_;

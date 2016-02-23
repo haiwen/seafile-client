@@ -11,11 +11,10 @@
 #include "api-request.h"
 
 SeafileApiRequest::SeafileApiRequest(const QUrl& url, Method method,
-                                     const QString& token, bool ignore_ssl_errors)
+                                     const QString& token)
     : url_(url),
       method_(method),
-      token_(token),
-      ignore_ssl_errors_(ignore_ssl_errors)
+      token_(token)
 {
     api_client_ = new SeafileApiClient;
 }
@@ -93,14 +92,6 @@ void SeafileApiRequest::onNetworkError(const QNetworkReply::NetworkError& error,
     emit failed(ApiError::fromNetworkError(error, error_string));
 }
 
-void SeafileApiRequest::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors)
-{
-    if (ignore_ssl_errors_) {
-        reply->ignoreSslErrors();
-    } else {
-        emit failed(ApiError::fromSslErrors(reply, errors));
-    }
-}
 
 json_t* SeafileApiRequest::parseJSON(QNetworkReply &reply, json_error_t *error)
 {

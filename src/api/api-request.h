@@ -34,14 +34,12 @@ public:
     void setUseCache(bool use_cache);
 
     void send();
-    void setIgnoreSslErrors(bool ignore) { ignore_ssl_errors_ = ignore; }
 
 signals:
     void failed(const ApiError& error);
 
 protected slots:
     virtual void requestSuccess(QNetworkReply& reply) = 0;
-    void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
     void onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);
     void onHttpError(int);
 
@@ -59,8 +57,7 @@ protected:
 
     SeafileApiRequest(const QUrl& url,
                       const Method method,
-                      const QString& token = QString(),
-                      bool ignore_ssl_errors_=true);
+                      const QString& token = QString());
 
     json_t* parseJSON(QNetworkReply &reply, json_error_t *error);
 
@@ -80,8 +77,6 @@ private:
     Method method_;
     QString token_;
     SeafileApiClient* api_client_;
-
-    bool ignore_ssl_errors_;
 };
 
 #endif // SEAFILE_API_REQUEST_H

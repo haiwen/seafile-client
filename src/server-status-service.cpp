@@ -66,7 +66,6 @@ void ServerStatusService::pingServer(const QUrl& url)
             this, SLOT(onPingServerSuccess()));
     connect(req, SIGNAL(failed(const ApiError&)),
             this, SLOT(onPingServerFailed()));
-    req->setIgnoreSslErrors(true);
     req->send();
     requests_[url.host()] = req;
 }

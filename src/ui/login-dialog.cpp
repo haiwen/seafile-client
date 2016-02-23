@@ -139,7 +139,6 @@ void LoginDialog::doLogin()
     }
 
     request_ = new LoginRequest(url_, username_, password_, computer_name_);
-    request_->setIgnoreSslErrors(false);
 
     connect(request_, SIGNAL(success(const QString&)),
             this, SLOT(loginSuccess(const QString&)));

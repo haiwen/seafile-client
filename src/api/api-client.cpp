@@ -18,6 +18,7 @@ namespace {
 
 const char *kContentTypeForm = "application/x-www-form-urlencoded";
 const char *kAuthHeader = "Authorization";
+const char *kSeafileClientVersionHeader = "X-Seafile-Client-Version";
 
 const int kMaxRedirects = 3;
 const int kMaxHttpErrorLogLen = 300;
@@ -72,22 +73,19 @@ void SeafileApiClient::prepareRequest(QNetworkRequest *req)
         req->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
         req->setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
     }
+    if (token_.length() > 0) {
+        char buf[1024];
+        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
+        req->setRawHeader(kAuthHeader, buf);
+    }
+
+    req->setRawHeader(kSeafileClientVersionHeader, STRINGIZE(SEAFILE_CLIENT_VERSION));
 }
 
 void SeafileApiClient::get(const QUrl& url)
 {
     QNetworkRequest request(url);
     prepareRequest(&request);
-
-    if (token_.length() > 0) {
-        char buf[1024];
-        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
-        request.setRawHeader(kAuthHeader, buf);
-    }
-
-    // qWarning("send request, url = %s\n, token = %s\n",
-    //        request.url().toString().toUtf8().data(),
-    //        request.rawHeader(kAuthHeader).data());
 
     reply_ = na_mgr_->get(request);
 
@@ -103,11 +101,6 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    if (token_.length() > 0) {
-        char buf[1024];
-        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
-        request.setRawHeader(kAuthHeader, buf);
-    }
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
     if (is_put)
@@ -125,12 +118,6 @@ void SeafileApiClient::deleteResource(const QUrl& url)
 {
     QNetworkRequest request(url);
     prepareRequest(&request);
-
-    if (token_.length() > 0) {
-        char buf[1024];
-        qsnprintf(buf, sizeof(buf), "Token %s", token_.toUtf8().data());
-        request.setRawHeader(kAuthHeader, buf);
-    }
 
     reply_ = na_mgr_->deleteResource(request);
 

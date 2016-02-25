@@ -43,7 +43,7 @@ const char* kAccountInfoUrl = "api2/account/info/";
 const char* kDirSharedItemsUrl = "api2/repos/%1/dir/shared_items/";
 const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
 
-const char* kLatestVersionUrl = "http://seafile.com/api/client-versions/";
+const char* kLatestVersionUrl = "https://seafile.com/api/client-versions/";
 
 #if defined(Q_OS_WIN32)
 const char* kOsName = "windows";

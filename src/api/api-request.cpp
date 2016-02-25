@@ -76,10 +76,6 @@ void SeafileApiRequest::send()
 
     connect(api_client_, SIGNAL(requestFailed(int)),
             this, SLOT(onHttpError(int)));
-
-    connect(api_client_, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),
-            this, SLOT(onSslErrors(QNetworkReply*, const QList<QSslError>&)));
-
 }
 
 void SeafileApiRequest::onHttpError(int code)

@@ -30,7 +30,6 @@ signals:
     void requestSuccess(QNetworkReply& reply);
     void requestFailed(int code);
     void networkError(const QNetworkReply::NetworkError& error, const QString& error_string);
-    void sslErrors(QNetworkReply *, const QList<QSslError>&);
 
 private slots:
     void httpRequestFinished();

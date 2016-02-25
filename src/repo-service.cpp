@@ -1,5 +1,6 @@
 #include <QTimer>
 #include <QDir>
+#include <QSet>
 #include <QDesktopServices>
 #include <sqlite3.h>
 #include <algorithm>
@@ -15,6 +16,7 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "rpc/rpc-client.h"
+#include "rpc/clone-task.h"
 
 #include "filebrowser/file-browser-manager.h"
 
@@ -214,13 +216,23 @@ void RepoService::refresh()
                                      loadSyncedFolderCB, &synced_subfolders_);
         sqlite3_free(zql);
 
-        // if repo_id is no longer in the local repos list
-        for (size_t i = 0; i < synced_subfolders_.size(); ++i) {
-            RepohasRepoID<LocalRepo> helper(synced_subfolders_[i].repoId());
-            std::vector<LocalRepo>::iterator pos = std::find_if(local_repos_.begin(), local_repos_.end(), helper);
+        std::vector<CloneTask> tasks;
+        seafApplet->rpcClient()->getCloneTasks(&tasks);
 
-            if (pos == local_repos_.end())
+        QSet<QString> local_repos;
+        for (size_t i = 0; i < tasks.size(); ++i) {
+            local_repos.insert(tasks[i].repo_id);
+        }
+        for (size_t i = 0; i < local_repos_.size(); ++i) {
+            local_repos.insert(local_repos_[i].id);
+        }
+
+        // If the synced virtual repo no longer exists locally, remove it from
+        // applet database.
+        for (size_t i = 0; i < synced_subfolders_.size(); ++i) {
+            if (!local_repos.contains(synced_subfolders_[i].repoId())) {
               removeSyncedSubfolder(synced_subfolders_[i].repoId());
+            }
         }
     }
 

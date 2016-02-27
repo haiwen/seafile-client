@@ -29,6 +29,7 @@ private slots:
     void onSeafDaemonStarted();
     void onSeafDaemonExited();
     void systemShutDown();
+    void checkSeafDaemonReady();
 
 private:
     Q_DISABLE_COPY(DaemonManager)
@@ -40,6 +41,8 @@ private:
     QProcess *ccnet_daemon_;
     QProcess *seaf_daemon_;
     _CcnetClient *sync_client_;
+
+    QTimer *check_seaf_daemon_ready_timer_;
 
     bool system_shut_down_;
 };

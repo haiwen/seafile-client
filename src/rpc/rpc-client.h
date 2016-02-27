@@ -21,6 +21,7 @@ class SeafileRpcClient : public QObject {
 
 public:
     SeafileRpcClient();
+    ~SeafileRpcClient();
     void connectDaemon();
 
     int listLocalRepos(std::vector<LocalRepo> *repos);

@@ -17,6 +17,7 @@ extern "C" {
 #include "utils/process.h"
 #include "configurator.h"
 #include "seafile-applet.h"
+#include "rpc/rpc-client.h"
 #include "daemon-mgr.h"
 
 namespace {
@@ -31,6 +32,16 @@ const char *kCcnetDaemonExecutable = "ccnet";
 const char *kSeafileDaemonExecutable = "seaf-daemon";
 #endif
 
+
+bool seafileRpcReady() {
+    SeafileRpcClient rpc;
+    rpc.connectDaemon();
+
+    QString str;
+    return rpc.seafileGetConfig("use_proxy", &str) == 0;
+}
+
+
 } // namespace
 
 
@@ -43,6 +54,9 @@ DaemonManager::DaemonManager()
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(tryConnCcnet()));
     shutdown_process (kCcnetDaemonExecutable);
+
+    check_seaf_daemon_ready_timer_ = new QTimer(this);
+    connect(check_seaf_daemon_ready_timer_, SIGNAL(timeout()), this, SLOT(checkSeafDaemonReady()));
 
     system_shut_down_ = false;
     connect(qApp, SIGNAL(aboutToQuit()),
@@ -103,8 +117,27 @@ void DaemonManager::systemShutDown()
 
 void DaemonManager::onSeafDaemonStarted()
 {
-    qWarning("seafile daemon is now running");
-    emit daemonStarted();
+    qDebug("seafile daemon is now running, checking if the service is ready");
+    check_seaf_daemon_ready_timer_->start(kConnDaemonIntervalMilli);
+}
+
+void DaemonManager::checkSeafDaemonReady()
+{
+    QString str;
+    // Because some settings need to be loaded from seaf daemon, we only emit
+    // the "daemonStarted" signal after we're sure the daemon rpc is ready.
+    if (seafileRpcReady()) {
+        qDebug("seaf daemon is ready");
+        check_seaf_daemon_ready_timer_->stop();
+        emit daemonStarted();
+        return;
+    }
+    qDebug("seaf daemon is not ready");
+    static int maxcheck = 0;
+    if (++maxcheck > 15) {
+        qWarning("seafile rpc is not ready after %d retry, abort", maxcheck);
+        seafApplet->errorAndExit(tr("%1 client failed to initialize").arg(getBrand()));
+    }
 }
 
 void DaemonManager::onCcnetDaemonExited()
@@ -127,6 +160,9 @@ void DaemonManager::stopAllDaemon()
 
     if (conn_daemon_timer_)
         conn_daemon_timer_->stop();
+    if (check_seaf_daemon_ready_timer_) {
+        check_seaf_daemon_ready_timer_->stop();
+    }
     if (seaf_daemon_) {
         seaf_daemon_->kill();
         seaf_daemon_->waitForFinished(50);

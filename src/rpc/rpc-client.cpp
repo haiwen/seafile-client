@@ -35,6 +35,22 @@ SeafileRpcClient::SeafileRpcClient()
 {
 }
 
+SeafileRpcClient::~SeafileRpcClient()
+{
+    if (ccnet_rpc_client_) {
+        ccnet_rpc_client_free(ccnet_rpc_client_);
+        ccnet_rpc_client_ = 0;
+    }
+    if (seafile_rpc_client_) {
+        ccnet_rpc_client_free(seafile_rpc_client_);
+        seafile_rpc_client_ = 0;
+    }
+    if (sync_client_) {
+        g_object_unref(sync_client_);
+        sync_client_ = 0;
+    }
+}
+
 void SeafileRpcClient::connectDaemon()
 {
     sync_client_ = ccnet_client_new();

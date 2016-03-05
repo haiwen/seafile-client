@@ -7,6 +7,7 @@
 
 #include "utils/utils.h"
 #include "seafile-applet.h"
+#include "account-mgr.h"
 #include "main-window.h"
 #include "rpc/rpc-client.h"
 #include "rpc/clone-task.h"
@@ -96,8 +97,16 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
     clear();
 
     QHash<QString, ServerRepo> map;
+    const Account& account = seafApplet->accountManager()->currentAccount();
     for (i = 0; i < n; i++) {
-        const ServerRepo& repo = repos[i];
+        ServerRepo repo = repos[i];
+        // When the user shares a repo to organization with read-only
+        // permission, the returned repo has permission set to "r", we need to
+        // fix it.
+        if (repo.owner == account.username && repo.permission == "r") {
+            repo.permission = "rw";
+            repo.readonly = false;
+        }
         if (repo.isPersonalRepo()) {
             if (repo.isVirtual()) {
                 checkVirtualRepo(repo);

@@ -28,16 +28,17 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
     repo.encrypted = json_is_true(json_object_get(json, "encrypted"));
 
     repo.type = getStringFromJson(json, "type");
-    repo.owner = getStringFromJson(json, "owner");
     repo.permission = getStringFromJson(json, "permission");
     repo.readonly = (repo.permission == "r") ? true : false;
 
     repo._virtual = json_is_true(json_object_get(json, "virtual"));
 
     if (repo.type == "grepo") {
-        repo.group_name = repo.owner;
+        repo.owner = getStringFromJson(json, "share_from");
+        repo.group_name = getStringFromJson(json, "owner");
         repo.group_id = json_integer_value(json_object_get(json, "groupid"));
     } else {
+        repo.owner = getStringFromJson(json, "owner");
         repo.group_name = QString();
         repo.group_id = 0;
     }

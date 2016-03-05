@@ -5,24 +5,14 @@
 
 void Utils::testReadableFileSize() {
     QCOMPARE(::readableFileSize(0), QString("0B"));
-    QCOMPARE(::readableFileSize(1024), QString("1024B"));
-    QCOMPARE(::readableFileSize(1025), QString("1KB"));
-    QCOMPARE(::readableFileSize(1<<20), QString("1024KB"));
-    QCOMPARE(::readableFileSize(1L<<30), QString("1024MB"));
-    QCOMPARE(::readableFileSize(1L<<40), QString("1024GB"));
+    QCOMPARE(::readableFileSize(1000), QString("1KB"));
+    QCOMPARE(::readableFileSize(1500), QString("2KB"));
+    QCOMPARE(::readableFileSize(1000000), QString("1.0MB"));
+    QCOMPARE(::readableFileSize(1230000), QString("1.2MB"));
+    QCOMPARE(::readableFileSize(1000 * 1000 * 1000), QString("1.0GB"));
+    QCOMPARE(::readableFileSize(1100 * 1000 * 1000), QString("1.1GB"));
 }
 
-void Utils::testReadableFileSizeV2() {
-    QCOMPARE(::readableFileSizeV2(0), QString("0 B"));
-    QCOMPARE(::readableFileSizeV2(1), QString("1B"));
-    QCOMPARE(::readableFileSizeV2(1<<10), QString("1.00K"));
-    QCOMPARE(::readableFileSizeV2(1024 + 512), QString("1.50K"));
-    QCOMPARE(::readableFileSizeV2(1<<20), QString("1.00M"));
-    QCOMPARE(::readableFileSizeV2(1L<<30), QString("1.00G"));
-    QCOMPARE(::readableFileSizeV2(1L<<40), QString("1.00T"));
-    QCOMPARE(::readableFileSizeV2(1024 + (1L<<40)), QString("1.00T"));
-    QCOMPARE(::readableFileSizeV2(1L<<50), QString("1.00P"));
-}
 
 void Utils::testIncludeUrlParams() {
     QUrl urla(QString("http://example.com"));

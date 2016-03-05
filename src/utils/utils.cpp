@@ -594,66 +594,32 @@ QString translateCommitTime(qint64 timestamp) {
 QString readableFileSize(qint64 size)
 {
     QString str;
+    double value = (double)size;
+    int precision = 1;
 
-    if (size <= 1024) {
+    if (value < 1000) {
         str = "B";
-    } else if (size > 1024 && size <= 1024*1024) {
-        size = size / 1024;
+        precision = 0;
+    } else if (value >= 1000 && value < 1000*1000) {
+        value = value / 1000;
         str = "KB";
-    } else if (size > 1024*1024 && size <= 1024*1024*1024) {
-        size = size / 1024 / 1024;
+        precision = 0;
+    } else if (value >= 1000*1000 && value < 1000*1000*1000) {
+        value = value / 1000 / 1000;
         str = "MB";
-    } else if (size > 1024*1024*1024) {
-        size = size / 1024 / 1024 / 1024;
+    } else if (value >= 1000*1000*1000) {
+        value = value / 1000 / 1000 / 1000;
         str = "GB";
     }
 
-    return QString::number(size) + str;
+    return QString::number(value, 'f', precision) + str;
 }
 
 QString readableFileSizeV2(qint64 size)
 {
-    if (size <= 0)
-        return "0 B";
-    //max size is 1 x 7 + 1
-    const int bufsize = 10;
-    char buf[bufsize];
-
-    int size_unit_b = size & 1023; //B
-    int size_unit_k = size >> 10 & 1023; //K
-    int size_unit_m = size >> 20 & 1023; //M
-    int size_unit_g = size >> 30 & 1023; //G
-    int size_unit_t = size >> 40 & 1023; //T
-    int size_unit_p = size >> 50 & 1023; //P
-    //omit all size large than 1PB
-
-    if (size_unit_p)
-        snprintf(buf, bufsize - 1,
-                 "%d.%.2dP",
-                 size_unit_p, (size_unit_t * 100) >> 10);
-    else if (size_unit_t)
-        snprintf(buf, bufsize - 1,
-                 "%d.%.2dT",
-                 size_unit_t, (size_unit_g * 100) >> 10);
-    else if (size_unit_g)
-        snprintf(buf, bufsize - 1,
-                 "%d.%.2dG",
-                 size_unit_g, (size_unit_m * 100) >> 10);
-    else if (size_unit_m)
-        snprintf(buf, bufsize - 1,
-                 "%d.%.2dM",
-                 size_unit_m, (size_unit_k * 100) >> 10);
-    else if (size_unit_k)
-        snprintf(buf, bufsize - 1,
-                 "%d.%.2dK",
-                 size_unit_k, (size_unit_b * 100) >> 10);
-    else
-        snprintf(buf, bufsize - 1,
-                 "%dB",
-                 size_unit_b);
-
-    return buf; // return by a new QString item
+    return readableFileSize(size);
 }
+
 
 QString md5(const QString& s)
 {

@@ -9,7 +9,6 @@ public:
 
 private slots:
     void testReadableFileSize();
-    void testReadableFileSizeV2();
     void testIncludeUrlParams();
 };
 

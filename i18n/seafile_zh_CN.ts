@@ -2508,7 +2508,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="244"/>
         <source>Organization</source>
-        <translation>机构</translation>
+        <translation>公共</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="377"/>

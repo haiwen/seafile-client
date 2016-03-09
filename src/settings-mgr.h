@@ -14,7 +14,8 @@ public:
     enum ProxyType {
         NoneProxy = 0,
         HttpProxy = 1,
-        SocksProxy = 2
+        SocksProxy = 2,
+        SystemProxy = 3
     };
     SettingsManager();
 

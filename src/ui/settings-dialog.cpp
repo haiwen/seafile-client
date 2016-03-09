@@ -50,6 +50,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     mProxyMethodComboBox->insertItem(SettingsManager::NoneProxy, tr("None"));
     mProxyMethodComboBox->insertItem(SettingsManager::HttpProxy, tr("HTTP Proxy"));
     mProxyMethodComboBox->insertItem(SettingsManager::SocksProxy, tr("Socks5 Proxy"));
+    mProxyMethodComboBox->insertItem(SettingsManager::SocksProxy, tr("System Proxy"));
     connect(mProxyMethodComboBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(proxyMethodChanged(int)));
     connect(mProxyRequirePassword, SIGNAL(stateChanged(int)),
@@ -280,6 +281,7 @@ void SettingsDialog::proxyMethodChanged(int state)
             mProxyPasswordLabel->setVisible(false);
             break;
         case SettingsManager::NoneProxy:
+        case SettingsManager::SystemProxy:
         default:
             mProxyHost->setVisible(false);
             mProxyHostLabel->setVisible(false);
@@ -350,11 +352,12 @@ bool SettingsDialog::updateProxySettings()
                           proxy_host, proxy_port);
             break;
         case SettingsManager::NoneProxy:
+        case SettingsManager::SystemProxy:
         default:
             if (proxy_type == old_proxy_type)
                 break;
             proxy_changed = true;
-            mgr->setProxy(SettingsManager::NoneProxy);
+            mgr->setProxy(proxy_type);
             break;
     }
 

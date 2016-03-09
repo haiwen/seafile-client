@@ -368,7 +368,18 @@ void SettingsManager::getProxy(QNetworkProxy *proxy) {
 }
 
 void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QString &proxy_host, int proxy_port, const QString &proxy_username, const QString &proxy_password) {
-    // NoneProxy ?
+    qWarning("proxy type is %d\n", (int)proxy_type);
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
+    if (proxy_type == SystemProxy) {
+        // QNetworkProxyFactory::setUseSystemConfiguration(true);
+        qWarning("Using system proxy: ON");
+        return;
+    } else {
+        // QNetworkProxyFactory::setUseSystemConfiguration(false);
+        qWarning("Using system proxy: OFF");
+    }
+    return;
+
     if (proxy_type == NoneProxy) {
         if (seafApplet->rpcClient()->seafileSetConfig("use_proxy", "false") < 0)
             return;
@@ -376,6 +387,7 @@ void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QStr
         QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
         return;
     }
+
     // Use the same Https/Socks Proxy?
     if (use_proxy_type_ == proxy_type && proxy_host_ == proxy_host && proxy_port_ == proxy_port) {
         if (proxy_type == SocksProxy)

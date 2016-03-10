@@ -38,31 +38,31 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     mTabWidget->setCurrentIndex(0);
 
-    // Since closeEvent() would not not called when accept() is called, we
-    // need to handle it here.
-    connect(this, SIGNAL(accepted()), this, SLOT(updateSettings()));
-
     if (!isCheckLatestVersionEnabled()) {
         mCheckLatestVersionBox->setVisible(false);
     }
 
     mLanguageComboBox->addItems(I18NHelper::getInstance()->getLanguages());
-    mProxyMethodComboBox->insertItem(SettingsManager::NoneProxy, tr("None"));
+    // The range of mProxyPort is set to (0, 65535) in the ui file, so we
+    // don't bother with that here.
+    mProxyMethodComboBox->insertItem(SettingsManager::NoProxy, tr("None"));
     mProxyMethodComboBox->insertItem(SettingsManager::HttpProxy, tr("HTTP Proxy"));
     mProxyMethodComboBox->insertItem(SettingsManager::SocksProxy, tr("Socks5 Proxy"));
-    mProxyMethodComboBox->insertItem(SettingsManager::SocksProxy, tr("System Proxy"));
+    mProxyMethodComboBox->insertItem(SettingsManager::SystemProxy, tr("System Proxy"));
     connect(mProxyMethodComboBox, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(proxyMethodChanged(int)));
+            this, SLOT(showHideControlsBasedOnCurrentProxyType(int)));
     connect(mProxyRequirePassword, SIGNAL(stateChanged(int)),
             this, SLOT(proxyRequirePasswordChanged(int)));
 
-    #if defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
 
     mDownloadSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
     mUploadSpinBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
-    #endif
+#endif
+
+    connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
 }
 
 void SettingsDialog::updateSettings()
@@ -109,19 +109,21 @@ void SettingsDialog::updateSettings()
 
 void SettingsDialog::closeEvent(QCloseEvent *event)
 {
+    // There is only one instance of settings dialog during the applet life
+    // time. During startup, applet loads settings from registry (or similar
+    // places on linux/osx) and load part of the settings from seaf daemon.
+    // Each time a user modifieds a settings item and clicks "OK" button, the
+    // change is both updated in memory and persisted to the registry.
     event->ignore();
     this->hide();
 }
 
 void SettingsDialog::showEvent(QShowEvent *event)
 {
-    Qt::CheckState state;
-    int ratio;
-
     SettingsManager *mgr = seafApplet->settingsManager();
-
     mgr->loadSettings();
 
+    Qt::CheckState state;
     state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;
     mHideMainWinCheckBox->setCheckState(state);
 
@@ -172,6 +174,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     state = mgr->notify() ? Qt::Checked : Qt::Unchecked;
     mNotifyCheckBox->setCheckState(state);
 
+    int ratio;
     ratio = mgr->maxDownloadRatio();
     mDownloadSpinBox->setValue(ratio);
     ratio = mgr->maxUploadRatio();
@@ -184,19 +187,14 @@ void SettingsDialog::showEvent(QShowEvent *event)
 
     mEnableSyncingWithExistingFolder->hide();
 
-    SettingsManager::ProxyType proxy_type;
-    QString proxy_host;
-    QString proxy_username;
-    QString proxy_password;
-    int proxy_port;
-    mgr->getProxy(proxy_type, proxy_host, proxy_port, proxy_username, proxy_password);
-    proxyMethodChanged(proxy_type);
-    mProxyMethodComboBox->setCurrentIndex(proxy_type);
-    mProxyHost->setText(proxy_host);
-    mProxyPort->setValue(proxy_port);
-    mProxyUsername->setText(proxy_username);
-    mProxyPassword->setText(proxy_password);
-    if (!proxy_username.isEmpty())
+    SettingsManager::SeafileProxy proxy = mgr->getProxy();
+    showHideControlsBasedOnCurrentProxyType(proxy.type);
+    mProxyMethodComboBox->setCurrentIndex(proxy.type);
+    mProxyHost->setText(proxy.host);
+    mProxyPort->setValue(proxy.port);
+    mProxyUsername->setText(proxy.username);
+    mProxyPassword->setText(proxy.password);
+    if (!proxy.username.isEmpty())
         mProxyRequirePassword->setChecked(true);
 
     mLanguageComboBox->setCurrentIndex(I18NHelper::getInstance()->preferredLanguage());
@@ -253,7 +251,7 @@ void SettingsDialog::proxyRequirePasswordChanged(int state)
     }
 }
 
-void SettingsDialog::proxyMethodChanged(int state)
+void SettingsDialog::showHideControlsBasedOnCurrentProxyType(int state)
 {
     SettingsManager::ProxyType proxy_type =
         static_cast<SettingsManager::ProxyType>(state);
@@ -280,7 +278,7 @@ void SettingsDialog::proxyMethodChanged(int state)
             mProxyPassword->setVisible(false);
             mProxyPasswordLabel->setVisible(false);
             break;
-        case SettingsManager::NoneProxy:
+        case SettingsManager::NoProxy:
         case SettingsManager::SystemProxy:
         default:
             mProxyHost->setVisible(false);
@@ -296,17 +294,12 @@ void SettingsDialog::proxyMethodChanged(int state)
     }
 }
 
+// Called when the user clicked "OK" button of the settings dialog. Return
+// true if the proxy settings has been changed by the user.
 bool SettingsDialog::updateProxySettings()
 {
-    bool proxy_changed = false;
-
     SettingsManager *mgr = seafApplet->settingsManager();
-    SettingsManager::ProxyType old_proxy_type;
-    QString old_proxy_host;
-    QString old_proxy_username;
-    QString old_proxy_password;
-    int old_proxy_port;
-    mgr->getProxy(old_proxy_type, old_proxy_host, old_proxy_port, old_proxy_username, old_proxy_password);
+    SettingsManager::SeafileProxy old_proxy = mgr->getProxy();
 
     SettingsManager::ProxyType proxy_type = static_cast<SettingsManager::ProxyType>(mProxyMethodComboBox->currentIndex());
     QString proxy_host = mProxyHost->text().trimmed();
@@ -314,52 +307,80 @@ bool SettingsDialog::updateProxySettings()
     QString proxy_password = mProxyPassword->text().trimmed();
     int proxy_port = mProxyPort->value();
 
+    SettingsManager::SeafileProxy new_proxy(proxy_type);
+
     switch(proxy_type) {
         case SettingsManager::HttpProxy:
-                // if we setup proxy username now and previously
+            new_proxy.host = proxy_host;
+            new_proxy.port = proxy_port;
             if (mProxyRequirePassword->checkState() == Qt::Checked) {
-                if (proxy_type == old_proxy_type &&
-                    proxy_host == old_proxy_host &&
-                    proxy_port == old_proxy_port &&
-                    proxy_username == old_proxy_username &&
-                    proxy_password == old_proxy_password)
-                    break;
-                proxy_changed = true;
-                mgr->setProxy(SettingsManager::HttpProxy,
-                              proxy_host, proxy_port,
-                              proxy_username, proxy_password);
+                new_proxy.username = proxy_username;
+                new_proxy.password = proxy_password;
                 break;
-            }
-            else {
-                // and if we don't setup proxy username now and previously
-                if (proxy_type == old_proxy_type &&
-                    proxy_host == old_proxy_host &&
-                    proxy_port == old_proxy_port &&
-                    old_proxy_username.isEmpty())
-                    break;
-                proxy_changed = true;
-                mgr->setProxy(SettingsManager::HttpProxy,
-                              proxy_host, proxy_port);
             }
             break;
         case SettingsManager::SocksProxy:
-            if (proxy_type == old_proxy_type &&
-                proxy_host == old_proxy_host &&
-                proxy_port == old_proxy_port)
-                break;
-            proxy_changed = true;
-            mgr->setProxy(SettingsManager::SocksProxy,
-                          proxy_host, proxy_port);
+            new_proxy.host = proxy_host;
+            new_proxy.port = proxy_port;
             break;
-        case SettingsManager::NoneProxy:
+        case SettingsManager::NoProxy:
         case SettingsManager::SystemProxy:
         default:
-            if (proxy_type == old_proxy_type)
-                break;
-            proxy_changed = true;
-            mgr->setProxy(proxy_type);
             break;
     }
 
-    return proxy_changed;
+    if (new_proxy != old_proxy) {
+        mgr->setProxy(new_proxy);
+        return true;
+    }
+
+    return false;
+}
+
+bool SettingsDialog::validateProxyInputs()
+{
+    SettingsManager::ProxyType proxy_type =
+        static_cast<SettingsManager::ProxyType>(
+            mProxyMethodComboBox->currentIndex());
+    if (proxy_type == SettingsManager::NoProxy ||
+        proxy_type == SettingsManager::SystemProxy) {
+        return true;
+    }
+
+    QString proxy_host = mProxyHost->text().trimmed();
+    if (proxy_host.isEmpty()) {
+        seafApplet->warningBox(tr("The proxy host address can't be empty"),
+                               this);
+        return false;
+    }
+
+    int proxy_port = mProxyPort->value();
+    if (proxy_port == 0) {
+        seafApplet->warningBox(tr("The proxy port is incorrect"),
+                               this);
+        return false;
+    }
+
+    if (mProxyRequirePassword->checkState() == Qt::Checked) {
+        QString proxy_username = mProxyUsername->text().trimmed();
+        QString proxy_password = mProxyPassword->text().trimmed();
+        if (proxy_username.isEmpty()) {
+            seafApplet->warningBox(tr("Proxy username can't be empty"), this);
+            return false;
+        } else if (proxy_password.isEmpty()) {
+            seafApplet->warningBox(tr("Proxy password can't be empty"), this);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void SettingsDialog::onOkBtnClicked()
+{
+    if (!validateProxyInputs()) {
+        return;
+    }
+    updateSettings();
+    accept();
 }

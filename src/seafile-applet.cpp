@@ -245,12 +245,12 @@ const char* const kHideConfigurationWizard = "HideConfigurationWizard";
 #if defined(Q_OS_WIN32)
 const char *const kSeafileConfigureFileName = "seafile.ini";
 const char *const kSeafileConfigurePath = "SOFTWARE\\Seafile";
+const int kIntervalBeforeShowInitVirtualDialog = 3000;
 #else
 const char *const kSeafileConfigureFileName = ".seafilerc";
 #endif
 const char *const kSeafilePreconfigureGroupName = "preconfigure";
 
-const int kIntervalBeforeShowInitVirtualDialog = 3000;
 const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";

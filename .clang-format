@@ -90,6 +90,7 @@ IndentWidth:     4
 # Continuation indents such as assignment statements are indented by 2 spaces.
 ContinuationIndentWidth: 4
 
+PointerAlignment: Right
 # Don't try to guess the pointer alignment
 DerivePointerAlignment: false
 

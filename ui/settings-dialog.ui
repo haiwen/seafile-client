@@ -563,28 +563,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>421</x>
-     <y>238</y>
+     <x>711</x>
+     <y>566</y>
     </hint>
     <hint type="destinationlabel">
      <x>249</x>
      <y>249</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>mOkBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>280</x>
-     <y>227</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>119</x>
-     <y>223</y>
     </hint>
    </hints>
   </connection>

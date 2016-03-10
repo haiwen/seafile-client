@@ -1,6 +1,7 @@
 #include <QSettings>
 #include <QHostInfo>
 #include <QNetworkProxy>
+#include <QNetworkProxyQuery>
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
 #include "seafile-applet.h"
@@ -19,16 +20,16 @@
 #include "finder-sync/finder-sync.h"
 #endif
 
-namespace {
-
+namespace
+{
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
 const char *kHideDockIcon = "hideDockIcon";
 const char *kCheckLatestVersion = "checkLatestVersion";
 const char *kEnableSyncingWithExistingFolder = "syncingWithExistingFolder";
 const char *kBehaviorGroup = "Behavior";
 
-//const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
-//const char *kStatusGroup = "Status";
+// const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
+// const char *kStatusGroup = "Status";
 
 const char *kSettingsGroup = "Settings";
 const char *kComputerName = "computerName";
@@ -39,10 +40,20 @@ const char *kFinderSync = "finderSync";
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
+const char *kUseProxy = "use_proxy";
+const char *kProxyType = "proxy_type";
+const char *kProxyAddr = "proxy_addr";
+const char *kProxyPort = "proxy_port";
+const char *kProxyUsername = "proxy_username";
+const char *kProxyPassword = "proxy_password";
+
+
+#ifdef Q_OS_WIN32
 QString softwareSeafile()
 {
     return QString("SOFTWARE\\%1").arg(getBrand());
 }
+#endif
 
 } // namespace
 
@@ -58,8 +69,7 @@ SettingsManager::SettingsManager()
       maxDownloadRatio_(0),
       maxUploadRatio_(0),
       verify_http_sync_cert_disabled_(false),
-      use_proxy_type_(NoneProxy),
-      proxy_port_(0)
+      current_proxy_(SeafileProxy())
 {
 }
 
@@ -74,69 +84,31 @@ void SettingsManager::loadSettings()
     if (seafApplet->rpcClient()->ccnetGetConfig("encrypt_channel", &str) >= 0)
         transferEncrypted_ = (str == "off") ? false : true;
 
-    if (seafApplet->rpcClient()->seafileGetConfigInt("download_limit", &value) >= 0)
+    if (seafApplet->rpcClient()->seafileGetConfigInt("download_limit",
+                                                     &value) >= 0)
         maxDownloadRatio_ = value >> 10;
 
-    if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit", &value) >= 0)
+    if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit", &value) >=
+        0)
         maxUploadRatio_ = value >> 10;
 
-    if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree", &str) >= 0)
+    if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree",
+                                                  &str) >= 0)
         allow_invalid_worktree_ = (str == "true") ? true : false;
 
-    if (seafApplet->rpcClient()->seafileGetConfig("sync_extra_temp_file", &str) >= 0)
+    if (seafApplet->rpcClient()->seafileGetConfig("sync_extra_temp_file",
+                                                  &str) >= 0)
         sync_extra_temp_file_ = (str == "true") ? true : false;
 
-    if (seafApplet->rpcClient()->seafileGetConfig("allow_repo_not_found_on_server", &str) >= 0)
+    if (seafApplet->rpcClient()->seafileGetConfig(
+            "allow_repo_not_found_on_server", &str) >= 0)
         allow_repo_not_found_on_server_ = (str == "true") ? true : false;
 
-    if (seafApplet->rpcClient()->seafileGetConfig("disable_verify_certificate", &str) >= 0)
+    if (seafApplet->rpcClient()->seafileGetConfig("disable_verify_certificate",
+                                                  &str) >= 0)
         verify_http_sync_cert_disabled_ = (str == "true") ? true : false;
 
-    // reading proxy settings
-    do {
-        if (seafApplet->rpcClient()->seafileGetConfig("use_proxy", &str) < 0 ) {
-            setProxy(NoneProxy);
-            break;
-        }
-        if (str == "false") {
-            setProxy(NoneProxy);
-            break;
-        }
-        QString proxy_host;
-        int proxy_port;
-        QString proxy_username;
-        QString proxy_password;
-        if (seafApplet->rpcClient()->seafileGetConfig("proxy_addr", &proxy_host) < 0) {
-            setProxy(NoneProxy);
-            break;
-        }
-        if (seafApplet->rpcClient()->seafileGetConfigInt("proxy_port", &proxy_port) < 0) {
-            setProxy(NoneProxy);
-            break;
-        }
-        if (seafApplet->rpcClient()->seafileGetConfig("proxy_type", &str) < 0) {
-            setProxy(NoneProxy);
-            break;
-        }
-        if (str == "http") {
-            if (seafApplet->rpcClient()->seafileGetConfig("proxy_username", &proxy_username) < 0) {
-                setProxy(NoneProxy);
-                break;
-            }
-            if (seafApplet->rpcClient()->seafileGetConfig("proxy_password", &proxy_password) < 0) {
-                setProxy(NoneProxy);
-                break;
-            }
-            setProxy(HttpProxy, proxy_host, proxy_port, proxy_username, proxy_password);
-        } else if (str == "socks") {
-            setProxy(SocksProxy, proxy_host, proxy_port);
-        } else {
-            if (!str.isEmpty())
-                qWarning("Unsupported proxy_type %s", str.toUtf8().data());
-            setProxy(NoneProxy);
-        }
-    } while(0);
-
+    loadProxySettings();
 
     autoStart_ = get_seafile_auto_start();
 
@@ -152,10 +124,71 @@ void SettingsManager::loadSettings()
 
 
 #ifdef Q_OS_WIN32
-    RegElement reg(HKEY_CURRENT_USER, softwareSeafile(), "ShellExtDisabled", "");
+    RegElement reg(HKEY_CURRENT_USER, softwareSeafile(), "ShellExtDisabled",
+                   "");
     shell_ext_enabled_ = !reg.exists();
 #endif
 }
+
+void SettingsManager::loadProxySettings()
+{
+    SeafileProxy proxy;
+
+    QString use_proxy;
+    seafApplet->rpcClient()->seafileGetConfig(kUseProxy, &use_proxy);
+    if (use_proxy != "true") {
+        return;
+    }
+
+    QString proxy_type;
+    QString proxy_host;
+    int proxy_port;
+    QString proxy_username;
+    QString proxy_password;
+
+    if (seafApplet->rpcClient()->seafileGetConfig(kProxyAddr, &proxy_host) <
+        0) {
+        return;
+    }
+    if (seafApplet->rpcClient()->seafileGetConfigInt(kProxyPort, &proxy_port) <
+        0) {
+        return;
+    }
+    if (seafApplet->rpcClient()->seafileGetConfig(kProxyType, &proxy_type) <
+        0) {
+        return;
+    }
+    if (proxy_type == "http") {
+        if (seafApplet->rpcClient()->seafileGetConfig(kProxyUsername,
+                                                      &proxy_username) < 0) {
+            return;
+        }
+        if (seafApplet->rpcClient()->seafileGetConfig(kProxyPassword,
+                                                      &proxy_password) < 0) {
+            return;
+        }
+        proxy.type = HttpProxy;
+        proxy.host = proxy_host;
+        proxy.port = proxy_port;
+        proxy.username = proxy_username;
+        proxy.password = proxy_password;
+
+    } else if (proxy_type == "socks") {
+        proxy.type = SocksProxy;
+        proxy.host = proxy_host;
+        proxy.port = proxy_port;
+
+    } else if (proxy_type == "system") {
+        proxy.type = SystemProxy;
+    } else if (!proxy_type.isEmpty()) {
+        qWarning("Unsupported proxy_type %s", proxy_type.toUtf8().data());
+        return;
+    }
+
+    current_proxy_ = proxy;
+    applyProxySettings();
+}
+
 
 void SettingsManager::setAutoSync(bool auto_sync)
 {
@@ -165,17 +198,16 @@ void SettingsManager::setAutoSync(bool auto_sync)
     }
     auto_sync_ = auto_sync;
     seafApplet->trayIcon()->setState(
-        auto_sync
-        ? SeafileTrayIcon::STATE_DAEMON_UP
-        : SeafileTrayIcon::STATE_DAEMON_AUTOSYNC_DISABLED);
+        auto_sync ? SeafileTrayIcon::STATE_DAEMON_UP
+                  : SeafileTrayIcon::STATE_DAEMON_AUTOSYNC_DISABLED);
     emit autoSyncChanged(auto_sync);
 }
 
 void SettingsManager::setNotify(bool notify)
 {
     if (bubbleNotifycation_ != notify) {
-        if (seafApplet->rpcClient()->seafileSetConfig("notify_sync",
-                                                      notify ? "on" : "off") < 0) {
+        if (seafApplet->rpcClient()->seafileSetConfig(
+                "notify_sync", notify ? "on" : "off") < 0) {
             // Error
             return;
         }
@@ -186,7 +218,7 @@ void SettingsManager::setNotify(bool notify)
 void SettingsManager::setAutoStart(bool autoStart)
 {
     if (autoStart_ != autoStart) {
-        if (set_seafile_auto_start (autoStart) >= 0)
+        if (set_seafile_auto_start(autoStart) >= 0)
             autoStart_ = autoStart;
     }
 }
@@ -194,8 +226,8 @@ void SettingsManager::setAutoStart(bool autoStart)
 void SettingsManager::setEncryptTransfer(bool encrypted)
 {
     if (transferEncrypted_ != encrypted) {
-        if (seafApplet->rpcClient()->ccnetSetConfig("encrypt_channel",
-                                                    encrypted ? "on" : "off") < 0) {
+        if (seafApplet->rpcClient()->ccnetSetConfig(
+                "encrypt_channel", encrypted ? "on" : "off") < 0) {
             // Error
             return;
         }
@@ -336,8 +368,8 @@ bool SettingsManager::isCheckLatestVersionEnabled()
 void SettingsManager::setAllowInvalidWorktree(bool val)
 {
     if (allow_invalid_worktree_ != val) {
-        if (seafApplet->rpcClient()->seafileSetConfig("allow_invalid_worktree",
-                                                      val ? "true" : "false") < 0) {
+        if (seafApplet->rpcClient()->seafileSetConfig(
+                "allow_invalid_worktree", val ? "true" : "false") < 0) {
             // Error
             return;
         }
@@ -349,102 +381,123 @@ void SettingsManager::setSyncExtraTempFile(bool sync)
 {
     if (sync_extra_temp_file_ != sync) {
         if (seafApplet->rpcClient()->seafileSetConfig(
-                "sync_extra_temp_file",
-                sync ? "true" : "false") < 0) {
+                "sync_extra_temp_file", sync ? "true" : "false") < 0) {
             // Error
             return;
         }
         sync_extra_temp_file_ = sync;
     }
 }
-void SettingsManager::getProxy(QNetworkProxy *proxy) {
-    proxy->setType(use_proxy_type_ == HttpProxy ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy);
-    proxy->setHostName(proxy_host_);
-    proxy->setPort(proxy_port_);
-    if (use_proxy_type_ == HttpProxy && !proxy_username_.isEmpty() && !proxy_password_.isEmpty()) {
-        proxy->setUser(proxy_username_);
-        proxy->setPassword(proxy_password_);
+
+void SettingsManager::getProxy(QNetworkProxy *proxy) const
+{
+    current_proxy_.toQtNetworkProxy(proxy);
+    return;
+}
+
+void SettingsManager::SeafileProxy::toQtNetworkProxy(QNetworkProxy *proxy) const
+{
+    if (type == NoProxy) {
+        proxy->setType(QNetworkProxy::NoProxy);
+        return;
+    }
+    proxy->setType(type == HttpProxy ? QNetworkProxy::HttpProxy
+                                     : QNetworkProxy::Socks5Proxy);
+    proxy->setHostName(host);
+    proxy->setPort(port);
+    if (type == HttpProxy && !username.isEmpty() && !password.isEmpty()) {
+        proxy->setUser(username);
+        proxy->setPassword(password);
     }
 }
 
-void SettingsManager::setProxy(SettingsManager::ProxyType proxy_type, const QString &proxy_host, int proxy_port, const QString &proxy_username, const QString &proxy_password) {
-    qWarning("proxy type is %d\n", (int)proxy_type);
-    QNetworkProxyFactory::setUseSystemConfiguration(true);
-    if (proxy_type == SystemProxy) {
-        // QNetworkProxyFactory::setUseSystemConfiguration(true);
-        qWarning("Using system proxy: ON");
+bool SettingsManager::SeafileProxy::operator==(const SeafileProxy &rhs) const
+{
+    return type == rhs.type && host == rhs.host && port == rhs.port &&
+           username == rhs.username && password == rhs.password;
+}
+
+void SettingsManager::setProxy(const SeafileProxy &proxy)
+{
+    qWarning("proxy type is %d\n", (int)proxy.type);
+    if (proxy == current_proxy_) {
+        return;
+    }
+    current_proxy_ = proxy;
+
+    writeProxySettingsToDaemon(proxy);
+    applyProxySettings();
+}
+
+void SettingsManager::applyProxySettings()
+{
+    if (current_proxy_.type == SystemProxy) {
+        QNetworkProxyFactory::setUseSystemConfiguration(true);
+        QNetworkProxyQuery query(QUrl("https://seacloud.cc"));
+        QList<QNetworkProxy> proxies =
+            QNetworkProxyFactory::proxyForQuery(query);
+        if (proxies.size() > 0) {
+            QNetworkProxy proxy = proxies[0];
+            printf("%s:%d %s %s \n", proxy.hostName().toUtf8().data(),
+                   proxy.port(), proxy.user().toUtf8().data(),
+                   proxy.password().toUtf8().data());
+        }
+        qDebug("Using system proxy: ON");
         return;
     } else {
-        // QNetworkProxyFactory::setUseSystemConfiguration(false);
-        qWarning("Using system proxy: OFF");
+        QNetworkProxyFactory::setUseSystemConfiguration(false);
+        qDebug("Using system proxy: OFF");
     }
-    return;
 
-    if (proxy_type == NoneProxy) {
-        if (seafApplet->rpcClient()->seafileSetConfig("use_proxy", "false") < 0)
-            return;
-        use_proxy_type_ = proxy_type;
+    if (current_proxy_.type == NoProxy) {
         QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
-        return;
     }
 
-    // Use the same Https/Socks Proxy?
-    if (use_proxy_type_ == proxy_type && proxy_host_ == proxy_host && proxy_port_ == proxy_port) {
-        if (proxy_type == SocksProxy)
-            return;
-        if (proxy_type == HttpProxy && proxy_username_ == proxy_username && proxy_password_ == proxy_username)
-            return;
-    }
-    // invalid settings
-    if (proxy_type != SocksProxy && proxy_type != HttpProxy) {
-        return;
-    }
-    // invalid settings
-    if (proxy_host.isEmpty()) {
-        return;
-    }
-
-    // Otherwise, write settings
-    if (seafApplet->rpcClient()->seafileSetConfig("use_proxy", "true") < 0)
-        return;
-    if (seafApplet->rpcClient()->seafileSetConfig("proxy_type", proxy_type == HttpProxy ? "http" : "socks") < 0)
-        return;
-    if (seafApplet->rpcClient()->seafileSetConfig("proxy_addr", proxy_host.toUtf8().data()) < 0)
-        return;
-    if (seafApplet->rpcClient()->seafileSetConfig("proxy_port", QVariant(proxy_port).toString().toUtf8().data()) < 0)
-        return;
-    if (proxy_type == HttpProxy) {
-        if (seafApplet->rpcClient()->seafileSetConfig("proxy_username", proxy_username.toUtf8().data()) < 0)
-            return;
-        if (seafApplet->rpcClient()->seafileSetConfig("proxy_password", proxy_password.toUtf8().data()) < 0)
-            return;
-    }
-    // skip invalid port
-    if (proxy_type == HttpProxy && proxy_port == 0)
-        proxy_port = 80;
-    if (proxy_port == 0)
-        return;
-
-    // save settings
-    use_proxy_type_ = proxy_type;
-    proxy_host_ = proxy_host;
-    proxy_port_ = proxy_port;
-    if (proxy_type == HttpProxy) {
-        proxy_username_ = proxy_username;
-        proxy_password_ = proxy_password;
-    }
-
-    // apply settings
     QNetworkProxy proxy;
     getProxy(&proxy);
     NetworkManager::instance()->applyProxy(proxy);
 }
 
+void SettingsManager::writeProxySettingsToDaemon(const SeafileProxy &proxy)
+{
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    if (proxy.type == NoProxy) {
+        rpc->seafileSetConfig(kUseProxy, "false");
+        return;
+    }
+
+    if (rpc->seafileSetConfig(kUseProxy, "true") < 0) {
+        return;
+    }
+
+    if (proxy.type == SystemProxy) {
+        rpc->seafileSetConfig(kProxyType, "system");
+        return;
+    }
+
+    if (rpc->seafileSetConfig(kProxyType,
+                              proxy.type == HttpProxy ? "http" : "socks") < 0)
+        return;
+    if (rpc->seafileSetConfig(kProxyAddr, proxy.host.toUtf8().data()) < 0)
+        return;
+    if (rpc->seafileSetConfig(
+            kProxyPort, QVariant(proxy.port).toString().toUtf8().data()) < 0)
+        return;
+    if (proxy.type == HttpProxy) {
+        if (rpc->seafileSetConfig(kProxyUsername,
+                                  proxy.username.toUtf8().data()) < 0)
+            return;
+        if (rpc->seafileSetConfig(kProxyPassword,
+                                  proxy.password.toUtf8().data()) < 0)
+            return;
+    }
+}
+
 void SettingsManager::setAllowRepoNotFoundOnServer(bool val)
 {
     if (allow_repo_not_found_on_server_ != val) {
-        if (seafApplet->rpcClient()->seafileSetConfig("allow_repo_not_found_on_server",
-                                                      val ? "true" : "false") < 0) {
+        if (seafApplet->rpcClient()->seafileSetConfig(
+                "allow_repo_not_found_on_server", val ? "true" : "false") < 0) {
             // Error
             return;
         }
@@ -455,8 +508,9 @@ void SettingsManager::setAllowRepoNotFoundOnServer(bool val)
 void SettingsManager::setHttpSyncCertVerifyDisabled(bool disabled)
 {
     if (verify_http_sync_cert_disabled_ != disabled) {
-        if (seafApplet->rpcClient()->seafileSetConfig("disable_verify_certificate",
-                                                      disabled ? "true" : "false") < 0) {
+        if (seafApplet->rpcClient()->seafileSetConfig(
+                "disable_verify_certificate", disabled ? "true" : "false") <
+            0) {
             // Error
             return;
         }
@@ -499,7 +553,7 @@ QString SettingsManager::getComputerName()
     return name;
 }
 
-void SettingsManager::setComputerName(const QString& computerName)
+void SettingsManager::setComputerName(const QString &computerName)
 {
     QSettings settings;
     settings.beginGroup(kSettingsGroup);
@@ -520,7 +574,7 @@ QString SettingsManager::getLastShibUrl()
     return url;
 }
 
-void SettingsManager::setLastShibUrl(const QString& url)
+void SettingsManager::setLastShibUrl(const QString &url)
 {
     QSettings settings;
     settings.beginGroup(kSettingsGroup);
@@ -557,7 +611,7 @@ void SettingsManager::setFinderSyncExtension(bool enabled)
     if (!getFinderSyncExtensionAvailable()) {
         qWarning("Unable to find FinderSync Extension");
     } else if (enabled != FinderSyncExtensionHelper::isEnabled() &&
-        !FinderSyncExtensionHelper::setEnable(enabled)) {
+               !FinderSyncExtensionHelper::setEnable(enabled)) {
         qWarning("Unable to enable FinderSync Extension");
     }
 }
@@ -569,7 +623,8 @@ void SettingsManager::setShellExtensionEnabled(bool enabled)
     shell_ext_enabled_ = enabled;
 
     RegElement reg1(HKEY_CURRENT_USER, softwareSeafile(), "", "");
-    RegElement reg2(HKEY_CURRENT_USER, softwareSeafile(), "ShellExtDisabled", "1");
+    RegElement reg2(HKEY_CURRENT_USER, softwareSeafile(), "ShellExtDisabled",
+                    "1");
     if (enabled) {
         reg2.remove();
     } else {
@@ -577,4 +632,4 @@ void SettingsManager::setShellExtensionEnabled(bool enabled)
         reg2.add();
     }
 }
-#endif  // Q_OS_WIN32
+#endif // Q_OS_WIN32

@@ -22,12 +22,14 @@ private slots:
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
     void updateSettings();
+    void onOkBtnClicked();
 
     void proxyRequirePasswordChanged(int state);
-    void proxyMethodChanged(int state);
+    void showHideControlsBasedOnCurrentProxyType(int state);
 
 private:
     bool updateProxySettings();
+    bool validateProxyInputs();
 
     Q_DISABLE_COPY(SettingsDialog);
 };

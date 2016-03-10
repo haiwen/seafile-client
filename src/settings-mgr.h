@@ -12,11 +12,39 @@ class SettingsManager : public QObject {
 
 public:
     enum ProxyType {
-        NoneProxy = 0,
+        NoProxy = 0,
         HttpProxy = 1,
         SocksProxy = 2,
         SystemProxy = 3
     };
+
+    struct SeafileProxy {
+        ProxyType type;
+
+        QString host;
+        int port;
+        QString username;
+        QString password;
+
+        SeafileProxy(ProxyType _type = NoProxy,
+                     const QString _host = QString(),
+                     int _port = 0,
+                     const QString& _username = QString(),
+                     const QString& _password = QString())
+            : type(_type),
+              host(_host),
+              port(_port),
+              username(_username),
+              password(_password)
+        {
+        }
+
+        void toQtNetworkProxy(QNetworkProxy *proxy) const;
+
+        bool operator==(const SeafileProxy& rhs) const;
+        bool operator!=(const SeafileProxy& rhs) const { return !(*this == rhs); };
+    };
+
     SettingsManager();
 
     void loadSettings();
@@ -31,14 +59,9 @@ public:
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
     bool allowInvalidWorktree() { return allow_invalid_worktree_; }
     bool syncExtraTempFile() { return sync_extra_temp_file_; }
-    void getProxy(QNetworkProxy *proxy);
-    void getProxy(ProxyType &proxy_type, QString &proxy_host, int &proxy_port, QString &proxy_username, QString &proxy_password) {
-        proxy_type = use_proxy_type_;
-        proxy_host = proxy_host_;
-        proxy_port = proxy_port_;
-        proxy_username = proxy_username_;
-        proxy_password = proxy_password_;
-    }
+
+    void getProxy(QNetworkProxy *proxy) const;
+    SeafileProxy getProxy() const { return current_proxy_; };
 
     void setNotify(bool notify);
     void setAutoStart(bool autoStart);
@@ -47,7 +70,7 @@ public:
     void setMaxUploadRatio(unsigned int ratio);
     void setAllowInvalidWorktree(bool val);
     void setSyncExtraTempFile(bool sync);
-    void setProxy(ProxyType proxy_type, const QString &proxy_host = QString(), int proxy_port = 0, const QString &proxy_username = QString(), const QString &proxy_password = QString());
+    void setProxy(const SeafileProxy& proxy);
 
     bool hideMainWindowWhenStarted();
     void setHideMainWindowWhenStarted(bool hide);
@@ -99,6 +122,10 @@ signals:
 private:
     Q_DISABLE_COPY(SettingsManager)
 
+    void loadProxySettings();
+    void writeProxySettingsToDaemon(const SeafileProxy& proxy);
+    void applyProxySettings();
+
     bool auto_sync_;
     bool bubbleNotifycation_;
     bool autoStart_;
@@ -112,11 +139,7 @@ private:
     bool shell_ext_enabled_;
 
     // proxy settings
-    ProxyType use_proxy_type_;
-    QString proxy_host_;
-    int proxy_port_;
-    QString proxy_username_;
-    QString proxy_password_;
+    SeafileProxy current_proxy_;
 };
 
 #endif // SEAFILE_CLIENT_SETTINGS_MANAGER_H

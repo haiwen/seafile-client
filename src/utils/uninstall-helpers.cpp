@@ -34,7 +34,9 @@ extern "C" {
 namespace {
 
 const char *kAppletCommandsMQ = "applet.commands";
+#if defined(Q_OS_WIN32)
 const char *kPreconfigureKeepConfigWhenUninstall = "PreconfigureKeepConfigWhenUninstall";
+#endif
 
 } // namespace
 

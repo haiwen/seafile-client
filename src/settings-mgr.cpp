@@ -433,15 +433,6 @@ void SettingsManager::applyProxySettings()
 {
     if (current_proxy_.type == SystemProxy) {
         QNetworkProxyFactory::setUseSystemConfiguration(true);
-        QNetworkProxyQuery query(QUrl("https://seacloud.cc"));
-        QList<QNetworkProxy> proxies =
-            QNetworkProxyFactory::proxyForQuery(query);
-        if (proxies.size() > 0) {
-            QNetworkProxy proxy = proxies[0];
-            printf("%s:%d %s %s \n", proxy.hostName().toUtf8().data(),
-                   proxy.port(), proxy.user().toUtf8().data(),
-                   proxy.password().toUtf8().data());
-        }
         qDebug("Using system proxy: ON");
         return;
     } else {
@@ -633,3 +624,75 @@ void SettingsManager::setShellExtensionEnabled(bool enabled)
     }
 }
 #endif // Q_OS_WIN32
+
+class UseSystemProxyContext {
+public:
+    UseSystemProxyContext() {
+        QNetworkProxyFactory::setUseSystemConfiguration(true);
+    }
+
+    ~UseSystemProxyContext() {
+        QNetworkProxyFactory::setUseSystemConfiguration(false);
+    }
+};
+
+void SettingsManager::writeSystemProxyInfo(const QUrl &url,
+                                           const QString &file_path)
+{
+    UseSystemProxyContext context;
+    QNetworkProxyQuery query(url);
+    bool use_proxy = true;
+    QNetworkProxy proxy;
+    QList<QNetworkProxy> proxies = QNetworkProxyFactory::proxyForQuery(query);
+
+    // printf("list of proxies: %d\n", proxies.size());
+    // foreach (const QNetworkProxy &proxy, proxies) {
+    //     static int i = 0;
+    //     printf("[proxy number %d] %d %s:%d %s %s \n", i++, (int)proxy.type(),
+    //            proxy.hostName().toUtf8().data(), proxy.port(),
+    //            proxy.user().toUtf8().data(),
+    //            proxy.password().toUtf8().data());
+    // }
+
+    if (proxies.empty()) {
+        use_proxy = false;
+    } else {
+        proxy = proxies[0];
+        if (proxy.type() == QNetworkProxy::NoProxy ||
+            proxy.type() == QNetworkProxy::DefaultProxy ||
+            proxy.type() == QNetworkProxy::FtpCachingProxy) {
+            use_proxy = false;
+        }
+
+        if (proxy.hostName().isEmpty() || proxy.port() == 0) {
+            use_proxy = false;
+        }
+    }
+    QString content;
+    if (use_proxy) {
+        QString type;
+        if (proxy.type() == QNetworkProxy::HttpProxy ||
+            proxy.type() == QNetworkProxy::HttpCachingProxy) {
+            type = "http";
+        } else {
+            type = "socks";
+        }
+        QString json_content =
+            "{\"type\": \"%1\", \"addr\": \"%2\", \"port\": %3, \"username\": "
+            "\"%4\", \"password\": \"%5\"}";
+        content = json_content.arg(type)
+                      .arg(proxy.hostName())
+                      .arg(proxy.port())
+                      .arg(proxy.user())
+                      .arg(proxy.password());
+    } else {
+        content = "{\"type\": \"none\"}";
+    }
+
+    QFile system_proxy_txt(file_path);
+    if (!system_proxy_txt.open(QIODevice::WriteOnly)) {
+        return;
+    }
+
+    system_proxy_txt.write(content.toUtf8().data());
+}

@@ -7,6 +7,8 @@
  * Settings Manager handles seafile client user settings & preferences
  */
 class QNetworkProxy;
+class QUrl;
+
 class SettingsManager : public QObject {
     Q_OBJECT
 
@@ -115,6 +117,8 @@ public:
 
     // Remove all settings from system when uninstall
     static void removeAllSettings();
+    // Write the system proxy information, to be read by seaf-daemon.
+    static void writeSystemProxyInfo(const QUrl& url, const QString& file_path);
 
 signals:
     void autoSyncChanged(bool auto_sync);

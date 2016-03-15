@@ -328,7 +328,7 @@ int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
 {
     GError *error = NULL;
     searpc_client_call__int (seafile_rpc_client_,
-                             "seafile_set_config", &error,
+                             "seafile_set_config_int", &error,
                              2, "string", toCStr(key),
                              "int", value);
     if (error) {

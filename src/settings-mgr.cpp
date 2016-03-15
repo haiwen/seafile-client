@@ -419,7 +419,6 @@ bool SettingsManager::SeafileProxy::operator==(const SeafileProxy &rhs) const
 
 void SettingsManager::setProxy(const SeafileProxy &proxy)
 {
-    qWarning("proxy type is %d\n", (int)proxy.type);
     if (proxy == current_proxy_) {
         return;
     }
@@ -471,8 +470,7 @@ void SettingsManager::writeProxySettingsToDaemon(const SeafileProxy &proxy)
         return;
     if (rpc->seafileSetConfig(kProxyAddr, proxy.host.toUtf8().data()) < 0)
         return;
-    if (rpc->seafileSetConfig(
-            kProxyPort, QVariant(proxy.port).toString().toUtf8().data()) < 0)
+    if (rpc->seafileSetConfigInt(kProxyPort, proxy.port) < 0)
         return;
     if (proxy.type == HttpProxy) {
         if (rpc->seafileSetConfig(kProxyUsername,

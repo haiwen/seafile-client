@@ -714,7 +714,6 @@ void SettingsManager::writeSystemProxyInfo(const QUrl &url,
 {
     QNetworkProxy proxy;
     bool use_proxy = getSystemProxyForUrl(url, &proxy);
-    last_system_proxy_ = proxy;
 
     QString content;
     if (use_proxy) {
@@ -748,6 +747,7 @@ void SettingsManager::writeSystemProxyInfo(const QUrl &url,
 void SettingsManager::checkSystemProxy()
 {
     if (current_proxy_.type != SystemProxy) {
+        // qDebug ("current proxy is not system proxy, return\n");
         return;
     }
 
@@ -770,11 +770,14 @@ void SettingsManager::onSystemProxyPolled(const QNetworkProxy &system_proxy)
         return;
     }
     if (last_system_proxy_ == system_proxy) {
+        // qDebug ("system proxy not changed\n");
         return;
     }
+    // qDebug ("system proxy changed\n");
     last_system_proxy_ = system_proxy;
     SeafileProxy proxy = SeafileProxy::fromQtNetworkProxy(system_proxy);
     if (proxy.type == NoProxy) {
+        // qDebug ("system proxy changed to no proxy\n");
         seafApplet->rpcClient()->seafileSetConfig(kProxyType, "none");
     } else {
         writeProxyDetailsToDaemon(proxy);

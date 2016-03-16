@@ -6,6 +6,7 @@
 #include <QtGui>
 #endif
 #include <QDebug>
+#include <QSettings>
 
 #include "i18n.h"
 #include "account-mgr.h"
@@ -16,6 +17,8 @@
 #include "settings-dialog.h"
 
 namespace {
+
+const char *kSettingsGroupForSettingsDialog = "SettingsDialog";
 
 bool isCheckLatestVersionEnabled() {
     return QString(getBrand()) == "Seafile";
@@ -292,6 +295,27 @@ void SettingsDialog::showHideControlsBasedOnCurrentProxyType(int state)
             mProxyPasswordLabel->setVisible(false);
             break;
     }
+
+    if (proxy_type == SettingsManager::HttpProxy ||
+        proxy_type == SettingsManager::SocksProxy) {
+        QString prefix =
+            proxy_type == SettingsManager::HttpProxy ? "http" : "socks";
+        QSettings settings;
+        QString key;
+        settings.beginGroup(kSettingsGroupForSettingsDialog);
+        if (mProxyHost->text().trimmed().isEmpty()) {
+            key = prefix + "_proxy_host";
+            if (settings.contains(key)) {
+                mProxyHost->setText(settings.value(key).toString());
+            }
+        }
+        if (mProxyPort->value() == 0) {
+            key = prefix + "_proxy_port";
+            if (settings.contains(key)) {
+                mProxyPort->setValue(settings.value(key).toInt());
+            }
+        }
+    }
 }
 
 // Called when the user clicked "OK" button of the settings dialog. Return
@@ -372,6 +396,18 @@ bool SettingsDialog::validateProxyInputs()
             return false;
         }
     }
+
+    QSettings settings;
+
+    settings.beginGroup(kSettingsGroupForSettingsDialog);
+    if (proxy_type == SettingsManager::HttpProxy) {
+        settings.setValue("http_proxy_host", proxy_host);
+        settings.setValue("http_proxy_port", proxy_port);
+    } else if (proxy_type == SettingsManager::SocksProxy) {
+        settings.setValue("socks_proxy_host", proxy_host);
+        settings.setValue("socks_proxy_port", proxy_port);
+    }
+    settings.endGroup();
 
     return true;
 }

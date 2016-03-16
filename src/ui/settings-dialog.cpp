@@ -105,8 +105,8 @@ void SettingsDialog::updateSettings()
     if (language_changed && seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
         seafApplet->restartApp();
 
-    if (proxy_changed && seafApplet->yesOrNoBox(tr("You have changed proxy settings. Restart to apply it?"), this, true))
-        seafApplet->restartApp();
+    // if (proxy_changed && seafApplet->yesOrNoBox(tr("You have changed proxy settings. Restart to apply it?"), this, true))
+    //     seafApplet->restartApp();
 
 }
 

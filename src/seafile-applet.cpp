@@ -326,7 +326,7 @@ void SeafileApplet::start()
 
     // Load system proxy information. This must be done before we start
     // seaf-daemon.
-    SettingsManager::writeSystemProxyInfo(
+    settings_mgr_->writeSystemProxyInfo(
         account_mgr_->currentAccount().serverUrl,
         QDir(configurator_->seafileDir()).filePath("system-proxy.txt"));
 
@@ -354,7 +354,7 @@ void SeafileApplet::onDaemonStarted()
     //
     // load proxy settings (important)
     //
-    seafApplet->settingsManager()->loadSettings();
+    settings_mgr_->loadSettings();
 
     //
     // start network-related services

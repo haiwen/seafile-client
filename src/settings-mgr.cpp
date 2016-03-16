@@ -1,16 +1,19 @@
-#include <QSettings>
 #include <QHostInfo>
 #include <QNetworkProxy>
 #include <QNetworkProxyQuery>
+#include <QSettings>
+#include <QThreadPool>
+#include <QTimer>
+
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
-#include "settings-mgr.h"
 #include "rpc/rpc-client.h"
 #include "utils/utils.h"
 #include "network-mgr.h"
 #include "ui/main-window.h"
+#include "account-mgr.h"
 
 #if defined(Q_OS_WIN32)
 #include "utils/registry.h"
@@ -19,6 +22,8 @@
 #ifdef HAVE_FINDER_SYNC_SUPPORT
 #include "finder-sync/finder-sync.h"
 #endif
+
+#include "settings-mgr.h"
 
 namespace
 {
@@ -41,11 +46,14 @@ const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
 const char *kUseProxy = "use_proxy";
+const char *kUseSystemProxy = "use_system_proxy";
 const char *kProxyType = "proxy_type";
 const char *kProxyAddr = "proxy_addr";
 const char *kProxyPort = "proxy_port";
 const char *kProxyUsername = "proxy_username";
 const char *kProxyPassword = "proxy_password";
+
+const int kCheckSystemProxyIntervalMSecs = 5 * 1000;
 
 
 #ifdef Q_OS_WIN32
@@ -54,6 +62,41 @@ QString softwareSeafile()
     return QString("SOFTWARE\\%1").arg(getBrand());
 }
 #endif
+
+
+bool getSystemProxyForUrl(const QUrl &url, QNetworkProxy *proxy)
+{
+    QNetworkProxyQuery query(url);
+    bool use_proxy = true;
+    QList<QNetworkProxy> proxies = QNetworkProxyFactory::systemProxyForQuery(query);
+
+    // printf("list of proxies: %d\n", proxies.size());
+    // foreach (const QNetworkProxy &proxy, proxies) {
+    //     static int i = 0;
+    //     printf("[proxy number %d] %d %s:%d %s %s \n", i++, (int)proxy.type(),
+    //            proxy.hostName().toUtf8().data(), proxy.port(),
+    //            proxy.user().toUtf8().data(),
+    //            proxy.password().toUtf8().data());
+    // }
+
+    if (proxies.empty()) {
+        use_proxy = false;
+    } else {
+        *proxy = proxies[0];
+        if (proxy->type() == QNetworkProxy::NoProxy ||
+            proxy->type() == QNetworkProxy::DefaultProxy ||
+            proxy->type() == QNetworkProxy::FtpCachingProxy) {
+            use_proxy = false;
+        }
+
+        if (proxy->hostName().isEmpty() || proxy->port() == 0) {
+            use_proxy = false;
+        }
+    }
+
+    return use_proxy;
+}
+
 
 } // namespace
 
@@ -71,6 +114,8 @@ SettingsManager::SettingsManager()
       verify_http_sync_cert_disabled_(false),
       current_proxy_(SeafileProxy())
 {
+    check_system_proxy_timer_ = new QTimer(this);
+    connect(check_system_proxy_timer_, SIGNAL(timeout()), this, SLOT(checkSystemProxy()));
 }
 
 void SettingsManager::loadSettings()
@@ -109,6 +154,7 @@ void SettingsManager::loadSettings()
         verify_http_sync_cert_disabled_ = (str == "true") ? true : false;
 
     loadProxySettings();
+    applyProxySettings();
 
     autoStart_ = get_seafile_auto_start();
 
@@ -137,6 +183,12 @@ void SettingsManager::loadProxySettings()
     QString use_proxy;
     seafApplet->rpcClient()->seafileGetConfig(kUseProxy, &use_proxy);
     if (use_proxy != "true") {
+        return;
+    }
+    QString use_system_proxy;
+    seafApplet->rpcClient()->seafileGetConfig(kUseSystemProxy, &use_system_proxy);
+    if (use_system_proxy == "true") {
+        current_proxy_.type = SystemProxy;
         return;
     }
 
@@ -177,16 +229,12 @@ void SettingsManager::loadProxySettings()
         proxy.type = SocksProxy;
         proxy.host = proxy_host;
         proxy.port = proxy_port;
-
-    } else if (proxy_type == "system") {
-        proxy.type = SystemProxy;
     } else if (!proxy_type.isEmpty()) {
         qWarning("Unsupported proxy_type %s", proxy_type.toUtf8().data());
         return;
     }
 
     current_proxy_ = proxy;
-    applyProxySettings();
 }
 
 
@@ -411,10 +459,44 @@ void SettingsManager::SeafileProxy::toQtNetworkProxy(QNetworkProxy *proxy) const
     }
 }
 
+SettingsManager::SeafileProxy SettingsManager::SeafileProxy::fromQtNetworkProxy(
+    const QNetworkProxy &proxy)
+{
+    SeafileProxy sproxy;
+    if (proxy.type() == QNetworkProxy::NoProxy ||
+        proxy.type() == QNetworkProxy::DefaultProxy) {
+        sproxy.type = NoProxy;
+        return sproxy;
+    }
+
+    sproxy.host = proxy.hostName();
+    sproxy.port = proxy.port();
+
+    if (proxy.type() == QNetworkProxy::HttpProxy) {
+        sproxy.type = HttpProxy;
+        sproxy.username = proxy.user();
+        sproxy.password = proxy.password();
+    } else if (proxy.type() == QNetworkProxy::Socks5Proxy) {
+        sproxy.type = SocksProxy;
+    }
+
+    return sproxy;
+}
+
 bool SettingsManager::SeafileProxy::operator==(const SeafileProxy &rhs) const
 {
-    return type == rhs.type && host == rhs.host && port == rhs.port &&
-           username == rhs.username && password == rhs.password;
+    if (type != rhs.type) {
+        return false;
+    }
+    if (type == NoProxy || type == SystemProxy) {
+        return true;
+    } else if (type == HttpProxy) {
+        return host == rhs.host && port == rhs.port &&
+               username == rhs.username && password == rhs.password;
+    } else {
+        // socks proxy
+        return host == rhs.host && port == rhs.port;
+    }
 }
 
 void SettingsManager::setProxy(const SeafileProxy &proxy)
@@ -432,15 +514,19 @@ void SettingsManager::applyProxySettings()
 {
     if (current_proxy_.type == SystemProxy) {
         QNetworkProxyFactory::setUseSystemConfiguration(true);
-        qDebug("Using system proxy: ON");
+        if (!check_system_proxy_timer_->isActive()) {
+            check_system_proxy_timer_->start(kCheckSystemProxyIntervalMSecs);
+        }
         return;
     } else {
         QNetworkProxyFactory::setUseSystemConfiguration(false);
-        qDebug("Using system proxy: OFF");
-    }
+        if (check_system_proxy_timer_->isActive()) {
+            check_system_proxy_timer_->stop();
+        }
 
-    if (current_proxy_.type == NoProxy) {
-        QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
+        if (current_proxy_.type == NoProxy) {
+            QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
+        }
     }
 
     QNetworkProxy proxy;
@@ -456,29 +542,28 @@ void SettingsManager::writeProxySettingsToDaemon(const SeafileProxy &proxy)
         return;
     }
 
-    if (rpc->seafileSetConfig(kUseProxy, "true") < 0) {
-        return;
-    }
-
+    rpc->seafileSetConfig(kUseProxy, "true");
     if (proxy.type == SystemProxy) {
-        rpc->seafileSetConfig(kProxyType, "system");
+        rpc->seafileSetConfig(kUseSystemProxy, "true");
         return;
+    } else {
+        rpc->seafileSetConfig(kUseSystemProxy, "false");
     }
 
-    if (rpc->seafileSetConfig(kProxyType,
-                              proxy.type == HttpProxy ? "http" : "socks") < 0)
-        return;
-    if (rpc->seafileSetConfig(kProxyAddr, proxy.host.toUtf8().data()) < 0)
-        return;
-    if (rpc->seafileSetConfigInt(kProxyPort, proxy.port) < 0)
-        return;
-    if (proxy.type == HttpProxy) {
-        if (rpc->seafileSetConfig(kProxyUsername,
-                                  proxy.username.toUtf8().data()) < 0)
-            return;
-        if (rpc->seafileSetConfig(kProxyPassword,
-                                  proxy.password.toUtf8().data()) < 0)
-            return;
+    writeProxyDetailsToDaemon(proxy);
+}
+
+void SettingsManager::writeProxyDetailsToDaemon(const SeafileProxy& proxy)
+{
+    Q_ASSERT(proxy.type != NoProxy && proxy.type != SystemProxy);
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    QString type = proxy.type == HttpProxy ? "http" : "socks";
+    rpc->seafileSetConfig(kProxyType, type);
+    rpc->seafileSetConfig(kProxyAddr, proxy.host.toUtf8().data());
+    rpc->seafileSetConfigInt(kProxyPort, proxy.port);
+    if (type == "http") {
+        rpc->seafileSetConfig(kProxyUsername, proxy.username.toUtf8().data());
+        rpc->seafileSetConfig(kProxyPassword, proxy.password.toUtf8().data());
     }
 }
 
@@ -623,49 +708,14 @@ void SettingsManager::setShellExtensionEnabled(bool enabled)
 }
 #endif // Q_OS_WIN32
 
-class UseSystemProxyContext {
-public:
-    UseSystemProxyContext() {
-        QNetworkProxyFactory::setUseSystemConfiguration(true);
-    }
-
-    ~UseSystemProxyContext() {
-        QNetworkProxyFactory::setUseSystemConfiguration(false);
-    }
-};
 
 void SettingsManager::writeSystemProxyInfo(const QUrl &url,
                                            const QString &file_path)
 {
-    UseSystemProxyContext context;
-    QNetworkProxyQuery query(url);
-    bool use_proxy = true;
     QNetworkProxy proxy;
-    QList<QNetworkProxy> proxies = QNetworkProxyFactory::proxyForQuery(query);
+    bool use_proxy = getSystemProxyForUrl(url, &proxy);
+    last_system_proxy_ = proxy;
 
-    // printf("list of proxies: %d\n", proxies.size());
-    // foreach (const QNetworkProxy &proxy, proxies) {
-    //     static int i = 0;
-    //     printf("[proxy number %d] %d %s:%d %s %s \n", i++, (int)proxy.type(),
-    //            proxy.hostName().toUtf8().data(), proxy.port(),
-    //            proxy.user().toUtf8().data(),
-    //            proxy.password().toUtf8().data());
-    // }
-
-    if (proxies.empty()) {
-        use_proxy = false;
-    } else {
-        proxy = proxies[0];
-        if (proxy.type() == QNetworkProxy::NoProxy ||
-            proxy.type() == QNetworkProxy::DefaultProxy ||
-            proxy.type() == QNetworkProxy::FtpCachingProxy) {
-            use_proxy = false;
-        }
-
-        if (proxy.hostName().isEmpty() || proxy.port() == 0) {
-            use_proxy = false;
-        }
-    }
     QString content;
     if (use_proxy) {
         QString type;
@@ -693,4 +743,54 @@ void SettingsManager::writeSystemProxyInfo(const QUrl &url,
     }
 
     system_proxy_txt.write(content.toUtf8().data());
+}
+
+void SettingsManager::checkSystemProxy()
+{
+    if (current_proxy_.type != SystemProxy) {
+        return;
+    }
+
+    const Account &account = seafApplet->accountManager()->currentAccount();
+    if (!account.isValid()) {
+        return;
+    }
+
+    SystemProxyPoller *poller = new SystemProxyPoller(account.serverUrl);
+    connect(poller, SIGNAL(systemProxyPolled(const QNetworkProxy &)), this,
+            SLOT(onSystemProxyPolled(const QNetworkProxy &)));
+
+    QThreadPool::globalInstance()->start(poller);
+}
+
+
+void SettingsManager::onSystemProxyPolled(const QNetworkProxy &system_proxy)
+{
+    if (current_proxy_.type != SystemProxy) {
+        return;
+    }
+    if (last_system_proxy_ == system_proxy) {
+        return;
+    }
+    last_system_proxy_ = system_proxy;
+    SeafileProxy proxy = SeafileProxy::fromQtNetworkProxy(system_proxy);
+    if (proxy.type == NoProxy) {
+        seafApplet->rpcClient()->seafileSetConfig(kProxyType, "none");
+    } else {
+        writeProxyDetailsToDaemon(proxy);
+    }
+}
+
+SystemProxyPoller::SystemProxyPoller(const QUrl &url) : url_(url)
+{
+}
+
+void SystemProxyPoller::run()
+{
+    QNetworkProxy proxy;
+    bool use_proxy = getSystemProxyForUrl(url_, &proxy);
+    if (!use_proxy) {
+        proxy.setType(QNetworkProxy::NoProxy);
+    }
+    emit systemProxyPolled(proxy);
 }

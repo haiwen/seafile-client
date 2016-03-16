@@ -2,12 +2,14 @@
 #define SEAFILE_CLIENT_SETTINGS_MANAGER_H
 
 #include <QObject>
+#include <QRunnable>
+#include <QUrl>
+#include <QNetworkProxy>
 
 /**
  * Settings Manager handles seafile client user settings & preferences
  */
-class QNetworkProxy;
-class QUrl;
+class QTimer;
 
 class SettingsManager : public QObject {
     Q_OBJECT
@@ -45,6 +47,8 @@ public:
 
         bool operator==(const SeafileProxy& rhs) const;
         bool operator!=(const SeafileProxy& rhs) const { return !(*this == rhs); };
+
+        static SeafileProxy fromQtNetworkProxy(const QNetworkProxy& proxy);
     };
 
     SettingsManager();
@@ -118,16 +122,22 @@ public:
     // Remove all settings from system when uninstall
     static void removeAllSettings();
     // Write the system proxy information, to be read by seaf-daemon.
-    static void writeSystemProxyInfo(const QUrl& url, const QString& file_path);
+    void writeSystemProxyInfo(const QUrl& url, const QString& file_path);
 
 signals:
     void autoSyncChanged(bool auto_sync);
+
+private slots:
+    void checkSystemProxy();
+    void onSystemProxyPolled(const QNetworkProxy& proxy);
 
 private:
     Q_DISABLE_COPY(SettingsManager)
 
     void loadProxySettings();
     void writeProxySettingsToDaemon(const SeafileProxy& proxy);
+    void writeProxyDetailsToDaemon(const SeafileProxy& proxy);
+
     void applyProxySettings();
 
     bool auto_sync_;
@@ -144,6 +154,24 @@ private:
 
     // proxy settings
     SeafileProxy current_proxy_;
+    QNetworkProxy last_system_proxy_;
+
+    QTimer *check_system_proxy_timer_;
+};
+
+
+// Use to periodically reading the current system proxy.
+class SystemProxyPoller : public QObject, public QRunnable {
+    Q_OBJECT
+public:
+    SystemProxyPoller(const QUrl& url);
+    void run();
+
+signals:
+    void systemProxyPolled(const QNetworkProxy& proxy);
+
+private:
+    QUrl url_;
 };
 
 #endif // SEAFILE_CLIENT_SETTINGS_MANAGER_H

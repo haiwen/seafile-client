@@ -287,6 +287,7 @@ int SeafileRpcClient::ccnetSetConfig(const QString &key, const QString &value)
 
 int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
 {
+    // printf ("set config: %s = %s\n", toCStr(key), toCStr(value));
     GError *error = NULL;
     searpc_client_call__int (seafile_rpc_client_,
                              "seafile_set_config", &error,
@@ -326,6 +327,7 @@ int SeafileRpcClient::setRateLimit(bool upload, int limit)
 
 int SeafileRpcClient::seafileSetConfigInt(const QString &key, int value)
 {
+    // printf ("set config: %s = %d\n", toCStr(key), value);
     GError *error = NULL;
     searpc_client_call__int (seafile_rpc_client_,
                              "seafile_set_config_int", &error,

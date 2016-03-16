@@ -121,7 +121,7 @@ void SettingsDialog::closeEvent(QCloseEvent *event)
 void SettingsDialog::showEvent(QShowEvent *event)
 {
     SettingsManager *mgr = seafApplet->settingsManager();
-    mgr->loadSettings();
+    // mgr->loadSettings();
 
     Qt::CheckState state;
     state = mgr->hideMainWindowWhenStarted() ? Qt::Checked : Qt::Unchecked;

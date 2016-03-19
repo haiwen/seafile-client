@@ -5,6 +5,8 @@
 #include "account-mgr.h"
 #include "seafile-applet.h"
 #include "api/requests.h"
+#include "auto-login-service.h"
+
 #include "seahub-notifications-monitor.h"
 
 namespace {
@@ -114,7 +116,7 @@ void SeahubNotificationsMonitor::openNotificationsPageInBrowser()
         return;
     }
 
-    QDesktopServices::openUrl(account.getAbsoluteUrl(kNotificationsUrl));
+    AutoLoginService::instance()->startAutoLogin(kNotificationsUrl);
 
     resetStatus();
 }

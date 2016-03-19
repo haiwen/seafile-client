@@ -582,9 +582,14 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="63"/>
+        <location filename="../src/daemon-mgr.cpp" line="77"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
+    </message>
+    <message>
+        <location filename="../src/daemon-mgr.cpp" line="139"/>
+        <source>%1 client failed to initialize</source>
+        <translation>%1 客户端初始化时出错</translation>
     </message>
 </context>
 <context>
@@ -1415,77 +1420,77 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>登录中...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="173"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation>网络错误：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="185"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="199"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="203"/>
-        <location filename="../src/ui/login-dialog.cpp" line="209"/>
-        <location filename="../src/ui/login-dialog.cpp" line="336"/>
-        <location filename="../src/ui/login-dialog.cpp" line="342"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="341"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 不是合法的服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="216"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation>请输入邮箱</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="227"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
         <translation>请填写计算机名</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="285"/>
+        <location filename="../src/ui/login-dialog.cpp" line="284"/>
         <source>Failed to save current account</source>
         <translation>保存帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="327"/>
+        <location filename="../src/ui/login-dialog.cpp" line="326"/>
         <source>%1 Server Address</source>
         <translation>%1 服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="221"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="297"/>
+        <location filename="../src/ui/login-dialog.cpp" line="296"/>
         <source>Incorrect email or password</source>
         <translation>错误的邮箱或密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="299"/>
+        <location filename="../src/ui/login-dialog.cpp" line="298"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>登录过于频繁，请稍后再试</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="301"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="304"/>
         <source>Failed to login: %1</source>
         <translation>登录失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="306"/>
         <source>Failed to login</source>
         <translation>登录失败</translation>
     </message>
@@ -1541,7 +1546,7 @@ Do you like to download your default library and create a virtual disk?</source>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="108"/>
-        <location filename="../src/ui/login-dialog.cpp" line="326"/>
+        <location filename="../src/ui/login-dialog.cpp" line="325"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Shibboleth 登陆</translation>
@@ -2253,7 +2258,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 分钟前</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="728"/>
+        <location filename="../src/utils/utils.cpp" line="694"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation>&lt;不包含这部分信息&gt;</translation>
     </message>
@@ -2472,8 +2477,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="333"/>
-        <location filename="../src/repo-service.cpp" line="368"/>
+        <location filename="../src/repo-service.cpp" line="345"/>
+        <location filename="../src/repo-service.cpp" line="380"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
         <translation>无法打开不存在的资料库 &quot;%2&quot; 中的文件 &quot;%1&quot;</translation>
     </message>
@@ -2481,37 +2486,37 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Recently Updated</source>
         <translation>最近修改</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>My Libraries</source>
         <translation>我的资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>Sub Libraries</source>
         <translation>子资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Private Shares</source>
         <translation>共享给我的</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Synced Libraries</source>
         <translation>已同步资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="244"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="253"/>
         <source>Organization</source>
         <translation>公共</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="377"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="386"/>
         <source>sync initializing</source>
         <translation>初始化</translation>
     </message>
@@ -2763,7 +2768,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="168"/>
+        <location filename="../src/api/api-client.cpp" line="155"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
@@ -2771,44 +2776,44 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="388"/>
+        <location filename="../src/seafile-applet.cpp" line="394"/>
         <source>failed to add default account</source>
         <translation>添加默认帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="502"/>
+        <location filename="../src/seafile-applet.cpp" line="508"/>
         <source>Failed to initialize log: %s</source>
         <translation>初始化日志失败: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="563"/>
-        <location filename="../src/seafile-applet.cpp" line="578"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="589"/>
-        <location filename="../src/seafile-applet.cpp" line="603"/>
-        <location filename="../src/seafile-applet.cpp" line="619"/>
-        <location filename="../src/seafile-applet.cpp" line="643"/>
+        <location filename="../src/seafile-applet.cpp" line="595"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
+        <location filename="../src/seafile-applet.cpp" line="625"/>
+        <location filename="../src/seafile-applet.cpp" line="649"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="590"/>
-        <location filename="../src/seafile-applet.cpp" line="620"/>
-        <location filename="../src/seafile-applet.cpp" line="644"/>
+        <location filename="../src/seafile-applet.cpp" line="596"/>
+        <location filename="../src/seafile-applet.cpp" line="626"/>
+        <location filename="../src/seafile-applet.cpp" line="650"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="604"/>
-        <location filename="../src/seafile-applet.cpp" line="621"/>
+        <location filename="../src/seafile-applet.cpp" line="610"/>
+        <location filename="../src/seafile-applet.cpp" line="627"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="679"/>
+        <location filename="../src/seafile-applet.cpp" line="685"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -2846,16 +2851,16 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="44"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="60"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="519"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="539"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="609"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="764"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="829"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="537"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="557"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="627"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="782"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="847"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -3078,189 +3083,209 @@ Do you want to visit the download page?</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="29"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="32"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="34"/>
-        <location filename="../ui_settings-dialog.h" line="408"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
+        <location filename="../ui_settings-dialog.h" line="407"/>
         <source>Auto start %1 after login</source>
         <translation>开机自动启动 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
-        <location filename="../ui_settings-dialog.h" line="409"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="40"/>
+        <location filename="../ui_settings-dialog.h" line="408"/>
         <source>Hide %1 Icon from the dock</source>
         <translation>不要在 dock 中显示 %1 图标</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="50"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
         <source>None</source>
         <translation>没有代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
         <source>HTTP Proxy</source>
         <translation>HTTP 代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
         <source>Socks5 Proxy</source>
         <translation>SOCKS5 代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="101"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
+        <source>System Proxy</source>
+        <translation>系统代理</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="105"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation>您已经更改了语言。现在重启来生效吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="104"/>
-        <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation>您已经更改了代理设置。现在重启来生效吗？</translation>
+        <location filename="../src/ui/settings-dialog.cpp" line="376"/>
+        <source>The proxy host address can&apos;t be empty</source>
+        <translation>代理服务器名不能为空</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="404"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="383"/>
+        <source>The proxy port is incorrect</source>
+        <translation>代理端口不正确</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="392"/>
+        <source>Proxy username can&apos;t be empty</source>
+        <translation>代理用户名不能为空</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="395"/>
+        <source>Proxy password can&apos;t be empty</source>
+        <translation>代理用户密码不能为空</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="403"/>
         <source>Dialog</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="405"/>
+        <location filename="../ui_settings-dialog.h" line="404"/>
         <source>Hide main window when started</source>
         <translation>启动时隐藏主窗口</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="406"/>
+        <location filename="../ui_settings-dialog.h" line="405"/>
         <source>Notify when libraries are synchronized</source>
         <translation>资料库同步后用气泡通知</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="407"/>
+        <location filename="../ui_settings-dialog.h" line="406"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation>允许同步 office 临时文件</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="412"/>
+        <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Check for new version on startup</source>
         <translation>程序启动时检查最新版本</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="413"/>
+        <location filename="../ui_settings-dialog.h" line="412"/>
         <source>Download speed limit (KB/s):</source>
         <translation>最大下载速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="414"/>
+        <location filename="../ui_settings-dialog.h" line="413"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>最大上传速度 (kB/s)：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="415"/>
+        <location filename="../ui_settings-dialog.h" line="414"/>
         <source>Basic</source>
         <translation>基本</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="416"/>
+        <location filename="../ui_settings-dialog.h" line="415"/>
         <source>Do not automatically unsync a library</source>
         <translation>不自动解除资料库同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="417"/>
+        <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>当资料库的本地文件夹被移除或无法访问时不自动解除同步。</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="418"/>
+        <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Do not unsync a library when not found on server</source>
         <translation>当在服务器找不到某个资料库的信息时不要自动解除同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="419"/>
+        <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation>当在服务器找不到某个资料库的信息时不要自动解除同步</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="410"/>
+        <location filename="../ui_settings-dialog.h" line="409"/>
         <source>Enable FinderSync Extension</source>
         <translation>启用 Finder 的扩展</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="411"/>
+        <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable Explorer Extension</source>
         <translation>启用文件浏览器的扩展</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="420"/>
+        <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>HTTPS 同步过程中不验证服务器证书</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="421"/>
+        <location filename="../ui_settings-dialog.h" line="420"/>
         <source>Enable syncing with an existing folder with a different name</source>
         <translation>启用与已存在的其他文件夹同步的选项</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="422"/>
+        <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="423"/>
+        <location filename="../ui_settings-dialog.h" line="422"/>
         <source>Language (need restart)</source>
         <translation>语言 (需要重启)</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="424"/>
+        <location filename="../ui_settings-dialog.h" line="423"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="425"/>
+        <location filename="../ui_settings-dialog.h" line="424"/>
         <source>Proxy Type:</source>
         <translation>代理类型：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="426"/>
+        <location filename="../ui_settings-dialog.h" line="425"/>
         <source>Host:</source>
         <translation>主机：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="427"/>
+        <location filename="../ui_settings-dialog.h" line="426"/>
         <source>Port:</source>
         <translation>端口：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="428"/>
+        <location filename="../ui_settings-dialog.h" line="427"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="429"/>
+        <location filename="../ui_settings-dialog.h" line="428"/>
         <source>Username:</source>
         <translation>用户名：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="430"/>
+        <location filename="../ui_settings-dialog.h" line="429"/>
         <source>Password:</source>
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="431"/>
+        <location filename="../ui_settings-dialog.h" line="430"/>
         <source>Proxy server requires a password</source>
         <translation>代理服务器需要密码</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="432"/>
+        <location filename="../ui_settings-dialog.h" line="431"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="433"/>
+        <location filename="../ui_settings-dialog.h" line="432"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="434"/>
+        <location filename="../ui_settings-dialog.h" line="433"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>

@@ -72,6 +72,12 @@ void setupHIDPIFix()
     // https://qt.gitorious.org/qt/qtbase/source/a3cb057c3d5c9ed2c12fb7542065c3d667be38b7:src/gui/image/qicon.cpp#L1028-1043
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0) && !defined(Q_OS_MAC)
+    // Enable HDPI auto detection.
+    // See http://blog.qt.io/blog/2016/01/26/high-dpi-support-in-qt-5-6/
+    qApp->setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 }
 
 void setupSettingDomain()

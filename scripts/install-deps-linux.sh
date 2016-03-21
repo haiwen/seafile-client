@@ -40,13 +40,15 @@ sudo apt-get update -qq
 sudo apt-get install -y valac uuid-dev libevent-dev re2c libjansson-dev cmake cmake-data libqt4-dev
 
 if [ ! -z "$USE_QT5" ]; then
-    sudo add-apt-repository -y ppa:beineri/opt-qt542
+    sudo add-apt-repository -y ppa:beineri/opt-qt56-trusty
     sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     sudo apt-get update -qq
+
     sudo apt-get install -y gcc-4.8 g++-4.8
-    sudo apt-get install -y qt54base qt54translations qt54tools qt54webkit
     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+
+    sudo apt-get install -y qt56base qt56translations qt56tools qt56webkit
 fi
 
 git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc

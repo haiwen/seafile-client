@@ -48,7 +48,7 @@ if [ ! -z "$USE_QT5" ]; then
     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
-    sudo apt-get install -y qt56base qt56translations qt56tools qt56webkit
+    sudo apt-get install -y qt56base qt56translations qt56tools qt56webengine
 fi
 
 git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc

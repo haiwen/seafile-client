@@ -146,6 +146,9 @@ int main(int argc, char *argv[])
     // initialize breakpad if enabled
     initBreakpad();
 
+    // Apply hidpi support
+    setupHIDPIFix();
+
     // TODO imple if we have to restart the application
     // the manual at http://qt-project.org/wiki/ApplicationRestart
 #if defined(Q_OS_MAC)
@@ -163,9 +166,6 @@ int main(int argc, char *argv[])
 
     // apply some ui fixes for mac
     setupFontFix();
-
-    // apply hidpi support for osx
-    setupHIDPIFix();
 
     // set the domains of settings
     setupSettingDomain();

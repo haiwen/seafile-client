@@ -128,11 +128,28 @@ ELSE()
 ENDIF()
 
 IF(USE_QT5)
+
+    # Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect
+    # the current qt version, then use proper name based on the version.
+    FIND_PROGRAM(qmake_executable NAMES qmake qmake.exe)
+    EXECUTE_PROCESS(COMMAND
+        bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
+        OUTPUT_VARIABLE DETECTED_QT_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+    MESSAGE("qt5 version: ${DETECTED_QT_VERSION}")
+    IF(DETECTED_QT_VERSION VERSION_LESS 5.6.0)
+      SET(WEBKIT_NAME "WebKit")
+      SET(WEBKIT_WIDGETS_NAME "WebKitWidgets")
+    ELSE()
+      SET(WEBKIT_NAME "WebEngine")
+      SET(WEBKIT_WIDGETS_NAME "WebEngineWidgets")
+    ENDIF()
+
     SET(USE_QT_LIBRARIES
       Core Gui Widgets LinguistTools Network Test
       )
     IF (BUILD_SHIBBOLETH_SUPPORT)
-      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "WebKit" "WebKitWidgets")
+      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
       ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
     ENDIF()
     IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -731,7 +748,7 @@ TARGET_LINK_LIBRARIES(seafile-applet
 IF(USE_QT5)
   QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
   IF (BUILD_SHIBBOLETH_SUPPORT)
-    QT5_USE_MODULES(seafile-applet WebKit WebKitWidgets)
+    QT5_USE_MODULES(seafile-applet ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
   ENDIF()
 ENDIF(USE_QT5)
 

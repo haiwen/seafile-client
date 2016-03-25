@@ -951,3 +951,22 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
     g_free (c_random_key);
     return 0;
 }
+
+bool SeafileRpcClient::setServerProperty(const QString &url,
+                                         const QString &key,
+                                         const QString &value)
+{
+    // printf("set server config: %s %s = %s\n", toCStr(url), toCStr(key),
+    //        toCStr(value));
+    GError *error = NULL;
+    searpc_client_call__int(seafile_rpc_client_, "seafile_set_server_property",
+                            &error, 3, "string", toCStr(url), "string",
+                            toCStr(key), "string", toCStr(value));
+    if (error) {
+        qWarning("Unable to set server property %s %s", toCStr(url),
+                 toCStr(key));
+        g_error_free(error);
+        return false;
+    }
+    return true;
+}

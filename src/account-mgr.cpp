@@ -426,9 +426,13 @@ void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo 
     setServerInfoKeyValue(db, account, kCustomLogoKeyName, info.customLogo);
     setServerInfoKeyValue(db, account, kCustomBrandKeyName, info.customBrand);
 
+    seafApplet->rpcClient()->setServerProperty(account.serverUrl.toString(),
+        "is_pro", account.isPro() ? "true" : "false");
+
     bool changed = account.serverInfo != info;
     if (!changed)
         return;
+
 
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {

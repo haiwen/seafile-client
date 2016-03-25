@@ -136,7 +136,8 @@ void shutdown_process (const char *name)
     for (size_t k = 0; k < mycount; k++) {
         kinfo_proc *proc =  &mylist[k];
         if (strcmp (proc->kp_proc.p_comm, name) == 0 &&
-            proc->kp_proc.p_pid != current_pid){
+            proc->kp_proc.p_pid != current_pid &&
+            proc->kp_eproc.e_pcred.p_ruid == getuid()) {
             kill (proc->kp_proc.p_pid, SIGKILL);
         }
     }

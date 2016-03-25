@@ -1,5 +1,9 @@
 #include <QtGui>
-#include <QWebView>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+  #include <QWebEngineView>
+#else
+  #include <QWebView>
+#endif
 #include <QVBoxLayout>
 #include <QList>
 #include <QSslError>
@@ -34,7 +38,11 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
     QVBoxLayout *vlayout = new QVBoxLayout();
     setLayout(vlayout);
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
     webview_ = new QWebView;
+#else
+    webview_ = new QWebEngineView;
+#endif
     vlayout->addWidget(webview_);
 
     CustomCookieJar *jar = new CustomCookieJar(this);

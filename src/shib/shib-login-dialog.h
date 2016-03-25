@@ -9,7 +9,12 @@
 
 template<typename T> class QList;
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
 class QWebView;
+#else
+class QWebEngineView;
+#endif
+
 class QSslError;
 class QNetworkReply;
 
@@ -34,7 +39,11 @@ private slots:
 private:
     Account parseAccount(const QString& txt);
     
+#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
     QWebView *webview_;
+#else
+    QWebEngineView *webview_;
+#endif
     QUrl url_;
     bool cookie_seen_;
 };

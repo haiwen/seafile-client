@@ -108,7 +108,8 @@ static int getBSDProcessPid (const char *name, int except_pid)
     for (size_t k = 0; k < mycount; k++) {
         kinfo_proc *proc =  &mylist[k];
         if (proc->kp_proc.p_pid != except_pid
-            && strcmp (proc->kp_proc.p_comm, name) == 0){
+            && strcmp (proc->kp_proc.p_comm, name) == 0
+            && proc->kp_eproc.e_pcred.p_ruid == getuid()){
             pid = proc->kp_proc.p_pid;
             break;
         }
@@ -150,7 +151,8 @@ int count_process(const char *process_name)
     GetBSDProcessList (&mylist, &mycount);
     for (size_t k = 0; k < mycount; k++) {
         kinfo_proc *proc =  &mylist[k];
-        if (strcmp (proc->kp_proc.p_comm, process_name) == 0){
+        if (strcmp (proc->kp_proc.p_comm, process_name) == 0
+            && proc->kp_eproc.e_pcred.p_ruid == getuid()){
             count++;
         }
     }

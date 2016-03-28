@@ -203,6 +203,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>5</number>
+     </property>
      <property name="leftMargin">
       <number>10</number>
      </property>

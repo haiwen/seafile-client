@@ -1,6 +1,9 @@
 #include <QtGui>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
   #include <QWebEngineView>
+  #include <QWebEnginePage>
+  #include <QWebEngineProfile>
+  #include <QWebEngineCookieStore>
 #else
   #include <QWebView>
 #endif
@@ -40,11 +43,6 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
     webview_ = new QWebView;
-#else
-    webview_ = new QWebEngineView;
-#endif
-    vlayout->addWidget(webview_);
-
     CustomCookieJar *jar = new CustomCookieJar(this);
     QNetworkAccessManager *mgr = webview_->page()->networkAccessManager();
     NetworkManager::instance()->addWatch(mgr);
@@ -55,6 +53,13 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
 
     connect(jar, SIGNAL(newCookieCreated(const QUrl&, const QNetworkCookie&)),
             this, SLOT(onNewCookieCreated(const QUrl&, const QNetworkCookie&)));
+#else
+    webview_ = new QWebEngineView;
+    webview_->setPage(new SeafileQWebEnginePage(this));
+    QWebEngineCookieStore *jar = webview_->page()->profile()->cookieStore();
+    connect(jar, SIGNAL(cookieAdded(const QNetworkCookie&)),
+            this, SLOT(onWebEngineCookieAdded(const QNetworkCookie&)));
+#endif
 
     QUrl shib_login_url(url_);
     QString path = shib_login_url.path();
@@ -64,6 +69,7 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
     path += "shib-login";
     shib_login_url.setPath(path);
 
+    vlayout->addWidget(webview_);
     webview_->load(::includeQueryParams(
                        shib_login_url, ::getSeafileLoginParams(computer_name, "shib_")));
 }
@@ -118,7 +124,16 @@ Account ShibLoginDialog::parseAccount(const QString& cookie_value)
     return Account(url_, email, token, 0, true);
 }
 
+void ShibLoginDialog::onWebEngineCookieAdded(const QNetworkCookie& cookie)
+{
+    printf("cookie added: %s = %s\n", cookie.name().data(), cookie.value().data());
+    if (cookie.name() == kSeahubShibCookieName) {
+        onNewCookieCreated(url_, cookie);
+    }
+}
 
+
+#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
 CustomCookieJar::CustomCookieJar(QObject *parent)
     : QNetworkCookieJar(parent)
 {
@@ -135,3 +150,17 @@ bool CustomCookieJar::setCookiesFromUrl(const QList<QNetworkCookie>& cookies, co
 
   return false;
 }
+#else
+
+SeafileQWebEnginePage::SeafileQWebEnginePage(QObject *parent)
+    : QWebEnginePage(parent)
+{
+}
+
+bool SeafileQWebEnginePage::certificateError(
+    const QWebEngineCertificateError &certificateError)
+{
+    return true;
+}
+
+#endif

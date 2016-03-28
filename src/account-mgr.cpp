@@ -426,8 +426,10 @@ void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo 
     setServerInfoKeyValue(db, account, kCustomLogoKeyName, info.customLogo);
     setServerInfoKeyValue(db, account, kCustomBrandKeyName, info.customBrand);
 
-    seafApplet->rpcClient()->setServerProperty(account.serverUrl.toString(),
-        "is_pro", account.isPro() ? "true" : "false");
+    QUrl url(account.serverUrl);
+    url.setPath("/");
+    seafApplet->rpcClient()->setServerProperty(
+        url.toString(), "is_pro", account.isPro() ? "true" : "false");
 
     bool changed = account.serverInfo != info;
     if (!changed)

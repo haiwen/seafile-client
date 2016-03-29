@@ -4,7 +4,10 @@
 #include <QDialog>
 #include <QUrl>
 #include <QNetworkCookieJar>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 #include <QWebEnginePage>
+#endif
 
 #include "account.h"
 
@@ -69,19 +72,6 @@ signals:
 
 #else
 
-// /**
-//  * Wraps the standard QWebEngineCookieStore  emit a signal when new cookies created.
-//  */
-// class CustomCookieStore : public QWebEngineCookieStore
-// {
-//     Q_OBJECT
-// public:
-//     explicit CustomCookieStore(QObject *parent = 0);
-//     bool setCookiesFromUrl(const QList<QNetworkCookie>& cookies, const QUrl& url);
-
-// signals:
-//     void newCookieCreated(const QUrl& url, const QNetworkCookie& cookie);
-// };
 class QWebEngineCertificateError;
 class SeafileQWebEnginePage : public QWebEnginePage
 {

@@ -4,8 +4,6 @@
 #import <Cocoa/Cocoa.h>
 #import <Security/Security.h>
 
-#include <QString>
-
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
 #endif

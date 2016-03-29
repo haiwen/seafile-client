@@ -1,9 +1,9 @@
-#include <libkern/OSAtomic.h>
-#include <mach/mach.h>
-
-#import <Cocoa/Cocoa.h>
 #include "finder-sync/finder-sync-host.h"
 #include "finder-sync/finder-sync-listener.h"
+
+#include <libkern/OSAtomic.h>
+#include <mach/mach.h>
+#import <Cocoa/Cocoa.h>
 
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support

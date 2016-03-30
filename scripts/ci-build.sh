@@ -12,7 +12,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
         make test VERBOSE=1
     else
         set +e
-        . /opt/qt54/bin/qt54-env.sh
+        . /opt/qt56/bin/qt56-env.sh
         set -e
         cmake -DBUILD_TESTING=on -DBUILD_SHIBBOLETH_SUPPORT=on -DUSE_QT5=ON .
         make -j8 VERBOSE=1

@@ -4,6 +4,7 @@
   #include <QWebEnginePage>
   #include <QWebEngineProfile>
   #include <QWebEngineCookieStore>
+  #include "shib-helper.h"
 #else
   #include <QWebView>
 #endif
@@ -126,14 +127,13 @@ Account ShibLoginDialog::parseAccount(const QString& cookie_value)
 
 void ShibLoginDialog::onWebEngineCookieAdded(const QNetworkCookie& cookie)
 {
-    printf("cookie added: %s = %s\n", cookie.name().data(), cookie.value().data());
+    // printf("cookie added: %s = %s\n", cookie.name().data(), cookie.value().data());
     if (cookie.name() == kSeahubShibCookieName) {
         onNewCookieCreated(url_, cookie);
     }
 }
 
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
 CustomCookieJar::CustomCookieJar(QObject *parent)
     : QNetworkCookieJar(parent)
 {
@@ -150,8 +150,8 @@ bool CustomCookieJar::setCookiesFromUrl(const QList<QNetworkCookie>& cookies, co
 
   return false;
 }
-#else
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 SeafileQWebEnginePage::SeafileQWebEnginePage(QObject *parent)
     : QWebEnginePage(parent)
 {

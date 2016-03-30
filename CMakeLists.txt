@@ -144,6 +144,7 @@ IF(USE_QT5)
       SET(WEBKIT_NAME "WebEngine")
       SET(WEBENGINE_CORE "WebEngineCore")
       SET(WEBKIT_WIDGETS_NAME "WebEngineWidgets")
+      SET(SHIB_EXTRA_HEADER "src/shib/shib-helper.h")
     ENDIF()
 
     SET(USE_QT_LIBRARIES
@@ -267,7 +268,7 @@ IF (APPLE)
 ENDIF()
 
 IF (BUILD_SHIBBOLETH_SUPPORT)
-  SET(moc_headers ${moc_headers} src/shib/shib-login-dialog.h)
+  SET(moc_headers ${moc_headers} src/shib/shib-login-dialog.h ${SHIB_EXTRA_HEADER})
 ENDIF()
 
 # UI FILES

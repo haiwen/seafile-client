@@ -5,10 +5,6 @@
 #include <QUrl>
 #include <QNetworkCookieJar>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-#include <QWebEnginePage>
-#endif
-
 #include "account.h"
 
 template<typename T> class QList;
@@ -54,8 +50,6 @@ private:
 };
 
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
-
 /**
  * Wraps the standard Qt cookie jar to emit a signal when new cookies created.
  */
@@ -69,22 +63,5 @@ public:
 signals:
     void newCookieCreated(const QUrl& url, const QNetworkCookie& cookie);
 };
-
-#else
-
-class QWebEngineCertificateError;
-class SeafileQWebEnginePage : public QWebEnginePage
-{
-    Q_OBJECT
-public:
-    SeafileQWebEnginePage(QObject *parent = 0);
-
-protected:
-    bool certificateError(
-        const QWebEngineCertificateError &certificateError);
-};
-
-
-#endif
 
 #endif /* SEAFILE_CLIENT_SHIB_LOGIN_DIALOG_H */

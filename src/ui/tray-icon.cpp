@@ -437,9 +437,9 @@ void SeafileTrayIcon::openHelp()
 {
     QString url;
     if (QLocale::system().name() == "zh_CN") {
-        url = "http://seafile.com/help/install_v2/";
+        url = "https://seafile.com/help/install_v2/";
     } else {
-        url = "http://seafile.com/en/help/install_v2/";
+        url = "https://seafile.com/en/help/install_v2/";
     }
 
     QDesktopServices::openUrl(QUrl(url));

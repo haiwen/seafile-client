@@ -253,8 +253,8 @@ const char *const kSeafilePreconfigureGroupName = "preconfigure";
 
 const int kIntervalForUpdateRepoProperty = 1000;
 
-const char *kSeafileClientDownloadUrl = "http://seafile.com/en/download/";
-const char *kSeafileClientDownloadUrlChinese = "http://seafile.com/download/";
+const char *kSeafileClientDownloadUrl = "https://seafile.com/en/download/";
+const char *kSeafileClientDownloadUrlChinese = "https://seafile.com/download/";
 
 const char *kRepoServerUrlProperty = "server-url";
 const char *kRepoRelayAddrProperty = "relay-address";

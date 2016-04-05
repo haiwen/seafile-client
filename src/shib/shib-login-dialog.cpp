@@ -1,12 +1,12 @@
 #include <QtGui>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+#if defined(SEAFILE_USE_WEBKIT)
+  #include <QWebView>
+#else
   #include <QWebEngineView>
   #include <QWebEnginePage>
   #include <QWebEngineProfile>
   #include <QWebEngineCookieStore>
   #include "shib-helper.h"
-#else
-  #include <QWebView>
 #endif
 #include <QVBoxLayout>
 #include <QList>
@@ -42,7 +42,7 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
     QVBoxLayout *vlayout = new QVBoxLayout();
     setLayout(vlayout);
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
+#if defined(SEAFILE_USE_WEBKIT)
     webview_ = new QWebView;
     CustomCookieJar *jar = new CustomCookieJar(this);
     QNetworkAccessManager *mgr = webview_->page()->networkAccessManager();
@@ -151,7 +151,7 @@ bool CustomCookieJar::setCookiesFromUrl(const QList<QNetworkCookie>& cookies, co
   return false;
 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+#if !defined(SEAFILE_USE_WEBKIT)
 SeafileQWebEnginePage::SeafileQWebEnginePage(QObject *parent)
     : QWebEnginePage(parent)
 {

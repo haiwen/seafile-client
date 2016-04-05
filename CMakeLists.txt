@@ -129,15 +129,19 @@ ENDIF()
 
 IF(USE_QT5)
 
-    # Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect
-    # the current qt version, then use proper name based on the version.
+    # Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect the
+    # current qt version, then use proper name based on the version. However we
+    # have to keep using QtWebKit on windows because QtWebEngine can't be
+    # compiled in msys2/mingw (QtWebEnigne is based on chrome, which has to be
+    # compiled with MSVC.)
     FIND_PROGRAM(qmake_executable NAMES qmake qmake.exe)
     EXECUTE_PROCESS(COMMAND
         bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
         OUTPUT_VARIABLE DETECTED_QT_VERSION
         OUTPUT_STRIP_TRAILING_WHITESPACE)
     MESSAGE("qt5 version: ${DETECTED_QT_VERSION}")
-    IF(DETECTED_QT_VERSION VERSION_LESS 5.6.0)
+    IF(WIN32 OR DETECTED_QT_VERSION VERSION_LESS 5.6.0)
+      ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
       SET(WEBKIT_NAME "WebKit")
       SET(WEBKIT_WIDGETS_NAME "WebKitWidgets")
     ELSE()
@@ -174,6 +178,7 @@ IF(USE_QT5)
       SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
     endif()
 ELSE()
+    ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
     IF (BUILD_SHIBBOLETH_SUPPORT)
       SET(QtWebKit "QtWebKit")
       ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)

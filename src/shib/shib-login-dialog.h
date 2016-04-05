@@ -9,7 +9,7 @@
 
 template<typename T> class QList;
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
+#if defined(SEAFILE_USE_WEBKIT)
 class QWebView;
 #else
 class QWebEngineView;
@@ -40,7 +40,7 @@ private slots:
 private:
     Account parseAccount(const QString& txt);
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
+#if defined(SEAFILE_USE_WEBKIT)
     QWebView *webview_;
 #else
     QWebEngineView *webview_;

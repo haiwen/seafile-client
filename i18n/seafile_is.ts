@@ -587,9 +587,14 @@ mistókst að hlaða upp.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="63"/>
+        <location filename="../src/daemon-mgr.cpp" line="77"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>tókst ekki að sækja ccnet stillingarskráarsafn %1</translation>
+    </message>
+    <message>
+        <location filename="../src/daemon-mgr.cpp" line="139"/>
+        <source>%1 client failed to initialize</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1424,77 +1429,77 @@ Viltu hala niður sjálfgefna safninu þínu og búa til sýndardisk?</translati
         <translation>Er að innskrá...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="173"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation>Netvilla:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="185"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Viðvörun:&lt;/b&gt; ssl skilríkið fyrir þennan þjón er ótreyst, halda samt áfram?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="199"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation>Vinsamlegst sláðu inn veffang þjóns</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="203"/>
-        <location filename="../src/ui/login-dialog.cpp" line="209"/>
-        <location filename="../src/ui/login-dialog.cpp" line="336"/>
-        <location filename="../src/ui/login-dialog.cpp" line="342"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="341"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 er ekki gilt vefang þjóns</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="216"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation>Vinsamlegst sláðu inn notendanafn</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="227"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
         <translation>Vinsamlegast skráðu heiti tölvunnar</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="285"/>
+        <location filename="../src/ui/login-dialog.cpp" line="284"/>
         <source>Failed to save current account</source>
         <translation>Mistókst að vista reikninginn</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="327"/>
+        <location filename="../src/ui/login-dialog.cpp" line="326"/>
         <source>%1 Server Address</source>
         <translation>%1 Veffang Þjóns</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="221"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation>Vinsamlegast sláðu inn lykilorð</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="297"/>
+        <location filename="../src/ui/login-dialog.cpp" line="296"/>
         <source>Incorrect email or password</source>
         <translation>Ekki rétt netfang eða lykilorð</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="299"/>
+        <location filename="../src/ui/login-dialog.cpp" line="298"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>Ert að skrá þig inn of ört, vinsamlegast bíddu aðeins</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="301"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <source>Internal Server Error</source>
         <translation>Innri Kerfisvilla</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="304"/>
         <source>Failed to login: %1</source>
         <translation>Innskráning mistókst: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="306"/>
         <source>Failed to login</source>
         <translation>Innskráning mistókst</translation>
     </message>
@@ -1550,7 +1555,7 @@ Viltu hala niður sjálfgefna safninu þínu og búa til sýndardisk?</translati
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="108"/>
-        <location filename="../src/ui/login-dialog.cpp" line="326"/>
+        <location filename="../src/ui/login-dialog.cpp" line="325"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Shibboleth Innskráning</translation>
@@ -2262,7 +2267,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <translation>Fyrir %1 mínútum síðan</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="728"/>
+        <location filename="../src/utils/utils.cpp" line="694"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
@@ -2481,8 +2486,8 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="333"/>
-        <location filename="../src/repo-service.cpp" line="368"/>
+        <location filename="../src/repo-service.cpp" line="345"/>
+        <location filename="../src/repo-service.cpp" line="380"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
         <translation>Get ekki opnað skrá &quot;%1&quot; því safnið &quot;%2&quot; er ekki til</translation>
     </message>
@@ -2490,37 +2495,37 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Recently Updated</source>
         <translation>Nýlega Uppfært</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>My Libraries</source>
         <translation>Söfnin mín</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>Sub Libraries</source>
         <translation>Undirsöfn</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Private Shares</source>
         <translation>Persónulega Deilt</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Synced Libraries</source>
         <translation>Samstillt Söfn</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="244"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="253"/>
         <source>Organization</source>
         <translation>Samfélag</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="377"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="386"/>
         <source>sync initializing</source>
         <translation>frumstilli samstillingu</translation>
     </message>
@@ -2775,7 +2780,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="168"/>
+        <location filename="../src/api/api-client.cpp" line="155"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Viðvörun:&lt;/b&gt; ssl skírteinið fyrir þennan þjón er ekki traust, halda samt áfram?</translation>
     </message>
@@ -2783,44 +2788,44 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="388"/>
+        <location filename="../src/seafile-applet.cpp" line="394"/>
         <source>failed to add default account</source>
         <translation>mistókst að bæta við sjálfgefnum reikningi</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="502"/>
+        <location filename="../src/seafile-applet.cpp" line="508"/>
         <source>Failed to initialize log: %s</source>
         <translation>Mistókst að frumstilla skrá: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="563"/>
-        <location filename="../src/seafile-applet.cpp" line="578"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
         <source>OK</source>
         <translation>Í lagi</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="589"/>
-        <location filename="../src/seafile-applet.cpp" line="603"/>
-        <location filename="../src/seafile-applet.cpp" line="619"/>
-        <location filename="../src/seafile-applet.cpp" line="643"/>
+        <location filename="../src/seafile-applet.cpp" line="595"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
+        <location filename="../src/seafile-applet.cpp" line="625"/>
+        <location filename="../src/seafile-applet.cpp" line="649"/>
         <source>Yes</source>
         <translation>Já</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="590"/>
-        <location filename="../src/seafile-applet.cpp" line="620"/>
-        <location filename="../src/seafile-applet.cpp" line="644"/>
+        <location filename="../src/seafile-applet.cpp" line="596"/>
+        <location filename="../src/seafile-applet.cpp" line="626"/>
+        <location filename="../src/seafile-applet.cpp" line="650"/>
         <source>No</source>
         <translation>Nei</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="604"/>
-        <location filename="../src/seafile-applet.cpp" line="621"/>
+        <location filename="../src/seafile-applet.cpp" line="610"/>
+        <location filename="../src/seafile-applet.cpp" line="627"/>
         <source>Cancel</source>
         <translation>Hætta við</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="679"/>
+        <location filename="../src/seafile-applet.cpp" line="685"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Ný útgáfa af %1 biðlara (%2) er fáanleg.
@@ -2858,16 +2863,16 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="44"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="60"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>mistókst að bæta við ccnet styllingarskráarsafni %1</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="519"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="539"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="609"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="764"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="829"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="537"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="557"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="627"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="782"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="847"/>
         <source>Unknown error</source>
         <translation>Óþekkt villa</translation>
     </message>
@@ -3090,189 +3095,209 @@ Viltu fara á hugbúnaðarsíðuna?</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="29"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="32"/>
         <source>Settings</source>
         <translation>Stillingar</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="34"/>
-        <location filename="../ui_settings-dialog.h" line="408"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
+        <location filename="../ui_settings-dialog.h" line="407"/>
         <source>Auto start %1 after login</source>
         <translation>Keyra %1 upp sjálfvirkt eftir innskráningu</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
-        <location filename="../ui_settings-dialog.h" line="409"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="40"/>
+        <location filename="../ui_settings-dialog.h" line="408"/>
         <source>Hide %1 Icon from the dock</source>
         <translation>Fela %1 smámynd frá stjórnstiku</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="50"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
         <source>None</source>
         <translation>Ekkert</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
         <source>HTTP Proxy</source>
         <translation>HTTP Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
         <source>Socks5 Proxy</source>
         <translation>Socks5 Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="101"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
+        <source>System Proxy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="105"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation>Þú hefur skipt um tungumál. Endurræsa til að virkja það?</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="104"/>
-        <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation>Þú hefur breytt staðgengilsstillingum. Endurræsa til að virkja þær?</translation>
+        <location filename="../src/ui/settings-dialog.cpp" line="376"/>
+        <source>The proxy host address can&apos;t be empty</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="404"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="383"/>
+        <source>The proxy port is incorrect</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="392"/>
+        <source>Proxy username can&apos;t be empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="395"/>
+        <source>Proxy password can&apos;t be empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="403"/>
         <source>Dialog</source>
         <translation>Samræður</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="405"/>
+        <location filename="../ui_settings-dialog.h" line="404"/>
         <source>Hide main window when started</source>
         <translation>Fela aðalglugga í ræsingu</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="406"/>
+        <location filename="../ui_settings-dialog.h" line="405"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Láta vita þegar söfn eru samstillt</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="407"/>
+        <location filename="../ui_settings-dialog.h" line="406"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation>Virkja samstillingu tímabundinna skráa af gerð MSOffice/Libreoffice</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="412"/>
+        <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Check for new version on startup</source>
         <translation>Athuga hvort ný útgáfa sé til í ræsingu</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="413"/>
+        <location filename="../ui_settings-dialog.h" line="412"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Takmörkun á hraða niðurhals (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="414"/>
+        <location filename="../ui_settings-dialog.h" line="413"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Takmörkun á hraða uppleðslu (KB/s):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="415"/>
+        <location filename="../ui_settings-dialog.h" line="414"/>
         <source>Basic</source>
         <translation>Einfallt</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="416"/>
+        <location filename="../ui_settings-dialog.h" line="415"/>
         <source>Do not automatically unsync a library</source>
         <translation>Ekki taka samstillingu sjálfvirkt af safni</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="417"/>
+        <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>Ekki taka samkeyrslu af safni þegar skráarsafn á tölvu er fjarlægt eða ekki aðgengilegt af einhverjum völdum.</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="418"/>
+        <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Do not unsync a library when not found on server</source>
         <translation>Ekki taka samstillingu af safni þegar það finnst ekki á þjóni</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="419"/>
+        <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation>Ekki taka samstillingu af safni sjálfvirkt þegar það finnst ekki á þjóni</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="410"/>
+        <location filename="../ui_settings-dialog.h" line="409"/>
         <source>Enable FinderSync Extension</source>
         <translation>Virkja FinderSync viðbót</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="411"/>
+        <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable Explorer Extension</source>
         <translation>Virkja Explorer viðbót</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="420"/>
+        <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>Ekki sannvotta skírteini í HTTPS samstillingu</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="421"/>
+        <location filename="../ui_settings-dialog.h" line="420"/>
         <source>Enable syncing with an existing folder with a different name</source>
         <translation>Virkja samkeyrslu við skráasafn sem er nú þegar til undir öðru nafni</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="422"/>
+        <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Advanced</source>
         <translation>Ýtarlegt</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="423"/>
+        <location filename="../ui_settings-dialog.h" line="422"/>
         <source>Language (need restart)</source>
         <translation>Tungumál (þarfnast endurræsingar)</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="424"/>
+        <location filename="../ui_settings-dialog.h" line="423"/>
         <source>Language</source>
         <translation>Tungumál</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="425"/>
+        <location filename="../ui_settings-dialog.h" line="424"/>
         <source>Proxy Type:</source>
         <translation>Staðgengilsgerð:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="426"/>
+        <location filename="../ui_settings-dialog.h" line="425"/>
         <source>Host:</source>
         <translation>Hýsill:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="427"/>
+        <location filename="../ui_settings-dialog.h" line="426"/>
         <source>Port:</source>
         <translation>Tenginúmer:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="428"/>
+        <location filename="../ui_settings-dialog.h" line="427"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="429"/>
+        <location filename="../ui_settings-dialog.h" line="428"/>
         <source>Username:</source>
         <translation>Notendanafn:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="430"/>
+        <location filename="../ui_settings-dialog.h" line="429"/>
         <source>Password:</source>
         <translation>Lykilorð:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="431"/>
+        <location filename="../ui_settings-dialog.h" line="430"/>
         <source>Proxy server requires a password</source>
         <translation>Staðgengilsþjónn krefst lykilorðs</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="432"/>
+        <location filename="../ui_settings-dialog.h" line="431"/>
         <source>Network</source>
         <translation>Net</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="433"/>
+        <location filename="../ui_settings-dialog.h" line="432"/>
         <source>OK</source>
         <translation>Í lagi</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="434"/>
+        <location filename="../ui_settings-dialog.h" line="433"/>
         <source>Cancel</source>
         <translation>Hætta við</translation>
     </message>

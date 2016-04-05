@@ -587,9 +587,14 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <location filename="../src/daemon-mgr.cpp" line="63"/>
+        <location filename="../src/daemon-mgr.cpp" line="77"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>Не удалось загрузить папку %1 с конфигурацией ccnet</translation>
+    </message>
+    <message>
+        <location filename="../src/daemon-mgr.cpp" line="139"/>
+        <source>%1 client failed to initialize</source>
+        <translation>%1 клиент не удалось инициализировать</translation>
     </message>
 </context>
 <context>
@@ -1424,77 +1429,77 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>Авторизуемся...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="173"/>
+        <location filename="../src/ui/login-dialog.cpp" line="172"/>
         <source>Network Error:
  %1</source>
         <translation>Сетевая ошибка:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="185"/>
+        <location filename="../src/ui/login-dialog.cpp" line="184"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Внимание:&lt;/b&gt; SSL-сертификат этого сервера не является доверенным. Продолжить несмотря на это?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="199"/>
+        <location filename="../src/ui/login-dialog.cpp" line="198"/>
         <source>Please enter the server address</source>
         <translation>Введите адрес сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="203"/>
-        <location filename="../src/ui/login-dialog.cpp" line="209"/>
-        <location filename="../src/ui/login-dialog.cpp" line="336"/>
-        <location filename="../src/ui/login-dialog.cpp" line="342"/>
+        <location filename="../src/ui/login-dialog.cpp" line="202"/>
+        <location filename="../src/ui/login-dialog.cpp" line="208"/>
+        <location filename="../src/ui/login-dialog.cpp" line="335"/>
+        <location filename="../src/ui/login-dialog.cpp" line="341"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 неправильный адрес сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="216"/>
+        <location filename="../src/ui/login-dialog.cpp" line="215"/>
         <source>Please enter the username</source>
         <translation>Введите имя пользователя</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="227"/>
+        <location filename="../src/ui/login-dialog.cpp" line="226"/>
         <source>Please enter the computer name</source>
         <translation>Пожалуйста, введите имя компьютера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="285"/>
+        <location filename="../src/ui/login-dialog.cpp" line="284"/>
         <source>Failed to save current account</source>
         <translation>Не удалось сохранить текущий аккаунт</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="327"/>
+        <location filename="../src/ui/login-dialog.cpp" line="326"/>
         <source>%1 Server Address</source>
         <translation>%1 Адрес сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="221"/>
+        <location filename="../src/ui/login-dialog.cpp" line="220"/>
         <source>Please enter the password</source>
         <translation>Введите пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="297"/>
+        <location filename="../src/ui/login-dialog.cpp" line="296"/>
         <source>Incorrect email or password</source>
         <translation>Неверный email или пароль</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="299"/>
+        <location filename="../src/ui/login-dialog.cpp" line="298"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>Слишком частые попытки входа. Пожалуйста, подождите минуту</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="301"/>
+        <location filename="../src/ui/login-dialog.cpp" line="300"/>
         <source>Internal Server Error</source>
         <translation>Внутренняя ошибка сервера</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="304"/>
         <source>Failed to login: %1</source>
         <translation>Не удалось авторизоваться: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="307"/>
+        <location filename="../src/ui/login-dialog.cpp" line="306"/>
         <source>Failed to login</source>
         <translation>Не удалось авторизоваться</translation>
     </message>
@@ -1550,7 +1555,7 @@ Do you like to download your default library and create a virtual disk?</source>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="108"/>
-        <location filename="../src/ui/login-dialog.cpp" line="326"/>
+        <location filename="../src/ui/login-dialog.cpp" line="325"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Логин Shibboleth</translation>
@@ -2262,7 +2267,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 минуту назад</translation>
     </message>
     <message>
-        <location filename="../src/utils/utils.cpp" line="728"/>
+        <location filename="../src/utils/utils.cpp" line="694"/>
         <source>&lt;Not Part of Certificate&gt;</source>
         <translation>&lt;Не часть сертификата&gt;</translation>
     </message>
@@ -2481,8 +2486,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="333"/>
-        <location filename="../src/repo-service.cpp" line="368"/>
+        <location filename="../src/repo-service.cpp" line="345"/>
+        <location filename="../src/repo-service.cpp" line="380"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
         <translation>Невозможно открыть файл &quot;%1&quot; из несуществующей библиотеки &quot;%2&quot;</translation>
     </message>
@@ -2490,37 +2495,37 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="60"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
         <source>Recently Updated</source>
         <translation>Последние обновления</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>My Libraries</source>
         <translation>Мои библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>Sub Libraries</source>
         <translation>Суб-библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Private Shares</source>
         <translation>Частные права доступа</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Synced Libraries</source>
         <translation>Синхронизированные библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="244"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="253"/>
         <source>Organization</source>
         <translation>Организация</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="377"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="386"/>
         <source>sync initializing</source>
         <translation>инициализация синхронизации</translation>
     </message>
@@ -2773,7 +2778,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="168"/>
+        <location filename="../src/api/api-client.cpp" line="155"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Внимание:&lt;/b&gt; SSL-сертификат этого сервера не является доверенным, в любом случае продолжить?</translation>
     </message>
@@ -2781,44 +2786,44 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="388"/>
+        <location filename="../src/seafile-applet.cpp" line="394"/>
         <source>failed to add default account</source>
         <translation>не удалось добавить аккаунт по умолчанию</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="502"/>
+        <location filename="../src/seafile-applet.cpp" line="508"/>
         <source>Failed to initialize log: %s</source>
         <translation>Ошибка инициализации лога: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="563"/>
-        <location filename="../src/seafile-applet.cpp" line="578"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="589"/>
-        <location filename="../src/seafile-applet.cpp" line="603"/>
-        <location filename="../src/seafile-applet.cpp" line="619"/>
-        <location filename="../src/seafile-applet.cpp" line="643"/>
+        <location filename="../src/seafile-applet.cpp" line="595"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
+        <location filename="../src/seafile-applet.cpp" line="625"/>
+        <location filename="../src/seafile-applet.cpp" line="649"/>
         <source>Yes</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="590"/>
-        <location filename="../src/seafile-applet.cpp" line="620"/>
-        <location filename="../src/seafile-applet.cpp" line="644"/>
+        <location filename="../src/seafile-applet.cpp" line="596"/>
+        <location filename="../src/seafile-applet.cpp" line="626"/>
+        <location filename="../src/seafile-applet.cpp" line="650"/>
         <source>No</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="604"/>
-        <location filename="../src/seafile-applet.cpp" line="621"/>
+        <location filename="../src/seafile-applet.cpp" line="610"/>
+        <location filename="../src/seafile-applet.cpp" line="627"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="679"/>
+        <location filename="../src/seafile-applet.cpp" line="685"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Доступна новая версия %1 клиентского приложения (%2).
@@ -2856,16 +2861,16 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="44"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="60"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>Не удалось загрузить папку %1 с конфигурацией ccnet</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="519"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="539"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="609"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="764"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="829"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="537"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="557"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="627"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="782"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="847"/>
         <source>Unknown error</source>
         <translation>Неизвестная ошибка</translation>
     </message>
@@ -3088,189 +3093,209 @@ Do you want to visit the download page?</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="29"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="32"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="34"/>
-        <location filename="../ui_settings-dialog.h" line="408"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
+        <location filename="../ui_settings-dialog.h" line="407"/>
         <source>Auto start %1 after login</source>
         <translation>Автоматически запускать %1 после входа в систему</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="37"/>
-        <location filename="../ui_settings-dialog.h" line="409"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="40"/>
+        <location filename="../ui_settings-dialog.h" line="408"/>
         <source>Hide %1 Icon from the dock</source>
         <translation>Спрятать иконку %1 из трея</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="50"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
         <source>HTTP Proxy</source>
         <translation>HTTP прокси</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
         <source>Socks5 Proxy</source>
         <translation>Socks5 прокси</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="101"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
+        <source>System Proxy</source>
+        <translation>Системный прокси</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="105"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation>Вы изменили язык. Перезапустить приложение сейчас?</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="104"/>
-        <source>You have changed proxy settings. Restart to apply it?</source>
-        <translation>Вы изменили настройки прокси. Перезапустить приложение сейчас?</translation>
+        <location filename="../src/ui/settings-dialog.cpp" line="376"/>
+        <source>The proxy host address can&apos;t be empty</source>
+        <translation>Хост прокси не может быть пустым</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="404"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="383"/>
+        <source>The proxy port is incorrect</source>
+        <translation>Порт прокси неправильный</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="392"/>
+        <source>Proxy username can&apos;t be empty</source>
+        <translation>Имя пользователя прокси не может быть пустым</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/settings-dialog.cpp" line="395"/>
+        <source>Proxy password can&apos;t be empty</source>
+        <translation>Пароль прокси не может быть пустым</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="403"/>
         <source>Dialog</source>
         <translation>Диалог</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="405"/>
+        <location filename="../ui_settings-dialog.h" line="404"/>
         <source>Hide main window when started</source>
         <translation>Скрыть главное окно при запуске приложения</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="406"/>
+        <location filename="../ui_settings-dialog.h" line="405"/>
         <source>Notify when libraries are synchronized</source>
         <translation>Уведомить о синхронизации библиотек</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="407"/>
+        <location filename="../ui_settings-dialog.h" line="406"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation>Синхронизировать временные файлы MSOffice/Libreoffice</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="412"/>
+        <location filename="../ui_settings-dialog.h" line="411"/>
         <source>Check for new version on startup</source>
         <translation>При запуске проверять наличие обновлений</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="413"/>
+        <location filename="../ui_settings-dialog.h" line="412"/>
         <source>Download speed limit (KB/s):</source>
         <translation>Ограничение скорости скачивания (КБ/с):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="414"/>
+        <location filename="../ui_settings-dialog.h" line="413"/>
         <source>Upload speed limit (KB/s):</source>
         <translation>Ограничение скорости загрузки (КБ/с):</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="415"/>
+        <location filename="../ui_settings-dialog.h" line="414"/>
         <source>Basic</source>
         <translation>Основной</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="416"/>
+        <location filename="../ui_settings-dialog.h" line="415"/>
         <source>Do not automatically unsync a library</source>
         <translation>Не рассинхронизировать библиотеку автоматически</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="417"/>
+        <location filename="../ui_settings-dialog.h" line="416"/>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
         <translation>Не рассинхронизировать библиотеку автоматически, когда локальная папка была удалена или стала недоступна по другим причинам.</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="418"/>
+        <location filename="../ui_settings-dialog.h" line="417"/>
         <source>Do not unsync a library when not found on server</source>
         <translation>Не рассинхронизировать библиотеку, когда она не была найдена на сервере</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="419"/>
+        <location filename="../ui_settings-dialog.h" line="418"/>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
         <translation>Не рассинхронизировать библиотеку автоматически, когда она не была найдена на сервере</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="410"/>
+        <location filename="../ui_settings-dialog.h" line="409"/>
         <source>Enable FinderSync Extension</source>
         <translation>Включить расширение FinderSync</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="411"/>
+        <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable Explorer Extension</source>
         <translation>Включить расширение Explorer</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="420"/>
+        <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>Не проверять сертификат сервера при HTTPS синхронизации</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="421"/>
+        <location filename="../ui_settings-dialog.h" line="420"/>
         <source>Enable syncing with an existing folder with a different name</source>
         <translation>Включить синхронизацию для папки с другим именем</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="422"/>
+        <location filename="../ui_settings-dialog.h" line="421"/>
         <source>Advanced</source>
         <translation>Дополнительно</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="423"/>
+        <location filename="../ui_settings-dialog.h" line="422"/>
         <source>Language (need restart)</source>
         <translation>Язык (необходим перезапуск)</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="424"/>
+        <location filename="../ui_settings-dialog.h" line="423"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="425"/>
+        <location filename="../ui_settings-dialog.h" line="424"/>
         <source>Proxy Type:</source>
         <translation>Тип прокси:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="426"/>
+        <location filename="../ui_settings-dialog.h" line="425"/>
         <source>Host:</source>
         <translation>Хост:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="427"/>
+        <location filename="../ui_settings-dialog.h" line="426"/>
         <source>Port:</source>
         <translation>Порт:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="428"/>
+        <location filename="../ui_settings-dialog.h" line="427"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="429"/>
+        <location filename="../ui_settings-dialog.h" line="428"/>
         <source>Username:</source>
         <translation>Имя пользователя:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="430"/>
+        <location filename="../ui_settings-dialog.h" line="429"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="431"/>
+        <location filename="../ui_settings-dialog.h" line="430"/>
         <source>Proxy server requires a password</source>
         <translation>Прокси сервер требует пароль</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="432"/>
+        <location filename="../ui_settings-dialog.h" line="431"/>
         <source>Network</source>
         <translation>Сеть</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="433"/>
+        <location filename="../ui_settings-dialog.h" line="432"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../ui_settings-dialog.h" line="434"/>
+        <location filename="../ui_settings-dialog.h" line="433"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>

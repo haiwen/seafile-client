@@ -42,6 +42,7 @@ const char* kFileSearchUrl = "api2/search/";
 const char* kAccountInfoUrl = "api2/account/info/";
 const char* kDirSharedItemsUrl = "api2/repos/%1/dir/shared_items/";
 const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
+const char* kSendNotifyFileConflict = "api2/send-notify-file-conflict/";
 
 const char* kLatestVersionUrl = "https://seafile.com/api/client-versions/";
 
@@ -1064,3 +1065,25 @@ void GetPrivateShareItemsRequest::requestSuccess(QNetworkReply& reply)
 
     emit success(group_shares, user_shares);
 }
+
+/**
+ * SendNotifyFileConflictRequest
+ */
+SendNotifyFileConflictRequest::SendNotifyFileConflictRequest(
+    const Account& account, const QString& repo_id, const QString& repo_name, QString& path)
+    : SeafileApiRequest(account.getAbsoluteUrl(kSendNotifyFileConflict),
+                        SeafileApiRequest::METHOD_POST,
+                        account.token)
+{
+
+    setFormParam("repo_id", repo_id);
+    setFormParam("repo_name", repo_name);
+    setFormParam("path", path);
+
+}
+
+void SendNotifyFileConflictRequest::requestSuccess(QNetworkReply& reply)
+{
+	emit success();
+}
+

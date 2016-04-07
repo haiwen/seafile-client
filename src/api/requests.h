@@ -640,4 +640,24 @@ private:
     Q_DISABLE_COPY(FetchGroupsAndContactsRequest);
 };
 
+class SendNotifyFileConflictRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+
+public:
+    explicit SendNotifyFileConflictRequest(const Account& account,
+    		const QString& repo_id,
+    		const QString& repo_name,
+    		QString& path);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+signals:
+    void success();
+
+private:
+    Q_DISABLE_COPY(SendNotifyFileConflictRequest)
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

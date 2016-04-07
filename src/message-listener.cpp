@@ -17,6 +17,8 @@ extern "C" {
 #include "utils/utils.h"
 #include "utils/translate-commit-desc.h"
 #include "open-local-helper.h"
+#include "api/requests.h"
+#include "account-mgr.h"
 
 #include "message-listener.h"
 
@@ -187,6 +189,12 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString msg = tr("File %1 conflict").arg(path);
 
             seafApplet->trayIcon()->showMessage(title, msg, repo_id);
+
+            Account account = seafApplet->accountManager()->currentAccount();
+
+            SendNotifyFileConflictRequest *send_notify_file_conflict = new SendNotifyFileConflictRequest(account, repo_id, title, path);
+
+            send_notify_file_conflict->send();
 
             json_decref(object);
         } else if (strcmp(type, "sync.error") == 0) {

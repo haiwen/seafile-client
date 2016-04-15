@@ -89,7 +89,7 @@ void SettingsDialog::updateSettings()
     mgr->setShellExtensionEnabled(mShellExtCheckBox->checkState() == Qt::Checked);
 #endif
 
-    bool proxy_changed = updateProxySettings();
+    // bool proxy_changed = updateProxySettings();
 
     if (isCheckLatestVersionEnabled()) {
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;

@@ -26,6 +26,8 @@ public:
     void deleteResource(const QUrl& url);
     void setUseCache(bool use_cache) { use_cache_ = use_cache; }
 
+    const QNetworkReply* reply() const { return reply_; }
+
 signals:
     void requestSuccess(QNetworkReply& reply);
     void requestFailed(int code);

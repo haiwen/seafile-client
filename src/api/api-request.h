@@ -35,6 +35,8 @@ public:
 
     void send();
 
+    const QNetworkReply* reply() const;
+
 signals:
     void failed(const ApiError& error);
 

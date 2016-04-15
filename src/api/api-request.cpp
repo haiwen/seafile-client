@@ -96,3 +96,8 @@ json_t* SeafileApiRequest::parseJSON(QNetworkReply &reply, json_error_t *error)
     json_t *root = json_loads(raw.data(), 0, error);
     return root;
 }
+
+const QNetworkReply* SeafileApiRequest::reply() const
+{
+    return api_client_->reply();
+}

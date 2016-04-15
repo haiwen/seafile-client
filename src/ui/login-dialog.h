@@ -59,6 +59,8 @@ private:
     LoginRequest *request_;
     FetchAccountInfoRequest *account_info_req_;
 
+    QString two_factor_auth_token_;
+
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     LoginMode mode_;
 #endif // HAVE_SHIBBOLETH_SUPPORT

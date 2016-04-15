@@ -29,6 +29,8 @@ const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
 
+const char *const kSeafileOTPHeader = "X-Seafile-OTP";
+
 QStringList getUsedServerAddresses()
 {
     QSettings settings;
@@ -139,6 +141,9 @@ void LoginDialog::doLogin()
     }
 
     request_ = new LoginRequest(url_, username_, password_, computer_name_);
+    if (!two_factor_auth_token_.isEmpty()) {
+        request_->setHeader(kSeafileOTPHeader, two_factor_auth_token_);
+    }
 
     connect(request_, SIGNAL(success(const QString&)),
             this, SLOT(loginSuccess(const QString&)));
@@ -291,22 +296,38 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
 
 void LoginDialog::onHttpError(int code)
 {
-    QString err_msg, reason;
-    if (code == 400) {
-        reason = tr("Incorrect email or password");
-    } else if (code == 429) {
-        reason = tr("Logging in too frequently, please wait a minute");
-    } else if (code == 500) {
-        reason = tr("Internal Server Error");
-    }
-
-    if (reason.length() > 0) {
-        err_msg = tr("Failed to login: %1").arg(reason);
+    const QNetworkReply* reply = request_->reply();
+    if (reply->hasRawHeader(kSeafileOTPHeader) &&
+        QString(reply->rawHeader(kSeafileOTPHeader)) == "required") {
+        printf ("two factor auth token required\n");
+        two_factor_auth_token_ = QInputDialog::getText(
+            this,
+            tr("Two Factor Authentication"),
+            tr("Enter the two factor authentication code"),
+            QLineEdit::Normal,
+            "");
+        if (!two_factor_auth_token_.isEmpty()) {
+            doLogin();
+            return;
+        }
     } else {
-        err_msg = tr("Failed to login");
-    }
+        QString err_msg, reason;
+        if (code == 400) {
+            reason = tr("Incorrect email or password");
+        } else if (code == 429) {
+            reason = tr("Logging in too frequently, please wait a minute");
+        } else if (code == 500) {
+            reason = tr("Internal Server Error");
+        }
 
-    showWarning(err_msg);
+        if (reason.length() > 0) {
+            err_msg = tr("Failed to login: %1").arg(reason);
+        } else {
+            err_msg = tr("Failed to login");
+        }
+
+        showWarning(err_msg);
+    }
 
     enableInputs();
 

@@ -1,6 +1,7 @@
 #ifndef SEAFILE_API_CLIENT_H
 #define SEAFILE_API_CLIENT_H
 
+#include <QHash>
 #include <QString>
 #include <QObject>
 #include <QNetworkReply>
@@ -21,6 +22,7 @@ public:
     SeafileApiClient(QObject *parent=0);
     ~SeafileApiClient();
     void setToken(const QString& token) { token_ = token; };
+    void setHeader(const QString& key, const QString& value);
     void get(const QUrl& url);
     void post(const QUrl& url, const QByteArray& body, bool is_put);
     void deleteResource(const QUrl& url);
@@ -56,6 +58,8 @@ private:
 
     int redirect_count_;
     bool use_cache_;
+
+    QHash<QString, QString> headers_;
 };
 
 #endif  // SEAFILE_API_CLIENT_H

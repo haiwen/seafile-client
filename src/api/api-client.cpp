@@ -79,6 +79,10 @@ void SeafileApiClient::prepareRequest(QNetworkRequest *req)
         req->setRawHeader(kAuthHeader, buf);
     }
 
+    foreach (const QString& key, headers_.keys()) {
+        req->setRawHeader(key.toUtf8().data(), headers_[key].toUtf8().data());
+    }
+
     req->setRawHeader(kSeafileClientVersionHeader, STRINGIZE(SEAFILE_CLIENT_VERSION));
 }
 
@@ -305,4 +309,9 @@ void SeafileApiClient::resendRequest(const QUrl& url)
           << "from" << reply_->url().toString();
         break;
     }
+}
+
+void SeafileApiClient::setHeader(const QString& key, const QString& value)
+{
+    headers_[key] = value;
 }

@@ -39,6 +39,11 @@ void SeafileApiRequest::setUseCache(bool use_cache)
     api_client_->setUseCache(use_cache);
 }
 
+void SeafileApiRequest::setHeader(const QString& key, const QString& value)
+{
+    api_client_->setHeader(key, value);
+}
+
 void SeafileApiRequest::send()
 {
     if (token_.size() > 0) {

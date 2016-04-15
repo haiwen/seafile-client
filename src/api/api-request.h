@@ -33,6 +33,8 @@ public:
     // useful for static resources like images
     void setUseCache(bool use_cache);
 
+    void setHeader(const QString& key, const QString& value);
+
     void send();
 
     const QNetworkReply* reply() const;

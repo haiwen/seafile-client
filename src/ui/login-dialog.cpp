@@ -299,7 +299,6 @@ void LoginDialog::onHttpError(int code)
     const QNetworkReply* reply = request_->reply();
     if (reply->hasRawHeader(kSeafileOTPHeader) &&
         QString(reply->rawHeader(kSeafileOTPHeader)) == "required") {
-        printf ("two factor auth token required\n");
         two_factor_auth_token_ = QInputDialog::getText(
             this,
             tr("Two Factor Authentication"),

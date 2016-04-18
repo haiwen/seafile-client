@@ -302,7 +302,7 @@ void LoginDialog::onHttpError(int code)
         two_factor_auth_token_ = QInputDialog::getText(
             this,
             tr("Two Factor Authentication"),
-            tr("Enter the two factor authentication code"),
+            tr("Enter the two factor authentication token"),
             QLineEdit::Normal,
             "");
         if (!two_factor_auth_token_.isEmpty()) {

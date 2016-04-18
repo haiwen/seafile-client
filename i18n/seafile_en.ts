@@ -1455,11 +1455,6 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
-        <source>Enter the two factor authentication code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ui/login-dialog.cpp" line="346"/>
         <source>%1 Server Address</source>
         <translation type="unfinished"></translation>
@@ -1467,6 +1462,11 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="225"/>
         <source>Please enter the password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <source>Enter the two factor authentication token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

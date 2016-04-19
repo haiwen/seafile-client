@@ -62,6 +62,7 @@ void RepoTreeModel::initialize()
     my_repos_category_ = new RepoCategoryItem(CAT_INDEX_MY_REPOS, tr("My Libraries"));
     virtual_repos_category_ = new RepoCategoryItem(CAT_INDEX_VIRTUAL_REPOS, tr("Sub Libraries"));
     shared_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Private Shares"));
+    org_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Organization"));
     groups_root_category_ = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, tr("Groups"), 0);
     synced_repos_category_ = new RepoCategoryItem(CAT_INDEX_SYNCED_REPOS, tr("Synced Libraries"));
 
@@ -117,6 +118,8 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
             }
         } else if (repo.isSharedRepo()) {
             checkSharedRepo(repo);
+        } else if (repo.isOrgRepo()) {
+            checkOrgRepo(repo);
         } else {
             checkGroupRepo(repo);
         }
@@ -236,19 +239,34 @@ void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
     shared_repos_category_->appendRow(item);
 }
 
-void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
+void RepoTreeModel::checkOrgRepo(const ServerRepo& repo)
 {
-    QStandardItem *root = invisibleRootItem();
-    int group_level = 0;
-    if (repo.group_name != "Organization") {
-        root = groups_root_category_;
+    int row, n = org_repos_category_->rowCount();
+    if (invisibleRootItem()->child(3) != org_repos_category_) {
+        // Insert pub repos after "recent updated", "my libraries", "shared libraries"
+        insertRow(3, org_repos_category_);
+    }
+    for (row = 0; row < n; row++) {
+        RepoItem *item = (RepoItem *)(org_repos_category_->child(row));
+        if (item->repo().id == repo.id) {
+            updateRepoItem(item, repo);
+            return;
+        }
     }
 
+    // the repo is a new one
+    RepoItem *item = new RepoItem(repo);
+    org_repos_category_->appendRow(item);
+}
+
+void RepoTreeModel::checkGroupRepo(const ServerRepo &repo)
+{
     RepoCategoryItem *group = NULL;
-    int row, n = root->rowCount();
+    int row, n = groups_root_category_->rowCount();
 
     for (row = 0; row < n; row++) {
-        RepoCategoryItem *item = (RepoCategoryItem *)(root->child(row));
+        RepoCategoryItem *item =
+            (RepoCategoryItem *)(groups_root_category_->child(row));
         if (item->groupId() == repo.group_id) {
             group = item;
             break;
@@ -256,16 +274,10 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
     }
 
     if (!group) {
-        if (repo.group_name == "Organization") {
-            group = new RepoCategoryItem(CAT_INDEX_PUBLIC_REPOS, tr("Organization"), repo.group_id);
-            // Insert pub repos after "recent updated", "my libraries", "shared libraries"
-            insertRow(3, group);
-        } else {
-            group = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, repo.group_name, repo.group_id);
-            group->setLevel(1);
-            group_level = 1;
-            groups_root_category_->appendRow(group);
-        }
+        group = new RepoCategoryItem(
+            CAT_INDEX_GROUP_REPOS, repo.group_name, repo.group_id);
+        group->setLevel(1);
+        groups_root_category_->appendRow(group);
     }
 
     // Find the repo in this group
@@ -273,6 +285,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
     for (row = 0; row < n; row++) {
         RepoItem *item = (RepoItem *)(group->child(row));
         if (item->repo().id == repo.id) {
+            item->setLevel(2);
             updateRepoItem(item, repo);
             return;
         }
@@ -280,7 +293,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
 
     // Current repo not in this group yet
     RepoItem *item = new RepoItem(repo);
-    item->setLevel(group_level + 1);
+    item->setLevel(2);
     group->appendRow(item);
 }
 
@@ -321,31 +334,6 @@ void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void
         forEachRepoItem(func, data, item->child(row));
     }
 }
-
-// void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *),
-//                                     void *data)
-// {
-//     int row;
-//     int n;
-//     QStandardItem *root = invisibleRootItem();
-//     n = root->rowCount();
-//     for (row = 0; row < n; row++) {
-//         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
-//         int j, total;
-//         total = category->rowCount();
-//         for (j = 0; j < total; j++) {
-//             QStandardItem *child = category->child(j);
-//             if (child->type() == REPO_ITEM_TYPE) {
-//                 (this->*func)((RepoItem *)child, data);
-//             } else {
-//                 RepoCategoryItem *subcat = (RepoCategoryItem*)child;
-//                 for (int k = 0; k < subcat->rowCount(); k++) {
-//                     (this->*func)((RepoItem *)(subcat->child(k)), data);
-//                 }
-//             }
-//         }
-//     }
-// }
 
 void RepoTreeModel::refreshLocalRepos()
 {

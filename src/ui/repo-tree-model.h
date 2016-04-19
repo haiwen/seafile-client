@@ -68,6 +68,7 @@ private:
     void checkPersonalRepo(const ServerRepo& repo);
     void checkVirtualRepo(const ServerRepo& repo);
     void checkSharedRepo(const ServerRepo& repo);
+    void checkOrgRepo(const ServerRepo& repo);
     void checkGroupRepo(const ServerRepo& repo);
     void checkSyncedRepo(const ServerRepo& repo);
     void initialize();
@@ -88,6 +89,7 @@ private:
     RepoCategoryItem *my_repos_category_;
     RepoCategoryItem *virtual_repos_category_;
     RepoCategoryItem *shared_repos_category_;
+    RepoCategoryItem *org_repos_category_;
     RepoCategoryItem *groups_root_category_;
     RepoCategoryItem *synced_repos_category_;
 

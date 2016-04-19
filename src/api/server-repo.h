@@ -44,6 +44,7 @@ public:
     bool isPersonalRepo() const { return type == "repo"; }
     bool isSharedRepo() const { return type == "srepo"; }
     bool isGroupRepo() const { return type == "grepo"; }
+    bool isOrgRepo() const { return isGroupRepo() and group_id == 0; }
 
     bool isVirtual() const { return _virtual; }
     bool isSubfolder() const { return !parent_repo_id.isEmpty() && !parent_path.isEmpty(); }

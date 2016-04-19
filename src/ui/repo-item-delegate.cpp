@@ -48,7 +48,7 @@ const int kRepoCategoryIndicatorHeight = 16;
 const int kMarginBetweenIndicatorAndName = 5;
 
 const int kMarginBetweenRepoIconAndName = 10;
-const int kMarginBetweenRepoNameAndStatus = 10;
+const int kMarginBetweenRepoNameAndStatus = 20;
 
 const char *kRepoNameColor = "#3F3F3F";
 const char *kRepoNameColorHighlighted = "#544D49";
@@ -177,7 +177,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->fillRect(option.rect, backBrush);
     painter->restore();
 
-    int indent_left = item->level() * 10;
+    int indent_left = 0;
+    if (item->level() > 0) {
+        indent_left = kRepoCategoryIndicatorWidth + kMarginBetweenIndicatorAndName;
+    }
 
     // Paint repo icon
     QPoint repo_icon_pos(kMarginLeft + kPadding + indent_left, kMarginTop + kPadding);
@@ -326,7 +329,10 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     RepoTreeView *view = model->treeView();
     QModelIndex index = ((QSortFilterProxyModel *)view->model())->mapFromSource(model->indexFromItem(item));
     bool expanded = view->isExpanded(index);
-    int indent_left = 10 * (item->level());
+    int indent_left = 0;
+    if (item->level() > 0) {
+        indent_left = kRepoCategoryIndicatorWidth + kMarginBetweenIndicatorAndName;
+    }
 
     QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft + indent_left, 0),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));

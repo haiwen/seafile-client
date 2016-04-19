@@ -3,7 +3,8 @@
 #include "repo-item.h"
 
 RepoItem::RepoItem(const ServerRepo& repo)
-    : repo_(repo)
+    : SeafileRepoBaseItem(),
+      repo_(repo)
 {
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
@@ -53,7 +54,8 @@ QVariant RepoItem::data(int role) const
 }
 
 RepoCategoryItem::RepoCategoryItem(int cat_index, const QString& name, int group_id)
-    : cat_index_(cat_index),
+    : SeafileRepoBaseItem(),
+      cat_index_(cat_index),
       name_(name),
       group_id_(group_id),
       matched_repos_(-1)

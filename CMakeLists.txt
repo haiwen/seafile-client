@@ -27,14 +27,6 @@ IF (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git AND NOT (${CMAKE_BUILD_TYPE} MATCHES
   ADD_DEFINITIONS(-DSEAFILE_CLIENT_REVISION=${SEAFILE_CLIENT_REVISION})
 ENDIF()
 
-IF (APPLE)
-    OPTION(USE_QT5
-      "Build seafile-client against Qt5 instead" ON)
-ELSE ()
-    OPTION(USE_QT5
-      "Build seafile-client against Qt5 instead" OFF)
-ENDIF ()
-
 SET(PATH_TO_BREAKPAD_ROOT CACHE "Path to breakpad's root" "")
 
 OPTION(BUILD_TESTING "Build Test" OFF)

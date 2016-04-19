@@ -37,19 +37,17 @@ sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list.d/*.list
 
 sudo add-apt-repository -y ppa:smspillaz/cmake-2.8.12
 sudo apt-get update -qq
-sudo apt-get install -y valac uuid-dev libevent-dev re2c libjansson-dev cmake cmake-data libqt4-dev
+sudo apt-get install -y valac uuid-dev libevent-dev re2c libjansson-dev cmake cmake-data
 
-if [ ! -z "$USE_QT5" ]; then
-    sudo add-apt-repository -y ppa:beineri/opt-qt56-trusty
-    sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-    sudo apt-get update -qq
+sudo add-apt-repository -y ppa:beineri/opt-qt56-trusty
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+sudo apt-get update -qq
 
-    sudo apt-get install -y gcc-4.8 g++-4.8
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+sudo apt-get install -y gcc-4.8 g++-4.8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
-    sudo apt-get install -y qt56base qt56translations qt56tools qt56webengine
-fi
+sudo apt-get install -y qt56base qt56translations qt56tools qt56webengine
 
 git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc
 git clone --depth=1 --branch=master git://github.com/haiwen/ccnet.git deps/ccnet

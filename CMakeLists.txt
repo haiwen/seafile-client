@@ -99,7 +99,6 @@ ELSEIF (APPLE)
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${COCOA_LIBRARY} ${Sec_LIBRARY})
 ENDIF()
 
-## these files using c++11 features, don't enable it for qt4
 IF(APPLE)
     ADD_DEFINITIONS(-DHAVE_FINDER_SYNC_SUPPORT)
     SET(platform_specific_moc_headers src/finder-sync/finder-sync-host.h)
@@ -484,10 +483,10 @@ FUNCTION(ADD_SC_LIBRARY name)
       "MOC_HEADERS;UI_FILES;DEPENDS;LINK_LIBS"
       ${ARGN})
     IF(ARG_MOC_HEADERS)
-        QT4_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
+        QT5_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
     ENDIF()
     IF(ARG_UI_FILES)
-        QT4_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
+        QT5_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
     ENDIF()
 
     ADD_LIBRARY(${name} STATIC ${ARG_UNPARSED_ARGUMENTS}

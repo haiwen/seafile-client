@@ -3,33 +3,7 @@ set -x
 set -e
 PWD=$(dirname "${BASH_SOURCE[0]}")
 
-## default (branch build, PR build)
-## for tag build, we use the tag version for seafile
-SEAFILE_BRANCH="$TRAVIS_BRANCH"
-
-function set_seafile_branch_from_cmake() {
-    SEAFILE_VERSION_MAJOR=$(grep "SEAFILE_CLIENT_VERSION_MAJOR" $PWD/../CMakeLists.txt |head -n1 | cut -f 2-2 -d' ' | cut -f 1-1 -d ')')
-    SEAFILE_VERSION_MINOR=$(grep "SEAFILE_CLIENT_VERSION_MINOR" $PWD/../CMakeLists.txt |head -n1 | cut -f 2-2 -d' ' | cut -f 1-1 -d ')')
-    SEAFILE_BRANCH="${SEAFILE_VERSION_MAJOR}.${SEAFILE_VERSION_MINOR}"
-}
-
-## branch build and not a tag build
-if [ "a$TRAVIS_PULL_REQUEST" = "afalse" -a -z "$TRAVIS_TAG" -a "$TRAVIS_BRANCH" != "master" ]; then
-    set_seafile_branch_from_cmake
-fi
-
-## not a ci build
-if [ -z "$SEAFILE_BRANCH" ]; then
-    SEAFILE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    if [ -z "$SEAFILE_BRANCH" -o "$SEAFILE_BRANCH" = "HEAD" ]; then
-        set_seafile_branch_from_cmake
-    fi
-fi
-
-## update this when major version bump
-if [ "$SEAFILE_BRANCH" = "4.4" ]; then
-    SEAFILE_BRANCH=master
-fi
+SEAFILE_BRANCH=master
 
 # Temporary fix
 sudo sed -i /rabbitmq\.com/d /etc/apt/sources.list

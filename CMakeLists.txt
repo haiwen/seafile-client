@@ -108,7 +108,7 @@ ELSEIF (APPLE)
 ENDIF()
 
 ## these files using c++11 features, don't enable it for qt4
-IF(APPLE AND USE_QT5)
+IF(APPLE)
     ADD_DEFINITIONS(-DHAVE_FINDER_SYNC_SUPPORT)
     SET(platform_specific_moc_headers src/finder-sync/finder-sync-host.h)
     SET(platform_specific_sources ${platform_specific_sources}
@@ -121,74 +121,60 @@ ENDIF()
 ####################
 ###### BEGIN: QT configuration
 ####################
-IF(USE_QT5)
-    SET(QT_VERSION_MAJOR 5)
-ELSE()
-    SET(QT_VERSION_MAJOR 4)
-ENDIF()
+SET(QT_VERSION_MAJOR 5)
 
-IF(USE_QT5)
-
-    # Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect the
-    # current qt version, then use proper name based on the version. However we
-    # have to keep using QtWebKit on windows because QtWebEngine can't be
-    # compiled in msys2/mingw (QtWebEnigne is based on chrome, which has to be
-    # compiled with MSVC.)
-    FIND_PROGRAM(qmake_executable NAMES qmake qmake.exe)
-    EXECUTE_PROCESS(COMMAND
-        bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
-        OUTPUT_VARIABLE DETECTED_QT_VERSION
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-    MESSAGE("qt5 version: ${DETECTED_QT_VERSION}")
-    IF(WIN32 OR DETECTED_QT_VERSION VERSION_LESS 5.6.0)
-      ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
-      SET(WEBKIT_NAME "WebKit")
-      SET(WEBKIT_WIDGETS_NAME "WebKitWidgets")
-    ELSE()
-      SET(WEBKIT_NAME "WebEngine")
-      SET(WEBENGINE_CORE "WebEngineCore")
-      SET(WEBKIT_WIDGETS_NAME "WebEngineWidgets")
-      SET(SHIB_EXTRA_HEADER "src/shib/shib-helper.h")
-    ENDIF()
-
-    SET(USE_QT_LIBRARIES
-      Core Gui Widgets LinguistTools Network Test
-      )
-    IF (BUILD_SHIBBOLETH_SUPPORT)
-      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} ${WEBENGINE_CORE} ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
-      ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
-    ENDIF()
-    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-      SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "DBus")
-    ENDIF()
-    FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
-    SET(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
-    # from QT 5.4.0 Changelog
-    # The Qt binary packages are now configured with C++11 enabled.
-    # this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3
-    if (CYGWIN OR MINGW)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-    else()
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    endif()
-    # for OS X, we requires libc++ instead
-    if (APPLE)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-      SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
-      SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
-    endif()
-ELSE()
+# Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect the
+# current qt version, then use proper name based on the version. However we
+# have to keep using QtWebKit on windows because QtWebEngine can't be
+# compiled in msys2/mingw (QtWebEnigne is based on chrome, which has to be
+# compiled with MSVC.)
+FIND_PROGRAM(qmake_executable NAMES qmake qmake.exe)
+EXECUTE_PROCESS(COMMAND
+    bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
+    OUTPUT_VARIABLE DETECTED_QT_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+MESSAGE("qt5 version: ${DETECTED_QT_VERSION}")
+IF(WIN32 OR DETECTED_QT_VERSION VERSION_LESS 5.6.0)
     ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
-    IF (BUILD_SHIBBOLETH_SUPPORT)
-      SET(QtWebKit "QtWebKit")
-      ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
-    ENDIF()
-    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-        SET(QtDBus "QtDBus")
-    ENDIF()
-    FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtNetwork ${QtDBus} ${QtWebKit})
-    INCLUDE(${QT_USE_FILE})
+    SET(WEBKIT_NAME "WebKit")
+    SET(WEBKIT_WIDGETS_NAME "WebKitWidgets")
+ELSE()
+    SET(WEBKIT_NAME "WebEngine")
+    SET(WEBENGINE_CORE "WebEngineCore")
+    SET(WEBKIT_WIDGETS_NAME "WebEngineWidgets")
+    SET(SHIB_EXTRA_HEADER "src/shib/shib-helper.h")
 ENDIF()
+
+SET(USE_QT_LIBRARIES
+    Core Gui Widgets LinguistTools Network Test
+    )
+IF (BUILD_SHIBBOLETH_SUPPORT)
+    SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} ${WEBENGINE_CORE} ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
+    ADD_DEFINITIONS(-DHAVE_SHIBBOLETH_SUPPORT)
+ENDIF()
+
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "DBus")
+ENDIF()
+
+FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
+SET(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
+# from QT 5.4.0 Changelog
+# The Qt binary packages are now configured with C++11 enabled.
+# this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3
+
+if (CYGWIN OR MINGW)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
+
+# for OS X, we requires libc++ instead
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+    SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
+    SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
+endif()
 
 # MOC FILES
 SET(moc_headers
@@ -303,26 +289,13 @@ SET(qrc_files
   third_party/QtAwesome/QtAwesome.qrc
 )
 
-# preprocess ui files
-IF(USE_QT5)
-  QT5_WRAP_UI(ui_output ${ui_files})
-ELSE()
-  QT4_WRAP_UI(ui_output ${ui_files})
-ENDIF()
+QT5_WRAP_UI(ui_output ${ui_files})
 
 # meta object compliation(moc)
-IF(USE_QT5)
-  QT5_WRAP_CPP(moc_output ${moc_headers})
-ELSE()
-  QT4_WRAP_CPP(moc_output ${moc_headers})
-ENDIF()
+QT5_WRAP_CPP(moc_output ${moc_headers})
 
 # resources files
-IF(USE_QT5)
-  QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
-ELSE()
-  QT4_ADD_RESOURCES(resources_ouput ${qrc_files})
-ENDIF()
+QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
 
 # MESSAGE("moc output: ${moc_output}")
 # MESSAGE("ui output: ${ui_output}")
@@ -472,15 +445,11 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}/third_party/QtAwesome
   )
 
-IF(USE_QT5)
-  FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
-  INCLUDE_DIRECTORIES(
-    ${Qt5${USE_QT_LIBRARY}_INCLUDE_DIRS}
-    )
-  ENDFOREACH()
-ELSE()
-  INCLUDE_DIRECTORIES(${QT_INCLUDES})
-ENDIF()
+FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
+INCLUDE_DIRECTORIES(
+${Qt5${USE_QT_LIBRARY}_INCLUDE_DIRS}
+)
+ENDFOREACH()
 
 INCLUDE_DIRECTORIES(
   ${OPENSSL_INCLUDE_DIRS}
@@ -628,11 +597,7 @@ FOREACH(LANGUAGE ${LANGUAGES})
 
 ENDFOREACH(LANGUAGE ${LANGUAGES})
 
-IF(USE_QT5)
-  QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
-ELSE()
-  QT4_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
-ENDIF()
+QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
 
 ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
@@ -752,21 +717,17 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
-IF(USE_QT5)
-  QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
-  IF (BUILD_SHIBBOLETH_SUPPORT)
-    QT5_USE_MODULES(seafile-applet ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
-  ENDIF()
-ENDIF(USE_QT5)
+QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
+IF (BUILD_SHIBBOLETH_SUPPORT)
+QT5_USE_MODULES(seafile-applet ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
+ENDIF()
 
 ## QtBus
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
   TARGET_LINK_LIBRARIES(seafile-applet
     ${QT_QTDBUS_LIBRARIES}
   )
-  IF(USE_QT5)
-    QT5_USE_MODULES(seafile-applet ${USE_QT_LIBRARIES})
-  ENDIF(USE_QT5)
+  QT5_USE_MODULES(seafile-applet ${USE_QT_LIBRARIES})
 ENDIF()
 
 ### Xcode-related, build as a osx bundle
@@ -801,12 +762,7 @@ ADD_CUSTOM_TARGET(dist
 ### Test related
 IF (BUILD_TESTING)
     MACRO(ADD_QTEST testname)
-        IF(USE_QT5)
-          QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
-        ELSE()
-          SET(QTESTLIB ${QT_QTTEST_LIBRARY})
-          QT4_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
-        ENDIF()
+        QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
 
         SET(${testname}_SRCS tests/${testname}.cpp ${${testname}_MOCHEADER})
 
@@ -818,9 +774,7 @@ IF (BUILD_TESTING)
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 
-        IF(USE_QT5)
-          QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES})
-        ENDIF(USE_QT5)
+        QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES})
 
         ADD_TEST(${testname} ${CMAKE_CURRENT_BINARY_DIR}/tests/${testname})
 

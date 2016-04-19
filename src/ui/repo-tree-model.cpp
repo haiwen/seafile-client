@@ -111,10 +111,12 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
             repo.readonly = false;
         }
         if (repo.isPersonalRepo()) {
-            if (repo.isVirtual()) {
-                checkVirtualRepo(repo);
-            } else {
-                checkPersonalRepo(repo);
+            if (!repo.isSubfolder()) {
+                if (repo.isVirtual()) {
+                    checkVirtualRepo(repo);
+                } else {
+                    checkPersonalRepo(repo);
+                }
             }
         } else if (repo.isSharedRepo()) {
             checkSharedRepo(repo);

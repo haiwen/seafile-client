@@ -9,7 +9,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     set +e
     . /opt/qt56/bin/qt56-env.sh
     set -e
-    cmake -DBUILD_TESTING=on -DBUILD_SHIBBOLETH_SUPPORT=on .
+    cmake -DBUILD_TESTING=on -DBUILD_SHIBBOLETH_SUPPORT=$BUILD_SHIBBOLETH_SUPPORT .
     make -j8 VERBOSE=1
     make test VERBOSE=1
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then

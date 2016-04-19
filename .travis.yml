@@ -5,10 +5,10 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-      env: USE_QT5=1
+      env: BUILD_SHIBBOLETH_SUPPORT=ON
     - os: linux
-      compiler: clang
-      env: USE_QT5=1
+      compiler: gcc
+      env: BUILD_SHIBBOLETH_SUPPORT=OFF
   exclude:
     - os: osx
       compiler: gcc

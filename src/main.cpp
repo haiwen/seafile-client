@@ -45,15 +45,6 @@ void initBreakpad()
 
 void setupFontFix()
 {
-#if QT_VERSION < QT_VERSION_CHECK(4, 8, 6) && defined(Q_OS_MAC)
-    // Mac OS X 10.9 (mavericks) font issue,
-    // fixed in qt4.8.6 and qt5.x
-    // https://bugreports.qt-project.org/browse/QTBUG-32789
-    if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
-        QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
-    }
-#endif // QT_VERSION_CHECK(4, 8, 6)
-
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 2) && defined(Q_OS_MAC)
     // Text in buttons and drop-downs looks misaligned in osx 10.10,
     // fixed in qt5.3.2

@@ -4,9 +4,7 @@
 
 #include <QDesktopServices>
 #include <QUrl>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QUrlQuery>
-#endif
 #include <QVariant>
 
 extern "C" {
@@ -101,15 +99,10 @@ QUrl OpenLocalHelper::generateLocalFileSeafileUrl(const QString& repo_id, const 
     url.setScheme(kSeafileProtocolScheme);
     url.setHost(kSeafileProtocolHostOpenFile);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QUrlQuery url_query;
     url_query.addQueryItem("repo_id",  repo_id);
     url_query.addQueryItem("path",  path);
     url.setQuery(url_query);
-#else
-    url.addQueryItem("repo_id",  repo_id);
-    url.addQueryItem("path",  path);
-#endif
 
     return url;
 }
@@ -136,16 +129,10 @@ bool OpenLocalHelper::openLocalFile(const QUrl &url)
         return false;
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QUrlQuery url_query = QUrlQuery(url.query());
     QString repo_id = url_query.queryItemValue("repo_id", QUrl::FullyDecoded);
     QString email = url_query.queryItemValue("email", QUrl::FullyDecoded);
     QString path = url_query.queryItemValue("path", QUrl::FullyDecoded);
-#else
-    QString repo_id = url.queryItemValue("repo_id");
-    QString email = url.queryItemValue("email");
-    QString path = url.queryItemValue("path");
-#endif
 
     if (repo_id.size() < 36) {
         qWarning("[OpenLocalHelper] invalid repo_id %s\n", repo_id.toUtf8().data());

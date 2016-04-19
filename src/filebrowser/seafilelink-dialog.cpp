@@ -1,11 +1,7 @@
 #include "seafilelink-dialog.h"
 
 #include <QtGlobal>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include "QtAwesome.h"
 #include "utils/utils.h"
 #include "utils/utils-mac.h"

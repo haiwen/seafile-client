@@ -6,11 +6,7 @@ extern "C" {
 #include <QtGlobal>
 #include <vector>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QImage>
 #include <QWidget>
 

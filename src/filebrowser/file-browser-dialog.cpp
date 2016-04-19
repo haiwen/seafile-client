@@ -1,9 +1,5 @@
 #include <QtGlobal>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QDesktopServices>
 
 #include "seafile-applet.h"
@@ -95,9 +91,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog)
 #if !defined(Q_OS_MAC)
                    | Qt::FramelessWindowHint
-#endif
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-                   | Qt::WindowMinimizeButtonHint
 #endif
                    | Qt::Window);
 

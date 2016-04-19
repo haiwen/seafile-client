@@ -1,10 +1,5 @@
 #include <QtGlobal>
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QHeaderView>
 #include <QContextMenuEvent>
 
@@ -20,11 +15,7 @@
 CloneTasksTableHeader::CloneTasksTableHeader(QWidget *parent)
     : QHeaderView(Qt::Horizontal, parent)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     sectionResizeMode(QHeaderView::Stretch);
-#else
-    setResizeMode(QHeaderView::Stretch);
-#endif
     setHighlightSections(false);
 }
 

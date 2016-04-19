@@ -31,11 +31,7 @@ bool shouldIgnoreRequestError(const QNetworkReply* reply)
 QString getQueryValue(const QUrl& url, const QString& name)
 {
     QString v;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     v = QUrlQuery(url.query()).queryItemValue(name);
-#else
-    v = url.queryItemValue(name);
-#endif
     return QUrl::fromPercentEncoding(v.toUtf8());
 }
 

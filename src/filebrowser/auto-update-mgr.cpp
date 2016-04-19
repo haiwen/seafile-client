@@ -21,31 +21,21 @@ namespace {
 inline bool addPath(QFileSystemWatcher *watcher, const QString &file) {
   if (watcher->files().contains(file))
       return true;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
   bool ret = watcher->addPath(file);
   if (!ret) {
       qWarning("[AutoUpdateManager] failed to watch cache file %s", file.toUtf8().data());
   }
   return ret;
-#else
-  watcher->addPath(file);
-  return true;
-#endif
 }
 
 inline bool removePath(QFileSystemWatcher *watcher, const QString &file) {
   if (!watcher->files().contains(file))
       return true;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
   bool ret = watcher->removePath(file);
   if (!ret) {
       qWarning("[AutoUpdateManager] failed to remove watch on cache file %s", file.toUtf8().data());
   }
   return ret;
-#else
-  watcher->removePath(file);
-  return true;
-#endif
 }
 } // anonymous namespace
 

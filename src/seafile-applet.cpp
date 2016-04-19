@@ -1,10 +1,6 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -71,7 +67,6 @@ DEBUG_LEVEL seafile_client_debug_level = DEBUG;
 DEBUG_LEVEL seafile_client_debug_level = WARNING;
 #endif
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     QByteArray localMsg = msg.toLocal8Bit();
@@ -139,43 +134,6 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
         break;
     }
 }
-#else /* Qt 4.x */
-void myLogHandlerDebug(QtMsgType type, const char *msg)
-{
-    switch (type) {
-    case QtDebugMsg:
-        g_debug("%s", msg);
-        break;
-    case QtWarningMsg:
-        g_warning("%s", msg);
-        break;
-    case QtCriticalMsg:
-        g_critical("%s", msg);
-        break;
-    case QtFatalMsg:
-        g_critical("%s", msg);
-        abort();
-    }
-}
-
-void myLogHandler(QtMsgType type, const char *msg)
-{
-    switch (type) {
-    case QtWarningMsg:
-        g_warning("%s", msg);
-        break;
-    case QtCriticalMsg:
-        g_critical("%s", msg);
-        break;
-    case QtFatalMsg:
-        g_critical("%s", msg);
-        abort();
-    default:
-        break;
-    }
-}
-
-#endif /* Qt 4.x */
 
 /**
  * s1 > s2 --> *ret = 1
@@ -513,18 +471,10 @@ void SeafileApplet::initLog()
             debug_level != "0")
             seafile_client_debug_level = DEBUG;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-#define qInstallMsgHandler qInstallMessageHandler
-#endif
         if (seafile_client_debug_level == DEBUG)
-            qInstallMsgHandler(myLogHandlerDebug);
+            qInstallMessageHandler(myLogHandlerDebug);
         else
-            qInstallMsgHandler(myLogHandler);
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-#undef qInstallMsgHandler
-#endif
-
+            qInstallMessageHandler(myLogHandler);
     }
 }
 

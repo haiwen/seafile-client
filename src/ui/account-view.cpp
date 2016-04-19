@@ -7,9 +7,7 @@
 #include <QDesktopServices>
 #include <QMouseEvent>
 #include <QUrl>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
-#endif
 
 #include "account.h"
 #include "seafile-applet.h"
@@ -337,10 +335,7 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
         // get the device pixel radio from current painter device
-        int scale_factor = 1;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        scale_factor = painter.device()->devicePixelRatio();
-#endif // QT5
+        int scale_factor = scale_factor = painter.device()->devicePixelRatio();
 
         QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(scale_factor * rect.size()));
         QRect actualRect(QPoint(0, 0), image.size());
@@ -360,9 +355,7 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         mask_painter.setCompositionMode(QPainter::CompositionMode_DestinationOver);
         mask_painter.fillRect(actualRect, Qt::transparent);
         mask_painter.end();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
         masked_image.setDevicePixelRatio(scale_factor);
-#endif // QT5
 
         painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
         painter.drawImage(QPoint(0,0), masked_image);

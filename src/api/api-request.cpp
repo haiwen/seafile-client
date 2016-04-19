@@ -1,8 +1,6 @@
 #include <QtGlobal>
 #include <QtNetwork>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
-#endif
 
 #include "utils/utils.h"
 #include "api-client.h"

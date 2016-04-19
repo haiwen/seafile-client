@@ -1,9 +1,5 @@
 #include <QtGlobal>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QTimer>
 
 #include "utils/utils.h"
@@ -211,11 +207,7 @@ FileTableView::FileTableView(QWidget *parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(36);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-#else
-    horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-#endif
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);

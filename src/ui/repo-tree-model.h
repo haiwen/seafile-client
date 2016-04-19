@@ -74,9 +74,11 @@ private:
     void updateRepoItem(RepoItem *item, const ServerRepo& repo);
     void refreshRepoItem(RepoItem *item, void *data);
 
-    void forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *), void *data);
+    void forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *),
+                         void *data,
+                         QStandardItem *item = nullptr);
 
-    void removeReposDeletedOnServer(const std::vector<ServerRepo>& repos);
+    void removeReposDeletedOnServer(const std::vector<ServerRepo> &repos);
 
     void collectDeletedRepos(RepoItem *item, void *vdata);
     void updateRepoItemAfterSyncNow(RepoItem *item, void *data);
@@ -86,6 +88,7 @@ private:
     RepoCategoryItem *my_repos_category_;
     RepoCategoryItem *virtual_repos_category_;
     RepoCategoryItem *shared_repos_category_;
+    RepoCategoryItem *groups_root_category_;
     RepoCategoryItem *synced_repos_category_;
 
     QTimer *refresh_local_timer_;

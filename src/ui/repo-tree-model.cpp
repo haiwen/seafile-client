@@ -62,12 +62,14 @@ void RepoTreeModel::initialize()
     my_repos_category_ = new RepoCategoryItem(CAT_INDEX_MY_REPOS, tr("My Libraries"));
     virtual_repos_category_ = new RepoCategoryItem(CAT_INDEX_VIRTUAL_REPOS, tr("Sub Libraries"));
     shared_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Private Shares"));
+    groups_root_category_ = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, tr("Groups"), 0);
     synced_repos_category_ = new RepoCategoryItem(CAT_INDEX_SYNCED_REPOS, tr("Synced Libraries"));
 
     appendRow(recent_updated_category_);
     appendRow(my_repos_category_);
     // appendRow(virtual_repos_category_);
     appendRow(shared_repos_category_);
+    appendRow(groups_root_category_);
     appendRow(synced_repos_category_);
 
     if (tree_view_) {
@@ -237,17 +239,22 @@ void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
 void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
 {
     QStandardItem *root = invisibleRootItem();
-    RepoCategoryItem *group = NULL;
+    int group_level = 0;
+    if (repo.group_name != "Organization") {
+        root = groups_root_category_;
+    }
 
+    RepoCategoryItem *group = NULL;
     int row, n = root->rowCount();
 
-    for (row = 0; row < n; row ++) {
+    for (row = 0; row < n; row++) {
         RepoCategoryItem *item = (RepoCategoryItem *)(root->child(row));
         if (item->groupId() == repo.group_id) {
             group = item;
             break;
         }
     }
+
     if (!group) {
         if (repo.group_name == "Organization") {
             group = new RepoCategoryItem(CAT_INDEX_PUBLIC_REPOS, tr("Organization"), repo.group_id);
@@ -255,7 +262,9 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
             insertRow(3, group);
         } else {
             group = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, repo.group_name, repo.group_id);
-            appendRow(group);
+            group->setLevel(1);
+            group_level = 1;
+            groups_root_category_->appendRow(group);
         }
     }
 
@@ -271,6 +280,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo& repo)
 
     // Current repo not in this group yet
     RepoItem *item = new RepoItem(repo);
+    item->setLevel(group_level + 1);
     group->appendRow(item);
 }
 
@@ -296,22 +306,46 @@ void RepoTreeModel::updateRepoItem(RepoItem *item, const ServerRepo& repo)
 }
 
 void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *),
-                                    void *data)
+                                    void *data,
+                                    QStandardItem *item)
 {
-    int row;
-    int n;
-    QStandardItem *root = invisibleRootItem();
-    n = root->rowCount();
+    if (item == nullptr) {
+        item = invisibleRootItem();
+    }
+    if (item->type() == REPO_ITEM_TYPE) {
+        (this->*func)((RepoItem *)item, data);
+    }
+
+    int row, n = item->rowCount();
     for (row = 0; row < n; row++) {
-        RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
-        int j, total;
-        total = category->rowCount();
-        for (j = 0; j < total; j++) {
-            RepoItem *item = (RepoItem *)category->child(j);
-            (this->*func)(item, data);
-        }
+        forEachRepoItem(func, data, item->child(row));
     }
 }
+
+// void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *),
+//                                     void *data)
+// {
+//     int row;
+//     int n;
+//     QStandardItem *root = invisibleRootItem();
+//     n = root->rowCount();
+//     for (row = 0; row < n; row++) {
+//         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
+//         int j, total;
+//         total = category->rowCount();
+//         for (j = 0; j < total; j++) {
+//             QStandardItem *child = category->child(j);
+//             if (child->type() == REPO_ITEM_TYPE) {
+//                 (this->*func)((RepoItem *)child, data);
+//             } else {
+//                 RepoCategoryItem *subcat = (RepoCategoryItem*)child;
+//                 for (int k = 0; k < subcat->rowCount(); k++) {
+//                     (this->*func)((RepoItem *)(subcat->child(k)), data);
+//                 }
+//             }
+//         }
+//     }
+// }
 
 void RepoTreeModel::refreshLocalRepos()
 {
@@ -398,6 +432,9 @@ void RepoTreeModel::onFilterTextChanged(const QString& text)
     QRegExp re = makeFilterRegExp(text);
     for (row = 0; row < n; row++) {
         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
+        if (category->isGroupsRoot()) {
+            continue;
+        }
         int j, total, matched = 0;
         total = category->rowCount();
         for (j = 0; j < total; j++) {

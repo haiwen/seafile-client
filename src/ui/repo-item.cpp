@@ -69,3 +69,19 @@ QVariant RepoCategoryItem::data(int role) const
 
     return name_;
 }
+
+int RepoCategoryItem::matchedReposCount() const
+{
+    if (isGroupsRoot()) {
+        // This item is the groups root level.
+        int i, n = rowCount(), sum = 0;
+        for (i = 0; i < n; i++) {
+            RepoCategoryItem *group = (RepoCategoryItem *)child(i);
+            sum += group->matchedReposCount();
+        }
+        return sum;
+    }
+
+    // A normal group item.
+    return matched_repos_ >= 0 ? matched_repos_ : rowCount();
+}

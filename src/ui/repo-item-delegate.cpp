@@ -177,8 +177,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->fillRect(option.rect, backBrush);
     painter->restore();
 
+    int indent_left = item->level() * 10;
+
     // Paint repo icon
-    QPoint repo_icon_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
+    QPoint repo_icon_pos(kMarginLeft + kPadding + indent_left, kMarginTop + kPadding);
     repo_icon_pos += option.rect.topLeft();
     painter->save();
 
@@ -202,6 +204,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     int repo_name_width = option.rect.width() - kRepoIconWidth - kMarginBetweenRepoIconAndName
         - kRepoStatusIconWidth  - kMarginBetweenRepoNameAndStatus
         - kPadding * 2 - kMarginLeft - kMarginRight;
+    repo_name_width -= indent_left;
     QRect repo_name_rect(repo_name_pos, QSize(repo_name_width, kRepoNameHeight));
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
     painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
@@ -321,11 +324,11 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
 
     RepoTreeModel *model = (RepoTreeModel *)item->model();
     RepoTreeView *view = model->treeView();
-
     QModelIndex index = ((QSortFilterProxyModel *)view->model())->mapFromSource(model->indexFromItem(item));
     bool expanded = view->isExpanded(index);
+    int indent_left = 10 * (item->level());
 
-    QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft, 0),
+    QRect indicator_rect(option.rect.topLeft() + QPoint(kMarginLeft + indent_left, 0),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     // get the device pixel radio from current painter device
     int scale_factor = 1;
@@ -345,9 +348,19 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     // calculate the count of synced repos
     int synced_repos = 0;
     for (int i = 0; i < item->rowCount(); ++i) {
-        RepoItem *repo_item = static_cast<RepoItem *>(item->child(i));
-        if (repo_item->localRepo().isValid())
-            ++synced_repos;
+        QStandardItem *child = item->child(i);
+        if (child->type() == REPO_ITEM_TYPE) {
+            RepoItem *repo_item = static_cast<RepoItem *>(child);
+            if (repo_item->localRepo().isValid())
+                ++synced_repos;
+        } else {
+            RepoCategoryItem *cat_item = static_cast<RepoCategoryItem *>(child);
+            for (int j = 0; j < cat_item->rowCount(); ++j) {
+                RepoItem *repo_item = static_cast<RepoItem *>(cat_item->child(j));
+                if (repo_item->localRepo().isValid())
+                    ++synced_repos;
+            }
+        }
     }
     const QString category_count_text = QString::number(synced_repos) + "/" + QString::number(item->matchedReposCount());
     const int category_count_width = ::textWidthInFont(category_count_text, changeFontSize(option.font, kRepoCategoryCountFontSize));

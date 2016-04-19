@@ -14,10 +14,31 @@ enum {
     REPO_CATEGORY_TYPE
 };
 
+
+class SeafileRepoBaseItem : public QStandardItem
+{
+public:
+    SeafileRepoBaseItem() : level_(0){};
+
+    void setLevel(int level)
+    {
+        level_ = level;
+    }
+
+    int level() const
+    {
+        return level_;
+    }
+
+private:
+    int level_;
+};
+
+
 /**
  * Represent a repo
  */
-class RepoItem : public QStandardItem {
+class RepoItem : public SeafileRepoBaseItem {
 public:
     RepoItem(const ServerRepo& repo);
 
@@ -72,10 +93,13 @@ private:
  * Represent a repo category
  * E.g (My Repos, Shared repos, Group 1 repos, Group 2 repos ...)
  */
-class RepoCategoryItem: public QStandardItem {
+class RepoCategoryItem: public SeafileRepoBaseItem {
 public:
     /**
      * Create a group category
+     * @group_id: -1 for non groups categories
+     *            0 for the groups root item
+     *            > 0 for group items
      */
     RepoCategoryItem(int cat_index, const QString& name, int group_id=-1);
 
@@ -83,6 +107,8 @@ public:
 
     // Accessors
     const QString& name() const { return name_; }
+
+    bool isGroupsRoot() const { return group_id_ == 0; }
 
     bool isGroup() const { return group_id_ > 0; }
 
@@ -99,11 +125,7 @@ public:
     /**
      * Return the number of matched repos when the user types filter text
      */
-    int matchedReposCount() const {
-        return matched_repos_ >= 0
-            ? matched_repos_
-            : rowCount();
-    }
+    int matchedReposCount() const;
 
     void resetMatchedRepoCount() { matched_repos_ = 0; };
     void setMatchedReposCount(int n) { matched_repos_ = n; };

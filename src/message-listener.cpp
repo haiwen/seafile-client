@@ -160,18 +160,21 @@ void MessageListener::handleMessage(CcnetMessage *message)
             QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(QString::fromUtf8(content));
             seafApplet->trayIcon()->showMessage(getBrand(), buf);
         } else if (strcmp(type, "sync.done") == 0) {
-            /* format: repo_name \t repo_id \t description */
+            /* format: a concatenation of (repo_name, repo_id, commmit_id,
+             * previous_commit_id, description), separated by tabs */
             QStringList slist = QString::fromUtf8(content).split("\t");
-            if (slist.count() != 3) {
+            if (slist.count() != 5) {
                 qWarning("Bad sync.done message format");
                 return;
             }
 
             QString title = tr("\"%1\" is synchronized").arg(slist.at(0));
             QString repo_id = slist.at(1).trimmed();
-            QString buf = slist.at(2).trimmed();
+            QString commit_id = slist.at(2).trimmed();
+            QString previous_commit_id = slist.at(3).trimmed();
+            QString desc = slist.at(4).trimmed();
 
-            seafApplet->trayIcon()->showMessage(title, translateCommitDesc(buf), repo_id);
+            seafApplet->trayIcon()->showMessage(title, translateCommitDesc(desc), repo_id, commit_id, previous_commit_id);
 
         } else if (strcmp(type, "sync.conflict") == 0) {
             json_error_t error;

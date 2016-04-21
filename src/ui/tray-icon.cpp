@@ -19,6 +19,7 @@ extern "C" {
 #include "rpc/local-repo.h"
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
+#include "utils/file-utils.h"
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "rpc/rpc-client.h"
@@ -27,6 +28,7 @@ extern "C" {
 #include "settings-mgr.h"
 #include "seahub-notifications-monitor.h"
 #include "server-status-service.h"
+#include "api/commit-details.h"
 
 #include "tray-icon.h"
 #if defined(Q_OS_MAC)
@@ -55,7 +57,26 @@ void darkmodeWatcher(bool /*new Value*/) {
 }
 #endif
 
+QString folderToShow(const CommitDetails& details, const QString& worktree)
+{
+    QString path = worktree;
+    if (!details.added_files.empty()) {
+        path = pathJoin(worktree, details.added_files[0]);
+    } else if (!details.modified_files.empty()) {
+        path = pathJoin(worktree, details.modified_files[0]);
+    } else if (!details.added_dirs.empty()) {
+        path = pathJoin(worktree, details.added_dirs[0]);
+    } else if (!details.renamed_files.empty()) {
+        path = pathJoin(worktree, details.renamed_files[0].second);
+    } else if (!details.deleted_files.empty()) {
+        path = getParentPath(pathJoin(worktree, details.deleted_files[0]));
+    } else if (!details.deleted_dirs.empty()) {
+        path = getParentPath(pathJoin(worktree, details.deleted_dirs[0]));
+    }
+    return path;
 }
+
+} // namespace
 
 SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     : QSystemTrayIcon(parent),
@@ -84,7 +105,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     connect(SeahubNotificationsMonitor::instance(), SIGNAL(notificationsChanged()),
             this, SLOT(onSeahubNotificationsChanged()));
 
-#if defined(Q_OS_WIN32) || (defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)))
+#if !defined(Q_OS_LINUX)
     connect(this, SIGNAL(messageClicked()),
             this, SLOT(onMessageClicked()));
 #endif
@@ -234,10 +255,18 @@ void SeafileTrayIcon::rotate(bool start)
     }
 }
 
-void SeafileTrayIcon::showMessage(const QString & title, const QString & message, const QString& repo_id, MessageIcon icon, int millisecondsTimeoutHint)
+void SeafileTrayIcon::showMessage(const QString &title,
+                                  const QString &message,
+                                  const QString &repo_id,
+                                  const QString &commit_id,
+                                  const QString &previous_commit_id,
+                                  MessageIcon icon,
+                                  int millisecondsTimeoutHint)
 {
 #ifdef Q_OS_MAC
     repo_id_ = repo_id;
+    commit_id_ = commit_id;
+    previous_commit_id_ = previous_commit_id;
     if (!utils::mac::isOSXMountainLionOrGreater()) {
         QIcon info_icon(":/images/info.png");
         TrayNotificationWidget* trayNotification = new TrayNotificationWidget(info_icon.pixmap(32, 32), title, message);
@@ -264,6 +293,8 @@ void SeafileTrayIcon::showMessage(const QString & title, const QString & message
     msg.message = message;
     msg.icon = icon;
     msg.repo_id = repo_id;
+    msg.commit_id = commit_id;
+    msg.previous_commit_id = previous_commit_id;
     pending_messages_.enqueue(msg);
 #endif
 }
@@ -573,7 +604,12 @@ void SeafileTrayIcon::onMessageClicked()
     if (seafApplet->rpcClient()->getLocalRepo(repo_id_, &repo) != 0 ||
         !repo.isValid() || repo.worktree_invalid)
         return;
-    showInGraphicalShell(repo.worktree);
+
+    CommitDetails details;
+    // TODO: Run this rpc in another thread, since the diff rpc may block for a while.
+    seafApplet->rpcClient()->getCommitDiff(repo_id_, previous_commit_id_, commit_id_, &details);
+    QString folder_to_open = folderToShow(details, repo.worktree);
+    showInGraphicalShell(folder_to_open);
 }
 
 void SeafileTrayIcon::checkTrayIconMessageQueue()
@@ -590,5 +626,6 @@ void SeafileTrayIcon::checkTrayIconMessageQueue()
     TrayMessage msg = pending_messages_.dequeue();
     QSystemTrayIcon::showMessage(msg.title, msg.message, msg.icon, kMessageDisplayTimeMSecs);
     repo_id_ = msg.repo_id;
+    commit_id_ = msg.commit_id;
     next_message_msec_ = now + kMessageDisplayTimeMSecs;
 }

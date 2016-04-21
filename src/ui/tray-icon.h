@@ -39,6 +39,8 @@ public:
     void showMessage(const QString& title,
                      const QString& message,
                      const QString& repo_id = QString(),
+                     const QString& commit_id = QString(),
+                     const QString& previous_commit_id = QString(),
                      MessageIcon icon = Information,
                      int millisecondsTimeoutHint = 10000);
 
@@ -107,8 +109,9 @@ private:
 
     TrayState state_;
 
-    // only used on windows by now, so we have only one message
     QString repo_id_;
+    QString commit_id_;
+    QString previous_commit_id_;
 
     QHash<QString, QIcon> icon_cache_;
 
@@ -117,6 +120,8 @@ private:
         QString message;
         MessageIcon icon;
         QString repo_id;
+        QString commit_id;
+        QString previous_commit_id;
     };
 
     // Use a queue to gurantee each tray notification message would be

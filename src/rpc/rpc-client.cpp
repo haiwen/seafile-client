@@ -1,6 +1,8 @@
 extern "C" {
+
 #include <searpc-client.h>
 #include <ccnet.h>
+#include <ccnet/ccnet-object.h>
 
 #include <searpc.h>
 #include <seafile/seafile.h>
@@ -16,21 +18,22 @@ extern "C" {
 #include "utils/utils.h"
 #include "local-repo.h"
 #include "clone-task.h"
+#include "api/commit-details.h"
 #include "rpc-client.h"
 
 
 namespace {
 
 const char *kSeafileRpcService = "seafile-rpcserver";
+const char *kSeafileThreadedRpcService = "seafile-threaded-rpcserver";
 const char *kCcnetRpcService = "ccnet-rpcserver";
 
 } // namespace
 
-#define toCStr(_s)   ((_s).isNull() ? NULL : (_s).toUtf8().data())
-
 SeafileRpcClient::SeafileRpcClient()
       : sync_client_(0),
         seafile_rpc_client_(0),
+        seafile_threaded_rpc_client_(0),
         ccnet_rpc_client_(0)
 {
 }
@@ -44,6 +47,10 @@ SeafileRpcClient::~SeafileRpcClient()
     if (seafile_rpc_client_) {
         ccnet_rpc_client_free(seafile_rpc_client_);
         seafile_rpc_client_ = 0;
+    }
+    if (seafile_threaded_rpc_client_) {
+        ccnet_rpc_client_free(seafile_threaded_rpc_client_);
+        seafile_threaded_rpc_client_ = 0;
     }
     if (sync_client_) {
         g_object_unref(sync_client_);
@@ -66,6 +73,8 @@ void SeafileRpcClient::connectDaemon()
 
     seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
     ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
+
+    seafile_threaded_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileThreadedRpcService);
 
     qWarning("[Rpc Client] connected to daemon");
 }
@@ -968,5 +977,34 @@ bool SeafileRpcClient::setServerProperty(const QString &url,
         g_error_free(error);
         return false;
     }
+    return true;
+}
+
+bool SeafileRpcClient::getCommitDiff(const QString& repo_id,
+                                     const QString& commit_id,
+                                     const QString& previous_commit_id,
+                                     CommitDetails *details)
+{
+    GError *error = NULL;
+    GList *objlist = searpc_client_call__objlist(
+        seafile_threaded_rpc_client_,
+        "seafile_diff",
+        SEAFILE_TYPE_DIFF_ENTRY,
+        &error, 4,
+        "string", toCStr(repo_id),
+        "string", toCStr(commit_id),
+        "string", toCStr(previous_commit_id),
+        "int", 1);
+
+    if (error) {
+        qWarning("failed to get changes in commit %.7s of repo %.7s", toCStr(commit_id), toCStr(repo_id));
+        g_error_free(error);
+        return false;
+    }
+
+    *details = CommitDetails::fromObjList(objlist);
+
+    g_list_foreach (objlist, (GFunc)g_object_unref, NULL);
+    g_list_free (objlist);
     return true;
 }

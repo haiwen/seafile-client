@@ -15,6 +15,7 @@ struct _CcnetClient;
 
 class LocalRepo;
 class CloneTask;
+class CommitDetails;
 
 class SeafileRpcClient : public QObject {
     Q_OBJECT
@@ -119,6 +120,11 @@ public:
                            const QString &key,
                            const QString &value);
 
+    bool getCommitDiff(const QString& repo_id,
+                       const QString& commit_id,
+                       const QString& previous_commit_id,
+                       CommitDetails *details);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 
@@ -129,6 +135,7 @@ private:
 
     _CcnetClient *sync_client_;
     SearpcClient *seafile_rpc_client_;
+    SearpcClient *seafile_threaded_rpc_client_;
     SearpcClient *ccnet_rpc_client_;
 };
 

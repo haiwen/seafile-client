@@ -1,4 +1,8 @@
+#include <glib.h>
+#include <glib-object.h>
+
 #include "commit-details.h"
+
 
 namespace {
 
@@ -40,6 +44,52 @@ CommitDetails CommitDetails::fromJSON(const json_t *json, json_error_t */* error
             QString after_rename = getStringFromJsonArray(array, i + 1);
             std::pair<QString, QString> pair(before_rename, after_rename);
             details.renamed_files.push_back(pair);
+        }
+    }
+
+    return details;
+}
+
+
+CommitDetails CommitDetails::fromObjList(const GList *objlist)
+{
+    CommitDetails details;
+
+    for (const GList *ptr = objlist; ptr; ptr = ptr->next) {
+        GObject *obj = (GObject *)(ptr->data);
+        char *c_status = NULL;
+        char *c_name = NULL;
+        char *c_new_name = NULL;
+        g_object_get(obj,
+                     "status",
+                     &c_status,
+                     "name",
+                     &c_name,
+                     "new_name",
+                     &c_new_name,
+                     NULL);
+
+        QString status(c_status);
+        QString name(c_name);
+        QString new_name(c_new_name);
+
+        // printf("%s\n%s\n%s\n",
+        //        status.toUtf8().data(),
+        //        name.toUtf8().data(),
+        //        new_name.toUtf8().data());
+
+        if (status == "add") {
+            details.added_files.push_back(name);
+        } else if (status == "del") {
+            details.deleted_files.push_back(name);
+        } else if (status == "mov") {
+            details.renamed_files.push_back({name, new_name});
+        } else if (status == "mod") {
+            details.modified_files.push_back(name);
+        } else if (status == "newdir") {
+            details.added_dirs.push_back(name);
+        } else if (status == "deldir") {
+            details.deleted_dirs.push_back(name);
         }
     }
 

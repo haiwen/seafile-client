@@ -9,6 +9,8 @@
 #include <QString>
 #include <QMetaType>
 
+struct _GList;
+
 class CommitDetails {
 public:
     std::vector<QString> added_files, deleted_files, modified_files, added_dirs, deleted_dirs;
@@ -17,6 +19,7 @@ public:
     std::vector<std::pair<QString, QString> > renamed_files;
 
     static CommitDetails fromJSON(const json_t*, json_error_t *error);
+    static CommitDetails fromObjList(const _GList *objlist);
 };
 
 

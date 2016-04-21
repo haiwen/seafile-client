@@ -11,6 +11,8 @@ extern "C" {
 }
 
 #include <QtDebug>
+#include <QMutexLocker>
+
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "settings-mgr.h"
@@ -56,11 +58,16 @@ SeafileRpcClient::~SeafileRpcClient()
         g_object_unref(sync_client_);
         sync_client_ = 0;
     }
+    if (sync_client_for_threaded_rpc_) {
+        g_object_unref(sync_client_for_threaded_rpc_);
+        sync_client_for_threaded_rpc_ = 0;
+    }
 }
 
 void SeafileRpcClient::connectDaemon()
 {
     sync_client_ = ccnet_client_new();
+    sync_client_for_threaded_rpc_ = ccnet_client_new();
 
     const QString config_dir = seafApplet->configurator()->ccnetDir();
     if (ccnet_client_load_confdir(sync_client_, NULL, toCStr(config_dir)) <  0) {
@@ -71,10 +78,14 @@ void SeafileRpcClient::connectDaemon()
         return;
     }
 
+    ccnet_client_load_confdir(sync_client_for_threaded_rpc_, NULL, toCStr(config_dir));
+    ccnet_client_connect_daemon(sync_client_for_threaded_rpc_, CCNET_CLIENT_SYNC);
+
     seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
     ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
 
-    seafile_threaded_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileThreadedRpcService);
+    seafile_threaded_rpc_client_ = ccnet_create_rpc_client(
+        sync_client_for_threaded_rpc_, NULL, kSeafileThreadedRpcService);
 
     qWarning("[Rpc Client] connected to daemon");
 }
@@ -985,6 +996,8 @@ bool SeafileRpcClient::getCommitDiff(const QString& repo_id,
                                      const QString& previous_commit_id,
                                      CommitDetails *details)
 {
+    QMutexLocker locker(&threaded_rpc_mutex_);
+
     GError *error = NULL;
     GList *objlist = searpc_client_call__objlist(
         seafile_threaded_rpc_client_,

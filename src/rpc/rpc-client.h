@@ -1,8 +1,10 @@
 #ifndef SEAFILE_CLIENT_RPC_CLIENT_H
 #define SEAFILE_CLIENT_RPC_CLIENT_H
 
-#include <QObject>
 #include <vector>
+
+#include <QObject>
+#include <QMutex>
 
 extern "C" {
 
@@ -120,6 +122,8 @@ public:
                            const QString &key,
                            const QString &value);
 
+    // Read the commit diff from the daemon. Note this rpc may block for a
+    // while.
     bool getCommitDiff(const QString& repo_id,
                        const QString& commit_id,
                        const QString& previous_commit_id,
@@ -134,6 +138,13 @@ private:
 
 
     _CcnetClient *sync_client_;
+
+    // Since the threaded rpc calls are less common, it's better to use a
+    // dedicated ccnet client for them. Otherwise we need to do lock/unlock
+    // operation for every rpc call.
+    _CcnetClient *sync_client_for_threaded_rpc_;
+    QMutex threaded_rpc_mutex_;
+
     SearpcClient *seafile_rpc_client_;
     SearpcClient *seafile_threaded_rpc_client_;
     SearpcClient *ccnet_rpc_client_;

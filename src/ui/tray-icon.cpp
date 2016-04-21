@@ -15,6 +15,7 @@ extern "C" {
 #include <QSet>
 #include <QDebug>
 #include <QMenuBar>
+#include <QRunnable>
 
 #include "rpc/local-repo.h"
 #include "utils/utils.h"
@@ -75,6 +76,33 @@ QString folderToShow(const CommitDetails& details, const QString& worktree)
     }
     return path;
 }
+
+// Read the commit diff from daemon rpc. We need to run it in a separate thread
+// since this may block for a while.
+class DiffReader : public QRunnable
+{
+public:
+    DiffReader(const LocalRepo &repo,
+               const QString &previous_commit_id,
+               const QString &commit_id)
+        : repo_(repo),
+          commit_id_(commit_id),
+          previous_commit_id_(previous_commit_id){};
+
+    void run()
+    {
+        CommitDetails details;
+        seafApplet->rpcClient()->getCommitDiff(
+            repo_.id, previous_commit_id_, commit_id_, &details);
+        showInGraphicalShell(folderToShow(details, repo_.worktree));
+    }
+
+private:
+    const LocalRepo repo_;
+    const QString commit_id_;
+    const QString previous_commit_id_;
+};
+
 
 } // namespace
 
@@ -596,6 +624,7 @@ void SeafileTrayIcon::viewUnreadNotifications()
     refreshTrayIcon();
 }
 
+
 void SeafileTrayIcon::onMessageClicked()
 {
     if (repo_id_.isEmpty())
@@ -605,11 +634,8 @@ void SeafileTrayIcon::onMessageClicked()
         !repo.isValid() || repo.worktree_invalid)
         return;
 
-    CommitDetails details;
-    // TODO: Run this rpc in another thread, since the diff rpc may block for a while.
-    seafApplet->rpcClient()->getCommitDiff(repo_id_, previous_commit_id_, commit_id_, &details);
-    QString folder_to_open = folderToShow(details, repo.worktree);
-    showInGraphicalShell(folder_to_open);
+    DiffReader *reader = new DiffReader(repo, previous_commit_id_, commit_id_);
+    QThreadPool::globalInstance()->start(reader);
 }
 
 void SeafileTrayIcon::checkTrayIconMessageQueue()

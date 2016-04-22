@@ -337,6 +337,23 @@ void RepoTreeModel::forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void
     }
 }
 
+void RepoTreeModel::forEachCategoryItem(void (*func)(RepoCategoryItem *, void *),
+                                        void *data,
+                                        QStandardItem *item)
+{
+    if (item == nullptr) {
+        item = invisibleRootItem();
+    }
+    if (item->type() == REPO_CATEGORY_TYPE) {
+        func((RepoCategoryItem *)item, data);
+    }
+
+    int row, n = item->rowCount();
+    for (row = 0; row < n; row++) {
+        forEachCategoryItem(func, data, item->child(row));
+    }
+}
+
 void RepoTreeModel::refreshLocalRepos()
 {
     if (!seafApplet->mainWindow()->isVisible()) {

@@ -752,14 +752,37 @@ void RepoTreeView::collapse(const QModelIndex& index, bool remember)
 
 void RepoTreeView::restoreExpandedCategries()
 {
-    QAbstractItemModel *model = this->model();
-    for (int i = 0; i < model->rowCount(); i++) {
-        QModelIndex index = model->index(i, 0);
-        QString category = model->data(index).toString();
+    QSortFilterProxyModel *proxy_model =
+        (QSortFilterProxyModel *)(this->model());
+    RepoTreeModel *tree_model = (RepoTreeModel *)(proxy_model->sourceModel());
+
+    for (int i = 0; i < proxy_model->rowCount(); i++) {
+        QModelIndex index = proxy_model->index(i, 0);
+        QString category = proxy_model->data(index).toString();
         if (expanded_categroies_.contains(category)) {
             expand(index, false);
         } else {
             collapse(index, false);
+        }
+
+        QStandardItem *item =
+            tree_model->itemFromIndex(proxy_model->mapToSource(index));
+
+        // We need to go one level down if this item is the groups root.
+        if (item->type() == REPO_CATEGORY_TYPE &&
+            ((RepoCategoryItem *)item)->isGroupsRoot()) {
+            for (int j = 0; j < item->rowCount(); j++) {
+                RepoCategoryItem *category_item =
+                    (RepoCategoryItem *)(item->child(j));
+                QModelIndex index = proxy_model->mapFromSource(
+                    tree_model->indexFromItem(category_item));
+                QString category = proxy_model->data(index).toString();
+                if (expanded_categroies_.contains(category)) {
+                    expand(index, false);
+                } else {
+                    collapse(index, false);
+                }
+            }
         }
     }
 }

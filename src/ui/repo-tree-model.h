@@ -9,6 +9,7 @@
 class ServerRepo;
 class RepoCategoryItem;
 class RepoItem;
+class RepoCategoryItem;
 class QTimer;
 class RepoTreeView;
 
@@ -77,7 +78,11 @@ private:
 
     void forEachRepoItem(void (RepoTreeModel::*func)(RepoItem *, void *),
                          void *data,
-                         QStandardItem *item = nullptr);
+                         QStandardItem *root = nullptr);
+
+    void forEachCategoryItem(void (*func)(RepoCategoryItem*, void *),
+                             void *data,
+                             QStandardItem *root = nullptr);
 
     void removeReposDeletedOnServer(const std::vector<ServerRepo> &repos);
 

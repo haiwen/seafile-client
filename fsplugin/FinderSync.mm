@@ -348,8 +348,8 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     // Produce a menu for the extension.
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     NSMenuItem *shareLinkItem =
-        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Share Link",
-                                                 @"Get Seafile Share Link")
+        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Download Link",
+                                                 @"Get Seafile Download Link")
                         action:@selector(shareLinkAction:)
                  keyEquivalent:@""];
     NSMenuItem *internalLinkItem =

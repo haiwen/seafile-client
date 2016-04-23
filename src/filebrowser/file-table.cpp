@@ -304,7 +304,7 @@ void FileTableView::setupContextMenu()
             this, SLOT(onRemove()));
     remove_action_->setShortcut(QKeySequence::Delete);
 
-    share_action_ = new QAction(tr("&Generate Share Link"), this);
+    share_action_ = new QAction(tr("&Generate Seafile Download Link"), this);
     connect(share_action_, SIGNAL(triggered()),
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);

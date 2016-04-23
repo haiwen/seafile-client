@@ -163,7 +163,9 @@ class FileTableSortFilterProxyModel : public QSortFilterProxyModel {
     Q_OBJECT
 public:
     FileTableSortFilterProxyModel(FileTableModel *parent)
-        : QSortFilterProxyModel(parent), source_model_(parent) {}
+        : QSortFilterProxyModel(parent), source_model_(parent) {
+        setSortCaseSensitivity(Qt::CaseInsensitive);
+    }
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const {
         bool is_dir_left = source_model_->direntAt(left.row())->isDir();
         bool is_dir_right = source_model_->direntAt(right.row())->isDir();

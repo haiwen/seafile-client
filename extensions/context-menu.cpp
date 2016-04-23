@@ -321,7 +321,7 @@ void ShellExt::insertSubMenuItem(const std::string& text, MenuOp op)
 void ShellExt::buildSubMenu(const seafile::RepoInfo& repo,
                             const std::string& path_in_repo)
 {
-    insertSubMenuItem(SEAFILE_TR("get share link"), GetShareLink);
+    insertSubMenuItem(SEAFILE_TR("get seafile download link"), GetShareLink);
     insertSubMenuItem(SEAFILE_TR("get seafile internal link"), GetInternalLink);
 
     std::unique_ptr<wchar_t[]> path_w(utils::utf8ToWString(path_));

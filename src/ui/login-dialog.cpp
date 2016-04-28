@@ -132,6 +132,8 @@ void LoginDialog::doLogin()
     if (!validateInputs()) {
         return;
     }
+    saveUsedServerAddresses(url_.toString());
+
     mStatusText->setText(tr("Logging in..."));
 
     disableInputs();
@@ -243,8 +245,6 @@ bool LoginDialog::validateInputs()
 
 void LoginDialog::loginSuccess(const QString& token)
 {
-    saveUsedServerAddresses(url_.toString());
-
     if (account_info_req_) {
         account_info_req_->deleteLater();
     }

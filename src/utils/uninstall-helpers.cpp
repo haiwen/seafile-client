@@ -1,5 +1,8 @@
 #if defined(Q_OS_WIN32)
 #include <shellapi.h>
+#else
+#include <fts.h>
+#include <unistd.h>
 #endif
 
 extern "C" {
@@ -38,12 +41,62 @@ const char *kAppletCommandsMQ = "applet.commands";
 const char *kPreconfigureKeepConfigWhenUninstall = "PreconfigureKeepConfigWhenUninstall";
 #endif
 
-} // namespace
+int posix_rmdir(const QString &root)
+{
+    if (!QFileInfo(root).exists()) {
+        return -1;
+    }
 
+    char *paths[] = {toCStr(root), NULL};
+
+    // Using `FTS_PHYSICAL` here because we need `FTSENT` for the
+    // symbolic link in the directory and not the target it links to.
+    FTS *tree = fts_open(paths, (FTS_NOCHDIR | FTS_PHYSICAL), NULL);
+    if (tree == NULL) {
+        return -1;
+    }
+
+    FTSENT *node;
+    while ((node = fts_read(tree)) != NULL) {
+        switch (node->fts_info) {
+            case FTS_DP:
+                if (rmdir(node->fts_path) < 0 && errno != ENOENT) {
+                    qWarning("failed to remove dir %s", node->fts_path);
+                }
+                break;
+            // `FTS_DEFAULT` would include any file type which is not
+            // explicitly described by any of the other `fts_info` values.
+            case FTS_DEFAULT:
+            case FTS_F:
+            case FTS_SL:
+            // `FTS_SLNONE` should never be the case as we don't set
+            // `FTS_COMFOLLOW` or `FTS_LOGICAL`. Adding here for completion.
+            case FTS_SLNONE:
+                if (unlink(node->fts_path) < 0 && errno != ENOENT) {
+                    qWarning("failed to remove file %s", node->fts_path);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (errno != 0) {
+        fts_close(tree);
+        return -1;
+    }
+
+    if (fts_close(tree) < 0) {
+        return -1;
+    }
+    return 0;
+}
+
+} // namespace
 
 int delete_dir_recursively(const QString& path_in)
 {
-    printf ("removing folder %s\n", toCStr(path_in));
+    qWarning ("removing folder %s\n", toCStr(path_in));
 #if defined(Q_OS_WIN32)
     const QString path = QDir::toNativeSeparators(QDir::cleanPath(path_in));
     if (path.length() <= 3) {
@@ -78,9 +131,12 @@ int delete_dir_recursively(const QString& path_in)
     } else {
         return -1;
     }
-#endif
     return 0;
+#else
+    return posix_rmdir(path_in);
+#endif
 }
+
 
 int get_ccnet_dir(QString *ret)
 {

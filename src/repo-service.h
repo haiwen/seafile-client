@@ -69,6 +69,7 @@ private:
     RepoService(QObject *parent=0);
 
     void startGetRequestFor(const QString &repo_id);
+    void removeLocalFiles();
 
     SeafileRpcClient *rpc_;
     ListReposRequest *list_repo_req_;

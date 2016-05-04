@@ -15,6 +15,7 @@
 #include "ui/main-window.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
+#include "utils/uninstall-helpers.h"
 #include "rpc/rpc-client.h"
 #include "rpc/clone-task.h"
 
@@ -281,6 +282,12 @@ void RepoService::onRefreshFailed(const ApiError& error)
 {
     in_refresh_ = false;
 
+    if (list_repo_req_->reply()->hasRawHeader("X-Seafile-Wiped")) {
+        qWarning ("current device is marked to be remote wiped\n");
+        removeLocalFiles();
+        return;
+    }
+
     // for the new version of seafile server
     // we may have a 401 response whenever invalid token is used.
     // see more: https://github.com/haiwen/seahub/commit/94dcfe338a52304f5895914ac59540b6176c679e
@@ -498,4 +505,20 @@ void RepoService::removeSyncedSubfolder(const QString& repo_id)
 
         emit refreshSuccess(server_repos_);
     }
+}
+
+void RepoService::removeLocalFiles()
+{
+    rpc_->listLocalRepos(&local_repos_);
+    for (size_t i = 0; i < local_repos_.size(); ++i) {
+        const LocalRepo& repo = local_repos_[i];
+        rpc_->unsync(repo.id);
+        qWarning ("removing all files of repo %s: %s\n",
+                  toCStr(repo.name),
+                  toCStr(repo.worktree));
+        if (repo.worktree.length() > 1) {
+            delete_dir_recursively(repo.worktree);
+        }
+    }
+    seafApplet->accountManager()->invalidateCurrentLogin();
 }

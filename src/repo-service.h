@@ -3,8 +3,9 @@
 
 #include <vector>
 #include <QObject>
-#include "utils/singleton.h"
+#include <QRunnable>
 
+#include "utils/singleton.h"
 #include "rpc/local-repo.h"
 #include "api/server-repo.h"
 
@@ -13,7 +14,6 @@ class QTimer;
 class ApiError;
 class ListReposRequest;
 class GetRepoRequest;
-class Account;
 class SeafileRpcClient;
 
 struct sqlite3;
@@ -58,6 +58,8 @@ private slots:
     void onGetRequestSuccess(const ServerRepo& repo);
     void onGetRequestFailed(const ApiError& error);
 
+    void onWiperDone();
+
     void onRemoteWipeReportSuccess();
     void onRemoteWipeReportFailed(const ApiError& error);
 
@@ -72,7 +74,7 @@ private:
     RepoService(QObject *parent=0);
 
     void startGetRequestFor(const QString &repo_id);
-    void removeLocalFiles();
+    void wipeLocalFiles();
     void removeCloudFileBrowserCache();
 
     SeafileRpcClient *rpc_;
@@ -85,6 +87,29 @@ private:
 
     QTimer *refresh_timer_;
     bool in_refresh_;
+
+    bool wipe_started_;
 };
+
+
+class WipeFilesThread : public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    WipeFilesThread(const std::vector<LocalRepo>& local_repos,
+                    const QStringList& cached_files)
+        : local_repos_(local_repos),
+          cached_files_(cached_files) {};
+
+    void run();
+
+signals:
+    void done();
+
+private:
+    const std::vector<LocalRepo> local_repos_;
+    const QStringList cached_files_;
+};
+
 
 #endif // SEAFILE_CLIENT_REPO_SERVICE_H_

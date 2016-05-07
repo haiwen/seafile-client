@@ -1,10 +1,13 @@
 #include <unistd.h>
+#include <algorithm>
+
+#include <sqlite3.h>
+
 #include <QTimer>
 #include <QDir>
 #include <QSet>
 #include <QDesktopServices>
-#include <sqlite3.h>
-#include <algorithm>
+#include <QThreadPool>
 
 #include "configurator.h"
 #include "seafile-applet.h"
@@ -118,6 +121,7 @@ RepoService::RepoService(QObject *parent)
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
     list_repo_req_ = NULL;
     in_refresh_ = false;
+    wipe_started_ = false;
 }
 
 RepoService::~RepoService()
@@ -288,7 +292,10 @@ void RepoService::onRefreshFailed(const ApiError& error)
     if (list_repo_req_->reply()->hasRawHeader("X-Seafile-Wiped")) {
         qWarning ("current device is marked to be remote wiped\n");
         // TODO: Remote wipe should be managed in a separate module, not here.
-        removeLocalFiles();
+        if (!wipe_started_) {
+            wipe_started_ = true;
+            wipeLocalFiles();
+        }
         return;
     }
 
@@ -525,12 +532,11 @@ void RepoService::removeCloudFileBrowserCache()
     }
 }
 
-void RepoService::removeLocalFiles()
+
+void WipeFilesThread::run()
 {
-    rpc_->listLocalRepos(&local_repos_);
     for (size_t i = 0; i < local_repos_.size(); ++i) {
         const LocalRepo& repo = local_repos_[i];
-        rpc_->unsync(repo.id);
         qWarning ("removing all files of repo %s: %s\n",
                   toCStr(repo.name),
                   toCStr(repo.worktree));
@@ -539,8 +545,43 @@ void RepoService::removeLocalFiles()
         }
     }
 
-    removeCloudFileBrowserCache();
+    for (int i = 0; i < cached_files_.size(); i++) {
+        ::unlink(toCStr(cached_files_[i]));
+    }
 
+    emit done();
+}
+
+void RepoService::wipeLocalFiles()
+{
+    // Collect repo worktrees
+    rpc_->listLocalRepos(&local_repos_);
+    QStringList worktrees;
+    for (size_t i = 0; i < local_repos_.size(); ++i) {
+        const LocalRepo& repo = local_repos_[i];
+        rpc_->unsync(repo.id);
+    }
+
+    // Collect files cached by cloud file browser
+    QStringList cached_files;
+    QList<FileCacheDB::CacheEntry> all_files =
+        FileCacheDB::instance()->getAllCachedFiles();
+    const Account account = seafApplet->accountManager()->currentAccount();
+    foreach (const FileCacheDB::CacheEntry& entry, all_files) {
+        if (account.getSignature() == entry.account_sig) {
+            QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
+            cached_files << DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
+        }
+    }
+
+    WipeFilesThread *wiper = new WipeFilesThread(local_repos_, cached_files);
+    connect(wiper, SIGNAL(done()), this, SLOT(onWiperDone()));
+
+    QThreadPool::globalInstance()->start(wiper);
+}
+
+void RepoService::onWiperDone()
+{
     RemoteWipeReportRequest *req = new RemoteWipeReportRequest(
         seafApplet->accountManager()->currentAccount());
 

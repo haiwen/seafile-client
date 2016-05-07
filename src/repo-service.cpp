@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <QTimer>
 #include <QDir>
 #include <QSet>
@@ -20,6 +21,8 @@
 #include "rpc/clone-task.h"
 
 #include "filebrowser/file-browser-manager.h"
+#include "filebrowser/data-cache.h"
+#include "filebrowser/data-mgr.h"
 
 #include "repo-service.h"
 #include "repo-service-helper.h"
@@ -284,6 +287,7 @@ void RepoService::onRefreshFailed(const ApiError& error)
 
     if (list_repo_req_->reply()->hasRawHeader("X-Seafile-Wiped")) {
         qWarning ("current device is marked to be remote wiped\n");
+        // TODO: Remote wipe should be managed in a separate module, not here.
         removeLocalFiles();
         return;
     }
@@ -507,6 +511,20 @@ void RepoService::removeSyncedSubfolder(const QString& repo_id)
     }
 }
 
+void RepoService::removeCloudFileBrowserCache()
+{
+    QList<FileCacheDB::CacheEntry> all_files =
+        FileCacheDB::instance()->getAllCachedFiles();
+    const Account account = seafApplet->accountManager()->currentAccount();
+    foreach (const FileCacheDB::CacheEntry& entry, all_files) {
+        if (account.getSignature() == entry.account_sig) {
+            QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
+            printf ("removing cached file %s\n", toCStr(fullpath));
+            ::unlink((const char*)toCStr(fullpath));
+        }
+    }
+}
+
 void RepoService::removeLocalFiles()
 {
     rpc_->listLocalRepos(&local_repos_);
@@ -520,6 +538,8 @@ void RepoService::removeLocalFiles()
             delete_dir_recursively(repo.worktree);
         }
     }
+
+    removeCloudFileBrowserCache();
 
     RemoteWipeReportRequest *req = new RemoteWipeReportRequest(
         seafApplet->accountManager()->currentAccount());

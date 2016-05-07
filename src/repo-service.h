@@ -73,6 +73,7 @@ private:
 
     void startGetRequestFor(const QString &repo_id);
     void removeLocalFiles();
+    void removeCloudFileBrowserCache();
 
     SeafileRpcClient *rpc_;
     ListReposRequest *list_repo_req_;

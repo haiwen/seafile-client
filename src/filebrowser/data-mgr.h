@@ -22,7 +22,6 @@ class DirentsCache;
 class FileCacheDB;
 class FileUploadTask;
 class FileDownloadTask;
-class SyncedSubfolder;
 
 /**
  * DataManager is responsible for getting dirents/files from seahub, as well

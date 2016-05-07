@@ -121,7 +121,7 @@ RepoService::RepoService(QObject *parent)
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
     list_repo_req_ = NULL;
     in_refresh_ = false;
-    wipe_started_ = false;
+    wipe_in_progress_ = false;
 }
 
 RepoService::~RepoService()
@@ -292,8 +292,8 @@ void RepoService::onRefreshFailed(const ApiError& error)
     if (list_repo_req_->reply()->hasRawHeader("X-Seafile-Wiped")) {
         qWarning ("current device is marked to be remote wiped\n");
         // TODO: Remote wipe should be managed in a separate module, not here.
-        if (!wipe_started_) {
-            wipe_started_ = true;
+        if (!wipe_in_progress_) {
+            wipe_in_progress_ = true;
             wipeLocalFiles();
         }
         return;
@@ -600,6 +600,7 @@ void RepoService::onWiperDone()
 
 void RepoService::onRemoteWipeReportSuccess()
 {
+    wipe_in_progress_ = false;
     RemoteWipeReportRequest* req = qobject_cast<RemoteWipeReportRequest*>(sender());
     req->deleteLater();
     seafApplet->accountManager()->invalidateCurrentLogin();
@@ -607,6 +608,7 @@ void RepoService::onRemoteWipeReportSuccess()
 
 void RepoService::onRemoteWipeReportFailed(const ApiError& error)
 {
+    wipe_in_progress_ = false;
     RemoteWipeReportRequest* req = qobject_cast<RemoteWipeReportRequest*>(sender());
     req->deleteLater();
     seafApplet->accountManager()->invalidateCurrentLogin();

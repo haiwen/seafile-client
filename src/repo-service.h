@@ -88,7 +88,7 @@ private:
     QTimer *refresh_timer_;
     bool in_refresh_;
 
-    bool wipe_started_;
+    bool wipe_in_progress_;
 };
 
 

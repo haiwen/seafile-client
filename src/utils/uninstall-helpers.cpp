@@ -44,6 +44,7 @@ const char *kPreconfigureKeepConfigWhenUninstall = "PreconfigureKeepConfigWhenUn
 int posix_rmdir(const QString &root)
 {
     if (!QFileInfo(root).exists()) {
+        qWarning("dir %s doesn't exists", toCStr(root));
         return -1;
     }
 
@@ -53,13 +54,16 @@ int posix_rmdir(const QString &root)
     // symbolic link in the directory and not the target it links to.
     FTS *tree = fts_open(paths, (FTS_NOCHDIR | FTS_PHYSICAL), NULL);
     if (tree == NULL) {
+        qWarning("failed to fts_open: %s", strerror(errno));
         return -1;
     }
 
     FTSENT *node;
     while ((node = fts_read(tree)) != NULL) {
+        // printf ("%s: fts_info = %d\n", node->fts_path, (int)(node->fts_info));
         switch (node->fts_info) {
             case FTS_DP:
+                // qWarning("removing directory %s", node->fts_path);
                 if (rmdir(node->fts_path) < 0 && errno != ENOENT) {
                     qWarning("failed to remove dir %s", node->fts_path);
                 }
@@ -72,6 +76,7 @@ int posix_rmdir(const QString &root)
             // `FTS_SLNONE` should never be the case as we don't set
             // `FTS_COMFOLLOW` or `FTS_LOGICAL`. Adding here for completion.
             case FTS_SLNONE:
+                // qWarning("removing file %s", node->fts_path);
                 if (unlink(node->fts_path) < 0 && errno != ENOENT) {
                     qWarning("failed to remove file %s", node->fts_path);
                 }

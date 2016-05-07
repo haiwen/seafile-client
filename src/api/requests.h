@@ -640,4 +640,21 @@ private:
     Q_DISABLE_COPY(FetchGroupsAndContactsRequest);
 };
 
+
+class RemoteWipeReportRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    RemoteWipeReportRequest(const Account& account);
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(RemoteWipeReportRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

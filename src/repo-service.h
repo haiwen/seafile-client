@@ -58,6 +58,9 @@ private slots:
     void onGetRequestSuccess(const ServerRepo& repo);
     void onGetRequestFailed(const ApiError& error);
 
+    void onRemoteWipeReportSuccess();
+    void onRemoteWipeReportFailed(const ApiError& error);
+
 signals:
     void refreshSuccess(const std::vector<ServerRepo>& repos);
     void refreshFailed(const ApiError& error);

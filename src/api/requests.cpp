@@ -42,6 +42,7 @@ const char* kFileSearchUrl = "api2/search/";
 const char* kAccountInfoUrl = "api2/account/info/";
 const char* kDirSharedItemsUrl = "api2/repos/%1/dir/shared_items/";
 const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
+const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 
 const char* kLatestVersionUrl = "https://seafile.com/api/client-versions/";
 
@@ -1063,4 +1064,16 @@ void GetPrivateShareItemsRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success(group_shares, user_shares);
+}
+
+RemoteWipeReportRequest::RemoteWipeReportRequest(const Account& account)
+    : SeafileApiRequest(account.getAbsoluteUrl(kRemoteWipeReportUrl),
+                        SeafileApiRequest::METHOD_POST)
+{
+    setFormParam(QString("token"), account.token);
+}
+
+void RemoteWipeReportRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
 }

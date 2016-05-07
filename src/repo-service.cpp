@@ -520,5 +520,33 @@ void RepoService::removeLocalFiles()
             delete_dir_recursively(repo.worktree);
         }
     }
+
+    RemoteWipeReportRequest *req = new RemoteWipeReportRequest(
+        seafApplet->accountManager()->currentAccount());
+
+    connect(req,
+            SIGNAL(success()),
+            this,
+            SLOT(onRemoteWipeReportSuccess()));
+
+    connect(req,
+            SIGNAL(failed(const ApiError &)),
+            this,
+            SLOT(onRemoteWipeReportFailed(const ApiError &)));
+
+    req->send();
+}
+
+void RepoService::onRemoteWipeReportSuccess()
+{
+    RemoteWipeReportRequest* req = qobject_cast<RemoteWipeReportRequest*>(sender());
+    req->deleteLater();
+    seafApplet->accountManager()->invalidateCurrentLogin();
+}
+
+void RepoService::onRemoteWipeReportFailed(const ApiError& error)
+{
+    RemoteWipeReportRequest* req = qobject_cast<RemoteWipeReportRequest*>(sender());
+    req->deleteLater();
     seafApplet->accountManager()->invalidateCurrentLogin();
 }

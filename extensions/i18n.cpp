@@ -67,7 +67,7 @@ void I18NHelper::initGermanDict()
     lang_dict_["unlock this file"] = "Datei entsperren";
     lang_dict_["share to a user"] = "Freigabe für Benutzer/in";
     lang_dict_["share to a group"] = "Freigabe für Gruppe";
-    lang_dict_["view file history"] = "Versionen";
+    lang_dict_["view file history"] = "Vorgängerversionen";
 }
 
 I18NHelper::I18NHelper()

@@ -16,6 +16,7 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
+#include <QDesktopServices>
 
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
@@ -27,6 +28,7 @@
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "settings-mgr.h"
+#include "utils/utils.h"
 #include "ext-handler.h"
 
 namespace {
@@ -361,6 +363,8 @@ void ExtCommandsHandler::run()
             handlePrivateShare(args, true);
         } else if (cmd == "private-share-to-user") {
             handlePrivateShare(args, false);
+        } else if (cmd == "show-history") {
+            handleShowHistory(args);
         } else {
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
@@ -535,6 +539,31 @@ void ExtCommandsHandler::handlePrivateShare(const QStringList& args,
             QString path_in_repo = path.mid(wt.size());
             emit privateShare(repo.id, path_in_repo, to_group);
             break;
+        }
+    }
+}
+
+void ExtCommandsHandler::handleShowHistory(const QStringList& args)
+{
+    if (args.size() != 1) {
+        return;
+    }
+    QString path = normalizedPath(args[0]);
+    if (QFileInfo(path).isDir()) {
+        qWarning("attempted to view history of %s, which is not a regular file",
+                 path.toUtf8().data());
+        return;
+    }
+    foreach (const LocalRepo& repo, listLocalRepos()) {
+        QString wt = normalizedPath(repo.worktree);
+        if (path.length() > wt.length() && path.startsWith(wt) &&
+            path.at(wt.length()) == '/') {
+            if (repo.account.isValid()) {
+                QString path_in_repo = path.mid(wt.size());
+                QUrl url = repo.account.getAbsoluteUrl("repo/file_revisions/" + repo.id + "/");
+                url = ::includeQueryParams(url, {{"p", path_in_repo}});
+                QDesktopServices::openUrl(url);
+            }
         }
     }
 }

@@ -72,6 +72,7 @@ private:
         UnlockFile,
         ShareToUser,
         ShareToGroup,
+        ShowHistory,
     };
 
     void buildSubMenu(const seafile::RepoInfo& repo,

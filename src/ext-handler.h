@@ -112,6 +112,7 @@ private:
     QString handleGetFileStatus(const QStringList& args);
     void handleLockFile(const QStringList& args, bool lock);
     void handlePrivateShare(const QStringList& args, bool to_group);
+    void handleShowHistory(const QStringList& args);
 };
 
 class ReposInfoCache : public QObject {

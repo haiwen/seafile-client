@@ -211,6 +211,9 @@ STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO info)
     } else if (op == ShareToGroup) {
         seafile::PrivateShareCommand cmd(path_, true);
         cmd.send();
+    } else if (op == ShowHistory) {
+        seafile::ShowHistoryCommand cmd(path_);
+        cmd.send();
     }
 
     return S_OK;
@@ -341,5 +344,9 @@ void ShellExt::buildSubMenu(const seafile::RepoInfo& repo,
         else if (status != seafile::RepoInfo::LockedByOthers) {
             insertSubMenuItem(SEAFILE_TR("lock this file"), LockFile);
         }
+    }
+
+    if (!is_dir) {
+        insertSubMenuItem(SEAFILE_TR("view file history"), ShowHistory);
     }
 }

@@ -195,6 +195,17 @@ private:
     bool to_group;
 };
 
+class ShowHistoryCommand : public AppletCommand<void> {
+public:
+    ShowHistoryCommand(const std::string& path);
+
+protected:
+    std::string serialize();
+
+private:
+    std::string path_;
+};
+
 }
 
 #endif // SEAFILE_EXTENSION_APPLET_COMMANDS_H

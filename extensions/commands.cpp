@@ -204,4 +204,15 @@ std::string PrivateShareCommand::serialize()
     return path_;
 }
 
+ShowHistoryCommand::ShowHistoryCommand(const std::string& path)
+    : AppletCommand<void>("show-history"),
+      path_(path)
+{
+}
+
+std::string ShowHistoryCommand::serialize()
+{
+    return path_;
+}
+
 } // namespace seafile

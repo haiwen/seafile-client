@@ -1,10 +1,3 @@
-#if defined(Q_OS_WIN32)
-#include <shellapi.h>
-#else
-#include <fts.h>
-#include <unistd.h>
-#endif
-
 extern "C" {
 #include <searpc-client.h>
 #include <ccnet.h>
@@ -22,6 +15,13 @@ extern "C" {
 #include <QMessageBox>
 #include <QIcon>
 #include <QMainWindow>
+
+#if defined(Q_OS_WIN32)
+#include <shellapi.h>
+#else
+#include <fts.h>
+#include <unistd.h>
+#endif
 
 #include "utils/utils.h"
 #include "configurator.h"
@@ -41,6 +41,7 @@ const char *kAppletCommandsMQ = "applet.commands";
 const char *kPreconfigureKeepConfigWhenUninstall = "PreconfigureKeepConfigWhenUninstall";
 #endif
 
+#if !defined(Q_OS_WIN32)
 int posix_rmdir(const QString &root)
 {
     if (!QFileInfo(root).exists()) {
@@ -96,6 +97,7 @@ int posix_rmdir(const QString &root)
     }
     return 0;
 }
+#endif
 
 } // namespace
 

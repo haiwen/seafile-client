@@ -6,6 +6,7 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QDesktopServices>
 
 #include "account.h"
 #include "account-mgr.h"
@@ -16,6 +17,7 @@
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
 #include "filebrowser/seafilelink-dialog.h"
+#include "utils/utils.h"
 
 enum PathStatus {
     SYNC_STATUS_NONE = 0,
@@ -255,4 +257,18 @@ bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id
         return false;
 
     return true;
+}
+
+void FinderSyncHost::doShowFileHistory(const QString &path)
+{
+    QString repo_id;
+    Account account;
+    QString path_in_repo;
+    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
+        qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
+        return;
+    }
+    QUrl url = account.getAbsoluteUrl("repo/file_revisions/" + repo_id + "/");
+    url = ::includeQueryParams(url, {{"p", path_in_repo}});
+    QDesktopServices::openUrl(url);
 }

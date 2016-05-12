@@ -69,6 +69,7 @@ class FinderSyncClient {
         DoInternalLink = 3,
         DoLockFile = 4,
         DoUnlockFile = 5,
+        DoShowFileHistory = 6,
     };
 
     FinderSyncClient(FinderSync *parent);

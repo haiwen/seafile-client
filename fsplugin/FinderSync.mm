@@ -383,27 +383,36 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         item.path.precomposedStringWithCanonicalMapping.UTF8String;
     // find where we have it
     auto file = file_status_.find(is_dir ? file_path + "/" : file_path);
-    if (file == file_status_.end())
-        return nil;
+    if (file != file_status_.end()) {
+        NSString *lockFileTitle;
+        if (file->second != PathStatus::SYNC_STATUS_LOCKED) {
+            if (file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME) {
+                lockFileTitle =
+                    NSLocalizedString(@"Unlock This File", @"Unlock This File");
+            } else {
+                lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
+            }
+        } else {
+            lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
+        }
 
-    NSString *lockFileTitle;
-    if (file->second == PathStatus::SYNC_STATUS_LOCKED) {
-        return menu;
-    } else if (file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME) {
-        lockFileTitle =
-            NSLocalizedString(@"Unlock This File", @"Unlock This File");
-    } else {
-        lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
+        NSMenuItem *lockFileItem = [menu addItemWithTitle:lockFileTitle
+                                                   action:@selector(lockFileAction:)
+                                            keyEquivalent:@""];
+
+        [lockFileItem setImage:seafileImage];
+
+        if (file->second == PathStatus::SYNC_STATUS_LOCKED)
+            [lockFileItem setEnabled:FALSE];
     }
 
-    NSMenuItem *lockFileItem = [menu addItemWithTitle:lockFileTitle
-                                               action:@selector(lockFileAction:)
-                                        keyEquivalent:@""];
-
-    [lockFileItem setImage:seafileImage];
-
-    if (file->second == PathStatus::SYNC_STATUS_LOCKED)
-        [lockFileItem setEnabled:FALSE];
+    NSString *showHistoryTitle;
+    NSMenuItem *showHistoryItem =
+        [menu addItemWithTitle:NSLocalizedString(@"View File History",
+                                                 @"View File History")
+                        action:@selector(showHistoryAction:)
+                 keyEquivalent:@""];
+    [showHistoryItem setImage:seafileImage];
 
     return menu;
 }
@@ -489,6 +498,23 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
       client_->doSendCommandWithPath(command, path.c_str());
     });
 }
+
+- (IBAction)showHistoryAction:(id)sender {
+    NSArray *items =
+        [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return;
+    NSURL *item = items.firstObject;
+
+    // do it in another thread
+    std::string path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    dispatch_async(self.client_command_queue_, ^{
+      client_->doSendCommandWithPath(FinderSyncClient::DoShowFileHistory,
+                                     path.c_str());
+    });
+}
+
 
 - (void)requestUpdateWatchSet {
     // do it in another thread

@@ -27,6 +27,7 @@ private slots:
     void doInternalLink(const QString &path);
     void onShareLinkGenerated(const QString& link);
     void onLockFileSuccess();
+    void doShowFileHistory(const QString& path);
 private:
     bool lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo);
     SeafileRpcClient *rpc_client_;

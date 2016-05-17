@@ -8,6 +8,7 @@
 #include <QDialog>
 #include <QHash>
 #include <QScopedPointer>
+#include <QSet>
 #include <QStringList>
 #include <QStyledItemDelegate>
 #include <QTableView>
@@ -50,6 +51,8 @@ public slots:
     void onUpdateShareItem(const QString& email, SharePermission permission);
     void onRemoveShareItem(int group_id, SharePermission permission);
     void onRemoveShareItem(const QString& email, SharePermission permission);
+    void onCompleterActivatedOrHighlighted(const QString& text);
+    void onUserNameEditingFinished();
 
 private slots:
     void selectFirstRow();
@@ -61,17 +64,20 @@ private slots:
     void onRemoveShareSuccess();
     void onRemoveShareFailed(const ApiError& error);
     void onFetchContactsSuccess(const QList<SeafileGroup>& groups,
-                                const QList<SeafileContact>& contacts);
+                                const QList<SeafileUser>& contacts);
     void onFetchContactsFailed(const ApiError& error);
     void onOkBtnClicked();
     void onGetSharedItemsSuccess(const QList<GroupShareInfo>& group_shares,
                                  const QList<UserShareInfo>& user_shares);
     void onGetSharedItemsFailed(const ApiError& error);
-    void updateUserEmail();
+    void onUserNameChanged(const QString& email);
+    void onSearchUsersSuccess(const QList<SeafileUser>& contacts);
+    void onSearchUsersFailed(const ApiError& error);
 
 private:
     void createTable();
     void fetchContacsForCompletion();
+    void getExistingShardItems();
     bool validateInputs();
     void toggleInputs(bool enabled);
     void enableInputs();
@@ -82,6 +88,7 @@ private:
     {
         return to_group_ ? groupname_input_->lineEdit() : username_input_;
     }
+    void updateUsersCompletion(const QList<SeafileUser>& users);
 
     Account account_;
     QString repo_id_;
@@ -90,7 +97,11 @@ private:
     bool to_group_;
 
     QHash<int, SeafileGroup> groups_;
-    QHash<QString, SeafileContact> contacts_;
+    QHash<QString, SeafileUser> users_;
+
+    // A (pattern, possible users for completion) multi map
+    QHash<QString, QSet<SeafileUser> > cached_users_;
+    QSet<QString> in_progress_search_requests_;
 
     SharedItemsTableView* table_;
     SharedItemsTableModel* model_;

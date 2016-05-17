@@ -363,6 +363,7 @@ SET(seafile_client_sources
   src/api/starred-file.cpp
   src/api/event.cpp
   src/api/commit-details.cpp
+  src/api/contact-share-info.cpp
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp

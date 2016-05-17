@@ -10,10 +10,19 @@ struct SeafileGroup {
     QString owner;
 };
 
-struct SeafileContact {
+struct SeafileUser {
+    QString avatar_url;
     QString email;
+    // Optional fields;
+    QString contact_email;
     QString name;
+
+    bool operator==(const SeafileUser& rhs) const {
+        return rhs.email == email;
+    }
 };
+
+uint qHash(const SeafileUser& user, uint seed=0);
 
 enum SharePermission {
     READ_WRITE,
@@ -39,7 +48,7 @@ inline ShareType shareTypeFromString(const QString& s)
 
 struct UserShareInfo {
     SharePermission permission;
-    SeafileContact user;
+    SeafileUser user;
 };
 
 struct GroupShareInfo {
@@ -51,8 +60,8 @@ struct GroupShareInfo {
  * Register with QMetaType so we can wrap it with QVariant::fromValue
  */
 Q_DECLARE_METATYPE(SeafileGroup)
-Q_DECLARE_METATYPE(SeafileContact)
+Q_DECLARE_METATYPE(SeafileUser)
 Q_DECLARE_METATYPE(UserShareInfo)
 Q_DECLARE_METATYPE(GroupShareInfo)
 
-#endif
+#endif // SEAFILE_CLIENT_CONTACT_SHARE_INFO_H

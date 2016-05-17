@@ -43,6 +43,7 @@ const char* kAccountInfoUrl = "api2/account/info/";
 const char* kDirSharedItemsUrl = "api2/repos/%1/dir/shared_items/";
 const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
+const char* kSearchUsersUrl = "api2/search-user/";
 
 const char* kLatestVersionUrl = "https://seafile.com/api/client-versions/";
 
@@ -965,7 +966,7 @@ void FetchGroupsAndContactsRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
     QList<SeafileGroup> groups;
-    QList<SeafileContact> contacts;
+    QList<SeafileUser> contacts;
 
     json_t* groups_array = json_object_get(json.data(), "groups");
     if (groups_array) {
@@ -999,7 +1000,7 @@ void FetchGroupsAndContactsRequest::requestSuccess(QNetworkReply& reply)
             const char* email =
                 json_string_value(json_object_get(contact_object, "email"));
             if (email) {
-                SeafileContact contact;
+                SeafileUser contact;
                 contact.email = QString::fromUtf8(email);
                 contact.name = QString::fromUtf8(
                     json_string_value(json_object_get(contact_object, "name")));
@@ -1076,4 +1077,54 @@ RemoteWipeReportRequest::RemoteWipeReportRequest(const Account& account)
 void RemoteWipeReportRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+SearchUsersRequest::SearchUsersRequest(
+    const Account& account, const QString& pattern)
+    : SeafileApiRequest(account.getAbsoluteUrl(kSearchUsersUrl),
+                        SeafileApiRequest::METHOD_GET,
+                        account.token),
+      pattern_(pattern)
+{
+    setUrlParam("q", pattern);
+}
+
+void SearchUsersRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("SearchUsersRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QList<SeafileUser> users;
+
+    json_t* users_array = json_object_get(json.data(), "users");
+    if (users_array) {
+        int i, n = json_array_size(users_array);
+
+        for (i = 0; i < n; i++) {
+            json_t* user_object = json_array_get(users_array, i);
+            const char* email =
+                json_string_value(json_object_get(user_object, "email"));
+            if (email) {
+                SeafileUser user;
+                user.email = QString::fromUtf8(email);
+                user.name = QString::fromUtf8(
+                    json_string_value(json_object_get(user_object, "name")));
+                user.contact_email = QString::fromUtf8(
+                    json_string_value(json_object_get(user_object, "user_email")));
+                user.avatar_url = QString::fromUtf8(
+                    json_string_value(json_object_get(user_object, "avatar_url")));
+                users.push_back(user);
+            }
+        }
+    }
+
+    emit success(users);
 }

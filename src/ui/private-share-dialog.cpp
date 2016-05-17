@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStringList>
+#include <QStringListModel>
+#include <QDateTime>
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "private-share-dialog.h"
@@ -96,7 +98,21 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
     mPermission->setCurrentIndex(0);
     createTable();
 
-    fetchContacsForCompletion();
+    if (to_group_) {
+        fetchContacsForCompletion();
+    } else {
+        completer_.reset(new QCompleter(new QStringListModel(this)));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+        completer_->setFilterMode(Qt::MatchContains);
+#endif
+        username_input_->setCompleter(completer_.data());
+        getExistingShardItems();
+
+        connect(completer_.data(), SIGNAL(activated(const QString&)),
+                this, SLOT(onCompleterActivatedOrHighlighted(const QString&)));
+        connect(completer_.data(), SIGNAL(highlighted(const QString&)),
+                this, SLOT(onCompleterActivatedOrHighlighted(const QString&)));
+    }
 
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
     connect(mCancelBtn, SIGNAL(clicked()), this, SLOT(reject()));
@@ -111,20 +127,136 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
 
     if (!to_group_) {
         connect(lineEdit(), SIGNAL(textChanged(const QString&)), this,
-                SLOT(updateUserEmail()));
+                SLOT(onUserNameChanged(const QString&)));
+        connect(lineEdit(), SIGNAL(editingFinished()), this,
+                SLOT(onUserNameEditingFinished()));
     }
 
     adjustSize();
     disableInputs();
 }
 
-void PrivateShareDialog::updateUserEmail()
+static qint64 lastChangedTS;
+
+void PrivateShareDialog::onCompleterActivatedOrHighlighted(const QString& text)
 {
-    QRegExp re(QString("^[^ ]+ <(.*)>$"));
-    QString name = lineEdit()->text().trimmed();
-    if (re.exactMatch(name)) {
-        lineEdit()->setText(re.cap(1));
+    lastChangedTS = QDateTime::currentMSecsSinceEpoch();
+}
+
+void PrivateShareDialog::onUserNameEditingFinished()
+{
+}
+
+void PrivateShareDialog::onUserNameChanged(const QString& email)
+{
+    QString pattern = lineEdit()->text().trimmed();
+    if (pattern.isEmpty()) {
+        return;
     }
+
+    QRegExp re(QString("^[^ ]+ <(.*)>$"));
+    if (re.exactMatch(pattern)) {
+        lineEdit()->setText(re.cap(1));
+        return;
+    }
+
+    if (QDateTime::currentMSecsSinceEpoch() - lastChangedTS <  1000) {
+        return;
+    }
+
+    // QStringListModel *users_complete_model = (QStringListModel *)(completer_->model());
+    // if (users_complete_model->stringList().contains(pattern)) {
+    //     return;
+    // }
+
+    // The search result is cached
+    if (cached_users_.contains(pattern)) {
+        updateUsersCompletion(cached_users_[pattern].toList());
+        return;
+    }
+
+    // There was a search with the prefix of the current pattern, so we can
+    // simply filter an use the existing results.
+    QHash<QString, QSet<SeafileUser>>::const_iterator iter = cached_users_.constBegin();
+    while (iter != cached_users_.constEnd()) {
+        QString key = iter.key();
+        QList<SeafileUser> users;
+        if (pattern.startsWith(key)) {
+            // printf ("use subset of %s for pattern %s\n", toCStr(key), toCStr(pattern));
+            foreach (const SeafileUser& user, iter.value()) {
+                if (user.email.contains(pattern) || user.name.contains(pattern)) {
+                    users.push_back(user);
+                }
+            }
+            updateUsersCompletion(users);
+            return;
+        }
+
+        iter++;
+    }
+
+    foreach(const QString& key, in_progress_search_requests_) {
+        if (pattern.startsWith(key)) {
+            return;
+        }
+    }
+
+    // printf("request completions for username %s\n", email.toUtf8().data());
+    SearchUsersRequest *req = new SearchUsersRequest(account_, pattern);
+    req->setParent(this);
+    connect(req,
+            SIGNAL(success(const QList<SeafileUser> &)),
+            this,
+            SLOT(onSearchUsersSuccess(const QList<SeafileUser> &)));
+    connect(req,
+            SIGNAL(failed(const ApiError &)),
+            this,
+            SLOT(onSearchUsersFailed(const ApiError &)));
+    req->send();
+
+    in_progress_search_requests_.insert(pattern);
+}
+
+void PrivateShareDialog::onSearchUsersSuccess(const QList<SeafileUser> &users)
+{
+    SearchUsersRequest *req = qobject_cast<SearchUsersRequest*>(sender());
+    in_progress_search_requests_.remove(req->pattern());
+    req->deleteLater();
+
+    updateUsersCompletion(users);
+
+    cached_users_[req->pattern()] = QSet<SeafileUser>::fromList(users);
+
+    // printf("get %d results for pattern %s\n", users.size(), toCStr(req->pattern()));
+}
+
+void PrivateShareDialog::updateUsersCompletion(const QList<SeafileUser>& users)
+{
+    QStringList candidates;
+    foreach (const SeafileUser& user, users) {
+        if (user.email == account_.username) {
+            continue;
+        }
+        users_[user.email] = user;
+        if (!user.name.isEmpty()) {
+            candidates << QString("%1 <%2>")
+                                .arg(user.name)
+                                .arg(user.email);
+        }
+        else {
+            candidates << user.email;
+        }
+    }
+    QStringListModel *users_complete_model = (QStringListModel *)(completer_->model());
+    users_complete_model->setStringList(candidates);
+}
+
+
+void PrivateShareDialog::onSearchUsersFailed(const ApiError& error)
+{
+    SearchUsersRequest *req = qobject_cast<SearchUsersRequest*>(sender());
+    in_progress_search_requests_.remove(req->pattern());
+    req->deleteLater();
 }
 
 void PrivateShareDialog::selectFirstRow()
@@ -173,9 +305,9 @@ void PrivateShareDialog::fetchContacsForCompletion()
     contacts_request_->send();
     connect(contacts_request_.data(),
             SIGNAL(success(const QList<SeafileGroup>&,
-                           const QList<SeafileContact>&)),
+                           const QList<SeafileUser>&)),
             this, SLOT(onFetchContactsSuccess(const QList<SeafileGroup>&,
-                                              const QList<SeafileContact>&)));
+                                              const QList<SeafileUser>&)));
     connect(contacts_request_.data(), SIGNAL(failed(const ApiError&)), this,
             SLOT(onFetchContactsFailed(const ApiError&)));
 }
@@ -227,7 +359,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
     else {
         UserShareInfo info;
         info.user.email = request_.data()->userName();
-        info.user.name = contacts_[info.user.email].name;
+        info.user.name = users_[info.user.email].name;
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
     }
@@ -296,43 +428,24 @@ void PrivateShareDialog::onRemoveShareItem(const QString& email,
 
 
 void PrivateShareDialog::onFetchContactsSuccess(
-    const QList<SeafileGroup>& groups, const QList<SeafileContact>& contacts)
+    const QList<SeafileGroup>& groups, const QList<SeafileUser>& contacts)
 {
     QStringList candidates;
-    if (to_group_) {
-        foreach (const SeafileGroup& group, groups) {
-            candidates << group.name;
-            groups_[group.id] = group;
-        }
-    }
-    else {
-        foreach (const SeafileContact& contact, contacts) {
-            contacts_[contact.email] = contact;
-            if (!contact.name.isEmpty()) {
-                candidates << QString("%1 <%2>")
-                                  .arg(contact.name)
-                                  .arg(contact.email);
-            }
-            else {
-                candidates << contact.email;
-            }
-        }
+    foreach (const SeafileGroup& group, groups) {
+        candidates << group.name;
+        groups_[group.id] = group;
     }
 
     if (!candidates.isEmpty()) {
-        if (!to_group_) {
-            completer_.reset(new QCompleter(candidates));
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
-            completer_->setFilterMode(Qt::MatchContains);
-#endif
-            username_input_->setCompleter(completer_.data());
-        }
-        else {
-            groupname_input_->addItems(candidates);
-            groupname_input_->clearEditText();
-        }
+        groupname_input_->addItems(candidates);
+        groupname_input_->clearEditText();
     }
 
+    getExistingShardItems();
+}
+
+void PrivateShareDialog::getExistingShardItems()
+{
     get_shared_items_request_.reset(
         new GetPrivateShareItemsRequest(account_, repo_id_, path_));
 
@@ -406,6 +519,10 @@ bool PrivateShareDialog::validateInputs()
         }
     }
     else {
+        if (!users_.contains(name)) {
+            showWarning(tr("No such user \"%1\"").arg(name));
+            return false;
+        }
         if (model_->shareExists(name)) {
             UserShareInfo info = model_->shareInfo(name);
             if (info.permission == permission) {
@@ -470,7 +587,7 @@ void PrivateShareDialog::onOkBtnClicked()
     else {
         UserShareInfo info;
         info.user.email = name;
-        info.user.name = contacts_[info.user.email].name;
+        info.user.name = users_[info.user.email].name;
         info.permission = currentPermission();
         model_->addNewShareInfo(info);
     }

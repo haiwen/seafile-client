@@ -631,7 +631,7 @@ public:
     FetchGroupsAndContactsRequest(const Account& account);
 
 signals:
-    void success(const QList<SeafileGroup>&, const QList<SeafileContact>&);
+    void success(const QList<SeafileGroup>&, const QList<SeafileUser>&);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -655,6 +655,26 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(RemoteWipeReportRequest);
+};
+
+class SearchUsersRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    SearchUsersRequest(const Account& account, const QString& pattern);
+
+    QString pattern() const { return pattern_; }
+
+signals:
+    void success(const QList<SeafileUser>& users);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(SearchUsersRequest);
+
+    QString pattern_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

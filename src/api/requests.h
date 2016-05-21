@@ -677,4 +677,20 @@ private:
     QString pattern_;
 };
 
+class FetchGroupsRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    FetchGroupsRequest(const Account& account);
+
+signals:
+    void success(const QList<SeafileGroup>&);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(FetchGroupsRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

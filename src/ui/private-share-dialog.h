@@ -63,8 +63,7 @@ private slots:
     void onUpdateShareFailed(const ApiError& error);
     void onRemoveShareSuccess();
     void onRemoveShareFailed(const ApiError& error);
-    void onFetchContactsSuccess(const QList<SeafileGroup>& groups,
-                                const QList<SeafileUser>& contacts);
+    void onFetchGroupsSuccess(const QList<SeafileGroup>& groups);
     void onFetchContactsFailed(const ApiError& error);
     void onOkBtnClicked();
     void onGetSharedItemsSuccess(const QList<GroupShareInfo>& group_shares,
@@ -76,7 +75,7 @@ private slots:
 
 private:
     void createTable();
-    void fetchContacsForCompletion();
+    void fetchGroupsForCompletion();
     void getExistingShardItems();
     bool validateInputs();
     void toggleInputs(bool enabled);
@@ -107,7 +106,7 @@ private:
     SharedItemsTableModel* model_;
 
     QScopedPointer<PrivateShareRequest> request_;
-    QScopedPointer<FetchGroupsAndContactsRequest> contacts_request_;
+    QScopedPointer<FetchGroupsRequest> fetch_groups_request_;
     QScopedPointer<GetPrivateShareItemsRequest> get_shared_items_request_;
     QScopedPointer<QCompleter> completer_;
 

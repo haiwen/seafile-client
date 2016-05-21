@@ -42,6 +42,7 @@ const char* kFileSearchUrl = "api2/search/";
 const char* kAccountInfoUrl = "api2/account/info/";
 const char* kDirSharedItemsUrl = "api2/repos/%1/dir/shared_items/";
 const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
+const char* kFetchGroupsUrl = "api2/groups/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
 
@@ -1127,4 +1128,55 @@ void SearchUsersRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success(users);
+}
+
+
+FetchGroupsRequest::FetchGroupsRequest(
+    const Account& account)
+    : SeafileApiRequest(account.getAbsoluteUrl(kFetchGroupsUrl),
+                        SeafileApiRequest::METHOD_GET,
+                        account.token)
+{
+    setUrlParam("with_msg", "false");
+}
+
+void FetchGroupsRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("FetchGroupsRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QList<SeafileGroup> groups;
+
+    json_t* groups_array = json_object_get(json.data(), "groups");
+    if (groups_array) {
+        int i, n = json_array_size(groups_array);
+        for (i = 0; i < n; i++) {
+            json_t* group_object = json_array_get(groups_array, i);
+            const char* name =
+                json_string_value(json_object_get(group_object, "name"));
+            int group_id =
+                json_integer_value(json_object_get(group_object, "id"));
+            if (name && group_id) {
+                SeafileGroup group;
+                group.id = group_id;
+                group.name = QString::fromUtf8(name);
+                const char* owner =
+                    json_string_value(json_object_get(group_object, "creator"));
+                if (owner) {
+                    group.owner = QString::fromUtf8(owner);
+                }
+                groups.push_back(group);
+            }
+        }
+    }
+
+    emit success(groups);
 }

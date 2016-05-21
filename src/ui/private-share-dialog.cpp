@@ -99,7 +99,7 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
     createTable();
 
     if (to_group_) {
-        fetchContacsForCompletion();
+        fetchGroupsForCompletion();
     } else {
         completer_.reset(new QCompleter(new QStringListModel(this)));
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
@@ -299,16 +299,14 @@ void PrivateShareDialog::onNameInputEdited()
     mOkBtn->setEnabled(!lineEdit()->text().trimmed().isEmpty());
 }
 
-void PrivateShareDialog::fetchContacsForCompletion()
+void PrivateShareDialog::fetchGroupsForCompletion()
 {
-    contacts_request_.reset(new FetchGroupsAndContactsRequest(account_));
-    contacts_request_->send();
-    connect(contacts_request_.data(),
-            SIGNAL(success(const QList<SeafileGroup>&,
-                           const QList<SeafileUser>&)),
-            this, SLOT(onFetchContactsSuccess(const QList<SeafileGroup>&,
-                                              const QList<SeafileUser>&)));
-    connect(contacts_request_.data(), SIGNAL(failed(const ApiError&)), this,
+    fetch_groups_request_.reset(new FetchGroupsRequest(account_));
+    fetch_groups_request_->send();
+    connect(fetch_groups_request_.data(),
+            SIGNAL(success(const QList<SeafileGroup>&)),
+            this, SLOT(onFetchGroupsSuccess(const QList<SeafileGroup>&)));
+    connect(fetch_groups_request_.data(), SIGNAL(failed(const ApiError&)), this,
             SLOT(onFetchContactsFailed(const ApiError&)));
 }
 
@@ -427,8 +425,7 @@ void PrivateShareDialog::onRemoveShareItem(const QString& email,
 }
 
 
-void PrivateShareDialog::onFetchContactsSuccess(
-    const QList<SeafileGroup>& groups, const QList<SeafileUser>& contacts)
+void PrivateShareDialog::onFetchGroupsSuccess(const QList<SeafileGroup>& groups)
 {
     QStringList candidates;
     foreach (const SeafileGroup& group, groups) {

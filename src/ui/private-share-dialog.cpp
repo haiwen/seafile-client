@@ -284,12 +284,17 @@ void PrivateShareDialog::createTable()
 
     table_->setItemDelegate(new SharedItemDelegate(this));
 
+    // Overloaded signal for updating group share.
     connect(model_, SIGNAL(updateShareItem(int, SharePermission)), this,
             SLOT(onUpdateShareItem(int, SharePermission)));
+    // Overloaded signal for updating user share.
     connect(model_, SIGNAL(updateShareItem(const QString&, SharePermission)),
             this, SLOT(onUpdateShareItem(const QString&, SharePermission)));
+
+    // Overloaded signal for removing group share.
     connect(model_, SIGNAL(removeShareItem(int, SharePermission)), this,
             SLOT(onRemoveShareItem(int, SharePermission)));
+    // Overloaded signal for removing user share.
     connect(model_, SIGNAL(removeShareItem(const QString&, SharePermission)),
             this, SLOT(onRemoveShareItem(const QString&, SharePermission)));
 }
@@ -350,14 +355,16 @@ void PrivateShareDialog::onUpdateShareSuccess()
     // seafApplet->messageBox(tr("Shared successfully"), this);
     if (to_group_) {
         GroupShareInfo info;
-        info.group = groups_[info.group.id];
+        info.group = groups_[request_->groupId()];
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
     }
     else {
         UserShareInfo info;
         info.user.email = request_.data()->userName();
-        info.user.name = users_[info.user.email].name;
+        if (users_.contains(info.user.email)) {
+            info.user.name = users_[info.user.email].name;
+        }
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
     }
@@ -783,8 +790,14 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
         const UserShareInfo& info = user_shares_[row];
 
         if (column == COLUMN_NAME) {
-            return info.user.name.isEmpty() ? info.user.email
-                                                : info.user.name;
+            // Here the `info.user.name` field should always be non-empty:
+            // - If the share is an existing share (fetched at dialog
+            //   initialization), the the user name is returned in the api
+            //   request.
+            // - If the share is newly added, the user must be chosen from the
+            //   completion popup, which means we have full information of the
+            //   user.
+            return info.user.name;
         }
         else if (column == COLUMN_PERMISSION) {
             if (role == Qt::DisplayRole) {

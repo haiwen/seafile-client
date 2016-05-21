@@ -1059,7 +1059,7 @@ void GetPrivateShareItemsRequest::requestSuccess(QNetworkReply& reply)
             Json user = share_info.getObject("user_info");
             UserShareInfo user_share;
             user_share.user.email = user.getString("name");
-            user_share.user.name = user.getString("name");
+            user_share.user.name = user.getString("nickname");
             user_share.permission = ::permissionfromString(permission);
             user_shares.push_back(user_share);
         }
@@ -1155,26 +1155,23 @@ void FetchGroupsRequest::requestSuccess(QNetworkReply& reply)
 
     QList<SeafileGroup> groups;
 
-    json_t* groups_array = json_object_get(json.data(), "groups");
-    if (groups_array) {
-        int i, n = json_array_size(groups_array);
-        for (i = 0; i < n; i++) {
-            json_t* group_object = json_array_get(groups_array, i);
-            const char* name =
-                json_string_value(json_object_get(group_object, "name"));
-            int group_id =
-                json_integer_value(json_object_get(group_object, "id"));
-            if (name && group_id) {
-                SeafileGroup group;
-                group.id = group_id;
-                group.name = QString::fromUtf8(name);
-                const char* owner =
-                    json_string_value(json_object_get(group_object, "creator"));
-                if (owner) {
-                    group.owner = QString::fromUtf8(owner);
-                }
-                groups.push_back(group);
+    int i, n = json_array_size(json.data());
+    for (i = 0; i < n; i++) {
+        json_t* group_object = json_array_get(json.data(), i);
+        const char* name =
+            json_string_value(json_object_get(group_object, "name"));
+        int group_id =
+            json_integer_value(json_object_get(group_object, "id"));
+        if (name && group_id) {
+            SeafileGroup group;
+            group.id = group_id;
+            group.name = QString::fromUtf8(name);
+            const char* owner =
+                json_string_value(json_object_get(group_object, "creator"));
+            if (owner) {
+                group.owner = QString::fromUtf8(owner);
             }
+            groups.push_back(group);
         }
     }
 

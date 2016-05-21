@@ -96,9 +96,10 @@ private:
     bool to_group_;
 
     QHash<int, SeafileGroup> groups_;
+    // A (email, SeafileUser) map.
     QHash<QString, SeafileUser> users_;
 
-    // A (pattern, possible users for completion) multi map
+    // A (pattern, possible users for completion) multi map.
     QHash<QString, QSet<SeafileUser> > cached_users_;
     QSet<QString> in_progress_search_requests_;
 

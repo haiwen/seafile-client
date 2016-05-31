@@ -355,14 +355,6 @@ void SeafileTrayIcon::setState(TrayState state, const QString& tip)
     QString tool_tip = tip.isEmpty() ? getBrand() : tip;
 
     setIcon(stateToIcon(state));
-
-    // the following two lines solving the problem of tray icon
-    // disappear in ubuntu 13.04
-#if defined(Q_OS_LINUX)
-    hide();
-    show();
-#endif
-
     setToolTip(tool_tip);
 }
 

@@ -272,11 +272,11 @@ bool ShellExt::insertMainMenu()
     MENUITEMINFO menuiteminfo;
     ZeroMemory(&menuiteminfo, sizeof(menuiteminfo));
     menuiteminfo.cbSize = sizeof(menuiteminfo);
-    menuiteminfo.fMask = MIIM_FTYPE | MIIM_SUBMENU | MIIM_BITMAP | MIIM_STRING | MIIM_ID;
+    menuiteminfo.fMask = MIIM_FTYPE | MIIM_SUBMENU | MIIM_STRING | MIIM_ID;
     menuiteminfo.fType = MFT_STRING;
     menuiteminfo.dwTypeData = (char*)kMainMenuName;
     menuiteminfo.cch = strlen(kMainMenuName);
-    menuiteminfo.hbmpItem = HBMMENU_CALLBACK;
+    // menuiteminfo.hbmpItem = HBMMENU_CALLBACK;
     menuiteminfo.hSubMenu = sub_menu_;
     menuiteminfo.wID = first_;
 

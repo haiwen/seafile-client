@@ -276,7 +276,10 @@ int Configurator::setVirtualDrive(const QString& path, const QString& name)
 
     list.append(RegElement(root, clsid_path + "\\ShellFolder",
                            "Attributes",
-                           SFGAO_FOLDER | SFGAO_FILESYSTEM | SFGAO_HASSUBFOLDER));
+                           SFGAO_FILESYSANCESTOR | SFGAO_FOLDER |
+                           SFGAO_FILESYSTEM | SFGAO_HASSUBFOLDER |
+                           SFGAO_BROWSABLE | SFGAO_STORAGEANCESTOR |
+                           SFGAO_STORAGE));
 
     list.append(RegElement(root, clsid_path + "\\ShellFolder",
                            "PinToNameSpaceTree", ""));

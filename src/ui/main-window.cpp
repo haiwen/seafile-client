@@ -34,54 +34,31 @@ enum WIDGET_INDEX {
     INDEX_LOCAL_VIEW
 };
 
-/*
-void showTestDialog(QWidget *parent)
+const int kMinimumTopMargin = 20;
+const int kPreferredTopMargin = 150;
+
+const int kMinimumRightMargin = 100;
+const int kPreferredRightMargin = 150;
+
+QSize getReasonableWindowSize(const QSize &in)
 {
-    static QDialog *dialog;
-
-    if (!dialog) {
-        dialog = new QDialog(parent);
-
-        QVBoxLayout *layout = new QVBoxLayout;
-        dialog->setLayout(layout);
-
-        QTabBar *bar = new QTabBar;
-        bar->setExpanding(true);
-        bar->addTab("TabA");
-        bar->addTab("TabB");
-        bar->addTab("TabC");
-
-        layout->addWidget(bar);
-    }
-
-    // dialog.exec();
-    dialog->show();
-    dialog->raise();
-    dialog->activateWindow();
+    QSize size;
+    const QRect screen = QApplication::desktop()->availableGeometry();
+    return QSize(qMin(in.width(), screen.width() - kMinimumRightMargin),
+                 qMin(in.height(), screen.height() - kMinimumTopMargin));
 }
-*/
 
-
-} // namespace
-
-/// a little helper function to detect if the pos is outside the screens
-static bool isOutsideScreens(const QRect &rect) {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+// Detect if the pos is outside the screens.
+bool isOutsideScreens(const QRect &rect) {
     QList<QScreen*> screens = QGuiApplication::screens();
     for (int i = 0; i < screens.size(); ++i) {
-        if (screens[i]->geometry().contains(rect))
+        if (screens[i]->availableGeometry().contains(rect))
             return false;
     }
-#else
-    QDesktopWidget *desktop = QApplication::desktop();
-    for (int i = 0; i < desktop->numScreens(); ++i) {
-        if (desktop->screenGeometry(i).contains(rect))
-            return false;
-    }
-#endif
     return true;
 }
 
+} // namespace
 
 MainWindow::MainWindow()
 {
@@ -244,21 +221,23 @@ void MainWindow::writeSettings()
     settings.endGroup();
 }
 
-QPoint MainWindow::getDefaultPosition()
+QPoint MainWindow::getDefaultPosition(const QSize& size)
 {
-    const QRect screen = QApplication::desktop()->screenGeometry();
+    const QRect screen = QApplication::desktop()->availableGeometry();
     const QPoint top_right = screen.topRight();
 
-    int top_margin = rect().width() + qMin(150, (int)(0.1 * screen.width()));
-    int right_margin = qMin(150, (int)(0.1 * screen.width()));
-    QPoint default_pos(top_right.x() -top_margin, top_right.y() + right_margin);
+    int extra_height = qMax(screen.height() - size.height(), kMinimumTopMargin) / 2;
+    int right_margin = rect().width() + qMin(kPreferredRightMargin, (int)(0.1 * screen.width()));
+    int top_margin = qMin(qMin(extra_height, kPreferredTopMargin), (int)(0.1 * screen.width()));
 
-    return default_pos;
+    return QPoint(top_right.x() - right_margin, top_right.y() + top_margin);
 }
 
 void MainWindow::readSettings()
 {
     QPoint pos;
+    // Default size of the main window from qt.css.
+    const QSize default_size(325, 585);
     QSize size;
     QSettings settings;
     settings.beginGroup("MainWindow");
@@ -266,15 +245,22 @@ void MainWindow::readSettings()
     static bool first_show = true;
 
     if (first_show && seafApplet->configurator()->firstUse()) {
-        pos = getDefaultPosition();
+        size = default_size;
+        pos = getDefaultPosition(default_size);
     } else {
-        pos = settings.value("pos", getDefaultPosition()).toPoint();
-        size = settings.value("size", QSize()).toSize();
+        size = settings.value("size").toSize();
+        if (!size.isValid()) {
+            size = default_size;
+        } else {
+            size = getReasonableWindowSize(size);
+        }
 
-        // we don't want to be out of screen
-        // at least 1/10 size
-        if (isOutsideScreens(QRect(pos, (size.isValid() ? size : QSize(300, 600))/10)))
-            pos = getDefaultPosition();
+        pos = settings.value("pos", getDefaultPosition(size)).toPoint();
+
+        // we don't want to be out of screen at least 1/10 size
+        if (isOutsideScreens(QRect(pos, size / 10))) {
+            pos = getDefaultPosition(size);
+        }
     }
 
     first_show = false;

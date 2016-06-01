@@ -6,6 +6,7 @@
 class QAction;
 class QToolBar;
 class QResizeEvent;
+class QSize;
 
 class CloudView;
 
@@ -37,7 +38,7 @@ private slots:
 private:
     Q_DISABLE_COPY(MainWindow)
 
-    QPoint getDefaultPosition();
+    QPoint getDefaultPosition(const QSize& size);
 
     QAction *refresh_qss_action_;
 

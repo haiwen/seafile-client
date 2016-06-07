@@ -20,6 +20,7 @@ extern "C" {
 #include <shellapi.h>
 #else
 #include <fts.h>
+#include <errno.h>
 #include <unistd.h>
 #endif
 

@@ -155,6 +155,9 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 
     connect(listener_thread_, SIGNAL(privateShare(const QString&, const QString&, bool)),
             this, SLOT(privateShare(const QString&, const QString&, bool)));
+
+    connect(listener_thread_, SIGNAL(openUrlWithAutoLogin(const QUrl&)),
+            this, SLOT(openUrlWithAutoLogin(const QUrl&)));
 }
 
 void SeafileExtensionHandler::start()
@@ -248,6 +251,11 @@ void SeafileExtensionHandler::privateShare(const QString& repo_id,
     dialog->activateWindow();
 }
 
+void SeafileExtensionHandler::openUrlWithAutoLogin(const QUrl& url)
+{
+    AutoLoginService::instance()->startAutoLogin(url.toString());
+}
+
 void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 {
     SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
@@ -327,6 +335,8 @@ void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
             this, SIGNAL(lockFile(const QString&, const QString&, bool)));
     connect(t, SIGNAL(privateShare(const QString&, const QString&, bool)),
             this, SIGNAL(privateShare(const QString&, const QString&, bool)));
+    connect(t, SIGNAL(openUrlWithAutoLogin(const QUrl&)),
+            this, SIGNAL(openUrlWithAutoLogin(const QUrl&)));
     t->start();
 }
 
@@ -562,10 +572,9 @@ void ExtCommandsHandler::handleShowHistory(const QStringList& args)
                 QString path_in_repo = path.mid(wt.size());
                 QUrl url = "/repo/file_revisions/" + repo.id + "/";
                 url = ::includeQueryParams(url, {{"p", path_in_repo}});
-                QMetaObject::invokeMethod(AutoLoginService::instance(), "startAutoLogin",
-                                          Qt::QueuedConnection,
-                                          Q_ARG(QString, url.toString()));
+                emit openUrlWithAutoLogin(url);
             }
+            break;
         }
     }
 }

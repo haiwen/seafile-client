@@ -155,6 +155,9 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 
     connect(listener_thread_, SIGNAL(privateShare(const QString&, const QString&, bool)),
             this, SLOT(privateShare(const QString&, const QString&, bool)));
+
+    connect(listener_thread_, SIGNAL(openUrlWithAutoLogin(const QUrl&)),
+            this, SLOT(openUrlWithAutoLogin(const QUrl&)));
 }
 
 void SeafileExtensionHandler::start()
@@ -246,6 +249,11 @@ void SeafileExtensionHandler::privateShare(const QString& repo_id,
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
+}
+
+void SeafileExtensionHandler::openUrlWithAutoLogin(const QUrl& url)
+{
+    AutoLoginService::instance()->startAutoLogin(url.toString());
 }
 
 void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
@@ -562,8 +570,9 @@ void ExtCommandsHandler::handleShowHistory(const QStringList& args)
                 QString path_in_repo = path.mid(wt.size());
                 QUrl url = repo.account.getAbsoluteUrl("repo/file_revisions/" + repo.id + "/");
                 url = ::includeQueryParams(url, {{"p", path_in_repo}});
-                QDesktopServices::openUrl(url);
+                emit openUrlWithAutoLogin(url);
             }
+            break;
         }
     }
 }

@@ -14,6 +14,8 @@ class AutoLoginService : public QObject {
 public:
     AutoLoginService(QObject *parent=0);
     // Get a auto login token from server, and then open the "next_url" after login
+
+public slots:
     void startAutoLogin(const QString& next_url);
 
 private slots:

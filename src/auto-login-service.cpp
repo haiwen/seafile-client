@@ -23,7 +23,9 @@ AutoLoginService::AutoLoginService(QObject *parent)
 void AutoLoginService::startAutoLogin(const QString& next_url)
 {
     const Account account = seafApplet->accountManager()->currentAccount();
-    QUrl absolute_url = account.getAbsoluteUrl(next_url);
+    QUrl absolute_url = QUrl(next_url).isRelative()
+                            ? account.getAbsoluteUrl(next_url)
+                            : next_url;
     if (!account.isValid() || !account.isAtLeastVersion(4, 2, 0)) {
         QDesktopServices::openUrl(absolute_url);
         return;

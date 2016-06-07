@@ -238,7 +238,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="32"/>
         <source>Download tasks</source>
-        <translation>Übertragungsaufgaben</translation>
+        <translation>Download-Aufgaben</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="50"/>
@@ -248,7 +248,7 @@ wurde nicht hochgeladen.</translation>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="81"/>
         <source>No download tasks right now.</source>
-        <translation>Zur Zeit keine Übertragungsaufgaben.</translation>
+        <translation>Keine Download-Aufgaben eingerichtet</translation>
     </message>
     <message>
         <location filename="../ui_clone-tasks-dialog.h" line="69"/>
@@ -523,7 +523,7 @@ wurde nicht hochgeladen.</translation>
         <location filename="../src/ui/create-repo-dialog.cpp" line="204"/>
         <source>Failed to add download task:
  %1</source>
-        <translation>Fehler beim Hinzufügen der Übertragungsaufgabe:
+        <translation>Download konnte nicht eingerichtet werden:
 %1</translation>
     </message>
     <message>
@@ -687,7 +687,7 @@ wurde nicht hochgeladen.</translation>
         <location filename="../src/ui/download-repo-dialog.cpp" line="356"/>
         <source>Failed to add download task:
  %1</source>
-        <translation>Fehler beim Hinzufügen der Übertragungsaufgabe:
+        <translation>Download konnte nicht eingerichtet werden:
 %1</translation>
     </message>
     <message>
@@ -2729,7 +2729,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <location filename="../src/ui/repo-tree-view.cpp" line="836"/>
         <source>Failed to add download task:
  %1</source>
-        <translation>Fehler beim Hinzufügen der Übertragungsaufgabe:
+        <translation>Download konnte nicht eingerichtet werden:
 %1</translation>
     </message>
     <message>

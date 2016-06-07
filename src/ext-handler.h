@@ -42,7 +42,6 @@ private slots:
     void privateShare(const QString& repo_id,
                       const QString& path_in_repo,
                       bool to_group);
-    void openUrlWithAutoLogin(const QUrl& url);
 
 private:
     ExtConnectionListenerThread *listener_thread_;
@@ -73,7 +72,6 @@ signals:
     void privateShare(const QString& repo_id,
                       const QString& path_in_repo,
                       bool to_group);
-    void openUrlWithAutoLogin(const QUrl& url);
 
 private:
     void servePipeInNewThread(HANDLE pipe);

@@ -6,10 +6,10 @@
 
 #include <QDir>
 #include <QFileInfo>
-#include <QDesktopServices>
 
 #include "account.h"
 #include "account-mgr.h"
+#include "auto-login-service.h"
 #include "settings-mgr.h"
 #include "seafile-applet.h"
 #include "rpc/local-repo.h"
@@ -268,7 +268,7 @@ void FinderSyncHost::doShowFileHistory(const QString &path)
         qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
         return;
     }
-    QUrl url = account.getAbsoluteUrl("repo/file_revisions/" + repo_id + "/");
+    QUrl url = "/repo/file_revisions/" + repo_id + "/";
     url = ::includeQueryParams(url, {{"p", path_in_repo}});
-    QDesktopServices::openUrl(url);
+    AutoLoginService::instance()->startAutoLogin(url.toString());
 }

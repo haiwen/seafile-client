@@ -32,6 +32,9 @@ void AutoLoginService::startAutoLogin(const QString& next_url)
     }
 
     QString next = absolute_url.path();
+    if (absolute_url.hasQuery()) {
+        next += "?" + absolute_url.query();
+    }
     if (!absolute_url.fragment().isEmpty()) {
         next += "#" + absolute_url.fragment();
     }

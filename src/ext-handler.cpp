@@ -16,7 +16,6 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
-#include <QDesktopServices>
 
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
@@ -563,7 +562,6 @@ void ExtCommandsHandler::handleShowHistory(const QStringList& args)
                 QString path_in_repo = path.mid(wt.size());
                 QUrl url = "/repo/file_revisions/" + repo.id + "/";
                 url = ::includeQueryParams(url, {{"p", path_in_repo}});
-                QDesktopServices::openUrl(url);
                 QMetaObject::invokeMethod(AutoLoginService::instance(), "startAutoLogin",
                                           Qt::QueuedConnection,
                                           Q_ARG(QString, url.toString()));

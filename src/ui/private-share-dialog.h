@@ -100,7 +100,11 @@ private:
     QHash<QString, SeafileUser> users_;
 
     // A (pattern, possible users for completion) multi map.
-    QHash<QString, QSet<SeafileUser> > cached_users_;
+    struct CachedUsersEntry {
+        QSet<SeafileUser> users;
+        qint64 ts;
+    };
+    QHash<QString, CachedUsersEntry> cached_users_;
     QSet<QString> in_progress_search_requests_;
 
     SharedItemsTableView* table_;

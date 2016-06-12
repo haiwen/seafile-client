@@ -37,6 +37,8 @@ const int kMarginTop = 2;
 const int kPadding = 2;
 const int kMarginBetweenPermissionAndIndicator = 10;
 
+const qint64 kCacheEntryExpireMSecs = 5 * 1000;
+
 const QColor kSelectedItemBackgroundcColor("#F9E0C7");
 const QColor kItemBackgroundColor("white");
 const QColor kItemBottomBorderColor("#f3f3f3");
@@ -160,43 +162,22 @@ void PrivateShareDialog::onUserNameChanged(const QString& email)
         return;
     }
 
-    if (QDateTime::currentMSecsSinceEpoch() - lastChangedTS <  1000) {
-        return;
-    }
-
-    // QStringListModel *users_complete_model = (QStringListModel *)(completer_->model());
-    // if (users_complete_model->stringList().contains(pattern)) {
+    // if (QDateTime::currentMSecsSinceEpoch() - lastChangedTS <  300) {
     //     return;
     // }
 
     // The search result is cached
-    if (cached_users_.contains(pattern)) {
-        updateUsersCompletion(cached_users_[pattern].toList());
+    if (cached_users_.contains(pattern) &&
+        cached_users_[pattern].ts + kCacheEntryExpireMSecs >
+            QDateTime::currentMSecsSinceEpoch()) {
+        // printf("cached results for %s\n", toCStr(pattern));
+        updateUsersCompletion(cached_users_[pattern].users.toList());
         return;
     }
 
-    // There was a search with the prefix of the current pattern, so we can
-    // simply filter an use the existing results.
-    QHash<QString, QSet<SeafileUser>>::const_iterator iter = cached_users_.constBegin();
-    while (iter != cached_users_.constEnd()) {
-        QString key = iter.key();
-        QList<SeafileUser> users;
-        if (pattern.startsWith(key)) {
-            // printf ("use subset of %s for pattern %s\n", toCStr(key), toCStr(pattern));
-            foreach (const SeafileUser& user, iter.value()) {
-                if (user.email.contains(pattern) || user.name.contains(pattern)) {
-                    users.push_back(user);
-                }
-            }
-            updateUsersCompletion(users);
-            return;
-        }
-
-        iter++;
-    }
-
     foreach(const QString& key, in_progress_search_requests_) {
-        if (pattern.startsWith(key)) {
+        // printf ("already a request for %s\n", toCStr(pattern));
+        if (pattern == key) {
             return;
         }
     }
@@ -225,7 +206,7 @@ void PrivateShareDialog::onSearchUsersSuccess(const QList<SeafileUser> &users)
 
     updateUsersCompletion(users);
 
-    cached_users_[req->pattern()] = QSet<SeafileUser>::fromList(users);
+    cached_users_[req->pattern()] = {QSet<SeafileUser>::fromList(users), QDateTime::currentMSecsSinceEpoch()};
 
     // printf("get %d results for pattern %s\n", users.size(), toCStr(req->pattern()));
 }

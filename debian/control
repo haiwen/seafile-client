@@ -1,0 +1,54 @@
+Source: seafile
+Section: net
+Priority: extra
+Maintainer: m.eik michalke <meik.michalke@hhu.de>
+Build-Depends:
+    debhelper (>= 7),
+    autotools-dev,
+    libssl-dev,
+    libcurl4-openssl-dev,
+    libsqlite3-dev,
+    intltool,
+    libglib2.0-dev,
+    libevent-dev,
+    uuid-dev,
+    qtbase5-dev,
+    libqt5webkit5-dev,
+    qttools5-dev,
+    libtool,
+    valac,
+    libjansson-dev,
+    cmake,
+    qtchooser,
+    qttools5-dev-tools,
+    libsearpc-dev,
+    libccnet-dev,
+    libseafile-dev
+Standards-Version: 3.9.5
+Homepage: http://seafile.com
+
+Package: seafile
+Architecture: any
+Depends:
+    ${shlibs:Depends},
+    ${misc:Depends},
+    libglib2.0-0,
+    libsqlite3-0,
+    libuuid1,
+    libevent-2.0-5,
+    libqt5network5 (>=5.2),
+    libqt5core5a (>=5.2),
+    libqt5gui5 (>=5.2),
+    libqt5webkit5 (>=5.1),
+    libqt5test5 (>=5.2),
+    libssl0.9.8 | libssl1.0.0,
+    libsearpc,
+    libccnet,
+    libseafile
+Description: Seafile desktop client.
+  Seafile is an open source cloud storage system with features
+  on privacy protection and teamwork. Collections of files are
+  called libraries, and each library can be synced separately.
+  A library can also be encrypted with a user chosen password.
+  Seafile also allows users to create groups and easily sharing
+  files into groups.

@@ -1,8 +1,8 @@
-seafile (5.1.2-4) unstable; urgency=medium
+seafile-gui (5.1.2-4) unstable; urgency=medium
 
   * adjusted build dependencies
   * updated the debian/copyright notice so people know who's responisble for the packaging
   * rewrote the rules file, much simpler now
   * prep for release on github
 
- -- m.eik michalke <meik.michalke@hhu.de>  Mon, 13 Jun 2016 19:48:01 +0200
+ -- m.eik michalke <meik.michalke@hhu.de>  Thu, 16 Jun 2016 01:06:50 +0200

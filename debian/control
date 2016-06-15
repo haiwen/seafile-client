@@ -43,6 +43,7 @@ Depends:
     libsearpc1,
     libccnet0,
     libseafile0
+Conflicts: seafile
 Description: Seafile desktop client.
   Seafile is an open source cloud storage system with features
   on privacy protection and teamwork. Collections of files are

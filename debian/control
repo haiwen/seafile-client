@@ -11,6 +11,7 @@ Build-Depends:
     intltool,
     libglib2.0-dev,
     libevent-dev,
+    uuid-dev,
     qtbase5-dev,
     libqt5webkit5-dev,
     qttools5-dev,

@@ -1,8 +1,9 @@
-seafile-gui (5.1.2-5) UNRELEASED; urgency=medium
+seafile-gui (5.1.2-5ubuntu1) UNRELEASED; urgency=medium
 
   * repackaging with cleaned up orig.tar.xz archives
+  * improved the debian/control file
 
- -- m.eik michalke <meik.michalke@hhu.de>  Thu, 16 Jun 2016 14:34:06 +0200
+ -- m.eik michalke <meik.michalke@hhu.de>  Fri, 17 Jun 2016 19:22:13 +0200
 
 seafile-gui (5.1.2-4) unstable; urgency=medium
 

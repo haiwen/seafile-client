@@ -4,6 +4,8 @@ Priority: extra
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
 Build-Depends:
     debhelper (>= 7),
+    dh-python,
+    python,
     autotools-dev,
     libssl-dev,
     libcurl4-openssl-dev,
@@ -31,24 +33,12 @@ Package: seafile-gui
 Architecture: any
 Depends:
     ${shlibs:Depends},
-    ${misc:Depends},
-    libglib2.0-0,
-    libsqlite3-0,
-    libevent-2.0-5,
-    libqt5network5 (>=5.2),
-    libqt5core5a (>=5.2),
-    libqt5gui5 (>=5.2),
-    libqt5webkit5 (>=5.1),
-    libssl0.9.8 | libssl1.0.0,
-    seafile-daemon,
-    libsearpc1,
-    libccnet0,
-    libseafile0
+    ${misc:Depends}
 Conflicts: seafile
 Description: Seafile desktop client.
-  Seafile is an open source cloud storage system with features
-  on privacy protection and teamwork. Collections of files are
-  called libraries, and each library can be synced separately.
-  A library can also be encrypted with a user chosen password.
-  Seafile also allows users to create groups and easily sharing
-  files into groups.
+ Seafile is an open source cloud storage system with features
+ on privacy protection and teamwork. Collections of files are
+ called libraries, and each library can be synced separately.
+ A library can also be encrypted with a user chosen password.
+ Seafile also allows users to create groups and easily sharing
+ files into groups.

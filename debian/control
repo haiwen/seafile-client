@@ -33,7 +33,9 @@ Package: seafile-gui
 Architecture: any
 Depends:
     ${shlibs:Depends},
-    ${misc:Depends}
+    ${misc:Depends},
+    ccnet (>= 5.1.2),
+    seafile-daemon (>= 5.1.2)
 Conflicts: seafile
 Description: Seafile desktop client.
  Seafile is an open source cloud storage system with features

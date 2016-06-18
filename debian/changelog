@@ -1,4 +1,10 @@
-seafile-gui (5.1.2-5ubuntu1) UNRELEASED; urgency=medium
+seafile-gui (5.1.2-5ubuntu2) UNRELEASED; urgency=medium
+
+  * fixed package dependencies
+
+ -- m.eik michalke <meik.michalke@hhu.de>  Sat, 18 Jun 2016 12:20:04 +0200
+
+seafile-gui (5.1.2-5ubuntu1) unstable; urgency=medium
 
   * repackaging with cleaned up orig.tar.xz archives
   * improved the debian/control file

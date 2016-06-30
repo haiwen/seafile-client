@@ -1119,7 +1119,7 @@ void SearchUsersRequest::requestSuccess(QNetworkReply& reply)
                 user.name = QString::fromUtf8(
                     json_string_value(json_object_get(user_object, "name")));
                 user.contact_email = QString::fromUtf8(
-                    json_string_value(json_object_get(user_object, "user_email")));
+                    json_string_value(json_object_get(user_object, "contact_email")));
                 user.avatar_url = QString::fromUtf8(
                     json_string_value(json_object_get(user_object, "avatar_url")));
                 users.push_back(user);

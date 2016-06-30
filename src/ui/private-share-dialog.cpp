@@ -156,9 +156,13 @@ void PrivateShareDialog::onUserNameChanged(const QString& email)
         return;
     }
 
-    QRegExp re(QString("^[^ ]+ <(.*)>$"));
+    QRegExp re(QString("^.+ <(.*)>$"));
     if (re.exactMatch(pattern)) {
         lineEdit()->setText(re.cap(1));
+        // TODO: consider use a custom completer or write custom key events
+        // handler here to get a better auto completion experience.
+        //
+        // See http://doc.qt.io/qt-5/qtwidgets-tools-customcompleter-example.html
         return;
     }
 

@@ -30,7 +30,7 @@ struct UserData {
     _CcnetMqclientProc *mqclient_proc;
 };
 
-void readCallback(int sock, short what, void* data)
+void readCallback(evutil_socket_t sock, short what, void* data)
 {
     UserData *user_data = static_cast<UserData*>(data);
     _CcnetClient *async_client = user_data->ccnet_client;

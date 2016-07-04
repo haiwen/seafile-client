@@ -70,7 +70,7 @@ applet_log_init (const char *ccnet_dir)
     /* record all log message */
     applet_log_level = G_LOG_LEVEL_DEBUG;
 
-    if ((logfp = (FILE *)(long)g_fopen (file, "a+")) == NULL) {
+    if ((logfp = g_fopen (file, "a+")) == NULL) {
         g_warning ("Open file %s failed errno=%d\n", file, errno);
         g_free (file);
         return -1;

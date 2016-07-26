@@ -6,7 +6,6 @@ Build-Depends:
     debhelper (>= 7),
     dh-python,
     python,
-    autotools-dev,
     libssl-dev,
     libcurl4-openssl-dev,
     libsqlite3-dev,

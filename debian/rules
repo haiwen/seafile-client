@@ -2,7 +2,7 @@
 # -*- makefile -*-
 
 %:
-	dh $@ --with python2 --builddirectory=build
+	dh $@ --builddirectory=build
 
 override_dh_auto_configure:
 	export QT_SELECT=5

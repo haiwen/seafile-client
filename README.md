@@ -1,13 +1,12 @@
 ## seafile-client [![Build Status](https://secure.travis-ci.org/haiwen/seafile-client.svg?branch=master)](http://travis-ci.org/haiwen/seafile-client)
 
-
-New version of Seafile desktop client.
+Seafile desktop client.
 
 ## BUILD ##
 
 ### Prerequisites ###
 
-- Qt4 (or Qt5)
+- Qt5
 - cmake
 - [libsearpc](https://github.com/haiwen/libsearpc)
 - [ccnet](https://github.com/haiwen/ccnet)
@@ -22,17 +21,17 @@ make
 make install
 ```
 
-> Qt 4.8.0 or higher is required
+> Qt 5.2 or higher is required
 
 ### INSTALL with Qt5 ###
 
 ```
-cmake -DUSE_QT5=on .
+cmake .
 make
 make install
 ```
 
-> Qt 5.4.0 or higher is recommanded but not required
+> Qt 5.5 or higher is recommanded but not required
 
 ## Internationalization
 

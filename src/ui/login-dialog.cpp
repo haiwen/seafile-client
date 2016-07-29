@@ -24,7 +24,6 @@
 namespace {
 
 const char *kDefaultServerAddr1 = "https://seacloud.cc";
-const char *kDefaultServerAddr2 = "https://app.seafile.de";
 const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
@@ -43,9 +42,6 @@ QStringList getUsedServerAddresses()
     }
     if (!retval.contains(kDefaultServerAddr1)) {
         retval.push_back(kDefaultServerAddr1);
-    }
-    if (!retval.contains(kDefaultServerAddr2)) {
-        retval.push_back(kDefaultServerAddr2);
     }
     return retval;
 }

@@ -1,6 +1,6 @@
 ## seafile-client [![Build Status](https://secure.travis-ci.org/haiwen/seafile-client.svg?branch=master)](http://travis-ci.org/haiwen/seafile-client)
 
-Seafile desktop client.
+[Seafile](https://seafile.com) desktop client.
 
 ## BUILD ##
 
@@ -22,7 +22,7 @@ make install
 
 > Qt 5.2 or higher is required
 
-Ubuntu users can install seafile client from [Seafile Clients PPA](https://code.launchpad.net/~seafile/+archive/ubuntu/seafile-client)
+Ubuntu users can install seafile client from this [PPA](https://code.launchpad.net/~seafile/+archive/ubuntu/seafile-client)
 
 ### INSTALL with Qt5 ###
 

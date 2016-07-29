@@ -7,7 +7,7 @@ QWidget#mainWrapper {
 }
 
 QLabel {
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
 }
 
 CloudView {
@@ -48,20 +48,20 @@ RepoDetailDialog {
 }
 
 CloudView QLabel#mEmail {
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
     font-size: 15px;
     color: #525252;
 }
 
 CloudView QLabel#mServerAddr {
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
     color: #A4A4A4;
     font-size: 13px;
 }
 
 QDialog QLabel#mTitle {
     color: #F89A01;
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
     font-size: 20px;
 }
 
@@ -102,7 +102,7 @@ QWidget#mHeader QLabel#mLogo {
     margin-top: 6px;
     margin-right: 4px;
     font-size: 14px;
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
 }
 
 RepoTreeView
@@ -138,12 +138,12 @@ CloudView QFrame#mDropInner {
 }
 
 CloudView QFrame#mDropInner QLabel {
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
 }
 
 CloudView QPushButton#mSelectFolderBtn {
     font-size: 16px;
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
     border: 0;
     color: #FF9A2A;
     background: #F5F5F7;
@@ -237,7 +237,7 @@ CloudView QSizeGrip {
 
 InitVirtualDriveDialog QLabel#mStatusText {
     font-size: 16px;
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
     padding-right: 20px;
     qproperty-wordWrap: true;
     min-width: 350px;
@@ -616,5 +616,5 @@ SharedItemsTableView QHeaderView::section {
     /* outline: 1px; */
     font-size: 12px;
     padding-top: 10px;
-    font-family: Arial;
+    font-family: "Open Sans", Sans-Serif;
 }

@@ -22,6 +22,8 @@ make install
 
 > Qt 5.2 or higher is required
 
+Ubuntu users can install seafile client from [Seafile Clients PPA](https://code.launchpad.net/~seafile/+archive/ubuntu/seafile-client)
+
 ### INSTALL with Qt5 ###
 
 ```

@@ -48,6 +48,8 @@ const char* kSearchUsersUrl = "api2/search-user/";
 
 const char* kLatestVersionUrl = "https://seafile.com/api/client-versions/";
 
+const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
+
 #if defined(Q_OS_WIN32)
 const char* kOsName = "windows";
 #elif defined(Q_OS_LINUX)
@@ -1176,4 +1178,31 @@ void FetchGroupsRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success(groups);
+}
+
+GetThumbnailRequest::GetThumbnailRequest(const Account& account,
+                                         const QString& repo_id,
+                                         const QString& path,
+					 int size)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kGetThumbnailUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_GET,
+          account.token)
+{
+    setUrlParam("p", path);
+    setUrlParam("size", QString::number(size));
+}
+
+void GetThumbnailRequest::requestSuccess(QNetworkReply& reply)
+{
+    QPixmap pixmap;
+    pixmap.loadFromData(reply.readAll());
+
+    if (pixmap.isNull()) {
+        qWarning("GetThumbnailRequest: invalid image data\n");
+        emit failed(ApiError::fromHttpError(400));
+    }
+    else {
+        emit success(pixmap);
+    }
 }

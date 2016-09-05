@@ -153,9 +153,10 @@ void NetworkManager::reapplyProxy()
 
 void NetworkManager::onCleanup()
 {
-    QNetworkAccessManager *manager = qobject_cast<QNetworkAccessManager*>(sender());
-    if (manager) {
-        managers_.erase(std::remove(managers_.begin(), managers_.end(), manager),
-                        managers_.end());
-    }
+    // Don't use "qobject_cast<QNetworkAccessManager>" here, because the
+    // "destroyed" signal is emited by QObject class, so qobject_cast would fail
+    // to cast it to QNetworkAccessManager.
+    QNetworkAccessManager *manager = (QNetworkAccessManager*)(sender());
+    managers_.erase(std::remove(managers_.begin(), managers_.end(), manager),
+                    managers_.end());
 }

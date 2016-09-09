@@ -554,19 +554,31 @@ void WipeFilesThread::run()
 
 void RepoService::wipeLocalFiles()
 {
+    const Account& account = seafApplet->accountManager()->currentAccount();
+
     // Collect repo worktrees
+    std::vector<LocalRepo> repos_to_wipe;
     rpc_->listLocalRepos(&local_repos_);
     QStringList worktrees;
     for (size_t i = 0; i < local_repos_.size(); ++i) {
         const LocalRepo& repo = local_repos_[i];
+
+        QString repo_server_url;
+        if (rpc_->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
+            continue;
+        }
+        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+
         rpc_->unsync(repo.id);
+        repos_to_wipe.push_back(repo);
     }
 
     // Collect files cached by cloud file browser
     QStringList cached_files;
     QList<FileCacheDB::CacheEntry> all_files =
         FileCacheDB::instance()->getAllCachedFiles();
-    const Account account = seafApplet->accountManager()->currentAccount();
     foreach (const FileCacheDB::CacheEntry& entry, all_files) {
         if (account.getSignature() == entry.account_sig) {
             QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
@@ -574,7 +586,7 @@ void RepoService::wipeLocalFiles()
         }
     }
 
-    WipeFilesThread *wiper = new WipeFilesThread(local_repos_, cached_files);
+    WipeFilesThread *wiper = new WipeFilesThread(repos_to_wipe, cached_files);
     connect(wiper, SIGNAL(done()), this, SLOT(onWiperDone()));
 
     QThreadPool::globalInstance()->start(wiper);

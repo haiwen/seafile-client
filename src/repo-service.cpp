@@ -527,7 +527,7 @@ void RepoService::removeCloudFileBrowserCache()
         if (account.getSignature() == entry.account_sig) {
             QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
             printf ("removing cached file %s\n", toCStr(fullpath));
-            ::unlink((const char*)toCStr(fullpath));
+            ::unlink((const char*)(toCStr(fullpath)));
         }
     }
 }

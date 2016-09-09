@@ -19,6 +19,7 @@ extern "C" {
 #if defined(Q_OS_WIN32)
 #include <shellapi.h>
 #else
+#include <memory>
 #include <fts.h>
 #include <errno.h>
 #include <unistd.h>
@@ -50,7 +51,9 @@ int posix_rmdir(const QString &root)
         return -1;
     }
 
-    char *paths[] = {toCStr(root), NULL};
+    std::unique_ptr<char[]> root_ptr(strdup(toCStr(root)));
+
+    char *paths[] = {root_ptr.get(), NULL};
 
     // Using `FTS_PHYSICAL` here because we need `FTSENT` for the
     // symbolic link in the directory and not the target it links to.

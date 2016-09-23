@@ -268,7 +268,8 @@ void SeafileTrayIcon::rotate(bool start)
 {
     /* tray icon should not be refreshed on Gnome according to their guidelines */
     const char *env = g_getenv("DESKTOP_SESSION");
-    if (env && strcmp(env, "gnome") == 0) {
+    if ((env != NULL))
+        && ((strcmp(env, "gnome") == 0) || (strcmp(env, "gnome-wayland") == 0))) {
         return;
     }
 

@@ -81,11 +81,9 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
     if (processed_bytes >= total_bytes)
         total_bytes = processed_bytes + 1;
 
-	if (maximum() != 100)
-    {
-		setMaximum(100);
-    }
-	setValue ((int)((double)processed_bytes/total_bytes*100));
+    if (maximum() != 100)
+        setMaximum(100);
+    setValue ((int)((double)processed_bytes/total_bytes*100));
 
     more_details_label_->setText(tr("%1 of %2")
                             .arg(::readableFileSizeV2(processed_bytes))

@@ -31,6 +31,7 @@
 #include "ui/login-dialog.h"
 #include "open-local-helper.h"
 #include "avatar-service.h"
+#include "filebrowser/thumbnail-service.h"
 #include "seahub-notifications-monitor.h"
 #include "filebrowser/data-cache.h"
 #include "filebrowser/auto-update-mgr.h"
@@ -321,6 +322,7 @@ void SeafileApplet::onDaemonStarted()
     AutoUpdateManager::instance()->start();
 
     AvatarService::instance()->start();
+    ThumbnailService::instance()->start();
 
     SeahubNotificationsMonitor::instance()->start();
     ServerStatusService::instance()->start();

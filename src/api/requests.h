@@ -698,10 +698,31 @@ class GetThumbnailRequest : public SeafileApiRequest
     Q_OBJECT
 public:
     GetThumbnailRequest(const Account& account,
-		        const QString& repo_id,
+                        const QString& repo_id,
                         const QString& path,
-			int size);
+                        uint size,
+			qint64 mtime);
 
+    const Account& account() const
+    {
+        return account_;
+    }
+    const QString& repoId() const
+    {
+        return repo_id_;
+    }
+    const QString& path() const
+    {
+        return path_;
+    }
+    const uint& size() const
+    {
+        return size_;
+    }
+    const qint64& mtime() const
+    {
+        return mtime_;
+    }
 signals:
     void success(const QPixmap& thumbnail);
 
@@ -710,6 +731,11 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(GetThumbnailRequest);
+    Account account_;
+    QString repo_id_;
+    QString path_;
+    uint size_;
+    qint64 mtime_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

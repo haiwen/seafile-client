@@ -12,7 +12,10 @@
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
 
+#include "thumbnail-service.h"
+
 class DataManager;
+class ThumbnailService;
 
 class FileTableViewDelegate : public QStyledItemDelegate {
     Q_OBJECT
@@ -144,6 +147,7 @@ public:
 
 private slots:
     void updateDownloadInfo();
+    void updateThumbnail(const QPixmap& thumbnail);
 
 private:
     Q_DISABLE_COPY(FileTableModel)
@@ -157,6 +161,9 @@ private:
     int name_column_width_;
 
     QTimer *task_progress_timer_;
+
+    QPixmap *thumbnail_;
+
 };
 
 class FileTableSortFilterProxyModel : public QSortFilterProxyModel {

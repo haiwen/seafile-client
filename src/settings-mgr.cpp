@@ -633,6 +633,8 @@ void SettingsManager::setComputerName(const QString &computerName)
     settings.beginGroup(kSettingsGroup);
     settings.setValue(kComputerName, computerName);
     settings.endGroup();
+
+    seafApplet->rpcClient()->seafileSetConfig("client_name", computerName);
 }
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT

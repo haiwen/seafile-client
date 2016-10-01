@@ -380,6 +380,9 @@ void SeafileApplet::onDaemonStarted()
         checkLatestVersionInfo();
     }
 
+    seafApplet->rpcClient()->seafileSetConfig(
+        "client_name", settings_mgr_->getComputerName());
+
     OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
 
     QTimer::singleShot(kIntervalForUpdateRepoProperty,

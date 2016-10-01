@@ -227,6 +227,7 @@ bool LoginDialog::validateInputs()
     QString computer_name = mComputerName->text().trimmed();
     if (computer_name.size() == 0) {
         showWarning(tr("Please enter the computer name"));
+        return false;
     }
 
     url_ = url;

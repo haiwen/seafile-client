@@ -380,8 +380,12 @@ void SeafileApplet::onDaemonStarted()
         checkLatestVersionInfo();
     }
 
-    seafApplet->rpcClient()->seafileSetConfig(
+    QString value;
+    if (seafApplet->rpcClient()->seafileGetConfig("client_name", &value) < 0 || value.isEmpty()) {
+        // We do this because clients before 6.0 don't set the "client_name" option.
+        seafApplet->rpcClient()->seafileSetConfig(
         "client_name", settings_mgr_->getComputerName());
+    }
 
     OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
 

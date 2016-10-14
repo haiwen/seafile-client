@@ -728,7 +728,7 @@ Bitte %1</translation>
     <message>
         <location filename="../src/ui/event-details-dialog.cpp" line="36"/>
         <source>Modification Details</source>
-        <translation>Änderungsdetails</translation>
+        <translation>Bearbeitungsdetails</translation>
     </message>
 </context>
 <context>

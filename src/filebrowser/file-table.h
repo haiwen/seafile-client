@@ -147,7 +147,7 @@ public:
 
 private slots:
     void updateDownloadInfo();
-    void updateThumbnail(const QPixmap& thumbnail);
+    void updateThumbnail(const QPixmap& thumbnail, const QString& file_path);
 
 private:
     Q_DISABLE_COPY(FileTableModel)

@@ -11,8 +11,7 @@
 #include "../api/requests.h"
 #include "../utils/paint-utils.h"
 #include "../utils/utils.h"
-
-#include <sqlite3.h>
+#include "../utils/file-utils.h"
 
 #include "thumbnail-service.h"
 
@@ -20,15 +19,6 @@ static const int kCheckPendingInterval = 1000; // 1s
 static const char *kThumbnailsDirName = "thumbnails";
 static const qint64 kExpireTimeIntevalMsec = 300 * 1000; // 5min
 static const int kColumnIconSize = 28;
-
-static bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
-{
-    qint64* mtime = reinterpret_cast<qint64*>(data);
-
-    *mtime = sqlite3_column_int64(stmt, 0);
-
-    return true;
-}
 
 struct PendingRequestInfo {
     int last_wait;
@@ -185,58 +175,21 @@ ThumbnailService::ThumbnailService(QObject *parent)
 
     connect(timer_, SIGNAL(timeout()), this, SLOT(checkPendingRequests()));
 
-    // connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
-    //         this, SLOT(onAccountChanged()));
 }
 
 void ThumbnailService::start()
 {
     QDir seafile_dir(seafApplet->configurator()->seafileDir());
+    const Account& account = seafApplet->accountManager()->accounts().front();
 
-    if (!seafile_dir.mkpath(kThumbnailsDirName)) {
-        qWarning("Failed to create thumbnails folder");
+    const QString sub_path(::pathJoin(kThumbnailsDirName, account.username)); 
+    if (!seafile_dir.mkpath(sub_path)) {
         QString err_msg = tr("Failed to create thumbnails folder");
+	qWarning("%s", err_msg.toUtf8().data());
         seafApplet->errorAndExit(err_msg);
     }
 
-    thumbnails_dir_ = seafile_dir.filePath(kThumbnailsDirName);
-
-    do {
-        const char *errmsg;
-        QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("thumbnails.db");
-        if (sqlite3_open (db_path.toUtf8().data(), &autoupdate_db_)) {
-            errmsg = sqlite3_errmsg (autoupdate_db_);
-            qWarning("failed to thumbnail autoupdate database %s: %s",
-                    db_path.toUtf8().data(), errmsg ? errmsg : "no error given");
-
-            sqlite3_close(autoupdate_db_);
-            autoupdate_db_ = NULL;
-            break;
-        }
-
-        // enabling foreign keys, it must be done manually from each connection
-        // and this feature is only supported from sqlite 3.6.19
-        const char *sql = "PRAGMA foreign_keys=ON;";
-        if (sqlite_query_exec (autoupdate_db_, sql) < 0) {
-            qWarning("sqlite version is too low to support foreign key feature\n");
-            qWarning("feature avatar autoupdate is disabled\n");
-            sqlite3_close(autoupdate_db_);
-            autoupdate_db_ = NULL;
-            break;
-        }
-
-        // create SyncedSubfolder table
-        sql = "CREATE TABLE IF NOT EXISTS Thumbnail ("
-            "filename TEXT PRIMARY KEY, timestamp BIGINT, "
-            "url VARCHAR(24), username VARCHAR(15), "
-            "FOREIGN KEY(url, username) REFERENCES Accounts(url, username) "
-            "ON DELETE CASCADE ON UPDATE CASCADE )";
-        if (sqlite_query_exec (autoupdate_db_, sql) < 0) {
-            qWarning("failed to create avatar table\n");
-            sqlite3_close(autoupdate_db_);
-            autoupdate_db_ = NULL;
-        }
-    } while (0);
+    thumbnails_dir_ = seafile_dir.filePath(sub_path);
 
     timer_->start(kCheckPendingInterval);
 }
@@ -245,15 +198,16 @@ void ThumbnailService::start()
 QPixmap ThumbnailService::loadThumbnailFromLocal(const QString& repo_id, 
                                                  const QString& path)
 {
-    QString local_path = getThumbnailFilePath(repo_id, path);
-    if (cache_.contains(local_path)) {
-        return cache_.value(local_path);
-    }
-
     QPixmap ret;
+
+    QString local_path = getThumbnailFilePath(repo_id, path);
+    if (cache_.find(local_path, &ret)) {
+        return ret;
+    }
+    
     if (thumbnailFileExists(repo_id, path)) {
-        ret = QPixmap(getThumbnailFilePath(repo_id, path));
-        cache_[local_path] = ret;
+        ret = QPixmap(local_path);
+        cache_.insert(local_path, ret);
     }
 
     return ret;
@@ -261,36 +215,22 @@ QPixmap ThumbnailService::loadThumbnailFromLocal(const QString& repo_id,
 
 QString ThumbnailService::getThumbnailFilePath(const QString& repo_id, const QString& path)
 {
-     const Account& account = seafApplet->accountManager()->accounts().front();
-     return QDir(thumbnails_dir_).filePath(::md5(account.serverUrl.host()
-			                         + account.accountInfo.email
-						 + repo_id 
-						 + path));
+    const Account& account = seafApplet->accountManager()->accounts().front();
+    return QDir(thumbnails_dir_).filePath(::md5(account.serverUrl.host()
+                                                + repo_id 
+                                                + path));
 }
 
 void ThumbnailService::fetchImageFromServer(const QString& repo_id, 
                                             const QString& path)
 {
-     if (get_thumbnail_req_) {
-         if (repo_id == get_thumbnail_req_->repoId() &&
-	     path == get_thumbnail_req_->path()) {
-             return;
-         }
-         queue_->enqueue(repo_id, path);
-         return;
-     }
- 
-     if (!seafApplet->accountManager()->hasAccount())
-         return;
-       
-     qint64 mtime = 0;
-
-    if (autoupdate_db_) {
-        char *zql = sqlite3_mprintf("SELECT timestamp FROM Thumbnail "
-                                    "WHERE filename = %Q",
-                                    getThumbnailFilePath(repo_id, path).toUtf8().data());
-        sqlite_foreach_selected_row(autoupdate_db_, zql, loadTimeStampCB, &mtime);
-        sqlite3_free(zql);
+    if (get_thumbnail_req_) {
+        if (repo_id == get_thumbnail_req_->repoId() &&
+            path == get_thumbnail_req_->path()) {
+            return;
+        }
+        queue_->enqueue(repo_id, path);
+        return;
     }
 
     const Account& account = seafApplet->accountManager()->accounts().front();
@@ -298,8 +238,7 @@ void ThumbnailService::fetchImageFromServer(const QString& repo_id,
     get_thumbnail_req_ = new GetThumbnailRequest(account, 
                                                  repo_id, 
                                                  path, 
-                                                 kThumbnailSize,
-						 mtime);
+                                                 kThumbnailSize);
 
     connect(get_thumbnail_req_, SIGNAL(success(const QPixmap&)),
             this, SLOT(onGetThumbnailSuccess(const QPixmap&)));
@@ -329,23 +268,9 @@ void ThumbnailService::onGetThumbnailSuccess(const QPixmap& img)
         qWarning("Unable to save new thumbnail file %s", path.toUtf8().data());
     }
 
-    cache_[path] = img;
+    cache_.insert(path, img);
 
-    // update cache db
-    if (autoupdate_db_) {
-        QString mtime = QString::number(get_thumbnail_req_->mtime());
-        char *zql = sqlite3_mprintf(
-            "REPLACE INTO Thumbnail(filename, timestamp, url, username) "
-            "VALUES (%Q, %Q, %Q, %Q)",
-            path.toUtf8().data(),
-            mtime.toUtf8().data(),
-            get_thumbnail_req_->account().serverUrl.toEncoded().data(),
-            get_thumbnail_req_->account().username.toUtf8().data());
-        sqlite_query_exec(autoupdate_db_, zql);
-        sqlite3_free(zql);
-    }
-
-    emit thumbnailUpdated(img);
+    emit thumbnailUpdated(img, path_in_repo);
 
     get_thumbnail_req_->deleteLater();
     get_thumbnail_req_ = NULL;
@@ -368,8 +293,8 @@ QPixmap ThumbnailService::getThumbnail(const QString& repo_id,
 {
     QPixmap img = loadThumbnailFromLocal(repo_id, path);
 
-    // update all thumbnails if feature autoupdate enabled or img is null
-    if (autoupdate_db_ || img.isNull()) {
+    // update all thumbnails if img is null
+    if (img.isNull()) {
         if (!get_thumbnail_req_ || 
 	    get_thumbnail_req_->repoId() != repo_id || 
 	    get_thumbnail_req_->path() != path) {
@@ -377,7 +302,7 @@ QPixmap ThumbnailService::getThumbnail(const QString& repo_id,
         }
     }
     if (img.isNull()) {
-        return QPixmap(devicePixelRatio() > 1 ? ":/images/files_V2/file_image@2x.png" :":/images/files_V2/file_image.png");
+        return QPixmap(devicePixelRatio() > 1 ? ":/images/files_v2/file_image@2x.png" :":/images/files_v2/file_image.png");
     } else {
         return img;
     }
@@ -388,11 +313,6 @@ bool ThumbnailService::thumbnailFileExists(const QString& repo_id, const QString
     QString local_path = getThumbnailFilePath(repo_id, path);
     bool ret = QFileInfo(local_path).exists();
 
-    if (!ret) {
-        char *zql = sqlite3_mprintf("DELETE FROM Thumbnail WHERE filename = %Q", local_path.toUtf8().data());
-        sqlite_query_exec (autoupdate_db_, zql);
-        sqlite3_free(zql);
-    }
     return ret;
 }
 
@@ -411,13 +331,3 @@ void ThumbnailService::checkPendingRequests()
         fetchImageFromServer(repo_id, path);
     }
 }
-
-// void ThumbnailService::onAccountChanged()
-// {
-//     queue_->reset();
-//     if (get_thumbnail_req_) {
-//         delete get_thumbnail_req_;
-//         get_thumbnail_req_ = NULL;
-//     }
-//     cache_.clear();
-// }

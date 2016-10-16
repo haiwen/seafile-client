@@ -849,8 +849,8 @@ FileTableModel::FileTableModel(QObject *parent)
     thumbnail_ = new QPixmap();
     connect(task_progress_timer_, SIGNAL(timeout()),
             this, SLOT(updateDownloadInfo()));
-    connect(ThumbnailService::instance(), SIGNAL(thumbnailUpdated(const QPixmap&)),
-            this, SLOT(updateThumbnail(const QPixmap &)));
+    connect(ThumbnailService::instance(), SIGNAL(thumbnailUpdated(const QPixmap&, const QString&)),
+            this, SLOT(updateThumbnail(const QPixmap &, const QString&)));
     task_progress_timer_->start(kRefreshProgressInterval);
 }
 
@@ -889,13 +889,9 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
                      ? QIcon(":/images/files_v2/file_folder_readonly.png")
                      : QIcon(":/images/files_v2/file_folder.png");
       else if (iconPrefixFromFileName(dirent.name) == "image") {
-//          if (!thumbnail_->isNull()) {
-//             QPixmap ret = *thumbnail_;
-//             return ret;
-//	    }
           FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
           ThumbnailService *service = ThumbnailService::instance(); 
-	  return service->getThumbnail(dialog->repo_.id, dirent.name);
+	  return service->getThumbnail(dialog->repo_.id, ::pathJoin(dialog->current_path_, dirent.name));
       } 
       else
           icon = QIcon(getIconByFileNameV2(dirent.name));
@@ -1073,10 +1069,14 @@ void FileTableModel::updateDownloadInfo()
                      index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
 }
 
-void FileTableModel::updateThumbnail(const QPixmap& thumbnail)
+void FileTableModel::updateThumbnail(const QPixmap& thumbnail, const QString& path)
 {
     *thumbnail_ = thumbnail;
 
-    emit dataChanged(index(0, FILE_COLUMN_SIZE),
-                     index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
+    const QString name = QFileInfo(path).fileName();
+    for (int pos = 0; pos != dirents_.size() ; pos++)
+        if (dirents_[pos].name == name) {
+            emit dataChanged(index(pos, 0), index(pos, FILE_COLUMN_NAME));
+            break;
+        }
 }

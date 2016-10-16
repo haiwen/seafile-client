@@ -700,8 +700,7 @@ public:
     GetThumbnailRequest(const Account& account,
                         const QString& repo_id,
                         const QString& path,
-                        uint size,
-			qint64 mtime);
+                        uint size);
 
     const Account& account() const
     {
@@ -719,10 +718,6 @@ public:
     {
         return size_;
     }
-    const qint64& mtime() const
-    {
-        return mtime_;
-    }
 signals:
     void success(const QPixmap& thumbnail);
 
@@ -735,7 +730,6 @@ private:
     QString repo_id_;
     QString path_;
     uint size_;
-    qint64 mtime_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

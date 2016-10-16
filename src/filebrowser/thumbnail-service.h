@@ -4,7 +4,7 @@
 #include <vector>
 #include <QObject>
 #include <QImage>
-#include <QHash>
+#include <QPixmapCache>
 #include <QString>
 #include <QPixmap>
 
@@ -15,7 +15,6 @@ class ApiError;
 class GetThumbnailRequest;
 class PendingThumbnailRequestQueue;
 
-struct sqlite3;
 
 class ThumbnailService : public QObject
 {
@@ -33,13 +32,12 @@ public:
     int kThumbnailSize;
 
 signals:
-    void thumbnailUpdated(const QPixmap& thumbnail);
+    void thumbnailUpdated(const QPixmap& thumbnail, const QString& path);
 
 private slots:
     void onGetThumbnailSuccess(const QPixmap& thumbnail);
     void onGetThumbnailFailed(const ApiError& error);
     void checkPendingRequests();
-    // void onAccountChanged();
 
 private:
     Q_DISABLE_COPY(ThumbnailService)
@@ -55,13 +53,11 @@ private:
 
     QString thumbnails_dir_;
 
-    QHash<QString, QPixmap> cache_;
+    QPixmapCache cache_;
 
     PendingThumbnailRequestQueue *queue_;
 
     QTimer *timer_;
-
-    struct sqlite3 *autoupdate_db_;
     
 };
 

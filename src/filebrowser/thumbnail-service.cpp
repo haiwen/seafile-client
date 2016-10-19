@@ -16,9 +16,7 @@
 #include "thumbnail-service.h"
 
 static const int kCheckPendingInterval = 1000; // 1s
-static const char *kThumbnailsDirName = "thumbnails";
 static const qint64 kExpireTimeIntevalMsec = 300 * 1000; // 5min
-static const int kColumnIconSize = 28;
 
 struct PendingRequestInfo {
     int last_wait;
@@ -41,15 +39,19 @@ struct PendingRequestInfo {
 struct ThumbnailKey {
     QString repo_id;
     QString path;
+    uint size;
 
     bool operator == (const ThumbnailKey &key) const {
         return repo_id == key.repo_id &&
-               path == key.path;
+               path == key.path &&
+	       size == key.size;
     }
 };
 
 uint qHash(const ThumbnailKey &key) {
-	const QString key_str = key.repo_id + key.path;
+	QString size;
+	size.setNum(key.size);
+	const QString key_str = key.repo_id + key.path + size;
 	return qHash(key_str);
 }
 
@@ -58,10 +60,11 @@ class PendingThumbnailRequestQueue
 public:
     PendingThumbnailRequestQueue() {};
 
-    void enqueue(const QString& repo_id, const QString& path) {
+    void enqueue(const QString& repo_id, const QString& path, uint size) {
         ThumbnailKey key;
 	key.repo_id = repo_id;
 	key.path = path;
+	key.size = size;
 
         if (q_.contains(key)) {
             return;
@@ -77,21 +80,23 @@ public:
         q_.enqueue(key);
     }
 
-    void enqueueAndBackoff(const QString& repo_id, const QString& path) {
+    void enqueueAndBackoff(const QString& repo_id, const QString& path, uint size) {
         ThumbnailKey key;
 	key.repo_id = repo_id;
 	key.path = path;
+	key.size = size;
 
         PendingRequestInfo& info = wait_[key];
         info.backoff();
 
-        enqueue(repo_id, path);
+        enqueue(repo_id, path, size);
     }
 
-    void clearWait(const QString& repo_id, const QString& path) {
+    void clearWait(const QString& repo_id, const QString& path, uint size) {
         ThumbnailKey key;
 	key.repo_id = repo_id;
 	key.path = path;
+	key.size = size;
 
         wait_.remove(key);
     }
@@ -105,7 +110,8 @@ public:
         while (iter.hasNext()) {
 	    ThumbnailKey key;
        	    key.repo_id = iter.peekNext().repo_id;
-	    key.path = iter.next().path;    
+	    key.path = iter.peekNext().path;    
+	    key.size = iter.next().size;
 
             if (wait_.contains(key)) {
                 PendingRequestInfo& info = wait_[key];
@@ -118,6 +124,7 @@ public:
         ThumbnailKey key, key_default;
 	key_default.repo_id = QString();
 	key_default.path = QString();
+	key_default.size = 0;
 
         int i = 0, n = q_.size();
         while (i++ < n) {
@@ -166,7 +173,6 @@ ThumbnailService* ThumbnailService::instance()
 
 ThumbnailService::ThumbnailService(QObject *parent)
     : QObject(parent), 
-      kThumbnailSize(kColumnIconSize),
       get_thumbnail_req_(NULL)
 {
     queue_ = new PendingThumbnailRequestQueue;
@@ -179,57 +185,47 @@ ThumbnailService::ThumbnailService(QObject *parent)
 
 void ThumbnailService::start()
 {
-    QDir seafile_dir(seafApplet->configurator()->seafileDir());
-    const Account& account = seafApplet->accountManager()->accounts().front();
-
-    const QString sub_path(::pathJoin(kThumbnailsDirName, account.username)); 
-    if (!seafile_dir.mkpath(sub_path)) {
-        QString err_msg = tr("Failed to create thumbnails folder");
-	qWarning("%s", err_msg.toUtf8().data());
-        seafApplet->errorAndExit(err_msg);
-    }
-
-    thumbnails_dir_ = seafile_dir.filePath(sub_path);
-
     timer_->start(kCheckPendingInterval);
 }
 
-// fist check in-memory-cache, then check saved image on disk
+// check in-memory-cache
 QPixmap ThumbnailService::loadThumbnailFromLocal(const QString& repo_id, 
-                                                 const QString& path)
+                                                 const QString& path,
+						 uint size)
 {
     QPixmap ret;
 
-    QString local_path = getThumbnailFilePath(repo_id, path);
-    if (cache_.find(local_path, &ret)) {
+    QString key = getPixmapCacheKey(repo_id, path, size);
+    if (cache_.find(key, &ret)) {
         return ret;
     }
     
-    if (thumbnailFileExists(repo_id, path)) {
-        ret = QPixmap(local_path);
-        cache_.insert(local_path, ret);
-    }
-
     return ret;
 }
 
-QString ThumbnailService::getThumbnailFilePath(const QString& repo_id, const QString& path)
+QString ThumbnailService::getPixmapCacheKey(const QString& repo_id, const QString& path, uint size)
 {
     const Account& account = seafApplet->accountManager()->accounts().front();
+    QString size_str;
+    size_str.setNum(size);
     return QDir(thumbnails_dir_).filePath(::md5(account.serverUrl.host()
+			                        + account.username
                                                 + repo_id 
-                                                + path));
+                                                + path
+						+ size_str));
 }
 
 void ThumbnailService::fetchImageFromServer(const QString& repo_id, 
-                                            const QString& path)
+                                            const QString& path,
+					    uint size)
 {
     if (get_thumbnail_req_) {
         if (repo_id == get_thumbnail_req_->repoId() &&
-            path == get_thumbnail_req_->path()) {
+            path == get_thumbnail_req_->path() &&
+	    size == get_thumbnail_req_->size()) {
             return;
         }
-        queue_->enqueue(repo_id, path);
+        queue_->enqueue(repo_id, path, size);
         return;
     }
 
@@ -238,7 +234,7 @@ void ThumbnailService::fetchImageFromServer(const QString& repo_id,
     get_thumbnail_req_ = new GetThumbnailRequest(account, 
                                                  repo_id, 
                                                  path, 
-                                                 kThumbnailSize);
+                                                 size);
 
     connect(get_thumbnail_req_, SIGNAL(success(const QPixmap&)),
             this, SLOT(onGetThumbnailSuccess(const QPixmap&)));
@@ -252,53 +248,45 @@ void ThumbnailService::onGetThumbnailSuccess(const QPixmap& img)
 {
     const QString repo_id = get_thumbnail_req_->repoId();
     const QString path_in_repo = get_thumbnail_req_->path();
+    const uint size = get_thumbnail_req_->size();
+    
+    QString key = getPixmapCacheKey(repo_id, path_in_repo, size);
 
-    // if no change? early return
-    if (img.isNull()) {
-        get_thumbnail_req_->deleteLater();
-	get_thumbnail_req_ = NULL;
-
-        queue_->clearWait(repo_id, path_in_repo);
-        return;
-    }
-
-    // save image to thumbnails/ folder
-    QString path = getThumbnailFilePath(repo_id, path_in_repo);
-    if (!img.save(path, "PNG")) {
-        qWarning("Unable to save new thumbnail file %s", path.toUtf8().data());
-    }
-
-    cache_.insert(path, img);
+    cache_.insert(key, img);
 
     emit thumbnailUpdated(img, path_in_repo);
 
     get_thumbnail_req_->deleteLater();
     get_thumbnail_req_ = NULL;
 
-    queue_->clearWait(repo_id, path_in_repo);
+    queue_->clearWait(repo_id, path_in_repo, size);
 }
 
 void ThumbnailService::onGetThumbnailFailed(const ApiError& error)
 {
     const QString repo_id = get_thumbnail_req_->repoId();
     const QString path = get_thumbnail_req_->path();
+    const uint size = get_thumbnail_req_->size();
+
     get_thumbnail_req_->deleteLater();
     get_thumbnail_req_ = NULL;
 
-    queue_->enqueueAndBackoff(repo_id, path);
+    queue_->enqueueAndBackoff(repo_id, path, size);
 }
 
 QPixmap ThumbnailService::getThumbnail(const QString& repo_id, 
-                                       const QString& path)
+                                       const QString& path,
+				       const uint size)
 {
-    QPixmap img = loadThumbnailFromLocal(repo_id, path);
+    QPixmap img = loadThumbnailFromLocal(repo_id, path, size);
 
     // update all thumbnails if img is null
     if (img.isNull()) {
         if (!get_thumbnail_req_ || 
 	    get_thumbnail_req_->repoId() != repo_id || 
-	    get_thumbnail_req_->path() != path) {
-            queue_->enqueue(repo_id, path);
+	    get_thumbnail_req_->path() != path ||
+	    get_thumbnail_req_->size() != size) {
+            queue_->enqueue(repo_id, path, size);
         }
     }
     if (img.isNull()) {
@@ -306,14 +294,6 @@ QPixmap ThumbnailService::getThumbnail(const QString& repo_id,
     } else {
         return img;
     }
-}
-
-bool ThumbnailService::thumbnailFileExists(const QString& repo_id, const QString& path)
-{
-    QString local_path = getThumbnailFilePath(repo_id, path);
-    bool ret = QFileInfo(local_path).exists();
-
-    return ret;
 }
 
 void ThumbnailService::checkPendingRequests()
@@ -327,7 +307,8 @@ void ThumbnailService::checkPendingRequests()
     ThumbnailKey key = queue_->dequeue();
     QString repo_id = key.repo_id;
     QString path = key.path;
+    uint size = key.size;
     if (!repo_id.isEmpty()) {
-        fetchImageFromServer(repo_id, path);
+        fetchImageFromServer(repo_id, path, size);
     }
 }

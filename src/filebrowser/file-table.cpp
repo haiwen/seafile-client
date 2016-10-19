@@ -891,7 +891,9 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
       else if (iconPrefixFromFileName(dirent.name) == "image") {
           FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
           ThumbnailService *service = ThumbnailService::instance(); 
-	  return service->getThumbnail(dialog->repo_.id, ::pathJoin(dialog->current_path_, dirent.name));
+	  return service->getThumbnail(dialog->repo_.id, 
+			               ::pathJoin(dialog->current_path_, dirent.name), 
+				       kColumnIconSize);
       } 
       else
           icon = QIcon(getIconByFileNameV2(dirent.name));

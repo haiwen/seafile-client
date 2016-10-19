@@ -714,7 +714,7 @@ public:
     {
         return path_;
     }
-    const uint& size() const
+    uint size() const
     {
         return size_;
     }

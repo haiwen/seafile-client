@@ -24,12 +24,7 @@ public:
 
     void start();
 
-    QPixmap getThumbnail(const QString& repo_id, const QString& path);
-    QString getThumbnailFilePath(const QString& repo_id, const QString& path);
-    bool thumbnailFileExists(const QString& repo_id, const QString& path);
-
-    // static const int kAvatarSize;
-    int kThumbnailSize;
+    QPixmap getThumbnail(const QString& repo_id, const QString& path, uint thumbnail_default_size = 28);
 
 signals:
     void thumbnailUpdated(const QPixmap& thumbnail, const QString& path);
@@ -46,8 +41,9 @@ private:
 
     static ThumbnailService *singleton_;
 
-    QPixmap loadThumbnailFromLocal(const QString& repo_id, const QString& path);
-    void fetchImageFromServer(const QString& repo_id, const QString& path);
+    QPixmap loadThumbnailFromLocal(const QString& repo_id, const QString& path, uint size);
+    void fetchImageFromServer(const QString& repo_id, const QString& path, uint size);
+    QString getPixmapCacheKey(const QString& repo_id, const QString& path, uint size);
 
     GetThumbnailRequest *get_thumbnail_req_;
 
@@ -60,6 +56,5 @@ private:
     QTimer *timer_;
     
 };
-
 
 #endif // SEAFILE_CLIENT_AVATAR_SERVICE_H

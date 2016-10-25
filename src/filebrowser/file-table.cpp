@@ -112,8 +112,10 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     {
         // draw icon
         QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
-        int alignX = 4; // AlignLeft
-        int alignY = (size.height() - kColumnIconSize) / 2; //AlignVCenter
+	int alignX = (kColumnIconSize - pixmap.width()) / 2;
+	int alignY = (size.height() - pixmap.height()) / 2;
+//        int alignX = 4; // AlignLeft
+//        int alignY = (size.height() - kColumnIconSize) / 2; //AlignVCenter
         painter->save();
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();
@@ -132,7 +134,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(alignX * 2 + kColumnIconSize, -2), size - QSize(kColumnIconSize, 0));
+        QRect rect(option_rect.topLeft() + QPoint(4 * 2 + kColumnIconSize, -2), size - QSize(kColumnIconSize, 0));
         painter->setPen(kItemColor);
         painter->setFont(font);
         painter->drawText(rect,
@@ -841,11 +843,14 @@ void FileTableView::resizeEvent(QResizeEvent *event)
 
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent),
-    name_column_width_(kFileNameColumnWidth)
+     name_column_width_(kFileNameColumnWidth)
 {
     task_progress_timer_ = new QTimer(this);
+    thumbnail_ = new QPixmap();
     connect(task_progress_timer_, SIGNAL(timeout()),
             this, SLOT(updateDownloadInfo()));
+    connect(ThumbnailService::instance(), SIGNAL(thumbnailUpdated(const QPixmap&, const QString&)),
+            this, SLOT(updateThumbnail(const QPixmap &, const QString&)));
     task_progress_timer_->start(kRefreshProgressInterval);
 }
 
@@ -883,6 +888,13 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
           icon = dirent.readonly
                      ? QIcon(":/images/files_v2/file_folder_readonly.png")
                      : QIcon(":/images/files_v2/file_folder.png");
+      else if (iconPrefixFromFileName(dirent.name) == "image") {
+          FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
+          ThumbnailService *service = ThumbnailService::instance(); 
+	  return service->getThumbnail(dialog->repo_.id, 
+			               ::pathJoin(dialog->current_path_, dirent.name), 
+				       kColumnIconSize);
+      } 
       else
           icon = QIcon(getIconByFileNameV2(dirent.name));
       return icon.pixmap(kColumnIconSize, kColumnIconSize);
@@ -1057,4 +1069,16 @@ void FileTableModel::updateDownloadInfo()
         return;
     emit dataChanged(index(0, FILE_COLUMN_SIZE),
                      index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
+}
+
+void FileTableModel::updateThumbnail(const QPixmap& thumbnail, const QString& path)
+{
+    *thumbnail_ = thumbnail;
+
+    const QString name = QFileInfo(path).fileName();
+    for (int pos = 0; pos != dirents_.size() ; pos++)
+        if (dirents_[pos].name == name) {
+            emit dataChanged(index(pos, 0), index(pos, FILE_COLUMN_NAME));
+            break;
+        }
 }

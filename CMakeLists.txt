@@ -241,6 +241,7 @@ SET(moc_headers
   src/filebrowser/seafilelink-dialog.h
   src/filebrowser/auto-update-mgr.h
   src/filebrowser/transfer-mgr.h
+  src/filebrowser/thumbnail-service.h
   third_party/QtAwesome/QtAwesome.h
   ${platform_specific_moc_headers}
 )
@@ -422,6 +423,7 @@ SET(seafile_client_sources
   src/filebrowser/seafilelink-dialog.cpp
   src/filebrowser/auto-update-mgr.cpp
   src/filebrowser/transfer-mgr.cpp
+  src/filebrowser/thumbnail-service.cpp
   third_party/QtAwesome/QtAwesome.cpp
   ${platform_specific_sources}
 )

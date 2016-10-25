@@ -693,4 +693,45 @@ private:
     Q_DISABLE_COPY(FetchGroupsRequest);
 };
 
+class GetThumbnailRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetThumbnailRequest(const Account& account,
+                        const QString& repo_id,
+                        const QString& path,
+                        uint size);
+
+    const Account& account() const
+    {
+        return account_;
+    }
+    const QString& repoId() const
+    {
+        return repo_id_;
+    }
+    const QString& path() const
+    {
+        return path_;
+    }
+    uint size() const
+    {
+        return size_;
+    }
+signals:
+    void success(const QPixmap& thumbnail);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetThumbnailRequest);
+    Account account_;
+    QString repo_id_;
+    QString path_;
+    uint size_;
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H
+
+

@@ -267,11 +267,13 @@ void SeafileTrayIcon::createGlobalMenuBar()
 void SeafileTrayIcon::rotate(bool start)
 {
     /* tray icon should not be refreshed on Gnome according to their guidelines */
+#if defined(Q_OS_LINUX)
     const char *env = g_getenv("DESKTOP_SESSION");
-    if ((env != NULL))
-        && ((strcmp(env, "gnome") == 0) || (strcmp(env, "gnome-wayland") == 0))) {
+    if (env != NULL &&
+        (strcmp(env, "gnome") == 0 || strcmp(env, "gnome-wayland") == 0)) {
         return;
     }
+#endif
 
     if (start) {
         rotate_counter_ = 0;

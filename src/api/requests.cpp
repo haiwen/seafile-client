@@ -1183,6 +1183,7 @@ void FetchGroupsRequest::requestSuccess(QNetworkReply& reply)
 GetThumbnailRequest::GetThumbnailRequest(const Account& account,
                                          const QString& repo_id,
                                          const QString& path,
+					 const QString& dirent_id,
                                          uint size)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kGetThumbnailUrl).arg(repo_id)),
@@ -1191,6 +1192,7 @@ GetThumbnailRequest::GetThumbnailRequest(const Account& account,
       account_(account),
       repo_id_(repo_id),
       path_(path),
+      dirent_id_(dirent_id),
       size_(size)
 {
     setUrlParam("p", path);

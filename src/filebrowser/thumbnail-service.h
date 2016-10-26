@@ -24,7 +24,10 @@ public:
 
     void start();
 
-    QPixmap getThumbnail(const QString& repo_id, const QString& path, uint thumbnail_default_size = 28);
+    QPixmap getThumbnail(const QString& repo_id, 
+		         const QString& path, 
+			 const QString& dirent_id,
+			 uint thumbnail_default_size = 28);
 
 signals:
     void thumbnailUpdated(const QPixmap& thumbnail, const QString& path);
@@ -41,10 +44,19 @@ private:
 
     static ThumbnailService *singleton_;
 
-    QPixmap loadThumbnailFromLocal(const QString& repo_id, const QString& path, uint size);
-    void fetchImageFromServer(const QString& repo_id, const QString& path, uint size);
-    QString getPixmapCacheKey(const QString& repo_id, const QString& path, uint size);
-
+    QPixmap loadThumbnailFromLocal(const QString& repo_id, 
+		                   const QString& path,
+                                   const QString& dirent_id,
+				   uint size);
+    QString getPixmapCacheKey(const QString& repo_id, 
+		              const QString& path, 
+                              const QString& dirent_id,
+			      uint size);
+    void fetchImageFromServer(const QString& repo_id, 
+		              const QString& path, 
+                              const QString& dirent_id,
+			      uint size);
+    
     GetThumbnailRequest *get_thumbnail_req_;
 
     QString thumbnails_dir_;

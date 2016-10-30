@@ -62,8 +62,8 @@ void RepoTreeModel::initialize()
     my_repos_category_ = new RepoCategoryItem(CAT_INDEX_MY_REPOS, tr("My Libraries"));
     virtual_repos_category_ = new RepoCategoryItem(CAT_INDEX_VIRTUAL_REPOS, tr("Sub Libraries"));
     shared_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Shared with me"));
-    org_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Share with all"));
-    groups_root_category_ = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, tr("Share with groups"), 0);
+    org_repos_category_ = new RepoCategoryItem(CAT_INDEX_SHARED_REPOS, tr("Shared with all"));
+    groups_root_category_ = new RepoCategoryItem(CAT_INDEX_GROUP_REPOS, tr("Shared with groups"), 0);
     synced_repos_category_ = new RepoCategoryItem(CAT_INDEX_SYNCED_REPOS, tr("Synced Libraries"));
 
     appendRow(recent_updated_category_);

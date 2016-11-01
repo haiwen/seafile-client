@@ -700,6 +700,7 @@ public:
     GetThumbnailRequest(const Account& account,
                         const QString& repo_id,
                         const QString& path,
+			const QString& dirent_id,
                         uint size);
 
     const Account& account() const
@@ -713,6 +714,10 @@ public:
     const QString& path() const
     {
         return path_;
+    }
+    const QString& direntId() const
+    {
+        return dirent_id_;
     }
     uint size() const
     {
@@ -729,6 +734,7 @@ private:
     Account account_;
     QString repo_id_;
     QString path_;
+    QString dirent_id_;
     uint size_;
 };
 

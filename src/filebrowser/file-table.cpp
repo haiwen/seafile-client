@@ -893,6 +893,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
           ThumbnailService *service = ThumbnailService::instance(); 
 	  return service->getThumbnail(dialog->repo_.id, 
 			               ::pathJoin(dialog->current_path_, dirent.name), 
+				       dirent.id,
 				       kColumnIconSize);
       } 
       else

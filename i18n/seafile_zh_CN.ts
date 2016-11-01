@@ -1040,27 +1040,27 @@ failed to upload.</source>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="925"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="938"/>
         <source>locked by %1</source>
         <translation>被 %1 锁定</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="973"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="986"/>
         <source>Name</source>
         <translation>文件名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="975"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="988"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="977"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="990"/>
         <source>Last Modified</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="979"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="992"/>
         <source>Kind</source>
         <translation>类型</translation>
     </message>
@@ -1068,113 +1068,113 @@ failed to upload.</source>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="279"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="517"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="519"/>
         <source>&amp;Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="284"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="494"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="286"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="496"/>
         <source>&amp;Save As...</source>
         <translation>另存为...(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="289"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="529"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="291"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="531"/>
         <source>&amp;Lock</source>
         <translation>锁定(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="297"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="299"/>
         <source>&amp;Rename</source>
         <translation>重命名(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="302"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="304"/>
         <source>&amp;Delete</source>
         <translation>删除 (&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="316"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="318"/>
         <source>Share to Group</source>
         <translation>共享给群组</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="329"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="331"/>
         <source>&amp;Update</source>
         <translation>更新 (&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="333"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="335"/>
         <source>&amp;Copy</source>
         <translation>复制 (&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="337"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="339"/>
         <source>Cu&amp;t</source>
         <translation>剪切 (&amp;T)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="341"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="343"/>
         <source>&amp;Paste</source>
         <translation>粘贴 (&amp;P)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="350"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="352"/>
         <source>Canc&amp;el Download</source>
         <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="355"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="357"/>
         <source>&amp;Sync this folder</source>
         <translation>同步该目录(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="294"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="361"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="296"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="363"/>
         <source>This feature is available in pro version only
 </source>
         <translation>此功能只在企业版中提供</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="309"/>
         <source>&amp;Generate Seafile Download Link</source>
         <translation>获取Seafile下载链接</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="312"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="314"/>
         <source>Share to User</source>
         <translation>共享给其他用户</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="322"/>
         <source>G&amp;enerate %1 Internal Link</source>
         <translation>获取%1内部链接(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="467"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="469"/>
         <source>&amp;Save As To...</source>
         <translation>另存至...(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="469"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="534"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="471"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="536"/>
         <source>D&amp;ownload</source>
         <translation>下载 (&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="524"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="526"/>
         <source>Un&amp;lock</source>
         <translation>解除锁定(&amp;l)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="657"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="659"/>
         <source>Unable to remove readonly files</source>
         <translation>无法删移只读文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="761"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="763"/>
         <source>Unable to cut readonly files</source>
         <translation>无法剪切只读文件</translation>
     </message>
@@ -1403,104 +1403,104 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="70"/>
+        <location filename="../src/ui/login-dialog.cpp" line="66"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
         <translation>添加帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="119"/>
-        <location filename="../src/ui/login-dialog.cpp" line="120"/>
+        <location filename="../src/ui/login-dialog.cpp" line="115"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
         <source>Re-login</source>
         <translation>重新登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="135"/>
+        <location filename="../src/ui/login-dialog.cpp" line="133"/>
         <source>Logging in...</source>
         <translation>登录中...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="177"/>
+        <location filename="../src/ui/login-dialog.cpp" line="175"/>
         <source>Network Error:
  %1</source>
         <translation>网络错误：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="189"/>
+        <location filename="../src/ui/login-dialog.cpp" line="187"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="203"/>
+        <location filename="../src/ui/login-dialog.cpp" line="201"/>
         <source>Please enter the server address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="207"/>
-        <location filename="../src/ui/login-dialog.cpp" line="213"/>
-        <location filename="../src/ui/login-dialog.cpp" line="355"/>
-        <location filename="../src/ui/login-dialog.cpp" line="361"/>
+        <location filename="../src/ui/login-dialog.cpp" line="205"/>
+        <location filename="../src/ui/login-dialog.cpp" line="211"/>
+        <location filename="../src/ui/login-dialog.cpp" line="352"/>
+        <location filename="../src/ui/login-dialog.cpp" line="358"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 不是合法的服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="220"/>
+        <location filename="../src/ui/login-dialog.cpp" line="218"/>
         <source>Please enter the username</source>
         <translation>请输入邮箱</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="231"/>
+        <location filename="../src/ui/login-dialog.cpp" line="229"/>
         <source>Please enter the computer name</source>
         <translation>请填写计算机名</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="289"/>
+        <location filename="../src/ui/login-dialog.cpp" line="286"/>
         <source>Failed to save current account</source>
         <translation>保存帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="304"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Two Factor Authentication</source>
         <translation>两步验证</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="346"/>
+        <location filename="../src/ui/login-dialog.cpp" line="343"/>
         <source>%1 Server Address</source>
         <translation>%1 服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="225"/>
+        <location filename="../src/ui/login-dialog.cpp" line="223"/>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="302"/>
         <source>Enter the two factor authentication token</source>
         <translation>请输入两步验证的动态口令</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="315"/>
+        <location filename="../src/ui/login-dialog.cpp" line="312"/>
         <source>Incorrect email or password</source>
         <translation>错误的邮箱或密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="317"/>
+        <location filename="../src/ui/login-dialog.cpp" line="314"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>登录过于频繁，请稍后再试</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="319"/>
+        <location filename="../src/ui/login-dialog.cpp" line="316"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="323"/>
+        <location filename="../src/ui/login-dialog.cpp" line="320"/>
         <source>Failed to login: %1</source>
         <translation>登录失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="325"/>
+        <location filename="../src/ui/login-dialog.cpp" line="322"/>
         <source>Failed to login</source>
         <translation>登录失败</translation>
     </message>
@@ -1555,8 +1555,8 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>例如：小王的工作笔记本</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="110"/>
-        <location filename="../src/ui/login-dialog.cpp" line="345"/>
+        <location filename="../src/ui/login-dialog.cpp" line="106"/>
+        <location filename="../src/ui/login-dialog.cpp" line="342"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Shibboleth 登陆</translation>
@@ -1593,7 +1593,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="201"/>
+        <location filename="../src/ui/main-window.cpp" line="178"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -1684,79 +1684,84 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PrivateShareDialog</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="62"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="66"/>
         <source>Share %1</source>
         <translation>共享 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="86"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="90"/>
         <source>Enter the group name</source>
         <translation>输入群组名称</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="93"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="97"/>
         <source>Enter the email address</source>
         <translation>输入邮件地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="236"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="358"/>
         <source>Updated successfully</source>
         <translation>操作成功</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="243"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="275"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="365"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="397"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="618"/>
         <source>Share Operation Failed: %1</source>
         <translation>共享操作失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="269"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="391"/>
         <source>Removed successfully</source>
         <translation>删除共享成功</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="361"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="463"/>
         <source>Failed to get share information of the folder</source>
         <translation>获取文件夹共享信息时出错</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="367"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="469"/>
         <source>Failed to get your groups and contacts information</source>
         <translation>获取群组和联系人信息时出错</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="380"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="482"/>
         <source>Please enter the username</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="381"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="483"/>
         <source>Please enter the group name</source>
         <translation>请输入群组名</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="397"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="499"/>
         <source>No such group &quot;%1&quot;</source>
         <translation>“%1” 群组不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="403"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
         <source>Already shared to group %1</source>
         <translation>已经共享给 “%1” 群组了</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="412"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
+        <source>No such user &quot;%1&quot;</source>
+        <translation>用户 “%1” 不存在</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/private-share-dialog.cpp" line="518"/>
         <source>Already shared to user %1</source>
         <translation>已经共享给用户 %1 了</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="437"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="543"/>
         <source>The previous operation is still in progres</source>
         <translation>上一个操作还未完成</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="504"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
         <source>Shared successfully</source>
         <translation>共享成功</translation>
     </message>
@@ -2487,8 +2492,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="345"/>
-        <location filename="../src/repo-service.cpp" line="380"/>
+        <location filename="../src/repo-service.cpp" line="363"/>
+        <location filename="../src/repo-service.cpp" line="398"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
         <translation>无法打开不存在的资料库 &quot;%2&quot; 中的文件 &quot;%1&quot;</translation>
     </message>
@@ -2512,23 +2517,23 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
-        <source>Private Shares</source>
-        <translation>共享给我的</translation>
+        <source>Shared with me</source>
+        <translation>私人共享</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <source>Shared with all</source>
+        <translation>公共</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
-        <source>Groups</source>
-        <translation>群组</translation>
+        <source>Shared with groups</source>
+        <translation>群组共享</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
         <source>Synced Libraries</source>
         <translation>已同步资料库</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
-        <source>Organization</source>
-        <translation>公共</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="423"/>
@@ -2791,44 +2796,44 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="352"/>
+        <location filename="../src/seafile-applet.cpp" line="354"/>
         <source>failed to add default account</source>
         <translation>添加默认帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="466"/>
+        <location filename="../src/seafile-applet.cpp" line="475"/>
         <source>Failed to initialize log: %s</source>
         <translation>初始化日志失败: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="519"/>
-        <location filename="../src/seafile-applet.cpp" line="534"/>
+        <location filename="../src/seafile-applet.cpp" line="528"/>
+        <location filename="../src/seafile-applet.cpp" line="543"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="545"/>
-        <location filename="../src/seafile-applet.cpp" line="559"/>
-        <location filename="../src/seafile-applet.cpp" line="575"/>
-        <location filename="../src/seafile-applet.cpp" line="599"/>
+        <location filename="../src/seafile-applet.cpp" line="554"/>
+        <location filename="../src/seafile-applet.cpp" line="568"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
+        <location filename="../src/seafile-applet.cpp" line="608"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="546"/>
-        <location filename="../src/seafile-applet.cpp" line="576"/>
-        <location filename="../src/seafile-applet.cpp" line="600"/>
+        <location filename="../src/seafile-applet.cpp" line="555"/>
+        <location filename="../src/seafile-applet.cpp" line="585"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="560"/>
-        <location filename="../src/seafile-applet.cpp" line="577"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="586"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="635"/>
+        <location filename="../src/seafile-applet.cpp" line="644"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>%1 客户端有新版本 (%2) 可用。
@@ -2948,27 +2953,27 @@ Do you want to visit the download page?</source>
         <translation>文件</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="564"/>
+        <location filename="../src/ui/tray-icon.cpp" line="559"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="570"/>
+        <location filename="../src/ui/tray-icon.cpp" line="565"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="597"/>
+        <location filename="../src/ui/tray-icon.cpp" line="592"/>
         <source>Uploading</source>
         <translation>正在上传</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="598"/>
+        <location filename="../src/ui/tray-icon.cpp" line="593"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="485"/>
+        <location filename="../src/ui/tray-icon.cpp" line="480"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
@@ -2983,12 +2988,12 @@ Do you want to visit the download page?</source>
         <translation>打开 %1 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="486"/>
+        <location filename="../src/ui/tray-icon.cpp" line="481"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="575"/>
+        <location filename="../src/ui/tray-icon.cpp" line="570"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -3308,17 +3313,17 @@ Do you want to visit the download page?</source>
 <context>
     <name>SharedItemDelegate</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="920"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="1032"/>
         <source>Read Write</source>
         <translation>可读写</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="921"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="1033"/>
         <source>Read Only</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="923"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="1035"/>
         <source>Remove Share</source>
         <translation>删除共享</translation>
     </message>
@@ -3326,44 +3331,44 @@ Do you want to visit the download page?</source>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="617"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="723"/>
         <source>Double click to edit</source>
         <translation>双击开始编辑</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="623"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="729"/>
         <source>Created by %1</source>
         <translation>由 %1 创建</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="657"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="677"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="763"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="789"/>
         <source>Read Write</source>
         <translation>可读写</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="658"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="678"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="764"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="790"/>
         <source>Read Only</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="825"/>
         <source>Group</source>
         <translation>群组</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="825"/>
         <source>User</source>
         <translation>用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="718"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="830"/>
         <source>Permission</source>
         <translation>权限</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="847"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="959"/>
         <source>The previous operation is still in progres</source>
         <translation>上一个操作还未完成</translation>
     </message>
@@ -3394,6 +3399,19 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
         <translation>确认</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="38"/>
+        <source>Login with Shibboleth</source>
+        <translation>Shibboleth 方式登陆</translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="100"/>
+        <source>Failed to save current account</source>
+        <translation>保存帐户失败</translation>
     </message>
 </context>
 <context>

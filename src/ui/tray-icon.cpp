@@ -16,6 +16,7 @@ extern "C" {
 #include <QDebug>
 #include <QMenuBar>
 #include <QRunnable>
+#include <QSysInfo>
 
 #include "rpc/local-repo.h"
 #include "utils/utils.h"
@@ -298,12 +299,14 @@ void SeafileTrayIcon::showMessage(const QString &title,
     repo_id_ = repo_id;
     commit_id_ = commit_id;
     previous_commit_id_ = previous_commit_id;
-    if (!utils::mac::isOSXMountainLionOrGreater()) {
+    if (QSysInfo::MacintoshVersion < QSysInfo::MV_MOUNTAINLION) {
+        // qWarning("using old style notifications");
         QIcon info_icon(":/images/info.png");
         TrayNotificationWidget* trayNotification = new TrayNotificationWidget(info_icon.pixmap(32, 32), title, message);
         tnm->append(trayNotification);
         return;
     }
+    // qWarning("using new style notifications");
 
     QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
 #elif defined(Q_OS_LINUX)

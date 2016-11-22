@@ -41,3 +41,12 @@ Description: Seafile desktop client.
  A library can also be encrypted with a user chosen password.
  Seafile also allows users to create groups and easily sharing
  files into groups.
+
+Package: seafile-gui-dbg
+Section: debug
+Architecture: any
+Depends:
+    seafile-gui (= ${binary:Version}),
+    ${misc:Depends},
+Description: Debugging symbols for the seafile-gui package.
+ This package contains the debugging symbols for the seafile-gui package.

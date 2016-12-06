@@ -112,10 +112,15 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     {
         // draw icon
         QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
-	int alignX = (kColumnIconSize - pixmap.width()) / 2;
-	int alignY = (size.height() - pixmap.height()) / 2;
-//        int alignX = 4; // AlignLeft
-//        int alignY = (size.height() - kColumnIconSize) / 2; //AlignVCenter
+        int scale_factor = 1;
+#if defined(Q_OS_MAC)
+        scale_factor = 2;
+#endif
+        // On Mac OSX the pixmap would be the 2x version (but the draw rect area
+        // is still the same size), so when computing the offsets we need to
+        // divide it by 2.
+        int alignX = (kColumnIconSize - (pixmap.width() / scale_factor)) / 2;
+        int alignY = (size.height() - (pixmap.height() / scale_factor)) / 2;
         painter->save();
         painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
         painter->restore();

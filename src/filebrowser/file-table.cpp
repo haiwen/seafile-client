@@ -112,17 +112,23 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     {
         // draw icon
         QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
-        int scale_factor = 1;
-#if defined(Q_OS_MAC)
-        scale_factor = 2;
-#endif
-        // On Mac OSX the pixmap would be the 2x version (but the draw rect area
-        // is still the same size), so when computing the offsets we need to
-        // divide it by 2.
-        int alignX = (kColumnIconSize - (pixmap.width() / scale_factor)) / 2;
-        int alignY = (size.height() - (pixmap.height() / scale_factor)) / 2;
+        int scale_factor = devicePixelRatio();
+        // On Mac OSX (and other HDPI screens) the pixmap would be the 2x
+        // version (but the draw rect area is still the same size), so when
+        // computing the offsets we need to divide it by the scale factor.
+        int icon_width = qMin(kColumnIconSize,
+                             int((double)pixmap.width() / (double)scale_factor));
+        int icon_height = qMin(size.height(),
+                               int((double)pixmap.height() / (double)scale_factor));
+        int alignX = (kColumnIconSize - icon_width) / 2;
+        int alignY = (size.height() - icon_height) / 2;
+
+        QRect icon_bound_rect(
+            option_rect.topLeft() + QPoint(alignX, alignY - 2),
+            QSize(icon_width, icon_height));
+
         painter->save();
-        painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY - 2), pixmap);
+        painter->drawPixmap(icon_bound_rect, pixmap);
         painter->restore();
 
         int lock_status = model->data(index, DirentLockStatusRole).toInt();
@@ -900,7 +906,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
                 dialog->repo_.id,
                 ::pathJoin(dialog->current_path_, dirent.name),
                 dirent.id,
-                kColumnIconSize);
+                kColumnIconSize * devicePixelRatio());
         } else {
             icon = QIcon(getIconByFileNameV2(dirent.name));
         }

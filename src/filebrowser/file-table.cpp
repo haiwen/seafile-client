@@ -883,22 +883,24 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     const SeafDirent& dirent = dirents_[row];
 
     if (role == Qt::DecorationRole && column == FILE_COLUMN_NAME) {
-      QIcon icon;
-      if (dirent.isDir())
-          icon = dirent.readonly
-                     ? QIcon(":/images/files_v2/file_folder_readonly.png")
-                     : QIcon(":/images/files_v2/file_folder.png");
-      else if (iconPrefixFromFileName(dirent.name) == "image") {
-          FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-          ThumbnailService *service = ThumbnailService::instance(); 
-	  return service->getThumbnail(dialog->repo_.id, 
-			               ::pathJoin(dialog->current_path_, dirent.name), 
-				       dirent.id,
-				       kColumnIconSize);
-      } 
-      else
-          icon = QIcon(getIconByFileNameV2(dirent.name));
-      return icon.pixmap(kColumnIconSize, kColumnIconSize);
+        QIcon icon;
+        if (dirent.isDir()) {
+            icon = dirent.readonly
+                       ? QIcon(":/images/files_v2/file_folder_readonly.png")
+                       : QIcon(":/images/files_v2/file_folder.png");
+        } else if (iconPrefixFromFileName(dirent.name) == "image") {
+            FileBrowserDialog *dialog =
+                (FileBrowserDialog *)(QObject::parent());
+            ThumbnailService *service = ThumbnailService::instance();
+            return service->getThumbnail(
+                dialog->repo_.id,
+                ::pathJoin(dialog->current_path_, dirent.name),
+                dirent.id,
+                kColumnIconSize);
+        } else {
+            icon = QIcon(getIconByFileNameV2(dirent.name));
+        }
+        return icon.pixmap(kColumnIconSize, kColumnIconSize);
     }
 
     if (role == Qt::SizeHintRole) {

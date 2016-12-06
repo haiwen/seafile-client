@@ -161,9 +161,6 @@ private:
     int name_column_width_;
 
     QTimer *task_progress_timer_;
-
-    QPixmap *thumbnail_;
-
 };
 
 class FileTableSortFilterProxyModel : public QSortFilterProxyModel {

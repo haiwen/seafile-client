@@ -846,7 +846,6 @@ FileTableModel::FileTableModel(QObject *parent)
      name_column_width_(kFileNameColumnWidth)
 {
     task_progress_timer_ = new QTimer(this);
-    thumbnail_ = new QPixmap();
     connect(task_progress_timer_, SIGNAL(timeout()),
             this, SLOT(updateDownloadInfo()));
     connect(ThumbnailService::instance(), SIGNAL(thumbnailUpdated(const QPixmap&, const QString&)),
@@ -1076,8 +1075,6 @@ void FileTableModel::updateDownloadInfo()
 
 void FileTableModel::updateThumbnail(const QPixmap& thumbnail, const QString& path)
 {
-    *thumbnail_ = thumbnail;
-
     const QString name = QFileInfo(path).fileName();
     for (int pos = 0; pos != dirents_.size() ; pos++)
         if (dirents_[pos].name == name) {

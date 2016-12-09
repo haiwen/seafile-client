@@ -52,12 +52,14 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
-void LocalRepo::setSyncInfo(const QString &state, const QString &error)
+void LocalRepo::setSyncInfo(const QString &state, const QString &error, const QString &err_detail)
 {
     // qWarning("error: %s\n", toCStr(error));
     // qWarning("state: %s\n", toCStr(state));
     if (error.length() > 0) {
         translateSyncError(error);
+        if (err_detail.length() > 0)
+            translateSyncErrDetail(err_detail);
     } else {
         translateSyncState(state);
     }
@@ -245,5 +247,46 @@ void LocalRepo::translateSyncError(const QString &error)
         sync_error_str = QObject::tr("Files are locked by other application");
     } else {
         sync_error_str = error;
+    }
+}
+
+void LocalRepo::translateSyncErrDetail(const QString &err_detail)
+{
+    if (err_detail == "Permission denied on server") {
+        sync_err_detail = QObject::tr("Permission denied on server. Please try resync the library.");
+    } else if (err_detail == "Network error") {
+        sync_err_detail = QObject::tr("Network error.");
+    } else if (err_detail == "Cannot resolve proxy address") {
+        sync_err_detail = QObject::tr("Cannot resolve proxy address.");
+    } else if (err_detail == "Cannot resolve server address") {
+        sync_err_detail = QObject::tr("Cannot resolve server address.");
+    } else if (err_detail == "Cannot connect to server") {
+        sync_err_detail = QObject::tr("Cannot connect to server.");
+    } else if (err_detail == "Failed to establish secure connection") {
+        sync_err_detail = QObject::tr("Failed to establish secure connection. Please check server SSL certificate.");
+    } else if (err_detail == "Data transfer was interrupted") {
+        sync_err_detail = QObject::tr("Data transfer was interrupted. Please check network or firewall.");
+    } else if (err_detail == "Data transfer timed out") {
+        sync_err_detail = QObject::tr("Data transfer timed out. Please check network or firewall.");
+    } else if (err_detail == "Unhandled http redirect from server") {
+        sync_err_detail = QObject::tr("Unhandled http redirect from server. Please check server cofiguration.");
+    } else if (err_detail == "Server error") {
+        sync_err_detail = QObject::tr("Server error.");
+    } else if (err_detail == "Bad request") {
+        sync_err_detail = QObject::tr("Bad request.");
+    } else if (err_detail == "Internal data corrupt on the client") {
+        sync_err_detail = QObject::tr("Internal data corrupt on the client. Please try resync the library.");
+    } else if (err_detail == "Not enough memory") {
+        sync_err_detail = QObject::tr("Not enough memory.");
+    } else if (err_detail == "Failed to write data on the client") {
+        sync_err_detail = QObject::tr("Failed to write data on the client. Please check disk space or folder permissions.");
+    } else if (err_detail == "Storage quota full") {
+        sync_err_detail = QObject::tr("Storage quota full.");
+    } else if (err_detail == "Files are locked by other application") {
+        sync_err_detail = QObject::tr("Files are locked by other application.");
+    } else if (err_detail == "Library deleted on server") {
+        sync_err_detail = QObject::tr("Library deleted on server.");
+    } else if (err_detail == "Library damaged on server") {
+        sync_err_detail = QObject::tr("Library damaged on server.");
     }
 }

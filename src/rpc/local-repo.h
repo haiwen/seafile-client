@@ -39,6 +39,7 @@ public:
     SyncState sync_state;
     QString sync_state_str;
     QString sync_error_str;
+    QString sync_err_detail;
     int transfer_percentage;
     int transfer_rate;
 
@@ -74,11 +75,12 @@ public:
 
     bool isValid() const { return id.length() > 0; }
 
-    void setSyncInfo(const QString &state, const QString &error = QString());
+    void setSyncInfo(const QString &state, const QString &error = QString(), const QString &err_detail = QString());
 
 private:
     void translateSyncError(const QString &error);
     void translateSyncState(const QString &state);
+    void translateSyncErrDetail(const QString &err_detail);
 };
 
 Q_DECLARE_METATYPE(LocalRepo)

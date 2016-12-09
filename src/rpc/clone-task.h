@@ -14,6 +14,7 @@ public:
     QString state;
     QString rt_state;
     QString error_str;
+    QString err_detail;
     QString peer_id;
     QString tx_id;
 

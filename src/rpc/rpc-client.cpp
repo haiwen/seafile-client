@@ -397,7 +397,8 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 
     char *state = NULL;
     char *err = NULL;
-    g_object_get(task, "state", &state, "error", &err, NULL);
+    char *err_detail = NULL;
+    g_object_get(task, "state", &state, "error", &err, "err_detail", &err_detail, NULL);
 
     // seaf-daemon would retry three times for errors like quota/permission
     // before setting the "state" field to "error", but the GUI should display
@@ -407,7 +408,8 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     }
 
     repo.setSyncInfo(state,
-                     g_strcmp0(state, "error") == 0 ? err : NULL);
+                     g_strcmp0(state, "error") == 0 ? err : NULL,
+                     err_detail);
 
     if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
         getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage);
@@ -415,6 +417,7 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 
     g_free (state);
     g_free (err);
+    g_free (err_detail);
     g_object_unref(task);
 }
 
@@ -440,9 +443,8 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
         } else if (task.state == "checkout") {
             getCheckOutDetail(&task);
         } else if (task.state == "error") {
-            if (task.error_str == "fetch") {
-                getTransferDetail(&task);
-            }
+            if (!task.err_detail.isNull())
+                task.error_str = task.err_detail;
         }
         task.translateStateInfo();
         tasks->push_back(task);
@@ -473,11 +475,7 @@ void SeafileRpcClient::getTransferDetail(CloneTask* task)
         return;
     }
 
-    if (task->state == "error") {
-        char *err = NULL;
-        g_object_get(obj, "error_str", &err, NULL);
-        task->error_str = err;
-    } else if (task->state == "fetch") {
+    if (task->state == "fetch") {
         char *rt_state = NULL;
         g_object_get (obj, "rt_state", &rt_state, NULL);
         task->rt_state = rt_state;

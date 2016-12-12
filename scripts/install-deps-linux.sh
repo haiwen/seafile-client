@@ -13,7 +13,7 @@ sudo add-apt-repository -y ppa:smspillaz/cmake-2.8.12
 sudo apt-get update -qq
 sudo apt-get install -y valac uuid-dev libevent-dev re2c libjansson-dev cmake cmake-data
 
-sudo add-apt-repository -y ppa:beineri/opt-qt561-trusty
+sudo add-apt-repository -y ppa:beineri/opt-qt562-trusty
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo apt-get update -qq
 

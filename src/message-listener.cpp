@@ -30,6 +30,8 @@ const char *kAppletCommandsMQ = "applet.commands";
 #define SYNC_ERROR_ID_FILE_LOCKED 2
 #define SYNC_ERROR_ID_INVALID_PATH 3
 #define SYNC_ERROR_ID_INDEX_ERROR 4
+#define SYNC_ERROR_ID_END_SPACE_PERIOD 5
+#define SYNC_ERROR_ID_INVALID_CHARACTER 6
 
 #define IS_APP_MSG(msg,topic) (strcmp((msg)->app, (topic)) == 0)
 static int parse_seafile_notification (char *msg, char **type, char **body)
@@ -215,11 +217,17 @@ void MessageListener::handleMessage(CcnetMessage *message)
             case SYNC_ERROR_ID_FILE_LOCKED:
                 msg = tr("Failed to sync file %1\nFile is locked by other user on the server. Update to this file is not uploaded.").arg(path);
                 break;
-            case SYNC_ERROR_ID_INVALID_PATH:
-                msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
-                break;
+            // case SYNC_ERROR_ID_INVALID_PATH:
+            //     msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
+            //     break;
             case SYNC_ERROR_ID_INDEX_ERROR:
                 msg = tr("Failed to index file %1\nPlease check file permission and disk space.").arg(path);
+                break;
+            case SYNC_ERROR_ID_END_SPACE_PERIOD:
+                msg = tr("Failed to sync %1\nFile path is ended with space or period and cannot be created on Windows.").arg(path);
+                break;
+            case SYNC_ERROR_ID_INVALID_CHARACTER:
+                msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
                 break;
             default:
                 qWarning("Unknown sync error id %d", err_id);

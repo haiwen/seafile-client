@@ -1137,7 +1137,7 @@ failed to upload.</source>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
+        <source>&amp;Generate %1 Download Link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

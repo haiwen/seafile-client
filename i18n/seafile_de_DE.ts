@@ -1145,8 +1145,8 @@ Bitte %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
-        <translation>&amp;Seafile Download-Link erstellen</translation>
+        <source>&amp;Generate %1 Download Link</source>
+        <translation>&amp;%1 Download-Link erstellen</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="314"/>

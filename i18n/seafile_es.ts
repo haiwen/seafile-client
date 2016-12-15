@@ -1146,8 +1146,8 @@ falló al subir.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
-        <translation>&amp;Generar Enlace Seafile para Descarga</translation>
+        <source>&amp;Generate %1 Download Link</source>
+        <translation>&amp;Generar Enlace %1 para Descarga</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="314"/>

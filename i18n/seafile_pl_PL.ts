@@ -1146,8 +1146,8 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
-        <translation>Wy&amp;generuj łącze pobierania Seafile</translation>
+        <source>&amp;Generate %1 Download Link</source>
+        <translation>Wy&amp;generuj łącze pobierania %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="314"/>

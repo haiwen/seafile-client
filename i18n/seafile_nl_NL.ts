@@ -1145,8 +1145,8 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
-        <translation>Seafile downloadlink &amp;genereren</translation>
+        <source>&amp;Generate %1 Download Link</source>
+        <translation>%1 downloadlink &amp;genereren</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="314"/>

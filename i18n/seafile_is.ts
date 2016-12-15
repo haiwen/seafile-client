@@ -1146,8 +1146,8 @@ mistókst að hlaða upp.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
-        <translation>&amp;Gera Seafile Niðurhalshlekk</translation>
+        <source>&amp;Generate %1 Download Link</source>
+        <translation>&amp;Gera %1 Niðurhalshlekk</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="314"/>

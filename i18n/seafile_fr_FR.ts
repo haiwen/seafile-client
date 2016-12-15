@@ -1146,7 +1146,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
+        <source>&amp;Generate %1 Download Link</source>
         <translation>&amp;Générer un lien de téléchargement</translation>
     </message>
     <message>

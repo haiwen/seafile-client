@@ -1147,8 +1147,8 @@ failed to upload.</source>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="309"/>
-        <source>&amp;Generate Seafile Download Link</source>
-        <translation>Seafile 다운로드 링크 만들기(&amp;G)</translation>
+        <source>&amp;Generate %1 Download Link</source>
+        <translation>%1 다운로드 링크 만들기(&amp;G)</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="314"/>

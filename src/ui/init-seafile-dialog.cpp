@@ -168,12 +168,13 @@ void InitSeafileDialog::onOkClicked()
     }
 
 #if defined(Q_OS_WIN32)
-    dir.mkpath("Seafile/seafile-data");
-    QString seafile_dir = dir.filePath("Seafile/seafile-data");
+    QString data_dir_name = QString("%1/seafile-data").arg(getBrand());
 #else
-    dir.mkpath("Seafile/.seafile-data");
-    QString seafile_dir = dir.filePath("Seafile/.seafile-data");
+    QString data_dir_name = QString("%1/.seafile-data").arg(getBrand());
 #endif
+
+    dir.mkpath(data_dir_name);
+    QString seafile_dir = dir.filePath(data_dir_name);
 
     emit seafileDirSet(seafile_dir);
 

@@ -1046,27 +1046,27 @@ nieudane przesyłanie.</translation>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="925"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="938"/>
         <source>locked by %1</source>
         <translation>zablokowany przez %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="973"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="986"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="975"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="988"/>
         <source>Size</source>
         <translation>Rozmiar</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="977"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="990"/>
         <source>Last Modified</source>
         <translation>Ostatnia zmiana</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="979"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="992"/>
         <source>Kind</source>
         <translation>Rodzaj</translation>
     </message>
@@ -1074,114 +1074,114 @@ nieudane przesyłanie.</translation>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="279"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="517"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="519"/>
         <source>&amp;Open</source>
         <translation>&amp;Otwórz</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="284"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="494"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="286"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="496"/>
         <source>&amp;Save As...</source>
         <translation>Zapi&amp;sz jako...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="289"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="529"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="291"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="531"/>
         <source>&amp;Lock</source>
         <translation>Zab&amp;lokuj</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="297"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="299"/>
         <source>&amp;Rename</source>
         <translation>Zmień nazwę</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="302"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="304"/>
         <source>&amp;Delete</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="316"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="318"/>
         <source>Share to Group</source>
         <translation>Udostępnij grupie</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="329"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="331"/>
         <source>&amp;Update</source>
         <translation>Akt&amp;ualizuj</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="333"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="335"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiuj</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="337"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="339"/>
         <source>Cu&amp;t</source>
         <translation>Wy&amp;tnij</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="341"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="343"/>
         <source>&amp;Paste</source>
         <translation>&amp;Wklej</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="350"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="352"/>
         <source>Canc&amp;el Download</source>
         <translation>Anuluj pobi&amp;eranie</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="355"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="357"/>
         <source>&amp;Sync this folder</source>
         <translation>&amp;Synchronizuj ten folder</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="294"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="361"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="296"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="363"/>
         <source>This feature is available in pro version only
 </source>
         <translation>Ta funkcja jest dostępna wyłącznie w wersji pro
 </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="309"/>
         <source>&amp;Generate Seafile Download Link</source>
         <translation>Wy&amp;generuj łącze pobierania Seafile</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="312"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="314"/>
         <source>Share to User</source>
         <translation>Udostępnij użytkownikowi</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="322"/>
         <source>G&amp;enerate %1 Internal Link</source>
         <translation>Wyg&amp;eneruj %1 wewnętrzne łącze</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="467"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="469"/>
         <source>&amp;Save As To...</source>
         <translation>Zapi&amp;sz jako do...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="469"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="534"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="471"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="536"/>
         <source>D&amp;ownload</source>
         <translation>P&amp;obierz</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="524"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="526"/>
         <source>Un&amp;lock</source>
         <translation>Odb&amp;lokuj</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="657"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="659"/>
         <source>Unable to remove readonly files</source>
         <translation>Nie można usunąć plików tylko do odczytu</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="761"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="763"/>
         <source>Unable to cut readonly files</source>
         <translation>Nie można uciąć plików tylko do odczytu</translation>
     </message>
@@ -1412,104 +1412,104 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="70"/>
+        <location filename="../src/ui/login-dialog.cpp" line="66"/>
         <location filename="../ui_login-dialog.h" line="261"/>
         <source>Add an account</source>
         <translation>Dodaj konto</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="119"/>
-        <location filename="../src/ui/login-dialog.cpp" line="120"/>
+        <location filename="../src/ui/login-dialog.cpp" line="115"/>
+        <location filename="../src/ui/login-dialog.cpp" line="116"/>
         <source>Re-login</source>
         <translation>Zaloguj ponownie</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="135"/>
+        <location filename="../src/ui/login-dialog.cpp" line="133"/>
         <source>Logging in...</source>
         <translation>Logowanie...</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="177"/>
+        <location filename="../src/ui/login-dialog.cpp" line="175"/>
         <source>Network Error:
  %1</source>
         <translation>Błąd sieci:
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="189"/>
+        <location filename="../src/ui/login-dialog.cpp" line="187"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;Ostrzeżenie:&lt;/b&gt; Certyfikat SSL tego serwera nie jest zaufany, kontynuować?</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="203"/>
+        <location filename="../src/ui/login-dialog.cpp" line="201"/>
         <source>Please enter the server address</source>
         <translation>Podaj adres serwera</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="207"/>
-        <location filename="../src/ui/login-dialog.cpp" line="213"/>
-        <location filename="../src/ui/login-dialog.cpp" line="355"/>
-        <location filename="../src/ui/login-dialog.cpp" line="361"/>
+        <location filename="../src/ui/login-dialog.cpp" line="205"/>
+        <location filename="../src/ui/login-dialog.cpp" line="211"/>
+        <location filename="../src/ui/login-dialog.cpp" line="352"/>
+        <location filename="../src/ui/login-dialog.cpp" line="358"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 nie jest prawidłowym adresem serwera</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="220"/>
+        <location filename="../src/ui/login-dialog.cpp" line="218"/>
         <source>Please enter the username</source>
         <translation>Proszę podać nazwę użytkownika</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="231"/>
+        <location filename="../src/ui/login-dialog.cpp" line="229"/>
         <source>Please enter the computer name</source>
         <translation>Podaj nazwę komputera</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="289"/>
+        <location filename="../src/ui/login-dialog.cpp" line="286"/>
         <source>Failed to save current account</source>
         <translation>Nie udało się zapisać aktualnego konta</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="304"/>
+        <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Two Factor Authentication</source>
-        <translation>Uwierzytelnianie dwuetapowe</translation>
+        <translation>Uwierzytelnianie dwuskładnikowe</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="346"/>
+        <location filename="../src/ui/login-dialog.cpp" line="343"/>
         <source>%1 Server Address</source>
         <translation>Adres serwera %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="225"/>
+        <location filename="../src/ui/login-dialog.cpp" line="223"/>
         <source>Please enter the password</source>
         <translation>Proszę podać hasło</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="305"/>
+        <location filename="../src/ui/login-dialog.cpp" line="302"/>
         <source>Enter the two factor authentication token</source>
-        <translation>Podaj token uwierzytelniania dwuetapowego</translation>
+        <translation>Podaj token uwierzytelniania dwuskładnikowego</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="315"/>
+        <location filename="../src/ui/login-dialog.cpp" line="312"/>
         <source>Incorrect email or password</source>
         <translation>Nieprawidłowy adres e-mail lub hasło</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="317"/>
+        <location filename="../src/ui/login-dialog.cpp" line="314"/>
         <source>Logging in too frequently, please wait a minute</source>
         <translation>Zbyt częste próby logowania, proszę chwilę odczekać</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="319"/>
+        <location filename="../src/ui/login-dialog.cpp" line="316"/>
         <source>Internal Server Error</source>
         <translation>Wewnętrzny błąd serwera</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="323"/>
+        <location filename="../src/ui/login-dialog.cpp" line="320"/>
         <source>Failed to login: %1</source>
         <translation>Niepowodzenie logowania: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="325"/>
+        <location filename="../src/ui/login-dialog.cpp" line="322"/>
         <source>Failed to login</source>
         <translation>Niepowodzenie logowania</translation>
     </message>
@@ -1564,8 +1564,8 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
         <translation>np. laptop Kuby</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="110"/>
-        <location filename="../src/ui/login-dialog.cpp" line="345"/>
+        <location filename="../src/ui/login-dialog.cpp" line="106"/>
+        <location filename="../src/ui/login-dialog.cpp" line="342"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Logowanie Shibboleth</translation>
@@ -1602,7 +1602,7 @@ Czy chcesz pobrać swoją bibliotekę domyślną i utworzyć dysk wirtualny?</tr
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/main-window.cpp" line="201"/>
+        <location filename="../src/ui/main-window.cpp" line="178"/>
         <source>Refresh</source>
         <translation>Odśwież</translation>
     </message>
@@ -1693,79 +1693,84 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>PrivateShareDialog</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="62"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="66"/>
         <source>Share %1</source>
         <translation>Udostępnij %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="86"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="90"/>
         <source>Enter the group name</source>
         <translation>Podaj nazwę grupy</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="93"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="97"/>
         <source>Enter the email address</source>
         <translation>Podaj adres e-mail</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="236"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="358"/>
         <source>Updated successfully</source>
         <translation>Pomyślnie zaktualizowano</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="243"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="275"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="365"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="397"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="618"/>
         <source>Share Operation Failed: %1</source>
         <translation>Niepowodzenie udostępniania: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="269"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="391"/>
         <source>Removed successfully</source>
         <translation>Pomyślnie usunięto</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="361"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="463"/>
         <source>Failed to get share information of the folder</source>
         <translation>Nie udało się uzyskać informacji udostępniania folderu</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="367"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="469"/>
         <source>Failed to get your groups and contacts information</source>
         <translation>Nie udało się uzyskać informacji o grupach i kontaktach</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="380"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="482"/>
         <source>Please enter the username</source>
         <translation>Proszę podać nazwę użytkownika</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="381"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="483"/>
         <source>Please enter the group name</source>
         <translation>Proszę podać nazwę grupy</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="397"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="499"/>
         <source>No such group &quot;%1&quot;</source>
         <translation>Grupa &quot;%1&quot; nie istnieje</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="403"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="505"/>
         <source>Already shared to group %1</source>
         <translation>Już udostępniono grupie %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="412"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
+        <source>No such user &quot;%1&quot;</source>
+        <translation>Użytkownik &quot;%1&quot; nie istnieje</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/private-share-dialog.cpp" line="518"/>
         <source>Already shared to user %1</source>
         <translation>Już udostępniono użytkownikowi %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="437"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="543"/>
         <source>The previous operation is still in progres</source>
         <translation>Poprzednia operacja ciągle trwa</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="504"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
         <source>Shared successfully</source>
         <translation>Pomyślnie udostępniono</translation>
     </message>
@@ -2496,8 +2501,8 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>RepoService</name>
     <message>
-        <location filename="../src/repo-service.cpp" line="345"/>
-        <location filename="../src/repo-service.cpp" line="380"/>
+        <location filename="../src/repo-service.cpp" line="363"/>
+        <location filename="../src/repo-service.cpp" line="398"/>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
         <translation>Nie można otworzyć pliku &quot;%1&quot; z nieistniejącej biblioteki &quot;%2&quot;</translation>
     </message>
@@ -2521,23 +2526,23 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
-        <source>Private Shares</source>
-        <translation>Udziały prywatne</translation>
+        <source>Shared with me</source>
+        <translation>Udostępnione mnie</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <source>Shared with all</source>
+        <translation>Udostępnione wszystkim</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
-        <source>Groups</source>
-        <translation>Grupy</translation>
+        <source>Shared with groups</source>
+        <translation>Udostępnione grupom</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
         <source>Synced Libraries</source>
         <translation>Zsynchronizowane biblioteki</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
-        <source>Organization</source>
-        <translation>Organizacja</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="423"/>
@@ -2803,44 +2808,44 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="352"/>
+        <location filename="../src/seafile-applet.cpp" line="354"/>
         <source>failed to add default account</source>
         <translation>nie udało się dodać konta domyślnego</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="466"/>
+        <location filename="../src/seafile-applet.cpp" line="475"/>
         <source>Failed to initialize log: %s</source>
         <translation>Nie udało się zainicjować logu: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="519"/>
-        <location filename="../src/seafile-applet.cpp" line="534"/>
+        <location filename="../src/seafile-applet.cpp" line="528"/>
+        <location filename="../src/seafile-applet.cpp" line="543"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="545"/>
-        <location filename="../src/seafile-applet.cpp" line="559"/>
-        <location filename="../src/seafile-applet.cpp" line="575"/>
-        <location filename="../src/seafile-applet.cpp" line="599"/>
+        <location filename="../src/seafile-applet.cpp" line="554"/>
+        <location filename="../src/seafile-applet.cpp" line="568"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
+        <location filename="../src/seafile-applet.cpp" line="608"/>
         <source>Yes</source>
         <translation>Tak</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="546"/>
-        <location filename="../src/seafile-applet.cpp" line="576"/>
-        <location filename="../src/seafile-applet.cpp" line="600"/>
+        <location filename="../src/seafile-applet.cpp" line="555"/>
+        <location filename="../src/seafile-applet.cpp" line="585"/>
+        <location filename="../src/seafile-applet.cpp" line="609"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="560"/>
-        <location filename="../src/seafile-applet.cpp" line="577"/>
+        <location filename="../src/seafile-applet.cpp" line="569"/>
+        <location filename="../src/seafile-applet.cpp" line="586"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="635"/>
+        <location filename="../src/seafile-applet.cpp" line="644"/>
         <source>A new version of %1 client (%2) is available.
 Do you want to visit the download page?</source>
         <translation>Dostępna jest nowa wersja %1 klienta (%2).
@@ -2960,27 +2965,27 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
         <translation>Plik</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="564"/>
+        <location filename="../src/ui/tray-icon.cpp" line="559"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>Masz %n wiadomość</numerusform><numerusform>Masz %n wiadomości</numerusform><numerusform>Masz %n wiadomości</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="570"/>
+        <location filename="../src/ui/tray-icon.cpp" line="565"/>
         <source>auto sync is disabled</source>
         <translation>synchronizacja automatyczna jest wyłączona</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="597"/>
+        <location filename="../src/ui/tray-icon.cpp" line="592"/>
         <source>Uploading</source>
         <translation>Wysyłanie</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="598"/>
+        <location filename="../src/ui/tray-icon.cpp" line="593"/>
         <source>Downloading</source>
         <translation>Pobieranie</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="485"/>
+        <location filename="../src/ui/tray-icon.cpp" line="480"/>
         <source>About %1</source>
         <translation>O %1</translation>
     </message>
@@ -2995,12 +3000,12 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
         <translation>otwórz pomoc online %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="486"/>
+        <location filename="../src/ui/tray-icon.cpp" line="481"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 Klient %2&lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="575"/>
+        <location filename="../src/ui/tray-icon.cpp" line="570"/>
         <source>some servers not connected</source>
         <translation>niektóre serwery nie zostały podłączone</translation>
     </message>
@@ -3320,17 +3325,17 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
 <context>
     <name>SharedItemDelegate</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="920"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="1032"/>
         <source>Read Write</source>
         <translation>Odczyt i zapis</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="921"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="1033"/>
         <source>Read Only</source>
         <translation>Tylko odczyt</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="923"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="1035"/>
         <source>Remove Share</source>
         <translation>Usuń udział</translation>
     </message>
@@ -3338,44 +3343,44 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="617"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="723"/>
         <source>Double click to edit</source>
         <translation>Kliknij dwa razy, aby edytować</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="623"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="729"/>
         <source>Created by %1</source>
         <translation>Utworzony przez %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="657"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="677"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="763"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="789"/>
         <source>Read Write</source>
         <translation>Odczyt i zapis</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="658"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="678"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="764"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="790"/>
         <source>Read Only</source>
         <translation>Tylko odczyt</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="825"/>
         <source>Group</source>
         <translation>Grupa</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="713"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="825"/>
         <source>User</source>
         <translation>Użytkownik</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="718"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="830"/>
         <source>Permission</source>
         <translation>Uprawnienia</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="847"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="959"/>
         <source>The previous operation is still in progres</source>
         <translation>Poprzednia operacja ciągle trwa</translation>
     </message>
@@ -3406,6 +3411,19 @@ Czy chcesz odwiedzić stronę pobierania?</translation>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="38"/>
+        <source>Login with Shibboleth</source>
+        <translation>Zaloguj z Shibboleth</translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="100"/>
+        <source>Failed to save current account</source>
+        <translation>Nie udało się zapisać aktualnego konta</translation>
     </message>
 </context>
 <context>

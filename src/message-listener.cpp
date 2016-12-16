@@ -161,7 +161,8 @@ void MessageListener::handleMessage(CcnetMessage *message)
         } else if (strcmp(type, "repo.deleted_on_relay") == 0) {
             QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(QString::fromUtf8(content));
             seafApplet->trayIcon()->showMessage(getBrand(), buf);
-        } else if (strcmp(type, "sync.done") == 0) {
+        } else if (strcmp(type, "sync.done") == 0 ||
+                   strcmp(type, "sync.multipart_upload") == 0) {
             /* format: a concatenation of (repo_name, repo_id, commmit_id,
              * previous_commit_id, description), separated by tabs */
             QStringList slist = QString::fromUtf8(content).split("\t");
@@ -170,7 +171,11 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 return;
             }
 
-            QString title = tr("\"%1\" is synchronized").arg(slist.at(0));
+            QString title;
+            if (strcmp(type, "sync.done") == 0)
+                title = tr("\"%1\" is synchronized").arg(slist.at(0));
+            else
+                title = tr("Files uploaded to \"%1\"").arg(slist.at(0));
             QString repo_id = slist.at(1).trimmed();
             QString commit_id = slist.at(2).trimmed();
             QString previous_commit_id = slist.at(3).trimmed();

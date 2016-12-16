@@ -727,8 +727,8 @@ int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int
         return -1;
     }
 
-    int finished = 0;
-    int total = 0;
+    int64_t finished = 0;
+    int64_t total = 0;
     g_object_get (task,
                   "rate", rate,
                   "block_total", &total,
@@ -738,7 +738,7 @@ int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int
     if (total == 0) {
         *percent = 0;
     } else {
-        *percent = 100 * finished / total;
+        *percent = (int)(100 * finished / total);
     }
 
     g_object_unref(task);

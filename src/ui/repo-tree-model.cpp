@@ -135,7 +135,7 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
     // sort all repos by timestamp
     // use std::sort for qt containers will force additional copy.
     // anyway, we can use qt's alternative qSort for it
-    qSort(list.begin(), list.end(), compareRepoByTimestamp);
+    std::stable_sort(list.begin(), list.end(), compareRepoByTimestamp);
 
     n = qMin(list.size(), kMaxRecentUpdatedRepos);
     for (i = 0; i < n; i++) {
@@ -537,7 +537,11 @@ bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
         // repos
         RepoItem *cl = (RepoItem *)item_l;
         RepoItem *cr = (RepoItem *)item_r;
-        return cl->repo().mtime > cr->repo().mtime;
+        if (cl->repo().mtime != cr->repo().mtime) {
+            return cl->repo().mtime > cr->repo().mtime;
+        } else {
+            return cl->repo().name > cr->repo().name;
+        }
     }
 
     return false;

@@ -39,7 +39,7 @@ public:
     SyncState sync_state;
     QString sync_state_str;
     QString sync_error_str;
-    QString sync_err_detail;
+    QString sync_error_detail;
     int transfer_percentage;
     int transfer_rate;
 

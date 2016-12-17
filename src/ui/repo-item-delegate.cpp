@@ -235,7 +235,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                 description += ", " + QString::number(percent) + "%";
             }
         } else if (r.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-            description = r.sync_err_detail.isEmpty() ? r.sync_error_str : r.sync_err_detail;
+            description = r.sync_error_detail.isEmpty() ? r.sync_error_str : r.sync_error_detail;
         }
     } else {
         const CloneTask& task = item->cloneTask();

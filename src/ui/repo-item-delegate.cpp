@@ -225,7 +225,6 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
 
     QString description;
-
     const LocalRepo& r = item->localRepo();
     if (r.isValid()) {
         if (r.sync_state == LocalRepo::SYNC_STATE_ING) {
@@ -245,10 +244,11 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
             } else {
                 description = task.state_str;
             }
-
-        } else {
-            description = translateCommitTime(repo.mtime);
         }
+    }
+
+    if (description.isEmpty()) {
+        description = translateCommitTime(repo.mtime);
     }
 
     painter->drawText(repo_desc_rect,

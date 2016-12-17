@@ -443,8 +443,8 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
         } else if (task.state == "checkout") {
             getCheckOutDetail(&task);
         } else if (task.state == "error") {
-            if (!task.err_detail.isNull())
-                task.error_str = task.err_detail;
+            if (!task.error_detail.isNull())
+                task.error_str = task.error_detail;
         }
         task.translateStateInfo();
         tasks->push_back(task);

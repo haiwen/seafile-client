@@ -14,7 +14,7 @@ public:
     QString state;
     QString rt_state;
     QString error_str;
-    QString err_detail;
+    QString error_detail;
     QString peer_id;
     QString tx_id;
 
@@ -44,7 +44,8 @@ public:
             && repo_name == rhs.repo_name
             && worktree == rhs.worktree
             && state_str == rhs.state_str
-            && error_str == rhs.error_str;
+            && error_str == rhs.error_str
+            && error_detail == rhs.error_detail;
     }
 
     bool operator!=(const CloneTask& rhs) const {

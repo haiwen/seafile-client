@@ -31,7 +31,7 @@ CloneTask CloneTask::fromGObject(GObject *obj)
 
     task.state = QString::fromUtf8(state);
     task.error_str = QString::fromUtf8(error_str);
-    task.err_detail = QString::fromUtf8(err_detail);
+    task.error_detail = QString::fromUtf8(err_detail);
     task.repo_id = QString::fromUtf8(repo_id);
     task.peer_id = QString::fromUtf8(peer_id);
     task.repo_name = QString::fromUtf8(repo_name);
@@ -177,7 +177,7 @@ void CloneTask::translateStateInfo()
 bool CloneTask::isCancelable() const
 {
     QStringList list;
-    list << "init" << "connect" << "index" << "fetch";
+    list << "init" << "connect" << "index" << "fetch" << "error";
     return list.contains(state);
 }
 
@@ -185,7 +185,7 @@ bool CloneTask::isCancelable() const
 bool CloneTask::isRemovable() const
 {
     QStringList list;
-    list << "done" << "error" << "canceled";
+    list << "done" << "canceled";
     return list.contains(state);
 }
 

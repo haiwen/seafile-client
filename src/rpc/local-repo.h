@@ -42,6 +42,7 @@ public:
     QString sync_error_detail;
     int transfer_percentage;
     int transfer_rate;
+    bool has_data_transfer;
 
     LocalRepo()
         : encrypted(false),
@@ -49,7 +50,8 @@ public:
         worktree_invalid(false),
         version(0),
         last_sync_time(0),
-        sync_state(SYNC_STATE_DISABLED)
+        sync_state(SYNC_STATE_DISABLED),
+        has_data_transfer(false)
     {
     }
 

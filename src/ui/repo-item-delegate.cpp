@@ -229,9 +229,11 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (r.isValid()) {
         if (r.sync_state == LocalRepo::SYNC_STATE_ING) {
             description = r.sync_state_str;
-            int rate, percent;
-            if (seafApplet->rpcClient()->getRepoTransferInfo(r.id, &rate, &percent) == 0) {
-                description += ", " + QString::number(percent) + "%";
+            if (r.has_data_transfer) {
+                int rate, percent;
+                if (seafApplet->rpcClient()->getRepoTransferInfo(r.id, &rate, &percent) == 0) {
+                    description += ", " + QString::number(percent) + "%";
+                }
             }
         } else if (r.sync_state == LocalRepo::SYNC_STATE_ERROR) {
             description = r.getErrorString();

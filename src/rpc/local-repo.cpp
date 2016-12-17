@@ -74,6 +74,7 @@ void LocalRepo::translateSyncState(const QString &status)
     } else if (status == "committing") {
         sync_state_str = QObject::tr("indexing files");
         sync_state = SYNC_STATE_ING;
+        has_data_transfer = false;
 
     } else if (status == "initializing") {
         sync_state_str = QObject::tr("sync initializing");
@@ -82,14 +83,17 @@ void LocalRepo::translateSyncState(const QString &status)
     } else if (status == "downloading") {
         sync_state_str = QObject::tr("downloading");
         sync_state = SYNC_STATE_ING;
+        has_data_transfer = true;
 
     } else if (status == "uploading") {
         sync_state_str = QObject::tr("uploading");
         sync_state = SYNC_STATE_ING;
+        has_data_transfer = true;
 
     } else if (status == "merging") {
         sync_state_str = QObject::tr("sync merging");
         sync_state = SYNC_STATE_ING;
+        has_data_transfer = false;
 
     } else if (status == "waiting for sync") {
         sync_state_str = QObject::tr("waiting for sync");

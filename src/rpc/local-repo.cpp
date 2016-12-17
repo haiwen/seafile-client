@@ -289,4 +289,6 @@ void LocalRepo::translateSyncErrDetail(const QString &err_detail)
     } else if (err_detail == "Library damaged on server") {
         sync_err_detail = QObject::tr("Library damaged on server.");
     }
+
+    printf ("sync error detail set to '%s'\n", sync_err_detail.toUtf8().data());
 }

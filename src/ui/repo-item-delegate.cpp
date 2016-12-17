@@ -227,11 +227,15 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     QString description;
 
     const LocalRepo& r = item->localRepo();
-    if (r.isValid() && r.sync_state == LocalRepo::SYNC_STATE_ING) {
-        description = r.sync_state_str;
-        int rate, percent;
-        if (seafApplet->rpcClient()->getRepoTransferInfo(r.id, &rate, &percent) == 0) {
-            description += ", " + QString::number(percent) + "%";
+    if (r.isValid()) {
+        if (r.sync_state == LocalRepo::SYNC_STATE_ING) {
+            description = r.sync_state_str;
+            int rate, percent;
+            if (seafApplet->rpcClient()->getRepoTransferInfo(r.id, &rate, &percent) == 0) {
+                description += ", " + QString::number(percent) + "%";
+            }
+        } else if (r.sync_state == LocalRepo::SYNC_STATE_ERROR) {
+            description = r.sync_err_detail.isEmpty() ? r.sync_error_str : r.sync_err_detail;
         }
     } else {
         const CloneTask& task = item->cloneTask();

@@ -412,7 +412,14 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
                      err_detail);
 
     if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
-        getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage);
+        getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage, &repo.rt_state);
+    }
+
+    // When uploading fs objects, we show it as "uploading files list" and don't
+    // show the current precentage
+    if (QString(state) == "uploading" && repo.rt_state == "fs") {
+        repo.sync_state_str = QObject::tr("uploading file list");
+        repo.has_data_transfer = false;
     }
 
     g_free (state);
@@ -710,7 +717,7 @@ int SeafileRpcClient::unsync(const QString& repo_id)
     return ret;
 }
 
-int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int *percent)
+int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int *percent, QString *rt_state)
 {
     GError *error = NULL;
     GObject *task = searpc_client_call__object (seafile_rpc_client_,
@@ -729,16 +736,25 @@ int SeafileRpcClient::getRepoTransferInfo(const QString& repo_id, int *rate, int
 
     int64_t finished = 0;
     int64_t total = 0;
+    char *rt = nullptr;
     g_object_get (task,
                   "rate", rate,
                   "block_total", &total,
                   "block_done", &finished,
+                  "rt_state", &rt,
                   NULL);
 
     if (total == 0) {
         *percent = 0;
     } else {
         *percent = (int)(100 * finished / total);
+    }
+
+    if (rt) {
+        if (rt_state) {
+            *rt_state = rt;
+        }
+        g_free(rt);
     }
 
     g_object_unref(task);

@@ -37,6 +37,7 @@ public:
 
     qint64 last_sync_time;
     SyncState sync_state;
+    QString rt_state;
     QString sync_state_str;
     QString sync_error_str;
     QString sync_error_detail;
@@ -65,6 +66,7 @@ public:
             && encrypted == rhs.encrypted
             && auto_sync == rhs.auto_sync
             && sync_state == rhs.sync_state
+            && rt_state == rhs.rt_state
             && sync_state_str == rhs.sync_state_str
             && sync_error_str == rhs.sync_error_str
             && transfer_rate == rhs.transfer_rate

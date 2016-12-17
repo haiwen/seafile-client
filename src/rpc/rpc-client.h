@@ -69,7 +69,7 @@ public:
     int getUploadRate(int *rate);
     int getDownloadRate(int *rate);
 
-    int getRepoTransferInfo(const QString& repo_id, int *rate, int *percent);
+    int getRepoTransferInfo(const QString& repo_id, int *rate, int *percent, QString* rt_state=nullptr);
 
     void setRepoAutoSync(const QString& repo_id, bool auto_sync);
     int unsync(const QString& repo_id);

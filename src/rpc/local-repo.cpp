@@ -292,3 +292,8 @@ void LocalRepo::translateSyncErrDetail(const QString &err_detail)
 
     // printf ("sync error detail set to '%s'\n", sync_error_detail.toUtf8().data());
 }
+
+QString LocalRepo::getErrorString() const
+{
+    return sync_error_detail.isEmpty() ? sync_error_str : sync_error_detail;
+}

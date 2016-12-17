@@ -234,7 +234,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
                 description += ", " + QString::number(percent) + "%";
             }
         } else if (r.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-            description = r.sync_error_detail.isEmpty() ? r.sync_error_str : r.sync_error_detail;
+            description = r.getErrorString();
         }
     } else {
         const CloneTask& task = item->cloneTask();
@@ -477,7 +477,7 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
         text += tr("This library has not been downloaded");
     } else {
         if (local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-            text += local_repo.sync_error_str;
+            text += local_repo.getErrorString();
         } else {
             text += local_repo.sync_state_str;
         }

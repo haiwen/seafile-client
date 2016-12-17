@@ -75,6 +75,8 @@ public:
 
     bool isValid() const { return id.length() > 0; }
 
+    QString getErrorString() const;
+
     void setSyncInfo(const QString &state, const QString &error = QString(), const QString &err_detail = QString());
 
 private:

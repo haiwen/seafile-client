@@ -19,8 +19,8 @@ public:
     QString tx_id;
 
     QString state_str;
-    int block_done;
-    int block_total;
+    qint64 block_done;
+    qint64 block_total;
 
     int fs_objects_done;
     int fs_objects_total;

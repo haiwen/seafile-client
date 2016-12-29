@@ -489,8 +489,8 @@ void SeafileRpcClient::getTransferDetail(CloneTask* task)
         g_free (rt_state);
 
         if (task->rt_state == "data") {
-            int block_done = 0;
-            int block_total = 0;
+            qint64 block_done = 0;
+            qint64 block_total = 0;
 
             g_object_get (obj,
                           "block_done", &block_done,

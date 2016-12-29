@@ -56,7 +56,11 @@ QString ApiError::toString() const {
     case NETWORK_ERROR:
         return QObject::tr("Network Error: %1").arg(network_error_string_);
     case HTTP_ERROR:
-        return QObject::tr("Server Error");
+        if (http_error_code_ == 520) {
+            return QObject::tr("The storage quota has been used up");
+        } else {
+            return QObject::tr("Server Error");
+        }
     default:
         // impossible
         break;

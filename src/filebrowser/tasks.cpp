@@ -761,5 +761,16 @@ void FileServerTask::setHttpError(int code)
     http_error_code_ = code;
     if (code == 500) {
         error_string_ = tr("Internal Server Error");
+    } else if (code == 443 || code == 520) {
+        // Handle the case when the storage quote is exceeded. It may happen in two cases:
+        //
+        // First, the quota has been used up before the upload. In such case seahub would return 520 to the generate-link request.
+        // See https://github.com/haiwen/seahub/blob/v6.0.7-server/seahub/api2/views.py#L133
+        //
+        // Second, the quota is not exceeded before the upload, but would exceed
+        // after the upload. In such case httpserver would return 443 to the
+        // multipart upload request.
+        // See https://github.com/haiwen/seahub/blob/master/seahub/api2/views.py#L133
+        error_string_ = tr("The storage quota has been used up");
     }
 }

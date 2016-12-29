@@ -45,7 +45,7 @@ struct doDeleteLater
  *
  * @abstract
  */
-class FileNetworkTask : public QObject {
+class FileNetworkTask: public QObject {
     Q_OBJECT
 public:
     enum TaskType {

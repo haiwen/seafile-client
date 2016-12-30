@@ -583,7 +583,8 @@ GetAvatarRequest::GetAvatarRequest(const Account& account,
 GetAvatarRequest::~GetAvatarRequest()
 {
     if (fetch_img_req_) {
-        delete fetch_img_req_;
+        fetch_img_req_->deleteLater();
+        fetch_img_req_ = nullptr;
     }
 }
 

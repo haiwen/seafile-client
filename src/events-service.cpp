@@ -58,7 +58,7 @@ void EventsService::refresh()
     in_refresh_ = true;
 
     if (get_events_req_) {
-        delete get_events_req_;
+        get_events_req_->deleteLater();
     }
 
     get_events_req_ = new GetEventsRequest(account, more_offset_);

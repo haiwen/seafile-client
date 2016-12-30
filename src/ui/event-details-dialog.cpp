@@ -60,7 +60,7 @@ void EventDetailsDialog::sendRequest()
     const Account& account = seafApplet->accountManager()->currentAccount();
 
     if (request_) {
-        delete request_;
+        request_->deleteLater();
     }
 
     request_ = new GetCommitDetailsRequest(account, event_.repo_id, event_.commit_id);

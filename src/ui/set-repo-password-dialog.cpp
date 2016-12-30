@@ -42,7 +42,7 @@ void SetRepoPasswordDialog::onOkBtnClicked()
     const Account& account = seafApplet->accountManager()->currentAccount();
 
     if (request_) {
-        delete request_;
+        request_->deleteLater();
     }
 
     request_ = new SetRepoPasswordRequest(account, repo_.id, password_);

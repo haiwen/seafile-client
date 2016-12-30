@@ -42,7 +42,7 @@ DataManager::~DataManager()
 {
     Q_FOREACH(SeafileApiRequest *req, reqs_)
     {
-        delete req;
+        req->deleteLater();
     }
 }
 

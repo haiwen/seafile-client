@@ -110,10 +110,10 @@ private:
     SharedItemsTableView* table_;
     SharedItemsTableModel* model_;
 
-    QScopedPointer<PrivateShareRequest> request_;
-    QScopedPointer<FetchGroupsRequest> fetch_groups_request_;
-    QScopedPointer<GetPrivateShareItemsRequest> get_shared_items_request_;
-    QScopedPointer<QCompleter> completer_;
+    QScopedPointer<PrivateShareRequest, QScopedPointerDeleteLater> request_;
+    QScopedPointer<FetchGroupsRequest, QScopedPointerDeleteLater> fetch_groups_request_;
+    QScopedPointer<GetPrivateShareItemsRequest, QScopedPointerDeleteLater> get_shared_items_request_;
+    QScopedPointer<QCompleter, QScopedPointerDeleteLater> completer_;
 
     bool request_in_progress_;
 

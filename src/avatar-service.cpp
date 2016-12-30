@@ -363,7 +363,7 @@ void AvatarService::onAccountChanged()
 {
     queue_->reset();
     if (get_avatar_req_) {
-        delete get_avatar_req_;
+        get_avatar_req_->deleteLater();
         get_avatar_req_ = NULL;
     }
     cache_.clear();

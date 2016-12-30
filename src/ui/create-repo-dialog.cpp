@@ -52,8 +52,10 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
 
 CreateRepoDialog::~CreateRepoDialog()
 {
-    if (request_)
-        delete request_;
+    if (request_) {
+        request_->deleteLater();
+        request_ = nullptr;
+    }
 }
 
 void CreateRepoDialog::chooseDirAction()
@@ -94,7 +96,8 @@ void CreateRepoDialog::createAction()
     setAllInputsEnabled(false);
 
     if (request_) {
-        delete request_;
+        request_->deleteLater();
+        request_ = nullptr;
     }
 
     if (!passwd_.isEmpty() && account_.isAtLeastVersion(4, 4, 0)) {

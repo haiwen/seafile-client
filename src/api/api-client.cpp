@@ -70,6 +70,7 @@ SeafileApiClient::~SeafileApiClient()
 {
     if (reply_) {
         reply_->deleteLater();
+        reply_ = nullptr;
     }
 }
 

@@ -161,12 +161,12 @@ private:
                             bool is_file);
     const Account account_;
 
-    QScopedPointer<GetDirentsRequest> get_dirents_req_;
+    QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> get_dirents_req_;
 
-    QScopedPointer<CreateSubrepoRequest> create_subrepo_req_;
+    QScopedPointer<CreateSubrepoRequest, QScopedPointerDeleteLater> create_subrepo_req_;
     QString create_subrepo_parent_repo_id_;
     QString create_subrepo_parent_path_;
-    QScopedPointer<GetRepoRequest> get_repo_req_;
+    QScopedPointer<GetRepoRequest, QScopedPointerDeleteLater> get_repo_req_;
 
     QList<SeafileApiRequest*> reqs_;
 

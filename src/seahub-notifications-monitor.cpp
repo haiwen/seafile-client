@@ -75,7 +75,7 @@ void SeahubNotificationsMonitor::refresh()
     in_refresh_ = true;
 
     if (check_messages_req_) {
-        delete check_messages_req_;
+        check_messages_req_->deleteLater();
     }
 
     check_messages_req_ = new GetUnseenSeahubNotificationsRequest(account);

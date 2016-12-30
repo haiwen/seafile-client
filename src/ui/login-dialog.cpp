@@ -135,7 +135,7 @@ void LoginDialog::doLogin()
     disableInputs();
 
     if (request_) {
-        delete request_;
+        request_->deleteLater();
     }
 
     request_ = new LoginRequest(url_, username_, password_, computer_name_);

@@ -142,7 +142,7 @@ void StarredFilesTab::refresh()
     }
 
     if (get_starred_files_req_) {
-        delete get_starred_files_req_;
+        get_starred_files_req_->deleteLater();
     }
 
     get_starred_files_req_ = new GetStarredFilesRequest(accounts[0]);

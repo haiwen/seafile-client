@@ -245,7 +245,7 @@ void RepoService::refresh()
     }
 
     if (list_repo_req_) {
-        delete list_repo_req_;
+        list_repo_req_->deleteLater();
     }
 
     list_repo_req_ = new ListReposRequest(*account);
@@ -427,7 +427,7 @@ void RepoService::onGetRequestSuccess(const ServerRepo& repo)
     }
 
     // delete current request
-    delete req;
+    req->deleteLater();
     get_repo_reqs_.pop_front();
 
     // start the next request or mark it as success
@@ -444,7 +444,7 @@ void RepoService::onGetRequestFailed(const ApiError& /*error*/)
         return;
 
     // delete current request
-    delete req;
+    req->deleteLater();
     get_repo_reqs_.pop_front();
 
     // start the next request or mark it as success

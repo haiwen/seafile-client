@@ -19,7 +19,10 @@ SeafileApiRequest::SeafileApiRequest(const QUrl& url, Method method,
 
 SeafileApiRequest::~SeafileApiRequest()
 {
-    delete api_client_;
+    if (api_client_) {
+        api_client_->deleteLater();
+        api_client_ = nullptr;
+    }
 }
 
 void SeafileApiRequest::setUrlParam(const QString& name, const QString& value)

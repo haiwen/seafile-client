@@ -67,10 +67,12 @@ FileNetworkTask::FileNetworkTask(const Account& account,
 FileNetworkTask::~FileNetworkTask()
 {
     if (get_link_req_) {
-        delete get_link_req_;
+        get_link_req_->deleteLater();
+        get_link_req_ = nullptr;
     }
     if (fileserver_task_) {
         fileserver_task_->deleteLater();
+        fileserver_task_ = nullptr;
     }
 }
 
@@ -350,6 +352,9 @@ QNetworkAccessManager *FileServerTask::getQNAM()
     if (!network_mgr_ ||
         network_mgr_->networkAccessible() !=
             QNetworkAccessManager::Accessible) {
+        if (network_mgr_) {
+            network_mgr_->deleteLater();
+        }
         network_mgr_ = createQNAM();
     }
 

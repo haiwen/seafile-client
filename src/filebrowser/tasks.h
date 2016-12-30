@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QSharedPointer>
+#include <QMutex>
 
 #include "api/server-repo.h"
 #include "account.h"
@@ -300,6 +301,7 @@ protected:
     void setError(FileNetworkTask::TaskError error, const QString& error_string);
     void setHttpError(int code);
 
+    static QMutex network_mgr_lock_;
     static QNetworkAccessManager *network_mgr_;
 
     // Always use this to access the network access manager, instead of using

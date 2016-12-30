@@ -13,6 +13,7 @@
 #include <QDirIterator>
 #include <QTimer>
 #include <QApplication>
+#include <QMutexLocker>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -333,6 +334,7 @@ void FileUploadDirectoryTask::onCreateDirFailed(const ApiError &error)
 
 
 QNetworkAccessManager* FileServerTask::network_mgr_;
+QMutex FileServerTask::network_mgr_lock_;
 
 FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
     : url_(url),
@@ -349,6 +351,8 @@ FileServerTask::~FileServerTask()
 
 QNetworkAccessManager *FileServerTask::getQNAM()
 {
+    QMutexLocker lock(&network_mgr_lock_);
+
     if (!network_mgr_ ||
         network_mgr_->networkAccessible() !=
             QNetworkAccessManager::Accessible) {

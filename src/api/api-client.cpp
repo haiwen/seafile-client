@@ -68,10 +68,6 @@ QNetworkAccessManager* SeafileApiClient::getQNAM()
 
 SeafileApiClient::~SeafileApiClient()
 {
-    if (reply_) {
-        reply_->deleteLater();
-        reply_ = nullptr;
-    }
 }
 
 void SeafileApiClient::prepareRequest(QNetworkRequest *req)
@@ -102,6 +98,13 @@ void SeafileApiClient::get(const QUrl& url)
     prepareRequest(&request);
 
     reply_ = getQNAM()->get(request);
+    // By default the parent object of the reply instance would be the
+    // QNetworkAccessManager, and we delete the reply in our destructor. But now
+    // we may recreate the QNetworkAccessManager when the connection status is
+    // changed, which means the reply may already have been deleted when the
+    // destructor is called. To avoid this, we explicitly set the
+    // SeafileApiClient as the parent object of the reply.
+    reply_->setParent(this);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));
@@ -122,6 +125,8 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     else
         reply_ = getQNAM()->post(request, body_);
 
+    reply_->setParent(this);
+
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
@@ -134,6 +139,7 @@ void SeafileApiClient::deleteResource(const QUrl& url)
     prepareRequest(&request);
 
     reply_ = getQNAM()->deleteResource(request);
+    reply_->setParent(this);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));

@@ -30,6 +30,9 @@ public:
 
     const QNetworkReply* reply() const { return reply_; }
 
+    // HACK: Make it public for debugging purpose.
+    static QNetworkAccessManager *na_mgr_;
+
 signals:
     void requestSuccess(QNetworkReply& reply);
     void requestFailed(int code);
@@ -47,8 +50,7 @@ private:
     void prepareRequest(QNetworkRequest *req);
 
     void resendRequest(const QUrl& url);
-
-    static QNetworkAccessManager *na_mgr_;
+    QNetworkAccessManager *getQNAM();
 
     QString token_;
 

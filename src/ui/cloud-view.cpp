@@ -30,6 +30,8 @@ extern "C" {
 #include "utils/utils-mac.h"
 #include "utils/utils.h"
 
+#include "api/api-client.h"
+
 #include "cloud-view.h"
 
 namespace
@@ -407,6 +409,8 @@ void CloudView::refreshTransferRate()
 
 void CloudView::refreshStatusBar()
 {
+    QNetworkAccessManager::NetworkAccessibility acc = SeafileApiClient::na_mgr_->networkAccessible();
+    printf ("NetworkAccessibility = %d\n", acc);
     if (!seafApplet->mainWindow()->isVisible()) {
         return;
     }

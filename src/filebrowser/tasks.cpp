@@ -36,6 +36,12 @@ const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 
 const int kMaxRedirects = 3;
 
+QNetworkAccessManager *createQNAM() {
+    QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
+    NetworkManager::instance()->addWatch(manager);
+    return manager;
+}
+
 } // namesapce
 
 QThread* FileNetworkTask::worker_thread_;
@@ -339,6 +345,17 @@ FileServerTask::~FileServerTask()
 {
 }
 
+QNetworkAccessManager *FileServerTask::getQNAM()
+{
+    if (!network_mgr_ ||
+        network_mgr_->networkAccessible() !=
+            QNetworkAccessManager::Accessible) {
+        network_mgr_ = createQNAM();
+    }
+
+    return network_mgr_;
+}
+
 void FileServerTask::onSslErrors(const QList<QSslError>& errors)
 {
     if (canceled_) {
@@ -456,12 +473,7 @@ void GetFileTask::prepare()
 void GetFileTask::sendRequest()
 {
     QNetworkRequest request(url_);
-    if (!network_mgr_) {
-        static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
-        network_mgr_ = manager;
-        NetworkManager::instance()->addWatch(network_mgr_);
-    }
-    reply_ = network_mgr_->get(request);
+    reply_ = getQNAM()->get(request);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));
@@ -606,12 +618,7 @@ void PostFileTask::sendRequest()
     QNetworkRequest request(url_);
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
-    if (!network_mgr_) {
-        static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
-        network_mgr_ = manager;
-        NetworkManager::instance()->addWatch(network_mgr_);
-    }
-    reply_ = network_mgr_->post(request, multipart);
+    reply_ = getQNAM()->post(request, multipart);
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));

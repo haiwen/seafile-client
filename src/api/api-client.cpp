@@ -35,6 +35,13 @@ QString getQueryValue(const QUrl& url, const QString& name)
     return QUrl::fromPercentEncoding(v.toUtf8());
 }
 
+QNetworkAccessManager *createQNAM() {
+    QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
+    NetworkManager::instance()->addWatch(manager);
+    manager->setCache(CustomizationService::instance()->diskCache());
+    return manager;
+}
+
 } // namespace
 
 QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
@@ -46,11 +53,17 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
       use_cache_(false)
 {
     if (!na_mgr_) {
-        static QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
-        na_mgr_ = manager;
-        NetworkManager::instance()->addWatch(na_mgr_);
-        na_mgr_->setCache(CustomizationService::instance()->diskCache());
+        na_mgr_ = createQNAM();
     }
+}
+
+QNetworkAccessManager* SeafileApiClient::getQNAM()
+{
+    if (na_mgr_->networkAccessible() != QNetworkAccessManager::Accessible) {
+        na_mgr_->deleteLater();
+        na_mgr_ = createQNAM();
+    }
+    return na_mgr_;
 }
 
 SeafileApiClient::~SeafileApiClient()
@@ -87,7 +100,7 @@ void SeafileApiClient::get(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = na_mgr_->get(request);
+    reply_ = getQNAM()->get(request);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));
@@ -104,9 +117,9 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
     if (is_put)
-        reply_ = na_mgr_->put(request, body_);
+        reply_ = getQNAM()->put(request, body_);
     else
-        reply_ = na_mgr_->post(request, body_);
+        reply_ = getQNAM()->post(request, body_);
 
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));
 
@@ -119,7 +132,7 @@ void SeafileApiClient::deleteResource(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = na_mgr_->deleteResource(request);
+    reply_ = getQNAM()->deleteResource(request);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));

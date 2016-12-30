@@ -301,6 +301,12 @@ protected:
     void setHttpError(int code);
 
     static QNetworkAccessManager *network_mgr_;
+
+    // Always use this to access the network access manager, instead of using
+    // network_mgr_ directly, because it handles the network status change
+    // detection.
+    QNetworkAccessManager *getQNAM();
+
     QUrl url_;
     QString local_path_;
     QString oid_;

@@ -99,3 +99,5 @@ compile_commands.json
 .ycm_extra_conf.py
 seafile-applet.rc
 *.dmp
+
+qt*seafile-applet

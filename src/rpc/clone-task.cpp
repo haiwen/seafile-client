@@ -53,7 +53,7 @@ CloneTask CloneTask::fromGObject(GObject *obj)
     g_free (worktree);
     g_free (tx_id);
 
-    task.translateStateInfo();
+    // task.translateStateInfo();
 
     return task;
 }
@@ -166,11 +166,10 @@ void CloneTask::translateStateInfo()
 
     } else if (state == "merge") {
         state_str = QObject::tr("Merge file changes...");
-
     }
 
-    if (error_str == "ok") {
-        error_str = QString();
+    if (state != "error" || error_str == "ok") {
+        error_str = "";
     }
 }
 

@@ -397,7 +397,7 @@ void RepoTreeModel::refreshRepoItem(RepoItem *item, void *data)
             if (clone_task.repo_id == item->repo().id) {
                 item->setCloneTask(clone_task);
                 QModelIndex index = indexFromItem(item);
-                emit dataChanged(index,index);
+                emit dataChanged(index, index);
                 emit repoStatusChanged(index);
             }
         }

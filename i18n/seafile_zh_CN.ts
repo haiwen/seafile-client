@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>AccountManager</name>
     <message>
@@ -1041,7 +1039,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/filebrowser/tasks.cpp" line="791"/>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished">该用户的空间已经用完</translation>
+        <translation>该用户的空间已经用完</translation>
     </message>
 </context>
 <context>
@@ -1627,7 +1625,7 @@ Reason: Deleted on server</source>
     <message>
         <location filename="../src/message-listener.cpp" line="178"/>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>文件已经上传到 &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="197"/>
@@ -1659,7 +1657,8 @@ File is locked by other user on the server. Update to this file is not uploaded.
         <location filename="../src/message-listener.cpp" line="232"/>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>同步文件 %1 出错
+该文件路径包含空格或点号，因此无法在 windows 上创建</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="235"/>
@@ -1959,103 +1958,103 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/rpc/local-repo.cpp" line="260"/>
         <location filename="../src/rpc/clone-task.cpp" line="119"/>
         <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"></translation>
+        <translation>权限错误。请尝试重新同步该资料库</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="262"/>
         <location filename="../src/rpc/clone-task.cpp" line="121"/>
         <source>Network error</source>
-        <translation type="unfinished"></translation>
+        <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="264"/>
         <location filename="../src/rpc/clone-task.cpp" line="123"/>
         <source>Cannot resolve proxy address</source>
-        <translation type="unfinished"></translation>
+        <translation>无法解析代理服务器地址</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="266"/>
         <location filename="../src/rpc/clone-task.cpp" line="125"/>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"></translation>
+        <translation>无法解析服务器地址</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="268"/>
         <location filename="../src/rpc/clone-task.cpp" line="127"/>
         <source>Cannot connect to server</source>
-        <translation type="unfinished"></translation>
+        <translation>无法建立到服务器的连接</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="270"/>
         <location filename="../src/rpc/clone-task.cpp" line="129"/>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>建立安全连接时出错。请检查服务器 SSL 证书</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="272"/>
         <location filename="../src/rpc/clone-task.cpp" line="131"/>
         <source>Data transfer was interrupted. Please check network or firewall</source>
-        <translation type="unfinished"></translation>
+        <translation>数据传输被中断。请检查网络或防火墙设置</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="274"/>
         <location filename="../src/rpc/clone-task.cpp" line="133"/>
         <source>Data transfer timed out. Please check network or firewall</source>
-        <translation type="unfinished"></translation>
+        <translation>数据传输超时。请检查网络或防火墙设置</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="276"/>
         <location filename="../src/rpc/clone-task.cpp" line="135"/>
         <source>Unhandled http redirect from server. Please check server cofiguration</source>
-        <translation type="unfinished"></translation>
+        <translation>不能处理服务器的 HTTP 重定向。请检查服务器配置</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="278"/>
         <location filename="../src/rpc/clone-task.cpp" line="137"/>
         <source>Server error</source>
-        <translation type="unfinished"></translation>
+        <translation>服务器内部错误</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="280"/>
         <location filename="../src/rpc/clone-task.cpp" line="139"/>
         <source>Bad request</source>
-        <translation type="unfinished"></translation>
+        <translation>非法的请求</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="282"/>
         <location filename="../src/rpc/clone-task.cpp" line="141"/>
         <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation type="unfinished"></translation>
+        <translation>客户端数据损坏。请尝试重新同步该资料库</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="284"/>
         <location filename="../src/rpc/clone-task.cpp" line="143"/>
         <source>Not enough memory</source>
-        <translation type="unfinished"></translation>
+        <translation>计算机内存不够</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="286"/>
         <location filename="../src/rpc/clone-task.cpp" line="145"/>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>本地文件写入出错。请检查文件权限以及磁盘可用空间。</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="288"/>
         <location filename="../src/rpc/clone-task.cpp" line="147"/>
         <source>Storage quota full</source>
-        <translation type="unfinished"></translation>
+        <translation>用户存储空间已用完</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="292"/>
         <location filename="../src/rpc/clone-task.cpp" line="151"/>
         <source>Library deleted on server</source>
-        <translation type="unfinished"></translation>
+        <translation>资料库在服务器上被删除</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="294"/>
         <location filename="../src/rpc/clone-task.cpp" line="153"/>
         <source>Library damaged on server</source>
-        <translation type="unfinished"></translation>
+        <translation>该资料库在服务器上已损坏</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="60"/>
@@ -2122,6 +2121,36 @@ The library owner&apos;s storage space is used up.</source>
         <translation>初始化...</translation>
     </message>
     <message>
+        <location filename="../src/rpc/clone-task.cpp" line="104"/>
+        <source>Failed to index local files</source>
+        <translation>索引本地文件失败</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="107"/>
+        <source>Failed to check server information</source>
+        <translation>获取服务器信息失败</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="109"/>
+        <source>Failed to create local files</source>
+        <translation>创建本地文件失败</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="112"/>
+        <source>Failed to merge local file changes</source>
+        <translation>合并本地修改失败</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="115"/>
+        <source>Incorrect password. Please download again</source>
+        <translation>密码错误。请重新下载</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="117"/>
+        <source>Internal error</source>
+        <translation>内部错误</translation>
+    </message>
+    <message>
         <location filename="../src/rpc/clone-task.cpp" line="156"/>
         <source>connecting server...</source>
         <translation>连接服务器...</translation>
@@ -2137,44 +2166,9 @@ The library owner&apos;s storage space is used up.</source>
         <translation>下载文件列表中 ...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="78"/>
-        <source>checking server info...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/rpc/clone-task.cpp" line="87"/>
         <source>Downloading files...</source>
         <translation>下载文件中 ...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="104"/>
-        <source>Failed to index local files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="107"/>
-        <source>Failed to check server information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="109"/>
-        <source>Failed to create local files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="112"/>
-        <source>Failed to merge local file changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="115"/>
-        <source>Incorrect password. Please download again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="117"/>
-        <source>Internal error</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="162"/>
@@ -2192,6 +2186,11 @@ The library owner&apos;s storage space is used up.</source>
         <translation>完成</translation>
     </message>
     <message>
+        <location filename="../src/rpc/clone-task.cpp" line="78"/>
+        <source>checking server info...</source>
+        <translation>连接服务器...</translation>
+    </message>
+    <message>
         <location filename="../src/rpc/clone-task.cpp" line="97"/>
         <source>Canceling</source>
         <translation>取消中</translation>
@@ -2200,26 +2199,6 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/rpc/clone-task.cpp" line="100"/>
         <source>Canceled</source>
         <translation>已取消</translation>
-    </message>
-    <message>
-        <source>Failed to index local files.</source>
-        <translation type="vanished">索引本地文件失败。</translation>
-    </message>
-    <message>
-        <source>Failed to create local files.</source>
-        <translation type="vanished">创建本地文件失败。</translation>
-    </message>
-    <message>
-        <source>Failed to merge local file changes.</source>
-        <translation type="vanished">合并本地修改失败。</translation>
-    </message>
-    <message>
-        <source>Incorrect password. Please download again.</source>
-        <translation type="vanished">密码错误。请重新下载。</translation>
-    </message>
-    <message>
-        <source>Internal error.</source>
-        <translation type="vanished">内部错误。</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
@@ -2524,7 +2503,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="421"/>
         <source>uploading file list</source>
-        <translation type="unfinished"></translation>
+        <translation>上传文件列表</translation>
     </message>
 </context>
 <context>
@@ -3113,9 +3092,7 @@ Do you want to visit the download page?</source>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="562"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>您有 %n 条未读消息</numerusform>
-        </translation>
+        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="568"/>
@@ -3559,17 +3536,6 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
         <translation>确认</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation type="vanished">Shibboleth 方式登陆</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation type="vanished">保存帐户失败</translation>
     </message>
 </context>
 <context>

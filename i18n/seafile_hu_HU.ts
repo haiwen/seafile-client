@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="hu_HU">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hu_HU" version="2.1">
 <context>
     <name>AccountManager</name>
     <message>
@@ -596,7 +594,7 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/daemon-mgr.cpp" line="139"/>
         <source>%1 client failed to initialize</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kliens inicializálása sikertelen</translation>
     </message>
 </context>
 <context>
@@ -1047,7 +1045,7 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/filebrowser/tasks.cpp" line="791"/>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished">A tárhely megtelt</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1154,7 +1152,7 @@ feltöltése nem sikerült.</translation>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="320"/>
         <source>&amp;Generate %1 Download Link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 &amp;letöltési hivatkozás készítése</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-table.cpp" line="325"/>
@@ -1478,7 +1476,7 @@ Letölti az alapértelmezett kötetet és létrehoz egy virtuális lemezt hozzá
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="301"/>
         <source>Two Factor Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Kétlépcsős azonosítás</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="343"/>
@@ -1493,7 +1491,7 @@ Letölti az alapértelmezett kötetet és létrehoz egy virtuális lemezt hozzá
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="302"/>
         <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"></translation>
+        <translation>A kétlépcsős azonosítási kulcs megadása</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="312"/>
@@ -1636,7 +1634,7 @@ Indok: a könyvtár törölve lett a szerverről</translation>
     <message>
         <location filename="../src/message-listener.cpp" line="178"/>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="197"/>
@@ -1668,7 +1666,7 @@ A fájlt egy másik felhasználó zárolta a szerveren. A fájl frissítése nin
         <location filename="../src/message-listener.cpp" line="232"/>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="235"/>
@@ -1775,7 +1773,7 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="512"/>
         <source>No such user &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; felhasználó nem létezik</translation>
     </message>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="518"/>
@@ -1968,103 +1966,103 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="260"/>
         <location filename="../src/rpc/clone-task.cpp" line="119"/>
         <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="262"/>
         <location filename="../src/rpc/clone-task.cpp" line="121"/>
         <source>Network error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="264"/>
         <location filename="../src/rpc/clone-task.cpp" line="123"/>
         <source>Cannot resolve proxy address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="266"/>
         <location filename="../src/rpc/clone-task.cpp" line="125"/>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="268"/>
         <location filename="../src/rpc/clone-task.cpp" line="127"/>
         <source>Cannot connect to server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="270"/>
         <location filename="../src/rpc/clone-task.cpp" line="129"/>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="272"/>
         <location filename="../src/rpc/clone-task.cpp" line="131"/>
         <source>Data transfer was interrupted. Please check network or firewall</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="274"/>
         <location filename="../src/rpc/clone-task.cpp" line="133"/>
         <source>Data transfer timed out. Please check network or firewall</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="276"/>
         <location filename="../src/rpc/clone-task.cpp" line="135"/>
         <source>Unhandled http redirect from server. Please check server cofiguration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="278"/>
         <location filename="../src/rpc/clone-task.cpp" line="137"/>
         <source>Server error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="280"/>
         <location filename="../src/rpc/clone-task.cpp" line="139"/>
         <source>Bad request</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="282"/>
         <location filename="../src/rpc/clone-task.cpp" line="141"/>
         <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="284"/>
         <location filename="../src/rpc/clone-task.cpp" line="143"/>
         <source>Not enough memory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="286"/>
         <location filename="../src/rpc/clone-task.cpp" line="145"/>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="288"/>
         <location filename="../src/rpc/clone-task.cpp" line="147"/>
         <source>Storage quota full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="292"/>
         <location filename="../src/rpc/clone-task.cpp" line="151"/>
         <source>Library deleted on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="294"/>
         <location filename="../src/rpc/clone-task.cpp" line="153"/>
         <source>Library damaged on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="60"/>
@@ -2131,6 +2129,36 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
         <translation>Inicializálás...</translation>
     </message>
     <message>
+        <location filename="../src/rpc/clone-task.cpp" line="104"/>
+        <source>Failed to index local files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="107"/>
+        <source>Failed to check server information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="109"/>
+        <source>Failed to create local files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="112"/>
+        <source>Failed to merge local file changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="115"/>
+        <source>Incorrect password. Please download again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="117"/>
+        <source>Internal error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/rpc/clone-task.cpp" line="156"/>
         <source>connecting server...</source>
         <translation>Kapcsolódás a szerverhez...</translation>
@@ -2146,44 +2174,9 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
         <translation>Letöltési fájl lista...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="78"/>
-        <source>checking server info...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/rpc/clone-task.cpp" line="87"/>
         <source>Downloading files...</source>
         <translation>Fájlok letöltés alatt...</translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="104"/>
-        <source>Failed to index local files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="107"/>
-        <source>Failed to check server information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="109"/>
-        <source>Failed to create local files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="112"/>
-        <source>Failed to merge local file changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="115"/>
-        <source>Incorrect password. Please download again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rpc/clone-task.cpp" line="117"/>
-        <source>Internal error</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="162"/>
@@ -2201,6 +2194,11 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
         <translation>Kész</translation>
     </message>
     <message>
+        <location filename="../src/rpc/clone-task.cpp" line="78"/>
+        <source>checking server info...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/rpc/clone-task.cpp" line="97"/>
         <source>Canceling</source>
         <translation>Megszakítás</translation>
@@ -2209,26 +2207,6 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
         <location filename="../src/rpc/clone-task.cpp" line="100"/>
         <source>Canceled</source>
         <translation>Megszakítva</translation>
-    </message>
-    <message>
-        <source>Failed to index local files.</source>
-        <translation type="vanished">A helyi fájlok indexelése nem sikerült</translation>
-    </message>
-    <message>
-        <source>Failed to create local files.</source>
-        <translation type="vanished">A helyi fájlok létrehozása nem sikerült</translation>
-    </message>
-    <message>
-        <source>Failed to merge local file changes.</source>
-        <translation type="vanished">A változások egyesítése nem sikerült</translation>
-    </message>
-    <message>
-        <source>Incorrect password. Please download again.</source>
-        <translation type="vanished">Érvénytelen jelszó. Kérem, ismételje meg a letöltést.</translation>
-    </message>
-    <message>
-        <source>Internal error.</source>
-        <translation type="vanished">Belső hiba</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
@@ -2533,7 +2511,7 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="421"/>
         <source>uploading file list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2685,17 +2663,17 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Shared with me</source>
-        <translation type="unfinished"></translation>
+        <translation>Velem megosztva</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Shared with all</source>
-        <translation type="unfinished"></translation>
+        <translation>Mindenkivel megosztva</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
         <source>Shared with groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Csoportokkal megosztva</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
@@ -3125,9 +3103,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message numerus="yes">
         <location filename="../src/ui/tray-icon.cpp" line="562"/>
         <source>You have %n message(s)</source>
-        <translation>
-            <numerusform>%n üzenete van</numerusform>
-        </translation>
+        <translation><numerusform>%n üzenete van</numerusform><numerusform>%n üzenete van</numerusform></translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="568"/>
@@ -3309,7 +3285,7 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="54"/>
         <source>System Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendszer Proxy</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="105"/>
@@ -3319,22 +3295,22 @@ Meglátogatja a szoftver letöltési oldalát?</translation>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="376"/>
         <source>The proxy host address can&apos;t be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>A proxy kiszolgáló címe nem lehet üres</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="383"/>
         <source>The proxy port is incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation>Helytelen Proxy portszám</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="392"/>
         <source>Proxy username can&apos;t be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>A proxy felhasználói név nem lehet üres</translation>
     </message>
     <message>
         <location filename="../src/ui/settings-dialog.cpp" line="395"/>
         <source>Proxy password can&apos;t be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>A proxy jelszó nem lehet üres</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="403"/>

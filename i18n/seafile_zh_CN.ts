@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>AccountManager</name>
     <message>
@@ -471,58 +473,58 @@ failed to upload.</source>
         <translation>创建新资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="61"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="63"/>
         <source>Please choose a directory</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="92"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="94"/>
         <source>Creating...</source>
         <translation>正在创建...</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="107"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="110"/>
         <source>Failed to generate encryption key for this library</source>
         <translation>生成资料库密钥时出错</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="136"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="139"/>
         <source>Please choose the directory to sync</source>
         <translation>请选择要同步的文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="140"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="143"/>
         <source>The folder %1 does not exist</source>
         <translation>文件夹 %1 不存在</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="145"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="148"/>
         <source>Please enter the name</source>
         <translation>请输入资料库名称</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="152"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="155"/>
         <source>Please enter the password</source>
         <translation>请输入资料库密码</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="159"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="162"/>
         <source>Passwords don&apos;t match</source>
         <translation>密码不一致</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="170"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="173"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="204"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="207"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="216"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="219"/>
         <source>Failed to create library on the server:
 %1</source>
         <translation>创建资料库失败：
@@ -775,210 +777,210 @@ failed to upload.</source>
         <translation>云端文件浏览器</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="276"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="280"/>
         <source>Back</source>
         <translation>后退</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="285"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="289"/>
         <source>Forward</source>
         <translation>前进</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="293"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="297"/>
         <source>Home</source>
         <translation>根目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="322"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="343"/>
         <source>Upload files</source>
         <translation>上传多个文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="324"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="328"/>
         <source>Upload a directory</source>
         <translation>上传文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="346"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="350"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>您没有权限上传到文件这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="332"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="430"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="336"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="434"/>
         <source>Create a folder</source>
         <translation>创建文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="254"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="258"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="261"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="265"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="356"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="360"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="363"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="367"/>
         <source>Open the cache folder</source>
         <translation>打开缓存目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="431"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="435"/>
         <source>Folder name</source>
         <translation>文件夹名称</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="439"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="443"/>
         <source>Invalid folder name!</source>
         <translation>无效的文件夹名！</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="445"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="449"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>文件名 &quot;%1&quot; 已经被使用了。</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="461"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="465"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="462"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="466"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>获取文件信息失败&lt;br/&gt;请 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="493"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="497"/>
         <source>Enter name of file to save to...</source>
         <translation>请键入需要另存为的文件名...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="500"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="524"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="504"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="528"/>
         <source>Unable to remove file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="509"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="513"/>
         <source>Enter the path of the folder you want to save to...</source>
         <translation>请键入需要另存到的文件夹的路径...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="520"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="524"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
         <translation>您真的想删除已存在的文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="622"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="626"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
         <translation>文件 &quot;%1&quot; 没有被同步</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="659"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="663"/>
         <source>Feature not supported</source>
         <translation>不支持当前操作</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="726"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="730"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>文件 &quot;%1&quot; 已经存在。&lt;br/&gt;您想覆盖此文件吗？&lt;br/&gt;&lt;small&gt;(选择 否 用其他文件名上传)&lt;/small&gt; </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="770"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="774"/>
         <source>Failed to download file: %1</source>
         <translation>下载文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="794"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="798"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="924"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="928"/>
         <source>Select a file to upload</source>
         <translation>请选择要上传的文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="932"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="936"/>
         <source>Select a directory to upload</source>
         <translation>请选择要上传的目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="943"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="947"/>
         <source>Unable to create cache folder</source>
         <translation>无法创建缓存文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="945"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="949"/>
         <source>Unable to open cache folder</source>
         <translation>无法打开缓存文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="967"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="971"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="997"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1001"/>
         <source>Do you really want to delete these items</source>
         <translation>您真的想删除这些文件吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1049"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1053"/>
         <source>Create folder failed</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1076"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1080"/>
         <source>Lock file failed</source>
         <translation>锁定文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1092"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1096"/>
         <source>Select a file to update %1</source>
         <translation>请选择要需要上传的文件 以更新 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1100"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1104"/>
         <source>Rename failed</source>
         <translation>重命名失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1114"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1118"/>
         <source>Remove failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1124"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1128"/>
         <source>Share failed</source>
         <translation>共享失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1186"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1190"/>
         <source>Cannot paste files from the same folder</source>
         <translation>无法从相同的文件夹中拷贝</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1210"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1214"/>
         <source>Copy failed</source>
         <translation>复制失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1225"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1229"/>
         <source>Move failed</source>
         <translation>移动失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1253"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1257"/>
         <source>Create library failed!</source>
         <translation>创建资料库失败!</translation>
     </message>
@@ -1019,12 +1021,12 @@ failed to upload.</source>
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="127"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="136"/>
         <source>Operation canceled</source>
         <translation>操作被取消</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="172"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="181"/>
         <source>pending</source>
         <translation>请稍后</translation>
     </message>
@@ -1032,35 +1034,40 @@ failed to upload.</source>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="763"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="779"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/tasks.cpp" line="791"/>
+        <source>The storage quota has been used up</source>
+        <translation type="unfinished">该用户的空间已经用完</translation>
     </message>
 </context>
 <context>
     <name>FileTableModel</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="938"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="950"/>
         <source>locked by %1</source>
         <translation>被 %1 锁定</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="986"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="998"/>
         <source>Name</source>
         <translation>文件名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="988"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="1000"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="990"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="1002"/>
         <source>Last Modified</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="992"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="1004"/>
         <source>Kind</source>
         <translation>类型</translation>
     </message>
@@ -1068,113 +1075,113 @@ failed to upload.</source>
 <context>
     <name>FileTableView</name>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="281"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="519"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="292"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="530"/>
         <source>&amp;Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="286"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="496"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="297"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="507"/>
         <source>&amp;Save As...</source>
         <translation>另存为...(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="291"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="531"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="302"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="542"/>
         <source>&amp;Lock</source>
         <translation>锁定(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="299"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="310"/>
         <source>&amp;Rename</source>
         <translation>重命名(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="304"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="315"/>
         <source>&amp;Delete</source>
         <translation>删除 (&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="318"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="329"/>
         <source>Share to Group</source>
         <translation>共享给群组</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="331"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="342"/>
         <source>&amp;Update</source>
         <translation>更新 (&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="335"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="346"/>
         <source>&amp;Copy</source>
         <translation>复制 (&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="339"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="350"/>
         <source>Cu&amp;t</source>
         <translation>剪切 (&amp;T)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="343"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="354"/>
         <source>&amp;Paste</source>
         <translation>粘贴 (&amp;P)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="352"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="363"/>
         <source>Canc&amp;el Download</source>
         <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="357"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="368"/>
         <source>&amp;Sync this folder</source>
         <translation>同步该目录(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="296"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="363"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="307"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="374"/>
         <source>This feature is available in pro version only
 </source>
         <translation>此功能只在企业版中提供</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="309"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="320"/>
         <source>&amp;Generate %1 Download Link</source>
         <translation>获取%1下载链接</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="314"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="325"/>
         <source>Share to User</source>
         <translation>共享给其他用户</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="322"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="333"/>
         <source>G&amp;enerate %1 Internal Link</source>
         <translation>获取%1内部链接(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="469"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="480"/>
         <source>&amp;Save As To...</source>
         <translation>另存至...(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="471"/>
-        <location filename="../src/filebrowser/file-table.cpp" line="536"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="482"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="547"/>
         <source>D&amp;ownload</source>
         <translation>下载 (&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="526"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="537"/>
         <source>Un&amp;lock</source>
         <translation>解除锁定(&amp;l)</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="659"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="670"/>
         <source>Unable to remove readonly files</source>
         <translation>无法删移只读文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-table.cpp" line="763"/>
+        <location filename="../src/filebrowser/file-table.cpp" line="774"/>
         <source>Unable to cut readonly files</source>
         <translation>无法剪切只读文件</translation>
     </message>
@@ -1182,28 +1189,28 @@ failed to upload.</source>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="442"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="485"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="468"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="506"/>
         <source>Failed to create folders</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="451"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="477"/>
         <source>Failed to create temporary files</source>
         <translation>创建临时文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="500"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="521"/>
         <source>Failed to write file to disk</source>
         <translation>写文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="506"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="527"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>移动旧文件时出错</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="512"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="533"/>
         <source>Failed to move file</source>
         <translation>移动文件时出错</translation>
     </message>
@@ -1227,8 +1234,8 @@ failed to upload.</source>
         <translation>请选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="186"/>
-        <location filename="../src/ui/init-seafile-dialog.cpp" line="194"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="187"/>
+        <location filename="../src/ui/init-seafile-dialog.cpp" line="195"/>
         <source>Initialization is not finished. Really quit?</source>
         <translation>初始化未完成，确认退出？</translation>
     </message>
@@ -1601,71 +1608,82 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>MessageListener</name>
     <message>
-        <location filename="../src/message-listener.cpp" line="85"/>
+        <location filename="../src/message-listener.cpp" line="87"/>
         <source>failed to load ccnet config dir </source>
         <translation>加载 ccnet 配置失败 </translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="160"/>
+        <location filename="../src/message-listener.cpp" line="162"/>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
         <translation>%1 已经被解除同步。
 原因：该资料库已经在服务器上被删除</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="171"/>
+        <location filename="../src/message-listener.cpp" line="176"/>
         <source>&quot;%1&quot; is synchronized</source>
         <translation>&quot;%1&quot; 已同步</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="190"/>
+        <location filename="../src/message-listener.cpp" line="178"/>
+        <source>Files uploaded to &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/message-listener.cpp" line="197"/>
         <source>File %1 conflict</source>
         <translation>文件 %1 同步时发生冲突</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="210"/>
+        <location filename="../src/message-listener.cpp" line="217"/>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
         <translation>同步文件 %1 出错
 文件被其他应用锁定。这个文件将在该应用退出时更新。</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="213"/>
+        <location filename="../src/message-listener.cpp" line="220"/>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
         <translation>同步文件夹 %1 出错
 该文件夹中的某个文件被其他应用锁定。这个文件夹将在该应用退出时更新。</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="216"/>
+        <location filename="../src/message-listener.cpp" line="223"/>
         <source>Failed to sync file %1
 File is locked by other user on the server. Update to this file is not uploaded.</source>
         <translation>同步文件 %1 出错
 该文件被其他用户锁定，因此对它作的修改不会被上传。</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="219"/>
+        <location filename="../src/message-listener.cpp" line="232"/>
+        <source>Failed to sync %1
+File path is ended with space or period and cannot be created on Windows.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/message-listener.cpp" line="235"/>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
         <translation>同步文件 %1 出错
 该文件路径包含非法字符，因此它不会被同步到这台计算机。</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="222"/>
+        <location filename="../src/message-listener.cpp" line="229"/>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
         <translation>读取 %1 内容出错
 请检查文件权限以及磁盘可用空间。</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="240"/>
+        <location filename="../src/message-listener.cpp" line="253"/>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation>&quot;%1&quot; 同步出错。
 您没有权限访问该资料库</translation>
     </message>
     <message>
-        <location filename="../src/message-listener.cpp" line="251"/>
+        <location filename="../src/message-listener.cpp" line="264"/>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 同步出错。
@@ -1675,8 +1693,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="556"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="561"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="577"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="582"/>
         <source>File does not exist</source>
         <translation>文件不存在</translation>
     </message>
@@ -1804,162 +1822,262 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="69"/>
+        <location filename="../src/rpc/local-repo.cpp" line="71"/>
         <source>synchronized</source>
         <translation>已同步</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="73"/>
+        <location filename="../src/rpc/local-repo.cpp" line="75"/>
         <source>indexing files</source>
         <translation>索引文件</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="77"/>
-        <location filename="../src/rpc/local-repo.cpp" line="109"/>
+        <location filename="../src/rpc/local-repo.cpp" line="80"/>
+        <location filename="../src/rpc/local-repo.cpp" line="115"/>
         <source>sync initializing</source>
         <translation>初始化</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="81"/>
+        <location filename="../src/rpc/local-repo.cpp" line="84"/>
         <source>downloading</source>
         <translation>下载中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="85"/>
+        <location filename="../src/rpc/local-repo.cpp" line="89"/>
         <source>uploading</source>
         <translation>上传中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="89"/>
+        <location filename="../src/rpc/local-repo.cpp" line="94"/>
         <source>sync merging</source>
         <translation>合并更改</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="93"/>
+        <location filename="../src/rpc/local-repo.cpp" line="99"/>
         <source>waiting for sync</source>
         <translation>等待同步</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="97"/>
-        <location filename="../src/rpc/local-repo.cpp" line="130"/>
+        <location filename="../src/rpc/local-repo.cpp" line="103"/>
+        <location filename="../src/rpc/local-repo.cpp" line="136"/>
         <source>server not connected</source>
         <translation>服务器未连接</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="101"/>
+        <location filename="../src/rpc/local-repo.cpp" line="107"/>
         <source>server authenticating</source>
         <translation>服务器验证中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="105"/>
-        <location filename="../src/rpc/local-repo.cpp" line="119"/>
+        <location filename="../src/rpc/local-repo.cpp" line="111"/>
+        <location filename="../src/rpc/local-repo.cpp" line="125"/>
         <source>auto sync is turned off</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="114"/>
+        <location filename="../src/rpc/local-repo.cpp" line="120"/>
         <source>unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="133"/>
+        <location filename="../src/rpc/local-repo.cpp" line="139"/>
         <source>Server has been removed</source>
         <translation>服务器已经被删除</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="136"/>
+        <location filename="../src/rpc/local-repo.cpp" line="142"/>
         <source>You have not logged in to the server</source>
         <translation>您还没登录到服务器上</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="139"/>
+        <location filename="../src/rpc/local-repo.cpp" line="145"/>
         <source>You do not have permission to access this library</source>
         <translation>您没有权限访问这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="142"/>
+        <location filename="../src/rpc/local-repo.cpp" line="148"/>
         <source>The storage space of the library owner has been used up</source>
         <translation>资料库所有者的空间限额已用完</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="145"/>
+        <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Remote service is not available</source>
         <translation>与服务器通信失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="148"/>
-        <location filename="../src/rpc/local-repo.cpp" line="190"/>
+        <location filename="../src/rpc/local-repo.cpp" line="154"/>
+        <location filename="../src/rpc/local-repo.cpp" line="196"/>
         <source>Access denied to service</source>
         <translation>没有访问权限</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="151"/>
+        <location filename="../src/rpc/local-repo.cpp" line="157"/>
         <source>Internal data corrupted</source>
         <translation>内部数据损坏</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="154"/>
+        <location filename="../src/rpc/local-repo.cpp" line="160"/>
         <source>Failed to start upload</source>
         <translation>启动上传失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="157"/>
+        <location filename="../src/rpc/local-repo.cpp" line="163"/>
         <source>Error occured in upload</source>
         <translation>上传过程中出错</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="160"/>
+        <location filename="../src/rpc/local-repo.cpp" line="166"/>
         <source>Failed to start download</source>
         <translation>启动下载失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="163"/>
+        <location filename="../src/rpc/local-repo.cpp" line="169"/>
         <source>Error occured in download</source>
         <translation>下载过程中出错</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="169"/>
+        <location filename="../src/rpc/local-repo.cpp" line="175"/>
         <source>Library is damaged on server</source>
         <translation>该资料库在服务器上已损坏</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="172"/>
+        <location filename="../src/rpc/local-repo.cpp" line="178"/>
         <source>Conflict in merge</source>
         <translation>合并文件更改时产生冲突</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="175"/>
+        <location filename="../src/rpc/local-repo.cpp" line="181"/>
         <source>Server version is too old</source>
         <translation>服务器版本太低</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="181"/>
+        <location filename="../src/rpc/local-repo.cpp" line="187"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="184"/>
+        <location filename="../src/rpc/local-repo.cpp" line="260"/>
+        <location filename="../src/rpc/clone-task.cpp" line="119"/>
+        <source>Permission denied on server. Please try resync the library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="262"/>
+        <location filename="../src/rpc/clone-task.cpp" line="121"/>
+        <source>Network error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="264"/>
+        <location filename="../src/rpc/clone-task.cpp" line="123"/>
+        <source>Cannot resolve proxy address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="266"/>
+        <location filename="../src/rpc/clone-task.cpp" line="125"/>
+        <source>Cannot resolve server address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="268"/>
+        <location filename="../src/rpc/clone-task.cpp" line="127"/>
+        <source>Cannot connect to server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="270"/>
+        <location filename="../src/rpc/clone-task.cpp" line="129"/>
+        <source>Failed to establish secure connection. Please check server SSL certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="272"/>
+        <location filename="../src/rpc/clone-task.cpp" line="131"/>
+        <source>Data transfer was interrupted. Please check network or firewall</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="274"/>
+        <location filename="../src/rpc/clone-task.cpp" line="133"/>
+        <source>Data transfer timed out. Please check network or firewall</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="276"/>
+        <location filename="../src/rpc/clone-task.cpp" line="135"/>
+        <source>Unhandled http redirect from server. Please check server cofiguration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="278"/>
+        <location filename="../src/rpc/clone-task.cpp" line="137"/>
+        <source>Server error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="280"/>
+        <location filename="../src/rpc/clone-task.cpp" line="139"/>
+        <source>Bad request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="282"/>
+        <location filename="../src/rpc/clone-task.cpp" line="141"/>
+        <source>Internal data corrupt on the client. Please try resync the library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="284"/>
+        <location filename="../src/rpc/clone-task.cpp" line="143"/>
+        <source>Not enough memory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="286"/>
+        <location filename="../src/rpc/clone-task.cpp" line="145"/>
+        <source>Failed to write data on the client. Please check disk space or folder permissions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="288"/>
+        <location filename="../src/rpc/clone-task.cpp" line="147"/>
+        <source>Storage quota full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="292"/>
+        <location filename="../src/rpc/clone-task.cpp" line="151"/>
+        <source>Library deleted on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/local-repo.cpp" line="294"/>
+        <location filename="../src/rpc/clone-task.cpp" line="153"/>
+        <source>Library damaged on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/api/api-error.cpp" line="60"/>
+        <location filename="../src/rpc/local-repo.cpp" line="190"/>
         <source>The storage quota has been used up</source>
         <translation>该用户的空间已经用完</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="187"/>
+        <location filename="../src/rpc/local-repo.cpp" line="193"/>
         <source>Internal server error</source>
         <translation>服务器出错了</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="193"/>
+        <location filename="../src/rpc/local-repo.cpp" line="199"/>
         <source>Your %1 client is too old</source>
         <translation>您的 %1 客户端版本太低</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="196"/>
-        <location filename="../src/rpc/local-repo.cpp" line="199"/>
         <location filename="../src/rpc/local-repo.cpp" line="202"/>
         <location filename="../src/rpc/local-repo.cpp" line="205"/>
         <location filename="../src/rpc/local-repo.cpp" line="208"/>
-        <location filename="../src/rpc/local-repo.cpp" line="210"/>
-        <location filename="../src/rpc/local-repo.cpp" line="212"/>
+        <location filename="../src/rpc/local-repo.cpp" line="211"/>
         <location filename="../src/rpc/local-repo.cpp" line="214"/>
         <location filename="../src/rpc/local-repo.cpp" line="216"/>
         <location filename="../src/rpc/local-repo.cpp" line="218"/>
@@ -1975,98 +2093,133 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/rpc/local-repo.cpp" line="238"/>
         <location filename="../src/rpc/local-repo.cpp" line="240"/>
         <location filename="../src/rpc/local-repo.cpp" line="242"/>
+        <location filename="../src/rpc/local-repo.cpp" line="244"/>
+        <location filename="../src/rpc/local-repo.cpp" line="246"/>
+        <location filename="../src/rpc/local-repo.cpp" line="248"/>
         <source>Failed to sync this library</source>
         <translation>同步该资料库时出错</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="245"/>
+        <location filename="../src/rpc/local-repo.cpp" line="251"/>
+        <location filename="../src/rpc/local-repo.cpp" line="290"/>
+        <location filename="../src/rpc/clone-task.cpp" line="149"/>
         <source>Files are locked by other application</source>
         <translation>文件已经被其他应用程序锁住</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="166"/>
+        <location filename="../src/rpc/local-repo.cpp" line="172"/>
         <source>Library is deleted on server</source>
         <translation>资料库在服务器上被删除</translation>
     </message>
     <message>
-        <location filename="../src/rpc/local-repo.cpp" line="178"/>
+        <location filename="../src/rpc/local-repo.cpp" line="184"/>
         <source>Error when accessing the local folder</source>
         <translation>访问本地文件夹时出错</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="71"/>
+        <location filename="../src/rpc/clone-task.cpp" line="75"/>
         <source>initializing...</source>
         <translation>初始化...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="74"/>
+        <location filename="../src/rpc/clone-task.cpp" line="156"/>
         <source>connecting server...</source>
         <translation>连接服务器...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="77"/>
+        <location filename="../src/rpc/clone-task.cpp" line="159"/>
         <source>indexing files...</source>
         <translation>索引文件...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="81"/>
+        <location filename="../src/rpc/clone-task.cpp" line="82"/>
         <source>Downloading file list...</source>
         <translation>下载文件列表中 ...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="86"/>
+        <location filename="../src/rpc/clone-task.cpp" line="78"/>
+        <source>checking server info...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="87"/>
         <source>Downloading files...</source>
         <translation>下载文件中 ...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="93"/>
+        <location filename="../src/rpc/clone-task.cpp" line="104"/>
+        <source>Failed to index local files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="107"/>
+        <source>Failed to check server information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="109"/>
+        <source>Failed to create local files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="112"/>
+        <source>Failed to merge local file changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="115"/>
+        <source>Incorrect password. Please download again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="117"/>
+        <source>Internal error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/clone-task.cpp" line="162"/>
         <source>Creating folder...</source>
         <translation>创建文件夹...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="99"/>
+        <location filename="../src/rpc/clone-task.cpp" line="168"/>
         <source>Merge file changes...</source>
         <translation>合并文件更改...</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="102"/>
+        <location filename="../src/rpc/clone-task.cpp" line="94"/>
         <source>Done</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="105"/>
+        <location filename="../src/rpc/clone-task.cpp" line="97"/>
         <source>Canceling</source>
         <translation>取消中</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="108"/>
+        <location filename="../src/rpc/clone-task.cpp" line="100"/>
         <source>Canceled</source>
         <translation>已取消</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="112"/>
         <source>Failed to index local files.</source>
-        <translation>索引本地文件失败。</translation>
+        <translation type="vanished">索引本地文件失败。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="115"/>
         <source>Failed to create local files.</source>
-        <translation>创建本地文件失败。</translation>
+        <translation type="vanished">创建本地文件失败。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="118"/>
         <source>Failed to merge local file changes.</source>
-        <translation>合并本地修改失败。</translation>
+        <translation type="vanished">合并本地修改失败。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="121"/>
         <source>Incorrect password. Please download again.</source>
-        <translation>密码错误。请重新下载。</translation>
+        <translation type="vanished">密码错误。请重新下载。</translation>
     </message>
     <message>
-        <location filename="../src/rpc/clone-task.cpp" line="123"/>
         <source>Internal error.</source>
-        <translation>内部错误。</translation>
+        <translation type="vanished">内部错误。</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="55"/>
@@ -2079,7 +2232,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>网络错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/api/api-error.cpp" line="59"/>
+        <location filename="../src/api/api-error.cpp" line="62"/>
         <source>Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
@@ -2115,7 +2268,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>打开文件缓存数据库失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="968"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="972"/>
         <source>Rename %1 to</source>
         <translation>将 %1 重命名为</translation>
     </message>
@@ -2357,16 +2510,21 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Excel文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="226"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="229"/>
         <location filename="../src/ui/download-repo-dialog.cpp" line="352"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>路径 &quot;%1&quot; 与系统路径冲突</translation>
     </message>
     <message>
-        <location filename="../src/ui/create-repo-dialog.cpp" line="228"/>
+        <location filename="../src/ui/create-repo-dialog.cpp" line="231"/>
         <location filename="../src/ui/download-repo-dialog.cpp" line="354"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>路径 &quot;%1&quot; 与已有资料库冲突</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/rpc-client.cpp" line="421"/>
+        <source>uploading file list</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2474,17 +2632,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="260"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="277"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="265"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="282"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="473"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="488"/>
         <source>This library has not been downloaded</source>
         <translation>这个资料库还没有下载</translation>
     </message>
@@ -2788,7 +2946,7 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApiClient</name>
     <message>
-        <location filename="../src/api/api-client.cpp" line="155"/>
+        <location filename="../src/api/api-client.cpp" line="175"/>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 该服务器的SSL 证书不可信，是否继续？</translation>
     </message>
@@ -2876,11 +3034,11 @@ Do you want to visit the download page?</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="557"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="577"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="647"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="802"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="867"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="562"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="582"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="652"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="816"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="881"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -2888,112 +3046,114 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="160"/>
+        <location filename="../src/ui/tray-icon.cpp" line="161"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="163"/>
+        <location filename="../src/ui/tray-icon.cpp" line="164"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="166"/>
+        <location filename="../src/ui/tray-icon.cpp" line="167"/>
         <source>View unread notifications</source>
         <translation>查看未读通知</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="170"/>
+        <location filename="../src/ui/tray-icon.cpp" line="171"/>
         <source>&amp;Quit</source>
         <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="173"/>
+        <location filename="../src/ui/tray-icon.cpp" line="174"/>
         <source>Show main window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="176"/>
+        <location filename="../src/ui/tray-icon.cpp" line="177"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="179"/>
+        <location filename="../src/ui/tray-icon.cpp" line="180"/>
         <source>Open %1 &amp;folder</source>
         <translation>打开 %1 文件夹(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="180"/>
+        <location filename="../src/ui/tray-icon.cpp" line="181"/>
         <source>open %1 folder</source>
         <translation>打开 %1 文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="183"/>
+        <location filename="../src/ui/tray-icon.cpp" line="184"/>
         <source>Open &amp;logs folder</source>
         <translation>打开日志文件夹(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="187"/>
+        <location filename="../src/ui/tray-icon.cpp" line="188"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="188"/>
+        <location filename="../src/ui/tray-icon.cpp" line="189"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="191"/>
+        <location filename="../src/ui/tray-icon.cpp" line="192"/>
         <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="241"/>
+        <location filename="../src/ui/tray-icon.cpp" line="242"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="559"/>
+        <location filename="../src/ui/tray-icon.cpp" line="562"/>
         <source>You have %n message(s)</source>
-        <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
+        <translation>
+            <numerusform>您有 %n 条未读消息</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="565"/>
+        <location filename="../src/ui/tray-icon.cpp" line="568"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="592"/>
+        <location filename="../src/ui/tray-icon.cpp" line="595"/>
         <source>Uploading</source>
         <translation>正在上传</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="593"/>
+        <location filename="../src/ui/tray-icon.cpp" line="596"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="480"/>
+        <location filename="../src/ui/tray-icon.cpp" line="483"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="184"/>
+        <location filename="../src/ui/tray-icon.cpp" line="185"/>
         <source>open %1 log folder</source>
         <translation>打开 %1 日志文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="192"/>
+        <location filename="../src/ui/tray-icon.cpp" line="193"/>
         <source>open %1 online help</source>
         <translation>打开 %1 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="481"/>
+        <location filename="../src/ui/tray-icon.cpp" line="484"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="570"/>
+        <location filename="../src/ui/tray-icon.cpp" line="573"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -3404,14 +3564,12 @@ Do you want to visit the download page?</source>
 <context>
     <name>ShibLoginDialog</name>
     <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="38"/>
         <source>Login with Shibboleth</source>
-        <translation>Shibboleth 方式登陆</translation>
+        <translation type="vanished">Shibboleth 方式登陆</translation>
     </message>
     <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="100"/>
         <source>Failed to save current account</source>
-        <translation>保存帐户失败</translation>
+        <translation type="vanished">保存帐户失败</translation>
     </message>
 </context>
 <context>

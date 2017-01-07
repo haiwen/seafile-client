@@ -230,6 +230,7 @@ SET(moc_headers
   src/ui/event-details-dialog.h
   src/ui/event-details-tree.h
   src/ui/set-repo-password-dialog.h
+  src/ui/sync-errors-dialog.h
   src/filebrowser/file-browser-manager.h
   src/filebrowser/file-browser-dialog.h
   src/filebrowser/file-browser-requests.h
@@ -272,6 +273,7 @@ SET(ui_files
   ui/private-share-dialog.ui
   ui/account-view.ui
   ui/set-repo-password-dialog.ui
+  ui/sync-errors-dialog.ui
   ${platform_specific_ui_files}
 )
 
@@ -368,6 +370,7 @@ SET(seafile_client_sources
   src/rpc/rpc-client.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
+  src/rpc/sync-error.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
@@ -410,6 +413,7 @@ SET(seafile_client_sources
   src/ui/event-details-dialog.cpp
   src/ui/event-details-tree.cpp
   src/ui/set-repo-password-dialog.cpp
+  src/ui/sync-errors-dialog.cpp
   src/filebrowser/file-browser-manager.cpp
   src/filebrowser/file-browser-dialog.cpp
   src/filebrowser/file-browser-requests.cpp

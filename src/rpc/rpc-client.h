@@ -17,6 +17,7 @@ struct _CcnetClient;
 
 class LocalRepo;
 class CloneTask;
+class SyncError;
 class CommitDetails;
 
 class SeafileRpcClient : public QObject {
@@ -128,6 +129,8 @@ public:
                        const QString& commit_id,
                        const QString& previous_commit_id,
                        CommitDetails *details);
+
+    bool getSyncErrors(std::vector<SyncError> *errors, int offset=0, int limit=10);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)

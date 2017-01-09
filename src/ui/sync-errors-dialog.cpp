@@ -204,15 +204,14 @@ void SyncErrorsTableModel::updateErrors()
         return;
     }
 
-    SyncError fake_error;
-    fake_error.repo_id = "xxx";
-    fake_error.repo_name = "NotSoGood";
-    fake_error.path = "/tmp/NotSoGood/BadFile";
-    fake_error.error_id = 5;
-    fake_error.timestamp = 1483056000;
-    fake_error.translateErrorStr();
-
-    errors.push_back(fake_error);
+    // SyncError fake_error;
+    // fake_error.repo_id = "xxx";
+    // fake_error.repo_name = "NotSoGood";
+    // fake_error.path = "/tmp/NotSoGood/BadFile";
+    // fake_error.error_id = 5;
+    // fake_error.timestamp = 1483056000;
+    // fake_error.translateErrorStr();
+    // errors.push_back(fake_error);
 
     beginResetModel();
     if (errors_.size() != errors.size()) {

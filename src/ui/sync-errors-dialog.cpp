@@ -5,6 +5,7 @@
 #include <QResizeEvent>
 #include <QTimer>
 
+#include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
@@ -42,7 +43,8 @@ enum {
 
 } // namespace
 
-
+// TODO: There are lots of common logic used in FileBrowserDialog and
+// SyncErrorsDialog. We should refactor out a base dialog class.
 SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     : QDialog(parent)
 {
@@ -60,6 +62,7 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     resizer_->resize(resizer_->sizeHint());
     setAttribute(Qt::WA_TranslucentBackground, true);
 
+    createTitleBar();
     createEmptyView();
 
     table_ = new SyncErrorsTableView;
@@ -75,7 +78,7 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     layout->addWidget(widget);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
-    vlayout->setContentsMargins(0, 0, 0, 0);
+    vlayout->setContentsMargins(1, 0, 1, 0);
     vlayout->setSpacing(0);
     widget->setLayout(vlayout);
 
@@ -84,10 +87,68 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     stack_->insertWidget(INDEX_TABE_VIEW, table_);
     stack_->setContentsMargins(0, 0, 0, 0);
 
+    vlayout->addWidget(header_);
     vlayout->addWidget(stack_);
+
+#ifdef Q_OS_MAC
+    header_->setVisible(false);
+#endif
 
     onModelReset();
     connect(model_, SIGNAL(modelReset()), this, SLOT(onModelReset()));
+}
+
+void SyncErrorsDialog::createTitleBar()
+{
+    header_ = new QWidget;
+    header_->setObjectName("mHeader");
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setContentsMargins(1, 1, 1, 1);
+    layout->setSpacing(0);
+    header_->setLayout(layout);
+
+    QSpacerItem *spacer1 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    layout->addSpacerItem(spacer1);
+
+    brand_label_ = new QLabel(windowTitle());
+    brand_label_->setObjectName("mBrand");
+    layout->addWidget(brand_label_);
+
+    QSpacerItem *spacer2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    layout->addSpacerItem(spacer2);
+
+    minimize_button_ = new QPushButton;
+    minimize_button_->setObjectName("mMinimizeBtn");
+    minimize_button_->setToolTip(tr("Minimize"));
+    minimize_button_->setIcon(awesome->icon(icon_minus, QColor("#808081")));
+    layout->addWidget(minimize_button_);
+    connect(minimize_button_, SIGNAL(clicked()), this, SLOT(showMinimized()));
+
+    close_button_ = new QPushButton;
+    close_button_->setObjectName("mCloseBtn");
+    close_button_->setToolTip(tr("Close"));
+    close_button_->setIcon(awesome->icon(icon_remove, QColor("#808081")));
+    layout->addWidget(close_button_);
+    connect(close_button_, SIGNAL(clicked()), this, SLOT(close()));
+
+    header_->installEventFilter(this);
+}
+
+bool SyncErrorsDialog::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == header_) {
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            QRect frame_rect = frameGeometry();
+            old_pos_ = ev->globalPos() - frame_rect.topLeft();
+            return true;
+        } else if (event->type() == QEvent::MouseMove) {
+            QMouseEvent *ev = (QMouseEvent *)event;
+            move(ev->globalPos() - old_pos_);
+            return true;
+        }
+    }
+    return QDialog::eventFilter(obj, event);
 }
 
 void SyncErrorsDialog::resizeEvent(QResizeEvent *event)

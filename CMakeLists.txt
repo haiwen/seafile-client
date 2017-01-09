@@ -273,7 +273,6 @@ SET(ui_files
   ui/private-share-dialog.ui
   ui/account-view.ui
   ui/set-repo-password-dialog.ui
-  ui/sync-errors-dialog.ui
   ${platform_specific_ui_files}
 )
 

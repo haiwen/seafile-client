@@ -8,20 +8,20 @@
 #include <QAbstractTableModel>
 #include <QDialog>
 
-// #include "ui_sync-errors-dialog.h"
 #include "rpc/sync-error.h"
 
 class QTimer;
 class QStackedWidget;
 class QResizeEvent;
 class QSizeGrip;
+class QLabel;
+class QEvent;
 
 class SyncError;
 class SyncErrorsTableView;
 class SyncErrorsTableModel;
 
 class SyncErrorsDialog : public QDialog
-                         // public Ui::SyncErrorsDialog
 {
     Q_OBJECT
 
@@ -35,7 +35,17 @@ private slots:
     void onModelReset();
 
 private:
+    void createTitleBar();
     void createEmptyView();
+
+    bool eventFilter(QObject *obj, QEvent *event);
+
+    // title bar (windows and osx only)
+    QWidget *header_;
+    QLabel *brand_label_;
+    QPushButton *minimize_button_;
+    QPushButton *close_button_;
+    QPoint old_pos_;
 
     QSizeGrip *resizer_;
 

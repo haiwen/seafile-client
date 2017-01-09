@@ -1049,7 +1049,6 @@ bool SeafileRpcClient::getSyncErrors(std::vector<SyncError> *errors, int offset,
 
     for (GList *ptr = objlist; ptr; ptr = ptr->next) {
         SyncError error = SyncError::fromGObject((GObject *)ptr->data);
-        error.translateErrorStr();
         errors->push_back(error);
     }
 

@@ -55,18 +55,25 @@ void SyncError::translateErrorStr()
     switch (error_id) {
     case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
         error_str = QObject::tr("File was locked by another application");
+        break;
     case SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP:
         error_str = QObject::tr("Folder was locked by another application");
+        break;
     case SYNC_ERROR_ID_FILE_LOCKED:
         error_str = QObject::tr("Folder was locked");
+        break;
     case SYNC_ERROR_ID_INVALID_PATH:
         error_str = QObject::tr("Path is invalid");
+        break;
     case SYNC_ERROR_ID_INDEX_ERROR:
         error_str = QObject::tr("Path is invalid");
+        break;
     case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
         error_str = QObject::tr("Path ends with space or period character");
+        break;
     case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
         error_str = QObject::tr("Path ends with space or period character");
+        break;
     default:
         // unreachable
         qWarning("unknown sync error id %d", error_id);

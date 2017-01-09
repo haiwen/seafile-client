@@ -8,18 +8,20 @@
 #include <QAbstractTableModel>
 #include <QDialog>
 
-#include "ui_sync-errors-dialog.h"
+// #include "ui_sync-errors-dialog.h"
 #include "rpc/sync-error.h"
 
 class QTimer;
 class QStackedWidget;
+class QResizeEvent;
+class QSizeGrip;
 
 class SyncError;
 class SyncErrorsTableView;
 class SyncErrorsTableModel;
 
-class SyncErrorsDialog : public QDialog,
-                         public Ui::SyncErrorsDialog
+class SyncErrorsDialog : public QDialog
+                         // public Ui::SyncErrorsDialog
 {
     Q_OBJECT
 
@@ -27,11 +29,15 @@ public:
     SyncErrorsDialog(QWidget *parent=0);
     void updateErrors();
 
+    void resizeEvent(QResizeEvent *event);
+
 private slots:
     void onModelReset();
 
 private:
     void createEmptyView();
+
+    QSizeGrip *resizer_;
 
     QStackedWidget *stack_;
     SyncErrorsTableView *table_;
@@ -47,6 +53,7 @@ public:
     SyncErrorsTableView(QWidget *parent=0);
 
     void contextMenuEvent(QContextMenuEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
 private:
     void createContextMenu();
@@ -55,12 +62,6 @@ private:
     QMenu *context_menu_;
 };
 
-class SyncErrorsTableHeader : public QHeaderView {
-    Q_OBJECT
-
-public:
-    SyncErrorsTableHeader(QWidget *parent=0);
-};
 
 class SyncErrorsTableModel : public QAbstractTableModel
 {
@@ -76,6 +77,8 @@ public:
 
     SyncError errorAt(size_t i) const { return (i >= errors_.size()) ? SyncError() : errors_[i]; }
 
+    void onResize(const QSize& size);
+
 public slots:
     void updateErrors();
 
@@ -83,6 +86,9 @@ private:
 
     std::vector<SyncError> errors_;
     QTimer *update_timer_;
+    int repo_name_column_width_;
+    int path_column_width_;
+    int error_column_width_;
 };
 
 #endif // SEAFILE_CLIENT_SYNC_ERRORS_DIALOG_H

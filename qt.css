@@ -612,9 +612,53 @@ SharedItemsTableView {
     qproperty-focusPolicy: NoFocus;
 }
 
+SyncErrorsDialog {
+    margin: 0;
+    min-width: 700px;
+    min-height: 300px;
+}
+
 SharedItemsTableView QHeaderView::section {
     /* outline: 1px; */
     font-size: 12px;
     padding-top: 10px;
     font-family: Arial;
+}
+
+SyncErrorsDialog QWidget#mainWidget {
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
+SyncErrorsTableView {
+    border: 0;
+    margin: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: white;
+    qproperty-focusPolicy: NoFocus;
+}
+
+SyncErrorsTableView QHeaderView::section {
+    border: 0;
+    padding: 8px;
+    outline: 0px;
+    color: #b3b3b3;
+    background-color: white;
+    font-size: 12px;
+    padding-top: 20px;
+}
+
+SyncErrorsTableView QHeaderView::section:first {
+    padding-left: 40px;
+}
+
+SyncErrorsTableView::item {
+    border-top: 1px solid #e0e0e0;
+}
+
+SyncErrorsTableView::item :last {
+    padding-right: 13px;
 }

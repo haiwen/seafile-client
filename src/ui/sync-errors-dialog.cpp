@@ -331,6 +331,9 @@ QVariant SyncErrorsTableModel::data(const QModelIndex & index, int role) const
 
     int column = index.column();
 
+    if (role == Qt::TextAlignmentRole)
+        return Qt::AlignLeft + Qt::AlignVCenter;
+
     if (role == Qt::SizeHintRole) {
         int h = kDefaultColumnHeight;
         int w = kDefaultColumnWidth;

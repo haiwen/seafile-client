@@ -13,3 +13,7 @@ RepoTreeView {
 FileTableView QHeaderView::section:first {
     padding-left: 36px;
 }
+
+SyncErrorsTableView::item {
+    padding-left: 2px;
+}

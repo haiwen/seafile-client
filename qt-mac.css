@@ -52,3 +52,8 @@ FileBrowserDialog QToolBar QToolButton#backwardButton {
 FileBrowserDialog QToolBar QToolButton#forwardButton {
     margin-left: 0px;
 }
+
+SyncErrorsDialog QWidget#mainWidget {
+    border : 0;
+    border-radius: 0px;
+}

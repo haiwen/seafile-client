@@ -666,6 +666,7 @@ SyncErrorsTableView {
 SyncErrorsTableView QHeaderView::section {
     border: 0;
     padding: 8px;
+    padding-left: 5px;
     outline: 0px;
     color: #b3b3b3;
     background-color: white;
@@ -673,11 +674,9 @@ SyncErrorsTableView QHeaderView::section {
     padding-top: 20px;
 }
 
-SyncErrorsTableView QHeaderView::section:first {
-    padding-left: 40px;
-}
-
 SyncErrorsTableView::item {
+    padding-top: 5px;
+    padding-left: 0px;
     border-top: 1px solid #e0e0e0;
 }
 

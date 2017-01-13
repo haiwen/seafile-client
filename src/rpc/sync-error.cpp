@@ -54,25 +54,25 @@ void SyncError::translateErrorStr()
 
     switch (error_id) {
     case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
-        error_str = QObject::tr("File was locked by another application");
+        error_str = QObject::tr("File is locked by another application");
         break;
     case SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP:
-        error_str = QObject::tr("Folder was locked by another application");
+        error_str = QObject::tr("Folder is locked by another application");
         break;
     case SYNC_ERROR_ID_FILE_LOCKED:
-        error_str = QObject::tr("Folder was locked");
+        error_str = QObject::tr("File is locked by another user");
         break;
     case SYNC_ERROR_ID_INVALID_PATH:
         error_str = QObject::tr("Path is invalid");
         break;
     case SYNC_ERROR_ID_INDEX_ERROR:
-        error_str = QObject::tr("Path is invalid");
+        error_str = QObject::tr("Error when indexing");
         break;
     case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
         error_str = QObject::tr("Path ends with space or period character");
         break;
     case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
-        error_str = QObject::tr("Path ends with space or period character");
+        error_str = QObject::tr("Path contains invalid characters like '|' or ':'");
         break;
     default:
         // unreachable

@@ -637,12 +637,12 @@ SyncErrorsDialog QWidget#mainWidget {
 
 SyncErrorsDialog QWidget#mHeader {
     min-height: 25px;
-    max-height: 35px;
+    max-height: 40px;
     margin-left: 10px;
     margin-right: 10px;
-    padding-top: 2px;
+    padding-top: 5px;
     padding-bottom: 5px;
-    /* border: 1px solid red; */
+    text-align: center;
 }
 
 SyncErrorsDialog QWidget#mHeader QLabel {

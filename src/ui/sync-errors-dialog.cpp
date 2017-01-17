@@ -106,7 +106,7 @@ void SyncErrorsDialog::createTitleBar()
     header_ = new QWidget;
     header_->setObjectName("mHeader");
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->setContentsMargins(1, 1, 1, 1);
+    layout->setContentsMargins(1, 1, 1, 4);
     layout->setSpacing(0);
     header_->setLayout(layout);
 

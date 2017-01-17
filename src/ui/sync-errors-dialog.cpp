@@ -5,6 +5,7 @@
 #include <QResizeEvent>
 #include <QTimer>
 #include <QDesktopServices>
+#include <QCloseEvent>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -151,6 +152,12 @@ bool SyncErrorsDialog::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QDialog::eventFilter(obj, event);
+}
+
+void SyncErrorsDialog::closeEvent(QCloseEvent *event)
+{
+    event->ignore();
+    this->hide();
 }
 
 void SyncErrorsDialog::resizeEvent(QResizeEvent *event)

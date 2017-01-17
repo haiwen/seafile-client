@@ -30,6 +30,7 @@ public:
     void updateErrors();
 
     void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void onModelReset();

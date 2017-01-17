@@ -636,11 +636,13 @@ SyncErrorsDialog QWidget#mainWidget {
 }
 
 SyncErrorsDialog QWidget#mHeader {
-    min-height: 15px;
-    max-height: 30px;
+    min-height: 25px;
+    max-height: 35px;
     margin-left: 10px;
     margin-right: 10px;
-    padding-bottom: 1px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    /* border: 1px solid red; */
 }
 
 SyncErrorsDialog QWidget#mHeader QLabel {
@@ -682,4 +684,8 @@ SyncErrorsTableView::item {
 
 SyncErrorsTableView::item :last {
     padding-right: 13px;
+}
+
+SyncErrorsTableView::item:selected {
+    background-color: #F9E0C7;
 }

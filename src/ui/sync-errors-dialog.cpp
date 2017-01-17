@@ -4,17 +4,19 @@
 #include <QTableView>
 #include <QResizeEvent>
 #include <QTimer>
+#include <QDesktopServices>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "rpc/sync-error.h"
+#include "rpc/local-repo.h"
 #include "sync-errors-dialog.h"
 
 namespace {
 
-const int kUpdateErrorsInterval = 3000;
+const int kUpdateErrorsIntervalMSecs = 3000;
 
 const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
@@ -207,6 +209,9 @@ SyncErrorsTableView::SyncErrorsTableView(QWidget *parent)
     setMouseTracking(true);
 
     createContextMenu();
+
+    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
+            this, SLOT(onItemDoubleClicked(const QModelIndex&)));
 }
 
 void SyncErrorsTableView::contextMenuEvent(QContextMenuEvent *event)
@@ -243,6 +248,21 @@ void SyncErrorsTableView::resizeEvent(QResizeEvent *event)
     m->onResize(event->size());
 }
 
+void SyncErrorsTableView::onItemDoubleClicked(const QModelIndex& index)
+{
+    SyncErrorsTableModel *model = (SyncErrorsTableModel *)this->model();
+    SyncError error = model->errorAt(index.row());
+
+    // printf("error repo id is %s\n", error.repo_id.toUtf8().data());
+    if (!error.repo_id.isEmpty()) {
+        LocalRepo repo;
+        seafApplet->rpcClient()->getLocalRepo(error.repo_id, &repo);
+        if (repo.isValid()) {
+            QDesktopServices::openUrl(QUrl::fromLocalFile(repo.worktree));
+        }
+    }
+}
+
 SyncErrorsTableModel::SyncErrorsTableModel(QObject *parent)
     : QAbstractTableModel(parent),
       repo_name_column_width_(kRepoNameColumnWidth),
@@ -251,7 +271,7 @@ SyncErrorsTableModel::SyncErrorsTableModel(QObject *parent)
 {
     update_timer_ = new QTimer(this);
     connect(update_timer_, SIGNAL(timeout()), this, SLOT(updateErrors()));
-    update_timer_->start(kUpdateErrorsInterval);
+    update_timer_->start(kUpdateErrorsIntervalMSecs);
 
     updateErrors();
 }
@@ -333,6 +353,9 @@ QVariant SyncErrorsTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::TextAlignmentRole)
         return Qt::AlignLeft + Qt::AlignVCenter;
+
+    if (role == Qt::ToolTipRole)
+        return tr("Double click to open the library");
 
     if (role == Qt::SizeHintRole) {
         int h = kDefaultColumnHeight;

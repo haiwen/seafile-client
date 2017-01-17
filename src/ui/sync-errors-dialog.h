@@ -65,10 +65,14 @@ public:
     void contextMenuEvent(QContextMenuEvent *event);
     void resizeEvent(QResizeEvent *event);
 
+private slots:
+    void onItemDoubleClicked(const QModelIndex& index);
+
 private:
     void createContextMenu();
     void prepareContextMenu(const SyncError& error);
 
+private:
     QMenu *context_menu_;
 };
 

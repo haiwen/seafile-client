@@ -437,8 +437,13 @@ void RepoTreeView::createActions()
 
     connect(share_repo_to_group_action_, SIGNAL(triggered()), this, SLOT(shareRepoToGroup()));
 
-    // In German translation there is a "seafile" string, so need to use tr("..").arg(..) here
-    open_in_filebrowser_action_ = new QAction(tr("&Open cloud file browser").arg(getBrand()), this);
+    QString open_action_text = tr("&Open cloud file browser");
+    if (open_action_text.contains("%")) {
+        // In German translation there is a "seafile" string, so need to use tr("..").arg(..) here
+        open_action_text = open_action_text.arg(getBrand());
+    }
+
+    open_in_filebrowser_action_ = new QAction(open_action_text, this);
     open_in_filebrowser_action_->setIcon(QIcon(":/images/cloud-gray.png"));
     open_in_filebrowser_action_->setStatusTip(tr("open this library in embedded Cloud File Browser"));
     open_in_filebrowser_action_->setIconVisibleInMenu(true);

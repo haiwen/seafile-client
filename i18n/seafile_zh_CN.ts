@@ -3691,7 +3691,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/sync-errors-dialog.cpp" line="368"/>
         <source>Double click to open the library</source>
-        <translation>双击打开资料资料库</translation>
+        <translation>双击打开资料库</translation>
     </message>
     <message>
         <location filename="../src/ui/sync-errors-dialog.cpp" line="426"/>

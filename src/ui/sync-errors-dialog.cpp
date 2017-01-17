@@ -301,8 +301,12 @@ void SyncErrorsTableModel::updateErrors()
     // fake_error.translateErrorStr();
     // errors.push_back(fake_error);
 
-    beginResetModel();
+    if (errors_ == errors) {
+        return;
+    }
+
     if (errors_.size() != errors.size()) {
+        beginResetModel();
         errors_ = errors;
         endResetModel();
         return;
@@ -318,7 +322,6 @@ void SyncErrorsTableModel::updateErrors()
         QModelIndex stop = QModelIndex().child(i, MAX_COLUMN - 1);
         emit dataChanged(start, stop);
     }
-    endResetModel();
 }
 
 int SyncErrorsTableModel::rowCount(const QModelIndex& parent) const

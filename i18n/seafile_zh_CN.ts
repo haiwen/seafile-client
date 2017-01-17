@@ -2257,12 +2257,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>无法下载 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="973"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="978"/>
         <source>copy failed</source>
         <translation>复制文件失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1071"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1076"/>
         <source>unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -2501,9 +2501,44 @@ The library owner&apos;s storage space is used up.</source>
         <translation>路径 &quot;%1&quot; 与已有资料库冲突</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="421"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="422"/>
         <source>uploading file list</source>
         <translation>上传文件列表</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="57"/>
+        <source>File is locked by another application</source>
+        <translation>文件已经被其他应用程序锁定</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="60"/>
+        <source>Folder is locked by another application</source>
+        <translation>文件夹已经被其他应用程序锁定</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="63"/>
+        <source>File is locked by another user</source>
+        <translation>文件已经被其他用户锁定</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="66"/>
+        <source>Path is invalid</source>
+        <translation>文件路径非法</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="69"/>
+        <source>Error when indexing</source>
+        <translation>索引文件时出错</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="72"/>
+        <source>Path ends with space or period character</source>
+        <translation>文件路径以空格或点号结尾</translation>
+    </message>
+    <message>
+        <location filename="../src/rpc/sync-error.cpp" line="75"/>
+        <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;</source>
+        <translation>文件路径中包含类似 &quot;|&quot; 和 &quot;:&quot; 的非法字符</translation>
     </message>
 </context>
 <context>
@@ -2794,112 +2829,112 @@ The library owner&apos;s storage space is used up.</source>
         <translation>把这个资料库共享给某个群组</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="441"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="440"/>
         <source>&amp;Open cloud file browser</source>
         <translation>打开云端文件浏览器(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="443"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="448"/>
         <source>open this library in embedded Cloud File Browser</source>
         <translation>用内嵌的云端文件浏览器，打开此资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="448"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="453"/>
         <source>&amp;Resync this library</source>
         <translation>重新同步此资料库 (&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="450"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="456"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="455"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="461"/>
         <source>unsync and resync this library</source>
         <translation>解除同步这个资料库 然后重新同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="454"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="459"/>
         <source>Set sync &amp;Interval</source>
         <translation>设置同步间隔 (&amp;I)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="460"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="465"/>
         <source>&amp;Map as a network drive</source>
         <translation>映射为网络驱动器(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="462"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="467"/>
         <source>map as a network drive</source>
         <translation>映射为网络驱动器</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="503"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="508"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="510"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="809"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="515"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="814"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>解除同步资料库 &quot;%1&quot; 失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="730"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="727"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="732"/>
         <source>The download has been canceled</source>
         <translation>下载已取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="798"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="803"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 然后重新同步 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="836"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="841"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="868"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="873"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>无法用文件 &quot;%1&quot; 覆盖自身</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="873"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>您真的想覆盖文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="876"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="881"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="966"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="971"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="997"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1002"/>
         <source>Sync Interval (In seconds):</source>
         <translation>同步间隔 (秒)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="999"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1004"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>设置资料库 “%1” 的同步间隔</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1101"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1106"/>
         <source>No available windows drive letter</source>
         <translation>没有可用的 Windows 盘符</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1110"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1115"/>
         <source>Operation failed: %1</source>
         <translation>操作失败: %1</translation>
     </message>
@@ -3008,16 +3043,16 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="74"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="75"/>
         <source>failed to load ccnet config dir %1</source>
         <translation>加载 ccnet 配置文件夹 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="562"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="582"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="652"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="816"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="881"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="563"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="583"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="653"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="817"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="882"/>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -3025,112 +3060,118 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="161"/>
+        <location filename="../src/ui/tray-icon.cpp" line="163"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="164"/>
+        <location filename="../src/ui/tray-icon.cpp" line="166"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="167"/>
+        <location filename="../src/ui/tray-icon.cpp" line="169"/>
         <source>View unread notifications</source>
         <translation>查看未读通知</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="171"/>
+        <location filename="../src/ui/tray-icon.cpp" line="173"/>
         <source>&amp;Quit</source>
         <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="174"/>
+        <location filename="../src/ui/tray-icon.cpp" line="176"/>
         <source>Show main window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="177"/>
+        <location filename="../src/ui/tray-icon.cpp" line="179"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="180"/>
+        <location filename="../src/ui/tray-icon.cpp" line="182"/>
         <source>Open %1 &amp;folder</source>
         <translation>打开 %1 文件夹(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="181"/>
+        <location filename="../src/ui/tray-icon.cpp" line="183"/>
         <source>open %1 folder</source>
         <translation>打开 %1 文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="184"/>
+        <location filename="../src/ui/tray-icon.cpp" line="186"/>
         <source>Open &amp;logs folder</source>
         <translation>打开日志文件夹(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="188"/>
+        <location filename="../src/ui/tray-icon.cpp" line="190"/>
+        <location filename="../src/ui/tray-icon.cpp" line="191"/>
+        <source>Show file sync errors</source>
+        <translation>查看文件同步错误</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/tray-icon.cpp" line="194"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="189"/>
+        <location filename="../src/ui/tray-icon.cpp" line="195"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="192"/>
+        <location filename="../src/ui/tray-icon.cpp" line="198"/>
         <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="242"/>
+        <location filename="../src/ui/tray-icon.cpp" line="249"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="562"/>
+        <location filename="../src/ui/tray-icon.cpp" line="570"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="568"/>
+        <location filename="../src/ui/tray-icon.cpp" line="576"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="595"/>
+        <location filename="../src/ui/tray-icon.cpp" line="603"/>
         <source>Uploading</source>
         <translation>正在上传</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="596"/>
+        <location filename="../src/ui/tray-icon.cpp" line="604"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="483"/>
+        <location filename="../src/ui/tray-icon.cpp" line="491"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="185"/>
+        <location filename="../src/ui/tray-icon.cpp" line="187"/>
         <source>open %1 log folder</source>
         <translation>打开 %1 日志文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="193"/>
+        <location filename="../src/ui/tray-icon.cpp" line="199"/>
         <source>open %1 online help</source>
         <translation>打开 %1 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="484"/>
+        <location filename="../src/ui/tray-icon.cpp" line="492"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="573"/>
+        <location filename="../src/ui/tray-icon.cpp" line="581"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -3620,6 +3661,57 @@ Do you want to visit the download page?</source>
         <location filename="../src/ui/starred-files-tab.cpp" line="115"/>
         <source>You have no starred files yet.</source>
         <translation>您还没有星标文件。</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsDialog</name>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="56"/>
+        <source>File Sync Errors</source>
+        <translation>文件同步错误</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="125"/>
+        <source>Minimize</source>
+        <translation>最小化</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="132"/>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="192"/>
+        <source>No sync errors.</source>
+        <translation>没有同步错误</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsTableModel</name>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="368"/>
+        <source>Double click to open the library</source>
+        <translation>双击打开资料资料库</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="426"/>
+        <source>Library</source>
+        <translation>资料库</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="428"/>
+        <source>Path</source>
+        <translation>路径</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="430"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/sync-errors-dialog.cpp" line="432"/>
+        <source>Time</source>
+        <translation>时间</translation>
     </message>
 </context>
 <context>

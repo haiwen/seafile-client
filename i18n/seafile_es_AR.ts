@@ -1045,7 +1045,7 @@ falló al subir.</translation>
     <message>
         <location filename="../src/filebrowser/tasks.cpp" line="791"/>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"/>
+        <translation>El espacio de almacenamiento ha sido utilizado en su totalidad</translation>
     </message>
 </context>
 <context>
@@ -1634,7 +1634,7 @@ Fue eliminada del servidor</translation>
     <message>
         <location filename="../src/message-listener.cpp" line="178"/>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Archivos subidos a &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="197"/>
@@ -1666,7 +1666,8 @@ El archivo está bloqueado por otro usuario en el servidor. La actualización de
         <location filename="../src/message-listener.cpp" line="232"/>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al sincronizar %1
+La ruta finaliza en espacio o en punto y no puede ser creada en WIndows.</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="235"/>
@@ -1966,103 +1967,103 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <location filename="../src/rpc/local-repo.cpp" line="260"/>
         <location filename="../src/rpc/clone-task.cpp" line="119"/>
         <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"/>
+        <translation>Permiso denegado en el servidor. Por favor intente resincronizar la biblioteca</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="262"/>
         <location filename="../src/rpc/clone-task.cpp" line="121"/>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>Error de red</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="264"/>
         <location filename="../src/rpc/clone-task.cpp" line="123"/>
         <source>Cannot resolve proxy address</source>
-        <translation type="unfinished"/>
+        <translation>No se puede resolver la dirección del proxy</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="266"/>
         <location filename="../src/rpc/clone-task.cpp" line="125"/>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"/>
+        <translation>No se puede resolver la dirección del servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="268"/>
         <location filename="../src/rpc/clone-task.cpp" line="127"/>
         <source>Cannot connect to server</source>
-        <translation type="unfinished"/>
+        <translation>No se puede conectar al servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="270"/>
         <location filename="../src/rpc/clone-task.cpp" line="129"/>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al intentar establecer una conexión segura. Por favor verifique el certificado SSL del servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="272"/>
         <location filename="../src/rpc/clone-task.cpp" line="131"/>
         <source>Data transfer was interrupted. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>La transferencia de datos fue interrumpida. Por favor verifique la red o el firewall</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="274"/>
         <location filename="../src/rpc/clone-task.cpp" line="133"/>
         <source>Data transfer timed out. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>Se acabó el tiempo de espera para la transferencia de datos. Por favor verifique la red o el firewall</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="276"/>
         <location filename="../src/rpc/clone-task.cpp" line="135"/>
         <source>Unhandled http redirect from server. Please check server cofiguration</source>
-        <translation type="unfinished"/>
+        <translation>Redireccionamiento http inesperado del servidor. Por favor verifique la configuración del servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="278"/>
         <location filename="../src/rpc/clone-task.cpp" line="137"/>
         <source>Server error</source>
-        <translation type="unfinished"/>
+        <translation>Error del servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="280"/>
         <location filename="../src/rpc/clone-task.cpp" line="139"/>
         <source>Bad request</source>
-        <translation type="unfinished"/>
+        <translation>Solicitud incorrecta</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="282"/>
         <location filename="../src/rpc/clone-task.cpp" line="141"/>
         <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation type="unfinished"/>
+        <translation>Datos internos corruptos en el cliente. Por favor intente resincronizar la biblioteca</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="284"/>
         <location filename="../src/rpc/clone-task.cpp" line="143"/>
         <source>Not enough memory</source>
-        <translation type="unfinished"/>
+        <translation>No hay suficiente memoria</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="286"/>
         <location filename="../src/rpc/clone-task.cpp" line="145"/>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al escribir los datos en el cliente. Por favor verifique el espacio en disco y los permisos de las carpetas</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="288"/>
         <location filename="../src/rpc/clone-task.cpp" line="147"/>
         <source>Storage quota full</source>
-        <translation type="unfinished"/>
+        <translation>Espacio de almacenamiento completo</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="292"/>
         <location filename="../src/rpc/clone-task.cpp" line="151"/>
         <source>Library deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>Biblioteca eliminada en el servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="294"/>
         <location filename="../src/rpc/clone-task.cpp" line="153"/>
         <source>Library damaged on server</source>
-        <translation type="unfinished"/>
+        <translation>Biblioteca dañada en el servidor</translation>
     </message>
     <message>
         <location filename="../src/api/api-error.cpp" line="60"/>
@@ -2131,32 +2132,32 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="104"/>
         <source>Failed to index local files</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al indexar archivos locales</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="107"/>
         <source>Failed to check server information</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al verificar la información del servidor</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="109"/>
         <source>Failed to create local files</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al crear archivos locales</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="112"/>
         <source>Failed to merge local file changes</source>
-        <translation type="unfinished"/>
+        <translation>Fallo agregar cambios en el archivo</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="115"/>
         <source>Incorrect password. Please download again</source>
-        <translation type="unfinished"/>
+        <translation>Contraseña incorrecta. Descargue de nuevo</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="117"/>
         <source>Internal error</source>
-        <translation type="unfinished"/>
+        <translation>Error interno</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="156"/>
@@ -2196,7 +2197,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="78"/>
         <source>checking server info...</source>
-        <translation type="unfinished"/>
+        <translation>verificando informacion del servidor...</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="97"/>
@@ -2511,7 +2512,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="421"/>
         <source>uploading file list</source>
-        <translation type="unfinished"/>
+        <translation>subiendo lista de archivos</translation>
     </message>
 </context>
 <context>

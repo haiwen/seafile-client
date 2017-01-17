@@ -1971,7 +1971,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <location filename="../src/rpc/local-repo.cpp" line="262"/>
         <location filename="../src/rpc/clone-task.cpp" line="121"/>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>Netzwerkfehler</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="264"/>
@@ -2155,7 +2155,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="117"/>
         <source>Internal error</source>
-        <translation type="unfinished"/>
+        <translation>Interner Fehler</translation>
     </message>
     <message>
         <location filename="../src/rpc/clone-task.cpp" line="156"/>
@@ -2510,7 +2510,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <location filename="../src/rpc/rpc-client.cpp" line="421"/>
         <source>uploading file list</source>
-        <translation type="unfinished"/>
+        <translation>Dateiliste wird hochgeladen</translation>
     </message>
 </context>
 <context>

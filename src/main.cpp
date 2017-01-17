@@ -140,16 +140,18 @@ int main(int argc, char *argv[])
     // Apply hidpi support
     setupHIDPIFix();
 
+#if defined(Q_OS_WIN32)
+    // change the current directory
+    QDir::setCurrent(QApplication::applicationDirPath());
+    QCoreApplication::addLibraryPath("./");
+#endif
+
     // TODO imple if we have to restart the application
     // the manual at http://qt-project.org/wiki/ApplicationRestart
 #if defined(Q_OS_MAC)
     Application app(argc, argv);
 #else
     QApplication app(argc, argv);
-#endif
-#if defined(Q_OS_WIN32)
-    // change the current directory
-    QDir::setCurrent(QApplication::applicationDirPath());
 #endif
 
     // don't quit even if the last windows is closed

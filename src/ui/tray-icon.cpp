@@ -31,6 +31,7 @@ extern "C" {
 #include "seahub-notifications-monitor.h"
 #include "server-status-service.h"
 #include "api/commit-details.h"
+#include "sync-errors-dialog.h"
 
 #include "tray-icon.h"
 #if defined(Q_OS_MAC)
@@ -112,7 +113,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       nth_trayicon_(0),
       rotate_counter_(0),
       state_(STATE_DAEMON_UP),
-      next_message_msec_(0)
+      next_message_msec_(0),
+      sync_errors_dialog_(nullptr)
 {
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
@@ -185,6 +187,10 @@ void SeafileTrayIcon::createActions()
     open_log_directory_action_->setStatusTip(tr("open %1 log folder").arg(getBrand()));
     connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
 
+    show_sync_errors_action_ = new QAction(tr("Show file sync errors"), this);
+    show_sync_errors_action_->setStatusTip(tr("Show file sync errors"));
+    connect(show_sync_errors_action_, SIGNAL(triggered()), this, SLOT(showSyncErrorsDialog()));
+
     about_action_ = new QAction(tr("&About"), this);
     about_action_->setStatusTip(tr("Show the application's About box"));
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
@@ -206,6 +212,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(open_seafile_folder_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
+    context_menu_->addAction(show_sync_errors_action_);
     // context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
     context_menu_->addAction(about_action_);
@@ -245,6 +252,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     global_menu_->addAction(open_seafile_folder_action_);
     global_menu_->addAction(settings_action_);
     global_menu_->addAction(open_log_directory_action_);
+    global_menu_->addAction(show_sync_errors_action_);
     global_menu_->addSeparator();
     global_menu_->addAction(enable_auto_sync_action_);
     global_menu_->addAction(disable_auto_sync_action_);
@@ -652,4 +660,18 @@ void SeafileTrayIcon::checkTrayIconMessageQueue()
     repo_id_ = msg.repo_id;
     commit_id_ = msg.commit_id;
     next_message_msec_ = now + kMessageDisplayTimeMSecs;
+}
+
+
+void SeafileTrayIcon::showSyncErrorsDialog()
+{
+    // CloneTasksDialog dialog(this);
+    if (sync_errors_dialog_ == nullptr) {
+        sync_errors_dialog_ = new SyncErrorsDialog;
+    }
+
+    sync_errors_dialog_->updateErrors();
+    sync_errors_dialog_->show();
+    sync_errors_dialog_->raise();
+    sync_errors_dialog_->activateWindow();
 }

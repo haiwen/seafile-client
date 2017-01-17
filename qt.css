@@ -618,3 +618,74 @@ SharedItemsTableView QHeaderView::section {
     padding-top: 10px;
     font-family: Arial;
 }
+
+SyncErrorsDialog {
+    margin: 0;
+    min-width: 700px;
+    min-height: 300px;
+}
+
+SyncErrorsDialog QSizeGrip {
+    margin-right: 2px;
+}
+
+SyncErrorsDialog QWidget#mainWidget {
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
+SyncErrorsDialog QWidget#mHeader {
+    min-height: 25px;
+    max-height: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    /* border: 1px solid red; */
+}
+
+SyncErrorsDialog QWidget#mHeader QLabel {
+    padding-left: 60px;
+    margin-left: 4px;
+}
+
+SyncErrorsDialog QWidget#mHeader QPushButton {
+    margin-left: 4px;
+}
+
+
+SyncErrorsTableView {
+    border: 0;
+    margin: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: white;
+    qproperty-focusPolicy: NoFocus;
+}
+
+SyncErrorsTableView QHeaderView::section {
+    border: 0;
+    padding: 8px;
+    padding-left: 5px;
+    outline: 0px;
+    color: #b3b3b3;
+    background-color: white;
+    font-size: 12px;
+    padding-top: 20px;
+}
+
+SyncErrorsTableView::item {
+    padding-top: 5px;
+    padding-left: 0px;
+    border-top: 1px solid #e0e0e0;
+}
+
+SyncErrorsTableView::item :last {
+    padding-right: 13px;
+}
+
+SyncErrorsTableView::item:selected {
+    background-color: #F9E0C7;
+}

@@ -20,6 +20,7 @@ extern "C" {
 #include "utils/utils.h"
 #include "local-repo.h"
 #include "clone-task.h"
+#include "sync-error.h"
 #include "api/commit-details.h"
 #include "rpc-client.h"
 
@@ -1033,5 +1034,26 @@ bool SeafileRpcClient::getCommitDiff(const QString& repo_id,
 
     g_list_foreach (objlist, (GFunc)g_object_unref, NULL);
     g_list_free (objlist);
+    return true;
+}
+
+bool SeafileRpcClient::getSyncErrors(std::vector<SyncError> *errors, int offset, int limit)
+{
+    GError *error = NULL;
+    GList *objlist = searpc_client_call__objlist(
+        seafile_rpc_client_,
+        "seafile_get_file_sync_errors",
+        SEAFILE_TYPE_FILE_SYNC_ERROR,
+        &error, 2, "int", offset, "int", limit);
+
+
+    for (GList *ptr = objlist; ptr; ptr = ptr->next) {
+        SyncError error = SyncError::fromGObject((GObject *)ptr->data);
+        errors->push_back(error);
+    }
+
+    g_list_foreach (objlist, (GFunc)g_object_unref, NULL);
+    g_list_free (objlist);
+
     return true;
 }

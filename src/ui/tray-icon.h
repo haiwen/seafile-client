@@ -12,6 +12,8 @@ class QMenuBar;
 class TrayNotificationManager;
 #endif
 
+class SyncErrorsDialog;
+
 class SeafileTrayIcon : public QSystemTrayIcon {
     Q_OBJECT
 
@@ -68,6 +70,8 @@ private slots:
     // only used on windows
     void onMessageClicked();
 
+    void showSyncErrorsDialog();
+
 private:
     Q_DISABLE_COPY(SeafileTrayIcon)
 
@@ -92,6 +96,7 @@ private:
     QAction *settings_action_;
     QAction *open_seafile_folder_action_;
     QAction *open_log_directory_action_;
+    QAction *show_sync_errors_action_;
     QAction *view_unread_seahub_notifications_action_;
 
     QAction *about_action_;
@@ -128,6 +133,8 @@ private:
     // displayed at least several seconds.
     QQueue<TrayMessage> pending_messages_;
     qint64 next_message_msec_;
+
+    SyncErrorsDialog *sync_errors_dialog_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

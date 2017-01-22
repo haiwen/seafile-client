@@ -64,7 +64,7 @@ void setupHIDPIFix()
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0) && !defined(Q_OS_MAC)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0) && defined(Q_OS_WIN)
     // Enable HDPI auto detection.
     // See http://blog.qt.io/blog/2016/01/26/high-dpi-support-in-qt-5-6/
     qApp->setAttribute(Qt::AA_EnableHighDpiScaling);

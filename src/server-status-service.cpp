@@ -49,7 +49,7 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
         }
 
         if (!statuses_.contains(url.host())) {
-            statuses_[url.host()] = ServerStatus(url, false);
+            statuses_[url.host()] = ServerStatus(url, true);
         }
 
         if (only_refresh_unconnected && isServerConnected(url)) {

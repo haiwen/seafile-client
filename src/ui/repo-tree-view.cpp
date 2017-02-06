@@ -393,7 +393,7 @@ void RepoTreeView::createActions()
     cancel_download_action_->setIconVisibleInMenu(true);
     connect(cancel_download_action_, SIGNAL(triggered()), this, SLOT(cancelDownload()));
 
-    open_local_folder_action_ = new QAction(tr("&Open folder"), this);
+    open_local_folder_action_ = new QAction(tr("&Open local folder"), this);
     open_local_folder_action_->setIcon(QIcon(":/images/toolbar/file-gray.png"));
     open_local_folder_action_->setStatusTip(tr("open local folder"));
     open_local_folder_action_->setIconVisibleInMenu(true);

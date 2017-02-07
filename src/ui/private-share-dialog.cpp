@@ -608,7 +608,6 @@ void PrivateShareDialog::onShareSuccess()
     model_->shareOperationSuccess();
     // enableInputs();
     // mStatusText->setText(tr("Shared successfully"));
-    getExistingShardItems();
 }
 
 void PrivateShareDialog::onShareFailed(const ApiError& error)
@@ -851,7 +850,7 @@ void SharedItemsTableModel::addNewShareInfo(UserShareInfo newinfo)
 {
     previous_user_shares_ = user_shares_;
     beginResetModel();
-    bool exists;
+    bool exists = false;
     for (int i = 0; i < user_shares_.size(); i++) {
         UserShareInfo& info = user_shares_[i];
         if (info.user.email == newinfo.user.email) {
@@ -869,7 +868,7 @@ void SharedItemsTableModel::addNewShareInfo(GroupShareInfo newinfo)
 {
     previous_group_shares_ = group_shares_;
     beginResetModel();
-    bool exists;
+    bool exists = false;
     for (int i = 0; i < group_shares_.size(); i++) {
         GroupShareInfo& info = group_shares_[i];
         if (info.group.id == newinfo.group.id) {

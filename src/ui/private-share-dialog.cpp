@@ -1033,6 +1033,10 @@ QWidget* SharedItemDelegate::createEditor(QWidget* parent,
     combobox->addItem(tr("Read Only"));
     combobox->insertSeparator(2);
     combobox->addItem(tr("Remove Share"));
+
+    connect(combobox, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(oncurrentIndexChanged()));
+
     return combobox;
 }
 
@@ -1133,4 +1137,10 @@ void SharedItemDelegate::paint(QPainter* painter,
         painter->fillPath(path, QBrush(kItemColor));
         painter->restore();
     }
+}
+
+void SharedItemDelegate::oncurrentIndexChanged()
+{
+    QComboBox* combobox = static_cast<QComboBox*>(sender());
+    emit commitData(combobox);
 }

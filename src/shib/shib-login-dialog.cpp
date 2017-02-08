@@ -10,6 +10,7 @@
 #endif
 #include <QVBoxLayout>
 #include <QList>
+#include <QLineEdit>
 #include <QSslError>
 #include <QNetworkReply>
 #include <QNetworkCookie>
@@ -41,6 +42,12 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
 
     QVBoxLayout *vlayout = new QVBoxLayout();
     setLayout(vlayout);
+
+    QLineEdit *address_text_ = new QLineEdit;
+    address_text_->setObjectName("addressText");
+    address_text_->setText(url.toString());
+    address_text_->setReadOnly(true);
+    vlayout->addWidget(address_text_);
 
 #if defined(SEAFILE_USE_WEBKIT)
     webview_ = new QWebView;

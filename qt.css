@@ -282,6 +282,14 @@ LoginDialog QLabel#hint_3
     color: #555;
 }
 
+ShibLoginDialog QLineEdit#addressText {
+    min-height: 25px;
+    margin: 0px;
+    padding: 0 4px;
+    border: 1px solid #BCBCBE;
+    border-radius: 3px;
+}
+
 SslConfirmDialog {
     min-width: 400px;
     min-height: 200px;

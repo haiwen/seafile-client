@@ -17,6 +17,7 @@ class QWebEngineView;
 
 class QSslError;
 class QNetworkReply;
+class QLineEdit;
 
 /**
  * Login with Shibboleth SSO.
@@ -36,6 +37,7 @@ private slots:
     void sslErrorHandler(QNetworkReply* reply, const QList<QSslError> & ssl_errors);
     void onNewCookieCreated(const QUrl& url, const QNetworkCookie& cookie);
     void onWebEngineCookieAdded(const QNetworkCookie& cookie);
+    void updateAddressBar(const QUrl& url);
 
 private:
     Account parseAccount(const QString& txt);
@@ -46,6 +48,7 @@ private:
     QWebEngineView *webview_;
 #endif
     QUrl url_;
+    QLineEdit *address_text_;
     bool cookie_seen_;
 };
 

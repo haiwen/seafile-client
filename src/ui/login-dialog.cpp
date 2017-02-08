@@ -27,6 +27,7 @@ const char *kDefaultServerAddr1 = "https://seacloud.cc";
 const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
+const char *const kPreconfigureShibbolethLoginUrl = "PreconfigureShibbolethLoginUrl";
 
 const char *const kSeafileOTPHeader = "X-Seafile-OTP";
 
@@ -338,12 +339,34 @@ void LoginDialog::showWarning(const QString& msg)
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 void LoginDialog::loginWithShib()
 {
-    QString serverAddr = seafApplet->settingsManager()->getLastShibUrl();
-    serverAddr = QInputDialog::getText(this, tr("Shibboleth Login"),
-                                       tr("%1 Server Address").arg(getBrand()),
-                                       QLineEdit::Normal,
-                                       serverAddr);
-    serverAddr = serverAddr.trimmed();
+    QString serverAddr =
+        seafApplet->readPreconfigureEntry(kPreconfigureShibbolethLoginUrl)
+            .toString()
+            .trimmed();
+    if (!serverAddr.isEmpty()) {
+        if (QUrl(serverAddr).isValid()) {
+            qWarning("Using preconfigured shibboleth login url: %s\n",
+                     toCStr(serverAddr));
+        } else {
+            qWarning("Invalid preconfigured shibboleth login url: %s\n",
+                     toCStr(serverAddr));
+            serverAddr = "";
+        }
+    }
+
+    if (serverAddr.isEmpty()) {
+        // When we reach here, there is no preconfigured shibboleth login url,
+        // or the preconfigured url is invalid. So we ask the user for the url.
+        QString serverAddr = seafApplet->settingsManager()->getLastShibUrl();
+        serverAddr =
+            QInputDialog::getText(this,
+                                  tr("Shibboleth Login"),
+                                  tr("%1 Server Address").arg(getBrand()),
+                                  QLineEdit::Normal,
+                                  serverAddr);
+        serverAddr = serverAddr.trimmed();
+    }
+
     if (serverAddr.isEmpty()) {
         return;
     }

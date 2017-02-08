@@ -141,9 +141,14 @@ int main(int argc, char *argv[])
     setupHIDPIFix();
 
 #if defined(Q_OS_WIN32)
-    // change the current directory
-    QDir::setCurrent(QApplication::applicationDirPath());
-    QCoreApplication::addLibraryPath("./");
+    // When the user start seafile applet from the windows "Start" menu, the
+    // working directory is set to the parent folder of the seafile-applet.exe.
+    // See https://github.com/haiwen/seafile/blob/v6.0.1/msi/seafile.wxs#L60
+    //
+    // Sometimes the seafile-applet program would abort with error messgages
+    // "can't find qt plugin windows dll". So here we add current directory to
+    // the library path, hopefully fixing that problem.
+    QCoreApplication::addLibraryPath(".\\");
 #endif
 
     // TODO imple if we have to restart the application

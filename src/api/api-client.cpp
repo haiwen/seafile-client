@@ -59,10 +59,17 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
 
 QNetworkAccessManager* SeafileApiClient::getQNAM()
 {
-    if (na_mgr_->networkAccessible() != QNetworkAccessManager::Accessible) {
-        na_mgr_->deleteLater();
-        na_mgr_ = createQNAM();
-    }
+    // TODO(lins05): The following code is meant to fix the problem of computer
+    // network disconnectied and reconnected-again, e.g. after computer resuming
+    // from sleep. But while it introduced several bugs, so we comment it out
+    // for 6.0.3 release, and hopefully find a better solution to the network
+    // disconnection problem in the future.
+
+    // if (na_mgr_->networkAccessible() != QNetworkAccessManager::Accessible) {
+    //     na_mgr_->deleteLater();
+    //     na_mgr_ = createQNAM();
+    // }
+    //
     return na_mgr_;
 }
 

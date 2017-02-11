@@ -353,12 +353,16 @@ QNetworkAccessManager *FileServerTask::getQNAM()
 {
     QMutexLocker lock(&network_mgr_lock_);
 
-    if (!network_mgr_ ||
-        network_mgr_->networkAccessible() !=
-            QNetworkAccessManager::Accessible) {
-        if (network_mgr_) {
-            network_mgr_->deleteLater();
-        }
+    // if (!network_mgr_ ||
+    //     network_mgr_->networkAccessible() !=
+    //         QNetworkAccessManager::Accessible) {
+    //     if (network_mgr_) {
+    //         network_mgr_->deleteLater();
+    //     }
+    //     network_mgr_ = createQNAM();
+    // }
+
+    if (!network_mgr_) {
         network_mgr_ = createQNAM();
     }
 

@@ -2410,12 +2410,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&lt;不包含这部分信息&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="179"/>
+        <location filename="../src/main.cpp" line="181"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>发现另外一个 %1 进程，杀死它并启动新进程？</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="199"/>
+        <location filename="../src/main.cpp" line="201"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>无法启动 %1 因为无法关闭旧的进程</translation>
     </message>
@@ -2777,7 +2777,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>取消下载这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="402"/>
         <source>&amp;Open folder</source>
         <translation>打开文件夹(&amp;O)</translation>
@@ -2787,6 +2786,11 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-tree-view.cpp" line="404"/>
         <source>open local folder</source>
         <translation>打开本地文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="396"/>
+        <source>&amp;Open local folder</source>
+        <translation>打开本地文件夹(&amp;O)</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="408"/>

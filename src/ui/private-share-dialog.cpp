@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QStringListModel>
 #include <QDateTime>
+#include <QScrollBar>
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "private-share-dialog.h"
@@ -667,6 +668,7 @@ SharedItemsTableView::SharedItemsTableView(QWidget* parent)
     setContentsMargins(0, 5, 0, 5);
     // setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    horizontalScrollBar()->close();
 }
 
 void SharedItemsTableView::setModel(QAbstractItemModel* model)

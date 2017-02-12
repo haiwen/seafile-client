@@ -343,6 +343,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
         info.group = groups_[request_->groupId()];
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
+        table_->setCurrentIndex(model_->index(model_->shareRow(info.group.id), 0));
     }
     else {
         UserShareInfo info;
@@ -352,6 +353,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
         }
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
+        table_->setCurrentIndex(model_->index(model_->shareRow(info.user.email), 0));
     }
     model_->shareOperationSuccess();
     // enableInputs();
@@ -1017,6 +1019,26 @@ void SharedItemsTableModel::shareOperationFailed(
         user_shares_ = previous_user_shares_;
     }
     endResetModel();
+}
+
+unsigned int SharedItemsTableModel::shareRow(int group_id) const
+{
+    for (int i = 0; i < group_shares_.size(); i++) {
+        if (group_shares_[i].group.id == group_id) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+unsigned int SharedItemsTableModel::shareRow(const QString& email) const
+{
+    for (int i = 0; i < user_shares_.size(); i++) {
+        if (user_shares_[i].user.email == email) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 SharedItemDelegate::SharedItemDelegate(QObject* parent)

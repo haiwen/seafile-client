@@ -244,7 +244,7 @@ SeafileApplet::SeafileApplet()
 
 SeafileApplet::~SeafileApplet()
 {
-    // delete NetworkStatusDetector::instance();
+    NetworkStatusDetector::instance()->stop();
 
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     finderSyncListenerStop();
@@ -322,7 +322,7 @@ void SeafileApplet::onDaemonStarted()
     //
     // start network-related services
     //
-    // NetworkStatusDetector::instance()->start();
+    NetworkStatusDetector::instance()->start();
     FileCacheDB::instance()->start();
     AutoUpdateManager::instance()->start();
 

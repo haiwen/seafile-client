@@ -6,9 +6,6 @@
 #include <QSslSocket>
 #include <QSslCipher>
 #include <QTimer>
-#include <QThread>
-#include <QApplication>
-#include <QNetworkConfigurationManager>
 
 #include "utils/utils-mac.h"
 #include "api/api-client.h"
@@ -16,7 +13,7 @@
 
 namespace {
 
-const int kCheckNetworkStatusIntervalMSecs = 10000; // 10s
+const int kCheckNetworkStatusIntervalMSecs = 33000; // 33s
 
 QNetworkProxy proxy_;
 
@@ -179,97 +176,35 @@ void NetworkManager::onCleanup()
 SINGLETON_IMPL(NetworkStatusDetector)
 
 NetworkStatusDetector::NetworkStatusDetector() {
-    last_connected_ = true;
+    has_network_failure_ = false;
 
     check_timer_ = new QTimer(this);
-
-    worker_thread_ = new QThread;
-    NetworkCheckWorker *worker = new NetworkCheckWorker;
-    worker->moveToThread(worker_thread_);
-
-    connect(worker_thread_, &QThread::finished, worker, &QObject::deleteLater);
-    connect(check_timer_, &QTimer::timeout, worker, &NetworkCheckWorker::check);
-    connect(worker, &NetworkCheckWorker::resultReady, this, &NetworkStatusDetector::handleResults);
+    connect(check_timer_, &QTimer::timeout, this, &NetworkStatusDetector::detect);
 }
 
 NetworkStatusDetector::~NetworkStatusDetector() {
-    stop();
 }
 
 void NetworkStatusDetector::start() {
     qWarning("Starting the network status detector");
-    worker_thread_->start();
     check_timer_->start(kCheckNetworkStatusIntervalMSecs);
 }
 
 void NetworkStatusDetector::stop() {
     check_timer_->stop();
-    worker_thread_->quit();
-    worker_thread_->wait();
 }
 
-
-void NetworkStatusDetector::handleResults(bool connected)
-{
-    qDebug("current network status is: %s", connected ? "connected" : "disconnected");
-    if (last_connected_ == connected) {
-        return;
-    }
-
-    if (last_connected_ && !connected) {
-        qWarning("[network check] network is disconnected");
-    } else if (!last_connected_ && connected) {
-        qWarning("[network check] network is connected again, resetting qt network access manager");
+void NetworkStatusDetector::detect() {
+    if (has_network_failure_) {
+        qWarning("[network detector] resetting the qt network access manager");
         SeafileApiClient::resetQNAM();
+        has_network_failure_ = false;
     }
-
-    last_connected_ = connected;
 }
 
-NetworkCheckWorker::NetworkCheckWorker()
-{
-    qnam_ = nullptr;
-    reset();
-}
-
-NetworkCheckWorker::~NetworkCheckWorker() {
-    if (qnam_) {
-        qnam_->deleteLater();
+void NetworkStatusDetector::setNetworkFailure() {
+    if (!has_network_failure_) {
+        qWarning("[network detected] got a network failure");
+        has_network_failure_ = true;
     }
-    qnam_ = nullptr;
-}
-
-void NetworkCheckWorker::reset()
-{
-    if (qnam_) {
-        qnam_->deleteLater();
-    }
-    qnam_ = new QNetworkAccessManager(this);
-
-    // TODO: do we need to add this qnam to watch? Note: NetworkManager::instance belongs to the main thread?
-    // NetworkManager::instance()->addWatch(qnam_);
-
-    // From: http://www.qtcentre.org/threads/37514-use-of-QNetworkAccessManager-networkAccessible
-    //
-    // QNetworkAccessManager::networkAccessible is not explicitly set when the
-    // QNetworkAccessManager is created. It is only set after the network
-    // session is initialized. The session is initialized automatically when you
-    // make a network request or you can initialize it before hand with
-    // QNetworkAccessManager::setConfiguration() or the
-    // QNetworkConfigurationManager::NetworkSessionRequired flag is set.
-    QNetworkConfigurationManager manager;
-    qnam_->setConfiguration(manager.defaultConfiguration());
-}
-
-void NetworkCheckWorker::check()
-{
-    if (!qnam_) {
-        return;
-    }
-
-    bool connected = qnam_->networkAccessible() == QNetworkAccessManager::Accessible;
-    if (!connected) {
-        reset();
-    }
-    emit resultReady(connected);
 }

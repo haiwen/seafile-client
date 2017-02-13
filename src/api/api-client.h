@@ -30,7 +30,7 @@ public:
 
     const QNetworkReply* reply() const { return reply_; }
 
-    static QNetworkAccessManager *na_mgr_;
+    static QNetworkAccessManager *qnam_;
     static void resetQNAM();
 
 signals:

@@ -3,6 +3,7 @@
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
+#include <QNetworkConfigurationManager>
 
 #include "seafile-applet.h"
 #include "customization-service.h"
@@ -35,18 +36,34 @@ QString getQueryValue(const QUrl& url, const QString& name)
     return QUrl::fromPercentEncoding(v.toUtf8());
 }
 
-QNetworkAccessManager *createQNAM(bool configure_cache=true) {
+QNetworkAccessManager *createQNAM() {
     QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
     NetworkManager::instance()->addWatch(manager);
-    if (configure_cache) {
-        manager->setCache(CustomizationService::instance()->diskCache());
-    }
+    manager->setCache(CustomizationService::instance()->diskCache());
+
+    // From: http://www.qtcentre.org/threads/37514-use-of-QNetworkAccessManager-networkAccessible
+    //
+    // QNetworkAccessManager::networkAccessible is not explicitly set when the
+    // QNetworkAccessManager is created. It is only set after the network
+    // session is initialized. The session is initialized automatically when you
+    // make a network request or you can initialize it before hand with
+    // QNetworkAccessManager::setConfiguration() or the
+    // QNetworkConfigurationManager::NetworkSessionRequired flag is set.
+    manager->setConfiguration(
+        QNetworkConfigurationManager().defaultConfiguration());
     return manager;
 }
 
 } // namespace
 
-QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
+QNetworkAccessManager* SeafileApiClient::qnam_ = nullptr;
+void SeafileApiClient::resetQNAM()
+{
+    if (qnam_) {
+        qnam_->deleteLater();
+    }
+    qnam_ = createQNAM();
+}
 
 SeafileApiClient::SeafileApiClient(QObject *parent)
     : QObject(parent),
@@ -54,15 +71,9 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
       redirect_count_(0),
       use_cache_(false)
 {
-    if (!na_mgr_) {
-        na_mgr_ = createQNAM();
+    if (!qnam_) {
+        qnam_ = createQNAM();
     }
-}
-
-void SeafileApiClient::resetQNAM()
-{
-    na_mgr_->deleteLater();
-    na_mgr_ = createQNAM();
 }
 
 SeafileApiClient::~SeafileApiClient()
@@ -96,7 +107,7 @@ void SeafileApiClient::get(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = na_mgr_->get(request);
+    reply_ = qnam_->get(request);
     // By default the parent object of the reply instance would be the
     // QNetworkAccessManager, and we delete the reply in our destructor. But now
     // we may recreate the QNetworkAccessManager when the connection status is
@@ -120,9 +131,9 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
     if (is_put)
-        reply_ = na_mgr_->put(request, body_);
+        reply_ = qnam_->put(request, body_);
     else
-        reply_ = na_mgr_->post(request, body_);
+        reply_ = qnam_->post(request, body_);
 
     reply_->setParent(this);
 
@@ -137,7 +148,7 @@ void SeafileApiClient::deleteResource(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = na_mgr_->deleteResource(request);
+    reply_ = qnam_->deleteResource(request);
     reply_->setParent(this);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
@@ -224,6 +235,9 @@ void SeafileApiClient::httpRequestFinished()
             resendRequest(reply_->url());
             return;
         }
+
+        NetworkStatusDetector::instance()->setNetworkFailure();
+
         if (!shouldIgnoreRequestError(reply_)) {
             qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
                    reply_->errorString().toUtf8().data());
@@ -330,4 +344,3 @@ void SeafileApiClient::setHeader(const QString& key, const QString& value)
 {
     headers_[key] = value;
 }
-

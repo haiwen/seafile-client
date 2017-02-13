@@ -36,6 +36,7 @@
 #include "filebrowser/data-cache.h"
 #include "filebrowser/auto-update-mgr.h"
 #include "rpc/local-repo.h"
+#include "network-mgr.h"
 #include "server-status-service.h"
 #include "account-info-service.h"
 #include "customization-service.h"
@@ -243,6 +244,8 @@ SeafileApplet::SeafileApplet()
 
 SeafileApplet::~SeafileApplet()
 {
+    // delete NetworkStatusDetector::instance();
+
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     finderSyncListenerStop();
 #endif
@@ -252,6 +255,7 @@ SeafileApplet::~SeafileApplet()
     delete message_listener_;
     delete rpc_client_;
     delete daemon_mgr_;
+
     delete account_mgr_;
     delete configurator_;
     if (main_win_)
@@ -318,6 +322,7 @@ void SeafileApplet::onDaemonStarted()
     //
     // start network-related services
     //
+    // NetworkStatusDetector::instance()->start();
     FileCacheDB::instance()->start();
     AutoUpdateManager::instance()->start();
 

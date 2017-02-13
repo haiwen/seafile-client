@@ -35,10 +35,12 @@ QString getQueryValue(const QUrl& url, const QString& name)
     return QUrl::fromPercentEncoding(v.toUtf8());
 }
 
-QNetworkAccessManager *createQNAM() {
+QNetworkAccessManager *createQNAM(bool configure_cache=true) {
     QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
     NetworkManager::instance()->addWatch(manager);
-    manager->setCache(CustomizationService::instance()->diskCache());
+    if (configure_cache) {
+        manager->setCache(CustomizationService::instance()->diskCache());
+    }
     return manager;
 }
 
@@ -57,20 +59,10 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
     }
 }
 
-QNetworkAccessManager* SeafileApiClient::getQNAM()
+void SeafileApiClient::resetQNAM()
 {
-    // TODO(lins05): The following code is meant to fix the problem of computer
-    // network disconnectied and reconnected-again, e.g. after computer resuming
-    // from sleep. But while it introduced several bugs, so we comment it out
-    // for 6.0.3 release, and hopefully find a better solution to the network
-    // disconnection problem in the future.
-
-    // if (na_mgr_->networkAccessible() != QNetworkAccessManager::Accessible) {
-    //     na_mgr_->deleteLater();
-    //     na_mgr_ = createQNAM();
-    // }
-    //
-    return na_mgr_;
+    na_mgr_->deleteLater();
+    na_mgr_ = createQNAM();
 }
 
 SeafileApiClient::~SeafileApiClient()
@@ -104,7 +96,7 @@ void SeafileApiClient::get(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = getQNAM()->get(request);
+    reply_ = na_mgr_->get(request);
     // By default the parent object of the reply instance would be the
     // QNetworkAccessManager, and we delete the reply in our destructor. But now
     // we may recreate the QNetworkAccessManager when the connection status is
@@ -128,9 +120,9 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
     if (is_put)
-        reply_ = getQNAM()->put(request, body_);
+        reply_ = na_mgr_->put(request, body_);
     else
-        reply_ = getQNAM()->post(request, body_);
+        reply_ = na_mgr_->post(request, body_);
 
     reply_->setParent(this);
 
@@ -145,7 +137,7 @@ void SeafileApiClient::deleteResource(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = getQNAM()->deleteResource(request);
+    reply_ = na_mgr_->deleteResource(request);
     reply_->setParent(this);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
@@ -338,3 +330,4 @@ void SeafileApiClient::setHeader(const QString& key, const QString& value)
 {
     headers_[key] = value;
 }
+

@@ -357,13 +357,13 @@ void LoginDialog::loginWithShib()
     if (serverAddr.isEmpty()) {
         // When we reach here, there is no preconfigured shibboleth login url,
         // or the preconfigured url is invalid. So we ask the user for the url.
-        QString serverAddr = seafApplet->settingsManager()->getLastShibUrl();
+        QString lastUsedShibUrl = seafApplet->settingsManager()->getLastShibUrl();
         serverAddr =
             QInputDialog::getText(this,
                                   tr("Shibboleth Login"),
                                   tr("%1 Server Address").arg(getBrand()),
                                   QLineEdit::Normal,
-                                  serverAddr);
+                                  lastUsedShibUrl);
         serverAddr = serverAddr.trimmed();
     }
 

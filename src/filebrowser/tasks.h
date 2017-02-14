@@ -270,6 +270,8 @@ public:
     int httpErrorCode() const { return http_error_code_; }
     const QString& oid() const { return oid_; }
 
+    static void resetQNAM();
+
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
     void finished(bool success);
@@ -301,6 +303,7 @@ protected:
     void setError(FileNetworkTask::TaskError error, const QString& error_string);
     void setHttpError(int code);
 
+    static bool should_reset_qnam_;
     static QMutex network_mgr_lock_;
     static QNetworkAccessManager *network_mgr_;
 

@@ -66,6 +66,7 @@ public:
     void start();
     void stop();
     void setNetworkFailure();
+    void setNetworkSuccess();
 
 public slots:
     void detect();

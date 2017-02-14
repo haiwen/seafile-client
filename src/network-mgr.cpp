@@ -9,6 +9,7 @@
 
 #include "utils/utils-mac.h"
 #include "api/api-client.h"
+#include "filebrowser/tasks.h"
 #include "network-mgr.h"
 
 namespace {
@@ -198,13 +199,22 @@ void NetworkStatusDetector::detect() {
     if (has_network_failure_) {
         qWarning("[network detector] resetting the qt network access manager");
         SeafileApiClient::resetQNAM();
+        FileServerTask::resetQNAM();
         has_network_failure_ = false;
     }
 }
 
 void NetworkStatusDetector::setNetworkFailure() {
     if (!has_network_failure_) {
-        qWarning("[network detected] got a network failure");
+        qWarning("[network detector] got a network failure");
         has_network_failure_ = true;
     }
+}
+
+void NetworkStatusDetector::setNetworkSuccess() {
+    // TODO: what if the successful requests are for a local server?
+    // if (has_network_failure_) {
+    //     qDebug("[network detector] got a network success");
+    //     has_network_failure_ = false;
+    // }
 }

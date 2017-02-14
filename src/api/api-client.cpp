@@ -245,6 +245,7 @@ void SeafileApiClient::httpRequestFinished()
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
+    NetworkStatusDetector::instance()->setNetworkSuccess();
 
     if (handleHttpRedirect()) {
         return;

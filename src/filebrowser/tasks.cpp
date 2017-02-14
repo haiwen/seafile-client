@@ -14,6 +14,7 @@
 #include <QTimer>
 #include <QApplication>
 #include <QMutexLocker>
+#include <QNetworkConfigurationManager>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -38,8 +39,10 @@ const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 const int kMaxRedirects = 3;
 
 QNetworkAccessManager *createQNAM() {
-    QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
+    QNetworkAccessManager *manager = new QNetworkAccessManager;
     NetworkManager::instance()->addWatch(manager);
+    manager->setConfiguration(
+        QNetworkConfigurationManager().defaultConfiguration());
     return manager;
 }
 
@@ -335,6 +338,7 @@ void FileUploadDirectoryTask::onCreateDirFailed(const ApiError &error)
 
 QNetworkAccessManager* FileServerTask::network_mgr_;
 QMutex FileServerTask::network_mgr_lock_;
+bool FileServerTask::should_reset_qnam_ = false;
 
 FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
     : url_(url),
@@ -349,21 +353,22 @@ FileServerTask::~FileServerTask()
 {
 }
 
+void FileServerTask::resetQNAM()
+{
+    QMutexLocker lock(&network_mgr_lock_);
+    should_reset_qnam_ = true;
+}
+
 QNetworkAccessManager *FileServerTask::getQNAM()
 {
     QMutexLocker lock(&network_mgr_lock_);
 
-    // if (!network_mgr_ ||
-    //     network_mgr_->networkAccessible() !=
-    //         QNetworkAccessManager::Accessible) {
-    //     if (network_mgr_) {
-    //         network_mgr_->deleteLater();
-    //     }
-    //     network_mgr_ = createQNAM();
-    // }
-
     if (!network_mgr_) {
         network_mgr_ = createQNAM();
+    } else if (should_reset_qnam_) {
+        network_mgr_->deleteLater();
+        network_mgr_ = createQNAM();
+        should_reset_qnam_ = false;
     }
 
     return network_mgr_;

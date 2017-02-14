@@ -1,10 +1,16 @@
 #ifndef SEAFILE_CLIENT_NETWORK_MANAGER_H
 #define SEAFILE_CLIENT_NETWORK_MANAGER_H
+
 #include <QObject>
 #include <vector>
 #include <QNetworkReply>
+
+#include "utils/singleton.h"
+
 class QNetworkAccessManager;
 class QNetworkProxy;
+class QTimer;
+
 class NetworkManager : public QObject {
   Q_OBJECT
 public:
@@ -48,5 +54,32 @@ private:
     bool should_retry_;
     static NetworkManager* instance_;
 };
+
+// Check the network connection periodically, and reset the qt
+// QNetworkAccessManager if the network is reconnected.
+class NetworkStatusDetector: public QObject
+{
+    Q_OBJECT
+    SINGLETON_DEFINE(NetworkStatusDetector)
+public:
+    ~NetworkStatusDetector();
+    void start();
+    void stop();
+    void setNetworkFailure();
+    void setNetworkSuccess();
+
+public slots:
+    void detect();
+
+signals:
+    void check();
+
+private:
+    NetworkStatusDetector();
+
+    QTimer *check_timer_;
+    bool has_network_failure_;
+};
+
 
 #endif // SEAFILE_CLIENT_NETWORK_MANAGER_H

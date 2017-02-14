@@ -1,4 +1,3 @@
-#include "network-mgr.h"
 #include <QNetworkAccessManager>
 #include <QNetworkProxy>
 #include <algorithm>
@@ -6,34 +5,48 @@
 #include <QSslConfiguration>
 #include <QSslSocket>
 #include <QSslCipher>
+#include <QTimer>
+
 #include "utils/utils-mac.h"
+#include "api/api-client.h"
+#include "filebrowser/tasks.h"
+#include "network-mgr.h"
+
 namespace {
+
+const int kCheckNetworkStatusIntervalMSecs = 33000; // 33s
+
 QNetworkProxy proxy_;
+
 template <class T, std::size_t N>
 inline size_t ArrayLengthOf(T (&)[N]) {
   return N;
 }
-const char *const kWhitelistCiphers[] = {"ECDHE-RSA-AES256-GCM-SHA384"
-                                         "ECDHE-RSA-AES128-GCM-SHA256"
-                                         "DHE-RSA-AES256-GCM-SHA384"
-                                         "DHE-RSA-AES128-GCM-SHA256"
-                                         "ECDHE-RSA-AES256-SHA384"
-                                         "ECDHE-RSA-AES128-SHA256"
-                                         "ECDHE-RSA-AES256-SHA"
-                                         "ECDHE-RSA-AES128-SHA"
-                                         "DHE-RSA-AES256-SHA256"
-                                         "DHE-RSA-AES128-SHA256"
-                                         "DHE-RSA-AES256-SHA"
-                                         "DHE-RSA-AES128-SHA"
-                                         "ECDHE-RSA-DES-CBC3-SHA"
-                                         "EDH-RSA-DES-CBC3-SHA"
-                                         "AES256-GCM-SHA384"
-                                         "AES128-GCM-SHA256"
-                                         "AES256-SHA256"
-                                         "AES128-SHA256"
-                                         "AES256-SHA"
-                                         "AES128-SHA"
-                                         "DES-CBC3-SHA"};
+
+const char *const kWhitelistCiphers[] = {
+    "ECDHE-RSA-AES256-GCM-SHA384"
+    "ECDHE-RSA-AES128-GCM-SHA256"
+    "DHE-RSA-AES256-GCM-SHA384"
+    "DHE-RSA-AES128-GCM-SHA256"
+    "ECDHE-RSA-AES256-SHA384"
+    "ECDHE-RSA-AES128-SHA256"
+    "ECDHE-RSA-AES256-SHA"
+    "ECDHE-RSA-AES128-SHA"
+    "DHE-RSA-AES256-SHA256"
+    "DHE-RSA-AES128-SHA256"
+    "DHE-RSA-AES256-SHA"
+    "DHE-RSA-AES128-SHA"
+    "ECDHE-RSA-DES-CBC3-SHA"
+    "EDH-RSA-DES-CBC3-SHA"
+    "AES256-GCM-SHA384"
+    "AES128-GCM-SHA256"
+    "AES256-SHA256"
+    "AES128-SHA256"
+    "AES256-SHA"
+    "AES128-SHA"
+    "DES-CBC3-SHA"
+};
+
 // return false if it contains RC4, RSK, CBC, MD5, DES, DSS, EXPORT, NULL
 bool isWeakCipher(const QString& cipher_name)
 {
@@ -159,4 +172,49 @@ void NetworkManager::onCleanup()
     QNetworkAccessManager *manager = (QNetworkAccessManager*)(sender());
     managers_.erase(std::remove(managers_.begin(), managers_.end(), manager),
                     managers_.end());
+}
+
+SINGLETON_IMPL(NetworkStatusDetector)
+
+NetworkStatusDetector::NetworkStatusDetector() {
+    has_network_failure_ = false;
+
+    check_timer_ = new QTimer(this);
+    connect(check_timer_, &QTimer::timeout, this, &NetworkStatusDetector::detect);
+}
+
+NetworkStatusDetector::~NetworkStatusDetector() {
+}
+
+void NetworkStatusDetector::start() {
+    qWarning("Starting the network status detector");
+    check_timer_->start(kCheckNetworkStatusIntervalMSecs);
+}
+
+void NetworkStatusDetector::stop() {
+    check_timer_->stop();
+}
+
+void NetworkStatusDetector::detect() {
+    if (has_network_failure_) {
+        qWarning("[network detector] resetting the qt network access manager");
+        SeafileApiClient::resetQNAM();
+        FileServerTask::resetQNAM();
+        has_network_failure_ = false;
+    }
+}
+
+void NetworkStatusDetector::setNetworkFailure() {
+    if (!has_network_failure_) {
+        qWarning("[network detector] got a network failure");
+        has_network_failure_ = true;
+    }
+}
+
+void NetworkStatusDetector::setNetworkSuccess() {
+    // TODO: what if the successful requests are for a local server?
+    // if (has_network_failure_) {
+    //     qDebug("[network detector] got a network success");
+    //     has_network_failure_ = false;
+    // }
 }

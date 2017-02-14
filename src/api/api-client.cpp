@@ -3,6 +3,7 @@
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
+#include <QNetworkConfigurationManager>
 
 #include "seafile-applet.h"
 #include "customization-service.h"
@@ -39,12 +40,30 @@ QNetworkAccessManager *createQNAM() {
     QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
     NetworkManager::instance()->addWatch(manager);
     manager->setCache(CustomizationService::instance()->diskCache());
+
+    // From: http://www.qtcentre.org/threads/37514-use-of-QNetworkAccessManager-networkAccessible
+    //
+    // QNetworkAccessManager::networkAccessible is not explicitly set when the
+    // QNetworkAccessManager is created. It is only set after the network
+    // session is initialized. The session is initialized automatically when you
+    // make a network request or you can initialize it before hand with
+    // QNetworkAccessManager::setConfiguration() or the
+    // QNetworkConfigurationManager::NetworkSessionRequired flag is set.
+    manager->setConfiguration(
+        QNetworkConfigurationManager().defaultConfiguration());
     return manager;
 }
 
 } // namespace
 
-QNetworkAccessManager* SeafileApiClient::na_mgr_ = NULL;
+QNetworkAccessManager* SeafileApiClient::qnam_ = nullptr;
+void SeafileApiClient::resetQNAM()
+{
+    if (qnam_) {
+        qnam_->deleteLater();
+    }
+    qnam_ = createQNAM();
+}
 
 SeafileApiClient::SeafileApiClient(QObject *parent)
     : QObject(parent),
@@ -52,25 +71,9 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
       redirect_count_(0),
       use_cache_(false)
 {
-    if (!na_mgr_) {
-        na_mgr_ = createQNAM();
+    if (!qnam_) {
+        qnam_ = createQNAM();
     }
-}
-
-QNetworkAccessManager* SeafileApiClient::getQNAM()
-{
-    // TODO(lins05): The following code is meant to fix the problem of computer
-    // network disconnectied and reconnected-again, e.g. after computer resuming
-    // from sleep. But while it introduced several bugs, so we comment it out
-    // for 6.0.3 release, and hopefully find a better solution to the network
-    // disconnection problem in the future.
-
-    // if (na_mgr_->networkAccessible() != QNetworkAccessManager::Accessible) {
-    //     na_mgr_->deleteLater();
-    //     na_mgr_ = createQNAM();
-    // }
-    //
-    return na_mgr_;
 }
 
 SeafileApiClient::~SeafileApiClient()
@@ -104,7 +107,7 @@ void SeafileApiClient::get(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = getQNAM()->get(request);
+    reply_ = qnam_->get(request);
     // By default the parent object of the reply instance would be the
     // QNetworkAccessManager, and we delete the reply in our destructor. But now
     // we may recreate the QNetworkAccessManager when the connection status is
@@ -128,9 +131,9 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
 
     if (is_put)
-        reply_ = getQNAM()->put(request, body_);
+        reply_ = qnam_->put(request, body_);
     else
-        reply_ = getQNAM()->post(request, body_);
+        reply_ = qnam_->post(request, body_);
 
     reply_->setParent(this);
 
@@ -145,7 +148,7 @@ void SeafileApiClient::deleteResource(const QUrl& url)
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = getQNAM()->deleteResource(request);
+    reply_ = qnam_->deleteResource(request);
     reply_->setParent(this);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
@@ -232,6 +235,9 @@ void SeafileApiClient::httpRequestFinished()
             resendRequest(reply_->url());
             return;
         }
+
+        NetworkStatusDetector::instance()->setNetworkFailure();
+
         if (!shouldIgnoreRequestError(reply_)) {
             qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
                    reply_->errorString().toUtf8().data());
@@ -239,6 +245,7 @@ void SeafileApiClient::httpRequestFinished()
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
+    NetworkStatusDetector::instance()->setNetworkSuccess();
 
     if (handleHttpRedirect()) {
         return;

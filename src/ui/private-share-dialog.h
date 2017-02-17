@@ -192,6 +192,9 @@ public:
     {
         return name_column_width_;
     }
+
+    QModelIndex getIndexByGroup(int group_id) const;
+    QModelIndex getIndexByUser(const QString& email) const;
 signals:
     void updateShareItem(int group_id, SharePermission permission);
     void updateShareItem(const QString& email, SharePermission permission);
@@ -239,6 +242,9 @@ public:
     void paint(QPainter* painter,
                const QStyleOptionViewItem& option,
                const QModelIndex& index) const Q_DECL_OVERRIDE;
+
+private slots:
+    void oncurrentIndexChanged();
 };
 
 

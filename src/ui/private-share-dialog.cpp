@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QStringListModel>
 #include <QDateTime>
+#include <QScrollBar>
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "private-share-dialog.h"
@@ -343,6 +344,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
         info.group = groups_[request_->groupId()];
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
+        table_->setCurrentIndex(model_->getIndexByGroup(info.group.id));
     }
     else {
         UserShareInfo info;
@@ -352,6 +354,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
         }
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
+        table_->setCurrentIndex(model_->getIndexByUser(info.user.email));
     }
     model_->shareOperationSuccess();
     // enableInputs();
@@ -665,6 +668,7 @@ SharedItemsTableView::SharedItemsTableView(QWidget* parent)
     setContentsMargins(0, 5, 0, 5);
     // setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    horizontalScrollBar()->close();
 }
 
 void SharedItemsTableView::setModel(QAbstractItemModel* model)
@@ -1019,6 +1023,26 @@ void SharedItemsTableModel::shareOperationFailed(
     endResetModel();
 }
 
+QModelIndex SharedItemsTableModel::getIndexByGroup(int group_id) const
+{
+    for (int i = 0; i < group_shares_.size(); i++) {
+        if (group_shares_[i].group.id == group_id) {
+            return index(i, 0);
+        }
+    }
+    return index(0, 0);
+}
+
+QModelIndex SharedItemsTableModel::getIndexByUser(const QString& email) const
+{
+    for (int i = 0; i < user_shares_.size(); i++) {
+        if (user_shares_[i].user.email == email) {
+            return index(i, 0);
+        }
+    }
+    return index(0, 0);
+}
+
 SharedItemDelegate::SharedItemDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
 {
@@ -1033,6 +1057,10 @@ QWidget* SharedItemDelegate::createEditor(QWidget* parent,
     combobox->addItem(tr("Read Only"));
     combobox->insertSeparator(2);
     combobox->addItem(tr("Remove Share"));
+
+    connect(combobox, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(oncurrentIndexChanged()));
+
     return combobox;
 }
 
@@ -1133,4 +1161,10 @@ void SharedItemDelegate::paint(QPainter* painter,
         painter->fillPath(path, QBrush(kItemColor));
         painter->restore();
     }
+}
+
+void SharedItemDelegate::oncurrentIndexChanged()
+{
+    QComboBox* combobox = static_cast<QComboBox*>(sender());
+    emit commitData(combobox);
 }

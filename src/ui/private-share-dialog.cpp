@@ -344,7 +344,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
         info.group = groups_[request_->groupId()];
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
-        table_->setCurrentIndex(model_->index(model_->shareRow(info.group.id), 0));
+        table_->setCurrentIndex(model_->getIndexByGroup(info.group.id));
     }
     else {
         UserShareInfo info;
@@ -354,7 +354,7 @@ void PrivateShareDialog::onUpdateShareSuccess()
         }
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
-        table_->setCurrentIndex(model_->index(model_->shareRow(info.user.email), 0));
+        table_->setCurrentIndex(model_->getIndexByUser(info.user.email));
     }
     model_->shareOperationSuccess();
     // enableInputs();
@@ -1023,24 +1023,24 @@ void SharedItemsTableModel::shareOperationFailed(
     endResetModel();
 }
 
-unsigned int SharedItemsTableModel::shareRow(int group_id) const
+QModelIndex SharedItemsTableModel::getIndexByGroup(int group_id) const
 {
     for (int i = 0; i < group_shares_.size(); i++) {
         if (group_shares_[i].group.id == group_id) {
-            return i;
+            return index(i, 0);
         }
     }
-    return 0;
+    return index(0, 0);
 }
 
-unsigned int SharedItemsTableModel::shareRow(const QString& email) const
+QModelIndex SharedItemsTableModel::getIndexByUser(const QString& email) const
 {
     for (int i = 0; i < user_shares_.size(); i++) {
         if (user_shares_[i].user.email == email) {
-            return i;
+            return index(i, 0);
         }
     }
-    return 0;
+    return index(0, 0);
 }
 
 SharedItemDelegate::SharedItemDelegate(QObject* parent)

@@ -193,8 +193,8 @@ public:
         return name_column_width_;
     }
 
-    unsigned int shareRow(int group_id) const;
-    unsigned int shareRow(const QString& email) const;
+    QModelIndex getIndexByGroup(int group_id) const;
+    QModelIndex getIndexByUser(const QString& email) const;
 signals:
     void updateShareItem(int group_id, SharePermission permission);
     void updateShareItem(const QString& email, SharePermission permission);

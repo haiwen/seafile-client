@@ -610,7 +610,7 @@ void PrivateShareDialog::onShareSuccess()
     request_in_progress_ = false;
     model_->shareOperationSuccess();
     // enableInputs();
-    // mStatusText->setText(tr("Shared successfully"));
+    mStatusText->clear();
 }
 
 void PrivateShareDialog::onShareFailed(const ApiError& error)

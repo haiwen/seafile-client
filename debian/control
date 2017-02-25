@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
 Build-Depends:
     debhelper (>= 7),
-    libssl-dev,
+    libssl1.0-dev | libssl-dev (<< 1.1),
     libcurl4-openssl-dev,
     libsqlite3-dev,
     intltool,

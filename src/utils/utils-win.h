@@ -28,6 +28,7 @@ bool isWindowsVistaOrGreater();
 bool isWindows7OrGreater();
 bool isWindows8OrGreater();
 bool isWindows8Point1OrGreater();
+bool fixQtHDPINonIntegerScaling();
 } // namespace win
 } // namespace utils
 #else

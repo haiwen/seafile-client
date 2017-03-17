@@ -17,6 +17,9 @@
 #include "seafile-applet.h"
 #include "QtAwesome.h"
 #include "open-local-helper.h"
+#if defined(Q_OS_WIN32)
+#include "utils/utils-win.h"
+#endif
 #if defined(Q_OS_MAC)
 #include "application.h"
 #endif
@@ -64,10 +67,16 @@ void setupHIDPIFix()
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0) && !defined(Q_OS_MAC)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+  #if defined(Q_OS_WIN32)
+    if (!utils::win::fixQtHDPINonIntegerScaling()) {
+        qApp->setAttribute(Qt::AA_EnableHighDpiScaling);
+    }
+  #elif !defined(Q_OS_MAC)
     // Enable HDPI auto detection.
     // See http://blog.qt.io/blog/2016/01/26/high-dpi-support-in-qt-5-6/
     qApp->setAttribute(Qt::AA_EnableHighDpiScaling);
+  #endif
 #endif
 }
 

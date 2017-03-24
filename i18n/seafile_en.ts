@@ -2386,12 +2386,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="186"/>
+        <location filename="../src/main.cpp" line="195"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="206"/>
+        <location filename="../src/main.cpp" line="215"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2869,7 +2869,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="803"/>
-        <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
+        <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3558,19 +3558,6 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="39"/>
-        <source>Login with Shibboleth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="111"/>
-        <source>Failed to save current account</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -2405,12 +2405,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&lt;不包含这部分信息&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="186"/>
+        <location filename="../src/main.cpp" line="195"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>发现另外一个 %1 进程，杀死它并启动新进程？</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="206"/>
+        <location filename="../src/main.cpp" line="215"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>无法启动 %1 因为无法关闭旧的进程</translation>
     </message>
@@ -2685,7 +2685,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Shared with me</source>
-        <translation>私人共享</translation>
+        <translation>共享给我的</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
@@ -2888,8 +2888,8 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="803"/>
-        <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation>您确定要解除同步资料库 &quot;%1&quot; 然后重新同步 吗？</translation>
+        <source>Are you sure to resync library &quot;%1&quot;?</source>
+        <translation>您确定要重新同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="841"/>
@@ -3576,19 +3576,6 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
         <translation>确认</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="39"/>
-        <source>Login with Shibboleth</source>
-        <translation>Shibboleth 方式登陆</translation>
-    </message>
-    <message>
-        <location filename="../src/shib/shib-login-dialog.cpp" line="111"/>
-        <source>Failed to save current account</source>
-        <translation>保存帐户失败</translation>
     </message>
 </context>
 <context>

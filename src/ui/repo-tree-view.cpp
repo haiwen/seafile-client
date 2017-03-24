@@ -800,7 +800,7 @@ void RepoTreeView::resyncRepo()
     SeafileRpcClient *rpc = seafApplet->rpcClient();
 
     if (!seafApplet->yesOrNoBox(
-            tr("Are you sure to unsync and resync library \"%1\"?").arg(server_repo.name),
+            tr("Are you sure to resync library \"%1\"?").arg(server_repo.name),
             this)) {
         return;
     }

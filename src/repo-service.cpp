@@ -32,6 +32,9 @@
 
 namespace {
 
+const char *kFileCacheTopDirName = "file-cache";
+const char *kFileCacheTempTopDirName = "file-cache-tmp";
+
 class SyncedSubfolder {
 public:
     SyncedSubfolder() {}
@@ -122,6 +125,9 @@ RepoService::RepoService(QObject *parent)
     list_repo_req_ = NULL;
     in_refresh_ = false;
     wipe_in_progress_ = false;
+
+    CachedFilesCleaner *cleaner = new CachedFilesCleaner();
+    QThreadPool::globalInstance()->start(cleaner);
 }
 
 RepoService::~RepoService()
@@ -624,4 +630,23 @@ void RepoService::onRemoteWipeReportFailed(const ApiError& error)
     RemoteWipeReportRequest* req = qobject_cast<RemoteWipeReportRequest*>(sender());
     req->deleteLater();
     seafApplet->accountManager()->invalidateCurrentLogin();
+}
+
+CachedFilesCleaner::CachedFilesCleaner()
+{
+    file_cache_dir_ = pathJoin(seafApplet->configurator()->seafileDir(),
+                               kFileCacheTopDirName);
+    file_cache_tmp_dir_ = pathJoin(seafApplet->configurator()->seafileDir(),
+                                   kFileCacheTempTopDirName);
+}
+
+void CachedFilesCleaner::run()
+{
+    if (QDir(file_cache_tmp_dir_).exists()) {
+        delete_dir_recursively(file_cache_tmp_dir_);
+    }
+    if (QDir(file_cache_dir_).exists()) {
+        QDir().rename(file_cache_dir_, file_cache_tmp_dir_);
+        delete_dir_recursively(file_cache_tmp_dir_);
+    }
 }

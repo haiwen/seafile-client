@@ -111,5 +111,15 @@ private:
     const QStringList cached_files_;
 };
 
+class CachedFilesCleaner : public QObject, public QRunnable {
+    Q_OBJECT
+public:
+    CachedFilesCleaner();
+    void run();
+
+private:
+    QString file_cache_dir_;
+    QString file_cache_tmp_dir_;
+};
 
 #endif // SEAFILE_CLIENT_REPO_SERVICE_H_

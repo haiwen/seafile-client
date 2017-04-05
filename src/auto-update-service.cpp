@@ -12,7 +12,7 @@ SINGLETON_IMPL(AutoUpdateService)
 
 namespace
 {
-    const char *kSparkleAppcastURI = "https://seafile.com/api/seadrive/appcast.xml";
+    const char *kSparkleAppcastURI = "https://seafile.com/api/seafile-client/appcast.xml";
     const char *kWinSparkleRegistryPath = "SOFTWARE\\Seafile\\Seafile Client\\WinSparkle";
 } // namespace
 

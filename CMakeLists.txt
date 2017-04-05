@@ -37,6 +37,11 @@ OPTION(BUILD_SHIBBOLETH_SUPPORT "Build Shibboleth support" OFF)
 
 option(BUILD_ENABLE_WARNINGS "Enable compiler warnings." ON)
 
+option(BUILD_SPARKLE_SUPPORT "Build Sparkle support" OFF)
+IF (BUILD_SPARKLE_SUPPORT)
+  ADD_DEFINITIONS(-DHAVE_SPARKLE_SUPPORT)
+ENDIF()
+
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 ## build in PIC mode
@@ -79,8 +84,21 @@ IF (WIN32)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)
     ENDIF()
-    SET(platform_specific_moc_headers src/ext-handler.h)
-    SET(platform_specific_sources src/ext-handler.cpp)
+    SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/ext-handler.h src/ui/about-dialog.h)
+    SET(platform_specific_sources ${platform_specific_sources} src/ext-handler.cpp src/ui/about-dialog.cpp)
+    SET(platform_specific_ui_files ${platform_specific_ui_files} ui/about-dialog.ui)
+    IF (BUILD_SPARKLE_SUPPORT)
+      IF(NOT EXISTS "${CMAKE_SOURCE_DIR}/WinSparkle.lib")
+        message(FATAL_ERROR "File ${CMAKE_SOURCE_DIR}/WinSparkle.lib not found in current directory. Please setup winsparkle correctly." )
+      ENDIF()
+      SET(SPARKLE_LIBS ${CMAKE_SOURCE_DIR}/WinSparkle.lib)
+      SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/auto-update-service.h)
+      SET(platform_specific_sources ${platform_specific_sources} src/auto-update-service.cpp)
+      IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
+        ADD_DEFINITIONS(-DWINSPARKLE_DEBUG)
+      ENDIF()
+    ENDIF()
+
 ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
     INCLUDE_DIRECTORIES(${QT_QTDBUS_INCLUDE_DIR})
     LINK_DIRECTORIES(${QT_QTDBUS_LIBRARIES})
@@ -699,6 +717,7 @@ ADD_EXECUTABLE(seafile-applet ${GUI_TYPE}
 INSTALL(TARGETS seafile-applet DESTINATION bin)
 
 TARGET_LINK_LIBRARIES(seafile-applet
+  ${SPARKLE_LIBS}
   ${SC_LIBS}
   ${QT_LIBRARIES}
   ${OPENSSL_LIBRARIES}

@@ -47,6 +47,10 @@ extern void qt_mac_set_dock_menu(QMenu *menu);
 #include <QDBusPendingCall>
 #endif
 
+#if defined(Q_OS_WIN32)
+#include "src/ui/about-dialog.h"
+#endif
+
 namespace {
 
 const int kRefreshInterval = 1000;
@@ -480,6 +484,14 @@ void SeafileTrayIcon::showMainWindow()
 
 void SeafileTrayIcon::about()
 {
+#if defined(Q_OS_WIN32)
+    AboutDialog *about_dialog = new AboutDialog();
+    about_dialog->show();
+    about_dialog->raise();
+    about_dialog->activateWindow();
+    return;
+#endif
+
     QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(getBrand()),
                        tr("<h2>%1 Client %2</h2>").arg(getBrand()).arg(
                            STRINGIZE(SEAFILE_CLIENT_VERSION))

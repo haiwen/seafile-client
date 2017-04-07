@@ -281,6 +281,7 @@ SET(moc_headers
   src/filebrowser/tasks.h
   src/filebrowser/progress-dialog.h
   src/filebrowser/sharedlink-dialog.h
+  src/filebrowser/advanced-sharedlink-dialog.h
   src/filebrowser/seafilelink-dialog.h
   src/filebrowser/auto-update-mgr.h
   src/filebrowser/transfer-mgr.h
@@ -469,6 +470,7 @@ SET(seafile_client_sources
   src/filebrowser/tasks.cpp
   src/filebrowser/progress-dialog.cpp
   src/filebrowser/sharedlink-dialog.cpp
+  src/filebrowser/advanced-sharedlink-dialog.cpp
   src/filebrowser/seafilelink-dialog.cpp
   src/filebrowser/auto-update-mgr.cpp
   src/filebrowser/transfer-mgr.cpp

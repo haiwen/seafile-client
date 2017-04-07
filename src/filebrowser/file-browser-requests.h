@@ -129,21 +129,74 @@ private:
     const QString path_;
 };
 
+struct SharedLinkInfo {
+    QString ctime;
+    QString expire_date;
+    bool is_dir;
+    bool is_expired;
+    QString link;
+    QString obj_name;
+    QString path;
+    QString repo_id;
+    QString repo_name;
+    QString token;
+    QString username;
+    quint64 view_cnt;
+};
 
 class GetSharedLinkRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    GetSharedLinkRequest(const Account &account, const QString &repo_id,
-                             const QString &path, bool is_file);
+    GetSharedLinkRequest(const Account &account,
+                         const QString &repo_id,
+                         const QString &path);
 
 signals:
-    void success(const QString& url);
+    void success(const SharedLinkInfo& shared_link_info);
+    void failed();
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
     Q_DISABLE_COPY(GetSharedLinkRequest)
+};
+
+class CreateShareLinkRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    CreateShareLinkRequest(const Account &account,
+                           const QString &repo_id,
+                           const QString &path,
+                           const QString &password = QString(),
+                           quint64 expired_date = 0);
+    void SetAdvancedShareParams(const QString &password,
+                                quint64 expired_date);
+
+signals:
+    void success(const SharedLinkInfo& shared_link_info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(CreateShareLinkRequest)
+};
+
+class DeleteSharedLinkRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    DeleteSharedLinkRequest(const Account &account,
+                            const QString &token);
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(DeleteSharedLinkRequest)
 };
 
 class GetFileUploadLinkRequest : public SeafileApiRequest {

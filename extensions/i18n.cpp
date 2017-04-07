@@ -51,6 +51,7 @@ I18NHelper *I18NHelper::instance() {
 void I18NHelper::initChineseDict()
 {
     lang_dict_["get seafile download link"] = "获取共享链接";
+    lang_dict_["get advanced download link"] = "获取高级共享链接";
     lang_dict_["get seafile internal link"] = "获取内部链接";
     lang_dict_["lock this file"] = "锁定该文件";
     lang_dict_["unlock this file"] = "解锁该文件";

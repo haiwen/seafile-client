@@ -139,7 +139,7 @@ void DataManager::shareDirent(const QString &repo_id,
                               bool is_file)
 {
     GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id,
-                                                         path, is_file);
+                                                         path);
     connect(req, SIGNAL(success(const QString&)),
             SIGNAL(shareDirentSuccess(const QString&)));
 

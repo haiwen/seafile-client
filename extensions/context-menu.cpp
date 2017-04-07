@@ -196,6 +196,9 @@ STDMETHODIMP ShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO info)
     if (op == GetShareLink) {
         seafile::GetShareLinkCommand cmd(path_);
         cmd.send();
+    } else if (op == GetAdvancedShareLink) {
+        seafile::GetAdvancedShareLinkCommand cmd(path_);
+        cmd.send();
     } else if (op == GetInternalLink) {
         seafile::GetInternalLinkCommand cmd(path_);
         cmd.send();
@@ -325,6 +328,7 @@ void ShellExt::buildSubMenu(const seafile::RepoInfo& repo,
                             const std::string& path_in_repo)
 {
     insertSubMenuItem(SEAFILE_TR("get seafile download link"), GetShareLink);
+    insertSubMenuItem(SEAFILE_TR("get advanced download link"), GetAdvancedShareLink);
     insertSubMenuItem(SEAFILE_TR("get seafile internal link"), GetInternalLink);
 
     std::unique_ptr<wchar_t[]> path_w(utils::utf8ToWString(path_));

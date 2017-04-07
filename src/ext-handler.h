@@ -16,6 +16,23 @@
 class SeafileRpcClient;
 class ExtConnectionListenerThread;
 class ApiError;
+class CreateShareLinkRequest;
+struct SharedLinkInfo;
+
+struct SharedLinkRequestParams {
+    QString repo_id;
+    QString path_in_repo;
+    bool is_file;
+    bool internal;
+    bool advanced;
+    void initialize() {
+        repo_id.clear();
+        path_in_repo.clear();
+        is_file = false;
+        internal = false;
+        advanced = false;
+    }
+};
 
 /**
  * Handles commands from seafile shell extension
@@ -29,13 +46,14 @@ public:
     void stop();
 
 private slots:
-    void onShareLinkGenerated(const QString& link);
+    void getShareLink();
+    void getShareLinkSuccess(const SharedLinkInfo& shared_link_info);
+    void generateShareLink();
+    void generateShareLinkSuccess(const SharedLinkInfo& shared_link_info);
+    void generateAdvancedShareLink(const QString& password,
+                                   quint64 valid_days);
     void onLockFileSuccess();
     void onLockFileFailed(const ApiError& error);
-    void generateShareLink(const QString& repo_id,
-                           const QString& path_in_repo,
-                           bool is_file,
-                           bool internal);
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
@@ -48,6 +66,8 @@ private:
     ExtConnectionListenerThread *listener_thread_;
 
     bool started_;
+
+    CreateShareLinkRequest *advanced_share_req_;
 };
 
 /**
@@ -63,10 +83,7 @@ public:
     void run();
 
 signals:
-    void generateShareLink(const QString& repo_id,
-                           const QString& path_in_repo,
-                           bool is_file,
-                           bool internal);
+    void getShareLink();
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
@@ -91,10 +108,7 @@ public:
     void run();
 
 signals:
-    void generateShareLink(const QString& repo_id,
-                           const QString& path_in_repo,
-                           bool is_file,
-                           bool internal);
+    void getShareLink();
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
@@ -110,7 +124,9 @@ private:
     bool readRequest(QStringList *args);
     bool sendResponse(const QString& resp);
 
-    void handleGenShareLink(const QStringList& args, bool internal);
+    void handleGenShareLink(const QStringList& args,
+                            bool internal,
+                            bool advanced);
     QString handleListRepos(const QStringList& args);
     QString handleGetFileStatus(const QStringList& args);
     void handleLockFile(const QStringList& args, bool lock);

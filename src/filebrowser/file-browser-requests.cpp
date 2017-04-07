@@ -7,12 +7,14 @@
 #include "account.h"
 #include "api/api-error.h"
 #include "seaf-dirent.h"
+#include "utils/utils.h"
 
 namespace {
 
 const char kGetDirentsUrl[] = "api2/repos/%1/dir/";
 const char kGetFilesUrl[] = "api2/repos/%1/file/";
 const char kGetFileSharedLinkUrl[] = "api2/repos/%1/file/shared-link/";
+const char kSharedLinkUrl[] = "api/v2.1/share-links/";
 const char kGetFileUploadUrl[] = "api2/repos/%1/upload-link/";
 const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
@@ -97,21 +99,130 @@ void GetFileDownloadLinkRequest::requestSuccess(QNetworkReply& reply)
 
 GetSharedLinkRequest::GetSharedLinkRequest(const Account &account,
                                            const QString &repo_id,
-                                           const QString &path,
-                                           bool is_file)
+                                           const QString &path)
     : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFileSharedLinkUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_PUT, account.token)
+          account.getAbsoluteUrl(QString(kSharedLinkUrl)),
+          SeafileApiRequest::METHOD_GET, account.token)
 {
-    setFormParam("type", is_file ? "f" : "d");
-    setFormParam("p", path);
+    setUrlParam("repo_id", repo_id);
+    setUrlParam("path", path);
 }
 
 void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
 {
-    QString reply_content(reply.rawHeader("Location"));
+    SharedLinkInfo shared_link_info;
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetSharedLinkRequest: failed to parse json:%s\n",
+                 error.text);
+        emit SeafileApiRequest::failed(ApiError::fromJsonError());
+        return;
+    }
 
-    emit success(reply_content);
+    if (json_array_size(root) == 0) {
+        qWarning("GetSharedLinkRequest: failed to get json.\n");
+        emit failed();
+        emit SeafileApiRequest::failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(json_array_get(root, 0));
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("link")) {
+        emit SeafileApiRequest::failed(ApiError::fromJsonError());
+        return;
+    }
+
+    shared_link_info.link = dict.value("link").toString();
+    shared_link_info.ctime = dict.value("ctime").toString();
+    shared_link_info.expire_date = dict.value("expire_date").toString();
+    shared_link_info.is_dir = dict.value("is_dir").toBool();
+    shared_link_info.is_expired = dict.value("is_expired").toBool();
+    shared_link_info.obj_name = dict.value("obj_name").toString();
+    shared_link_info.path = dict.value("path").toString();
+    shared_link_info.repo_id = dict.value("repo_id").toString();
+    shared_link_info.repo_name = dict.value("repo_name").toString();
+    shared_link_info.token = dict.value("token").toString();
+    shared_link_info.username = dict.value("username").toString();
+    shared_link_info.view_cnt = dict.value("view_cnt").toUInt();
+
+    emit success(shared_link_info);
+}
+
+CreateShareLinkRequest::CreateShareLinkRequest(const Account &account,
+                                               const QString &repo_id,
+                                               const QString &path,
+                                               const QString &password,
+                                               quint64 expired_date)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kSharedLinkUrl)),
+          SeafileApiRequest::METHOD_POST, account.token)
+{
+    setFormParam("repo_id", repo_id);
+    setFormParam("path", path);
+
+    SetAdvancedShareParams(password, expired_date);
+}
+
+void CreateShareLinkRequest::SetAdvancedShareParams(const QString &password,
+                                                    quint64 expired_date)
+{
+    if (!password.isNull())
+        setFormParam("password", password);
+
+    if (expired_date != 0)
+        setFormParam("expired_date", QString::number(expired_date));
+}
+
+void CreateShareLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    SharedLinkInfo shared_link_info;
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("CreateShareLinkRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("link")) {
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    shared_link_info.link = dict.value("link").toString();
+    shared_link_info.ctime = dict.value("ctime").toString();
+    shared_link_info.expire_date = dict.value("expire_date").toString();
+    shared_link_info.is_dir = dict.value("is_dir").toBool();
+    shared_link_info.is_expired = dict.value("is_expired").toBool();
+    shared_link_info.obj_name = dict.value("obj_name").toString();
+    shared_link_info.path = dict.value("path").toString();
+    shared_link_info.repo_id = dict.value("repo_id").toString();
+    shared_link_info.repo_name = dict.value("repo_name").toString();
+    shared_link_info.token = dict.value("token").toString();
+    shared_link_info.username = dict.value("username").toString();
+    shared_link_info.view_cnt = dict.value("view_cnt").toUInt();
+
+    emit success(shared_link_info);
+}
+
+DeleteSharedLinkRequest::DeleteSharedLinkRequest(const Account &account,
+                                                 const QString &token)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl((QString(kSharedLinkUrl) + "%1/").arg(token)),
+          SeafileApiRequest::METHOD_DELETE, account.token)
+{
+}
+
+void DeleteSharedLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
 }
 
 CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,

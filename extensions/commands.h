@@ -124,6 +124,17 @@ private:
     std::string path_;
 };
 
+class GetAdvancedShareLinkCommand : public AppletCommand<void> {
+public:
+    GetAdvancedShareLinkCommand(const std::string path);
+
+protected:
+    std::string serialize();
+
+private:
+    std::string path_;
+};
+
 class GetInternalLinkCommand : public AppletCommand<void> {
 public:
     GetInternalLinkCommand(const std::string path);

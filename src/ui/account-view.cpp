@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 #include <QUrl>
 #include <QUrlQuery>
+#include <QThreadPool>
 
 #include "account.h"
 #include "seafile-applet.h"
@@ -28,6 +29,7 @@
 #include "filebrowser/file-browser-manager.h"
 #include "api/api-error.h"
 #include "api/requests.h"
+#include "repo-service.h"
 
 #include "account-view.h"
 namespace {
@@ -430,6 +432,10 @@ void AccountView::onLogoutDeviceRequestSuccess()
         return;
     }
     seafApplet->accountManager()->clearAccountToken(account);
+
+    CachedFilesCleaner *cleaner = new CachedFilesCleaner();
+    QThreadPool::globalInstance()->start(cleaner);
+
     req->deleteLater();
 }
 

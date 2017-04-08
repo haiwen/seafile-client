@@ -29,7 +29,6 @@ namespace
 {
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
 const char *kHideDockIcon = "hideDockIcon";
-const char *kCheckLatestVersion = "checkLatestVersion";
 const char *kEnableSyncingWithExistingFolder = "syncingWithExistingFolder";
 const char *kBehaviorGroup = "Behavior";
 
@@ -384,33 +383,6 @@ void SettingsManager::removeAllSettings()
 #if defined(Q_OS_WIN32)
     RegElement::removeRegKey(HKEY_CURRENT_USER, "SOFTWARE", getBrand());
 #endif
-}
-
-void SettingsManager::setCheckLatestVersionEnabled(bool enabled)
-{
-    QSettings settings;
-
-    settings.beginGroup(kBehaviorGroup);
-    settings.setValue(kCheckLatestVersion, enabled);
-    settings.endGroup();
-}
-
-bool SettingsManager::isCheckLatestVersionEnabled()
-{
-    QString brand = getBrand();
-
-    if (brand != "Seafile") {
-        return false;
-    }
-
-    QSettings settings;
-    bool enabled;
-
-    settings.beginGroup(kBehaviorGroup);
-    enabled = settings.value(kCheckLatestVersion, true).toBool();
-    settings.endGroup();
-
-    return enabled;
 }
 
 void SettingsManager::setAllowInvalidWorktree(bool val)

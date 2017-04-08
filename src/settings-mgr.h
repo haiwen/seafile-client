@@ -84,8 +84,6 @@ public:
     bool hideDockIcon();
     void setHideDockIcon(bool hide);
 
-    void setCheckLatestVersionEnabled(bool enabled);
-    bool isCheckLatestVersionEnabled();
     // bool defaultLibraryAlreadySetup();
     // void setDefaultLibraryAlreadySetup();
 

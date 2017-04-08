@@ -44,6 +44,10 @@
 #if defined(Q_OS_WIN32)
 #include "ext-handler.h"
 #include "utils/registry.h"
+#ifdef HAVE_SPARKLE_SUPPORT
+#include "auto-update-service.h"
+#endif
+
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)
 #include "finder-sync/finder-sync-listener.h"
 #endif
@@ -262,6 +266,11 @@ SeafileApplet::~SeafileApplet()
         delete main_win_;
 #if defined(Q_OS_WIN32)
     SeafileExtensionHandler::instance()->stop();
+
+#ifdef HAVE_SPARKLE_SUPPORT
+    AutoUpdateService::instance()->stop();
+#endif
+
 #endif
 }
 
@@ -404,6 +413,14 @@ void SeafileApplet::onDaemonStarted()
     //
 #if defined(Q_OS_WIN32)
     SeafileExtensionHandler::instance()->start();
+
+#ifdef HAVE_SPARKLE_SUPPORT
+    if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
+        AutoUpdateService::instance()->setRequestParams();
+        AutoUpdateService::instance()->start();
+    }
+#endif // HAVE_SPARKLE_SUPPORT
+
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)
     finderSyncListenerStart();
 #endif

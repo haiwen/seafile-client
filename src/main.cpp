@@ -127,6 +127,11 @@ void handleCommandLineOption(int argc, char *argv[])
         case 'f':
             OpenLocalHelper::instance()->handleOpenLocalFromCommandLine(optarg);
             break;
+#if defined(HAVE_SPARKLE_SUPPORT) && defined(WINSPARKLE_DEBUG)
+        case 'U':
+            g_setenv ("SEAFILE_CLIENT_APPCAST_URI", optarg, 1);
+            break;
+#endif
         default:
             exit(1);
         }

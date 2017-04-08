@@ -11,6 +11,9 @@ class QMenuBar;
 #if defined(Q_OS_MAC)
 class TrayNotificationManager;
 #endif
+#if defined(Q_OS_WIN32)
+class AboutDialog;
+#endif
 
 class SyncErrorsDialog;
 
@@ -135,6 +138,9 @@ private:
     qint64 next_message_msec_;
 
     SyncErrorsDialog *sync_errors_dialog_;
+#if defined(Q_OS_WIN32)
+    AboutDialog *about_dialog_;
+#endif
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

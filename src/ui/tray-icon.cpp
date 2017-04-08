@@ -120,6 +120,9 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       next_message_msec_(0),
       sync_errors_dialog_(nullptr)
 {
+#if defined(Q_OS_WIN32)
+    about_dialog_ = nullptr;
+#endif
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
     connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));
@@ -493,10 +496,12 @@ void SeafileTrayIcon::showMainWindow()
 void SeafileTrayIcon::about()
 {
 #if defined(Q_OS_WIN32)
-    AboutDialog *about_dialog = new AboutDialog();
-    about_dialog->show();
-    about_dialog->raise();
-    about_dialog->activateWindow();
+    if (!about_dialog_) {
+        about_dialog_ = new AboutDialog();
+    }
+    about_dialog_->show();
+    about_dialog_->raise();
+    about_dialog_->activateWindow();
     return;
 #endif
 
@@ -677,7 +682,6 @@ void SeafileTrayIcon::checkTrayIconMessageQueue()
 
 void SeafileTrayIcon::showSyncErrorsDialog()
 {
-    // CloneTasksDialog dialog(this);
     if (sync_errors_dialog_ == nullptr) {
         sync_errors_dialog_ = new SyncErrorsDialog;
     }

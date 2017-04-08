@@ -84,9 +84,8 @@ IF (WIN32)
     IF (${CMAKE_BUILD_TYPE} MATCHES Release)
       SET(GUI_TYPE WIN32)
     ENDIF()
-    SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/ext-handler.h src/ui/about-dialog.h)
-    SET(platform_specific_sources ${platform_specific_sources} src/ext-handler.cpp src/ui/about-dialog.cpp)
-    SET(platform_specific_ui_files ${platform_specific_ui_files} ui/about-dialog.ui)
+    SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/ext-handler.h)
+    SET(platform_specific_sources ${platform_specific_sources} src/ext-handler.cpp)
     IF (BUILD_SPARKLE_SUPPORT)
       IF(NOT EXISTS "${CMAKE_SOURCE_DIR}/WinSparkle.lib")
         message(FATAL_ERROR "File ${CMAKE_SOURCE_DIR}/WinSparkle.lib not found in current directory. Please setup winsparkle correctly." )
@@ -220,6 +219,7 @@ SET(moc_headers
   src/ui/download-repo-dialog.h
   src/ui/cloud-view.h
   src/ui/tray-icon.h
+  src/ui/about-dialog.h
   src/ui/repo-tree-model.h
   src/ui/repo-tree-view.h
   src/ui/repo-item-delegate.h
@@ -275,6 +275,7 @@ ENDIF()
 
 # UI FILES
 SET(ui_files
+  ui/about-dialog.ui
   ui/login-dialog.ui
   ui/account-settings-dialog.ui
   ui/create-repo-dialog.ui
@@ -388,6 +389,7 @@ SET(seafile_client_sources
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
   src/rpc/sync-error.cpp
+  src/ui/about-dialog.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp

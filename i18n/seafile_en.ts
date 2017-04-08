@@ -2,6 +2,39 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../src/ui/about-dialog.cpp" line="20"/>
+        <source>About %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/about-dialog.cpp" line="25"/>
+        <source>&lt;h4&gt;%1 Client %2&lt;/h4&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/about-dialog.cpp" line="29"/>
+        <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_about-dialog.h" line="130"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_about-dialog.h" line="131"/>
+        <source>Check For Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_about-dialog.h" line="132"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AccountManager</name>
     <message>
         <location filename="../src/account-mgr.cpp" line="105"/>
@@ -3033,78 +3066,78 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="170"/>
+        <location filename="../src/ui/tray-icon.cpp" line="168"/>
         <source>Disable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="173"/>
+        <location filename="../src/ui/tray-icon.cpp" line="171"/>
         <source>Enable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="176"/>
+        <location filename="../src/ui/tray-icon.cpp" line="174"/>
         <source>View unread notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="180"/>
+        <location filename="../src/ui/tray-icon.cpp" line="178"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="183"/>
+        <location filename="../src/ui/tray-icon.cpp" line="181"/>
         <source>Show main window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="186"/>
+        <location filename="../src/ui/tray-icon.cpp" line="184"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="189"/>
+        <location filename="../src/ui/tray-icon.cpp" line="187"/>
         <source>Open %1 &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="190"/>
+        <location filename="../src/ui/tray-icon.cpp" line="188"/>
         <source>open %1 folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="193"/>
+        <location filename="../src/ui/tray-icon.cpp" line="191"/>
         <source>Open &amp;logs folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="197"/>
-        <location filename="../src/ui/tray-icon.cpp" line="198"/>
+        <location filename="../src/ui/tray-icon.cpp" line="195"/>
+        <location filename="../src/ui/tray-icon.cpp" line="196"/>
         <source>Show file sync errors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="201"/>
+        <location filename="../src/ui/tray-icon.cpp" line="199"/>
         <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="202"/>
+        <location filename="../src/ui/tray-icon.cpp" line="200"/>
         <source>Show the application&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="205"/>
+        <location filename="../src/ui/tray-icon.cpp" line="203"/>
         <source>&amp;Online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="256"/>
+        <location filename="../src/ui/tray-icon.cpp" line="254"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="587"/>
+        <location filename="../src/ui/tray-icon.cpp" line="583"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -3112,42 +3145,32 @@ The library owner&apos;s storage space is used up.</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="593"/>
+        <location filename="../src/ui/tray-icon.cpp" line="589"/>
         <source>auto sync is disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="620"/>
+        <location filename="../src/ui/tray-icon.cpp" line="616"/>
         <source>Uploading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="621"/>
+        <location filename="../src/ui/tray-icon.cpp" line="617"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="508"/>
-        <source>About %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="194"/>
+        <location filename="../src/ui/tray-icon.cpp" line="192"/>
         <source>open %1 log folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="206"/>
+        <location filename="../src/ui/tray-icon.cpp" line="204"/>
         <source>open %1 online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="509"/>
-        <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="598"/>
+        <location filename="../src/ui/tray-icon.cpp" line="594"/>
         <source>some servers not connected</source>
         <translation type="unfinished"></translation>
     </message>

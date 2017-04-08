@@ -1,5 +1,38 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../src/ui/about-dialog.cpp" line="20"/>
+        <source>About %1</source>
+        <translation>关于 %1</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/about-dialog.cpp" line="25"/>
+        <source>&lt;h4&gt;%1 Client %2&lt;/h4&gt;</source>
+        <translation>&lt;h4&gt;%1 客户端 %2 &lt;/h4&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/about-dialog.cpp" line="29"/>
+        <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
+        <translation>&lt;h5&gt; 版本 %1 &lt;/h5&gt;</translation>
+    </message>
+    <message>
+        <location filename="../ui_about-dialog.h" line="130"/>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../ui_about-dialog.h" line="131"/>
+        <source>Check For Updates</source>
+        <translation>检查更新</translation>
+    </message>
+    <message>
+        <location filename="../ui_about-dialog.h" line="132"/>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+</context>
+<context>
     <name>AccountManager</name>
     <message>
         <location filename="../src/account-mgr.cpp" line="105"/>
@@ -2405,12 +2438,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&lt;不包含这部分信息&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="195"/>
+        <location filename="../src/main.cpp" line="200"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>发现另外一个 %1 进程，杀死它并启动新进程？</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="215"/>
+        <location filename="../src/main.cpp" line="220"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>无法启动 %1 因为无法关闭旧的进程</translation>
     </message>
@@ -2967,48 +3000,41 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="359"/>
+        <location filename="../src/seafile-applet.cpp" line="325"/>
         <source>failed to add default account</source>
         <translation>添加默认帐户失败</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="480"/>
+        <location filename="../src/seafile-applet.cpp" line="450"/>
         <source>Failed to initialize log: %s</source>
         <translation>初始化日志失败: %s</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="533"/>
-        <location filename="../src/seafile-applet.cpp" line="548"/>
+        <location filename="../src/seafile-applet.cpp" line="503"/>
+        <location filename="../src/seafile-applet.cpp" line="518"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
+        <location filename="../src/seafile-applet.cpp" line="529"/>
+        <location filename="../src/seafile-applet.cpp" line="543"/>
         <location filename="../src/seafile-applet.cpp" line="559"/>
-        <location filename="../src/seafile-applet.cpp" line="573"/>
-        <location filename="../src/seafile-applet.cpp" line="589"/>
-        <location filename="../src/seafile-applet.cpp" line="613"/>
+        <location filename="../src/seafile-applet.cpp" line="583"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
+        <location filename="../src/seafile-applet.cpp" line="530"/>
         <location filename="../src/seafile-applet.cpp" line="560"/>
-        <location filename="../src/seafile-applet.cpp" line="590"/>
-        <location filename="../src/seafile-applet.cpp" line="614"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="574"/>
-        <location filename="../src/seafile-applet.cpp" line="591"/>
+        <location filename="../src/seafile-applet.cpp" line="544"/>
+        <location filename="../src/seafile-applet.cpp" line="561"/>
         <source>Cancel</source>
         <translation>取消</translation>
-    </message>
-    <message>
-        <location filename="../src/seafile-applet.cpp" line="649"/>
-        <source>A new version of %1 client (%2) is available.
-Do you want to visit the download page?</source>
-        <translation>%1 客户端有新版本 (%2) 可用。
-是否打开下载页面？</translation>
     </message>
 </context>
 <context>
@@ -3059,118 +3085,108 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="163"/>
+        <location filename="../src/ui/tray-icon.cpp" line="168"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="166"/>
+        <location filename="../src/ui/tray-icon.cpp" line="171"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="169"/>
+        <location filename="../src/ui/tray-icon.cpp" line="174"/>
         <source>View unread notifications</source>
         <translation>查看未读通知</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="173"/>
+        <location filename="../src/ui/tray-icon.cpp" line="178"/>
         <source>&amp;Quit</source>
         <translation>退出(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="176"/>
+        <location filename="../src/ui/tray-icon.cpp" line="181"/>
         <source>Show main window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="179"/>
+        <location filename="../src/ui/tray-icon.cpp" line="184"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="182"/>
+        <location filename="../src/ui/tray-icon.cpp" line="187"/>
         <source>Open %1 &amp;folder</source>
         <translation>打开 %1 文件夹(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="183"/>
+        <location filename="../src/ui/tray-icon.cpp" line="188"/>
         <source>open %1 folder</source>
         <translation>打开 %1 文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="186"/>
+        <location filename="../src/ui/tray-icon.cpp" line="191"/>
         <source>Open &amp;logs folder</source>
         <translation>打开日志文件夹(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="190"/>
-        <location filename="../src/ui/tray-icon.cpp" line="191"/>
+        <location filename="../src/ui/tray-icon.cpp" line="195"/>
+        <location filename="../src/ui/tray-icon.cpp" line="196"/>
         <source>Show file sync errors</source>
         <translation>查看文件同步错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="194"/>
+        <location filename="../src/ui/tray-icon.cpp" line="199"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="195"/>
+        <location filename="../src/ui/tray-icon.cpp" line="200"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="198"/>
+        <location filename="../src/ui/tray-icon.cpp" line="203"/>
         <source>&amp;Online help</source>
         <translation>在线帮助(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="249"/>
+        <location filename="../src/ui/tray-icon.cpp" line="254"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="570"/>
+        <location filename="../src/ui/tray-icon.cpp" line="583"/>
         <source>You have %n message(s)</source>
         <translation><numerusform>您有 %n 条未读消息</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="576"/>
+        <location filename="../src/ui/tray-icon.cpp" line="589"/>
         <source>auto sync is disabled</source>
         <translation>自动同步已关闭</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="603"/>
+        <location filename="../src/ui/tray-icon.cpp" line="616"/>
         <source>Uploading</source>
         <translation>正在上传</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="604"/>
+        <location filename="../src/ui/tray-icon.cpp" line="617"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="491"/>
-        <source>About %1</source>
-        <translation>关于 %1</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="187"/>
+        <location filename="../src/ui/tray-icon.cpp" line="192"/>
         <source>open %1 log folder</source>
         <translation>打开 %1 日志文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="199"/>
+        <location filename="../src/ui/tray-icon.cpp" line="204"/>
         <source>open %1 online help</source>
         <translation>打开 %1 在线帮助文档</translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="492"/>
-        <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation>&lt;h2&gt;%1 客户端 %2 &lt;/h2&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/tray-icon.cpp" line="581"/>
+        <location filename="../src/ui/tray-icon.cpp" line="594"/>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
@@ -3297,47 +3313,47 @@ Do you want to visit the download page?</source>
         <translation>不要在 dock 中显示 %1 图标</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
         <source>None</source>
         <translation>没有代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
         <source>HTTP Proxy</source>
         <translation>HTTP 代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="55"/>
         <source>Socks5 Proxy</source>
         <translation>SOCKS5 代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="56"/>
         <source>System Proxy</source>
         <translation>系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="105"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="109"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation>您已经更改了语言。现在重启来生效吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="376"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="382"/>
         <source>The proxy host address can&apos;t be empty</source>
         <translation>代理服务器名不能为空</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="383"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="389"/>
         <source>The proxy port is incorrect</source>
         <translation>代理端口不正确</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="392"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="398"/>
         <source>Proxy username can&apos;t be empty</source>
         <translation>代理用户名不能为空</translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="395"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="401"/>
         <source>Proxy password can&apos;t be empty</source>
         <translation>代理用户密码不能为空</translation>
     </message>
@@ -3360,11 +3376,6 @@ Do you want to visit the download page?</source>
         <location filename="../ui_settings-dialog.h" line="406"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
         <translation>允许同步 office 临时文件</translation>
-    </message>
-    <message>
-        <location filename="../ui_settings-dialog.h" line="411"/>
-        <source>Check for new version on startup</source>
-        <translation>程序启动时检查最新版本</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="412"/>
@@ -3410,6 +3421,11 @@ Do you want to visit the download page?</source>
         <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable Explorer Extension</source>
         <translation>启用文件浏览器的扩展</translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="411"/>
+        <source>Check for updates automatically</source>
+        <translation>自动检查更新</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="419"/>
@@ -3576,6 +3592,19 @@ Do you want to visit the download page?</source>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
         <translation>确认</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="39"/>
+        <source>Login with Shibboleth</source>
+        <translation>Shibboleth 方式登陆</translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="111"/>
+        <source>Failed to save current account</source>
+        <translation>保存帐户失败</translation>
     </message>
 </context>
 <context>

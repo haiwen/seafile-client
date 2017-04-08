@@ -48,9 +48,7 @@ extern void qt_mac_set_dock_menu(QMenu *menu);
 #include <QDBusPendingCall>
 #endif
 
-#if defined(Q_OS_WIN32)
 #include "src/ui/about-dialog.h"
-#endif
 
 namespace {
 
@@ -495,7 +493,6 @@ void SeafileTrayIcon::showMainWindow()
 
 void SeafileTrayIcon::about()
 {
-#if defined(Q_OS_WIN32)
     if (!about_dialog_) {
         about_dialog_ = new AboutDialog();
     }
@@ -503,16 +500,15 @@ void SeafileTrayIcon::about()
     about_dialog_->raise();
     about_dialog_->activateWindow();
     return;
-#endif
 
-    QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(getBrand()),
-                       tr("<h2>%1 Client %2</h2>").arg(getBrand()).arg(
-                           STRINGIZE(SEAFILE_CLIENT_VERSION))
-#if defined(SEAFILE_CLIENT_REVISION)
-                       .append("<h4> REV %1 </h4>")
-                       .arg(STRINGIZE(SEAFILE_CLIENT_REVISION))
-#endif
-                       );
+//     QMessageBox::about(seafApplet->mainWindow(), tr("About %1").arg(getBrand()),
+//                        tr("<h2>%1 Client %2</h2>").arg(getBrand()).arg(
+//                            STRINGIZE(SEAFILE_CLIENT_VERSION))
+// #if defined(SEAFILE_CLIENT_REVISION)
+//                        .append("<h4> REV %1 </h4>")
+//                        .arg(STRINGIZE(SEAFILE_CLIENT_REVISION))
+// #endif
+//                        );
 }
 
 void SeafileTrayIcon::openHelp()

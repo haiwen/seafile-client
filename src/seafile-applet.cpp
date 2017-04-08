@@ -141,46 +141,6 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
     }
 }
 
-/**
- * s1 > s2 --> *ret = 1
- *    = s2 --> *ret = 0
- *    < s2 --> *ret = -1
- *
- * If any of the vesion strings is invalid, return -1; else return 0
- */
-int compareVersions(const QString& s1, const QString& s2, int *ret)
-{
-    QStringList v1 = s1.split(".");
-    QStringList v2 = s2.split(".");
-
-    int i = 0;
-    while (i < v1.size() && i < v2.size()) {
-        bool ok;
-        int a = v1[i].toInt(&ok);
-        if (!ok) {
-            return -1;
-        }
-        int b = v2[i].toInt(&ok);
-        if (!ok) {
-            return -1;
-        }
-
-        if (a > b) {
-            *ret = 1;
-            return 0;
-        } else if (a < b) {
-            *ret = -1;
-            return 0;
-        }
-
-        i++;
-    }
-
-    *ret = v1.size() - v2.size();
-
-    return 0;
-}
-
 #ifdef Q_OS_MAC
 void writeCABundleForCurl()
 {
@@ -216,9 +176,6 @@ const char *const kSeafileConfigureFileName = ".seafilerc";
 const char *const kSeafilePreconfigureGroupName = "preconfigure";
 
 const int kIntervalForUpdateRepoProperty = 1000;
-
-const char *kSeafileClientDownloadUrl = "https://seafile.com/en/download/";
-const char *kSeafileClientDownloadUrlChinese = "https://seafile.com/download/";
 
 const char *kRepoServerUrlProperty = "server-url";
 const char *kRepoRelayAddrProperty = "relay-address";
@@ -391,10 +348,6 @@ void SeafileApplet::onDaemonStarted()
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
     configurator_->installCustomUrlHandler();
 #endif
-
-    if (settings_mgr_->isCheckLatestVersionEnabled()) {
-        checkLatestVersionInfo();
-    }
 
     QString value;
     if (seafApplet->rpcClient()->seafileGetConfig("client_name", &value) < 0 || value.isEmpty()) {
@@ -636,48 +589,6 @@ bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detail
     layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
     msgBox.setDefaultButton(default_val ? QMessageBox::Yes : QMessageBox::No);
     return msgBox.exec() == QMessageBox::Yes;
-}
-
-void SeafileApplet::checkLatestVersionInfo()
-{
-    QString id = rpc_client_->getCcnetPeerId();
-    QString version = STRINGIZE(SEAFILE_CLIENT_VERSION);
-
-    GetLatestVersionRequest *req = new GetLatestVersionRequest(id, version);
-    req->send();
-
-    connect(req, SIGNAL(success(const QString&)),
-            this, SLOT(onGetLatestVersionInfoSuccess(const QString&)));
-}
-
-void SeafileApplet::onGetLatestVersionInfoSuccess(const QString& latest_version)
-{
-    QString current_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
-
-    int ret;
-    if (compareVersions(current_version, latest_version, &ret) < 0) {
-        return;
-    }
-
-    if (ret >= 0) {
-        return;
-    }
-
-    QString msg = tr("A new version of %1 client (%2) is available.\n"
-                     "Do you want to visit the download page?").arg(getBrand()).arg(latest_version);
-
-    if (!yesOrNoBox(msg, NULL, true)) {
-        return;
-    }
-
-    QString url;
-    if (QLocale::system().name() == "zh_CN") {
-        url = kSeafileClientDownloadUrlChinese;
-    } else {
-        url = kSeafileClientDownloadUrl;
-    }
-
-    QDesktopServices::openUrl(url);
 }
 
 /**

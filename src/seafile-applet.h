@@ -74,7 +74,6 @@ public:
 private slots:
     void onDaemonStarted();
     void checkInitVDrive();
-    void onGetLatestVersionInfoSuccess(const QString&);
     void updateReposPropertyForHttpSync();
     void onAboutToQuit();
 
@@ -84,8 +83,6 @@ private:
     void initLog();
 
     bool loadQss(const QString& path);
-
-    void checkLatestVersionInfo();
 
     Configurator *configurator_;
 

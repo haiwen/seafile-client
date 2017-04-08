@@ -46,17 +46,7 @@ const char* kFetchGroupsUrl = "api2/groups/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
 
-const char* kLatestVersionUrl = "https://seafile.com/api/client-versions/";
-
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
-
-#if defined(Q_OS_WIN32)
-const char* kOsName = "windows";
-#elif defined(Q_OS_LINUX)
-const char* kOsName = "linux";
-#else
-const char* kOsName = "mac";
-#endif
 
 } // namespace
 
@@ -437,39 +427,6 @@ void CreateDefaultRepoRequest::requestSuccess(QNetworkReply& reply)
     }
 
     emit success(dict.value("repo_id").toString());
-}
-
-GetLatestVersionRequest::GetLatestVersionRequest(const QString& client_id,
-                                                 const QString& client_version)
-    : SeafileApiRequest(QUrl(kLatestVersionUrl), SeafileApiRequest::METHOD_GET)
-{
-    setUrlParam("id", client_id.left(8));
-    setUrlParam("v", QString(kOsName) + "-" + client_version);
-}
-
-void GetLatestVersionRequest::requestSuccess(QNetworkReply& reply)
-{
-    json_error_t error;
-    json_t* root = parseJSON(reply, &error);
-    if (!root) {
-        qWarning("GetLatestVersionRequest: failed to parse json:%s\n",
-                 error.text);
-        emit failed(ApiError::fromJsonError());
-        return;
-    }
-
-    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
-
-    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
-
-    if (dict.contains(kOsName)) {
-        QString version = dict.value(kOsName).toString();
-        qWarning("The latest version is %s", toCStr(version));
-        emit success(version);
-        return;
-    }
-
-    emit failed(ApiError::fromJsonError());
 }
 
 GetStarredFilesRequest::GetStarredFilesRequest(const Account& account)

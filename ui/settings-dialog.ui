@@ -76,7 +76,7 @@
        <item>
         <widget class="QCheckBox" name="mCheckLatestVersionBox">
          <property name="text">
-          <string>Check for new version on startup</string>
+          <string>Check for updates automatically</string>
          </property>
         </widget>
        </item>

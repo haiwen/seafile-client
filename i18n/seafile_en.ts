@@ -2386,12 +2386,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="195"/>
+        <location filename="../src/main.cpp" line="200"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="215"/>
+        <location filename="../src/main.cpp" line="220"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2948,46 +2948,40 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SeafileApplet</name>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="359"/>
+        <location filename="../src/seafile-applet.cpp" line="325"/>
         <source>failed to add default account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="480"/>
+        <location filename="../src/seafile-applet.cpp" line="450"/>
         <source>Failed to initialize log: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="533"/>
-        <location filename="../src/seafile-applet.cpp" line="548"/>
+        <location filename="../src/seafile-applet.cpp" line="503"/>
+        <location filename="../src/seafile-applet.cpp" line="518"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/seafile-applet.cpp" line="529"/>
+        <location filename="../src/seafile-applet.cpp" line="543"/>
         <location filename="../src/seafile-applet.cpp" line="559"/>
-        <location filename="../src/seafile-applet.cpp" line="573"/>
-        <location filename="../src/seafile-applet.cpp" line="589"/>
-        <location filename="../src/seafile-applet.cpp" line="613"/>
+        <location filename="../src/seafile-applet.cpp" line="583"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/seafile-applet.cpp" line="530"/>
         <location filename="../src/seafile-applet.cpp" line="560"/>
-        <location filename="../src/seafile-applet.cpp" line="590"/>
-        <location filename="../src/seafile-applet.cpp" line="614"/>
+        <location filename="../src/seafile-applet.cpp" line="584"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/seafile-applet.cpp" line="574"/>
-        <location filename="../src/seafile-applet.cpp" line="591"/>
+        <location filename="../src/seafile-applet.cpp" line="544"/>
+        <location filename="../src/seafile-applet.cpp" line="561"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/seafile-applet.cpp" line="649"/>
-        <source>A new version of %1 client (%2) is available.
-Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3039,78 +3033,78 @@ Do you want to visit the download page?</source>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="163"/>
+        <location filename="../src/ui/tray-icon.cpp" line="170"/>
         <source>Disable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="166"/>
+        <location filename="../src/ui/tray-icon.cpp" line="173"/>
         <source>Enable auto sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="169"/>
+        <location filename="../src/ui/tray-icon.cpp" line="176"/>
         <source>View unread notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="173"/>
+        <location filename="../src/ui/tray-icon.cpp" line="180"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="176"/>
+        <location filename="../src/ui/tray-icon.cpp" line="183"/>
         <source>Show main window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="179"/>
+        <location filename="../src/ui/tray-icon.cpp" line="186"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="182"/>
+        <location filename="../src/ui/tray-icon.cpp" line="189"/>
         <source>Open %1 &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="183"/>
+        <location filename="../src/ui/tray-icon.cpp" line="190"/>
         <source>open %1 folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="186"/>
+        <location filename="../src/ui/tray-icon.cpp" line="193"/>
         <source>Open &amp;logs folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="190"/>
-        <location filename="../src/ui/tray-icon.cpp" line="191"/>
+        <location filename="../src/ui/tray-icon.cpp" line="197"/>
+        <location filename="../src/ui/tray-icon.cpp" line="198"/>
         <source>Show file sync errors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="194"/>
+        <location filename="../src/ui/tray-icon.cpp" line="201"/>
         <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="195"/>
+        <location filename="../src/ui/tray-icon.cpp" line="202"/>
         <source>Show the application&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="198"/>
+        <location filename="../src/ui/tray-icon.cpp" line="205"/>
         <source>&amp;Online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="249"/>
+        <location filename="../src/ui/tray-icon.cpp" line="256"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ui/tray-icon.cpp" line="570"/>
+        <location filename="../src/ui/tray-icon.cpp" line="587"/>
         <source>You have %n message(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -3118,42 +3112,42 @@ Do you want to visit the download page?</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="576"/>
+        <location filename="../src/ui/tray-icon.cpp" line="593"/>
         <source>auto sync is disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="603"/>
+        <location filename="../src/ui/tray-icon.cpp" line="620"/>
         <source>Uploading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="604"/>
+        <location filename="../src/ui/tray-icon.cpp" line="621"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="491"/>
+        <location filename="../src/ui/tray-icon.cpp" line="508"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="187"/>
+        <location filename="../src/ui/tray-icon.cpp" line="194"/>
         <source>open %1 log folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="199"/>
+        <location filename="../src/ui/tray-icon.cpp" line="206"/>
         <source>open %1 online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="492"/>
+        <location filename="../src/ui/tray-icon.cpp" line="509"/>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray-icon.cpp" line="581"/>
+        <location filename="../src/ui/tray-icon.cpp" line="598"/>
         <source>some servers not connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3280,47 +3274,47 @@ Do you want to visit the download page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="51"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="52"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
         <source>HTTP Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="53"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="55"/>
         <source>Socks5 Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="54"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="56"/>
         <source>System Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="105"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="109"/>
         <source>You have changed languange. Restart to apply it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="376"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="382"/>
         <source>The proxy host address can&apos;t be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="383"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="389"/>
         <source>The proxy port is incorrect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="392"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="398"/>
         <source>Proxy username can&apos;t be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/settings-dialog.cpp" line="395"/>
+        <location filename="../src/ui/settings-dialog.cpp" line="401"/>
         <source>Proxy password can&apos;t be empty</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3342,11 +3336,6 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="406"/>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui_settings-dialog.h" line="411"/>
-        <source>Check for new version on startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3392,6 +3381,11 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="410"/>
         <source>Enable Explorer Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_settings-dialog.h" line="411"/>
+        <source>Check for updates automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3558,6 +3552,19 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/filebrowser/sharedlink-dialog.cpp" line="44"/>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="39"/>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/shib/shib-login-dialog.cpp" line="111"/>
+        <source>Failed to save current account</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

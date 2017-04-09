@@ -1,4 +1,4 @@
-#include <QTimer>
+#include <QSettings>
 
 #include <winsparkle.h>
 
@@ -14,6 +14,7 @@ namespace
 {
     const char *kSparkleAppcastURI = "https://seafile.com/api/seafile-client/appcast.xml";
     const char *kWinSparkleRegistryPath = "SOFTWARE\\Seafile\\Seafile Client\\WinSparkle";
+    const char *kConfirmSparkleCheckUpdate = "ConfirmWinsparkCheckUpdate";
 } // namespace
 
 AutoUpdateService::AutoUpdateService(QObject *parent) : QObject(parent)
@@ -58,6 +59,19 @@ void AutoUpdateService::setRequestParams() {
         L"Seafile",
         L"Seafile Client",
         QString(STRINGIZE(SEAFILE_CLIENT_VERSION)).toStdWString().c_str());
+
+    // Avoid winsparkle to pop up a dialog asking the user "do you want to check
+    // for updates automatically?".
+    QSettings settings;
+    settings.beginGroup("Misc");
+    bool confirm_winspark_check_update = settings.value(kConfirmSparkleCheckUpdate, false).toBool();
+
+    if (!confirm_winspark_check_update) {
+        settings.setValue(kConfirmSparkleCheckUpdate, true);
+        setAutoUpdateEnabled(true);
+    }
+
+    settings.endGroup();
 }
 
 bool AutoUpdateService::shouldSupportAutoUpdate() const {
@@ -86,8 +100,13 @@ void AutoUpdateService::setUpdateCheckInterval(uint interval_in_seconds) {
 QString AutoUpdateService::getAppcastURI() {
 #if defined(WINSPARKLE_DEBUG)
     QString url_from_env = qgetenv("SEAFILE_CLIENT_APPCAST_URI");
-    return url_from_env.isEmpty() ? kSparkleAppcastURI : url_from_env;
-#else
-    return kSparkleAppcastURI;
+    if (!url_from_env.isEmpty()) {
+        qWarning(
+            "winsparkle: using app cast url from SEAFILE_CLIENT_APPCAST_URI: "
+            "%s",
+            url_from_env.toUtf8().data());
+        return url_from_env;
+    }
 #endif
+    return kSparkleAppcastURI;
 }

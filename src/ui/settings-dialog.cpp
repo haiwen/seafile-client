@@ -94,7 +94,7 @@ void SettingsDialog::updateSettings()
     updateProxySettings();
 
 #ifdef HAVE_SPARKLE_SUPPORT
-    if (!AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
+    if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
         bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
         AutoUpdateService::instance()->setAutoUpdateEnabled(enabled);
     }
@@ -188,7 +188,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     mUploadSpinBox->setValue(ratio);
 
 #ifdef HAVE_SPARKLE_SUPPORT
-    if (!AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
+    if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
         state = AutoUpdateService::instance()->autoUpdateEnabled() ? Qt::Checked : Qt::Unchecked;
         mCheckLatestVersionBox->setCheckState(state);
     }

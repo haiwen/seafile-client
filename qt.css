@@ -697,8 +697,3 @@ SyncErrorsTableView::item :last {
 SyncErrorsTableView::item:selected {
     background-color: #F9E0C7;
 }
-
-AboutDialog QPushButton#mCheckUpdateBtn {
-    padding-left: 10px;
-    padding-right: 10px;
-}

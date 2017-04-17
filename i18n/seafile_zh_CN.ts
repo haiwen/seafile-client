@@ -86,7 +86,7 @@
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation>服务器地址</translation>
+        <translation>网盘网址</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>

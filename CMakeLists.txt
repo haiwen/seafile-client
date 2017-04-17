@@ -13,6 +13,12 @@ IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)
 ENDIF()
 
+# CMake's builtin UNIX variable is true on Mac/Linux/BSD, but sometimes we want
+# to detect for LINUX.
+IF (UNIX AND NOT APPLE)
+  SET(LINUX TRUE)
+ENDIF()
+
 IF (APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
   SET(CMAKE_OSX_DEPLOYMENT_TARGET "10.7")
 ENDIF()
@@ -39,7 +45,15 @@ option(BUILD_ENABLE_WARNINGS "Enable compiler warnings." ON)
 
 option(BUILD_SPARKLE_SUPPORT "Build Sparkle support" OFF)
 IF (BUILD_SPARKLE_SUPPORT)
-  ADD_DEFINITIONS(-DHAVE_SPARKLE_SUPPORT)
+    ADD_DEFINITIONS(-DHAVE_SPARKLE_SUPPORT)
+    IF (LINUX)
+      message(FATAL_ERROR "Sparkle Support is not available for linux." )
+    ENDIF()
+    SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/auto-update-service.h)
+    SET(platform_specific_sources ${platform_specific_sources} src/auto-update-service.cpp)
+    IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
+        ADD_DEFINITIONS(-DSEAFILE_SPARKLE_DEBUG)
+    ENDIF()
 ENDIF()
 
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
@@ -91,19 +105,27 @@ IF (WIN32)
         message(FATAL_ERROR "File ${CMAKE_SOURCE_DIR}/WinSparkle.lib not found in current directory. Please setup winsparkle correctly." )
       ENDIF()
       SET(SPARKLE_LIBS ${CMAKE_SOURCE_DIR}/WinSparkle.lib)
-      SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/auto-update-service.h)
-      SET(platform_specific_sources ${platform_specific_sources} src/auto-update-service.cpp)
-      IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
-        ADD_DEFINITIONS(-DWINSPARKLE_DEBUG)
-      ENDIF()
     ENDIF()
 
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
+ELSEIF (LINUX)
     INCLUDE_DIRECTORIES(${QT_QTDBUS_INCLUDE_DIR})
     LINK_DIRECTORIES(${QT_QTDBUS_LIBRARIES})
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${QT_QTDBUS_LIBRARIES})
 ELSEIF (APPLE)
-    SET(platform_specific_sources src/application.cpp)
+    IF (BUILD_SPARKLE_SUPPORT)
+        SET(platform_specific_sources ${platform_specific_sources} src/mac-sparkle-support.mm)
+        SET_SOURCE_FILES_PROPERTIES(src/mac-sparkle-support.mm
+          PROPERTIES COMPILE_FLAGS -fobjc-arc)
+
+        SET(SPARKLE_FRAMEWORK /usr/local/Sparkle.framework)
+        IF(NOT EXISTS "${SPARKLE_FRAMEWORK}")
+          message(FATAL_ERROR "File ${SPARKLE_FRAMEWORK} not found. Please setup it correctly.")
+        ENDIF()
+        INCLUDE_DIRECTORIES(${SPARKLE_FRAMEWORK}/Headers)
+        SET(EXTRA_LIBS ${EXTRA_LIBS} ${SPARKLE_FRAMEWORK})
+    ENDIF()
+
+    SET(platform_specific_sources ${platform_specific_sources} src/application.cpp)
     ## Enforce ARC for this file, since ARC is only supported after the objc
     ## runtime changes in os x 10.10
     SET_SOURCE_FILES_PROPERTIES(src/utils/utils-mac.mm
@@ -118,7 +140,7 @@ ENDIF()
 
 IF(APPLE)
     ADD_DEFINITIONS(-DHAVE_FINDER_SYNC_SUPPORT)
-    SET(platform_specific_moc_headers src/finder-sync/finder-sync-host.h)
+    SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/finder-sync/finder-sync-host.h)
     SET(platform_specific_sources ${platform_specific_sources}
         src/finder-sync/finder-sync.cpp src/finder-sync/finder-sync-listener.mm
         src/finder-sync/finder-sync-host.cpp)

@@ -116,11 +116,9 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       rotate_counter_(0),
       state_(STATE_DAEMON_UP),
       next_message_msec_(0),
-      sync_errors_dialog_(nullptr)
+      sync_errors_dialog_(nullptr),
+      about_dialog_(nullptr)
 {
-#if defined(Q_OS_WIN32)
-    about_dialog_ = nullptr;
-#endif
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
     connect(rotate_timer_, SIGNAL(timeout()), this, SLOT(rotateTrayIcon()));

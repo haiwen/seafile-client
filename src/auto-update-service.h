@@ -6,6 +6,8 @@
 
 #include "utils/singleton.h"
 
+class AutoUpdateAdapter;
+
 // Auto update seafile client program. Only used on windows.
 class AutoUpdateService : public QObject
 {
@@ -20,18 +22,15 @@ public:
     void setRequestParams();
     bool autoUpdateEnabled() const;
     void setAutoUpdateEnabled(bool enabled);
-    uint updateCheckInterval() const;
-    void setUpdateCheckInterval(uint interval_in_seconds);
 
     void start();
     void stop();
 
     void checkUpdate();
-    void checkAndInstallUpdate();
-    void checkUpdateWithoutUI();
 
 private:
     QString getAppcastURI();
+    AutoUpdateAdapter *adapter_;
 };
 
 #endif // SEAFILE_CLIENT_AUTO_UPDATE_SERVICE_H

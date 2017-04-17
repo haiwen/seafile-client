@@ -42,15 +42,16 @@
 #include "customization-service.h"
 
 #if defined(Q_OS_WIN32)
-#include "ext-handler.h"
-#include "utils/registry.h"
+    #include "ext-handler.h"
+    #include "utils/registry.h"
+#elif defined(HAVE_FINDER_SYNC_SUPPORT)
+    #include "finder-sync/finder-sync-listener.h"
+#endif
+
 #ifdef HAVE_SPARKLE_SUPPORT
 #include "auto-update-service.h"
 #endif
 
-#elif defined(HAVE_FINDER_SYNC_SUPPORT)
-#include "finder-sync/finder-sync-listener.h"
-#endif
 
 #if defined(Q_OS_MAC)
 #include "utils/utils-mac.h"
@@ -366,16 +367,14 @@ void SeafileApplet::onDaemonStarted()
     //
 #if defined(Q_OS_WIN32)
     SeafileExtensionHandler::instance()->start();
+#elif defined(HAVE_FINDER_SYNC_SUPPORT)
+    finderSyncListenerStart();
+#endif
 
 #ifdef HAVE_SPARKLE_SUPPORT
     if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
-        AutoUpdateService::instance()->setRequestParams();
         AutoUpdateService::instance()->start();
     }
-#endif // HAVE_SPARKLE_SUPPORT
-
-#elif defined(HAVE_FINDER_SYNC_SUPPORT)
-    finderSyncListenerStart();
 #endif
 }
 

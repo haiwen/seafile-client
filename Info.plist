@@ -16,6 +16,8 @@
 	<string>Seafile</string>
 	<key>CFBundleShortVersionString</key>
 	<string>6.0.4</string>
+	<key>CFBundleVersion</key>
+	<string>6.0.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -44,5 +46,8 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+    <!-- For Sparkle Framework -->
+	<key>SUFeedURL</key>
+	<string>https://seafile.com/api/client-updates/seafile-client-mac/appcast.xml</string>
 </dict>
 </plist>

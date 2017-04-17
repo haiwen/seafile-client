@@ -22,7 +22,7 @@ AboutDialog::AboutDialog(QWidget *parent)
     setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint) |
                    Qt::WindowStaysOnTopHint);
 
-    version_text_ = tr("<h4>%1 Client %2</h4>")
+    version_text_ = tr("<h2>%1 Client %2</h2>")
                        .arg(getBrand())
 	               .arg(STRINGIZE(SEAFILE_CLIENT_VERSION))
 #ifdef SEAFILE_CLIENT_REVISION
@@ -45,7 +45,6 @@ AboutDialog::AboutDialog(QWidget *parent)
 #ifdef HAVE_SPARKLE_SUPPORT
 void AboutDialog::checkUpdate()
 {
-    AutoUpdateService::instance()->setRequestParams();
     AutoUpdateService::instance()->checkUpdate();
     close();
 }

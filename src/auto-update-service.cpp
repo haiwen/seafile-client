@@ -22,7 +22,7 @@ namespace
 #else
     const char *kSparkleAppcastURI = "https://seafile.com/api/client-updates/seafile-client-mac/appcast.xml";
 #endif
-    const char *kConfirmSparkleCheckUpdate = "ConfirmWinsparkCheckUpdate";
+    const char *kSparkleAlreadyEnableUpdateByDefault = "SparkleAlreadyEnableUpdateByDefault";
 
 QString getAppcastURI() {
     QString url_from_env = qgetenv("SEAFILE_CLIENT_APPCAST_URI");
@@ -41,6 +41,7 @@ QString getAppcastURI() {
 // Virtual base class for windows/mac
 class AutoUpdateAdapter {
 public:
+    virtual void prepare() = 0;
     virtual void start() = 0;
     virtual void stop() = 0;
     virtual void checkNow() = 0;
@@ -51,8 +52,21 @@ public:
 #ifdef Q_OS_WIN32
 class WindowsAutoUpdateAdapter: public AutoUpdateAdapter {
 public:
+    void prepare() {
+        // Note that @param path is relative to HKCU/HKLM root
+        // and the root is not part of it. For example:
+        // @code
+        //     win_sparkle_set_registry_path("Software\\My App\\Updates");
+        // @endcode
+        win_sparkle_set_registry_path(kWinSparkleRegistryPath);
+        win_sparkle_set_appcast_url(getAppcastURI().toUtf8().data());
+        win_sparkle_set_app_details(
+            L"Seafile",
+            L"Seafile Client",
+            QString(STRINGIZE(SEAFILE_CLIENT_VERSION)).toStdWString().c_str());
+    }
+
     void start() {
-        prepare();
         win_sparkle_init();
     }
 
@@ -72,39 +86,15 @@ public:
     void setAutoUpdateEnabled(bool enabled) {
         win_sparkle_set_automatic_check_for_updates(enabled ? 1 : 0);
     }
-
-    void prepare() {
-        // Note that @param path is relative to HKCU/HKLM root
-        // and the root is not part of it. For example:
-        // @code
-        //     win_sparkle_set_registry_path("Software\\My App\\Updates");
-        // @endcode
-        win_sparkle_set_registry_path(kWinSparkleRegistryPath);
-        win_sparkle_set_appcast_url(getAppcastURI().toUtf8().data());
-        win_sparkle_set_app_details(
-            L"Seafile",
-            L"Seafile Client",
-            QString(STRINGIZE(SEAFILE_CLIENT_VERSION)).toStdWString().c_str());
-
-        // Avoid winsparkle to pop up a dialog asking the user "do you want to check
-        // for updates automatically?".
-        QSettings settings;
-        settings.beginGroup("Misc");
-        bool confirm_winspark_check_update = settings.value(kConfirmSparkleCheckUpdate, false).toBool();
-
-        if (!confirm_winspark_check_update) {
-            settings.setValue(kConfirmSparkleCheckUpdate, true);
-            setAutoUpdateEnabled(true);
-        }
-
-        settings.endGroup();
-    }
 };
 #elif defined(Q_OS_MAC)
 class MacAutoUpdateAdapter: public AutoUpdateAdapter {
 public:
-    void start() {
+    void prepare() {
         SparkleHelper::setFeedURL(getAppcastURI().toUtf8().data());
+    }
+
+    void start() {
     }
 
     void stop() {
@@ -121,21 +111,6 @@ public:
     void setAutoUpdateEnabled(bool enabled) {
         SparkleHelper::setAutoUpdateEnabled(enabled);
     }
-
-    void prepare() {
-        // Avoid winsparkle to pop up a dialog asking the user "do you want to check
-        // for updates automatically?".
-        QSettings settings;
-        settings.beginGroup("Misc");
-        bool confirm_winspark_check_update = settings.value(kConfirmSparkleCheckUpdate, false).toBool();
-
-        if (!confirm_winspark_check_update) {
-            settings.setValue(kConfirmSparkleCheckUpdate, true);
-            setAutoUpdateEnabled(true);
-        }
-
-        settings.endGroup();
-    }
 };
 #endif
 
@@ -151,7 +126,23 @@ AutoUpdateService::AutoUpdateService(QObject *parent) : QObject(parent)
 
 void AutoUpdateService::start()
 {
+    adapter_->prepare();
+    enableUpdateByDefault();
     adapter_->start();
+}
+
+void AutoUpdateService::enableUpdateByDefault() {
+    // Enable auto update check by default.
+    QSettings settings;
+    settings.beginGroup("Misc");
+    bool already_enable_update_by_default = settings.value(kSparkleAlreadyEnableUpdateByDefault, false).toBool();
+
+    if (!already_enable_update_by_default) {
+        settings.setValue(kSparkleAlreadyEnableUpdateByDefault, true);
+        setAutoUpdateEnabled(true);
+    }
+
+    settings.endGroup();
 }
 
 void AutoUpdateService::stop()

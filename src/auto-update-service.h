@@ -29,6 +29,7 @@ public:
     void checkUpdate();
 
 private:
+    void enableUpdateByDefault();
     QString getAppcastURI();
     AutoUpdateAdapter *adapter_;
 };

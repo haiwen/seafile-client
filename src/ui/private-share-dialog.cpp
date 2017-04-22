@@ -805,7 +805,7 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
 void SharedItemsTableModel::onResize(const QSize& size)
 {
     name_column_width_ = size.width() - kPermissionColumnWidth;
-    if (rowCount() == 0) {
+    if (rowCount() != 0) {
         emit dataChanged(index(0, COLUMN_NAME),
                          index(rowCount() - 1, COLUMN_NAME));
     }

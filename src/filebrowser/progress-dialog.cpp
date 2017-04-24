@@ -14,6 +14,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
           task_(task->sharedFromThis())
 {
     setWindowModality(Qt::WindowModal);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowIcon(QIcon(":/images/seafile.png"));
 
     QVBoxLayout *layout_ = new QVBoxLayout;
     progress_bar_ = new QProgressBar;

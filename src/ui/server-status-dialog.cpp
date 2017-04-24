@@ -12,6 +12,7 @@ ServerStatusDialog::ServerStatusDialog(QWidget *parent) : QDialog(parent)
 
     setWindowTitle(tr("Servers connection status"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowIcon(QIcon(":/images/seafile.png"));
 
     refreshStatus();
 

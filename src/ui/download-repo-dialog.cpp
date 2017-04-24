@@ -90,6 +90,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     }
     mDirectory->setPlaceholderText(getOperatingText(repo_));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowIcon(QIcon(":/images/seafile.png"));
 
     mRepoIcon->setPixmap(repo.getPixmap());
     mRepoName->setText(repo_.name);

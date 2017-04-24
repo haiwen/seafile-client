@@ -13,6 +13,7 @@ SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& acco
 {
     setWindowTitle(tr("%1 Internal Link").arg(getBrand()));
     setWindowIcon(QIcon(":/images/seafile.png"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(5);

@@ -843,7 +843,7 @@ void FetchAccountInfoRequest::requestSuccess(QNetworkReply& reply)
 PrivateShareRequest::PrivateShareRequest(const Account& account,
                                          const QString& repo_id,
                                          const QString& path,
-                                         const QString& username,
+                                         const SeafileUser& user,
                                          int group_id,
                                          SharePermission permission,
                                          ShareType share_type,
@@ -854,7 +854,7 @@ PrivateShareRequest::PrivateShareRequest(const Account& account,
                                                                  : METHOD_PUT),
           account.token),
       group_id_(share_type == SHARE_TO_GROUP ? group_id : -1),
-      username_(share_type == SHARE_TO_USER ? username : QString()),
+      user_(share_type == SHARE_TO_USER ? user: SeafileUser()),
       permission_(permission),
       share_type_(share_type),
       share_operation_(op)
@@ -873,10 +873,10 @@ PrivateShareRequest::PrivateShareRequest(const Account& account,
 
     if (share_type == SHARE_TO_USER) {
         if (is_add) {
-            setFormParam("username", username);
+            setFormParam("username", user_.email);
         }
         else {
-            setUrlParam("username", username);
+            setUrlParam("username", user_.email);
         }
     }
     else {

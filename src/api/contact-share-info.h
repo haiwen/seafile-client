@@ -20,6 +20,10 @@ struct SeafileUser {
     bool operator==(const SeafileUser& rhs) const {
         return rhs.email == email;
     }
+
+    QString getDisplayEmail() const {
+        return !contact_email.isEmpty() ? contact_email : email;
+    }
 };
 
 uint qHash(const SeafileUser& user, uint seed=0);

@@ -172,11 +172,11 @@ void PrivateShareDialog::onUserNameChanged(const QString& email)
     // }
 
     // The search result is cached
-    if (cached_users_.contains(pattern) &&
-        cached_users_[pattern].ts + kCacheEntryExpireMSecs >
+    if (cached_completion_users_by_pattern_.contains(pattern) &&
+        cached_completion_users_by_pattern_[pattern].ts + kCacheEntryExpireMSecs >
             QDateTime::currentMSecsSinceEpoch()) {
         // printf("cached results for %s\n", toCStr(pattern));
-        updateUsersCompletion(cached_users_[pattern].users.toList());
+        updateUsersCompletion(cached_completion_users_by_pattern_[pattern].users.toList());
         return;
     }
 
@@ -211,7 +211,7 @@ void PrivateShareDialog::onSearchUsersSuccess(const QList<SeafileUser> &users)
 
     updateUsersCompletion(users);
 
-    cached_users_[req->pattern()] = {QSet<SeafileUser>::fromList(users), QDateTime::currentMSecsSinceEpoch()};
+    cached_completion_users_by_pattern_[req->pattern()] = {QSet<SeafileUser>::fromList(users), QDateTime::currentMSecsSinceEpoch()};
 
     // printf("get %d results for pattern %s\n", users.size(), toCStr(req->pattern()));
 }
@@ -220,17 +220,18 @@ void PrivateShareDialog::updateUsersCompletion(const QList<SeafileUser>& users)
 {
     QStringList candidates;
     foreach (const SeafileUser& user, users) {
+        // The local accounts database account.username is the user email, not contact_email.
         if (user.email == account_.username) {
             continue;
         }
-        users_[user.email] = user;
+        users_by_email_[user.getDisplayEmail()] = user;
         if (!user.name.isEmpty()) {
             candidates << QString("%1 <%2>")
                                 .arg(user.name)
-                                .arg(user.email);
+                                .arg(user.getDisplayEmail());
         }
         else {
-            candidates << user.email;
+            candidates << user.getDisplayEmail();
         }
     }
     QStringListModel *users_complete_model = (QStringListModel *)(completer_->model());
@@ -274,15 +275,15 @@ void PrivateShareDialog::createTable()
     connect(model_, SIGNAL(updateShareItem(int, SharePermission)), this,
             SLOT(onUpdateShareItem(int, SharePermission)));
     // Overloaded signal for updating user share.
-    connect(model_, SIGNAL(updateShareItem(const QString&, SharePermission)),
-            this, SLOT(onUpdateShareItem(const QString&, SharePermission)));
+    connect(model_, SIGNAL(updateShareItem(const SeafileUser&, SharePermission)),
+            this, SLOT(onUpdateShareItem(const SeafileUser&, SharePermission)));
 
     // Overloaded signal for removing group share.
     connect(model_, SIGNAL(removeShareItem(int, SharePermission)), this,
             SLOT(onRemoveShareItem(int, SharePermission)));
     // Overloaded signal for removing user share.
-    connect(model_, SIGNAL(removeShareItem(const QString&, SharePermission)),
-            this, SLOT(onRemoveShareItem(const QString&, SharePermission)));
+    connect(model_, SIGNAL(removeShareItem(const SeafileUser&, SharePermission)),
+            this, SLOT(onRemoveShareItem(const SeafileUser&, SharePermission)));
 }
 
 void PrivateShareDialog::onNameInputEdited()
@@ -304,7 +305,7 @@ void PrivateShareDialog::fetchGroupsForCompletion()
 void PrivateShareDialog::onUpdateShareItem(int group_id,
                                            SharePermission permission)
 {
-    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, QString(),
+    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, SeafileUser(),
                                            group_id, permission, SHARE_TO_GROUP,
                                            PrivateShareRequest::UPDATE_SHARE));
 
@@ -318,10 +319,10 @@ void PrivateShareDialog::onUpdateShareItem(int group_id,
     request_->send();
 }
 
-void PrivateShareDialog::onUpdateShareItem(const QString& email,
+void PrivateShareDialog::onUpdateShareItem(const SeafileUser& user,
                                            SharePermission permission)
 {
-    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, email, 0,
+    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, user, 0,
                                            permission, SHARE_TO_USER,
                                            PrivateShareRequest::UPDATE_SHARE));
 
@@ -341,20 +342,17 @@ void PrivateShareDialog::onUpdateShareSuccess()
     // seafApplet->messageBox(tr("Shared successfully"), this);
     if (to_group_) {
         GroupShareInfo info;
-        info.group = groups_[request_->groupId()];
+        info.group = groups_by_id_[request_->groupId()];
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
         table_->setCurrentIndex(model_->getIndexByGroup(info.group.id));
     }
     else {
         UserShareInfo info;
-        info.user.email = request_.data()->userName();
-        if (users_.contains(info.user.email)) {
-            info.user.name = users_[info.user.email].name;
-        }
+        info.user = request_.data()->user();
         info.permission = request_.data()->permission();
         model_->addNewShareInfo(info);
-        table_->setCurrentIndex(model_->getIndexByUser(info.user.email));
+        table_->setCurrentIndex(model_->getIndexByUser(info.user));
     }
     model_->shareOperationSuccess();
     // enableInputs();
@@ -372,7 +370,7 @@ void PrivateShareDialog::onUpdateShareFailed(const ApiError& error)
 void PrivateShareDialog::onRemoveShareItem(int group_id,
                                            SharePermission permission)
 {
-    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, QString(),
+    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, SeafileUser(),
                                            group_id, permission, SHARE_TO_GROUP,
                                            PrivateShareRequest::REMOVE_SHARE));
 
@@ -402,10 +400,10 @@ void PrivateShareDialog::onRemoveShareFailed(const ApiError& error)
     // enableInputs();
 }
 
-void PrivateShareDialog::onRemoveShareItem(const QString& email,
+void PrivateShareDialog::onRemoveShareItem(const SeafileUser& user,
                                            SharePermission permission)
 {
-    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, email, 0,
+    request_.reset(new PrivateShareRequest(account_, repo_id_, path_, user, 0,
                                            permission, SHARE_TO_USER,
                                            PrivateShareRequest::REMOVE_SHARE));
 
@@ -425,7 +423,7 @@ void PrivateShareDialog::onFetchGroupsSuccess(const QList<SeafileGroup>& groups)
     QStringList candidates;
     foreach (const SeafileGroup& group, groups) {
         candidates << group.name;
-        groups_[group.id] = group;
+        groups_by_id_[group.id] = group;
     }
 
     if (!candidates.isEmpty()) {
@@ -492,7 +490,7 @@ bool PrivateShareDialog::validateInputs()
     if (to_group_) {
         SeafileGroup group;
         bool found = false;
-        foreach (const SeafileGroup& g, groups_.values()) {
+        foreach (const SeafileGroup& g, groups_by_id_.values()) {
             if (g.name == name) {
                 group = g;
                 found = true;
@@ -511,12 +509,13 @@ bool PrivateShareDialog::validateInputs()
         }
     }
     else {
-        if (!users_.contains(name)) {
+        if (!users_by_email_.contains(name)) {
             showWarning(tr("No such user \"%1\"").arg(name));
             return false;
         }
-        if (model_->shareExists(name)) {
-            UserShareInfo info = model_->shareInfo(name);
+        SeafileUser user = users_by_email_[name];
+        if (model_->shareExists(user)) {
+            UserShareInfo info = model_->shareInfo(user);
             if (info.permission == permission) {
                 showWarning(tr("Already shared to user %1").arg(name));
                 return false;
@@ -529,7 +528,7 @@ bool PrivateShareDialog::validateInputs()
 
 SeafileGroup PrivateShareDialog::findGroup(const QString& name)
 {
-    foreach (const SeafileGroup& group, groups_.values()) {
+    foreach (const SeafileGroup& group, groups_by_id_.values()) {
         if (group.name == name) {
             return group;
         }
@@ -550,15 +549,16 @@ void PrivateShareDialog::onOkBtnClicked()
     // disableInputs();
     QString username;
     SeafileGroup group;
+    SeafileUser user;
     QString name = lineEdit()->text().trimmed();
     if (to_group_) {
         group = findGroup(name);
     }
     else {
-        username = name;
+        user = users_by_email_[name];
     }
     request_.reset(new PrivateShareRequest(
-        account_, repo_id_, path_, username, group.id, currentPermission(),
+        account_, repo_id_, path_, user, group.id, currentPermission(),
         to_group_ ? SHARE_TO_GROUP : SHARE_TO_USER,
         PrivateShareRequest::ADD_SHARE));
 
@@ -578,8 +578,7 @@ void PrivateShareDialog::onOkBtnClicked()
     }
     else {
         UserShareInfo info;
-        info.user.email = name;
-        info.user.name = users_[info.user.email].name;
+        info.user = user;
         info.permission = currentPermission();
         model_->addNewShareInfo(info);
     }
@@ -734,7 +733,7 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
                 }
             }
             else {
-                return user_shares_[row].user.email;
+                return user_shares_[row].user.getDisplayEmail();
             }
         }
         return QVariant();
@@ -857,7 +856,7 @@ void SharedItemsTableModel::addNewShareInfo(UserShareInfo newinfo)
     bool exists = false;
     for (int i = 0; i < user_shares_.size(); i++) {
         UserShareInfo& info = user_shares_[i];
-        if (info.user.email == newinfo.user.email) {
+        if (info.user == newinfo.user) {
             exists = true;
             info.permission = newinfo.permission;
         }
@@ -896,10 +895,10 @@ bool SharedItemsTableModel::shareExists(int group_id)
     return false;
 }
 
-bool SharedItemsTableModel::shareExists(const QString& email)
+bool SharedItemsTableModel::shareExists(const SeafileUser& user)
 {
     foreach (const UserShareInfo& info, user_shares_) {
-        if (info.user.email == email) {
+        if (info.user == user) {
             return true;
         }
     }
@@ -916,10 +915,10 @@ GroupShareInfo SharedItemsTableModel::shareInfo(int group_id)
     return GroupShareInfo();
 }
 
-UserShareInfo SharedItemsTableModel::shareInfo(const QString& email)
+UserShareInfo SharedItemsTableModel::shareInfo(const SeafileUser& user)
 {
     foreach (const UserShareInfo& info, user_shares_) {
-        if (info.user.email == email) {
+        if (info.user == user) {
             return info;
         }
     }
@@ -989,14 +988,14 @@ bool SharedItemsTableModel::setData(const QModelIndex& index,
         previous_user_shares_ = user_shares_;
         UserShareInfo& info = user_shares_[row];
         if (permission == 3) {
-            emit removeShareItem(info.user.email, info.permission);
+            emit removeShareItem(info.user, info.permission);
             removed_user_share_ = info;
             removeRows(row, 1);
         }
         else if (permission == info.permission) {
         }
         else {
-            emit updateShareItem(info.user.email, (SharePermission)permission);
+            emit updateShareItem(info.user, (SharePermission)permission);
             info.permission =
                 info.permission == READ_ONLY ? READ_WRITE : READ_ONLY;
             emit dataChanged(index, index);
@@ -1033,10 +1032,10 @@ QModelIndex SharedItemsTableModel::getIndexByGroup(int group_id) const
     return index(0, 0);
 }
 
-QModelIndex SharedItemsTableModel::getIndexByUser(const QString& email) const
+QModelIndex SharedItemsTableModel::getIndexByUser(const SeafileUser& user) const
 {
     for (int i = 0; i < user_shares_.size(); i++) {
-        if (user_shares_[i].user.email == email) {
+        if (user_shares_[i].user == user) {
             return index(i, 0);
         }
     }

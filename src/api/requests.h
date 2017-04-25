@@ -542,7 +542,7 @@ public:
     PrivateShareRequest(const Account& account,
                         const QString& repo_id,
                         const QString& path,
-                        const QString& username,
+                        const SeafileUser& user,
                         int group_id,
                         SharePermission permission,
                         ShareType share_type,
@@ -558,9 +558,9 @@ public:
         return share_type_ == SHARE_TO_GROUP ? group_id_ : -1;
     };
 
-    QString userName() const
+    SeafileUser user() const
     {
-        return share_type_ == SHARE_TO_USER ? username_ : QString();
+        return share_type_ == SHARE_TO_USER ? user_ : SeafileUser();
     };
 
     SharePermission permission() const
@@ -583,7 +583,7 @@ private:
     Q_DISABLE_COPY(PrivateShareRequest);
 
     int group_id_;
-    QString username_;
+    SeafileUser user_;
     SharePermission permission_;
     ShareType share_type_;
     ShareOperation share_operation_;
@@ -722,5 +722,3 @@ private:
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H
-
-

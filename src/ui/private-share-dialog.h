@@ -48,9 +48,9 @@ public:
 
 public slots:
     void onUpdateShareItem(int group_id, SharePermission permission);
-    void onUpdateShareItem(const QString& email, SharePermission permission);
+    void onUpdateShareItem(const SeafileUser& email, SharePermission permission);
     void onRemoveShareItem(int group_id, SharePermission permission);
-    void onRemoveShareItem(const QString& email, SharePermission permission);
+    void onRemoveShareItem(const SeafileUser& user, SharePermission permission);
     void onCompleterActivatedOrHighlighted(const QString& text);
     void onUserNameEditingFinished();
 
@@ -95,16 +95,18 @@ private:
     QString path_;
     bool to_group_;
 
-    QHash<int, SeafileGroup> groups_;
-    // A (email, SeafileUser) map.
-    QHash<QString, SeafileUser> users_;
+    QHash<int, SeafileGroup> groups_by_id_;
+
+    // A map of (email, SeafileUser) map. The user has a contact_email, the key
+    // is user.contact_email, otherwise, it's user.email.
+    QHash<QString, SeafileUser> users_by_email_;
 
     // A (pattern, possible users for completion) multi map.
     struct CachedUsersEntry {
         QSet<SeafileUser> users;
         qint64 ts;
     };
-    QHash<QString, CachedUsersEntry> cached_users_;
+    QHash<QString, CachedUsersEntry> cached_completion_users_by_pattern_;
     QSet<QString> in_progress_search_requests_;
 
     SharedItemsTableView* table_;
@@ -162,10 +164,10 @@ public:
     void addNewShareInfo(GroupShareInfo info);
 
     bool shareExists(int group_id);
-    bool shareExists(const QString& email);
+    bool shareExists(const SeafileUser& user);
 
     GroupShareInfo shareInfo(int group_id);
-    UserShareInfo shareInfo(const QString& email);
+    UserShareInfo shareInfo(const SeafileUser& user);
 
     void shareOperationSuccess();
     void shareOperationFailed(PrivateShareRequest::ShareOperation op);
@@ -194,12 +196,12 @@ public:
     }
 
     QModelIndex getIndexByGroup(int group_id) const;
-    QModelIndex getIndexByUser(const QString& email) const;
+    QModelIndex getIndexByUser(const SeafileUser& user) const;
 signals:
     void updateShareItem(int group_id, SharePermission permission);
-    void updateShareItem(const QString& email, SharePermission permission);
+    void updateShareItem(const SeafileUser& user, SharePermission permission);
     void removeShareItem(int group_id, SharePermission permission);
-    void removeShareItem(const QString& email, SharePermission permission);
+    void removeShareItem(const SeafileUser& user, SharePermission permission);
 
 public slots:
     void onResize(const QSize& size);

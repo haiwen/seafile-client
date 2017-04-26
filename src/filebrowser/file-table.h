@@ -11,6 +11,7 @@
 
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
+#include "seafile-applet.h"
 
 #include "thumbnail-service.h"
 

@@ -11,6 +11,7 @@
 
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
+#include "seafile-applet.h"
 
 #include "thumbnail-service.h"
 
@@ -176,6 +177,23 @@ public:
         if (is_dir_left != is_dir_right)
             return sortOrder() != Qt::AscendingOrder ? is_dir_right
                                                      : !is_dir_right;
+        else {
+            const QString left_name = source_model_->direntAt(left.row())->name;
+            const QString right_name = source_model_->direntAt(right.row())->name;
+            const QRegExp left_digit_pattern("(\\d+)*");
+            const QRegExp right_digit_pattern("(\\d+)*");
+            int left_pos = left_digit_pattern.indexIn(left_name);
+            int right_pos = right_digit_pattern.indexIn(right_name);
+            if (left_pos != -1 && right_pos != -1) {
+                quint64 left_digit = left_digit_pattern.cap(1).toUInt();
+                quint64 right_digit = right_digit_pattern.cap(1).toUInt();
+                return left_digit < right_digit ? true : false;
+            }
+            else {
+                return QSortFilterProxyModel::lessThan(left, right);
+            }
+
+        }
 
         return QSortFilterProxyModel::lessThan(left, right);
     }

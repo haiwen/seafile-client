@@ -176,7 +176,7 @@ ELSE()
 ENDIF()
 
 SET(USE_QT_LIBRARIES
-    Core Gui Widgets LinguistTools Network Test
+    Core Gui Widgets LinguistTools Network
     )
 IF (BUILD_SHIBBOLETH_SUPPORT)
     SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} ${WEBENGINE_CORE} ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
@@ -814,7 +814,9 @@ IF (BUILD_TESTING)
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 
-        QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES})
+        INCLUDE_DIRECTORIES(${Qt5Test_INCLUDE_DIRS})
+
+        QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES} Test)
 
         ADD_TEST(${testname} ${CMAKE_CURRENT_BINARY_DIR}/tests/${testname})
 

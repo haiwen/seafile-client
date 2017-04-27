@@ -54,6 +54,51 @@ enum {
 const int DirentLockStatusRole = Qt::UserRole + 1;
 const int DirentLockOwnerRoler = Qt::UserRole + 2;
 
+int digitalCompare(const QString &left, const QString &right)
+{
+    int ret = 0;
+    if (left.compare(right) == 0)
+        return ret;
+
+    QString left_sub = left;
+    QString right_sub = right;
+    const uint min_size = left.size() < right.size()
+                          ? left.size() : right.size();
+    uint i;
+    for (i = 0; i != min_size; i++) {
+        if (left[i].isDigit() && right[i].isDigit())
+            break;
+        if (left[i] != right[i]) {
+            if (i == 0)
+                return left.compare(right);
+            break;
+        }
+    }
+    if (i == min_size) {
+        return left.compare(right);
+    }
+    left_sub = left_sub.right(left_sub.size() - i);
+    right_sub = right_sub.right(right_sub.size() - i);
+
+    const QRegExp left_digit_pattern("(\\d+)*");
+    const QRegExp right_digit_pattern("(\\d+)*");
+    const int left_pos = left_digit_pattern.indexIn(left_sub);
+    const int right_pos = right_digit_pattern.indexIn(right_sub);
+    if (left_pos != -1 && right_pos != -1) {
+        quint64 left_digit = left_digit_pattern.cap(1).toUInt();
+        quint64 right_digit = right_digit_pattern.cap(1).toUInt();
+        if (left_digit == right_digit) {
+            left_sub = left_sub.right(left_sub.size() -
+                                      left_pos - left_digit_pattern.cap(1).size());
+            right_sub = right_sub.right(right_sub.size() -
+                                        right_pos - right_digit_pattern.cap(1).size());
+            return digitalCompare(left_sub, right_sub);
+        }
+        return left_digit - right_digit;
+    }
+    return left.compare(right);
+}
+
 } // namespace
 
 FileTableViewDelegate::FileTableViewDelegate(QObject *parent)

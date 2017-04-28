@@ -92,14 +92,24 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     }
     setWindowTitle(title);
     setWindowIcon(QIcon(":/images/seafile.png"));
-    setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog)
-#if !defined(Q_OS_MAC)
-                   | Qt::FramelessWindowHint
-#endif
-                   | Qt::Window);
 
-    resizer_ = new QSizeGrip(this);
-    resizer_->resize(resizer_->sizeHint());
+    Qt::WindowFlags flags =
+        (windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog) |
+        Qt::Window | Qt::WindowSystemMenuHint;
+
+    if (shouldUseFramelessWindow()) {
+        flags |= Qt::FramelessWindowHint;
+    } else {
+        flags |= Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint |
+            Qt::WindowCloseButtonHint | Qt::WindowMaximizeButtonHint;
+    }
+    setWindowFlags(flags);
+
+    if (shouldUseFramelessWindow()) {
+        resizer_ = new QSizeGrip(this);
+        resizer_->resize(resizer_->sizeHint());
+    }
+
     setAttribute(Qt::WA_TranslucentBackground, true);
 
     createTitleBar();
@@ -132,9 +142,10 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     vlayout->addWidget(stack_);
     vlayout->addWidget(status_bar_);
 
-#ifdef Q_OS_MAC
-    header_->setVisible(false);
-#endif
+    if (!shouldUseFramelessWindow()) {
+        header_->setVisible(false);
+        setStyleSheet("FileBrowserDialog QWidget#mainWidget {border : 0; border-radius: 0px;}");
+    }
 
     // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
@@ -1160,8 +1171,10 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
 
 void FileBrowserDialog::resizeEvent(QResizeEvent *event)
 {
-    resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
-    resizer_->raise();
+    if (shouldUseFramelessWindow()) {
+        resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
+        resizer_->raise();
+    }
 }
 
 void FileBrowserDialog::done(int retval)

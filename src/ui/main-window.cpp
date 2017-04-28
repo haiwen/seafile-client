@@ -24,6 +24,7 @@
 #include "login-dialog.h"
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
+#include "utils/utils-win.h"
 
 #include "main-window.h"
 
@@ -68,14 +69,15 @@ MainWindow::MainWindow()
     // Qt::Tool hides the taskbar entry on windows
     // setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
-    setWindowFlags(Qt::Window
-#if !defined(Q_OS_MAC)
-                   | Qt::FramelessWindowHint
-#endif
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-                   | Qt::WindowMinimizeButtonHint
-#endif
-                   | Qt::WindowSystemMenuHint);
+    Qt::WindowFlags flags = Qt::Window | Qt::WindowSystemMenuHint;
+    if (shouldUseFramelessWindow()) {
+        flags |= Qt::FramelessWindowHint;
+    } else {
+        flags |= Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint |
+            Qt::WindowCloseButtonHint | Qt::WindowMaximizeButtonHint;
+    }
+
+    setWindowFlags(flags);
 
     cloud_view_ = new CloudView;
 
@@ -86,6 +88,9 @@ MainWindow::MainWindow()
     QWidget *wrapper = new QWidget;
     wrapper->setObjectName("mainWrapper");
     wrapper->setLayout(layout);
+    if (!shouldUseFramelessWindow()) {
+        wrapper->setStyleSheet("QWidget#mainWrapper {border : 0; border-radius: 0px;}");
+    }
 
     setCentralWidget(wrapper);
 
@@ -106,8 +111,8 @@ void MainWindow::hide()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    event->ignore();
     hide();
-    // event->ignore();
 }
 
 bool MainWindow::event(QEvent *ev)
@@ -130,6 +135,9 @@ bool MainWindow::event(QEvent *ev)
 
 void MainWindow::changeEvent(QEvent *event)
 {
+    if (!shouldUseFramelessWindow()) {
+        QWidget::changeEvent(event);
+    }
 // #if defined(Q_OS_WIN32)
 //     /*
 //      * Solve the problem of restoring a minimized frameless window on Windows
@@ -154,7 +162,9 @@ void MainWindow::showEvent(QShowEvent *event)
      * Another hack to Solve the problem of restoring a minimized frameless window on Windows
      * See http://qt-project.org/forums/viewthread/7081
      */
-    QApplication::postEvent(this, new QEvent(QEvent::UpdateRequest), Qt::LowEventPriority);
+    if (shouldUseFramelessWindow()) {
+        QApplication::postEvent(this, new QEvent(QEvent::UpdateRequest), Qt::LowEventPriority);
+    }
 #endif
     QWidget::showEvent(event);
 

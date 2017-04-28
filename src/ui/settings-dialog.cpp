@@ -122,7 +122,7 @@ void SettingsDialog::closeEvent(QCloseEvent *event)
     // Each time a user modifieds a settings item and clicks "OK" button, the
     // change is both updated in memory and persisted to the registry.
     event->ignore();
-    this->hide();
+    hide();
 }
 
 void SettingsDialog::showEvent(QShowEvent *event)

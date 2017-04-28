@@ -93,4 +93,5 @@ QByteArray buildFormData(const QHash<QString, QString>& params);
 
 int digitalCompare(const QString &left, const QString &right);
 
+bool shouldUseFramelessWindow();
 #endif

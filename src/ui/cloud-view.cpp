@@ -28,6 +28,7 @@ extern "C" {
 #include "starred-files-tab.h"
 #include "utils/paint-utils.h"
 #include "utils/utils-mac.h"
+#include "utils/utils-win.h"
 #include "utils/utils.h"
 
 #include "cloud-view.h"
@@ -106,9 +107,12 @@ CloudView::CloudView(QWidget* parent)
     vlayout->insertWidget(kIndexOfAccountView, account_view_);
     vlayout->insertWidget(kIndexOfToolBar, tool_bar_);
     vlayout->insertWidget(kIndexOfTabWidget, tabs_);
+    vlayout->setContentsMargins(0, 10, 0, 0);
 
-    resizer_ = new QSizeGrip(this);
-    resizer_->resize(resizer_->sizeHint());
+    if (shouldUseFramelessWindow()) {
+        resizer_ = new QSizeGrip(this);
+        resizer_->resize(resizer_->sizeHint());
+    }
 
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this,
@@ -120,9 +124,9 @@ CloudView::CloudView(QWidget* parent)
     connect(account_mgr, SIGNAL(accountInfoUpdated(const Account&)), this,
             SLOT(onAccountInfoUpdated(const Account&)));
 
-#if defined(Q_OS_MAC)
-    mHeader->setVisible(false);
-#endif
+    if (!shouldUseFramelessWindow()) {
+        mHeader->setVisible(false);
+    }
 
     connect(ServerStatusService::instance(), SIGNAL(serverStatusChanged()),
             this, SLOT(refreshServerStatus()));
@@ -479,8 +483,11 @@ void CloudView::onRefreshClicked()
 
 void CloudView::resizeEvent(QResizeEvent* event)
 {
-    resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
-    resizer_->raise();
+    if (shouldUseFramelessWindow()) {
+        resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
+        resizer_->raise();
+    }
+
     tabs_->adjustTabsWidth(rect().width());
 }
 

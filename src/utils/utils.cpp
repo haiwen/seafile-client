@@ -836,3 +836,21 @@ int digitalCompare(const QString &left, const QString &right)
     }
     return left.compare(right);
 }
+
+bool shouldUseFramelessWindow()
+{
+    static int _shouldUseFramelessWindow = -1;
+
+    if (_shouldUseFramelessWindow < 0) {
+        _shouldUseFramelessWindow = 1;
+#if defined(Q_OS_MAC)
+        _shouldUseFramelessWindow = 0;
+#elif defined(Q_OS_WIN32)
+        if (utils::win::isWindows10OrHigher()) {
+            _shouldUseFramelessWindow = 0;
+        }
+#endif
+    }
+
+    return _shouldUseFramelessWindow > 0;
+}

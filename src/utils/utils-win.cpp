@@ -13,6 +13,51 @@ namespace win {
 namespace {
 OSVERSIONINFOEX osver; // static variable, all zero
 bool osver_failure = false;
+
+// From http://stackoverflow.com/a/36909293/1467959 and http://yamatyuu.net/computer/program/vc2013/rtlgetversion/index.html
+typedef void(WINAPI *RtlGetVersion_FUNC)(OSVERSIONINFOEXW *);
+BOOL CustomGetVersion(OSVERSIONINFOEX *os)
+{
+    HMODULE hMod;
+    RtlGetVersion_FUNC func;
+#ifdef UNICODE
+    OSVERSIONINFOEXW *osw = os;
+#else
+    OSVERSIONINFOEXW o;
+    OSVERSIONINFOEXW *osw = &o;
+#endif
+
+    hMod = LoadLibrary(TEXT("ntdll.dll"));
+    if (hMod) {
+        func = (RtlGetVersion_FUNC)GetProcAddress(hMod, "RtlGetVersion");
+        if (func == 0) {
+            FreeLibrary(hMod);
+            return FALSE;
+        }
+        ZeroMemory(osw, sizeof(*osw));
+        osw->dwOSVersionInfoSize = sizeof(*osw);
+        func(osw);
+#ifndef UNICODE
+        os->dwBuildNumber = osw->dwBuildNumber;
+        os->dwMajorVersion = osw->dwMajorVersion;
+        os->dwMinorVersion = osw->dwMinorVersion;
+        os->dwPlatformId = osw->dwPlatformId;
+        os->dwOSVersionInfoSize = sizeof(*os);
+        DWORD sz = sizeof(os->szCSDVersion);
+        WCHAR *src = osw->szCSDVersion;
+        unsigned char *dtc = (unsigned char *)os->szCSDVersion;
+        while (*src)
+            *dtc++ = (unsigned char)*src++;
+        *dtc = '\0';
+#endif
+
+    } else
+        return FALSE;
+    FreeLibrary(hMod);
+    return TRUE;
+}
+
+
 inline bool isInitializedSystemVersion() { return osver.dwOSVersionInfoSize != 0; }
 inline void initializeSystemVersion() {
     if (isInitializedSystemVersion()) {
@@ -22,7 +67,8 @@ inline void initializeSystemVersion() {
     // according to the document,
     // https://msdn.microsoft.com/en-us/library/windows/desktop/ms724451%28v=vs.85%29.aspx
     // this API will be unavailable once windows 10 is out
-    if (!GetVersionEx((LPOSVERSIONINFO)&osver)) {
+    if (!CustomGetVersion(&osver)) {
+        qWarning("failed to get OS vesion.");
         osver_failure = true;
     }
 }
@@ -88,6 +134,11 @@ bool isWindows8OrHigher()
 bool isWindows8Point1OrHigher()
 {
     return isAtLeastSystemVersion<6, 3, 0>();
+}
+
+bool isWindows10OrHigher()
+{
+    return isAtLeastSystemVersion<10, 0, 0>();
 }
 
 typedef HRESULT (WINAPI *GetDpiForMonitor)(HMONITOR,int,UINT *,UINT *);

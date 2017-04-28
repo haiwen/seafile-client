@@ -28,6 +28,7 @@ bool isWindowsVistaOrGreater();
 bool isWindows7OrGreater();
 bool isWindows8OrGreater();
 bool isWindows8Point1OrGreater();
+bool isWindows10OrHigher();
 bool fixQtHDPINonIntegerScaling();
 } // namespace win
 } // namespace utils
@@ -38,6 +39,7 @@ inline bool isWindowsVistaOrGreater() { return false; }
 inline bool isWindows7OrGreater() { return false; }
 inline bool isWindows8OrGreater() { return false; }
 inline bool isWindows8Point1OrGreater() { return false; }
+inline bool isWindows10OrHigher() { return false; }
 } // namespace win
 } // namespace utils
 #endif

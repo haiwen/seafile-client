@@ -55,13 +55,13 @@
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="53"/>
         <source>Please enter the server address</source>
-        <translation>请输入服务器地址</translation>
+        <translation>请输入云盘网址</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="57"/>
         <location filename="../src/ui/account-settings-dialog.cpp" line="63"/>
         <source>%1 is not a valid server address</source>
-        <translation>%1 不是合法的服务器地址</translation>
+        <translation>%1 不是合法的云盘网址</translation>
     </message>
     <message>
         <location filename="../src/ui/account-settings-dialog.cpp" line="83"/>
@@ -86,7 +86,7 @@
     <message>
         <location filename="../ui_account-settings-dialog.h" line="108"/>
         <source>Server Address</source>
-        <translation>网盘网址</translation>
+        <translation>云盘网址</translation>
     </message>
     <message>
         <location filename="../ui_account-settings-dialog.h" line="109"/>
@@ -1472,7 +1472,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="202"/>
         <source>Please enter the server address</source>
-        <translation>请输入服务器地址</translation>
+        <translation>请输入云盘网址</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="206"/>
@@ -1480,7 +1480,7 @@ Do you like to download your default library and create a virtual disk?</source>
         <location filename="../src/ui/login-dialog.cpp" line="375"/>
         <location filename="../src/ui/login-dialog.cpp" line="381"/>
         <source>%1 is not a valid server address</source>
-        <translation>%1 不是合法的服务器地址</translation>
+        <translation>%1 不是合法的云盘网址</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="219"/>
@@ -1505,7 +1505,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="364"/>
         <source>%1 Server Address</source>
-        <translation>%1 服务器地址</translation>
+        <translation>%1 云盘网址</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="224"/>

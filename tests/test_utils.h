@@ -10,6 +10,7 @@ public:
 private slots:
     void testReadableFileSize();
     void testIncludeUrlParams();
+    void testDigitalCompare();
 };
 
 #endif // TESTS_UTILS_H

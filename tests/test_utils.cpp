@@ -42,4 +42,17 @@ void Utils::testIncludeUrlParams() {
     }
 }
 
+void Utils::testDigitalCompare() {
+    QCOMPARE(::digitalCompare("9", "9"), 0);
+    QCOMPARE(::digitalCompare("aa9aa", "aa9aa"), 0);
+    QCOMPARE(::digitalCompare("99a99", "99a99"), 0);
+    QCOMPARE(::digitalCompare("9", "11"), -2);
+    QCOMPARE(::digitalCompare("1.9", "1.11"), -2);
+    QCOMPARE(::digitalCompare("1.1.1.1.9", "1.1.1.1.11"), -2);
+    QCOMPARE(::digitalCompare("a9", "a11"), -2);
+    QCOMPARE(::digitalCompare("a9aaa", "a11aaa"), -2);
+    QCOMPARE(::digitalCompare("zzz9", "bbb11"), QString::compare("zzz9", "bbb11"));
+    QCOMPARE(::digitalCompare("pp9p", "pa11a"), QString::compare("pp9p", "pa11a"));
+}
+
 QTEST_APPLESS_MAIN(Utils)

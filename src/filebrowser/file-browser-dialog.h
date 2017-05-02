@@ -119,13 +119,10 @@ private slots:
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
-    bool eventFilter(QObject *obj, QEvent *event);
-    void resizeEvent(QResizeEvent *event);
     void done(int retval);
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);
 
-    void createTitleBar();
     void createToolBar();
     void createStatusBar();
     void createFileTable();
@@ -162,14 +159,10 @@ private:
     static Account account_to_be_pasted_from_;
     static bool is_copyed_when_pasted_;
 
-    // title bar (windows and osx only)
-    QWidget *header_;
     QLabel *brand_label_;
     QPushButton *minimize_button_;
     QPushButton *close_button_;
     QPoint old_pos_;
-
-    QSizeGrip *resizer_;
 
     // top toolbar
     QToolBar *toolbar_;

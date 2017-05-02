@@ -95,24 +95,14 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
     Qt::WindowFlags flags =
         (windowFlags() & ~Qt::WindowContextHelpButtonHint & ~Qt::Dialog) |
-        Qt::Window | Qt::WindowSystemMenuHint;
+        Qt::Window | Qt::WindowSystemMenuHint | Qt::CustomizeWindowHint |
+        Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint |
+        Qt::WindowMaximizeButtonHint;
 
-    if (shouldUseFramelessWindow()) {
-        flags |= Qt::FramelessWindowHint;
-    } else {
-        flags |= Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint |
-            Qt::WindowCloseButtonHint | Qt::WindowMaximizeButtonHint;
-    }
     setWindowFlags(flags);
 
-    if (shouldUseFramelessWindow()) {
-        resizer_ = new QSizeGrip(this);
-        resizer_->resize(resizer_->sizeHint());
-    }
+    // setAttribute(Qt::WA_TranslucentBackground, true);
 
-    setAttribute(Qt::WA_TranslucentBackground, true);
-
-    createTitleBar();
     createToolBar();
     createStatusBar();
     createLoadingFailedView();
@@ -137,15 +127,9 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     stack_->setContentsMargins(0, 0, 0, 0);
 
-    vlayout->addWidget(header_);
     vlayout->addWidget(toolbar_);
     vlayout->addWidget(stack_);
     vlayout->addWidget(status_bar_);
-
-    if (!shouldUseFramelessWindow()) {
-        header_->setVisible(false);
-        setStyleSheet("FileBrowserDialog QWidget#mainWidget {border : 0; border-radius: 0px;}");
-    }
 
     // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
@@ -243,42 +227,6 @@ FileBrowserDialog::~FileBrowserDialog()
 void FileBrowserDialog::init()
 {
     enterPath(current_path_);
-}
-
-void FileBrowserDialog::createTitleBar()
-{
-    header_ = new QWidget;
-    header_->setObjectName("mHeader");
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->setContentsMargins(1, 1, 1, 1);
-    layout->setSpacing(0);
-    header_->setLayout(layout);
-
-    QSpacerItem *spacer1 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    layout->addSpacerItem(spacer1);
-
-    brand_label_ = new QLabel(windowTitle());
-    brand_label_->setObjectName("mBrand");
-    layout->addWidget(brand_label_);
-
-    QSpacerItem *spacer2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    layout->addSpacerItem(spacer2);
-
-    minimize_button_ = new QPushButton;
-    minimize_button_->setObjectName("mMinimizeBtn");
-    minimize_button_->setToolTip(tr("Minimize"));
-    minimize_button_->setIcon(awesome->icon(icon_minus, QColor("#808081")));
-    layout->addWidget(minimize_button_);
-    connect(minimize_button_, SIGNAL(clicked()), this, SLOT(showMinimized()));
-
-    close_button_ = new QPushButton;
-    close_button_->setObjectName("mCloseBtn");
-    close_button_->setToolTip(tr("Close"));
-    close_button_->setIcon(awesome->icon(icon_remove, QColor("#808081")));
-    layout->addWidget(close_button_);
-    connect(close_button_, SIGNAL(clicked()), this, SLOT(close()));
-
-    header_->installEventFilter(this);
 }
 
 void FileBrowserDialog::createToolBar()
@@ -1152,30 +1100,6 @@ void FileBrowserDialog::onCancelDownload(const SeafDirent& dirent)
         ::pathJoin(current_path_, dirent.name));
 }
 
-bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
-{
-    if (obj == header_) {
-        if (event->type() == QEvent::MouseButtonPress) {
-            QMouseEvent *ev = (QMouseEvent *)event;
-            QRect frame_rect = frameGeometry();
-            old_pos_ = ev->globalPos() - frame_rect.topLeft();
-            return true;
-        } else if (event->type() == QEvent::MouseMove) {
-            QMouseEvent *ev = (QMouseEvent *)event;
-            move(ev->globalPos() - old_pos_);
-            return true;
-        }
-    }
-    return QDialog::eventFilter(obj, event);
-}
-
-void FileBrowserDialog::resizeEvent(QResizeEvent *event)
-{
-    if (shouldUseFramelessWindow()) {
-        resizer_->move(rect().bottomRight() - resizer_->rect().bottomRight());
-        resizer_->raise();
-    }
-}
 
 void FileBrowserDialog::done(int retval)
 {

@@ -88,14 +88,15 @@ MainWindow::MainWindow()
     QWidget *wrapper = new QWidget;
     wrapper->setObjectName("mainWrapper");
     wrapper->setLayout(layout);
-    if (!shouldUseFramelessWindow()) {
+    if (shouldUseFramelessWindow()) {
+        setAttribute(Qt::WA_TranslucentBackground, true);
+    } else {
         wrapper->setStyleSheet("QWidget#mainWrapper {border : 0; border-radius: 0px;}");
     }
 
     setCentralWidget(wrapper);
 
     createActions();
-    setAttribute(Qt::WA_TranslucentBackground, true);
 
 #if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
     connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),

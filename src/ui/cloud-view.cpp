@@ -86,7 +86,15 @@ CloudView::CloudView(QWidget* parent)
     // seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
     // mSeahubMessagesBtn->setVisible(false);
 
-    layout()->setContentsMargins(1, 0, 1, 0);
+    int marginTop = 10;
+    if (shouldUseFramelessWindow()) {
+        marginTop = 0;
+    }
+#ifdef Q_OS_MAC
+    marginTop = 0;
+#endif
+
+    layout()->setContentsMargins(1, marginTop, 1, 0);
 
     // Setup widgets from top down
     setupHeader();
@@ -107,7 +115,6 @@ CloudView::CloudView(QWidget* parent)
     vlayout->insertWidget(kIndexOfAccountView, account_view_);
     vlayout->insertWidget(kIndexOfToolBar, tool_bar_);
     vlayout->insertWidget(kIndexOfTabWidget, tabs_);
-    vlayout->setContentsMargins(0, 10, 0, 0);
 
     if (shouldUseFramelessWindow()) {
         resizer_ = new QSizeGrip(this);

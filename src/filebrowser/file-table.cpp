@@ -469,7 +469,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         item_.reset(NULL);
 
         bool has_dir = false;
-        bool has_dirs = false;
         for (int i = 0; i != selected.size() ; i++) {
             if (source_model_->direntAt(proxy_model_->mapToSource(selected[i]).row())->isDir()) {
                 if (has_dir == false) {
@@ -477,14 +476,12 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
                     continue;
                 }
                 else {
-                    has_dirs = true;
+                    download_action_->setEnabled(false);
                     break;
                 }
             }
         }
 
-        if (has_dirs == true)
-            download_action_->setEnabled(false);
         download_action_->setVisible(true);
         saveas_action_->setText(tr("&Save As To..."));
         saveas_action_->setEnabled(!has_dir);

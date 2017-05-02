@@ -12,7 +12,6 @@
 
 class QTimer;
 class QStackedWidget;
-class QResizeEvent;
 class QSizeGrip;
 class QLabel;
 class QEvent;
@@ -29,20 +28,14 @@ public:
     SyncErrorsDialog(QWidget *parent=0);
     void updateErrors();
 
-    void resizeEvent(QResizeEvent *event);
     void closeEvent(QCloseEvent *event);
 
 private slots:
     void onModelReset();
 
 private:
-    void createTitleBar();
     void createEmptyView();
 
-    bool eventFilter(QObject *obj, QEvent *event);
-
-    // title bar (windows and osx only)
-    QWidget *header_;
     QLabel *brand_label_;
     QPushButton *minimize_button_;
     QPushButton *close_button_;

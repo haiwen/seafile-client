@@ -170,15 +170,8 @@ public:
         : QSortFilterProxyModel(parent), source_model_(parent) {
         setSortCaseSensitivity(Qt::CaseInsensitive);
     }
-    bool lessThan(const QModelIndex &left, const QModelIndex &right) const {
-        bool is_dir_left = source_model_->direntAt(left.row())->isDir();
-        bool is_dir_right = source_model_->direntAt(right.row())->isDir();
-        if (is_dir_left != is_dir_right)
-            return sortOrder() != Qt::AscendingOrder ? is_dir_right
-                                                     : !is_dir_right;
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 
-        return QSortFilterProxyModel::lessThan(left, right);
-    }
 private:
     FileTableModel* source_model_;
 };

@@ -46,33 +46,6 @@ const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
 const int kRepoCategoryIndicatorWidth = 16;
 const char *kSyncIntervalProperty = "sync-interval";
 
-QString buildMoreInfo(ServerRepo& repo, const QUrl& url_in)
-{
-    json_t *object = NULL;
-    char *info = NULL;
-
-    object = json_object();
-    json_object_set_new(object, "is_readonly", json_integer(repo.readonly));
-
-    QUrl url(url_in);
-    url.setPath("/");
-    json_object_set_new(
-        object, "server_url", json_string(url.toString().toUtf8().data()));
-
-    info = json_dumps(object, 0);
-    QString ret = QString::fromUtf8(info);
-    json_decref (object);
-    free (info);
-    return ret;
-}
-
-QString getRepoProperty(const QString& repo_id, const QString& name)
-{
-    QString value;
-    seafApplet->rpcClient()->getRepoProperty(repo_id, name, &value);
-    return value;
-}
-
 // A Helper Class to copy file
 //
 class FileCopyHelper : public QRunnable {
@@ -805,43 +778,19 @@ void RepoTreeView::resyncRepo()
         return;
     }
 
-    // must read these before unsync
-    QString token = getRepoProperty(local_repo.id, "token");
-    QString relay_addr = getRepoProperty(local_repo.id, "relay-address");
-    QString relay_port = getRepoProperty(local_repo.id, "relay-port");
-
     if (rpc->unsync(server_repo.id) < 0) {
         seafApplet->warningBox(tr("Failed to unsync library \"%1\"").arg(server_repo.name));
         return;
     }
 
-    if (server_repo.encrypted) {
-        DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(),
-                                  RepoService::instance()->getRepo(server_repo.id), QString(), this);
-        dialog.setMergeWithExisting(QFileInfo(local_repo.worktree).dir().absolutePath());
-        dialog.exec();
-        return;
-    } else {
-        const Account account = seafApplet->accountManager()->currentAccount();
-        QString more_info = buildMoreInfo(server_repo, account.serverUrl);
-        QString email = account.username;
-        QString error;
-
-        // unused fields
-        QString magic, passwd, random_key; // all null
-        int enc_version = 0;
-        if (rpc->cloneRepo(local_repo.id,
-                           local_repo.version, local_repo.relay_id,
-                           server_repo.name, local_repo.worktree,
-                           token, passwd,
-                           magic, relay_addr,
-                           relay_port, email,
-                           random_key, enc_version,
-                           more_info, &error) < 0) {
-            seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error));
-        }
+    DownloadRepoDialog dialog(seafApplet->accountManager()->currentAccount(),
+                              RepoService::instance()->getRepo(server_repo.id), QString(), this);
+    dialog.setMergeWithExisting(QFileInfo(local_repo.worktree).dir().absolutePath());
+    if (!server_repo.encrypted) {
+        dialog.setResyncMode();
     }
 
+    dialog.exec();
     updateRepoActions();
 }
 

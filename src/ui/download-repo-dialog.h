@@ -20,6 +20,7 @@ public:
                        QWidget *parent=0);
 
     void setMergeWithExisting(const QString& localPath);
+    void setResyncMode();
 
 private slots:
     void onOkBtnClicked();
@@ -27,6 +28,7 @@ private slots:
     void onDownloadRepoRequestSuccess(const RepoDownloadInfo& info);
     void onDownloadRepoRequestFailed(const ApiError& error);
     void switchMode();
+    void startResync();
 
 private:
     Q_DISABLE_COPY(DownloadRepoDialog);
@@ -50,4 +52,8 @@ private:
 
     // save merge path
     QString alternative_path_;
+
+    // Set to true when the dialog is used to resync a library, i.e. no user
+    // interaction needed.
+    bool resync_mode_;
 };

@@ -6,6 +6,7 @@
 #include <QtGui>
 #endif
 #include <QDirIterator>
+#include <QTimer>
 
 #include <jansson.h>
 
@@ -78,7 +79,8 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     : QDialog(parent),
       repo_(repo),
       account_(account),
-      merge_without_question_(false)
+      merge_without_question_(false),
+      resync_mode_(false)
 {
     manual_merge_mode_ = false;
     setupUi(this);
@@ -131,6 +133,16 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
 
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
+
+    QTimer::singleShot(1000, this, SLOT(startResync()));
+}
+
+void DownloadRepoDialog::startResync()
+{
+    if (!resync_mode_) {
+        return;
+    }
+    onOkBtnClicked();
 }
 
 void DownloadRepoDialog::switchMode()
@@ -374,4 +386,9 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
 void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
     merge_without_question_ = true;
     setDirectoryText(localPath);
+}
+
+void DownloadRepoDialog::setResyncMode() {
+    resync_mode_ = true;
+    setAllInputsEnabled(false);
 }

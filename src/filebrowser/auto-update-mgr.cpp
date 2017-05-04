@@ -2,6 +2,7 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <QTimer>
+#include <QThreadPool>
 
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
@@ -11,12 +12,18 @@
 #include "rpc/local-repo.h"
 #include "utils/file-utils.h"
 #include "utils/utils.h"
+#include "utils/uninstall-helpers.h"
 #include "data-mgr.h"
 #include "tasks.h"
+#include "transfer-mgr.h"
 
 #include "auto-update-mgr.h"
 
 namespace {
+
+const char *kFileCacheTopDirName = "file-cache";
+const char *kFileCacheTempTopDirName = "file-cache-tmp";
+const char *kFileCacheDBFileName = "file-cache.db";
 
 inline bool addPath(QFileSystemWatcher *watcher, const QString &file) {
   if (watcher->files().contains(file))
@@ -50,16 +57,19 @@ AutoUpdateManager::AutoUpdateManager()
 
 void AutoUpdateManager::start()
 {
-    QList<FileCacheDB::CacheEntry> all_files =
-        FileCacheDB::instance()->getAllCachedFiles();
-    foreach (const FileCacheDB::CacheEntry entry, all_files) {
-        Account account = seafApplet->accountManager()->getAccountBySignature(
-            entry.account_sig);
-        if (!account.isValid()) {
-            return;
-        }
-        watchCachedFile(account, entry.repo_id, entry.path);
-    }
+    CachedFilesCleaner *cleaner = new CachedFilesCleaner();
+    QThreadPool::globalInstance()->start(cleaner);
+
+    // QList<FileCache::CacheEntry> all_files =
+    //     FileCache::instance()->getAllCachedFiles();
+    // foreach (const FileCache::CacheEntry entry, all_files) {
+    //     Account account = seafApplet->accountManager()->getAccountBySignature(
+    //         entry.account_sig);
+    //     if (!account.isValid()) {
+    //         return;
+    //     }
+    //     watchCachedFile(account, entry.repo_id, entry.path);
+    // }
 }
 
 void AutoUpdateManager::watchCachedFile(const Account& account,
@@ -203,3 +213,33 @@ bool MacImageFilesWorkAround::isRecentOpenedImage(const QString& path)
     }
 }
 #endif
+
+CachedFilesCleaner::CachedFilesCleaner()
+{
+    file_cache_dir_ = pathJoin(seafApplet->configurator()->seafileDir(),
+                               kFileCacheTopDirName);
+    file_cache_tmp_dir_ = pathJoin(seafApplet->configurator()->seafileDir(),
+                                   kFileCacheTempTopDirName);
+    file_cache_db_file_ = pathJoin(seafApplet->configurator()->seafileDir(),
+                                   kFileCacheDBFileName);
+}
+
+void CachedFilesCleaner::run()
+{
+    qDebug("[AutoUpdateManager] cancel all download tasks");
+    TransferManager::instance()->cancelAllDownloadTasks();
+
+    qDebug("[AutoUpdateManager] removing cached files");
+    if (QFile(file_cache_db_file_).exists()) {
+        if (!QFile(file_cache_db_file_).remove()) {
+            qWarning("[AutoUpdateManager] failed to remove db file");
+        }
+    }
+    if (QDir(file_cache_tmp_dir_).exists()) {
+        delete_dir_recursively(file_cache_tmp_dir_);
+    }
+    if (QDir(file_cache_dir_).exists()) {
+        QDir().rename(file_cache_dir_, file_cache_tmp_dir_);
+        delete_dir_recursively(file_cache_tmp_dir_);
+    }
+}

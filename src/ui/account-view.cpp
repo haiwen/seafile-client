@@ -29,7 +29,7 @@
 #include "filebrowser/file-browser-manager.h"
 #include "api/api-error.h"
 #include "api/requests.h"
-#include "repo-service.h"
+#include "filebrowser/auto-update-mgr.h"
 
 #include "account-view.h"
 namespace {
@@ -387,6 +387,9 @@ void AccountView::toggleAccount()
         return;
     }
 
+    CachedFilesCleaner *cleaner = new CachedFilesCleaner();
+    QThreadPool::globalInstance()->start(cleaner);
+
     // logout Account
     FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
     LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
@@ -432,9 +435,6 @@ void AccountView::onLogoutDeviceRequestSuccess()
         return;
     }
     seafApplet->accountManager()->clearAccountToken(account);
-
-    CachedFilesCleaner *cleaner = new CachedFilesCleaner();
-    QThreadPool::globalInstance()->start(cleaner);
 
     req->deleteLater();
 }

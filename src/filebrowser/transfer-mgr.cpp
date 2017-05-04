@@ -114,6 +114,14 @@ void TransferManager::cancelDownload(const QString& repo_id,
     }
 }
 
+void TransferManager::cancelAllDownloadTasks()
+{
+    if (current_download_) {
+        current_download_->cancel();
+        current_download_.clear();
+    }
+    pending_downloads_.clear();
+}
 
 QList<FileDownloadTask*>
 TransferManager::getDownloadTasks(const QString& repo_id,

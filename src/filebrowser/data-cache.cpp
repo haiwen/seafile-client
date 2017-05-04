@@ -62,105 +62,68 @@ void DirentsCache::saveCachedDirents(const QString& repo_id,
     cache_->insert(cache_key, val);
 }
 
-SINGLETON_IMPL(FileCacheDB)
-FileCacheDB::FileCacheDB()
+SINGLETON_IMPL(FileCache)
+FileCache::FileCache()
 {
-    db_ = NULL;
+    cache_ = new QCache<QString, CacheEntry>;
 }
 
-FileCacheDB::~FileCacheDB()
+FileCache::~FileCache()
 {
-    if (db_ != NULL)
-        sqlite3_close(db_);
+    delete cache_;
 }
 
-void FileCacheDB::start()
-{
-    const char *errmsg;
-    const char *sql;
-    sqlite3 *db;
-
-    QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("file-cache.db");
-    if (sqlite3_open (toCStr(db_path), &db)) {
-        errmsg = sqlite3_errmsg (db);
-        qDebug("failed to open file cache database %s: %s",
-               toCStr(db_path), errmsg ? errmsg : "no error given");
-
-        seafApplet->errorAndExit(QObject::tr("failed to open file cache database"));
-        return;
-    }
-
-    sql = "DROP TABLE IF EXISTS FileCache";
-    sqlite_query_exec (db, sql);
-
-    sql = "CREATE TABLE IF NOT EXISTS FileCacheV1 ("
-        "     repo_id VARCHAR(36), "
-        "     path VARCHAR(4096), "
-        "     file_id VARCHAR(40) NOT NULL, "
-        "     account_sig VARCHAR(40) NOT NULL, "
-        "     PRIMARY KEY (repo_id, path))";
-    sqlite_query_exec (db, sql);
-
-    db_ = db;
-}
-
-bool FileCacheDB::getCacheEntryCB(sqlite3_stmt *stmt, void *data)
-{
-    CacheEntry *entry = (CacheEntry *)data;
-    entry->repo_id = (const char *)sqlite3_column_text (stmt, 0);
-    entry->path = QString::fromUtf8((const char *)sqlite3_column_text (stmt, 1));
-    entry->file_id = (const char *)sqlite3_column_text (stmt, 2);
-    entry->account_sig = (const char *)sqlite3_column_text (stmt, 3);
-    return true;
-}
-
-QString FileCacheDB::getCachedFileId(const QString& repo_id,
+QString FileCache::getCachedFileId(const QString& repo_id,
                                      const QString& path)
 {
     return getCacheEntry(repo_id, path).file_id;
 }
 
-FileCacheDB::CacheEntry FileCacheDB::getCacheEntry(const QString& repo_id,
+FileCache::CacheEntry FileCache::getCacheEntry(const QString& repo_id,
                                                    const QString& path)
 {
-    char *zql = sqlite3_mprintf("SELECT repo_id, path, file_id, account_sig"
-                                "  FROM FileCacheV1"
-                                " WHERE repo_id = %Q"
-                                "   AND path = %Q",
-                                repo_id.toUtf8().data(), path.toUtf8().data());
-    CacheEntry entry;
-    sqlite_foreach_selected_row(db_, zql, getCacheEntryCB, &entry);
-    sqlite3_free(zql);
-    return entry;
+    FileCache::CacheEntry ret;
+    QString cache_key = repo_id + path;
+    FileCache::CacheEntry *cache_entry = cache_->object(cache_key);
+
+    if (cache_entry) {
+        ret.repo_id = cache_entry->repo_id;
+        ret.path = cache_entry->path;
+        ret.file_id = cache_entry->file_id;
+        ret.account_sig = cache_entry->account_sig;
+    }
+
+    return ret;
 }
 
-void FileCacheDB::saveCachedFileId(const QString& repo_id,
+void FileCache::saveCachedFileId(const QString& repo_id,
                                    const QString& path,
                                    const QString& file_id,
                                    const QString& account_sig)
 {
-    char *zql = sqlite3_mprintf("REPLACE INTO FileCacheV1(repo_id, path, file_id, account_sig) VALUES (%Q, %Q, %Q, %Q)",
-                                repo_id.toUtf8().data(), path.toUtf8().data(),
-                                file_id.toUtf8().data(), account_sig.toUtf8().data());
-    sqlite_query_exec(db_, zql);
-    sqlite3_free(zql);
+    CacheEntry *val = new CacheEntry;
+    QString cache_key = repo_id + path;
+
+    val->repo_id = repo_id;
+    val->path = path;
+    val->file_id = file_id;
+    val->account_sig = account_sig;
+
+    cache_->insert(cache_key, val);
 }
 
-bool FileCacheDB::collectCachedFile(sqlite3_stmt *stmt, void *data)
+QList<FileCache::CacheEntry> FileCache::getAllCachedFiles()
 {
-    QList<CacheEntry> *list = (QList<CacheEntry> *)data;
-    CacheEntry entry;
-    entry.repo_id = (const char *)sqlite3_column_text (stmt, 0);
-    entry.path = QString::fromUtf8((const char *)sqlite3_column_text (stmt, 1));
-    entry.account_sig = (const char *)sqlite3_column_text (stmt, 2);
-    list->append(entry);
-    return true;
-}
-
-QList<FileCacheDB::CacheEntry> FileCacheDB::getAllCachedFiles()
-{
-    const char* sql = "SELECT repo_id, path, account_sig FROM FileCacheV1";
     QList<CacheEntry> list;
-    sqlite_foreach_selected_row(db_, sql, collectCachedFile, &list);
+    CacheEntry entry;
+
+    foreach(const QString& cache_key, cache_->keys()) {
+        entry.repo_id = cache_->object(cache_key)->repo_id;
+        entry.path = cache_->object(cache_key)->path;
+        entry.file_id = cache_->object(cache_key)->file_id;
+        entry.account_sig = cache_->object(cache_key)->account_sig;
+        list.append(entry);
+    }
+
     return list;
 }

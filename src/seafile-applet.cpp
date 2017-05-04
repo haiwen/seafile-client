@@ -290,7 +290,6 @@ void SeafileApplet::onDaemonStarted()
     // start network-related services
     //
     NetworkStatusDetector::instance()->start();
-    FileCacheDB::instance()->start();
     AutoUpdateManager::instance()->start();
 
     AvatarService::instance()->start();

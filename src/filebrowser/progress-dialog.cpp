@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QDesktopServices>
 #include <QDebug>
+#include <climits>
 
 #include "utils/utils.h"
 #include "progress-dialog.h"
@@ -83,10 +84,19 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
     if (processed_bytes >= total_bytes)
         total_bytes = processed_bytes + 1;
 
-    if (maximum() != total_bytes)
-        setMaximum(total_bytes);
+    if (total_bytes > INT_MAX) {
+        if (maximum() != INT_MAX)
+            setMaximum(INT_MAX);
 
-    setValue(processed_bytes);
+        // Avoid overflow
+        double progress = double(processed_bytes) * INT_MAX / total_bytes;
+        setValue((int)progress);
+    } else {
+        if (maximum() != total_bytes)
+            setMaximum(total_bytes);
+
+        setValue(processed_bytes);
+    }
 
     more_details_label_->setText(tr("%1 of %2")
                             .arg(::readableFileSizeV2(processed_bytes))

@@ -108,8 +108,14 @@ void AccountView::deleteAccount()
         return;
     Account account = qvariant_cast<Account>(action->data());
 
-    QString question = tr("Are you sure to remove account from \"%1\"?<br>"
-                          "<b>Warning: All libraries of this account would be unsynced!</b>").arg(account.serverUrl.toString());
+    // QString question = tr("Are you sure to remove account from \"%1\"?<br>"
+    //                       "<b>Warning: All libraries of this account would be unsynced!</b>").arg(account.serverUrl.toString());
+
+    QString question = tr("Are you sure you want to remove account %1?<br><br>"
+                          "The account will be removed locally. All syncing "
+                          "configuration will be removed too. The account at "
+                          "the server will not be affected.")
+                           .arg(account.username);
 
     if (seafApplet->yesOrNoBox(question, this, false)) {
         FileBrowserManager::getInstance()->closeAllDialogByAccount(account);

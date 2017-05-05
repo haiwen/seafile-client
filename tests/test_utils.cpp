@@ -48,6 +48,8 @@ void Utils::testDigitalCompare() {
     QCOMPARE(::digitalCompare("99a99", "99a99"), 0);
     QCOMPARE(::digitalCompare("9", "11"), -2);
     QCOMPARE(::digitalCompare("1.9", "1.11"), -2);
+    QCOMPARE(::digitalCompare("1 9", "1 11"), -2);
+    QCOMPARE(::digitalCompare("1abc1", "1abc1.abc"), -1);
     QCOMPARE(::digitalCompare("1.1.1.1.9", "1.1.1.1.11"), -2);
     QCOMPARE(::digitalCompare("a9", "a11"), -2);
     QCOMPARE(::digitalCompare("a9aaa", "a11aaa"), -2);

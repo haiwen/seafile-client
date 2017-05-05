@@ -471,18 +471,12 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         bool has_dir = false;
         for (int i = 0; i != selected.size() ; i++) {
             if (source_model_->direntAt(proxy_model_->mapToSource(selected[i]).row())->isDir()) {
-                if (has_dir == false) {
-                    has_dir = true;
-                    continue;
-                }
-                else {
-                    download_action_->setEnabled(false);
-                    break;
-                }
+                has_dir = true;
+                break;
             }
         }
 
-        download_action_->setVisible(true);
+        download_action_->setVisible(!has_dir);
         saveas_action_->setText(tr("&Save As To..."));
         saveas_action_->setEnabled(!has_dir);
         download_action_->setText(tr("D&ownload"));

@@ -476,7 +476,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             }
         }
 
-        download_action_->setVisible(true);
+        download_action_->setVisible(!has_dir);
         saveas_action_->setText(tr("&Save As To..."));
         saveas_action_->setEnabled(!has_dir);
         download_action_->setText(tr("D&ownload"));
@@ -511,6 +511,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
     download_action_->setVisible(true);
+    download_action_->setEnabled(true);
     cancel_download_action_->setVisible(false);
     if (item_->readonly) {
         move_action_->setEnabled(false);

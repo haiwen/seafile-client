@@ -64,8 +64,6 @@ private slots:
     void openSeafileFolder();
     void openLogDirectory();
     void about();
-    void onSeahubNotificationsChanged();
-    void viewUnreadNotifications();
     void checkTrayIconMessageQueue();
 
     // only used on windows
@@ -98,7 +96,6 @@ private:
     QAction *open_seafile_folder_action_;
     QAction *open_log_directory_action_;
     QAction *show_sync_errors_action_;
-    QAction *view_unread_seahub_notifications_action_;
 
     QAction *about_action_;
     QAction *open_help_action_;

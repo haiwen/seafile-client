@@ -83,9 +83,6 @@ CloudView::CloudView(QWidget* parent)
 {
     setupUi(this);
 
-    // seahub_messages_monitor_ = new SeahubMessagesMonitor(this);
-    // mSeahubMessagesBtn->setVisible(false);
-
     int marginTop = 10;
     if (shouldUseFramelessWindow()) {
         marginTop = 0;

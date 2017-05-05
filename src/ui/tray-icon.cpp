@@ -28,7 +28,6 @@ extern "C" {
 #include "main-window.h"
 #include "settings-dialog.h"
 #include "settings-mgr.h"
-#include "seahub-notifications-monitor.h"
 #include "server-status-service.h"
 #include "api/commit-details.h"
 #include "sync-errors-dialog.h"
@@ -136,9 +135,6 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
 
-    connect(SeahubNotificationsMonitor::instance(), SIGNAL(notificationsChanged()),
-            this, SLOT(onSeahubNotificationsChanged()));
-
 #if !defined(Q_OS_LINUX)
     connect(this, SIGNAL(messageClicked()),
             this, SLOT(onMessageClicked()));
@@ -168,10 +164,6 @@ void SeafileTrayIcon::createActions()
 
     enable_auto_sync_action_ = new QAction(tr("Enable auto sync"), this);
     connect(enable_auto_sync_action_, SIGNAL(triggered()), this, SLOT(enableAutoSync()));
-
-    view_unread_seahub_notifications_action_ = new QAction(tr("View unread notifications"), this);
-    connect(view_unread_seahub_notifications_action_, SIGNAL(triggered()),
-            this, SLOT(viewUnreadNotifications()));
 
     quit_action_ = new QAction(tr("&Quit"), this);
     connect(quit_action_, SIGNAL(triggered()), this, SLOT(quitSeafile()));
@@ -210,7 +202,6 @@ void SeafileTrayIcon::createContextMenu()
     // help_menu_->addAction(open_help_action_);
 
     context_menu_ = new QMenu(NULL);
-    context_menu_->addAction(view_unread_seahub_notifications_action_);
     context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(open_seafile_folder_action_);
     context_menu_->addAction(settings_action_);
@@ -239,8 +230,6 @@ void SeafileTrayIcon::prepareContextMenu()
         enable_auto_sync_action_->setVisible(true);
         disable_auto_sync_action_->setVisible(false);
     }
-
-    view_unread_seahub_notifications_action_->setVisible(state_ == STATE_HAVE_UNREAD_MESSAGE);
 }
 
 void SeafileTrayIcon::createGlobalMenuBar()
@@ -250,7 +239,6 @@ void SeafileTrayIcon::createGlobalMenuBar()
 #ifdef Q_OS_MAC
     // create qmenu used in menubar and docker menu
     global_menu_ = new QMenu(tr("File"));
-    global_menu_->addAction(view_unread_seahub_notifications_action_);
     global_menu_->addAction(show_main_window_action_);
     global_menu_->addAction(open_seafile_folder_action_);
     global_menu_->addAction(settings_action_);
@@ -575,13 +563,6 @@ void SeafileTrayIcon::refreshTrayIcon()
         return;
     }
 
-    int n_unread_msg = SeahubNotificationsMonitor::instance()->getUnreadNotifications();
-    if (n_unread_msg > 0) {
-        setState(STATE_HAVE_UNREAD_MESSAGE,
-                 tr("You have %n message(s)", "", n_unread_msg));
-        return;
-    }
-
     if (!seafApplet->settingsManager()->autoSync()) {
         setState(STATE_DAEMON_AUTOSYNC_DISABLED,
                  tr("auto sync is disabled"));
@@ -627,20 +608,6 @@ void SeafileTrayIcon::refreshTrayIconToolTip()
 
     rotate(true);
 }
-
-void SeafileTrayIcon::onSeahubNotificationsChanged()
-{
-    if (!rotate_timer_->isActive()) {
-        refreshTrayIcon();
-    }
-}
-
-void SeafileTrayIcon::viewUnreadNotifications()
-{
-    SeahubNotificationsMonitor::instance()->openNotificationsPageInBrowser();
-    refreshTrayIcon();
-}
-
 
 void SeafileTrayIcon::onMessageClicked()
 {

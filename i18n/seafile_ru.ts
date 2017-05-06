@@ -243,7 +243,7 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="50"/>
         <source>remove all successful tasks</source>
-        <translation>Удалить все успешно завершенные задания</translation>
+        <translation>Удалить все успешно завершённые задания</translation>
     </message>
     <message>
         <location filename="../src/ui/clone-tasks-dialog.cpp" line="81"/>
@@ -1688,7 +1688,7 @@ Please check file permission and disk space.</source>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
         <translation>&quot;%1&quot; не удалось синхронизировать. 
-Доступ к сервису запрещен</translation>
+Доступ к сервису запрещён</translation>
     </message>
     <message>
         <location filename="../src/message-listener.cpp" line="264"/>
@@ -1784,7 +1784,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="546"/>
         <source>The previous operation is still in progres</source>
-        <translation>Предыдущая операция все еще выполняется</translation>
+        <translation>Предыдущая операция всё ещё выполняется</translation>
     </message>
     <message>
         <location filename="../ui_private-share-dialog.h" line="142"/>
@@ -1905,13 +1905,13 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="151"/>
         <source>Remote service is not available</source>
-        <translation>Удаленная служба не доступна</translation>
+        <translation>Удалённая служба не доступна</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="154"/>
         <location filename="../src/rpc/local-repo.cpp" line="196"/>
         <source>Access denied to service</source>
-        <translation>Доступ запрещен</translation>
+        <translation>Доступ запрещён</translation>
     </message>
     <message>
         <location filename="../src/rpc/local-repo.cpp" line="157"/>
@@ -2309,7 +2309,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="29"/>
         <source>Moved</source>
-        <translation>Перемещен</translation>
+        <translation>Перемещён</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="30"/>
@@ -2344,7 +2344,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="66"/>
         <source>and %1 more</source>
-        <translation>и еще %1</translation>
+        <translation>и ещё %1</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="87"/>
@@ -2354,12 +2354,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="94"/>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation>Файл &quot;%1&quot; возвращен к статусу от %2.</translation>
+        <translation>Файл &quot;%1&quot; возвращён к статусу от %2.</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="98"/>
         <source>Recovered deleted directory</source>
-        <translation>Удаленная папка восстановлена</translation>
+        <translation>Удалённая папка восстановлена</translation>
     </message>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="100"/>
@@ -2369,7 +2369,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/translate-commit-desc.cpp" line="102"/>
         <source>Auto merge by %1 system</source>
-        <translation>Авто слияние с %1 системой</translation>
+        <translation>Автослияние с %1 системой</translation>
     </message>
     <message>
         <location filename="../src/utils/utils.cpp" line="559"/>
@@ -2452,7 +2452,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="618"/>
         <source>PDF Document</source>
-        <translation>PDF документ</translation>
+        <translation>PDF-документ</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="620"/>
@@ -2467,12 +2467,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="624"/>
         <source>Audio File</source>
-        <translation>Аудио файл</translation>
+        <translation>Аудиофайл</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="626"/>
         <source>Video File</source>
-        <translation>Видео файл</translation>
+        <translation>Видеофайл</translation>
     </message>
     <message>
         <location filename="../src/utils/file-utils.cpp" line="628"/>
@@ -2496,7 +2496,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/create-repo-dialog.cpp" line="229"/>
         <location filename="../src/ui/download-repo-dialog.cpp" line="352"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation>Путь &quot;%1&quot; конфликтует с системным путем</translation>
+        <translation>Путь &quot;%1&quot; конфликтует с системным путём</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="231"/>
@@ -2556,7 +2556,7 @@ The library owner&apos;s storage space is used up.</source>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="56"/>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="130"/>
         <source>This library is not downloaded yet</source>
-        <translation>Эта библиотека еще не скачивалась</translation>
+        <translation>Эта библиотека ещё не скачивалась</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-detail-dialog.cpp" line="83"/>
@@ -2758,7 +2758,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="165"/>
         <source>Recently Updated</source>
-        <translation>Недавно обновленные</translation>
+        <translation>Недавно обновлённые</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="385"/>
@@ -2898,7 +2898,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="803"/>
         <source>Are you sure to unsync and resync library &quot;%1&quot;?</source>
-        <translation>Вы уверены, что хотите рассинхронизировать библиотеку &quot;%1&quot;?</translation>
+        <translation>Вы уверены, что хотите рассинхронизировать и ресинхронизировать библиотеку &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="841"/>
@@ -3132,7 +3132,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="198"/>
         <source>&amp;Online help</source>
-        <translation>&amp;Онлайн справка</translation>
+        <translation>&amp;Справка онлайн</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="249"/>
@@ -3172,7 +3172,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="199"/>
         <source>open %1 online help</source>
-        <translation>открыть %1 онлайн справку</translation>
+        <translation>открыть %1 онлайн-справку</translation>
     </message>
     <message>
         <location filename="../src/ui/tray-icon.cpp" line="492"/>
@@ -3424,7 +3424,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="419"/>
         <source>Do not verify server certificate in HTTPS syncing</source>
-        <translation>Не проверять сертификат сервера при HTTPS синхронизации</translation>
+        <translation>Не проверять сертификат сервера при синхронизации по HTTPS</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="420"/>
@@ -3479,7 +3479,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../ui_settings-dialog.h" line="430"/>
         <source>Proxy server requires a password</source>
-        <translation>Прокси сервер требует пароль</translation>
+        <translation>Прокси-сервер требует пароль</translation>
     </message>
     <message>
         <location filename="../ui_settings-dialog.h" line="431"/>
@@ -3557,7 +3557,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="963"/>
         <source>The previous operation is still in progres</source>
-        <translation>Предыдущая операция все еще выполняется</translation>
+        <translation>Предыдущая операция всё ещё выполняется</translation>
     </message>
 </context>
 <context>
@@ -3682,7 +3682,7 @@ Do you want to visit the download page?</source>
     <message>
         <location filename="../src/ui/starred-files-tab.cpp" line="115"/>
         <source>You have no starred files yet.</source>
-        <translation>У вас еще нет избранных файлов.</translation>
+        <translation>У вас ещё нет избранных файлов.</translation>
     </message>
 </context>
 <context>

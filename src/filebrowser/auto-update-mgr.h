@@ -20,6 +20,7 @@ public:
     void watchCachedFile(const Account& account,
                          const QString& repo_id,
                          const QString& path);
+    void cleanCachedFile();
 
 signals:
     void fileUpdated(const QString& repo_id, const QString& path);
@@ -81,11 +82,6 @@ public:
     bool autoDelete() {
         return true;
     }
-
-private:
-    QString file_cache_dir_;
-    QString file_cache_tmp_dir_;
-    QString file_cache_db_file_;
 };
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_AUTO_UPDATE_MANAGER_H

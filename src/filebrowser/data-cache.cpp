@@ -11,10 +11,19 @@
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "data-cache.h"
+#include "account-mgr.h"
 
 namespace {
 
 const int kDirentsCacheExpireTime = 60 * 1000;
+
+uint qHash(const FileCache::CacheEntry &cache) {
+    const QString key_str = cache.repo_id +
+                            cache.path +
+                            cache.file_id +
+                            cache.account_sig;
+    return qHash(key_str);
+}
 
 } // namespace
 
@@ -65,7 +74,7 @@ void DirentsCache::saveCachedDirents(const QString& repo_id,
 SINGLETON_IMPL(FileCache)
 FileCache::FileCache()
 {
-    cache_ = new QCache<QString, CacheEntry>;
+    cache_ = new QHash<QString, CacheEntry>;
 }
 
 FileCache::~FileCache()
@@ -82,18 +91,9 @@ QString FileCache::getCachedFileId(const QString& repo_id,
 FileCache::CacheEntry FileCache::getCacheEntry(const QString& repo_id,
                                                    const QString& path)
 {
-    FileCache::CacheEntry ret;
     QString cache_key = repo_id + path;
-    FileCache::CacheEntry *cache_entry = cache_->object(cache_key);
 
-    if (cache_entry) {
-        ret.repo_id = cache_entry->repo_id;
-        ret.path = cache_entry->path;
-        ret.file_id = cache_entry->file_id;
-        ret.account_sig = cache_entry->account_sig;
-    }
-
-    return ret;
+    return cache_->value(cache_key);
 }
 
 void FileCache::saveCachedFileId(const QString& repo_id,
@@ -101,29 +101,29 @@ void FileCache::saveCachedFileId(const QString& repo_id,
                                    const QString& file_id,
                                    const QString& account_sig)
 {
-    CacheEntry *val = new CacheEntry;
+    CacheEntry val;
     QString cache_key = repo_id + path;
 
-    val->repo_id = repo_id;
-    val->path = path;
-    val->file_id = file_id;
-    val->account_sig = account_sig;
+    val.repo_id = repo_id;
+    val.path = path;
+    val.file_id = file_id;
+    val.account_sig = account_sig;
 
     cache_->insert(cache_key, val);
 }
 
 QList<FileCache::CacheEntry> FileCache::getAllCachedFiles()
 {
-    QList<CacheEntry> list;
-    CacheEntry entry;
+    return cache_->values();
+}
 
-    foreach(const QString& cache_key, cache_->keys()) {
-        entry.repo_id = cache_->object(cache_key)->repo_id;
-        entry.path = cache_->object(cache_key)->path;
-        entry.file_id = cache_->object(cache_key)->file_id;
-        entry.account_sig = cache_->object(cache_key)->account_sig;
-        list.append(entry);
+void FileCache::cleanCurrentAccountCache()
+{
+    const Account cur_account = seafApplet->accountManager()->currentAccount();
+    foreach(const QString& key, cache_->keys()) {
+        const Account account = seafApplet->accountManager()
+                                ->getAccountBySignature(cache_->value(key).account_sig);
+        if (account == cur_account)
+            cache_->remove(key);
     }
-
-    return list;
 }

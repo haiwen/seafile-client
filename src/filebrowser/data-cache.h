@@ -66,12 +66,13 @@ public:
                           const QString& account_sig);
 
     QList<CacheEntry> getAllCachedFiles();
+    void cleanCurrentAccountCache();
 
 private:
     FileCache();
     ~FileCache();
 
-    QCache<QString, CacheEntry> *cache_;
+    QHash<QString, CacheEntry> *cache_;
 };
 
 

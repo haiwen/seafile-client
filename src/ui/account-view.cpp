@@ -387,8 +387,7 @@ void AccountView::toggleAccount()
         return;
     }
 
-    CachedFilesCleaner *cleaner = new CachedFilesCleaner();
-    QThreadPool::globalInstance()->start(cleaner);
+    AutoUpdateManager::instance()->cleanCachedFile();
 
     // logout Account
     FileBrowserManager::getInstance()->closeAllDialogByAccount(account);

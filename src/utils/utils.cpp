@@ -803,6 +803,10 @@ int digitalCompare(const QString &left, const QString &right)
     int ret = 0;
     if (left.compare(right) == 0)
         return ret;
+    if (left.size() == 0)
+        return -1;
+    if (right.size() == 0)
+        return 1;
 
     QString left_sub = left;
     QString right_sub = right;

@@ -1,7 +1,17 @@
 #include "test_utils.h"
 #include <QtTest/QtTest>
+#include <algorithm>            // std::sort
 
 #include "../src/utils/utils.h"
+
+namespace {
+
+bool digitalCompareFileByName(const QString& a, const QString& b)
+{
+    return digitalCompare(a, b) < 0 ? true : false;
+}
+
+} // namespace
 
 void Utils::testReadableFileSize() {
     QCOMPARE(::readableFileSize(0), QString("0B"));
@@ -43,6 +53,41 @@ void Utils::testIncludeUrlParams() {
 }
 
 void Utils::testDigitalCompare() {
+    QList<QString> list;
+    list << "05 copy 2.ico" << "05 copy 3.ico"
+         << "05 copy.ico" << "05.ico"
+         << "34th TOPIK Papers - Advanced level 2.pdf"
+         << "34th TOPIK Papers - Advanced level.pdf"
+         << "A1/" << "B1/" << "a2/" << "b2/"
+         << "IMG_20140523_171911 - 副本.jpg"
+         << "IMG_20140523_171911.jpg"
+         << "MIT18_06SCF11_Ses3.1sum.pdf" << "Paraffin.exe"
+         << "Screen Shot 2016-08-13 at 11.42.35 PM.png"
+         << "Screen Shot 2016-09-02 at 4.47.12 PM.png"
+         << "WixDependencyExtension.dll"
+         << "darice - 副本 - 副本.cub"
+         << "darice - 副本.cub" << "darice.cub"
+         << "depends.chm" << "depends.exe"
+         << "dokan-build - 副本.log" << "dokan-build.log"
+         << "dokan-build copy 2 - 副本(2).log"
+         << "dokan-build copy 2 - 副本.log"
+         << "dokan-build copy 2.log"
+         << "dokan-build copy 3.log"
+         << "dokan-build copy.log"
+         << "heat.exe" << "heat.exe.config"
+         << "new copy.txt" << "new.txt"
+         << "require(1).js" << "require.js"
+         << "subfolder1/" << "untitled folder/"
+         << "whole-stage-codegen.pdf" << "wix.dll"
+         << "x copy 10.md" << "x copy.md"
+         << "x copy 2.md" << "x copy 3.md"
+         << "新建文本文档.txt"
+         << "新建文本文档 copy.txt"
+         << "新建文本文档 - 副本.txt"
+         << "新建文本文档(2).txt"
+         << "新建文本文档(3).txt";
+    std::sort(list.begin(), list.end(), digitalCompareFileByName);
+
     QCOMPARE(::digitalCompare("9", "9"), 0);
     QCOMPARE(::digitalCompare("aa9aa", "aa9aa"), 0);
     QCOMPARE(::digitalCompare("99a99", "99a99"), 0);

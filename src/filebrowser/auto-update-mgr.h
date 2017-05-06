@@ -4,6 +4,7 @@
 #include <QFileSystemWatcher>
 #include <QHash>
 #include <QQueue>
+#include <QRunnable>
 
 #include "utils/singleton.h"
 #include "account.h"
@@ -19,6 +20,7 @@ public:
     void watchCachedFile(const Account& account,
                          const QString& repo_id,
                          const QString& path);
+    void cleanCachedFile();
 
 signals:
     void fileUpdated(const QString& repo_id, const QString& path);
@@ -71,5 +73,15 @@ private:
     QHash<QString, qint64> images_;
 };
 #endif // Q_OS_MAC
+
+class CachedFilesCleaner : public QObject, public QRunnable {
+    Q_OBJECT
+public:
+    CachedFilesCleaner();
+    void run();
+    bool autoDelete() {
+        return true;
+    }
+};
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_AUTO_UPDATE_MANAGER_H

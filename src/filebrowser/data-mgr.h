@@ -19,7 +19,7 @@ class GetDirentsRequest;
 class GetRepoRequest;
 class CreateSubrepoRequest;
 class DirentsCache;
-class FileCacheDB;
+class FileCache;
 class FileUploadTask;
 class FileDownloadTask;
 
@@ -170,7 +170,7 @@ private:
 
     QList<SeafileApiRequest*> reqs_;
 
-    FileCacheDB *filecache_db_;
+    FileCache *filecache_;
 
     DirentsCache *dirents_cache_;
 

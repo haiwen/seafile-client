@@ -45,8 +45,8 @@ private:
  * Record the file id of downloaded files.
  * The schema is (repo_id, path, downloaded_file_id)
  */
-class FileCacheDB {
-    SINGLETON_DEFINE(FileCacheDB)
+class FileCache {
+    SINGLETON_DEFINE(FileCache)
 public:
     struct CacheEntry {
         QString repo_id;
@@ -55,7 +55,6 @@ public:
         QString account_sig;
     };
 
-    void start();
 
     QString getCachedFileId(const QString& repo_id,
                             const QString& path);
@@ -67,14 +66,13 @@ public:
                           const QString& account_sig);
 
     QList<CacheEntry> getAllCachedFiles();
+    void cleanCurrentAccountCache();
 
 private:
-    FileCacheDB();
-    ~FileCacheDB();
-    static bool getCacheEntryCB(sqlite3_stmt *stmt, void *data);
-    static bool collectCachedFile(sqlite3_stmt *stmt, void *data);
+    FileCache();
+    ~FileCache();
 
-    sqlite3 *db_;
+    QHash<QString, CacheEntry> *cache_;
 };
 
 

@@ -520,10 +520,10 @@ void RepoService::removeSyncedSubfolder(const QString& repo_id)
 
 void RepoService::removeCloudFileBrowserCache()
 {
-    QList<FileCacheDB::CacheEntry> all_files =
-        FileCacheDB::instance()->getAllCachedFiles();
+    QList<FileCache::CacheEntry> all_files =
+        FileCache::instance()->getAllCachedFiles();
     const Account account = seafApplet->accountManager()->currentAccount();
-    foreach (const FileCacheDB::CacheEntry& entry, all_files) {
+    foreach (const FileCache::CacheEntry& entry, all_files) {
         if (account.getSignature() == entry.account_sig) {
             QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
             printf ("removing cached file %s\n", toCStr(fullpath));
@@ -577,9 +577,9 @@ void RepoService::wipeLocalFiles()
 
     // Collect files cached by cloud file browser
     QStringList cached_files;
-    QList<FileCacheDB::CacheEntry> all_files =
-        FileCacheDB::instance()->getAllCachedFiles();
-    foreach (const FileCacheDB::CacheEntry& entry, all_files) {
+    QList<FileCache::CacheEntry> all_files =
+        FileCache::instance()->getAllCachedFiles();
+    foreach (const FileCache::CacheEntry& entry, all_files) {
         if (account.getSignature() == entry.account_sig) {
             QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
             cached_files << DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);

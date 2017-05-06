@@ -47,6 +47,7 @@ public:
                                       const QString& path);
 
     void cancelDownload(const QString& repo_id, const QString& path);
+    void cancelAllDownloadTasks();
 
     /**
      * Return all download tasks for files in the `parent_dir`

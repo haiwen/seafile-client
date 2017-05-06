@@ -33,7 +33,7 @@ const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
 
 DataManager::DataManager(const Account &account)
     : account_(account),
-      filecache_db_(FileCacheDB::instance()),
+      filecache_(FileCache::instance()),
       dirents_cache_(DirentsCache::instance())
 {
 }
@@ -275,7 +275,7 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
         return "";
     }
 
-    QString cached_file_id = filecache_db_->getCachedFileId(repo_id, fpath);
+    QString cached_file_id = filecache_->getCachedFileId(repo_id, fpath);
     return cached_file_id == file_id ? local_file_path : "";
 }
 
@@ -307,10 +307,10 @@ void DataManager::onFileDownloadFinished(bool success)
     if (task == NULL)
         return;
     if (success) {
-        filecache_db_->saveCachedFileId(task->repoId(),
-                                        task->path(),
-                                        task->fileId(),
-                                        account_.getSignature());
+        filecache_->saveCachedFileId(task->repoId(),
+                                     task->path(),
+                                     task->fileId(),
+                                     account_.getSignature());
         // TODO we don't want to watch readonly files
         AutoUpdateManager::instance()->watchCachedFile(
             account_, task->repoId(), task->path());

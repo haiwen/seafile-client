@@ -111,5 +111,4 @@ private:
     const QStringList cached_files_;
 };
 
-
 #endif // SEAFILE_CLIENT_REPO_SERVICE_H_

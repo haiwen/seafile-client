@@ -321,12 +321,6 @@ void FileBrowserDialog::createStatusBar()
     refresh_action_->setShortcut(QKeySequence::Refresh);
     status_bar_->addAction(refresh_action_);
 
-    open_cache_dir_action_ = new QAction(this);
-    open_cache_dir_action_->setIcon(QIcon(":/images/toolbar/file.png"));
-    open_cache_dir_action_->setToolTip(tr("Open the cache folder"));
-    connect(open_cache_dir_action_, SIGNAL(triggered()), this, SLOT(openCacheFolder()));
-    status_bar_->addAction(open_cache_dir_action_);
-
     QWidget *spacer2 = new QWidget;
     spacer2->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     status_bar_->addWidget(spacer2);
@@ -896,16 +890,6 @@ void FileBrowserDialog::chooseDirectoryToUpload()
     if (path.isEmpty())
         return;
     uploadOrUpdateFile(path);
-}
-
-void FileBrowserDialog::openCacheFolder()
-{
-    QString folder =
-      ::pathJoin(data_mgr_->getRepoCacheFolder(repo_.id), current_path_);
-    if (!::createDirIfNotExists(folder))
-        seafApplet->warningBox(tr("Unable to create cache folder"), this);
-    if (!QDesktopServices::openUrl(QUrl::fromLocalFile(folder)))
-        seafApplet->warningBox(tr("Unable to open cache folder"), this);
 }
 
 void FileBrowserDialog::onNavigatorClick(int id)

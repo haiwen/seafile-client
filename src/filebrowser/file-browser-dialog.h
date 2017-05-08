@@ -72,7 +72,6 @@ private slots:
     void chooseDirectoryToUpload();
     void onDownloadFinished(bool success);
     void onUploadFinished(bool success);
-    void openCacheFolder();
 
     // prompt a menu for user to choose a upload action
     void uploadFileOrMkdir();
@@ -181,7 +180,6 @@ private:
     QAction *upload_directory_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
-    QAction *open_cache_dir_action_;
 
     // others
     QStackedWidget *stack_;

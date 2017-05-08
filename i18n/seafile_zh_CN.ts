@@ -1545,7 +1545,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../ui_login-dialog.h" line="263"/>
         <source>Server:</source>
-        <translation>服务器：</translation>
+        <translation>云盘网址：</translation>
     </message>
     <message>
         <location filename="../ui_login-dialog.h" line="264"/>

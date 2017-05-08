@@ -80,7 +80,7 @@ public:
 
     bool autoUpdateEnabled() {
         // qWarning() << "autoUpdateEnabled =" << win_sparkle_get_automatic_check_for_updates();
-        win_sparkle_get_automatic_check_for_updates();
+        return win_sparkle_get_automatic_check_for_updates();
     }
 
     void setAutoUpdateEnabled(bool enabled) {

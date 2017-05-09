@@ -220,7 +220,7 @@ bool fixQtHDPINonIntegerScaling()
         return false;
     }
     // Don't overwrite the user sepcified scaling factors
-    if (!qgetenv("QT_SCALE_FACTOR").isEmpty()) {
+    if (!qgetenv("QT_SCALE_FACTOR").isEmpty() || !qgetenv("QT_SCREEN_SCALE_FACTORS").isEmpty()) {
         return true;
     }
     // Don't overwrite the user sepcified multi-screen scaling factors
@@ -247,6 +247,7 @@ bool fixQtHDPINonIntegerScaling()
 
     // Turn off system scaling, otherwise we'll always see a 96 DPI virtual screen.
     if (!setProcessDPIAware()) {
+        return false;
     }
 
     QDpi dpi;
@@ -266,7 +267,12 @@ bool fixQtHDPINonIntegerScaling()
     //     192 DPI = 200% scaling
     double scaling_factor = ((double)(dpi.first)) / 96.0;
     QString factor = QString::number(scaling_factor);
-    g_setenv("QT_SCALE_FACTOR", factor.toUtf8().data(), 1);
+
+    // Use QT_SCREEN_SCALE_FACTORS instead of QT_SCALE_FACTOR. The latter would
+    // scale the font, which has already been scaled by the system.
+    //
+    // See also http://lists.qt-project.org/pipermail/interest/2015-October/019242.html
+    g_setenv("QT_SCREEN_SCALE_FACTORS", factor.toUtf8().data(), 1);
     // printf("set QT_SCALE_FACTOR to %s\n", factor.toUtf8().data());
     return true;
 }

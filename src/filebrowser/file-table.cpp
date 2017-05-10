@@ -1098,13 +1098,22 @@ bool FileTableSortFilterProxyModel::lessThan(const QModelIndex &left, const QMod
 {
     bool is_dir_left = source_model_->direntAt(left.row())->isDir();
     bool is_dir_right = source_model_->direntAt(right.row())->isDir();
-    if (is_dir_left != is_dir_right)
+    if (is_dir_left != is_dir_right) {
         return sortOrder() != Qt::AscendingOrder ? is_dir_right
                                                  : !is_dir_right;
+    }
     else {
-        const QString left_name = source_model_->direntAt(left.row())->name;
-        const QString right_name = source_model_->direntAt(right.row())->name;
-        return digitalCompare(left_name, right_name) < 0 ? true : false;
+        QVariant leftData = source_model_->data(left);
+        QVariant rightData = source_model_->data(right);
+
+        if (leftData.type() == QVariant::ULongLong) {
+            return leftData.toULongLong() < rightData.toULongLong();
+        }
+        else if (leftData.type() == QVariant::String) {
+            const QString left_name = source_model_->direntAt(left.row())->name;
+            const QString right_name = source_model_->direntAt(right.row())->name;
+            return digitalCompare(left_name, right_name) < 0 ? true : false;
+        }
     }
 
     return QSortFilterProxyModel::lessThan(left, right);

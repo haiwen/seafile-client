@@ -801,7 +801,7 @@ QByteArray buildFormData(const QHash<QString, QString>& params)
 int digitalCompare(const QString &left, const QString &right)
 {
     int ret = 0;
-    if (left.compare(right) == 0)
+    if (left.compare(right, Qt::CaseInsensitive) == 0)
         return ret;
     if (left.size() == 0)
         return -1;
@@ -817,7 +817,7 @@ int digitalCompare(const QString &left, const QString &right)
         if (left[i].isDigit() && right[i].isDigit())
             break;
         if (left[i] != right[i])
-            return left.compare(right);
+            return left.compare(right, Qt::CaseInsensitive);
     }
     left_sub = left_sub.right(left_sub.size() - i);
     right_sub = right_sub.right(right_sub.size() - i);
@@ -838,7 +838,7 @@ int digitalCompare(const QString &left, const QString &right)
         }
         return left_digit - right_digit;
     }
-    return left.compare(right);
+    return left.compare(right, Qt::CaseInsensitive);
 }
 
 bool shouldUseFramelessWindow()

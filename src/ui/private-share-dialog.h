@@ -17,6 +17,7 @@
 #include "account.h"
 #include "api/contact-share-info.h"
 #include "api/requests.h"
+#include "user-name-completer.h"
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 // only available in qt 5.0+
@@ -51,8 +52,6 @@ public slots:
     void onUpdateShareItem(const SeafileUser& email, SharePermission permission);
     void onRemoveShareItem(int group_id, SharePermission permission);
     void onRemoveShareItem(const SeafileUser& user, SharePermission permission);
-    void onCompleterActivatedOrHighlighted(const QString& text);
-    void onUserNameEditingFinished();
 
 private slots:
     void selectFirstRow();
@@ -69,9 +68,7 @@ private slots:
     void onGetSharedItemsSuccess(const QList<GroupShareInfo>& group_shares,
                                  const QList<UserShareInfo>& user_shares);
     void onGetSharedItemsFailed(const ApiError& error);
-    void onUserNameChanged(const QString& email);
-    void onSearchUsersSuccess(const QList<SeafileUser>& contacts);
-    void onSearchUsersFailed(const ApiError& error);
+    void onUserNameChoosed();
 
 private:
     void createTable();
@@ -97,17 +94,11 @@ private:
 
     QHash<int, SeafileGroup> groups_by_id_;
 
-    // A map of (email, SeafileUser) map. The user has a contact_email, the key
-    // is user.contact_email, otherwise, it's user.email.
-    QHash<QString, SeafileUser> users_by_email_;
-
     // A (pattern, possible users for completion) multi map.
     struct CachedUsersEntry {
         QSet<SeafileUser> users;
         qint64 ts;
     };
-    QHash<QString, CachedUsersEntry> cached_completion_users_by_pattern_;
-    QSet<QString> in_progress_search_requests_;
 
     SharedItemsTableView* table_;
     SharedItemsTableModel* model_;
@@ -115,7 +106,7 @@ private:
     QScopedPointer<PrivateShareRequest, QScopedPointerDeleteLater> request_;
     QScopedPointer<FetchGroupsRequest, QScopedPointerDeleteLater> fetch_groups_request_;
     QScopedPointer<GetPrivateShareItemsRequest, QScopedPointerDeleteLater> get_shared_items_request_;
-    QScopedPointer<QCompleter, QScopedPointerDeleteLater> completer_;
+    QScopedPointer<SeafileUserNameCompleter, QScopedPointerDeleteLater> user_name_completer_;
 
     bool request_in_progress_;
 

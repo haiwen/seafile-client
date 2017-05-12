@@ -35,7 +35,7 @@ public:
 
     void setHeader(const QString& key, const QString& value);
 
-    void send();
+    virtual void send();
 
     const QNetworkReply* reply() const;
 

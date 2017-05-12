@@ -682,20 +682,81 @@ void LogoutDeviceRequest::requestSuccess(QNetworkReply& reply)
 }
 
 GetRepoTokensRequest::GetRepoTokensRequest(const Account& account,
-                                           const QStringList& repo_ids)
+                                           const QStringList& repo_ids,
+                                           int batch_size)
     : SeafileApiRequest(account.getAbsoluteUrl(kGetRepoTokensUrl),
                         SeafileApiRequest::METHOD_GET,
-                        account.token)
+                        account.token),
+      account_(account),
+      repo_ids_(repo_ids),
+      batch_offset_(0),
+      batch_size_(batch_size)
 {
-    setUrlParam("repos", repo_ids.join(","));
+}
+
+void GetRepoTokensRequest::send()
+{
+    doNextBatch();
+}
+
+void GetRepoTokensRequest::doNextBatch()
+{
+    if (batch_offset_ >= repo_ids_.size()) {
+        emit success();
+        return;
+    }
+
+    int count;
+    count = qMin(batch_size_, repo_ids_.size() - batch_offset_);
+    batch_req_.reset(new SingleBatchRepoTokensRequest(
+        account_, repo_ids_.mid(batch_offset_, count)));
+
+    connect(batch_req_.data(),
+            SIGNAL(failed(const ApiError &)),
+            this,
+            SIGNAL(failed(const ApiError &)));
+    connect(batch_req_.data(), SIGNAL(success()), this, SLOT(batchSuccess()));
+    batch_req_->send();
+
+    // printf("sending request for one batch: offset = %d, count = %d\n",
+    //        batch_offset_,
+    //        count);
+}
+
+void GetRepoTokensRequest::batchSuccess()
+{
+    const QMap<QString, QString>& tokens = batch_req_->repoTokens();
+
+    // printf ("one batch finished, offset = %d, count = %d\n", batch_offset_, tokens.size());
+
+    repo_tokens_.unite(tokens);
+    batch_offset_ += batch_req_->repoIds().size();
+    doNextBatch();
 }
 
 void GetRepoTokensRequest::requestSuccess(QNetworkReply& reply)
 {
+    // Just a place holder. A `GetRepoTokensRequest` is a wrapper around a
+    // series of `SingleBatchRepoTokensRequest`, which really sends the api
+    // requests.
+}
+
+SingleBatchRepoTokensRequest::SingleBatchRepoTokensRequest(const Account& account,
+                                           const QStringList& repo_ids)
+    : SeafileApiRequest(account.getAbsoluteUrl(kGetRepoTokensUrl),
+                        SeafileApiRequest::METHOD_GET,
+                        account.token),
+      repo_ids_(repo_ids)
+{
+    setUrlParam("repos", repo_ids.join(","));
+}
+
+void SingleBatchRepoTokensRequest::requestSuccess(QNetworkReply& reply)
+{
     json_error_t error;
     json_t* root = parseJSON(reply, &error);
     if (!root) {
-        qWarning("GetRepoTokensRequest: failed to parse json:%s\n", error.text);
+        qWarning("SingleBatchRepoTokensRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }

@@ -254,6 +254,7 @@ SET(moc_headers
   src/ui/uninstall-helper-dialog.h
   src/ui/ssl-confirm-dialog.h
   src/ui/private-share-dialog.h
+  src/ui/user-name-completer.h
   src/ui/account-view.h
   src/ui/seafile-tab-widget.h
   src/ui/tab-view.h
@@ -435,6 +436,7 @@ SET(seafile_client_sources
   src/ui/search-tab-items.cpp
   src/ui/ssl-confirm-dialog.cpp
   src/ui/private-share-dialog.cpp
+  src/ui/user-name-completer.cpp
   src/ui/proxy-style.cpp
   src/ui/account-view.cpp
   src/ui/seafile-tab-widget.cpp

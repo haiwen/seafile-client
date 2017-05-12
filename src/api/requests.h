@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_API_REQUESTS_H
 
 #include <QMap>
+#include <QScopedPointer>
 #include <vector>
 
 #include "account.h"
@@ -404,13 +405,45 @@ private:
     Account account_;
 };
 
+class SingleBatchRepoTokensRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    SingleBatchRepoTokensRequest(const Account& account, const QStringList& repo_ids);
+
+    const QMap<QString, QString>& repoTokens() const
+    {
+        return repo_tokens_;
+    }
+
+    const QStringList repoIds() const {
+        return repo_ids_;
+    }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(SingleBatchRepoTokensRequest);
+
+    QStringList repo_ids_;
+    QMap<QString, QString> repo_tokens_;
+};
+
+// Request repo sync tokens from the server, and break the request into batches
+// if there are too many, to avoid request URI too large.
 class GetRepoTokensRequest : public SeafileApiRequest
 {
     Q_OBJECT
 public:
-    GetRepoTokensRequest(const Account& account, const QStringList& repo_ids);
+    GetRepoTokensRequest(const Account& account, const QStringList& repo_ids, int batch_size=50);
 
-    const QMap<QString, QString>& repoTokens()
+    virtual void send() Q_DECL_OVERRIDE;
+
+    const QMap<QString, QString>& repoTokens() const
     {
         return repo_tokens_;
     }
@@ -421,10 +454,24 @@ signals:
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
+private slots:
+    void batchSuccess();
+
 private:
     Q_DISABLE_COPY(GetRepoTokensRequest);
 
+    void doNextBatch();
+
+    Account account_;
+    QStringList repo_ids_;
     QMap<QString, QString> repo_tokens_;
+
+    // The start position of the next batch
+    int batch_offset_;
+    // How many tokens to ask in a single request
+    int batch_size_;
+
+    QScopedPointer<SingleBatchRepoTokensRequest, QScopedPointerDeleteLater> batch_req_;
 };
 
 class GetLoginTokenRequest : public SeafileApiRequest

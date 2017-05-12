@@ -295,6 +295,16 @@ void AccountView::getRepoTokenWhenRelogin(const Account& account)
     if (!new_account.isValid())
         return;
 
+    // For debugging lots of repos problem.
+    // TODO: Comment this out before committing!!
+    //
+    // int targetNumberForDebug = 300;
+    // while (repo_ids.size() < targetNumberForDebug) {
+    //     repo_ids.append(repo_ids);
+    // }
+    // repo_ids = repo_ids.mid(0, 300);
+    // printf ("repo_ids.size() = %d\n", repo_ids.size());
+
     GetRepoTokensRequest *req = new GetRepoTokensRequest(
         new_account, repo_ids);
 

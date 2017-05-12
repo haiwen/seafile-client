@@ -54,6 +54,9 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
 
     event.desc = translateCommitDesc(event.desc);
 
+    // For testing long lines of event description.
+    // event.desc += event.desc + event.desc;
+
     return event;
 }
 

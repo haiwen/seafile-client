@@ -65,6 +65,14 @@ ActivitiesTab::ActivitiesTab(QWidget *parent)
     refresh();
 }
 
+void ActivitiesTab::showEvent(QShowEvent *event)
+{
+    TabView::showEvent(event);
+    if (mStack->currentIndex() == INDEX_EVENTS_VIEW) {
+        events_list_view_->update();
+    }
+}
+
 void ActivitiesTab::loadMoreEvents()
 {
     EventsService::instance()->loadMore();

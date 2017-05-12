@@ -12,6 +12,7 @@ class QNetworkRequest;
 class QNetworkReply;
 class QToolButton;
 class QLabel;
+class QShowEvent;
 
 class SeafEvent;
 class Account;
@@ -33,6 +34,7 @@ public slots:
 protected:
     void startRefresh();
     void stopRefresh();
+    virtual void showEvent(QShowEvent *event);
 
 private slots:
     void refreshEvents(const std::vector<SeafEvent>& events,

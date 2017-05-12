@@ -41,6 +41,7 @@ const int kAvatarWidth = 36;
 const int kNickHeight = 30;
 
 const int kMarginBetweenAvatarAndNick = 10;
+const int kMarginBetweenNickAndDesc = 3;
 
 const char *kNickColor = "#D8AC8F";
 const char *kNickColorHighlighted = "#D8AC8F";
@@ -186,14 +187,25 @@ void EventItemDelegate::paint(QPainter *painter,
     // Paint description
     painter->save();
 
-    const int repo_name_width = qMin(kRepoNameWidth, ::textWidthInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize)));
+    int repo_name_width = qMin(kRepoNameWidth, ::textWidthInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize)));
     const int repo_name_height = ::textHeightInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize));
 
+    const int desc_text_full_width = ::textWidthInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize));
+
     int desc_width = option.rect.width() - kMarginLeft - kAvatarWidth - kMarginBetweenAvatarAndNick - kPadding * 3 - kMarginBetweenRepoNameAndDesc - repo_name_width - kMarginRight;
-    desc_width = qMin(desc_width, ::textWidthInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)));
+
+    // If the allocated width to event desc is bigger than required, we give the
+    // extra width to the repo name area.
+    int extra_width_for_repo_name = 0;
+    if (desc_width >= desc_text_full_width) {
+        extra_width_for_repo_name = desc_width - desc_text_full_width;
+        desc_width = desc_text_full_width;
+    }
+
     const int desc_height = ::textHeightInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)) * 2;
 
-    const QPoint event_desc_pos = option.rect.bottomLeft() + QPoint(nick_rect.left(), - desc_height - kExtraPadding - kMarginBottom);
+    // const QPoint event_desc_pos = option.rect.bottomLeft() + QPoint(nick_rect.left(), - desc_height - kExtraPadding - kMarginBottom);
+    const QPoint event_desc_pos = nick_rect.bottomLeft() + QPoint(0, kMarginBetweenNickAndDesc);
 
     QRect event_desc_rect(event_desc_pos, QSize(desc_width, desc_height));
     painter->setFont(changeFontSize(painter->font(), kDescriptionFontSize));
@@ -211,6 +223,8 @@ void EventItemDelegate::paint(QPainter *painter,
     // Paint repo name
     painter->save();
 
+    repo_name_width += extra_width_for_repo_name;
+
     const QPoint event_repo_name_pos = option.rect.bottomRight() +
         QPoint(-repo_name_width - kPadding - kMarginRight,
                -repo_name_height - kExtraPadding - kMarginBottom);
@@ -218,10 +232,13 @@ void EventItemDelegate::paint(QPainter *painter,
     QRect event_repo_name_rect(event_repo_name_pos, QSize(repo_name_width, kNickHeight));
     painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
-    painter->drawText(event_repo_name_rect,
-                      Qt::AlignRight | Qt::AlignTop | Qt::TextSingleLine,
-                      fitTextToWidth(event.repo_name, option.font, repo_name_width),
-                      &event_repo_name_rect);
+    painter->drawText(
+        event_repo_name_rect,
+        Qt::AlignRight | Qt::AlignTop | Qt::TextSingleLine,
+        fitTextToWidth(event.repo_name,
+                       option.font,
+                       repo_name_width),
+        &event_repo_name_rect);
     painter->restore();
 
     // Draw the bottom border lines

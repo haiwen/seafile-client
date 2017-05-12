@@ -20,7 +20,7 @@ const qint64 kCacheEntryExpireMSecs = 5 * 1000;
 
 SeafileUserNameCompleter::SeafileUserNameCompleter(const Account &account,
                                                    QLineEdit *parent)
-    : QObject(parent), account_(account), editor_(parent), item_choosen_(false)
+    : QObject(parent), account_(account), editor_(parent)
 {
     popup_ = new QTreeWidget;
     popup_->setWindowFlags(Qt::Popup);
@@ -152,7 +152,6 @@ void SeafileUserNameCompleter::showCompletion(const QList<SeafileUser> &users)
 
 void SeafileUserNameCompleter::doneCompletion()
 {
-    item_choosen_ = true;
     timer_->stop();
     popup_->hide();
     editor_->setFocus();

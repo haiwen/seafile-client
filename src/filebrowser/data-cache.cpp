@@ -17,14 +17,6 @@ namespace {
 
 const int kDirentsCacheExpireTime = 60 * 1000;
 
-uint qHash(const FileCache::CacheEntry &cache) {
-    const QString key_str = cache.repo_id +
-                            cache.path +
-                            cache.file_id +
-                            cache.account_sig;
-    return qHash(key_str);
-}
-
 } // namespace
 
 SINGLETON_IMPL(DirentsCache)

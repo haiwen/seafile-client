@@ -1102,19 +1102,13 @@ bool FileTableSortFilterProxyModel::lessThan(const QModelIndex &left, const QMod
         return sortOrder() != Qt::AscendingOrder ? is_dir_right
                                                  : !is_dir_right;
     }
-    else {
-        QVariant leftData = source_model_->data(left);
-        QVariant rightData = source_model_->data(right);
-
-        if (leftData.type() == QVariant::ULongLong) {
-            return leftData.toULongLong() < rightData.toULongLong();
-        }
-        else if (leftData.type() == QVariant::String) {
-            const QString left_name = source_model_->direntAt(left.row())->name;
-            const QString right_name = source_model_->direntAt(right.row())->name;
-            return digitalCompare(left_name, right_name) < 0 ? true : false;
-        }
+    else if ((left.column() == FILE_COLUMN_NAME) &&
+             (right.column() == FILE_COLUMN_NAME)) {
+        const QString left_name = source_model_->direntAt(left.row())->name;
+        const QString right_name = source_model_->direntAt(right.row())->name;
+        return digitalCompare(left_name, right_name) < 0;
     }
-
-    return QSortFilterProxyModel::lessThan(left, right);
+    else {
+        return QSortFilterProxyModel::lessThan(left, right);
+    }
 }

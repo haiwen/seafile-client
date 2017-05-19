@@ -10,6 +10,8 @@
 #include "utils/utils-mac.h"
 #include "api/api-client.h"
 #include "filebrowser/tasks.h"
+#include "server-status-service.h"
+
 #include "network-mgr.h"
 
 namespace {
@@ -200,6 +202,8 @@ void NetworkStatusDetector::detect() {
         qWarning("[network detector] resetting the qt network access manager");
         SeafileApiClient::resetQNAM();
         FileServerTask::resetQNAM();
+        ServerStatusService::instance()->refreshUnconnected();
+
         has_network_failure_ = false;
     }
 }

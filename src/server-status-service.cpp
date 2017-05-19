@@ -114,3 +114,30 @@ bool ServerStatusService::isServerConnected(const QUrl& url) const
 {
     return statuses_.value(url.host()).connected;
 }
+
+void ServerStatusService::updateOnSuccessfullRequest(const QUrl& url)
+{
+    updateOnRequestFinished(url, true);
+}
+
+void ServerStatusService::updateOnFailedRequest(const QUrl& url)
+{
+    updateOnRequestFinished(url, false);
+}
+
+void ServerStatusService::updateOnRequestFinished(const QUrl& url, bool no_network_error)
+{
+    bool changed = false;
+
+    if (statuses_.contains(url.host())) {
+        const ServerStatus& status = statuses_[url.host()];
+        if (status.connected != no_network_error) {
+            changed = true;
+        }
+    }
+    statuses_[url.host()] = ServerStatus(url, no_network_error);
+
+    if (changed) {
+        emit serverStatusChanged();
+    }
+}

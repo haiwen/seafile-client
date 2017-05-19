@@ -41,6 +41,8 @@ public:
 public slots:
     void refresh(bool only_refresh_unconnected=false);
     void refreshUnconnected() { refresh(true); }
+    void updateOnSuccessfullRequest(const QUrl& url);
+    void updateOnFailedRequest(const QUrl& url);
 
 private slots:
     void onPingServerSuccess();
@@ -55,6 +57,7 @@ private:
 
     void pingServer(const QUrl& url);
     bool isServerConnected(const QUrl& url) const;
+    void updateOnRequestFinished(const QUrl& url, bool no_network_error);
 
     QTimer *refresh_timer_;
     QTimer *refresh_unconnected_timer_;

@@ -16,8 +16,8 @@
 *.dll.a
 
 # executables
-seafile-client
 seafile-applet
+orig-seafile-applet
 *.exe
 
 # backup file

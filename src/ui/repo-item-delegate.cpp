@@ -60,7 +60,6 @@ const int kRepoCategoryNameFontSize = 14;
 const int kRepoCategoryCountFontSize = 12;
 const int kOwnerFontSize = 12;
 
-const char *kRepoItemBackgroundColor = "white";
 const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
 
 const char *kRepoCategoryColor = "#3F3F3F";
@@ -179,9 +178,8 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = QColor(kRepoItemBackgroundColorHighlighted);
         selected = true;
-
     } else {
-        backBrush = QColor(kRepoItemBackgroundColor);
+        backBrush = item->data(Qt::BackgroundRole).value<QBrush>();
     }
 
     painter->save();

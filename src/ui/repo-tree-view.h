@@ -86,6 +86,9 @@ private:
     void dropEvent(QDropEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
+    void dragLeaveEvent(QDragLeaveEvent *event);
+    bool fillDarkBackground(const QPoint& pos,
+                        const QRect& rect) const;
     void shareRepo(bool to_group);
 
     QAction *download_action_;
@@ -106,6 +109,8 @@ private:
     QAction *map_netdrive_action_;
 
     QSet<QString> expanded_categroies_;
+
+    QModelIndex drag_drop_index_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

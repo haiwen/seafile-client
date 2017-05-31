@@ -118,6 +118,8 @@ RepoTreeView::RepoTreeView(QWidget *parent)
 
     setAcceptDrops(true);
     setDefaultDropAction(Qt::CopyAction);
+    setAlternatingRowColors(true);
+    setDropIndicatorShown(true);
 }
 
 void RepoTreeView::loadExpandedCategries()
@@ -805,14 +807,14 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
-    const QUrl url = event->mimeData()->urls().at(0);
+    item->setFillDarkBackground(false);
 
+    const QUrl url = event->mimeData()->urls().at(0);
     QString local_path = url.toLocalFile();
 #if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
         local_path = utils::mac::fix_file_id_url(local_path);
 #endif
     const QString file_name = QFileInfo(local_path).fileName();
-
 
     // if the repo is synced
     LocalRepo local_repo;
@@ -844,19 +846,38 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 
 void RepoTreeView::dragMoveEvent(QDragMoveEvent *event)
 {
-    DropIndicatorPosition position = dropIndicatorPosition();
-    if (position == QAbstractItemView::OnItem) {
-        event->setDropAction(Qt::CopyAction);
-        event->accept();
-        //TODO highlight the selected item, and dehightlight when it's over
-        // const QModelIndex index = indexAt(event->pos());
-        // RepoItem *item = static_cast<RepoItem*>(getRepoItem(index));
-        // if (!item || item->type() != REPO_ITEM_TYPE) {
-        //     return;
-        // }
-    } else {
-        event->setDropAction(Qt::IgnoreAction);
-        event->accept();
+    QPoint pos = event->pos();
+    const QModelIndex index = indexAt(pos);
+    QRect rect = visualRect(index);
+
+    // highlight the selected item, and dehightlight when it's over
+    RepoItem *item = static_cast<RepoItem*>(getRepoItem(index));
+    if (item && item->type() == REPO_ITEM_TYPE) {
+        if (fillDarkBackground(pos, rect)) {
+            event->setDropAction(Qt::CopyAction);
+            event->accept();
+            item->setFillDarkBackground(true);
+        } else {
+            event->setDropAction(Qt::IgnoreAction);
+            event->accept();
+            item->setFillDarkBackground(false);
+        }
+
+        drag_drop_index_ = index;
+        dataChanged(drag_drop_index_, drag_drop_index_,
+                    QVector<int>(1, Qt::BackgroundRole));
+    }
+}
+
+void RepoTreeView::dragLeaveEvent(QDragLeaveEvent *event)
+{
+    QTreeView::dragLeaveEvent(event);
+
+    RepoItem *item = static_cast<RepoItem*>(getRepoItem(drag_drop_index_));
+    if (item && item->type() == REPO_ITEM_TYPE) {
+        item->setFillDarkBackground(false);
+        dataChanged(drag_drop_index_, drag_drop_index_,
+                    QVector<int>(1, Qt::BackgroundRole));
     }
 }
 
@@ -878,6 +899,19 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
         }
     }
 }
+
+bool RepoTreeView::fillDarkBackground(
+    const QPoint& pos, const QRect& rect) const
+{
+    const int margin = 10;
+    if ((pos.y() - rect.top() > margin) &&
+        (rect.bottom() - pos.y() > margin)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 void RepoTreeView::uploadFileStart(FileUploadTask *task)
 {

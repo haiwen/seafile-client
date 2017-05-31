@@ -808,6 +808,8 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
     item->setFillDarkBackground(false);
+    dataChanged(drag_drop_index_, drag_drop_index_,
+                QVector<int>(1, Qt::BackgroundRole));
 
     const QUrl url = event->mimeData()->urls().at(0);
     QString local_path = url.toLocalFile();

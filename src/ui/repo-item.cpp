@@ -2,10 +2,6 @@
 #include "rpc/rpc-client.h"
 #include "repo-item.h"
 
-
-const char *kRepoItemBackgroundColor = "white";
-const char *kRepoItemBackgroundColorDragMove = "#C8C8C8";
-
 RepoItem::RepoItem(const ServerRepo& repo)
     : SeafileRepoBaseItem(),
       repo_(repo)
@@ -17,7 +13,6 @@ RepoItem::RepoItem(const ServerRepo& repo)
     setLocalRepo(local_repo);
 
     sync_now_clicked_ = false;
-    fill_dark_background_ = false;
 }
 
 void RepoItem::setRepo(const ServerRepo& repo)
@@ -52,12 +47,6 @@ QVariant RepoItem::data(int role) const
 {
     if (role == Qt::DisplayRole) {
         return repo_.name;
-    } else if (role == Qt::BackgroundRole) {
-        if (fill_dark_background_) {
-            return QColor(kRepoItemBackgroundColorDragMove);
-        } else {
-            return QColor(kRepoItemBackgroundColor);
-        }
     } else {
         return QVariant();
     }

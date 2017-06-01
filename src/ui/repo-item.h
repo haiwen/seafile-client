@@ -79,8 +79,6 @@ public:
     void setSyncNowClicked(bool val) { sync_now_clicked_ = val; }
     bool syncNowClicked() const { return sync_now_clicked_; }
 
-    void setFillDarkBackground(bool val) { fill_dark_background_ = val; }
-
 private:
     ServerRepo repo_;
     LocalRepo local_repo_;
@@ -89,7 +87,6 @@ private:
     CloneTask clone_task_;
 
     bool sync_now_clicked_;
-    bool fill_dark_background_;
 };
 
 /**

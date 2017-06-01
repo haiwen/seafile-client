@@ -87,8 +87,9 @@ private:
     void dragMoveEvent(QDragMoveEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
     void dragLeaveEvent(QDragLeaveEvent *event);
-    bool fillDarkBackground(const QPoint& pos,
-                        const QRect& rect) const;
+    bool changeGrayBackground(const QPoint& pos,
+                              const QRect& rect) const;
+    void setGrayBackground(bool gray);
     void shareRepo(bool to_group);
 
     QAction *download_action_;
@@ -110,7 +111,7 @@ private:
 
     QSet<QString> expanded_categroies_;
 
-    QModelIndex drag_drop_index_;
+    QModelIndex gray_index_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

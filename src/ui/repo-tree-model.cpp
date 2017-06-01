@@ -40,7 +40,8 @@ QRegExp makeFilterRegExp(const QString& text)
 
 RepoTreeModel::RepoTreeModel(QObject *parent)
     : QStandardItemModel(parent),
-      tree_view_(NULL)
+      tree_view_(NULL),
+      gray_item_(NULL)
 {
     initialize();
 

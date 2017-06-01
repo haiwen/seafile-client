@@ -807,9 +807,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
-    item->setFillDarkBackground(false);
-    dataChanged(drag_drop_index_, drag_drop_index_,
-                QVector<int>(1, Qt::BackgroundRole));
+    setGrayBackground(false);
 
     const QUrl url = event->mimeData()->urls().at(0);
     QString local_path = url.toLocalFile();
@@ -855,19 +853,16 @@ void RepoTreeView::dragMoveEvent(QDragMoveEvent *event)
     // highlight the selected item, and dehightlight when it's over
     RepoItem *item = static_cast<RepoItem*>(getRepoItem(index));
     if (item && item->type() == REPO_ITEM_TYPE) {
-        if (fillDarkBackground(pos, rect)) {
+        gray_index_ = index;
+        if (changeGrayBackground(pos, rect)) {
             event->setDropAction(Qt::CopyAction);
             event->accept();
-            item->setFillDarkBackground(true);
+            setGrayBackground(true);
         } else {
             event->setDropAction(Qt::IgnoreAction);
             event->accept();
-            item->setFillDarkBackground(false);
+            setGrayBackground(false);
         }
-
-        drag_drop_index_ = index;
-        dataChanged(drag_drop_index_, drag_drop_index_,
-                    QVector<int>(1, Qt::BackgroundRole));
     }
 }
 
@@ -875,11 +870,9 @@ void RepoTreeView::dragLeaveEvent(QDragLeaveEvent *event)
 {
     QTreeView::dragLeaveEvent(event);
 
-    RepoItem *item = static_cast<RepoItem*>(getRepoItem(drag_drop_index_));
+    RepoItem *item = static_cast<RepoItem*>(getRepoItem(gray_index_));
     if (item && item->type() == REPO_ITEM_TYPE) {
-        item->setFillDarkBackground(false);
-        dataChanged(drag_drop_index_, drag_drop_index_,
-                    QVector<int>(1, Qt::BackgroundRole));
+        setGrayBackground(false);
     }
 }
 
@@ -902,10 +895,10 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
     }
 }
 
-bool RepoTreeView::fillDarkBackground(
+bool RepoTreeView::changeGrayBackground(
     const QPoint& pos, const QRect& rect) const
 {
-    const int margin = 10;
+    const int margin = 2;
     if ((pos.y() - rect.top() > margin) &&
         (rect.bottom() - pos.y() > margin)) {
         return true;
@@ -914,6 +907,25 @@ bool RepoTreeView::fillDarkBackground(
     }
 }
 
+void RepoTreeView::setGrayBackground(bool gray)
+{
+    QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
+    RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
+    RepoItem *item = static_cast<RepoItem*>(getRepoItem(gray_index_));
+    if (gray && item && item->type() == REPO_ITEM_TYPE) {
+        tree_model->setGrayItem(item);
+    } else {
+        tree_model->setGrayItem(NULL);
+    }
+
+    QModelIndex parent_index = gray_index_.parent();
+    RepoCategoryItem *drag_category =
+        static_cast<RepoCategoryItem*>(getRepoItem(parent_index));
+    uint row = drag_category->rowCount();
+    dataChanged(parent_index.child(0, 0),
+                parent_index.child(row, 0),
+                QVector<int>(1, Qt::BackgroundRole));
+}
 
 void RepoTreeView::uploadFileStart(FileUploadTask *task)
 {

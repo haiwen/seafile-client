@@ -59,6 +59,9 @@ public:
     void updateRepoItemAfterSyncNow(const QString& repo_id);
     void onFilterTextChanged(const QString& text);
 
+    void setGrayItem(RepoItem *item) { gray_item_ = item; }
+    const RepoItem* grayItem() const { return gray_item_; }
+
 signals:
     void repoStatusChanged(const QModelIndex& index);
 
@@ -101,6 +104,7 @@ private:
     QTimer *refresh_local_timer_;
 
     RepoTreeView *tree_view_;
+    RepoItem *gray_item_;
 };
 
 /**

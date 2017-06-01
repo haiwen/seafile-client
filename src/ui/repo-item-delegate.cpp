@@ -181,7 +181,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = QColor(kRepoItemBackgroundColorHighlighted);
         selected = true;
-    } else if (model->grayItem() == item) {
+    } else if (model->currentDropTarget() == item) {
         backBrush = QColor(kRepoItemBackgroundColorDragMove);
     } else {
         backBrush = QColor(kRepoItemBackgroundColor);

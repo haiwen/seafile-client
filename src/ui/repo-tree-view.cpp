@@ -911,9 +911,9 @@ void RepoTreeView::setGrayBackground(bool gray)
     RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
     QStandardItem *item = getRepoItem(gray_index_);
     if (gray && item && item->type() == REPO_ITEM_TYPE) {
-        tree_model->setGrayItem(static_cast<RepoItem*>(item));
+        tree_model->setCurrentDropTarget(static_cast<RepoItem*>(item));
     } else {
-        tree_model->setGrayItem(NULL);
+        tree_model->setCurrentDropTarget(NULL);
     }
 
     QModelIndex parent_index = gray_index_.parent();

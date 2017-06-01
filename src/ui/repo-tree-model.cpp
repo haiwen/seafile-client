@@ -41,7 +41,7 @@ QRegExp makeFilterRegExp(const QString& text)
 RepoTreeModel::RepoTreeModel(QObject *parent)
     : QStandardItemModel(parent),
       tree_view_(NULL),
-      gray_item_(NULL)
+      current_drop_target_(NULL)
 {
     initialize();
 

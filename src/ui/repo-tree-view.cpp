@@ -120,6 +120,9 @@ RepoTreeView::RepoTreeView(QWidget *parent)
     setDefaultDropAction(Qt::CopyAction);
     setAlternatingRowColors(true);
     setDropIndicatorShown(true);
+
+    current_drop_target_ = QModelIndex();
+    previous_drop_target_ = QModelIndex();
 }
 
 void RepoTreeView::loadExpandedCategries()
@@ -808,8 +811,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
 
-    current_drop_target_ = QModelIndex();
-    updateBackground();
+    updateDropTarget(QModelIndex());
 
     const QUrl url = event->mimeData()->urls().at(0);
     QString local_path = url.toLocalFile();
@@ -856,26 +858,25 @@ void RepoTreeView::dragMoveEvent(QDragMoveEvent *event)
     QStandardItem *item = getRepoItem(index);
     if (item && item->type() == REPO_ITEM_TYPE) {
         if (changeGrayBackground(pos, rect)) {
+            updateDropTarget(index);
             event->setDropAction(Qt::CopyAction);
             event->accept();
-            current_drop_target_ = index;
-            updateBackground();
         } else {
+            updateDropTarget(QModelIndex());
             event->setDropAction(Qt::IgnoreAction);
             event->accept();
-            current_drop_target_ = QModelIndex();
-            updateBackground();
         }
     } else {
-        return;
+       event->setDropAction(Qt::IgnoreAction);
+       event->accept();
+       return;
     }
 }
 
 void RepoTreeView::dragLeaveEvent(QDragLeaveEvent *event)
 {
+    updateDropTarget(QModelIndex());
     QTreeView::dragLeaveEvent(event);
-    current_drop_target_ = QModelIndex();
-    updateBackground();
 }
 
 void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
@@ -911,16 +912,38 @@ bool RepoTreeView::changeGrayBackground(
 
 void RepoTreeView::updateBackground()
 {
-    QModelIndex parent_index = current_drop_target_.parent();
-    QStandardItem *category_item = getRepoItem(parent_index);
-    if (category_item && category_item->type() == REPO_CATEGORY_TYPE) {
-        uint row = category_item->rowCount();
-        dataChanged(parent_index.child(0, 0),
-                    parent_index.child(row, 0),
+    if (current_drop_target_.isValid()) {
+        dataChanged(current_drop_target_, current_drop_target_,
                     QVector<int>(1, Qt::BackgroundRole));
-    } else {
-        return;
     }
+
+    if (previous_drop_target_.isValid()) {
+        dataChanged(previous_drop_target_, previous_drop_target_,
+                    QVector<int>(1, Qt::BackgroundRole));
+    }
+}
+
+void RepoTreeView::updateDropTarget(const QModelIndex& index)
+{
+    if (index.isValid() && !current_drop_target_.isValid()) {
+        current_drop_target_ = index;
+    } else if (index.isValid() && current_drop_target_.isValid()) {
+        if (current_drop_target_ == index) {
+            return;
+        } else {
+            previous_drop_target_ = current_drop_target_;
+            current_drop_target_ = index;
+        }
+    } else if (!index.isValid() &&
+               !current_drop_target_.isValid() &&
+               !previous_drop_target_.isValid()) {
+        return;
+    } else {
+        previous_drop_target_ = current_drop_target_;
+        current_drop_target_ = QModelIndex();
+    }
+
+    updateBackground();
 }
 
 void RepoTreeView::uploadFileStart(FileUploadTask *task)

@@ -807,7 +807,9 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
-    setGrayBackground(false);
+
+    current_drop_target_ = QModelIndex();
+    updateBackground();
 
     const QUrl url = event->mimeData()->urls().at(0);
     QString local_path = url.toLocalFile();
@@ -853,15 +855,16 @@ void RepoTreeView::dragMoveEvent(QDragMoveEvent *event)
     // highlight the selected item, and dehightlight when it's over
     QStandardItem *item = getRepoItem(index);
     if (item && item->type() == REPO_ITEM_TYPE) {
-        gray_index_ = index;
         if (changeGrayBackground(pos, rect)) {
             event->setDropAction(Qt::CopyAction);
             event->accept();
-            setGrayBackground(true);
+            current_drop_target_ = index;
+            updateBackground();
         } else {
             event->setDropAction(Qt::IgnoreAction);
             event->accept();
-            setGrayBackground(false);
+            current_drop_target_ = QModelIndex();
+            updateBackground();
         }
     } else {
         return;
@@ -871,7 +874,8 @@ void RepoTreeView::dragMoveEvent(QDragMoveEvent *event)
 void RepoTreeView::dragLeaveEvent(QDragLeaveEvent *event)
 {
     QTreeView::dragLeaveEvent(event);
-    setGrayBackground(false);
+    current_drop_target_ = QModelIndex();
+    updateBackground();
 }
 
 void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
@@ -905,18 +909,9 @@ bool RepoTreeView::changeGrayBackground(
     }
 }
 
-void RepoTreeView::setGrayBackground(bool gray)
+void RepoTreeView::updateBackground()
 {
-    QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
-    RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
-    QStandardItem *item = getRepoItem(gray_index_);
-    if (gray && item && item->type() == REPO_ITEM_TYPE) {
-        tree_model->setCurrentDropTarget(static_cast<RepoItem*>(item));
-    } else {
-        tree_model->setCurrentDropTarget(NULL);
-    }
-
-    QModelIndex parent_index = gray_index_.parent();
+    QModelIndex parent_index = current_drop_target_.parent();
     QStandardItem *category_item = getRepoItem(parent_index);
     if (category_item && category_item->type() == REPO_CATEGORY_TYPE) {
         uint row = category_item->rowCount();

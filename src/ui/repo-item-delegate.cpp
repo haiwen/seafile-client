@@ -178,10 +178,12 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     bool selected = false;
 
     RepoTreeModel *model = (RepoTreeModel *)item->model();
+    RepoTreeView *view = model->treeView();
+    QModelIndex index = ((QSortFilterProxyModel *)view->model())->mapFromSource(model->indexFromItem(item));
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = QColor(kRepoItemBackgroundColorHighlighted);
         selected = true;
-    } else if (model->currentDropTarget() == item) {
+    } else if (view->getCurrentDropTarget() == index) {
         backBrush = QColor(kRepoItemBackgroundColorDragMove);
     } else {
         backBrush = QColor(kRepoItemBackgroundColor);

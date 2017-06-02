@@ -59,11 +59,6 @@ public:
     void updateRepoItemAfterSyncNow(const QString& repo_id);
     void onFilterTextChanged(const QString& text);
 
-    // void setGrayItem(RepoItem *item) { current_drop_target_= item; }
-    // const RepoItem* grayItem() const { return current_drop_target_; }
-    void setCurrentDropTarget(RepoItem *item) { current_drop_target_ = item; }
-    const RepoItem* currentDropTarget() const { return current_drop_target_; }
-
 signals:
     void repoStatusChanged(const QModelIndex& index);
 
@@ -106,7 +101,6 @@ private:
     QTimer *refresh_local_timer_;
 
     RepoTreeView *tree_view_;
-    RepoItem *current_drop_target_;
 };
 
 /**

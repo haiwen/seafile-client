@@ -35,6 +35,8 @@ public:
      * 1. restore from filtering repos
      */
     void restoreExpandedCategries();
+    const QModelIndex getCurrentDropTarget() const
+        { return current_drop_target_; }
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -89,7 +91,7 @@ private:
     void dragLeaveEvent(QDragLeaveEvent *event);
     bool changeGrayBackground(const QPoint& pos,
                               const QRect& rect) const;
-    void setGrayBackground(bool gray);
+    void updateBackground();
     void shareRepo(bool to_group);
 
     QAction *download_action_;
@@ -111,7 +113,7 @@ private:
 
     QSet<QString> expanded_categroies_;
 
-    QModelIndex gray_index_;
+    QModelIndex current_drop_target_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

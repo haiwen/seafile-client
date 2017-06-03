@@ -32,6 +32,7 @@ private slots:
     void preventSuggest();
     void autoSuggest();
     void showCompletion(const QList<SeafileUser>& users);
+    void onAvatarUpdated(const QString& email, const QImage& avatar);
 
 private:
     Account account_;

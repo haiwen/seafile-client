@@ -34,7 +34,6 @@ SeafileUserNameCompleter::SeafileUserNameCompleter(const Account &account,
     popup_->setFocusProxy(parent);
     popup_->setMouseTracking(true);
 
-    //TODO: We can use two columns and display the user's avatar as well.
     popup_->setColumnCount(USER_MAX_COLUMN);
     popup_->setUniformRowHeights(true);
     popup_->setRootIsDecorated(false);
@@ -58,6 +57,9 @@ SeafileUserNameCompleter::SeafileUserNameCompleter(const Account &account,
     // Thus we can achieve: only show the completion list when the user has not
     // typed for a little while, here 150ms.
     connect(editor_, SIGNAL(textEdited(QString)), timer_, SLOT(start()));
+
+    connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
+            this, SLOT(onAvatarUpdated(const QString&, const QImage&)));
 }
 
 SeafileUserNameCompleter::~SeafileUserNameCompleter()
@@ -252,4 +254,19 @@ void SeafileUserNameCompleter::onSearchUsersFailed(const ApiError &error)
 const SeafileUser& SeafileUserNameCompleter::currentSelectedUser() const
 {
     return current_selected_user_;
+}
+
+void SeafileUserNameCompleter::onAvatarUpdated(const QString& email,
+                                               const QImage& avatar)
+{
+    AvatarService *service = AvatarService::instance();
+    for (int i = 0; i < popup_->topLevelItemCount(); i++) {
+        QTreeWidgetItem* item =  popup_->topLevelItem(i);
+        const QString str = item->data(USER_COLUMN_NAME, Qt::DisplayRole).toString();
+        if (str.contains(email) && (service->avatarFileExists(email))) {
+            QString icon_path = service->getAvatarFilePath(email);
+            QIcon avatar_icon = QIcon(icon_path);
+            item->setIcon(USER_COLUMN_AVATAR, avatar_icon);
+        }
+    }
 }

@@ -1,20 +1,24 @@
-#include "advanced-sharedlink-dialog.h"
-
 #include <QtGlobal>
 #include <QtWidgets>
 #include <QHBoxLayout>
 #include <QGridLayout>
+
 #include "utils/utils-mac.h"
 #include "file-browser-requests.h"
 #include "seafile-applet.h"
-#include "account.h"
+#include "advanced-sharedlink-dialog.h"
 
 AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent,
                                                    const Account &account,
                                                    const QString &repo_id,
                                                    const QString &path)
-    :valid_days_(0)
+    : account_(account),
+      repo_id_(repo_id),
+      path_(path),
+      valid_days_(0)
 {
+    checkPreviousSharedLink();
+
     setWindowTitle(tr("Share Link"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint) |
@@ -137,4 +141,41 @@ void AdvancedSharedLinkDialog::generateAdvancedSharedLinkSuccess(const SharedLin
 {
     editor_->setText(shared_link_info.link);
     editor_->selectAll();
+}
+
+void AdvancedSharedLinkDialog::checkPreviousSharedLink()
+{
+    GetSharedLinkRequest *req = new GetSharedLinkRequest(
+        account_, repo_id_, path_);
+
+    connect(req, SIGNAL(success(const SharedLinkInfo&)),
+            this, SLOT(onPreviousSharedLinkExist(const SharedLinkInfo&)));
+    connect(req, SIGNAL(failed()),
+            this, SLOT(raise()));
+
+    req->send();
+}
+
+void AdvancedSharedLinkDialog::onPreviousSharedLinkExist(
+    const SharedLinkInfo& previous_shared_link_info)
+{
+    lower();
+
+    bool proceed = false;
+    proceed = seafApplet->detailedYesOrNoBox(
+        tr("<b>Warning:</b> The shared link already exists, "
+        "delete and create link anyway?"),
+        "username: " + previous_shared_link_info.username +
+        "\nlink: " + previous_shared_link_info.link +
+        "\nview_cnt: " + QString::number(previous_shared_link_info.view_cnt),
+        0, true);
+
+    if (proceed == false) {
+        reject();
+    } else {
+        DeleteSharedLinkRequest *req = new DeleteSharedLinkRequest(
+            account_, previous_shared_link_info.token);
+        connect(req, SIGNAL(success()), this, SLOT(raise()));
+        req->send();
+    }
 }

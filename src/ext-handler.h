@@ -16,7 +16,7 @@
 class SeafileRpcClient;
 class ExtConnectionListenerThread;
 class ApiError;
-class CreateShareLinkRequest;
+// class CreateShareLinkRequest;
 struct SharedLinkInfo;
 
 struct SharedLinkRequestParams {
@@ -50,8 +50,8 @@ private slots:
     void getShareLinkSuccess(const SharedLinkInfo& shared_link_info);
     void generateShareLink();
     void generateShareLinkSuccess(const SharedLinkInfo& shared_link_info);
-    void generateAdvancedShareLink(const QString& password,
-                                   quint64 valid_days);
+    // void generateAdvancedShareLink(const QString& password,
+    //                                quint64 valid_days);
     void onLockFileSuccess();
     void onLockFileFailed(const ApiError& error);
     void lockFile(const QString& repo_id,
@@ -67,7 +67,7 @@ private:
 
     bool started_;
 
-    CreateShareLinkRequest *advanced_share_req_;
+    // CreateShareLinkRequest *advanced_share_req_;
 };
 
 /**

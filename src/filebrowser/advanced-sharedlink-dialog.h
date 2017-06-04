@@ -5,12 +5,19 @@
 #include <QGroupBox>
 
 struct SharedLinkInfo;
+class CreateShareLinkRequest;
+class Account;
 class QLineEdit;
+
 class AdvancedSharedLinkDialog : public QDialog
 {
     Q_OBJECT
 public:
-    AdvancedSharedLinkDialog(QWidget *parent);
+    // AdvancedSharedLinkDialog(QWidget *parent);
+    AdvancedSharedLinkDialog(QWidget *parent,
+                             const Account &account,
+                             const QString &repo_id,
+                             const QString &path);
 
 signals:
     void generateAdvancedShareLink(const QString &password,
@@ -34,6 +41,8 @@ private:
     QLineEdit *pwdEdit2_;
     QLineEdit *editor_;
     QSpinBox *expiredDateSpinBox_;
+
+    CreateShareLinkRequest *advanced_share_req_;
 };
 
 #endif

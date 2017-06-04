@@ -7,8 +7,12 @@
 #include "utils/utils-mac.h"
 #include "file-browser-requests.h"
 #include "seafile-applet.h"
+#include "account.h"
 
-AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent)
+AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent,
+                                                   const Account &account,
+                                                   const QString &repo_id,
+                                                   const QString &path)
     :valid_days_(0)
 {
     setWindowTitle(tr("Share Link"));
@@ -79,6 +83,12 @@ AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent)
 
     setMinimumWidth(300);
     setMaximumWidth(400);
+
+    advanced_share_req_ = new CreateShareLinkRequest(
+        account, repo_id, path);
+
+    connect(advanced_share_req_, SIGNAL(success(const SharedLinkInfo&)),
+            this, SLOT(generateAdvancedSharedLinkSuccess(const SharedLinkInfo&)));
 }
 
 void AdvancedSharedLinkDialog::onCopyText()
@@ -117,7 +127,10 @@ void AdvancedSharedLinkDialog::onOkBtnClicked()
 	}
     }
 
-    emit generateAdvancedShareLink(password_, valid_days_);
+    advanced_share_req_->SetAdvancedShareParams(password_, valid_days_);
+    advanced_share_req_->send();
+
+    // emit generateAdvancedShareLink(password_, valid_days_);
 }
 
 void AdvancedSharedLinkDialog::generateAdvancedSharedLinkSuccess(const SharedLinkInfo& shared_link_info)

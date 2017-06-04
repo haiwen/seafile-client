@@ -248,21 +248,24 @@ void SeafileExtensionHandler::generateShareLink()
 
         req->send();
     } else {
-        advanced_share_req_ = new CreateShareLinkRequest(
-            account, shared_link_req_params_.repo_id,
-            shared_link_req_params_.path_in_repo);
+        // advanced_share_req_ = new CreateShareLinkRequest(
+        //     account, shared_link_req_params_.repo_id,
+        //     shared_link_req_params_.path_in_repo);
 
-        AdvancedSharedLinkDialog *dialog = new AdvancedSharedLinkDialog(NULL);
+        AdvancedSharedLinkDialog *dialog =
+            new AdvancedSharedLinkDialog(NULL, account,
+                shared_link_req_params_.repo_id,
+                shared_link_req_params_.path_in_repo);
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         dialog->show();
         dialog->raise();
         dialog->activateWindow();
 
-        connect(dialog, SIGNAL(generateAdvancedShareLink(const QString&, quint64)),
-                this, SLOT(generateAdvancedShareLink(const QString&, quint64)));
+        // connect(dialog, SIGNAL(generateAdvancedShareLink(const QString&, quint64)),
+        //         this, SLOT(generateAdvancedShareLink(const QString&, quint64)));
 
-        connect(advanced_share_req_, SIGNAL(success(const SharedLinkInfo&)),
-                dialog, SLOT(generateAdvancedSharedLinkSuccess(const SharedLinkInfo&)));
+        // connect(advanced_share_req_, SIGNAL(success(const SharedLinkInfo&)),
+        //         dialog, SLOT(generateAdvancedSharedLinkSuccess(const SharedLinkInfo&)));
     }
 }
 
@@ -275,12 +278,12 @@ void SeafileExtensionHandler::generateShareLinkSuccess(const SharedLinkInfo& sha
     dialog->activateWindow();
 }
 
-void SeafileExtensionHandler::generateAdvancedShareLink(const QString& password,
-                                                        quint64 valid_days)
-{
-    advanced_share_req_->SetAdvancedShareParams(password, valid_days);
-    advanced_share_req_->send();
-}
+// void SeafileExtensionHandler::generateAdvancedShareLink(const QString& password,
+//                                                         quint64 valid_days)
+// {
+//     advanced_share_req_->SetAdvancedShareParams(password, valid_days);
+//     advanced_share_req_->send();
+// }
 
 void SeafileExtensionHandler::lockFile(const QString& repo_id,
                                        const QString& path_in_repo,

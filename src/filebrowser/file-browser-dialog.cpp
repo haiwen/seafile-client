@@ -18,6 +18,7 @@
 #include "ui/set-repo-password-dialog.h"
 #include "sharedlink-dialog.h"
 #include "seafilelink-dialog.h"
+#include "advanced-sharedlink-dialog.h"
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 #include "repo-service.h"
@@ -149,6 +150,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetDirentRemove(const QList<const SeafDirent*> &)));
     connect(table_view_, SIGNAL(direntShare(const SeafDirent&)),
             this, SLOT(onGetDirentShare(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntAdvancedShare(const SeafDirent&)),
+            this, SLOT(onGetDirentAdvancedShare(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntShareToUserOrGroup(const SeafDirent&, bool)),
             this, SLOT(onGetDirentShareToUserOrGroup(const SeafDirent&, bool)));
     connect(table_view_, SIGNAL(direntShareSeafile(const SeafDirent&)),
@@ -978,6 +981,17 @@ void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
     data_mgr_->shareDirent(repo_.id,
                            ::pathJoin(current_path_, dirent.name),
                            dirent.isFile());
+}
+
+void FileBrowserDialog::onGetDirentAdvancedShare(const SeafDirent& dirent)
+{
+    QString repo_id = repo_.id;
+    QString email = account_.username;
+    QString path = ::pathJoin(current_path_, dirent.name);
+    if (dirent.isDir())
+        path += "/";
+
+    AdvancedSharedLinkDialog(this, account_, repo_id, path).exec();
 }
 
 void FileBrowserDialog::onGetDirentShareToUserOrGroup(const SeafDirent& dirent,

@@ -48,7 +48,7 @@
 	<string>True</string>
     <!-- For Sparkle Framework -->
 	<key>SUFeedURL</key>
-	<string>https://seafile.com/api/client-updates/seafile-client-mac/appcast.xml</string>
+	<string>https://www.seafile.com/api/client-updates/seafile-client-mac/appcast.xml</string>
 	<key>CFBundleLocalizations</key>
     <!-- The CFBundleLocalizations would determinte the display language used by sparkle AutoUpdate.app -->
     <!-- We must list all languages supported by Sparkle here -->

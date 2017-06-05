@@ -133,8 +133,6 @@ void AdvancedSharedLinkDialog::onOkBtnClicked()
 
     advanced_share_req_->SetAdvancedShareParams(password_, valid_days_);
     advanced_share_req_->send();
-
-    // emit generateAdvancedShareLink(password_, valid_days_);
 }
 
 void AdvancedSharedLinkDialog::generateAdvancedSharedLinkSuccess(const SharedLinkInfo& shared_link_info)

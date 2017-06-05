@@ -21,10 +21,6 @@ public:
                              const QString &repo_id,
                              const QString &path);
 
-signals:
-    void generateAdvancedShareLink(const QString &password,
-                                   quint64 valid_days);
-
 private slots:
     void onCopyText();
     void onOkBtnClicked();

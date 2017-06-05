@@ -54,11 +54,36 @@ applet_log (const gchar *log_domain, GLogLevelFlags log_level,
 #undef BUFSIZE
 }
 
+static int
+delete_large_file(const char* file)
+{
+    const int delete_threshold = 300 * 1000 * 1000;
+
+    GStatBuf stat_buf;
+    if (g_stat(file, &stat_buf) != 0) {
+        g_warning ("Get file %s stat failed errno=%d.", file, errno);
+        return -2;
+    }
+
+    if (stat_buf.st_size > delete_threshold) {
+        if (g_remove(file) == 0) {
+            g_warning ("Deleted log file %s.", file);
+            return 0;
+        } else {
+            g_warning ("Delete file %s failed errno=%d.", file, errno);
+            return -1;
+        }
+    } else {
+        return 1;
+    }
+}
+
 int
 applet_log_init (const char *ccnet_dir)
 {
     char *logdir = g_build_filename (ccnet_dir, "logs", NULL);
-    char *file = g_build_filename(logdir, "applet.log", NULL);
+    char *applet_file = g_build_filename(logdir, "applet.log", NULL);
+    char *seafile_file = g_build_filename(logdir, "seafile.log", NULL);
 
     if (checkdir_with_mkdir (logdir) < 0) {
         g_free (logdir);
@@ -67,12 +92,15 @@ applet_log_init (const char *ccnet_dir)
 
     g_free (logdir);
 
+    delete_large_file(applet_file);
+    delete_large_file(seafile_file);
+
     /* record all log message */
     applet_log_level = G_LOG_LEVEL_DEBUG;
 
-    if ((logfp = g_fopen (file, "a+")) == NULL) {
-        g_warning ("Open file %s failed errno=%d\n", file, errno);
-        g_free (file);
+    if ((logfp = g_fopen (applet_file, "a+")) == NULL) {
+        g_warning ("Open file %s failed errno=%d\n", applet_file, errno);
+        g_free (applet_file);
         return -1;
     }
 
@@ -82,7 +110,7 @@ applet_log_init (const char *ccnet_dir)
     g_log_set_handler ("Ccnet", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
                        | G_LOG_FLAG_RECURSION, applet_log, NULL);
 
-    g_free (file);
+    g_free (applet_file);
 
     return 0;
 }

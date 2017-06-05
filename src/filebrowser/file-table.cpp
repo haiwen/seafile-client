@@ -322,10 +322,10 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
-    share_advanced_action_ = new QAction(tr("&Generate %1 Advanced Download Link").arg(getBrand()), this);
+    share_advanced_action_ = new QAction(tr("Generate %1 &Advanced Download Link").arg(getBrand()), this);
     connect(share_advanced_action_, SIGNAL(triggered()),
             this, SLOT(onAdvancedShare()));
-    // share_advanced_action_->setShortcut(Qt::ALT + Qt::Key_G);
+    share_advanced_action_->setShortcut(Qt::ALT + Qt::Key_A);
 
     share_to_user_action_ = new QAction(tr("Share to User"), this);
     connect(share_to_user_action_, SIGNAL(triggered()),

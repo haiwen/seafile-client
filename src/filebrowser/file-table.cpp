@@ -823,7 +823,11 @@ void FileTableView::dropEvent(QDropEvent *event)
 
     event->accept();
 
-    emit dropFile(paths);
+    if (parent_->repo_.readonly) {
+        seafApplet->warningBox(tr("You do not have permission to upload to this folder"));
+    } else {
+        emit dropFile(paths);
+    }
 }
 
 void FileTableView::dragMoveEvent(QDragMoveEvent *event)

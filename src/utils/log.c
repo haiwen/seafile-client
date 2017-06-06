@@ -57,24 +57,36 @@ applet_log (const gchar *log_domain, GLogLevelFlags log_level,
 static int
 delete_large_file(const char* file)
 {
-    const int delete_threshold = 300 * 1000 * 1000;
-
     GStatBuf stat_buf;
     if (g_stat(file, &stat_buf) != 0) {
         g_warning ("Get file %s stat failed errno=%d.", file, errno);
-        return -2;
+        return -1;
     }
 
-    if (stat_buf.st_size > delete_threshold) {
-        if (g_remove(file) == 0) {
-            g_warning ("Deleted log file %s.", file);
+    const int delete_threshold = 300 * 1000 * 1000;
+    if (stat_buf.st_size <= delete_threshold) {
+        return 1;
+    } else {
+        const char* file_name_postfix = "-old";
+        GString *back_file = g_string_new(file);
+        g_string_insert(back_file, back_file->len - 4, file_name_postfix);
+
+        if (g_file_test(back_file->str, G_FILE_TEST_EXISTS)) {
+            if (g_remove(back_file->str) != 0) {
+                g_warning ("Delete old file %s failed errno=%d.", back_file->str, errno);
+                return -2;
+            } else {
+                g_warning ("Deleted old log file %s.", back_file->str);
+            }
+        }
+
+        if (g_rename(file, back_file->str) == 0) {
+            g_warning ("Renamed %s to backup file %s.", file, back_file->str);
             return 0;
         } else {
-            g_warning ("Delete file %s failed errno=%d.", file, errno);
-            return -1;
+            g_warning ("Rename %s to backup file failed errno=%d.", file, errno);
+            return -3;
         }
-    } else {
-        return 1;
     }
 }
 

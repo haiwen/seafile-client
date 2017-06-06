@@ -805,6 +805,11 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
+    if (repo.readonly) {
+        seafApplet->warningBox(tr("You do not have permission to upload to this folder."));
+        return;
+    }
+
     const QUrl url = event->mimeData()->urls().at(0);
 
     QString local_path = url.toLocalFile();

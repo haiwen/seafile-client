@@ -45,12 +45,11 @@ bool RepoItem::repoDownloadable() const
 
 QVariant RepoItem::data(int role) const
 {
-    if (role != Qt::DisplayRole) {
+    if (role == Qt::DisplayRole) {
+        return repo_.name;
+    } else {
         return QVariant();
     }
-
-    return repo_.name;
-
 }
 
 RepoCategoryItem::RepoCategoryItem(int cat_index, const QString& name, int group_id)

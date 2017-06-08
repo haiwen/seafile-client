@@ -816,8 +816,6 @@ void RepoTreeView::dropEvent(QDropEvent *event)
         return;
     }
 
-    const QUrl url = event->mimeData()->urls().at(0);
-
     updateDropTarget(QModelIndex());
 
     const QUrl url = event->mimeData()->urls().at(0);

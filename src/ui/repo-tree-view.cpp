@@ -118,7 +118,7 @@ RepoTreeView::RepoTreeView(QWidget *parent)
 
     setAcceptDrops(true);
     setDefaultDropAction(Qt::CopyAction);
-    setAlternatingRowColors(true);
+    // setAlternatingRowColors(true);
     setDropIndicatorShown(true);
 
     current_drop_target_ = QModelIndex();

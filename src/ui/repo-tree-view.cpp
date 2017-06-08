@@ -930,24 +930,14 @@ void RepoTreeView::updateBackground()
 
 void RepoTreeView::updateDropTarget(const QModelIndex& index)
 {
-    if (index.isValid() && !current_drop_target_.isValid()) {
-        current_drop_target_ = index;
-    } else if (index.isValid() && current_drop_target_.isValid()) {
-        if (current_drop_target_ == index) {
-            return;
-        } else {
-            previous_drop_target_ = current_drop_target_;
-            current_drop_target_ = index;
-        }
-    } else if (!index.isValid() &&
-               !current_drop_target_.isValid() &&
-               !previous_drop_target_.isValid()) {
+    previous_drop_target_ = current_drop_target_;
+    if (index.isValid() && index == current_drop_target_) {
+        // No need to repaint since the cursor is still with in the same repo
+        // item.
         return;
-    } else {
-        previous_drop_target_ = current_drop_target_;
-        current_drop_target_ = QModelIndex();
     }
 
+    current_drop_target_ = index;
     updateBackground();
 }
 

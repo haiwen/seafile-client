@@ -17,10 +17,10 @@ SINGLETON_IMPL(AutoUpdateService)
 namespace
 {
 #ifdef Q_OS_WIN32
-    const char *kSparkleAppcastURI = "https://seafile.com/api/client-updates/seafile-client-windows/appcast.xml";
+    const char *kSparkleAppcastURI = "https://www.seafile.com/api/client-updates/seafile-client-windows/appcast.xml";
     const char *kWinSparkleRegistryPath = "SOFTWARE\\Seafile\\Seafile Client\\WinSparkle";
 #else
-    const char *kSparkleAppcastURI = "https://seafile.com/api/client-updates/seafile-client-mac/appcast.xml";
+    const char *kSparkleAppcastURI = "https://www.seafile.com/api/client-updates/seafile-client-mac/appcast.xml";
 #endif
     const char *kSparkleAlreadyEnableUpdateByDefault = "SparkleAlreadyEnableUpdateByDefault";
 

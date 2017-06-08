@@ -259,14 +259,11 @@ const SeafileUser& SeafileUserNameCompleter::currentSelectedUser() const
 void SeafileUserNameCompleter::onAvatarUpdated(const QString& email,
                                                const QImage& avatar)
 {
-    AvatarService *service = AvatarService::instance();
     for (int i = 0; i < popup_->topLevelItemCount(); i++) {
         QTreeWidgetItem* item =  popup_->topLevelItem(i);
-        const QString str = item->data(USER_COLUMN_NAME, Qt::DisplayRole).toString();
-        if (str.contains(email) && (service->avatarFileExists(email))) {
-            QString icon_path = service->getAvatarFilePath(email);
-            QIcon avatar_icon = QIcon(icon_path);
-            item->setIcon(USER_COLUMN_AVATAR, avatar_icon);
+        const QString username_email = item->data(USER_COLUMN_NAME, Qt::DisplayRole).toString();
+        if (username_email.contains(email)) {
+            item->setIcon(USER_COLUMN_AVATAR, QPixmap::fromImage(avatar));
         }
     }
 }

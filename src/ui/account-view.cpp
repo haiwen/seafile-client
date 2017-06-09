@@ -325,16 +325,8 @@ void AccountView::updateAvatar()
     }
 
     AvatarService *service = AvatarService::instance();
-
-    if (service->avatarFileExists(account.username)) {
-        QString icon_path = AvatarService::instance()->getAvatarFilePath(account.username);
-        mAccountBtn->setIcon(QIcon(icon_path));
-        return;
-    }
-
-    mAccountBtn->setIcon(QIcon(":/images/account.png"));
-    // will trigger a GetAvatarRequest
-    service->getAvatar(account.username);
+    QIcon avatar = QPixmap::fromImage(service->getAvatar(account.username));
+    mAccountBtn->setIcon(QIcon(avatar));
 }
 
 bool AccountView::eventFilter(QObject *obj, QEvent *event)

@@ -130,14 +130,7 @@ void SeafileUserNameCompleter::showCompletion(const QList<SeafileUser> &users)
         }
 
         AvatarService *service = AvatarService::instance();
-        QIcon avatar;
-        if (service->avatarFileExists(user.email)) {
-            QString icon_path = AvatarService::instance()->getAvatarFilePath(user.email);
-            avatar = QIcon(icon_path);
-        } else {
-            service->getAvatar(user.email);
-            avatar = QIcon(":/images/account.png");
-        }
+        QIcon avatar = QPixmap::fromImage(service->getAvatar(user.email));
 
         QString text =
             QString("%1 <%2>").arg(user.name).arg(user.getDisplayEmail());

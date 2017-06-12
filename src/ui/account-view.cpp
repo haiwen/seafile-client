@@ -405,7 +405,7 @@ void AccountView::toggleAccount()
     connect(req, SIGNAL(success()),
             this, SLOT(onLogoutDeviceRequestSuccess()));
     connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onLogoutDeviceRequestFailed(const ApiError&)));
+            this, SLOT(onLogoutDeviceRequestSuccess()));
     req->send();
 }
 
@@ -446,19 +446,6 @@ void AccountView::onLogoutDeviceRequestSuccess()
     seafApplet->accountManager()->clearAccountToken(account);
 
     req->deleteLater();
-}
-
-void AccountView::onLogoutDeviceRequestFailed(const ApiError& error)
-{
-    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
-    req->deleteLater();
-    QString msg;
-    if (error.httpErrorCode() == 404) {
-        msg = tr("Logging out is not supported on your server (version too low).");
-    } else {
-        msg = tr("Failed to remove information on server: %1").arg(error.toString());
-    }
-    seafApplet->warningBox(msg, this);
 }
 
 void AccountView::onGetRepoTokensSuccess()

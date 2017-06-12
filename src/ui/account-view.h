@@ -32,7 +32,6 @@ private slots:
     void toggleAccount();
     void reloginAccount(const Account &account);
     void onLogoutDeviceRequestSuccess();
-    void onLogoutDeviceRequestFailed(const ApiError& error);
     void onGetRepoTokensSuccess();
     void onGetRepoTokensFailed(const ApiError& error);
     void visitServerInBrowser(const QString& link);

@@ -59,8 +59,10 @@ class EventsListModel : public QStandardItemModel {
 public:
     EventsListModel(QObject *parent=0);
 
-    const QModelIndex updateEvents(const std::vector<SeafEvent>& events, bool is_loading_more);
-
+    const QModelIndex updateEvents(const std::vector<SeafEvent>& events,
+                                   bool is_loading_more,
+                                   bool has_more);
+    QModelIndex load_more_index;
 public slots:
     void onAvatarUpdated(const QString& email, const QImage& img);
 };

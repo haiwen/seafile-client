@@ -75,24 +75,34 @@ void ActivitiesTab::showEvent(QShowEvent *event)
 
 void ActivitiesTab::loadMoreEvents()
 {
+    events_loading_view_ = new LoadingView;
+    events_list_view_->setIndexWidget(
+        events_list_model_->load_more_index, events_loading_view_);
     EventsService::instance()->loadMore();
-    load_more_btn_->setVisible(false);
-    events_loading_view_->setVisible(true);
 }
 
 void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
                                   bool is_loading_more,
                                   bool has_more)
 {
+    events_list_model_->removeRow(
+        events_list_model_->load_more_index.row());
+
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
 
     // XXX: "load more events" for now
-    // events_loading_view_->setVisible(false);
-    // load_more_btn_->setVisible(has_more);
-
-    const QModelIndex first = events_list_model_->updateEvents(events, is_loading_more);
+    const QModelIndex first =
+        events_list_model_->updateEvents(events, is_loading_more, has_more);
     if (first.isValid()) {
         events_list_view_->scrollTo(first);
+    }
+
+    if (has_more) {
+        load_more_btn_ = new LoadMoreButton;
+        connect(load_more_btn_, SIGNAL(clicked()),
+                this, SLOT(loadMoreEvents()));
+        events_list_view_->setIndexWidget(
+            events_list_model_->load_more_index, load_more_btn_);
     }
 }
 
@@ -122,18 +132,6 @@ void ActivitiesTab::createEventsView()
 
     events_list_model_ = new EventsListModel;
     events_list_view_->setModel(events_list_model_);
-
-    load_more_btn_ = new QToolButton;
-    load_more_btn_->setText(tr("More"));
-    load_more_btn_->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-    connect(load_more_btn_, SIGNAL(clicked()),
-            this, SLOT(loadMoreEvents()));
-    load_more_btn_->setVisible(false);
-    layout->addWidget(load_more_btn_);
-
-    events_loading_view_ = new LoadingView;
-    events_loading_view_->setVisible(false);
-    layout->addWidget(events_loading_view_);
 }
 
 void ActivitiesTab::createLoadingView()

@@ -93,7 +93,12 @@ void EventItemDelegate::paint(QPainter *painter,
 {
     QBrush backBrush;
     bool selected = false;
+
     EventItem *item = getItem(index);
+    if (!item) {
+        return;
+    }
+
     const SeafEvent& event = item->event();
     QString time_text = translateCommitTime(event.timestamp);
 
@@ -265,8 +270,9 @@ EventItemDelegate::getItem(const QModelIndex &index) const
     QStandardItem *qitem = model->itemFromIndex(index);
     if (qitem->type() == EVENT_ITEM_TYPE) {
         return (EventItem *)qitem;
+    } else {
+        return NULL;
     }
-    return NULL;
 }
 
 EventsListView::EventsListView(QWidget *parent)
@@ -349,7 +355,9 @@ EventsListModel::EventsListModel(QObject *parent)
 }
 
 const QModelIndex
-EventsListModel::updateEvents(const std::vector<SeafEvent>& events, bool is_loading_more)
+EventsListModel::updateEvents(const std::vector<SeafEvent>& events,
+                              bool is_loading_more,
+                              bool has_more)
 {
     if (!is_loading_more) {
         clear();
@@ -367,6 +375,12 @@ EventsListModel::updateEvents(const std::vector<SeafEvent>& events, bool is_load
         if (!first_item) {
             first_item = item;
         }
+    }
+
+    if (has_more) {
+        QStandardItem *load_more_item = new QStandardItem();
+        appendRow(load_more_item);
+        load_more_index = load_more_item->index();
     }
 
     if (is_loading_more && first_item) {

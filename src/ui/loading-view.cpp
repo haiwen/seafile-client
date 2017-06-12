@@ -47,3 +47,26 @@ void LoadingView::setQssStyleForTab()
     setStyleSheet(kLoadingViewQss);
 }
 
+LoadMoreButton::LoadMoreButton(QWidget *parent)
+    : QToolButton(parent)
+{
+    setText(tr("load more"));
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setAutoFillBackground(true);
+}
+
+void LoadMoreButton::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    const char *kLoadMoreBackgroundColor = "white";
+    QBrush backBrush = QColor(kLoadMoreBackgroundColor);
+    painter.fillRect(event->rect(), backBrush);
+    const char *kLoadMoreColor = "#D8AC8F";
+    painter.setPen(QColor(kLoadMoreColor));
+    const int kLoadMoreFontSize = 16;
+    QFont font;
+    font.setUnderline(true);
+    font.setPixelSize(kLoadMoreFontSize);
+    painter.setFont(font);
+    painter.drawText(event->rect(), Qt::AlignCenter, text());
+}

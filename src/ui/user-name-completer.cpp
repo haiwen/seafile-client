@@ -7,6 +7,7 @@
 #include "api/api-error.h"
 #include "api/contact-share-info.h"
 #include "api/requests.h"
+#include "avatar-service.h"
 
 #include "user-name-completer.h"
 
@@ -15,6 +16,11 @@ namespace
 const int kSearchDelayInterval = 150;
 const qint64 kCacheEntryExpireMSecs = 5 * 1000;
 
+enum {
+    USER_COLUMN_AVATAR = 0,
+    USER_COLUMN_NAME,
+    USER_MAX_COLUMN
+};
 
 } // anonymous namespace
 
@@ -28,8 +34,7 @@ SeafileUserNameCompleter::SeafileUserNameCompleter(const Account &account,
     popup_->setFocusProxy(parent);
     popup_->setMouseTracking(true);
 
-    //TODO: We can use two columns and display the user's avatar as well.
-    popup_->setColumnCount(1);
+    popup_->setColumnCount(USER_MAX_COLUMN);
     popup_->setUniformRowHeights(true);
     popup_->setRootIsDecorated(false);
     popup_->setEditTriggers(QTreeWidget::NoEditTriggers);
@@ -52,6 +57,9 @@ SeafileUserNameCompleter::SeafileUserNameCompleter(const Account &account,
     // Thus we can achieve: only show the completion list when the user has not
     // typed for a little while, here 150ms.
     connect(editor_, SIGNAL(textEdited(QString)), timer_, SLOT(start()));
+
+    connect(AvatarService::instance(), SIGNAL(avatarUpdated(const QString&, const QImage&)),
+            this, SLOT(onAvatarUpdated(const QString&, const QImage&)));
 }
 
 SeafileUserNameCompleter::~SeafileUserNameCompleter()
@@ -120,15 +128,20 @@ void SeafileUserNameCompleter::showCompletion(const QList<SeafileUser> &users)
         if (user.email == account_.username) {
             continue;
         }
+
+        AvatarService *service = AvatarService::instance();
+        QIcon avatar = QPixmap::fromImage(service->getAvatar(user.email));
+
         QString text =
             QString("%1 <%2>").arg(user.name).arg(user.getDisplayEmail());
         QTreeWidgetItem *item;
         item = new QTreeWidgetItem(popup_);
-        item->setText(0, text);
-        item->setData(0, Qt::UserRole, QVariant::fromValue(user));
+        item->setIcon(USER_COLUMN_AVATAR, avatar);
+        item->setText(USER_COLUMN_NAME, text);
+        item->setData(USER_COLUMN_NAME, Qt::UserRole, QVariant::fromValue(user));
     }
     popup_->setCurrentItem(popup_->topLevelItem(0));
-    popup_->resizeColumnToContents(0);
+    popup_->resizeColumnToContents(USER_COLUMN_AVATAR);
     popup_->setUpdatesEnabled(true);
 
     popup_->move(editor_->mapToGlobal(QPoint(0, editor_->height())));
@@ -157,7 +170,7 @@ void SeafileUserNameCompleter::doneCompletion()
     editor_->setFocus();
     QTreeWidgetItem *item = popup_->currentItem();
     if (item) {
-        SeafileUser user = item->data(0, Qt::UserRole).value<SeafileUser>();
+        SeafileUser user = item->data(USER_COLUMN_NAME, Qt::UserRole).value<SeafileUser>();
         current_selected_user_ = user;
         editor_->setText(user.name);
         QMetaObject::invokeMethod(editor_, "returnPressed");
@@ -234,4 +247,16 @@ void SeafileUserNameCompleter::onSearchUsersFailed(const ApiError &error)
 const SeafileUser& SeafileUserNameCompleter::currentSelectedUser() const
 {
     return current_selected_user_;
+}
+
+void SeafileUserNameCompleter::onAvatarUpdated(const QString& email,
+                                               const QImage& avatar)
+{
+    for (int i = 0; i < popup_->topLevelItemCount(); i++) {
+        QTreeWidgetItem* item =  popup_->topLevelItem(i);
+        const QString username_email = item->data(USER_COLUMN_NAME, Qt::DisplayRole).toString();
+        if (username_email.contains(email)) {
+            item->setIcon(USER_COLUMN_AVATAR, QPixmap::fromImage(avatar));
+        }
+    }
 }

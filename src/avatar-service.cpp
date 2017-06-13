@@ -313,6 +313,11 @@ QImage AvatarService::getAvatar(const QString& email)
 {
     QImage img = loadAvatarFromLocal(email);
 
+    // TODO: check the timestamp of the cached avatar and update it if too old,
+    // e.g. cached more than one hour ago. We use timestamps when asking the
+    // server for avatars so updating avatars should be a light weight
+    // operation.
+
     // update all avatars if feature autoupdate enabled or img is null
     if (autoupdate_db_ || img.isNull()) {
         if (!get_avatar_req_ || get_avatar_req_->email() != email) {

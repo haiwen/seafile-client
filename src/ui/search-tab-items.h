@@ -48,7 +48,7 @@ public:
     }
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const
     {
-        if (index.row() >= (int)items_.size())
+        if (!index.isValid() || index.row() >= (int)items_.size())
             return QVariant();
         return items_[index.row()]->data(role);
     }

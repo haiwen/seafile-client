@@ -527,7 +527,8 @@ public:
     }
 
 signals:
-    void success(const std::vector<FileSearchResult>& result);
+    void success(const std::vector<FileSearchResult>& result,
+                 bool has_more);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

@@ -37,7 +37,8 @@ private slots:
 
     void onDoubleClicked(const QModelIndex& index);
 
-    void onSearchSuccess(const std::vector<FileSearchResult>& results);
+    void onSearchSuccess(const std::vector<FileSearchResult>& results,
+                         bool has_more);
     void onSearchFailed(const ApiError& error);
 
 private:

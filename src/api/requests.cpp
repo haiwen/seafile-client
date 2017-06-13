@@ -817,7 +817,7 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t* root = parseJSON(reply, &error);
     if (!root) {
-        qWarning("FileSearchResult: failed to parse jsn:%s\n", error.text);
+        qWarning("FileSearchResult: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -844,7 +844,13 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         tmp.size = map["size"].toLongLong();
         retval.push_back(tmp);
     }
-    emit success(retval);
+
+    bool has_more = false;
+    if (dict.contains("has_more")) {
+        has_more = json_is_true(json_object_get(json.data(), "has_more"));
+    }
+
+    emit success(retval, has_more);
 }
 
 FetchCustomLogoRequest::FetchCustomLogoRequest(const QUrl& url)

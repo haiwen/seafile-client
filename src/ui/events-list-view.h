@@ -62,9 +62,13 @@ public:
     const QModelIndex updateEvents(const std::vector<SeafEvent>& events,
                                    bool is_loading_more,
                                    bool has_more);
-    QModelIndex load_more_index;
+    const QModelIndex loadMoreIndex() const { return load_more_index_; }
+
 public slots:
     void onAvatarUpdated(const QString& email, const QImage& img);
+
+private:
+    QModelIndex load_more_index_;
 };
 
 class EventsListView : public QListView {

@@ -380,7 +380,7 @@ EventsListModel::updateEvents(const std::vector<SeafEvent>& events,
     if (has_more) {
         QStandardItem *load_more_item = new QStandardItem();
         appendRow(load_more_item);
-        load_more_index = load_more_item->index();
+        load_more_index_ = load_more_item->index();
     }
 
     if (is_loading_more && first_item) {

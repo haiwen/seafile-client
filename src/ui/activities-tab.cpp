@@ -77,7 +77,7 @@ void ActivitiesTab::loadMoreEvents()
 {
     events_loading_view_ = new LoadingView;
     events_list_view_->setIndexWidget(
-        events_list_model_->load_more_index, events_loading_view_);
+        events_list_model_->loadMoreIndex(), events_loading_view_);
     EventsService::instance()->loadMore();
 }
 
@@ -86,7 +86,7 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
                                   bool has_more)
 {
     events_list_model_->removeRow(
-        events_list_model_->load_more_index.row());
+        events_list_model_->loadMoreIndex().row());
 
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
 
@@ -102,7 +102,7 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
         connect(load_more_btn_, SIGNAL(clicked()),
                 this, SLOT(loadMoreEvents()));
         events_list_view_->setIndexWidget(
-            events_list_model_->load_more_index, load_more_btn_);
+            events_list_model_->loadMoreIndex(), load_more_btn_);
     }
 }
 

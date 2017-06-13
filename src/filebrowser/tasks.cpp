@@ -272,6 +272,11 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
     if (local_path_ == "/")
         qWarning("attempt to upload the root directory, you should avoid it\n");
     QDir dir(local_path_);
+    if (dir.count() == 2) {
+        // only contains . and .., so an empty folder
+        empty_subfolders_.append(dir.dirName());
+    }
+
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
     // XXX (lins05): Move these operations into a thread
     while (iterator.hasNext()) {

@@ -145,9 +145,7 @@ void EventItemDelegate::paint(QPainter *painter,
     mask_painter.setCompositionMode(QPainter::CompositionMode_DestinationOver);
     mask_painter.fillRect(actualRect, Qt::transparent);
     mask_painter.end();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     masked_image.setDevicePixelRatio(scale_factor);
-#endif // QT5
 
     QPoint avatar_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     avatar_pos += option.rect.topLeft();
@@ -246,10 +244,23 @@ void EventItemDelegate::paint(QPainter *painter,
         &event_repo_name_rect);
     painter->restore();
 
-    // Draw the bottom border lines
+    // const EventsListModel *model = (const EventsListModel*)index.model();
+    //
+    // Draw the bottom border lines except for the last item (if the "load more" is present")
+    // We minus 2 here becase:
+    // 1) the row index starts from 0
+    // 2) we addded a row for the "load more" data in the end
+    // if (model->loadMoreIndex().isValid() && index.row() == model->rowCount() - 2) {
+    //     return;
+    // }
+
     painter->save();
     painter->setPen(QPen(QColor(kItemBottomBorderColor), 1, Qt::SolidLine));
-    painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
+    QPoint left = option.rect.bottomLeft();
+    left.setY(left.y() + 1);
+    QPoint right = option.rect.bottomRight();
+    right.setY(right.y() + 1);
+    painter->drawLine(left, right);
     painter->restore();
 }
 

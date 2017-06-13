@@ -50,23 +50,10 @@ void LoadingView::setQssStyleForTab()
 LoadMoreButton::LoadMoreButton(QWidget *parent)
     : QToolButton(parent)
 {
+    setObjectName("LoadMoreButton");
     setText(tr("load more"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    // Must set fill backgound because this button is used as an "index widget".
+    // See the doc of QAbstractItemView::setIndexWidget for details.
     setAutoFillBackground(true);
-}
-
-void LoadMoreButton::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-    const char *kLoadMoreBackgroundColor = "white";
-    QBrush backBrush = QColor(kLoadMoreBackgroundColor);
-    painter.fillRect(event->rect(), backBrush);
-    const char *kLoadMoreColor = "#D8AC8F";
-    painter.setPen(QColor(kLoadMoreColor));
-    const int kLoadMoreFontSize = 16;
-    QFont font;
-    font.setUnderline(true);
-    font.setPixelSize(kLoadMoreFontSize);
-    painter.setFont(font);
-    painter.drawText(event->rect(), Qt::AlignCenter, text());
 }

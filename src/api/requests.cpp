@@ -844,11 +844,7 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         tmp.size = map["size"].toLongLong();
         retval.push_back(tmp);
     }
-
-    bool has_more = false;
-    if (dict.contains("has_more")) {
-        has_more = json_is_true(json_object_get(json.data(), "has_more"));
-    }
+    bool has_more = dict["has_more"].toBool();
 
     emit success(retval, has_more);
 }

@@ -640,3 +640,22 @@ SyncErrorsTableView::item :last {
 SyncErrorsTableView::item:selected {
     background-color: #F9E0C7;
 }
+
+SeafileTabWidget LoadMoreButton {
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+    font-size: 16px;
+    qproperty-focusPolicy: NoFocus;
+    text-decoration: underline;
+    color: #FF9A2A;
+    border: 0;
+    border-radius: 0;
+    /* border-top: 1px solid #eee; */
+}
+
+SeafileTabWidget QToolButton:hover
+{
+    border: 0;
+    border-radius: 0;
+}

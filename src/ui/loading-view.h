@@ -28,8 +28,6 @@ class LoadMoreButton : public QToolButton {
     Q_OBJECT
 public:
     explicit LoadMoreButton(QWidget *parent=0);
-private:
-    void paintEvent(QPaintEvent *event);
 };
 
 #endif // SEAFILE_CLIENT_LOADING_VIEW_H_

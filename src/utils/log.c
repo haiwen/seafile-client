@@ -54,11 +54,55 @@ applet_log (const gchar *log_domain, GLogLevelFlags log_level,
 #undef BUFSIZE
 }
 
+static void
+delete_large_log_file(const char* file)
+{
+    GStatBuf log_file_stat_buf;
+    if (g_stat(file, &log_file_stat_buf) != 0) {
+        g_warning ("Get log file %s stat failed errno=%d.", file, errno);
+        return;
+    }
+
+    const int delete_threshold = 300 * 1000 * 1000;
+    if (log_file_stat_buf.st_size <= delete_threshold) {
+        return;
+    } else {
+        const char* backup_file_name_postfix = "-old";
+        GString *backup_file = g_string_new(file);
+        g_string_insert(backup_file, backup_file->len - 4, backup_file_name_postfix);
+        // 4 is length of log file postfix ".log"
+        // rename log file "***.log" to "***-old.log"
+        char file_name[4096] = {0};
+        memcpy(file_name, backup_file->str, backup_file->len);
+        if (backup_file) {
+            g_string_free(backup_file, TRUE);
+        }
+
+        if (g_file_test(file_name, G_FILE_TEST_EXISTS)) {
+            if (g_remove(file_name) != 0) {
+                g_warning ("Delete old log file %s failed errno=%d.", file_name, errno);
+                return;
+            } else {
+                g_warning ("Deleted old log file %s.", file_name);
+            }
+        }
+
+        if (g_rename(file, file_name) == 0) {
+            g_warning ("Renamed %s to backup file %s.", file, file_name);
+            return;
+        } else {
+            g_warning ("Rename %s to backup file failed errno=%d.", file, errno);
+            return;
+        }
+    }
+}
+
 int
 applet_log_init (const char *ccnet_dir)
 {
     char *logdir = g_build_filename (ccnet_dir, "logs", NULL);
-    char *file = g_build_filename(logdir, "applet.log", NULL);
+    char *applet_log_file = g_build_filename(logdir, "applet.log", NULL);
+    char *seafile_log_file = g_build_filename(logdir, "seafile.log", NULL);
 
     if (checkdir_with_mkdir (logdir) < 0) {
         g_free (logdir);
@@ -67,12 +111,15 @@ applet_log_init (const char *ccnet_dir)
 
     g_free (logdir);
 
+    delete_large_log_file(applet_log_file);
+    delete_large_log_file(seafile_log_file);
+
     /* record all log message */
     applet_log_level = G_LOG_LEVEL_DEBUG;
 
-    if ((logfp = g_fopen (file, "a+")) == NULL) {
-        g_warning ("Open file %s failed errno=%d\n", file, errno);
-        g_free (file);
+    if ((logfp = g_fopen (applet_log_file, "a+")) == NULL) {
+        g_warning ("Open file %s failed errno=%d\n", applet_log_file, errno);
+        g_free (applet_log_file);
         return -1;
     }
 
@@ -82,7 +129,7 @@ applet_log_init (const char *ccnet_dir)
     g_log_set_handler ("Ccnet", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL
                        | G_LOG_FLAG_RECURSION, applet_log, NULL);
 
-    g_free (file);
+    g_free (applet_log_file);
 
     return 0;
 }

@@ -224,8 +224,8 @@ void SearchTab::doRealSearch()
     }
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
     request_ = new FileSearchRequest(seafApplet->accountManager()->accounts().front(), line_edit_->text());
-    connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&)),
-            this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&)));
+    connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool)),
+            this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&, bool)));
     connect(request_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onSearchFailed(const ApiError&)));
 
@@ -235,7 +235,8 @@ void SearchTab::doRealSearch()
     last_modified_ = 0;
 }
 
-void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results)
+void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results,
+                                bool has_more)
 {
     std::vector<QListWidgetItem*> items;
 
@@ -253,6 +254,10 @@ void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results)
     search_model_->addItems(items);
 
     mStack->setCurrentIndex(INDEX_SEARCH_VIEW);
+
+    if (has_more) {
+
+    }
 }
 
 void SearchTab::onSearchFailed(const ApiError& error)

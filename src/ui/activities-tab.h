@@ -10,7 +10,7 @@ class QSslError;
 class QUrl;
 class QNetworkRequest;
 class QNetworkReply;
-class QToolButton;
+class LoadMoreButton;
 class QLabel;
 class QShowEvent;
 
@@ -58,7 +58,7 @@ private:
     EventsListView *events_list_view_;
     EventsListModel *events_list_model_;
     QWidget *events_loading_view_;
-    QToolButton *load_more_btn_;
+    LoadMoreButton *load_more_btn_;
 
     QLabel *loading_failed_text_;
 };

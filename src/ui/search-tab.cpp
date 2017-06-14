@@ -181,7 +181,6 @@ void SearchTab::refresh()
 void SearchTab::startRefresh()
 {
     search_timer_->start();
-    refresh();
 }
 
 void SearchTab::stopRefresh()

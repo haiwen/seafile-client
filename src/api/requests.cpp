@@ -803,13 +803,20 @@ void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
 
 FileSearchRequest::FileSearchRequest(const Account& account,
                                      const QString& keyword,
+                                     int page,
                                      int per_page)
     : SeafileApiRequest(account.getAbsoluteUrl(kFileSearchUrl),
                         SeafileApiRequest::METHOD_GET,
                         account.token),
-      keyword_(keyword)
+      keyword_(keyword),
+      page_(page)
 {
     setUrlParam("q", keyword_);
+    if (page_ > 0) {
+        setUrlParam("page", QString::number(page));
+    }
+    // per_page = 2;
+    setUrlParam("per_page", QString::number(per_page));
 }
 
 void FileSearchRequest::requestSuccess(QNetworkReply& reply)
@@ -846,7 +853,7 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
     }
     bool has_more = dict["has_more"].toBool();
 
-    emit success(retval, has_more);
+    emit success(retval, page_ > 1, has_more);
 }
 
 FetchCustomLogoRequest::FetchCustomLogoRequest(const QUrl& url)

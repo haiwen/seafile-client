@@ -32,14 +32,12 @@ private:
 class SearchResultListModel : public QAbstractListModel {
     Q_OBJECT
 public:
+    SearchResultListModel();
     ~SearchResultListModel()
     {
         clear();
     }
-    int rowCount(const QModelIndex &index) const
-    {
-        return items_.size();
-    }
+    int rowCount(const QModelIndex &index) const;
     const QListWidgetItem* item(const QModelIndex& index) const
     {
         if (!index.isValid() || index.row() >= (int)items_.size())
@@ -68,20 +66,16 @@ public:
         }
         items_.clear();
     }
-    void addItem(QListWidgetItem *item)
-    {
-        items_.push_back(item);
-        emit dataChanged(index(items_.size() - 1), index(items_.size() - 1));
-    }
-    void addItems(const std::vector<QListWidgetItem *> &items)
-    {
-        unsigned first = items_.size();
-        items_.insert(items_.end(), items.begin(), items.end());
-        emit dataChanged(index(first), index(items_.size() - 1));
-    }
+
+    void addItem(QListWidgetItem *item);
+    const QModelIndex updateSearchResults(const std::vector<QListWidgetItem *> &items, bool is_loading_more, bool has_more);
+
+    const QModelIndex loadMoreIndex() const { return load_more_index_; }
 
 private:
     std::vector<QListWidgetItem*> items_;
+    bool has_more_;
+    QModelIndex load_more_index_;
 };
 
 class SearchResultItemDelegate : public QStyledItemDelegate {

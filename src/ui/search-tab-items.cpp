@@ -44,6 +44,8 @@ const char *kFileItemBackgroundColorHighlighted = "#F9E0C7";
 
 const char *kItemBottomBorderColor = "#EEE";
 
+const int PLACE_HOLDER_TYPE = 999;
+
 static inline const QListWidgetItem *getItem(const QModelIndex &index)
 {
     const SearchResultListModel *model = static_cast<const SearchResultListModel*>(index.model());
@@ -62,6 +64,11 @@ void SearchResultItemDelegate::paint(QPainter *painter,
                                      const QStyleOptionViewItem &option,
                                      const QModelIndex &index) const {
     const SearchResultListModel *model = static_cast<const SearchResultListModel*>(index.model());
+    const QListWidgetItem* item = getItem(index);
+    if (item && item->type() == PLACE_HOLDER_TYPE) {
+        // This is the place holder item for the "load more" button
+        return;
+    }
     QBrush backBrush;
     bool selected = false;
     FileSearchResult file = getSearchResult(index);
@@ -244,4 +251,57 @@ void SearchResultListView::openParentDir()
         qvariant_cast<FileSearchResult>(open_parent_dir_action_->data());
     RepoService::instance()->openFolder(result.repo_id,
                                         ::getParentPath(result.fullpath));
+}
+
+SearchResultListModel::SearchResultListModel() : QAbstractListModel()
+{
+    has_more_ = false;
+}
+
+void SearchResultListModel::addItem(QListWidgetItem *item)
+{
+    items_.push_back(item);
+    emit dataChanged(index(items_.size() - 1), index(items_.size() - 1));
+}
+
+const QModelIndex SearchResultListModel::updateSearchResults(
+    const std::vector<QListWidgetItem *> &items,
+    bool is_loading_more,
+    bool has_more)
+{
+    int first_new_item = 0;
+
+    beginResetModel();
+    if (!is_loading_more) {
+        first_new_item = 0;
+        clear();
+    } else {
+        if (items_.size() > 0 && items_[items_.size() - 1]->type() == PLACE_HOLDER_TYPE) {
+            items_.pop_back();
+            first_new_item = items_.size();
+        }
+    }
+
+    items_.insert(items_.end(), items.begin(), items.end());
+
+    // place holder for the "load more" button
+    QListWidgetItem *load_more_place_holder = new QListWidgetItem(nullptr, PLACE_HOLDER_TYPE);
+    items_.push_back(load_more_place_holder);
+
+    load_more_index_ = QModelIndex();
+    if (has_more) {
+        load_more_index_ = index(items_.size() - 1);
+    }
+
+    endResetModel();
+
+    if (is_loading_more && first_new_item) {
+        return index(first_new_item);
+    }
+    return QModelIndex();
+}
+
+int SearchResultListModel::rowCount(const QModelIndex &index) const
+{
+    return items_.size();
 }

@@ -520,7 +520,8 @@ class FileSearchRequest : public SeafileApiRequest
 public:
     FileSearchRequest(const Account& account,
                       const QString& keyword,
-                      int per_page = 10);
+                      int page = 0,
+                      int per_page = 25);
     const QString& keyword() const
     {
         return keyword_;
@@ -528,6 +529,7 @@ public:
 
 signals:
     void success(const std::vector<FileSearchResult>& result,
+                 bool is_loading_more,
                  bool has_more);
 
 protected slots:
@@ -537,6 +539,7 @@ private:
     Q_DISABLE_COPY(FileSearchRequest);
 
     const QString keyword_;
+    const int page_;
 };
 
 class FetchCustomLogoRequest : public SeafileApiRequest

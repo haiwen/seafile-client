@@ -33,7 +33,7 @@ enum {
 } // anonymous namespace
 
 SearchTab::SearchTab(QWidget *parent)
-    : TabView(parent), last_modified_(0), request_(NULL)
+    : TabView(parent), last_modified_(0), request_(NULL), nth_page_(1)
 {
     createSearchView();
     createLoadingView();
@@ -168,8 +168,7 @@ bool SearchTab::eventFilter(QObject *obj, QEvent *event)
 
 void SearchTab::refresh()
 {
-    if (!seafApplet->accountManager()->hasAccount() ||
-        !seafApplet->accountManager()->accounts().front().isValid()) {
+    if (!seafApplet->accountManager()->currentAccount().isValid()) {
         mStack->setCurrentIndex(INDEX_LOGOUT_VIEW);
         return;
     }
@@ -206,26 +205,39 @@ void SearchTab::doSearch(const QString& keyword)
     last_modified_ = QDateTime::currentMSecsSinceEpoch();
 }
 
-void SearchTab::doRealSearch()
+void SearchTab::doRealSearch(bool load_more)
 {
-    // not modified
-    if (last_modified_ == 0)
-        return;
-    // modified too fast
-    if (QDateTime::currentMSecsSinceEpoch() - last_modified_ <= kInputDelayInterval)
-        return;
+    if (!load_more) {
+        // not modified
+        if (last_modified_ == 0)
+            return;
+        // modified too fast
+        if (QDateTime::currentMSecsSinceEpoch() - last_modified_ <= kInputDelayInterval)
+            return;
+    }
 
-    if (!seafApplet->accountManager()->hasAccount())
+    const Account& account = seafApplet->accountManager()->currentAccount();
+
+    if (!account.isValid())
         return;
     if (request_) {
         // request_->abort();
         request_->deleteLater();
         request_ = NULL;
     }
-    mStack->setCurrentIndex(INDEX_LOADING_VIEW);
-    request_ = new FileSearchRequest(seafApplet->accountManager()->accounts().front(), line_edit_->text());
-    connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool)),
-            this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&, bool)));
+
+    if (!load_more) {
+        nth_page_ = 1;
+        mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+    } else {
+        nth_page_++;
+        search_view_->setIndexWidget(
+            search_model_->loadMoreIndex(), new LoadingView);
+    }
+
+    request_ = new FileSearchRequest(account, line_edit_->text(), nth_page_);
+    connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool, bool)),
+            this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&, bool, bool)));
     connect(request_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onSearchFailed(const ApiError&)));
 
@@ -236,6 +248,7 @@ void SearchTab::doRealSearch()
 }
 
 void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results,
+                                bool is_loading_more,
                                 bool has_more)
 {
     std::vector<QListWidgetItem*> items;
@@ -250,14 +263,25 @@ void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results,
         items.push_back(item);
     }
 
-    search_model_->clear();
-    search_model_->addItems(items);
-
     mStack->setCurrentIndex(INDEX_SEARCH_VIEW);
 
-    if (has_more) {
-
+    const QModelIndex first_new_item = search_model_->updateSearchResults(items, is_loading_more, has_more);
+    if (first_new_item.isValid()) {
+        search_view_->scrollTo(first_new_item);
     }
+
+    if (has_more) {
+        load_more_btn_ = new LoadMoreButton;
+        connect(load_more_btn_, SIGNAL(clicked()),
+                this, SLOT(loadMoreSearchResults()));
+        search_view_->setIndexWidget(
+            search_model_->loadMoreIndex(), load_more_btn_);
+    }
+}
+
+void SearchTab::loadMoreSearchResults()
+{
+    doRealSearch(true);
 }
 
 void SearchTab::onSearchFailed(const ApiError& error)

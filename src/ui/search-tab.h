@@ -16,6 +16,7 @@ class QModelIndex;
 class FileSearchRequest;
 struct FileSearchResult;
 class ApiError;
+class LoadMoreButton;
 
 class SearchTab : public TabView {
     Q_OBJECT
@@ -33,11 +34,13 @@ protected:
 
 private slots:
     void doSearch(const QString& keyword);
-    void doRealSearch();
+    void doRealSearch(bool load_more = false);
+    void loadMoreSearchResults();
 
     void onDoubleClicked(const QModelIndex& index);
 
     void onSearchSuccess(const std::vector<FileSearchResult>& results,
+                         bool is_loading_more,
                          bool has_more);
     void onSearchFailed(const ApiError& error);
 
@@ -60,11 +63,14 @@ private:
     QWidget *logout_view_;
 
     QLabel *loading_failed_text_;
+    LoadMoreButton *load_more_btn_;
 
     QLineEdit *line_edit_;
 
     SearchResultItemDelegate *search_delegate_;
     SearchResultListView *search_view_;
     SearchResultListModel *search_model_;
+
+    int nth_page_;
 };
 #endif // SEAFILE_CLIENT_UI_SEARCH_TAB_HSEAF

@@ -812,7 +812,7 @@ FileSearchRequest::FileSearchRequest(const Account& account,
       page_(page)
 {
     setUrlParam("q", keyword_);
-    if (page_ > 0) {
+    if (page > 0) {
         setUrlParam("page", QString::number(page));
     }
     // per_page = 2;
@@ -852,8 +852,9 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         retval.push_back(tmp);
     }
     bool has_more = dict["has_more"].toBool();
+    bool is_loading_more = page_ > 1;
 
-    emit success(retval, page_ > 1, has_more);
+    emit success(retval, is_loading_more, has_more);
 }
 
 FetchCustomLogoRequest::FetchCustomLogoRequest(const QUrl& url)

@@ -277,8 +277,11 @@ const QModelIndex SearchResultListModel::updateSearchResults(
         clear();
     } else {
         if (items_.size() > 0 && items_[items_.size() - 1]->type() == PLACE_HOLDER_TYPE) {
+            QListWidgetItem *old_place_holder = items_[items_.size() - 1];
             items_.pop_back();
             first_new_item = items_.size();
+
+            delete old_place_holder;
         }
     }
 
@@ -295,7 +298,7 @@ const QModelIndex SearchResultListModel::updateSearchResults(
 
     endResetModel();
 
-    if (is_loading_more && first_new_item) {
+    if (first_new_item) {
         return index(first_new_item);
     }
     return QModelIndex();

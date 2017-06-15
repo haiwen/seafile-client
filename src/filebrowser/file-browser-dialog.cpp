@@ -37,10 +37,12 @@ namespace {
 enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_TABLE_VIEW,
-    INDEX_LOADING_FAILED_VIEW
+    INDEX_LOADING_FAILED_VIEW,
+    INDEX_EMPTY_VIEW
 };
 
 const char *kLoadingFaieldLabelName = "loadingFailedText";
+const char *kEmptyFolderLabelName = "emptyFolderText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
 //const int kStatusCodePasswordNeeded = 400;
@@ -106,6 +108,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     createToolBar();
     createStatusBar();
     createLoadingFailedView();
+    createEmptyView();
     createFileTable();
 
     QWidget* widget = new QWidget;
@@ -125,6 +128,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     stack_->insertWidget(INDEX_LOADING_VIEW, loading_view_);
     stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
+    stack_->insertWidget(INDEX_EMPTY_VIEW, empty_view_);
     stack_->setContentsMargins(0, 0, 0, 0);
 
     vlayout->addWidget(toolbar_);
@@ -423,6 +427,23 @@ void FileBrowserDialog::createLoadingFailedView()
 
     connect(label, SIGNAL(linkActivated(const QString&)),
             this, SLOT(forceRefresh()));
+
+    layout->addWidget(label);
+}
+
+void FileBrowserDialog::createEmptyView()
+{
+    empty_view_ = new QWidget(this);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    empty_view_->setLayout(layout);
+
+    QLabel *label = new QLabel;
+    label->setObjectName(kEmptyFolderLabelName);
+    label->setMargin(20);
+    QString label_text = tr("This folder is empty.");
+    label->setText(label_text);
+    label->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     layout->addWidget(label);
 }
@@ -858,6 +879,11 @@ void FileBrowserDialog::goHome()
 
 void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 {
+    if (dirents.isEmpty()) {
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+        return;
+    }
+
     table_model_->setDirents(dirents);
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     if (!forward_history_.empty()) {

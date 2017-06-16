@@ -230,6 +230,19 @@ void SeafileTrayIcon::prepareContextMenu()
         enable_auto_sync_action_->setVisible(true);
         disable_auto_sync_action_->setVisible(false);
     }
+
+    std::vector<SyncError> errors;
+    int ret = seafApplet->rpcClient()->getSyncErrors(&errors, 0, 1);
+    if (ret < 0) {
+        qDebug("failed to get sync errors");
+        return;
+    }
+
+    if (errors.empty()) {
+        show_sync_errors_action_->setEnabled(false);
+    } else {
+        show_sync_errors_action_->setEnabled(true);
+    }
 }
 
 void SeafileTrayIcon::createGlobalMenuBar()

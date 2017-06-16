@@ -220,8 +220,8 @@ SyncErrorsTableModel::SyncErrorsTableModel(QObject *parent)
 void SyncErrorsTableModel::updateErrors()
 {
     std::vector<SyncError> errors;
-    int ret = seafApplet->rpcClient()->getSyncErrors(&errors, 0, 50);
-    if (ret < 0) {
+    bool success = seafApplet->rpcClient()->getSyncErrors(&errors, 0, 50);
+    if (!success) {
         qDebug("failed to get sync errors");
         return;
     }

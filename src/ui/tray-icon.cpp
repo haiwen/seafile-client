@@ -232,8 +232,8 @@ void SeafileTrayIcon::prepareContextMenu()
     }
 
     std::vector<SyncError> errors;
-    int ret = seafApplet->rpcClient()->getSyncErrors(&errors, 0, 1);
-    if (ret < 0) {
+    bool success = seafApplet->rpcClient()->getSyncErrors(&errors, 0, 1);
+    if (!success) {
         qDebug("failed to get sync errors");
         return;
     }

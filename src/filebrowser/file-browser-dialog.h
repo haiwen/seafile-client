@@ -126,6 +126,7 @@ private:
     void createStatusBar();
     void createFileTable();
     void createLoadingFailedView();
+    void createEmptyView();
     void showLoading();
     void updateTable(const QList<SeafDirent>& dirents);
     void createDirectory(const QString &name);
@@ -185,6 +186,7 @@ private:
     QStackedWidget *stack_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
+    QLabel *empty_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
 

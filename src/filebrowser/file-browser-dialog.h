@@ -186,7 +186,7 @@ private:
     QStackedWidget *stack_;
     QWidget *loading_view_;
     QWidget *loading_failed_view_;
-    QWidget *empty_view_;
+    QLabel *empty_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
 

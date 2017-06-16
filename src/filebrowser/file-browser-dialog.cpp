@@ -42,7 +42,6 @@ enum {
 };
 
 const char *kLoadingFaieldLabelName = "loadingFailedText";
-const char *kEmptyFolderLabelName = "emptyFolderText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
 //const int kStatusCodePasswordNeeded = 400;
@@ -433,18 +432,9 @@ void FileBrowserDialog::createLoadingFailedView()
 
 void FileBrowserDialog::createEmptyView()
 {
-    empty_view_ = new QWidget(this);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    empty_view_->setLayout(layout);
-
-    QLabel *label = new QLabel;
-    label->setObjectName(kEmptyFolderLabelName);
-    QString label_text = tr("This folder is empty.");
-    label->setText(label_text);
-    label->setAlignment(Qt::AlignCenter);
-
-    layout->addWidget(label);
+    empty_view_ = new QLabel;
+    empty_view_->setText(tr("This folder is empty."));
+    empty_view_->setAlignment(Qt::AlignCenter);
 }
 
 void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)

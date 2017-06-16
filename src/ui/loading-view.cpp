@@ -9,21 +9,12 @@
 #include "loading-view.h"
 
 LoadingView::LoadingView(QWidget *parent)
-    : QWidget(parent)
+    : QLabel(parent)
 {
-    setObjectName("LoadingView");
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    setLayout(layout);
-
     gif_ = new QMovie(":/images/loading.gif");
     gif_->setParent(this);
-    QLabel *label = new QLabel;
-    label->setMovie(gif_);
-    label->setAlignment(Qt::AlignCenter);
-
-    layout->addWidget(label);
-    layout->setContentsMargins(0, 0, 0, 0);
+    setMovie(gif_);
+    setAlignment(Qt::AlignCenter);
 }
 
 void LoadingView::showEvent(QShowEvent *event)
@@ -50,7 +41,6 @@ void LoadingView::setQssStyleForTab()
 LoadMoreButton::LoadMoreButton(QWidget *parent)
     : QToolButton(parent)
 {
-    setObjectName("LoadMoreButton");
     setText(tr("load more"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     // Must set fill backgound because this button is used as an "index widget".

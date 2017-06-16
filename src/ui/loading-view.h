@@ -3,12 +3,13 @@
 
 #include <QWidget>
 #include <QToolButton>
+#include <QLabel>
 
 class QMovie;
 class QShowEvent;
 class QHideEvent;
 
-class LoadingView : public QWidget {
+class LoadingView : public QLabel {
     Q_OBJECT
 public:
     LoadingView(QWidget *parent=0);

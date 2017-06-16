@@ -440,10 +440,9 @@ void FileBrowserDialog::createEmptyView()
 
     QLabel *label = new QLabel;
     label->setObjectName(kEmptyFolderLabelName);
-    label->setMargin(20);
     QString label_text = tr("This folder is empty.");
     label->setText(label_text);
-    label->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    label->setAlignment(Qt::AlignCenter);
 
     layout->addWidget(label);
 }

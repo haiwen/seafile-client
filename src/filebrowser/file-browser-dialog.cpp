@@ -282,7 +282,7 @@ void FileBrowserDialog::createStatusBar()
     connect(upload_file_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     upload_menu_->addAction(upload_file_action_);
 
-    // Submenu's Action 2: Upload File (only pro version's server supports it)
+    // Submenu's Action 2: Upload directory (only pro version's server supports it)
     if (account_.isPro()) {
         upload_directory_action_ = new QAction(tr("Upload a directory"), upload_menu_);
         connect(upload_directory_action_, SIGNAL(triggered()), this, SLOT(chooseDirectoryToUpload()));
@@ -640,9 +640,9 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
     QStringList fnames;
     Q_FOREACH(const QString &name, names) {
         const QFileInfo file = name;
-        // only files are allowed
-        if (!file.isDir() && file.path() == path
-            /* && !account_.isPro*/) {
+        if (file.isDir()) {
+            uploadOrUpdateFile(name);
+        } else if (file.path() == path) {
             fnames.push_back(file.fileName());
         }
     }

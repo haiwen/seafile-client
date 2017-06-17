@@ -41,6 +41,7 @@ enum {
     INDEX_EMPTY_VIEW
 };
 
+const char *kLoadingFailedLabelName = "LoadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
 //const int kStatusCodePasswordNeeded = 400;
@@ -411,6 +412,7 @@ void FileBrowserDialog::onMkdirButtonClicked()
 void FileBrowserDialog::createLoadingFailedView()
 {
     loading_failed_view_ = new QLabel;
+    loading_failed_view_->setObjectName(kLoadingFailedLabelName);
     QString link = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("retry"));
     QString label_text = tr("Failed to get files information<br/>"
                             "Please %1").arg(link);

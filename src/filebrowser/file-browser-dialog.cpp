@@ -838,14 +838,20 @@ bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
 
 void FileBrowserDialog::goForward()
 {
-    QString path = forward_history_.pop();
+    QString path;
+    if (!forward_history_.empty()) {
+        path = forward_history_.pop();
+    }
     backward_history_.push(current_path_);
     enterPath(path);
 }
 
 void FileBrowserDialog::goBackward()
 {
-    QString path = backward_history_.pop();
+    QString path;
+    if (!backward_history_.empty()) {
+        path = backward_history_.pop();
+    }
     forward_history_.push(current_path_);
     enterPath(path);
 }
@@ -856,6 +862,7 @@ void FileBrowserDialog::goHome()
         return;
     }
     backward_history_.push(current_path_);
+    forward_history_.clear();
     enterPath("/");
 }
 
@@ -907,6 +914,8 @@ void FileBrowserDialog::onNavigatorClick(int id)
     for(int i = 1; i <= id; i++)
       path += current_lpath_[i] + "/";
 
+    backward_history_.push(current_path_);
+    forward_history_.clear();
     enterPath(path);
 }
 

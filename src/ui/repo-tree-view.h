@@ -53,6 +53,7 @@ private slots:
     void viewRepoOnWeb();
     void shareRepoToUser();
     void shareRepoToGroup();
+    void unshareRepo();
     void openInFileBrowser();
     void onItemClicked(const QModelIndex& index);
     void onItemDoubleClicked(const QModelIndex& index);
@@ -105,6 +106,7 @@ private:
     QAction *share_repo_to_user_action_;
     QAction *share_repo_to_group_action_;
     QAction *open_in_filebrowser_action_;
+    QAction *unshare_action_;
     QAction *toggle_auto_sync_action_;
     QAction *sync_now_action_;
     QAction *cancel_download_action_;

@@ -179,6 +179,10 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     menu->addAction(view_on_web_action_);
     menu->addAction(open_in_filebrowser_action_);
 
+    if (item->repo().isSharedRepo()) {
+        menu->addAction(unshare_action_);
+    }
+
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isPro() && account.username == item->repo().owner) {
         menu->addSeparator();
@@ -310,7 +314,7 @@ void RepoTreeView::updateRepoActions()
         toggle_auto_sync_action_->setEnabled(false);
     }
 
-    selected_repo_= item->repo();
+    selected_repo_ = item->repo();
     view_on_web_action_->setEnabled(true);
     open_in_filebrowser_action_->setEnabled(true);
 
@@ -427,6 +431,12 @@ void RepoTreeView::createActions()
     open_in_filebrowser_action_->setIconVisibleInMenu(true);
 
     connect(open_in_filebrowser_action_, SIGNAL(triggered()), this, SLOT(openInFileBrowser()));
+
+    unshare_action_ = new QAction(tr("&Leave share"), this);
+    unshare_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    unshare_action_->setStatusTip(tr("unshare this library"));
+
+    connect(unshare_action_, SIGNAL(triggered()), this, SLOT(unshareRepo()));
 
     resync_action_ = new QAction(tr("&Resync this library"), this);
     resync_action_->setIcon(QIcon(":/images/resync.png"));
@@ -569,6 +579,11 @@ void RepoTreeView::shareRepoToUser()
 void RepoTreeView::shareRepoToGroup()
 {
     shareRepo(true);
+}
+
+void RepoTreeView::unshareRepo()
+{
+
 }
 
 void RepoTreeView::openInFileBrowser()

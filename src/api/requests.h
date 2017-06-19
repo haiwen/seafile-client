@@ -772,4 +772,22 @@ private:
     uint size_;
 };
 
+class UnshareRepoRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    UnshareRepoRequest(const Account& account,
+                       const QString& repo_id,
+                       const SeafileUser& from_user);
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(UnshareRepoRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

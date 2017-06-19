@@ -446,7 +446,7 @@ void RepoTreeView::createActions()
 
     set_sync_interval_action_ = new QAction(tr("Set sync &Interval"), this);
     set_sync_interval_action_->setIcon(QIcon(":/images/clock.png"));
-    set_sync_interval_action_->setStatusTip(tr("unsync and resync this library"));
+    set_sync_interval_action_->setStatusTip(tr("set sync interval for this library"));
 
     connect(set_sync_interval_action_, SIGNAL(triggered()), this, SLOT(setRepoSyncInterval()));
 

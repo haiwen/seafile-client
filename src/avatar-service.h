@@ -26,8 +26,6 @@ public:
     void start();
 
     QImage getAvatar(const QString& email);
-    QString getAvatarFilePath(const QString& email);
-    bool avatarFileExists(const QString& email);
 
     static const int kAvatarSize;
 
@@ -50,6 +48,8 @@ private:
     QImage loadAvatarFromLocal(const QString& email);
     void fetchImageFromServer(const QString& email);
     QString avatarPathForEmail(const Account& account, const QString& email);
+    QString getAvatarFilePath(const QString& email);
+    bool avatarFileExists(const QString& email);
 
     GetAvatarRequest *get_avatar_req_;
 

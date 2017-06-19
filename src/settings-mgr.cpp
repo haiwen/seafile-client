@@ -129,11 +129,11 @@ void SettingsManager::loadSettings()
         transferEncrypted_ = (str == "off") ? false : true;
 
     if (seafApplet->rpcClient()->seafileGetConfigInt("download_limit",
-                                                     &value) >= 0)
+                                                     &value, false) >= 0)
         maxDownloadRatio_ = value >> 10;
 
-    if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit", &value) >=
-        0)
+    if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit",
+                                                     &value, false) >= 0)
         maxUploadRatio_ = value >> 10;
 
     if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree",

@@ -1246,14 +1246,14 @@ void GetThumbnailRequest::requestSuccess(QNetworkReply& reply)
 
 UnshareRepoRequest::UnshareRepoRequest(const Account& account,
                                        const QString& repo_id,
-                                       const SeafileUser& from_user)
+                                       const QString& from_user)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kRepoSharedUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_DELETE,
           account.token)
 {
     setUrlParam("share_type", "personal");
-    setUrlParam("from", from_user.email);
+    setUrlParam("from", from_user);
 }
 
 void UnshareRepoRequest::requestSuccess(QNetworkReply& reply)

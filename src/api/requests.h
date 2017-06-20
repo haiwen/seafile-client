@@ -778,7 +778,7 @@ class UnshareRepoRequest : public SeafileApiRequest
 public:
     UnshareRepoRequest(const Account& account,
                        const QString& repo_id,
-                       const SeafileUser& from_user);
+                       const QString& from_user);
 
 signals:
     void success();

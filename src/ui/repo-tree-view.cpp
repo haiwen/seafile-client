@@ -583,7 +583,28 @@ void RepoTreeView::shareRepoToGroup()
 
 void RepoTreeView::unshareRepo()
 {
+    const Account account = seafApplet->accountManager()->currentAccount();
+    const QString repo_id = selected_repo_.id;
+    const QString from_user = selected_repo_.owner;
+    UnshareRepoRequest* request =
+        new UnshareRepoRequest(account, repo_id, from_user);
 
+    connect(request, SIGNAL(success()),
+            this, SLOT(onUnshareSuccess()));
+
+    request->send();
+}
+
+void RepoTreeView::onUnshareSuccess()
+{
+    UnshareRepoRequest* req = qobject_cast<UnshareRepoRequest*>(sender());
+    if (!req) {
+        return;
+    } else {
+        req->deleteLater();
+    }
+
+    RepoService::instance()->refresh(true);
 }
 
 void RepoTreeView::openInFileBrowser()

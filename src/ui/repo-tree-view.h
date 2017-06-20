@@ -54,6 +54,7 @@ private slots:
     void shareRepoToUser();
     void shareRepoToGroup();
     void unshareRepo();
+    void onUnshareSuccess();
     void openInFileBrowser();
     void onItemClicked(const QModelIndex& index);
     void onItemDoubleClicked(const QModelIndex& index);

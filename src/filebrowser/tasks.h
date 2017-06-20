@@ -244,7 +244,6 @@ private slots:
 
 private:
     QStringList empty_subfolders_;
-    QString empty_folder_;
     QScopedPointer<CreateDirectoryRequest, QScopedPointerDeleteLater> create_dir_req_;
 };
 
@@ -401,7 +400,7 @@ private:
 
     const QString parent_dir_;
     const QString name_;
-    QList<qint64> file_sizes_;
+    QList<qint64> file_sizes;
     const QStringList names_;
 
     QScopedPointer<PostFileTask, doDeleteLater<PostFileTask> > task_;

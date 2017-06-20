@@ -272,6 +272,11 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
     if (local_path_ == "/")
         qWarning("attempt to upload the root directory, you should avoid it\n");
     QDir dir(local_path_);
+    if (dir.count() == 2) {
+        // only contains . and .., so an empty folder
+        empty_folder_ = dir.dirName();
+    }
+
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
     // XXX (lins05): Move these operations into a thread
     while (iterator.hasNext()) {
@@ -302,7 +307,7 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
 
 void FileUploadDirectoryTask::onFinished(bool success)
 {
-    if (!success || empty_subfolders_.empty()) {
+    if (!success || (empty_subfolders_.empty() && empty_folder_.isEmpty())) {
         FileUploadTask::onFinished(success);
         return;
     }
@@ -312,14 +317,22 @@ void FileUploadDirectoryTask::onFinished(bool success)
 
 void FileUploadDirectoryTask::nextEmptyFolder()
 {
-    if (empty_subfolders_.isEmpty()) {
-        FileUploadDirectoryTask::onFinished(true);
-        return;
+    if (!empty_folder_.isEmpty()) {
+        create_dir_req_.reset(new CreateDirectoryRequest(
+                                  account_, repo_id_,
+                                  ::pathJoin(path_, empty_folder_), false));
+        empty_folder_ = QString();
+    } else {
+        if (empty_subfolders_.isEmpty()) {
+            FileUploadDirectoryTask::onFinished(true);
+            return;
+        }
+
+        QString folder = empty_subfolders_.takeFirst();
+        create_dir_req_.reset(new CreateDirectoryRequest(
+                                  account_, repo_id_, ::pathJoin(path_, folder), true));
     }
 
-    QString folder = empty_subfolders_.takeFirst();
-    create_dir_req_.reset(new CreateDirectoryRequest(
-                              account_, repo_id_, ::pathJoin(path_, folder), true));
     connect(create_dir_req_.data(), SIGNAL(success()),
             this, SLOT(nextEmptyFolder()));
     connect(create_dir_req_.data(), SIGNAL(failed(const ApiError&)),
@@ -688,14 +701,14 @@ void PostFilesTask::prepare()
     transferred_bytes_ = 0;
     total_bytes_ = 0;
 
-    file_sizes.reserve(names_.size());
+    file_sizes_.reserve(names_.size());
     Q_FOREACH(const QString &name, names_)
     {
         QString local_path = ::pathJoin(local_path_, name);
         // approximate the bytes used by http protocol (e.g. the bytes of
         // header)
         qint64 file_size = QFileInfo(local_path).size() + 1024;
-        file_sizes.push_back(file_size);
+        file_sizes_.push_back(file_size);
         total_bytes_ += file_size;
     }
 }
@@ -740,7 +753,7 @@ void PostFilesTask::onPostTaskFinished(bool success)
         return;
     }
 
-    transferred_bytes_ += file_sizes[current_num_];
+    transferred_bytes_ += file_sizes_[current_num_];
     startNext();
 }
 

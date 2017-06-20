@@ -1,9 +1,11 @@
-#include "i18n.h"
+#include <glib.h>
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QApplication>
 #include <QSettings>
 #include <QDebug>
+
+#include "i18n.h"
 
 namespace {
 const char* langs[] = {
@@ -148,4 +150,12 @@ const QList<QLocale> &I18NHelper::getInstalledLocales() {
             locales.push_back(QLocale(*next));
     }
     return locales;
+}
+
+bool I18NHelper::isChinese()
+{
+    int lang_index = preferredLanguage();
+    if (lang_index < 0 || lang_index >= (int)G_N_ELEMENTS(langs))
+        return false;
+    return QString(langs[lang_index]) == "zh_CN";
 }

@@ -6,6 +6,7 @@
     #include "mac-sparkle-support.h"
 #endif
 
+#include "i18n.h"
 #include "api/requests.h"
 #include "seafile-applet.h"
 #include "utils/utils.h"
@@ -18,9 +19,11 @@ namespace
 {
 #ifdef Q_OS_WIN32
     const char *kSparkleAppcastURI = "https://www.seafile.com/api/client-updates/seafile-client-windows/appcast.xml";
+    const char *kSparkleAppcastURIForCN = "https://www.seafile.com/api/client-updates/seafile-client-windows-cn/appcast.xml";
     const char *kWinSparkleRegistryPath = "SOFTWARE\\Seafile\\Seafile Client\\WinSparkle";
 #else
     const char *kSparkleAppcastURI = "https://www.seafile.com/api/client-updates/seafile-client-mac/appcast.xml";
+    const char *kSparkleAppcastURIForCN = "https://www.seafile.com/api/client-updates/seafile-client-mac-cn/appcast.xml";
 #endif
     const char *kSparkleAlreadyEnableUpdateByDefault = "SparkleAlreadyEnableUpdateByDefault";
 
@@ -33,7 +36,7 @@ QString getAppcastURI() {
             url_from_env.toUtf8().data());
         return url_from_env;
     }
-    return kSparkleAppcastURI;
+    return I18NHelper::getInstance()->isChinese() ? kSparkleAppcastURIForCN : kSparkleAppcastURI;
 }
 
 } // namespace

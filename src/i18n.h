@@ -30,6 +30,7 @@ public:
         return languages;
     }
 
+    bool isChinese();
     int preferredLanguage();
     void setPreferredLanguage(int langIndex);
 private:

@@ -433,7 +433,7 @@ void RepoTreeView::createActions()
     connect(open_in_filebrowser_action_, SIGNAL(triggered()), this, SLOT(openInFileBrowser()));
 
     unshare_action_ = new QAction(tr("&Leave share"), this);
-    unshare_action_->setIcon(QIcon(":/images/cloud-gray.png"));
+    unshare_action_->setIcon(QIcon(":/images/leave-share.png"));
     unshare_action_->setStatusTip(tr("unshare this library"));
 
     connect(unshare_action_, SIGNAL(triggered()), this, SLOT(unshareRepo()));
@@ -597,14 +597,14 @@ void RepoTreeView::unshareRepo()
 
 void RepoTreeView::onUnshareSuccess()
 {
+    RepoService::instance()->refresh(true);
+
     UnshareRepoRequest* req = qobject_cast<UnshareRepoRequest*>(sender());
     if (!req) {
         return;
     } else {
         req->deleteLater();
     }
-
-    RepoService::instance()->refresh(true);
 }
 
 void RepoTreeView::openInFileBrowser()

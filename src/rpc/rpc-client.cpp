@@ -27,6 +27,11 @@ extern "C" {
 
 namespace {
 
+enum {
+    DOWNLOAD = 0,
+    UPLOAD
+};
+
 const char *kSeafileRpcService = "seafile-rpcserver";
 const char *kSeafileThreadedRpcService = "seafile-threaded-rpcserver";
 const char *kCcnetRpcService = "ccnet-rpcserver";
@@ -261,14 +266,16 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
     return 0;
 }
 
-int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
+int SeafileRpcClient::seafileGetConfig(const QString &key,
+                                       QString *value,
+                                       const QString default_value)
 {
     GError *error = NULL;
     char *ret = searpc_client_call__string (seafile_rpc_client_,
                                             "seafile_get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
-        qWarning("Unable to get config value %s: %s", key.toUtf8().data(), error->message);
+        seafileSetConfig(key, default_value);
         g_error_free(error);
         return -1;
     }
@@ -278,14 +285,16 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
     return 0;
 }
 
-int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
+int SeafileRpcClient::seafileGetConfigInt(const QString &key,
+                                          int *value,
+                                          const int default_value)
 {
     GError *error = NULL;
     *value = searpc_client_call__int (seafile_rpc_client_,
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
-        qWarning("Unable to get config value %s: %s", key.toUtf8().data(), error->message);
+        seafileSetConfigInt(key, default_value);
         g_error_free(error);
         return -1;
     }
@@ -324,12 +333,12 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
 
 int SeafileRpcClient::setUploadRateLimit(int limit)
 {
-    return setRateLimit(true, limit);
+    return setRateLimit(UPLOAD, limit);
 }
 
 int SeafileRpcClient::setDownloadRateLimit(int limit)
 {
-    return setRateLimit(false, limit);
+    return setRateLimit(DOWNLOAD, limit);
 }
 
 int SeafileRpcClient::setRateLimit(bool upload, int limit)

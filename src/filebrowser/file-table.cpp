@@ -43,7 +43,7 @@ const QColor kItemBottomBorderColor("#f3f3f3");
 const QColor kItemColor("black");
 const QString kProgressBarStyle("QProgressBar "
         "{ border: 1px solid grey; border-radius: 2px; } "
-        "QProgressBar::chunk { background-color: #f0f0f0; width: 20px; }");
+        "QProgressBar::chunk { background-color: #f0f0f0; width: 1px; }");
 
 enum {
     NOT_LOCKED = 0,

@@ -272,10 +272,6 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
     if (local_path_ == "/")
         qWarning("attempt to upload the root directory, you should avoid it\n");
     QDir dir(local_path_);
-    if (dir.count() == 2) {
-        // only contains . and .., so an empty folder
-        empty_folder_ = dir.dirName();
-    }
 
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
     // XXX (lins05): Move these operations into a thread
@@ -301,13 +297,19 @@ void FileUploadDirectoryTask::createFileServerTask(const QString& link)
         }
     }
 
+    if (names.isEmpty() && empty_subfolders_.isEmpty()) {
+        // The folder dragged into cloud file browser is an empty one. We use
+        // the special name "." to represent it.
+        empty_subfolders_.append(".");
+    }
+
     // printf("total empty folders: %d for %s\n", empty_subfolders_.length(), dir.absolutePath().toUtf8().data());
     fileserver_task_ = new PostFilesTask(link, path_, dir.absolutePath(), names, true);
 }
 
 void FileUploadDirectoryTask::onFinished(bool success)
 {
-    if (!success || (empty_subfolders_.empty() && empty_folder_.isEmpty())) {
+    if (!success || (empty_subfolders_.empty())) {
         FileUploadTask::onFinished(success);
         return;
     }
@@ -317,21 +319,22 @@ void FileUploadDirectoryTask::onFinished(bool success)
 
 void FileUploadDirectoryTask::nextEmptyFolder()
 {
-    if (!empty_folder_.isEmpty()) {
-        create_dir_req_.reset(new CreateDirectoryRequest(
-                                  account_, repo_id_,
-                                  ::pathJoin(path_, empty_folder_), false));
-        empty_folder_ = QString();
-    } else {
-        if (empty_subfolders_.isEmpty()) {
-            FileUploadDirectoryTask::onFinished(true);
-            return;
-        }
-
-        QString folder = empty_subfolders_.takeFirst();
-        create_dir_req_.reset(new CreateDirectoryRequest(
-                                  account_, repo_id_, ::pathJoin(path_, folder), true));
+    if (empty_subfolders_.isEmpty()) {
+        FileUploadDirectoryTask::onFinished(true);
+        return;
     }
+
+    QString folder = empty_subfolders_.takeFirst();
+
+    bool create_parents = true;
+    if (folder == ".") {
+        // This is the case of an empty top-level folder.
+        create_parents = false;
+        folder = ::getBaseName(local_path_);
+    }
+
+    create_dir_req_.reset(new CreateDirectoryRequest(
+                                account_, repo_id_, ::pathJoin(path_, folder), create_parents));
 
     connect(create_dir_req_.data(), SIGNAL(success()),
             this, SLOT(nextEmptyFolder()));

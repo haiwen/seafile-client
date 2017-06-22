@@ -651,3 +651,29 @@ QString SeafileApplet::readPreconfigureExpandedString(const QString& key, const 
         return QString();
     return expandVars(retval.toString());
 }
+
+
+QString SeafileApplet::getText(QWidget *parent,
+                               const QString &title,
+                               const QString &label,
+                               QLineEdit::EchoMode mode,
+                               const QString &text,
+                               bool *ok,
+                               Qt::WindowFlags flags,
+                               Qt::InputMethodHints inputMethodHints)
+{
+    QInputDialog tmp_dialog;
+    // Get rid of the help button
+    if (flags == 0) {
+        flags = tmp_dialog.windowFlags() & ~Qt::WindowContextHelpButtonHint;
+    }
+
+    return QInputDialog::getText(parent != nullptr ? parent : main_win_,
+                                 title,
+                                 label,
+                                 mode,
+                                 text,
+                                 ok,
+                                 flags,
+                                 inputMethodHints);
+}

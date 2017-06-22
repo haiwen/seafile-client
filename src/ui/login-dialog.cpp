@@ -6,7 +6,6 @@
 #include <QtGui>
 #endif
 #include <QtNetwork>
-#include <QInputDialog>
 #include <QStringList>
 #include <QSettings>
 
@@ -297,7 +296,7 @@ void LoginDialog::onHttpError(int code)
     const QNetworkReply* reply = request_->reply();
     if (reply->hasRawHeader(kSeafileOTPHeader) &&
         QString(reply->rawHeader(kSeafileOTPHeader)) == "required") {
-        two_factor_auth_token_ = QInputDialog::getText(
+        two_factor_auth_token_ = seafApplet->getText(
             this,
             tr("Two Factor Authentication"),
             tr("Enter the two factor authentication token"),
@@ -359,11 +358,11 @@ void LoginDialog::loginWithShib()
         // or the preconfigured url is invalid. So we ask the user for the url.
         QString lastUsedShibUrl = seafApplet->settingsManager()->getLastShibUrl();
         serverAddr =
-            QInputDialog::getText(this,
-                                  tr("Shibboleth Login"),
-                                  tr("%1 Server Address").arg(getBrand()),
-                                  QLineEdit::Normal,
-                                  lastUsedShibUrl);
+            seafApplet->getText(this,
+                                tr("Shibboleth Login"),
+                                tr("%1 Server Address").arg(getBrand()),
+                                QLineEdit::Normal,
+                                lastUsedShibUrl);
         serverAddr = serverAddr.trimmed();
     }
 

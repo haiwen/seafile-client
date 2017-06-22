@@ -387,7 +387,7 @@ void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
 
 void FileBrowserDialog::onMkdirButtonClicked()
 {
-    QString name = QInputDialog::getText(this, tr("Create a folder"),
+    QString name = seafApplet->getText(this, tr("Create a folder"),
         tr("Folder name"));
     name = name.trimmed();
 
@@ -933,7 +933,7 @@ void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
                                           QString new_name)
 {
     if (new_name.isEmpty()) {
-        new_name = QInputDialog::getText(this, tr("Rename"),
+        new_name = seafApplet->getText(this, tr("Rename"),
                    QObject::tr("Rename %1 to").arg(dirent.name),
                    QLineEdit::Normal,
                    dirent.name);

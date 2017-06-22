@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVariant>
 #include <QMessageBox>
+#include <QLineEdit>
 
 class Configurator;
 class DaemonManager;
@@ -40,8 +41,17 @@ public:
                                                QMessageBox::StandardButton default_btn);
     bool yesOrCancelBox(const QString& msg, QWidget *parent, bool default_ok);
 
-    // Show error in a messagebox and exit
-    void errorAndExit(const QString& error);
+    QString getText(QWidget *parent,
+                    const QString &title,
+                    const QString &label,
+                    QLineEdit::EchoMode mode = QLineEdit::Normal,
+                    const QString &text = QString(),
+                    bool *ok = 0,
+                    Qt::WindowFlags flags = 0,
+                    Qt::InputMethodHints inputMethodHints = Qt::ImhNone);
+
+        // Show error in a messagebox and exit
+        void errorAndExit(const QString &error);
     void restartApp();
 
     // Read preconfigure settings

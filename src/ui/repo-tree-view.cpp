@@ -1014,6 +1014,7 @@ void RepoTreeView::setRepoSyncInterval()
     dialog.setWindowTitle(
         tr("Set Sync Internval For Library \"%1\"").arg(local_repo.name));
     dialog.setWindowIcon(QIcon(":/images/seafile.png"));
+    dialog.setWindowFlags(dialog.windowFlags() & ~Qt::WindowContextHelpButtonHint);
     dialog.resize(400, 100);
     if (dialog.exec() != QDialog::Accepted) {
         return;

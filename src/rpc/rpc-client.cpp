@@ -27,11 +27,6 @@ extern "C" {
 
 namespace {
 
-enum {
-    DOWNLOAD = 0,
-    UPLOAD
-};
-
 const char *kSeafileRpcService = "seafile-rpcserver";
 const char *kSeafileThreadedRpcService = "seafile-threaded-rpcserver";
 const char *kCcnetRpcService = "ccnet-rpcserver";
@@ -341,10 +336,11 @@ int SeafileRpcClient::setDownloadRateLimit(int limit)
     return setRateLimit(DOWNLOAD, limit);
 }
 
-int SeafileRpcClient::setRateLimit(bool upload, int limit)
+int SeafileRpcClient::setRateLimit(Direction direction, int limit)
 {
     GError *error = NULL;
-    const char *rpc = upload ? "seafile_set_upload_rate_limit" : "seafile_set_download_rate_limit";
+    const char *rpc = direction == UPLOAD ? "seafile_set_upload_rate_limit"
+                                          : "seafile_set_download_rate_limit";
     searpc_client_call__int (seafile_rpc_client_,
                              rpc, &error,
                              1, "int", limit);

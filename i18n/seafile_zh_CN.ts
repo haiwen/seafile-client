@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/account-mgr.cpp" line="538"/>
         <source>Authorization expired, please re-login</source>
-        <translation>账号验证信息已过期，请重现登录</translation>
+        <translation>账号验证信息已过期，请重新登录</translation>
     </message>
 </context>
 <context>

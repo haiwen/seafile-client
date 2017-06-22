@@ -234,6 +234,7 @@ SET(moc_headers
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
   src/ui/account-settings-dialog.h
+  src/ui/check-repo-root-perm-dialog.h
   src/ui/create-repo-dialog.h
   src/ui/repo-detail-dialog.h
   src/ui/settings-dialog.h
@@ -415,6 +416,7 @@ SET(seafile_client_sources
   src/ui/init-seafile-dialog.cpp
   src/ui/login-dialog.cpp
   src/ui/account-settings-dialog.cpp
+  src/ui/check-repo-root-perm-dialog.cpp
   src/ui/repo-detail-dialog.cpp
   src/ui/settings-dialog.cpp
   src/ui/create-repo-dialog.cpp

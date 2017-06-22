@@ -36,6 +36,7 @@
 #include "filebrowser/progress-dialog.h"
 #include "ui/set-repo-password-dialog.h"
 #include "ui/private-share-dialog.h"
+#include "ui/check-repo-root-perm-dialog.h"
 
 #include "repo-tree-view.h"
 
@@ -811,11 +812,6 @@ void RepoTreeView::dropEvent(QDropEvent *event)
     RepoItem *item = static_cast<RepoItem*>(standard_item);
     const ServerRepo &repo = item->repo();
 
-    if (repo.readonly) {
-        seafApplet->warningBox(tr("You do not have permission to upload to this folder"));
-        return;
-    }
-
     updateDropTarget(QModelIndex());
 
     const QUrl url = event->mimeData()->urls().at(0);
@@ -823,8 +819,24 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 #if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
         local_path = utils::mac::fix_file_id_url(local_path);
 #endif
-    const QString file_name = QFileInfo(local_path).fileName();
 
+    if (repo.readonly) {
+        CheckRepoRootDirPermDialog dialog(
+            seafApplet->accountManager()->currentAccount(), repo.id, this);
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        } else if (!dialog.hasWritePerm()) {
+            seafApplet->warningBox(tr("You do not have permission to upload to this folder"));
+            return;
+        }
+    }
+
+    uploadDroppedFile(repo, local_path);
+}
+
+void RepoTreeView::uploadDroppedFile(const ServerRepo& repo, const QString& local_path)
+{
+    const QString file_name = QFileInfo(local_path).fileName();
     // if the repo is synced
     LocalRepo local_repo;
     if (seafApplet->rpcClient()->getLocalRepo(repo.id, &local_repo) >= 0) {

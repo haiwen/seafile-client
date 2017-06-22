@@ -27,7 +27,7 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
 
     QHBoxLayout *hlayout_ = new QHBoxLayout;
     more_details_label_ = new QLabel;
-    more_details_label_->setText("Pending");
+    more_details_label_->setText(tr("Pending"));
     QPushButton *cancel_button_ = new QPushButton(tr("Cancel"));
     QWidget *spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);

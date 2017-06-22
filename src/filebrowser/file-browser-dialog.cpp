@@ -868,12 +868,17 @@ void FileBrowserDialog::goHome()
 
 void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 {
-    if (dirents.isEmpty()) {
-        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
-    } else {
-        table_model_->setDirents(dirents);
-        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
-    }
+    // Commented out because the empty view can't handle file drag & drop events.
+
+    // if (dirents.isEmpty()) {
+    //     stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    // } else {
+    //     table_model_->setDirents(dirents);
+    //     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+    // }
+
+    table_model_->setDirents(dirents);
+    stack_->setCurrentIndex(INDEX_TABLE_VIEW);
 
     if (!forward_history_.empty()) {
         forward_button_->setEnabled(true);

@@ -101,15 +101,46 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 
     QHash<QString, ServerRepo> map;
     const Account& account = seafApplet->accountManager()->currentAccount();
+
+    QHash<QString, QString> merged_repo_perms;
+    // If a repo is shared read-only to org and read-write to me (or vice
+    // versa), the final permission should be read-write.
     for (i = 0; i < n; i++) {
         ServerRepo repo = repos[i];
-        // When the user shares a repo to organization with read-only
-        // permission, the returned repo has permission set to "r", we need to
-        // fix it.
-        if (repo.owner == account.username && repo.permission == "r") {
-            repo.permission = "rw";
-            repo.readonly = false;
+        QString exist_perm, current_perm;
+
+        if (merged_repo_perms.contains(repo.id)) {
+            exist_perm = merged_repo_perms[repo.id];
         }
+
+        current_perm = repo.permission;
+        if (repo.owner == account.username && repo.permission == "r") {
+            // When the user shares a repo to organization with read-only
+            // permission, the returned repo has permission set to "r", we need
+            // to fix it.
+            current_perm = "rw";
+        }
+
+        if (current_perm == "rw" || exist_perm == "rw") {
+            merged_repo_perms[repo.id] = "rw";
+        } else {
+            merged_repo_perms[repo.id] = "r";
+        }
+
+        // printf("repo: %s, exist_perm: %s, current_perm: %s, final_perm: %s\n",
+        //        toCStr(repo.name),
+        //        toCStr(exist_perm),
+        //        toCStr(current_perm),
+        //        toCStr(merged_repo_perms[repo.id]));
+    }
+
+    for (i = 0; i < n; i++) {
+        ServerRepo repo = repos[i];
+        repo.permission = merged_repo_perms[repo.id];
+        // TODO: repo.readonly totally depends on repo.permission, so it should
+        // be a function instead of a variable.
+        repo.readonly = repo.permission == "r";
+
         if (repo.isPersonalRepo()) {
             if (!repo.isSubfolder() && !repo.isVirtual()) {
                 checkPersonalRepo(repo);

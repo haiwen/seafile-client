@@ -821,6 +821,11 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 #endif
 
     if (repo.readonly) {
+        // Do not call the `show` method of the dialog. It would show itself if
+        // the task doens't finish within 4 seconds.
+        //
+        // This is also why we can't create the dialog object on stack and use
+        // `dialog.exec()`.
         CheckRepoRootDirPermDialog *dialog = new CheckRepoRootDirPermDialog(
             seafApplet->accountManager()->currentAccount(), repo, local_path, this);
         dialog->setAttribute(Qt::WA_DeleteOnClose);

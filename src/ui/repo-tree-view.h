@@ -67,6 +67,7 @@ private slots:
     void setRepoSyncInterval();
     void mapLibraryAsNetworkDrive();
 
+    void checkRootPermDone();
     void uploadFileStart(FileUploadTask *task);
     void uploadFileFinished(bool success);
     void copyFileFailed();

@@ -5,6 +5,7 @@
 #include <QString>
 #include <QProgressDialog>
 
+#include "api/server-repo.h"
 #include "account.h"
 
 class ApiError;
@@ -22,9 +23,13 @@ class CheckRepoRootDirPermDialog : public QProgressDialog
     Q_OBJECT
 public:
     CheckRepoRootDirPermDialog(const Account &account,
-                               const QString &repo_id,
+                               const ServerRepo& repo,
+                               const QString& local_path,
                                QWidget *parent = 0);
     ~CheckRepoRootDirPermDialog();
+
+    QString localPath() const { return local_path_; }
+    ServerRepo repo() const { return repo_; }
 
     bool hasWritePerm() const { return has_write_perm_; }
 
@@ -37,7 +42,8 @@ private:
     Q_DISABLE_COPY(CheckRepoRootDirPermDialog);
 
     Account account_;
-    QString repo_id_;
+    ServerRepo repo_;
+    QString local_path_;
 
     bool has_write_perm_;
 

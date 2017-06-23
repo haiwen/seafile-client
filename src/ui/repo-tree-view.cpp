@@ -821,17 +821,23 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 #endif
 
     if (repo.readonly) {
-        CheckRepoRootDirPermDialog dialog(
-            seafApplet->accountManager()->currentAccount(), repo.id, this);
-        if (dialog.exec() != QDialog::Accepted) {
-            return;
-        } else if (!dialog.hasWritePerm()) {
-            seafApplet->warningBox(tr("You do not have permission to upload to this folder"));
-            return;
-        }
+        CheckRepoRootDirPermDialog *dialog = new CheckRepoRootDirPermDialog(
+            seafApplet->accountManager()->currentAccount(), repo, local_path, this);
+        dialog->setAttribute(Qt::WA_DeleteOnClose);
+        connect(dialog, SIGNAL(finished(int)), this, SLOT(checkRootPermDone()));
+    } else {
+        uploadDroppedFile(repo, local_path);
     }
+}
 
-    uploadDroppedFile(repo, local_path);
+void RepoTreeView::checkRootPermDone()
+{
+    CheckRepoRootDirPermDialog *dialog = qobject_cast<CheckRepoRootDirPermDialog *>(sender());
+    if (dialog->hasWritePerm()) {
+        uploadDroppedFile(dialog->repo(), dialog->localPath());
+    } else {
+        seafApplet->warningBox(tr("You do not have permission to upload to this folder"));
+    }
 }
 
 void RepoTreeView::uploadDroppedFile(const ServerRepo& repo, const QString& local_path)

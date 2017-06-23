@@ -11,10 +11,14 @@
 
 #include "check-repo-root-perm-dialog.h"
 
-CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account& account, const QString& repo_id, QWidget *parent)
+CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account &account,
+                                                       const ServerRepo& repo,
+                                                       const QString& local_path,
+                                                       QWidget *parent)
     : QProgressDialog(parent),
       account_(account),
-      repo_id_(repo_id),
+      repo_(repo),
+      local_path_(local_path),
       has_write_perm_(false)
 {
     // Here we use the data manager class to fetch the dir instead of doing it
@@ -57,11 +61,13 @@ CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account& account, c
     connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed()));
 
+    setValue(minimum());
     QTimer::singleShot(0, this, SLOT(checkPerm()));
 }
 
 CheckRepoRootDirPermDialog::~CheckRepoRootDirPermDialog()
 {
+    // printf ("destructor called for CheckRepoRootDirPermDialog\n");
     delete data_mgr_;
 }
 
@@ -69,22 +75,24 @@ void CheckRepoRootDirPermDialog::checkPerm()
 {
     QList<SeafDirent> dirents;
     bool readonly;
-    if (data_mgr_->getDirents(repo_id_, "/", &dirents, &readonly)) {
+    if (data_mgr_->getDirents(repo_.id, "/", &dirents, &readonly)) {
         onGetDirentsSuccess(readonly);
         return;
     }
 
-    data_mgr_->getDirentsFromServer(repo_id_, "/");
+    data_mgr_->getDirentsFromServer(repo_.id, "/");
 }
 
 void CheckRepoRootDirPermDialog::onGetDirentsSuccess(bool readonly)
 {
     has_write_perm_ = !readonly;
+    setValue(maximum());
     accept();
 }
 
 void CheckRepoRootDirPermDialog::onGetDirentsFailed()
 {
     has_write_perm_ = false;
+    setValue(maximum());
     accept();
 }

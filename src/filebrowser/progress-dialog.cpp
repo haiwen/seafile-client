@@ -73,8 +73,6 @@ void FileBrowserProgressDialog::initTaskInfo()
             this, SLOT(onProgressUpdate(qint64, qint64)));
     connect(task_.data(), SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
     connect(this, SIGNAL(canceled()), task_.data(), SLOT(cancel()));
-
-    show();
 }
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)

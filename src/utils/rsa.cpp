@@ -41,18 +41,21 @@ GString* public_key_to_gstring(const RSA *rsa)
     GString *buf = g_string_new(NULL);
     unsigned char *temp;
     char *coded;
+    const BIGNUM *n, *e;
 
-    gsize len = BN_num_bytes(rsa->n);
+    RSA_get0_key(rsa, &n, &e, NULL);
+
+    gsize len = BN_num_bytes(n);
     temp = (unsigned char *)malloc(len);
-    BN_bn2bin(rsa->n, temp);
+    BN_bn2bin(n, temp);
     coded = g_base64_encode(temp, len);
     g_string_append (buf, coded);
     g_string_append_c (buf, ' ');
     g_free(coded);
 
-    len = BN_num_bytes(rsa->e);
+    len = BN_num_bytes(e);
     temp = (unsigned char*)realloc(temp, len);
-    BN_bn2bin(rsa->e, temp);
+    BN_bn2bin(e, temp);
     coded = g_base64_encode(temp, len);
     g_string_append (buf, coded);
     g_free(coded);
@@ -106,9 +109,10 @@ RSA*
 private_key_to_pub(RSA *priv)
 {
     RSA *pub = RSA_new();
+    const BIGNUM *n, *e;
 
-    pub->n = BN_dup(priv->n);
-    pub->e = BN_dup(priv->e);
+    RSA_get0_key(priv, &n, &e, NULL);
+    RSA_set0_key(pub, BN_dup(n), BN_dup(e), NULL);
 
     return pub;
 }

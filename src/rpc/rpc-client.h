@@ -52,8 +52,8 @@ public:
                   QString *error);
 
     int ccnetGetConfig(const QString& key, QString *value);
-    int seafileGetConfig(const QString& key, QString *value, const QString default_value=QString());
-    int seafileGetConfigInt(const QString& key, int *value, const int default_value=0);
+    int seafileGetConfig(const QString& key, QString *value);
+    int seafileGetConfigInt(const QString& key, int *value);
     int ccnetSetConfig(const QString& key, const QString& value);
     int seafileSetConfig(const QString& key, const QString& value);
     int seafileSetConfigInt(const QString& key, int value);

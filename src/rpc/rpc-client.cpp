@@ -262,15 +262,13 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
 }
 
 int SeafileRpcClient::seafileGetConfig(const QString &key,
-                                       QString *value,
-                                       const QString default_value)
+                                       QString *value)
 {
     GError *error = NULL;
     char *ret = searpc_client_call__string (seafile_rpc_client_,
                                             "seafile_get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
-        seafileSetConfig(key, default_value);
         g_error_free(error);
         return -1;
     }
@@ -281,15 +279,13 @@ int SeafileRpcClient::seafileGetConfig(const QString &key,
 }
 
 int SeafileRpcClient::seafileGetConfigInt(const QString &key,
-                                          int *value,
-                                          const int default_value)
+                                          int *value)
 {
     GError *error = NULL;
     *value = searpc_client_call__int (seafile_rpc_client_,
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
-        seafileSetConfigInt(key, default_value);
         g_error_free(error);
         return -1;
     }

@@ -23,6 +23,14 @@ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
 sudo apt-get install -y qt56base qt56translations qt56tools qt56webengine
 
+# Fix errors like:
+#
+#   CMake Error at /opt/qt56/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake:9 (message):
+#   Failed to find "GL/gl.h" in "/usr/include/libdrm"
+#
+# See https://github.com/Studio3T/robomongo/issues/1268
+sudo apt-get install -y mesa-common-dev libglu1-mesa-dev
+
 git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc
 git clone --depth=1 --branch=master git://github.com/haiwen/ccnet.git deps/ccnet
 git clone --depth=1 --branch="$SEAFILE_BRANCH" git://github.com/haiwen/seafile.git deps/seafile

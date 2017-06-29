@@ -261,14 +261,14 @@ int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
     return 0;
 }
 
-int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
+int SeafileRpcClient::seafileGetConfig(const QString &key,
+                                       QString *value)
 {
     GError *error = NULL;
     char *ret = searpc_client_call__string (seafile_rpc_client_,
                                             "seafile_get_config", &error,
                                             1, "string", toCStr(key));
     if (error) {
-        qWarning("Unable to get config value %s: %s", key.toUtf8().data(), error->message);
         g_error_free(error);
         return -1;
     }
@@ -278,14 +278,14 @@ int SeafileRpcClient::seafileGetConfig(const QString &key, QString *value)
     return 0;
 }
 
-int SeafileRpcClient::seafileGetConfigInt(const QString &key, int *value)
+int SeafileRpcClient::seafileGetConfigInt(const QString &key,
+                                          int *value)
 {
     GError *error = NULL;
     *value = searpc_client_call__int (seafile_rpc_client_,
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
     if (error) {
-        qWarning("Unable to get config value %s: %s", key.toUtf8().data(), error->message);
         g_error_free(error);
         return -1;
     }
@@ -324,18 +324,19 @@ int SeafileRpcClient::seafileSetConfig(const QString &key, const QString &value)
 
 int SeafileRpcClient::setUploadRateLimit(int limit)
 {
-    return setRateLimit(true, limit);
+    return setRateLimit(UPLOAD, limit);
 }
 
 int SeafileRpcClient::setDownloadRateLimit(int limit)
 {
-    return setRateLimit(false, limit);
+    return setRateLimit(DOWNLOAD, limit);
 }
 
-int SeafileRpcClient::setRateLimit(bool upload, int limit)
+int SeafileRpcClient::setRateLimit(Direction direction, int limit)
 {
     GError *error = NULL;
-    const char *rpc = upload ? "seafile_set_upload_rate_limit" : "seafile_set_download_rate_limit";
+    const char *rpc = direction == UPLOAD ? "seafile_set_upload_rate_limit"
+                                          : "seafile_set_download_rate_limit";
     searpc_client_call__int (seafile_rpc_client_,
                              rpc, &error,
                              1, "int", limit);

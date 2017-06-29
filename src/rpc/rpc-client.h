@@ -137,7 +137,12 @@ private:
 
     void getTransferDetail(CloneTask* task);
     void getCheckOutDetail(CloneTask* task);
-    int setRateLimit(bool upload, int limit);
+
+    enum Direction {
+        DOWNLOAD = 0,
+        UPLOAD
+    };
+    int setRateLimit(Direction, int limit);
 
 
     _CcnetClient *sync_client_;

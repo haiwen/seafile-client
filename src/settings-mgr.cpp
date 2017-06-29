@@ -132,8 +132,8 @@ void SettingsManager::loadSettings()
                                                      &value) >= 0)
         maxDownloadRatio_ = value >> 10;
 
-    if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit", &value) >=
-        0)
+    if (seafApplet->rpcClient()->seafileGetConfigInt("upload_limit",
+                                                     &value) >= 0)
         maxUploadRatio_ = value >> 10;
 
     if (seafApplet->rpcClient()->seafileGetConfig("allow_invalid_worktree",

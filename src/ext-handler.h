@@ -47,9 +47,9 @@ public:
 
 private slots:
     void getShareLink();
-    void getShareLinkSuccess(const SharedLinkInfo& shared_link_info);
+    void onGetShareLinkSuccess(const SharedLinkInfo& shared_link_info);
     void generateShareLink();
-    void generateShareLinkSuccess(const SharedLinkInfo& shared_link_info);
+    void onGenerateShareLinkSuccess(const SharedLinkInfo& shared_link_info);
     void onLockFileSuccess();
     void onLockFileFailed(const ApiError& error);
     void lockFile(const QString& repo_id,

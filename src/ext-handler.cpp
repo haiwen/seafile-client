@@ -182,29 +182,30 @@ void SeafileExtensionHandler::stop()
 void SeafileExtensionHandler::getShareLink()
 {
     // qDebug("path_in_repo: %s", path_in_repo.toUtf8().data());
-    const Account account = seafApplet->accountManager()->currentAccount();
+    const QString repo_id = shared_link_req_params_.repo_id;
+    QString path = shared_link_req_params_.path_in_repo;
+    const Account account =
+        seafApplet->accountManager()->getAccountByRepo(repo_id);
     if (!account.isValid()) {
         return;
     }
 
     if (shared_link_req_params_.internal) {
-        QString path = shared_link_req_params_.path_in_repo;
         if (!shared_link_req_params_.is_file && !path.endsWith("/")) {
             path += "/";
         }
         SeafileLinkDialog *dialog = new SeafileLinkDialog(
-            shared_link_req_params_.repo_id, account, path, NULL);
+            repo_id, account, path, NULL);
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         dialog->show();
         dialog->raise();
         dialog->activateWindow();
     } else {
         GetSharedLinkRequest *req = new GetSharedLinkRequest(
-            account, shared_link_req_params_.repo_id,
-            shared_link_req_params_.path_in_repo);
+            account, repo_id, path);
 
         connect(req, SIGNAL(success(const SharedLinkInfo&)),
-                this, SLOT(getShareLinkSuccess(const SharedLinkInfo&)));
+                this, SLOT(onGetShareLinkSuccess(const SharedLinkInfo&)));
         connect(req, SIGNAL(failed()),
                 this, SLOT(generateShareLink()));
 
@@ -212,7 +213,7 @@ void SeafileExtensionHandler::getShareLink()
     }
 }
 
-void SeafileExtensionHandler::getShareLinkSuccess(const SharedLinkInfo& shared_link_info)
+void SeafileExtensionHandler::onGetShareLinkSuccess(const SharedLinkInfo& shared_link_info)
 {
     bool proceed = false;
     proceed = seafApplet->detailedYesOrNoBox(tr("<b>Warning:</b> The shared link already exists, delete and create link anyway?"),
@@ -220,8 +221,8 @@ void SeafileExtensionHandler::getShareLinkSuccess(const SharedLinkInfo& shared_l
 				      "\nlink: " + shared_link_info.link +
 				      "\nview_cnt: " + QString::number(shared_link_info.view_cnt),
                                       0, true);
-    if (proceed == false) {
-        // generateShareLinkSuccess(shared_link_info);
+    if (!proceed) {
+        return;
     } else {
         const Account account = seafApplet->accountManager()->currentAccount();
         DeleteSharedLinkRequest *req = new DeleteSharedLinkRequest(
@@ -236,22 +237,25 @@ void SeafileExtensionHandler::getShareLinkSuccess(const SharedLinkInfo& shared_l
 
 void SeafileExtensionHandler::generateShareLink()
 {
-    const Account account = seafApplet->accountManager()->currentAccount();
+    const QString repo_id = shared_link_req_params_.repo_id;
+    const QString path    = shared_link_req_params_.path_in_repo;
+    const Account account =
+        seafApplet->accountManager()->getAccountByRepo(repo_id);
+    if (!account.isValid()) {
+        return;
+    }
 
-    if (shared_link_req_params_.advanced == false) {
+    if (!shared_link_req_params_.advanced) {
         CreateShareLinkRequest *req = new CreateShareLinkRequest(
-            account, shared_link_req_params_.repo_id,
-            shared_link_req_params_.path_in_repo);
+            account, repo_id, path);
 
         connect(req, SIGNAL(success(const SharedLinkInfo&)),
-                this, SLOT(generateShareLinkSuccess(const SharedLinkInfo&)));
+                this, SLOT(onGenerateShareLinkSuccess(const SharedLinkInfo&)));
 
         req->send();
     } else {
         AdvancedSharedLinkDialog *dialog =
-            new AdvancedSharedLinkDialog(NULL, account,
-                shared_link_req_params_.repo_id,
-                shared_link_req_params_.path_in_repo);
+            new AdvancedSharedLinkDialog(NULL, account, repo_id, path);
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         dialog->show();
         dialog->raise();
@@ -259,7 +263,7 @@ void SeafileExtensionHandler::generateShareLink()
     }
 }
 
-void SeafileExtensionHandler::generateShareLinkSuccess(const SharedLinkInfo& shared_link_info)
+void SeafileExtensionHandler::onGenerateShareLinkSuccess(const SharedLinkInfo& shared_link_info)
 {
     SharedLinkDialog *dialog = new SharedLinkDialog(shared_link_info.link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);

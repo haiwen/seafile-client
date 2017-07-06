@@ -34,34 +34,34 @@ AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent,
     layout->addWidget(editor_);
     editor_->setReadOnly(true);
 
-    pwdGroupBox_ = new QGroupBox("Add password protection(at least 8 characters)");
-    pwdGroupBox_->setCheckable(true);
-    pwdGroupBox_->setChecked(true);
-    QGridLayout *gridLayout = new QGridLayout();
-    QLabel *pwdLabel = new QLabel(tr("password:"));
-    pwdEdit_ = new QLineEdit;
-    pwdEdit_->setEchoMode(QLineEdit::Password);
-    QLabel *pwdLabel2 = new QLabel(tr("password again:"));
-    pwdEdit2_ = new QLineEdit;
-    pwdEdit2_->setEchoMode(QLineEdit::Password);
-    gridLayout->addWidget(pwdLabel, 0, 0);
-    gridLayout->addWidget(pwdEdit_, 0, 1);
-    gridLayout->addWidget(pwdLabel2, 1, 0);
-    gridLayout->addWidget(pwdEdit2_, 1, 1);
-    pwdGroupBox_->setLayout(gridLayout);
-    layout->addWidget(pwdGroupBox_);
+    pwd_group_box_ = new QGroupBox("Add password protection(at least 8 characters)");
+    pwd_group_box_->setCheckable(true);
+    pwd_group_box_->setChecked(true);
+    QGridLayout *grid_layout = new QGridLayout();
+    QLabel *pwd_label = new QLabel(tr("password:"));
+    pwd_edit_ = new QLineEdit;
+    pwd_edit_->setEchoMode(QLineEdit::Password);
+    QLabel *pwd_label2 = new QLabel(tr("password again:"));
+    pwd_edit_again_ = new QLineEdit;
+    pwd_edit_again_->setEchoMode(QLineEdit::Password);
+    grid_layout->addWidget(pwd_label, 0, 0);
+    grid_layout->addWidget(pwd_edit_, 0, 1);
+    grid_layout->addWidget(pwd_label2, 1, 0);
+    grid_layout->addWidget(pwd_edit_again_, 1, 1);
+    pwd_group_box_->setLayout(grid_layout);
+    layout->addWidget(pwd_group_box_);
 
-    expiredDateGroupBox_ = new QGroupBox("Add auto expiration");
-    expiredDateGroupBox_->setCheckable(true);
-    expiredDateGroupBox_->setChecked(true);
-    QHBoxLayout *expiredDateLayout = new QHBoxLayout();
-    QLabel *expiredDateLabel = new QLabel(tr("Days:"));
-    expiredDateSpinBox_ = new QSpinBox();
-    expiredDateSpinBox_->setMinimum(1);
-    expiredDateLayout->addWidget(expiredDateLabel);
-    expiredDateLayout->addWidget(expiredDateSpinBox_);
-    expiredDateGroupBox_->setLayout(expiredDateLayout);
-    layout->addWidget(expiredDateGroupBox_);
+    expired_date_group_box_ = new QGroupBox("Add auto expiration");
+    expired_date_group_box_->setCheckable(true);
+    expired_date_group_box_->setChecked(true);
+    QHBoxLayout *expired_date_layout = new QHBoxLayout();
+    QLabel *expired_date_label = new QLabel(tr("Days:"));
+    expired_date_spin_box_ = new QSpinBox();
+    expired_date_spin_box_->setMinimum(1);
+    expired_date_layout->addWidget(expired_date_label);
+    expired_date_layout->addWidget(expired_date_spin_box_);
+    expired_date_group_box_->setLayout(expired_date_layout);
+    layout->addWidget(expired_date_group_box_);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
 
@@ -108,25 +108,25 @@ void AdvancedSharedLinkDialog::onCopyText()
 
 void AdvancedSharedLinkDialog::onOkBtnClicked()
 {
-    if (editor_->text().isEmpty() == false) {
+    if (!editor_->text().isEmpty()) {
         seafApplet->warningBox(tr("Advanced share link is already generated."), this);
         return;
     }
-    if (expiredDateGroupBox_->isChecked()) {
-        valid_days_ = expiredDateSpinBox_->value();
+    if (expired_date_group_box_->isChecked()) {
+        valid_days_ = expired_date_spin_box_->value();
     }
-    if (pwdGroupBox_->isChecked()) {
-        password_ = pwdEdit_->text();
-        password_again_ = pwdEdit2_->text();
+    if (pwd_group_box_->isChecked()) {
+        password_ = pwd_edit_->text();
+        password_again_ = pwd_edit_again_->text();
         if (QString::compare(password_, password_again_) != 0) {
             seafApplet->warningBox(tr("passwords don't match."), this);
-            pwdEdit_->clear();
-            pwdEdit2_->clear();
+            pwd_edit_->clear();
+            pwd_edit_again_->clear();
             return;
         } else if (password_.length() < 8) {
             seafApplet->warningBox(tr("passwords at least 8 characters."), this);
-            pwdEdit_->clear();
-            pwdEdit2_->clear();
+            pwd_edit_->clear();
+            pwd_edit_again_->clear();
             return;
 	}
     }
@@ -168,7 +168,7 @@ void AdvancedSharedLinkDialog::onPreviousSharedLinkExist(
         "\nview_cnt: " + QString::number(previous_shared_link_info.view_cnt),
         0, true);
 
-    if (proceed == false) {
+    if (!proceed) {
         reject();
     } else {
         DeleteSharedLinkRequest *req = new DeleteSharedLinkRequest(

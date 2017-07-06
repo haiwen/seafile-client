@@ -38,12 +38,12 @@ private:
     QString password_again_;
     quint64 valid_days_;
 
-    QGroupBox *pwdGroupBox_;
-    QGroupBox *expiredDateGroupBox_;
-    QLineEdit *pwdEdit_;
-    QLineEdit *pwdEdit2_;
+    QGroupBox *pwd_group_box_;
+    QGroupBox *expired_date_group_box_;
+    QLineEdit *pwd_edit_;
+    QLineEdit *pwd_edit_again_;
     QLineEdit *editor_;
-    QSpinBox *expiredDateSpinBox_;
+    QSpinBox *expired_date_spin_box_;
 
     CreateShareLinkRequest *advanced_share_req_;
 };

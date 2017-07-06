@@ -493,7 +493,7 @@ void RepoTreeView::unsyncRepo()
 {
     LocalRepo repo = qvariant_cast<LocalRepo>(toggle_auto_sync_action_->data());
 
-    QString question = tr("Are you sure to unsync library \"%1\"?").arg(repo.name);
+    QString question = tr("Are you sure to unsync the library \"%1\"?").arg(repo.name);
 
     if (!seafApplet->yesOrCancelBox(question, this, false)) {
         return;
@@ -584,7 +584,7 @@ void RepoTreeView::shareRepoToGroup()
 void RepoTreeView::unshareRepo()
 {
     if (!seafApplet->yesOrNoBox(
-            tr("Are you sure to leave share \"%1\"?").arg(
+            tr("Are you sure you want to leave the share \"%1\"?").arg(
                 selected_repo_.name), this, false)) {
         return;
     }
@@ -617,7 +617,7 @@ void RepoTreeView::onUnshareSuccess()
 
 void RepoTreeView::onUnshareFailed(const ApiError&error)
 {
-    seafApplet->warningBox(tr("Leave share failed"), this);
+    seafApplet->warningBox(tr("Leaving share failed"), this);
 }
 
 void RepoTreeView::openInFileBrowser()
@@ -827,7 +827,7 @@ void RepoTreeView::resyncRepo()
     SeafileRpcClient *rpc = seafApplet->rpcClient();
 
     if (!seafApplet->yesOrNoBox(
-            tr("Are you sure to resync library \"%1\"?").arg(server_repo.name),
+            tr("Are you sure to resync the library \"%1\"?").arg(server_repo.name),
             this)) {
         return;
     }
@@ -884,7 +884,7 @@ void RepoTreeView::dropEvent(QDropEvent *event)
         }
 
         if (QFileInfo(target_path).exists()) {
-            if (!seafApplet->yesOrNoBox(tr("Are you sure to overwrite file \"%1\"").arg(file_name)))
+            if (!seafApplet->yesOrNoBox(tr("Are you sure to overwrite the file \"%1\"").arg(file_name)))
                 return;
             if (!QFile(target_path).remove()) {
                 seafApplet->warningBox(tr("Unable to delete file \"%1\"").arg(file_name));

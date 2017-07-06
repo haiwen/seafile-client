@@ -138,7 +138,7 @@ void RepoService::start()
         QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
         if (sqlite3_open (db_path.toUtf8().data(), &synced_subfolder_db_)) {
             errmsg = sqlite3_errmsg (synced_subfolder_db_);
-            qWarning("failed to open sycned subfolder database %s: %s",
+            qWarning("failed to open synced subfolder database %s: %s",
                     db_path.toUtf8().data(), errmsg ? errmsg : "no error given");
 
             sqlite3_close(synced_subfolder_db_);

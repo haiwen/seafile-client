@@ -504,7 +504,7 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
         // json_is_false(const json_t *json)
         // json_is_null(const json_t *json)
         if (json_is_object(value)) {
-            v = mapFromJSON(json, NULL);
+            v = mapFromJSON(value, NULL);
         } else if (json_is_array(value)) {
             v = listFromJSON(value);
         } else if (json_is_string(value)) {

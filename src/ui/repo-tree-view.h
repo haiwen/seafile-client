@@ -16,6 +16,7 @@ class QStandardItem;
 class RepoItem;
 class RepoCategoryItem;
 
+class ApiError;
 class CloneTasksDialog;
 class FileUploadTask;
 
@@ -55,6 +56,7 @@ private slots:
     void shareRepoToGroup();
     void unshareRepo();
     void onUnshareSuccess();
+    void onUnshareFailed(const ApiError& error);
     void openInFileBrowser();
     void onItemClicked(const QModelIndex& index);
     void onItemDoubleClicked(const QModelIndex& index);

@@ -434,7 +434,7 @@ void RepoTreeView::createActions()
 
     unshare_action_ = new QAction(tr("&Leave share"), this);
     unshare_action_->setIcon(QIcon(":/images/leave-share.png"));
-    unshare_action_->setStatusTip(tr("unshare this library"));
+    unshare_action_->setStatusTip(tr("leave share"));
 
     connect(unshare_action_, SIGNAL(triggered()), this, SLOT(unshareRepo()));
 
@@ -583,6 +583,12 @@ void RepoTreeView::shareRepoToGroup()
 
 void RepoTreeView::unshareRepo()
 {
+    if (!seafApplet->yesOrNoBox(
+            tr("Are you sure to leave share \"%1\"?").arg(
+                selected_repo_.name), this, false)) {
+        return;
+    }
+
     const Account account = seafApplet->accountManager()->currentAccount();
     const QString repo_id = selected_repo_.id;
     const QString from_user = selected_repo_.owner;
@@ -591,6 +597,8 @@ void RepoTreeView::unshareRepo()
 
     connect(request, SIGNAL(success()),
             this, SLOT(onUnshareSuccess()));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onUnshareFailed(const ApiError&)));
 
     request->send();
 }
@@ -605,6 +613,11 @@ void RepoTreeView::onUnshareSuccess()
     } else {
         req->deleteLater();
     }
+}
+
+void RepoTreeView::onUnshareFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Leave share failed"), this);
 }
 
 void RepoTreeView::openInFileBrowser()

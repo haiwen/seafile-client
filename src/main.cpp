@@ -10,6 +10,7 @@
 #include "i18n.h"
 #include "crash-handler.h"
 #include "utils/utils.h"
+#include "utils/paint-utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
 #include "shared-application.h"
@@ -231,6 +232,10 @@ int main(int argc, char *argv[])
     SeafileApplet mApplet;
     seafApplet = &mApplet;
     seafApplet->start();
+
+    // qWarning("globalDevicePixelRatio() = %f\n", globalDevicePixelRatio());
+    // printf("globalDevicePixelRatio() = %f\n", globalDevicePixelRatio());
+    // fflush(stdout);
 
     // start qt eventloop
     ret = app.exec();

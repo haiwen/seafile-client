@@ -15,6 +15,6 @@ int textWidthInFont(const QString text, const QFont& font);
 
 int textHeightInFont(const QString text, const QFont& font);
 
-double devicePixelRatio();
+double globalDevicePixelRatio();
 
 #endif // SEAFILE_CLIENT_PAINT_UTILS_H_

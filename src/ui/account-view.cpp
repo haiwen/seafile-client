@@ -345,7 +345,7 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
         // get the device pixel radio from current painter device
-        int scale_factor = painter.device()->devicePixelRatio();
+        double scale_factor = globalDevicePixelRatio();
 
         QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(scale_factor * rect.size()));
         QRect actualRect(QPoint(0, 0), image.size());

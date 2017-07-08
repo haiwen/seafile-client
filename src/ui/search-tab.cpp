@@ -1,6 +1,3 @@
-#include "ui/search-tab.h"
-#include "ui/search-tab-items.h"
-
 #include <QtGlobal>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -16,6 +13,10 @@
 #include "loading-view.h"
 #include "logout-view.h"
 #include "utils/file-utils.h"
+#include "utils/paint-utils.h"
+
+#include "ui/search-tab.h"
+#include "ui/search-tab-items.h"
 
 namespace {
 const int kMinimumKeywordLength = 3;
@@ -150,7 +151,7 @@ bool SearchTab::eventFilter(QObject *obj, QEvent *event)
         // get the device pixel radio from current painter device
         int scale_factor = 1;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        scale_factor = painter.device()->devicePixelRatio();
+        scale_factor = globalDevicePixelRatio();
 #endif // QT5
 
         QPixmap image(QIcon(":/images/main-panel/search-background.png").pixmap(size).scaled(scale_factor * size));

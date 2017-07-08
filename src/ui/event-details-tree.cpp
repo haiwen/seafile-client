@@ -64,7 +64,7 @@ void EventDetailsFileItemDelegate::paint(QPainter *painter,
     // get the device pixel radio from current painter device
     int scale_factor = 1;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    scale_factor = painter->device()->devicePixelRatio();
+    scale_factor = globalDevicePixelRatio();
 #endif // QT5
     QPixmap icon(item->etype_icon().pixmap(QSize(kFileIconHeight, kFileIconHeight) * scale_factor).scaledToHeight(kFileIconHeight * scale_factor));
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))

@@ -112,7 +112,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     {
         // draw icon
         QPixmap pixmap = model->data(index, Qt::DecorationRole).value<QPixmap>();
-        int scale_factor = devicePixelRatio();
+        double scale_factor = globalDevicePixelRatio();
         // On Mac OSX (and other HDPI screens) the pixmap would be the 2x
         // version (but the draw rect area is still the same size), so when
         // computing the offsets we need to divide it by the scale factor.
@@ -911,7 +911,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
                 dialog->repo_.id,
                 ::pathJoin(dialog->current_path_, dirent.name),
                 dirent.id,
-                kColumnIconSize * devicePixelRatio());
+                kColumnIconSize * globalDevicePixelRatio());
         } else {
             icon = QIcon(getIconByFileNameV2(dirent.name));
         }

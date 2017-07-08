@@ -245,7 +245,7 @@ void AvatarService::fetchImageFromServer(const QString& email)
         sqlite3_free(zql);
     }
 
-    get_avatar_req_ = new GetAvatarRequest(account, email, mtime, devicePixelRatio() * kAvatarSize);
+    get_avatar_req_ = new GetAvatarRequest(account, email, mtime, globalDevicePixelRatio() * kAvatarSize);
 
     connect(get_avatar_req_, SIGNAL(success(const QImage&)),
             this, SLOT(onGetAvatarSuccess(const QImage&)));
@@ -325,7 +325,7 @@ QImage AvatarService::getAvatar(const QString& email)
         }
     }
     if (img.isNull()) {
-        return QImage(devicePixelRatio() > 1 ? ":/images/account@2x.png" :":/images/account.png");
+        return QImage(globalDevicePixelRatio() > 1 ? ":/images/account@2x.png" :":/images/account.png");
     } else {
         return img;
     }

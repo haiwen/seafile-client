@@ -9,6 +9,8 @@
 #include <QStackedLayout>
 #include <QVBoxLayout>
 
+#include "utils/paint-utils.h"
+
 #include "seafile-tab-widget.h"
 
 namespace {
@@ -62,7 +64,7 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         // get the device pixel radio from current painter device
         int scale_factor = 1;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        scale_factor = painter.device()->devicePixelRatio();
+        scale_factor = globalDevicePixelRatio();
 #endif // QT5
         QPixmap icon_pixmap(icon.pixmap(QSize(kTabIconSize, kTabIconSize) * scale_factor));
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))

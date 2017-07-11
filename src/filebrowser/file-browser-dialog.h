@@ -15,7 +15,6 @@ class QLineEdit;
 class QLabel;
 class QButtonGroup;
 class QMenu;
-class QAction;
 class QSizeGrip;
 
 class ApiError;
@@ -75,6 +74,8 @@ private slots:
 
     // prompt a menu for user to choose a upload action
     void uploadFileOrMkdir();
+    // share current directroy
+    void shareCurrentDirectory();
 
     // prompt a dialog for user to choose whether upload or update
     void uploadOrUpdateFile(const QString& path);
@@ -176,6 +177,7 @@ private:
     // status toolbar
     QToolBar *status_bar_;
     QToolButton *upload_button_;
+    QToolButton *share_button_;
     QMenu *upload_menu_;
     QAction *upload_file_action_;
     QAction *upload_directory_action_;

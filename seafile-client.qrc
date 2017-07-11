@@ -197,6 +197,10 @@
     <file>images/toolbar/refresh@2x.png</file>
     <file>images/toolbar/refresh-gray.png</file>
     <file>images/toolbar/refresh-gray@2x.png</file>
+    <file>images/toolbar/share.png</file>
+    <file>images/toolbar/share@2x.png</file>
+    <file>images/toolbar/share-gray.png</file>
+    <file>images/toolbar/share-gray@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

@@ -312,6 +312,13 @@ void FileBrowserDialog::createStatusBar()
         upload_button_->setToolTip(tr("You don't have permission to upload files to this library"));
     }
 
+    // Action to share Current Directory
+    share_button_ = new QToolButton;
+    share_button_->setObjectName("shareButton");
+    share_button_->setIcon(QIcon(":/images/toolbar/share.png"));
+    connect(share_button_, SIGNAL(clicked()), this, SLOT(shareCurrentDirectory()));
+    status_bar_->addWidget(share_button_);
+
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     details_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -670,6 +677,16 @@ void FileBrowserDialog::uploadFileOrMkdir()
     // the menu shows in the right-down corner
     upload_menu_->exec(upload_button_->mapToGlobal(
         QPoint(upload_button_->width()-2, upload_button_->height()/2)));
+}
+
+void FileBrowserDialog::shareCurrentDirectory()
+{
+    // work around with old servers
+    QString fixed_path = current_path_;
+    // do we need fix?
+    if (current_path_ == "/" && !account_.isAtLeastVersion(4, 2, 0))
+        fixed_path = "//";
+    data_mgr_->shareDirent(repo_.id, fixed_path, false);
 }
 
 void FileBrowserDialog::uploadOrUpdateFile(const QString& path)

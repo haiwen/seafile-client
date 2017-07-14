@@ -39,6 +39,8 @@ SET(ext_sources
   seafile_shell_ext.rc
 )
 
+SET_SOURCE_FILES_PROPERTIES(context-menu.cpp PROPERTIES COMPILE_FLAGS -fpermissive)
+
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 LINK_LIBRARIES(uuid oleaut32 ole32 ws2_32 shlwapi userenv)
 

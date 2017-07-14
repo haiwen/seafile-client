@@ -60,25 +60,25 @@ std::vector<ServerRepo> ServerRepo::listFromJSON(const json_t *json, json_error_
 QIcon ServerRepo::getIcon() const
 {
     if (this->isSubfolder()) {
-        return QIcon(":/images/main-panel/folder.png");
+        return QIcon(":/images/main-panel/folder-alpha.png");
     } else if (encrypted) {
-        return QIcon(":/images/main-panel/library-encrypted.png");
+        return QIcon(":/images/main-panel/vaultEncrypted-alpha.png");
     } else if (readonly) {
-        return QIcon(":/images/main-panel/library-readonly.png");
+        return QIcon(":/images/main-panel/vaultReadonly-alpha.png");
     } else {
-        return QIcon(":/images/main-panel/library.png");
+        return QIcon(":/images/main-panel/vaultNormal-alpha.png");
     }
 }
 
 QPixmap ServerRepo::getPixmap() const
 {
     if (this->isSubfolder()) {
-        return QPixmap(":/images/main-panel/folder.png");
+        return QPixmap(":/images/main-panel/folder-alpha.png");
     } else if (encrypted) {
-        return QPixmap(":/images/main-panel/library-encrypted.png");
+        return QPixmap(":/images/main-panel/vaultEncrypted-alpha.png");
     } else if (readonly) {
-        return QPixmap(":/images/main-panel/library-readonly.png");
+        return QPixmap(":/images/main-panel/vaultReadonly-alpha.png");
     } else {
-        return QPixmap(":/images/main-panel/library.png");
+        return QPixmap(":/images/main-panel/vaultNormal-alpha.png");
     }
 }

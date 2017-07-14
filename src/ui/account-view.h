@@ -47,6 +47,9 @@ private:
     QAction *add_account_action_;
     QAction *account_settings_action_;
     QMenu *account_menu_;
+
+signals:
+    void refresh();
 };
 
 #endif // SEAFILE_CLIENT_UI_ACCOUNT_VIEW_H

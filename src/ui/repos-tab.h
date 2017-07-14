@@ -1,10 +1,12 @@
 #ifndef SEAFILE_CLIENT_UI_REPOS_TAB_H
 #define SEAFILE_CLIENT_UI_REPOS_TAB_H
 
+#include <QLineEdit>
+
 #include "tab-view.h"
 
 class QTimer;
-class QLineEdit;
+class QToolButton;
 
 class RepoTreeModel;
 class RepoFilterProxyModel;
@@ -12,6 +14,16 @@ class RepoTreeView;
 class ServerRepo;
 class ListReposRequest;
 class ApiError;
+
+class FilterLine : public QLineEdit
+{
+    Q_OBJECT
+public:
+    FilterLine(QWidget *parent=0);
+    void paintEvent(QPaintEvent* event);
+private:
+    QToolButton *clear_button_;
+};
 
 /**
  * The repos list tab
@@ -49,7 +61,7 @@ private:
     QWidget *loading_failed_view_;
     QWidget *logout_view_;
 
-    QLineEdit *filter_text_;
+    FilterLine *filter_text_;
 
     ListReposRequest *list_repo_req_;
 };

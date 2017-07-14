@@ -439,7 +439,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="250"/>
         <source>Select</source>
-        <translation>选择</translation>
+        <translation>选择文件夹</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="247"/>
@@ -449,7 +449,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="251"/>
         <source>or Drop Folder to Sync</source>
-        <translation>或拖拽文件夹来同步</translation>
+        <translation>或拖拽到这里进行同步</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="253"/>
@@ -2960,9 +2960,9 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>ReposTab</name>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="52"/>
+        <location filename="../src/ui/repos-tab.cpp" line="45"/>
         <source>Search libraries...</source>
-        <translation>搜索资料库...</translation>
+        <translation>搜索资料库</translation>
     </message>
     <message>
         <location filename="../src/ui/repos-tab.cpp" line="109"/>

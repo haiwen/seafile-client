@@ -124,6 +124,12 @@ RepoTreeView::RepoTreeView(QWidget *parent)
 
     current_drop_target_ = QModelIndex();
     previous_drop_target_ = QModelIndex();
+
+    // QString style =
+    //     QString("QWidget {background: #F9F9F9;}");
+    // this->setStyleSheet(style);
+
+    // this->verticalScrollBar()->setStyle("");
 }
 
 void RepoTreeView::loadExpandedCategries()

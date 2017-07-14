@@ -86,6 +86,10 @@ AccountView::AccountView(QWidget *parent)
             this, SLOT(showAddAccountDialog()));
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
+
+    mRefreshBtn->setIcon(QIcon(":/images/toolbar/refresh-alpha.png"));
+    mRefreshBtn->setIconSize(QSize(20, 20));
+    connect(mRefreshBtn, SIGNAL(clicked()), this, SIGNAL(refresh()));
 }
 
 void AccountView::showAddAccountDialog()

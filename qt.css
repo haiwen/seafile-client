@@ -70,8 +70,8 @@ QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
 }
 
 QWidget#mHeader {
-    min-height: 35px;
-    max-height: 35px;
+    min-height: 26px;
+    max-height: 26px;
 }
 
 QWidget#mHeader QPushButton {
@@ -120,9 +120,9 @@ RepoTreeView QScrollBar {
 }
 
 CloudView QWidget#mDropArea {
-    min-height: 60px;
-    max-height: 60px;
-    background: #F5F5F7;
+    min-height: 54px;
+    max-height: 54px;
+    background: #F9F9F9;
     padding: 0;
     padding-top: 10px;
 }
@@ -130,11 +130,11 @@ CloudView QWidget#mDropArea {
 CloudView QFrame#mDropInner {
     min-width: 280px;
     /* max-width: 280px; */
-    min-height: 40px;
-    max-height: 40px;
-    border: 2px dashed #DBDBDC;
-    border-radius: 5px;
-    padding: 6px 0;
+    min-height: 50px;
+    max-height: 50px;
+    border: 1.5px dashed #E4E4E4;
+    border-radius: 3px;
+    padding: 0px 0;
 }
 
 CloudView QFrame#mDropInner QLabel {
@@ -142,56 +142,67 @@ CloudView QFrame#mDropInner QLabel {
 }
 
 CloudView QPushButton#mSelectFolderBtn {
-    font-size: 16px;
+    min-height: 26px;
+    max-height: 26px;
+    font-size: 14px;
     font-family: Arial;
-    border: 0;
-    color: #FF9A2A;
+    border: 1px solid #C5C5C5;
+    border-radius: 3px;
+    color: #4A4A4A;
     background: #F5F5F7;
     qproperty-focusPolicy: NoFocus;
     qproperty-flat: true;
-    padding-right: 4px;
+    padding-right: 15px;
+    padding-left: 15px;
     margin: 0;
 }
 
 CloudView QPushButton#mSelectFolderBtn:hover {
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: ;
     background: #DBDBDC;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 CloudView QLabel#mDropFolderText {
-    color: #525252;
-    font-size: 16px;
+    color: #888888;
+    font-size: 14px;
     margin-left: 3px;
 }
 
 CloudView QFrame#mFooter {
     border: 0;
-    max-height: 25px;
+    min-height: 28px;
+    max-height: 28px;
+    margin-bottom: 2px;
     padding: 0;
-    padding-bottom: 3px;
+    padding-bottom: 0px;
     padding-right: 0px;
-    text-align: top;
+    background: #F9F9F9;
 }
 
 CloudView QFrame#mFooter QLabel#mDownloadTasksInfo,
 CloudView QFrame#mFooter QLabel#mDownloadRate,
 CloudView QFrame#mFooter QLabel#mUploadRate
 {
-    color: #525252;
-    font-size: 15px;
-    padding-top: 5px;
-    min-width: 70px;
+    color: #999999;
+    font-size: 10px;
+    min-height: 14px;
+    max-height: 14px;
+    margin-bottom: 0px;
+    min-width: 50px;
     /* max-width: 80px; */
-    qproperty-alignment: right;
 }
 
 CloudView QFrame#mFooter QLabel#mUploadRateArrow,
 CloudView QFrame#mFooter QLabel#mDownloadRateArrow
 {
-    margin-top: 3px;
-    margin-right: -2px;
+    min-height: 10px;
+    max-height: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 5px;
 }
 
 CloudView QFrame#mFooter QLabel#mDownloadRateArrow
@@ -212,7 +223,7 @@ CreateRepoDialog QLabel#mDesc {
 
 QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
-    margin-top: 3px;
+    margin-top: 0px;
     qproperty-focusPolicy: NoFocus;
 }
 
@@ -525,13 +536,19 @@ SeafileTabWidget QWidget#pane {
 }
 
 ReposTab QLineEdit#repoNameFilter {
-    min-height: 25px;
-    margin: 5px;
+    min-height: 34px;
+    max-height: 34px;
+    margin-left: 16px;
+    margin-right: 16px;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 0px;
     padding: 0 5px;
-    border: 1px solid #BCBCBE;
+    border: 1px solid #E0E0E0;
     border-radius: 3px;
+    font-size: 13px;
+    color: #AAAAAA;
 }
 
 SharedLinkDialog QLabel {
@@ -566,15 +583,15 @@ SearchResultListView {
 }
 
 QProgressBar#mStorageUsage {
-    min-width: 50px;
-    max-width: 50px;
+    min-width: 60px;
+    max-width: 60px;
     max-height: 6px;
     min-height: 6px;
     border: 1px solid #DBDBDC;
-    border-radius: 0;
+    border-radius: 1px;
     text-align: right;
-    margin-top: 5px;
-    margin-left: 30px;
+    margin-top: 0px;
+    margin-left: 0px;
     margin-right: 0;
     font-size: 11px;
 }

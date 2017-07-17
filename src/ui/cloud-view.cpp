@@ -83,7 +83,7 @@ CloudView::CloudView(QWidget* parent)
 {
     setupUi(this);
 
-    int marginTop = 10;
+    int marginTop = 0;
     if (shouldUseFramelessWindow()) {
         marginTop = 0;
     }

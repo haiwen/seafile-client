@@ -420,7 +420,7 @@ enum QtFontAwesomeName {
     icon_weibo                  = 0xf18a,
     icon_renren                 = 0xf18b,
 
-    icon_circle_close           = 0xf057
+    icon_circle_close           = 0xf05c
 };
 
 

@@ -157,5 +157,13 @@ bool I18NHelper::isChinese()
     int lang_index = preferredLanguage();
     if (lang_index < 0 || lang_index >= (int)G_N_ELEMENTS(langs))
         return false;
-    return QString(langs[lang_index]) == "zh_CN";
+
+    if (lang_index == 0) {
+        // An index of 0 means seafile client is configured to use the system locale.
+        QLocale sys_locale = QLocale::system();
+        return sys_locale.country() == QLocale::China;
+    } else {
+        QString lang = QString(langs[lang_index]);
+        return lang == "zh_CN";
+    }
 }

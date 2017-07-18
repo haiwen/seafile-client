@@ -43,6 +43,8 @@ const int kIndexOfTabWidget = 2;
 const char* kQuotaColorCritical = "#FF2A2A";
 const char* kQuotaColorWarning = "#FF9A2A";
 const char* kQuotaColorGood = "#92C87A";
+const char* kDrapInnerBorderColor = "#E4E4E4";
+const char* kDrapEnterBorderColor = "#ED6C00";
 
 enum {
     TAB_INDEX_REPOS = 0,
@@ -83,7 +85,7 @@ CloudView::CloudView(QWidget* parent)
 {
     setupUi(this);
 
-    int marginTop = 10;
+    int marginTop = 0;
     if (shouldUseFramelessWindow()) {
         marginTop = 0;
     }
@@ -324,6 +326,10 @@ bool CloudView::eventFilter(QObject* obj, QEvent* event)
                     path = utils::mac::fix_file_id_url(path);
 #endif
                     if (QFileInfo(path).isDir()) {
+                        QString style =
+                            QString("QFrame#mDropInner {border: 1.5px dashed %1;}")
+                                .arg(kDrapEnterBorderColor);
+                        mDropInner->setStyleSheet(style);
                         ev->acceptProposedAction();
                     }
                 }
@@ -339,7 +345,20 @@ bool CloudView::eventFilter(QObject* obj, QEvent* event)
 #endif
             ev->setDropAction(Qt::CopyAction);
             ev->accept();
+            QString style =
+                QString("QFrame#mDropInner {border: 1.5px dashed %1;}")
+                    .arg(kDrapInnerBorderColor);
+            mDropInner->setStyleSheet(style);
             showCreateRepoDialog(path);
+            return true;
+        }
+        else if (event->type() == QEvent::DragLeave) {
+            QDragLeaveEvent* ev = static_cast<QDragLeaveEvent*>(event);
+            dragLeaveEvent(ev);
+            QString style =
+                QString("QFrame#mDropInner {border: 1.5px dashed %1;}")
+                    .arg(kDrapInnerBorderColor);
+            mDropInner->setStyleSheet(style);
             return true;
         }
     }

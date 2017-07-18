@@ -21,13 +21,13 @@
 #include "loading-view.h"
 #include "logout-view.h"
 #include "QtAwesome.h"
+#include "ui/search-bar.h"
 
 #include "repos-tab.h"
 
 namespace {
 
 const char *kLoadingFaieldLabelName = "loadingFailedText";
-const int kClearIconSize = 15;
 
 enum {
     INDEX_LOADING_VIEW = 0,
@@ -37,48 +37,6 @@ enum {
 };
 
 } // namespace
-
-FilterLine::FilterLine(QWidget *parent)
-    : QLineEdit(parent)
-{
-    setClearButtonEnabled(false);
-    setObjectName("repoNameFilter");
-
-    // This property was introduced in Qt 5.2.
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
-    setClearButtonEnabled(true);
-#endif
-#ifdef Q_OS_MAC
-    setAttribute(Qt::WA_MacShowFocusRect, 0);
-#endif
-
-    clear_button_ = new QToolButton;
-    clear_button_->setCursor(Qt::ArrowCursor);
-}
-
-void FilterLine::paintEvent(QPaintEvent* event)
-{
-    // QPainter painter(this);
-    // QBrush backBrush = QColor("#F9F9F9");
-    // painter.save();
-    // painter.fillRect(rect(), backBrush);
-    // painter.restore();
-
-    QLineEdit::paintEvent(event);
-
-    // painter.save();
-    // painter.setBrush(QBrush("#E0E0E0"));
-    // painter.fillRect(rect(), Qt::white);
-    // painter.drawRect(rect());
-
-    // QRect icon_rect(rect().right() - 10 - kClearIconSize,
-    //                 (rect().bottom() - kClearIconSize) / 2,
-    //                 kClearIconSize, kClearIconSize);
-    // QIcon clear_icon(awesome->icon(icon_circle_close));
-    // QPixmap icon_pixmap(clear_icon.pixmap(QSize(kClearIconSize, kClearIconSize)));
-    // painter.drawPixmap(icon_rect, icon_pixmap);
-    // painter.restore();
-}
 
 ReposTab::ReposTab(QWidget *parent)
     : TabView(parent)
@@ -91,8 +49,8 @@ ReposTab::ReposTab(QWidget *parent)
     logout_view_ = new LogoutView;
     static_cast<LogoutView*>(logout_view_)->setQssStyleForTab();
 
-    filter_text_ = new FilterLine;
-    filter_text_->setPlaceholderText(tr("Search libraries..."));
+    filter_text_ = new SearchBar;
+    filter_text_->setPlaceholderText(tr("Search libraries"));
     connect(filter_text_, SIGNAL(textChanged(const QString&)),
             this, SLOT(onFilterTextChanged(const QString&)));
 

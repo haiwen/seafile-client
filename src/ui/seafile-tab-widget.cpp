@@ -52,7 +52,6 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
     for (int index = 0, total = count(); index < total; index++) {
         QRect rect = tabRect(index);
         rect.adjust(0, 0, 0, 12);
-        qWarning("tabRect: height: %d", rect.height());
 
         // QStyleOptionTabV3 tab;
         // initStyleOption(&tab, index);

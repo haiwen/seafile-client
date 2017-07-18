@@ -23,7 +23,8 @@ QToolButton#mAccountBtn
     border: 0;
 }
 
-QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
+QToolButton#mAccountBtn:selected,
+QToolButton#mAccountBtn:hover {
     background: #f8f8f8;
 }
 
@@ -65,7 +66,8 @@ QDialog QLabel#mTitle {
     font-size: 20px;
 }
 
-QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
+QToolButton#mSeahubMessagesBtn:selected,
+QToolButton#mSeahubMessagesBtn:hover {
     background: white;
 }
 
@@ -225,6 +227,11 @@ QFrame#mFooter QToolButton#mServerStatusBtn,
 QFrame#mFooter QToolButton#mDownloadTasksBtn {
     margin-top: 0px;
     qproperty-focusPolicy: NoFocus;
+}
+
+QFrame#mFooter QToolButton#mServerStatusBtn {
+    margin-left: 10px;
+    alignment: left;
 }
 
 ServerStatusDialog QListView {
@@ -535,20 +542,22 @@ SeafileTabWidget QWidget#pane {
     background-color: white;
 }
 
-ReposTab QLineEdit#repoNameFilter {
-    min-height: 34px;
-    max-height: 34px;
+ReposTab QLineEdit#searchBar {
+    min-height: 30px;
+    max-height: 30px;
     margin-left: 16px;
     margin-right: 16px;
     margin-top: 0;
     margin-bottom: 5px;
     padding-right: 0px;
     padding-left: 0px;
-    padding: 0 5px;
+    padding: 0 0px;
     border: 1px solid #E0E0E0;
     border-radius: 3px;
-    font-size: 13px;
-    color: #AAAAAA;
+}
+
+ReposTab QLineEdit#searchBar:focus {
+    color: #525252;
 }
 
 SharedLinkDialog QLabel {
@@ -568,13 +577,21 @@ SeafileLinkDialog QCheckBox {
 }
 
 SearchTab QLineEdit#searchInput {
-    min-height: 25px;
-    margin: 5px;
+    min-height: 34px;
+    max-height: 34px;
+    margin-left: 16px;
+    margin-right: 16px;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 5px;
     padding: 0 5px;
-    border: 1px solid #BCBCBE;
+    border: 1px solid #E0E0E0;
     border-radius: 3px;
+    font-size: 13px;
+    color: #AAAAAA;
+}
+
+SearchTab QLineEdit#searchInput {
+    color: #525252;
 }
 
 SearchResultListView {

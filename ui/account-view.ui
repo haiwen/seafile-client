@@ -84,16 +84,6 @@
      </property>
     </spacer>
    </item>
-   <item>
-    <widget class="QToolButton" name="mRefreshBtn">
-     <property name="text">
-      <string>Refresh</string>
-     </property>
-     <property name="autoRaise">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>

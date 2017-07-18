@@ -7,6 +7,8 @@
     <file>images/account@2x.png</file>
     <file>images/folder.png</file>
     <file>images/loading.gif</file>
+    <file>images/loadingspinner-alpha.gif</file>
+    <file>images/loadingspinner-2-alpha.gif</file>
     <file>images/daemon_up.png</file>
     <file>images/daemon_down.png</file>
     <file>images/seafile_auto_sync_disabled.png</file>

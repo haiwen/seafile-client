@@ -71,17 +71,14 @@ const int kRepoCategoryCountFontSizeAlpha = 14;
 const int kOwnerFontSize = 12;
 const int kOwnerFontSizeAlpha = 10;
 
-const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
 const char *kRepoItemBackgroundColorHighlightedAlpha = "#EFEEEE";
 const char *kRepoItemBackgroundColor = "white";
-const char *kRepoItemBackgroundColorAlpha = "#F9F9F9";
 const char *kRepoItemBackgroundColorDragMove = "#C8C8C8";
 
 const char *kRepoCategoryColor = "#747474";
 //const char *kRepoCategoryColorHighlighted = "#FAF5FB";
 
 const char *kRepoCategoryBackgroundColor = "white";
-const char *kRepoCategoryBackgroundColorAlpha = "#F9F9F9";
 //const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
 const int kRepoCategoryCountMarginRight = 10;
@@ -217,7 +214,6 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // QPoint repo_icon_pos(kMarginLeft + kPadding + indent_left, kMarginTop + kPadding);
     QPoint repo_icon_pos(kMarginLeft, kRepoItemVerticalMargin);
     repo_icon_pos += option.rect.topLeft();
-    painter->save();
 
     // get the device pixel radio from current painter device
     double scale_factor = 1;
@@ -230,19 +226,26 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 #endif // QT5
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha));
+    painter->save();
     painter->drawPixmap(repo_icon_rect, repo_icon);
     painter->restore();
 
     // Paint repo name
-    painter->save();
-    // QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidthAlpha + kMarginBetweenRepoIconAndName, 0);
-    QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidthAlpha + kMarginBetweenRepoIconAndName, -5);
+    int vertical_margin_between_icon_and_name = 0;
+#ifdef Q_OS_WIN32
+    vertical_margin_between_icon_and_name = -9;
+#else
+    vertical_margin_between_icon_and_name = -5;
+#endif
+    QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidthAlpha + kMarginBetweenRepoIconAndName,
+                                                  vertical_margin_between_icon_and_name);
     int repo_name_width = option.rect.width() - kRepoIconWidthAlpha - kMarginBetweenRepoIconAndName
         - kRepoStatusIconWidthAlpha - kMarginBetweenRepoNameAndStatus
         - kPadding * 2 - kMarginLeft - kMarginRight;
     repo_name_width -= indent_left;
     int repo_name_height = ::textHeightInFont(repo.name, changeFontSize(painter->font(), kRepoNameFontSize));
     QRect repo_name_rect(repo_name_pos, QSize(repo_name_width, repo_name_height));
+    painter->save();
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
     painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
     painter->drawText(repo_name_rect,
@@ -304,14 +307,18 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
         extra_description += tr(", %1").arg(repo.owner.split('@').front());
 
     if (!extra_description.isEmpty()) {
-        painter->save();
-
         int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
         if (width < 3)
-          width = 3;
-        QPoint repo_owner_pos = repo_desc_rect.topRight();
+            width = 3;
+        int vertical_margin_between_desc_and_extra_desc = 0;
+#ifdef Q_OS_LINUX
+        vertical_margin_between_desc_and_extra_desc = 3;
+#endif
+        QPoint repo_owner_pos = repo_desc_rect.topRight() + QPoint(0, vertical_margin_between_desc_and_extra_desc);
         int extra_desc_height = ::textHeightInFont(extra_description, changeFontSize(painter->font(), kOwnerFontSizeAlpha));
         QRect repo_owner_rect(repo_owner_pos, QSize(width, extra_desc_height));
+
+        painter->save();
         painter->setFont(changeFontSize(painter->font(), kOwnerFontSizeAlpha));
         painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
         painter->drawText(repo_owner_rect,

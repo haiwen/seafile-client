@@ -540,9 +540,9 @@ SeafileTabWidget QWidget#pane {
     background-color: white;
 }
 
-ReposTab QLineEdit#repoNameFilter {
-    min-height: 34px;
-    max-height: 34px;
+ReposTab QLineEdit#searchBar {
+    min-height: 30px;
+    max-height: 30px;
     margin-left: 16px;
     margin-right: 16px;
     margin-top: 0;
@@ -552,11 +552,9 @@ ReposTab QLineEdit#repoNameFilter {
     padding: 0 0px;
     border: 1px solid #E0E0E0;
     border-radius: 3px;
-    font-size: 13px;
-    color: #AAAAAA;
 }
 
-ReposTab QLineEdit#repoNameFilter:focus {
+ReposTab QLineEdit#searchBar:focus {
     color: #525252;
 }
 

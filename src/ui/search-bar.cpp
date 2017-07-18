@@ -1,10 +1,12 @@
 #include <QToolButton>
+#include <QLabel>
 
 #include "search-bar.h"
 
 namespace {
 
 const int kMarginRightSearchBar = 16;
+const int kMarginBottom = 5;
 const int kHMargin = 5;
 
 } // namespace
@@ -12,7 +14,7 @@ const int kHMargin = 5;
 SearchBar::SearchBar(QWidget *parent)
     : QLineEdit(parent)
 {
-    setObjectName("repoNameFilter");
+    setObjectName("searchBar");
 
     // This property was introduced in Qt 5.2.
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
@@ -22,6 +24,8 @@ SearchBar::SearchBar(QWidget *parent)
     setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 
+    placeholder_label_ = new QLabel(this);
+
     clear_button_ = new QToolButton(this);
     QPixmap pixmap(":/images/cancel-alpha.png");
     clear_button_size_ = pixmap.width();
@@ -29,10 +33,11 @@ SearchBar::SearchBar(QWidget *parent)
     clear_button_->setCursor(Qt::ArrowCursor);
     clear_button_->setStyleSheet("QToolButton { border: 0px; }");
     clear_button_->hide();
-    connect(this, SIGNAL(textChanged(const QString&)),
-            this, SLOT(updateClearButton(const QString&)));
     connect(clear_button_, SIGNAL(clicked()),
             this, SLOT(clear()));
+
+    connect(this, SIGNAL(textChanged(const QString&)),
+            this, SLOT(onTextChanged(const QString&)));
 
     setStyleSheet(QString("QLineEdit { padding-right: %1px; padding-left: %2px}")
                           .arg(clear_button_size_ + kHMargin)
@@ -48,10 +53,34 @@ void SearchBar::resizeEvent(QResizeEvent* event)
 {
     clear_button_->move(rect().right() - kMarginRightSearchBar
                         - kHMargin - clear_button_size_ - 2,
-                        rect().bottom() - 30);
+                        (rect().bottom() - kMarginBottom - clear_button_size_) / 2 - 2);
+    int label_height = placeholder_label_->height();
+    int label_width = placeholder_label_->width();
+    placeholder_label_->move((rect().right() - label_width) / 2,
+                             (rect().bottom() - kMarginBottom - label_height) / 2);
 }
 
-void SearchBar::updateClearButton(const QString& text)
+void SearchBar::onTextChanged(const QString& text)
 {
     clear_button_->setVisible(!text.isEmpty());
+}
+
+void SearchBar::setPlaceholderText(const QString& text)
+{
+    placeholder_label_->setText(text);
+    placeholder_label_->setStyleSheet("QLabel { font-size: 13px;"
+                                              " color: #AAAAAA; }");
+    placeholder_label_->show();
+}
+
+void SearchBar::focusInEvent(QFocusEvent* event)
+{
+    placeholder_label_->setVisible(false);
+    QLineEdit::focusInEvent(event);
+}
+
+void SearchBar::focusOutEvent(QFocusEvent* event)
+{
+    placeholder_label_->setVisible(true);
+    QLineEdit::focusOutEvent(event);
 }

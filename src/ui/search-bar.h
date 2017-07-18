@@ -5,23 +5,29 @@
 #include <QLineEdit>
 
 class QToolButton;
+class QLabel;
 
 class SearchBar : public QLineEdit
 {
     Q_OBJECT
 public:
     SearchBar(QWidget *parent=0);
-    void paintEvent(QPaintEvent* event);
-    void resizeEvent(QResizeEvent* event);
+    void setPlaceholderText(const QString& text);
 
 private:
     Q_DISABLE_COPY(SearchBar)
 
-    QToolButton *clear_button_;
+    void paintEvent(QPaintEvent* event);
+    void resizeEvent(QResizeEvent* event);
+    void focusInEvent(QFocusEvent* event);
+    void focusOutEvent(QFocusEvent* event);
+
     int clear_button_size_;
+    QToolButton *clear_button_;
+    QLabel *placeholder_label_;
 
 private slots:
-    void updateClearButton(const QString& text);
+    void onTextChanged(const QString& text);
 };
 
 #endif // SEAFILE_CLIENT_SEARCH_BAR_H_

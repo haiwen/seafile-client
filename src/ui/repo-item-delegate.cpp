@@ -71,17 +71,14 @@ const int kRepoCategoryCountFontSizeAlpha = 14;
 const int kOwnerFontSize = 12;
 const int kOwnerFontSizeAlpha = 10;
 
-const char *kRepoItemBackgroundColorHighlighted = "#F9E0C7";
 const char *kRepoItemBackgroundColorHighlightedAlpha = "#EFEEEE";
 const char *kRepoItemBackgroundColor = "white";
-const char *kRepoItemBackgroundColorAlpha = "#F9F9F9";
 const char *kRepoItemBackgroundColorDragMove = "#C8C8C8";
 
 const char *kRepoCategoryColor = "#747474";
 //const char *kRepoCategoryColorHighlighted = "#FAF5FB";
 
 const char *kRepoCategoryBackgroundColor = "white";
-const char *kRepoCategoryBackgroundColorAlpha = "#F9F9F9";
 //const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
 const int kRepoCategoryCountMarginRight = 10;

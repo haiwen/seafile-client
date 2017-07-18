@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QThreadPool>
+#include <QMovie>
 
 #include "account.h"
 #include "seafile-applet.h"
@@ -30,9 +31,12 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "filebrowser/auto-update-mgr.h"
+#include "repo-service.h"
 
 #include "account-view.h"
 namespace {
+
+const int kMarginRight = 15;
 
 QStringList collectSyncedReposForAccount(const Account& account)
 {
@@ -58,7 +62,46 @@ QStringList collectSyncedReposForAccount(const Account& account)
     return repo_ids;
 }
 
+} // namespace
+
+LoadingLabel::LoadingLabel(QWidget *parent)
+    : QLabel()
+{
+    setText("");
+    resize(32, 32);
+
+    loading_movie_ = new QMovie(":/images/loadingspinner-2-alpha.gif");
+    loading_movie_->setScaledSize(QSize(32, 32));
+    loading_movie_->setParent(this);
+    setMovie(loading_movie_);
+
+    show();
+    MovieStart();
+    MovieStop();
+
+    RepoService *svc = RepoService::instance();
+    connect(svc, SIGNAL(refreshSuccess(const std::vector<ServerRepo>&)),
+            this, SLOT(MovieStop()));
+    connect(svc, SIGNAL(refreshFailed(const ApiError&)),
+            this, SLOT(MovieStop()));
 }
+
+void LoadingLabel::MovieStart()
+{
+    loading_movie_->start();
+}
+
+void LoadingLabel::MovieStop()
+{
+    loading_movie_->stop();
+}
+
+void LoadingLabel::mousePressEvent(QMouseEvent *event)
+{
+    MovieStart();
+    emit refresh();
+}
+
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -87,9 +130,10 @@ AccountView::AccountView(QWidget *parent)
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
 
-    mRefreshBtn->setIcon(QIcon(":/images/toolbar/refresh-alpha.png"));
-    mRefreshBtn->setIconSize(QSize(20, 20));
-    connect(mRefreshBtn, SIGNAL(clicked()), this, SIGNAL(refresh()));
+    loading_label_ = new LoadingLabel;
+    loading_label_->setParent(this);
+    connect(loading_label_, SIGNAL(refresh()),
+            this, SIGNAL(refresh()));
 }
 
 void AccountView::showAddAccountDialog()
@@ -465,4 +509,10 @@ void AccountView::onGetRepoTokensFailed(const ApiError& error)
 void AccountView::visitServerInBrowser(const QString& link)
 {
     AutoLoginService::instance()->startAutoLogin("/");
+}
+
+void AccountView::resizeEvent(QResizeEvent* event)
+{
+    loading_label_->move(rect().right() - loading_label_->width() - kMarginRight + 2,
+                         (rect().bottom() - loading_label_->height()) / 2);
 }

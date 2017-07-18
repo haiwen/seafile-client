@@ -2,12 +2,34 @@
 #define SEAFILE_CLIENT_UI_ACCOUNT_VIEW_H
 
 #include <QWidget>
+#include <QLabel>
+
 #include "ui_account-view.h"
 
 class Account;
 class QAction;
 class QMenu;
 class ApiError;
+class QMovie;
+
+class LoadingLabel : public QLabel
+{
+    Q_OBJECT
+public:
+    LoadingLabel(QWidget *parent=0);
+
+public slots:
+    void MovieStart();
+    void MovieStop();
+
+private:
+    void mousePressEvent(QMouseEvent *event);
+
+    QMovie *loading_movie_;
+
+signals:
+    void refresh();
+};
 
 /*
  * The account information area, right below the header
@@ -43,10 +65,14 @@ private:
     bool eventFilter(QObject *obj, QEvent *event);
     void getRepoTokenWhenRelogin(const Account& account);
 
+    void resizeEvent(QResizeEvent* event);
+
     // Account operations
     QAction *add_account_action_;
     QAction *account_settings_action_;
     QMenu *account_menu_;
+
+    LoadingLabel *loading_label_;
 
 signals:
     void refresh();

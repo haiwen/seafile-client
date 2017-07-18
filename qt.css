@@ -23,7 +23,8 @@ QToolButton#mAccountBtn
     border: 0;
 }
 
-QToolButton#mAccountBtn:selected, QToolButton#mAccountBtn:hover {
+QToolButton#mAccountBtn:selected,
+QToolButton#mAccountBtn:hover {
     background: #f8f8f8;
 }
 
@@ -65,7 +66,8 @@ QDialog QLabel#mTitle {
     font-size: 20px;
 }
 
-QToolButton#mSeahubMessagesBtn:selected, QToolButton#mSeahubMessagesBtn:hover {
+QToolButton#mSeahubMessagesBtn:selected,
+QToolButton#mSeahubMessagesBtn:hover {
     background: white;
 }
 

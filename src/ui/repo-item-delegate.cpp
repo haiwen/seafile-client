@@ -76,10 +76,8 @@ const char *kRepoItemBackgroundColor = "white";
 const char *kRepoItemBackgroundColorDragMove = "#C8C8C8";
 
 const char *kRepoCategoryColor = "#747474";
-//const char *kRepoCategoryColorHighlighted = "#FAF5FB";
 
 const char *kRepoCategoryBackgroundColor = "white";
-//const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
 const int kRepoCategoryCountMarginRight = 10;
 const int kRepoCategoryCountMarginRightAlpha = 20;
@@ -150,6 +148,9 @@ QSize RepoItemDelegate::sizeHintForRepoCategoryItem(const QStyleOptionViewItem &
     // height = qMax(size.height(), kRepoCategoryIndicatorHeight) + kPadding;
     height = qMax(size.height(), kRepoCategoryIndicatorHeight) + kRepoCategoryVerticalMargin * 2;
 
+    RepoTreeModel *model = (RepoTreeModel *)item->model();
+    model->repo_category_height = height;
+
     // qDebug("width = %d, height = %d\n", width, height);
 
     return QSize(width, height);
@@ -174,9 +175,15 @@ void RepoItemDelegate::paint(QPainter *painter,
 
     // fix for showing first category if hidden
     RepoTreeView *view = static_cast<RepoTreeView*>(parent());
-    if (view->indexAt(QPoint(0, 0)).parent().isValid()) {
+    QModelIndex top_index = view->indexAt(QPoint(0, 0)).parent();
+    if (top_index.isValid()) {
         if (option.rect.contains(QPoint(0, 0))) {
-            paintRepoCategoryItem(painter, option, (RepoCategoryItem *)getItem(view->indexAt(QPoint(0, 0)).parent()));
+            const RepoCategoryItem *category_item =
+                static_cast<RepoCategoryItem *>(getItem(top_index));
+            QStyleOptionViewItem category_option = option;
+            category_option.rect = QRect(0, 0, option.rect.width(),
+                                         sizeHintForRepoCategoryItem(option, category_item).height());
+            paintRepoCategoryItem(painter, category_option, category_item);
         }
     }
 }

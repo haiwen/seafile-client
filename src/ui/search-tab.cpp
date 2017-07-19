@@ -80,7 +80,6 @@ void SearchTab::createSearchView()
     QVBoxLayout *layout = (QVBoxLayout*)this->layout();
     line_edit_ = new SearchBar;
     line_edit_->setPlaceholderText(tr("Search files"));
-    line_edit_->setObjectName("searchInput");
     layout->insertWidget(0, line_edit_);
 
     waiting_view_ = new QWidget;

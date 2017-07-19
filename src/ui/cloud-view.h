@@ -61,7 +61,6 @@ private:
     void setupHeader();
     void setupLogoAndBrand();
     void createAccountView();
-    void createToolBar();
     void createTabs();
     void setupDropArea();
     void setupFooter();
@@ -75,10 +74,6 @@ private:
     QTimer *refresh_status_bar_timer_;
 
     AccountView *account_view_;
-
-    // Toolbar and actions
-    QToolBar *tool_bar_;
-    QAction *refresh_action_;
 
     SeafileTabWidget *tabs_;
     ReposTab *repos_tab_;

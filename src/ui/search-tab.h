@@ -66,7 +66,6 @@ private:
     QLabel *loading_failed_text_;
     LoadMoreButton *load_more_btn_;
 
-    // QLineEdit *line_edit_;
     SearchBar *line_edit_;
 
     SearchResultItemDelegate *search_delegate_;

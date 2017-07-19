@@ -39,9 +39,21 @@ SearchBar::SearchBar(QWidget *parent)
     connect(this, SIGNAL(textChanged(const QString&)),
             this, SLOT(onTextChanged(const QString&)));
 
-    setStyleSheet(QString("QLineEdit { padding-right: %1px; padding-left: %2px}")
-                          .arg(clear_button_size_ + kHMargin)
-                          .arg(kHMargin));
+    const QString style = QString("QLineEdit#searchBar { min-height: 30px; "
+                                                       " max-height: 30px; "
+                                                       " margin-left: 16px; "
+                                                       " margin-right: 16px; "
+                                                       " margin-top: 0; "
+                                                       " margin-bottom: 5px; "
+                                                       " padding: 0 0px; "
+                                                       " border: 1px solid #E0E0E0; "
+                                                       " border-radius: 3px; "
+                                                       " padding-right: %1px; "
+                                                       " padding-left: %2px; }"
+                                  "QLineEdit#searchBar:focus { color: #525252; }")
+                                  .arg(clear_button_size_ + kHMargin)
+                                  .arg(kHMargin);
+    setStyleSheet(style);
 }
 
 void SearchBar::paintEvent(QPaintEvent* event)
@@ -63,6 +75,7 @@ void SearchBar::resizeEvent(QResizeEvent* event)
 void SearchBar::onTextChanged(const QString& text)
 {
     clear_button_->setVisible(!text.isEmpty());
+    placeholder_label_->setVisible(text.isEmpty());
 }
 
 void SearchBar::setPlaceholderText(const QString& text)
@@ -71,16 +84,4 @@ void SearchBar::setPlaceholderText(const QString& text)
     placeholder_label_->setStyleSheet("QLabel { font-size: 13px;"
                                               " color: #AAAAAA; }");
     placeholder_label_->show();
-}
-
-void SearchBar::focusInEvent(QFocusEvent* event)
-{
-    placeholder_label_->setVisible(false);
-    QLineEdit::focusInEvent(event);
-}
-
-void SearchBar::focusOutEvent(QFocusEvent* event)
-{
-    placeholder_label_->setVisible(true);
-    QLineEdit::focusOutEvent(event);
 }

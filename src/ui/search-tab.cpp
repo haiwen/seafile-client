@@ -15,6 +15,7 @@
 #include "utils/file-utils.h"
 #include "utils/paint-utils.h"
 #include "ui/search-bar.h"
+#include "ui/loading-label.h"
 
 #include "ui/search-tab.h"
 #include "ui/search-tab-items.h"
@@ -80,7 +81,6 @@ void SearchTab::createSearchView()
     QVBoxLayout *layout = (QVBoxLayout*)this->layout();
     line_edit_ = new SearchBar;
     line_edit_->setPlaceholderText(tr("Search files"));
-    line_edit_->setObjectName("searchInput");
     layout->insertWidget(0, line_edit_);
 
     waiting_view_ = new QWidget;
@@ -130,6 +130,7 @@ void SearchTab::createLoadingFailedView()
 void SearchTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+    LoadingLabel::instance()->movieStart();
 }
 
 bool SearchTab::eventFilter(QObject *obj, QEvent *event)
@@ -193,7 +194,10 @@ void SearchTab::doSearch(const QString& keyword)
     // make it search utf-8 charcters
     if (keyword.toUtf8().size() < kMinimumKeywordLength) {
         mStack->setCurrentIndex(INDEX_WAITING_VIEW);
+        // LoadingLabel::instance()->movieLock();
         return;
+    } else {
+        // LoadingLabel::instance()->movieUnlock();
     }
 
     // save for doRealSearch
@@ -259,6 +263,7 @@ void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results,
     }
 
     mStack->setCurrentIndex(INDEX_SEARCH_VIEW);
+    LoadingLabel::instance()->movieStop();
 
     const QModelIndex first_new_item = search_model_->updateSearchResults(items, is_loading_more, has_more);
     if (first_new_item.isValid()) {
@@ -282,6 +287,7 @@ void SearchTab::loadMoreSearchResults()
 void SearchTab::onSearchFailed(const ApiError& error)
 {
     mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    LoadingLabel::instance()->movieStop();
 }
 
 void SearchTab::onDoubleClicked(const QModelIndex& index)

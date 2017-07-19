@@ -54,8 +54,6 @@ SearchBar::SearchBar(QWidget *parent)
                                   .arg(clear_button_size_ + kHMargin)
                                   .arg(kHMargin);
     setStyleSheet(style);
-    // const QString focus_style = QString("QLineEdit#searchBar:focus { color: #525252; }");
-    // setStyleSheet(focus_style);
 }
 
 void SearchBar::paintEvent(QPaintEvent* event)

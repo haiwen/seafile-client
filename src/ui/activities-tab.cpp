@@ -16,6 +16,7 @@
 #include "avatar-service.h"
 #include "api/api-error.h"
 #include "utils/utils.h"
+#include "ui/loading-label.h"
 
 #include "activities-tab.h"
 
@@ -89,6 +90,7 @@ void ActivitiesTab::refreshEvents(const std::vector<SeafEvent>& events,
         events_list_model_->loadMoreIndex().row());
 
     mStack->setCurrentIndex(INDEX_EVENTS_VIEW);
+    LoadingLabel::instance()->movieStop();
 
     // XXX: "load more events" for now
     const QModelIndex first =
@@ -160,6 +162,7 @@ void ActivitiesTab::createLoadingFailedView()
 void ActivitiesTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+    LoadingLabel::instance()->movieStart();
 }
 
 void ActivitiesTab::refreshFailed(const ApiError& error)
@@ -177,6 +180,8 @@ void ActivitiesTab::refreshFailed(const ApiError& error)
     loading_failed_text_->setText(text);
 
     mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    LoadingLabel::instance()->movieStop();
+
 }
 
 void ActivitiesTab::startRefresh()

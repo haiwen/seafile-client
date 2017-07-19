@@ -4,32 +4,14 @@
 #include <QWidget>
 #include <QLabel>
 
+#include "utils/singleton.h"
 #include "ui_account-view.h"
 
 class Account;
 class QAction;
 class QMenu;
 class ApiError;
-class QMovie;
-
-class LoadingLabel : public QLabel
-{
-    Q_OBJECT
-public:
-    LoadingLabel(QWidget *parent=0);
-
-public slots:
-    void MovieStart();
-    void MovieStop();
-
-private:
-    void mousePressEvent(QMouseEvent *event);
-
-    QMovie *loading_movie_;
-
-signals:
-    void refresh();
-};
+class LoadingLabel;
 
 /*
  * The account information area, right below the header

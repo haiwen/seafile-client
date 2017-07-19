@@ -30,6 +30,7 @@ extern "C" {
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
 #include "utils/utils.h"
+#include "ui/loading-label.h"
 
 #include "cloud-view.h"
 
@@ -471,47 +472,23 @@ void CloudView::showServerStatusDialog()
     dialog.exec();
 }
 
-void CloudView::createToolBar()
-{
-    tool_bar_ = new QToolBar;
-    tool_bar_->setIconSize(QSize(24, 24));
-
-    std::vector<QAction*> repo_actions = repos_tab_->getToolBarActions();
-    for (size_t i = 0, n = repo_actions.size(); i < n; i++) {
-        QAction* action = repo_actions[i];
-        tool_bar_->addAction(action);
-    }
-
-    QWidget* spacer = new QWidget;
-    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    tool_bar_->addWidget(spacer);
-
-    refresh_action_ = new QAction(tr("Refresh"), this);
-    refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
-    refresh_action_->setEnabled(hasAccount());
-    connect(refresh_action_, SIGNAL(triggered()), this,
-            SLOT(onRefreshClicked()));
-    tool_bar_->addAction(refresh_action_);
-
-    QWidget* spacer_right = new QWidget;
-    spacer_right->setObjectName("spacerWidget");
-    spacer_right->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-    tool_bar_->addWidget(spacer_right);
-}
-
 void CloudView::onRefreshClicked()
 {
     if (tabs_->currentIndex() == TAB_INDEX_REPOS) {
         repos_tab_->refresh();
+        LoadingLabel::instance()->movieUnlock();
     }
     else if (tabs_->currentIndex() == TAB_INDEX_STARRED_FILES) {
         starred_files_tab_->refresh();
+        LoadingLabel::instance()->movieUnlock();
     }
     else if (tabs_->currentIndex() == TAB_INDEX_ACTIVITIES) {
         activities_tab_->refresh();
+        LoadingLabel::instance()->movieUnlock();
     }
     else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
         search_tab_->refresh();
+        LoadingLabel::instance()->movieLock();
     }
 }
 

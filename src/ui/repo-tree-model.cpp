@@ -50,6 +50,7 @@ RepoTreeModel::RepoTreeModel(QObject *parent)
 
     refresh_local_timer_->start(kRefreshLocalReposInterval);
 }
+
 RepoTreeModel::~RepoTreeModel()
 {
     if (item(kIndexOfVirtualReposCategory) != virtual_repos_category_)

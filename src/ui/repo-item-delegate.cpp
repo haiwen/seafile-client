@@ -174,9 +174,15 @@ void RepoItemDelegate::paint(QPainter *painter,
 
     // fix for showing first category if hidden
     RepoTreeView *view = static_cast<RepoTreeView*>(parent());
-    if (view->indexAt(QPoint(0, 0)).parent().isValid()) {
+    QModelIndex top_index = view->indexAt(QPoint(0, 0)).parent();
+    if (top_index.isValid()) {
         if (option.rect.contains(QPoint(0, 0))) {
-            paintRepoCategoryItem(painter, option, (RepoCategoryItem *)getItem(view->indexAt(QPoint(0, 0)).parent()));
+            const RepoCategoryItem *category_item =
+                static_cast<RepoCategoryItem *>(getItem(top_index));
+            QStyleOptionViewItem category_option = option;
+            category_option.rect = QRect(0, 0, option.rect.width(),
+                                         sizeHintForRepoCategoryItem(option, category_item).height());
+            paintRepoCategoryItem(painter, category_option, category_item);
         }
     }
 }

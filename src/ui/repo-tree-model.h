@@ -7,7 +7,6 @@
 #include <QModelIndex>
 
 class ServerRepo;
-class RepoCategoryItem;
 class RepoItem;
 class RepoCategoryItem;
 class QTimer;

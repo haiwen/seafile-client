@@ -19,6 +19,7 @@
 #include "starred-files-list-view.h"
 #include "starred-files-list-model.h"
 #include "starred-file-item-delegate.h"
+#include "ui/loading-label.h"
 
 #include "starred-files-tab.h"
 
@@ -166,6 +167,7 @@ void StarredFilesTab::refreshStarredFiles(const std::vector<StarredFile>& files)
     } else {
         mStack->setCurrentIndex(INDEX_FILES_VIEW);
     }
+    LoadingLabel::instance()->movieStop();
 }
 
 void StarredFilesTab::refreshStarredFilesFailed(const ApiError& error)
@@ -176,11 +178,13 @@ void StarredFilesTab::refreshStarredFilesFailed(const ApiError& error)
     if (mStack->currentIndex() == INDEX_LOADING_VIEW) {
         mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
     }
+    LoadingLabel::instance()->movieStop();
 }
 
 void StarredFilesTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
+    LoadingLabel::instance()->movieStart();
 }
 
 void StarredFilesTab::startRefresh()

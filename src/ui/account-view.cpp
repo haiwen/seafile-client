@@ -32,6 +32,7 @@
 #include "api/requests.h"
 #include "filebrowser/auto-update-mgr.h"
 #include "repo-service.h"
+#include "loading-label.h"
 
 #include "account-view.h"
 namespace {
@@ -64,45 +65,6 @@ QStringList collectSyncedReposForAccount(const Account& account)
 
 } // namespace
 
-LoadingLabel::LoadingLabel(QWidget *parent)
-    : QLabel()
-{
-    setText("");
-    resize(32, 32);
-
-    loading_movie_ = new QMovie(":/images/loadingspinner-2-alpha.gif");
-    loading_movie_->setScaledSize(QSize(32, 32));
-    loading_movie_->setParent(this);
-    setMovie(loading_movie_);
-
-    show();
-    MovieStart();
-    MovieStop();
-
-    RepoService *svc = RepoService::instance();
-    connect(svc, SIGNAL(refreshSuccess(const std::vector<ServerRepo>&)),
-            this, SLOT(MovieStop()));
-    connect(svc, SIGNAL(refreshFailed(const ApiError&)),
-            this, SLOT(MovieStop()));
-}
-
-void LoadingLabel::MovieStart()
-{
-    loading_movie_->start();
-}
-
-void LoadingLabel::MovieStop()
-{
-    loading_movie_->stop();
-}
-
-void LoadingLabel::mousePressEvent(QMouseEvent *event)
-{
-    MovieStart();
-    emit refresh();
-}
-
-
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
 {
@@ -130,7 +92,7 @@ AccountView::AccountView(QWidget *parent)
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
 
-    loading_label_ = new LoadingLabel;
+    loading_label_ = LoadingLabel::instance();
     loading_label_->setParent(this);
     connect(loading_label_, SIGNAL(refresh()),
             this, SIGNAL(refresh()));

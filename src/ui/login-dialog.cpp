@@ -370,8 +370,8 @@ void LoginDialog::loginWithShib()
         return;
     }
 
-    if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
-        showWarning(tr("%1 is not a valid server address").arg(serverAddr));
+    if (!serverAddr.startsWith("https://")) {
+        showWarning(tr("%1 is not a valid server address. It has to start with 'https://'.").arg(serverAddr));
         return;
     }
 

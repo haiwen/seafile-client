@@ -76,10 +76,8 @@ const char *kRepoItemBackgroundColor = "white";
 const char *kRepoItemBackgroundColorDragMove = "#C8C8C8";
 
 const char *kRepoCategoryColor = "#747474";
-//const char *kRepoCategoryColorHighlighted = "#FAF5FB";
 
 const char *kRepoCategoryBackgroundColor = "white";
-//const char *kRepoCategoryBackgroundColorHighlighted = "#EF7544";
 
 const int kRepoCategoryCountMarginRight = 10;
 const int kRepoCategoryCountMarginRightAlpha = 20;
@@ -149,6 +147,9 @@ QSize RepoItemDelegate::sizeHintForRepoCategoryItem(const QStyleOptionViewItem &
 
     // height = qMax(size.height(), kRepoCategoryIndicatorHeight) + kPadding;
     height = qMax(size.height(), kRepoCategoryIndicatorHeight) + kRepoCategoryVerticalMargin * 2;
+
+    RepoTreeModel *model = (RepoTreeModel *)item->model();
+    model->repo_category_height = height;
 
     // qDebug("width = %d, height = %d\n", width, height);
 

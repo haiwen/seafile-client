@@ -194,10 +194,7 @@ void SearchTab::doSearch(const QString& keyword)
     // make it search utf-8 charcters
     if (keyword.toUtf8().size() < kMinimumKeywordLength) {
         mStack->setCurrentIndex(INDEX_WAITING_VIEW);
-        // LoadingLabel::instance()->movieLock();
         return;
-    } else {
-        // LoadingLabel::instance()->movieUnlock();
     }
 
     // save for doRealSearch

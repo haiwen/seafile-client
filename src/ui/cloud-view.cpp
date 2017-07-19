@@ -224,7 +224,6 @@ void CloudView::setupFooter()
     // connect(mDownloadTasksBtn, SIGNAL(clicked()), this,
     // SLOT(showCloneTasksDialog()));
 
-    // mServerStatusBtn->setIcon(QIcon(":/images/main-panel/connected.png"));
     mServerStatusBtn->setIconSize(QSize(10, 10));
     connect(mServerStatusBtn, SIGNAL(clicked()), this,
             SLOT(showServerStatusDialog()));

@@ -19,8 +19,6 @@ private:
 
     void paintEvent(QPaintEvent* event);
     void resizeEvent(QResizeEvent* event);
-    void focusInEvent(QFocusEvent* event);
-    void focusOutEvent(QFocusEvent* event);
 
     int clear_button_size_;
     QToolButton *clear_button_;

@@ -22,7 +22,6 @@
 #include "logout-view.h"
 #include "QtAwesome.h"
 #include "ui/search-bar.h"
-#include "ui/loading-label.h"
 
 #include "repos-tab.h"
 
@@ -120,7 +119,6 @@ void ReposTab::refreshRepos(const std::vector<ServerRepo>& repos)
     onFilterTextChanged(filter_text_->text());
     filter_text_->setVisible(true);
     mStack->setCurrentIndex(INDEX_REPOS_VIEW);
-    LoadingLabel::instance()->movieStop();
 }
 
 void ReposTab::refreshReposFailed(const ApiError& error)
@@ -129,7 +127,6 @@ void ReposTab::refreshReposFailed(const ApiError& error)
 
     if (mStack->currentIndex() == INDEX_LOADING_VIEW) {
         mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
-        LoadingLabel::instance()->movieStop();
     }
 }
 
@@ -142,7 +139,6 @@ void ReposTab::showLoadingView()
 {
     filter_text_->setVisible(false);
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
-    LoadingLabel::instance()->movieStart();
 }
 
 void ReposTab::refresh()

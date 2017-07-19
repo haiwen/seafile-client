@@ -1,53 +1,36 @@
-#include <QMovie>
-
 #include "loading-label.h"
 
 namespace {
 
+const char *kRefreshIconFileName = ":/images/toolbar/refresh-alpha.png";
+const char *kOrangeIconFileName = ":/images/toolbar/refresh-orange-alpha@3x.png";
+
 } // namespace
 
-SINGLETON_IMPL(LoadingLabel);
+
 
 LoadingLabel::LoadingLabel(QWidget *parent)
-    : QLabel(),
-      is_locked_(false)
+    : QLabel()
 {
-    resize(32, 32);
+    resize(20, 20);
+    setScaledContents(true);
 
-    loading_movie_ = new QMovie(":/images/loadingspinner-2-alpha.gif");
-    loading_movie_->setScaledSize(QSize(32, 32));
-    loading_movie_->setParent(this);
-    setMovie(loading_movie_);
+    setPixmap(QPixmap(kRefreshIconFileName));
 
     show();
-    movieStart();
-    movieStop();
 }
 
-void LoadingLabel::movieStart()
+void LoadingLabel::enterEvent(QEvent *event)
 {
-    if (is_locked_ == false) {
-        loading_movie_->start();
-    }
+    setPixmap(QPixmap(kOrangeIconFileName));
 }
 
-void LoadingLabel::movieStop()
+void LoadingLabel::leaveEvent(QEvent *event)
 {
-    loading_movie_->stop();
+    setPixmap(QPixmap(kRefreshIconFileName));
 }
 
 void LoadingLabel::mousePressEvent(QMouseEvent *event)
 {
     emit refresh();
-    movieStart();
-}
-
-void LoadingLabel::movieLock()
-{
-    is_locked_ = true;
-}
-
-void LoadingLabel::movieUnlock()
-{
-    is_locked_ = false;
 }

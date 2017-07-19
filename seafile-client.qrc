@@ -259,6 +259,7 @@
     <file>images/toolbar/refresh-alpha.png</file>
     <file>images/toolbar/refresh-alpha@2x.png</file>
     <file>images/toolbar/refresh-alpha@3x.png</file>
+    <file>images/toolbar/refresh-orange-alpha@3x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

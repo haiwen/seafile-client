@@ -15,7 +15,6 @@
 #include "utils/file-utils.h"
 #include "utils/paint-utils.h"
 #include "ui/search-bar.h"
-#include "ui/loading-label.h"
 
 #include "ui/search-tab.h"
 #include "ui/search-tab-items.h"
@@ -130,7 +129,6 @@ void SearchTab::createLoadingFailedView()
 void SearchTab::showLoadingView()
 {
     mStack->setCurrentIndex(INDEX_LOADING_VIEW);
-    LoadingLabel::instance()->movieStart();
 }
 
 bool SearchTab::eventFilter(QObject *obj, QEvent *event)
@@ -260,7 +258,6 @@ void SearchTab::onSearchSuccess(const std::vector<FileSearchResult>& results,
     }
 
     mStack->setCurrentIndex(INDEX_SEARCH_VIEW);
-    LoadingLabel::instance()->movieStop();
 
     const QModelIndex first_new_item = search_model_->updateSearchResults(items, is_loading_more, has_more);
     if (first_new_item.isValid()) {
@@ -284,7 +281,6 @@ void SearchTab::loadMoreSearchResults()
 void SearchTab::onSearchFailed(const ApiError& error)
 {
     mStack->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
-    LoadingLabel::instance()->movieStop();
 }
 
 void SearchTab::onDoubleClicked(const QModelIndex& index)

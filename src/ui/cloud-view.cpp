@@ -475,20 +475,18 @@ void CloudView::onRefreshClicked()
 {
     if (tabs_->currentIndex() == TAB_INDEX_REPOS) {
         repos_tab_->refresh();
-        LoadingLabel::instance()->movieUnlock();
     }
     else if (tabs_->currentIndex() == TAB_INDEX_STARRED_FILES) {
         starred_files_tab_->refresh();
-        LoadingLabel::instance()->movieUnlock();
     }
     else if (tabs_->currentIndex() == TAB_INDEX_ACTIVITIES) {
         activities_tab_->refresh();
-        LoadingLabel::instance()->movieUnlock();
     }
     else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
         search_tab_->refresh();
-        LoadingLabel::instance()->movieLock();
     }
+
+    ServerStatusService::instance()->refresh();
 }
 
 void CloudView::resizeEvent(QResizeEvent* event)

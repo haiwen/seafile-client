@@ -92,7 +92,7 @@ AccountView::AccountView(QWidget *parent)
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
 
-    loading_label_ = LoadingLabel::instance();
+    loading_label_ = new LoadingLabel();
     loading_label_->setParent(this);
     connect(loading_label_, SIGNAL(refresh()),
             this, SIGNAL(refresh()));

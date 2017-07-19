@@ -4,27 +4,19 @@
 #include <QWidget>
 #include <QLabel>
 
-#include "utils/singleton.h"
-
-class QMovie;
+class QAction;
 
 class LoadingLabel : public QLabel
 {
-    SINGLETON_DEFINE(LoadingLabel)
     Q_OBJECT
 
 public:
-    void movieStart();
-    void movieStop();
-    void movieLock();
-    void movieUnlock();
+    LoadingLabel(QWidget *parent=0);
 
 private:
-    LoadingLabel(QWidget *parent=0);
+    void enterEvent(QEvent *event);
+    void leaveEvent(QEvent *event);
     void mousePressEvent(QMouseEvent *event);
-
-    QMovie *loading_movie_;
-    bool is_locked_;
 
 signals:
     void refresh();

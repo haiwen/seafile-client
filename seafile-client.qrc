@@ -6,7 +6,7 @@
     <file>images/account.png</file>
     <file>images/account@2x.png</file>
     <file>images/folder.png</file>
-    <file>images/loadingspinner-alpha.gif</file>
+    <file>images/loading-spinner.gif</file>
     <file>images/daemon_up.png</file>
     <file>images/daemon_down.png</file>
     <file>images/seafile_auto_sync_disabled.png</file>
@@ -68,65 +68,47 @@
     <file>images/clock@2x.png</file>
     <file>images/disk.png</file>
     <file>images/disk@2x.png</file>
-    <file>images/main-panel/folder-alpha.png</file>
-    <file>images/main-panel/folder-alpha@2x.png</file>
-    <file>images/main-panel/folder-alpha@3x.png</file>
+    <file>images/main-panel/folder.png</file>
+    <file>images/main-panel/folder@2x.png</file>
     <file>images/main-panel/search-background.png</file>
     <file>images/main-panel/search-background@2x.png</file>
-    <file>images/main-panel/vaultNormal-alpha.png</file>
-    <file>images/main-panel/vaultNormal-alpha@2x.png</file>
-    <file>images/main-panel/vaultNormal-alpha@3x.png</file>
-    <file>images/main-panel/vaultEncrypted-alpha.png</file>
-    <file>images/main-panel/vaultEncrypted-alpha@2x.png</file>
-    <file>images/main-panel/vaultEncrypted-alpha@3x.png</file>
-    <file>images/main-panel/vaultReadonly-alpha.png</file>
-    <file>images/main-panel/vaultReadonly-alpha@2x.png</file>
-    <file>images/main-panel/vaultReadonly-alpha@3x.png</file>
-    <file>images/main-panel/networkError-alpha.png</file>
-    <file>images/main-panel/networkError-alpha@2x.png</file>
-    <file>images/main-panel/networkError-alpha@3x.png</file>
-    <file>images/main-panel/upload-alpha.png</file>
-    <file>images/main-panel/upload-alpha@2x.png</file>
-    <file>images/main-panel/upload-alpha@3x.png</file>
-    <file>images/main-panel/download-alpha.png</file>
-    <file>images/main-panel/download-alpha@2x.png</file>
-    <file>images/main-panel/download-alpha@3x.png</file>
+    <file>images/main-panel/library-normal.png</file>
+    <file>images/main-panel/library-normal@2x.png</file>
+    <file>images/main-panel/library-encrypted.png</file>
+    <file>images/main-panel/library-encrypted@2x.png</file>
+    <file>images/main-panel/library-readonly.png</file>
+    <file>images/main-panel/library-readonly@2x.png</file>
+    <file>images/main-panel/network-error.png</file>
+    <file>images/main-panel/network-error@2x.png</file>
+    <file>images/main-panel/upload.png</file>
+    <file>images/main-panel/upload@2x.png</file>
+    <file>images/main-panel/download.png</file>
+    <file>images/main-panel/download@2x.png</file>
     <file>images/sync/done.png</file>
     <file>images/sync/done@2x.png</file>
-    <file>images/sync/cloudSync-alpha.png</file>
-    <file>images/sync/cloudSync-alpha@2x.png</file>
-    <file>images/sync/cloudSync-alpha@3x.png</file>
-    <file>images/sync/cloudSynced-alpha.png</file>
-    <file>images/sync/cloudSynced-alpha@2x.png</file>
-    <file>images/sync/cloudSynced-alpha@3x.png</file>
-    <file>images/sync/cloudUnsynced-alpha.png</file>
-    <file>images/sync/cloudUnsynced-alpha@2x.png</file>
-    <file>images/sync/cloudUnsynced-alpha@3x.png</file>
+    <file>images/sync/cloud-sync.png</file>
+    <file>images/sync/cloud-sync@2x.png</file>
+    <file>images/sync/cloud-synced.png</file>
+    <file>images/sync/cloud-synced@2x.png</file>
+    <file>images/sync/cloud-unsynced.png</file>
+    <file>images/sync/cloud-unsynced@2x.png</file>
     <file>images/download-48.png</file>
-    <file>images/tabs/starNormal-alpha.png</file>
-    <file>images/tabs/starNormal-alpha@2x.png</file>
-    <file>images/tabs/starNormal-alpha@3x.png</file>
-    <file>images/tabs/historyNormal-alpha.png</file>
-    <file>images/tabs/historyNormal-alpha@2x.png</file>
-    <file>images/tabs/historyNormal-alpha@3x.png</file>
-    <file>images/tabs/vaultSearchNormal-alpha.png</file>
-    <file>images/tabs/vaultSearchNormal-alpha@2x.png</file>
-    <file>images/tabs/vaultSearchNormal-alpha@3x.png</file>
-    <file>images/tabs/vaultNormal-alpha.png</file>
-    <file>images/tabs/vaultNormal-alpha@2x.png</file>
-    <file>images/tabs/vaultNormal-alpha@3x.png</file>
-    <file>images/tabs/highlighted/starOrange-alpha.png</file>
-    <file>images/tabs/highlighted/starOrange-alpha@2x.png</file>
-    <file>images/tabs/highlighted/starOrange-alpha@3x.png</file>
-    <file>images/tabs/highlighted/vaultOrange-alpha.png</file>
-    <file>images/tabs/highlighted/vaultOrange-alpha@2x.png</file>
-    <file>images/tabs/highlighted/vaultOrange-alpha@3x.png</file>
-    <file>images/tabs/highlighted/vaultSearchOrange-alpha.png</file>
-    <file>images/tabs/highlighted/vaultSearchOrange-alpha@2x.png</file>
-    <file>images/tabs/highlighted/vaultSearchOrange-alpha@3x.png</file>
-    <file>images/tabs/highlighted/historyOrange-alpha.png</file>
-    <file>images/tabs/highlighted/historyOrange-alpha@2x.png</file>
-    <file>images/tabs/highlighted/historyOrange-alpha@3x.png</file>
+    <file>images/tabs/star-normal.png</file>
+    <file>images/tabs/star-normal@2x.png</file>
+    <file>images/tabs/history-normal.png</file>
+    <file>images/tabs/history-normal@2x.png</file>
+    <file>images/tabs/search-normal.png</file>
+    <file>images/tabs/search-normal@2x.png</file>
+    <file>images/tabs/library-normal.png</file>
+    <file>images/tabs/library-normal@2x.png</file>
+    <file>images/tabs/highlighted/star-orange.png</file>
+    <file>images/tabs/highlighted/star-orange@2x.png</file>
+    <file>images/tabs/highlighted/library-orange.png</file>
+    <file>images/tabs/highlighted/library-orange@2x.png</file>
+    <file>images/tabs/highlighted/search-orange.png</file>
+    <file>images/tabs/highlighted/search-orange@2x.png</file>
+    <file>images/tabs/highlighted/history-orange.png</file>
+    <file>images/tabs/highlighted/history-orange@2x.png</file>
     <file>images/files/file_audio.png</file>
     <file>images/files/file_image.png</file>
     <file>images/files/file_ms_excel.png</file>
@@ -171,9 +153,8 @@
     <file>images/account-else@2x.png</file>
     <file>images/logout.png</file>
     <file>images/logout@2x.png</file>
-    <file>images/cancel-alpha.png</file>
-    <file>images/cancel-alpha@2x.png</file>
-    <file>images/cancel-alpha@3x.png</file>
+    <file>images/cancel.png</file>
+    <file>images/cancel@2x.png</file>
     <file>images/filebrowser/backward.png</file>
     <file>images/filebrowser/backward@2x.png</file>
     <file>images/filebrowser/forward.png</file>
@@ -202,14 +183,14 @@
     <file>images/toolbar/file@2x.png</file>
     <file>images/toolbar/file-gray.png</file>
     <file>images/toolbar/file-gray@2x.png</file>
-    <file>images/toolbar/refresh.png</file>
-    <file>images/toolbar/refresh@2x.png</file>
     <file>images/toolbar/refresh-gray.png</file>
     <file>images/toolbar/refresh-gray@2x.png</file>
-    <file>images/toolbar/refresh-alpha.png</file>
-    <file>images/toolbar/refresh-alpha@2x.png</file>
-    <file>images/toolbar/refresh-alpha@3x.png</file>
-    <file>images/toolbar/refresh-orange-alpha@3x.png</file>
+    <file>images/toolbar/refresh.png</file>
+    <file>images/toolbar/refresh@2x.png</file>
+    <file>images/toolbar/refresh-new.png</file>
+    <file>images/toolbar/refresh-new@2x.png</file>
+    <file>images/toolbar/refresh-orange.png</file>
+    <file>images/toolbar/refresh-orange@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

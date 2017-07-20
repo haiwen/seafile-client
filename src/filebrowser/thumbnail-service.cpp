@@ -325,7 +325,7 @@ QPixmap ThumbnailService::getThumbnail(const QString& repo_id,
         }
     }
     if (img.isNull()) {
-        return QPixmap(globalDevicePixelRatio() > 1 ? ":/images/files_v2/file_image@2x.png" :":/images/files_v2/file_image.png");
+        return QPixmap(":/images/files_v2/file_image.png");
     } else {
         return img;
     }

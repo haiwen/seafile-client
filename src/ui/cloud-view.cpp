@@ -185,13 +185,13 @@ void CloudView::createTabs()
     QString base_icon_path = ":/images/tabs/";
     QString highlighted_base_icon_path = ":/images/tabs/highlighted/";
     tabs_->addTab(repos_tab_, tr("Libraries"),
-                  base_icon_path + "vaultNormal-alpha.png",
-                  highlighted_base_icon_path + "vaultOrange-alpha.png");
+                  base_icon_path + "library-normal.png",
+                  highlighted_base_icon_path + "library-orange.png");
 
     starred_files_tab_ = new StarredFilesTab;
     tabs_->addTab(starred_files_tab_, tr("Starred"),
-                  base_icon_path + "starNormal-alpha.png",
-                  highlighted_base_icon_path + "starOrange-alpha.png");
+                  base_icon_path + "star-normal.png",
+                  highlighted_base_icon_path + "star-orange.png");
 
     activities_tab_ = new ActivitiesTab;
 
@@ -230,7 +230,7 @@ void CloudView::setupFooter()
 
     // mDownloadRateArrow->setText(QChar(icon_arrow_down));
     // mDownloadRateArrow->setFont(awesome->font(16));
-    mDownloadRateArrow->setPixmap(QPixmap(":/images/main-panel/download-alpha.png"));
+    mDownloadRateArrow->setPixmap(QPixmap(":/images/main-panel/download.png"));
     mDownloadRateArrow->setAlignment(Qt::AlignVCenter);
     mDownloadRate->setText("0 kB/s");
     mDownloadRate->setToolTip(tr("current download rate"));
@@ -238,7 +238,7 @@ void CloudView::setupFooter()
 
     // mUploadRateArrow->setText(QChar(icon_arrow_up));
     // mUploadRateArrow->setFont(awesome->font(16));
-    mUploadRateArrow->setPixmap(QPixmap(":/images/main-panel/upload-alpha.png"));
+    mUploadRateArrow->setPixmap(QPixmap(":/images/main-panel/upload.png"));
     mUploadRateArrow->setAlignment(Qt::AlignVCenter);
     mUploadRate->setText("0 kB/s");
     mUploadRate->setToolTip(tr("current upload rate"));
@@ -420,7 +420,7 @@ void CloudView::refreshServerStatus()
 
     if (!service->allServersConnected()) {
         mServerStatusBtn->setIcon(
-            QIcon(":/images/main-panel/networkError-alpha.png"));
+            QIcon(":/images/main-panel/network-error.png"));
         mServerStatusBtn->show();
     } else {
         mServerStatusBtn->hide();
@@ -614,13 +614,13 @@ void CloudView::showProperTabs()
         }
         if (show_activities_tab) {
             tabs_->addTab(activities_tab_, tr("Activities"),
-                          ":/images/tabs/historyNormal-alpha.png",
-                          ":/images/tabs/highlighted/historyOrange-alpha.png");
+                          ":/images/tabs/history-normal.png",
+                          ":/images/tabs/highlighted/history-orange.png");
         }
         if (show_search_tab) {
             tabs_->addTab(search_tab_, tr("Search"),
-                          ":/images/tabs/vaultSearchNormal-alpha.png",
-                          ":/images/tabs/highlighted/vaultSearchOrange-alpha.png");
+                          ":/images/tabs/search-normal.png",
+                          ":/images/tabs/highlighted/search-orange.png");
         }
     }
     tabs_->adjustTabsWidth(rect().width());

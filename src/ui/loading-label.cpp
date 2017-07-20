@@ -2,8 +2,8 @@
 
 namespace {
 
-const char *kRefreshIconFileName = ":/images/toolbar/refresh-alpha.png";
-const char *kOrangeIconFileName = ":/images/toolbar/refresh-orange-alpha@3x.png";
+const char *kRefreshIconFileName = ":/images/toolbar/refresh-new.png";
+const char *kOrangeIconFileName = ":/images/toolbar/refresh-orange.png";
 
 } // namespace
 

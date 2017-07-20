@@ -44,7 +44,6 @@ namespace {
 
 const char *kRepoTreeViewSettingsGroup = "RepoTreeView";
 const char *kRepoTreeViewSettingsExpandedCategories = "expandedCategories";
-const int kRepoCategoryIndicatorWidth = 16;
 const char *kSyncIntervalProperty = "sync-interval";
 
 // A Helper Class to copy file
@@ -332,7 +331,8 @@ QStandardItem* RepoTreeView::getRepoItem(const QModelIndex &index) const
     }
     QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
     RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
-    QStandardItem *item = tree_model->itemFromIndex(proxy->mapToSource(index));
+    const QModelIndex mapped_index = proxy->mapToSource(index);
+    QStandardItem *item = tree_model->itemFromIndex(mapped_index);
 
     if (item->type() != REPO_ITEM_TYPE &&
         item->type() != REPO_CATEGORY_TYPE) {
@@ -584,7 +584,11 @@ void RepoTreeView::openInFileBrowser()
 
 bool RepoTreeView::viewportEvent(QEvent *event)
 {
-    if (event->type() != QEvent::ToolTip && event->type() != QEvent::WhatsThis && event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseButtonRelease) {
+    if (event->type() != QEvent::ToolTip &&
+        event->type() != QEvent::WhatsThis &&
+        event->type() != QEvent::MouseButtonPress &&
+        event->type() != QEvent::MouseButtonRelease)
+    {
         return QTreeView::viewportEvent(event);
     }
 
@@ -602,14 +606,24 @@ bool RepoTreeView::viewportEvent(QEvent *event)
 
     // handle the event in the top
     const QModelIndex top_index = indexAt(QPoint(0, 0));
-    if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
-        if (index == top_index && top_index.parent().isValid() && viewport_pos.y() <= kRepoCategoryIndicatorWidth) {
+    if (event->type() == QEvent::MouseButtonPress ||
+        event->type() == QEvent::MouseButtonRelease)
+    {
+        QSortFilterProxyModel *proxy = (QSortFilterProxyModel *)model();
+        RepoTreeModel *tree_model = (RepoTreeModel *)(proxy->sourceModel());
+
+        if (index == top_index &&
+            top_index.parent().isValid() &&
+            viewport_pos.y() <= tree_model->repo_category_height)
+        {
             QMouseEvent *ev = static_cast<QMouseEvent*>(event);
-            if (!(ev->buttons() & Qt::LeftButton))
+            if (!(ev->buttons() & Qt::LeftButton)) {
                 return true;
-            const QModelIndex parent = top_index.parent();
-            setExpanded(parent, !isExpanded(parent));
-            return true;
+            } else {
+                const QModelIndex parent = top_index.parent();
+                setExpanded(parent, !isExpanded(parent));
+                return true;
+            }
         }
         return QTreeView::viewportEvent(event);
     }

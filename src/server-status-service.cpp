@@ -45,7 +45,7 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
     for (size_t i = 0; i < accounts.size(); i++) {
         const QUrl& url = accounts[i].serverUrl;
         if (requests_.contains(url.host())) {
-            return;
+            continue;
         }
 
         if (!statuses_.contains(url.host())) {
@@ -53,7 +53,7 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
         }
 
         if (only_refresh_unconnected && isServerConnected(url)) {
-            return;
+            continue;
         }
         pingServer(url);
     }

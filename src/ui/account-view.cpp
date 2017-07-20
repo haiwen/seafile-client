@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QThreadPool>
+#include <QMovie>
 
 #include "account.h"
 #include "seafile-applet.h"
@@ -30,9 +31,13 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "filebrowser/auto-update-mgr.h"
+#include "repo-service.h"
 
 #include "account-view.h"
 namespace {
+
+const int kMarginRight = 15;
+const int kRefreshSize = 20;
 
 QStringList collectSyncedReposForAccount(const Account& account)
 {
@@ -58,7 +63,7 @@ QStringList collectSyncedReposForAccount(const Account& account)
     return repo_ids;
 }
 
-}
+} // namespace
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -86,6 +91,14 @@ AccountView::AccountView(QWidget *parent)
             this, SLOT(showAddAccountDialog()));
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
+
+    refresh_label_ = new QLabel();
+    refresh_label_->setObjectName("mRefreshLabel");
+    refresh_label_->setParent(this);
+    refresh_label_->resize(kRefreshSize, kRefreshSize);
+    refresh_label_->setScaledContents(true);
+    refresh_label_->installEventFilter(this);
+    refresh_label_->show();
 }
 
 void AccountView::showAddAccountDialog()
@@ -371,6 +384,9 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         painter.drawImage(QPoint(0,0), masked_image);
         return true;
     }
+    if (obj == refresh_label_ && event->type() == QEvent::MouseButtonPress) {
+        emit refresh();
+    }
     return QObject::eventFilter(obj, event);
 }
 
@@ -461,4 +477,10 @@ void AccountView::onGetRepoTokensFailed(const ApiError& error)
 void AccountView::visitServerInBrowser(const QString& link)
 {
     AutoLoginService::instance()->startAutoLogin("/");
+}
+
+void AccountView::resizeEvent(QResizeEvent* event)
+{
+    refresh_label_->move(rect().right() - refresh_label_->width() - kMarginRight + 2,
+                         (rect().bottom() - refresh_label_->height()) / 2);
 }

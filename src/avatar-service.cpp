@@ -325,7 +325,7 @@ QImage AvatarService::getAvatar(const QString& email)
         }
     }
     if (img.isNull()) {
-        return QImage(globalDevicePixelRatio() > 1 ? ":/images/account@2x.png" :":/images/account.png");
+        return QImage(":/images/account.png");
     } else {
         return img;
     }

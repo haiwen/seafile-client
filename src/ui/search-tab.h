@@ -17,6 +17,7 @@ class FileSearchRequest;
 struct FileSearchResult;
 class ApiError;
 class LoadMoreButton;
+class SearchBar;
 
 class SearchTab : public TabView {
     Q_OBJECT
@@ -65,7 +66,7 @@ private:
     QLabel *loading_failed_text_;
     LoadMoreButton *load_more_btn_;
 
-    QLineEdit *line_edit_;
+    SearchBar *line_edit_;
 
     SearchResultItemDelegate *search_delegate_;
     SearchResultListView *search_view_;

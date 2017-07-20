@@ -6,7 +6,7 @@
     <file>images/account.png</file>
     <file>images/account@2x.png</file>
     <file>images/folder.png</file>
-    <file>images/loading.gif</file>
+    <file>images/loading-spinner.gif</file>
     <file>images/daemon_up.png</file>
     <file>images/daemon_down.png</file>
     <file>images/seafile_auto_sync_disabled.png</file>
@@ -68,53 +68,54 @@
     <file>images/clock@2x.png</file>
     <file>images/disk.png</file>
     <file>images/disk@2x.png</file>
-    <file>images/main-panel/connected.png</file>
-    <file>images/main-panel/connected@2x.png</file>
-    <file>images/main-panel/down.png</file>
-    <file>images/main-panel/down@2x.png</file>
     <file>images/main-panel/folder.png</file>
     <file>images/main-panel/folder@2x.png</file>
-    <file>images/main-panel/library.png</file>
-    <file>images/main-panel/library@2x.png</file>
+    <file>images/main-panel/search-background.png</file>
+    <file>images/main-panel/search-background@2x.png</file>
+    <file>images/main-panel/library-normal.png</file>
+    <file>images/main-panel/library-normal@2x.png</file>
     <file>images/main-panel/library-encrypted.png</file>
     <file>images/main-panel/library-encrypted@2x.png</file>
     <file>images/main-panel/library-readonly.png</file>
     <file>images/main-panel/library-readonly@2x.png</file>
-    <file>images/main-panel/search-background.png</file>
-    <file>images/main-panel/search-background@2x.png</file>
-    <file>images/main-panel/unconnected.png</file>
-    <file>images/main-panel/unconnected@2x.png</file>
-    <file>images/main-panel/up.png</file>
-    <file>images/main-panel/up@2x.png</file>
+    <file>images/main-panel/network-error.png</file>
+    <file>images/main-panel/network-error@2x.png</file>
+    <file>images/main-panel/upload.png</file>
+    <file>images/main-panel/upload@2x.png</file>
+    <file>images/main-panel/download.png</file>
+    <file>images/main-panel/download@2x.png</file>
     <file>images/sync/done.png</file>
     <file>images/sync/done@2x.png</file>
-    <file>images/sync/pause.png</file>
-    <file>images/sync/pause@2x.png</file>
-    <file>images/sync/cloud.png</file>
-    <file>images/sync/cloud@2x.png</file>
-    <file>images/sync/waiting.png</file>
-    <file>images/sync/waiting@2x.png</file>
+    <file>images/sync/cloud-sync.png</file>
+    <file>images/sync/cloud-sync@2x.png</file>
+    <file>images/sync/cloud-synced.png</file>
+    <file>images/sync/cloud-synced@2x.png</file>
+    <file>images/sync/cloud-unsynced.png</file>
+    <file>images/sync/cloud-unsynced@2x.png</file>
     <file>images/sync/exclamation.png</file>
     <file>images/sync/minus-sign.png</file>
+    <file>images/sync/pause.png</file>
+    <file>images/sync/pause@2x.png</file>
     <file>images/sync/question.png</file>
-    <file>images/sync/rotate.png</file>
+    <file>images/sync/waiting.png</file>
+    <file>images/sync/waiting@2x.png</file>
     <file>images/download-48.png</file>
-    <file>images/tabs/files.png</file>
-    <file>images/tabs/files@2x.png</file>
-    <file>images/tabs/history.png</file>
-    <file>images/tabs/history@2x.png</file>
-    <file>images/tabs/search.png</file>
-    <file>images/tabs/search@2x.png</file>
-    <file>images/tabs/starred.png</file>
-    <file>images/tabs/starred@2x.png</file>
-    <file>images/tabs/highlighted/files.png</file>
-    <file>images/tabs/highlighted/files@2x.png</file>
-    <file>images/tabs/highlighted/history.png</file>
-    <file>images/tabs/highlighted/history@2x.png</file>
-    <file>images/tabs/highlighted/search.png</file>
-    <file>images/tabs/highlighted/search@2x.png</file>
-    <file>images/tabs/highlighted/starred.png</file>
-    <file>images/tabs/highlighted/starred@2x.png</file>
+    <file>images/tabs/star-normal.png</file>
+    <file>images/tabs/star-normal@2x.png</file>
+    <file>images/tabs/history-normal.png</file>
+    <file>images/tabs/history-normal@2x.png</file>
+    <file>images/tabs/search-normal.png</file>
+    <file>images/tabs/search-normal@2x.png</file>
+    <file>images/tabs/library-normal.png</file>
+    <file>images/tabs/library-normal@2x.png</file>
+    <file>images/tabs/highlighted/star-orange.png</file>
+    <file>images/tabs/highlighted/star-orange@2x.png</file>
+    <file>images/tabs/highlighted/library-orange.png</file>
+    <file>images/tabs/highlighted/library-orange@2x.png</file>
+    <file>images/tabs/highlighted/search-orange.png</file>
+    <file>images/tabs/highlighted/search-orange@2x.png</file>
+    <file>images/tabs/highlighted/history-orange.png</file>
+    <file>images/tabs/highlighted/history-orange@2x.png</file>
     <file>images/files/file_audio.png</file>
     <file>images/files/file_image.png</file>
     <file>images/files/file_ms_excel.png</file>
@@ -147,12 +148,6 @@
     <file>images/files_v2/file_video@2x.png</file>
     <file>images/files_v2/file_unknown.png</file>
     <file>images/files_v2/file_unknown@2x.png</file>
-    <file>images/caret-down.png</file>
-    <file>images/caret-down@2x.png</file>
-    <file>images/caret-up.png</file>
-    <file>images/caret-up@2x.png</file>
-    <file>images/caret-right.png</file>
-    <file>images/caret-right@2x.png</file>
     <file>images/account-settings.png</file>
     <file>images/account-settings@2x.png</file>
     <file>images/add-account.png</file>
@@ -165,6 +160,8 @@
     <file>images/account-else@2x.png</file>
     <file>images/logout.png</file>
     <file>images/logout@2x.png</file>
+    <file>images/cancel.png</file>
+    <file>images/cancel@2x.png</file>
     <file>images/filebrowser/backward.png</file>
     <file>images/filebrowser/backward@2x.png</file>
     <file>images/filebrowser/forward.png</file>
@@ -193,10 +190,14 @@
     <file>images/toolbar/file@2x.png</file>
     <file>images/toolbar/file-gray.png</file>
     <file>images/toolbar/file-gray@2x.png</file>
-    <file>images/toolbar/refresh.png</file>
-    <file>images/toolbar/refresh@2x.png</file>
     <file>images/toolbar/refresh-gray.png</file>
     <file>images/toolbar/refresh-gray@2x.png</file>
+    <file>images/toolbar/refresh.png</file>
+    <file>images/toolbar/refresh@2x.png</file>
+    <file>images/toolbar/refresh-new.png</file>
+    <file>images/toolbar/refresh-new@2x.png</file>
+    <file>images/toolbar/refresh-orange.png</file>
+    <file>images/toolbar/refresh-orange@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

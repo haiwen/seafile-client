@@ -593,6 +593,8 @@ bool QtAwesome::initFontAwesome( )
     m.insert( "weibo",      icon_weibo );
     m.insert( "renren",     icon_renren );
 
+    m.insert( "circle_close",     icon_circle_close );
+
     return true;
 }
 

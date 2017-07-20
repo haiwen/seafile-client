@@ -606,7 +606,6 @@ bool RepoTreeView::viewportEvent(QEvent *event)
 
     // handle the event in the top
     const QModelIndex top_index = indexAt(QPoint(0, 0));
-    qDebug("RepoTreeView::viewportEvent() top_index row: %d", top_index.row());
     if (event->type() == QEvent::MouseButtonPress ||
         event->type() == QEvent::MouseButtonRelease)
     {

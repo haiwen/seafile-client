@@ -465,16 +465,16 @@ QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
     const LocalRepo& repo = item->localRepo();
     QString icon;
     if (!repo.isValid()) {
-        icon = "cloudUnsynced-alpha";
+        icon = "cloud-unsynced";
     } else if (!seafApplet->settingsManager()->autoSync()) {
         icon = "pause";
     } else {
         switch (repo.sync_state) {
         case LocalRepo::SYNC_STATE_DONE:
-            icon = "cloudSynced-alpha";
+            icon = "cloud-synced";
             break;
         case LocalRepo::SYNC_STATE_ING:
-            icon = "cloudSync-alpha";
+            icon = "cloud-sync";
             break;
         case LocalRepo::SYNC_STATE_ERROR:
             icon = "exclamation";

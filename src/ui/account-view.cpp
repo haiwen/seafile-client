@@ -32,12 +32,12 @@
 #include "api/requests.h"
 #include "filebrowser/auto-update-mgr.h"
 #include "repo-service.h"
-#include "loading-label.h"
 
 #include "account-view.h"
 namespace {
 
 const int kMarginRight = 15;
+const int kRefreshSize = 20;
 
 QStringList collectSyncedReposForAccount(const Account& account)
 {
@@ -92,10 +92,13 @@ AccountView::AccountView(QWidget *parent)
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
 
-    loading_label_ = new LoadingLabel();
-    loading_label_->setParent(this);
-    connect(loading_label_, SIGNAL(refresh()),
-            this, SIGNAL(refresh()));
+    refresh_label_ = new QLabel();
+    refresh_label_->setObjectName("mRefreshLabel");
+    refresh_label_->setParent(this);
+    refresh_label_->resize(kRefreshSize, kRefreshSize);
+    refresh_label_->setScaledContents(true);
+    refresh_label_->installEventFilter(this);
+    refresh_label_->show();
 }
 
 void AccountView::showAddAccountDialog()
@@ -381,6 +384,9 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         painter.drawImage(QPoint(0,0), masked_image);
         return true;
     }
+    if (obj == refresh_label_ && event->type() == QEvent::MouseButtonPress) {
+        emit refresh();
+    }
     return QObject::eventFilter(obj, event);
 }
 
@@ -475,6 +481,6 @@ void AccountView::visitServerInBrowser(const QString& link)
 
 void AccountView::resizeEvent(QResizeEvent* event)
 {
-    loading_label_->move(rect().right() - loading_label_->width() - kMarginRight + 2,
-                         (rect().bottom() - loading_label_->height()) / 2);
+    refresh_label_->move(rect().right() - refresh_label_->width() - kMarginRight + 2,
+                         (rect().bottom() - refresh_label_->height()) / 2);
 }

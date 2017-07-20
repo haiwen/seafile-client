@@ -11,7 +11,7 @@
 LoadingView::LoadingView(QWidget *parent)
     : QLabel(parent)
 {
-    gif_ = new QMovie(":/images/loadingspinner-alpha.gif");
+    gif_ = new QMovie(":/images/loading-spinner.gif");
     gif_->setScaledSize(QSize(48, 48));
     gif_->setParent(this);
     setMovie(gif_);

@@ -60,6 +60,14 @@ CloudView QLabel#mServerAddr {
     font-size: 13px;
 }
 
+QLabel#mRefreshLabel {
+    background-image: url(":/images/toolbar/refresh-new.png");
+}
+
+QLabel#mRefreshLabel:hover {
+    background-image: url(":/images/toolbar/refresh-orange.png");
+}
+
 QDialog QLabel#mTitle {
     color: #F89A01;
     font-family: Arial;
@@ -116,6 +124,23 @@ RepoTreeView
     /* border-bottom: 1px solid #DCDCDE; */
     padding-top: 8px;
 }
+
+QLineEdit#mSearchBar {
+    min-height: 30px;
+    max-height: 30px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    padding: 0 0px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+}
+
+QLineEdit#mSearchBar:focus {
+    color: #525252;
+}
+
 
 RepoTreeView QScrollBar {
     margin-right: 1px;

@@ -30,7 +30,6 @@ extern "C" {
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
 #include "utils/utils.h"
-#include "ui/loading-label.h"
 
 #include "cloud-view.h"
 

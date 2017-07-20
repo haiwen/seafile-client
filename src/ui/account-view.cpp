@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QThreadPool>
+#include <QMovie>
 
 #include "account.h"
 #include "seafile-applet.h"
@@ -30,9 +31,13 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "filebrowser/auto-update-mgr.h"
+#include "repo-service.h"
+#include "loading-label.h"
 
 #include "account-view.h"
 namespace {
+
+const int kMarginRight = 15;
 
 QStringList collectSyncedReposForAccount(const Account& account)
 {
@@ -58,7 +63,7 @@ QStringList collectSyncedReposForAccount(const Account& account)
     return repo_ids;
 }
 
-}
+} // namespace
 
 AccountView::AccountView(QWidget *parent)
     : QWidget(parent)
@@ -86,6 +91,11 @@ AccountView::AccountView(QWidget *parent)
             this, SLOT(showAddAccountDialog()));
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
+
+    loading_label_ = new LoadingLabel();
+    loading_label_->setParent(this);
+    connect(loading_label_, SIGNAL(refresh()),
+            this, SIGNAL(refresh()));
 }
 
 void AccountView::showAddAccountDialog()
@@ -461,4 +471,10 @@ void AccountView::onGetRepoTokensFailed(const ApiError& error)
 void AccountView::visitServerInBrowser(const QString& link)
 {
     AutoLoginService::instance()->startAutoLogin("/");
+}
+
+void AccountView::resizeEvent(QResizeEvent* event)
+{
+    loading_label_->move(rect().right() - loading_label_->width() - kMarginRight + 2,
+                         (rect().bottom() - loading_label_->height()) / 2);
 }

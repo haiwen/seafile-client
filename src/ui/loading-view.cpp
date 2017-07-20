@@ -11,7 +11,8 @@
 LoadingView::LoadingView(QWidget *parent)
     : QLabel(parent)
 {
-    gif_ = new QMovie(":/images/loading.gif");
+    gif_ = new QMovie(":/images/loadingspinner-alpha.gif");
+    gif_->setScaledSize(QSize(48, 48));
     gif_->setParent(this);
     setMovie(gif_);
     setAlignment(Qt::AlignCenter);
@@ -32,8 +33,8 @@ void LoadingView::hideEvent(QHideEvent *event)
 void LoadingView::setQssStyleForTab()
 {
     static const char *kLoadingViewQss = "border: 0; margin: 0;"
-                              "border-top: 1px solid #DCDCDE;"
-                              "background-color: #F5F5F7;";
+                                         "border-top: 1px solid #DCDCDE;"
+                                         "background-color: #F5F5F7;";
 
     setStyleSheet(kLoadingViewQss);
 }

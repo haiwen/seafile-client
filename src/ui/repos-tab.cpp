@@ -8,7 +8,6 @@
 #include <QTimer>
 #include <QStackedWidget>
 #include <QSortFilterProxyModel>
-#include <QLineEdit>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -21,6 +20,8 @@
 #include "rpc/local-repo.h"
 #include "loading-view.h"
 #include "logout-view.h"
+#include "QtAwesome.h"
+#include "ui/search-bar.h"
 
 #include "repos-tab.h"
 
@@ -48,19 +49,13 @@ ReposTab::ReposTab(QWidget *parent)
     logout_view_ = new LogoutView;
     static_cast<LogoutView*>(logout_view_)->setQssStyleForTab();
 
-    filter_text_ = new QLineEdit;
-    filter_text_->setPlaceholderText(tr("Search libraries..."));
-    filter_text_->setObjectName("repoNameFilter");
-    // This property was introduced in Qt 5.2.
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
-    filter_text_->setClearButtonEnabled(true);
-#endif
-#ifdef Q_OS_MAC
-    filter_text_->setAttribute(Qt::WA_MacShowFocusRect, 0);
-#endif
+    filter_text_ = new SearchBar;
+    filter_text_->setPlaceholderText(tr("Search libraries"));
     connect(filter_text_, SIGNAL(textChanged(const QString&)),
             this, SLOT(onFilterTextChanged(const QString&)));
+
     QVBoxLayout *vlayout = (QVBoxLayout *)layout();
+    vlayout->setSpacing(0);
     vlayout->insertWidget(0, filter_text_);
 
     mStack->insertWidget(INDEX_LOADING_VIEW, loading_view_);

@@ -224,10 +224,10 @@ enum QtFontAwesomeName {
     icon_google_plus_sign    = 0xf0d4,
     icon_google_plus         = 0xf0d5,
     icon_money               = 0xf0d6,
-    icon_caret_down          = 0xf0d7,
-    icon_caret_up            = 0xf0d8,
-    icon_caret_left          = 0xf0d9,
-    icon_caret_right         = 0xf0da,
+    icon_caret_down          = 0xf107,
+    icon_caret_up            = 0xf106,
+    icon_caret_left          = 0xf104,
+    icon_caret_right         = 0xf105,
     icon_columns             = 0xf0db,
     icon_sort                = 0xf0dc,
     icon_sort_down           = 0xf0dd,
@@ -418,9 +418,9 @@ enum QtFontAwesomeName {
     icon_bug                    = 0xf188,
     icon_vk                     = 0xf189,
     icon_weibo                  = 0xf18a,
-    icon_renren                 = 0xf18b
+    icon_renren                 = 0xf18b,
 
-
+    icon_circle_close           = 0xf05c
 };
 
 

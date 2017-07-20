@@ -14,6 +14,7 @@
 #include "logout-view.h"
 #include "utils/file-utils.h"
 #include "utils/paint-utils.h"
+#include "ui/search-bar.h"
 
 #include "ui/search-tab.h"
 #include "ui/search-tab-items.h"
@@ -77,15 +78,8 @@ void SearchTab::reset()
 void SearchTab::createSearchView()
 {
     QVBoxLayout *layout = (QVBoxLayout*)this->layout();
-    line_edit_ = new QLineEdit;
-    line_edit_->setPlaceholderText(tr("Search Files..."));
-    line_edit_->setObjectName("searchInput");
-#ifdef Q_OS_MAC
-    line_edit_->setAttribute(Qt::WA_MacShowFocusRect, 0);
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
-    line_edit_->setClearButtonEnabled(true);
-#endif
+    line_edit_ = new SearchBar;
+    line_edit_->setPlaceholderText(tr("Search files"));
     layout->insertWidget(0, line_edit_);
 
     waiting_view_ = new QWidget;

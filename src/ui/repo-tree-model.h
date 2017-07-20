@@ -7,7 +7,6 @@
 #include <QModelIndex>
 
 class ServerRepo;
-class RepoCategoryItem;
 class RepoItem;
 class RepoCategoryItem;
 class QTimer;
@@ -58,6 +57,7 @@ public:
 
     void updateRepoItemAfterSyncNow(const QString& repo_id);
     void onFilterTextChanged(const QString& text);
+    int repo_category_height;
 
 signals:
     void repoStatusChanged(const QModelIndex& index);

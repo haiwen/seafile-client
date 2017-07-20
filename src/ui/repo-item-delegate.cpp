@@ -219,7 +219,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 
     // Paint repo icon
     // QPoint repo_icon_pos(kMarginLeft + kPadding + indent_left, kMarginTop + kPadding);
-    QPoint repo_icon_pos(kMarginLeft, kRepoItemVerticalMargin);
+    QPoint repo_icon_pos(kMarginLeft + 4 + indent_left, kRepoItemVerticalMargin);
     repo_icon_pos += option.rect.topLeft();
 
     // get the device pixel radio from current painter device

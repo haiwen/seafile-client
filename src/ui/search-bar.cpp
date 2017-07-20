@@ -31,7 +31,7 @@ SearchBar::SearchBar(QWidget *parent)
     clear_button_size_ = pixmap.width();
     clear_button_->setIcon(QIcon(pixmap));
     clear_button_->setCursor(Qt::ArrowCursor);
-    clear_button_->setAutoRaise(false);
+    clear_button_->setStyleSheet("QToolButton { border: 0px; }");
     clear_button_->hide();
     connect(clear_button_, SIGNAL(clicked()),
             this, SLOT(clear()));

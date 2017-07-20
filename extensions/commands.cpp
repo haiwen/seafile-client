@@ -162,9 +162,9 @@ bool GetFileStatusCommand::parseResponse(const std::string& raw_resp,
     } else {
         *status = RepoInfo::NoStatus;
 
-        seaf_ext_log ("[GetFileStatusCommand] status for %s is %s, raw_resp is %s\n",
-                      path_in_repo_.c_str(),
-                      seafile::toString(*status).c_str(), raw_resp.c_str());
+        // seaf_ext_log ("[GetFileStatusCommand] status for %s is %s, raw_resp is %s\n",
+        //               path_in_repo_.c_str(),
+        //               seafile::toString(*status).c_str(), raw_resp.c_str());
     }
 
     return true;

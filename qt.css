@@ -60,14 +60,6 @@ CloudView QLabel#mServerAddr {
     font-size: 13px;
 }
 
-QLabel#mRefreshLabel {
-    background-image: url(":/images/toolbar/refresh-new.png");
-}
-
-QLabel#mRefreshLabel:hover {
-    background-image: url(":/images/toolbar/refresh-orange.png");
-}
-
 QDialog QLabel#mTitle {
     color: #F89A01;
     font-family: Arial;

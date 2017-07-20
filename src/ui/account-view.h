@@ -46,14 +46,10 @@ private:
     bool eventFilter(QObject *obj, QEvent *event);
     void getRepoTokenWhenRelogin(const Account& account);
 
-    void resizeEvent(QResizeEvent* event);
-
     // Account operations
     QAction *add_account_action_;
     QAction *account_settings_action_;
     QMenu *account_menu_;
-
-    QLabel *refresh_label_;
 
 signals:
     void refresh();

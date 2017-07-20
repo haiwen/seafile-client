@@ -36,9 +36,6 @@
 #include "account-view.h"
 namespace {
 
-const int kMarginRight = 15;
-const int kRefreshSize = 20;
-
 QStringList collectSyncedReposForAccount(const Account& account)
 {
     std::vector<LocalRepo> repos;
@@ -92,13 +89,10 @@ AccountView::AccountView(QWidget *parent)
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
             this, SLOT(visitServerInBrowser(const QString&)));
 
-    refresh_label_ = new QLabel();
-    refresh_label_->setObjectName("mRefreshLabel");
-    refresh_label_->setParent(this);
-    refresh_label_->resize(kRefreshSize, kRefreshSize);
-    refresh_label_->setScaledContents(true);
-    refresh_label_->installEventFilter(this);
-    refresh_label_->show();
+    // Must get the pixmap from QIcon because QIcon would load the 2x version
+    // automatically.
+    mRefreshLabel->setPixmap(QIcon(":/images/toolbar/refresh-new.png").pixmap(20));
+    mRefreshLabel->installEventFilter(this);
 }
 
 void AccountView::showAddAccountDialog()
@@ -384,8 +378,17 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         painter.drawImage(QPoint(0,0), masked_image);
         return true;
     }
-    if (obj == refresh_label_ && event->type() == QEvent::MouseButtonPress) {
-        emit refresh();
+    if (obj == mRefreshLabel) {
+        if (event->type() == QEvent::MouseButtonPress) {
+            emit refresh();
+            return true;
+        } else if (event->type() == QEvent::Enter) {
+            mRefreshLabel->setPixmap(QIcon(":/images/toolbar/refresh-orange.png").pixmap(20));
+            return true;
+        } else if (event->type() == QEvent::Leave) {
+            mRefreshLabel->setPixmap(QIcon(":/images/toolbar/refresh-new.png").pixmap(20));
+            return true;
+        }
     }
     return QObject::eventFilter(obj, event);
 }
@@ -477,10 +480,4 @@ void AccountView::onGetRepoTokensFailed(const ApiError& error)
 void AccountView::visitServerInBrowser(const QString& link)
 {
     AutoLoginService::instance()->startAutoLogin("/");
-}
-
-void AccountView::resizeEvent(QResizeEvent* event)
-{
-    refresh_label_->move(rect().right() - refresh_label_->width() - kMarginRight + 2,
-                         (rect().bottom() - refresh_label_->height()) / 2);
 }

@@ -92,6 +92,13 @@
     <file>images/sync/cloud-synced@2x.png</file>
     <file>images/sync/cloud-unsynced.png</file>
     <file>images/sync/cloud-unsynced@2x.png</file>
+    <file>images/sync/exclamation.png</file>
+    <file>images/sync/minus-sign.png</file>
+    <file>images/sync/pause.png</file>
+    <file>images/sync/pause@2x.png</file>
+    <file>images/sync/question.png</file>
+    <file>images/sync/waiting.png</file>
+    <file>images/sync/waiting@2x.png</file>
     <file>images/download-48.png</file>
     <file>images/tabs/star-normal.png</file>
     <file>images/tabs/star-normal@2x.png</file>

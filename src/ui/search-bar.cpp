@@ -27,9 +27,10 @@ SearchBar::SearchBar(QWidget *parent)
     placeholder_label_ = new QLabel(this);
 
     clear_button_ = new QToolButton(this);
-    QPixmap pixmap(":/images/cancel.png");
-    clear_button_size_ = pixmap.width();
-    clear_button_->setIcon(QIcon(pixmap));
+    QIcon icon(":/images/cancel.png");
+    clear_button_size_ = 12;
+    clear_button_->setIcon(icon);
+    clear_button_->setIconSize(QSize(clear_button_size_, clear_button_size_));
     clear_button_->setCursor(Qt::ArrowCursor);
     clear_button_->setStyleSheet("QToolButton { border: 0px; }");
     clear_button_->hide();

@@ -229,7 +229,7 @@ void CloudView::setupFooter()
 
     // mDownloadRateArrow->setText(QChar(icon_arrow_down));
     // mDownloadRateArrow->setFont(awesome->font(16));
-    mDownloadRateArrow->setPixmap(QPixmap(":/images/main-panel/download.png"));
+    mDownloadRateArrow->setPixmap(QIcon(":/images/main-panel/download.png").pixmap(10));
     mDownloadRateArrow->setAlignment(Qt::AlignVCenter);
     mDownloadRate->setText("0 kB/s");
     mDownloadRate->setToolTip(tr("current download rate"));
@@ -237,7 +237,7 @@ void CloudView::setupFooter()
 
     // mUploadRateArrow->setText(QChar(icon_arrow_up));
     // mUploadRateArrow->setFont(awesome->font(16));
-    mUploadRateArrow->setPixmap(QPixmap(":/images/main-panel/upload.png"));
+    mUploadRateArrow->setPixmap(QIcon(":/images/main-panel/upload.png").pixmap(10));
     mUploadRateArrow->setAlignment(Qt::AlignVCenter);
     mUploadRate->setText("0 kB/s");
     mUploadRate->setToolTip(tr("current upload rate"));

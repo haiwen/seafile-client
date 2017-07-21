@@ -1,6 +1,7 @@
 #include <QtGlobal>
 #include <QtWidgets>
 #include <QDesktopServices>
+#include <climits>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -44,6 +45,9 @@ enum {
 const char *kLoadingFailedLabelName = "LoadingFailedText";
 const int kToolBarIconSize = 20;
 const int kStatusBarIconSize = 24;
+const QString kProgressBarStyle("QProgressBar "
+        "{ max-height: 6px; border: 1px solid grey; border-radius: 2px; } "
+        "QProgressBar::chunk { background-color: #92C87A; width: 1px; }");
 //const int kStatusCodePasswordNeeded = 400;
 
 void openFile(const QString& path)
@@ -315,7 +319,15 @@ void FileBrowserDialog::createStatusBar()
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     details_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    details_label_->show();
     status_bar_->addWidget(details_label_);
+
+    upload_progress_ = new QProgressBar(status_bar_);
+    upload_progress_->setStyleSheet(kProgressBarStyle);
+    details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    upload_progress_->setTextVisible(false);
+    upload_progress_->hide();
+    status_bar_->addWidget(upload_progress_);
 
     refresh_action_ = new QAction(this);
     refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
@@ -623,15 +635,17 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
+    // FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
+    connect(task, SIGNAL(progressUpdate(qint64, qint64)),
+            this, SLOT(onUploadProgressUpdate(qint64, qint64)));
 
     // set dialog attributes
-    dialog->setAttribute(Qt::WA_DeleteOnClose);
-    dialog->setWindowModality(Qt::WindowModal);
-    dialog->show();
-    dialog->raise();
-    dialog->activateWindow();
+    // dialog->setAttribute(Qt::WA_DeleteOnClose);
+    // dialog->setWindowModality(Qt::WindowModal);
+    // dialog->show();
+    // dialog->raise();
+    // dialog->activateWindow();
 }
 
 void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
@@ -654,15 +668,17 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
       data_mgr_->createUploadMultipleTask(repo_.id, current_path_, path, fnames,
                                           overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
+    // FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
+    connect(task, SIGNAL(progressUpdate(qint64, qint64)),
+            this, SLOT(onUploadProgressUpdate(qint64, qint64)));
 
     // set dialog attributes
-    dialog->setAttribute(Qt::WA_DeleteOnClose);
-    dialog->setWindowModality(Qt::WindowModal);
-    dialog->show();
-    dialog->raise();
-    dialog->activateWindow();
+    // dialog->setAttribute(Qt::WA_DeleteOnClose);
+    // dialog->setWindowModality(Qt::WindowModal);
+    // dialog->show();
+    // dialog->raise();
+    // dialog->activateWindow();
 }
 
 void FileBrowserDialog::uploadFileOrMkdir()
@@ -708,6 +724,24 @@ void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)
         uploadOrUpdateFile(paths.front());
     else
         uploadMultipleFile(paths);
+}
+
+void FileBrowserDialog::onUploadProgressUpdate(qint64 processed_bytes,
+                                               qint64 total_bytes)
+{
+    if (total_bytes > INT_MAX) {
+        upload_progress_->setMaximum(INT_MAX);
+        // Avoid overflow
+        double progress = double(processed_bytes) * INT_MAX / total_bytes;
+        upload_progress_->setValue((int)progress);
+    } else {
+        upload_progress_->setMaximum(total_bytes);
+        upload_progress_->setValue(processed_bytes);
+    }
+
+    QString msg(tr("%1 of %2")
+                .arg(::readableFileSizeV2(processed_bytes))
+                .arg(::readableFileSizeV2(total_bytes)));
 }
 
 void FileBrowserDialog::onDownloadFinished(bool success)

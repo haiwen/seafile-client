@@ -17,6 +17,7 @@ class QButtonGroup;
 class QMenu;
 class QAction;
 class QSizeGrip;
+class QProgressBar;
 
 class ApiError;
 class FileTableView;
@@ -79,6 +80,8 @@ private slots:
     // prompt a dialog for user to choose whether upload or update
     void uploadOrUpdateFile(const QString& path);
     void uploadOrUpdateMutipleFile(const QStringList& paths);
+
+    void onUploadProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
 
     void onNavigatorClick(int id);
 
@@ -181,6 +184,7 @@ private:
     QAction *upload_directory_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
+    QProgressBar *upload_progress_;
 
     // others
     QStackedWidget *stack_;

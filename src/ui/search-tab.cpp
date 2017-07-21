@@ -148,13 +148,8 @@ bool SearchTab::eventFilter(QObject *obj, QEvent *event)
         scale_factor = globalDevicePixelRatio();
 #endif // QT5
 
-        QPixmap image(QIcon(":/images/main-panel/search-background.png").pixmap(size).scaled(scale_factor * size));
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        image.setDevicePixelRatio(scale_factor);
-#endif // QT5
-
-        painter.drawPixmap(rect.topLeft(), image);
+        QPixmap image = QIcon(":/images/main-panel/search-background.png").pixmap(size);
+        painter.drawPixmap(rect, image);
 
         return true;
     };

@@ -223,9 +223,9 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
 
     // get the device pixel radio from current painter device
-    double scale_factor = 1;
+    int scale_factor = 1;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    scale_factor = globalDevicePixelRatio();
+    scale_factor = painter->device()->devicePixelRatio();
 #endif // QT5
     QPixmap repo_icon(repo.getIcon().pixmap(QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha) * scale_factor));
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -396,9 +396,9 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                 kRepoCategoryVerticalMargin + vertical_padding_between_indicator_and_name),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     // get the device pixel radio from current painter device
-    double scale_factor = 1;
+    int scale_factor = 1;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    scale_factor = globalDevicePixelRatio();
+    scale_factor = painter->device()->devicePixelRatio();
 #endif // QT5
     QIcon icon(expanded ? awesome->icon(icon_caret_down, kRepoCategoryIndicatorColor)
                         : awesome->icon(icon_caret_right, kRepoCategoryIndicatorColor));

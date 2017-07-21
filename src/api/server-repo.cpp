@@ -72,13 +72,5 @@ QIcon ServerRepo::getIcon() const
 
 QPixmap ServerRepo::getPixmap() const
 {
-    if (this->isSubfolder()) {
-        return QPixmap(":/images/main-panel/folder.png");
-    } else if (encrypted) {
-        return QPixmap(":/images/main-panel/vaultEncrypted.png");
-    } else if (readonly) {
-        return QPixmap(":/images/main-panel/vaultReadonly.png");
-    } else {
-        return QPixmap(":/images/main-panel/vaultNormal.png");
-    }
+    return getIcon().pixmap(24);
 }

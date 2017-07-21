@@ -108,93 +108,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="123"/>
+        <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation>确定要删除账号 %1 吗？&lt;br&gt;&lt;br&gt;这个账号会从本地删除。同步配置也会被删除。服务器上的账号不会受到影响。</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="137"/>
+        <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>解除同步该帐号的资料库失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="167"/>
+        <location filename="../src/ui/account-view.cpp" line="173"/>
         <source>click to open the website</source>
         <translation>点击跳转到网页版</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="175"/>
+        <location filename="../src/ui/account-view.cpp" line="181"/>
         <source>pro version</source>
         <translation>企业版</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="177"/>
+        <location filename="../src/ui/account-view.cpp" line="183"/>
         <source>No account</source>
         <translation>没有帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="212"/>
+        <location filename="../src/ui/account-view.cpp" line="218"/>
         <source>Choose</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="221"/>
+        <location filename="../src/ui/account-view.cpp" line="227"/>
         <source>Account settings</source>
         <translation>帐户设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="236"/>
+        <location filename="../src/ui/account-view.cpp" line="242"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="239"/>
+        <location filename="../src/ui/account-view.cpp" line="245"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="252"/>
+        <location filename="../src/ui/account-view.cpp" line="258"/>
         <source>Add an account</source>
         <translation>添加一个帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="234"/>
+        <location filename="../src/ui/account-view.cpp" line="240"/>
         <source>Logout</source>
         <translation>登出</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="199"/>
-        <location filename="../src/ui/account-view.cpp" line="265"/>
+        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="271"/>
         <source>not logged in</source>
         <translation>没有登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="453"/>
+        <location filename="../src/ui/account-view.cpp" line="450"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>删除本地资料库同步验证信息失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="477"/>
+        <location filename="../src/ui/account-view.cpp" line="474"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>从服务器上获取资料库同步信息失败：%1</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="91"/>
+        <location filename="../ui_account-view.h" line="84"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="92"/>
+        <location filename="../ui_account-view.h" line="85"/>
         <source>Account</source>
         <translation>帐号</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="93"/>
+        <location filename="../ui_account-view.h" line="86"/>
         <source>email</source>
         <translation>邮箱</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="94"/>
+        <location filename="../ui_account-view.h" line="87"/>
         <source>server</source>
         <translation>服务器</translation>
     </message>
@@ -434,7 +434,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="250"/>
         <source>Select</source>
-        <translation>选择</translation>
+        <translation>选择文件夹</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="247"/>
@@ -444,7 +444,7 @@ failed to upload.</source>
     <message>
         <location filename="../ui_cloud-view.h" line="251"/>
         <source>or Drop Folder to Sync</source>
-        <translation>或拖拽文件夹来同步</translation>
+        <translation>或拖拽到这里进行同步</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="253"/>
@@ -2656,17 +2656,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="306"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="311"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="527"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
         <source>This library has not been downloaded</source>
         <translation>这个资料库还没有下载</translation>
     </message>
@@ -3165,12 +3165,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SearchResultListView</name>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="190"/>
+        <location filename="../src/ui/search-tab-items.cpp" line="200"/>
         <source>&amp;Show in folder</source>
         <translation>打开所在文件夹(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
+        <location filename="../src/ui/search-tab-items.cpp" line="203"/>
         <source>Show in folder</source>
         <translation>打开所在文件夹</translation>
     </message>

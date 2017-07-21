@@ -100,5 +100,5 @@ compile_commands.json
 seafile-applet.rc
 *.dmp
 
-qt*seafile-applet
+*seafile-applet
 *.lib

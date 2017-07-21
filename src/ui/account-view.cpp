@@ -9,7 +9,6 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QThreadPool>
-#include <QMovie>
 
 #include "account.h"
 #include "seafile-applet.h"

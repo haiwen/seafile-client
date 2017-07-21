@@ -40,6 +40,7 @@ const int kRepoIconHeight = 36;
 const int kRepoIconWidth = 36;
 const int kRepoIconHeightAlpha = 24;
 const int kRepoIconWidthAlpha = 24;
+const int kVerticalMarginBetweenIconAndName = 9;
 const int kRepoNameWidth = 175;
 const int kRepoNameHeight = 30;
 const int kRepoNameHeightAlpha = 20;
@@ -63,6 +64,7 @@ const char *kRepoNameColorHighlighted = "#544D49";
 const char *kTimestampColor = "#AAAAAA";
 const char *kTimestampColorHighlighted = "#9D9B9A";
 const int kRepoNameFontSize = 14;
+const char *kHybridFont = "YaHei Consolas Hybrid";
 const int kTimestampFontSize = 12;
 const int kRepoDescriptionFontSizeAlpha = 10;
 const int kRepoCategoryNameFontSize = 14;
@@ -235,30 +237,36 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     painter->restore();
 
     // Paint repo name
-    int vertical_margin_between_icon_and_name = 0;
-#ifdef Q_OS_WIN32
-    vertical_margin_between_icon_and_name = -9;
-#else
-    vertical_margin_between_icon_and_name = -5;
+    int vertical_margin_between_icon_and_name = kVerticalMarginBetweenIconAndName;
+    QFont repo_name_font = changeFontSize(painter->font(), kRepoNameFontSize);
+#ifdef Q_OS_LINUX
+    repo_name_font.setFamily(kHybridFont);
+    if (repo_name_font.family() != kHybridFont) {
+        vertical_margin_between_icon_and_name -= 3;
+    }
 #endif
     QPoint repo_name_pos = repo_icon_pos + QPoint(kRepoIconWidthAlpha + kMarginBetweenRepoIconAndName,
-                                                  vertical_margin_between_icon_and_name);
+                                                  - vertical_margin_between_icon_and_name);
     int repo_name_width = option.rect.width() - kRepoIconWidthAlpha - kMarginBetweenRepoIconAndName
         - kRepoStatusIconWidthAlpha - kMarginBetweenRepoNameAndStatus
         - kPadding * 2 - kMarginLeft - kMarginRight;
     repo_name_width -= indent_left;
-    int repo_name_height = ::textHeightInFont(repo.name, changeFontSize(painter->font(), kRepoNameFontSize));
+    int repo_name_height = ::textHeightInFont(repo.name, repo_name_font);
     QRect repo_name_rect(repo_name_pos, QSize(repo_name_width, repo_name_height));
     painter->save();
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
-    painter->setFont(changeFontSize(painter->font(), kRepoNameFontSize));
+    painter->setFont(repo_name_font);
     painter->drawText(repo_name_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(repo.name, painter->font(), repo_name_width),
+                      fitTextToWidth(repo.name, repo_name_font, repo_name_width),
                       &repo_name_rect);
     painter->restore();
 
     // Paint repo description
+    QFont repo_description_font = changeFontSize(painter->font(), kRepoDescriptionFontSizeAlpha);
+#ifdef Q_OS_LINUX
+    repo_description_font.setFamily(kHybridFont);
+#endif
     QString description;
     const LocalRepo& r = item->localRepo();
     if (r.isValid()) {
@@ -287,19 +295,10 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (description.isEmpty()) {
         description = translateCommitTime(repo.mtime);
     }
-    painter->save();
     QPoint repo_desc_pos = repo_name_rect.bottomLeft() + QPoint(0, 5);
-    int repo_desc_height = ::textHeightInFont(description, changeFontSize(painter->font(), kRepoDescriptionFontSizeAlpha));
+    int repo_desc_height = ::textHeightInFont(description, repo_description_font);
     QRect repo_desc_rect(repo_desc_pos, QSize(repo_name_width, repo_desc_height));
-    painter->setFont(changeFontSize(painter->font(), kRepoDescriptionFontSizeAlpha));
-    painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
-    painter->drawText(repo_desc_rect,
-                      Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                      fitTextToWidth(description, painter->font(), repo_name_width),
-                      &repo_desc_rect);
-    painter->restore();
 
-    // Paint extra description
     QString extra_description;
     if (repo.isSubfolder()) {
         ServerRepo parent_repo = RepoService::instance()->getRepo(repo.parent_repo_id);
@@ -309,29 +308,16 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (static_cast<RepoCategoryItem*>(item->parent())->categoryIndex() ==
         RepoTreeModel::CAT_INDEX_SHARED_REPOS)
         extra_description += tr(", %1").arg(repo.owner.split('@').front());
+    description.append(extra_description);
 
-    if (!extra_description.isEmpty()) {
-        int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
-        if (width < 3)
-            width = 3;
-        int vertical_margin_between_desc_and_extra_desc = 0;
-#ifdef Q_OS_LINUX
-        vertical_margin_between_desc_and_extra_desc = 3;
-#endif
-        QPoint repo_owner_pos = repo_desc_rect.topRight() + QPoint(0, vertical_margin_between_desc_and_extra_desc);
-        int extra_desc_height = ::textHeightInFont(extra_description, changeFontSize(painter->font(), kOwnerFontSizeAlpha));
-        QRect repo_owner_rect(repo_owner_pos, QSize(width, extra_desc_height));
-
-        painter->save();
-        painter->setFont(changeFontSize(painter->font(), kOwnerFontSizeAlpha));
-        painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
-        painter->drawText(repo_owner_rect,
-                          Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
-                          fitTextToWidth(extra_description, painter->font(), width),
-                          &repo_owner_rect);
-
-        painter->restore();
-    }
+    painter->save();
+    painter->setFont(repo_description_font);
+    painter->setPen(QColor(selected ? kTimestampColorHighlighted : kTimestampColor));
+    painter->drawText(repo_desc_rect,
+                      Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+                      fitTextToWidth(description, repo_description_font, repo_name_width),
+                      &repo_desc_rect);
+    painter->restore();
 
     // Paint repo status icon
     QPoint status_icon_pos = option.rect.topRight() - QPoint(41, 0);

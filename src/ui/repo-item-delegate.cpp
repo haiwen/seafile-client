@@ -227,10 +227,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     scale_factor = painter->device()->devicePixelRatio();
 #endif // QT5
-    QPixmap repo_icon(repo.getIcon().pixmap(QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha) * scale_factor));
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    repo_icon.setDevicePixelRatio(scale_factor);
-#endif // QT5
+    QPixmap repo_icon = repo.getIcon().pixmap(QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha));
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha));
     painter->save();
@@ -341,10 +338,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeightAlpha / 2));
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidthAlpha, kRepoStatusIconHeightAlpha));
 
-    QPixmap status_icon_pixmap = getSyncStatusIcon(item).pixmap(scale_factor * status_icon_rect.size());
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    status_icon_pixmap.setDevicePixelRatio(scale_factor);
-#endif // QT5
+    QPixmap status_icon_pixmap = getSyncStatusIcon(item).pixmap(status_icon_rect.size());
 
     painter->save();
     painter->drawPixmap(status_icon_rect, status_icon_pixmap);
@@ -402,10 +396,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
 #endif // QT5
     QIcon icon(expanded ? awesome->icon(icon_caret_down, kRepoCategoryIndicatorColor)
                         : awesome->icon(icon_caret_right, kRepoCategoryIndicatorColor));
-    QPixmap icon_pixmap(icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorWidth) * scale_factor));
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    icon_pixmap.setDevicePixelRatio(scale_factor);
-#endif // QT5
+    QPixmap icon_pixmap(icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorWidth)));
     painter->drawPixmap(indicator_rect, icon_pixmap);
     painter->restore();
 

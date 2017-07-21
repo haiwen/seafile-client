@@ -67,15 +67,7 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
         QIcon icon(currentIndex() == index ? highlighted_icons_[index]
                                            : icons_[index]);
         QRect icon_rect(top_left, QSize(kTabIconSize, kTabIconSize));
-        // get the device pixel radio from current painter device
-        int scale_factor = 1;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        scale_factor = globalDevicePixelRatio();
-#endif // QT5
-        QPixmap icon_pixmap(icon.pixmap(QSize(kTabIconSize, kTabIconSize) * scale_factor));
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-        icon_pixmap.setDevicePixelRatio(scale_factor);
-#endif // QT5
+        QPixmap icon_pixmap(icon.pixmap(QSize(kTabIconSize, kTabIconSize)));
         painter.drawPixmap(icon_rect, icon_pixmap);
 
         // int indicator_width = count() * rect.width() / 8;

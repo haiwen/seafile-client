@@ -57,7 +57,7 @@ void SearchBar::resizeEvent(QResizeEvent* event)
 {
     clear_button_->move(rect().right() - kMarginRightSearchBar
                         - kHMargin - clear_button_size_ - 2,
-                        (rect().bottom() - kMarginBottom - clear_button_size_) / 2 - 2);
+                        (rect().bottom() - kMarginBottom - clear_button_size_) / 2);
     int label_height = placeholder_label_->height();
     int label_width = placeholder_label_->width();
     placeholder_label_->move((rect().right() - label_width) / 2,

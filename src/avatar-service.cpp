@@ -185,7 +185,7 @@ void AvatarService::start()
             break;
         }
 
-        // create SyncedSubfolder table
+        // create Avatar table
         sql = "CREATE TABLE IF NOT EXISTS Avatar ("
             "filename TEXT PRIMARY KEY, timestamp BIGINT, "
             "url VARCHAR(24), username VARCHAR(15), "

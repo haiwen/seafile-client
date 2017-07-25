@@ -35,8 +35,8 @@ const int kExtraPadding = 5;
 const int kExtraPadding = 0;
 #endif
 
-const int kAvatarHeight = 36;
-const int kAvatarWidth = 36;
+const int kAvatarHeight = 40;
+const int kAvatarWidth = 40;
 //const int kNickWidth = 210;
 const int kNickHeight = 30;
 

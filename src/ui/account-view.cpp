@@ -354,9 +354,12 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         double scale_factor = globalDevicePixelRatio();
 
         QPixmap image(mAccountBtn->icon().pixmap(rect.size()).scaled(scale_factor * rect.size()));
-        QRect actualRect(QPoint(0, 0), image.size());
+        QRect actualRect(QPoint(0, 0),
+                         QSize(AvatarService::kAvatarSize * scale_factor,
+                               AvatarService::kAvatarSize * scale_factor));
 
-        QImage masked_image(actualRect.size(), QImage::Format_ARGB32_Premultiplied);
+        QImage masked_image(actualRect.size(),
+                            QImage::Format_ARGB32_Premultiplied);
         masked_image.fill(Qt::transparent);
         QPainter mask_painter;
         mask_painter.begin(&masked_image);

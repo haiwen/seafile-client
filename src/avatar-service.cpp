@@ -15,10 +15,13 @@
 #include <sqlite3.h>
 #include "avatar-service.h"
 
-static const int kCheckPendingInterval = 1000; // 1s
-static const char *kAvatarsDirName = "avatars";
-static const qint64 kExpireTimeIntevalMsec = 300 * 1000; // 5min
-static bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
+namespace {
+
+const int kCheckPendingInterval = 1000; // 1s
+const char *kAvatarsDirName = "avatars";
+const qint64 kExpireTimeIntevalMsec = 300 * 1000; // 5min
+
+bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
 {
     qint64* mtime = reinterpret_cast<qint64*>(data);
 
@@ -27,7 +30,10 @@ static bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
     return true;
 }
 
-const int AvatarService::kAvatarSize = 42;
+} // namespace
+
+const int AvatarService::kAvatarSize = 40;
+const int kAvatarSizeFromServer = 80;
 
 struct PendingRequestInfo {
     int last_wait;
@@ -219,7 +225,9 @@ QImage AvatarService::loadAvatarFromLocal(const QString& email)
 
 QString AvatarService::avatarPathForEmail(const Account& account, const QString& email)
 {
-    return QDir(avatars_dir_).filePath(::md5(account.serverUrl.host() + email));
+    return QDir(avatars_dir_)
+        .filePath(::md5(account.serverUrl.host() + email + "/" +
+                        QString::number(kAvatarSizeFromServer)));
 }
 
 void AvatarService::fetchImageFromServer(const QString& email)
@@ -245,7 +253,7 @@ void AvatarService::fetchImageFromServer(const QString& email)
         sqlite3_free(zql);
     }
 
-    get_avatar_req_ = new GetAvatarRequest(account, email, mtime, globalDevicePixelRatio() * kAvatarSize);
+    get_avatar_req_ = new GetAvatarRequest(account, email, mtime, kAvatarSizeFromServer);
 
     connect(get_avatar_req_, SIGNAL(success(const QImage&)),
             this, SLOT(onGetAvatarSuccess(const QImage&)));

@@ -43,8 +43,7 @@ InitVirtualDriveDialog::InitVirtualDriveDialog(const Account& account, QWidget *
 
     mStatusText->setText(
         tr("%1 organizes files by libraries.\nDo you like to download your "
-           "default library and create a virtual disk?")
-            .arg(getBrand()));
+           "default library?").arg(getBrand()));
     setStatusIcon(":/images/download-48.png");
 
     create_default_repo_req_ = NULL;
@@ -111,7 +110,6 @@ void InitVirtualDriveDialog::startDownload(const QString& repo_id)
     if (repo.isValid()) {
         // This repo is already here
         qDebug("The default library has already been downloaded");
-        createVirtualDisk(repo);
         default_repo_path_ = repo.worktree;
         finish();
         return;
@@ -261,18 +259,11 @@ void InitVirtualDriveDialog::checkDownloadProgress()
         return;
     }
 
-    // Download is finished. Create the virutal disk in "My Computer".
+    // Download is finished.
     LocalRepo repo;
     seafApplet->rpcClient()->getLocalRepo(default_repo_id_, &repo);
-    createVirtualDisk(repo);
     default_repo_path_ = repo.worktree;
     finish();
-}
-
-void InitVirtualDriveDialog::createVirtualDisk(const LocalRepo& repo)
-{
-    setStatusText(tr("Creating the virtual disk..."));
-    Configurator::setVirtualDrive(repo.worktree, repo.name);
 }
 
 

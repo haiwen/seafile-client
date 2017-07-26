@@ -26,7 +26,6 @@ extern "C" {
 #endif
 
 #include "utils/utils.h"
-#include "configurator.h"
 #include "settings-mgr.h"
 #include "ui/uninstall-helper-dialog.h"
 
@@ -223,7 +222,6 @@ void do_remove_user_data()
 {
     do_stop();
     set_seafile_auto_start(false);
-    Configurator::removeVirtualDrive();
 
 #if defined(Q_OS_WIN32)
     if (hasPreconfigureKeepConfigWhenUninstall()) {

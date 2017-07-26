@@ -192,9 +192,6 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
         menu->addAction(toggle_auto_sync_action_);
         menu->addAction(sync_now_action_);
         menu->addAction(set_sync_interval_action_);
-#if defined(Q_OS_WIN32)
-        menu->addAction(map_netdrive_action_);
-#endif
         menu->addSeparator();
     }
 
@@ -236,7 +233,6 @@ void RepoTreeView::updateRepoActions()
         unsync_action_->setEnabled(false);
         resync_action_->setEnabled(false);
         set_sync_interval_action_->setEnabled(false);
-        map_netdrive_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
         view_on_web_action_->setEnabled(false);
         open_in_filebrowser_action_->setEnabled(false);
@@ -269,9 +265,6 @@ void RepoTreeView::updateRepoActions()
 
         set_sync_interval_action_->setData(QVariant::fromValue(local_repo));
         set_sync_interval_action_->setEnabled(true);
-
-        map_netdrive_action_->setData(QVariant::fromValue(local_repo));
-        map_netdrive_action_->setEnabled(true);
 
         if (seafApplet->settingsManager()->autoSync()) {
             toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
@@ -306,7 +299,6 @@ void RepoTreeView::updateRepoActions()
         unsync_action_->setEnabled(false);
         resync_action_->setEnabled(false);
         set_sync_interval_action_->setEnabled(false);
-        map_netdrive_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
     }
 
@@ -440,14 +432,6 @@ void RepoTreeView::createActions()
     set_sync_interval_action_->setStatusTip(tr("unsync and resync this library"));
 
     connect(set_sync_interval_action_, SIGNAL(triggered()), this, SLOT(setRepoSyncInterval()));
-
-    map_netdrive_action_ = new QAction(tr("&Map as a network drive"), this);
-    map_netdrive_action_->setIcon(QIcon(":/images/disk.png"));
-    map_netdrive_action_->setStatusTip(tr("map as a network drive"));
-
-#if defined(Q_OS_WIN32)
-    connect(map_netdrive_action_, SIGNAL(triggered()), this, SLOT(mapLibraryAsNetworkDrive()));
-#endif
 }
 
 void RepoTreeView::downloadRepo()
@@ -1065,109 +1049,3 @@ void RepoTreeView::setRepoSyncInterval()
     seafApplet->rpcClient()->setRepoProperty(
         local_repo.id, kSyncIntervalProperty, QString::number(interval));
 }
-
-#if defined(Q_OS_WIN32)
-static bool findNextAvailableDrive(QString* drive)
-{
-    DWORD bitmap = GetLogicalDrives();
-    if (bitmap == 0) {
-        return false;
-    }
-    char disk = 'A';
-    DWORD mask = 1;
-    while (disk <= 'Z') {
-        if (!(bitmap & mask)) {
-            *drive = QString(disk) + ":";
-            return true;
-        }
-        mask = mask << 1;
-        disk += 1;
-    }
-    return false;
-}
-
-static QString getDriveNetworkPath(const QString& drive)
-{
-    wchar_t wbuf[8192];
-    DWORD size = sizeof(wbuf) / sizeof(wchar_t);
-    if (WNetGetConnectionW(drive.toStdWString().c_str(), wbuf, &size) ==
-        NO_ERROR) {
-        return QString::fromWCharArray(wbuf);
-    }
-    return QString();
-}
-
-static bool alreadyMappedAsNetworkDrive(const QString& path, QString* drive)
-{
-    DWORD bitmap = GetLogicalDrives();
-    if (bitmap == 0) {
-        return false;
-    }
-    char disk = 'A';
-    DWORD mask = 1;
-    while (disk <= 'Z') {
-        if (bitmap & mask) {
-            QString drive_root = QString(disk) + ":";
-            if (getDriveNetworkPath(drive_root) == path) {
-                *drive = drive_root;
-                return true;
-            }
-        }
-        mask = mask << 1;
-        disk += 1;
-    }
-    return false;
-}
-
-static QString formatErrorMessage(DWORD error_code)
-{
-    if (error_code == 0) {
-        return QObject::tr("unknown error");
-    }
-    wchar_t wbuf[4096] = {0};
-    ::FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM,
-                    NULL,
-                    error_code,
-                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-                    wbuf,
-                    (sizeof(wbuf) / sizeof(wchar_t)) - 1,
-                    NULL);
-    return QString::fromWCharArray(wbuf);
-}
-
-void RepoTreeView::mapLibraryAsNetworkDrive()
-{
-    LocalRepo local_repo =
-        qvariant_cast<LocalRepo>(set_sync_interval_action_->data());
-    QString worktree = QDir::toNativeSeparators(local_repo.worktree);
-    // Path format is \\localhost\c$\folder
-    QString net_path = QString("\\\\localhost\\%1$\\%2")
-                           .arg(worktree.left(1).toLower())
-                           .arg(worktree.mid(3));
-
-    QString mapped_drive;
-    if (alreadyMappedAsNetworkDrive(net_path, &mapped_drive)) {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(mapped_drive));
-        return;
-    }
-
-    if (!findNextAvailableDrive(&mapped_drive)) {
-        seafApplet->warningBox(tr("No available windows drive letter"));
-        return;
-    }
-
-    qWarning("path is %s", net_path.toUtf8().data());
-
-    int code = QProcess::execute("net", QStringList() << "use" << mapped_drive
-                                                      << net_path);
-    if (code != 0) {
-        seafApplet->warningBox(tr("Operation failed: %1").arg(formatErrorMessage(code)));
-    } else {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(mapped_drive));
-    }
-}
-#else
-void RepoTreeView::mapLibraryAsNetworkDrive()
-{
-}
-#endif // Q_OS_WIN32

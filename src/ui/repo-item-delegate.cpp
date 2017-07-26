@@ -73,7 +73,7 @@ const int kOwnerFontSizeAlpha = 10;
 
 const char *kRepoItemBackgroundColorHighlightedAlpha = "#EFEEEE";
 const char *kRepoItemBackgroundColor = "white";
-const char *kRepoItemBackgroundColorDragMove = "#C8C8C8";
+const char *kRepoItemBackgroundColorDragMove = "#EFEEEE";
 
 const char *kRepoCategoryColor = "#747474";
 

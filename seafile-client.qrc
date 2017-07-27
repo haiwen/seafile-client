@@ -178,6 +178,12 @@
     <file>images/filebrowser/locked@2x.png</file>
     <file>images/filebrowser/locked-by-me.png</file>
     <file>images/filebrowser/locked-by-me@2x.png</file>
+    <file>images/filebrowser/refresh-gray.png</file>
+    <file>images/filebrowser/refresh-gray@2x.png</file>
+    <file>images/filebrowser/refresh-orange.png</file>
+    <file>images/filebrowser/refresh-orange@2x.png</file>
+    <file>images/filebrowser/add.png</file>
+    <file>images/filebrowser/add@2x.png</file>
     <file>images/toolbar/add.png</file>
     <file>images/toolbar/add@2x.png</file>
     <file>images/toolbar/add-gray.png</file>

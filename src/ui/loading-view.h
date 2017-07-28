@@ -8,6 +8,7 @@
 class QMovie;
 class QShowEvent;
 class QHideEvent;
+class QHBoxLayout;
 
 class LoadingView : public QLabel {
     Q_OBJECT
@@ -25,10 +26,15 @@ private:
     QMovie *gif_;
 };
 
-class LoadMoreButton : public QToolButton {
+class LoadMoreButton : public QWidget {
     Q_OBJECT
 public:
     explicit LoadMoreButton(QWidget *parent=0);
+signals:
+    void clicked();
+private:
+    QHBoxLayout *layout_;
+    QToolButton *load_more_btn_;
 };
 
 #endif // SEAFILE_CLIENT_LOADING_VIEW_H_

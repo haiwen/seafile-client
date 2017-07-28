@@ -336,66 +336,77 @@ void LoginDialog::showWarning(const QString& msg)
 }
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT
+
+bool LoginDialog::getShibLoginUrl(const QString& last_shib_url, QUrl *url_out)
+{
+    QString server_addr = last_shib_url;
+    QUrl url;
+
+    while (true) {
+        bool ok;
+        server_addr =
+            seafApplet->getText(this,
+                                tr("Shibboleth Login"),
+                                tr("%1 Server Address").arg(getBrand()),
+                                QLineEdit::Normal,
+                                server_addr,
+                                &ok);
+        server_addr = server_addr.trimmed();
+
+        // exit when user hits cancel button
+        if (!ok) {
+            return false;
+        }
+
+        if (server_addr.isEmpty()) {
+            showWarning(tr("Server address must not be empty").arg(server_addr));
+            continue;
+        }
+
+        if (!server_addr.startsWith("https://")) {
+            showWarning(tr("%1 is not a valid server address. It has to start with 'https://'").arg(server_addr));
+            continue;
+        }
+
+        url = QUrl(server_addr, QUrl::StrictMode);
+        if (!url.isValid()) {
+            showWarning(tr("%1 is not a valid server address").arg(server_addr));
+            continue;
+        }
+
+        *url_out = url;
+        return true;
+    }
+}
+
 void LoginDialog::loginWithShib()
 {
-    bool ok = true;
-    QUrl url;
-    QString serverAddr =
+    QString server_addr =
         seafApplet->readPreconfigureEntry(kPreconfigureShibbolethLoginUrl)
             .toString()
             .trimmed();
-    if (!serverAddr.isEmpty()) {
-        if (QUrl(serverAddr).isValid()) {
+    if (!server_addr.isEmpty()) {
+        if (QUrl(server_addr).isValid()) {
             qWarning("Using preconfigured shibboleth login url: %s\n",
-                     toCStr(serverAddr));
+                     toCStr(server_addr));
         } else {
             qWarning("Invalid preconfigured shibboleth login url: %s\n",
-                     toCStr(serverAddr));
-            serverAddr = "";
+                     toCStr(server_addr));
+            server_addr = "";
         }
     }
 
-    if (serverAddr.isEmpty()) {
+    QUrl url;
+    if (server_addr.isEmpty()) {
         // When we reach here, there is no preconfigured shibboleth login url,
         // or the preconfigured url is invalid. So we ask the user for the url.
-        serverAddr = seafApplet->settingsManager()->getLastShibUrl();
-        while (ok) {
-            serverAddr =
-                seafApplet->getText(this,
-                                    tr("Shibboleth Login"),
-                                    tr("%1 Server Address").arg(getBrand()),
-                                    QLineEdit::Normal,
-                                    serverAddr,
-                                    &ok);
-            serverAddr = serverAddr.trimmed();
-
-            // exit when user hits cancel button
-            if (!ok) {
-              return;
-            }
-
-            if (serverAddr.isEmpty()) {
-                showWarning(tr("Server address must not be empty").arg(serverAddr));
-                continue;
-            }
-
-            if (!serverAddr.startsWith("https://")) {
-                showWarning(tr("%1 is not a valid server address. It has to start with 'https://'").arg(serverAddr));
-                continue;
-            }
-
-            url = QUrl(serverAddr, QUrl::StrictMode);
-            if (!url.isValid()) {
-                showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-                continue;
-            }
-
-            // exit loop, if everything is okay
-            break;
+        server_addr = seafApplet->settingsManager()->getLastShibUrl();
+        if (!getShibLoginUrl(server_addr, &url)) {
+            return;
         }
     }
 
-    seafApplet->settingsManager()->setLastShibUrl(serverAddr);
+    seafApplet->settingsManager()->setLastShibUrl(url.toString());
 
     ShibLoginDialog shib_dialog(url, mComputerName->text(), this);
     if (shib_dialog.exec() == QDialog::Accepted) {

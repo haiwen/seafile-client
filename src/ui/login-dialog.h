@@ -51,6 +51,9 @@ private:
     void onNetworkError(const QNetworkReply::NetworkError& error, const QString& error_string);
     void onSslErrors(QNetworkReply *reply, const QList<QSslError>& errors);
     void onHttpError(int code);
+#ifdef HAVE_SHIBBOLETH_SUPPORT
+    bool getShibLoginUrl(const QString& last_shib_url, QUrl *url_out);
+#endif // HAVE_SHIBBOLETH_SUPPORT
 
     QUrl url_;
     QString username_;

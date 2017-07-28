@@ -338,6 +338,8 @@ void LoginDialog::showWarning(const QString& msg)
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 void LoginDialog::loginWithShib()
 {
+    bool ok = true;
+    QUrl url;
     QString serverAddr =
         seafApplet->readPreconfigureEntry(kPreconfigureShibbolethLoginUrl)
             .toString()
@@ -356,29 +358,41 @@ void LoginDialog::loginWithShib()
     if (serverAddr.isEmpty()) {
         // When we reach here, there is no preconfigured shibboleth login url,
         // or the preconfigured url is invalid. So we ask the user for the url.
-        QString lastUsedShibUrl = seafApplet->settingsManager()->getLastShibUrl();
-        serverAddr =
-            seafApplet->getText(this,
-                                tr("Shibboleth Login"),
-                                tr("%1 Server Address").arg(getBrand()),
-                                QLineEdit::Normal,
-                                lastUsedShibUrl);
-        serverAddr = serverAddr.trimmed();
-    }
+        serverAddr = seafApplet->settingsManager()->getLastShibUrl();
+        while (ok) {
+            serverAddr =
+                seafApplet->getText(this,
+                                    tr("Shibboleth Login"),
+                                    tr("%1 Server Address").arg(getBrand()),
+                                    QLineEdit::Normal,
+                                    serverAddr,
+                                    &ok);
+            serverAddr = serverAddr.trimmed();
 
-    if (serverAddr.isEmpty()) {
-        return;
-    }
+            // exit when user hits cancel button
+            if (!ok) {
+              return;
+            }
 
-    if (!serverAddr.startsWith("http://") && !serverAddr.startsWith("https://")) {
-        showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-        return;
-    }
+            if (serverAddr.isEmpty()) {
+                showWarning(tr("Server address must not be empty.").arg(serverAddr));
+                continue;
+            }
 
-    QUrl url = QUrl(serverAddr, QUrl::StrictMode);
-    if (!url.isValid()) {
-        showWarning(tr("%1 is not a valid server address").arg(serverAddr));
-        return;
+            if (!serverAddr.startsWith("https://")) {
+                showWarning(tr("%1 is not a valid server address. It has to start with 'https://'.").arg(serverAddr));
+                continue;
+            }
+
+            url = QUrl(serverAddr, QUrl::StrictMode);
+            if (!url.isValid()) {
+                showWarning(tr("%1 is not a valid server address").arg(serverAddr));
+                continue;
+            }
+
+            // exit loop, if everything is okay
+            break;
+        }
     }
 
     seafApplet->settingsManager()->setLastShibUrl(serverAddr);

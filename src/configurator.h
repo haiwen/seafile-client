@@ -23,8 +23,6 @@ public:
     bool firstUse() const { return first_use_; }
 
 public:
-    static int setVirtualDrive(const QString& path, const QString& name);
-    static void removeVirtualDrive();
     static void installCustomUrlHandler();
 
 private slots:

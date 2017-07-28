@@ -113,7 +113,7 @@ min-width: 260px;
        <widget class="QLabel" name="mStatusText">
         <property name="text">
          <string>%1 organizes files by libraries. 
-Do you like to download your default library and create a virtual disk?</string>
+Do you like to download your default library?</string>
         </property>
        </widget>
       </item>

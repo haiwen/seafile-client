@@ -38,7 +38,6 @@ private:
     void setStatusText(const QString& status);
     void setStatusIcon(const QString& path);
     void ensureVisible();
-    void createVirtualDisk(const LocalRepo& repo);
     void finish();
     void fail(const QString& reason);
 

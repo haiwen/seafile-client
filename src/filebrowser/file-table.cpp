@@ -27,6 +27,7 @@ enum {
     FILE_MAX_COLUMN
 };
 
+const int kMarginLeft = 14;
 const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
@@ -39,8 +40,9 @@ const int kRefreshProgressInterval = 1000;
 
 const QColor kSelectedItemBackgroundcColor("#F9E0C7");
 const QColor kItemBackgroundColor("white");
-const QColor kItemBottomBorderColor("#f3f3f3");
-const QColor kItemColor("black");
+const QColor kItemBottomBorderColor("#ECECEC");
+const QColor kFileNameFontColor("black");
+const QColor kFontColor("#757575");
 const QString kProgressBarStyle("QProgressBar "
         "{ border: 1px solid grey; border-radius: 2px; } "
         "QProgressBar::chunk { background-color: #f0f0f0; width: 1px; }");
@@ -66,14 +68,6 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
     // fix for the last item
     QRect option_rect = option.rect;
-    if (index.column() == FILE_COLUMN_KIND) {
-        option_rect.setSize(option_rect.size() - QSize(13, 0));
-        // white the extra rect
-        const QRect last_rect = QRect(option_rect.topRight(), QSize(13, option_rect.height()));
-        painter->save();
-        painter->fillRect(last_rect, kItemBackgroundColor);
-        painter->restore();
-    }
 
     // draw item's background
     painter->save();
@@ -124,7 +118,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         int alignY = (size.height() - icon_height) / 2;
 
         QRect icon_bound_rect(
-            option_rect.topLeft() + QPoint(alignX, alignY - 2),
+            option_rect.topLeft() + QPoint(kMarginLeft + alignX, alignY - 2),
             QSize(icon_width, icon_height));
 
         painter->save();
@@ -139,14 +133,15 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             QPixmap locked_pixmap = QIcon(image).pixmap(kLockIconSize, kLockIconSize);
             int alignX = (kColumnIconSize / 2) + 3;
             int alignY = (kColumnIconSize / 2) + 2;
-            painter->drawPixmap(option_rect.topLeft() + QPoint(alignX, alignY), locked_pixmap);
+            painter->drawPixmap(option_rect.topLeft() + QPoint(kMarginLeft + alignX, alignY), locked_pixmap);
             painter->restore();
         }
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(4 * 2 + kColumnIconSize, -2), size - QSize(kColumnIconSize, 0));
-        painter->setPen(kItemColor);
+        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 4 * 2 + kColumnIconSize, -2),
+                   size - QSize(kColumnIconSize, 0));
+        painter->setPen(kFileNameFontColor);
         painter->setFont(font);
         painter->drawText(rect,
                           Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
@@ -195,7 +190,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
         painter->save();
-        painter->setPen(kItemColor);
+        painter->setPen(kFontColor);
         painter->setFont(font);
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
         painter->restore();
@@ -219,7 +214,7 @@ FileTableView::FileTableView(QWidget *parent)
       proxy_model_(NULL)
 {
     verticalHeader()->hide();
-    verticalHeader()->setDefaultSectionSize(36);
+    verticalHeader()->setDefaultSectionSize(40);
     horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
@@ -989,27 +984,46 @@ QVariant FileTableModel::headerData(int section,
                                     Qt::Orientation orientation,
                                     int role) const
 {
-    if (orientation == Qt::Vertical)
-        return QVariant();
-
-    if (role == Qt::TextAlignmentRole)
-        return Qt::AlignLeft + Qt::AlignVCenter;
-
-    if (role != Qt::DisplayRole)
-        return QVariant();
-
-    switch (section) {
-    case FILE_COLUMN_NAME:
-        return tr("Name");
-    case FILE_COLUMN_SIZE:
-        return tr("Size");
-    case FILE_COLUMN_MTIME:
-        return tr("Last Modified");
-    case FILE_COLUMN_KIND:
-        return tr("Kind");
-    default:
+    if (orientation == Qt::Vertical) {
         return QVariant();
     }
+
+    if (role == Qt::TextAlignmentRole) {
+        return Qt::AlignLeft + Qt::AlignVCenter;
+    }
+
+    if (role == Qt::DisplayRole) {
+        switch (section) {
+        case FILE_COLUMN_NAME:
+            return tr("Name");
+        case FILE_COLUMN_SIZE:
+            return tr("Size");
+        case FILE_COLUMN_MTIME:
+            return tr("Last Modified");
+        case FILE_COLUMN_KIND:
+            return tr("Kind");
+        default:
+            return QVariant();
+        }
+    }
+
+    if (role == Qt::FontRole) {
+        QFont font;
+        font.setPixelSize(12);
+        return font;
+    }
+
+    if (role == Qt::ForegroundRole) {
+        return QBrush(kFontColor);
+    }
+
+    if (role == Qt::SizeHintRole && section == FILE_COLUMN_NAME) {
+        if (dirents_.empty()) {
+            return QSize(name_column_width_, 0);
+        }
+    }
+
+    return QVariant();
 }
 
 const SeafDirent* FileTableModel::direntAt(int row) const

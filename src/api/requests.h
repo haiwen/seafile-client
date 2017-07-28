@@ -772,4 +772,85 @@ private:
     uint size_;
 };
 
+struct SharedLinkInfo {
+    QString ctime;
+    QString expire_date;
+    bool is_dir;
+    bool is_expired;
+    QString link;
+    QString obj_name;
+    QString path;
+    QString repo_id;
+    QString repo_name;
+    QString token;
+    QString username;
+    quint64 view_cnt;
+};
+
+struct SharedLinkRequestParams {
+    Account account;
+    QString repo_id;
+    QString path_in_repo;
+    bool is_file;
+    bool internal;
+    bool advanced;
+};
+
+
+class GetSharedLinkRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetSharedLinkRequest(const SharedLinkRequestParams &params);
+    const SharedLinkRequestParams req_params;
+
+signals:
+    void success(const SharedLinkInfo& shared_link_info);
+    void empty();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetSharedLinkRequest)
+};
+
+
+class CreateShareLinkRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    CreateShareLinkRequest(const SharedLinkRequestParams &params,
+                           const QString &password = QString(),
+                           quint64 expired_date = 0);
+    void SetAdvancedShareParams(const QString &password,
+                                quint64 expired_date);
+    const SharedLinkRequestParams req_params;
+
+signals:
+    void success(const SharedLinkInfo& shared_link_info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(CreateShareLinkRequest)
+};
+
+
+class DeleteSharedLinkRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    DeleteSharedLinkRequest(const SharedLinkRequestParams &params,
+                            const QString &token);
+    const SharedLinkRequestParams req_params;
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(DeleteSharedLinkRequest)
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

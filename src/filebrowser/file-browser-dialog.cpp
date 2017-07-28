@@ -12,19 +12,17 @@
 #include "seaf-dirent.h"
 #include "ui/loading-view.h"
 #include "data-mgr.h"
-#include "data-mgr.h"
 #include "progress-dialog.h"
 #include "tasks.h"
 #include "ui/set-repo-password-dialog.h"
-#include "sharedlink-dialog.h"
-#include "seafilelink-dialog.h"
-#include "advanced-sharedlink-dialog.h"
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 #include "repo-service.h"
 #include "rpc/local-repo.h"
 #include "rpc/rpc-client.h"
 #include "ui/private-share-dialog.h"
+#include "shared-link-mgr.h"
+#include "api/requests.h"
 
 #include "file-browser-manager.h"
 #include "file-browser-dialog.h"
@@ -194,12 +192,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirentRemoveSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(removeDirentFailed(const ApiError&)),
             this, SLOT(onDirentRemoveFailed(const ApiError&)));
-
-    //share <--> data_mgr_
-    connect(data_mgr_, SIGNAL(shareDirentSuccess(const QString&)),
-            this, SLOT(onDirentShareSuccess(const QString&)));
-    connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
-            this, SLOT(onDirentShareFailed(const ApiError&)));
 
     //copy <--> data_mgr_
     connect(data_mgr_, SIGNAL(copyDirentsSuccess()),
@@ -978,20 +970,26 @@ void FileBrowserDialog::onGetDirentRemove(const QList<const SeafDirent*> &dirent
 
 void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
 {
-    data_mgr_->shareDirent(repo_.id,
-                           ::pathJoin(current_path_, dirent.name),
-                           dirent.isFile());
+    SharedLinkRequestParams params;
+    params.account = account_;
+    params.repo_id = repo_.id;
+    params.path_in_repo = ::pathJoin(current_path_, dirent.name);
+    params.is_file = dirent.isFile();
+    params.internal = false;
+    params.advanced = false;
+    SharedLinkManager::instance()->generateShareLink(params);
 }
 
 void FileBrowserDialog::onGetDirentAdvancedShare(const SeafDirent& dirent)
 {
-    QString repo_id = repo_.id;
-    QString email = account_.username;
-    QString path = ::pathJoin(current_path_, dirent.name);
-    if (dirent.isDir())
-        path += "/";
-
-    AdvancedSharedLinkDialog(this, account_, repo_id, path).exec();
+    SharedLinkRequestParams params;
+    params.account = account_;
+    params.repo_id = repo_.id;
+    params.path_in_repo = ::pathJoin(current_path_, dirent.name);
+    params.is_file = dirent.isFile();
+    params.internal = false;
+    params.advanced = true;
+    SharedLinkManager::instance()->generateShareLink(params);
 }
 
 void FileBrowserDialog::onGetDirentShareToUserOrGroup(const SeafDirent& dirent,
@@ -1005,13 +1003,14 @@ void FileBrowserDialog::onGetDirentShareToUserOrGroup(const SeafDirent& dirent,
 
 void FileBrowserDialog::onGetDirentShareSeafile(const SeafDirent& dirent)
 {
-    QString repo_id = repo_.id;
-    QString email = account_.username;
-    QString path = ::pathJoin(current_path_, dirent.name);
-    if (dirent.isDir())
-        path += "/";
-
-    SeafileLinkDialog(repo_id, account_, path, this).exec();
+    SharedLinkRequestParams params;
+    params.account = account_;
+    params.repo_id = repo_.id;
+    params.path_in_repo = ::pathJoin(current_path_, dirent.name);
+    params.is_file = dirent.isFile();
+    params.internal = true;
+    params.advanced = false;
+    SharedLinkManager::instance()->generateShareLink(params);
 }
 
 void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
@@ -1095,16 +1094,6 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Remove failed"), this);
-}
-
-void FileBrowserDialog::onDirentShareSuccess(const QString &link)
-{
-    SharedLinkDialog(link, this).exec();
-}
-
-void FileBrowserDialog::onDirentShareFailed(const ApiError&error)
-{
-    seafApplet->warningBox(tr("Share failed"), this);
 }
 
 void FileBrowserDialog::onFileAutoUpdated(const QString& repo_id, const QString& path)

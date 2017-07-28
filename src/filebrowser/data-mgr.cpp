@@ -134,21 +134,6 @@ void DataManager::removeDirent(const QString &repo_id,
     reqs_.push_back(req);
 }
 
-void DataManager::shareDirent(const QString &repo_id,
-                              const QString &path,
-                              bool is_file)
-{
-    GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id,
-                                                         path);
-    connect(req, SIGNAL(success(const QString&)),
-            SIGNAL(shareDirentSuccess(const QString&)));
-
-    connect(req, SIGNAL(failed(const ApiError&)),
-            SIGNAL(shareDirentFailed(const ApiError&)));
-    reqs_.push_back(req);
-    req->send();
-}
-
 void DataManager::copyDirents(const QString &repo_id,
                               const QString &dir_path,
                               const QStringList &file_names,

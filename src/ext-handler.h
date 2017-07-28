@@ -16,23 +16,6 @@
 class SeafileRpcClient;
 class ExtConnectionListenerThread;
 class ApiError;
-// class CreateShareLinkRequest;
-struct SharedLinkInfo;
-
-struct SharedLinkRequestParams {
-    QString repo_id;
-    QString path_in_repo;
-    bool is_file;
-    bool internal;
-    bool advanced;
-    void initialize() {
-        repo_id.clear();
-        path_in_repo.clear();
-        is_file = false;
-        internal = false;
-        advanced = false;
-    }
-};
 
 /**
  * Handles commands from seafile shell extension
@@ -47,9 +30,6 @@ public:
 
 private slots:
     void getShareLink();
-    void onGetShareLinkSuccess(const SharedLinkInfo& shared_link_info);
-    void generateShareLink();
-    void onGenerateShareLinkSuccess(const SharedLinkInfo& shared_link_info);
     void onLockFileSuccess();
     void onLockFileFailed(const ApiError& error);
     void lockFile(const QString& repo_id,

@@ -103,8 +103,6 @@ private slots:
     void onDirentRenameFailed(const ApiError& error);
     void onDirentRemoveSuccess(const QString& path);
     void onDirentRemoveFailed(const ApiError& error);
-    void onDirentShareSuccess(const QString& link);
-    void onDirentShareFailed(const ApiError& error);
 
     void onDirentsCopySuccess();
     void onDirentsCopyFailed(const ApiError& error);

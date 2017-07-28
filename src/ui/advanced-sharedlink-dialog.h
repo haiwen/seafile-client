@@ -4,36 +4,26 @@
 #include <QSpinBox>
 #include <QGroupBox>
 
-#include "account.h"
-
-struct SharedLinkInfo;
 class CreateShareLinkRequest;
-class Account;
 class QLineEdit;
+struct SharedLinkInfo;
+struct SharedLinkRequestParams;
 
 class AdvancedSharedLinkDialog : public QDialog
 {
     Q_OBJECT
 public:
-    // AdvancedSharedLinkDialog(QWidget *parent);
     AdvancedSharedLinkDialog(QWidget *parent,
-                             const Account &account,
-                             const QString &repo_id,
-                             const QString &path);
+                             const SharedLinkRequestParams &params);
+    ~AdvancedSharedLinkDialog();
 
 private slots:
     void onCopyText();
     void onOkBtnClicked();
-    void onPreviousSharedLinkExist(const SharedLinkInfo& info);
-    void generateAdvancedSharedLinkSuccess(const SharedLinkInfo& shared_link_info);
+    void onGenerateAdvancedSharedLinkSuccess(const SharedLinkInfo& shared_link_info);
+    void onGenerateAdvancedSharedLinkFailed();
 
 private:
-    void checkPreviousSharedLink();
-
-    Account account_;
-    QString repo_id_;
-    QString path_;
-
     QString password_;
     QString password_again_;
     quint64 valid_days_;

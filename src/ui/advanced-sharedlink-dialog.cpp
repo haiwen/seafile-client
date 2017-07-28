@@ -4,21 +4,15 @@
 #include <QGridLayout>
 
 #include "utils/utils-mac.h"
-#include "file-browser-requests.h"
+#include "api/requests.h"
+
 #include "seafile-applet.h"
 #include "advanced-sharedlink-dialog.h"
 
 AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent,
-                                                   const Account &account,
-                                                   const QString &repo_id,
-                                                   const QString &path)
-    : account_(account),
-      repo_id_(repo_id),
-      path_(path),
-      valid_days_(0)
+                                                   const SharedLinkRequestParams &params)
+    : valid_days_(0)
 {
-    checkPreviousSharedLink();
-
     setWindowTitle(tr("Share Link"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint) |
@@ -88,11 +82,17 @@ AdvancedSharedLinkDialog::AdvancedSharedLinkDialog(QWidget *parent,
     setMinimumWidth(300);
     setMaximumWidth(400);
 
-    advanced_share_req_ = new CreateShareLinkRequest(
-        account, repo_id, path);
+    advanced_share_req_ = new CreateShareLinkRequest(params);
 
     connect(advanced_share_req_, SIGNAL(success(const SharedLinkInfo&)),
-            this, SLOT(generateAdvancedSharedLinkSuccess(const SharedLinkInfo&)));
+            this, SLOT(onGenerateAdvancedSharedLinkSuccess(const SharedLinkInfo&)));
+    connect(advanced_share_req_, SIGNAL(failed()),
+            this, SLOT(onGenerateAdvancedSharedLinkFailed()));
+}
+
+AdvancedSharedLinkDialog::~AdvancedSharedLinkDialog()
+{
+    advanced_share_req_->deleteLater();
 }
 
 void AdvancedSharedLinkDialog::onCopyText()
@@ -135,45 +135,13 @@ void AdvancedSharedLinkDialog::onOkBtnClicked()
     advanced_share_req_->send();
 }
 
-void AdvancedSharedLinkDialog::generateAdvancedSharedLinkSuccess(const SharedLinkInfo& shared_link_info)
+void AdvancedSharedLinkDialog::onGenerateAdvancedSharedLinkSuccess(const SharedLinkInfo& shared_link_info)
 {
     editor_->setText(shared_link_info.link);
     editor_->selectAll();
 }
 
-void AdvancedSharedLinkDialog::checkPreviousSharedLink()
+void AdvancedSharedLinkDialog::onGenerateAdvancedSharedLinkFailed()
 {
-    GetSharedLinkRequest *req = new GetSharedLinkRequest(
-        account_, repo_id_, path_);
-
-    connect(req, SIGNAL(success(const SharedLinkInfo&)),
-            this, SLOT(onPreviousSharedLinkExist(const SharedLinkInfo&)));
-    connect(req, SIGNAL(failed()),
-            this, SLOT(raise()));
-
-    req->send();
-}
-
-void AdvancedSharedLinkDialog::onPreviousSharedLinkExist(
-    const SharedLinkInfo& previous_shared_link_info)
-{
-    lower();
-
-    bool proceed = false;
-    proceed = seafApplet->detailedYesOrNoBox(
-        tr("<b>Warning:</b> The shared link already exists, "
-        "delete and create link anyway?"),
-        "username: " + previous_shared_link_info.username +
-        "\nlink: " + previous_shared_link_info.link +
-        "\nview_cnt: " + QString::number(previous_shared_link_info.view_cnt),
-        0, true);
-
-    if (!proceed) {
-        reject();
-    } else {
-        DeleteSharedLinkRequest *req = new DeleteSharedLinkRequest(
-            account_, previous_shared_link_info.token);
-        connect(req, SIGNAL(success()), this, SLOT(raise()));
-        req->send();
-    }
+    seafApplet->warningBox(tr("Failed to generate the advanced shared link."), this);
 }

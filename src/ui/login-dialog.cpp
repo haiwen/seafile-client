@@ -375,12 +375,12 @@ void LoginDialog::loginWithShib()
             }
 
             if (serverAddr.isEmpty()) {
-                showWarning(tr("Server address must not be empty.").arg(serverAddr));
+                showWarning(tr("Server address must not be empty").arg(serverAddr));
                 continue;
             }
 
             if (!serverAddr.startsWith("https://")) {
-                showWarning(tr("%1 is not a valid server address. It has to start with 'https://'.").arg(serverAddr));
+                showWarning(tr("%1 is not a valid server address. It has to start with 'https://'").arg(serverAddr));
                 continue;
             }
 

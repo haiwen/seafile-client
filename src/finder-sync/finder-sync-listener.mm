@@ -93,7 +93,7 @@ static void handleGetFileStatus(mach_msg_command_rcv_t* msg) {
     kern_return_t kr = mach_msg_send(reply_msg_header);
     if (kr != MACH_MSG_SUCCESS) {
         qDebug("[FinderSync] mach error %s", mach_error_string(kr));
-        qWarning("[FinderSync] failed to send reply");
+        // qWarning("[FinderSync] failed to send reply");
     }
 
     // destroy
@@ -120,7 +120,7 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
     kern_return_t kr = mach_msg_send(reply_msg_header);
     if (kr != MACH_MSG_SUCCESS) {
         qDebug("[FinderSync] mach error %s", mach_error_string(kr));
-        qWarning("[FinderSync] failed to send reply");
+        // qWarning("[FinderSync] failed to send reply");
     }
 
     // destroy

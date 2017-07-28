@@ -211,11 +211,13 @@ const std::vector<Account>& AccountManager::loadAccounts()
 int AccountManager::saveAccount(const Account& account)
 {
     Account new_account = account;
+    bool account_exist = false;
     {
         QMutexLocker lock(&accounts_mutex_);
         for (size_t i = 0; i < accounts_.size(); i++) {
             if (accounts_[i] == account) {
                 accounts_.erase(accounts_.begin() + i);
+                account_exist = true;
                 break;
             }
         }
@@ -225,18 +227,35 @@ int AccountManager::saveAccount(const Account& account)
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
-    char *zql = sqlite3_mprintf(
-        "REPLACE INTO Accounts(url, username, token, lastVisited, isShibboleth) VALUES (%Q, %Q, %Q, %Q, %Q) ",
-        // url
-        new_account.serverUrl.toEncoded().data(),
-        // username
-        new_account.username.toUtf8().data(),
-        // token
-        new_account.token.toUtf8().data(),
-        // lastVisited
-        QString::number(timestamp).toUtf8().data(),
-        // isShibboleth
-        QString::number(new_account.isShibboleth).toUtf8().data());
+    char *zql;
+    if (account_exist) {
+        zql = sqlite3_mprintf(
+            "UPDATE Accounts SET token = %Q, lastVisited = %Q, isShibboleth = %Q"
+            "WHERE url = %Q AND username = %Q",
+            // token
+            new_account.token.toUtf8().data(),
+            // lastVisited
+            QString::number(timestamp).toUtf8().data(),
+            // isShibboleth
+            QString::number(new_account.isShibboleth).toUtf8().data(),
+            // url
+            new_account.serverUrl.toEncoded().data(),
+            // username
+            new_account.username.toUtf8().data());
+    } else {
+        zql = sqlite3_mprintf(
+            "INSERT INTO Accounts(url, username, token, lastVisited, isShibboleth) VALUES (%Q, %Q, %Q, %Q, %Q) ",
+            // url
+            new_account.serverUrl.toEncoded().data(),
+            // username
+            new_account.username.toUtf8().data(),
+            // token
+            new_account.token.toUtf8().data(),
+            // lastVisited
+            QString::number(timestamp).toUtf8().data(),
+            // isShibboleth
+            QString::number(new_account.isShibboleth).toUtf8().data());
+    }
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 

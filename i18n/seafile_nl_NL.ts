@@ -107,93 +107,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="116"/>
+        <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="130"/>
+        <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Kon bibliotheken van dit account niet desynchroniseren: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="160"/>
+        <location filename="../src/ui/account-view.cpp" line="173"/>
         <source>click to open the website</source>
         <translation>klik om de website te openen</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="168"/>
+        <location filename="../src/ui/account-view.cpp" line="181"/>
         <source>pro version</source>
         <translation>pro-versie</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="170"/>
+        <location filename="../src/ui/account-view.cpp" line="183"/>
         <source>No account</source>
         <translation>Geen account</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="218"/>
         <source>Choose</source>
         <translation>Kies</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="214"/>
+        <location filename="../src/ui/account-view.cpp" line="227"/>
         <source>Account settings</source>
         <translation>Accountinstellingen</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="229"/>
+        <location filename="../src/ui/account-view.cpp" line="242"/>
         <source>Login</source>
         <translation>Aanmelden</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="232"/>
+        <location filename="../src/ui/account-view.cpp" line="245"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="245"/>
+        <location filename="../src/ui/account-view.cpp" line="258"/>
         <source>Add an account</source>
         <translation>Account toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="227"/>
+        <location filename="../src/ui/account-view.cpp" line="240"/>
         <source>Logout</source>
         <translation>Afmelden</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="192"/>
-        <location filename="../src/ui/account-view.cpp" line="258"/>
+        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="271"/>
         <source>not logged in</source>
         <translation>niet aangemeld</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="434"/>
+        <location filename="../src/ui/account-view.cpp" line="450"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>Kon de lokale repository synchronisatie token: %1 niet verwijderen</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="458"/>
+        <location filename="../src/ui/account-view.cpp" line="474"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>Kon de synchronisatie informatie van server: %1 niet ophalen</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="82"/>
+        <location filename="../ui_account-view.h" line="84"/>
         <source>Form</source>
         <translation>Formulier</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="83"/>
+        <location filename="../ui_account-view.h" line="85"/>
         <source>Account</source>
         <translation>Account</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui_account-view.h" line="86"/>
         <source>email</source>
         <translation>e-mail</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui_account-view.h" line="87"/>
         <source>server</source>
         <translation>server</translation>
     </message>
@@ -254,12 +254,12 @@ kon niet worden geüpload.</translation>
 <context>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="38"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="42"/>
         <source>Checking Permission</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="39"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="43"/>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
@@ -350,69 +350,64 @@ kon niet worden geüpload.</translation>
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="149"/>
+        <location filename="../src/ui/cloud-view.cpp" line="150"/>
         <source>Minimize</source>
         <translation>Minimaliseren</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="155"/>
+        <location filename="../src/ui/cloud-view.cpp" line="156"/>
         <source>Close</source>
         <translation>Sluiten</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="183"/>
+        <location filename="../src/ui/cloud-view.cpp" line="186"/>
         <source>Libraries</source>
         <translation>Bibliotheken</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="187"/>
+        <location filename="../src/ui/cloud-view.cpp" line="191"/>
         <source>Starred</source>
         <translation>Favorieten</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="611"/>
+        <location filename="../src/ui/cloud-view.cpp" line="615"/>
         <source>Activities</source>
         <translation>Activiteiten</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="616"/>
+        <location filename="../src/ui/cloud-view.cpp" line="620"/>
         <source>Search</source>
         <translation>Zoeken</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="231"/>
+        <location filename="../src/ui/cloud-view.cpp" line="235"/>
         <source>current download rate</source>
         <translation>huidige downloadsnelheid</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="237"/>
+        <location filename="../src/ui/cloud-view.cpp" line="243"/>
         <source>current upload rate</source>
         <translation>huidige uploadsnelheid</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="244"/>
+        <location filename="../src/ui/cloud-view.cpp" line="252"/>
         <source>Please Choose a folder to sync</source>
         <translation>Kies een map om te synchroniseren</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="389"/>
+        <location filename="../src/ui/cloud-view.cpp" line="414"/>
         <source>no server connected</source>
         <translation>geen server verbonden</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="386"/>
+        <location filename="../src/ui/cloud-view.cpp" line="411"/>
         <source>all servers connected</source>
         <translation>alle servers verbonden</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="392"/>
+        <location filename="../src/ui/cloud-view.cpp" line="417"/>
         <source>some servers not connected</source>
         <translation>sommige servers niet verbonden</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/cloud-view.cpp" line="459"/>
-        <source>Refresh</source>
-        <translation>Vernieuwen</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="245"/>
@@ -1032,7 +1027,7 @@ kon niet worden geüpload.</translation>
         <translation>Downloaden %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="101"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="99"/>
         <source>%1 of %2</source>
         <translation>%1 van %2</translation>
     </message>
@@ -1437,7 +1432,7 @@ Wil je je standaardbibliotheek downloaden en een virtuele schijf aanmaken?</tran
 <context>
     <name>LoadMoreButton</name>
     <message>
-        <location filename="../src/ui/loading-view.cpp" line="44"/>
+        <location filename="../src/ui/loading-view.cpp" line="45"/>
         <source>load more</source>
         <translation type="unfinished"/>
     </message>
@@ -2278,12 +2273,12 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <translation>Kon item &quot;%1&quot; niet downloaden</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1001"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1026"/>
         <source>copy failed</source>
         <translation>kopie mislukt</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1100"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1125"/>
         <source>unknown error</source>
         <translation>onbekende fout</translation>
     </message>
@@ -2431,12 +2426,12 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <translation>&lt;Geen onderdeel van certificaat&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
+        <location filename="../src/main.cpp" line="201"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>Er is een bestaand proces van %1 gevonden. Deze afsluiten en een nieuw proces starten?</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="220"/>
+        <location filename="../src/main.cpp" line="221"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>Kon %1 niet starten omdat het voorgaande proces niet afgesloten kon worden</translation>
     </message>
@@ -2522,7 +2517,7 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <translation>Het pad &quot;%1&quot; conflicteert met een bestaande bibliotheek</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="422"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="423"/>
         <source>uploading file list</source>
         <translation type="unfinished"/>
     </message>
@@ -2667,17 +2662,17 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="282"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="287"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="493"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
         <source>This library has not been downloaded</source>
         <translation>Deze bibliotheek is niet gedownload</translation>
     </message>
@@ -2694,42 +2689,42 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>Recently Updated</source>
         <translation>Onlangs bijgewerkt</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>My Libraries</source>
         <translation>Mijn bibliotheken</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Sub Libraries</source>
         <translation>Subbibliotheken</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Shared with me</source>
         <translation>Gedeeld met mij</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
         <source>Shared with all</source>
         <translation>Gedeeld met iedereen</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
         <source>Shared with groups</source>
         <translation>Gedeeld met groepen</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="68"/>
         <source>Synced Libraries</source>
         <translation>Gesynchroniseerde bibliotheken</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="454"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="455"/>
         <source>sync initializing</source>
         <translation>Synchronisatie initialiseren</translation>
     </message>
@@ -2737,14 +2732,14 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="286"/>
         <source>Disable auto sync</source>
         <translation>Automatische synchronisatie uitschakelen</translation>
     </message>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="289"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
         <source>Enable auto sync</source>
@@ -2773,7 +2768,7 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <translation>Synchroniseer deze bibliotheek</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="144"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="143"/>
         <source>Recently Updated</source>
         <translation>Onlangs bijgewerkt</translation>
     </message>
@@ -2896,12 +2891,12 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="788"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="802"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Kon de bibliotheek &quot;%1&quot; niet desynchroniseren</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="709"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="723"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2910,57 +2905,57 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
         <source>The download has been canceled</source>
         <translation>De download is geannuleerd</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="782"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="796"/>
         <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="829"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="858"/>
         <source>You do not have permission to upload to this folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="845"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="870"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>Kon het bestand &quot;%1&quot; niet met zichzelf overschrijven</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="850"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="875"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>Weet je zeker dat je het bestand &quot;%1&quot; wilt overschrijven</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="853"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>Kon het bestand &quot;%1&quot; niet verwijderen</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="994"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1019"/>
         <source>Failed to upload file: %1</source>
         <translation>Kon bestand niet uploaden: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1025"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1050"/>
         <source>Sync Interval (In seconds):</source>
         <translation>Synchronisatie-interval (in seconden):</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1027"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1052"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Synchronisatieinterval voor bibliotheek &quot;%1&quot; instellen</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1130"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1155"/>
         <source>No available windows drive letter</source>
         <translation>Er is geen Windows schijfletter beschikbaar</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1139"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1164"/>
         <source>Operation failed: %1</source>
         <translation>Bewerking mislukt: %1</translation>
     </message>
@@ -2968,17 +2963,17 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
 <context>
     <name>ReposTab</name>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="52"/>
-        <source>Search libraries...</source>
-        <translation>Bibliotheken zoeken...</translation>
+        <location filename="../src/ui/repos-tab.cpp" line="53"/>
+        <source>Search libraries</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="109"/>
+        <location filename="../src/ui/repos-tab.cpp" line="104"/>
         <source>retry</source>
         <translation>opnieuw</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="110"/>
+        <location filename="../src/ui/repos-tab.cpp" line="105"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
         <translation>Kon geen informatie over bibliotheken ophalen&lt;br/&gt;%1</translation>
     </message>
@@ -3067,11 +3062,11 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
         <translation>kon ccnet-configuratiemap %1 niet laden</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="563"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="583"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="653"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="817"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="882"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="564"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="654"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="818"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="883"/>
         <source>Unknown error</source>
         <translation>Onbekende fout</translation>
     </message>
@@ -3191,17 +3186,17 @@ De opslaglimiet van de eigenaar is bereikt.</translation>
 <context>
     <name>SearchTab</name>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="80"/>
-        <source>Search Files...</source>
-        <translation>Bestanden zoeken...</translation>
+        <location filename="../src/ui/search-tab.cpp" line="82"/>
+        <source>Search files</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="123"/>
+        <location filename="../src/ui/search-tab.cpp" line="118"/>
         <source>retry</source>
         <translation>opnieuw</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="124"/>
+        <location filename="../src/ui/search-tab.cpp" line="119"/>
         <source>Failed to search&lt;br/&gt;Please %1</source>
         <translation>Kon niet zoeken&lt;br/&gt;
 %1</translation>

@@ -107,93 +107,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="116"/>
+        <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="130"/>
+        <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Mistókst að taka samstilla af fyrir þennan reikning: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="160"/>
+        <location filename="../src/ui/account-view.cpp" line="173"/>
         <source>click to open the website</source>
         <translation>smelltu til að opna vefsíðuna</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="168"/>
+        <location filename="../src/ui/account-view.cpp" line="181"/>
         <source>pro version</source>
         <translation>Sér útgáfa</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="170"/>
+        <location filename="../src/ui/account-view.cpp" line="183"/>
         <source>No account</source>
         <translation>Enginn reikningur</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="218"/>
         <source>Choose</source>
         <translation>Veldu</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="214"/>
+        <location filename="../src/ui/account-view.cpp" line="227"/>
         <source>Account settings</source>
         <translation>Stillingar reiknings</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="229"/>
+        <location filename="../src/ui/account-view.cpp" line="242"/>
         <source>Login</source>
         <translation>Innskrá</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="232"/>
+        <location filename="../src/ui/account-view.cpp" line="245"/>
         <source>Delete</source>
         <translation>Eyða</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="245"/>
+        <location filename="../src/ui/account-view.cpp" line="258"/>
         <source>Add an account</source>
         <translation>Bæta við reikningi</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="227"/>
+        <location filename="../src/ui/account-view.cpp" line="240"/>
         <source>Logout</source>
         <translation>Útskrá</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="192"/>
-        <location filename="../src/ui/account-view.cpp" line="258"/>
+        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="271"/>
         <source>not logged in</source>
         <translation>ekki skráður inn</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="434"/>
+        <location filename="../src/ui/account-view.cpp" line="450"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>Mistókst að fjarlægja staðvært samstillingartákn: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="458"/>
+        <location filename="../src/ui/account-view.cpp" line="474"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>Mistókst að sækja samstillingarupplýsingar safns frá þjóni: %1</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="82"/>
+        <location filename="../ui_account-view.h" line="84"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="83"/>
+        <location filename="../ui_account-view.h" line="85"/>
         <source>Account</source>
         <translation>Reikningur</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui_account-view.h" line="86"/>
         <source>email</source>
         <translation>netfang</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui_account-view.h" line="87"/>
         <source>server</source>
         <translation>þjónn</translation>
     </message>
@@ -254,12 +254,12 @@ mistókst að hlaða upp.</translation>
 <context>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="38"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="42"/>
         <source>Checking Permission</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="39"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="43"/>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
@@ -350,69 +350,64 @@ mistókst að hlaða upp.</translation>
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="149"/>
+        <location filename="../src/ui/cloud-view.cpp" line="150"/>
         <source>Minimize</source>
         <translation>Minnka</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="155"/>
+        <location filename="../src/ui/cloud-view.cpp" line="156"/>
         <source>Close</source>
         <translation>Loka</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="183"/>
+        <location filename="../src/ui/cloud-view.cpp" line="186"/>
         <source>Libraries</source>
         <translation>Söfn</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="187"/>
+        <location filename="../src/ui/cloud-view.cpp" line="191"/>
         <source>Starred</source>
         <translation>Stjörnumerkt</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="611"/>
+        <location filename="../src/ui/cloud-view.cpp" line="615"/>
         <source>Activities</source>
         <translation>Hreyfingar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="616"/>
+        <location filename="../src/ui/cloud-view.cpp" line="620"/>
         <source>Search</source>
         <translation>Leita</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="231"/>
+        <location filename="../src/ui/cloud-view.cpp" line="235"/>
         <source>current download rate</source>
         <translation>núverandi niðurhalshraði</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="237"/>
+        <location filename="../src/ui/cloud-view.cpp" line="243"/>
         <source>current upload rate</source>
         <translation>núverandi upphleðsluhraði</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="244"/>
+        <location filename="../src/ui/cloud-view.cpp" line="252"/>
         <source>Please Choose a folder to sync</source>
         <translation>Vinsamlegast veldu skáarsafn til að samkeyra</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="389"/>
+        <location filename="../src/ui/cloud-view.cpp" line="414"/>
         <source>no server connected</source>
         <translation>enginn þjónn tengdur</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="386"/>
+        <location filename="../src/ui/cloud-view.cpp" line="411"/>
         <source>all servers connected</source>
         <translation>allir þjónar tengdir</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="392"/>
+        <location filename="../src/ui/cloud-view.cpp" line="417"/>
         <source>some servers not connected</source>
         <translation>sumir þjónar ekki tengdir</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/cloud-view.cpp" line="459"/>
-        <source>Refresh</source>
-        <translation>Endurglæða</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="245"/>
@@ -1033,7 +1028,7 @@ mistókst að hlaða upp.</translation>
         <translation>Hala niður %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="101"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="99"/>
         <source>%1 of %2</source>
         <translation>%1 af %2</translation>
     </message>
@@ -1438,7 +1433,7 @@ Viltu hala niður sjálfgefna safninu þínu og búa til sýndardisk?</translati
 <context>
     <name>LoadMoreButton</name>
     <message>
-        <location filename="../src/ui/loading-view.cpp" line="44"/>
+        <location filename="../src/ui/loading-view.cpp" line="45"/>
         <source>load more</source>
         <translation type="unfinished"/>
     </message>
@@ -2279,12 +2274,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <translation>Gat ekki niðurhalað atriði &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1001"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1026"/>
         <source>copy failed</source>
         <translation>afritun mistókst</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1100"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1125"/>
         <source>unknown error</source>
         <translation>óþekkt villa</translation>
     </message>
@@ -2432,12 +2427,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
+        <location filename="../src/main.cpp" line="201"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>Fann aðra keyrslu í gangi af %1, slökkva á henni og ræsa nýja?</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="220"/>
+        <location filename="../src/main.cpp" line="221"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>Gat ekki ræst %1 vegna villu við að slökkva á fyrri keyrslum</translation>
     </message>
@@ -2523,7 +2518,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <translation>Slóðin &quot;%1&quot; rekst á við safn sem þegar er til</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="422"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="423"/>
         <source>uploading file list</source>
         <translation type="unfinished"/>
     </message>
@@ -2668,17 +2663,17 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="282"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="287"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="493"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
         <source>This library has not been downloaded</source>
         <translation>Þessu safni hefur ekki enn verið halað niður</translation>
     </message>
@@ -2695,42 +2690,42 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>Recently Updated</source>
         <translation>Nýlega Uppfært</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>My Libraries</source>
         <translation>Söfnin mín</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Sub Libraries</source>
         <translation>Undirsöfn</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Shared with me</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
         <source>Shared with all</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
         <source>Shared with groups</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="68"/>
         <source>Synced Libraries</source>
         <translation>Samstillt Söfn</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="454"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="455"/>
         <source>sync initializing</source>
         <translation>frumstilli samstillingu</translation>
     </message>
@@ -2738,14 +2733,14 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="286"/>
         <source>Disable auto sync</source>
         <translation>Afvirkja sjálfvirka samstillingu</translation>
     </message>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="289"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
         <source>Enable auto sync</source>
@@ -2774,7 +2769,7 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <translation>Samstilla þetta safn</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="144"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="143"/>
         <source>Recently Updated</source>
         <translation>Nýlega Uppfært</translation>
     </message>
@@ -2897,12 +2892,12 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="788"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="802"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Mistókst að aftengja safnið &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="709"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="723"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2911,57 +2906,57 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
         <source>The download has been canceled</source>
         <translation>Hætt var við niðurhalið</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="782"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="796"/>
         <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="829"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="858"/>
         <source>You do not have permission to upload to this folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="845"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="870"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>Gat ekki yfirskrifað skrána &quot;%1&quot; með sjálfri sér</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="850"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="875"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>Ertu viss um að þú viljir skrifa yfir skrána &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="853"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>Gat ekki eytt skránni &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="994"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1019"/>
         <source>Failed to upload file: %1</source>
         <translation>Mistókst að hlaða upp skránni: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1025"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1050"/>
         <source>Sync Interval (In seconds):</source>
         <translation>Samstillinartíðni (í sekúndum):</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1027"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1052"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Setja Samstillingartíðni Fyrir Safn &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1130"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1155"/>
         <source>No available windows drive letter</source>
         <translation>Þessi bókstafur er ekki löglegur fyrir windows drif</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1139"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1164"/>
         <source>Operation failed: %1</source>
         <translation>Aðgerð mistókst: %1</translation>
     </message>
@@ -2969,17 +2964,17 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>ReposTab</name>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="52"/>
-        <source>Search libraries...</source>
-        <translation>Leita að söfnum...</translation>
+        <location filename="../src/ui/repos-tab.cpp" line="53"/>
+        <source>Search libraries</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="109"/>
+        <location filename="../src/ui/repos-tab.cpp" line="104"/>
         <source>retry</source>
         <translation>reyna aftur</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="110"/>
+        <location filename="../src/ui/repos-tab.cpp" line="105"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
         <translation>Tókst ekki að sækja upplýsingar um safn&lt;br/&gt;Vinsamlegast %1</translation>
     </message>
@@ -3068,11 +3063,11 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
         <translation>mistókst að bæta við ccnet styllingarskráarsafni %1</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="563"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="583"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="653"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="817"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="882"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="564"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="654"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="818"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="883"/>
         <source>Unknown error</source>
         <translation>Óþekkt villa</translation>
     </message>
@@ -3192,17 +3187,17 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>SearchTab</name>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="80"/>
-        <source>Search Files...</source>
-        <translation>Leita að Skrám...</translation>
+        <location filename="../src/ui/search-tab.cpp" line="82"/>
+        <source>Search files</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="123"/>
+        <location filename="../src/ui/search-tab.cpp" line="118"/>
         <source>retry</source>
         <translation>reyna aftur</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="124"/>
+        <location filename="../src/ui/search-tab.cpp" line="119"/>
         <source>Failed to search&lt;br/&gt;Please %1</source>
         <translation>Leit mistókst&lt;br/&gt;Vinsamlega %1</translation>
     </message>

@@ -667,8 +667,8 @@ LoadMoreButton QToolButton#loadMoreBtn {
     border-radius: 18px;
     /* border-top: 1px solid #eee; */
     background-color: #EFEEEE;
-    max-width: 120px;
-    max-height: 34px;
+    width: 120px;
+    height: 34px;
 }
 
 SeafileTabWidget QToolButton:hover {

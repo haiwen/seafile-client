@@ -107,93 +107,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="116"/>
+        <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="130"/>
+        <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Nepodařilo se odebrat synchronizaci knihoven tohoto účtu: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="160"/>
+        <location filename="../src/ui/account-view.cpp" line="173"/>
         <source>click to open the website</source>
         <translation>Otevřít v prohlížeči</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="168"/>
+        <location filename="../src/ui/account-view.cpp" line="181"/>
         <source>pro version</source>
         <translation>pro verze</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="170"/>
+        <location filename="../src/ui/account-view.cpp" line="183"/>
         <source>No account</source>
         <translation>Žádný účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="218"/>
         <source>Choose</source>
         <translation>Vybrat</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="214"/>
+        <location filename="../src/ui/account-view.cpp" line="227"/>
         <source>Account settings</source>
         <translation>Nastavení účtu</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="229"/>
+        <location filename="../src/ui/account-view.cpp" line="242"/>
         <source>Login</source>
         <translation>Přihlásit</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="232"/>
+        <location filename="../src/ui/account-view.cpp" line="245"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="245"/>
+        <location filename="../src/ui/account-view.cpp" line="258"/>
         <source>Add an account</source>
         <translation>Přidat účet</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="227"/>
+        <location filename="../src/ui/account-view.cpp" line="240"/>
         <source>Logout</source>
         <translation>Odhlásit</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="192"/>
-        <location filename="../src/ui/account-view.cpp" line="258"/>
+        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="271"/>
         <source>not logged in</source>
         <translation>nepřihlášeno</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="434"/>
+        <location filename="../src/ui/account-view.cpp" line="450"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>Nepodařilo se odstranit token pro synchronizaci místních repozitářů: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="458"/>
+        <location filename="../src/ui/account-view.cpp" line="474"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>Nepodařilo se stáhnout informace o synchronizaci repozitáře ze serveru: %1</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="82"/>
+        <location filename="../ui_account-view.h" line="84"/>
         <source>Form</source>
         <translation>Formulář</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="83"/>
+        <location filename="../ui_account-view.h" line="85"/>
         <source>Account</source>
         <translation>Účet</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui_account-view.h" line="86"/>
         <source>email</source>
         <translation>email</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui_account-view.h" line="87"/>
         <source>server</source>
         <translation>server</translation>
     </message>
@@ -254,12 +254,12 @@ nahrání selhalo.</translation>
 <context>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="38"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="42"/>
         <source>Checking Permission</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="39"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="43"/>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
@@ -350,69 +350,64 @@ nahrání selhalo.</translation>
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="149"/>
+        <location filename="../src/ui/cloud-view.cpp" line="150"/>
         <source>Minimize</source>
         <translation>Minimalizovat</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="155"/>
+        <location filename="../src/ui/cloud-view.cpp" line="156"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="183"/>
+        <location filename="../src/ui/cloud-view.cpp" line="186"/>
         <source>Libraries</source>
         <translation>Knihovny</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="187"/>
+        <location filename="../src/ui/cloud-view.cpp" line="191"/>
         <source>Starred</source>
         <translation>Oblíbené</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="611"/>
+        <location filename="../src/ui/cloud-view.cpp" line="615"/>
         <source>Activities</source>
         <translation>Aktivity</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="616"/>
+        <location filename="../src/ui/cloud-view.cpp" line="620"/>
         <source>Search</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="231"/>
+        <location filename="../src/ui/cloud-view.cpp" line="235"/>
         <source>current download rate</source>
         <translation>aktuální rychlost stahování</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="237"/>
+        <location filename="../src/ui/cloud-view.cpp" line="243"/>
         <source>current upload rate</source>
         <translation>aktuální rychlost uploadu</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="244"/>
+        <location filename="../src/ui/cloud-view.cpp" line="252"/>
         <source>Please Choose a folder to sync</source>
         <translation>Vyberte adresář k synchronizaci</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="389"/>
+        <location filename="../src/ui/cloud-view.cpp" line="414"/>
         <source>no server connected</source>
         <translation>není připojen žádný server</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="386"/>
+        <location filename="../src/ui/cloud-view.cpp" line="411"/>
         <source>all servers connected</source>
         <translation>všechny servery jsou připojeny</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="392"/>
+        <location filename="../src/ui/cloud-view.cpp" line="417"/>
         <source>some servers not connected</source>
         <translation>některé servery nebyly připojeny</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/cloud-view.cpp" line="459"/>
-        <source>Refresh</source>
-        <translation>Obnovit</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="245"/>
@@ -1034,7 +1029,7 @@ Prosím %1</translation>
         <translation>Stahuji %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="101"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="99"/>
         <source>%1 of %2</source>
         <translation>%1 z %2</translation>
     </message>
@@ -1440,7 +1435,7 @@ Přejete si stáhnout vaši základní knihovnu a vytvořit virtuální disk?</t
 <context>
     <name>LoadMoreButton</name>
     <message>
-        <location filename="../src/ui/loading-view.cpp" line="44"/>
+        <location filename="../src/ui/loading-view.cpp" line="45"/>
         <source>load more</source>
         <translation type="unfinished"/>
     </message>
@@ -2281,12 +2276,12 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
         <translation>Není možné stáhnout &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1001"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1026"/>
         <source>copy failed</source>
         <translation>kopírování selhalo</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1100"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1125"/>
         <source>unknown error</source>
         <translation>neznámá chyba</translation>
     </message>
@@ -2434,12 +2429,12 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
+        <location filename="../src/main.cpp" line="201"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>Byl nalezen jiný proces %1, ukončit jej a spustit nový?</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="220"/>
+        <location filename="../src/main.cpp" line="221"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>Nepodařilo se spustit %1 kvůli chybě při ukončení předchozího procesu</translation>
     </message>
@@ -2525,7 +2520,7 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
         <translation>Cesta &quot;%1&quot; koliduje s existující knihovnou</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="422"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="423"/>
         <source>uploading file list</source>
         <translation type="unfinished"/>
     </message>
@@ -2670,17 +2665,17 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="282"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="287"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="493"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
         <source>This library has not been downloaded</source>
         <translation>Tato knihovna nebyla stažena</translation>
     </message>
@@ -2697,42 +2692,42 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>Recently Updated</source>
         <translation>Nedávno aktualizované</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>My Libraries</source>
         <translation>Moje knihovny</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Sub Libraries</source>
         <translation>Podknihovny</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Shared with me</source>
         <translation>Sdíleno se mnou</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
         <source>Shared with all</source>
         <translation>Sdíleno se všemi</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
         <source>Shared with groups</source>
         <translation>Sdíleno se skupinama</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="68"/>
         <source>Synced Libraries</source>
         <translation>Synchronizované knihovny</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="454"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="455"/>
         <source>sync initializing</source>
         <translation>spuštění synchronizace</translation>
     </message>
@@ -2740,14 +2735,14 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="286"/>
         <source>Disable auto sync</source>
         <translation>Zrušit automatickou synchronizaci</translation>
     </message>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="289"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
         <source>Enable auto sync</source>
@@ -2776,7 +2771,7 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
         <translation>Synchronizovat tuto knihovnu</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="144"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="143"/>
         <source>Recently Updated</source>
         <translation>Nedávno aktualizované</translation>
     </message>
@@ -2899,12 +2894,12 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="788"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="802"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Chyba při rušení synchronizace &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="709"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="723"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2913,57 +2908,57 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
         <source>The download has been canceled</source>
         <translation>Stahování bylo zrušeno</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="782"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="796"/>
         <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="829"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="858"/>
         <source>You do not have permission to upload to this folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="845"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="870"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>Přepsání souboru %1 sebou samým se nezdařilo</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="850"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="875"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>Skutečně si přejete přepsat soubor &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="853"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>Nelze smazat soubor &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="994"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1019"/>
         <source>Failed to upload file: %1</source>
         <translation>Nelze nahrát soubor: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1025"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1050"/>
         <source>Sync Interval (In seconds):</source>
         <translation>Interval synchronizace (ve vteřinách):</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1027"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1052"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Nastavit interval synchronizace pro knihovnu &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1130"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1155"/>
         <source>No available windows drive letter</source>
         <translation>Nejsou k dispozici žádná písmena pro popis disku ve Windows.</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1139"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1164"/>
         <source>Operation failed: %1</source>
         <translation>Operace se nezdařila: %1</translation>
     </message>
@@ -2971,17 +2966,17 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 <context>
     <name>ReposTab</name>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="52"/>
-        <source>Search libraries...</source>
-        <translation>Prohledat knihovny...</translation>
+        <location filename="../src/ui/repos-tab.cpp" line="53"/>
+        <source>Search libraries</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="109"/>
+        <location filename="../src/ui/repos-tab.cpp" line="104"/>
         <source>retry</source>
         <translation>opakovat</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="110"/>
+        <location filename="../src/ui/repos-tab.cpp" line="105"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
         <translation>Nepodařilo se získat informace o knihovně&lt;br/&gt;Prosím %1</translation>
     </message>
@@ -3070,11 +3065,11 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
         <translation>nepodařilo se načíst konfiguraci ccnet %1</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="563"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="583"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="653"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="817"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="882"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="564"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="654"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="818"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="883"/>
         <source>Unknown error</source>
         <translation>Neznámá chyba</translation>
     </message>
@@ -3194,17 +3189,17 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 <context>
     <name>SearchTab</name>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="80"/>
-        <source>Search Files...</source>
-        <translation>Prohledat soubory...</translation>
+        <location filename="../src/ui/search-tab.cpp" line="82"/>
+        <source>Search files</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="123"/>
+        <location filename="../src/ui/search-tab.cpp" line="118"/>
         <source>retry</source>
         <translation>zkusit znovu</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="124"/>
+        <location filename="../src/ui/search-tab.cpp" line="119"/>
         <source>Failed to search&lt;br/&gt;Please %1</source>
         <translation>Hledání se nezdařilo &lt;br /&gt; Prosím %1</translation>
     </message>

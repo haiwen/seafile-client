@@ -107,93 +107,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="116"/>
+        <location filename="../src/ui/account-view.cpp" line="129"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation>¿Está seguro que desea eliminar la cuenta %1?&lt;br&gt;&lt;br&gt;La cuenta será eliminada localmente. Toda información de sincronización también será eliminada. La cuenta en el servidor no se verá afectada. </translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="130"/>
+        <location filename="../src/ui/account-view.cpp" line="143"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Fallo al desincronizar bibliotecas de esta cuenta: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="160"/>
+        <location filename="../src/ui/account-view.cpp" line="173"/>
         <source>click to open the website</source>
         <translation>click para abrir el sitio web</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="168"/>
+        <location filename="../src/ui/account-view.cpp" line="181"/>
         <source>pro version</source>
         <translation>versión pro</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="170"/>
+        <location filename="../src/ui/account-view.cpp" line="183"/>
         <source>No account</source>
         <translation>Sin cuenta</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="218"/>
         <source>Choose</source>
         <translation>Elegir</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="214"/>
+        <location filename="../src/ui/account-view.cpp" line="227"/>
         <source>Account settings</source>
         <translation>Configuración de la cuenta</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="229"/>
+        <location filename="../src/ui/account-view.cpp" line="242"/>
         <source>Login</source>
         <translation>Iniciar</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="232"/>
+        <location filename="../src/ui/account-view.cpp" line="245"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="245"/>
+        <location filename="../src/ui/account-view.cpp" line="258"/>
         <source>Add an account</source>
         <translation>Agregar una cuenta</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="227"/>
+        <location filename="../src/ui/account-view.cpp" line="240"/>
         <source>Logout</source>
         <translation>Desconectarse</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="192"/>
-        <location filename="../src/ui/account-view.cpp" line="258"/>
+        <location filename="../src/ui/account-view.cpp" line="205"/>
+        <location filename="../src/ui/account-view.cpp" line="271"/>
         <source>not logged in</source>
         <translation>no está conectado</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="434"/>
+        <location filename="../src/ui/account-view.cpp" line="450"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>Fallo al eliminar el identificador de sincronzación de los repositorios locales: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="458"/>
+        <location filename="../src/ui/account-view.cpp" line="474"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>Fallo al obtener información del servidor: %1</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="82"/>
+        <location filename="../ui_account-view.h" line="84"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="83"/>
+        <location filename="../ui_account-view.h" line="85"/>
         <source>Account</source>
         <translation>Cuenta</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui_account-view.h" line="86"/>
         <source>email</source>
         <translation>email</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui_account-view.h" line="87"/>
         <source>server</source>
         <translation>servidor</translation>
     </message>
@@ -254,12 +254,12 @@ falló al subir.</translation>
 <context>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="38"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="42"/>
         <source>Checking Permission</source>
         <translation>Comprobando Permiso</translation>
     </message>
     <message>
-        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="39"/>
+        <location filename="../src/ui/check-repo-root-perm-dialog.cpp" line="43"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -350,69 +350,64 @@ falló al subir.</translation>
 <context>
     <name>CloudView</name>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="149"/>
+        <location filename="../src/ui/cloud-view.cpp" line="150"/>
         <source>Minimize</source>
         <translation>Minimizar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="155"/>
+        <location filename="../src/ui/cloud-view.cpp" line="156"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="183"/>
+        <location filename="../src/ui/cloud-view.cpp" line="186"/>
         <source>Libraries</source>
         <translation>Bibliotecas</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="187"/>
+        <location filename="../src/ui/cloud-view.cpp" line="191"/>
         <source>Starred</source>
         <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="611"/>
+        <location filename="../src/ui/cloud-view.cpp" line="615"/>
         <source>Activities</source>
         <translation>Actividades</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="616"/>
+        <location filename="../src/ui/cloud-view.cpp" line="620"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="231"/>
+        <location filename="../src/ui/cloud-view.cpp" line="235"/>
         <source>current download rate</source>
         <translation>tasa actual de descarga</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="237"/>
+        <location filename="../src/ui/cloud-view.cpp" line="243"/>
         <source>current upload rate</source>
         <translation>tasa actual de subida</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="244"/>
+        <location filename="../src/ui/cloud-view.cpp" line="252"/>
         <source>Please Choose a folder to sync</source>
         <translation>Elija una carpeta para sincronizar</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="389"/>
+        <location filename="../src/ui/cloud-view.cpp" line="414"/>
         <source>no server connected</source>
         <translation>sin servidor conectado</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="386"/>
+        <location filename="../src/ui/cloud-view.cpp" line="411"/>
         <source>all servers connected</source>
         <translation>todos los servidores conectados</translation>
     </message>
     <message>
-        <location filename="../src/ui/cloud-view.cpp" line="392"/>
+        <location filename="../src/ui/cloud-view.cpp" line="417"/>
         <source>some servers not connected</source>
         <translation>algunos servidores no conectados</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/cloud-view.cpp" line="459"/>
-        <source>Refresh</source>
-        <translation>Actualizar</translation>
     </message>
     <message>
         <location filename="../ui_cloud-view.h" line="245"/>
@@ -1033,7 +1028,7 @@ falló al subir.</translation>
         <translation>Descargando %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="101"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="99"/>
         <source>%1 of %2</source>
         <translation>%1 de %2</translation>
     </message>
@@ -1438,7 +1433,7 @@ Do you like to download your default library and create a virtual disk?</source>
 <context>
     <name>LoadMoreButton</name>
     <message>
-        <location filename="../src/ui/loading-view.cpp" line="44"/>
+        <location filename="../src/ui/loading-view.cpp" line="45"/>
         <source>load more</source>
         <translation>cargar más</translation>
     </message>
@@ -2280,12 +2275,12 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>No es posible descargar el ítem &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1001"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1026"/>
         <source>copy failed</source>
         <translation>copiar falló</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1100"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1125"/>
         <source>unknown error</source>
         <translation>error desconocido</translation>
     </message>
@@ -2433,12 +2428,12 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>&lt;No es Parte del Certificado&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
+        <location filename="../src/main.cpp" line="201"/>
         <source>Found another running process of %1, kill it and start a new one?</source>
         <translation>Ya hay un proceso de %1 ejecutándose, desea terminarlo e iniciar uno nuevo?</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="220"/>
+        <location filename="../src/main.cpp" line="221"/>
         <source>Unable to start %1 due to the failure of shutting down the previous process</source>
         <translation>No se puede iniciar %1 debido a un error al intentar terminar el proceso anterior</translation>
     </message>
@@ -2524,7 +2519,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>La ruta &quot;%1&quot; está en conflicto con una biblioteca existente</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="422"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="423"/>
         <source>uploading file list</source>
         <translation>subiendo lista de archivos</translation>
     </message>
@@ -2669,17 +2664,17 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="282"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="287"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="493"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
         <source>This library has not been downloaded</source>
         <translation>Esta biblioteca no ha sido descargada</translation>
     </message>
@@ -2696,42 +2691,42 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>RepoTreeModel</name>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="61"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
         <source>Recently Updated</source>
         <translation>Actualizado Recientemente</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="62"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
         <source>My Libraries</source>
         <translation>Mis bibliotecas</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="63"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
         <source>Sub Libraries</source>
         <translation>Sub Bibliotecas</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="64"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
         <source>Shared with me</source>
         <translation>Compartido conmigo</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="65"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
         <source>Shared with all</source>
         <translation>Compartido con todos</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="66"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
         <source>Shared with groups</source>
         <translation>Compartido con grupos</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="67"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="68"/>
         <source>Synced Libraries</source>
         <translation>Bibliotecas Sincronizadas</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-model.cpp" line="454"/>
+        <location filename="../src/ui/repo-tree-model.cpp" line="455"/>
         <source>sync initializing</source>
         <translation>inicializando sincronización</translation>
     </message>
@@ -2739,14 +2734,14 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>RepoTreeView</name>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="286"/>
         <source>Disable auto sync</source>
         <translation>Desactivar auto sincronización</translation>
     </message>
     <message>
+        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="289"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="290"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
         <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
         <source>Enable auto sync</source>
@@ -2775,7 +2770,7 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>Sincronizar esta biblioteca</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="144"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="143"/>
         <source>Recently Updated</source>
         <translation>Actualizado Recientemente</translation>
     </message>
@@ -2898,12 +2893,12 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     </message>
     <message>
         <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="788"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="802"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Fallo al desincronizar biblioteca &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="709"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="723"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2912,57 +2907,57 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 .%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="711"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
         <source>The download has been canceled</source>
         <translation>La descarga fue cancelada</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="782"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="796"/>
         <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation>¿Seguro que desea resincronizar la biblioteca &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="829"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="858"/>
         <source>You do not have permission to upload to this folder</source>
         <translation>No tiene permiso para subir archivos a esta carpeta</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="845"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="870"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>No es posible sobreescribir el archivo &quot;%1&quot; con él mismo</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="850"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="875"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>¿Está seguro de sobreescribir el archivo &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="853"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>No se puede eliminar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="994"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1019"/>
         <source>Failed to upload file: %1</source>
         <translation>Fallo al subir el archivo: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1025"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1050"/>
         <source>Sync Interval (In seconds):</source>
         <translation>Intervalo de Sincronización (en segundos):</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1027"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1052"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Establecer Intervalo de Sincronización para la Biblioteca &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1130"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1155"/>
         <source>No available windows drive letter</source>
         <translation>No hay letras de unidad disponibles en windows</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1139"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1164"/>
         <source>Operation failed: %1</source>
         <translation>La operación falló: %1</translation>
     </message>
@@ -2970,17 +2965,17 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>ReposTab</name>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="52"/>
-        <source>Search libraries...</source>
-        <translation>Buscar bibliotecas...</translation>
+        <location filename="../src/ui/repos-tab.cpp" line="53"/>
+        <source>Search libraries</source>
+        <translation>Buscar bibliotecas</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="109"/>
+        <location filename="../src/ui/repos-tab.cpp" line="104"/>
         <source>retry</source>
         <translation>reintentar</translation>
     </message>
     <message>
-        <location filename="../src/ui/repos-tab.cpp" line="110"/>
+        <location filename="../src/ui/repos-tab.cpp" line="105"/>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
         <translation>Fallo al obtener información de las bibliotecas&lt;br/&gt;Por favor %1</translation>
     </message>
@@ -3069,11 +3064,11 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>fallo al cargar configuración ccnet %1</translation>
     </message>
     <message>
-        <location filename="../src/rpc/rpc-client.cpp" line="563"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="583"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="653"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="817"/>
-        <location filename="../src/rpc/rpc-client.cpp" line="882"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="564"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="584"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="654"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="818"/>
+        <location filename="../src/rpc/rpc-client.cpp" line="883"/>
         <source>Unknown error</source>
         <translation>Error desconocido</translation>
     </message>
@@ -3193,17 +3188,17 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>SearchTab</name>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="80"/>
-        <source>Search Files...</source>
-        <translation>Buscar Archivos...</translation>
+        <location filename="../src/ui/search-tab.cpp" line="82"/>
+        <source>Search files</source>
+        <translation>Buscar archivos</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="123"/>
+        <location filename="../src/ui/search-tab.cpp" line="118"/>
         <source>retry</source>
         <translation>reintentar</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab.cpp" line="124"/>
+        <location filename="../src/ui/search-tab.cpp" line="119"/>
         <source>Failed to search&lt;br/&gt;Please %1</source>
         <translation>Fallo al buscar&lt;br/&gt;Por favor %1</translation>
     </message>

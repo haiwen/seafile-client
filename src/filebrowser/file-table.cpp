@@ -27,7 +27,7 @@ enum {
     FILE_MAX_COLUMN
 };
 
-const int kMarginLeft = 14;
+int kMarginLeft = 9;
 const int kDefaultColumnWidth = 120;
 const int kDefaultColumnHeight = 40;
 const int kColumnIconSize = 28;
@@ -117,6 +117,10 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         int alignX = (kColumnIconSize - icon_width) / 2;
         int alignY = (size.height() - icon_height) / 2;
 
+#ifdef Q_OS_WIN32
+    kMarginLeft = 4;
+#endif
+
         QRect icon_bound_rect(
             option_rect.topLeft() + QPoint(kMarginLeft + alignX, alignY - 2),
             QSize(icon_width, icon_height));
@@ -139,8 +143,8 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 4 * 2 + kColumnIconSize, -2),
-                   size - QSize(kColumnIconSize, 0));
+        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 2 * 2 + kColumnIconSize, -2),
+                   size - QSize(kColumnIconSize + kMarginLeft, 0));
         painter->setPen(kFileNameFontColor);
         painter->setFont(font);
         painter->drawText(rect,
@@ -188,7 +192,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             text = model->data(index, Qt::UserRole).toString();
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(4, -2), size - QSize(10, 0));
+        QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
         painter->save();
         painter->setPen(kFontColor);
         painter->setFont(font);
@@ -214,7 +218,7 @@ FileTableView::FileTableView(QWidget *parent)
       proxy_model_(NULL)
 {
     verticalHeader()->hide();
-    verticalHeader()->setDefaultSectionSize(40);
+    verticalHeader()->setDefaultSectionSize(kDefaultColumnHeight);
     horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);

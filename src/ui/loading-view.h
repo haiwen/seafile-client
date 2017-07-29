@@ -30,11 +30,17 @@ class LoadMoreButton : public QWidget {
     Q_OBJECT
 public:
     explicit LoadMoreButton(QWidget *parent=0);
+
 signals:
     void clicked();
+
+private slots:
+    void onBtnClicked();
+
 private:
-    QHBoxLayout *layout_;
+    QHBoxLayout *btn_layout_;
     QToolButton *load_more_btn_;
+    LoadingView *loading_label_;
 };
 
 #endif // SEAFILE_CLIENT_LOADING_VIEW_H_

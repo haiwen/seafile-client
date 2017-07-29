@@ -656,7 +656,7 @@ SyncErrorsTableView::item:selected {
     background-color: #F9E0C7;
 }
 
-SeafileTabWidget LoadMoreButton QToolButton#loadMoreBtn{
+LoadMoreButton QToolButton#loadMoreBtn {
     padding: 0;
     font-family: Arial;
     font-size: 14px;
@@ -671,8 +671,7 @@ SeafileTabWidget LoadMoreButton QToolButton#loadMoreBtn{
     max-height: 34px;
 }
 
-SeafileTabWidget QToolButton:hover
-{
+SeafileTabWidget QToolButton:hover {
     border: 0;
     border-radius: 0;
 }

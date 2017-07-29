@@ -4,7 +4,8 @@
 
 void SparkleHelper::checkForUpdate()
 {
-    [[SUUpdater sharedUpdater] checkForUpdatesInBackground];
+    // [[SUUpdater sharedUpdater] checkForUpdatesInBackground];
+    [[SUUpdater sharedUpdater] checkForUpdates:nil];
 }
 
 void SparkleHelper::setAutoUpdateEnabled(bool enabled)

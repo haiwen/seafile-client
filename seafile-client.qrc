@@ -124,8 +124,9 @@
     <file>images/files/file_pdf.png</file>
     <file>images/files/file_text.png</file>
     <file>images/files/file_video.png</file>
-    <file>images/files/file_unknown.png</file>
     <file>images/files/file_folder.png</file>
+    <file>images/files/file_zip.png</file>
+    <file>images/files/file_unknown.png</file>
     <file>images/files_v2/file_audio.png</file>
     <file>images/files_v2/file_audio@2x.png</file>
     <file>images/files_v2/file_folder_readonly.png</file>
@@ -146,6 +147,8 @@
     <file>images/files_v2/file_text@2x.png</file>
     <file>images/files_v2/file_video.png</file>
     <file>images/files_v2/file_video@2x.png</file>
+    <file>images/files_v2/file_zip.png</file>
+    <file>images/files_v2/file_zip@2x.png</file>
     <file>images/files_v2/file_unknown.png</file>
     <file>images/files_v2/file_unknown@2x.png</file>
     <file>images/account-settings.png</file>

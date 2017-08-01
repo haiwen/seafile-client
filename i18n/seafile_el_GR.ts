@@ -40,7 +40,7 @@
         <translation>αποτυχία ανοίγματος της βάσης δεδομένων του λογαριασμού</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="538"/>
+        <location filename="../src/account-mgr.cpp" line="557"/>
         <source>Authorization expired, please re-login</source>
         <translation>Η πιστοποίηση έληξε, παρακαλούμε συνδεθείτε ξανά</translation>
     </message>
@@ -107,93 +107,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="129"/>
+        <location filename="../src/ui/account-view.cpp" line="122"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="143"/>
+        <location filename="../src/ui/account-view.cpp" line="136"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>Αποτυχία αναίρεσης συγχρονισμού των βιβλιοθηκών του λογαριασμού:% 1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="173"/>
+        <location filename="../src/ui/account-view.cpp" line="166"/>
         <source>click to open the website</source>
         <translation>κάντε κλικ για να ανοίξετε την ιστοσελίδα</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="181"/>
+        <location filename="../src/ui/account-view.cpp" line="174"/>
         <source>pro version</source>
         <translation>έκδοση pro</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="183"/>
+        <location filename="../src/ui/account-view.cpp" line="176"/>
         <source>No account</source>
         <translation>Κανένας λογαριασμός</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="218"/>
+        <location filename="../src/ui/account-view.cpp" line="211"/>
         <source>Choose</source>
         <translation>Επιλέξτε</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="227"/>
+        <location filename="../src/ui/account-view.cpp" line="220"/>
         <source>Account settings</source>
         <translation>Ρυθμίσεις λογαριασμού</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="242"/>
+        <location filename="../src/ui/account-view.cpp" line="235"/>
         <source>Login</source>
         <translation>Σύνδεση</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="245"/>
+        <location filename="../src/ui/account-view.cpp" line="238"/>
         <source>Delete</source>
         <translation>Διαγραφή</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="258"/>
+        <location filename="../src/ui/account-view.cpp" line="251"/>
         <source>Add an account</source>
         <translation>Προσθήκη λογαριασμού</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="240"/>
+        <location filename="../src/ui/account-view.cpp" line="233"/>
         <source>Logout</source>
         <translation>Αποσύνδεση</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="205"/>
-        <location filename="../src/ui/account-view.cpp" line="271"/>
+        <location filename="../src/ui/account-view.cpp" line="198"/>
+        <location filename="../src/ui/account-view.cpp" line="264"/>
         <source>not logged in</source>
         <translation>δεν είστε συνδεδεμένος</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="450"/>
+        <location filename="../src/ui/account-view.cpp" line="455"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>Αποτυχία αφαίρεσης του διακριτικού συγχρονισμού τοπικών αποθετηρίων: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="474"/>
+        <location filename="../src/ui/account-view.cpp" line="479"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>Αποτυχία λήψης πληροφοριών συχρονισμού από τον διακομιστή: %1</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui_account-view.h" line="91"/>
         <source>Form</source>
         <translation>Φόρμα</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui_account-view.h" line="92"/>
         <source>Account</source>
         <translation>Λογαριασμός</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="86"/>
+        <location filename="../ui_account-view.h" line="93"/>
         <source>email</source>
         <translation>email</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="87"/>
+        <location filename="../ui_account-view.h" line="94"/>
         <source>server</source>
         <translation>διακομιστής</translation>
     </message>
@@ -246,7 +246,7 @@ failed to upload.</source>
 <context>
     <name>AvatarService</name>
     <message>
-        <location filename="../src/avatar-service.cpp" line="158"/>
+        <location filename="../src/avatar-service.cpp" line="164"/>
         <source>Failed to create avatars folder</source>
         <translation>Αποτυχία δημιουργίας φακέλου avatar</translation>
     </message>
@@ -486,11 +486,6 @@ failed to upload.</source>
         <location filename="../src/configurator.cpp" line="215"/>
         <source>failed to read %1</source>
         <translation>αδυναμία ανάγνωσης %1</translation>
-    </message>
-    <message>
-        <location filename="../src/configurator.cpp" line="260"/>
-        <source>%1 Default Library</source>
-        <translation>%1 Προεπιλεγμένη βιβλιοθήκη</translation>
     </message>
 </context>
 <context>
@@ -1307,22 +1302,22 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="45"/>
         <source>%1 organizes files by libraries.
-Do you like to download your default library and create a virtual disk?</source>
+Do you like to download your default library?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="78"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="77"/>
         <source>Checking your default library...</source>
         <translation>Έλεγχος της προεπιλεγμένης βιβλιοθήκης σας...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="92"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="91"/>
         <source>Creating the default library...</source>
         <translation>Δημιουργία προεπιλεγμένης βιβλιοθήκης...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="143"/>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="159"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="141"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="157"/>
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
@@ -1331,50 +1326,45 @@ The server version must be 2.1 or higher to support this.</source>
 Η έκδοση του δισκομιστή σας πρέπει να είνια 2.1 ή ανώτερη για να υποστηρίξει αυτό..</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="146"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="144"/>
         <source>Failed to get default library:
 %1</source>
         <translation>Αποτυχία λήψης της προεπιλεγμένης βιβλιοθήκης:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="162"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="160"/>
         <source>Failed to create default library:
 %1</source>
         <translation>Αποτυχία δημιουργίας της προεπιλεγμένης βιβλιοθήκης:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="189"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="187"/>
         <source>Downloading default library...</source>
         <translation>Γίνεται λήψη της προεπιλεγμένης βιβλιοθήκης...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="196"/>
         <source>Failed to download default library:
 %1</source>
         <translation>Αποτυχία λήψης της προεπιλεγμένης βιβλιοθήκης:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="209"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="207"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation>Η προεπιλεγμένη βιβλιοθήκη έχει ληφθεί.
 Μπορείτε να κάνετε κλικ στο &quot;Άνοιγμα&quot; για να την προβάλετε.</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="260"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="258"/>
         <source>Error when downloading the default library: %1</source>
         <translation>Σφάλμα κατά την λήψη της προεπιλεγμένης βιβλιοθήκης: %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="274"/>
-        <source>Creating the virtual disk...</source>
-        <translation>Δημιουργία εικονικού δίσκου...</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="183"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="181"/>
         <source>Failed to download default library:
  %1</source>
         <translation>Αποτυχία λήψης της προεπιλεγμένης βιβλιοθήκης:
@@ -1388,7 +1378,7 @@ You can click the &quot;Open&quot; button to view it.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>%1 organizes files by libraries. 
-Do you like to download your default library and create a virtual disk?</source>
+Do you like to download your default library?</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1475,8 +1465,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="205"/>
         <location filename="../src/ui/login-dialog.cpp" line="211"/>
-        <location filename="../src/ui/login-dialog.cpp" line="374"/>
-        <location filename="../src/ui/login-dialog.cpp" line="380"/>
+        <location filename="../src/ui/login-dialog.cpp" line="373"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 δεν είναι έκγυρη διεύθυνση διακομιστή</translation>
     </message>
@@ -1501,9 +1490,19 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="363"/>
+        <location filename="../src/ui/login-dialog.cpp" line="350"/>
         <source>%1 Server Address</source>
         <translation>%1 Διεύθυνση διακομιστή</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="362"/>
+        <source>Server address must not be empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="367"/>
+        <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="223"/>
@@ -1592,7 +1591,7 @@ Do you like to download your default library and create a virtual disk?</source>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="106"/>
-        <location filename="../src/ui/login-dialog.cpp" line="362"/>
+        <location filename="../src/ui/login-dialog.cpp" line="349"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Σύνδεση Shibboleth</translation>
@@ -2267,14 +2266,9 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Αποτυχία λήψης του αντικειμένου &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1026"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1010"/>
         <source>copy failed</source>
         <translation>η αντιγραφή απέτυχε</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1125"/>
-        <source>unknown error</source>
-        <translation>Άγνωστο σφάλμα</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="128"/>
@@ -2656,17 +2650,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="306"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="311"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="527"/>
         <source>This library has not been downloaded</source>
         <translation>Δεν έχει ληφθεί αυτή η βιβλιοθήκη.</translation>
     </message>
@@ -2726,38 +2720,38 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="277"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="278"/>
         <source>Disable auto sync</source>
         <translation>Απενεργοποίηση αυτόματου συγχρονισμού</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="289"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="281"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="282"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="385"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="386"/>
         <source>Enable auto sync</source>
         <translation>Ενεργοποίηση αυτόματου συγχρονισμού</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="346"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="338"/>
         <source>Show &amp;details</source>
         <translation>Προβολή &amp;λεπτομερειών</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="340"/>
         <source>Show details of this library</source>
         <translation>Προβολή λεπτομερειών αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="352"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="358"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="344"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
         <source>&amp;Sync this library</source>
         <translation>&amp;Συγχρονισμός αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="346"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="352"/>
         <source>Sync this library</source>
         <translation>Συγχρονισμός της βιβλιοθήκης</translation>
     </message>
@@ -2767,130 +2761,120 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Πρόσφατες ενημερώσεις</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="364"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
         <source>Sync &amp;now</source>
         <translation>Συγχρονισμός &amp;τώρα</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="366"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="358"/>
         <source>Sync this library immediately</source>
         <translation>Άμεσος συγχρονισμός της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="361"/>
         <source>&amp;Cancel download</source>
         <translation>&amp;Ακύρωση λήψης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="363"/>
         <source>Cancel download of this library</source>
         <translation>Ακύρωση λήψης αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="381"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="373"/>
         <source>&amp;Open folder</source>
         <translation>&amp;Άνοιγμα φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="377"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="383"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="375"/>
         <source>open local folder</source>
         <translation>άνοιγμα τοπικού φακέλου</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="375"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="367"/>
         <source>&amp;Open local folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="387"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="379"/>
         <source>&amp;Unsync</source>
         <translation>&amp;Αποσυγχρονισμός</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="388"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="380"/>
         <source>unsync this library</source>
         <translation>αποσυχρονισμός αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="398"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
         <source>&amp;View on cloud</source>
         <translation>&amp;Προβολή στο cloud</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="400"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="392"/>
         <source>view this library on seahub</source>
         <translation>προβολή αυτής της βιβλιοθήκης στο seahub</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="405"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="397"/>
         <source>Share to user</source>
         <translation>Διαμοιρασμός με την χρήστη</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="407"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="399"/>
         <source>Share this library to a user</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="412"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="404"/>
         <source>Share to group</source>
         <translation>Διαμοιρασμός με την ομάδα</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="414"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="406"/>
         <source>Share this library to a group</source>
         <translation>Διαμοιρασμός της βιβλιοθήκης με την ομάδα</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="419"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="411"/>
         <source>&amp;Open cloud file browser</source>
         <translation>&amp;Άνοιγμα του εξερευνητή αρχείων cloud</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="427"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="419"/>
         <source>open this library in embedded Cloud File Browser</source>
         <translation>ανοίξτε αυτή τη βιβλιοθηκη με τον ενσωματωμένο εξερευνητή αρχείων Cloud</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
         <source>&amp;Resync this library</source>
         <translation>%Επανασυγχρονισμός αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="434"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="440"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
         <source>unsync and resync this library</source>
         <translation>αποσυγχρόνισμός και επανασυγχρονισμός αυτής της βιβλιοθήκης</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="438"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
         <source>Set sync &amp;Interval</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="444"/>
-        <source>&amp;Map as a network drive</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="446"/>
-        <source>map as a network drive</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="487"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="471"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>Είστε σίγουροι πως θέλετε να αποσυγχρονίσετε την βιβλιοθήκη &quot;%1&quot;;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="802"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="478"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>Αποτυχία αποσυγχρονισμού βιβλιοθήκης &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="723"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="707"/>
         <source>Failed to cancel this task:
 
  %1</source>
@@ -2899,58 +2883,48 @@ The library owner&apos;s storage space is used up.</source>
  %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="709"/>
         <source>The download has been canceled</source>
         <translation>Η λήχη έχει ακυρωθεί</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="796"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="780"/>
         <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="858"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="842"/>
         <source>You do not have permission to upload to this folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="870"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="854"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>Αδυναμία αντικατάστασης αρχείου &quot;%1&quot; με τον εαυτό του</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="875"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="859"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>Είστε σίγουροι πως θέλετε να αντικαταστήσετε το αρχείο &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="862"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>Αδυναμία διαγραφής αρχείου &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1019"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1003"/>
         <source>Failed to upload file: %1</source>
         <translation>Αδυναμία μεταφόρτωσης αρχείου: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1050"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1034"/>
         <source>Sync Interval (In seconds):</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1052"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1036"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1155"/>
-        <source>No available windows drive letter</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1164"/>
-        <source>Operation failed: %1</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3167,12 +3141,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SearchResultListView</name>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="200"/>
+        <location filename="../src/ui/search-tab-items.cpp" line="190"/>
         <source>&amp;Show in folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="203"/>
+        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
         <source>Show in folder</source>
         <translation>Εμφάνιση στον φάκελο</translation>
     </message>

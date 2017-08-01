@@ -41,7 +41,7 @@
         <translation>打开帐户数据库失败</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="538"/>
+        <location filename="../src/account-mgr.cpp" line="557"/>
         <source>Authorization expired, please re-login</source>
         <translation>账号验证信息已过期，请重新登录</translation>
     </message>
@@ -108,93 +108,93 @@
 <context>
     <name>AccountView</name>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="129"/>
+        <location filename="../src/ui/account-view.cpp" line="122"/>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
         <translation>确定要删除账号 %1 吗？&lt;br&gt;&lt;br&gt;这个账号会从本地删除。同步配置也会被删除。服务器上的账号不会受到影响。</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="143"/>
+        <location filename="../src/ui/account-view.cpp" line="136"/>
         <source>Failed to unsync libraries of this account: %1</source>
         <translation>解除同步该帐号的资料库失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="173"/>
+        <location filename="../src/ui/account-view.cpp" line="166"/>
         <source>click to open the website</source>
         <translation>点击跳转到网页版</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="181"/>
+        <location filename="../src/ui/account-view.cpp" line="174"/>
         <source>pro version</source>
         <translation>企业版</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="183"/>
+        <location filename="../src/ui/account-view.cpp" line="176"/>
         <source>No account</source>
         <translation>没有帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="218"/>
+        <location filename="../src/ui/account-view.cpp" line="211"/>
         <source>Choose</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="227"/>
+        <location filename="../src/ui/account-view.cpp" line="220"/>
         <source>Account settings</source>
         <translation>帐户设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="242"/>
+        <location filename="../src/ui/account-view.cpp" line="235"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="245"/>
+        <location filename="../src/ui/account-view.cpp" line="238"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="258"/>
+        <location filename="../src/ui/account-view.cpp" line="251"/>
         <source>Add an account</source>
         <translation>添加一个帐号</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="240"/>
+        <location filename="../src/ui/account-view.cpp" line="233"/>
         <source>Logout</source>
         <translation>登出</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="205"/>
-        <location filename="../src/ui/account-view.cpp" line="271"/>
+        <location filename="../src/ui/account-view.cpp" line="198"/>
+        <location filename="../src/ui/account-view.cpp" line="264"/>
         <source>not logged in</source>
         <translation>没有登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="450"/>
+        <location filename="../src/ui/account-view.cpp" line="455"/>
         <source>Failed to remove local repos sync token: %1</source>
         <translation>删除本地资料库同步验证信息失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/account-view.cpp" line="474"/>
+        <location filename="../src/ui/account-view.cpp" line="479"/>
         <source>Failed to get repo sync information from server: %1</source>
         <translation>从服务器上获取资料库同步信息失败：%1</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="84"/>
+        <location filename="../ui_account-view.h" line="91"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="85"/>
+        <location filename="../ui_account-view.h" line="92"/>
         <source>Account</source>
         <translation>帐号</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="86"/>
+        <location filename="../ui_account-view.h" line="93"/>
         <source>email</source>
         <translation>邮箱</translation>
     </message>
     <message>
-        <location filename="../ui_account-view.h" line="87"/>
+        <location filename="../ui_account-view.h" line="94"/>
         <source>server</source>
         <translation>服务器</translation>
     </message>
@@ -247,7 +247,7 @@ failed to upload.</source>
 <context>
     <name>AvatarService</name>
     <message>
-        <location filename="../src/avatar-service.cpp" line="158"/>
+        <location filename="../src/avatar-service.cpp" line="164"/>
         <source>Failed to create avatars folder</source>
         <translation>创建头像文件夹失败</translation>
     </message>
@@ -483,11 +483,6 @@ failed to upload.</source>
         <location filename="../src/configurator.cpp" line="215"/>
         <source>failed to read %1</source>
         <translation>读取文件 %1 失败</translation>
-    </message>
-    <message>
-        <location filename="../src/configurator.cpp" line="260"/>
-        <source>%1 Default Library</source>
-        <translation>%1 默认资料库</translation>
     </message>
 </context>
 <context>
@@ -1301,23 +1296,23 @@ failed to upload.</source>
     <message>
         <location filename="../src/ui/init-vdrive-dialog.cpp" line="45"/>
         <source>%1 organizes files by libraries.
-Do you like to download your default library and create a virtual disk?</source>
+Do you like to download your default library?</source>
         <translation>%1用资料库的方式来组织文件。
-您想要下载您的默认资料库并创建一个虚拟磁盘吗？</translation>
+您想要下载您的默认资料库吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="78"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="77"/>
         <source>Checking your default library...</source>
         <translation>正在获取默认资料库信息...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="92"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="91"/>
         <source>Creating the default library...</source>
         <translation>正在创建默认资料库...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="143"/>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="159"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="141"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="157"/>
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
@@ -1325,50 +1320,45 @@ The server version must be 2.1 or higher to support this.</source>
 服务器版本必须是 2.1 以上才支持默认资料库功能。</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="146"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="144"/>
         <source>Failed to get default library:
 %1</source>
         <translation>获取默认资料库失败：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="162"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="160"/>
         <source>Failed to create default library:
 %1</source>
         <translation>创建默认资料库失败：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="189"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="187"/>
         <source>Downloading default library...</source>
         <translation>正在下载默认资料库...</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="198"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="196"/>
         <source>Failed to download default library:
 %1</source>
         <translation>下载默认资料库失败：
 %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="209"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="207"/>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
         <translation>默认资料库已下载。
 您可以点击“打开”按钮来查看它。</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="260"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="258"/>
         <source>Error when downloading the default library: %1</source>
         <translation>下载默认资料库时出错：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="274"/>
-        <source>Creating the virtual disk...</source>
-        <translation>创建虚拟磁盘...</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/init-vdrive-dialog.cpp" line="183"/>
+        <location filename="../src/ui/init-vdrive-dialog.cpp" line="181"/>
         <source>Failed to download default library:
  %1</source>
         <translation>下载资料库 “%1” 失败</translation>
@@ -1381,9 +1371,9 @@ You can click the &quot;Open&quot; button to view it.</source>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="186"/>
         <source>%1 organizes files by libraries. 
-Do you like to download your default library and create a virtual disk?</source>
+Do you like to download your default library?</source>
         <translation>%1用资料库的方式来组织文件。
-您想要下载您的默认资料库并创建一个虚拟磁盘吗？</translation>
+您想要下载您的默认资料库吗？</translation>
     </message>
     <message>
         <location filename="../ui_init-vdrive-dialog.h" line="189"/>
@@ -1469,8 +1459,7 @@ Do you like to download your default library and create a virtual disk?</source>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="205"/>
         <location filename="../src/ui/login-dialog.cpp" line="211"/>
-        <location filename="../src/ui/login-dialog.cpp" line="374"/>
-        <location filename="../src/ui/login-dialog.cpp" line="380"/>
+        <location filename="../src/ui/login-dialog.cpp" line="373"/>
         <source>%1 is not a valid server address</source>
         <translation>%1 不是合法的云盘网址</translation>
     </message>
@@ -1495,9 +1484,19 @@ Do you like to download your default library and create a virtual disk?</source>
         <translation>两步验证</translation>
     </message>
     <message>
-        <location filename="../src/ui/login-dialog.cpp" line="363"/>
+        <location filename="../src/ui/login-dialog.cpp" line="350"/>
         <source>%1 Server Address</source>
         <translation>%1 云盘网址</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="362"/>
+        <source>Server address must not be empty</source>
+        <translation>服务器地址不能为空</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/login-dialog.cpp" line="367"/>
+        <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
+        <translation>%1  不是合法的服务器地址。地址必须以 &quot;https://&quot; 开头</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="223"/>
@@ -1586,7 +1585,7 @@ Do you like to download your default library and create a virtual disk?</source>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="106"/>
-        <location filename="../src/ui/login-dialog.cpp" line="362"/>
+        <location filename="../src/ui/login-dialog.cpp" line="349"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Shibboleth Login</source>
         <translation>Shibboleth 登陆</translation>
@@ -2267,14 +2266,9 @@ The library owner&apos;s storage space is used up.</source>
         <translation>无法下载 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1026"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1010"/>
         <source>copy failed</source>
         <translation>复制文件失败</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1125"/>
-        <source>unknown error</source>
-        <translation>未知错误</translation>
     </message>
     <message>
         <location filename="../src/ui/event-details-tree.cpp" line="128"/>
@@ -2656,17 +2650,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoItemDelegate</name>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="309"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="306"/>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="314"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="311"/>
         <source>, %1</source>
         <translation>, %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-item-delegate.cpp" line="536"/>
+        <location filename="../src/ui/repo-item-delegate.cpp" line="527"/>
         <source>This library has not been downloaded</source>
         <translation>这个资料库还没有下载</translation>
     </message>
@@ -2726,38 +2720,38 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>RepoTreeView</name>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="284"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="285"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="277"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="278"/>
         <source>Disable auto sync</source>
         <translation>关闭自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="288"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="289"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="393"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="394"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="281"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="282"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="385"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="386"/>
         <source>Enable auto sync</source>
         <translation>打开自动同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="346"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="338"/>
         <source>Show &amp;details</source>
         <translation>详情(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="348"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="340"/>
         <source>Show details of this library</source>
         <translation>查看该资料库详细信息</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="352"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="358"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="344"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="350"/>
         <source>&amp;Sync this library</source>
         <translation>同步该资料库(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="354"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="360"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="346"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="352"/>
         <source>Sync this library</source>
         <translation>同步这个资料库</translation>
     </message>
@@ -2767,189 +2761,169 @@ The library owner&apos;s storage space is used up.</source>
         <translation>最近修改</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="364"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="356"/>
         <source>Sync &amp;now</source>
         <translation>立即同步(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="366"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="358"/>
         <source>Sync this library immediately</source>
         <translation>立即同步资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="361"/>
         <source>&amp;Cancel download</source>
         <translation>取消下载(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="371"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="363"/>
         <source>Cancel download of this library</source>
         <translation>取消下载这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="381"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="373"/>
         <source>&amp;Open folder</source>
         <translation>打开文件夹(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="377"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="383"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="369"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="375"/>
         <source>open local folder</source>
         <translation>打开本地文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="375"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="367"/>
         <source>&amp;Open local folder</source>
         <translation>打开本地文件夹(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="387"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="379"/>
         <source>&amp;Unsync</source>
         <translation>解除同步(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="388"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="380"/>
         <source>unsync this library</source>
         <translation>解除同步这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="398"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="390"/>
         <source>&amp;View on cloud</source>
         <translation>到网站上查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="400"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="392"/>
         <source>view this library on seahub</source>
         <translation>到网站上查看这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="405"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="397"/>
         <source>Share to user</source>
         <translation>共享给其他用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="407"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="399"/>
         <source>Share this library to a user</source>
         <translation>把这个资料库共享给其他用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="412"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="404"/>
         <source>Share to group</source>
         <translation>共享给群组</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="414"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="406"/>
         <source>Share this library to a group</source>
         <translation>把这个资料库共享给某个群组</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="419"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="411"/>
         <source>&amp;Open cloud file browser</source>
         <translation>打开云端文件浏览器(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="427"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="419"/>
         <source>open this library in embedded Cloud File Browser</source>
         <translation>用内嵌的云端文件浏览器，打开此资料库</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="424"/>
         <source>&amp;Resync this library</source>
         <translation>重新同步此资料库 (&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="434"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="440"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="426"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="432"/>
         <source>unsync and resync this library</source>
         <translation>解除同步这个资料库 然后重新同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="438"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="430"/>
         <source>Set sync &amp;Interval</source>
         <translation>设置同步间隔 (&amp;I)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="444"/>
-        <source>&amp;Map as a network drive</source>
-        <translation>映射为网络驱动器(&amp;M)</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="446"/>
-        <source>map as a network drive</source>
-        <translation>映射为网络驱动器</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="487"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="471"/>
         <source>Are you sure to unsync library &quot;%1&quot;?</source>
         <translation>您确定要解除同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="494"/>
-        <location filename="../src/ui/repo-tree-view.cpp" line="802"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="478"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="786"/>
         <source>Failed to unsync library &quot;%1&quot;</source>
         <translation>解除同步资料库 &quot;%1&quot; 失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="723"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="707"/>
         <source>Failed to cancel this task:
 
  %1</source>
         <translation>取消任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="725"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="709"/>
         <source>The download has been canceled</source>
         <translation>下载已取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="796"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="780"/>
         <source>Are you sure to resync library &quot;%1&quot;?</source>
         <translation>您确定要重新同步资料库 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="858"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="842"/>
         <source>You do not have permission to upload to this folder</source>
         <translation>您没有权限上传文件到这个文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="870"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="854"/>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
         <translation>无法用文件 &quot;%1&quot; 覆盖自身</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="875"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="859"/>
         <source>Are you sure to overwrite file &quot;%1&quot;</source>
         <translation>您真的想覆盖文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="878"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="862"/>
         <source>Unable to delete file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1019"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1003"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1050"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1034"/>
         <source>Sync Interval (In seconds):</source>
         <translation>同步间隔 (秒)</translation>
     </message>
     <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1052"/>
+        <location filename="../src/ui/repo-tree-view.cpp" line="1036"/>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>设置资料库 “%1” 的同步间隔</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1155"/>
-        <source>No available windows drive letter</source>
-        <translation>没有可用的 Windows 盘符</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/repo-tree-view.cpp" line="1164"/>
-        <source>Operation failed: %1</source>
-        <translation>操作失败: %1</translation>
     </message>
 </context>
 <context>
@@ -3165,12 +3139,12 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SearchResultListView</name>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="200"/>
+        <location filename="../src/ui/search-tab-items.cpp" line="190"/>
         <source>&amp;Show in folder</source>
         <translation>打开所在文件夹(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/ui/search-tab-items.cpp" line="203"/>
+        <location filename="../src/ui/search-tab-items.cpp" line="193"/>
         <source>Show in folder</source>
         <translation>打开所在文件夹</translation>
     </message>

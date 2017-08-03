@@ -75,9 +75,6 @@ void ActivitiesTab::showEvent(QShowEvent *event)
 
 void ActivitiesTab::loadMoreEvents()
 {
-    events_loading_view_ = new LoadingView;
-    events_list_view_->setIndexWidget(
-        events_list_model_->loadMoreIndex(), events_loading_view_);
     EventsService::instance()->loadMore();
 }
 

@@ -220,8 +220,6 @@ void SearchTab::doRealSearch(bool load_more)
         mStack->setCurrentIndex(INDEX_LOADING_VIEW);
     } else {
         nth_page_++;
-        search_view_->setIndexWidget(
-            search_model_->loadMoreIndex(), new LoadingView);
     }
 
     request_ = new FileSearchRequest(account, line_edit_->text(), nth_page_);

@@ -40,11 +40,29 @@ void LoadingView::setQssStyleForTab()
 }
 
 LoadMoreButton::LoadMoreButton(QWidget *parent)
-    : QToolButton(parent)
+    : QWidget(parent)
 {
-    setText(tr("load more"));
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    load_more_btn_ = new QToolButton;
+    load_more_btn_->setObjectName("loadMoreBtn");
+    load_more_btn_->setText(tr("load more"));
+    btn_layout_ = new QHBoxLayout(this);
+    btn_layout_->addWidget(load_more_btn_, Qt::AlignCenter);
+
+    loading_label_ = new LoadingView;
+
     // Must set fill backgound because this button is used as an "index widget".
     // See the doc of QAbstractItemView::setIndexWidget for details.
     setAutoFillBackground(true);
+
+    connect(load_more_btn_, SIGNAL(clicked()),
+            this, SLOT(onBtnClicked()));
+}
+
+void LoadMoreButton::onBtnClicked()
+{
+    load_more_btn_->hide();
+
+    btn_layout_->addWidget(loading_label_, Qt::AlignCenter);
+
+    emit clicked();
 }

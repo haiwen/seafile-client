@@ -656,21 +656,22 @@ SyncErrorsTableView::item:selected {
     background-color: #F9E0C7;
 }
 
-SeafileTabWidget LoadMoreButton {
+LoadMoreButton QToolButton#loadMoreBtn {
     padding: 0;
-    margin: 0;
     font-family: Arial;
-    font-size: 16px;
+    font-size: 14px;
     qproperty-focusPolicy: NoFocus;
-    text-decoration: underline;
-    color: #FF9A2A;
+    /* text-decoration: underline; */
+    color: #626262;
     border: 0;
-    border-radius: 0;
+    border-radius: 18px;
     /* border-top: 1px solid #eee; */
+    background-color: #EFEEEE;
+    width: 120px;
+    height: 34px;
 }
 
-SeafileTabWidget QToolButton:hover
-{
+SeafileTabWidget QToolButton:hover {
     border: 0;
     border-radius: 0;
 }

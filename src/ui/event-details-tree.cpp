@@ -24,8 +24,6 @@ const int kFileItemWidth = 300;
 const int kFileNameWidth = 260;
 
 const int kFileNameFontSize = 14;
-const char *kFileNameColor = "#3F3F3F";
-const char *kFileNameColorHighlighted = "#544D49";
 
 const char *kFileItemBackgroundColor = "white";
 const char *kFileItemBackgroundColorHighlighted = "#F9E0C7";

@@ -681,6 +681,9 @@ QString iconPrefixFromFileName(const QString& fileName)
         }
         // } else if (mimetype.contains("application")) {
         //     return "binary";
+    } else if (mimetype.contains("7z") || mimetype.contains("rar") ||
+               mimetype.contains("zip") || mimetype.startsWith("application/x-tar")) {
+        return "zip";
     }
 
     return "";

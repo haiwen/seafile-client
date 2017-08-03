@@ -17,6 +17,7 @@ class QButtonGroup;
 class QMenu;
 class QAction;
 class QSizeGrip;
+class QHBoxLayout;
 
 class ApiError;
 class FileTableView;
@@ -142,6 +143,8 @@ private:
 
     bool setPasswordAndRetry(FileNetworkTask *task);
 
+    bool eventFilter(QObject *obj, QEvent *event);
+
     const Account account_;
     const ServerRepo repo_;
 
@@ -171,16 +174,18 @@ private:
     QButtonGroup *path_navigator_;
     QList<QLabel*> path_navigator_separators_;
     QAction *gohome_action_;
-    QAction *refresh_action_;
 
     // status toolbar
-    QToolBar *status_bar_;
+    QWidget *status_bar_;
+    QHBoxLayout *status_layout_;
     QToolButton *upload_button_;
     QMenu *upload_menu_;
     QAction *upload_file_action_;
     QAction *upload_directory_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
+    QLabel *refresh_label_;
+    QToolButton *refresh_button_;
 
     // others
     QStackedWidget *stack_;

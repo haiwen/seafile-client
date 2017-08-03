@@ -1,6 +1,7 @@
 #include <QtGlobal>
 #include <QtWidgets>
 #include <QDesktopServices>
+#include <QHBoxLayout>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
@@ -42,8 +43,8 @@ enum {
 };
 
 const char *kLoadingFailedLabelName = "LoadingFailedText";
-const int kToolBarIconSize = 20;
-const int kStatusBarIconSize = 24;
+const int kToolBarIconSize = 24;
+const int kStatusBarIconSize = 20;
 //const int kStatusCodePasswordNeeded = 400;
 
 void openFile(const QString& path)
@@ -257,7 +258,9 @@ void FileBrowserDialog::createToolBar()
     connect(forward_button_, SIGNAL(clicked()), this, SLOT(goForward()));
 
     gohome_action_ = new QAction(tr("Home"), this);
-    gohome_action_->setIcon(QIcon(":images/filebrowser/home.png"));
+    QIcon home_icon;
+    home_icon.addFile(":images/filebrowser/home.png", QSize(16, 16));
+    gohome_action_->setIcon(home_icon);
     connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
     toolbar_->addAction(gohome_action_);
 
@@ -269,16 +272,14 @@ void FileBrowserDialog::createToolBar()
 
 void FileBrowserDialog::createStatusBar()
 {
-    status_bar_ = new QToolBar;
+    status_bar_ = new QWidget;
     status_bar_->setObjectName("statusBar");
-    status_bar_->setIconSize(QSize(kStatusBarIconSize, kStatusBarIconSize));
 
-    QWidget *spacer1 = new QWidget;
-    spacer1->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
-    status_bar_->addWidget(spacer1);
+    status_layout_ = new QHBoxLayout(status_bar_);
+    status_layout_->setContentsMargins(0, 0, 0, 0);
 
     // Submenu
-    upload_menu_ = new QMenu(status_bar_);
+    upload_menu_ = new QMenu;
 
     // Submenu's Action 1: Upload File
     upload_file_action_ = new QAction(tr("Upload files"), upload_menu_);
@@ -303,9 +304,11 @@ void FileBrowserDialog::createStatusBar()
     upload_button_ = new QToolButton;
     upload_button_->setObjectName("uploadButton");
     upload_button_->setToolTip(tr("Upload files"));
-    upload_button_->setIcon(QIcon(":/images/toolbar/add.png"));
+    upload_button_->setIcon(QIcon(":/images/filebrowser/add.png"));
+    upload_button_->setIconSize(QSize(kStatusBarIconSize, kStatusBarIconSize));
+    upload_button_->installEventFilter(this);
     connect(upload_button_, SIGNAL(clicked()), this, SLOT(uploadFileOrMkdir()));
-    status_bar_->addWidget(upload_button_);
+    status_layout_->addWidget(upload_button_);
 
     if (current_readonly_) {
         upload_button_->setEnabled(false);
@@ -315,18 +318,16 @@ void FileBrowserDialog::createStatusBar()
     details_label_ = new QLabel;
     details_label_->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     details_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    status_bar_->addWidget(details_label_);
+    status_layout_->addWidget(details_label_);
 
-    refresh_action_ = new QAction(this);
-    refresh_action_->setIcon(QIcon(":/images/toolbar/refresh.png"));
-    refresh_action_->setToolTip(tr("Refresh"));
-    connect(refresh_action_, SIGNAL(triggered()), this, SLOT(forceRefresh()));
-    refresh_action_->setShortcut(QKeySequence::Refresh);
-    status_bar_->addAction(refresh_action_);
-
-    QWidget *spacer2 = new QWidget;
-    spacer2->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
-    status_bar_->addWidget(spacer2);
+    refresh_button_ = new QToolButton;
+    refresh_button_->setObjectName("refreshButton");
+    refresh_button_->setToolTip(tr("Refresh"));
+    refresh_button_->setIcon(QIcon(":/images/filebrowser/refresh-gray.png"));
+    refresh_button_->setIconSize(QSize(kStatusBarIconSize, kStatusBarIconSize));
+    refresh_button_->installEventFilter(this);
+    connect(refresh_button_, SIGNAL(clicked()), this, SLOT(forceRefresh()));
+    status_layout_->addWidget(refresh_button_);
 }
 
 void FileBrowserDialog::createFileTable()
@@ -338,6 +339,36 @@ void FileBrowserDialog::createFileTable()
 
     connect(table_view_, SIGNAL(dropFile(const QStringList&)),
             this, SLOT(uploadOrUpdateMutipleFile(const QStringList&)));
+}
+
+bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == upload_button_) {
+        if (event->type() == QEvent::Enter) {
+            upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
+                                          "background: #DFDFDF; padding: 3px;"
+                                          "margin-left: 12px; border-radius: 2px;}");
+            return true;
+        } else if (event->type() == QEvent::Leave) {
+            upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
+                                          "background: #F5F5F7; padding: 0px;"
+                                          "margin-left: 15px;}");
+            return true;
+        }
+    } else if (obj == refresh_button_) {
+        if (event->type() == QEvent::Enter) {
+            refresh_button_->setStyleSheet("FileBrowserDialog QToolButton#refreshButton {"
+                                          "background: #DFDFDF; padding: 3px;"
+                                          "margin-right: 12px; border-radius: 2px;}");
+            return true;
+        } else if (event->type() == QEvent::Leave) {
+            refresh_button_->setStyleSheet("FileBrowserDialog QToolButton#refreshButton {"
+                                          "background: #F5F5F7; padding: 0px;"
+                                          "margin-right: 15px;}");
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, event);
 }
 
 void FileBrowserDialog::forceRefresh()
@@ -553,7 +584,7 @@ void FileBrowserDialog::enterPath(const QString& path)
         for(int i = 1; i < current_lpath_.size(); i++) {
             QLabel *separator = new QLabel("/");
             separator->setBaseSize(4, 7);
-            separator->setPixmap(QIcon(":/images/filebrowser/path-separator.png").pixmap(QSize(4, 7)));
+            separator->setPixmap(QIcon(":/images/filebrowser/path-separator.png").pixmap(10));
             path_navigator_separators_.push_back(separator);
             toolbar_->addWidget(separator);
             if (i != current_lpath_.size() - 1) {

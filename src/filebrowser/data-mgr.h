@@ -58,6 +58,10 @@ public:
                       const QString &path,
                       bool is_file);
 
+    void removeDirents(const QString &repo_id,
+                       const QString &parent_path,
+                       const QStringList &filenames);
+
     void shareDirent(const QString &repo_id,
                      const QString &path,
                      bool is_file);
@@ -128,6 +132,9 @@ signals:
     void removeDirentSuccess(const QString& path);
     void removeDirentFailed(const ApiError& error);
 
+    void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames);
+    void removeDirentsFailed(const ApiError& error);
+
     void shareDirentSuccess(const QString& link);
     void shareDirentFailed(const ApiError& error);
 
@@ -149,6 +156,7 @@ private slots:
     void onLockFileSuccess();
     void onRenameDirentSuccess();
     void onRemoveDirentSuccess();
+    void onRemoveDirentsSuccess();
     void onCopyDirentsSuccess();
     void onMoveDirentsSuccess();
 

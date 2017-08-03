@@ -18,6 +18,7 @@ const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
 const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
 const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
+const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
@@ -202,6 +203,25 @@ RemoveDirentRequest::RemoveDirentRequest(const Account &account,
 }
 
 void RemoveDirentRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
+
+RemoveDirentsRequest::RemoveDirentsRequest(const Account &account,
+                                           const QString &repo_id,
+                                           const QString &parent_path,
+                                           const QStringList& filenames)
+    : SeafileApiRequest(
+        account.getAbsoluteUrl(
+            QString(kRemoveDirentsURL).arg(repo_id)),
+        SeafileApiRequest::METHOD_POST, account.token),
+      repo_id_(repo_id), parent_path_(parent_path), filenames_(filenames)
+{
+    setUrlParam("p", parent_path_);
+    setFormParam("file_names", filenames_.join(":"));
+}
+
+void RemoveDirentsRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
 }

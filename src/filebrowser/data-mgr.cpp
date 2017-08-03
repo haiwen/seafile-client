@@ -134,6 +134,21 @@ void DataManager::removeDirent(const QString &repo_id,
     reqs_.push_back(req);
 }
 
+void DataManager::removeDirents(const QString &repo_id,
+                                const QString &parent_path,
+                                const QStringList &filenames)
+{
+    RemoveDirentsRequest *req = new RemoveDirentsRequest(account_, repo_id, parent_path,
+                                                         filenames);
+    connect(req, SIGNAL(success()),
+            SLOT(onRemoveDirentsSuccess()));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            SIGNAL(removeDirentsFailed(const ApiError&)));
+    req->send();
+    reqs_.push_back(req);
+}
+
 void DataManager::shareDirent(const QString &repo_id,
                               const QString &path,
                               bool is_file)
@@ -239,6 +254,17 @@ void DataManager::onRemoveDirentSuccess()
 
     removeDirentsCache(req->repoId(), req->path(), req->isFile());
     emit removeDirentSuccess(req->path());
+}
+
+void DataManager::onRemoveDirentsSuccess()
+{
+    RemoveDirentsRequest *req = qobject_cast<RemoveDirentsRequest*>(sender());
+
+    if(req == NULL)
+        return;
+
+    removeDirentsCache(req->repoId(), req->parentPath(), false);
+    emit removeDirentsSuccess(req->parentPath(), req->filenames());
 }
 
 void DataManager::onCopyDirentsSuccess()

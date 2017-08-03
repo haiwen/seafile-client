@@ -129,6 +129,32 @@ private:
     const QString path_;
 };
 
+class RemoveDirentsRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    RemoveDirentsRequest(const Account &account,
+                         const QString &repo_id,
+                         const QString &parent_path,
+                         const QStringList& filenames);
+
+    const QString& repoId() const { return repo_id_; }
+    const QString& parentPath() const { return parent_path_; }
+    const QStringList& filenames() const { return filenames_; }
+
+signals:
+    void success();
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(RemoveDirentsRequest)
+
+    const QString repo_id_;
+    const QString parent_path_;
+    const QStringList filenames_;
+};
+
 
 class GetSharedLinkRequest : public SeafileApiRequest {
     Q_OBJECT

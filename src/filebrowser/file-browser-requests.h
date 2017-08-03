@@ -6,9 +6,9 @@
 
 #include "api/api-request.h"
 #include "seaf-dirent.h"
+#include "account.h"
 
 class SeafDirent;
-class Account;
 class QDir;
 
 class GetDirentsRequest : public SeafileApiRequest {
@@ -127,23 +127,6 @@ private:
     const bool is_file_;
     const QString repo_id_;
     const QString path_;
-};
-
-
-class GetSharedLinkRequest : public SeafileApiRequest {
-    Q_OBJECT
-public:
-    GetSharedLinkRequest(const Account &account, const QString &repo_id,
-                             const QString &path, bool is_file);
-
-signals:
-    void success(const QString& url);
-
-protected slots:
-    void requestSuccess(QNetworkReply& reply);
-
-private:
-    Q_DISABLE_COPY(GetSharedLinkRequest)
 };
 
 class GetFileUploadLinkRequest : public SeafileApiRequest {

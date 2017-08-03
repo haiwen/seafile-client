@@ -321,6 +321,11 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
+    share_advanced_action_ = new QAction(tr("Generate %1 &Advanced Download Link").arg(getBrand()), this);
+    connect(share_advanced_action_, SIGNAL(triggered()),
+            this, SLOT(onAdvancedShare()));
+    share_advanced_action_->setShortcut(Qt::ALT + Qt::Key_A);
+
     share_to_user_action_ = new QAction(tr("Share to User"), this);
     connect(share_to_user_action_, SIGNAL(triggered()),
             this, SLOT(onShareToUser()));
@@ -336,6 +341,7 @@ void FileTableView::setupContextMenu()
 
     if (parent_->repo_.encrypted) {
         share_action_->setEnabled(false);
+        share_advanced_action_->setEnabled(false);
     }
 
     update_action_ = new QAction(tr("&Update"), this);
@@ -377,6 +383,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(download_action_);
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
+    context_menu_->addAction(share_advanced_action_);
     context_menu_->addAction(share_seafile_action_);
     context_menu_->addAction(share_to_user_action_);
     context_menu_->addAction(share_to_group_action_);
@@ -396,6 +403,7 @@ void FileTableView::setupContextMenu()
     this->addAction(download_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
+    this->addAction(share_advanced_action_);
     this->addAction(share_seafile_action_);
     this->addAction(move_action_);
     this->addAction(copy_action_);
@@ -482,6 +490,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         lock_action_->setVisible(false);
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
+        share_advanced_action_->setVisible(false);
         share_seafile_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
@@ -506,6 +515,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     saveas_action_->setText(tr("&Save As..."));
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
+    share_advanced_action_->setVisible(true);
     share_seafile_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
@@ -682,6 +692,17 @@ void FileTableView::onShare()
         return;
     }
     emit direntShare(*item_);
+}
+
+void FileTableView::onAdvancedShare()
+{
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItemFromSource();
+        if (selected_item && selected_item->isFile())
+            emit direntAdvancedShare(*selected_item);
+        return;
+    }
+    emit direntAdvancedShare(*item_);
 }
 
 void FileTableView::onShareToUser()

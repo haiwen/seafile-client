@@ -58,10 +58,6 @@ public:
                       const QString &path,
                       bool is_file);
 
-    void shareDirent(const QString &repo_id,
-                     const QString &path,
-                     bool is_file);
-
     void copyDirents(const QString &repo_id,
                      const QString &dir_path,
                      const QStringList &file_names,
@@ -127,9 +123,6 @@ signals:
 
     void removeDirentSuccess(const QString& path);
     void removeDirentFailed(const ApiError& error);
-
-    void shareDirentSuccess(const QString& link);
-    void shareDirentFailed(const ApiError& error);
 
     void copyDirentsSuccess();
     void copyDirentsFailed(const ApiError& error);

@@ -29,13 +29,9 @@ public:
     void stop();
 
 private slots:
-    void onShareLinkGenerated(const QString& link);
+    void getShareLink();
     void onLockFileSuccess();
     void onLockFileFailed(const ApiError& error);
-    void generateShareLink(const QString& repo_id,
-                           const QString& path_in_repo,
-                           bool is_file,
-                           bool internal);
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
@@ -63,10 +59,7 @@ public:
     void run();
 
 signals:
-    void generateShareLink(const QString& repo_id,
-                           const QString& path_in_repo,
-                           bool is_file,
-                           bool internal);
+    void getShareLink();
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
@@ -91,10 +84,7 @@ public:
     void run();
 
 signals:
-    void generateShareLink(const QString& repo_id,
-                           const QString& path_in_repo,
-                           bool is_file,
-                           bool internal);
+    void getShareLink();
     void lockFile(const QString& repo_id,
                   const QString& path_in_repo,
                   bool lock);
@@ -110,7 +100,9 @@ private:
     bool readRequest(QStringList *args);
     bool sendResponse(const QString& resp);
 
-    void handleGenShareLink(const QStringList& args, bool internal);
+    void handleGenShareLink(const QStringList& args,
+                            bool internal,
+                            bool advanced);
     QString handleListRepos(const QStringList& args);
     QString handleGetFileStatus(const QStringList& args);
     void handleLockFile(const QStringList& args, bool lock);

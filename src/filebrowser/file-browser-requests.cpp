@@ -7,6 +7,7 @@
 #include "account.h"
 #include "api/api-error.h"
 #include "seaf-dirent.h"
+#include "utils/utils.h"
 
 namespace {
 
@@ -93,25 +94,6 @@ void GetFileDownloadLinkRequest::requestSuccess(QNetworkReply& reply)
         return;
     } while (0);
     emit failed(ApiError::fromHttpError(500));
-}
-
-GetSharedLinkRequest::GetSharedLinkRequest(const Account &account,
-                                           const QString &repo_id,
-                                           const QString &path,
-                                           bool is_file)
-    : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFileSharedLinkUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_PUT, account.token)
-{
-    setFormParam("type", is_file ? "f" : "d");
-    setFormParam("p", path);
-}
-
-void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
-{
-    QString reply_content(reply.rawHeader("Location"));
-
-    emit success(reply_content);
 }
 
 CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,

@@ -46,6 +46,17 @@ std::string GetShareLinkCommand::serialize()
     return path_;
 }
 
+GetAdvancedShareLinkCommand::GetAdvancedShareLinkCommand(const std::string path)
+    : AppletCommand<void>("get-advanced-share-link"),
+      path_(path)
+{
+}
+
+std::string GetAdvancedShareLinkCommand::serialize()
+{
+    return path_;
+}
+
 GetInternalLinkCommand::GetInternalLinkCommand(const std::string path)
     : AppletCommand<void>("get-internal-link"),
       path_(path)

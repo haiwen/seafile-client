@@ -45,6 +45,7 @@ const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
 const char* kFetchGroupsUrl = "api2/groups/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
+const char* kSharedLinkUrl = "api/v2.1/share-links/";
 
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
 
@@ -1241,4 +1242,129 @@ void GetThumbnailRequest::requestSuccess(QNetworkReply& reply)
     else {
         emit success(pixmap);
     }
+}
+
+GetSharedLinkRequest::GetSharedLinkRequest(const SharedLinkRequestParams &params)
+    : SeafileApiRequest(
+          params.account.getAbsoluteUrl(QString(kSharedLinkUrl)),
+          SeafileApiRequest::METHOD_GET, params.account.token),
+      req_params(params)
+{
+    setUrlParam("repo_id", req_params.repo_id);
+    setUrlParam("path", req_params.path_in_repo);
+}
+
+void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    SharedLinkInfo shared_link_info;
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetSharedLinkRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    if (json_array_size(root) == 0) {
+        emit empty();
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(json_array_get(root, 0));
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("link")) {
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    shared_link_info.link = dict.value("link").toString();
+    shared_link_info.ctime = dict.value("ctime").toString();
+    shared_link_info.expire_date = dict.value("expire_date").toString();
+    shared_link_info.is_dir = dict.value("is_dir").toBool();
+    shared_link_info.is_expired = dict.value("is_expired").toBool();
+    shared_link_info.obj_name = dict.value("obj_name").toString();
+    shared_link_info.path = dict.value("path").toString();
+    shared_link_info.repo_id = dict.value("repo_id").toString();
+    shared_link_info.repo_name = dict.value("repo_name").toString();
+    shared_link_info.token = dict.value("token").toString();
+    shared_link_info.username = dict.value("username").toString();
+    shared_link_info.view_cnt = dict.value("view_cnt").toUInt();
+
+    emit success(shared_link_info);
+}
+
+CreateShareLinkRequest::CreateShareLinkRequest(const SharedLinkRequestParams &params,
+                                               const QString &password,
+                                               quint64 expired_date)
+    : SeafileApiRequest(
+          params.account.getAbsoluteUrl(QString(kSharedLinkUrl)),
+          SeafileApiRequest::METHOD_POST, params.account.token),
+      req_params(params)
+{
+    setFormParam("repo_id", req_params.repo_id);
+    setFormParam("path", req_params.path_in_repo);
+
+    SetAdvancedShareParams(password, expired_date);
+}
+
+void CreateShareLinkRequest::SetAdvancedShareParams(const QString &password,
+                                                    quint64 expired_date)
+{
+    if (!password.isNull())
+        setFormParam("password", password);
+
+    if (expired_date != 0)
+        setFormParam("expired_date", QString::number(expired_date));
+}
+
+void CreateShareLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    SharedLinkInfo shared_link_info;
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("CreateShareLinkRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    if (!dict.contains("link")) {
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    shared_link_info.link = dict.value("link").toString();
+    shared_link_info.ctime = dict.value("ctime").toString();
+    shared_link_info.expire_date = dict.value("expire_date").toString();
+    shared_link_info.is_dir = dict.value("is_dir").toBool();
+    shared_link_info.is_expired = dict.value("is_expired").toBool();
+    shared_link_info.obj_name = dict.value("obj_name").toString();
+    shared_link_info.path = dict.value("path").toString();
+    shared_link_info.repo_id = dict.value("repo_id").toString();
+    shared_link_info.repo_name = dict.value("repo_name").toString();
+    shared_link_info.token = dict.value("token").toString();
+    shared_link_info.username = dict.value("username").toString();
+    shared_link_info.view_cnt = dict.value("view_cnt").toUInt();
+
+    emit success(shared_link_info);
+}
+
+DeleteSharedLinkRequest::DeleteSharedLinkRequest(const SharedLinkRequestParams &params,
+                                                 const QString &token)
+    : SeafileApiRequest(
+          params.account.getAbsoluteUrl((QString(kSharedLinkUrl) + "%1/").arg(token)),
+          SeafileApiRequest::METHOD_DELETE, params.account.token),
+      req_params(params)
+{
+}
+
+void DeleteSharedLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
 }

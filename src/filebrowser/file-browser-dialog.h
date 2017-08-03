@@ -184,7 +184,6 @@ private:
     QAction *upload_directory_action_;
     QAction *mkdir_action_;
     QLabel *details_label_;
-    QLabel *refresh_label_;
     QToolButton *refresh_button_;
 
     // others

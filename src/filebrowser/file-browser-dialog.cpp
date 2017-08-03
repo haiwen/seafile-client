@@ -258,9 +258,7 @@ void FileBrowserDialog::createToolBar()
     connect(forward_button_, SIGNAL(clicked()), this, SLOT(goForward()));
 
     gohome_action_ = new QAction(tr("Home"), this);
-    QIcon home_icon;
-    home_icon.addFile(":images/filebrowser/home.png", QSize(16, 16));
-    gohome_action_->setIcon(home_icon);
+    gohome_action_->setIcon(QIcon(":images/filebrowser/home.png"));
     connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
     toolbar_->addAction(gohome_action_);
 

@@ -457,6 +457,7 @@ FileBrowserDialog QToolBar#topBar {
     border-bottom: 1px solid #d0d0d0;
     padding: 0;
     min-height: 42px;
+    background: #F5F5F7;
 }
 
 FileBrowserDialog QToolBar QPushButton {
@@ -468,19 +469,15 @@ FileBrowserDialog QToolBar QPushButton {
 }
 
 FileBrowserDialog QToolBar QToolButton#backwardButton {
-    padding: 0px 2px 0px 2px;
-    margin-right: 2px;
-    border: 1px solid #DBDBDC;
-    border-radius: 0px;
-    background-color: white;
+    border: 0px;
+    margin-left: 10px;
+    margin-right: -2px;
 }
 
 FileBrowserDialog QToolBar QToolButton#forwardButton {
-    padding: 0px 2px 0px 2px;
-    margin-left: 2px;
-    border: 1px solid #DBDBDC;
-    border-radius: 0px;
-    background-color: white;
+    border: 0px;
+    margin-left: -2px;
+    margin-right: 0px;
 }
 
 FileBrowserDialog QToolBar QLabel {
@@ -496,7 +493,7 @@ FileBrowserDialog QToolBar QPushButton:hover {
 FileTableView {
     border: 0;
     margin: 0;
-    padding-left: 14px;
+    padding-left: 0px;
     border-bottom: 1px solid #e0e0e0;
     background-color: white;
     qproperty-focusPolicy: NoFocus;
@@ -544,10 +541,23 @@ FileTableView::item :last {
     padding-right: 13px;
 }
 
-FileBrowserDialog QToolBar#statusBar {
+FileBrowserDialog QWidget#statusBar {
+    padding: 0px;
+    margin: 0px;
+    min-height: 36px;
+    max-height: 36px;
+    background: #F5F5F7;
+}
+
+FileBrowserDialog QToolButton#uploadButton {
     border: 0;
-    margin: 0;
-    margin-top: 1px;
+    padding: 0px;
+    margin-left: 15px;
+}
+
+FileBrowserDialog QToolButton#refreshButton {
+    border: 0;
+    margin-right: 15px;
 }
 
 FileBrowserProgressDialog {

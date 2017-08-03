@@ -193,6 +193,11 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     connect(data_mgr_, SIGNAL(removeDirentFailed(const ApiError&)),
             this, SLOT(onDirentRemoveFailed(const ApiError&)));
 
+    connect(data_mgr_, SIGNAL(removeDirentsSuccess(const QString&, const QStringList&)),
+            this, SLOT(onDirentsRemoveSuccess(const QString&, const QStringList&)));
+    connect(data_mgr_, SIGNAL(removeDirentsFailed(const ApiError&)),
+            this, SLOT(onDirentsRemoveFailed(const ApiError&)));
+
     //share <--> data_mgr_
     connect(data_mgr_, SIGNAL(shareDirentSuccess(const QString&)),
             this, SLOT(onDirentShareSuccess(const QString&)));
@@ -989,11 +994,11 @@ void FileBrowserDialog::onGetDirentRemove(const QList<const SeafDirent*> &dirent
     if (!seafApplet->yesOrNoBox(tr("Do you really want to delete these items"), this, false))
         return;
 
-    Q_FOREACH(const SeafDirent* dirent, dirents)
-    {
-        data_mgr_->removeDirent(repo_.id, pathJoin(current_path_, dirent->name),
-                                dirent->isFile());
+    QStringList filenames;
+    foreach (const SeafDirent *dirent, dirents) {
+        filenames << dirent->name;
     }
+    data_mgr_->removeDirents(repo_.id, current_path_, filenames);
 }
 
 void FileBrowserDialog::onGetDirentShare(const SeafDirent& dirent)
@@ -1105,6 +1110,23 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Remove failed"), this);
+}
+
+void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
+                                               const QStringList& filenames)
+{
+    // if no longer current level
+    if (current_path_ != parent_path)
+        return;
+    foreach (const QString& name, filenames) {
+        printf("removed file: %s\n", name.toUtf8().data());
+        table_model_->removeItemNamed(name);
+    }
+}
+
+void FileBrowserDialog::onDirentsRemoveFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Remove failed"), this);
 }

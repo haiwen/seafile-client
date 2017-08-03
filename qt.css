@@ -468,16 +468,11 @@ FileBrowserDialog QToolBar QPushButton {
     qproperty-focusPolicy: NoFocus;
 }
 
-FileBrowserDialog QToolBar QToolButton#backwardButton {
+FileBrowserDialog QToolBar QToolButton#backwardButton,
+FileBrowserDialog QToolBar QToolButton#forwardButton {
     border: 0px;
     margin-left: 10px;
     margin-right: -2px;
-}
-
-FileBrowserDialog QToolBar QToolButton#forwardButton {
-    border: 0px;
-    margin-left: -2px;
-    margin-right: 0px;
 }
 
 FileBrowserDialog QToolBar QLabel {

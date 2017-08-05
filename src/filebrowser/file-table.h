@@ -53,7 +53,6 @@ signals:
 private slots:
     void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
-    void onOpen();
     void onSaveAs();
     void onLock();
     void onRename();
@@ -96,7 +95,6 @@ private:
     QMenu *context_menu_;
     QMenu *paste_only_menu_;
     QAction *saveas_action_;
-    QAction *download_action_;
     QAction *rename_action_;
     QAction *remove_action_;
     QAction *share_action_;

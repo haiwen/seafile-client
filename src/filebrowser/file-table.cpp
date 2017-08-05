@@ -288,10 +288,6 @@ void FileTableView::setupContextMenu()
     context_menu_ = new QMenu(this);
     connect(parent_, SIGNAL(aboutToClose()),
             context_menu_, SLOT(close()));
-    download_action_ = new QAction(tr("&Open"), this);
-    connect(download_action_, SIGNAL(triggered()),
-            this, SLOT(onOpen()));
-    download_action_->setShortcut(QKeySequence::InsertParagraphSeparator);
 
     saveas_action_ = new QAction(tr("&Save As..."), this);
     connect(saveas_action_, SIGNAL(triggered()),
@@ -373,8 +369,6 @@ void FileTableView::setupContextMenu()
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
     }
 
-    context_menu_->setDefaultAction(download_action_);
-    context_menu_->addAction(download_action_);
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addAction(share_seafile_action_);
@@ -393,7 +387,6 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(cancel_download_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
-    this->addAction(download_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(share_seafile_action_);
@@ -475,10 +468,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             }
         }
 
-        download_action_->setVisible(!has_dir);
         saveas_action_->setText(tr("&Save As To..."));
         saveas_action_->setEnabled(!has_dir);
-        download_action_->setText(tr("D&ownload"));
         lock_action_->setVisible(false);
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
@@ -509,8 +500,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     share_seafile_action_->setVisible(true);
     update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
-    download_action_->setVisible(true);
-    download_action_->setEnabled(true);
     cancel_download_action_->setVisible(false);
     if (item_->readonly) {
         move_action_->setEnabled(false);
@@ -527,7 +516,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     if (item_->isDir()) {
         lock_action_->setVisible(false);
         update_action_->setVisible(false);
-        download_action_->setText(tr("&Open"));
         saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
         share_to_user_action_->setVisible(true);
@@ -544,7 +532,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         }
 
         update_action_->setVisible(true);
-        download_action_->setText(tr("D&ownload"));
         saveas_action_->setEnabled(true);
         sync_subdirectory_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
@@ -553,7 +540,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_download_action_->setVisible(true);
-            download_action_->setVisible(false);
             saveas_action_->setVisible(false);
         }
     }
@@ -586,30 +572,6 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
         return;
 
     emit direntClicked(*dirent);
-}
-
-void FileTableView::onOpen()
-{
-    if (item_ == NULL) {
-        const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
-        // if we are going to open a directory
-        if (dirents.size() == 1 &&
-            dirents.front()->isDir()) {
-            emit direntClicked(*dirents.front());
-            return;
-        }
-        // in other cases, download files only
-        for (int i = 0; i < dirents.size(); i++) {
-            // ignore directories since we have no support for them
-            if (dirents[i]->isDir())
-                continue;
-
-            emit direntClicked(*dirents[i]);
-        }
-        return;
-    }
-
-    emit direntClicked(*item_);
 }
 
 void FileTableView::onSaveAs()

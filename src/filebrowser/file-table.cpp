@@ -469,6 +469,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         }
 
         saveas_action_->setText(tr("&Save As To..."));
+        saveas_action_->setVisible(true);
         saveas_action_->setEnabled(!has_dir);
         lock_action_->setVisible(false);
         rename_action_->setVisible(false);
@@ -495,6 +496,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     item_.reset(new SeafDirent(*dirent));
 
     saveas_action_->setText(tr("&Save As..."));
+    saveas_action_->setVisible(true);
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     share_seafile_action_->setVisible(true);

@@ -73,6 +73,7 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
 #endif
 
     username_input_ = new QLineEdit(this);
+    username_input_->setObjectName("mUsernameInputBar");
     groupname_input_ = new QComboBox(this);
 
     mInputStack->insertWidget(INDEX_USER_NAME, username_input_);
@@ -93,7 +94,7 @@ PrivateShareDialog::PrivateShareDialog(const Account& account,
     }
     else {
         mInputStack->setCurrentIndex(INDEX_USER_NAME);
-        username_input_->setPlaceholderText(tr("Enter the email address"));
+        username_input_->setPlaceholderText(tr("Enter user name or email address"));
     }
     mOkBtn->setEnabled(false);
     mPermission->setCurrentIndex(0);
@@ -146,6 +147,7 @@ void PrivateShareDialog::createTable()
     vlayout->insertWidget(1, table_);
 
     table_->setItemDelegate(new SharedItemDelegate(this));
+    table_->setEditTriggers(QAbstractItemView::SelectedClicked);
 
     // Overloaded signal for updating group share.
     connect(model_, SIGNAL(updateShareItem(int, SharePermission)), this,
@@ -599,7 +601,7 @@ QVariant SharedItemsTableModel::data(const QModelIndex& index, int role) const
 
     if (role == Qt::ToolTipRole) {
         if (column == COLUMN_PERMISSION) {
-            return tr("Double click to edit");
+            return tr("Click to edit");
         }
         else {
             if (isGroupShare()) {

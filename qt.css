@@ -608,6 +608,10 @@ PrivateShareDialog {
 /*     padding-left: 1px; */
 /* } */
 
+PrivateShareDialog QLineEdit#mUsernameInputBar {
+    padding-left: 4px;
+}
+
 SharedItemsTableView {
     margin-top: 10px;
     qproperty-focusPolicy: NoFocus;

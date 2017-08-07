@@ -710,6 +710,11 @@ QString getIconByFileNameV2(const QString& fileName)
 {
     QString icon = iconPrefixFromFileName(fileName);
 
+    // Use doc icons for text files
+    if (icon == "text") {
+        icon = "ms_word";
+    }
+
     return QString(":/images/files_v2/file_%1.png").arg(icon.isEmpty() ? "unknown" : icon);
 }
 

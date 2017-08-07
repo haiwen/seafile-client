@@ -262,10 +262,17 @@ void FileBrowserDialog::createToolBar()
     toolbar_->addWidget(forward_button_);
     connect(forward_button_, SIGNAL(clicked()), this, SLOT(goForward()));
 
+    // XX: not sure why, but we have to set the styles here, otherwise it won't
+    // work (if we write this in qt.css)
+    backward_button_->setStyleSheet("QToolButton { margin-right: -2px; }");
+    forward_button_->setStyleSheet("QToolButton { margin-left: -2px; margin-right: 10px;}");
+    toolbar_->setStyleSheet("QToolbar { spacing: 0px; }");
+
     gohome_action_ = new QAction(tr("Home"), this);
     gohome_action_->setIcon(QIcon(":images/filebrowser/home.png"));
     connect(gohome_action_, SIGNAL(triggered()), this, SLOT(goHome()));
     toolbar_->addAction(gohome_action_);
+    toolbar_->widgetForAction(gohome_action_)->setObjectName("goHomeButton");
 
     path_navigator_ = new QButtonGroup(this);
     connect(path_navigator_, SIGNAL(buttonClicked(int)),
@@ -283,6 +290,8 @@ void FileBrowserDialog::createStatusBar()
 
     // Submenu
     upload_menu_ = new QMenu;
+    connect(upload_menu_, SIGNAL(aboutToShow()), this, SLOT(fixUploadButtonHighlightStyle()));
+    connect(upload_menu_, SIGNAL(aboutToHide()), this, SLOT(fixUploadButtonNonHighlightStyle()));
 
     // Submenu's Action 1: Upload File
     upload_file_action_ = new QAction(tr("Upload files"), upload_menu_);
@@ -347,15 +356,14 @@ void FileBrowserDialog::createFileTable()
 bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == upload_button_) {
+        // Sometimes the upload menu is dismissed, the upload button style won't
+        // change, and we need to handle it manually here as well as in the
+        // aboutToHide signal of the upload_meu. This might be a qt bug.
         if (event->type() == QEvent::Enter) {
-            upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
-                                          "background: #DFDFDF; padding: 3px;"
-                                          "margin-left: 12px; border-radius: 2px;}");
+            fixUploadButtonHighlightStyle();
             return true;
         } else if (event->type() == QEvent::Leave) {
-            upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
-                                          "background: #F5F5F7; padding: 0px;"
-                                          "margin-left: 15px;}");
+            fixUploadButtonNonHighlightStyle();
             return true;
         }
     } else if (obj == refresh_button_) {
@@ -1249,4 +1257,32 @@ void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)
 void FileBrowserDialog::onCreateSubrepoFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Create library failed!"), this);
+}
+
+void FileBrowserDialog::fixUploadButtonHighlightStyle()
+{
+    fixUploadButtonStyle(true);
+}
+
+void FileBrowserDialog::fixUploadButtonNonHighlightStyle()
+{
+    fixUploadButtonStyle(false);
+}
+
+void FileBrowserDialog::fixUploadButtonStyle(bool highlighted)
+{
+    if (highlighted) {
+        upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
+                                      "background: #DFDFDF; padding: 3px;"
+                                      "margin-left: 12px; border-radius: 2px;}");
+    } else {
+        // XX: underMouse() return true even if the upload button is not under mouse!
+        //
+        // if (upload_button_->underMouse()) {
+        //     return;
+        // }
+        upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
+                                      "background: #F5F5F7; padding: 0px;"
+                                      "margin-left: 15px;}");
+    }
 }

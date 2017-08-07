@@ -325,7 +325,7 @@ QPixmap ThumbnailService::getThumbnail(const QString& repo_id,
         }
     }
     if (img.isNull()) {
-        return QPixmap(":/images/files_v2/file_image.png");
+        return QIcon(":/images/files_v2/file_image.png").pixmap(24);
     } else {
         return img;
     }

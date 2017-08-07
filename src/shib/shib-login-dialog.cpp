@@ -170,8 +170,11 @@ bool CustomCookieJar::setCookiesFromUrl(const QList<QNetworkCookie>& cookies, co
 }
 
 #if !defined(SEAFILE_USE_WEBKIT)
+// We create an off-the-record QWebEngineProfile here, because we don't want the
+// cookie to be persisted (the seahub_auth cookie should be cleared each time
+// the shib login dialog is called)
 SeafileQWebEnginePage::SeafileQWebEnginePage(QObject *parent)
-    : QWebEnginePage(parent)
+    : QWebEnginePage(new QWebEngineProfile(parent), parent)
 {
 }
 

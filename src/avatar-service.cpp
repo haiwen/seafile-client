@@ -265,6 +265,10 @@ void AvatarService::fetchImageFromServer(const QString& email)
 
 void AvatarService::onGetAvatarSuccess(const QImage& img)
 {
+    if (!get_avatar_req_) {
+        return;
+    }
+
     const QString email = get_avatar_req_->email();
 
     // if no change? early return

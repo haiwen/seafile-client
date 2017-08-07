@@ -470,6 +470,7 @@ FileBrowserDialog QToolBar QPushButton {
 }
 
 FileBrowserDialog QToolBar QWidget#goHomeButton {
+    border: 0;
     margin: 0;
     padding: 0;
     padding-left: 3px;

@@ -136,7 +136,7 @@ int make_config_dir(const char *ccnet_dir)
 
 int create_ccnet_config (const char *ccnet_dir)
 {
-    SSLeay_add_all_algorithms();
+    OpenSSL_add_all_algorithms();
 
     g_assert (RAND_status() == 1);
 

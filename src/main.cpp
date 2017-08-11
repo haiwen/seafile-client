@@ -216,10 +216,13 @@ int main(int argc, char *argv[])
         }
 
         // count if we still have any instance running now. if more than one, exit
-        if (count_process(APPNAME) > 1) {
-            QMessageBox::critical(NULL, getBrand(),
-                QObject::tr("Unable to start %1 due to the failure of shutting down the previous process").arg(getBrand()),
-                QMessageBox::Ok);
+        uint64_t pid = 0;
+        if (count_process(APPNAME, &pid) > 1) {
+            QString msg = QObject::tr("Unable to start %1 due to the failure of shutting down the previous process").arg(getBrand());
+            if (pid != 0) {
+                msg += QString(" (pid = %1)").arg(pid);
+            }
+            QMessageBox::critical(NULL, getBrand(), msg, QMessageBox::Ok);
             return -1;
         }
     }

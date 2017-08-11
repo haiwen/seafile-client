@@ -117,3 +117,7 @@ int count_process(const char *process_name)
     return count;
 }
 
+int count_process(const char *name, uint64_t *pid)
+{
+    return count_process(name);
+}

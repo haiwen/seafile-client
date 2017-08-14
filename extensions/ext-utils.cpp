@@ -475,6 +475,9 @@ wchar_t *utf8ToWString(const std::string& src)
 
 bool isShellExtEnabled()
 {
+    // TODO: This function is called very frequently. Consider caching the
+    // result in memory for a few seconds, and only query the registry after
+    // that.
     HKEY root = HKEY_CURRENT_USER;
     HKEY parent_key;
     wchar_t *software_seafile = localeToWString("Software\\Seafile");
@@ -497,6 +500,7 @@ bool isShellExtEnabled()
                                NULL,             /* output type */
                                (LPBYTE)buf,      /* output data */
                                &len);            /* output length */
+    RegCloseKey(parent_key);
     free(shell_ext_disabled);
 
     return result != ERROR_SUCCESS;

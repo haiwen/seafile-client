@@ -360,8 +360,8 @@ bool PrivateShareDialog::validateInputs()
 {
     QString name = lineEdit()->text().trimmed();
     if (name.isEmpty()) {
-        showWarning(to_group_ ? tr("Please enter the username")
-                              : tr("Please enter the group name"));
+        showWarning(to_group_ ? tr("Please enter the group name")
+                              : tr("Please enter the username"));
         return false;
     }
 
@@ -390,6 +390,11 @@ bool PrivateShareDialog::validateInputs()
     }
     else {
         const SeafileUser& user = user_name_completer_->currentSelectedUser();
+        if (!user.isValid()) {
+            showWarning(tr("Please enter the username"));
+            return false;
+        }
+
         if (model_->shareExists(user)) {
             UserShareInfo info = model_->shareInfo(user);
             if (info.permission == permission) {
@@ -414,7 +419,10 @@ SeafileGroup PrivateShareDialog::findGroup(const QString& name)
 
 void PrivateShareDialog::onUserNameChoosed()
 {
-    mOkBtn->setEnabled(true);
+    const SeafileUser& user = user_name_completer_->currentSelectedUser();
+    if (user.isValid()) {
+        mOkBtn->setEnabled(true);
+    }
 }
 
 void PrivateShareDialog::onOkBtnClicked()

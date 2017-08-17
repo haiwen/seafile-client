@@ -8,6 +8,7 @@ struct SeafileGroup {
     int id;
     QString name;
     QString owner;
+    bool isValid() const { return !name.isEmpty(); }
 };
 
 struct SeafileUser {
@@ -24,6 +25,8 @@ struct SeafileUser {
     QString getDisplayEmail() const {
         return !contact_email.isEmpty() ? contact_email : email;
     }
+
+    bool isValid() const { return !email.isEmpty(); }
 };
 
 uint qHash(const SeafileUser& user, uint seed=0);

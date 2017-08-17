@@ -179,6 +179,7 @@ void SeafileUserNameCompleter::doneCompletion()
 
 void SeafileUserNameCompleter::autoSuggest()
 {
+    current_selected_user_ = SeafileUser();
     QString pattern = editor_->text().trimmed();
     if (pattern.isEmpty()) {
         return;

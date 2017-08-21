@@ -24,6 +24,7 @@ SeafDirent SeafDirent::fromJSON(const json_t *root, json_error_t */* error */)
 
     dirent.is_locked = json.getBool("is_locked");
     dirent.lock_owner = json.getString("lock_owner");
+    dirent.lock_owner_name = json.getString("lock_owner_name");
     dirent.lock_time = json.getLong("lock_time");
     dirent.locked_by_me = json.getBool("locked_by_me");
 
@@ -39,4 +40,9 @@ QList<SeafDirent> SeafDirent::listFromJSON(const json_t *json, json_error_t *err
     }
 
     return dirents;
+}
+
+const QString& SeafDirent::getLockOwnerDisplayString() const
+{
+    return !lock_owner_name.isEmpty() ? lock_owner_name : lock_owner;
 }

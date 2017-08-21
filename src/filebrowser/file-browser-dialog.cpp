@@ -813,6 +813,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
           false,
           false,
           "",
+          "",
           0
         };
         // TODO: insert the Item prior to the item where uploading occurs
@@ -852,6 +853,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
           QDateTime::currentDateTime().toTime_t(),
           false,
           false,
+          "",
           "",
           0
         };
@@ -1050,7 +1052,7 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
         return;
     const SeafDirent dirent = {SeafDirent::DIR, false, "", name, 0,
                                QDateTime::currentDateTime().toTime_t(), false,
-                               false, "", 0};
+                               false, "", "", 0};
     // TODO insert to the pos where the drop event triggered
     table_model_->insertItem(0, dirent);
 }

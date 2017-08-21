@@ -915,7 +915,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     }
 
     if (role == Qt::ToolTipRole && column == FILE_COLUMN_NAME && !dirent.lock_owner.isEmpty()) {
-        return tr("locked by %1").arg(dirent.lock_owner);
+        return tr("locked by %1").arg(dirent.getLockOwnerDisplayString());
     }
 
     if (role != Qt::DisplayRole) {

@@ -117,6 +117,8 @@ void FileNetworkTask::startFileServerTask(const QString& link)
             this, SLOT(onFileServerTaskProgressUpdate(qint64, qint64)));
     connect(fileserver_task_, SIGNAL(finished(bool)),
             this, SLOT(onFileServerTaskFinished(bool)));
+    connect(fileserver_task_, SIGNAL(retried(int)),
+            this, SIGNAL(retried(int)));
 
     if (!worker_thread_) {
         worker_thread_ = new QThread;
@@ -433,6 +435,7 @@ void FileServerTask::retry()
         return;
     }
     qDebug("[file server task] now retry the file server task for the %d time\n", retry_count_);
+    emit retried(retry_count_);
     start();
 }
 

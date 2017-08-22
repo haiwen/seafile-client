@@ -23,9 +23,9 @@ public slots:
 private slots:
     void onProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
     void onTaskFinished(bool success);
+    void initTaskInfo();
 
 private:
-    void initTaskInfo();
 
     QSharedPointer<FileNetworkTask> task_;
     QLabel *description_label_;

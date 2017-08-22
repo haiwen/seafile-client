@@ -107,6 +107,7 @@ public slots:
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
     void finished(bool success);
+    void retried(int retry_count);
 
 protected slots:
     void onFileServerTaskProgressUpdate(qint64 transferred, qint64 total);
@@ -269,12 +270,14 @@ public:
     const QString& errorString() const { return error_string_; }
     int httpErrorCode() const { return http_error_code_; }
     const QString& oid() const { return oid_; }
+    int retryCount() const { return retry_count_; }
 
     static void resetQNAM();
 
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
     void finished(bool success);
+    void retried(int retry_count);
 
 public slots:
     void start();

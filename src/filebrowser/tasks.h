@@ -283,13 +283,21 @@ public slots:
 protected slots:
     void onSslErrors(const QList<QSslError>& errors);
     void httpRequestFinished();
+    void retry();
 
 protected:
     /**
-     * Prepare the initialization work, like creating the tmp file, or open
-     * the uploaded file for reading.
+     * Prepare the initialization work, like creating the tmp file, or open the
+     * uploaded file for reading. It may be called again when retrying a task.
      */
     virtual void prepare() = 0;
+
+    /**
+     * If return true, the request would be retried for a few times when error
+     * happened. By default the request is not retried. Subclasses can overwrite
+     * this function to enable retry.
+     */
+    virtual bool retryEnabled();
 
     /**
      * Send the http request.
@@ -300,6 +308,7 @@ protected:
     virtual void sendRequest() = 0;
     virtual void onHttpRequestFinished() = 0;
     bool handleHttpRedirect();
+    bool maybeRetry();
     void setError(FileNetworkTask::TaskError error, const QString& error_string);
     void setHttpError(int code);
 
@@ -319,6 +328,7 @@ protected:
     QNetworkReply *reply_;
     bool canceled_;
     int redirect_count_;
+    int retry_count_;
 
     FileNetworkTask::TaskError error_;
     QString error_string_;
@@ -360,6 +370,7 @@ public:
     ~PostFileTask();
 
 protected:
+    bool retryEnabled();
     void prepare();
     void sendRequest();
     void onHttpRequestFinished();

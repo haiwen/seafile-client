@@ -37,6 +37,8 @@ const char *kFileParamTemplate = "form-data; name=\"file\"; filename=\"%1\"";
 const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 
 const int kMaxRedirects = 3;
+const int kFileServerTaskMaxRetry = 3;
+const int kFileServerTaskRetryIntervalSecs = 8;
 
 QNetworkAccessManager *createQNAM() {
     QNetworkAccessManager *manager = new QNetworkAccessManager;
@@ -361,6 +363,7 @@ FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
       local_path_(local_path),
       canceled_(false),
       redirect_count_(0),
+      retry_count_(0),
       http_error_code_(0)
 {
 }
@@ -418,13 +421,43 @@ void FileServerTask::cancel()
     }
 }
 
+bool FileServerTask::retryEnabled()
+{
+    return false;
+}
+
+void FileServerTask::retry()
+{
+    if (canceled_) {
+        qWarning("[file server task] stop retrying because task is cancelled\n");
+        return;
+    }
+    qDebug("[file server task] now retry the file server task for the %d time\n", retry_count_);
+    start();
+}
+
+bool FileServerTask::maybeRetry()
+{
+    if (retry_count_ >= kFileServerTaskMaxRetry) {
+        return false;
+    } else {
+        retry_count_++;
+        qDebug("[file server task] schedule file server task retry for the %d time\n", retry_count_);
+        QTimer::singleShot(kFileServerTaskRetryIntervalSecs * 1000, this, SLOT(retry()));
+        return true;
+    }
+}
+
 void FileServerTask::httpRequestFinished()
 {
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
         qWarning("[file server task] network error: %s\n", toCStr(reply_->errorString()));
-        setError(FileNetworkTask::ApiRequestError, reply_->errorString());
-        emit finished(false);
+        if (!maybeRetry()) {
+            setError(FileNetworkTask::ApiRequestError, reply_->errorString());
+            emit finished(false);
+            return;
+        }
         return;
     }
 
@@ -435,8 +468,11 @@ void FileServerTask::httpRequestFinished()
     if ((code / 100) == 4 || (code / 100) == 5) {
         qWarning("request failed for %s: status code %d\n",
                toCStr(reply_->url().toString()), code);
-        setHttpError(code);
-        emit finished(false);
+        if (!maybeRetry()) {
+            setHttpError(code);
+            emit finished(false);
+            return;
+        }
         return;
     }
 
@@ -572,6 +608,7 @@ PostFileTask::PostFileTask(const QUrl& url,
                            const bool use_upload)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
+      file_(nullptr),
       name_(name),
       use_upload_(use_upload)
 {
@@ -584,6 +621,7 @@ PostFileTask::PostFileTask(const QUrl& url,
                            const QString& relative_path)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
+      file_(nullptr),
       name_(name),
       use_upload_(true),
       relative_path_(relative_path)
@@ -592,10 +630,23 @@ PostFileTask::PostFileTask(const QUrl& url,
 
 PostFileTask::~PostFileTask()
 {
+    if (file_) {
+        file_->close();
+        file_ = nullptr;
+    }
+}
+
+bool PostFileTask::retryEnabled()
+{
+    return true;
 }
 
 void PostFileTask::prepare()
 {
+    if (file_) {
+        // In case of retry
+        file_->close();
+    }
     file_ = new QFile(local_path_);
     file_->setParent(this);
     if (!file_->exists()) {
@@ -653,6 +704,10 @@ void PostFileTask::sendRequest()
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
     reply_ = getQNAM()->post(request, multipart);
+
+    // Delete the multipart with the reply
+    multipart->setParent(reply_);
+
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
             this, SLOT(onSslErrors(const QList<QSslError>&)));
     connect(reply_, SIGNAL(finished()), this, SLOT(httpRequestFinished()));

@@ -45,6 +45,12 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     setCancelButton(cancel_button_);
 
     initTaskInfo();
+
+    connect(task_.data(), SIGNAL(progressUpdate(qint64, qint64)),
+            this, SLOT(onProgressUpdate(qint64, qint64)));
+    connect(task_.data(), SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
+    connect(task_.data(), SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
+    connect(this, SIGNAL(canceled()), task_.data(), SLOT(cancel()));
 }
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()
@@ -68,11 +74,6 @@ void FileBrowserProgressDialog::initTaskInfo()
 
     setMaximum(0);
     setValue(0);
-
-    connect(task_.data(), SIGNAL(progressUpdate(qint64, qint64)),
-            this, SLOT(onProgressUpdate(qint64, qint64)));
-    connect(task_.data(), SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
-    connect(this, SIGNAL(canceled()), task_.data(), SLOT(cancel()));
 }
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)

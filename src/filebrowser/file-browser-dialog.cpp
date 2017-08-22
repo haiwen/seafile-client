@@ -1131,7 +1131,7 @@ void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
     if (current_path_ != parent_path)
         return;
     foreach (const QString& name, filenames) {
-        printf("removed file: %s\n", name.toUtf8().data());
+        // printf("removed file: %s\n", name.toUtf8().data());
         table_model_->removeItemNamed(name);
     }
 }

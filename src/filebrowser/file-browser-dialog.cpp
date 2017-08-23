@@ -803,19 +803,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
 
     // Upload Directory Task
     if (qobject_cast<FileUploadDirectoryTask *>(sender())) {
-        const SeafDirent dir = {
-          SeafDirent::DIR,
-          false,
-          "",
-          task->name(),
-          0,
-          QDateTime::currentDateTime().toTime_t(),
-          false,
-          false,
-          "",
-          "",
-          0
-        };
+        const SeafDirent dir = SeafDirent::dir(task->name());
         // TODO: insert the Item prior to the item where uploading occurs
         table_model_->insertItem(0, dir);
         return;
@@ -844,19 +832,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
     // add the items to tableview
     Q_FOREACH(const QString &name, names) {
         const QFileInfo file = QDir(local_path).filePath(name);
-        const SeafDirent dirent = {
-          SeafDirent::FILE,
-          false,
-          "",
-          name,
-          static_cast<quint64>(file.size()),
-          QDateTime::currentDateTime().toTime_t(),
-          false,
-          false,
-          "",
-          "",
-          0
-        };
+        const SeafDirent dirent = SeafDirent::file(name, static_cast<quint64>(file.size()));
         if (task->useUpload())
             table_model_->appendItem(dirent);
         else
@@ -1050,9 +1026,7 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     // if no longer current level
     if (::pathJoin(current_path_, name) != path)
         return;
-    const SeafDirent dirent = {SeafDirent::DIR, false, "", name, 0,
-                               QDateTime::currentDateTime().toTime_t(), false,
-                               false, "", "", 0};
+    const SeafDirent dirent = SeafDirent::dir(name);
     // TODO insert to the pos where the drop event triggered
     table_model_->insertItem(0, dirent);
 }

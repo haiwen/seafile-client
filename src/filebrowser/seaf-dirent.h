@@ -35,6 +35,9 @@ public:
 
     static SeafDirent fromJSON(const json_t*, json_error_t *error);
     static QList<SeafDirent> listFromJSON(const json_t*, json_error_t *error);
+
+    static SeafDirent dir(const QString& name);
+    static SeafDirent file(const QString& name, quint64 size);
 };
 
 

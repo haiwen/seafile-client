@@ -314,6 +314,9 @@ void AvatarService::onGetAvatarSuccess(const QImage& img)
 
 void AvatarService::onGetAvatarFailed(const ApiError& error)
 {
+    if (!get_avatar_req_) {
+        return;
+    }
     const QString email = get_avatar_req_->email();
     get_avatar_req_->deleteLater();
     get_avatar_req_ = NULL;

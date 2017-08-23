@@ -1076,6 +1076,7 @@ void FileBrowserDialog::onFileLockSuccess(const QString& path, bool lock)
     SeafDirent new_dirent = *old_dirent;
     new_dirent.is_locked = new_dirent.locked_by_me = lock;
     new_dirent.lock_owner = account_.username;
+    new_dirent.lock_owner_name = account_.accountInfo.name;
     table_model_->replaceItem(name, new_dirent);
 }
 

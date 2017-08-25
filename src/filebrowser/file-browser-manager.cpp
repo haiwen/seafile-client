@@ -33,6 +33,7 @@ FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &accou
 
 FileBrowserDialog *FileBrowserManager::getDialog(const Account &account, const QString &repo_id)
 {
+    // printf ("Get dialog: current %u CFB\n", dialogs_.size());
     // search and find if dialog registered
     for (int i = 0; i < dialogs_.size() ; i++)
         if (dialogs_[i]->account_ == account &&
@@ -45,15 +46,31 @@ FileBrowserDialog *FileBrowserManager::getDialog(const Account &account, const Q
 
 void FileBrowserManager::closeAllDialogByAccount(const Account& account)
 {
-    Q_FOREACH(FileBrowserDialog *dialog, dialogs_)
+    // Close all dialogs for the given account, e.g. when logging out or
+    // deleteing an account.
+
+    // Note: DO NOT remove close the dialog while iterating the dialogs list,
+    // because close the dialog would make it removed from the list (through the
+    // onAboutToClose signal). Instead we first collect the matched dialogs into
+    // a temporary list, then close them one by one.
+    QList<FileBrowserDialog *> dialogs_for_account;
+    foreach (FileBrowserDialog *dialog, dialogs_)
     {
-        if (dialog->account_ == account)
-            dialog->deleteLater();
+        if (dialog->account_ == account) {
+            dialogs_for_account.push_back(dialog);
+        }
+    }
+
+    foreach (FileBrowserDialog *dialog, dialogs_for_account)
+    {
+        dialog->close();
+        // printf ("closed one CFB\n");
     }
 }
 
 void FileBrowserManager::onAboutToClose()
 {
+    // printf ("got onAboutToClose\n");
     FileBrowserDialog *dialog = qobject_cast<FileBrowserDialog*>(sender());
     if (!dialog)
       return;

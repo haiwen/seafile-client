@@ -547,6 +547,7 @@ void AccountManager::invalidateCurrentLogin()
     if (account.token.isEmpty())
         return;
 
+    emit accountAboutToRelogin(account);
     QString error;
     if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
                                                            account.username,

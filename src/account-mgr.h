@@ -70,6 +70,7 @@ signals:
      */
     void beforeAccountChanged();
     void accountsChanged();
+    void accountAboutToRelogin(const Account& account);
     void accountRequireRelogin(const Account& account);
 
     void requireAddAccount();

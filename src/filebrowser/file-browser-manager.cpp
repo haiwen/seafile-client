@@ -3,12 +3,27 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+#include "seafile-applet.h"
+#include "account-mgr.h"
+
 #include "file-browser-dialog.h"
 
 namespace {
 }
 
 FileBrowserManager *FileBrowserManager::instance_ = NULL;
+
+FileBrowserManager::FileBrowserManager() : QObject()
+{
+    // We use the accountAboutToRelogin signal instead of the
+    // accountRequireRelogin signal because other components are already
+    // connected to the the latter and may prompt a re-login dialog which would
+    // delay the call to our slots.
+    connect(seafApplet->accountManager(),
+            SIGNAL(accountAboutToRelogin(const Account&)),
+            this,
+            SLOT(closeAllDialogByAccount(const Account&)));
+}
 
 
 FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &account, const ServerRepo &repo, const QString &path)
@@ -46,6 +61,8 @@ FileBrowserDialog *FileBrowserManager::getDialog(const Account &account, const Q
 
 void FileBrowserManager::closeAllDialogByAccount(const Account& account)
 {
+    // printf ("closeAllDialogByAccount is called\n");
+
     // Close all dialogs for the given account, e.g. when logging out or
     // deleteing an account.
 

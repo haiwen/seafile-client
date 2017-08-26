@@ -116,10 +116,19 @@ bool SeafileUserNameCompleter::eventFilter(QObject *obj, QEvent *ev)
     return false;
 }
 
-void SeafileUserNameCompleter::showCompletion(const QList<SeafileUser> &users)
+void SeafileUserNameCompleter::showCompletion(const QList<SeafileUser> &users, const QString& pattern)
 {
     if (users.isEmpty())
         return;
+
+    if (pattern != editor_->text().trimmed()) {
+        // The user has changed the text, so the completions are no longer
+        // useful.
+        // printf("pattern changed from \"%s\" to \"%s\"\n",
+        //        pattern.toUtf8().data(),
+        //        editor_->text().trimmed().toUtf8().data());
+        return;
+    }
 
     popup_->setUpdatesEnabled(false);
     popup_->clear();
@@ -191,7 +200,7 @@ void SeafileUserNameCompleter::autoSuggest()
             QDateTime::currentMSecsSinceEpoch()) {
         // printf("cached results for %s\n", pattern.toUtf8().data());
         showCompletion(
-            cached_completion_users_by_pattern_[pattern].users.toList());
+            cached_completion_users_by_pattern_[pattern].users.toList(), pattern);
         return;
     }
 
@@ -235,7 +244,7 @@ void SeafileUserNameCompleter::onSearchUsersSuccess(
     cached_completion_users_by_pattern_[req->pattern()] = {
         QSet<SeafileUser>::fromList(users),
         QDateTime::currentMSecsSinceEpoch()};
-    showCompletion(users);
+    showCompletion(users, req->pattern());
 }
 
 void SeafileUserNameCompleter::onSearchUsersFailed(const ApiError &error)

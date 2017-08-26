@@ -275,43 +275,47 @@ bool DownloadRepoDialog::validateInputs()
         }
     }
 
-    return validateInputDirectory();
+    if (!validateInputDirectory()) {
+        return false;
+    }
 
-    sync_with_existing_ = false;
-    alternative_path_ = "";
+    if (!manual_merge_mode_) {
+        sync_with_existing_ = false;
+        alternative_path_ = "";
 
-    QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
-    QFileInfo fileinfo = QFileInfo(path);
-    if (fileinfo.exists()) {
-        sync_with_existing_ = true;
-        // exist and but not a directory ?
-        if (!fileinfo.isDir()) {
-            seafApplet->warningBox(
-                tr("Conflicting with existing file \"%1\", please choose a different folder.").arg(path));
-            return false;
-        }
-        // exist and but conflicting?
-        QString repo_name;
-        if (isPathConflictWithExistingRepo(path, &repo_name)) {
-            seafApplet->warningBox(
-                tr("Conflicting with existing library \"%1\", please choose a different folder.").arg(repo_name));
-            return false;
-        }
-        QMessageBox::StandardButton ret = merge_without_question_
-            ? QMessageBox::Yes
-            : seafApplet->yesNoCancelBox(
-                tr("The folder \"%1\" already exists. Are you sure to sync with it (contents will be merged)?")
-                .arg(path) + QString("<br/><br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
-                this, QMessageBox::Yes);
-        if (ret == QMessageBox::Cancel)
-            return false;
-        if (ret == QMessageBox::No) {
-            QString new_path = getAlternativePath(mDirectory->text(), repo_.name);
-            if (new_path.isEmpty()) {
-                seafApplet->warningBox(tr("Unable to find an alternative folder name").arg(path));
+        QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
+        QFileInfo fileinfo = QFileInfo(path);
+        if (fileinfo.exists()) {
+            sync_with_existing_ = true;
+            // exist and but not a directory ?
+            if (!fileinfo.isDir()) {
+                seafApplet->warningBox(
+                    tr("Conflicting with existing file \"%1\", please choose a different folder.").arg(path));
                 return false;
             }
-            alternative_path_ = new_path;
+            // exist and but conflicting?
+            QString repo_name;
+            if (isPathConflictWithExistingRepo(path, &repo_name)) {
+                seafApplet->warningBox(
+                    tr("Conflicting with existing library \"%1\", please choose a different folder.").arg(repo_name));
+                return false;
+            }
+            QMessageBox::StandardButton ret = merge_without_question_
+                ? QMessageBox::Yes
+                : seafApplet->yesNoCancelBox(
+                    tr("The folder \"%1\" already exists. Are you sure to sync with it (contents will be merged)?")
+                    .arg(path) + QString("<br/><br/><small>%1</small>").arg(tr("Click No to sync with a new folder instead")),
+                    this, QMessageBox::Yes);
+            if (ret == QMessageBox::Cancel)
+                return false;
+            if (ret == QMessageBox::No) {
+                QString new_path = getAlternativePath(mDirectory->text(), repo_.name);
+                if (new_path.isEmpty()) {
+                    seafApplet->warningBox(tr("Unable to find an alternative folder name").arg(path));
+                    return false;
+                }
+                alternative_path_ = new_path;
+            }
         }
     }
     return true;

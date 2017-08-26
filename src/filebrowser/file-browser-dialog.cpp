@@ -670,7 +670,7 @@ void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
 
     // set dialog attributes
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    dialog->setWindowModality(Qt::WindowModal);
+    dialog->setWindowModality(Qt::NonModal);
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
@@ -701,7 +701,7 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
 
     // set dialog attributes
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    dialog->setWindowModality(Qt::WindowModal);
+    dialog->setWindowModality(Qt::NonModal);
     dialog->show();
     dialog->raise();
     dialog->activateWindow();

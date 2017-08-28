@@ -69,12 +69,7 @@ bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) 
 }
 
 QString appendTrailingSlash(const QString& input) {
-    if (!input.endsWith('/')) {
-        QString ret = input;
-        return ret.append('/');
-    } else {
-        return input;
-    }
+    return input.endsWith('/') ? input : input + '/';
 }
 
 } // namespace
@@ -1184,6 +1179,7 @@ void FileBrowserDialog::onGetDirentsPaste()
             return;
         }
 
+        // Paste /a/ into /a/b/ is not allowed
         for (const QString& name : file_names_to_be_pasted_) {
             const QString file_path_to_be_pasted =
                 appendTrailingSlash(::pathJoin(dir_path_to_be_pasted_from_, name));

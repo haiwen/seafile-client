@@ -76,6 +76,7 @@ public:
     QString fileName() const;
     QString oid() const { return oid_; }
     Progress progress() const { return progress_; };
+    bool canceled() const { return canceled_; }
 
     enum TaskError {
         NoError = 0,

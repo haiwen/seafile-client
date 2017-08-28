@@ -50,7 +50,7 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
             this, SLOT(onProgressUpdate(qint64, qint64)));
     connect(task_.data(), SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
     connect(task_.data(), SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
-    connect(this, SIGNAL(canceled()), task_.data(), SLOT(cancel()));
+    connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
 }
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()
@@ -59,6 +59,9 @@ FileBrowserProgressDialog::~FileBrowserProgressDialog()
 
 void FileBrowserProgressDialog::initTaskInfo()
 {
+    if (task_->canceled()) {
+        return;
+    }
     QString title, label;
     if (task_->type() == FileNetworkTask::Upload) {
         title = tr("Upload");
@@ -78,6 +81,11 @@ void FileBrowserProgressDialog::initTaskInfo()
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
 {
+    // Ignore the updates if the task has been cancelled, because we may already
+    // have already rejected this dialog.
+    if (task_->canceled()) {
+        return;
+    }
     // if the value is less than the maxmium, this dialog will close itself
     // add this guard for safety
     if (processed_bytes >= total_bytes)
@@ -104,6 +112,10 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 
 void FileBrowserProgressDialog::onTaskFinished(bool success)
 {
+    // printf ("FileBrowserProgressDialog: onTaskFinished\n");
+    if (task_->canceled()) {
+        return;
+    }
     if (success) {
         // printf ("progress dialog: task success\n");
         accept();
@@ -115,6 +127,9 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
 
 void FileBrowserProgressDialog::cancel()
 {
+    if (task_->canceled()) {
+        return;
+    }
     task_->cancel();
     reject();
 }

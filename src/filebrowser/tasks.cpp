@@ -72,6 +72,7 @@ FileNetworkTask::FileNetworkTask(const Account& account,
 
 FileNetworkTask::~FileNetworkTask()
 {
+    // printf ("destructor called for FileNetworkTask\n");
     if (get_link_req_) {
         get_link_req_->deleteLater();
         get_link_req_ = nullptr;

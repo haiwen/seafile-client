@@ -427,7 +427,10 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     //
     paste_action_->setVisible(parent_->hasFilesToBePasted());
     paste_action_->setEnabled(!parent_->current_readonly_ &&
-        parent_->account_to_be_pasted_from_ == parent_->account_);
+                              parent_->account_to_be_pasted_from_ ==
+                                  parent_->account_ &&
+                              parent_->hasFilesToBePasted());
+    // printf ("paste action enabled: %s\n", paste_action_->isEnabled() ? "true": "false");
 
     //
     // map back to the source index from FileTableModel

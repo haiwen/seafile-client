@@ -1171,6 +1171,10 @@ void FileBrowserDialog::onGetDirentsPaste()
             return;
         }
 
+        if (file_names_to_be_pasted_.isEmpty()) {
+            return;
+        }
+
         // Paste /a/ into /a/b/ is not allowed
         for (const QString& name : file_names_to_be_pasted_) {
             const QString file_path_to_be_pasted =

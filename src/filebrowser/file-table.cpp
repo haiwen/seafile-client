@@ -310,7 +310,7 @@ void FileTableView::setupContextMenu()
     remove_action_ = new QAction(tr("&Delete"), this);
     connect(remove_action_, SIGNAL(triggered()),
             this, SLOT(onRemove()));
-    remove_action_->setShortcut(QKeySequence::Delete);
+    // remove_action_->setShortcut(QKeySequence::Delete);
 
     share_action_ = new QAction(tr("&Generate %1 Download Link").arg(getBrand()), this);
     connect(share_action_, SIGNAL(triggered()),
@@ -363,7 +363,7 @@ void FileTableView::setupContextMenu()
     sync_subdirectory_action_ = new QAction(tr("&Sync this folder"), this);
     connect(sync_subdirectory_action_, SIGNAL(triggered()),
             this, SLOT(onSyncSubdirectory()));
-    sync_subdirectory_action_->setShortcut(Qt::ALT + Qt::Key_S);
+    // sync_subdirectory_action_->setShortcut(Qt::ALT + Qt::Key_S);
     if (!parent_->account_.isAtLeastVersion(4, 1, 0)) {
         sync_subdirectory_action_->setEnabled(false);
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));

@@ -68,6 +68,10 @@ bool inline findConflict(const QString &name, const QList<SeafDirent> &dirents) 
     return found_conflict;
 }
 
+QString appendTrailingSlash(const QString& input) {
+    return input.endsWith('/') ? input : input + '/';
+}
+
 } // namespace
 
 QStringList FileBrowserDialog::file_names_to_be_pasted_;
@@ -1164,11 +1168,28 @@ void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file
 
 void FileBrowserDialog::onGetDirentsPaste()
 {
-    if (repo_id_to_be_pasted_from_ == repo_.id &&
-        current_path_ == dir_path_to_be_pasted_from_) {
-        seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
-        return;
+    if (repo_id_to_be_pasted_from_ == repo_.id) {
+        if (current_path_ == dir_path_to_be_pasted_from_) {
+            seafApplet->warningBox(tr("Cannot paste files from the same folder"), this);
+            return;
+        }
+
+        if (file_names_to_be_pasted_.isEmpty()) {
+            seafApplet->warningBox(tr("The pasted files do not exist"), this);
+            return;
+        }
+
+        // Paste /a/ into /a/b/ is not allowed
+        for (const QString& name : file_names_to_be_pasted_) {
+            const QString file_path_to_be_pasted =
+                appendTrailingSlash(::pathJoin(dir_path_to_be_pasted_from_, name));
+            if (appendTrailingSlash(current_path_).startsWith(file_path_to_be_pasted)) {
+                seafApplet->warningBox(tr("Cannot paste the folder to its subfolder"), this);
+                return;
+            }
+        }
     }
+
     if (is_copyed_when_pasted_)
         data_mgr_->copyDirents(repo_id_to_be_pasted_from_,
                                dir_path_to_be_pasted_from_,

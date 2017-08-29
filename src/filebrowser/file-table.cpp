@@ -383,7 +383,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
     context_menu_->addSeparator();
-    context_menu_->addAction(update_action_);
+    // context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
@@ -396,7 +396,7 @@ void FileTableView::setupContextMenu()
     this->addAction(lock_action_);
     this->addAction(rename_action_);
     this->addAction(remove_action_);
-    this->addAction(update_action_);
+    // this->addAction(update_action_);
     this->addAction(cancel_download_action_);
     this->addAction(sync_subdirectory_action_);
 
@@ -477,7 +477,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_seafile_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
-        update_action_->setVisible(false);
+        // update_action_->setVisible(false);
         cancel_download_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(false);
 
@@ -500,24 +500,24 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     share_seafile_action_->setVisible(true);
-    update_action_->setVisible(true);
+    // update_action_->setVisible(true);
     cancel_download_action_->setVisible(true);
     cancel_download_action_->setVisible(false);
     if (item_->readonly) {
         move_action_->setEnabled(false);
         rename_action_->setEnabled(false);
-        update_action_->setEnabled(false);
+        // update_action_->setEnabled(false);
         remove_action_->setEnabled(false);
     } else {
         move_action_->setEnabled(true);
         rename_action_->setEnabled(true);
-        update_action_->setEnabled(true);
+        // update_action_->setEnabled(true);
         remove_action_->setEnabled(true);
     }
 
     if (item_->isDir()) {
         lock_action_->setVisible(false);
-        update_action_->setVisible(false);
+        // update_action_->setVisible(false);
         saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
         share_to_user_action_->setVisible(true);
@@ -533,7 +533,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             lock_action_->setVisible(true);
         }
 
-        update_action_->setVisible(true);
+        // update_action_->setVisible(true);
         saveas_action_->setEnabled(true);
         sync_subdirectory_action_->setVisible(false);
         share_to_user_action_->setVisible(false);

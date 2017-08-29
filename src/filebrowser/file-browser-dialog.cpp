@@ -1171,11 +1171,6 @@ void FileBrowserDialog::onGetDirentsPaste()
             return;
         }
 
-        if (file_names_to_be_pasted_.isEmpty()) {
-            seafApplet->warningBox(tr("The pasted files do not exist"), this);
-            return;
-        }
-
         // Paste /a/ into /a/b/ is not allowed
         for (const QString& name : file_names_to_be_pasted_) {
             const QString file_path_to_be_pasted =

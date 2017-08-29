@@ -41,7 +41,7 @@
         <translation>打开帐户数据库失败</translation>
     </message>
     <message>
-        <location filename="../src/account-mgr.cpp" line="557"/>
+        <location filename="../src/account-mgr.cpp" line="558"/>
         <source>Authorization expired, please re-login</source>
         <translation>账号验证信息已过期，请重新登录</translation>
     </message>
@@ -677,38 +677,38 @@ failed to upload.</source>
         <translation>您的组织已禁用把资料库放在 %1 目录外</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="292"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="296"/>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
         <translation>和已有文件 &quot;%1&quot; 冲突，请选择其他目录。</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="299"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="303"/>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
         <translation>和已同步的资料库 &quot;%1&quot; 冲突，请选择其他目录。</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="305"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="309"/>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
         <translation>文件夹 &quot;%1&quot; 已存在。请问您是否和它同步 (其中内容会被合并)？</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="306"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="310"/>
         <source>Click No to sync with a new folder instead</source>
         <translation>点击“否” 与一个新的文件夹同步</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="313"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="317"/>
         <source>Unable to find an alternative folder name</source>
         <translation>无法找到其他可用的文件夹名称</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="369"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="374"/>
         <source>Failed to add download task:
  %1</source>
         <translation>添加下载任务失败：%1</translation>
     </message>
     <message>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="379"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="384"/>
         <source>Failed to get repo download information:
 %1</source>
         <translation>下载资料库信息失败：
@@ -792,196 +792,201 @@ failed to upload.</source>
 <context>
     <name>FileBrowserDialog</name>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="91"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="95"/>
         <source>Cloud File Browser</source>
         <translation>云端文件浏览器</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="248"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="252"/>
         <source>Back</source>
         <translation>后退</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="257"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="261"/>
         <source>Forward</source>
         <translation>前进</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="271"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="275"/>
         <source>Home</source>
         <translation>根目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="297"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="318"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="301"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="322"/>
         <source>Upload files</source>
         <translation>上传多个文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="303"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="307"/>
         <source>Upload a directory</source>
         <translation>上传文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="327"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="331"/>
         <source>You don&apos;t have permission to upload files to this library</source>
         <translation>您没有权限上传到文件这个资料库</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="311"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="432"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="315"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="436"/>
         <source>Create a folder</source>
         <translation>创建文件夹</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="337"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="341"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="433"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="437"/>
         <source>Folder name</source>
         <translation>文件夹名称</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="441"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="445"/>
         <source>Invalid folder name!</source>
         <translation>无效的文件夹名！</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="447"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="451"/>
         <source>The name &quot;%1&quot; is already taken.</source>
         <translation>文件名 &quot;%1&quot; 已经被使用了。</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="458"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="462"/>
         <source>retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="459"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="463"/>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
         <translation>获取文件信息失败&lt;br/&gt;请 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="471"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="475"/>
         <source>This folder is empty.</source>
         <translation>该文件夹是空的。</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="495"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="499"/>
         <source>Enter name of file to save to...</source>
         <translation>请键入需要另存为的文件名...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="502"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="526"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="506"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="530"/>
         <source>Unable to remove file &quot;%1&quot;</source>
         <translation>无法删移文件 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="511"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="515"/>
         <source>Enter the path of the folder you want to save to...</source>
         <translation>请键入需要另存到的文件夹的路径...</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="522"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="526"/>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
         <translation>您真的想删除已存在的文件 &quot;%1&quot; 吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="624"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="628"/>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
         <translation>文件 &quot;%1&quot; 没有被同步</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="661"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="665"/>
         <source>Feature not supported</source>
         <translation>不支持当前操作</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="728"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="732"/>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>文件 &quot;%1&quot; 已经存在。&lt;br/&gt;您想覆盖此文件吗？&lt;br/&gt;&lt;small&gt;(选择 否 用其他文件名上传)&lt;/small&gt; </translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="772"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="776"/>
         <source>Failed to download file: %1</source>
         <translation>下载文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="796"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="800"/>
         <source>Failed to upload file: %1</source>
         <translation>上传文件失败： %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="943"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="925"/>
         <source>Select a file to upload</source>
         <translation>请选择要上传的文件</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="951"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="933"/>
         <source>Select a directory to upload</source>
         <translation>请选择要上传的目录</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="978"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="960"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1008"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="990"/>
         <source>Do you really want to delete these items</source>
         <translation>您真的想删除这些文件吗？</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1060"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1040"/>
         <source>Create folder failed</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1087"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1068"/>
         <source>Lock file failed</source>
         <translation>锁定文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1103"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1084"/>
         <source>Select a file to update %1</source>
         <translation>请选择要需要上传的文件 以更新 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1111"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1092"/>
         <source>Rename failed</source>
         <translation>重命名失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1125"/>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1142"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1106"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1123"/>
         <source>Remove failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1152"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1133"/>
         <source>Share failed</source>
         <translation>共享失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1192"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1173"/>
         <source>Cannot paste files from the same folder</source>
         <translation>无法从相同的文件夹中拷贝</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1216"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1182"/>
+        <source>Cannot paste the folder to its subfolder</source>
+        <translation>不能把文件夹复制到它的子文件夹中</translation>
+    </message>
+    <message>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1209"/>
         <source>Copy failed</source>
         <translation>复制失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1231"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1224"/>
         <source>Move failed</source>
         <translation>移动失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1259"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="1252"/>
         <source>Create library failed!</source>
         <translation>创建资料库失败!</translation>
     </message>
@@ -999,27 +1004,27 @@ failed to upload.</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="58"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="67"/>
         <source>Upload</source>
         <translation>上传</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="59"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="68"/>
         <source>Uploading %1</source>
         <translation>正在上传 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="61"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="70"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="62"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="71"/>
         <source>Downloading %1</source>
         <translation>正在下载 %1</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/progress-dialog.cpp" line="99"/>
+        <location filename="../src/filebrowser/progress-dialog.cpp" line="108"/>
         <source>%1 of %2</source>
         <translation>%2 的 %1</translation>
     </message>
@@ -1027,12 +1032,12 @@ failed to upload.</source>
 <context>
     <name>FileNetworkTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="139"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="144"/>
         <source>Operation canceled</source>
         <translation>操作被取消</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="184"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="189"/>
         <source>pending</source>
         <translation>请稍后</translation>
     </message>
@@ -1040,12 +1045,12 @@ failed to upload.</source>
 <context>
     <name>FileServerTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="804"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="863"/>
         <source>Internal Server Error</source>
         <translation>服务器内部错误</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="816"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="875"/>
         <source>The storage quota has been used up</source>
         <translation>该用户的空间已经用完</translation>
     </message>
@@ -1188,28 +1193,28 @@ failed to upload.</source>
 <context>
     <name>GetFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="493"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="531"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="533"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="571"/>
         <source>Failed to create folders</source>
         <translation>创建文件夹失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="502"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="542"/>
         <source>Failed to create temporary files</source>
         <translation>创建临时文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="546"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="586"/>
         <source>Failed to write file to disk</source>
         <translation>写文件失败</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="552"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="592"/>
         <source>Failed to remove the older version of the downloaded file</source>
         <translation>移动旧文件时出错</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="558"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="598"/>
         <source>Failed to move file</source>
         <translation>移动文件时出错</translation>
     </message>
@@ -1705,8 +1710,8 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>PostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/tasks.cpp" line="602"/>
-        <location filename="../src/filebrowser/tasks.cpp" line="607"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="657"/>
+        <location filename="../src/filebrowser/tasks.cpp" line="662"/>
         <source>File does not exist</source>
         <translation>文件不存在</translation>
     </message>
@@ -1736,7 +1741,7 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <location filename="../src/ui/private-share-dialog.cpp" line="248"/>
         <location filename="../src/ui/private-share-dialog.cpp" line="279"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="498"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="506"/>
         <source>Share Operation Failed: %1</source>
         <translation>共享操作失败： %1</translation>
     </message>
@@ -1756,12 +1761,13 @@ The library owner&apos;s storage space is used up.</source>
         <translation>获取群组和联系人信息时出错</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="363"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="364"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="394"/>
         <source>Please enter the username</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="364"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="363"/>
         <source>Please enter the group name</source>
         <translation>请输入群组名</translation>
     </message>
@@ -1776,12 +1782,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>已经共享给 “%1” 群组了</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="396"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="401"/>
         <source>Already shared to user %1</source>
         <translation>已经共享给用户 %1 了</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="426"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="434"/>
         <source>The previous operation is still in progres</source>
         <translation>上一个操作还未完成</translation>
     </message>
@@ -2245,7 +2251,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>删除了资料库 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="979"/>
+        <location filename="../src/filebrowser/file-browser-dialog.cpp" line="961"/>
         <source>Rename %1 to</source>
         <translation>将 %1 重命名为</translation>
     </message>
@@ -2483,13 +2489,13 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="230"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="365"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="370"/>
         <source>The path &quot;%1&quot; conflicts with system path</source>
         <translation>路径 &quot;%1&quot; 与系统路径冲突</translation>
     </message>
     <message>
         <location filename="../src/ui/create-repo-dialog.cpp" line="232"/>
-        <location filename="../src/ui/download-repo-dialog.cpp" line="367"/>
+        <location filename="../src/ui/download-repo-dialog.cpp" line="372"/>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
         <translation>路径 &quot;%1&quot; 与已有资料库冲突</translation>
     </message>
@@ -3440,17 +3446,17 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SharedItemDelegate</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="933"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="941"/>
         <source>Read Write</source>
         <translation>可读写</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="934"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="942"/>
         <source>Read Only</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="936"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="944"/>
         <source>Remove Share</source>
         <translation>删除共享</translation>
     </message>
@@ -3458,44 +3464,44 @@ The library owner&apos;s storage space is used up.</source>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="604"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="612"/>
         <source>Click to edit</source>
         <translation>点击开始编辑</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="610"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="618"/>
         <source>Created by %1</source>
         <translation>由 %1 创建</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="644"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="670"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="652"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="678"/>
         <source>Read Write</source>
         <translation>可读写</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="645"/>
-        <location filename="../src/ui/private-share-dialog.cpp" line="671"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="653"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="679"/>
         <source>Read Only</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="714"/>
         <source>Group</source>
         <translation>群组</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="706"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="714"/>
         <source>User</source>
         <translation>用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="711"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="719"/>
         <source>Permission</source>
         <translation>权限</translation>
     </message>
     <message>
-        <location filename="../src/ui/private-share-dialog.cpp" line="840"/>
+        <location filename="../src/ui/private-share-dialog.cpp" line="848"/>
         <source>The previous operation is still in progres</source>
         <translation>上一个操作还未完成</translation>
     </message>

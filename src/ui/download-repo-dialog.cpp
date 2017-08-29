@@ -244,7 +244,7 @@ void DownloadRepoDialog::onOkBtnClicked()
     req->send();
 }
 
-bool DownloadRepoDialog::validateInputsManualMergeMode()
+bool DownloadRepoDialog::validateInputDirectory()
 {
     QDir dir(mDirectory->text());
     if (!dir.exists()) {
@@ -275,8 +275,12 @@ bool DownloadRepoDialog::validateInputs()
         }
     }
 
+    if (!validateInputDirectory()) {
+        return false;
+    }
+
     if (manual_merge_mode_) {
-        return validateInputsManualMergeMode();
+        return true;
     }
 
     sync_with_existing_ = false;
@@ -316,6 +320,7 @@ bool DownloadRepoDialog::validateInputs()
             alternative_path_ = new_path;
         }
     }
+
     return true;
 }
 

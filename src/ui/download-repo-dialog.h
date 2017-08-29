@@ -33,7 +33,7 @@ private slots:
 private:
     Q_DISABLE_COPY(DownloadRepoDialog);
 
-    bool validateInputsManualMergeMode();
+    bool validateInputDirectory();
     bool validateInputs();
     void setAllInputsEnabled(bool enabled);
     void setDirectoryText(const QString& path);

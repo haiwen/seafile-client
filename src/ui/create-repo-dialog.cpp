@@ -145,20 +145,21 @@ bool CreateRepoDialog::validateInputs()
         return false;
     }
 
-    if (mName->text().isEmpty()) {
+    if (mName->text().trimmed().isEmpty()) {
         seafApplet->warningBox(tr("Please enter the name"), this);
         return false;
     }
 
-    encrypted = (mEncrypteCheckBox->checkState() == Qt::Checked) ? true : false;
+    encrypted = mEncrypteCheckBox->checkState() == Qt::Checked;
     if (encrypted) {
-        if (mPassword->text().isEmpty() || mPasswordAgain->text().isEmpty()) {
+        if (mPassword->text().trimmed().isEmpty() ||
+            mPasswordAgain->text().trimmed().isEmpty()) {
             seafApplet->warningBox(tr("Please enter the password"), this);
             return false;
         }
 
-        passwd = mPassword->text();
-        passwdAgain = mPasswordAgain->text();
+        passwd = mPassword->text().trimmed();
+        passwdAgain = mPasswordAgain->text().trimmed();
         if (passwd != passwdAgain) {
             seafApplet->warningBox(tr("Passwords don't match"), this);
             return false;
@@ -177,7 +178,7 @@ bool CreateRepoDialog::validateInputs()
         return false;
     }
 
-    name_ = mName->text();
+    name_ = mName->text().trimmed();
     path_ = mDirectory->text();
     return true;
 }

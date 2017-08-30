@@ -153,21 +153,22 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->drawImage(avatar_pos, masked_image);
     painter->restore();
 
-    const int time_width = qMin(kTimeWidth,
-        ::textWidthInFont(time_text,
-            changeFontSize(painter->font(), kTimeFontSize)));
+    auto time_font = changeFontSize(painter->font(), kTimeFontSize);
+    auto nick_font = changeFontSize(painter->font(), kNickFontSize);
+    auto desc_font = changeFontSize(painter->font(), kDescriptionFontSize);
+    auto repo_name_font = time_font;
+
+    const int time_width = qMin(kTimeWidth, ::textWidthInFont(time_text, time_font));
     int nick_width = option.rect.width() - kMarginLeft - kAvatarWidth - kMarginBetweenAvatarAndNick
         - time_width - kMarginBetweenNickAndTime - kPadding * 2 - kMarginRight;
-    nick_width = qMin(nick_width,
-                      ::textWidthInFont(event.nick,
-                            changeFontSize(painter->font(), kNickFontSize)));
+    nick_width = qMin(nick_width, ::textWidthInFont(event.nick, nick_font));
 
     // Paint nick name
     QPoint nick_pos = avatar_pos + QPoint(kAvatarWidth + kMarginBetweenAvatarAndNick, 0);
     QRect nick_rect(nick_pos, QSize(nick_width, kNickHeight));
     painter->save();
     painter->setPen(QColor(selected ? kNickColorHighlighted : kNickColor));
-    painter->setFont(changeFontSize(painter->font(), kNickFontSize));
+    painter->setFont(nick_font);
     painter->drawText(nick_rect,
                       Qt::AlignLeft | Qt::AlignTop,
                       fitTextToWidth(event.nick, option.font, nick_width),
@@ -179,7 +180,7 @@ void EventItemDelegate::paint(QPainter *painter,
     QPoint time_pos = option.rect.topRight() + QPoint(-time_width - kPadding - kMarginRight, kMarginTop + kPadding);
     QRect time_rect(time_pos, QSize(time_width, kTimeHeight));
     painter->setPen(QColor(selected ? kTimeColorHighlighted : kTimeColor));
-    painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
+    painter->setFont(time_font);
 
     painter->drawText(time_rect,
                       Qt::AlignRight | Qt::AlignTop,
@@ -190,71 +191,52 @@ void EventItemDelegate::paint(QPainter *painter,
     // Paint description
     painter->save();
 
-    int repo_name_width = qMin(kRepoNameWidth, ::textWidthInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize)));
-    const int repo_name_height = ::textHeightInFont(event.repo_name, changeFontSize(painter->font(), kTimeFontSize));
+    QString desc = event.desc;
 
-    const int desc_text_full_width = ::textWidthInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize));
+    int repo_name_width = qMin(kRepoNameWidth, ::textWidthInFont(event.repo_name, repo_name_font));
 
     int desc_width = option.rect.width() - kMarginLeft - kAvatarWidth -
                      kMarginBetweenAvatarAndNick -
                      kMarginBetweenRepoNameAndDesc - repo_name_width -
                      kMarginRight - kPadding * 2;
 
-    // If the allocated width to event desc is bigger than required, we give the
-    // extra width to the repo name area.
-    int extra_width_for_repo_name = 0;
-    if (desc_width >= desc_text_full_width) {
-        extra_width_for_repo_name = desc_width - desc_text_full_width;
-        desc_width = desc_text_full_width;
-    }
-
-    const int desc_height = ::textHeightInFont(event.desc, changeFontSize(painter->font(), kDescriptionFontSize)) * 2;
+    const int desc_height = ::textHeightInFont(desc, desc_font) * 2;
 
     // const QPoint event_desc_pos = option.rect.bottomLeft() + QPoint(nick_rect.left(), - desc_height - kExtraPadding - kMarginBottom);
     const QPoint event_desc_pos = nick_rect.bottomLeft() + QPoint(0, kVerticalMarginBetweenNickAndDesc);
 
     QRect event_desc_rect(event_desc_pos, QSize(desc_width, desc_height));
-    painter->setFont(changeFontSize(painter->font(), kDescriptionFontSize));
+    painter->setFont(desc_font);
     painter->setPen(QColor(selected ? kDescriptionColorHighlighted : kDescriptionColor));
 
-    QString desc = event.desc;
     desc.replace(QChar('\n'), QChar(' '));
     painter->drawText(event_desc_rect,
                       Qt::AlignLeft | Qt::AlignTop | Qt::TextWrapAnywhere,
                       // we have two lines
-                      fitTextToWidth(desc, option.font, desc_width * 2),
+                      fitTextToWidth(desc, desc_font, desc_width * 2),
                       &event_desc_rect);
     painter->restore();
 
     // Paint repo name
     painter->save();
 
-    if (extra_width_for_repo_name > 0) {
-        repo_name_width += extra_width_for_repo_name;
-    } else {
-        // The actual rect used by the description may be smaller due to text
-        // wrapping.
-        repo_name_width += desc_width - event_desc_rect.width();
-    }
-    // if (index.row() == 0) {
-    //     printf ("extra_width_for_repo_name = %d, width diff = %d\n",
-    //             extra_width_for_repo_name,
-    //             desc_width - event_desc_rect.width());
+    repo_name_width += desc_width - event_desc_rect.width();
+    // if (index.row() == 1) {
+    //     printf ("width diff = %d\n", desc_width - event_desc_rect.width());
     // }
 
+    const int repo_name_height = ::textHeightInFont(event.repo_name, repo_name_font);
     const QPoint event_repo_name_pos = option.rect.bottomRight() +
         QPoint(-repo_name_width - kPadding - kMarginRight,
                -repo_name_height - kExtraPadding - kMarginBottom);
 
     QRect event_repo_name_rect(event_repo_name_pos, QSize(repo_name_width, kNickHeight));
-    painter->setFont(changeFontSize(painter->font(), kTimeFontSize));
+    painter->setFont(repo_name_font);
     painter->setPen(QColor(selected ? kRepoNameColorHighlighted : kRepoNameColor));
     painter->drawText(
         event_repo_name_rect,
         Qt::AlignRight | Qt::AlignTop | Qt::TextSingleLine,
-        fitTextToWidth(event.repo_name,
-                       option.font,
-                       repo_name_width),
+        fitTextToWidth(event.repo_name, repo_name_font, repo_name_width),
         &event_repo_name_rect);
     painter->restore();
 

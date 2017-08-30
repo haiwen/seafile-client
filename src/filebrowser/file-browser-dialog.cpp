@@ -685,20 +685,36 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
 {
     if (names.empty())
         return;
-    const QString path = QFileInfo(names.front()).path();
+    QString local_path;
     QStringList fnames;
     Q_FOREACH(const QString &name, names) {
         const QFileInfo file = name;
         if (file.isDir()) {
+            // a dir
             uploadOrUpdateFile(name);
-        } else if (file.path() == path) {
-            fnames.push_back(file.fileName());
+        } else {
+            // a file
+            if (local_path.isEmpty()) {
+                local_path = file.path();
+                fnames.push_back(file.fileName());
+            } else if (file.path() == local_path) {
+                fnames.push_back(file.fileName());
+            } else {
+                qWarning(
+                    "upload multiple files: ignore file %s because it's not in "
+                    "the same directory",
+                    toCStr(file.absoluteFilePath()));
+            }
         }
     }
 
+    if (fnames.empty()) {
+        return;
+    }
+
     FileUploadTask *task =
-      data_mgr_->createUploadMultipleTask(repo_.id, current_path_, path, fnames,
-                                          overwrite);
+        data_mgr_->createUploadMultipleTask(repo_.id, current_path_, local_path, fnames,
+                                            overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();

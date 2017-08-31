@@ -7,11 +7,11 @@
 
 #ifdef HAVE_SPARKLE_SUPPORT
 #include "auto-update-service.h"
+#endif
 
 namespace {
 
 } // namespace
-#endif
 
 AboutDialog::AboutDialog(QWidget *parent)
     : QDialog(parent)
@@ -34,11 +34,12 @@ AboutDialog::AboutDialog(QWidget *parent)
 
     connect(mOKBtn, SIGNAL(clicked()), this, SLOT(close()));
 
-#ifdef HAVE_SPARKLE_SUPPORT
-    mCheckUpdateBtn->setVisible(true);
-    connect(mCheckUpdateBtn, SIGNAL(clicked()), this, SLOT(checkUpdate()));
-#else
     mCheckUpdateBtn->setVisible(false);
+#ifdef HAVE_SPARKLE_SUPPORT
+    if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
+        mCheckUpdateBtn->setVisible(true);
+        connect(mCheckUpdateBtn, SIGNAL(clicked()), this, SLOT(checkUpdate()));
+    }
 #endif
 }
 

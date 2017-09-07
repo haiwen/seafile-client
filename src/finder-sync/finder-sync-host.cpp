@@ -244,6 +244,8 @@ bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id
         return false;
 
     *path_in_repo = QDir(worktree).relativeFilePath(path);
+    if (!path_in_repo->startsWith("/"))
+        *path_in_repo = "/" + *path_in_repo;
     if (path.endsWith("/"))
         *path_in_repo += "/";
 

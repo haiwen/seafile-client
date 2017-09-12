@@ -108,6 +108,9 @@ min-width: 300px;
             <property name="text">
              <string>choose...</string>
             </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -255,12 +258,18 @@ min-width: 300px;
        <property name="text">
         <string>OK</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="mCancelBtn">
        <property name="text">
         <string>Cancel</string>
+       </property>
+       <property name="default">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

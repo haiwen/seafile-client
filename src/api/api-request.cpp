@@ -33,6 +33,9 @@ void SeafileApiRequest::setUrlParam(const QString& name, const QString& value)
 
 void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
 {
+    if (method_ != METHOD_PUT && method_ != METHOD_POST) {
+        qWarning("warning: calling setFormParam on a request with method %d\n", method_);
+    }
     form_params_[name] = value;
 }
 

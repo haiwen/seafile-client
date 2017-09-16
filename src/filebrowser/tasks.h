@@ -16,9 +16,12 @@ class QNetworkAccessManager;
 class QNetworkReply;
 class QThread;
 class QSslError;
+class QNetworkRequest;
 
 class FileServerTask;
 class ApiError;
+
+class ReliablePostFileTask;
 
 template<typename T> class QList;
 
@@ -48,6 +51,7 @@ struct doDeleteLater
  */
 class FileNetworkTask: public QObject {
     Q_OBJECT
+    friend class ReliablePostFileTask;
 public:
     enum TaskType {
         Upload,
@@ -270,7 +274,7 @@ public:
     const FileNetworkTask::TaskError& error() const { return error_; }
     const QString& errorString() const { return error_string_; }
     int httpErrorCode() const { return http_error_code_; }
-    const QString& oid() const { return oid_; }
+    virtual const QString& oid() const { return oid_; }
     int retryCount() const { return retry_count_; }
 
     static void resetQNAM();
@@ -316,10 +320,6 @@ protected:
     void setError(FileNetworkTask::TaskError error, const QString& error_string);
     void setHttpError(int code);
 
-    static bool should_reset_qnam_;
-    static QMutex network_mgr_lock_;
-    static QNetworkAccessManager *network_mgr_;
-
     // Always use this to access the network access manager, instead of using
     // network_mgr_ directly, because it handles the network status change
     // detection.
@@ -357,36 +357,6 @@ private:
     QTemporaryFile *tmp_file_;
 };
 
-class PostFileTask : public FileServerTask {
-    Q_OBJECT
-public:
-    PostFileTask(const QUrl& url,
-                 const QString& parent_dir,
-                 const QString& local_path,
-                 const QString& name,
-                 const bool use_upload);
-
-    PostFileTask(const QUrl& url,
-                 const QString& parent_dir,
-                 const QString& local_path,
-                 const QString& name,
-                 const QString& relative_path);
-    ~PostFileTask();
-
-protected:
-    bool retryEnabled();
-    void prepare();
-    void sendRequest();
-    void onHttpRequestFinished();
-
-private:
-    const QString parent_dir_;
-    QFile *file_;
-    const QString name_;
-    const bool use_upload_;
-    const QString relative_path_;
-};
-
 class PostFilesTask : public FileServerTask {
     Q_OBJECT
 public:
@@ -418,7 +388,7 @@ private:
     QList<qint64> file_sizes_;
     const QStringList names_;
 
-    QScopedPointer<PostFileTask, doDeleteLater<PostFileTask> > task_;
+    QScopedPointer<ReliablePostFileTask, doDeleteLater<ReliablePostFileTask> > task_;
     int current_num_;
     // transferred bytes in the current tasks
     qint64 current_bytes_;

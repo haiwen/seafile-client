@@ -319,4 +319,29 @@ private:
     const QString path_;
 };
 
+class GetFileUploadedBytesRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetFileUploadedBytesRequest(const Account& account,
+                                const QString& repo_id,
+                                const QString& parent_dir,
+                                const QString& file_name);
+
+    const QString & repoId() const { return repo_id_; }
+    const QString & parentDir() const { return parent_dir_; }
+    const QString & fileName() const { return file_name_; }
+
+signals:
+    void success(quint64 uploaded_bytes);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetFileUploadedBytesRequest);
+    const QString repo_id_;
+    const QString parent_dir_;
+    const QString file_name_;
+};
+
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

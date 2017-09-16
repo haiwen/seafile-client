@@ -7,6 +7,7 @@
 #include "account.h"
 #include "api/api-error.h"
 #include "seaf-dirent.h"
+#include "utils/utils.h"
 
 namespace {
 
@@ -19,6 +20,7 @@ const char kGetStarredFilesUrl[] = "api2/starredfiles/";
 const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
 const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
+const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
@@ -344,4 +346,41 @@ LockFileRequest::LockFileRequest(const Account &account, const QString &repo_id,
 void LockFileRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+GetFileUploadedBytesRequest::GetFileUploadedBytesRequest(
+    const Account &account,
+    const QString &repo_id,
+    const QString &parent_dir,
+    const QString &file_name)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kGetFileUploadedBytesUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_GET,
+          account.token),
+      repo_id_(repo_id),
+      parent_dir_(parent_dir),
+      file_name_(file_name)
+{
+    setUrlParam("parent_dir",
+                parent_dir.startsWith("/") ? parent_dir : "/" + parent_dir);
+    setUrlParam("file_name", file_name);
+}
+
+void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetFileUploadedBytesRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    quint64 uploaded_bytes = dict["uploadedBytes"].toLongLong();
+    // printf ("uploadedBytes = %lld\n", uploaded_bytes);
+    emit success(uploaded_bytes);
 }

@@ -279,6 +279,7 @@ SET(moc_headers
   src/filebrowser/file-table.h
   src/filebrowser/data-mgr.h
   src/filebrowser/tasks.h
+  src/filebrowser/reliable-upload.h
   src/filebrowser/progress-dialog.h
   src/filebrowser/sharedlink-dialog.h
   src/filebrowser/seafilelink-dialog.h
@@ -466,6 +467,7 @@ SET(seafile_client_sources
   src/filebrowser/data-cache.cpp
   src/filebrowser/file-table.cpp
   src/filebrowser/seaf-dirent.cpp
+  src/filebrowser/reliable-upload.cpp
   src/filebrowser/tasks.cpp
   src/filebrowser/progress-dialog.cpp
   src/filebrowser/sharedlink-dialog.cpp

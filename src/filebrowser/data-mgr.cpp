@@ -40,6 +40,7 @@ DataManager::DataManager(const Account &account)
 
 DataManager::~DataManager()
 {
+    emit aboutToDestroy();
     Q_FOREACH(SeafileApiRequest *req, reqs_)
     {
         req->deleteLater();
@@ -313,6 +314,7 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
         account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
+    setupTaskCleanup(task);
 
     return task;
 }
@@ -323,6 +325,7 @@ FileDownloadTask* DataManager::createSaveAsTask(const QString& repo_id,
 {
     FileDownloadTask* task = TransferManager::instance()->addDownloadTask(
         account_, repo_id, path, local_path, true);
+    setupTaskCleanup(task);
 
     return task;
 }
@@ -356,11 +359,17 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
     else
         task = new FileUploadDirectoryTask(account_, repo_id, parent_dir,
                                            local_path, name);
-
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileUploadFinished(bool)));
+    setupTaskCleanup(task);
 
     return task;
+}
+
+void DataManager::setupTaskCleanup(FileNetworkTask *task)
+{
+    connect(this, SIGNAL(aboutToDestroy()),
+            task, SLOT(cancel()));
 }
 
 FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
@@ -374,6 +383,7 @@ FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
 
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileUploadFinished(bool)));
+    setupTaskCleanup(task);
 
     return task;
 }

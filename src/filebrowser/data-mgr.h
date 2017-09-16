@@ -20,6 +20,7 @@ class GetRepoRequest;
 class CreateSubrepoRequest;
 class DirentsCache;
 class FileCache;
+class FileNetworkTask;
 class FileUploadTask;
 class FileDownloadTask;
 
@@ -117,6 +118,8 @@ public:
     void createSubrepo(const QString &name, const QString& repo_id, const QString &path);
 
 signals:
+    void aboutToDestroy();
+
     void getDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 
@@ -167,6 +170,7 @@ private:
     void removeDirentsCache(const QString& repo_id,
                             const QString& path,
                             bool is_file);
+    void setupTaskCleanup(FileNetworkTask *task);
     const Account account_;
 
     QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> get_dirents_req_;

@@ -30,6 +30,7 @@ extern "C" {
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
 #include "utils/utils.h"
+#include "filebrowser/transfer-mgr.h"
 
 #include "cloud-view.h"
 
@@ -122,6 +123,8 @@ CloudView::CloudView(QWidget* parent)
     refresh_status_bar_timer_ = new QTimer(this);
     connect(refresh_status_bar_timer_, SIGNAL(timeout()), this,
             SLOT(refreshStatusBar()));
+    connect(TransferManager::instance(), SIGNAL(taskFinished()),
+            this, SLOT(refreshStatusBar()));
 
     AccountManager* account_mgr = seafApplet->accountManager();
     connect(account_mgr, SIGNAL(accountsChanged()), this,
@@ -430,17 +433,23 @@ void CloudView::refreshServerStatus()
 
 void CloudView::refreshTransferRate()
 {
-    int up_rate, down_rate;
-    if (seafApplet->rpcClient()->getUploadRate(&up_rate) < 0) {
+    int sync_up_rate, sync_down_rate;
+    if (seafApplet->rpcClient()->getUploadRate(&sync_up_rate) < 0) {
         return;
     }
 
-    if (seafApplet->rpcClient()->getDownloadRate(&down_rate) < 0) {
+    if (seafApplet->rpcClient()->getDownloadRate(&sync_down_rate) < 0) {
         return;
     }
 
-    mUploadRate->setText(translateTransferRate(up_rate));
-    mDownloadRate->setText(translateTransferRate(down_rate));
+    uint direct_up_rate, direct_download_rate;
+    TransferManager::instance()->getTransferRate(&direct_up_rate,
+                                                 &direct_download_rate);
+
+    mUploadRate->setText(
+        translateTransferRate(sync_up_rate + direct_up_rate));
+    mDownloadRate->setText(
+        translateTransferRate(sync_down_rate + direct_download_rate));
 }
 
 void CloudView::refreshStatusBar()

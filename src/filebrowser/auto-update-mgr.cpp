@@ -53,6 +53,10 @@ AutoUpdateManager::AutoUpdateManager()
 {
     connect(&watcher_, SIGNAL(fileChanged(const QString&)),
             this, SLOT(onFileChanged(const QString&)));
+    connect(TransferManager::instance(), SIGNAL(uploadTaskSuccess(const FileTaskRecord*)),
+            this, SLOT(onUpdateTaskSuccess(const FileTaskRecord*)));
+    connect(TransferManager::instance(), SIGNAL(uploadTaskFailed(const FileTaskRecord*)),
+            this, SLOT(onUpdateTaskFailed(const FileTaskRecord*)));
 }
 
 void AutoUpdateManager::start()
@@ -130,42 +134,37 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     }
 
     DataManager data_mgr(info.account);
-    FileNetworkTask *task = data_mgr.createUploadTask(
+    data_mgr.createUploadFileTask(
         info.repo_id, ::getParentPath(info.path_in_repo),
-        local_path, ::getBaseName(local_path), true);
-
-    connect(task, SIGNAL(finished(bool)),
-            this, SLOT(onUpdateTaskFinished(bool)));
+        local_path, ::getBaseName(local_path));
 
     qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
 
-    task->start();
     info.uploading = true;
 }
 
-void AutoUpdateManager::onUpdateTaskFinished(bool success)
+void AutoUpdateManager::onUpdateTaskSuccess(const FileTaskRecord *task)
 {
-    FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
-    if (task == NULL)
-        return;
-    const QString local_path = task->localFilePath();
-    if (success) {
-        qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
-        seafApplet->trayIcon()->showMessage(tr("Upload Success"),
-                                            tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()),
-                                            task->repoId());
-        emit fileUpdated(task->repoId(), task->path());
-        addPath(&watcher_, local_path);
-        WatchedFileInfo& info = watch_infos_[local_path];
-        info.uploading = false;
-    } else {
-        qWarning("[AutoUpdateManager] failed to upload new version of file %s", local_path.toUtf8().data());
-        seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
-                                            tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
-                                            task->repoId());
-        watch_infos_.remove(local_path);
-        return;
-    }
+    const QString local_path = task->local_path;
+    qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
+    seafApplet->trayIcon()->showMessage(tr("Upload Success"),
+                                        tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()),
+                                        task->repo_id);
+    emit fileUpdated(task->repo_id, task->path);
+    addPath(&watcher_, local_path);
+    WatchedFileInfo& info = watch_infos_[local_path];
+    info.uploading = false;
+}
+
+void AutoUpdateManager::onUpdateTaskFailed(const FileTaskRecord *task)
+{
+    const QString local_path = task->local_path;
+    qWarning("[AutoUpdateManager] failed to upload new version of file %s", local_path.toUtf8().data());
+    seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
+                                        tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
+                                        task->repo_id);
+    watch_infos_.remove(local_path);
+    return;
 }
 
 void AutoUpdateManager::removeWatch(const QString& local_path)

@@ -41,13 +41,13 @@ signals:
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);
     void direntRemove(const QList<const SeafDirent*> &dirents);
-    void direntUpdate(const SeafDirent& dirent);
+    // void direntUpdate(const SeafDirent& dirent);
     void direntShare(const SeafDirent& dirent);
     void direntShareToUserOrGroup(const SeafDirent& dirent, bool to_group);
     void direntShareSeafile(const SeafDirent& dirent);
     void direntPaste();
 
-    void cancelDownload(const SeafDirent& dirent);
+    void cancelTransfer(const SeafDirent& dirent);
     void syncSubdirectory(const QString& folder_name);
 
 private slots:
@@ -61,11 +61,11 @@ private slots:
     void onShareToUser();
     void onShareToGroup();
     void onShareSeafile();
-    void onUpdate();
+    // void onUpdate();
     void onCopy();
     void onMove();
 
-    void onCancelDownload();
+    void onCancelTransfer();
     void onSyncSubdirectory();
 
 private:
@@ -101,11 +101,11 @@ private:
     QAction *share_to_user_action_;
     QAction *share_to_group_action_;
     QAction *share_seafile_action_;
-    QAction *update_action_;
+    // QAction *update_action_;
     QAction *copy_action_;
     QAction *move_action_;
     QAction *paste_action_;
-    QAction *cancel_download_action_;
+    QAction *cancel_transfer_action_;
     QAction *sync_subdirectory_action_;
     QAction *lock_action_;
     FileBrowserDialog *parent_;
@@ -144,7 +144,7 @@ public:
     void onResize(const QSize &size);
 
 private slots:
-    void updateDownloadInfo();
+    void updateTransferInfo();
     void updateThumbnail(const QPixmap& thumbnail, const QString& file_path);
 
 private:

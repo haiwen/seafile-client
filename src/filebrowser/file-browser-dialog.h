@@ -19,6 +19,7 @@ class QAction;
 class QSizeGrip;
 class QHBoxLayout;
 
+struct FileTaskRecord;
 class ApiError;
 class FileTableView;
 class FileTableModel;
@@ -28,6 +29,7 @@ class FileBrowserCache;
 class DataManager;
 class FileNetworkTask;
 class FileBrowserManager;
+class FileUploadTask;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -72,7 +74,8 @@ private slots:
     void chooseFileToUpload();
     void chooseDirectoryToUpload();
     void onDownloadFinished(bool success);
-    void onUploadFinished(bool success);
+    void onUploadSuccess(const FileTaskRecord* task);
+    void onUploadFailed(const FileTaskRecord* task);
 
     // prompt a menu for user to choose a upload action
     void uploadFileOrMkdir();
@@ -90,10 +93,10 @@ private slots:
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentShareToUserOrGroup(const SeafDirent& dirent, bool to_group);
     void onGetDirentShareSeafile(const SeafDirent& dirent);
-    void onGetDirentUpdate(const SeafDirent& dirent);
+    // void onGetDirentUpdate(const SeafDirent& dirent);
     void onGetDirentsPaste();
     void onGetSyncSubdirectory(const QString &folder_name);
-    void onCancelDownload(const SeafDirent& dirent);
+    void onCancelTransfer(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
     void onDirectoryCreateFailed(const ApiError& error);
@@ -141,9 +144,8 @@ private:
     void updateTable(const QList<SeafDirent>& dirents);
     void createDirectory(const QString &name);
     void downloadFile(const QString& path);
-    void uploadFile(const QString& path, const QString& name,
-                    bool overwrite = false);
-    void uploadMultipleFile(const QStringList& paths, bool overwrite = false);
+    void uploadFileOrDirectory(const QString& path, const QString& name);
+    void uploadMultipleFile(const QStringList& paths);
 
     void onDirClicked(const SeafDirent& dirent);
     void onFileClicked(const SeafDirent& dirent);
@@ -151,6 +153,8 @@ private:
     void fetchDirents(bool force_refresh);
 
     bool setPasswordAndRetry(FileNetworkTask *task);
+
+    void insertUploadItemToTableView(const QString& name, bool is_dir = false);
 
     bool eventFilter(QObject *obj, QEvent *event);
 

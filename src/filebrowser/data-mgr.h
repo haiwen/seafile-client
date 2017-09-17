@@ -14,6 +14,7 @@
 
 template<typename Key> class QList;
 
+struct FileTaskRecord;
 class SeafileApiRequest;
 class GetDirentsRequest;
 class GetRepoRequest;
@@ -92,17 +93,20 @@ public:
                                        const QString& path,
                                        const QString& local_path);
 
-    FileUploadTask* createUploadTask(const QString& repo_id,
-                                     const QString& parent_dir,
-                                     const QString& local_path,
-                                     const QString& name,
-                                     const bool overwrite);
+    void createUploadFileTask(const QString& repo_id,
+                              const QString& parent_dir,
+                              const QString& local_path,
+                              const QString& name);
 
-    FileUploadTask* createUploadMultipleTask(const QString& repo_id,
-                                             const QString& parent_dir,
-                                             const QString& local_path,
-                                             const QStringList& names,
-                                             const bool overwrite);
+    void createUploadDirectoryTask(const QString& repo_id,
+                                   const QString& parent_dir,
+                                   const QString& local_path,
+                                   const QString& name);
+
+    void createUploadMultipleTask(const QString& repo_id,
+                                  const QString& parent_dir,
+                                  const QString& local_path,
+                                  const QStringList& names);
 
     bool isRepoPasswordSet(const QString& repo_id) const;
     QString repoPassword(const QString& repo_id) const {
@@ -154,7 +158,7 @@ signals:
 
 private slots:
     void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
-    void onFileUploadFinished(bool success);
+    void onFileUploadSuccess(const FileTaskRecord* task);
     void onFileDownloadFinished(bool success);
 
     void onCreateDirectorySuccess();
@@ -172,7 +176,7 @@ private:
     void removeDirentsCache(const QString& repo_id,
                             const QString& path,
                             bool is_file);
-    void setupTaskCleanup(FileNetworkTask *task);
+    // void setupTaskCleanup(FileNetworkTask *task);
     const Account account_;
 
     QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> get_dirents_req_;

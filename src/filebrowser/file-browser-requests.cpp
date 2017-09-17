@@ -22,7 +22,7 @@ const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
-//const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
+const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
 
 } // namespace
@@ -348,6 +348,7 @@ void LockFileRequest::requestSuccess(QNetworkReply& reply)
     emit success();
 }
 
+// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
 GetFileUploadedBytesRequest::GetFileUploadedBytesRequest(
     const Account &account,
     const QString &repo_id,
@@ -383,4 +384,50 @@ void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
     quint64 uploaded_bytes = dict["uploadedBytes"].toLongLong();
     // printf ("uploadedBytes = %lld\n", uploaded_bytes);
     emit success(uploaded_bytes);
+}
+// =======
+GetFileDetailRequest::GetFileDetailRequest(const Account& account,
+                                           const QString& repo_id,
+                                           const QString& path)
+    : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetFileDetailUrl).arg(repo_id)),
+                         SeafileApiRequest::METHOD_GET, account.token),
+      repo_id_(repo_id), path_(path)
+{
+    setUrlParam("p", path);
+}
+
+FileDetailInfo GetFileDetailRequest::fromDict(QMap<QString, QVariant>& dict) const
+{
+    FileDetailInfo info;
+    info.id    = dict["id"].toString();
+    info.mtime = dict["mtime"].toLongLong();
+    info.type  = dict["type"].toString();
+    info.name  = dict["name"].toString();
+    info.size  = dict["size"].toLongLong();
+    return info;
+}
+
+void GetFileDetailRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetFileDetailRequest: failed to parse json:%s\n", error.text);
+// >>>>>>> temp commit for rebase.
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
+// 
+//     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+//     quint64 uploaded_bytes = dict["uploadedBytes"].toLongLong();
+//     // printf ("uploadedBytes = %lld\n", uploaded_bytes);
+//     emit success(uploaded_bytes);
+// =======
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    FileDetailInfo info = fromDict(dict);
+    emit success(info);
+// >>>>>>> temp commit for rebase.
 }

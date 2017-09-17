@@ -251,6 +251,55 @@ int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
     return n_rows;
 }
 
+int sqlite_select_first_row (sqlite3 *db, const char *sql,
+                             SqliteRowFunc callback, void *data)
+{
+    sqlite3_stmt *stmt;
+    int result;
+
+    stmt = sqlite_query_prepare (db, sql);
+    if (!stmt) {
+        return -1;
+    }
+
+    result = sqlite3_step (stmt);
+    if (result == SQLITE_ERROR) {
+        const gchar *s = sqlite3_errmsg (db);
+
+        g_warning ("Couldn't execute query, error: %d->'%s'\n",
+                   result, s ? s : "no error given");
+        sqlite3_finalize (stmt);
+        return -1;
+    }
+
+    callback (stmt, data);
+
+    sqlite3_finalize (stmt);
+    return 1;
+}
+
+int sqlite_insert_exec (sqlite3 *db, const char *sql, long long int *rowid)
+{
+    char *errmsg = NULL;
+    int result;
+
+    result = sqlite3_exec (db, sql, NULL, NULL, &errmsg);
+
+    if (result != SQLITE_OK) {
+        if (errmsg != NULL) {
+            qWarning ("SQL error: %d - %s\n:\t%s\n", result, errmsg, sql);
+            sqlite3_free (errmsg);
+        }
+        return -1;
+    }
+
+    if (rowid != NULL) {
+        *rowid = sqlite3_last_insert_rowid(db);
+    }
+
+    return 0;
+}
+
 int checkdir_with_mkdir (const char *dir)
 {
 #if defined(Q_OS_WIN32)

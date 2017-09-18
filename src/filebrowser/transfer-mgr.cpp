@@ -219,10 +219,12 @@ TransferManager::~TransferManager()
 
 bool TransferManager::isValidTask(const FileTaskRecord *task)
 {
-    if (task->account_sign.isEmpty() || task->type.isEmpty()   ||
-        task->repo_id.isEmpty()      || task->path.isEmpty()   ||
-        task->local_path.isEmpty()   || task->status.isEmpty() ||
-        task->id == 0) {
+    if (task == NULL) {
+        return false;
+    } else if (task->account_sign.isEmpty() || task->type.isEmpty()   ||
+               task->repo_id.isEmpty()      || task->path.isEmpty()   ||
+               task->local_path.isEmpty()   || task->status.isEmpty() ||
+               task->id == 0) {
         return false;
     } else {
         return true;
@@ -231,10 +233,12 @@ bool TransferManager::isValidTask(const FileTaskRecord *task)
 
 bool TransferManager::isValidTask(const FolderTaskRecord *task)
 {
-    if (task->account_sign.isEmpty() || task->repo_id.isEmpty() ||
-        task->path.isEmpty()         || task->local_path.isEmpty() ||
-        task->status.isEmpty()       || task->id == 0 ||
-        task->total_bytes == 0) {
+    if (task == NULL) {
+        return false;
+    } else if (task->account_sign.isEmpty() || task->repo_id.isEmpty() ||
+               task->path.isEmpty()         || task->local_path.isEmpty() ||
+               task->status.isEmpty()       || task->id == 0 ||
+               task->total_bytes == 0) {
         return false;
     } else {
         return true;
@@ -255,7 +259,8 @@ int TransferManager::start()
         return -1;
     }
 
-    sql = "CREATE TABLE IF NOT EXISTS FolderTasks ( "
+    sql = "DROP TABLE IF EXISTS FolderTasks; "
+          "CREATE TABLE IF NOT EXISTS FolderTasks ( "
           "id INTEGER PRIMARY KEY, "
           "account_signature TEXT,  repo_id TEXT, path TEXT, "
           "local_path TEXT, status TEXT )";
@@ -266,7 +271,8 @@ int TransferManager::start()
         return -1;
     }
 
-    sql = "CREATE TABLE IF NOT EXISTS FileTasks ("
+    sql = "DROP TABLE IF EXISTS FileTasks; "
+          "CREATE TABLE IF NOT EXISTS FileTasks ("
           "id INTEGER PRIMARY KEY, "
           "account_signature TEXT, type TEXT, repo_id TEXT, "
           "path TEXT, local_path TEXT, status TEXT, "
@@ -571,14 +577,18 @@ void TransferManager::addUploadTask(const QString& repo_id,
         sqlite_insert_exec(db_, zql, &id);
         sqlite3_free(zql);
 
+        FileTaskRecord params;
+        params.id           = id;
+        params.account_sign = account_signature_;
+        params.type         = task_type;
+        params.repo_id      = repo_id;
+        params.path         = repo_full_path;
+        params.local_path   = local_path;
+        params.status       = kPendingStatus;
+        params.parent_task  = folder_task_id;
+        file_tasks_.insert(id, params);
+
         if (!current_upload_ && !upload_checking_) {
-            FileTaskRecord params;
-            params.id           = id;
-            params.account_sign = account_signature_;
-            params.repo_id      = repo_id;
-            params.path         = repo_full_path;
-            params.local_path   = local_path;
-            params.parent_task  = folder_task_id;
             checkUploadName(&params);
         }
     }
@@ -617,11 +627,18 @@ void TransferManager::addUploadDirectoryTask(const QString& repo_id,
         sqlite3_free(zql);
     }
 
+    FolderTaskRecord task;
+    task.id           = folder_task_id;
+    task.account_sign = account_signature_;
+    task.repo_id      = repo_id;
+    task.path         = repo_path;
+    task.local_path   = local_path;
+    task.status       = kPendingStatus;
+
     if (local_path == "/")
         qWarning("attempt to upload the root directory, you should avoid it\n");
     QDir dir(local_path);
 
-    quint64 total_size = 0;
     QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
     // XXX (lins05): Move these operations into a thread
     while (iterator.hasNext()) {
@@ -637,7 +654,7 @@ void TransferManager::addUploadDirectoryTask(const QString& repo_id,
         if (iterator.fileInfo().isFile()) {
             addUploadTask(repo_id, file_repo_parent_path,
                           file_local_path, base_name, folder_task_id);
-            total_size += iterator.fileInfo().size();
+            task.total_bytes += iterator.fileInfo().size();
         } else if (QDir(file_local_path).entryList().length() == 2) {
             // only contains . and .., so an empty folder
             if (seafApplet->accountManager()->currentAccount().isAtLeastVersion(4, 4, 0)) {
@@ -646,13 +663,14 @@ void TransferManager::addUploadDirectoryTask(const QString& repo_id,
             }
         }
     }
-    // upload_folder_size_.insert(folder_task_id, total_size);
 
     if (dir.entryList().length() == 2) {
         // The folder dragged into cloud file browser is an empty one.
         addUploadTask(repo_id, repo_parent_path,
                       local_path, name, folder_task_id);
     }
+
+    folder_tasks_.insert(folder_task_id, task);
 }
 
 void TransferManager::checkUploadName(const FileTaskRecord *params)
@@ -675,6 +693,10 @@ void TransferManager::checkUploadName(const FileTaskRecord *params)
 
 void TransferManager::startUploadTask(const FileTaskRecord *params)
 {
+    if (!isValidTask(params)) {
+        return;
+    }
+
     bool use_relative_path = false;
     const Account account = seafApplet->accountManager()->
         getAccountBySignature(params->account_sign);
@@ -683,7 +705,7 @@ void TransferManager::startUploadTask(const FileTaskRecord *params)
     FileUploadTask* task = NULL;
     if (params->parent_task) {
         const FolderTaskRecord *folder_params = getFolderTaskById(params->parent_task);
-        if (isValidTask(folder_params)) {
+        if (!isValidTask(folder_params)) {
             return;
         }
         updateStatus(folder_params->id, TASK_STARTED, QString(), "FolderTasks");
@@ -1032,6 +1054,8 @@ void TransferManager::updateStatus(int id,
                     toCStr(QString::number(task->parent_task)));
                 sqlite_query_exec(db_, zql);
                 sqlite3_free(zql);
+                file_tasks_[id].status = status_str;
+                folder_tasks_[task->parent_task].status = status_str;
             }
             break;
         }
@@ -1044,6 +1068,12 @@ void TransferManager::updateStatus(int id,
         toCStr(QString::number(id)));
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
+
+    if (table == "FileTasks") {
+        file_tasks_[id].status = status_str;
+    } else {
+        folder_tasks_[id].status = status_str;
+    }
 }
 
 void TransferManager::updateFailReason(int id, const QString& error)
@@ -1059,6 +1089,8 @@ void TransferManager::updateFailReason(int id, const QString& error)
         toCStr(QString::number(id)));
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
+
+    file_tasks_[id].fail_reason = error;
 }
 
 void TransferManager::deleteFromDB(int id, const QString& table)
@@ -1077,6 +1109,7 @@ void TransferManager::deleteFromDB(int id, const QString& table)
         toCStr(table), toCStr(QString::number(id)));
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
+    file_tasks_.remove(id);
 
     if (table == "FolderTasks") {
         // upload_folder_size_.remove(id);
@@ -1085,6 +1118,14 @@ void TransferManager::deleteFromDB(int id, const QString& table)
             toCStr(QString::number(id)));
         sqlite_query_exec(db_, zql);
         sqlite3_free(zql);
+
+        QMap<int, FileTaskRecord>::const_iterator ite = file_tasks_.constBegin();
+        while (ite != file_tasks_.constEnd()) {
+            if (ite.value().parent_task == id) {
+                file_tasks_.remove(ite.key());
+            }
+            ++ite;
+        }
     } else {
         QList<const FileTaskRecord*> more_sub_tasks = getFileTasksByParentId(task->parent_task);
         if (more_sub_tasks.isEmpty()) {
@@ -1093,6 +1134,7 @@ void TransferManager::deleteFromDB(int id, const QString& table)
                 toCStr(QString::number(task->parent_task)));
             sqlite_query_exec(db_, zql);
             sqlite3_free(zql);
+            folder_tasks_.remove(task->parent_task);
         }
     }
 }

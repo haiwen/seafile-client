@@ -95,7 +95,7 @@ bool getFileTasksByIdCB(sqlite3_stmt *stmt, void *data)
     task.repo_id      = (const char *)sqlite3_column_text(stmt, 3);
     task.path         = (const char *)sqlite3_column_text(stmt, 4);
     task.local_path   = (const char *)sqlite3_column_text(stmt, 5);
-    task.status       = (const char *)sqlite3_column_text(stmt, 6);
+    task.status       = kPendingStatus;
     task.fail_reason  = (const char *)sqlite3_column_text(stmt, 7);
     task.parent_task  = sqlite3_column_int (stmt, 8);
 
@@ -115,7 +115,7 @@ bool getFolderTasksByIdCB(sqlite3_stmt *stmt, void *data)
     task.repo_id      = (const char *)sqlite3_column_text(stmt, 2);
     task.path         = (const char *)sqlite3_column_text(stmt, 3);
     task.local_path   = (const char *)sqlite3_column_text(stmt, 4);
-    task.status       = (const char *)sqlite3_column_text(stmt, 5);
+    task.status       = kPendingStatus;
 
     if (task.isValid()) {
         records->insert(task.id, task);
@@ -259,8 +259,7 @@ int TransferManager::start()
         return -1;
     }
 
-    sql = "DROP TABLE IF EXISTS FolderTasks; "
-          "CREATE TABLE IF NOT EXISTS FolderTasks ( "
+    sql = "CREATE TABLE IF NOT EXISTS FolderTasks ( "
           "id INTEGER PRIMARY KEY, "
           "account_signature TEXT,  repo_id TEXT, path TEXT, "
           "local_path TEXT, status TEXT )";
@@ -271,8 +270,7 @@ int TransferManager::start()
         return -1;
     }
 
-    sql = "DROP TABLE IF EXISTS FileTasks; "
-          "CREATE TABLE IF NOT EXISTS FileTasks ("
+    sql = "CREATE TABLE IF NOT EXISTS FileTasks ("
           "id INTEGER PRIMARY KEY, "
           "account_signature TEXT, type TEXT, repo_id TEXT, "
           "path TEXT, local_path TEXT, status TEXT, "
@@ -285,6 +283,10 @@ int TransferManager::start()
     }
 
     getUploadTasksFromDB();
+    const FileTaskRecord *pending_file_task = getPendingFileTask();
+    if (isValidTask(pending_file_task)) {
+        checkUploadName(pending_file_task);
+    }
 
     return 0;
 }
@@ -506,11 +508,17 @@ void TransferManager::getUploadTasksFromDB()
         return;
     }
 
-    char *zql = sqlite3_mprintf("SELECT * FROM FileTasks ");
+    char *zql = sqlite3_mprintf(
+        "UPDATE FileTasks SET status = 'pending' "
+        "WHERE status = 'started' ");
+    sqlite_query_exec(db_, zql);
+    sqlite3_free(zql);
+
+    zql = sqlite3_mprintf("SELECT * FROM FileTasks WHERE status = 'pending' ");
     sqlite_foreach_selected_row(db_, zql, getFileTasksByIdCB, &file_tasks_);
     sqlite3_free(zql);
 
-    zql = sqlite3_mprintf("SELECT * FROM FolderTasks ");
+    zql = sqlite3_mprintf("SELECT * FROM FolderTasks WHERE status = 'pending' ");
     sqlite_foreach_selected_row(db_, zql, getFolderTasksByIdCB, &folder_tasks_);
     sqlite3_free(zql);
 }
@@ -588,9 +596,7 @@ void TransferManager::addUploadTask(const QString& repo_id,
         params.parent_task  = folder_task_id;
         file_tasks_.insert(id, params);
 
-        if (!current_upload_ && !upload_checking_) {
-            checkUploadName(&params);
-        }
+        checkUploadName(&params);
     }
 }
 
@@ -675,6 +681,10 @@ void TransferManager::addUploadDirectoryTask(const QString& repo_id,
 
 void TransferManager::checkUploadName(const FileTaskRecord *params)
 {
+    if (current_upload_ || upload_checking_) {
+        return;
+    }
+
     upload_checking_ = true;
     const Account account = seafApplet->accountManager()->
         getAccountBySignature(params->account_sign);
@@ -1100,9 +1110,10 @@ void TransferManager::deleteFromDB(int id, const QString& table)
     }
 
     const FileTaskRecord* task = getFileTaskById(id);
-    if (isValidTask(task)) {
+    if (!isValidTask(task)) {
        return;
     }
+    const int parent_task = task->parent_task;
 
     char *zql = sqlite3_mprintf(
         "DELETE From %Q WHERE id = %Q ",
@@ -1127,14 +1138,14 @@ void TransferManager::deleteFromDB(int id, const QString& table)
             ++ite;
         }
     } else {
-        QList<const FileTaskRecord*> more_sub_tasks = getFileTasksByParentId(task->parent_task);
+        QList<const FileTaskRecord*> more_sub_tasks = getFileTasksByParentId(parent_task);
         if (more_sub_tasks.isEmpty()) {
             char *zql = sqlite3_mprintf(
                 "DELETE From FolderTasks WHERE id = %Q ",
-                toCStr(QString::number(task->parent_task)));
+                toCStr(QString::number(parent_task)));
             sqlite_query_exec(db_, zql);
             sqlite3_free(zql);
-            folder_tasks_.remove(task->parent_task);
+            folder_tasks_.remove(parent_task);
         }
     }
 }

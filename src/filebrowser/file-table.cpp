@@ -410,6 +410,8 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     const QModelIndex proxy_index = indexAt(position);
     position = viewport()->mapToGlobal(position);
 
+    paste_action_->setVisible(parent_->hasFilesToBePasted());
+
     //
     // show paste only menu for no items
     // paste-dedicated menu

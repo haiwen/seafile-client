@@ -117,9 +117,7 @@ bool getFolderTasksByIdCB(sqlite3_stmt *stmt, void *data)
     task.local_path   = (const char *)sqlite3_column_text(stmt, 4);
     task.status       = kPendingStatus;
 
-    if (task.isValid()) {
-        records->insert(task.id, task);
-    }
+    records->insert(task.id, task);
     return true;
 }
 
@@ -397,11 +395,11 @@ FileUploadTask* TransferManager::isCurrentUploadTask(
     }
 }
 
-int TransferManager::getIdFromTasksTable(const QString& repo_id,
-                                         const QString& path,
-                                         const QString& local_path,
-                                         TaskStatus status,
-                                         const QString& table)
+int TransferManager::getUploadTaskId(const QString& repo_id,
+                                     const QString& path,
+                                     const QString& local_path,
+                                     TaskStatus status,
+                                     const QString& table)
 {
     QString status_str;
     switch (status) {
@@ -514,6 +512,12 @@ void TransferManager::getUploadTasksFromDB()
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
 
+    zql = sqlite3_mprintf(
+        "UPDATE FolderTasks SET status = 'pending' "
+        "WHERE status = 'started' ");
+    sqlite_query_exec(db_, zql);
+    sqlite3_free(zql);
+
     zql = sqlite3_mprintf("SELECT * FROM FileTasks WHERE status = 'pending' ");
     sqlite_foreach_selected_row(db_, zql, getFileTasksByIdCB, &file_tasks_);
     sqlite3_free(zql);
@@ -521,6 +525,21 @@ void TransferManager::getUploadTasksFromDB()
     zql = sqlite3_mprintf("SELECT * FROM FolderTasks WHERE status = 'pending' ");
     sqlite_foreach_selected_row(db_, zql, getFolderTasksByIdCB, &folder_tasks_);
     sqlite3_free(zql);
+
+    // update total_bytes of folder tasks
+    QMap<int, FolderTaskRecord>::const_iterator ite = folder_tasks_.constBegin();
+    while (ite != folder_tasks_.constEnd()) {
+        const int folder_task_id = ite.key();
+        QMap<int, FileTaskRecord>::const_iterator file_ite = file_tasks_.constBegin();
+        while (file_ite != file_tasks_.constEnd()) {
+            if (file_ite.value().parent_task == folder_task_id) {
+                folder_tasks_[folder_task_id].total_bytes +=
+                    QFileInfo(file_ite.value().local_path).size();
+            }
+            ++file_ite;
+        }
+        ++ite;
+    }
 }
 
 const FileTaskRecord *TransferManager::getPendingFileTask()
@@ -545,7 +564,7 @@ void TransferManager::addUploadTask(const QString& repo_id,
     QString repo_full_path = ::pathJoin(repo_parent_path, name);
 
     if (isCurrentUploadTask(repo_id, repo_full_path, local_path) ||
-        getIdFromTasksTable(repo_id, repo_full_path, local_path)) {
+        getUploadTaskId(repo_id, repo_full_path, local_path)) {
         return;
     }
 
@@ -788,7 +807,7 @@ void TransferManager::onCreateDirSuccess()
     if (req != NULL) {
         const QString repo_id = req->repoId();
         const QString path = req->path();
-        const int id = getIdFromTasksTable(repo_id, path, QString(), TASK_STARTED);
+        const int id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED);
         deleteFromDB(id);
     }
 
@@ -804,7 +823,7 @@ void TransferManager::onCreateDirFailed(const ApiError& error)
     if (req != NULL) {
         const QString repo_id = req->repoId();
         const QString path = req->path();
-        const int id = getIdFromTasksTable(repo_id, path, QString(), TASK_STARTED);
+        const int id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED);
         updateStatus(id, TASK_ERROR, error.toString());
         emit uploadTaskFailed(getFileTaskById(id));
     }
@@ -827,7 +846,7 @@ void TransferManager::onGetFileDetailSuccess(const FileDetailInfo& info)
         } else if (ret == QMessageBox::Yes) {
             use_upload_ = false;
         }
-        const int id = getIdFromTasksTable(req->repoId(), req->path());
+        const int id = getUploadTaskId(req->repoId(), req->path());
         const FileTaskRecord* task = getFileTaskById(id);
         startUploadTask(task);
         req->deleteLater();
@@ -840,7 +859,7 @@ void TransferManager::onGetFileDetailFailed(const ApiError& error)
     GetFileDetailRequest *req = qobject_cast<GetFileDetailRequest*>(sender());
     if (req != NULL) {
         use_upload_ = true;
-        const int id = getIdFromTasksTable(req->repoId(), req->path());
+        const int id = getUploadTaskId(req->repoId(), req->path());
         const FileTaskRecord* task = getFileTaskById(id);
         startUploadTask(task);
         req->deleteLater();
@@ -852,16 +871,18 @@ void TransferManager::onUploadTaskFinished(bool success)
 {
     if (success) {
         const FileTaskRecord* task = getFileTaskById(current_upload_->id());
+        if (!isValidTask(task)) {
+            return;
+        }
         emit uploadTaskSuccess(task);
         deleteFromDB(current_upload_->id());
 
-        quint64 finished_task_size = 0;
         QFileInfo file_info(current_upload_->localFilePath());
-        finished_task_size = file_info.size();
-
-        upload_progress_->onTaskFinished(finished_task_size);
+        if (task->parent_task) {
+            folder_tasks_[task->parent_task].finished_files_bytes += file_info.size();
+        }
+        upload_progress_->onTaskFinished(file_info.size());
         refresh_rate_timer_->start(kRefreshRateInterval);
-
         emit taskFinished();
 
         if (!current_upload_.isNull()) {
@@ -888,7 +909,7 @@ void TransferManager::onUploadTaskFinished(bool success)
 void TransferManager::cancelUpload(const QString& repo_id,
                                    const QString& path)
 {
-    int task_id = getIdFromTasksTable(repo_id, path);
+    int task_id = getUploadTaskId(repo_id, path);
     if (task_id) {
         deleteFromDB(task_id);
     } else if (isCurrentUploadTask(repo_id, path)) {
@@ -901,11 +922,11 @@ void TransferManager::cancelUpload(const QString& repo_id,
         }
 
     } else {
-        int parent_task_id = getIdFromTasksTable(repo_id, path, QString(), TASK_PENDING, "FolderTasks");
+        int parent_task_id = getUploadTaskId(repo_id, path, QString(), TASK_PENDING, "FolderTasks");
         if (parent_task_id) {
             deleteFromDB(parent_task_id, "FolderTasks");
         } else {
-            parent_task_id = getIdFromTasksTable(repo_id, path, QString(), TASK_STARTED, "FolderTasks");
+            parent_task_id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED, "FolderTasks");
             if (parent_task_id) {
                 deleteFromDB(parent_task_id, "FolderTasks");
 
@@ -959,7 +980,7 @@ QList<const FileTaskRecord*> TransferManager::getPendingUploadFiles(
     return ret;
 }
 
-QList<const FolderTaskRecord*> TransferManager::getPendingUploadFolders(
+QList<const FolderTaskRecord*> TransferManager::getUploadFolderTasks(
     const QString& repo_id, const QString& parent_dir)
 {
     QList<const FolderTaskRecord*> ret;
@@ -967,8 +988,7 @@ QList<const FolderTaskRecord*> TransferManager::getPendingUploadFolders(
     QMap<int, FolderTaskRecord>::const_iterator ite = folder_tasks_.constBegin();
     while (ite != folder_tasks_.constEnd()) {
         const FolderTaskRecord* task = &ite.value();
-        if (task->status == kPendingStatus &&
-            task->repo_id == repo_id &&
+        if (task->repo_id == repo_id &&
             ::getParentPath(task->path) == parent_dir) {
             ret.push_back(task);
         }
@@ -983,7 +1003,7 @@ bool TransferManager::isTransferring(const QString& repo_id,
 {
     if (getDownloadTask(repo_id, path) ||
         isCurrentUploadTask(repo_id, path) ||
-        getIdFromTasksTable(repo_id, path)) {
+        getUploadTaskId(repo_id, path)) {
         return true;
     } else {
         return false;
@@ -995,6 +1015,25 @@ void TransferManager::cancelTransfer(const QString& repo_id,
 {
     cancelDownload(repo_id, path);
     cancelUpload(repo_id, path);
+}
+
+QString TransferManager::getFolderTaskProgress(const QString& repo_id,
+                                               const QString& path)
+{
+    int folder_id = getUploadTaskId(repo_id, path, QString(), TASK_PENDING, "FolderTasks");
+    if (folder_id == 0) {
+        folder_id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED, "FolderTasks");
+    }
+    if (folder_id == 0) {
+        return QString();
+    }
+
+    quint64 total_upload_bytes = folder_tasks_[folder_id].finished_files_bytes;
+    if (file_tasks_[current_upload_->id()].parent_task == folder_id) {
+        total_upload_bytes += current_upload_->progress().transferred;
+    }
+    uint progress = total_upload_bytes * 100 / folder_tasks_[folder_id].total_bytes;
+    return QString::number(progress) + "%";
 }
 
 void TransferManager::getTransferRate(uint *upload_rate,

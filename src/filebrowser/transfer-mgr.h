@@ -112,9 +112,9 @@ public:
     QList<FileNetworkTask*> getTransferringTasks(const QString& repo_id,
                                                  const QString& parent_dir);
     QList<const FileTaskRecord*> getPendingUploadFiles(const QString& repo_id,
-                                                const QString& parent_dir);
-    QList<const FolderTaskRecord*> getPendingUploadFolders(const QString& repo_id,
-                                                    const QString& parent_dir);
+                                                       const QString& parent_dir);
+    QList<const FolderTaskRecord*> getUploadFolderTasks(const QString& repo_id,
+                                                        const QString& parent_dir);
 
     bool isTransferring(const QString& repo_id,
                         const QString& path);
@@ -123,6 +123,9 @@ public:
 
     bool isValidTask(const FileTaskRecord *task);
     bool isValidTask(const FolderTaskRecord *task);
+
+    QString getFolderTaskProgress(const QString& repo_id,
+                                  const QString& path);
 
 public slots:
     void cancelAllTasks();
@@ -166,11 +169,11 @@ private:
     void cancelDownload(const QString& repo_id, const QString& path);
     void cancelUpload(const QString& repo_id, const QString& path);
 
-    int getIdFromTasksTable(const QString& repo_id,
-                            const QString& path,
-                            const QString& local_path = QString(),
-                            TaskStatus status = TASK_PENDING,
-                            const QString& table = "FileTasks");
+    int getUploadTaskId(const QString& repo_id,
+                        const QString& path,
+                        const QString& local_path = QString(),
+                        TaskStatus status = TASK_PENDING,
+                        const QString& table = "FileTasks");
     const FileTaskRecord* getPendingFileTask();
     const FileTaskRecord* getFileTaskById(int id);
     QList<const FileTaskRecord*> getFileTasksByParentId(int parent_id);

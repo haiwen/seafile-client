@@ -1026,9 +1026,9 @@ void FileTableModel::insertItem(int pos, const SeafDirent &dirent)
         return;
     beginInsertRows(QModelIndex(), pos, pos);
     dirents_.insert(pos, dirent);
-    if (dirent.isFile() && dirent.size == 0) {
-        progresses_[dirent.name] = QString::number(0);
-    }
+    // if (dirent.isFile() && dirent.size == 0) {
+    //     progresses_[dirent.name] = QString::number(0);
+    // }
     endInsertRows();
 }
 
@@ -1066,11 +1066,15 @@ void FileTableModel::onResize(const QSize &size)
 void FileTableModel::updateTransferInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-    QList<FileNetworkTask*> tasks = TransferManager::instance()->getTransferringTasks(
-        dialog->repo_.id, dialog->current_path_);
+    QList<FileNetworkTask*> tasks =
+        TransferManager::instance()->getTransferringTasks(
+            dialog->repo_.id, dialog->current_path_);
     QList<const FileTaskRecord*> pending_tasks =
         TransferManager::instance()->getPendingUploadFiles(
-        dialog->repo_.id, dialog->current_path_);
+            dialog->repo_.id, dialog->current_path_);
+    QList<const FolderTaskRecord*> folder_tasks =
+        TransferManager::instance()->getUploadFolderTasks(
+            dialog->repo_.id, dialog->current_path_);
 
     progresses_.clear();
 
@@ -1086,6 +1090,12 @@ void FileTableModel::updateTransferInfo()
 
     for (const FileTaskRecord* task : pending_tasks) {
         progresses_[::getBaseName(task->path)] = QString::number(0);
+    }
+
+    for (const FolderTaskRecord* folder_task : folder_tasks) {
+        progresses_[::getBaseName(folder_task->path)] =
+            TransferManager::instance()->getFolderTaskProgress(
+                dialog->repo_.id, folder_task->path);
     }
 
     if (dirents_.empty())

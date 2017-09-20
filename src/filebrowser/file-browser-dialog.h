@@ -142,6 +142,7 @@ private:
     void createEmptyView();
     void showLoading();
     void updateTable(const QList<SeafDirent>& dirents);
+    QList <SeafDirent> getUploadDirent();
     void createDirectory(const QString &name);
     void downloadFile(const QString& path);
     void uploadFileOrDirectory(const QString& path, const QString& name);

@@ -203,6 +203,7 @@ public:
     // duplicate a task same with the old one, excluding its internal stage
     FileUploadTask(const FileUploadTask& rhs);
 
+    QString path() const;
     TaskType type() const { return Upload; }
     const QString& name() const { return name_; }
     bool useUpload() const { return use_upload_; }
@@ -214,7 +215,7 @@ protected:
     void createGetLinkRequest();
 
     const QString name_;
-    int task_db_id_;
+    int task_db_id_ = 0;
 
 private:
     // the copy assignment, delete it;

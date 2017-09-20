@@ -27,18 +27,21 @@ const char *kPendingStatus = "pending";
 const char *kStartedStatus = "started";
 const char *kErrorStatus = "error";
 
-bool isTaskForGivenParentDir(const QSharedPointer<FileNetworkTask> &task,
+bool isTaskForGivenParentDir(const FileNetworkTask* task,
                              const QString& repo_id,
                              const QString& parent_dir)
 {
-    if (task) {
-        if (task->type() == FileNetworkTask::Download) {
-            return task->repoId() == repo_id &&
-                ::getParentPath(task->path()) == parent_dir;
-        } else {
-            return task->repoId() == repo_id &&
-                task->path() == parent_dir;
-        }
+    if (!task) {
+        return false;
+    }
+    
+    if (task->type() == FileNetworkTask::Download) {
+        return task->repoId() == repo_id &&
+               ::getParentPath(task->path()) == parent_dir;
+    } else if (const FileUploadTask* upload_task = 
+               qobject_cast<const FileUploadTask*>(task)) {
+        return upload_task->repoId() == repo_id &&
+               upload_task->path() == parent_dir;
     } else {
         return false;
     }
@@ -758,6 +761,10 @@ void TransferManager::startUploadTask(const FileTaskRecord *params)
             return;
         } else {
             use_relative_path = true;
+            QString parent_path = ::getParentPath(folder_params->path);
+            if (!parent_path.endsWith('/')) {
+                parent_path += '/';
+            }
             const int relative_path_diff = params->local_path.size() -
                                            folder_params->local_path.size();
             const QString relative_path = ::pathJoin(
@@ -766,7 +773,7 @@ void TransferManager::startUploadTask(const FileTaskRecord *params)
             task = new FileUploadTask(
                 account,
                 params->repo_id,
-                ::getParentPath(folder_params->path),
+                parent_path,
                 params->local_path,
                 base_name,
                 use_upload_,
@@ -808,7 +815,7 @@ void TransferManager::onCreateDirSuccess()
         const QString repo_id = req->repoId();
         const QString path = req->path();
         const int id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED);
-        deleteFromDB(id);
+        deleteUploadTask(id);
     }
 
     const FileTaskRecord *pending_file_task = getPendingFileTask();
@@ -875,7 +882,7 @@ void TransferManager::onUploadTaskFinished(bool success)
             return;
         }
         emit uploadTaskSuccess(task);
-        deleteFromDB(current_upload_->id());
+        deleteUploadTask(current_upload_->id());
 
         QFileInfo file_info(current_upload_->localFilePath());
         if (task->parent_task) {
@@ -911,9 +918,9 @@ void TransferManager::cancelUpload(const QString& repo_id,
 {
     int task_id = getUploadTaskId(repo_id, path);
     if (task_id) {
-        deleteFromDB(task_id);
+        deleteUploadTask(task_id);
     } else if (isCurrentUploadTask(repo_id, path)) {
-        deleteFromDB(current_upload_->id());
+        deleteUploadTask(current_upload_->id());
         current_upload_->cancel();
 
         const FileTaskRecord *pending_file_task = getPendingFileTask();
@@ -924,11 +931,11 @@ void TransferManager::cancelUpload(const QString& repo_id,
     } else {
         int parent_task_id = getUploadTaskId(repo_id, path, QString(), TASK_PENDING, "FolderTasks");
         if (parent_task_id) {
-            deleteFromDB(parent_task_id, "FolderTasks");
+            deleteUploadTask(parent_task_id, "FolderTasks");
         } else {
             parent_task_id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED, "FolderTasks");
             if (parent_task_id) {
-                deleteFromDB(parent_task_id, "FolderTasks");
+                deleteUploadTask(parent_task_id, "FolderTasks");
 
                 const FileTaskRecord *pending_file_task = getPendingFileTask();
                 if (isValidTask(pending_file_task)) {
@@ -939,21 +946,20 @@ void TransferManager::cancelUpload(const QString& repo_id,
     }
 }
 
-QList<FileNetworkTask*>
-TransferManager::getTransferringTasks(const QString& repo_id,
-                                      const QString& parent_dir)
+QList<const FileNetworkTask*> TransferManager::getTransferringTasks(
+    const QString& repo_id, const QString& parent_dir)
 {
-    QList<FileNetworkTask*> tasks;
+    QList<const FileNetworkTask*> tasks;
 
-    if (isTaskForGivenParentDir(current_download_, repo_id, parent_dir)) {
+    if (isTaskForGivenParentDir(current_download_.data(), repo_id, parent_dir)) {
         tasks.append(current_download_.data());
     }
-    if (isTaskForGivenParentDir(current_upload_, repo_id, parent_dir)) {
+    if (isTaskForGivenParentDir(current_upload_.data(), repo_id, parent_dir)) {
         tasks.append(current_upload_.data());
     }
 
     foreach (const QSharedPointer<FileDownloadTask>& task, pending_downloads_) {
-        if (isTaskForGivenParentDir(task, repo_id, parent_dir)) {
+        if (isTaskForGivenParentDir(task.data(), repo_id, parent_dir)) {
             tasks.append(task.data());
         }
     }
@@ -1028,11 +1034,17 @@ QString TransferManager::getFolderTaskProgress(const QString& repo_id,
         return QString();
     }
 
-    quint64 total_upload_bytes = folder_tasks_[folder_id].finished_files_bytes;
-    if (file_tasks_[current_upload_->id()].parent_task == folder_id) {
-        total_upload_bytes += current_upload_->progress().transferred;
+    quint64 total_bytes = folder_tasks_[folder_id].total_bytes;
+    if (total_bytes == 0) {
+        return QString();
     }
-    uint progress = total_upload_bytes * 100 / folder_tasks_[folder_id].total_bytes;
+
+    quint64 total_uploaded_bytes = folder_tasks_[folder_id].finished_files_bytes + 1;
+    if (!current_upload_.isNull() &&
+        file_tasks_[current_upload_->id()].parent_task == folder_id) {
+        total_uploaded_bytes += current_upload_->progress().transferred;
+    }
+    uint progress = total_uploaded_bytes * 100 / total_bytes;
     return QString::number(progress) + "%";
 }
 
@@ -1103,8 +1115,15 @@ void TransferManager::updateStatus(int id,
                     toCStr(QString::number(task->parent_task)));
                 sqlite_query_exec(db_, zql);
                 sqlite3_free(zql);
-                file_tasks_[id].status = status_str;
+
                 folder_tasks_[task->parent_task].status = status_str;
+                QMap<int, FileTaskRecord>::iterator ite = file_tasks_.begin();
+                while (ite != file_tasks_.end()) {
+                    if (ite.value().parent_task == task->parent_task) {
+                        ite.value().status = status_str;
+                    }
+                    ++ite;
+                }
             }
             break;
         }
@@ -1142,7 +1161,7 @@ void TransferManager::updateFailReason(int id, const QString& error)
     file_tasks_[id].fail_reason = error;
 }
 
-void TransferManager::deleteFromDB(int id, const QString& table)
+void TransferManager::deleteUploadTask(int id, const QString& table)
 {
     if (!db_) {
         return;

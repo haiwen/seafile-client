@@ -1066,36 +1066,35 @@ void FileTableModel::onResize(const QSize &size)
 void FileTableModel::updateTransferInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-    QList<FileNetworkTask*> tasks =
-        TransferManager::instance()->getTransferringTasks(
-            dialog->repo_.id, dialog->current_path_);
-    QList<const FileTaskRecord*> pending_tasks =
-        TransferManager::instance()->getPendingUploadFiles(
-            dialog->repo_.id, dialog->current_path_);
-    QList<const FolderTaskRecord*> folder_tasks =
-        TransferManager::instance()->getUploadFolderTasks(
-            dialog->repo_.id, dialog->current_path_);
 
     progresses_.clear();
 
-    Q_FOREACH (FileNetworkTask *task, tasks) {
+    QList<const FileNetworkTask*> tasks =
+        TransferManager::instance()->getTransferringTasks(
+            dialog->repo_.id, dialog->current_path_);
+    Q_FOREACH (const FileNetworkTask *task, tasks) {
         QString progress = task->progress().toString();
         if (task->type() == FileNetworkTask::Download) {
             progresses_[::getBaseName(task->path())] = progress;
-        } else {
-            FileUploadTask *upload_task = qobject_cast<FileUploadTask *>(task);
+        } else if (const FileUploadTask *upload_task = qobject_cast<const FileUploadTask *>(task)) {
             progresses_[upload_task->name()] = progress;
         }
     }
 
+    QList<const FileTaskRecord*> pending_tasks =
+        TransferManager::instance()->getPendingUploadFiles(
+            dialog->repo_.id, dialog->current_path_);
     for (const FileTaskRecord* task : pending_tasks) {
         progresses_[::getBaseName(task->path)] = QString::number(0);
     }
 
+    QList<const FolderTaskRecord*> folder_tasks =
+        TransferManager::instance()->getUploadFolderTasks(
+            dialog->repo_.id, dialog->current_path_);
     for (const FolderTaskRecord* folder_task : folder_tasks) {
-        progresses_[::getBaseName(folder_task->path)] =
-            TransferManager::instance()->getFolderTaskProgress(
-                dialog->repo_.id, folder_task->path);
+        QString progress = TransferManager::instance()->
+            getFolderTaskProgress(dialog->repo_.id, folder_task->path);
+        progresses_[::getBaseName(folder_task->path)] = progress;
     }
 
     if (dirents_.empty())

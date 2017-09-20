@@ -274,9 +274,29 @@ FileUploadTask::FileUploadTask(const FileUploadTask& rhs)
 {
 }
 
+QString FileUploadTask::path() const
+{
+    if (use_relative_path_) {
+        QString ret = path_ + relative_path_;
+        if (ret.endsWith('/')) {
+            ret = ret.left(ret.size() -1);
+        }
+        return ret;
+    } else {
+        return path_;
+    }
+}
+
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, path_, use_upload_);
+    QString path;
+    // if (use_relative_path_) {
+    //     path = ::getParentPath(path_);
+    // } else {
+        path = path_;
+    // }
+
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, path, use_upload_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)

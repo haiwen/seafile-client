@@ -109,8 +109,8 @@ public:
     /**
      * Return all transferring tasks for files in the `parent_dir`
      */
-    QList<FileNetworkTask*> getTransferringTasks(const QString& repo_id,
-                                                 const QString& parent_dir);
+    QList<const FileNetworkTask*> getTransferringTasks(const QString& repo_id,
+                                                       const QString& parent_dir);
     QList<const FileTaskRecord*> getPendingUploadFiles(const QString& repo_id,
                                                        const QString& parent_dir);
     QList<const FolderTaskRecord*> getUploadFolderTasks(const QString& repo_id,
@@ -163,8 +163,8 @@ private:
                       TaskStatus status,
                       const QString& error = QString(),
                       const QString& table = "FileTasks");
-    void deleteFromDB(int task_id,
-                      const QString& table = "FileTasks");
+    void deleteUploadTask(int task_id,
+                          const QString& table = "FileTasks");
 
     void cancelDownload(const QString& repo_id, const QString& path);
     void cancelUpload(const QString& repo_id, const QString& path);

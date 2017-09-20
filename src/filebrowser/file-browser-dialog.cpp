@@ -433,7 +433,16 @@ void FileBrowserDialog::onGetDirentsSuccess(bool current_readonly, const QList<S
 
 void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
 {
-    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    QList <SeafDirent> upload_dirents = getUploadDirent();
+    if (upload_dirents.isEmpty()) {
+        stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    } else {
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+        table_model_->setDirents(QList<SeafDirent>());
+        for (SeafDirent dirent : upload_dirents) {
+            table_model_->appendItem(dirent);
+        }
+    }
 }
 
 void FileBrowserDialog::onMkdirButtonClicked()
@@ -967,29 +976,15 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 
     table_model_->setDirents(dirents);
 
-    QList<const FileTaskRecord*> pending_tasks =
-        TransferManager::instance()->getPendingUploadFiles(
-        repo_.id, current_path_);
-    for (const FileTaskRecord* task : pending_tasks) {
-        const QString name = ::getBaseName(task->path);
-        SeafDirent dirent;
-        if (task->type == "dir") {
-            dirent = SeafDirent::dir(name);
-        } else {
-            dirent = SeafDirent::file(name, 0);
-        }
-
-        // add the items to tableview
+    QList <SeafDirent> upload_dirents = getUploadDirent();
+    for (SeafDirent dirent : upload_dirents) {
         table_model_->appendItem(dirent);
     }
 
-    QList<FileNetworkTask*> tasks = TransferManager::instance()->
-        getTransferringTasks(repo_.id, current_path_);
-    for (FileNetworkTask* task : tasks) {
-        if (FileUploadTask* upload_task = qobject_cast<FileUploadTask*>(task)) {
-            SeafDirent dirent = SeafDirent::file(upload_task->name(), 0);
-            table_model_->appendItem(dirent);
-        }
+    if (!upload_dirents.isEmpty()) {
+        upload_dirents += dirents;
+        DirentsCache::instance()->saveCachedDirents(repo_.id,
+            current_path_, current_readonly_, upload_dirents);
     }
 
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
@@ -1008,6 +1003,52 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
         upload_button_->setEnabled(true);
     }
     gohome_action_->setEnabled(current_path_ != "/");
+}
+
+QList <SeafDirent> FileBrowserDialog::getUploadDirent()
+{
+    QList <SeafDirent> ret;
+
+    QList<const FileTaskRecord*> pending_tasks =
+        TransferManager::instance()->getPendingUploadFiles(repo_.id, current_path_);
+    for (const FileTaskRecord* task : pending_tasks) {
+        const QString name = ::getBaseName(task->path);
+        SeafDirent dirent;
+        if (task->type == "dir") {
+            dirent = SeafDirent::dir(name);
+        } else {
+            dirent = SeafDirent::file(name, 0);
+        }
+        ret.append(dirent);
+    }
+
+    QList<const FileNetworkTask*> tasks = TransferManager::instance()->
+        getTransferringTasks(repo_.id, current_path_);
+    for (const FileNetworkTask* task : tasks) {
+        if (const FileUploadTask* upload_task = qobject_cast<const FileUploadTask*>(task)) {
+            SeafDirent dirent = SeafDirent::file(upload_task->name(), 0);
+            ret.append(dirent);
+        }
+    }
+
+    QList<const FolderTaskRecord*> folder_tasks =
+        TransferManager::instance()->getUploadFolderTasks(repo_.id, current_path_);
+    for (const FolderTaskRecord* folder_task : folder_tasks) {
+        const QString name = ::getBaseName(folder_task->path);
+        SeafDirent dirent = SeafDirent::dir(name);
+        ret.append(dirent);
+    }
+
+    for (int i = 0; i < ret.size(); i++) {
+        SeafDirent dirent = ret[i];
+        for (SeafDirent existed_dirent : table_model_->dirents()) {
+            if (dirent.name == existed_dirent.name) {
+                ret.removeAt(i);
+            }
+        }
+    }
+
+    return ret;
 }
 
 void FileBrowserDialog::chooseFileToUpload()

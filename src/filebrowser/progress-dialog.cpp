@@ -9,6 +9,7 @@
 
 #include "utils/utils.h"
 #include "progress-dialog.h"
+#include "transfer-mgr.h"
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
@@ -63,13 +64,14 @@ void FileBrowserProgressDialog::initTaskInfo()
         return;
     }
     QString title, label;
-    if (task_->type() == FileNetworkTask::Upload) {
-        title = tr("Upload");
-        label = tr("Uploading %1");
-    } else {
+    if (task_->type() == FileNetworkTask::Download) {
         title = tr("Download");
         label = tr("Downloading %1");
+    } else {
+        title = tr("Upload");
+        label = tr("Uploading %1");
     }
+
     setWindowTitle(title);
     setLabelText(label.arg(task_->fileName()));
 
@@ -127,9 +129,33 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
 
 void FileBrowserProgressDialog::cancel()
 {
+// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
     if (task_->canceled()) {
         return;
     }
     task_->cancel();
     reject();
+// =======
+    // const QString repo_id = task_->repoId();
+    // const QString path = task_->path();
+    // if (task_->type() != FileNetworkTask::Download) {
+    //     const QString local_path = task_->localFilePath();
+    //     const QSharedPointer<FileUploadTask> &upload_task =
+    //         qSharedPointerCast<FileUploadTask>(task_);
+    //     if (task_->type() != FileNetworkTask::UploadMultiple) {
+    //         const QString name = upload_task->name();
+    //         TransferManager::instance()->cancelUpload(
+    //             repo_id, path, local_path, name, QStringList());
+    //     } else {
+    //         const QSharedPointer<FileUploadMultipleTask> &upload_multiple_task =
+    //             qSharedPointerCast<FileUploadMultipleTask>(task_);
+    //         TransferManager::instance()->cancelUpload(
+    //             repo_id, path, local_path, QString(),
+    //             upload_multiple_task->names());
+    //     }
+    // } else {
+    //     TransferManager::instance()->cancelDownload(repo_id, path);
+    // }
+    // reject();
+// >>>>>>> temp commit for rebase.
 }

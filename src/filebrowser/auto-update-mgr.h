@@ -10,6 +10,8 @@
 #include "account.h"
 #include "data-cache.h"
 
+struct FileTaskRecord;
+
 class AutoUpdateManager : public QObject {
     SINGLETON_DEFINE(AutoUpdateManager)
     Q_OBJECT
@@ -27,7 +29,8 @@ signals:
 
 private slots:
     void onFileChanged(const QString& path);
-    void onUpdateTaskFinished(bool success);
+    void onUpdateTaskSuccess(const FileTaskRecord* task);
+    void onUpdateTaskFailed(const FileTaskRecord* task);
     void checkFileRecreated();
 
 private:

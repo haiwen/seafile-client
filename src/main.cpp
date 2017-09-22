@@ -59,7 +59,7 @@ void setupFontFix()
 #endif // QT_VERSION_CHECK(5, 3, 2)
 }
 
-void setupHIDPIFix()
+void setupHDPIFix()
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
     // enable builtin retina mode
@@ -152,8 +152,8 @@ int main(int argc, char *argv[])
     // initialize breakpad if enabled
     initBreakpad();
 
-    // Apply hidpi support
-    setupHIDPIFix();
+    // Apply hdpi support
+    setupHDPIFix();
 
 #if defined(Q_OS_WIN32)
     // When the user start seafile applet from the windows "Start" menu, the

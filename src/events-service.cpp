@@ -45,6 +45,11 @@ void EventsService::stop()
 
 void EventsService::refresh()
 {
+    sendRequest(false);
+}
+
+void EventsService::sendRequest(bool is_load_more)
+{
     if (in_refresh_) {
         return;
     }
@@ -55,10 +60,19 @@ void EventsService::refresh()
         return;
     }
 
+    // Delay the next timer event if the user clicks the refresh button (or the
+    // "load more" button) manually.
+    refresh_timer_->start(kRefreshEventsInterval);
+
     in_refresh_ = true;
 
     if (get_events_req_) {
         get_events_req_->deleteLater();
+    }
+
+    if (!is_load_more) {
+        events_.clear();
+        more_offset_ = -1;
     }
 
     get_events_req_ = new GetEventsRequest(account, more_offset_);
@@ -74,7 +88,7 @@ void EventsService::refresh()
 
 void EventsService::loadMore()
 {
-    refresh();
+    sendRequest(true);
 }
 
 void EventsService::onRefreshSuccess(const std::vector<SeafEvent>& events, int new_offset)
@@ -136,8 +150,6 @@ void EventsService::onRefreshFailed(const ApiError& error)
 void EventsService::refresh(bool force)
 {
     if (force) {
-        events_.clear();
-        more_offset_ = -1;
         in_refresh_ = false;
     }
 

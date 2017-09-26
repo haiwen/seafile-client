@@ -24,7 +24,7 @@ public:
 
     void loadMore();
 
-    // accessors 
+    // accessors
     const std::vector<SeafEvent>& events() const { return events_; }
 
     bool hasMore() const { return more_offset_ > 0; }
@@ -44,6 +44,7 @@ private:
     Q_DISABLE_COPY(EventsService)
 
     EventsService(QObject *parent=0);
+    void sendRequest(bool is_loading_more);
 
     static EventsService *singleton_;
 

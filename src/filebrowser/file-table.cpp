@@ -792,7 +792,7 @@ void FileTableView::dropEvent(QDropEvent *event)
     event->accept();
 
     if (parent_->current_readonly_) {
-        seafApplet->warningBox(tr("You do not have permission to upload to this folder"));
+        seafApplet->warningBox(tr("You do not have permission to upload to this folder"), this);
     } else {
         emit dropFile(paths);
     }

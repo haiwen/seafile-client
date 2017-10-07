@@ -72,21 +72,6 @@ bool matchTransferTask(const QSharedPointer<FileNetworkTask> &task,
     return ret;
 }
 
-// bool getFileTaskByIdCB(sqlite3_stmt *stmt, void *data)
-// {
-//     FileTaskRecord *record = static_cast<FileTaskRecord*>(data);
-//     record->id           = sqlite3_column_int (stmt, 0);
-//     record->account_sign = (const char *)sqlite3_column_text(stmt, 1);
-//     record->type         = (const char *)sqlite3_column_text(stmt, 2);
-//     record->repo_id      = (const char *)sqlite3_column_text(stmt, 3);
-//     record->path         = (const char *)sqlite3_column_text(stmt, 4);
-//     record->local_path   = (const char *)sqlite3_column_text(stmt, 5);
-//     record->status       = (const char *)sqlite3_column_text(stmt, 6);
-//     record->fail_reason  = (const char *)sqlite3_column_text(stmt, 7);
-//     record->parent_task  = sqlite3_column_int (stmt, 8);
-//     return true;
-// }
-
 bool getFileTasksByIdCB(sqlite3_stmt *stmt, void *data)
 {
     QMap <int, FileTaskRecord> *records = static_cast<QMap <int, FileTaskRecord>*>(data);
@@ -213,37 +198,17 @@ TransferManager::TransferManager()
 
 TransferManager::~TransferManager()
 {
-    if (db_) {
-        sqlite3_close(db_);
-    }
+    sqlite3_close(db_);
 }
 
 bool TransferManager::isValidTask(const FileTaskRecord *task)
 {
-    if (task == NULL) {
-        return false;
-    } else if (task->account_sign.isEmpty() || task->type.isEmpty()   ||
-               task->repo_id.isEmpty()      || task->path.isEmpty()   ||
-               task->local_path.isEmpty()   || task->status.isEmpty() ||
-               task->id == 0) {
-        return false;
-    } else {
-        return true;
-    }
+    return task && task->isValid();
 }
 
 bool TransferManager::isValidTask(const FolderTaskRecord *task)
 {
-    if (task == NULL) {
-        return false;
-    } else if (task->account_sign.isEmpty() || task->repo_id.isEmpty() ||
-               task->path.isEmpty()         || task->local_path.isEmpty() ||
-               task->status.isEmpty()       || task->id == 0 ||
-               task->total_bytes == 0) {
-        return false;
-    } else {
-        return true;
-    }
+    return task && task->isValid();
 }
 
 int TransferManager::start()
@@ -283,13 +248,18 @@ int TransferManager::start()
         return -1;
     }
 
-    getUploadTasksFromDB();
+    loadUploadTaskFromDB();
+    startNextUploadTask();
+
+    return 0;
+}
+
+void TransferManager::startNextUploadTask()
+{
     const FileTaskRecord *pending_file_task = getPendingFileTask();
     if (isValidTask(pending_file_task)) {
         checkUploadName(pending_file_task);
     }
-
-    return 0;
 }
 
 FileDownloadTask* TransferManager::addDownloadTask(const Account& account,
@@ -382,6 +352,14 @@ void TransferManager::cancelAllDownloadTasks()
 void TransferManager::cancelAllTasks()
 {
     cancelAllDownloadTasks();
+    if (current_upload_) {
+        current_upload_->cancel();
+        current_upload_.clear();
+    }
+}
+
+void TransferManager::cancelAccountTasks()
+{
     if (current_upload_) {
         current_upload_->cancel();
         current_upload_.clear();
@@ -500,14 +478,10 @@ const FolderTaskRecord* TransferManager::getFolderTaskById(int id)
     }
 }
 
-void TransferManager::getUploadTasksFromDB()
+void TransferManager::loadUploadTaskFromDB()
 {
     file_tasks_.clear();
     folder_tasks_.clear();
-
-    if (!db_) {
-        return;
-    }
 
     char *zql = sqlite3_mprintf(
         "UPDATE FileTasks SET status = 'pending' "
@@ -578,48 +552,46 @@ void TransferManager::addUploadTask(const QString& repo_id,
         task_type = "file";
     }
 
-    if (db_) {
-        char *zql = NULL;
-        if (!folder_task_id) {
-            zql = sqlite3_mprintf(
-                "REPLACE INTO FileTasks (account_signature, "
-                "type, repo_id, path, local_path, status ) "
-                "VALUES (%Q, %Q, %Q, %Q, %Q, 'pending') ",
-                toCStr(account_signature_),
-                toCStr(task_type),
-                toCStr(repo_id),
-                toCStr(repo_full_path),
-                toCStr(local_path));
-        } else {
-             zql = sqlite3_mprintf(
-                "REPLACE INTO FileTasks (account_signature, "
-                "type, repo_id, path, local_path, status, parent_task ) "
-                "VALUES (%Q, %Q, %Q, %Q, %Q, 'pending', %Q) ",
-                toCStr(account_signature_),
-                toCStr(task_type),
-                toCStr(repo_id),
-                toCStr(repo_full_path),
-                toCStr(local_path),
-                toCStr(QString::number(folder_task_id)));
-        }
-
-        qint64 id = 0;
-        sqlite_insert_exec(db_, zql, &id);
-        sqlite3_free(zql);
-
-        FileTaskRecord params;
-        params.id           = id;
-        params.account_sign = account_signature_;
-        params.type         = task_type;
-        params.repo_id      = repo_id;
-        params.path         = repo_full_path;
-        params.local_path   = local_path;
-        params.status       = kPendingStatus;
-        params.parent_task  = folder_task_id;
-        file_tasks_.insert(id, params);
-
-        checkUploadName(&params);
+    char *zql = NULL;
+    if (!folder_task_id) {
+        zql = sqlite3_mprintf(
+            "REPLACE INTO FileTasks (account_signature, "
+            "type, repo_id, path, local_path, status ) "
+            "VALUES (%Q, %Q, %Q, %Q, %Q, 'pending') ",
+            toCStr(account_signature_),
+            toCStr(task_type),
+            toCStr(repo_id),
+            toCStr(repo_full_path),
+            toCStr(local_path));
+    } else {
+         zql = sqlite3_mprintf(
+            "REPLACE INTO FileTasks (account_signature, "
+            "type, repo_id, path, local_path, status, parent_task ) "
+            "VALUES (%Q, %Q, %Q, %Q, %Q, 'pending', %d) ",
+            toCStr(account_signature_),
+            toCStr(task_type),
+            toCStr(repo_id),
+            toCStr(repo_full_path),
+            toCStr(local_path),
+            folder_task_id);
     }
+
+    qint64 id = 0;
+    sqlite_insert_exec(db_, zql, &id);
+    sqlite3_free(zql);
+
+    FileTaskRecord params;
+    params.id           = id;
+    params.account_sign = account_signature_;
+    params.type         = task_type;
+    params.repo_id      = repo_id;
+    params.path         = repo_full_path;
+    params.local_path   = local_path;
+    params.status       = kPendingStatus;
+    params.parent_task  = folder_task_id;
+    file_tasks_.insert(id, params);
+
+    checkUploadName(&params);
 }
 
 void TransferManager::addUploadTasks(const QString& repo_id,
@@ -641,19 +613,17 @@ void TransferManager::addUploadDirectoryTask(const QString& repo_id,
     QString repo_path = ::pathJoin(repo_parent_path, name);
     qint64 folder_task_id = 0;
 
-    if (db_) {
-        char *zql = sqlite3_mprintf(
-            "REPLACE INTO FolderTasks (account_signature, "
-            "repo_id, path, local_path, status ) "
-            "VALUES (%Q, %Q, %Q, %Q, 'pending') ",
-            toCStr(account_signature_),
-            toCStr(repo_id),
-            toCStr(repo_path),
-            toCStr(local_path));
+    char *zql = sqlite3_mprintf(
+        "REPLACE INTO FolderTasks (account_signature, "
+        "repo_id, path, local_path, status ) "
+        "VALUES (%Q, %Q, %Q, %Q, 'pending') ",
+        toCStr(account_signature_),
+        toCStr(repo_id),
+        toCStr(repo_path),
+        toCStr(local_path));
 
-        sqlite_insert_exec(db_, zql, &folder_task_id);
-        sqlite3_free(zql);
-    }
+    sqlite_insert_exec(db_, zql, &folder_task_id);
+    sqlite3_free(zql);
 
     FolderTaskRecord task;
     task.id           = folder_task_id;
@@ -818,10 +788,7 @@ void TransferManager::onCreateDirSuccess()
         deleteUploadTask(id);
     }
 
-    const FileTaskRecord *pending_file_task = getPendingFileTask();
-    if (isValidTask(pending_file_task)) {
-        checkUploadName(pending_file_task);
-    }
+    startNextUploadTask();
 }
 
 void TransferManager::onCreateDirFailed(const ApiError& error)
@@ -834,6 +801,8 @@ void TransferManager::onCreateDirFailed(const ApiError& error)
         updateStatus(id, TASK_ERROR, error.toString());
         emit uploadTaskFailed(getFileTaskById(id));
     }
+
+    startNextUploadTask();
 }
 
 void TransferManager::onGetFileDetailSuccess(const FileDetailInfo& info)
@@ -895,15 +864,12 @@ void TransferManager::onUploadTaskFinished(bool success)
         if (!current_upload_.isNull()) {
             current_upload_.clear();
         }
-
-        const FileTaskRecord *pending_file_task = getPendingFileTask();
-        if (isValidTask(pending_file_task)) {
-            checkUploadName(pending_file_task);
-        }
     } else {
         updateStatus(current_upload_->id(), TASK_ERROR,
                      current_upload_->errorString());
-        emit uploadTaskFailed(getFileTaskById(current_upload_->id()));
+        if (current_upload_->error() != FileNetworkTask::TaskCanceled) {
+            emit uploadTaskFailed(getFileTaskById(current_upload_->id()));
+        }
 
         emit taskFinished();
 
@@ -911,6 +877,8 @@ void TransferManager::onUploadTaskFinished(bool success)
             current_upload_.clear();
         }
     }
+
+    startNextUploadTask();
 }
 
 void TransferManager::cancelUpload(const QString& repo_id,
@@ -923,11 +891,7 @@ void TransferManager::cancelUpload(const QString& repo_id,
         deleteUploadTask(current_upload_->id());
         current_upload_->cancel();
 
-        const FileTaskRecord *pending_file_task = getPendingFileTask();
-        if (isValidTask(pending_file_task)) {
-            checkUploadName(pending_file_task);
-        }
-
+        startNextUploadTask();
     } else {
         int parent_task_id = getUploadTaskId(repo_id, path, QString(), TASK_PENDING, "FolderTasks");
         if (parent_task_id) {
@@ -936,11 +900,7 @@ void TransferManager::cancelUpload(const QString& repo_id,
             parent_task_id = getUploadTaskId(repo_id, path, QString(), TASK_STARTED, "FolderTasks");
             if (parent_task_id) {
                 deleteUploadTask(parent_task_id, "FolderTasks");
-
-                const FileTaskRecord *pending_file_task = getPendingFileTask();
-                if (isValidTask(pending_file_task)) {
-                    checkUploadName(pending_file_task);
-                }
+                startNextUploadTask();
             }
         }
     }
@@ -1019,8 +979,11 @@ bool TransferManager::isTransferring(const QString& repo_id,
 void TransferManager::cancelTransfer(const QString& repo_id,
                                      const QString& path)
 {
-    cancelDownload(repo_id, path);
-    cancelUpload(repo_id, path);
+    if (getDownloadTask(repo_id, path)) {
+        cancelDownload(repo_id, path);
+    } else {
+        cancelUpload(repo_id, path);
+    }
 }
 
 QString TransferManager::getFolderTaskProgress(const QString& repo_id,
@@ -1082,10 +1045,6 @@ void TransferManager::updateStatus(int id,
                                    const QString& error,
                                    const QString& table)
 {
-    if (!db_) {
-        return;
-    }
-
     QString status_str;
     switch (status) {
         case TASK_PENDING: {
@@ -1103,16 +1062,16 @@ void TransferManager::updateStatus(int id,
             if (isValidTask(task) && task->parent_task) {
                 char *zql = sqlite3_mprintf(
                     "UPDATE FolderTasks SET status = %Q "
-                    "WHERE id = %Q ",
+                    "WHERE id = %d ",
                     toCStr(status_str),
-                    toCStr(QString::number(task->parent_task)));
+                    task->parent_task);
                 sqlite_query_exec(db_, zql);
                 sqlite3_free(zql);
                 zql = sqlite3_mprintf(
                     "UPDATE FileTasks SET status = %Q "
-                    "WHERE parent_task = %Q ",
+                    "WHERE parent_task = %d ",
                     toCStr(status_str),
-                    toCStr(QString::number(task->parent_task)));
+                    task->parent_task);
                 sqlite_query_exec(db_, zql);
                 sqlite3_free(zql);
 
@@ -1131,9 +1090,8 @@ void TransferManager::updateStatus(int id,
 
     char *zql = sqlite3_mprintf(
         "UPDATE %Q SET status = %Q "
-        "WHERE id = %Q ",
-        toCStr(table), toCStr(status_str),
-        toCStr(QString::number(id)));
+        "WHERE id = %d ",
+        toCStr(table), toCStr(status_str), id);
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
 
@@ -1146,15 +1104,10 @@ void TransferManager::updateStatus(int id,
 
 void TransferManager::updateFailReason(int id, const QString& error)
 {
-    if (!db_) {
-        return;
-    }
-
     char *zql = sqlite3_mprintf(
         "UPDATE FileTasks SET fail_reason = %Q "
-        "WHERE id = %Q ",
-        toCStr(error),
-        toCStr(QString::number(id)));
+        "WHERE id = %d ",
+        toCStr(error), id);
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
 
@@ -1163,10 +1116,6 @@ void TransferManager::updateFailReason(int id, const QString& error)
 
 void TransferManager::deleteUploadTask(int id, const QString& table)
 {
-    if (!db_) {
-        return;
-    }
-
     const FileTaskRecord* task = getFileTaskById(id);
     if (!isValidTask(task)) {
        return;
@@ -1174,8 +1123,8 @@ void TransferManager::deleteUploadTask(int id, const QString& table)
     const int parent_task = task->parent_task;
 
     char *zql = sqlite3_mprintf(
-        "DELETE From %Q WHERE id = %Q ",
-        toCStr(table), toCStr(QString::number(id)));
+        "DELETE From %Q WHERE id = %d ",
+        toCStr(table), id);
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
     file_tasks_.remove(id);
@@ -1183,8 +1132,7 @@ void TransferManager::deleteUploadTask(int id, const QString& table)
     if (table == "FolderTasks") {
         // upload_folder_size_.remove(id);
         char *zql = sqlite3_mprintf(
-            "DELETE From FileTasks WHERE parent_task = %Q ",
-            toCStr(QString::number(id)));
+            "DELETE From FileTasks WHERE parent_task = %d ", id);
         sqlite_query_exec(db_, zql);
         sqlite3_free(zql);
 
@@ -1199,8 +1147,7 @@ void TransferManager::deleteUploadTask(int id, const QString& table)
         QList<const FileTaskRecord*> more_sub_tasks = getFileTasksByParentId(parent_task);
         if (more_sub_tasks.isEmpty()) {
             char *zql = sqlite3_mprintf(
-                "DELETE From FolderTasks WHERE id = %Q ",
-                toCStr(QString::number(parent_task)));
+                "DELETE From FolderTasks WHERE id = %d ", parent_task);
             sqlite_query_exec(db_, zql);
             sqlite3_free(zql);
             folder_tasks_.remove(parent_task);

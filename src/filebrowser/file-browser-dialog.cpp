@@ -158,8 +158,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetDirentShareToUserOrGroup(const SeafDirent&, bool)));
     connect(table_view_, SIGNAL(direntShareSeafile(const SeafDirent&)),
             this, SLOT(onGetDirentShareSeafile(const SeafDirent&)));
-    // connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
-    //         this, SLOT(onGetDirentUpdate(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntPaste()),
             this, SLOT(onGetDirentsPaste()));
     connect(table_view_, SIGNAL(cancelTransfer(const SeafDirent&)),
@@ -689,17 +687,6 @@ void FileBrowserDialog::uploadFileOrDirectory(const QString& path, const QString
         data_mgr_->createUploadFileTask(repo_.id, current_path_, path, name);
         insertUploadItemToTableView(::getBaseName(repo_path));
     }
-
-    // connect(, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-
-    // FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
-
-    // // set dialog attributes
-    // dialog->setAttribute(Qt::WA_DeleteOnClose);
-    // dialog->setWindowModality(Qt::WindowModal);
-    // dialog->show();
-    // dialog->raise();
-    // dialog->activateWindow();
 }
 
 void FileBrowserDialog::uploadMultipleFile(const QStringList& names)
@@ -733,21 +720,6 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names)
         return;
     }
 
-// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
-//     FileUploadTask *task =
-//         data_mgr_->createUploadMultipleTask(repo_.id, current_path_, local_path, fnames,
-//                                             overwrite);
-//     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-//     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
-//     task->start();
-// 
-//     // set dialog attributes
-//     dialog->setAttribute(Qt::WA_DeleteOnClose);
-//     dialog->setWindowModality(Qt::NonModal);
-//     dialog->show();
-//     dialog->raise();
-//     dialog->activateWindow();
-// =======
     data_mgr_->createUploadMultipleTask(repo_.id, current_path_, local_path,
                                         fnames);
 
@@ -755,16 +727,6 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names)
         QString repo_path = ::pathJoin(current_path_, name);
         insertUploadItemToTableView(::getBaseName(repo_path));
     }
-    // connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
-    // FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
-
-    // // set dialog attributes
-    // dialog->setAttribute(Qt::WA_DeleteOnClose);
-    // dialog->setWindowModality(Qt::WindowModal);
-    // dialog->show();
-    // dialog->raise();
-    // dialog->activateWindow();
-// >>>>>>> temp commit for rebase.
 }
 
 void FileBrowserDialog::uploadFileOrMkdir()
@@ -781,24 +743,6 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
     // ignore the confirm procedure for uploading directory, which is non-sense
     if (QFileInfo(path).isDir())
         return uploadFileOrDirectory(path, name);
-
-    // // prompt a dialog to confirm to overwrite the current file
-    // if (findConflict(name, table_model_->dirents())) {
-    //     QMessageBox::StandardButton ret = seafApplet->yesNoCancelBox(
-    //         tr("File %1 already exists.<br/>"
-    //            "Do you like to overwrite it?<br/>"
-    //            "<small>(Choose No to upload using an alternative name).</small>").arg(name),
-    //         this,
-    //         QMessageBox::Cancel);
-
-    //     if (ret == QMessageBox::Cancel) {
-    //         return;
-    //     } else if (ret == QMessageBox::Yes) {
-    //         // overwrite the file
-    //         uploadFileOrDirectory(path, name, true);
-    //         return;
-    //     }
-    // }
 
     // in other cases, use upload
     uploadFileOrDirectory(path, name);
@@ -837,66 +781,14 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 void FileBrowserDialog::insertUploadItemToTableView(
     const QString& name, bool is_dir)
 {
-// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
-//     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
-//     if (task == NULL)
-//         return;
-// 
-//     if (!success) {
-//         if (repo_.encrypted &&
-//             setPasswordAndRetry(task)) {
-//             return;
-//         }
-// 
-//         // always force a refresh for uploading directory
-//         if (qobject_cast<FileUploadDirectoryTask*>(sender()))
-//             forceRefresh();
-// 
-//         if (task->error() == FileNetworkTask::TaskCanceled)
-//             return;
-// 
-//         QString msg = tr("Failed to upload file: %1").arg(task->errorString());
-//         seafApplet->warningBox(msg, this);
-//         return;
-//     }
-// 
-//     QString local_path = task->localFilePath();
-//     QStringList names;
-// 
-//     // Upload Directory Task
-//     if (qobject_cast<FileUploadDirectoryTask *>(sender())) {
-//         const SeafDirent dir = SeafDirent::dir(task->name());
-//         // TODO: insert the Item prior to the item where uploading occurs
-//         table_model_->insertItem(0, dir);
-//         return;
-//     }
-// 
-//     // Upload Multiple Task
-//     FileUploadMultipleTask *multi_task = qobject_cast<FileUploadMultipleTask *>(sender());
-// 
-//     if (multi_task == NULL) {
-//       names.push_back(task->name());
-//       local_path = QFileInfo(local_path).absolutePath();
-// =======
     SeafDirent dirent;
     if (is_dir) {
         dirent = SeafDirent::dir(name);
-// >>>>>>> temp commit for rebase.
     } else {
         dirent = SeafDirent::file(name, 0);
     }
 
     // add the items to tableview
-// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
-//     Q_FOREACH(const QString &name, names) {
-//         const QFileInfo file = QDir(local_path).filePath(name);
-//         const SeafDirent dirent = SeafDirent::file(name, static_cast<quint64>(file.size()));
-//         if (task->useUpload())
-//             table_model_->appendItem(dirent);
-//         else
-//             table_model_->replaceItem(name, dirent);
-//     }
-// =======
     table_model_->appendItem(dirent);
 }
 
@@ -913,8 +805,7 @@ void FileBrowserDialog::onUploadFailed(const FileTaskRecord* task)
 {
     QString msg = tr("Failed to upload file: %1").arg(task->fail_reason);
     seafApplet->warningBox(msg, this);
-    return;
-// >>>>>>> temp commit for rebase.
+    table_model_->removeItemNamed(::getBaseName(task->local_path));
 }
 
 bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
@@ -1209,15 +1100,6 @@ void FileBrowserDialog::onDirentRenameSuccess(const QString& path,
     table_model_->renameItemNamed(name, new_name);
 }
 
-// void FileBrowserDialog::onGetDirentUpdate(const SeafDirent& dirent)
-// {
-//     QString path = QFileDialog::getOpenFileName(this,
-//         tr("Select a file to update %1").arg(dirent.name), QDir::homePath());
-//     if (!path.isEmpty()) {
-//         uploadFileOrDirectory(path, dirent.name, true);
-//     }
-// }
-
 void FileBrowserDialog::onDirentRenameFailed(const ApiError&error)
 {
     seafApplet->warningBox(tr("Rename failed"), this);
@@ -1276,7 +1158,6 @@ void FileBrowserDialog::onCancelTransfer(const SeafDirent& dirent)
     TransferManager::instance()->cancelTransfer(repo_.id,
         ::pathJoin(current_path_, dirent.name));
 }
-
 
 void FileBrowserDialog::done(int retval)
 {

@@ -176,7 +176,6 @@ private:
     void removeDirentsCache(const QString& repo_id,
                             const QString& path,
                             bool is_file);
-    // void setupTaskCleanup(FileNetworkTask *task);
     const Account account_;
 
     QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> get_dirents_req_;

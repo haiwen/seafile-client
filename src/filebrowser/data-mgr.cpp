@@ -318,7 +318,6 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
         account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
-    // setupTaskCleanup(task);
 
     return task;
 }
@@ -329,7 +328,6 @@ FileDownloadTask* DataManager::createSaveAsTask(const QString& repo_id,
 {
     FileDownloadTask* task = TransferManager::instance()->addDownloadTask(
         account_, repo_id, path, local_path, true);
-    // setupTaskCleanup(task);
 
     return task;
 }
@@ -355,40 +353,6 @@ void DataManager::createUploadFileTask(const QString& repo_id,
                                        const QString& local_path,
                                        const QString& name)
 {
-// <<<<<<< 1d9fda7ec5883b1c275edb215721bdb51b45d8d8
-//     FileUploadTask *task;
-//     if (QFileInfo(local_path).isFile())
-//         task = new FileUploadTask(account_, repo_id, parent_dir,
-//                                   local_path, name, !overwrite);
-//     else
-//         task = new FileUploadDirectoryTask(account_, repo_id, parent_dir,
-//                                            local_path, name);
-//     connect(task, SIGNAL(finished(bool)),
-//             this, SLOT(onFileUploadFinished(bool)));
-//     setupTaskCleanup(task);
-// 
-//     return task;
-// }
-
-// void DataManager::setupTaskCleanup(FileNetworkTask *task)
-// {
-//     connect(this, SIGNAL(aboutToDestroy()),
-//             task, SLOT(cancel()));
-// }
-
-// FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
-//                                                       const QString& parent_dir,
-//                                                       const QString& local_path,
-//                                                       const QStringList& names,
-//                                                       const bool overwrite)
-// {
-//     FileUploadTask *task = new FileUploadMultipleTask(account_, repo_id, parent_dir,
-//                                                       local_path, names, !overwrite);
-// 
-//     connect(task, SIGNAL(finished(bool)),
-//             this, SLOT(onFileUploadFinished(bool)));
-//     setupTaskCleanup(task);
-// =======
     TransferManager::instance()->addUploadTask(
         repo_id, parent_dir, local_path, name);
 }
@@ -401,7 +365,6 @@ void DataManager::createUploadDirectoryTask(const QString& repo_id,
     TransferManager::instance()->addUploadDirectoryTask(
         repo_id, parent_dir, local_path, name);
 }
-// >>>>>>> temp commit for rebase.
 
 void DataManager::createUploadMultipleTask(const QString& repo_id,
                                            const QString& parent_dir,

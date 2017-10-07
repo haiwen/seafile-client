@@ -37,7 +37,7 @@ struct FileTaskRecord {
     QString status;
     QString fail_reason;
     int parent_task = 0;
-    bool isValid() {
+    bool isValid() const {
         if (account_sign.isEmpty() || type.isEmpty() ||
             repo_id.isEmpty()      || path.isEmpty() ||
             local_path.isEmpty()   || status.isEmpty() ||
@@ -58,7 +58,7 @@ struct FolderTaskRecord {
     QString status;
     quint64 total_bytes = 0;
     quint64 finished_files_bytes = 0;
-    bool isValid() {
+    bool isValid() const {
         if (account_sign.isEmpty() || repo_id.isEmpty() ||
             path.isEmpty()         || local_path.isEmpty() ||
             status.isEmpty()       || id == 0 ||
@@ -116,6 +116,8 @@ public:
     QList<const FolderTaskRecord*> getUploadFolderTasks(const QString& repo_id,
                                                         const QString& parent_dir);
 
+    FileDownloadTask* getDownloadTask(const QString& repo_id,
+                                      const QString& path);
     bool isTransferring(const QString& repo_id,
                         const QString& path);
     void cancelTransfer(const QString& repo_id,
@@ -129,6 +131,7 @@ public:
 
 public slots:
     void cancelAllTasks();
+    void cancelAccountTasks();
 
 signals:
     void taskFinished();
@@ -157,6 +160,7 @@ private:
     void startDownloadTask(const QSharedPointer<FileDownloadTask> &task);
     void checkUploadName(const FileTaskRecord *params);
     void startUploadTask(const FileTaskRecord *params);
+    void startNextUploadTask();
 
     void updateFailReason(int task_id, const QString& error);
     void updateStatus(int task_id,
@@ -178,13 +182,11 @@ private:
     const FileTaskRecord* getFileTaskById(int id);
     QList<const FileTaskRecord*> getFileTasksByParentId(int parent_id);
     const FolderTaskRecord* getFolderTaskById(int id);
-    void getUploadTasksFromDB();
+    void loadUploadTaskFromDB();
 
     FileUploadTask* isCurrentUploadTask(const QString& repo_id,
                                         const QString& path,
                                         const QString& local_path = QString());
-    FileDownloadTask* getDownloadTask(const QString& repo_id,
-                                      const QString& path);
 
     QSharedPointer<FileDownloadTask> current_download_;
     QQueue<QSharedPointer<FileDownloadTask> > pending_downloads_;

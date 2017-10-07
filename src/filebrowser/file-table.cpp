@@ -335,10 +335,6 @@ void FileTableView::setupContextMenu()
         share_action_->setEnabled(false);
     }
 
-    // update_action_ = new QAction(tr("&Update"), this);
-    // connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
-    // update_action_->setShortcut(Qt::ALT + Qt::Key_U);
-
     copy_action_ = new QAction(tr("&Copy"), this);
     connect(copy_action_, SIGNAL(triggered()), this, SLOT(onCopy()));
     copy_action_->setShortcut(QKeySequence::Copy);
@@ -384,7 +380,6 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
     context_menu_->addSeparator();
-    // context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_transfer_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
@@ -397,7 +392,6 @@ void FileTableView::setupContextMenu()
     this->addAction(lock_action_);
     this->addAction(rename_action_);
     this->addAction(remove_action_);
-    // this->addAction(update_action_);
     this->addAction(cancel_transfer_action_);
     this->addAction(sync_subdirectory_action_);
 
@@ -483,7 +477,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_seafile_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
-        // update_action_->setVisible(false);
         cancel_transfer_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(false);
 
@@ -506,24 +499,20 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     share_seafile_action_->setVisible(true);
-    // update_action_->setVisible(true);
     cancel_transfer_action_->setVisible(false);
 
     if (item_->readonly) {
         move_action_->setEnabled(false);
         rename_action_->setEnabled(false);
-        // update_action_->setEnabled(false);
         remove_action_->setEnabled(false);
     } else {
         move_action_->setEnabled(true);
         rename_action_->setEnabled(true);
-        // update_action_->setEnabled(true);
         remove_action_->setEnabled(true);
     }
 
     if (item_->isDir()) {
         lock_action_->setVisible(false);
-        // update_action_->setVisible(false);
         saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
         share_to_user_action_->setVisible(true);
@@ -539,7 +528,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             lock_action_->setVisible(true);
         }
 
-        // update_action_->setVisible(true);
         saveas_action_->setEnabled(true);
         sync_subdirectory_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
@@ -549,6 +537,19 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             ::pathJoin(parent_->current_path_, dirent->name))) {
             cancel_transfer_action_->setVisible(true);
             saveas_action_->setVisible(false);
+            rename_action_->setVisible(false);
+            remove_action_->setVisible(false);
+            share_action_->setVisible(false);
+            share_seafile_action_->setVisible(false);
+            copy_action_->setVisible(false);
+            move_action_->setVisible(false);
+            paste_action_->setVisible(false);
+            lock_action_->setVisible(false);
+        } else {
+            rename_action_->setVisible(true);
+            remove_action_->setVisible(true);
+            copy_action_->setVisible(true);
+            move_action_->setVisible(true);
         }
     }
 
@@ -675,7 +676,6 @@ void FileTableView::onShareToUserOrGroup(bool to_group)
     emit direntShareToUserOrGroup(*item_, to_group);
 }
 
-
 void FileTableView::onShareSeafile()
 {
     if (item_ == NULL) {
@@ -686,19 +686,6 @@ void FileTableView::onShareSeafile()
     }
     emit direntShareSeafile(*item_);
 }
-
-
-// void FileTableView::onUpdate()
-// {
-//     if (item_ == NULL) {
-//         const SeafDirent *selected_item = getSelectedItemFromSource();
-//         if (selected_item && selected_item->isFile() && !selected_item->readonly)
-//             emit direntUpdate(*selected_item);
-//         return;
-//     }
-//     if (!item_->readonly)
-//         emit direntUpdate(*item_);
-// }
 
 void FileTableView::onCopy()
 {
@@ -753,11 +740,17 @@ void FileTableView::onCancelTransfer()
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
         for (int i = 0; i < dirents.size(); i++) {
-            source_model_->removeItemNamed(dirents[i]->name);
+            QString path = ::pathJoin(parent_->current_path_, dirents[i]->name);
+            if (TransferManager::instance()->getDownloadTask(parent_->repo_.id, path) == NULL) {
+                source_model_->removeItemNamed(dirents[i]->name);
+            }
             emit cancelTransfer(*dirents[i]);
         }
     } else {
-        source_model_->removeItemNamed(item_->name);
+        QString path = ::pathJoin(parent_->current_path_, item_->name);
+        if (TransferManager::instance()->getDownloadTask(parent_->repo_.id, path) == NULL) {
+            source_model_->removeItemNamed(item_->name);
+        }
         emit cancelTransfer(*item_);
     }
 }
@@ -1026,9 +1019,6 @@ void FileTableModel::insertItem(int pos, const SeafDirent &dirent)
         return;
     beginInsertRows(QModelIndex(), pos, pos);
     dirents_.insert(pos, dirent);
-    // if (dirent.isFile() && dirent.size == 0) {
-    //     progresses_[dirent.name] = QString::number(0);
-    // }
     endInsertRows();
 }
 

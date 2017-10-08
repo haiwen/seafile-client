@@ -112,7 +112,7 @@ void MainWindow::hide()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    event->ignore();
+    event->accept();
     hide();
 }
 

@@ -4,10 +4,13 @@
 #include <QObject>
 #include <QString>
 #include <QList>
+#include <QScopedPointer>
+
 #include "account.h"
+#include "api/api-error.h"
 #include "api/server-repo.h"
 #include "filebrowser/seaf-dirent.h"
-#include "api/api-error.h"
+#include "filebrowser/data-mgr.h"
 
 class GetDirentsRequest;
 class QWidget;
@@ -38,6 +41,7 @@ private:
     const QString file_name_;
     QWidget *parent_;
     GetDirentsRequest *req_;
+    QScopedPointer<DataManager> data_mgr_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_SERVICE_HELPER_H_

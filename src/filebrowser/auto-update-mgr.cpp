@@ -129,8 +129,10 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
 
-    DataManager data_mgr(info.account);
-    FileNetworkTask *task = data_mgr.createUploadTask(
+    if (!data_mgr_ || data_mgr_->account() != info.account) {
+        data_mgr_.reset(new DataManager(info.account));
+    }
+    FileNetworkTask *task = data_mgr_->createUploadTask(
         info.repo_id, ::getParentPath(info.path_in_repo),
         local_path, ::getBaseName(local_path), true);
 
@@ -156,7 +158,9 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
                                             task->repoId());
         emit fileUpdated(task->repoId(), task->path());
     } else {
-        qWarning("[AutoUpdateManager] failed to upload new version of file %s", local_path.toUtf8().data());
+        qWarning("[AutoUpdateManager] failed to upload new version of file %s: %s",
+                 toCStr(local_path),
+                 toCStr(task->errorString()));
         seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
                                             tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
                                             task->repoId());

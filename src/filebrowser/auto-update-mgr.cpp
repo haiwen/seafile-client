@@ -155,17 +155,16 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
                                             tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()),
                                             task->repoId());
         emit fileUpdated(task->repoId(), task->path());
-        addPath(&watcher_, local_path);
-        WatchedFileInfo& info = watch_infos_[local_path];
-        info.uploading = false;
     } else {
         qWarning("[AutoUpdateManager] failed to upload new version of file %s", local_path.toUtf8().data());
         seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
                                             tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
                                             task->repoId());
-        watch_infos_.remove(local_path);
-        return;
     }
+
+    addPath(&watcher_, local_path);
+    WatchedFileInfo& info = watch_infos_[local_path];
+    info.uploading = false;
 }
 
 void AutoUpdateManager::removeWatch(const QString& local_path)

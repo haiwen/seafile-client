@@ -6,6 +6,7 @@
 #include <QSslSocket>
 #include <QSslCipher>
 #include <QTimer>
+#include <QMutexLocker>
 
 #include "utils/utils-mac.h"
 #include "api/api-client.h"
@@ -198,17 +199,26 @@ void NetworkStatusDetector::stop() {
 }
 
 void NetworkStatusDetector::detect() {
-    if (has_network_failure_) {
+    bool need_reset = false;
+
+    {
+        QMutexLocker lock(&network_error_mutex_);
+        if (has_network_failure_) {
+            has_network_failure_ = false;
+            need_reset = true;
+        }
+    }
+
+    if (need_reset) {
         qWarning("[network detector] resetting the qt network access manager");
         SeafileApiClient::resetQNAM();
         FileServerTask::resetQNAM();
         ServerStatusService::instance()->refreshUnconnected();
-
-        has_network_failure_ = false;
     }
 }
 
 void NetworkStatusDetector::setNetworkFailure() {
+    QMutexLocker lock(&network_error_mutex_);
     if (!has_network_failure_) {
         qWarning("[network detector] got a network failure");
         has_network_failure_ = true;

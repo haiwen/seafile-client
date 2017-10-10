@@ -197,7 +197,8 @@ SeafileApplet::SeafileApplet()
       certs_mgr_(new CertsManager),
       started_(false),
       in_exit_(false),
-      is_pro_(false)
+      is_pro_(false),
+      about_to_quit_(false)
 {
     tray_icon_ = new SeafileTrayIcon(this);
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
@@ -392,6 +393,7 @@ void SeafileApplet::checkInitVDrive()
 
 void SeafileApplet::onAboutToQuit()
 {
+    about_to_quit_ = true;
     tray_icon_->hide();
     if (main_win_) {
         main_win_->writeSettings();

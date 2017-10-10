@@ -31,6 +31,7 @@ private slots:
     void onFileChanged(const QString& path);
     void onUpdateTaskFinished(bool success);
     void checkFileRecreated();
+    void systemShutDown();
 
 private:
     AutoUpdateManager();
@@ -57,6 +58,8 @@ private:
     QScopedPointer<DataManager> data_mgr_;
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
+
+    bool system_shut_down_;
 };
 
 #ifdef Q_OS_MAC

@@ -79,7 +79,7 @@ public:
     CertsManager *certsManager() { return certs_mgr_; }
 
     bool started() { return started_; }
-    bool inExit() { return in_exit_; }
+    bool closingDown() { return in_exit_ || about_to_quit_; }
 
 private slots:
     void onDaemonStarted();
@@ -121,6 +121,8 @@ private:
     QString style_;
 
     bool is_pro_;
+
+    bool about_to_quit_;
 };
 
 /**

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <vector>
 #include <QNetworkReply>
+#include <QMutex>
 
 #include "utils/singleton.h"
 
@@ -76,6 +77,7 @@ signals:
 
 private:
     NetworkStatusDetector();
+    QMutex network_error_mutex_;
 
     QTimer *check_timer_;
     bool has_network_failure_;

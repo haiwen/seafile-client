@@ -1,3 +1,4 @@
+#include <QApplication>
 #include <QDir>
 #include <QFileInfo>
 #include <QDateTime>
@@ -51,8 +52,16 @@ SINGLETON_IMPL(AutoUpdateManager)
 
 AutoUpdateManager::AutoUpdateManager()
 {
+    system_shut_down_ = false;
     connect(&watcher_, SIGNAL(fileChanged(const QString&)),
             this, SLOT(onFileChanged(const QString&)));
+    connect(qApp, SIGNAL(aboutToQuit()),
+            this, SLOT(systemShutDown()));
+}
+
+void AutoUpdateManager::systemShutDown()
+{
+    system_shut_down_ = true;
 }
 
 void AutoUpdateManager::start()
@@ -147,6 +156,10 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
 {
+    if (system_shut_down_) {
+        return;
+    }
+
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
         return;

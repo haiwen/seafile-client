@@ -32,7 +32,7 @@ const char *kFileDownloadTmpDirName = "fcachetmp";
 
 const int kMaxRedirects = 3;
 const int kFileServerTaskMaxRetry = 3;
-const int kFileServerTaskRetryIntervalSecs = 8;
+const int kFileServerTaskRetryIntervalSecs = 10;
 
 class QNAMWrapper {
 public:

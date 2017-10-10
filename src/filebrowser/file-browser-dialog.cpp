@@ -556,6 +556,7 @@ void FileBrowserDialog::onDirClicked(const SeafDirent& dir)
 
 void FileBrowserDialog::enterPath(const QString& path)
 {
+    // printf ("enter path %s\n", toCStr(path));
     current_path_ = path;
     // use QUrl::toPercentEncoding if need
     fetchDirents();

@@ -29,7 +29,13 @@ FileBrowserManager::FileBrowserManager() : QObject()
 FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &account, const ServerRepo &repo, const QString &path)
 {
     FileBrowserDialog *dialog = getDialog(account, repo.id);
-    QString fixed_path = path.endsWith("/") ? path : path + "/";
+    QString fixed_path = path;
+    if (!fixed_path.startsWith("/")) {
+        fixed_path = "/" + fixed_path;
+    }
+    if (!fixed_path.endsWith("/")) {
+        fixed_path += "/";
+    }
     if (dialog == NULL) {
         dialog = new FileBrowserDialog(account, repo, fixed_path);
         QRect screen = QApplication::desktop()->screenGeometry();

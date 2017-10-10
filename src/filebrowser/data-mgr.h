@@ -35,6 +35,8 @@ public:
     DataManager(const Account& account);
     ~DataManager();
 
+    const Account& account() const { return account_; }
+
     bool getDirents(const QString& repo_id,
                     const QString& path,
                     QList<SeafDirent> *dirents,

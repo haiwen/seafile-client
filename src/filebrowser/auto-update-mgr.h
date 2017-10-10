@@ -5,10 +5,12 @@
 #include <QHash>
 #include <QQueue>
 #include <QRunnable>
+#include <QScopedPointer>
 
 #include "utils/singleton.h"
 #include "account.h"
 #include "data-cache.h"
+#include "data-mgr.h"
 
 class AutoUpdateManager : public QObject {
     SINGLETON_DEFINE(AutoUpdateManager)
@@ -52,6 +54,7 @@ private:
     };
 
     QHash<QString, WatchedFileInfo> watch_infos_;
+    QScopedPointer<DataManager> data_mgr_;
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
 };

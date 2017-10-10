@@ -35,6 +35,7 @@ void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto
 
 FileDownloadHelper::FileDownloadHelper(const Account &account, const ServerRepo &repo, const QString &path, QWidget *parent)
   : account_(account), repo_(repo), path_(path), file_name_(QFileInfo(path).fileName()), parent_(parent), req_(NULL) {
+    data_mgr_.reset(new DataManager(account_));
 }
 
 FileDownloadHelper::~FileDownloadHelper()
@@ -90,9 +91,7 @@ void FileDownloadHelper::onGetDirentsSuccess(bool current_readonly, const QList<
 
 void FileDownloadHelper::downloadFile(const QString &id)
 {
-    DataManager data_mgr(account_);
-
-    QString cached_file = data_mgr.getLocalCachedFile(repo_.id, path_, id);
+    QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, path_, id);
     if (!cached_file.isEmpty()) {
         openFile(cached_file, false);
         return;
@@ -100,11 +99,11 @@ void FileDownloadHelper::downloadFile(const QString &id)
 
     // endless loop for setPasswordDialog
     while(true) {
-        FileDownloadTask *task = data_mgr.createDownloadTask(repo_.id, path_);
+        FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path_);
         FileBrowserProgressDialog dialog(task, parent_);
         if (dialog.exec()) {
             QString full_path =
-                data_mgr.getLocalCachedFile(repo_.id, path_, task->fileId());
+                data_mgr_->getLocalCachedFile(repo_.id, path_, task->fileId());
             if (!full_path.isEmpty())
                 openFile(full_path, true);
             break;
@@ -126,4 +125,3 @@ void FileDownloadHelper::downloadFile(const QString &id)
         break;
     }
 }
-

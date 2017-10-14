@@ -194,6 +194,14 @@ TransferManager::TransferManager()
 
     account_signature_ =
         seafApplet->accountManager()->currentAccount().getSignature();
+    connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
+            this, SLOT(onAccountChanged()));
+}
+
+void TransferManager::onAccountChanged()
+{
+    account_signature_ =
+        seafApplet->accountManager()->currentAccount().getSignature();
 }
 
 TransferManager::~TransferManager()

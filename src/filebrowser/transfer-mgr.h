@@ -146,6 +146,7 @@ private slots:
     void onCreateDirFailed(const ApiError&);
     void onGetFileDetailSuccess(const FileDetailInfo&);
     void onGetFileDetailFailed(const ApiError&);
+    void onAccountChanged();
 
 private:
     enum TaskStatus {

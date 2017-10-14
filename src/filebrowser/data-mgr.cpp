@@ -38,13 +38,10 @@ DataManager::DataManager(const Account &account)
 {
     connect(TransferManager::instance(), SIGNAL(uploadTaskSuccess(const FileTaskRecord*)),
             this, SLOT(onFileUploadSuccess(const FileTaskRecord*)));
-    connect(this, SIGNAL(aboutToDestroy()),
-            TransferManager::instance(), SLOT(cancelAllTasks()));
 }
 
 DataManager::~DataManager()
 {
-    emit aboutToDestroy();
     Q_FOREACH(SeafileApiRequest *req, reqs_)
     {
         req->deleteLater();

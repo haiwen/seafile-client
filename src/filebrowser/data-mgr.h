@@ -124,8 +124,6 @@ public:
     void createSubrepo(const QString &name, const QString& repo_id, const QString &path);
 
 signals:
-    void aboutToDestroy();
-
     void getDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
     void getDirentsFailed(const ApiError& error);
 

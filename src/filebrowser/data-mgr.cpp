@@ -298,12 +298,42 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
                                         const QString& file_id)
 {
     QString local_file_path = getLocalCacheFilePath(repo_id, fpath);
-    if (!QFileInfo(local_file_path).exists()) {
+    QFileInfo finfo(local_file_path);
+    if (!finfo.exists()) {
+        qDebug ("No cache file for %s\n", toCStr(fpath));
         return "";
     }
 
-    QString cached_file_id = filecache_->getCachedFileId(repo_id, fpath);
-    return cached_file_id == file_id ? local_file_path : "";
+    FileCache::CacheEntry entry;
+    if (!filecache_->getCacheEntry(repo_id, fpath, &entry)) {
+        qDebug ("No cache db entry for %s\n", toCStr(fpath));
+        return "";
+    }
+
+    if (entry.file_id == file_id) {
+        qDebug ("cache file id matched for %s\n", toCStr(fpath));
+        return local_file_path;
+    } else {
+        // The file is updated on server
+        qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
+        bool use_cached = false;
+        if (mtime != entry.seafile_mtime) {
+            qDebug ("cache file is updated locally (mtime changed), use it: %s\n", toCStr(fpath));
+            use_cached = true;
+        } else if (finfo.size() != entry.seafile_size) {
+            qDebug ("cache file is updated locally (size changed), use it: %s\n", toCStr(fpath));
+            use_cached = true;
+        }
+
+        if (use_cached) {
+            // If the file is also updated locally, open it directly
+            return local_file_path;
+        } else {
+            qDebug ("cache file is outdated, download newer version: %s\n", toCStr(fpath));
+            // Otherwise the newer version would be downloaded
+            return "";
+        }
+    }
 }
 
 FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
@@ -338,11 +368,11 @@ void DataManager::onFileDownloadFinished(bool success)
     if (success) {
         filecache_->saveCachedFileId(task->repoId(),
                                      task->path(),
+                                     account_.getSignature(),
                                      task->fileId(),
-                                     account_.getSignature());
+                                     task->localFilePath());
         // TODO we don't want to watch readonly files
-        AutoUpdateManager::instance()->watchCachedFile(
-            account_, task->repoId(), task->path());
+        AutoUpdateManager::instance()->watchCachedFile(account_, task->repoId(), task->path());
     }
 }
 

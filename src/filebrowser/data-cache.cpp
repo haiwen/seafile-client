@@ -17,6 +17,16 @@ namespace {
 
 const int kDirentsCacheExpireTime = 60 * 1000;
 
+void filecache_entry_from_sqlite3_result(sqlite3_stmt *stmt, FileCache::CacheEntry* entry)
+{
+    entry->repo_id = (const char *)sqlite3_column_text (stmt, 0);
+    entry->path = QString::fromUtf8((const char *)sqlite3_column_text (stmt, 1));
+    entry->account_sig = (const char *)sqlite3_column_text (stmt, 2);
+    entry->file_id = (const char *)sqlite3_column_text (stmt, 3);
+    entry->seafile_mtime = sqlite3_column_int64 (stmt, 4);
+    entry->seafile_size = sqlite3_column_int64 (stmt, 5);
+}
+
 } // namespace
 
 SINGLETON_IMPL(DirentsCache)
@@ -63,6 +73,7 @@ void DirentsCache::saveCachedDirents(const QString& repo_id,
     cache_->insert(cache_key, val);
 }
 
+#if 0
 SINGLETON_IMPL(FileCache)
 FileCache::FileCache()
 {
@@ -118,4 +129,119 @@ void FileCache::cleanCurrentAccountCache()
         if (account == cur_account)
             cache_->remove(key);
     }
+}
+#endif
+
+SINGLETON_IMPL(FileCache)
+FileCache::FileCache()
+{
+    db_ = NULL;
+}
+
+FileCache::~FileCache()
+{
+    if (db_ != NULL)
+        sqlite3_close(db_);
+}
+
+void FileCache::start()
+{
+    const char *errmsg;
+    const char *sql;
+    sqlite3 *db;
+
+    QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("autoupdate-cache.db");
+    if (sqlite3_open (toCStr(db_path), &db)) {
+        errmsg = sqlite3_errmsg (db);
+        qDebug("failed to open file cache database %s: %s",
+               toCStr(db_path), errmsg ? errmsg : "no error given");
+
+        seafApplet->errorAndExit(QObject::tr("failed to open file cache database"));
+        return;
+    }
+
+    sql = "CREATE TABLE IF NOT EXISTS FileCache ("
+        "     repo_id VARCHAR(36), "
+        "     path VARCHAR(4096), "
+        "     account_sig VARCHAR(40) NOT NULL, "
+        "     file_id VARCHAR(40) NOT NULL, "
+        "     seafile_mtime integer NOT NULL, "
+        "     seafile_size integer NULL, "
+        "     PRIMARY KEY (repo_id, path))";
+    sqlite_query_exec (db, sql);
+
+    db_ = db;
+}
+
+bool FileCache::getCacheEntryCB(sqlite3_stmt *stmt, void *data)
+{
+    CacheEntry *entry = (CacheEntry *)data;
+    filecache_entry_from_sqlite3_result(stmt, entry);
+    return true;
+}
+
+bool FileCache::getCacheEntry(const QString& repo_id,
+                              const QString& path,
+                              FileCache::CacheEntry *entry)
+{
+    char *zql = sqlite3_mprintf("SELECT *"
+                                "  FROM FileCache"
+                                " WHERE repo_id = %Q"
+                                "   AND path = %Q",
+                                repo_id.toUtf8().data(), path.toUtf8().data());
+    bool ret = sqlite_foreach_selected_row(db_, zql, getCacheEntryCB, entry) > 0;
+    sqlite3_free(zql);
+    return ret;
+}
+
+void FileCache::saveCachedFileId(const QString& repo_id,
+                                 const QString& path,
+                                 const QString& account_sig,
+                                 const QString& file_id,
+                                 const QString& local_file_path)
+{
+    QFileInfo finfo (local_file_path);
+    qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
+    qint64 fsize = finfo.size();
+    char *zql = sqlite3_mprintf("REPLACE INTO FileCache(repo_id, path, account_sig, file_id, seafile_mtime, seafile_size) "
+                                "VALUES (%Q, %Q, %Q, %Q, %ld, %ld)",
+                                toCStr(repo_id),
+                                toCStr(path),
+                                toCStr(account_sig),
+                                toCStr(file_id),
+                                mtime,
+                                fsize);
+    sqlite_query_exec(db_, zql);
+    sqlite3_free(zql);
+}
+
+bool FileCache::collectCachedFile(sqlite3_stmt *stmt, void *data)
+{
+    QList<CacheEntry> *list = (QList<CacheEntry> *)data;
+
+    CacheEntry entry;
+    filecache_entry_from_sqlite3_result(stmt, &entry);
+    list->append(entry);
+    return true;
+}
+
+QList<FileCache::CacheEntry> FileCache::getAllCachedFiles()
+{
+    const char* sql = "SELECT * FROM FileCache";
+    QList<CacheEntry> list;
+    sqlite_foreach_selected_row(db_, sql, collectCachedFile, &list);
+    return list;
+}
+
+void FileCache::cleanCurrentAccountCache()
+{
+    const Account account = seafApplet->accountManager()->currentAccount();
+    if (!account.isValid()) {
+        return;
+    }
+    char *zql = sqlite3_mprintf(
+        "DELETE FROM FileCache where account_sig = %Q",
+        toCStr(account.getSignature()));
+    sqlite_query_exec(db_, zql);
+    sqlite3_free(zql);
 }

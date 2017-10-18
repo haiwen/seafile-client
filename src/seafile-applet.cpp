@@ -260,6 +260,8 @@ void SeafileApplet::start()
         account_mgr_->currentAccount().serverUrl,
         QDir(configurator_->seafileDir()).filePath("system-proxy.txt"));
 
+    FileCache::instance()->start();
+
     //
     // start daemons
     //

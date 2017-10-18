@@ -41,6 +41,7 @@ private:
     QCache<QString, CacheEntry> *cache_;
 };
 
+#if 0
 /**
  * Record the file id of downloaded files.
  * The schema is (repo_id, path, downloaded_file_id)
@@ -73,6 +74,46 @@ private:
     ~FileCache();
 
     QHash<QString, CacheEntry> *cache_;
+};
+#endif
+
+/**
+ * Record the file id of downloaded files.
+ * The schema is (repo_id, path, downloaded_file_id)
+ */
+class FileCache {
+    SINGLETON_DEFINE(FileCache)
+public:
+    struct CacheEntry {
+        QString repo_id;
+        QString path;
+        QString account_sig;
+        QString file_id;
+        qint64  seafile_mtime;
+        qint64  seafile_size;
+    };
+
+    void start();
+
+    bool getCacheEntry(const QString& repo_id,
+                       const QString& path,
+                       CacheEntry *entry);
+    void saveCachedFileId(const QString& repo_id,
+                          const QString& path,
+                          const QString& file_id,
+                          const QString& account_sig,
+                          const QString& local_file_path);
+
+    QList<CacheEntry> getAllCachedFiles();
+    void cleanCurrentAccountCache();
+
+private:
+    FileCache();
+    ~FileCache();
+    static bool getCacheEntryCB(sqlite3_stmt *stmt, void *data);
+    static bool collectCachedFile(sqlite3_stmt *stmt, void *data);
+
+    sqlite3 *db_;
 };
 
 

@@ -75,6 +75,7 @@ public:
     // accessors
     virtual TaskType type() const = 0;
     const QString& repoId() const { return repo_id_; };
+    const Account& account() const { return account_; };
     QString path() const { return path_; };
     QString localFilePath() const { return local_path_; }
     QString fileName() const;

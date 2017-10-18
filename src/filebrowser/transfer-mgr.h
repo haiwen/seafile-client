@@ -18,7 +18,7 @@ class Account;
 class SeafileApiRequest;
 class GetDirentsRequest;
 class DirentsCache;
-class FileCacheDB;
+class FileCache;
 class FileUploadTask;
 class FileDownloadTask;
 class FileNetworkTask;

@@ -42,15 +42,22 @@ private:
         Account account;
         QString repo_id;
         QString path_in_repo;
+        qint64 mtime;
+        qint64 fsize;
+
         bool uploading;
 
         WatchedFileInfo() : uploading(false) {}
         WatchedFileInfo(const Account& account,
                         const QString& repo_id,
-                        const QString& path_in_repo)
+                        const QString& path_in_repo,
+                        qint64 mtime,
+                        qint64 fsize)
             : account(account),
               repo_id(repo_id),
               path_in_repo(path_in_repo),
+              mtime(mtime),
+              fsize(fsize),
               uploading(false) {}
     };
 

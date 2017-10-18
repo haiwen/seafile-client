@@ -24,7 +24,6 @@ namespace {
 
 const char *kFileCacheTopDirName = "file-cache";
 const char *kFileCacheTempTopDirName = "file-cache-tmp";
-const char *kFileCacheDBFileName = "file-cache.db";
 
 inline bool addPath(QFileSystemWatcher *watcher, const QString &file) {
   if (watcher->files().contains(file))
@@ -89,7 +88,14 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
     }
 
     addPath(&watcher_, local_path);
-    watch_infos_[local_path] = WatchedFileInfo(account, repo_id, path);
+
+    QFileInfo finfo(local_path);
+    watch_infos_[local_path] =
+        WatchedFileInfo(account,
+                        repo_id,
+                        path,
+                        finfo.lastModified().toMSecsSinceEpoch(),
+                        finfo.size());
 }
 
 void AutoUpdateManager::cleanCachedFile()
@@ -112,21 +118,24 @@ void AutoUpdateManager::cleanCachedFile()
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
     qDebug("[AutoUpdateManager] detected cache file %s changed", local_path.toUtf8().data());
-#ifdef Q_OS_MAC
-    if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
-        return;
-    }
-#endif
-    removePath(&watcher_, local_path);
-    QString repo_id, path_in_repo;
     if (!watch_infos_.contains(local_path)) {
         // filter unwanted events
         return;
     }
 
     WatchedFileInfo &info = watch_infos_[local_path];
+    QFileInfo finfo(local_path);
 
-    if (!QFileInfo(local_path).exists()) {
+#ifdef Q_OS_MAC
+    if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
+        qDebug("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));
+        return;
+    }
+#endif
+    removePath(&watcher_, local_path);
+    QString repo_id, path_in_repo;
+
+    if (!finfo.exists()) {
         qDebug("[AutoUpdateManager] detected cache file %s renamed or removed", local_path.toUtf8().data());
         WatchedFileInfo deferred_info = info;
         removeWatch(local_path);
@@ -164,11 +173,30 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
     if (task == NULL)
         return;
     const QString local_path = task->localFilePath();
+    const QFileInfo finfo = QFileInfo(local_path);
+    if (!finfo.exists()) {
+        //TODO: What if the delete&recreate happens just before this function is called?
+        qWarning("[AutoUpdateManager] file %s not exists anymore", toCStr(local_path));
+        return;
+    }
+
+    if (!watch_infos_.contains(local_path)) {
+        qWarning("[AutoUpdateManager] no watch info for file %s", toCStr(local_path));
+        return;
+    }
+    WatchedFileInfo& info = watch_infos_[local_path];
+
     if (success) {
         qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
         seafApplet->trayIcon()->showMessage(tr("Upload Success"),
-                                            tr("File \"%1\"\nuploaded successfully.").arg(QFileInfo(local_path).fileName()),
+                                            tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
                                             task->repoId());
+
+        FileCache::instance()->saveCachedFileId(task->repoId(),
+                                                info.path_in_repo,
+                                                task->account().getSignature(),
+                                                task->oid(),
+                                                task->localFilePath());
         emit fileUpdated(task->repoId(), task->path());
     } else {
         qWarning("[AutoUpdateManager] failed to upload new version of file %s: %s",
@@ -180,7 +208,6 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
     }
 
     addPath(&watcher_, local_path);
-    WatchedFileInfo& info = watch_infos_[local_path];
     info.uploading = false;
 }
 
@@ -245,15 +272,8 @@ void CachedFilesCleaner::run()
                                kFileCacheTopDirName);
     QString file_cache_tmp_dir = pathJoin(seafApplet->configurator()->seafileDir(),
                                    kFileCacheTempTopDirName);
-    QString file_cache_db_file = pathJoin(seafApplet->configurator()->seafileDir(),
-                                   kFileCacheDBFileName);
 
     qDebug("[AutoUpdateManager] removing cached files");
-    if (QFile(file_cache_db_file).exists()) {
-        if (!QFile(file_cache_db_file).remove()) {
-            qWarning("[AutoUpdateManager] failed to remove db file");
-        }
-    }
     if (QDir(file_cache_tmp_dir).exists()) {
         delete_dir_recursively(file_cache_tmp_dir);
     }

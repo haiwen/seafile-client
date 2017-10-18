@@ -20,6 +20,7 @@ class GetRepoRequest;
 class CreateSubrepoRequest;
 class DirentsCache;
 class FileCache;
+class FileCache;
 class FileNetworkTask;
 class FileUploadTask;
 class FileDownloadTask;

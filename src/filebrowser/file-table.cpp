@@ -1017,6 +1017,13 @@ void FileTableModel::insertItem(int pos, const SeafDirent &dirent)
 {
     if (pos > dirents_.size())
         return;
+
+    for (int pos = 0; pos != dirents_.size() ; pos++) {
+        if (dirents_[pos].name == dirent.name) {
+            return;
+        }
+    }
+
     beginInsertRows(QModelIndex(), pos, pos);
     dirents_.insert(pos, dirent);
     endInsertRows();

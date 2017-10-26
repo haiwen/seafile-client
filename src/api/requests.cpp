@@ -41,6 +41,7 @@ const char* kGetLoginTokenUrl = "api2/client-login/";
 const char* kFileSearchUrl = "api2/search/";
 const char* kAccountInfoUrl = "api2/account/info/";
 const char* kDirSharedItemsUrl = "api2/repos/%1/dir/shared_items/";
+const char* kRepoSharedUrl = "api2/beshared-repos/%1/";
 const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
 const char* kFetchGroupsUrl = "api2/groups/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
@@ -1241,4 +1242,21 @@ void GetThumbnailRequest::requestSuccess(QNetworkReply& reply)
     else {
         emit success(pixmap);
     }
+}
+
+UnshareRepoRequest::UnshareRepoRequest(const Account& account,
+                                       const QString& repo_id,
+                                       const QString& from_user)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kRepoSharedUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_DELETE,
+          account.token)
+{
+    setUrlParam("share_type", "personal");
+    setUrlParam("from", from_user);
+}
+
+void UnshareRepoRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
 }

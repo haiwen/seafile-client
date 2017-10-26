@@ -179,6 +179,10 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     menu->addAction(view_on_web_action_);
     menu->addAction(open_in_filebrowser_action_);
 
+    if (item->repo().isSharedRepo()) {
+        menu->addAction(unshare_action_);
+    }
+
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isPro() && account.username == item->repo().owner) {
         menu->addSeparator();
@@ -302,7 +306,7 @@ void RepoTreeView::updateRepoActions()
         toggle_auto_sync_action_->setEnabled(false);
     }
 
-    selected_repo_= item->repo();
+    selected_repo_ = item->repo();
     view_on_web_action_->setEnabled(true);
     open_in_filebrowser_action_->setEnabled(true);
 
@@ -421,6 +425,12 @@ void RepoTreeView::createActions()
 
     connect(open_in_filebrowser_action_, SIGNAL(triggered()), this, SLOT(openInFileBrowser()));
 
+    unshare_action_ = new QAction(tr("&Leave share"), this);
+    unshare_action_->setIcon(QIcon(":/images/leave-share.png"));
+    unshare_action_->setStatusTip(tr("leave share"));
+
+    connect(unshare_action_, SIGNAL(triggered()), this, SLOT(unshareRepo()));
+
     resync_action_ = new QAction(tr("&Resync this library"), this);
     resync_action_->setIcon(QIcon(":/images/resync.png"));
     resync_action_->setStatusTip(tr("unsync and resync this library"));
@@ -429,7 +439,7 @@ void RepoTreeView::createActions()
 
     set_sync_interval_action_ = new QAction(tr("Set sync &Interval"), this);
     set_sync_interval_action_->setIcon(QIcon(":/images/clock.png"));
-    set_sync_interval_action_->setStatusTip(tr("unsync and resync this library"));
+    set_sync_interval_action_->setStatusTip(tr("set sync interval for this library"));
 
     connect(set_sync_interval_action_, SIGNAL(triggered()), this, SLOT(setRepoSyncInterval()));
 }
@@ -468,7 +478,7 @@ void RepoTreeView::unsyncRepo()
 {
     LocalRepo repo = qvariant_cast<LocalRepo>(toggle_auto_sync_action_->data());
 
-    QString question = tr("Are you sure to unsync library \"%1\"?").arg(repo.name);
+    QString question = tr("Are you sure to unsync the library \"%1\"?").arg(repo.name);
 
     if (!seafApplet->yesOrCancelBox(question, this, false)) {
         return;
@@ -554,6 +564,45 @@ void RepoTreeView::shareRepoToUser()
 void RepoTreeView::shareRepoToGroup()
 {
     shareRepo(true);
+}
+
+void RepoTreeView::unshareRepo()
+{
+    if (!seafApplet->yesOrNoBox(
+            tr("Are you sure you want to leave the share \"%1\"?").arg(
+                selected_repo_.name), this, false)) {
+        return;
+    }
+
+    const Account account = seafApplet->accountManager()->currentAccount();
+    const QString repo_id = selected_repo_.id;
+    const QString from_user = selected_repo_.owner;
+    UnshareRepoRequest* request =
+        new UnshareRepoRequest(account, repo_id, from_user);
+
+    connect(request, SIGNAL(success()),
+            this, SLOT(onUnshareSuccess()));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onUnshareFailed(const ApiError&)));
+
+    request->send();
+}
+
+void RepoTreeView::onUnshareSuccess()
+{
+    RepoService::instance()->refresh(true);
+
+    UnshareRepoRequest* req = qobject_cast<UnshareRepoRequest*>(sender());
+    if (!req) {
+        return;
+    } else {
+        req->deleteLater();
+    }
+}
+
+void RepoTreeView::onUnshareFailed(const ApiError&error)
+{
+    seafApplet->warningBox(tr("Leaving share failed"), this);
 }
 
 void RepoTreeView::openInFileBrowser()
@@ -777,7 +826,7 @@ void RepoTreeView::resyncRepo()
     SeafileRpcClient *rpc = seafApplet->rpcClient();
 
     if (!seafApplet->yesOrNoBox(
-            tr("Are you sure to resync library \"%1\"?").arg(server_repo.name),
+            tr("Are you sure to resync the library \"%1\"?").arg(server_repo.name),
             this)) {
         return;
     }
@@ -856,7 +905,7 @@ void RepoTreeView::uploadDroppedFile(const ServerRepo& repo, const QString& loca
         }
 
         if (QFileInfo(target_path).exists()) {
-            if (!seafApplet->yesOrNoBox(tr("Are you sure to overwrite file \"%1\"").arg(file_name)))
+            if (!seafApplet->yesOrNoBox(tr("Are you sure to overwrite the file \"%1\"").arg(file_name)))
                 return;
             if (!QFile(target_path).remove()) {
                 seafApplet->warningBox(tr("Unable to delete file \"%1\"").arg(file_name));

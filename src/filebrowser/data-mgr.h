@@ -169,12 +169,14 @@ private slots:
     void onCreateSubrepoSuccess(const QString& new_repoid);
     void onCreateSubrepoRefreshSuccess(const ServerRepo& new_repo);
 
+    void onAccountChanged();
+
 private:
     void removeDirentsCache(const QString& repo_id,
                             const QString& path,
                             bool is_file);
     void setupTaskCleanup(FileNetworkTask *task);
-    const Account account_;
+    Account account_;
 
     QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> get_dirents_req_;
 

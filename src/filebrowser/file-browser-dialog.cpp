@@ -827,6 +827,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         const SeafDirent dir = SeafDirent::dir(task->name());
         // TODO: insert the Item prior to the item where uploading occurs
         table_model_->insertItem(0, dir);
+        forceRefresh();
         return;
     }
 
@@ -841,15 +842,6 @@ void FileBrowserDialog::onUploadFinished(bool success)
       local_path = QFileInfo(local_path).absoluteFilePath();
     }
 
-    // require a forceRefresh if conflicting filename found
-    Q_FOREACH(const QString &name, names)
-    {
-        if (findConflict(name, table_model_->dirents())) {
-            forceRefresh();
-            return;
-        }
-    }
-
     // add the items to tableview
     Q_FOREACH(const QString &name, names) {
         const QFileInfo file = QDir(local_path).filePath(name);
@@ -859,6 +851,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         else
             table_model_->replaceItem(name, dirent);
     }
+    forceRefresh();
 }
 
 bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
@@ -935,6 +928,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
         upload_button_->setEnabled(true);
     }
     gohome_action_->setEnabled(current_path_ != "/");
+    details_label_->setText(tr("%1 items").arg(dirents.size()));
 }
 
 void FileBrowserDialog::chooseFileToUpload()
@@ -1050,6 +1044,7 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     const SeafDirent dirent = SeafDirent::dir(name);
     // TODO insert to the pos where the drop event triggered
     table_model_->insertItem(0, dirent);
+    forceRefresh();
 }
 
 void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)
@@ -1116,6 +1111,8 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     if (::pathJoin(current_path_, name) != path)
         return;
     table_model_->removeItemNamed(name);
+
+    forceRefresh();
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)

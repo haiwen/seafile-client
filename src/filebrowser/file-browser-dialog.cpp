@@ -89,7 +89,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 {
     current_lpath_ = current_path_.split('/');
 
-    data_mgr_ = new DataManager(account_);
+    data_mgr_ = seafApplet->dataManager();
 
     // In German translation there is a "seafile" string, so need to use tr("..").arg(..) here
     QString title = tr("Cloud File Browser");
@@ -234,7 +234,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
 FileBrowserDialog::~FileBrowserDialog()
 {
-    delete data_mgr_;
 }
 
 void FileBrowserDialog::init()

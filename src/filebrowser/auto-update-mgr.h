@@ -62,7 +62,6 @@ private:
     };
 
     QHash<QString, WatchedFileInfo> watch_infos_;
-    QScopedPointer<DataManager> data_mgr_;
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
 

@@ -31,10 +31,14 @@ class FileDownloadTask;
  *
  */
 class DataManager : public QObject {
+    SINGLETON_DEFINE(DataManager)
     Q_OBJECT
+
 public:
-    DataManager(const Account& account);
+    DataManager();
     ~DataManager();
+
+    void start();
 
     const Account& account() const { return account_; }
 

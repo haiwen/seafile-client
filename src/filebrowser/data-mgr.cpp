@@ -32,13 +32,12 @@ const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
  * Cache loaded dirents. But default cache expires after 1 minute.
  */
 
-DataManager::DataManager(const Account &account)
-    : account_(account),
-      filecache_(FileCache::instance()),
+SINGLETON_IMPL(DataManager)
+
+DataManager::DataManager()
+    : filecache_(FileCache::instance()),
       dirents_cache_(DirentsCache::instance())
 {
-    connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
-            this, SLOT(onAccountChanged()));
 }
 
 DataManager::~DataManager()
@@ -48,6 +47,14 @@ DataManager::~DataManager()
     {
         req->deleteLater();
     }
+}
+
+void DataManager::start()
+{
+    account_ = seafApplet->accountManager()->currentAccount();
+
+    connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
+            this, SLOT(onAccountChanged()));
 }
 
 bool DataManager::getDirents(const QString& repo_id,

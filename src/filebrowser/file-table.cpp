@@ -158,8 +158,9 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         QString text_progress = model->data(model->index(index.row(), FILE_COLUMN_PROGRESS), Qt::DisplayRole).value<QString>();
         if (!text_progress.isEmpty()) {
             // get the progress value from the Model
-            if (text_progress.endsWith('%'))
+            if (text_progress.endsWith('%')) {
                 text_progress.resize(text_progress.size() - 1);
+            }
             const int progress = text_progress.toInt();
 
             // Customize style using style-sheet..
@@ -334,10 +335,6 @@ void FileTableView::setupContextMenu()
         share_action_->setEnabled(false);
     }
 
-    update_action_ = new QAction(tr("&Update"), this);
-    connect(update_action_, SIGNAL(triggered()), this, SLOT(onUpdate()));
-    update_action_->setShortcut(Qt::ALT + Qt::Key_U);
-
     copy_action_ = new QAction(tr("&Copy"), this);
     connect(copy_action_, SIGNAL(triggered()), this, SLOT(onCopy()));
     copy_action_->setShortcut(QKeySequence::Copy);
@@ -355,10 +352,10 @@ void FileTableView::setupContextMenu()
         paste_action_->setEnabled(false);
     }
 
-    cancel_download_action_ = new QAction(tr("Canc&el Download"), this);
-    connect(cancel_download_action_, SIGNAL(triggered()),
-            this, SLOT(onCancelDownload()));
-    cancel_download_action_->setShortcut(Qt::ALT + Qt::Key_C);
+    cancel_transfer_action_ = new QAction(tr("Canc&el Transfer"), this);
+    connect(cancel_transfer_action_, SIGNAL(triggered()),
+            this, SLOT(onCancelTransfer()));
+    cancel_transfer_action_->setShortcut(Qt::ALT + Qt::Key_C);
 
     sync_subdirectory_action_ = new QAction(tr("&Sync this folder"), this);
     connect(sync_subdirectory_action_, SIGNAL(triggered()),
@@ -383,8 +380,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(rename_action_);
     context_menu_->addAction(remove_action_);
     context_menu_->addSeparator();
-    // context_menu_->addAction(update_action_);
-    context_menu_->addAction(cancel_download_action_);
+    context_menu_->addAction(cancel_transfer_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
     this->addAction(saveas_action_);
@@ -396,8 +392,7 @@ void FileTableView::setupContextMenu()
     this->addAction(lock_action_);
     this->addAction(rename_action_);
     this->addAction(remove_action_);
-    // this->addAction(update_action_);
-    this->addAction(cancel_download_action_);
+    this->addAction(cancel_transfer_action_);
     this->addAction(sync_subdirectory_action_);
 
     paste_only_menu_ = new QMenu(this);
@@ -482,8 +477,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_seafile_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
-        // update_action_->setVisible(false);
-        cancel_download_action_->setVisible(false);
+        cancel_transfer_action_->setVisible(false);
         sync_subdirectory_action_->setVisible(false);
 
         context_menu_->exec(position);
@@ -505,24 +499,20 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     rename_action_->setVisible(true);
     share_action_->setVisible(true);
     share_seafile_action_->setVisible(true);
-    // update_action_->setVisible(true);
-    cancel_download_action_->setVisible(true);
-    cancel_download_action_->setVisible(false);
+    cancel_transfer_action_->setVisible(false);
+
     if (item_->readonly) {
         move_action_->setEnabled(false);
         rename_action_->setEnabled(false);
-        // update_action_->setEnabled(false);
         remove_action_->setEnabled(false);
     } else {
         move_action_->setEnabled(true);
         rename_action_->setEnabled(true);
-        // update_action_->setEnabled(true);
         remove_action_->setEnabled(true);
     }
 
     if (item_->isDir()) {
         lock_action_->setVisible(false);
-        // update_action_->setVisible(false);
         saveas_action_->setEnabled(false);
         sync_subdirectory_action_->setVisible(true);
         share_to_user_action_->setVisible(true);
@@ -538,16 +528,28 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
             lock_action_->setVisible(true);
         }
 
-        // update_action_->setVisible(true);
         saveas_action_->setEnabled(true);
         sync_subdirectory_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
 
-        if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
+        if (TransferManager::instance()->isTransferring(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
-            cancel_download_action_->setVisible(true);
+            cancel_transfer_action_->setVisible(true);
             saveas_action_->setVisible(false);
+            rename_action_->setVisible(false);
+            remove_action_->setVisible(false);
+            share_action_->setVisible(false);
+            share_seafile_action_->setVisible(false);
+            copy_action_->setVisible(false);
+            move_action_->setVisible(false);
+            paste_action_->setVisible(false);
+            lock_action_->setVisible(false);
+        } else {
+            rename_action_->setVisible(true);
+            remove_action_->setVisible(true);
+            copy_action_->setVisible(true);
+            move_action_->setVisible(true);
         }
     }
 
@@ -674,7 +676,6 @@ void FileTableView::onShareToUserOrGroup(bool to_group)
     emit direntShareToUserOrGroup(*item_, to_group);
 }
 
-
 void FileTableView::onShareSeafile()
 {
     if (item_ == NULL) {
@@ -684,19 +685,6 @@ void FileTableView::onShareSeafile()
         return;
     }
     emit direntShareSeafile(*item_);
-}
-
-
-void FileTableView::onUpdate()
-{
-    if (item_ == NULL) {
-        const SeafDirent *selected_item = getSelectedItemFromSource();
-        if (selected_item && selected_item->isFile() && !selected_item->readonly)
-            emit direntUpdate(*selected_item);
-        return;
-    }
-    if (!item_->readonly)
-        emit direntUpdate(*item_);
 }
 
 void FileTableView::onCopy()
@@ -747,16 +735,24 @@ void FileTableView::onMove()
     parent_->setFilesToBePasted(false, file_names);
 }
 
-void FileTableView::onCancelDownload()
+void FileTableView::onCancelTransfer()
 {
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
         for (int i = 0; i < dirents.size(); i++) {
-            emit cancelDownload(*dirents[i]);
+            QString path = ::pathJoin(parent_->current_path_, dirents[i]->name);
+            if (TransferManager::instance()->getDownloadTask(parent_->repo_.id, path) == NULL) {
+                source_model_->removeItemNamed(dirents[i]->name);
+            }
+            emit cancelTransfer(*dirents[i]);
         }
-        return;
+    } else {
+        QString path = ::pathJoin(parent_->current_path_, item_->name);
+        if (TransferManager::instance()->getDownloadTask(parent_->repo_.id, path) == NULL) {
+            source_model_->removeItemNamed(item_->name);
+        }
+        emit cancelTransfer(*item_);
     }
-    emit cancelDownload(*item_);
 }
 
 void FileTableView::onSyncSubdirectory()
@@ -831,7 +827,7 @@ FileTableModel::FileTableModel(QObject *parent)
 {
     task_progress_timer_ = new QTimer(this);
     connect(task_progress_timer_, SIGNAL(timeout()),
-            this, SLOT(updateDownloadInfo()));
+            this, SLOT(updateTransferInfo()));
     connect(ThumbnailService::instance(), SIGNAL(thumbnailUpdated(const QPixmap&, const QString&)),
             this, SLOT(updateThumbnail(const QPixmap &, const QString&)));
     task_progress_timer_->start(kRefreshProgressInterval);
@@ -1021,6 +1017,13 @@ void FileTableModel::insertItem(int pos, const SeafDirent &dirent)
 {
     if (pos > dirents_.size())
         return;
+
+    for (int pos = 0; pos != dirents_.size() ; pos++) {
+        if (dirents_[pos].name == dirent.name) {
+            return;
+        }
+    }
+
     beginInsertRows(QModelIndex(), pos, pos);
     dirents_.insert(pos, dirent);
     endInsertRows();
@@ -1057,17 +1060,38 @@ void FileTableModel::onResize(const QSize &size)
                      index(dirents_.size()-1 , FILE_COLUMN_NAME));
 }
 
-void FileTableModel::updateDownloadInfo()
+void FileTableModel::updateTransferInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
-    QList<FileDownloadTask*> tasks= TransferManager::instance()->getDownloadTasks(
-        dialog->repo_.id, dialog->current_path_);
 
     progresses_.clear();
 
-    Q_FOREACH (FileDownloadTask *task, tasks) {
+    QList<const FileNetworkTask*> tasks =
+        TransferManager::instance()->getTransferringTasks(
+            dialog->repo_.id, dialog->current_path_);
+    Q_FOREACH (const FileNetworkTask *task, tasks) {
         QString progress = task->progress().toString();
-        progresses_[::getBaseName(task->path())] = progress;
+        if (task->type() == FileNetworkTask::Download) {
+            progresses_[::getBaseName(task->path())] = progress;
+        } else if (const FileUploadTask *upload_task = qobject_cast<const FileUploadTask *>(task)) {
+            progresses_[upload_task->name()] = progress;
+        }
+    }
+
+    QList<const FileTaskRecord*> pending_tasks =
+        TransferManager::instance()->getPendingUploadFiles(
+            dialog->repo_.id, dialog->current_path_);
+    for (const FileTaskRecord* task : pending_tasks) {
+        progresses_[::getBaseName(task->path)] = QString::number(0);
+    }
+
+    QList<const FolderTaskRecord*> folder_tasks =
+        TransferManager::instance()->getUploadFolderTasks(
+            dialog->repo_.id, dialog->current_path_);
+    for (const FolderTaskRecord* folder_task : folder_tasks) {
+        QString progress = TransferManager::instance()->
+            getFolderTaskProgress(dialog->repo_.id, folder_task->path);
+        progresses_[::getBaseName(folder_task->path)] = progress;
     }
 
     if (dirents_.empty())

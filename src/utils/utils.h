@@ -32,6 +32,11 @@ int sqlite_query_exec (sqlite3 *db, const char *sql);
 int sqlite_foreach_selected_row (sqlite3 *db, const char *sql,
                                  SqliteRowFunc callback, void *data);
 
+int sqlite_select_first_row (sqlite3 *db, const char *sql,
+                             SqliteRowFunc callback, void *data);
+
+int sqlite_insert_exec (sqlite3 *db, const char *sql, long long int *rowid = NULL);
+
 int checkdir_with_mkdir (const char *dir);
 
 int get_seafile_auto_start();

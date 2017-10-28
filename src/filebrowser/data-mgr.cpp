@@ -36,11 +36,12 @@ DataManager::DataManager(const Account &account)
       filecache_(FileCache::instance()),
       dirents_cache_(DirentsCache::instance())
 {
+    connect(TransferManager::instance(), SIGNAL(uploadTaskSuccess(const FileTaskRecord*)),
+            this, SLOT(onFileUploadSuccess(const FileTaskRecord*)));
 }
 
 DataManager::~DataManager()
 {
-    emit aboutToDestroy();
     Q_FOREACH(SeafileApiRequest *req, reqs_)
     {
         req->deleteLater();
@@ -314,7 +315,6 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
         account_, repo_id, path, local_path);
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
-    setupTaskCleanup(task);
 
     return task;
 }
@@ -325,7 +325,6 @@ FileDownloadTask* DataManager::createSaveAsTask(const QString& repo_id,
 {
     FileDownloadTask* task = TransferManager::instance()->addDownloadTask(
         account_, repo_id, path, local_path, true);
-    setupTaskCleanup(task);
 
     return task;
 }
@@ -346,58 +345,37 @@ void DataManager::onFileDownloadFinished(bool success)
     }
 }
 
-FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
-                                              const QString& parent_dir,
-                                              const QString& local_path,
-                                              const QString& name,
-                                              const bool overwrite)
+void DataManager::createUploadFileTask(const QString& repo_id,
+                                       const QString& parent_dir,
+                                       const QString& local_path,
+                                       const QString& name)
 {
-    FileUploadTask *task;
-    if (QFileInfo(local_path).isFile())
-        task = new FileUploadTask(account_, repo_id, parent_dir,
-                                  local_path, name, !overwrite);
-    else
-        task = new FileUploadDirectoryTask(account_, repo_id, parent_dir,
-                                           local_path, name);
-    connect(task, SIGNAL(finished(bool)),
-            this, SLOT(onFileUploadFinished(bool)));
-    setupTaskCleanup(task);
-
-    return task;
+    TransferManager::instance()->addUploadTask(
+        repo_id, parent_dir, local_path, name);
 }
 
-void DataManager::setupTaskCleanup(FileNetworkTask *task)
+void DataManager::createUploadDirectoryTask(const QString& repo_id,
+                                            const QString& parent_dir,
+                                            const QString& local_path,
+                                            const QString& name)
 {
-    connect(this, SIGNAL(aboutToDestroy()),
-            task, SLOT(cancel()));
+    TransferManager::instance()->addUploadDirectoryTask(
+        repo_id, parent_dir, local_path, name);
 }
 
-FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
-                                                      const QString& parent_dir,
-                                                      const QString& local_path,
-                                                      const QStringList& names,
-                                                      const bool overwrite)
+void DataManager::createUploadMultipleTask(const QString& repo_id,
+                                           const QString& parent_dir,
+                                           const QString& local_path,
+                                           const QStringList& names)
 {
-    FileUploadTask *task = new FileUploadMultipleTask(account_, repo_id, parent_dir,
-                                                      local_path, names, !overwrite);
-
-    connect(task, SIGNAL(finished(bool)),
-            this, SLOT(onFileUploadFinished(bool)));
-    setupTaskCleanup(task);
-
-    return task;
+    TransferManager::instance()->addUploadTasks(
+        repo_id, parent_dir, local_path, names);
 }
 
-void DataManager::onFileUploadFinished(bool success)
+void DataManager::onFileUploadSuccess(const FileTaskRecord* task)
 {
-    FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
-    if (task == NULL)
-        return;
-    if (success) {
-        //expire the parent path
-        dirents_cache_->expireCachedDirents(task->repoId(),
-                                            task->path());
-    }
+    //expire the parent path
+    dirents_cache_->expireCachedDirents(task->repo_id, task->path);
 }
 
 QString DataManager::getLocalCacheFilePath(const QString& repo_id,

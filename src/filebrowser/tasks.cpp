@@ -254,143 +254,64 @@ FileUploadTask::FileUploadTask(const Account& account,
                                const QString& path,
                                const QString& local_path,
                                const QString& name,
-                               const bool use_upload)
+                               const bool use_upload,
+                               const bool use_relative_path,
+                               const QString& relative_path)
     : FileNetworkTask(account, repo_id, path, local_path),
       name_(name),
-      use_upload_(use_upload)
+      use_upload_(use_upload),
+      use_relative_path_(use_relative_path),
+      relative_path_(relative_path)
 {
 }
 
 FileUploadTask::FileUploadTask(const FileUploadTask& rhs)
     : FileNetworkTask(rhs.account_, rhs.repo_id_, rhs.path_, rhs.local_path_),
       name_(rhs.name_),
-      use_upload_(rhs.use_upload_)
+      use_upload_(rhs.use_upload_),
+      use_relative_path_(rhs.use_relative_path_),
+      relative_path_(rhs.relative_path_)
 {
+}
+
+QString FileUploadTask::path() const
+{
+    if (use_relative_path_) {
+        QString ret = path_ + relative_path_;
+        if (ret.endsWith('/')) {
+            ret = ret.left(ret.size() -1);
+        }
+        return ret;
+    } else {
+        return path_;
+    }
 }
 
 void FileUploadTask::createGetLinkRequest()
 {
-    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, path_, use_upload_);
+    QString path;
+    // if (use_relative_path_) {
+    //     path = ::getParentPath(path_);
+    // } else {
+        path = path_;
+    // }
+
+    get_link_req_ = new GetFileUploadLinkRequest(account_, repo_id_, path, use_upload_);
 }
 
 void FileUploadTask::createFileServerTask(const QString& link)
 {
-    fileserver_task_ = new ReliablePostFileTask(account_, repo_id_, link, path_, local_path_,
-                                                 name_, use_upload_);
-}
-
-FileUploadMultipleTask::FileUploadMultipleTask(const Account& account,
-                                               const QString& repo_id,
-                                               const QString& path,
-                                               const QString& local_path,
-                                               const QStringList& names,
-                                               bool use_upload)
-  : FileUploadTask(account, repo_id, path, local_path, QString(), use_upload),
-  names_(names)
-{
-}
-
-void FileUploadMultipleTask::createFileServerTask(const QString& link)
-{
-    fileserver_task_ = new PostFilesTask(link, path_, local_path_, names_, false);
-}
-
-FileUploadDirectoryTask::FileUploadDirectoryTask(const Account& account,
-                                                 const QString& repo_id,
-                                                 const QString& path,
-                                                 const QString& local_path,
-                                                 const QString& name)
-  : FileUploadTask(account, repo_id, path, local_path, name)
-{
-}
-
-void FileUploadDirectoryTask::createFileServerTask(const QString& link)
-{
-    QStringList names;
-
-    if (local_path_ == "/")
-        qWarning("attempt to upload the root directory, you should avoid it\n");
-    QDir dir(local_path_);
-
-    QDirIterator iterator(dir.absolutePath(), QDirIterator::Subdirectories);
-    // XXX (lins05): Move these operations into a thread
-    while (iterator.hasNext()) {
-        iterator.next();
-        QString file_path = iterator.filePath();
-        QString relative_path = dir.relativeFilePath(file_path);
-        QString base_name = ::getBaseName(file_path);
-        if (base_name == "." || base_name == "..") {
-            continue;
-        }
-        if (!iterator.fileInfo().isDir()) {
-            names.push_back(relative_path);
-        } else {
-            if (account_.isAtLeastVersion(4, 4, 0)) {
-                // printf("a folder: %s\n", file_path.toUtf8().data());
-                if (QDir(file_path).entryList().length() == 2) {
-                    // only contains . and .., so an empty folder
-                    // printf("an empty folder: %s\n", file_path.toUtf8().data());
-                    empty_subfolders_.append(::pathJoin(::getBaseName(local_path_), relative_path));
-                }
-            }
-        }
+    if (!use_relative_path_) {
+        fileserver_task_ = new ReliablePostFileTask(account_, repo_id_,
+            link, path_, local_path_, name_, use_upload_);
+    } else {
+        fileserver_task_ = new ReliablePostFileTask(link, path_,
+            local_path_, name_, relative_path_);
     }
-
-    if (names.isEmpty() && empty_subfolders_.isEmpty()) {
-        // The folder dragged into cloud file browser is an empty one. We use
-        // the special name "." to represent it.
-        empty_subfolders_.append(".");
-    }
-
-    // printf("total empty folders: %d for %s\n", empty_subfolders_.length(), dir.absolutePath().toUtf8().data());
-    fileserver_task_ = new PostFilesTask(link, path_, dir.absolutePath(), names, true);
 }
 
-void FileUploadDirectoryTask::onFinished(bool success)
-{
-    if (!success || (empty_subfolders_.empty())) {
-        FileUploadTask::onFinished(success);
-        return;
-    }
-
-    nextEmptyFolder();
-}
-
-void FileUploadDirectoryTask::nextEmptyFolder()
-{
-    if (empty_subfolders_.isEmpty()) {
-        FileUploadDirectoryTask::onFinished(true);
-        return;
-    }
-
-    QString folder = empty_subfolders_.takeFirst();
-
-    bool create_parents = true;
-    if (folder == ".") {
-        // This is the case of an empty top-level folder.
-        create_parents = false;
-        folder = ::getBaseName(local_path_);
-    }
-
-    create_dir_req_.reset(new CreateDirectoryRequest(
-                                account_, repo_id_, ::pathJoin(path_, folder), create_parents));
-
-    connect(create_dir_req_.data(), SIGNAL(success()),
-            this, SLOT(nextEmptyFolder()));
-    connect(create_dir_req_.data(), SIGNAL(failed(const ApiError&)),
-            this, SLOT(onCreateDirFailed(const ApiError&)));
-    create_dir_req_->send();
-}
-
-void FileUploadDirectoryTask::onCreateDirFailed(const ApiError &error)
-{
-    error_ = ApiRequestError;
-    error_string_ = error.toString();
-    http_error_code_ = error.httpErrorCode();
-    FileUploadDirectoryTask::onFinished(false);
-}
-
-FileServerTask::FileServerTask(const QUrl& url, const QString& local_path)
+FileServerTask::FileServerTask(const QUrl& url,
+                               const QString& local_path)
     : url_(url),
       local_path_(local_path),
       reply_(nullptr),
@@ -464,6 +385,7 @@ bool FileServerTask::maybeRetry()
     if (canceled_ || !retryEnabled()) {
         return false;
     }
+
     if (retry_count_ >= kFileServerTaskMaxRetry) {
         return false;
     } else {
@@ -634,119 +556,6 @@ void GetFileTask::onHttpRequestFinished()
     delete tmp_file_;
     tmp_file_ = 0;
     emit finished(true);
-}
-
-PostFilesTask::PostFilesTask(const QUrl& url,
-                             const QString& parent_dir,
-                             const QString& local_path,
-                             const QStringList& names,
-                             const bool use_relative)
-    : FileServerTask(url, local_path),
-      // work around with server
-      parent_dir_(parent_dir.endsWith('/') ? parent_dir : parent_dir + "/"),
-      name_(QFileInfo(local_path_).fileName()),
-      names_(names),
-      current_num_(-1),
-      progress_update_timer_(new QTimer(this)),
-      use_relative_(use_relative)
-{
-    // never used, set it to NULL to avoid segment fault
-    reply_ = NULL;
-    connect(progress_update_timer_, SIGNAL(timeout()), this, SLOT(onProgressUpdate()));
-}
-
-PostFilesTask::~PostFilesTask()
-{
-}
-
-void PostFilesTask::prepare()
-{
-    current_bytes_ = 0;
-    transferred_bytes_ = 0;
-    total_bytes_ = 0;
-
-    file_sizes_.reserve(names_.size());
-    Q_FOREACH(const QString &name, names_)
-    {
-        QString local_path = ::pathJoin(local_path_, name);
-        // approximate the bytes used by http protocol (e.g. the bytes of
-        // header)
-        qint64 file_size = QFileInfo(local_path).size() + 1024;
-        file_sizes_.push_back(file_size);
-        total_bytes_ += file_size;
-    }
-}
-
-void PostFilesTask::cancel()
-{
-    if (canceled_) {
-        return;
-    }
-    progress_update_timer_->stop();
-    canceled_ = true;
-    task_->cancel();
-}
-
-void PostFilesTask::sendRequest()
-{
-    startNext();
-}
-
-void PostFilesTask::onProgressUpdate()
-{
-    emit progressUpdate(current_bytes_ + transferred_bytes_, total_bytes_);
-}
-
-void PostFilesTask::onPostTaskProgressUpdate(qint64 bytes, qint64 /* sum_bytes */)
-{
-    current_bytes_ = bytes;
-}
-
-void PostFilesTask::onPostTaskFinished(bool success)
-{
-    if (canceled_) {
-        return;
-    }
-
-    if (!success) {
-        error_ = task_->error();
-        error_string_ = task_->errorString();
-        http_error_code_ = task_->httpErrorCode();
-        progress_update_timer_->stop();
-        emit finished(false);
-        return;
-    }
-
-    transferred_bytes_ += file_sizes_[current_num_];
-    startNext();
-}
-
-void PostFilesTask::startNext()
-{
-    progress_update_timer_->stop();
-    if (++current_num_ == names_.size()) {
-        emit finished(true);
-        return;
-    }
-    const QString& file_path = names_[current_num_];
-    QString file_name = QFileInfo(file_path).fileName();
-    QString relative_path;
-    if (use_relative_)
-        relative_path = ::pathJoin(QFileInfo(local_path_).fileName(), ::getParentPath(file_path));
-
-    // relative_path might be empty, and should be safe to use as well
-    task_.reset(new ReliablePostFileTask(url_,
-        parent_dir_,
-        ::pathJoin(local_path_, file_path),
-        file_name,
-        relative_path));
-    connect(task_.data(), SIGNAL(progressUpdate(qint64, qint64)),
-            this, SLOT(onPostTaskProgressUpdate(qint64, qint64)));
-    connect(task_.data(), SIGNAL(finished(bool)),
-            this, SLOT(onPostTaskFinished(bool)));
-    current_bytes_ = 0;
-    progress_update_timer_->start(100);
-    task_->start();
 }
 
 void FileServerTask::setError(FileNetworkTask::TaskError error,

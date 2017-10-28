@@ -34,6 +34,7 @@
 #include "filebrowser/thumbnail-service.h"
 #include "filebrowser/data-cache.h"
 #include "filebrowser/auto-update-mgr.h"
+#include "filebrowser/transfer-mgr.h"
 #include "rpc/local-repo.h"
 #include "network-mgr.h"
 #include "server-status-service.h"
@@ -290,6 +291,7 @@ void SeafileApplet::onDaemonStarted()
     // start network-related services
     //
     NetworkStatusDetector::instance()->start();
+    TransferManager::instance()->start();
     AutoUpdateManager::instance()->start();
 
     AvatarService::instance()->start();

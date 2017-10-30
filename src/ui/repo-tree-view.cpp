@@ -179,9 +179,9 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     menu->addAction(view_on_web_action_);
     menu->addAction(open_in_filebrowser_action_);
 
-    if (item->repo().isSharedRepo()) {
-        menu->addAction(unshare_action_);
-    }
+    // if (item->repo().isSharedRepo()) {
+    //     menu->addAction(unshare_action_);
+    // }
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isPro() && account.username == item->repo().owner) {

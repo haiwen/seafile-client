@@ -29,7 +29,9 @@ const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 const char *kFileNameHeaderTemplate = "attachment; filename=\"%1\"";
 
 // 100MB
-const quint32 kMaxChunkSize = 100 * 1024 * 1024;
+const quint32 kMinimalSizeForChunkedUploads = 100 * 1024 * 1024;
+// 1MB
+const quint32 kUploadChunkSize = 1024 * 1024;
 
 // void printThread(const QString& prefix)
 // {
@@ -119,7 +121,7 @@ void ReliablePostFileTask::prepare()
 
 bool ReliablePostFileTask::useResumableUpload() const
 {
-    return resumable_ && total_size_ > kMaxChunkSize;
+    return resumable_ && total_size_ > kMinimalSizeForChunkedUploads;
 }
 
 void ReliablePostFileTask::sendRequest()
@@ -184,7 +186,7 @@ void ReliablePostFileTask::createPostFileTask()
         QUrl url = url_;
         if (useResumableUpload()) {
             current_chunk_size_ =
-                qMin((quint64)kMaxChunkSize, total_size_ - current_offset_);
+                qMin((quint64)kUploadChunkSize, total_size_ - current_offset_);
             // This is a quick fix when the server hasn't implemented chunking
             // support in /upload/api/ endpoint yet.
             url = QUrl(url_.toString(QUrl::PrettyDecoded).replace("/upload-api/", "/upload-aj/"));

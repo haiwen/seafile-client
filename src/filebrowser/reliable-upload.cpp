@@ -28,8 +28,8 @@ const char *kFileParamTemplate = "form-data; name=\"file\"; filename=\"%1\"";
 const char *kContentTypeApplicationOctetStream = "application/octet-stream";
 const char *kFileNameHeaderTemplate = "attachment; filename=\"%1\"";
 
-// 1MB
-const quint32 kMaxChunkSize = 1024 * 1024;
+// 100MB
+const quint32 kMaxChunkSize = 100 * 1024 * 1024;
 
 // void printThread(const QString& prefix)
 // {

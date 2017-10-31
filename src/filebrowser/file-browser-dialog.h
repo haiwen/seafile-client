@@ -150,7 +150,7 @@ private:
 
     void fetchDirents(bool force_refresh);
 
-    void update_file_count();
+    void updateFileCount();
 
     bool setPasswordAndRetry(FileNetworkTask *task);
 

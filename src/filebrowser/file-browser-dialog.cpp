@@ -396,6 +396,11 @@ void FileBrowserDialog::fetchDirents()
     fetchDirents(false);
 }
 
+void FileBrowserDialog::update_file_count()
+{
+    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+}
+
 void FileBrowserDialog::fetchDirents(bool force_refresh)
 {
     if (repo_.encrypted && !data_mgr_->isRepoPasswordSet(repo_.id)) {
@@ -827,6 +832,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         const SeafDirent dir = SeafDirent::dir(task->name());
         // TODO: insert the Item prior to the item where uploading occurs
         table_model_->insertItem(0, dir);
+        update_file_count();
         return;
     }
 
@@ -859,6 +865,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         else
             table_model_->replaceItem(name, dirent);
     }
+    update_file_count();
 }
 
 bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
@@ -935,6 +942,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
         upload_button_->setEnabled(true);
     }
     gohome_action_->setEnabled(current_path_ != "/");
+    update_file_count();
 }
 
 void FileBrowserDialog::chooseFileToUpload()
@@ -1050,6 +1058,7 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     const SeafDirent dirent = SeafDirent::dir(name);
     // TODO insert to the pos where the drop event triggered
     table_model_->insertItem(0, dirent);
+    update_file_count();
 }
 
 void FileBrowserDialog::onDirectoryCreateFailed(const ApiError&error)
@@ -1116,6 +1125,7 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     if (::pathJoin(current_path_, name) != path)
         return;
     table_model_->removeItemNamed(name);
+    update_file_count();
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
@@ -1133,6 +1143,7 @@ void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
         // printf("removed file: %s\n", name.toUtf8().data());
         table_model_->removeItemNamed(name);
     }
+    update_file_count();
 }
 
 void FileBrowserDialog::onDirentsRemoveFailed(const ApiError&error)

@@ -386,6 +386,11 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void FileBrowserDialog::update_file_count()
+{
+	details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+}
+
 void FileBrowserDialog::forceRefresh()
 {
     fetchDirents(true);
@@ -826,8 +831,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
     if (qobject_cast<FileUploadDirectoryTask *>(sender())) {
         const SeafDirent dir = SeafDirent::dir(task->name());
         // TODO: insert the Item prior to the item where uploading occurs
-        table_model_->insertItem(0, dir);
-     	details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+    	table_model_->insertItem(0, dir);
+    	update_file_count();
         return;
     }
 
@@ -860,7 +865,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         else
             table_model_->replaceItem(name, dirent);
     }
-    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+	details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
 }
 
 bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)

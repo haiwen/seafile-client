@@ -150,6 +150,8 @@ private:
 
     void fetchDirents(bool force_refresh);
 
+    void updateFileCount();
+
     bool setPasswordAndRetry(FileNetworkTask *task);
 
     bool eventFilter(QObject *obj, QEvent *event);

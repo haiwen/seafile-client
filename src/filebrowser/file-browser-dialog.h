@@ -154,7 +154,7 @@ private:
 
     bool eventFilter(QObject *obj, QEvent *event);
 
-	void update_file_count();
+    void update_file_count();
 
     const Account account_;
     const ServerRepo repo_;

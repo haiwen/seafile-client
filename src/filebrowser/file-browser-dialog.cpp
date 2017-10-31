@@ -388,7 +388,7 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
 
 void FileBrowserDialog::update_file_count()
 {
-	details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
 }
 
 void FileBrowserDialog::forceRefresh()
@@ -490,6 +490,11 @@ void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)
     }
 }
 
+void FileBrowserDialog::onDirentSaveAs(const QList<const SeafDirent*>& dirents)
+{
+    static QDir download_dir(defaultDownloadDir());
+    if (dirents.isEmpty())
+        return;
 void FileBrowserDialog::onDirentSaveAs(const QList<const SeafDirent*>& dirents)
 {
     static QDir download_dir(defaultDownloadDir());
@@ -804,11 +809,6 @@ void FileBrowserDialog::onUploadFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
-        return;
-
-    if (!success) {
-        if (repo_.encrypted &&
-            setPasswordAndRetry(task)) {
             return;
         }
 
@@ -831,8 +831,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
     if (qobject_cast<FileUploadDirectoryTask *>(sender())) {
         const SeafDirent dir = SeafDirent::dir(task->name());
         // TODO: insert the Item prior to the item where uploading occurs
-    	table_model_->insertItem(0, dir);
-    	update_file_count();
+        table_model_->insertItem(0, dir);
+        update_file_count();
         return;
     }
 
@@ -865,7 +865,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         else
             table_model_->replaceItem(name, dirent);
     }
-	details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
 }
 
 bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
@@ -928,6 +928,11 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     table_model_->setDirents(dirents);
     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
 
+    if (!forward_history_.empty()) {
+        forward_button_->setEnabled(true);
+    } else {
+        forward_button_->setEnabled(false);
+    }
     if (!forward_history_.empty()) {
         forward_button_->setEnabled(true);
     } else {
@@ -1142,7 +1147,7 @@ void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
     foreach (const QString& name, filenames) {
         // printf("removed file: %s\n", name.toUtf8().data());
         table_model_->removeItemNamed(name);
-	details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+        details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
     }
 }
 
@@ -1306,8 +1311,3 @@ void FileBrowserDialog::fixUploadButtonStyle(bool highlighted)
         // if (upload_button_->underMouse()) {
         //     return;
         // }
-        upload_button_->setStyleSheet("FileBrowserDialog QToolButton#uploadButton {"
-                                      "background: #F5F5F7; padding: 0px;"
-                                      "margin-left: 15px;}");
-    }
-}

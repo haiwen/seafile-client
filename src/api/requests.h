@@ -780,6 +780,8 @@ public:
                        const QString& repo_id,
                        const QString& from_user);
 
+    const QString& repoId() { return repo_id_; }
+
 signals:
     void success();
 
@@ -788,6 +790,8 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(UnshareRepoRequest);
+
+    QString repo_id_;
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

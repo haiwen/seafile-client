@@ -16,6 +16,7 @@ class QStandardItem;
 class RepoItem;
 class RepoCategoryItem;
 class ServerRepo;
+class LocalRepo;
 
 class ApiError;
 class CloneTasksDialog;
@@ -100,6 +101,7 @@ private:
     void updateDropTarget(const QModelIndex& index);
     void shareRepo(bool to_group);
     void uploadDroppedFile(const ServerRepo& repo, const QString& path);
+    void unsyncRepoImpl(const LocalRepo& repo);
 
     QAction *download_action_;
     QAction *download_toolbar_action_;

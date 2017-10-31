@@ -1250,7 +1250,8 @@ UnshareRepoRequest::UnshareRepoRequest(const Account& account,
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kRepoSharedUrl).arg(repo_id)),
           SeafileApiRequest::METHOD_DELETE,
-          account.token)
+          account.token),
+      repo_id_(repo_id)
 {
     setUrlParam("share_type", "personal");
     setUrlParam("from", from_user);

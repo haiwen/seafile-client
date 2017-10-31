@@ -179,9 +179,9 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     menu->addAction(view_on_web_action_);
     menu->addAction(open_in_filebrowser_action_);
 
-    // if (item->repo().isSharedRepo()) {
-    //     menu->addAction(unshare_action_);
-    // }
+    if (item->repo().isSharedRepo()) {
+        menu->addAction(unshare_action_);
+    }
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isPro() && account.username == item->repo().owner) {
@@ -484,10 +484,14 @@ void RepoTreeView::unsyncRepo()
         return;
     }
 
+    unsyncRepoImpl(repo);
+}
+
+void RepoTreeView::unsyncRepoImpl(const LocalRepo& repo)
+{
     if (seafApplet->rpcClient()->unsync(repo.id) < 0) {
         seafApplet->warningBox(tr("Failed to unsync library \"%1\"").arg(repo.name), this);
     }
-
     ServerRepo server_repo = RepoService::instance()->getRepo(repo.id);
     if (server_repo.isValid() && server_repo.isSubfolder())
         RepoService::instance()->removeSyncedSubfolder(repo.id);
@@ -597,6 +601,12 @@ void RepoTreeView::onUnshareSuccess()
         return;
     } else {
         req->deleteLater();
+    }
+
+    LocalRepo local_repo;
+    seafApplet->rpcClient()->getLocalRepo(req->repoId(), &local_repo);
+    if (local_repo.isValid()) {
+        unsyncRepoImpl(local_repo);
     }
 }
 

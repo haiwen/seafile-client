@@ -781,6 +781,7 @@ void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)
 void FileBrowserDialog::onDownloadFinished(bool success)
 {
     FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());
+    QString _error;
     if (task == NULL)
         return;
     if (success) {
@@ -794,8 +795,13 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 
         if (task->error() == FileNetworkTask::TaskCanceled)
             return;
-
-        QString msg = tr("Failed to download file: %1").arg(task->errorString());
+  
+        if(task->httpErrorCode() == 404) {
+             _error = tr("File does not exit");
+        } else {
+             _error = task->errorString();
+        }
+        QString msg = tr("Failed to download file: %1").arg(_error);
         seafApplet->warningBox(msg, this);
     }
 }

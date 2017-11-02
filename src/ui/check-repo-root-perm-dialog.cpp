@@ -8,6 +8,7 @@
 
 #include "filebrowser/seaf-dirent.h"
 #include "filebrowser/data-mgr.h"
+#include "seafile-applet.h"
 
 #include "check-repo-root-perm-dialog.h"
 
@@ -24,7 +25,7 @@ CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account &account,
     // Here we use the data manager class to fetch the dir instead of doing it
     // directly, because DataManager class would make use of the shared
     // in-memory dirents cache.
-    data_mgr_ = new DataManager(account_);
+    data_mgr_ = seafApplet->dataManager();
 
     setWindowModality(Qt::WindowModal);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -68,7 +69,6 @@ CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account &account,
 CheckRepoRootDirPermDialog::~CheckRepoRootDirPermDialog()
 {
     // printf ("destructor called for CheckRepoRootDirPermDialog\n");
-    delete data_mgr_;
 }
 
 void CheckRepoRootDirPermDialog::checkPerm()

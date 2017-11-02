@@ -34,6 +34,7 @@
 #include "filebrowser/thumbnail-service.h"
 #include "filebrowser/data-cache.h"
 #include "filebrowser/auto-update-mgr.h"
+#include "filebrowser/data-mgr.h"
 #include "rpc/local-repo.h"
 #include "network-mgr.h"
 #include "server-status-service.h"
@@ -195,6 +196,7 @@ SeafileApplet::SeafileApplet()
       settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
       certs_mgr_(new CertsManager),
+      data_mgr_(new DataManager),
       started_(false),
       in_exit_(false),
       is_pro_(false),
@@ -220,6 +222,7 @@ SeafileApplet::~SeafileApplet()
 
     delete account_mgr_;
     delete configurator_;
+    delete data_mgr_;
     if (main_win_)
         delete main_win_;
 #if defined(Q_OS_WIN32)
@@ -243,6 +246,8 @@ void SeafileApplet::start()
     account_mgr_->start();
 
     certs_mgr_->start();
+
+    data_mgr_->start();
 
 #if defined(Q_OS_WIN32)
     QString crash_rpt_path = QDir(configurator_->ccnetDir()).filePath("logs/seafile-crash-report.txt");

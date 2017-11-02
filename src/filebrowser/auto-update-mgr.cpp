@@ -147,10 +147,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
 
-    if (!data_mgr_ || data_mgr_->account() != info.account) {
-        data_mgr_.reset(new DataManager(info.account));
-    }
-    FileNetworkTask *task = data_mgr_->createUploadTask(
+    FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
         info.repo_id, ::getParentPath(info.path_in_repo),
         local_path, ::getBaseName(local_path), true);
 

@@ -16,6 +16,7 @@ class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
 class CertsManager;
+class DataManager;
 
 
 /**
@@ -78,6 +79,8 @@ public:
 
     CertsManager *certsManager() { return certs_mgr_; }
 
+    DataManager *dataManager() { return data_mgr_; }
+
     bool started() { return started_; }
     bool closingDown() { return in_exit_ || about_to_quit_; }
 
@@ -113,6 +116,8 @@ private:
     SettingsManager *settings_mgr_;
 
     CertsManager *certs_mgr_;
+
+    DataManager *data_mgr_;
 
     bool started_;
 

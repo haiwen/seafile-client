@@ -103,7 +103,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 void LoginDialog::setupShibLoginLink()
 {
-    QString txt = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("Shibboleth Login"));
+    QString txt = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("Single Sign On"));
     mShibLoginLink->setText(txt);
     connect(mShibLoginLink, SIGNAL(linkActivated(const QString&)),
             this, SLOT(loginWithShib()));
@@ -346,7 +346,7 @@ bool LoginDialog::getShibLoginUrl(const QString& last_shib_url, QUrl *url_out)
         bool ok;
         server_addr =
             seafApplet->getText(this,
-                                tr("Shibboleth Login"),
+                                tr("Single Sign On"),
                                 tr("%1 Server Address").arg(getBrand()),
                                 QLineEdit::Normal,
                                 server_addr,

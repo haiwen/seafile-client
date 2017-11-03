@@ -288,7 +288,7 @@ min-width: 260px;
      <item>
       <widget class="QLabel" name="mShibLoginLink">
        <property name="text">
-        <string>Shibboleth Login</string>
+        <string>Single Sign On</string>
        </property>
       </widget>
      </item>

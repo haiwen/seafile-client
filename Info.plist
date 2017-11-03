@@ -46,6 +46,8 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<string>True</string>
     <!-- For Sparkle Framework -->
 	<key>SUFeedURL</key>
 	<string>https://www.seafile.com/api/client-updates/seafile-client-mac/appcast.xml</string>

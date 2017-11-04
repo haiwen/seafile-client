@@ -332,7 +332,7 @@ public:
     const QString & fileName() const { return file_name_; }
 
 signals:
-    void success(bool support_chunkced_uploading, quint64 uploaded_bytes);
+    void success(bool support_chunked_uploading, quint64 uploaded_bytes);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

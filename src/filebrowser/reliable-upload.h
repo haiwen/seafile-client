@@ -52,7 +52,7 @@ protected:
     void checkUploadedBytes();
 
 private slots:
-    void onGetFileUploadedBytesSuccess(bool support_chunkced_uploading, quint64 uploaded_bytes);
+    void onGetFileUploadedBytesSuccess(bool support_chunked_uploading, quint64 uploaded_bytes);
     void onGetFileUploadedBytesFailed(const ApiError& error);
     void onPostFileTaskFinished(bool result);
     void onPostFileTaskProgressUpdate(qint64 done, qint64 total);

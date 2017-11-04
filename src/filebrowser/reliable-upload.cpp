@@ -146,9 +146,9 @@ void ReliablePostFileTask::checkUploadedBytes()
     file_uploaded_bytes_req_->send();
 }
 
-void ReliablePostFileTask::onGetFileUploadedBytesSuccess(bool support_chunkced_uploading, quint64 uploaded_bytes)
+void ReliablePostFileTask::onGetFileUploadedBytesSuccess(bool support_chunked_uploading, quint64 uploaded_bytes)
 {
-    if (!support_chunkced_uploading) {
+    if (!support_chunked_uploading) {
         resumable_ = false;
         current_offset_ = 0;
     } else {

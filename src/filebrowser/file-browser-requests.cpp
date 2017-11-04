@@ -368,6 +368,14 @@ GetFileUploadedBytesRequest::GetFileUploadedBytesRequest(
 
 void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
 {
+    QString accept_ranges_header = reply.rawHeader("Accept-Ranges");
+    // printf ("accept_ranges_header = %s\n", toCStr(accept_ranges_header));
+    if (accept_ranges_header != "bytes") {
+        // Chunked uploading is not supported on the server
+        emit success(false, 0);
+        return;
+    }
+
     json_error_t error;
     json_t* root = parseJSON(reply, &error);
     if (!root) {
@@ -382,5 +390,5 @@ void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
     quint64 uploaded_bytes = dict["uploadedBytes"].toLongLong();
     // printf ("uploadedBytes = %lld\n", uploaded_bytes);
-    emit success(uploaded_bytes);
+    emit success(true, uploaded_bytes);
 }

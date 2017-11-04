@@ -60,7 +60,8 @@ ReliablePostFileTask::ReliablePostFileTask(const Account &account,
     current_chunk_size_ = 0;
     done_ = 0;
     total_size_ = 0;
-    resumable_ = true;
+    // Chunked uploading is disabled for updating an existing file
+    resumable_ = use_upload;
 }
 
 ReliablePostFileTask::ReliablePostFileTask(const QUrl &url,

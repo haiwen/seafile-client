@@ -22,6 +22,7 @@ class FileCache;
 class FileUploadTask;
 class FileDownloadTask;
 class FileNetworkTask;
+class TransferProgress;
 
 /**
  * TransferManager manages all upload/download tasks.
@@ -55,14 +56,21 @@ public:
     QList<FileDownloadTask*> getDownloadTasks(const QString& repo_id,
                                               const QString& parent_dir);
 
+    void getTransferRate(uint *upload_rate, uint *download_rate);
+
 private slots:
     void onDownloadTaskFinished(bool success);
+    void refreshRate();
 
 private:
     void startDownloadTask(const QSharedPointer<FileDownloadTask> &task);
 
     QSharedPointer<FileDownloadTask> current_download_;
     QQueue<QSharedPointer<FileDownloadTask> > pending_downloads_;
+
+    QTimer *refresh_rate_timer_;
+    TransferProgress *download_progress_;
+    TransferProgress *upload_progress_;
 };
 
 

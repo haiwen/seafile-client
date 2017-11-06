@@ -796,7 +796,7 @@ void FileBrowserDialog::onDownloadFinished(bool success)
             return;
   
         if(task->httpErrorCode() == 404) {
-             _error = tr("File does not exit");
+             _error = tr("File does not exist");
         } else {
              _error = task->errorString();
         }

@@ -720,27 +720,27 @@ nahrání selhalo.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="236"/>
+        <location filename="../ui_download-repo-dialog.h" line="238"/>
         <source>Download Library</source>
         <translation>Stáhnout knihovnu</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="237"/>
+        <location filename="../ui_download-repo-dialog.h" line="239"/>
         <source>choose...</source>
         <translation>vybrat...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="238"/>
+        <location filename="../ui_download-repo-dialog.h" line="240"/>
         <source>Password for this library:</source>
         <translation>Heslo pro tuto knihovnu:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="239"/>
+        <location filename="../ui_download-repo-dialog.h" line="241"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="240"/>
+        <location filename="../ui_download-repo-dialog.h" line="242"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
@@ -917,7 +917,7 @@ Prosím %1</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="799"/>
-        <source>File does not exit</source>
+        <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2561,8 +2561,8 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
 <context>
     <name>ReliablePostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="110"/>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="115"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="111"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="116"/>
         <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>

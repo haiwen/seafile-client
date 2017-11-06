@@ -720,27 +720,27 @@ nieudane przesyłanie.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="236"/>
+        <location filename="../ui_download-repo-dialog.h" line="238"/>
         <source>Download Library</source>
         <translation>Pobierz bibliotekę</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="237"/>
+        <location filename="../ui_download-repo-dialog.h" line="239"/>
         <source>choose...</source>
         <translation>wybierz...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="238"/>
+        <location filename="../ui_download-repo-dialog.h" line="240"/>
         <source>Password for this library:</source>
         <translation>Hasło do tej biblioteki:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="239"/>
+        <location filename="../ui_download-repo-dialog.h" line="241"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="240"/>
+        <location filename="../ui_download-repo-dialog.h" line="242"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
@@ -916,7 +916,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="799"/>
-        <source>File does not exit</source>
+        <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2562,8 +2562,8 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
 <context>
     <name>ReliablePostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="110"/>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="115"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="111"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="116"/>
         <source>File does not exist</source>
         <translation>Plik nie istnieje</translation>
     </message>

@@ -720,27 +720,27 @@ mistókst að hlaða upp.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="236"/>
+        <location filename="../ui_download-repo-dialog.h" line="238"/>
         <source>Download Library</source>
         <translation>Hala niður safni</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="237"/>
+        <location filename="../ui_download-repo-dialog.h" line="239"/>
         <source>choose...</source>
         <translation>veldu...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="238"/>
+        <location filename="../ui_download-repo-dialog.h" line="240"/>
         <source>Password for this library:</source>
         <translation>Lykilorð fyrir þetta safn:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="239"/>
+        <location filename="../ui_download-repo-dialog.h" line="241"/>
         <source>OK</source>
         <translation>Í lagi</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="240"/>
+        <location filename="../ui_download-repo-dialog.h" line="242"/>
         <source>Cancel</source>
         <translation>Hætta við</translation>
     </message>
@@ -916,7 +916,7 @@ mistókst að hlaða upp.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="799"/>
-        <source>File does not exit</source>
+        <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2559,8 +2559,8 @@ Geymslupláss eiganda safnsins er orðið fullt.</translation>
 <context>
     <name>ReliablePostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="110"/>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="115"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="111"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="116"/>
         <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>

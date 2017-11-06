@@ -720,27 +720,27 @@ falló al subir.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="236"/>
+        <location filename="../ui_download-repo-dialog.h" line="238"/>
         <source>Download Library</source>
         <translation>Descargar Biblioteca</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="237"/>
+        <location filename="../ui_download-repo-dialog.h" line="239"/>
         <source>choose...</source>
         <translation>elija...</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="238"/>
+        <location filename="../ui_download-repo-dialog.h" line="240"/>
         <source>Password for this library:</source>
         <translation>Contraseña para esta biblioteca:</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="239"/>
+        <location filename="../ui_download-repo-dialog.h" line="241"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui_download-repo-dialog.h" line="240"/>
+        <location filename="../ui_download-repo-dialog.h" line="242"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -846,7 +846,7 @@ falló al subir.</translation>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="400"/>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 items</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="441"/>
@@ -916,7 +916,7 @@ falló al subir.</translation>
     </message>
     <message>
         <location filename="../src/filebrowser/file-browser-dialog.cpp" line="799"/>
-        <source>File does not exit</source>
+        <source>File does not exist</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1450,7 +1450,7 @@ Do you like to download your default library?</source>
         <location filename="../src/ui/login-dialog.cpp" line="349"/>
         <location filename="../ui_login-dialog.h" line="271"/>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Single Sign On</translation>
     </message>
     <message>
         <location filename="../src/ui/login-dialog.cpp" line="115"/>
@@ -2562,8 +2562,8 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
 <context>
     <name>ReliablePostFileTask</name>
     <message>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="110"/>
-        <location filename="../src/filebrowser/reliable-upload.cpp" line="115"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="111"/>
+        <location filename="../src/filebrowser/reliable-upload.cpp" line="116"/>
         <source>File does not exist</source>
         <translation>El archivo no existe</translation>
     </message>

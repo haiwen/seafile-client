@@ -370,6 +370,8 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
             error = QObject::tr("The path \"%1\" conflicts with system path").arg(worktree);
         } else if (error == "Worktree conflicts existing repo") {
             error = QObject::tr("The path \"%1\" conflicts with an existing library").arg(worktree);
+        } else if (error == "Library name contains invalid characters such as ':', '*', '|', '?'") {
+            error = QObject::tr("Library name contains invalid characters such as ':', '*', '|', '?'");
         }
         seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);

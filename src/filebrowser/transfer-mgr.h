@@ -23,6 +23,29 @@ class FileUploadTask;
 class FileDownloadTask;
 class FileNetworkTask;
 
+struct FileDetailInfo;
+struct FileTaskRecord {
+    int id = 0;
+    QString account_sign;
+    QString type;
+    QString repo_id;
+    QString path;
+    QString local_path;
+    QString status;
+    QString fail_reason;
+    int parent_task = 0;
+    bool isValid() const {
+        if (account_sign.isEmpty() || type.isEmpty() ||
+            repo_id.isEmpty()      || path.isEmpty() ||
+            local_path.isEmpty()   || status.isEmpty() ||
+            id == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
 /**
  * TransferManager manages all upload/download tasks.
  *
@@ -55,14 +78,35 @@ public:
     QList<FileDownloadTask*> getDownloadTasks(const QString& repo_id,
                                               const QString& parent_dir);
 
+    void addUploadTask(const QString& repo_id,
+                       const QString& repo_parent_path,
+                       const QString& local_path,
+                       const QString& name,
+                       int folder_task_id = 0);
+
 private slots:
     void onDownloadTaskFinished(bool success);
+    void onUploadTaskFinished(bool success);
+
+    void onGetFileDetailSuccess(const FileDetailInfo&);
+    void onGetFileDetailFailed(const ApiError&);
 
 private:
-    void startDownloadTask(const QSharedPointer<FileDownloadTask> &task);
+    bool isValidTask(const FileTaskRecord *task);
 
+    void startDownloadTask(const QSharedPointer<FileDownloadTask> &task);
     QSharedPointer<FileDownloadTask> current_download_;
     QQueue<QSharedPointer<FileDownloadTask> > pending_downloads_;
+
+    void checkUploadName(const FileTaskRecord *params);
+    void startUploadTask(const FileTaskRecord *params);
+    QSharedPointer<FileUploadTask> current_upload_;
+    FileTaskRecord current_upload_task_;
+    bool upload_checking_ = false;
+    bool use_upload_ = true;
+
+    QString account_signature_;
+
 };
 
 

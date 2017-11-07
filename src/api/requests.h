@@ -794,4 +794,36 @@ private:
     QString repo_id_;
 };
 
+struct FileDetailInfo {
+    QString id;
+    qint64 mtime = 0;
+    QString type;
+    QString name;
+    qint64 size = 0;
+};
+
+class GetFileDetailRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    GetFileDetailRequest(const Account& account,
+                         const QString& repo_id,
+                         const QString& path);
+
+    const QString& repoId() const { return repo_id_; }
+    const QString& path() const { return path_; }
+
+signals:
+    void success(const FileDetailInfo& info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetFileDetailRequest)
+    FileDetailInfo fromDict(QMap<QString, QVariant>& dict) const;
+
+    const QString repo_id_;
+    const QString path_;
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

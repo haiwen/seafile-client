@@ -666,6 +666,11 @@ void FileBrowserDialog::downloadFile(const QString& path)
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    bool overwrite)
 {
+    if (QFileInfo(path).isFile()) {
+        data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
+        return;
+    }
+
     if (QFileInfo(path).isDir() && !account_.isPro()) {
         seafApplet->warningBox(tr("Feature not supported"), this);
         return;
@@ -743,30 +748,30 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 {
     const QString name = ::getBaseName(path);
 
-    // ignore the confirm procedure for uploading directory, which is non-sense
-    if (QFileInfo(path).isDir())
+    // // ignore the confirm procedure for uploading directory, which is non-sense
+    // if (QFileInfo(path).isDir())
         return uploadFile(path, name);
 
-    // prompt a dialog to confirm to overwrite the current file
-    if (findConflict(name, table_model_->dirents())) {
-        QMessageBox::StandardButton ret = seafApplet->yesNoCancelBox(
-            tr("File %1 already exists.<br/>"
-               "Do you like to overwrite it?<br/>"
-               "<small>(Choose No to upload using an alternative name).</small>").arg(name),
-            this,
-            QMessageBox::Cancel);
+    // // prompt a dialog to confirm to overwrite the current file
+    // if (findConflict(name, table_model_->dirents())) {
+    //     QMessageBox::StandardButton ret = seafApplet->yesNoCancelBox(
+    //         tr("File %1 already exists.<br/>"
+    //            "Do you like to overwrite it?<br/>"
+    //            "<small>(Choose No to upload using an alternative name).</small>").arg(name),
+    //         this,
+    //         QMessageBox::Cancel);
 
-        if (ret == QMessageBox::Cancel) {
-            return;
-        } else if (ret == QMessageBox::Yes) {
-            // overwrite the file
-            uploadFile(path, name, true);
-            return;
-        }
-    }
+    //     if (ret == QMessageBox::Cancel) {
+    //         return;
+    //     } else if (ret == QMessageBox::Yes) {
+    //         // overwrite the file
+    //         uploadFile(path, name, true);
+    //         return;
+    //     }
+    // }
 
-    // in other cases, use upload
-    uploadFile(path, name);
+    // // in other cases, use upload
+    // uploadFile(path, name);
 }
 
 void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)

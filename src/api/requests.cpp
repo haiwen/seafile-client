@@ -48,6 +48,7 @@ const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
 
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
+const char* kGetFileDetailUrl = "api2/repos/%1/file/detail/";
 
 } // namespace
 
@@ -1260,4 +1261,41 @@ UnshareRepoRequest::UnshareRepoRequest(const Account& account,
 void UnshareRepoRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+GetFileDetailRequest::GetFileDetailRequest(const Account& account,
+                                           const QString& repo_id,
+                                           const QString& path)
+    : SeafileApiRequest (account.getAbsoluteUrl(QString(kGetFileDetailUrl).arg(repo_id)),
+                         SeafileApiRequest::METHOD_GET, account.token),
+      repo_id_(repo_id), path_(path)
+{
+    setUrlParam("p", path);
+}
+
+FileDetailInfo GetFileDetailRequest::fromDict(QMap<QString, QVariant>& dict) const
+{
+    FileDetailInfo info;
+    info.id    = dict["id"].toString();
+    info.mtime = dict["mtime"].toLongLong();
+    info.type  = dict["type"].toString();
+    info.name  = dict["name"].toString();
+    info.size  = dict["size"].toLongLong();
+    return info;
+}
+
+void GetFileDetailRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("GetFileDetailRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    FileDetailInfo info = fromDict(dict);
+    emit success(info);
 }

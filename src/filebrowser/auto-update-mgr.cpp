@@ -156,8 +156,9 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 
     qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
 
+    FileCache::instance()->fileUpdateStart(info.account.getSignature(), info.repo_id, info.path_in_repo);
+
     task->start();
-    info.uploading = true;
 }
 
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
@@ -202,10 +203,10 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
                                             tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
                                             task->repoId());
+        FileCache::instance()->fileUpdateFailed(info.account.getSignature(), info.repo_id, info.path_in_repo);
     }
 
     addPath(&watcher_, local_path);
-    info.uploading = false;
 }
 
 void AutoUpdateManager::removeWatch(const QString& local_path)

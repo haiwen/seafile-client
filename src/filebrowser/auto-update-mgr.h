@@ -47,7 +47,7 @@ private:
 
         bool uploading;
 
-        WatchedFileInfo() : uploading(false) {}
+        WatchedFileInfo() {}
         WatchedFileInfo(const Account& account,
                         const QString& repo_id,
                         const QString& path_in_repo,
@@ -57,8 +57,8 @@ private:
               repo_id(repo_id),
               path_in_repo(path_in_repo),
               mtime(mtime),
-              fsize(fsize),
-              uploading(false) {}
+              fsize(fsize)
+              {}
     };
 
     QHash<QString, WatchedFileInfo> watch_infos_;

@@ -565,6 +565,13 @@ void FileBrowserDialog::enterPath(const QString& path)
     // use QUrl::toPercentEncoding if need
     fetchDirents();
 
+    // QList<FileCache::CacheEntry> failed_uploads =
+    //     FileCache::instance()->getFailedUploads(
+    //         account_.getSignature(), repo_.id, path);
+    // foreach(const FileCache::CacheEntry& entry, failed_uploads) {
+    //     printf("failed uploads: %s\n", entry.path.toUtf8().data());
+    // }
+
     // current_path should be guaranteed safe to split!
     current_lpath_ = current_path_.split('/');
     // if the last element is empty (i.e. current_path_ ends with an extra "/"),

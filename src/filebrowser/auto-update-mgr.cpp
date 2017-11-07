@@ -190,6 +190,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
                                             tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
                                             task->repoId());
 
+        // This would also set the "uploading" and "num_upload_errors" column to 0.
         FileCache::instance()->saveCachedFileId(task->repoId(),
                                                 info.path_in_repo,
                                                 task->account().getSignature(),

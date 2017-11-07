@@ -162,7 +162,9 @@ void FileCache::start()
         return;
     }
 
-    sql = "DROP TABLE FileCache;";
+    // Drop the old table.
+    // XX(lins05): This is not ideal. Should we invent a table schema upgrade mechanism?
+    sql = "DROP TABLE IF EXISTS FileCache;";
     sqlite_query_exec (db, sql);
 
     sql = "CREATE TABLE IF NOT EXISTS FileCacheV1 ("

@@ -301,14 +301,9 @@ void FileBrowserDialog::createStatusBar()
     connect(upload_file_action_, SIGNAL(triggered()), this, SLOT(chooseFileToUpload()));
     upload_menu_->addAction(upload_file_action_);
 
-    // Submenu's Action 2: Upload directory (only pro version's server supports it)
-    if (account_.isPro()) {
-        upload_directory_action_ = new QAction(tr("Upload a directory"), upload_menu_);
-        connect(upload_directory_action_, SIGNAL(triggered()), this, SLOT(chooseDirectoryToUpload()));
-        upload_menu_->addAction(upload_directory_action_);
-    } else {
-        upload_directory_action_ = NULL;
-    }
+    upload_directory_action_ = new QAction(tr("Upload a directory"), upload_menu_);
+    connect(upload_directory_action_, SIGNAL(triggered()), this, SLOT(chooseDirectoryToUpload()));
+    upload_menu_->addAction(upload_directory_action_);
 
     // Submenu's Action 3: Make a new directory
     mkdir_action_ = new QAction(tr("Create a folder"), upload_menu_);
@@ -673,11 +668,6 @@ void FileBrowserDialog::downloadFile(const QString& path)
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    bool overwrite)
 {
-    if (QFileInfo(path).isDir() && !account_.isPro()) {
-        seafApplet->warningBox(tr("Feature not supported"), this);
-        return;
-    }
-
     FileUploadTask *task =
       data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));

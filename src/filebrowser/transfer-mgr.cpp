@@ -21,6 +21,8 @@
 
 namespace {
 
+const int kRefreshRateInterval = 1000;
+
 bool isDownloadForGivenParentDir(const QSharedPointer<FileDownloadTask> &task,
                                  const QString& repo_id,
                                  const QString& parent_dir)
@@ -38,10 +40,82 @@ bool matchDownloadTask(const QSharedPointer<FileDownloadTask> &task,
 
 } // namespace
 
+// class TransferProgress
+//        |----- ... ---|-----|-----|-----|----- ... --------|
+//    task_start         cycle cycle cycle               task_finish
+//         |-----------------------------------|-------------|
+//    cycle_begin                          task_finish  cycle_end
+//
+//    TODO:
+//         |----------------------------------|------------|-------------|
+//    cycle_begin                         task_start   task_finish  cycle_end
+//         |----------------|-----------------|------------|-------------|
+//    cycle_begin   previous_task_start   task_start   task_finish  cycle_end
+class TransferProgress {
+public:
+    TransferProgress();
+
+    void reset();
+    void updateRate(quint64 transferred_bytes);
+    uint currentRate() const { return current_rate_;}
+    void onTaskFinished(quint64 finished_task_size, int remaining_msec);
+    void onCycleFinished();
+
+private:
+    quint64 current_task_previous_transferred_;
+    uint current_rate_;
+    bool current_cycle_had_tasks_;
+};
+
+TransferProgress::TransferProgress()
+{
+    reset();
+}
+
+void TransferProgress::reset() {
+    current_rate_ = 0;
+    current_task_previous_transferred_ = 0;
+    current_cycle_had_tasks_ = false;
+}
+
+void TransferProgress::updateRate(quint64 current_task_transferred_bytes)
+{
+    current_rate_ = current_task_transferred_bytes - current_task_previous_transferred_;
+    current_task_previous_transferred_ = current_task_transferred_bytes;
+    current_cycle_had_tasks_ = true;
+}
+
+void TransferProgress::onTaskFinished(quint64 finished_task_size,  int remaining_msec)
+{
+    current_rate_ = (finished_task_size - current_task_previous_transferred_)
+                    * 1000 / (1000 - remaining_msec) ;
+    current_task_previous_transferred_ = 0;
+    current_cycle_had_tasks_ = true;
+}
+
+void TransferProgress::onCycleFinished()
+{
+    if (current_cycle_had_tasks_) {
+        current_cycle_had_tasks_ = false;
+    } else {
+        reset();
+    }
+}
+
+
+
+
 SINGLETON_IMPL(TransferManager)
 
 TransferManager::TransferManager()
 {
+    download_progress_ = new TransferProgress;
+    upload_progress_ = new TransferProgress;
+
+    refresh_rate_timer_ = new QTimer(this);
+    connect(refresh_rate_timer_, SIGNAL(timeout()),
+            this, SLOT(refreshRate()));
+    refresh_rate_timer_->start(kRefreshRateInterval);
 }
 
 TransferManager::~TransferManager()
@@ -73,6 +147,11 @@ FileDownloadTask* TransferManager::addDownloadTask(const Account& account,
 
 void TransferManager::onDownloadTaskFinished(bool success)
 {
+    if (success) {
+        quint64 finished_task_size = current_download_->progress().total;
+        download_progress_->onTaskFinished(finished_task_size, refresh_rate_timer_->remainingTime());
+    }
+
     current_download_.clear();
     if (!pending_downloads_.empty()) {
         const QSharedPointer<FileDownloadTask> &task = pending_downloads_.dequeue();
@@ -138,4 +217,22 @@ TransferManager::getDownloadTasks(const QString& repo_id,
     }
 
     return tasks;
+}
+
+void TransferManager::refreshRate()
+{
+    if (current_download_) {
+        const quint64 current_task_downloaded_bytes =
+            current_download_->progress().transferred;
+        download_progress_->updateRate(current_task_downloaded_bytes);
+    } else {
+        download_progress_->onCycleFinished();
+    }
+}
+
+void TransferManager::getTransferRate(uint *upload_rate,
+                                      uint *download_rate)
+{
+    *upload_rate = upload_progress_->currentRate();
+    *download_rate = download_progress_->currentRate();
 }

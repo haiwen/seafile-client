@@ -30,6 +30,7 @@ extern "C" {
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
 #include "utils/utils.h"
+#include "filebrowser/transfer-mgr.h"
 
 #include "cloud-view.h"
 
@@ -430,17 +431,20 @@ void CloudView::refreshServerStatus()
 
 void CloudView::refreshTransferRate()
 {
-    int up_rate, down_rate;
-    if (seafApplet->rpcClient()->getUploadRate(&up_rate) < 0) {
+    int sync_up_rate, sync_down_rate;
+    if (seafApplet->rpcClient()->getUploadRate(&sync_up_rate) < 0) {
+        return;
+    }
+    if (seafApplet->rpcClient()->getDownloadRate(&sync_down_rate) < 0) {
         return;
     }
 
-    if (seafApplet->rpcClient()->getDownloadRate(&down_rate) < 0) {
-        return;
-    }
+    uint direct_upload_rate = 0, direct_download_rate = 0;
+    TransferManager::instance()->getTransferRate(&direct_upload_rate,
+                                                 &direct_download_rate);
 
-    mUploadRate->setText(translateTransferRate(up_rate));
-    mDownloadRate->setText(translateTransferRate(down_rate));
+    mUploadRate->setText(translateTransferRate(sync_up_rate + direct_upload_rate));
+    mDownloadRate->setText(translateTransferRate(sync_down_rate + direct_download_rate));
 }
 
 void CloudView::refreshStatusBar()

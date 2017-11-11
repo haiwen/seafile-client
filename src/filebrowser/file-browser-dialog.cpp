@@ -12,6 +12,7 @@
 #include "file-table.h"
 #include "seaf-dirent.h"
 #include "ui/loading-view.h"
+#include "ui/empty-folder-view.h"
 #include "data-mgr.h"
 #include "data-mgr.h"
 #include "progress-dialog.h"
@@ -406,7 +407,11 @@ void FileBrowserDialog::fetchDirents()
 
 void FileBrowserDialog::updateFileCount()
 {
-    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+    const uint count = table_model_->rowCount();
+    details_label_->setText(tr("%1 items").arg(count));
+    if (count == 0) {
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    }
 }
 
 void FileBrowserDialog::fetchDirents(bool force_refresh)
@@ -488,9 +493,9 @@ void FileBrowserDialog::createLoadingFailedView()
 
 void FileBrowserDialog::createEmptyView()
 {
-    empty_view_ = new QLabel;
-    empty_view_->setText(tr("This folder is empty."));
-    empty_view_->setAlignment(Qt::AlignCenter);
+    empty_view_ = new EmptyFolderView(this, current_readonly_);
+    connect(empty_view_, SIGNAL(dropFile(const QStringList&)),
+            this, SLOT(uploadOrUpdateMutipleFile(const QStringList&)));
 }
 
 void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)
@@ -914,6 +919,11 @@ void FileBrowserDialog::onUploadFinished(bool success)
         else
             table_model_->replaceItem(name, dirent);
     }
+
+    if (stack_->currentIndex() == INDEX_EMPTY_VIEW) {
+        forceRefresh();
+    }
+
     updateFileCount();
 }
 
@@ -966,16 +976,13 @@ void FileBrowserDialog::goHome()
 void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 {
     // Commented out because the empty view can't handle file drag & drop events.
-
-    // if (dirents.isEmpty()) {
-    //     stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
-    // } else {
-    //     table_model_->setDirents(dirents);
-    //     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
-    // }
-
-    table_model_->setDirents(dirents);
-    stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+    if (dirents.isEmpty()) {
+        table_model_->setDirents(QList<SeafDirent>());
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    } else {
+        table_model_->setDirents(dirents);
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+    }
 
     if (!forward_history_.empty()) {
         forward_button_->setEnabled(true);

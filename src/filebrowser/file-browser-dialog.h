@@ -20,6 +20,7 @@ class QSizeGrip;
 class QHBoxLayout;
 
 class ApiError;
+class EmptyFolderView;
 class FileTableView;
 class FileTableModel;
 class SeafDirent;
@@ -206,13 +207,12 @@ private:
     QStackedWidget *stack_;
     QWidget *loading_view_;
     QLabel *loading_failed_view_;
-    QLabel *empty_view_;
     QWidget *relogin_view_;
+    EmptyFolderView *empty_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
 
     DataManager *data_mgr_;
 };
-
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H

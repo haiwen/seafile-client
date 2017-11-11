@@ -289,10 +289,9 @@ void FileTableView::setupContextMenu()
     connect(parent_, SIGNAL(aboutToClose()),
             context_menu_, SLOT(close()));
 
-    reupload_action_ = new QAction(tr("Reu&pload"), this);
+    reupload_action_ = new QAction(tr("Reupload"), this);
     connect(reupload_action_, SIGNAL(triggered()),
                 this, SLOT(onReupload()));
-    reupload_action_->setShortcut(Qt::ALT + Qt::Key_P);
     saveas_action_ = new QAction(tr("&Save As..."), this);
     connect(saveas_action_, SIGNAL(triggered()),
             this, SLOT(onSaveAs()));
@@ -374,6 +373,7 @@ void FileTableView::setupContextMenu()
     }
 
     context_menu_->addAction(reupload_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addAction(share_seafile_action_);

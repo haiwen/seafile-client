@@ -289,6 +289,10 @@ void FileTableView::setupContextMenu()
     connect(parent_, SIGNAL(aboutToClose()),
             context_menu_, SLOT(close()));
 
+    reupload_action_ = new QAction(tr("Reu&pload"), this);
+    connect(reupload_action_, SIGNAL(triggered()),
+                this, SLOT(onReupload()));
+    reupload_action_->setShortcut(Qt::ALT + Qt::Key_P);
     saveas_action_ = new QAction(tr("&Save As..."), this);
     connect(saveas_action_, SIGNAL(triggered()),
             this, SLOT(onSaveAs()));
@@ -369,6 +373,7 @@ void FileTableView::setupContextMenu()
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
     }
 
+    context_menu_->addAction(reupload_action_);
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addAction(share_seafile_action_);
@@ -387,6 +392,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(cancel_download_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
+    this->addAction(reupload_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(share_seafile_action_);
@@ -579,6 +585,12 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
         return;
 
     emit direntClicked(*dirent);
+}
+
+void FileTableView::onReupload()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+    parent_->onGetDirentReupload(*dirent);
 }
 
 void FileTableView::onSaveAs()

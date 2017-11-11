@@ -53,6 +53,7 @@ signals:
 private slots:
     void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
+    void onReupload();
     void onSaveAs();
     void onLock();
     void onRename();
@@ -94,6 +95,7 @@ private:
     QScopedPointer<const SeafDirent> item_;
     QMenu *context_menu_;
     QMenu *paste_only_menu_;
+    QAction *reupload_action_;
     QAction *saveas_action_;
     QAction *rename_action_;
     QAction *remove_action_;

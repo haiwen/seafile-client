@@ -23,6 +23,7 @@ public:
                          const QString& repo_id,
                          const QString& path);
     void cleanCachedFile();
+    void UploadFile(const QString& local_path);
 
 signals:
     void fileUpdated(const QString& repo_id, const QString& path);

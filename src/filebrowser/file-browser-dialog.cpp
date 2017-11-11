@@ -167,6 +167,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     connect(table_view_, SIGNAL(syncSubdirectory(const QString&)),
             this, SLOT(onGetSyncSubdirectory(const QString &)));
 
+
     //dirents <--> data_mgr_
     connect(data_mgr_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&)),
             this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&)));
@@ -663,6 +664,13 @@ void FileBrowserDialog::downloadFile(const QString& path)
 {
     FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+}
+
+void FileBrowserDialog::onGetDirentReupload(const SeafDirent& dirent)
+{
+    QString path = ::pathJoin(current_path_, dirent.name);
+    QString local_path = DataManager::getLocalCacheFilePath(repo_.id, path);
+    AutoUpdateManager::instance()->UploadFile(local_path);
 }
 
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,

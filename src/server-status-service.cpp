@@ -11,6 +11,7 @@ namespace {
 const int kRefreshInterval = 3 * 60 * 1000; // 3 min
 const int kRefreshIntervalForUnconnected = 30 * 1000; // 30 sec
 
+const char *kLocalhost = "127.0.0.1";
 }
 
 SINGLETON_IMPL(ServerStatusService)
@@ -122,6 +123,10 @@ void ServerStatusService::updateOnSuccessfullRequest(const QUrl& url)
 
 void ServerStatusService::updateOnFailedRequest(const QUrl& url)
 {
+    if (url.host() == kLocalhost) {
+        return;
+    }
+
     updateOnRequestFinished(url, false);
 }
 

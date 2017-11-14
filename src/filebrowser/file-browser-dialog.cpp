@@ -407,11 +407,7 @@ void FileBrowserDialog::fetchDirents()
 
 void FileBrowserDialog::updateFileCount()
 {
-    const uint count = table_model_->rowCount();
-    details_label_->setText(tr("%1 items").arg(count));
-    if (count == 0) {
-        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
-    }
+    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
 }
 
 void FileBrowserDialog::fetchDirents(bool force_refresh)
@@ -1182,6 +1178,10 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
         return;
     table_model_->removeItemNamed(name);
     updateFileCount();
+
+    if (table_model_->rowCount() == 0) {
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    }
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
@@ -1200,6 +1200,10 @@ void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
         table_model_->removeItemNamed(name);
     }
     updateFileCount();
+
+    if (table_model_->rowCount() == 0) {
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    }
 }
 
 void FileBrowserDialog::onDirentsRemoveFailed(const ApiError&error)

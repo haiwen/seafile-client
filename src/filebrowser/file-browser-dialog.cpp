@@ -792,10 +792,12 @@ void FileBrowserDialog::onDownloadFinished(bool success)
         if (task->error() == FileNetworkTask::TaskCanceled)
             return;
   
-        if(task->httpErrorCode() == 404) {
-             _error = tr("File does not exist");
+        if (task->httpErrorCode() == 404) {
+            _error = tr("File does not exist");
+        } else if (task->httpErrorCode() == 401) {
+            _error = tr("Authorization expired");
         } else {
-             _error = task->errorString();
+            _error = task->errorString();
         }
         QString msg = tr("Failed to download file: %1").arg(_error);
         seafApplet->warningBox(msg, this);
@@ -805,6 +807,7 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 void FileBrowserDialog::onUploadFinished(bool success)
 {
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
+    QString _error;
     if (task == NULL)
         return;
 
@@ -821,7 +824,16 @@ void FileBrowserDialog::onUploadFinished(bool success)
         if (task->error() == FileNetworkTask::TaskCanceled)
             return;
 
-        QString msg = tr("Failed to upload file: %1").arg(task->errorString());
+        if (task->httpErrorCode() == 403) {
+            _error = tr("Permission Error!");
+        } else if (task->httpErrorCode() == 404) {
+            _error = tr("Library/Folder not found.");
+        } else if (task->httpErrorCode() == 401) {
+            _error = tr("Authorization expired");
+        } else {
+            _error = task->errorString();
+        }
+        QString msg = tr("Failed to upload file: %1").arg(_error);
         seafApplet->warningBox(msg, this);
         return;
     }

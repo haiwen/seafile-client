@@ -233,6 +233,10 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
         }
     }
 
+    http_error_code_ = task_->httpErrorCode();
+    error_string_ = task_->errorString();
+    error_ = task_->error();
+
     if (!useResumableUpload()) {
         // Simple upload
         emit finished(result);

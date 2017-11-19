@@ -201,7 +201,15 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         qWarning("[AutoUpdateManager] failed to upload new version of file %s: %s",
                  toCStr(local_path),
                  toCStr(task->errorString()));
-        seafApplet->trayIcon()->showMessage(tr("Upload Failure"),
+        QString error_msg;
+        if (task->httpErrorCode() == 403) {
+            error_msg = tr("Permission Error!");
+        } else if (task->httpErrorCode() == 401) {
+            error_msg = tr("Authorization expired");
+        } else {
+            error_msg = task->errorString();
+        }
+        seafApplet->trayIcon()->showMessage(tr("Upload Failure: %1").arg(error_msg),
                                             tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
                                             task->repoId());
         FileCache::instance()->fileUpdateFailed(info.account.getSignature(), info.repo_id, info.path_in_repo);

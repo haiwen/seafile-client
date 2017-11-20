@@ -205,7 +205,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         if (task->httpErrorCode() == 403) {
             error_msg = tr("Permission Error!");
         } else if (task->httpErrorCode() == 401) {
-            error_msg = tr("Authorization expired");
+            error_msg = tr("You are logout, please re-login");
         } else {
             error_msg = task->errorString();
         }

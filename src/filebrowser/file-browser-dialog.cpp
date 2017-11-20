@@ -795,7 +795,7 @@ void FileBrowserDialog::onDownloadFinished(bool success)
         if (task->httpErrorCode() == 404) {
             _error = tr("File does not exist");
         } else if (task->httpErrorCode() == 401) {
-            _error = tr("Authorization expired");
+            _error = tr("You are logout, please re-login");
         } else {
             _error = task->errorString();
         }
@@ -829,7 +829,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
         } else if (task->httpErrorCode() == 404) {
             _error = tr("Library/Folder not found.");
         } else if (task->httpErrorCode() == 401) {
-            _error = tr("Authorization expired");
+            _error = tr("You are logout, please re-login");
         } else {
             _error = task->errorString();
         }

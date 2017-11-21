@@ -177,8 +177,12 @@ id_from_pubkey (RSA *pubkey)
 RSA *
 generate_private_key(u_int bits)
 {
-	RSA *priv = NULL;
+    RSA *priv = RSA_new ();
+    BIGNUM *e = BN_new ();
 
-	priv = RSA_generate_key(bits, 35, NULL, NULL);
-	return priv;
+    BN_set_word (e, 35);
+    RSA_generate_key_ex (priv, bits, e, NULL);
+
+    BN_free (e);
+    return priv;
 }

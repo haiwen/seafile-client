@@ -117,6 +117,10 @@ public:
                                        const QString& repo_id,
                                        const QString& parent_dir);
 
+    QList<CacheEntry> getCachedFilesByPath(const QString& account_sig,
+                                           const QString& repo_id,
+                                           const QString& parent_dir);
+
     QList<CacheEntry> getAllCachedFiles();
     void cleanCurrentAccountCache();
 

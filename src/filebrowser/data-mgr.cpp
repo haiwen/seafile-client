@@ -310,28 +310,38 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
     QString local_file_path = getLocalCacheFilePath(repo_id, fpath);
     QFileInfo finfo(local_file_path);
     if (!finfo.exists()) {
-        qDebug ("No cache file for %s\n", toCStr(fpath));
+        qWarning ("No cache file for %s\n", toCStr(fpath));
         return "";
     }
 
     FileCache::CacheEntry entry;
     if (!filecache_->getCacheEntry(repo_id, fpath, &entry)) {
-        qDebug ("No cache db entry for %s\n", toCStr(fpath));
+        qWarning ("No cache db entry for %s\n", toCStr(fpath));
         return "";
     }
 
     if (entry.file_id == file_id) {
-        qDebug ("cache file id matched for %s\n", toCStr(fpath));
+        qWarning ("cache file id matched for %s: %s\n", toCStr(fpath), toCStr(file_id));
         return local_file_path;
     } else {
         // The file is updated on server
         qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
         bool use_cached = false;
         if (mtime != entry.seafile_mtime) {
-            qDebug ("cache file is updated locally (mtime changed), use it: %s\n", toCStr(fpath));
+            qWarning(
+                "cache file is updated locally (mtime changed from %lld to "
+                "%lld), use it: %s\n",
+                entry.seafile_mtime,
+                mtime,
+                toCStr(fpath));
             use_cached = true;
         } else if (finfo.size() != entry.seafile_size) {
-            qDebug ("cache file is updated locally (size changed), use it: %s\n", toCStr(fpath));
+            qWarning(
+                "cache file is updated locally (size changed from %lld to "
+                "%lld), use it: %s\n",
+                entry.seafile_size,
+                finfo.size(),
+                toCStr(fpath));
             use_cached = true;
         }
 
@@ -339,7 +349,7 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
             // If the file is also updated locally, open it directly
             return local_file_path;
         } else {
-            qDebug ("cache file is outdated, download newer version: %s\n", toCStr(fpath));
+            qWarning ("cache file is outdated, download newer version: %s\n", toCStr(fpath));
             // Otherwise the newer version would be downloaded
             return "";
         }

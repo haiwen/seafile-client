@@ -215,7 +215,7 @@ void FileCache::saveCachedFileId(const QString& repo_id,
     char *zql = sqlite3_mprintf("REPLACE INTO FileCacheV1( "
                                 "repo_id, path, account_sig, file_id, "
                                 "seafile_mtime, seafile_size, uploading, num_upload_errors "
-                                ") VALUES (%Q, %Q, %Q, %Q, %ld, %ld, 0, 0)",
+                                ") VALUES (%Q, %Q, %Q, %Q, %lld, %lld, 0, 0)",
                                 toCStr(repo_id),
                                 toCStr(path),
                                 toCStr(account_sig),

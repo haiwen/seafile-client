@@ -25,6 +25,7 @@
 #include "rpc/local-repo.h"
 #include "rpc/rpc-client.h"
 #include "ui/private-share-dialog.h"
+#include "ui/logout-view.h"
 
 #include "file-browser-manager.h"
 #include "file-browser-dialog.h"
@@ -39,7 +40,8 @@ enum {
     INDEX_LOADING_VIEW = 0,
     INDEX_TABLE_VIEW,
     INDEX_LOADING_FAILED_VIEW,
-    INDEX_EMPTY_VIEW
+    INDEX_EMPTY_VIEW,
+    INDEX_RELOGIN_VIEW
 };
 
 const char *kLoadingFailedLabelName = "LoadingFailedText";
@@ -115,6 +117,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     createEmptyView();
     createFileTable();
 
+    relogin_view_ = new LogoutView;
+
     QWidget* widget = new QWidget;
     widget->setObjectName("mainWidget");
     QVBoxLayout* layout = new QVBoxLayout;
@@ -133,6 +137,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     stack_->insertWidget(INDEX_TABLE_VIEW, table_view_);
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     stack_->insertWidget(INDEX_EMPTY_VIEW, empty_view_);
+    stack_->insertWidget(INDEX_RELOGIN_VIEW, relogin_view_);
     stack_->setContentsMargins(0, 0, 0, 0);
 
     vlayout->addWidget(toolbar_);
@@ -427,7 +432,11 @@ void FileBrowserDialog::onGetDirentsSuccess(bool current_readonly, const QList<S
 
 void FileBrowserDialog::onGetDirentsFailed(const ApiError& error)
 {
-    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    if (error.httpErrorCode() == 401) {
+        stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);
+    } else {
+        stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    }
 }
 
 void FileBrowserDialog::onMkdirButtonClicked()
@@ -801,6 +810,10 @@ void FileBrowserDialog::onDownloadFinished(bool success)
         }
         QString msg = tr("Failed to download file: %1").arg(_error);
         seafApplet->warningBox(msg, this);
+
+        if (task->httpErrorCode() == 401) {
+            stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);
+        }
     }
 }
 
@@ -835,6 +848,9 @@ void FileBrowserDialog::onUploadFinished(bool success)
         }
         QString msg = tr("Failed to upload file: %1").arg(_error);
         seafApplet->warningBox(msg, this);
+        if (task->httpErrorCode() == 401) {
+            stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);
+        }
         return;
     }
 

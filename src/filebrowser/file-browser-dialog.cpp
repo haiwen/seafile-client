@@ -234,6 +234,10 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     connect(AutoUpdateManager::instance(), SIGNAL(fileUpdated(const QString&, const QString&)),
             this, SLOT(onFileAutoUpdated(const QString&, const QString&)));
 
+    AccountManager* account_mgr = seafApplet->accountManager();
+    connect(account_mgr, SIGNAL(accountInfoUpdated(const Account&)), this,
+            SLOT(onAccountInfoUpdated()));
+
     QTimer::singleShot(0, this, SLOT(init()));
 }
 
@@ -1340,4 +1344,9 @@ void FileBrowserDialog::fixUploadButtonStyle(bool highlighted)
                                       "background: #F5F5F7; padding: 0px;"
                                       "margin-left: 15px;}");
     }
+}
+
+void FileBrowserDialog::onAccountInfoUpdated()
+{
+    forceRefresh();
 }

@@ -125,6 +125,8 @@ private slots:
     void fixUploadButtonNonHighlightStyle();
     void fixUploadButtonHighlightStyle();
 
+    void onAccountInfoUpdated();
+
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 

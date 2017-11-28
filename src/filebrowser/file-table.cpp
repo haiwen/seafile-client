@@ -410,12 +410,20 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     const QModelIndex proxy_index = indexAt(position);
     position = viewport()->mapToGlobal(position);
 
+    //
+    // paste_action shows only if there are files in the clipboard
+    // and is enabled only if it comes from the same account
+    //
     paste_action_->setVisible(parent_->hasFilesToBePasted());
 
     //
     // show paste only menu for no items
     // paste-dedicated menu
     //
+    paste_action_->setEnabled(!parent_->current_readonly_ &&
+                              parent_->account_to_be_pasted_from_ ==
+                                  parent_->account_ &&
+                              parent_->hasFilesToBePasted());
     if (!proxy_index.isValid()) {
         if (parent_->hasFilesToBePasted()) {
             paste_only_menu_->exec(position);
@@ -423,15 +431,6 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         return;
     }
 
-    //
-    // paste_action shows only if there are files in the clipboard
-    // and is enabled only if it comes from the same account
-    //
-    paste_action_->setVisible(parent_->hasFilesToBePasted());
-    paste_action_->setEnabled(!parent_->current_readonly_ &&
-                              parent_->account_to_be_pasted_from_ ==
-                                  parent_->account_ &&
-                              parent_->hasFilesToBePasted());
     // printf ("paste action enabled: %s\n", paste_action_->isEnabled() ? "true": "false");
 
     //

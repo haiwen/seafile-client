@@ -857,19 +857,22 @@ void FileBrowserDialog::onUploadFinished(bool success)
             return;
 
         if (task->httpErrorCode() == 403) {
-            _error = tr("Permission Error!");
+            _error = tr("Permission Error");
         } else if (task->httpErrorCode() == 404) {
-            _error = tr("Library/Folder not found.");
+            _error = tr("Library/Folder not found");
         } else if (task->httpErrorCode() == 401) {
             _error = tr("Authorization expired");
         } else {
             _error = task->errorString();
         }
-        QString msg = tr("Failed to upload file: %1").arg(_error);
-        seafApplet->warningBox(msg, this);
-        if (task->httpErrorCode() == 401) {
-            stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);
+        QString msg = tr("Failed to upload file %1: %2. "
+                         "Do you want to try again?").arg(QFileInfo(task->localFilePath()).fileName()).arg(_error);
+        if (seafApplet->retryOrCancelBox(msg)) {
+            uploadOrUpdateFile(task->localFilePath());
+            return;
         }
+        if (task->httpErrorCode() == 401) {
+             stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);
         return;
     }
 

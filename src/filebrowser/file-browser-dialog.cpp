@@ -166,6 +166,10 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onCancelDownload(const SeafDirent&)));
     connect(table_view_, SIGNAL(syncSubdirectory(const QString&)),
             this, SLOT(onGetSyncSubdirectory(const QString &)));
+    connect(table_view_, SIGNAL(deleteLocalVersion(const SeafDirent&)),
+            this, SLOT(onDeleteLocalVersion(const SeafDirent&)));
+    connect(table_view_, SIGNAL(localVersionSaveAs(const SeafDirent&)),
+            this, SLOT(onLocalVersionSaveAs(const SeafDirent&)));
 
 
     //dirents <--> data_mgr_
@@ -1269,6 +1273,34 @@ void FileBrowserDialog::onDirentsMoveFailed(const ApiError& error)
 void FileBrowserDialog::onGetSyncSubdirectory(const QString &folder_name)
 {
     data_mgr_->createSubrepo(folder_name, repo_.id, ::pathJoin(current_path_, folder_name));
+}
+
+void FileBrowserDialog::onDeleteLocalVersion(const SeafDirent &dirent)
+{
+     QString fpath = ::pathJoin(current_path_, dirent.name);
+     QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, dirent.id);
+     if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
+         QFile::remove(cached_file);
+         return;
+     }
+}
+
+void FileBrowserDialog::onLocalVersionSaveAs(const SeafDirent &dirent)
+{
+    static QDir download_dir(defaultDownloadDir());
+    if (dirents.isEmpty())
+        return;
+    if (!download_dir.exists())
+        download_dir = QDir::home();
+
+    QString fpath = ::pathJoin(current_path_, dirent.name);
+    QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, dirent.id);
+    if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
+        QString local_path = QFileDialog::getSaveFileName(this, tr("Enter name of file to save to..."), download_dir.filePath(dirent.name));
+        QFile::copy(cached_file, local_path);
+        QFile::remove(cached_file);
+        return;
+    }
 }
 
 void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)

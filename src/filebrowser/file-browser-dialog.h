@@ -95,6 +95,8 @@ private slots:
     void onGetDirentsPaste();
     void onGetSyncSubdirectory(const QString &folder_name);
     void onCancelDownload(const SeafDirent& dirent);
+    void onDeleteLocalVersion(const SeafDirent& dirent);
+    void onLocalVersionSaveAs(const SeafDirent& dirent);
 
     void onDirectoryCreateSuccess(const QString& path);
     void onDirectoryCreateFailed(const ApiError& error);

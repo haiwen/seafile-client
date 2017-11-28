@@ -292,6 +292,12 @@ void FileTableView::setupContextMenu()
     reupload_action_ = new QAction(tr("Reupload"), this);
     connect(reupload_action_, SIGNAL(triggered()),
                 this, SLOT(onReupload()));
+    delete_local_version_action_ = new QAction(tr("Delete local version"), this);
+    connect(delete_local_version_action_, SIGNAL(triggered()),
+                this, SLOT(onDeleteLocalVersion()));
+    local_version_saveas_action_ = new QAction(tr("Local version save as"), this);
+    connect(local_version_saveas_action_, SIGNAL(triggered()),
+                this, SLOT(onLocalVersionSaveAs()));
     saveas_action_ = new QAction(tr("&Save As..."), this);
     connect(saveas_action_, SIGNAL(triggered()),
             this, SLOT(onSaveAs()));
@@ -373,6 +379,8 @@ void FileTableView::setupContextMenu()
     }
 
     context_menu_->addAction(reupload_action_);
+    context_menu_->addAction(delete_local_version_action_);
+    context_menu_->addAction(local_version_saveas_action_);
     context_menu_->addSeparator();
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
@@ -393,6 +401,8 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(sync_subdirectory_action_);
 
     this->addAction(reupload_action_);
+    this->addAction(delete_local_version_action_);
+    this->addAction(local_version_saveas_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(share_seafile_action_);
@@ -591,6 +601,28 @@ void FileTableView::onReupload()
 {
     const SeafDirent *dirent = getSelectedItemFromSource();
     parent_->onGetDirentReupload(*dirent);
+}
+
+void FileTableView::onDeleteLocalVersion()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+
+    if (dirent == NULL) {
+        return;
+    }
+
+    emit deleteLocalVersion(*dirent);
+}
+
+void FileTableView::onLocalVersionSaveAs()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+
+    if (dirent == NULL) {
+        return;
+    }
+
+    emit localVersionSaveAs(*dirent);
 }
 
 void FileTableView::onSaveAs()

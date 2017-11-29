@@ -249,7 +249,7 @@ void FileCache::cleanCurrentAccountCache()
         return;
     }
     char *zql = sqlite3_mprintf(
-        "DELETE FROM FileCache where account_sig = %Q",
+        "DELETE FROM FileCacheV1 where account_sig = %Q",
         toCStr(account.getSignature()));
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);

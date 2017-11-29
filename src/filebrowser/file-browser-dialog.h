@@ -125,6 +125,8 @@ private slots:
     void fixUploadButtonNonHighlightStyle();
     void fixUploadButtonHighlightStyle();
 
+    void onAccountInfoUpdated();
+
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
@@ -202,6 +204,7 @@ private:
     QWidget *loading_view_;
     QLabel *loading_failed_view_;
     QLabel *empty_view_;
+    QWidget *relogin_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
 

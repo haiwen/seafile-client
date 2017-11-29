@@ -1288,7 +1288,7 @@ void FileBrowserDialog::onDeleteLocalVersion(const SeafDirent &dirent)
 void FileBrowserDialog::onLocalVersionSaveAs(const SeafDirent &dirent)
 {
     static QDir download_dir(defaultDownloadDir());
-    if (dirents.isEmpty())
+    if (dirent.isFile())
         return;
     if (!download_dir.exists())
         download_dir = QDir::home();

@@ -277,7 +277,6 @@ FileTableView::FileTableView(QWidget *parent)
     setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     setMouseTracking(true);
-    setAcceptDrops(true);
     setDragDropMode(QAbstractItemView::DropOnly);
     setItemDelegate(new FileTableViewDelegate(this));
 
@@ -860,59 +859,6 @@ void FileTableView::onSyncSubdirectory()
 {
     if (item_ && item_->isDir())
         emit syncSubdirectory(item_->name);
-}
-
-void FileTableView::dropEvent(QDropEvent *event)
-{
-    // only handle external source currently
-    if(event->source() != NULL)
-        return;
-
-    QList<QUrl> urls = event->mimeData()->urls();
-
-    if(urls.isEmpty())
-        return;
-
-    QStringList paths;
-    Q_FOREACH(const QUrl& url, urls)
-    {
-        QString path = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-        path = utils::mac::fix_file_id_url(path);
-#endif
-
-        if(path.isEmpty())
-            continue;
-        paths.push_back(path);
-    }
-
-    event->accept();
-
-    if (parent_->current_readonly_) {
-        seafApplet->warningBox(tr("You do not have permission to upload to this folder"), this);
-    } else {
-        emit dropFile(paths);
-    }
-}
-
-void FileTableView::dragMoveEvent(QDragMoveEvent *event)
-{
-    // this is needed
-    event->accept();
-}
-
-void FileTableView::dragEnterEvent(QDragEnterEvent *event)
-{
-    // only handle external source currently
-    if(event->source() != NULL)
-        return;
-
-    // Otherwise it might be a MoveAction which is unacceptable
-    event->setDropAction(Qt::CopyAction);
-
-    // trivial check
-    if(event->mimeData()->hasFormat("text/uri-list"))
-        event->accept();
 }
 
 void FileTableView::resizeEvent(QResizeEvent *event)

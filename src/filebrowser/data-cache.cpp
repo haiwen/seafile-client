@@ -324,3 +324,38 @@ QList<FileCache::CacheEntry> FileCache::getFailedUploads(const QString& account_
     }
     return ret;
 }
+
+QList<FileCache::CacheEntry> FileCache::getCachedFilesByPath(const QString& account_sig,
+                                                             const QString& repo_id,
+                                                             const QString& parent_dir_in)
+{
+    QString parent_dir = parent_dir_in;
+    // Strip the trailing slash
+    if (parent_dir.length() > 1 && parent_dir.endsWith("/")) {
+        parent_dir = parent_dir.left(parent_dir.length() - 1);
+    }
+
+    QList<CacheEntry> entries;
+    char* sql = sqlite3_mprintf("SELECT * FROM FileCacheV1 "
+                                "WHERE repo_id = %Q "
+                                "  AND path like %Q "
+                                "  AND account_sig = %Q "
+                                "  AND uploading = 0 "
+                                "  AND num_upload_errors = 0; ",
+                                toCStr(repo_id),
+                                toCStr(QString("%1%").arg(parent_dir == "/" ? parent_dir : parent_dir + "/")),
+                                toCStr(account_sig));
+
+    sqlite_foreach_selected_row(db_, sql, collectCachedFile, &entries);
+
+    // Even if we filtered the path in the above sql query, the returned entries
+    // may still belong to subdirectory of "parent_dir" instead of parent_dir
+    // itself. So we need to fitler again.
+    QList<CacheEntry> ret;
+    foreach(const CacheEntry& entry, entries) {
+        if (::getParentPath(entry.path) == parent_dir) {
+            ret.append(entry);
+        }
+    }
+    return ret;
+}

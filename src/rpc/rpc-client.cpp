@@ -35,6 +35,7 @@ const char *kCcnetRpcService = "ccnet-rpcserver";
 
 SeafileRpcClient::SeafileRpcClient()
       : sync_client_(0),
+        sync_client_for_threaded_rpc_(0),
         seafile_rpc_client_(0),
         seafile_threaded_rpc_client_(0),
         ccnet_rpc_client_(0)

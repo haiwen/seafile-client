@@ -560,11 +560,14 @@ void FileBrowserDialog::enterPath(const QString& path)
     // use QUrl::toPercentEncoding if need
     fetchDirents();
 
-    // QList<FileCache::CacheEntry> failed_uploads =
-    //     FileCache::instance()->getFailedUploads(
+    // QHash<QString, AutoUpdateManager::FileStatus> uploads =
+    //     AutoUpdateManager::instance()->getFileStatusForDirectory(
     //         account_.getSignature(), repo_.id, path);
-    // foreach(const FileCache::CacheEntry& entry, failed_uploads) {
-    //     printf("failed uploads: %s\n", entry.path.toUtf8().data());
+    // if (uploads.empty()) {
+    //     printf("no uploads for dir %s\n", toCStr(path));
+    // }
+    // foreach(const QString& key, uploads.keys()) {
+    //     printf("auto upload status: file=\"%s\", uploading=%d\n", toCStr(key), uploads[key]);
     // }
 
     // current_path should be guaranteed safe to split!
@@ -791,7 +794,7 @@ void FileBrowserDialog::onDownloadFinished(bool success)
 
         if (task->error() == FileNetworkTask::TaskCanceled)
             return;
-  
+
         if (task->httpErrorCode() == 404) {
             _error = tr("File does not exist");
         } else if (task->httpErrorCode() == 401) {

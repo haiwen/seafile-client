@@ -35,6 +35,8 @@ const int kFileNameColumnWidth = 200;
 const int kExtraPadding = 30;
 const int kDefaultColumnSum = kFileNameColumnWidth + kDefaultColumnWidth * 3 + kExtraPadding;
 const int kLockIconSize = 16;
+const int kFileStatusIconSize = 16;
+const int kMarginBetweenFileNameAndStatusIcon = 5;
 
 const int kRefreshProgressInterval = 1000;
 
@@ -54,7 +56,27 @@ enum {
 };
 
 const int DirentLockStatusRole = Qt::UserRole + 1;
-const int DirentLockOwnerRoler = Qt::UserRole + 2;
+const int DirentLockOwnerRole = Qt::UserRole + 2;
+const int DirentCacheStatusRole = Qt::UserRole + 3;
+
+QIcon getFileStatusIcon(AutoUpdateManager::FileStatus file_status)
+{
+    QString icon;
+    const QString prefix = ":/images/sync/";
+    switch (file_status) {
+        case AutoUpdateManager::SYNCED:
+            icon = "cloud-synced";
+            break;
+        case AutoUpdateManager::UPLOADING:
+            icon = "cloud-sync";
+            break;
+        case AutoUpdateManager::NOT_SYNCED:
+            icon = "exclamation";
+            break;
+    }
+
+    return QIcon(prefix + icon + ".png");
+}
 
 } // namespace
 
@@ -147,9 +169,29 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
                    size - QSize(kColumnIconSize + kMarginLeft, 0));
         painter->setPen(kFileNameFontColor);
         painter->setFont(font);
-        painter->drawText(rect,
-                          Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
-                          fitTextToWidth(text, option.font, rect.width() - 20));
+        painter->drawText(
+            rect,
+            Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
+            fitTextToWidth(
+                text,
+                option.font,
+                rect.width() - kMarginBetweenFileNameAndStatusIcon - kFileStatusIconSize - 5));
+
+        QVariant file_status_v = model->data(index, DirentCacheStatusRole);
+        if (!file_status_v.isNull()) {
+            AutoUpdateManager::FileStatus file_status = (AutoUpdateManager::FileStatus)file_status_v.toInt();
+            // printf ("file status is %d\n", (int)file_status);
+
+            QPoint status_icon_pos = option.rect.topRight() - QPoint(kFileStatusIconSize + 3, 0);
+            status_icon_pos.setY(option.rect.center().y() - (kFileStatusIconSize / 2));
+            QRect status_icon_rect(status_icon_pos, QSize(kFileStatusIconSize, kFileStatusIconSize));
+
+            QPixmap status_icon_pixmap = getFileStatusIcon(file_status).pixmap(status_icon_rect.size());
+
+            painter->save();
+            painter->drawPixmap(status_icon_rect, status_icon_pixmap);
+            painter->restore();
+        }
     }
     break;
     case FILE_COLUMN_SIZE:
@@ -832,6 +874,8 @@ FileTableModel::FileTableModel(QObject *parent)
     task_progress_timer_ = new QTimer(this);
     connect(task_progress_timer_, SIGNAL(timeout()),
             this, SLOT(updateDownloadInfo()));
+    connect(task_progress_timer_, SIGNAL(timeout()),
+            this, SLOT(updateFileCacheStatus()));
     connect(ThumbnailService::instance(), SIGNAL(thumbnailUpdated(const QPixmap&, const QString&)),
             this, SLOT(updateThumbnail(const QPixmap &, const QString&)));
     task_progress_timer_->start(kRefreshProgressInterval);
@@ -842,7 +886,12 @@ void FileTableModel::setDirents(const QList<SeafDirent>& dirents)
     beginResetModel();
     dirents_ = dirents;
     progresses_.clear();
+    file_cache_statuses_.clear();
     endResetModel();
+
+    updateFileCacheStatus();
+    updateDownloadInfo();
+    task_progress_timer_->start();
 }
 
 int FileTableModel::rowCount(const QModelIndex& parent) const
@@ -915,12 +964,18 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
             return NOT_LOCKED;
     }
 
-    if (role == DirentLockOwnerRoler && column == FILE_COLUMN_NAME) {
+    if (role == DirentLockOwnerRole && column == FILE_COLUMN_NAME) {
         return dirent.lock_owner;
     }
 
     if (role == Qt::ToolTipRole && column == FILE_COLUMN_NAME && !dirent.lock_owner.isEmpty()) {
         return tr("locked by %1").arg(dirent.getLockOwnerDisplayString());
+    }
+
+    if (role == DirentCacheStatusRole && column == FILE_COLUMN_NAME) {
+        return file_cache_statuses_.contains(dirent.name)
+                   ? (int)file_cache_statuses_[dirent.name]
+                   : QVariant();
     }
 
     if (role != Qt::DisplayRole) {
@@ -1074,6 +1129,39 @@ void FileTableModel::updateDownloadInfo()
         return;
     emit dataChanged(index(0, FILE_COLUMN_SIZE),
                      index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
+}
+
+
+void FileTableModel::updateFileCacheStatus()
+{
+    if (dirents_.empty())
+        return;
+
+    FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
+    QHash<QString, AutoUpdateManager::FileStatus> new_statues =
+        AutoUpdateManager::instance()->getFileStatusForDirectory(
+            dialog->account_.getSignature(),
+            dialog->repo_.id,
+            dialog->current_path_,
+            dirents_);
+
+    if (new_statues == file_cache_statuses_) {
+        return;
+    }
+
+    for (int pos = 0; pos != dirents_.size() ; pos++) {
+        const QString& name = dirents_[pos].name;
+        int new_status = new_statues.contains(name) ? (int)new_statues[name] : -1;
+        int old_status = file_cache_statuses_.contains(name) ? (int)file_cache_statuses_[name] : -1;
+        if (new_status != old_status) {
+            emit dataChanged(index(pos, FILE_COLUMN_NAME), index(pos , FILE_COLUMN_NAME));
+        }
+    }
+
+    file_cache_statuses_ = new_statues;
+    // printf ("repainting when file cache status is changed\n");
+    // emit dataChanged(index(0, FILE_COLUMN_NAME),
+    //                  index(dirents_.size() - 1 , FILE_COLUMN_NAME));
 }
 
 void FileTableModel::updateThumbnail(const QPixmap& thumbnail, const QString& path)

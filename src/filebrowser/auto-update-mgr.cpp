@@ -156,7 +156,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 
     qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
 
-    FileCache::instance()->fileUpdateStart(info.account.getSignature(), info.repo_id, info.path_in_repo);
+    info.uploading = true;
 
     task->start();
 }
@@ -183,6 +183,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         return;
     }
     WatchedFileInfo& info = watch_infos_[local_path];
+    info.uploading = false;
 
     if (success) {
         qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
@@ -214,7 +215,6 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         seafApplet->trayIcon()->showMessage(tr("Upload Failure: %1").arg(error_msg),
                                             tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
                                             task->repoId());
-        FileCache::instance()->fileUpdateFailed(info.account.getSignature(), info.repo_id, info.path_in_repo);
     }
 
     addPath(&watcher_, local_path);
@@ -243,6 +243,57 @@ void AutoUpdateManager::checkFileRecreated()
         // recreate it when the user modifies the file.
         onFileChanged(path);
     }
+}
+
+QHash<QString, AutoUpdateManager::FileStatus>
+AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
+                                             const QString &repo_id,
+                                             const QString &parent_dir,
+                                             const QList<SeafDirent>& dirents)
+{
+    QHash<QString, SeafDirent> dirents_map;
+    foreach(const SeafDirent& d, dirents) {
+        if (d.isFile()) {
+            dirents_map[d.name] = d;
+        }
+    }
+
+    QHash<QString, FileStatus> ret;
+    QList<FileCache::CacheEntry> caches =
+        FileCache::instance()->getCachedFilesForDirectory(account_sig, repo_id, parent_dir);
+    if (caches.empty()) {
+        // qDebug("no cached files for dir %s\n", toCStr(parent_dir));
+    }
+    foreach(const FileCache::CacheEntry& entry, caches) {
+        // qDebug("found cache entry: %s\n", entry.path.toUtf8().data());
+
+        QString local_file_path = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
+        const QString& file = ::getBaseName(entry.path);
+        bool is_uploading = watch_infos_.contains(local_file_path) && watch_infos_[local_file_path].uploading;
+
+        if (!dirents_map.contains(file)) {
+            // qDebug("cached files no longer exists: %s\n", entry.path.toUtf8().data());
+            continue;
+        }
+
+        const SeafDirent& d = dirents_map[file];
+        if (d.id != entry.file_id) {
+            // qDebug("cached file is a stale version: %s\n", entry.path.toUtf8().data());
+            ret[file] = is_uploading ? UPLOADING : NOT_SYNCED;
+            continue;
+        }
+
+        QFileInfo finfo(local_file_path);
+
+        qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
+        bool consistent = mtime == entry.seafile_mtime && finfo.size() == entry.seafile_size;
+        if (consistent) {
+            ret[file] = SYNCED;
+        } else {
+            ret[file] = is_uploading ? UPLOADING : NOT_SYNCED;
+        }
+    }
+    return ret;
 }
 
 #ifdef Q_OS_MAC

@@ -22,6 +22,22 @@ public:
     void watchCachedFile(const Account& account,
                          const QString& repo_id,
                          const QString& path);
+
+    enum FileStatus {
+        // Local cache is consistent with the version on the server
+        SYNCED = 0,
+        // The file is being auto-uploaded
+        UPLOADING,
+        // Not synced and also not uploading, this happens e.g. when the upload
+        // request failed
+        NOT_SYNCED,
+    };
+
+    QHash<QString, FileStatus> getFileStatusForDirectory(
+        const QString &account_sig,
+        const QString &repo_id,
+        const QString &path,
+        const QList<SeafDirent>& dirents);
     void cleanCachedFile();
 
 signals:

@@ -11,6 +11,7 @@
 
 #include "api/server-repo.h"
 #include "seaf-dirent.h"
+#include "auto-update-mgr.h"
 
 #include "thumbnail-service.h"
 
@@ -145,6 +146,7 @@ public:
 
 private slots:
     void updateDownloadInfo();
+    void updateFileCacheStatus();
     void updateThumbnail(const QPixmap& thumbnail, const QString& file_path);
 
 private:
@@ -155,6 +157,7 @@ private:
     QList<SeafDirent> dirents_;
 
     QHash<QString, QString> progresses_;
+    QHash<QString, AutoUpdateManager::FileStatus> file_cache_statuses_;
 
     int name_column_width_;
 

@@ -10,10 +10,12 @@
 #include "seafile-applet.h"
 
 #include "file-browser-dialog.h"
+#include "data-cache.h"
 #include "data-mgr.h"
 #include "transfer-mgr.h"
 #include "tasks.h"
 
+#include "account-mgr.h"
 #include "file-table.h"
 
 namespace {
@@ -54,7 +56,8 @@ enum {
 };
 
 const int DirentLockStatusRole = Qt::UserRole + 1;
-const int DirentLockOwnerRoler = Qt::UserRole + 2;
+const int DirentLockOwnerRole = Qt::UserRole + 2;
+const int DirentUploadErrorRole = Qt::UserRole + 3;
 
 } // namespace
 
@@ -150,6 +153,17 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->drawText(rect,
                           Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
                           fitTextToWidth(text, option.font, rect.width() - 20));
+
+        bool error_upload = model->data(index, DirentUploadErrorRole).toInt();
+        if (!error_upload) {
+            QToolButton toolButton;
+            painter->save();
+            QPixmap warning_pixmap = QIcon(":/images/main-panel/network-error@2x.png").pixmap(kLockIconSize/2, kLockIconSize);
+            painter->drawPixmap(option_rect.topLeft() + QPoint(kMarginLeft*20, size.height() / 3 - 1), warning_pixmap);
+            toolButton.render(painter);
+            painter->restore();
+            break;
+        }
     }
     break;
     case FILE_COLUMN_SIZE:
@@ -289,6 +303,15 @@ void FileTableView::setupContextMenu()
     connect(parent_, SIGNAL(aboutToClose()),
             context_menu_, SLOT(close()));
 
+    reupload_action_ = new QAction(tr("Reupload"), this);
+    connect(reupload_action_, SIGNAL(triggered()),
+                this, SLOT(onReupload()));
+    delete_local_version_action_ = new QAction(tr("Delete local version"), this);
+    connect(delete_local_version_action_, SIGNAL(triggered()),
+                this, SLOT(onDeleteLocalVersion()));
+    local_version_saveas_action_ = new QAction(tr("Local version save as"), this);
+    connect(local_version_saveas_action_, SIGNAL(triggered()),
+                this, SLOT(onLocalVersionSaveAs()));
     saveas_action_ = new QAction(tr("&Save As..."), this);
     connect(saveas_action_, SIGNAL(triggered()),
             this, SLOT(onSaveAs()));
@@ -369,6 +392,10 @@ void FileTableView::setupContextMenu()
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
     }
 
+    context_menu_->addAction(reupload_action_);
+    context_menu_->addAction(delete_local_version_action_);
+    context_menu_->addAction(local_version_saveas_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addAction(share_seafile_action_);
@@ -387,6 +414,9 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(cancel_download_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
+    this->addAction(reupload_action_);
+    this->addAction(delete_local_version_action_);
+    this->addAction(local_version_saveas_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(share_seafile_action_);
@@ -556,6 +586,31 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_to_group_action_->setVisible(false);
     }
 
+    bool state = false;
+    const Account account = seafApplet->accountManager()->currentAccount();
+    FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
+    QList<FileCache::CacheEntry> ret = FileCache::instance()->getFailedUploads(account.getSignature(),
+                                                                               dialog->repo_.id,
+                                                                               dialog->current_path_);
+    foreach (const FileCache::CacheEntry& rets, ret) {
+        QString name = QFileInfo(rets.path).fileName();
+        if (name.isEmpty()) {
+            continue;
+        } else if (item_->name == name) {
+            state = true;
+            return;
+        }
+    }
+    if (!state) {
+        reupload_action_->setVisible(false);
+        delete_local_version_action_->setVisible(false);
+        local_version_saveas_action_->setVisible(false);
+    } else {
+        reupload_action_->setVisible(true);
+        delete_local_version_action_->setVisible(true);
+        local_version_saveas_action_->setVisible(true);
+    }
+
     context_menu_->exec(position); // synchronously
 
     //
@@ -578,6 +633,34 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
         return;
 
     emit direntClicked(*dirent);
+}
+
+void FileTableView::onReupload()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+    parent_->onGetDirentReupload(*dirent);
+}
+
+void FileTableView::onDeleteLocalVersion()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+
+    if (dirent == NULL) {
+        return;
+    }
+
+    emit deleteLocalVersion(*dirent);
+}
+
+void FileTableView::onLocalVersionSaveAs()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+
+    if (dirent == NULL) {
+        return;
+    }
+
+    emit localVersionSaveAs(*dirent);
 }
 
 void FileTableView::onSaveAs()
@@ -914,8 +997,26 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
             return NOT_LOCKED;
     }
 
-    if (role == DirentLockOwnerRoler && column == FILE_COLUMN_NAME) {
+    if (role == DirentLockOwnerRole && column == FILE_COLUMN_NAME) {
         return dirent.lock_owner;
+    }
+
+    if (role == DirentUploadErrorRole && column == FILE_COLUMN_NAME)
+    {
+        const Account account = seafApplet->accountManager()->currentAccount();
+        FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
+        QList<FileCache::CacheEntry> ret = FileCache::instance()->getFailedUploads(account.getSignature(),
+                                                                                   dialog->repo_.id,
+                                                                                   dialog->current_path_);
+        foreach (const FileCache::CacheEntry& rets, ret) {
+            QString name = QFileInfo(rets.path).fileName();
+            if (name.isEmpty()) {
+                continue;
+            } else if (dirent.name == name) {
+                return false;
+            }
+        }
+        return true;
     }
 
     if (role == Qt::ToolTipRole && column == FILE_COLUMN_NAME && !dirent.lock_owner.isEmpty()) {

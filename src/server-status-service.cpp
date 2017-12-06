@@ -127,8 +127,20 @@ void ServerStatusService::updateOnFailedRequest(const QUrl& url)
 
 void ServerStatusService::updateOnRequestFinished(const QUrl& url, bool no_network_error)
 {
-    bool changed = false;
+    bool found = false;
+    const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+    for (size_t i = 0; i < accounts.size(); i++) {
+        if (url.host() == accounts[i].serverUrl.host()) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        qWarning("ServerStatusService: ignore request for host \"%s\"", url.host().toUtf8().data());
+        return;
+    }
 
+    bool changed = false;
     if (statuses_.contains(url.host())) {
         const ServerStatus& status = statuses_[url.host()];
         if (status.connected != no_network_error) {

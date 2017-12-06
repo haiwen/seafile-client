@@ -32,7 +32,7 @@ const int kMarginLeft = 16;
 const int kMarginRight = 5;
 const int kMarginTop = 5;
 const int kMarginBottom = 5;
-const int kPadding = 5;
+const int kPadding = 2;
 const int kRepoItemVerticalMargin = 13;
 const int kRepoCategoryVerticalMargin = 10;
 
@@ -51,8 +51,8 @@ const int kRepoStatusIconHeightAlpha = 16;
 
 const char *kRepoCategoryIndicatorColor = "#BBB";
 const int kRepoCategoryNameMaxWidth = 400;
-const int kRepoCategoryIndicatorWidth = 16;
-const int kRepoCategoryIndicatorHeight = 16;
+const int kRepoCategoryIndicatorWidth = 20;
+const int kRepoCategoryIndicatorHeight = 20;
 const int kMarginBetweenIndicatorAndName = 5;
 
 const int kMarginBetweenRepoIconAndName = 10;
@@ -218,8 +218,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     }
 
     // Paint repo icon
-    // QPoint repo_icon_pos(kMarginLeft + kPadding + indent_left, kMarginTop + kPadding);
-    QPoint repo_icon_pos(kMarginLeft + 4 + indent_left, kRepoItemVerticalMargin);
+    QPoint repo_icon_pos(kMarginLeft + kPadding + indent_left, kRepoItemVerticalMargin);
     repo_icon_pos += option.rect.topLeft();
 
     // get the device pixel radio from current painter device
@@ -309,7 +308,6 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     if (static_cast<RepoCategoryItem*>(item->parent())->categoryIndex() ==
         RepoTreeModel::CAT_INDEX_SHARED_REPOS)
         extra_description += tr(", %1").arg(repo.owner.split('@').front());
-
     if (!extra_description.isEmpty()) {
         int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
         if (width < 3)
@@ -385,8 +383,10 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     int repo_category_text_height = ::textHeightInFont(item->name(), changeFontSize(option.font, kRepoCategoryNameFontSize));
     int vertical_padding_between_indicator_and_name = (repo_category_text_height - kRepoCategoryIndicatorHeight) / 2;
 
+    // [(size of category icon) - (size of repo icon)] / 2
+    int indicator_offset = (24 - 20) / 2;
     QRect indicator_rect(option.rect.topLeft() +
-                         QPoint(kMarginLeft + indent_left,
+                         QPoint(kPadding + indicator_offset + kMarginLeft + indent_left,
                                 kRepoCategoryVerticalMargin + vertical_padding_between_indicator_and_name),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     // get the device pixel radio from current painter device
@@ -394,6 +394,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     scale_factor = painter->device()->devicePixelRatio();
 #endif // QT5
+
     QIcon icon(expanded ? awesome->icon(icon_caret_down, kRepoCategoryIndicatorColor)
                         : awesome->icon(icon_caret_right, kRepoCategoryIndicatorColor));
     QPixmap icon_pixmap(icon.pixmap(QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorWidth)));
@@ -423,8 +424,10 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     const int category_count_width = ::textWidthInFont(category_count_text, changeFontSize(option.font, kRepoCategoryCountFontSizeAlpha));
 
     painter->save();
+
+    int right_shift = kMarginLeft + kRepoIconWidthAlpha + kMarginBetweenRepoIconAndName - kRepoCategoryIndicatorWidth - kMarginLeft;
     QPoint category_name_pos = indicator_rect.topRight() +
-                               QPoint(kMarginBetweenIndicatorAndName, - vertical_padding_between_indicator_and_name);
+                               QPoint(right_shift - 1, - vertical_padding_between_indicator_and_name);
     QRect category_name_rect(category_name_pos,
                              option.rect.bottomRight() - QPoint(kPadding + category_count_width + kRepoCategoryCountMarginRightAlpha,
                                                                 kRepoCategoryVerticalMargin));
@@ -546,3 +549,4 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
         }
     }
 }
+

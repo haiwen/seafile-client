@@ -10,10 +10,12 @@
 #include "seafile-applet.h"
 
 #include "file-browser-dialog.h"
+#include "data-cache.h"
 #include "data-mgr.h"
 #include "transfer-mgr.h"
 #include "tasks.h"
 
+#include "account-mgr.h"
 #include "file-table.h"
 
 namespace {
@@ -54,7 +56,8 @@ enum {
 };
 
 const int DirentLockStatusRole = Qt::UserRole + 1;
-const int DirentLockOwnerRoler = Qt::UserRole + 2;
+const int DirentLockOwnerRole = Qt::UserRole + 2;
+const int DirentUploadErrorRole = Qt::UserRole + 3;
 
 } // namespace
 
@@ -150,6 +153,17 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->drawText(rect,
                           Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine,
                           fitTextToWidth(text, option.font, rect.width() - 20));
+
+        bool error_upload = model->data(index, DirentUploadErrorRole).toInt();
+        if (!error_upload) {
+            QToolButton toolButton;
+            painter->save();
+            QPixmap warning_pixmap = QIcon(":/images/main-panel/network-error@2x.png").pixmap(kLockIconSize/2, kLockIconSize);
+            painter->drawPixmap(option_rect.topLeft() + QPoint(kMarginLeft*20, size.height() / 3 - 1), warning_pixmap);
+            toolButton.render(painter);
+            painter->restore();
+            break;
+        }
     }
     break;
     case FILE_COLUMN_SIZE:
@@ -914,8 +928,27 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
             return NOT_LOCKED;
     }
 
-    if (role == DirentLockOwnerRoler && column == FILE_COLUMN_NAME) {
+    if (role == DirentLockOwnerRole && column == FILE_COLUMN_NAME) {
         return dirent.lock_owner;
+    }
+
+    if (role == DirentUploadErrorRole && column == FILE_COLUMN_NAME)
+    {
+        const Account account = seafApplet->accountManager()->currentAccount();
+        FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
+        QList<FileCache::CacheEntry> ret = FileCache::instance()->getFailedUploads(account.getSignature(),
+                                                                                   dialog->repo_.id,
+                                                                                   dialog->current_path_);
+        foreach (const FileCache::CacheEntry& rets, ret) {
+            //QStringList name_list = rets.path.split("/");
+            QString name = QFileInfo(rets.path).fileName();
+            if (name.isEmpty()) {
+                continue;
+            } else if (dirent.name == name) {
+                return false;
+            }
+        }
+        return true;
     }
 
     if (role == Qt::ToolTipRole && column == FILE_COLUMN_NAME && !dirent.lock_owner.isEmpty()) {

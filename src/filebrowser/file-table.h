@@ -37,6 +37,8 @@ public:
 signals:
     void direntClicked(const SeafDirent& dirent);
     void direntSaveAs(const QList<const SeafDirent*> &dirents);
+    void deleteLocalVersion(const SeafDirent& dirent);
+    void localVersionSaveAs(const SeafDirent& dirent);
     void dropFile(const QStringList& paths);
     void direntLock(const SeafDirent& dirent);
     void direntRename(const SeafDirent& dirent);
@@ -54,6 +56,9 @@ signals:
 private slots:
     void onAboutToReset();
     void onItemDoubleClicked(const QModelIndex& index);
+    void onRetryUploadCachedFile();
+    void onDeleteLocalVersion();
+    void onLocalVersionSaveAs();
     void onSaveAs();
     void onLock();
     void onRename();
@@ -95,6 +100,9 @@ private:
     QScopedPointer<const SeafDirent> item_;
     QMenu *context_menu_;
     QMenu *paste_only_menu_;
+    QAction *retry_upload_cached_file_action_;
+    QAction *delete_local_version_action_;
+    QAction *local_version_saveas_action_;
     QAction *saveas_action_;
     QAction *rename_action_;
     QAction *remove_action_;

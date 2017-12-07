@@ -115,6 +115,24 @@ void AutoUpdateManager::cleanCachedFile()
     QThreadPool::globalInstance()->start(cleaner);
 }
 
+void AutoUpdateManager::uploadFile(const QString& local_path)
+{
+    WatchedFileInfo &info = watch_infos_[local_path];
+
+    FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
+        info.repo_id, ::getParentPath(info.path_in_repo),
+        local_path, ::getBaseName(local_path), true);
+
+    connect(task, SIGNAL(finished(bool)),
+            this, SLOT(onUpdateTaskFinished(bool)));
+
+    qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
+
+    info.uploading = true;
+
+    task->start();
+}
+
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
     qDebug("[AutoUpdateManager] detected cache file %s changed", local_path.toUtf8().data());
@@ -147,18 +165,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
 
-    FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
-        info.repo_id, ::getParentPath(info.path_in_repo),
-        local_path, ::getBaseName(local_path), true);
-
-    connect(task, SIGNAL(finished(bool)),
-            this, SLOT(onUpdateTaskFinished(bool)));
-
-    qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
-
-    info.uploading = true;
-
-    task->start();
+    uploadFile(local_path);
 }
 
 void AutoUpdateManager::onUpdateTaskFinished(bool success)

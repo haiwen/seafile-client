@@ -331,6 +331,15 @@ void FileTableView::setupContextMenu()
     connect(parent_, SIGNAL(aboutToClose()),
             context_menu_, SLOT(close()));
 
+    retry_upload_cached_file_action_ = new QAction(tr("Retry Upload"), this);
+    connect(retry_upload_cached_file_action_, SIGNAL(triggered()),
+            this, SLOT(onRetryUploadCachedFile()));
+    delete_local_version_action_ = new QAction(tr("Delete Local Version"), this);
+    connect(delete_local_version_action_, SIGNAL(triggered()),
+            this, SLOT(onDeleteLocalVersion()));
+    local_version_saveas_action_ = new QAction(tr("Local Version Save As..."), this);
+    connect(local_version_saveas_action_, SIGNAL(triggered()),
+            this, SLOT(onLocalVersionSaveAs()));
     saveas_action_ = new QAction(tr("&Save As..."), this);
     connect(saveas_action_, SIGNAL(triggered()),
             this, SLOT(onSaveAs()));
@@ -411,6 +420,10 @@ void FileTableView::setupContextMenu()
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
     }
 
+    context_menu_->addAction(retry_upload_cached_file_action_);
+    context_menu_->addAction(delete_local_version_action_);
+    context_menu_->addAction(local_version_saveas_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
     context_menu_->addAction(share_seafile_action_);
@@ -429,6 +442,9 @@ void FileTableView::setupContextMenu()
     context_menu_->addAction(cancel_download_action_);
     context_menu_->addAction(sync_subdirectory_action_);
 
+    this->addAction(retry_upload_cached_file_action_);
+    this->addAction(delete_local_version_action_);
+    this->addAction(local_version_saveas_action_);
     this->addAction(saveas_action_);
     this->addAction(share_action_);
     this->addAction(share_seafile_action_);
@@ -599,6 +615,18 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         share_to_group_action_->setVisible(false);
     }
 
+    QVariant file_status_v = source_model_->data(index, DirentCacheStatusRole);
+    AutoUpdateManager::FileStatus file_status = (AutoUpdateManager::FileStatus)file_status_v.toInt();
+    if (file_status != AutoUpdateManager::NOT_SYNCED || item_ == NULL || file_status_v.isNull()) {
+        retry_upload_cached_file_action_->setVisible(false);
+        delete_local_version_action_->setVisible(false);
+        local_version_saveas_action_->setVisible(false);
+    } else {
+        retry_upload_cached_file_action_->setVisible(true);
+        delete_local_version_action_->setVisible(true);
+        local_version_saveas_action_->setVisible(true);
+    }
+
     context_menu_->exec(position); // synchronously
 
     //
@@ -621,6 +649,34 @@ void FileTableView::onItemDoubleClicked(const QModelIndex& index)
         return;
 
     emit direntClicked(*dirent);
+}
+
+void FileTableView::onRetryUploadCachedFile()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+    parent_->onGetDirentReupload(*dirent);
+}
+
+void FileTableView::onDeleteLocalVersion()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+
+    if (dirent == NULL) {
+        return;
+    }
+
+    emit deleteLocalVersion(*dirent);
+}
+
+void FileTableView::onLocalVersionSaveAs()
+{
+    const SeafDirent *dirent = getSelectedItemFromSource();
+
+    if (dirent == NULL) {
+        return;
+    }
+
+    emit localVersionSaveAs(*dirent);
 }
 
 void FileTableView::onSaveAs()

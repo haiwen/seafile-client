@@ -3,7 +3,6 @@
 
 #include <QProgressDialog>
 #include <QObject>
-#include <QSharedPointer>
 
 #include "tasks.h"
 
@@ -27,7 +26,7 @@ private slots:
 
 private:
 
-    QSharedPointer<FileNetworkTask> task_;
+    FileNetworkTask* task_;
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;

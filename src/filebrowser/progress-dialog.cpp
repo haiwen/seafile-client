@@ -12,7 +12,7 @@
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
-          task_(task->sharedFromThis())
+          task_(task)
 {
     setWindowModality(Qt::NonModal);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -46,10 +46,10 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
 
     initTaskInfo();
 
-    connect(task_.data(), SIGNAL(progressUpdate(qint64, qint64)),
+    connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SLOT(onProgressUpdate(qint64, qint64)));
-    connect(task_.data(), SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
-    connect(task_.data(), SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
+    connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
+    connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
     connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
 }
 

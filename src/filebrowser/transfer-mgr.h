@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QQueue>
-#include <QSharedPointer>
 
 #include "api/api-error.h"
 #include "seaf-dirent.h"
@@ -59,10 +58,10 @@ private slots:
     void onDownloadTaskFinished(bool success);
 
 private:
-    void startDownloadTask(const QSharedPointer<FileDownloadTask> &task);
+    void startDownloadTask(FileDownloadTask* task);
 
-    QSharedPointer<FileDownloadTask> current_download_;
-    QQueue<QSharedPointer<FileDownloadTask> > pending_downloads_;
+    FileDownloadTask* current_download_;
+    QQueue<FileDownloadTask*> pending_downloads_;
 };
 
 

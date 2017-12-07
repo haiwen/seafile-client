@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QUrl>
-#include <QSharedPointer>
 #include <QMutex>
 
 #include "api/server-repo.h"
@@ -93,19 +92,6 @@ public:
     const QString& errorString() const { return error_string_; }
     int httpErrorCode() const { return http_error_code_; }
 
-    // shared_from_this
-    // Usage: (for example, FileDownloadTask)
-    //  FileDownloadTask *task = new FileDownloadTask(...);
-    //  SharedPointer<FileNetworkTask> sharePtr = task->sharedFromThis();
-    //  SharedPointer<FileDownloadTask> sharePtr =
-    //  task->sharedFromThis().objectCast<FileDownloadTask>();
-    //
-    QSharedPointer<FileNetworkTask> sharedFromThis() {
-        QSharedPointer<FileNetworkTask> shared_ptr(__weak_ptr.toStrongRef());
-        __shared_ptr.clear();
-        return shared_ptr;
-    }
-
 public slots:
     virtual void start();
     virtual void cancel();
@@ -144,10 +130,6 @@ protected:
     Progress progress_;
 
     static QThread *worker_thread_;
-    // keep a copy of shared_ptr
-    // for we can't get shared_ptr from weak_ptr
-    QSharedPointer<FileNetworkTask> __shared_ptr;
-    QWeakPointer<FileNetworkTask> __weak_ptr;
 };
 
 

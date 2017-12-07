@@ -21,7 +21,7 @@
 
 namespace {
 
-bool isDownloadForGivenParentDir(const QSharedPointer<FileDownloadTask> &task,
+bool isDownloadForGivenParentDir(FileDownloadTask* task,
                                  const QString& repo_id,
                                  const QString& parent_dir)
 {
@@ -29,7 +29,7 @@ bool isDownloadForGivenParentDir(const QSharedPointer<FileDownloadTask> &task,
         ::getParentPath(task->path()) == parent_dir;
 }
 
-bool matchDownloadTask(const QSharedPointer<FileDownloadTask> &task,
+bool matchDownloadTask(FileDownloadTask* task,
                        const QString& repo_id,
                        const QString& path)
 {
@@ -60,27 +60,26 @@ FileDownloadTask* TransferManager::addDownloadTask(const Account& account,
     }
 
     FileDownloadTask* task = new FileDownloadTask(account, repo_id, path, local_path, is_save_as_task);
-    QSharedPointer<FileDownloadTask> shared_task = task->sharedFromThis().objectCast<FileDownloadTask>();
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onDownloadTaskFinished(bool)));
     if (current_download_) {
-        pending_downloads_.enqueue(shared_task);
+        pending_downloads_.enqueue(task);
     } else {
-        startDownloadTask(shared_task);
+        startDownloadTask(task);
     }
     return task;
 }
 
 void TransferManager::onDownloadTaskFinished(bool success)
 {
-    current_download_.clear();
+    current_download_ = nullptr;
     if (!pending_downloads_.empty()) {
-        const QSharedPointer<FileDownloadTask> &task = pending_downloads_.dequeue();
+        FileDownloadTask* task = pending_downloads_.dequeue();
         startDownloadTask(task);
     }
 }
 
-void TransferManager::startDownloadTask(const QSharedPointer<FileDownloadTask> &task)
+void TransferManager::startDownloadTask(FileDownloadTask* task)
 {
     current_download_ = task;
     task->start();
@@ -90,11 +89,11 @@ FileDownloadTask* TransferManager::getDownloadTask(const QString& repo_id,
                                                    const QString& path)
 {
     if (matchDownloadTask(current_download_, repo_id, path)) {
-        return current_download_.data();
+        return current_download_;
     }
-    foreach (const QSharedPointer<FileDownloadTask>& task, pending_downloads_) {
+    foreach (FileDownloadTask* task, pending_downloads_) {
         if (matchDownloadTask(task, repo_id, path)) {
-            return task.data();
+            return task;
         }
     }
     return NULL;
@@ -106,11 +105,10 @@ void TransferManager::cancelDownload(const QString& repo_id,
     FileDownloadTask* task = getDownloadTask(repo_id, path);
     if (!task)
         return;
-    QSharedPointer<FileDownloadTask> shared_task = task->sharedFromThis().objectCast<FileDownloadTask>();
     if (task == current_download_) {
         task->cancel();
     } else {
-        pending_downloads_.removeOne(shared_task);
+        pending_downloads_.removeOne(task);
     }
 }
 
@@ -118,7 +116,7 @@ void TransferManager::cancelAllDownloadTasks()
 {
     if (current_download_) {
         current_download_->cancel();
-        current_download_.clear();
+        current_download_= nullptr;
     }
     pending_downloads_.clear();
 }
@@ -129,11 +127,11 @@ TransferManager::getDownloadTasks(const QString& repo_id,
 {
     QList<FileDownloadTask*> tasks;
     if (isDownloadForGivenParentDir(current_download_, repo_id, parent_dir)) {
-        tasks.append(current_download_.data());
+        tasks.append(current_download_);
     }
-    foreach (const QSharedPointer<FileDownloadTask>& task, pending_downloads_) {
+    foreach (FileDownloadTask* task, pending_downloads_) {
         if (isDownloadForGivenParentDir(task, repo_id, parent_dir)) {
-            tasks.append(task.data());
+            tasks.append(task);
         }
     }
 

@@ -88,9 +88,7 @@ FileNetworkTask::FileNetworkTask(const Account& account,
       path_(path),
       local_path_(local_path),
       canceled_(false),
-      progress_(0, 0),
-      __shared_ptr(this, &QObject::deleteLater),
-      __weak_ptr(__shared_ptr)
+      progress_(0, 0)
 {
     fileserver_task_ = NULL;
     get_link_req_ = NULL;
@@ -196,7 +194,7 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
 void FileNetworkTask::onFinished(bool success)
 {
     emit finished(success);
-    __shared_ptr.clear();
+    deleteLater();
 }
 
 void FileNetworkTask::onGetLinkFailed(const ApiError& error)

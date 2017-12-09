@@ -90,8 +90,6 @@ public:
         QString file_id;
         qint64  seafile_mtime;
         qint64  seafile_size;
-        bool uploading;
-        int num_upload_errors;
     };
 
     void start();
@@ -105,17 +103,9 @@ public:
                           const QString& account_sig,
                           const QString& local_file_path);
 
-    void fileUpdateStart(const QString& account_sig,
-                         const QString& repo_id,
-                         const QString& path);
-
-    void fileUpdateFailed(const QString& account_sig,
-                          const QString& repo_id,
-                          const QString& path);
-
-    QList<CacheEntry> getFailedUploads(const QString& account_sig,
-                                       const QString& repo_id,
-                                       const QString& parent_dir);
+    QList<CacheEntry> getCachedFilesForDirectory(const QString& account_sig,
+                                                 const QString& repo_id,
+                                                 const QString& parent_dir);
 
     QList<CacheEntry> getAllCachedFiles();
     void cleanCurrentAccountCache();

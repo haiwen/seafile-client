@@ -11,6 +11,7 @@
 #include "configurator.h"
 #include "seafile-applet.h"
 #include "data-cache.h"
+#include "data-mgr.h"
 #include "account-mgr.h"
 
 namespace {
@@ -25,8 +26,6 @@ void filecache_entry_from_sqlite3_result(sqlite3_stmt *stmt, FileCache::CacheEnt
     entry->file_id = (const char *)sqlite3_column_text (stmt, 3);
     entry->seafile_mtime = sqlite3_column_int64 (stmt, 4);
     entry->seafile_size = sqlite3_column_int64 (stmt, 5);
-    entry->uploading = sqlite3_column_int64(stmt, 6);
-    entry->num_upload_errors = sqlite3_column_int64(stmt, 7);
 }
 
 } // namespace
@@ -166,16 +165,16 @@ void FileCache::start()
     // XX(lins05): This is not ideal. Should we invent a table schema upgrade mechanism?
     sql = "DROP TABLE IF EXISTS FileCache;";
     sqlite_query_exec (db, sql);
+    sql = "DROP TABLE IF EXISTS FileCacheV1;";
+    sqlite_query_exec (db, sql);
 
-    sql = "CREATE TABLE IF NOT EXISTS FileCacheV1 ("
+    sql = "CREATE TABLE IF NOT EXISTS FileCacheV2 ("
         "     repo_id VARCHAR(36), "
         "     path VARCHAR(4096), "
         "     account_sig VARCHAR(40) NOT NULL, "
         "     file_id VARCHAR(40) NOT NULL, "
         "     seafile_mtime integer NOT NULL, "
         "     seafile_size integer NOT NULL, "
-        "     uploading int NOT NULL, "
-        "     num_upload_errors int NOT NULL, "
         "     PRIMARY KEY (repo_id, path))";
     sqlite_query_exec (db, sql);
 
@@ -194,7 +193,7 @@ bool FileCache::getCacheEntry(const QString& repo_id,
                               FileCache::CacheEntry *entry)
 {
     char *zql = sqlite3_mprintf("SELECT *"
-                                "  FROM FileCacheV1"
+                                "  FROM FileCacheV2"
                                 " WHERE repo_id = %Q"
                                 "   AND path = %Q",
                                 repo_id.toUtf8().data(), path.toUtf8().data());
@@ -212,10 +211,10 @@ void FileCache::saveCachedFileId(const QString& repo_id,
     QFileInfo finfo (local_file_path);
     qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
     qint64 fsize = finfo.size();
-    char *zql = sqlite3_mprintf("REPLACE INTO FileCacheV1( "
+    char *zql = sqlite3_mprintf("REPLACE INTO FileCacheV2( "
                                 "repo_id, path, account_sig, file_id, "
-                                "seafile_mtime, seafile_size, uploading, num_upload_errors "
-                                ") VALUES (%Q, %Q, %Q, %Q, %lld, %lld, 0, 0)",
+                                "seafile_mtime, seafile_size "
+                                ") VALUES (%Q, %Q, %Q, %Q, %lld, %lld)",
                                 toCStr(repo_id),
                                 toCStr(path),
                                 toCStr(account_sig),
@@ -238,7 +237,7 @@ bool FileCache::collectCachedFile(sqlite3_stmt *stmt, void *data)
 
 QList<FileCache::CacheEntry> FileCache::getAllCachedFiles()
 {
-    const char* sql = "SELECT * FROM FileCacheV1";
+    const char* sql = "SELECT * FROM FileCacheV2";
     QList<CacheEntry> list;
     sqlite_foreach_selected_row(db_, sql, collectCachedFile, &list);
     return list;
@@ -251,48 +250,15 @@ void FileCache::cleanCurrentAccountCache()
         return;
     }
     char *zql = sqlite3_mprintf(
-        "DELETE FROM FileCacheV1 where account_sig = %Q",
+        "DELETE FROM FileCacheV2 where account_sig = %Q",
         toCStr(account.getSignature()));
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
 }
 
-void FileCache::fileUpdateStart(const QString& account_sig,
-                                const QString& repo_id,
-                                const QString& path)
-{
-    char *sql = sqlite3_mprintf("UPDATE FileCacheV1 "
-                                "SET uploading = 1 "
-                                "WHERE repo_id = %Q "
-                                "  AND path = %Q "
-                                "  AND account_sig = %Q; ",
-                                toCStr(repo_id),
-                                toCStr(path),
-                                toCStr(account_sig));
-    sqlite_query_exec(db_, sql);
-    sqlite3_free(sql);
-}
-
-void FileCache::fileUpdateFailed(const QString& account_sig,
-                                 const QString& repo_id,
-                                 const QString& path)
-{
-    char *sql = sqlite3_mprintf("UPDATE FileCacheV1 "
-                                "SET uploading = 0, "
-                                "    num_upload_errors = num_upload_errors + 1 "
-                                "WHERE repo_id = %Q "
-                                "  AND path = %Q "
-                                "  AND account_sig = %Q; ",
-                                toCStr(repo_id),
-                                toCStr(path),
-                                toCStr(account_sig));
-    sqlite_query_exec(db_, sql);
-    sqlite3_free(sql);
-}
-
-QList<FileCache::CacheEntry> FileCache::getFailedUploads(const QString& account_sig,
-                                                         const QString& repo_id,
-                                                         const QString& parent_dir_in)
+QList<FileCache::CacheEntry> FileCache::getCachedFilesForDirectory(const QString& account_sig,
+                                                                   const QString& repo_id,
+                                                                   const QString& parent_dir_in)
 {
     QString parent_dir = parent_dir_in;
     // Strip the trailing slash
@@ -301,12 +267,10 @@ QList<FileCache::CacheEntry> FileCache::getFailedUploads(const QString& account_
     }
 
     QList<CacheEntry> entries;
-    char* sql = sqlite3_mprintf("SELECT * FROM FileCacheV1 "
+    char* sql = sqlite3_mprintf("SELECT * FROM FileCacheV2 "
                                 "WHERE repo_id = %Q "
                                 "  AND path like %Q "
-                                "  AND account_sig = %Q "
-                                "  AND uploading = 0 "
-                                "  AND num_upload_errors > 0; ",
+                                "  AND account_sig = %Q; ",
                                 toCStr(repo_id),
                                 toCStr(QString("%1%").arg(parent_dir == "/" ? parent_dir : parent_dir + "/")),
                                 toCStr(account_sig));
@@ -319,7 +283,10 @@ QList<FileCache::CacheEntry> FileCache::getFailedUploads(const QString& account_
     QList<CacheEntry> ret;
     foreach(const CacheEntry& entry, entries) {
         if (::getParentPath(entry.path) == parent_dir) {
-            ret.append(entry);
+            QString localpath = DataManager::instance()->getLocalCacheFilePath(entry.repo_id, entry.path);
+            if (QFileInfo(localpath).exists()) {
+                ret.append(entry);
+            }
         }
     }
     return ret;

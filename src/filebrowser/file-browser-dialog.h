@@ -20,7 +20,6 @@ class QSizeGrip;
 class QHBoxLayout;
 
 class ApiError;
-class EmptyFolderView;
 class FileTableView;
 class FileTableModel;
 class SeafDirent;
@@ -161,6 +160,7 @@ private:
     bool setPasswordAndRetry(FileNetworkTask *task);
 
     bool eventFilter(QObject *obj, QEvent *event);
+    bool handleDragDropEvent(QObject *obj, QEvent *event);
 
     const Account account_;
     const ServerRepo repo_;
@@ -208,7 +208,7 @@ private:
     QWidget *loading_view_;
     QLabel *loading_failed_view_;
     QWidget *relogin_view_;
-    EmptyFolderView *empty_view_;
+    QLabel *empty_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
 

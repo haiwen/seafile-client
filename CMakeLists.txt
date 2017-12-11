@@ -273,7 +273,6 @@ SET(moc_headers
   src/ui/set-repo-password-dialog.h
   src/ui/sync-errors-dialog.h
   src/ui/search-bar.h
-  src/ui/empty-folder-view.h
   src/filebrowser/file-browser-manager.h
   src/filebrowser/file-browser-dialog.h
   src/filebrowser/file-browser-requests.h
@@ -461,7 +460,6 @@ SET(seafile_client_sources
   src/ui/set-repo-password-dialog.cpp
   src/ui/sync-errors-dialog.cpp
   src/ui/search-bar.cpp
-  src/ui/empty-folder-view.cpp
   src/filebrowser/file-browser-manager.cpp
   src/filebrowser/file-browser-dialog.cpp
   src/filebrowser/file-browser-requests.cpp

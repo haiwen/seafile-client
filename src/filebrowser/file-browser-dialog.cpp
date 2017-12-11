@@ -12,7 +12,6 @@
 #include "file-table.h"
 #include "seaf-dirent.h"
 #include "ui/loading-view.h"
-#include "ui/empty-folder-view.h"
 #include "data-mgr.h"
 #include "data-mgr.h"
 #include "progress-dialog.h"
@@ -366,6 +365,57 @@ void FileBrowserDialog::createFileTable()
     table_view_->setModel(table_model_);
 }
 
+bool FileBrowserDialog::handleDragDropEvent(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::DragEnter) {
+        QDragEnterEvent* ev = (QDragEnterEvent*)event;
+        // only handle external source currently
+        if(ev->source() != NULL)
+            return false;
+        // Otherwise it might be a MoveAction which is unacceptable
+        ev->setDropAction(Qt::CopyAction);
+        // trivial check
+        if(ev->mimeData()->hasFormat("text/uri-list"))
+            ev->accept();
+        return true;
+    }
+    else if (event->type() == QEvent::Drop) {
+        QDropEvent* ev = (QDropEvent*)event;
+        // only handle external source currently
+        if(ev->source() != NULL)
+            return false;
+
+        QList<QUrl> urls = ev->mimeData()->urls();
+
+        if(urls.isEmpty())
+            return false;
+
+        QStringList paths;
+        Q_FOREACH(const QUrl& url, urls)
+        {
+            QString path = url.toLocalFile();
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+            path = utils::mac::fix_file_id_url(path);
+#endif
+            if(path.isEmpty())
+                continue;
+            paths.push_back(path);
+        }
+
+        ev->accept();
+
+        if (current_readonly_) {
+            seafApplet->warningBox(tr("You do not have permission to upload to this folder"), this);
+        } else {
+            uploadOrUpdateMutipleFile(paths);
+        }
+        return true;
+    }
+    else {
+        return QObject::eventFilter(obj, event);
+    }
+}
+
 bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == upload_button_) {
@@ -394,50 +444,7 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
     } else if (obj == stack_) {
         if (stack_->currentIndex() == INDEX_EMPTY_VIEW ||
             stack_->currentIndex() == INDEX_TABLE_VIEW) {
-            if (event->type() == QEvent::DragEnter) {
-                QDragEnterEvent* ev = (QDragEnterEvent*)event;
-                // only handle external source currently
-                if(ev->source() != NULL)
-                    return false;
-                // Otherwise it might be a MoveAction which is unacceptable
-                ev->setDropAction(Qt::CopyAction);
-                // trivial check
-                if(ev->mimeData()->hasFormat("text/uri-list"))
-                    ev->accept();
-                return true;
-            }
-            else if (event->type() == QEvent::Drop) {
-                QDropEvent* ev = (QDropEvent*)event;
-                // only handle external source currently
-                if(ev->source() != NULL)
-                    return false;
-
-                QList<QUrl> urls = ev->mimeData()->urls();
-
-                if(urls.isEmpty())
-                    return false;
-
-                QStringList paths;
-                Q_FOREACH(const QUrl& url, urls)
-                {
-                    QString path = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-                    path = utils::mac::fix_file_id_url(path);
-#endif
-                    if(path.isEmpty())
-                        continue;
-                    paths.push_back(path);
-                }
-
-                ev->accept();
-
-                if (current_readonly_) {
-                    seafApplet->warningBox(tr("You do not have permission to upload to this folder"), this);
-                } else {
-                    uploadOrUpdateMutipleFile(paths);
-                }
-                return true;
-            }
+            handleDragDropEvent(obj, event);
         }
     }
 
@@ -538,7 +545,10 @@ void FileBrowserDialog::createLoadingFailedView()
 
 void FileBrowserDialog::createEmptyView()
 {
-    empty_view_ = new EmptyFolderView(this);
+    empty_view_ = new QLabel(this);
+    empty_view_->setText(tr("This folder is empty."));
+    empty_view_->setAlignment(Qt::AlignCenter);
+    empty_view_->setStyleSheet("background-color: white;");
 }
 
 void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)

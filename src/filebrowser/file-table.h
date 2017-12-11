@@ -37,12 +37,9 @@ public:
 signals:
     void direntClicked(const SeafDirent& dirent);
     void direntSaveAs(const QList<const SeafDirent*> &dirents);
-<<<<<<< 9dfe9a1d03a0d831e6bbbec88bebe445e7c36a23
     void deleteLocalVersion(const SeafDirent& dirent);
     void localVersionSaveAs(const SeafDirent& dirent);
     void dropFile(const QStringList& paths);
-=======
->>>>>>> Handle drag & drop event in FileBrowserDialog::eventFilter(..)
     void direntLock(const SeafDirent& dirent);
     void direntRename(const SeafDirent& dirent);
     void direntRemove(const SeafDirent& dirent);

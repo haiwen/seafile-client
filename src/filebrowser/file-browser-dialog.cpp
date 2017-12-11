@@ -444,7 +444,7 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
     } else if (obj == stack_) {
         if (stack_->currentIndex() == INDEX_EMPTY_VIEW ||
             stack_->currentIndex() == INDEX_TABLE_VIEW) {
-            handleDragDropEvent(obj, event);
+            return handleDragDropEvent(obj, event);
         }
     }
 

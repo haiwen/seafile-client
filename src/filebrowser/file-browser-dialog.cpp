@@ -139,6 +139,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     stack_->insertWidget(INDEX_EMPTY_VIEW, empty_view_);
     stack_->insertWidget(INDEX_RELOGIN_VIEW, relogin_view_);
     stack_->setContentsMargins(0, 0, 0, 0);
+    stack_->installEventFilter(this);
+    stack_->setAcceptDrops(true);
 
     vlayout->addWidget(toolbar_);
     vlayout->addWidget(stack_);
@@ -244,6 +246,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             SLOT(onAccountInfoUpdated()));
 
     QTimer::singleShot(0, this, SLOT(init()));
+
 }
 
 FileBrowserDialog::~FileBrowserDialog()
@@ -360,9 +363,57 @@ void FileBrowserDialog::createFileTable()
     table_view_ = new FileTableView(this);
     table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
+}
 
-    connect(table_view_, SIGNAL(dropFile(const QStringList&)),
-            this, SLOT(uploadOrUpdateMutipleFile(const QStringList&)));
+bool FileBrowserDialog::handleDragDropEvent(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::DragEnter) {
+        QDragEnterEvent* ev = (QDragEnterEvent*)event;
+        // only handle external source currently
+        if(ev->source() != NULL)
+            return false;
+        // Otherwise it might be a MoveAction which is unacceptable
+        ev->setDropAction(Qt::CopyAction);
+        // trivial check
+        if(ev->mimeData()->hasFormat("text/uri-list"))
+            ev->accept();
+        return true;
+    }
+    else if (event->type() == QEvent::Drop) {
+        QDropEvent* ev = (QDropEvent*)event;
+        // only handle external source currently
+        if(ev->source() != NULL)
+            return false;
+
+        QList<QUrl> urls = ev->mimeData()->urls();
+
+        if(urls.isEmpty())
+            return false;
+
+        QStringList paths;
+        Q_FOREACH(const QUrl& url, urls)
+        {
+            QString path = url.toLocalFile();
+#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
+            path = utils::mac::fix_file_id_url(path);
+#endif
+            if(path.isEmpty())
+                continue;
+            paths.push_back(path);
+        }
+
+        ev->accept();
+
+        if (current_readonly_) {
+            seafApplet->warningBox(tr("You do not have permission to upload to this folder"), this);
+        } else {
+            uploadOrUpdateMutipleFile(paths);
+        }
+        return true;
+    }
+    else {
+        return QObject::eventFilter(obj, event);
+    }
 }
 
 bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
@@ -390,7 +441,13 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
                                           "margin-right: 15px;}");
             return true;
         }
+    } else if (obj == stack_) {
+        if (stack_->currentIndex() == INDEX_EMPTY_VIEW ||
+            stack_->currentIndex() == INDEX_TABLE_VIEW) {
+            handleDragDropEvent(obj, event);
+        }
     }
+
     return QObject::eventFilter(obj, event);
 }
 
@@ -488,9 +545,10 @@ void FileBrowserDialog::createLoadingFailedView()
 
 void FileBrowserDialog::createEmptyView()
 {
-    empty_view_ = new QLabel;
+    empty_view_ = new QLabel(this);
     empty_view_->setText(tr("This folder is empty."));
     empty_view_->setAlignment(Qt::AlignCenter);
+    empty_view_->setStyleSheet("background-color: white;");
 }
 
 void FileBrowserDialog::onDirentClicked(const SeafDirent& dirent)
@@ -914,6 +972,11 @@ void FileBrowserDialog::onUploadFinished(bool success)
         else
             table_model_->replaceItem(name, dirent);
     }
+
+    if (stack_->currentIndex() == INDEX_EMPTY_VIEW) {
+        forceRefresh();
+    }
+
     updateFileCount();
 }
 
@@ -965,17 +1028,13 @@ void FileBrowserDialog::goHome()
 
 void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 {
-    // Commented out because the empty view can't handle file drag & drop events.
-
-    // if (dirents.isEmpty()) {
-    //     stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
-    // } else {
-    //     table_model_->setDirents(dirents);
-    //     stack_->setCurrentIndex(INDEX_TABLE_VIEW);
-    // }
-
-    table_model_->setDirents(dirents);
-    stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+    if (dirents.isEmpty()) {
+        table_model_->setDirents(QList<SeafDirent>());
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    } else {
+        table_model_->setDirents(dirents);
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+    }
 
     if (!forward_history_.empty()) {
         forward_button_->setEnabled(true);
@@ -1175,6 +1234,10 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
         return;
     table_model_->removeItemNamed(name);
     updateFileCount();
+
+    if (table_model_->rowCount() == 0) {
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    }
 }
 
 void FileBrowserDialog::onDirentRemoveFailed(const ApiError&error)
@@ -1193,6 +1256,10 @@ void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
         table_model_->removeItemNamed(name);
     }
     updateFileCount();
+
+    if (table_model_->rowCount() == 0) {
+        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+    }
 }
 
 void FileBrowserDialog::onDirentsRemoveFailed(const ApiError&error)

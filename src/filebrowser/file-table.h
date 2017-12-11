@@ -87,9 +87,6 @@ private:
     // the indexes it uses internally is mapped to source model
     QList<const SeafDirent *> getSelectedItemsFromSource();
     void contextMenuEvent(QContextMenuEvent *event);
-    void dropEvent(QDropEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
-    void dragEnterEvent(QDragEnterEvent *event);
     void resizeEvent(QResizeEvent *event);
     void onShareToUserOrGroup(bool to_group);
 

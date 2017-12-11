@@ -160,6 +160,7 @@ private:
     bool setPasswordAndRetry(FileNetworkTask *task);
 
     bool eventFilter(QObject *obj, QEvent *event);
+    bool handleDragDropEvent(QObject *obj, QEvent *event);
 
     const Account account_;
     const ServerRepo repo_;
@@ -206,13 +207,12 @@ private:
     QStackedWidget *stack_;
     QWidget *loading_view_;
     QLabel *loading_failed_view_;
-    QLabel *empty_view_;
     QWidget *relogin_view_;
+    QLabel *empty_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
 
     DataManager *data_mgr_;
 };
-
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H

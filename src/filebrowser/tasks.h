@@ -77,6 +77,7 @@ public:
     const Account& account() const { return account_; };
     QString path() const { return path_; };
     QString localFilePath() const { return local_path_; }
+    QString failedPath() const { return failed_path_; }
     QString fileName() const;
     QString oid() const { return oid_; }
     Progress progress() const { return progress_; };
@@ -120,6 +121,7 @@ protected:
     const QString repo_id_;
     QString path_;
     QString local_path_;
+    QString failed_path_;
     QString oid_;
 
     TaskError error_;
@@ -259,6 +261,7 @@ public:
     int httpErrorCode() const { return http_error_code_; }
     virtual const QString& oid() const { return oid_; }
     int retryCount() const { return retry_count_; }
+    const QString& failedPath() const { return failed_path_; }
 
     static void resetQNAM();
 
@@ -310,6 +313,7 @@ protected:
 
     QUrl url_;
     QString local_path_;
+    QString failed_path_;
     QString oid_;
 
     QNetworkReply *reply_;

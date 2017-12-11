@@ -91,6 +91,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
         setWindowTitle(tr("Sync folder \"%1\"").arg(repo.parent_path));
     }
     mDirectory->setPlaceholderText(getOperatingText(repo_));
+    mDirectory->setReadOnly(true);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setWindowIcon(QIcon(":/images/seafile.png"));
 

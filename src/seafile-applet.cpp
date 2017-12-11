@@ -553,6 +553,19 @@ bool SeafileApplet::yesOrCancelBox(const QString& msg, QWidget *parent, bool def
     return box.clickedButton() == yes_btn;
 }
 
+bool SeafileApplet::retryOrCancelBox(const QString& msg, QWidget *parent, bool default_yes)
+{
+    QMessageBox box(parent ? parent : main_win_);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Question);
+    QPushButton *yes_btn = box.addButton(tr("Retry"), QMessageBox::YesRole);
+    QPushButton *cancel_btn = box.addButton(tr("Cancel"), QMessageBox::RejectRole);
+    box.setDefaultButton(default_yes ? yes_btn: cancel_btn);
+    box.exec();
+
+    return box.clickedButton() == yes_btn;
+}
 
 QMessageBox::StandardButton
 SeafileApplet::yesNoCancelBox(const QString& msg, QWidget *parent, QMessageBox::StandardButton default_btn)

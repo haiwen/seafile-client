@@ -211,7 +211,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
                  toCStr(task->errorString()));
         QString error_msg;
         if (task->httpErrorCode() == 403) {
-            error_msg = tr("Permission Error!");
+            error_msg = tr("Permission Error");
         } else if (task->httpErrorCode() == 401) {
             error_msg = tr("Authorization expired");
         } else if (task->httpErrorCode() == 441) {

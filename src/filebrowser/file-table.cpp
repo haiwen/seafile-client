@@ -419,6 +419,10 @@ void FileTableView::setupContextMenu()
         sync_subdirectory_action_->setToolTip(tr("This feature is available in pro version only\n"));
     }
 
+    open_local_cache_folder_action_ = new QAction(tr("Open Local Cache Folder"), this);
+    connect(open_local_cache_folder_action_, SIGNAL(triggered()),
+                this, SLOT(onOpenLocalCacheFolder()));
+
     context_menu_->addAction(retry_upload_cached_file_action_);
     context_menu_->addAction(delete_local_version_action_);
     context_menu_->addAction(local_version_saveas_action_);
@@ -440,6 +444,8 @@ void FileTableView::setupContextMenu()
     // context_menu_->addAction(update_action_);
     context_menu_->addAction(cancel_download_action_);
     context_menu_->addAction(sync_subdirectory_action_);
+    context_menu_->addSeparator();
+    context_menu_->addAction(open_local_cache_folder_action_);
 
     this->addAction(retry_upload_cached_file_action_);
     this->addAction(delete_local_version_action_);
@@ -456,6 +462,7 @@ void FileTableView::setupContextMenu()
     // this->addAction(update_action_);
     this->addAction(cancel_download_action_);
     this->addAction(sync_subdirectory_action_);
+    this->addAction(open_local_cache_folder_action_);
 
     paste_only_menu_ = new QMenu(this);
     paste_only_menu_->addAction(paste_action_);
@@ -859,6 +866,11 @@ void FileTableView::onSyncSubdirectory()
 {
     if (item_ && item_->isDir())
         emit syncSubdirectory(item_->name);
+}
+
+void FileTableView::onOpenLocalCacheFolder()
+{
+    parent_->onOpenLocalCacheFolder();
 }
 
 void FileTableView::resizeEvent(QResizeEvent *event)

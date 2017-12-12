@@ -73,6 +73,7 @@ private slots:
 
     void onCancelDownload();
     void onSyncSubdirectory();
+    void onOpenLocalCacheFolder();
 
 private:
     void setupContextMenu();
@@ -114,6 +115,7 @@ private:
     QAction *cancel_download_action_;
     QAction *sync_subdirectory_action_;
     QAction *lock_action_;
+    QAction *open_local_cache_folder_action_;
     FileBrowserDialog *parent_;
 
     // source model

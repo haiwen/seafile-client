@@ -1403,6 +1403,18 @@ void FileBrowserDialog::onLocalVersionSaveAs(const SeafDirent &dirent)
      }
 }
 
+void FileBrowserDialog::onOpenLocalCacheFolder()
+{
+     QString folder =
+             ::pathJoin(data_mgr_->getRepoCacheFolder(repo_.id), current_path_);
+     if (!::createDirIfNotExists(folder)) {
+         seafApplet->warningBox(tr("Unable to create cache folder"), this);
+         return;
+     }
+     if (!QDesktopServices::openUrl(QUrl::fromLocalFile(folder)))
+         seafApplet->warningBox(tr("Unable to open cache folder"), this);
+}
+
 void FileBrowserDialog::onCreateSubrepoSuccess(const ServerRepo &repo)
 {
     // if we have not synced before

@@ -65,10 +65,10 @@ QIcon getFileStatusIcon(AutoUpdateManager::FileStatus file_status)
     const QString prefix = ":/images/sync/";
     switch (file_status) {
         case AutoUpdateManager::SYNCED:
-            icon = "cloud-synced";
+            icon = "status-done";
             break;
         case AutoUpdateManager::UPLOADING:
-            icon = "cloud-sync";
+            icon = "status-syncing";
             break;
         case AutoUpdateManager::NOT_SYNCED:
             icon = "exclamation";

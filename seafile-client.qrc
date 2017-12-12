@@ -97,6 +97,10 @@
     <file>images/sync/pause.png</file>
     <file>images/sync/pause@2x.png</file>
     <file>images/sync/question.png</file>
+    <file>images/sync/status-done.png</file>
+    <file>images/sync/status-done@2x.png</file>
+    <file>images/sync/status-syncing.png</file>
+    <file>images/sync/status-syncing@2x.png</file>
     <file>images/sync/waiting.png</file>
     <file>images/sync/waiting@2x.png</file>
     <file>images/download-48.png</file>

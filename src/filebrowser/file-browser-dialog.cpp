@@ -923,7 +923,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
         } else {
             _error = task->errorString();
         }
-        QString msg = tr("Failed to upload file: %1").arg(_error);
+        QString msg = tr("Failed to upload file %1: %2").arg(task->failedPath()).arg(_error);
+        qWarning("failed to upload %s",toCStr(QFileInfo(task->failedPath()).fileName()));
         seafApplet->warningBox(msg, this);
         if (task->httpErrorCode() == 401) {
             stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);

@@ -186,6 +186,7 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
         error_ = fileserver_task_->error();
         error_string_ = fileserver_task_->errorString();
         http_error_code_ = fileserver_task_->httpErrorCode();
+        failed_path_ = fileserver_task_->failedPath();
     }
     oid_ = fileserver_task_->oid();
     onFinished(success);
@@ -711,6 +712,10 @@ void PostFilesTask::onPostTaskFinished(bool success)
         error_string_ = task_->errorString();
         http_error_code_ = task_->httpErrorCode();
         progress_update_timer_->stop();
+
+        const QString& file_path = names_[current_num_];
+        QString file_name = QFileInfo(file_path).fileName();
+        failed_path_ = file_name;
         emit finished(false);
         return;
     }

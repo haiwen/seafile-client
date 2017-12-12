@@ -219,8 +219,23 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         } else {
             error_msg = task->errorString();
         }
+
+        QString name = ::getBaseName(local_path);
+        DirentsCache::ReturnEntry retval = DirentsCache::instance()->getCachedDirents(info.repo_id, task->path());
+        QList<SeafDirent> *l = retval.second;
+        QString msg = tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName());
+        if (l != NULL) {
+            foreach (const SeafDirent dirent, *l) {
+                if (dirent.name == name) {
+                    if (dirent.is_locked) {
+                        msg = tr("The file is locked by %1, "
+                                 "please try again later").arg(dirent.getLockOwnerDisplayString());
+                    }
+                }
+            }
+        }
         seafApplet->trayIcon()->showMessage(tr("Upload Failure: %1").arg(error_msg),
-                                            tr("File \"%1\"\nfailed to upload.").arg(QFileInfo(local_path).fileName()),
+                                            msg,
                                             task->repoId());
     }
 

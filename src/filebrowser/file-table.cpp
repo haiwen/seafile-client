@@ -985,7 +985,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return tr("locked by %1").arg(dirent.getLockOwnerDisplayString());
     }
 
-    if (role == DirentCacheStatusRole && column == FILE_COLUMN_NAME) {
+    if (role == DirentCacheStatusRole) {
         return file_cache_statuses_.contains(dirent.name)
                    ? (int)file_cache_statuses_[dirent.name]
                    : QVariant();

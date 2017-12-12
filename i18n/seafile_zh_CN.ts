@@ -188,14 +188,30 @@ uploaded successfully.</source>
 已成功上传。</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>上传失败</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>文件 &quot;%1&quot;
 无法上传。</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>权限错误</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>账号验证信息已过期</translation>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation>文件不存在</translation>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation>该文件被 %1锁定，请稍后再试</translation>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation>上传失败：%1</translation>
     </message>
 </context>
 <context>
@@ -730,10 +746,6 @@ failed to upload.</source>
         <translation>文件 &quot;%1&quot; 没有被同步</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>不支持当前操作</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>文件 &quot;%1&quot; 已经存在。&lt;br/&gt;您想覆盖此文件吗？&lt;br/&gt;&lt;small&gt;(选择 否 用其他文件名上传)&lt;/small&gt; </translation>
     </message>
@@ -744,10 +756,6 @@ failed to upload.</source>
     <message>
         <source>Failed to download file: %1</source>
         <translation>下载文件失败： %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>上传文件失败： %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -808,6 +816,34 @@ failed to upload.</source>
     <message>
         <source>Create library failed!</source>
         <translation>创建资料库失败!</translation>
+    </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation>您没有权限上传到这个目录</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>账号验证信息已过期</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>权限错误</translation>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation>资料库／文件夹没有发现</translation>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation>上传文件失败 %1: %2</translation>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation>不能创建缓存目录</translation>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation>不能打开缓存目录</translation>
     </message>
 </context>
 <context>
@@ -937,10 +973,6 @@ failed to upload.</source>
         <translation>同步该目录(&amp;S)</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>您没有权限上传文件到这个文件夹</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>此功能只在企业版中提供</translation>
@@ -972,6 +1004,22 @@ failed to upload.</source>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>无法剪切只读文件</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation>重试上传</translation>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation>删除本地版本</translation>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation>本地版本另存为...</translation>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation>打开本地缓存目录</translation>
     </message>
 </context>
 <context>
@@ -1916,10 +1964,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>同步此文件夹于:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation>资料库名称包含非法字符 ‘:’，‘*’，‘|’，‘?’</translation>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>文件夹</translation>
     </message>
@@ -2006,6 +2050,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>failed to open file cache database</source>
         <translation>打开文件缓存数据库失败</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation>资料库名称包含非法字符例如&quot;:&quot;，&quot;*&quot;，&quot;|&quot;，&quot;?&quot;</translation>
     </message>
 </context>
 <context>

@@ -51,6 +51,7 @@ public:
     // only accept path ends with "/"
     void enterPath(const QString& path);
     void onGetDirentReupload(const SeafDirent& dirent);
+    void onOpenLocalCacheFolder();
 
     friend class FileTableView;
     friend class FileTableModel;

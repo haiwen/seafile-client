@@ -36,6 +36,7 @@ public:
     void messageBox(const QString& msg, QWidget *parent=0);
     void warningBox(const QString& msg, QWidget *parent=0);
     bool yesOrNoBox(const QString& msg, QWidget *parent=0, bool default_val=true);
+    bool retryOrCancelBox(const QString& msg, QWidget *parent=0, bool default_yes=true);
     bool detailedYesOrNoBox(const QString& msg, const QString& detailed_text, QWidget *parent, bool default_val=true);
     QMessageBox::StandardButton yesNoCancelBox(const QString& msg,
                                                QWidget *parent,

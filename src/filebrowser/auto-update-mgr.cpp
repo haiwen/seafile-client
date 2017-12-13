@@ -144,6 +144,15 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     WatchedFileInfo &info = watch_infos_[local_path];
     QFileInfo finfo(local_path);
 
+    // Download the doc file in the mac will automatically upload
+    // If the timestamp has not changed, it will not be uploaded
+    qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
+    if (mtime == info.mtime) {
+        qDebug("[AutoUpdateManager] Received a file %s upload notification, but the timestamp has not changed, "
+               "it will not upload", local_path.toUtf8().data());
+        return;
+    }
+
 #ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         qDebug("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));

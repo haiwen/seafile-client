@@ -531,11 +531,20 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         if (item_->locked_by_me) {
             lock_action_->setText(tr("Un&lock"));
             lock_action_->setVisible(true);
+            move_action_->setEnabled(true);
+            remove_action_->setEnabled(true);
+            rename_action_->setEnabled(true);
         } else if (item_->is_locked || item_->readonly) {
             lock_action_->setVisible(false);
+            move_action_->setEnabled(false);
+            remove_action_->setEnabled(false);
+            rename_action_->setEnabled(false);
         } else {
             lock_action_->setText(tr("&Lock"));
             lock_action_->setVisible(true);
+            move_action_->setEnabled(true);
+            remove_action_->setEnabled(true);
+            rename_action_->setEnabled(true);
         }
 
         // update_action_->setVisible(true);

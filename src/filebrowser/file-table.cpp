@@ -474,6 +474,10 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     const QModelIndex proxy_index = indexAt(position);
     position = viewport()->mapToGlobal(position);
 
+    retry_upload_cached_file_action_->setVisible(false);
+    delete_local_version_action_->setVisible(false);
+    local_version_saveas_action_->setVisible(false);
+
     //
     // paste_action shows only if there are files in the clipboard
     // and is enabled only if it comes from the same account
@@ -622,11 +626,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
 
     QVariant file_status_v = source_model_->data(index, DirentCacheStatusRole);
     AutoUpdateManager::FileStatus file_status = (AutoUpdateManager::FileStatus)file_status_v.toInt();
-    if (file_status != AutoUpdateManager::NOT_SYNCED || item_ == NULL || file_status_v.isNull()) {
-        retry_upload_cached_file_action_->setVisible(false);
-        delete_local_version_action_->setVisible(false);
-        local_version_saveas_action_->setVisible(false);
-    } else {
+    if (file_status == AutoUpdateManager::NOT_SYNCED) {
         retry_upload_cached_file_action_->setVisible(true);
         delete_local_version_action_->setVisible(true);
         local_version_saveas_action_->setVisible(true);

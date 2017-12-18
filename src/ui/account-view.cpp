@@ -422,9 +422,17 @@ void AccountView::toggleAccount()
     req->send();
 }
 
-void AccountView::reloginAccount(const Account &account)
+void AccountView::reloginAccount(const Account &account_in)
 {
     bool accepted;
+
+    // Make a copy of the account arugment because it may be released after the
+    // login succeeded.
+    //
+    // See: https://github.com/haiwen/seafile-client/blob/v6.1.3/src/account-mgr.cpp#L219
+    // See: https://gist.github.com/lins05/f952356ba8733d5aa19b54a6db19f69a
+    const Account account(account_in);
+
     do {
 #ifdef HAVE_SHIBBOLETH_SUPPORT
         if (account.isShibboleth) {

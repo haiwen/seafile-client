@@ -477,6 +477,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
     retry_upload_cached_file_action_->setVisible(false);
     delete_local_version_action_->setVisible(false);
     local_version_saveas_action_->setVisible(false);
+    open_local_cache_folder_action_->setEnabled(false);
 
     //
     // paste_action shows only if there are files in the clipboard
@@ -639,6 +640,11 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         retry_upload_cached_file_action_->setVisible(true);
         delete_local_version_action_->setVisible(true);
         local_version_saveas_action_->setVisible(true);
+    }
+
+    QString localpath = DataManager::getLocalCacheFilePath(parent_->repo_.id, parent_->current_path_);
+    if (QFileInfo(localpath + dirent->name).exists()) {
+        open_local_cache_folder_action_->setEnabled(true);
     }
 
     context_menu_->exec(position); // synchronously

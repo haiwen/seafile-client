@@ -642,8 +642,9 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         local_version_saveas_action_->setVisible(true);
     }
 
-    QString localpath = DataManager::getLocalCacheFilePath(parent_->repo_.id, parent_->current_path_);
-    if (QFileInfo(localpath + dirent->name).exists()) {
+    QString localpath = DataManager::getLocalCacheFilePath(
+        parent_->repo_.id, ::pathJoin(parent_->current_path_, dirent->name));
+    if (QFileInfo(localpath).exists()) {
         open_local_cache_folder_action_->setEnabled(true);
     }
 

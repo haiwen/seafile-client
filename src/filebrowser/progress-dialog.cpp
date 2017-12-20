@@ -178,7 +178,6 @@ FileBrowserProgressDialog::retryOrIgnoreOrAbort(const QString& msg, bool is_last
 
     QPushButton *yes_btn = box.addButton(tr("Retry"), QMessageBox::YesRole);
     QPushButton *no_btn = box.addButton(tr("Ignore"), QMessageBox::NoRole);
-    box.setDefaultButton(QMessageBox::Yes);
     box.addButton(tr("Abort"), QMessageBox::RejectRole);
 
     // if (!is_last) {
@@ -187,6 +186,7 @@ FileBrowserProgressDialog::retryOrIgnoreOrAbort(const QString& msg, bool is_last
     //     box.addButton(tr("Abort"), QMessageBox::RejectRole);
     // }
 
+    box.setDefaultButton(yes_btn);
     box.exec();
     QAbstractButton *btn = box.clickedButton();
     if (btn == yes_btn) {

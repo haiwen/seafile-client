@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -9,6 +10,7 @@
 
 #include "utils/utils.h"
 #include "progress-dialog.h"
+
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
@@ -51,6 +53,12 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
     connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
     connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
+
+    if (task_->type() == FileNetworkTask::Upload) {
+        FileUploadTask *upload_task = (FileUploadTask *)task_;
+        connect(upload_task, SIGNAL(oneFileFailed(const QString&, bool)),
+                this, SLOT(onOneFileUploadFailed(const QString&, bool)));
+    }
 }
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()
@@ -132,4 +140,60 @@ void FileBrowserProgressDialog::cancel()
     }
     task_->cancel();
     reject();
+}
+
+void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
+                                                      bool is_last)
+{
+    if (task_->canceled()) {
+        return;
+    }
+
+    FileUploadTask *upload_task = (FileUploadTask *)task_;
+
+    QString msg =
+        tr("Failed to upload file \"%1\", do you want to retry?").arg(filename);
+    ActionOnFailure choice = retryOrIgnoreOrAbort(msg, is_last);
+
+    switch (choice) {
+        case ActionRetry:
+            upload_task->continueWithFailedFile(true);
+            break;
+        case ActionIgnore:
+            upload_task->continueWithFailedFile(false);
+            break;
+        case ActionAbort:
+            cancel();
+            break;
+    }
+}
+
+FileBrowserProgressDialog::ActionOnFailure
+FileBrowserProgressDialog::retryOrIgnoreOrAbort(const QString& msg, bool is_last)
+{
+    QMessageBox box(this);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Question);
+
+    QPushButton *yes_btn = box.addButton(tr("Retry"), QMessageBox::YesRole);
+    QPushButton *no_btn = box.addButton(tr("Ignore"), QMessageBox::NoRole);
+    box.setDefaultButton(QMessageBox::Yes);
+    box.addButton(tr("Abort"), QMessageBox::RejectRole);
+
+    // if (!is_last) {
+    //     // If the failed file is the last one, there would only be two options:
+    //     // "Retry" or "Abort"
+    //     box.addButton(tr("Abort"), QMessageBox::RejectRole);
+    // }
+
+    box.exec();
+    QAbstractButton *btn = box.clickedButton();
+    if (btn == yes_btn) {
+        return ActionRetry;
+    } else if (btn == no_btn) {
+        return ActionIgnore;
+    }
+
+    return ActionAbort;
 }

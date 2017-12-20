@@ -178,11 +178,29 @@ public:
     // duplicate a task same with the old one, excluding its internal stage
     FileUploadTask(const FileUploadTask& rhs);
 
+    // When a file fails to upload, we ask the user to confirm what he wants to
+    // do: retry/ignore/abort.
+    //
+    //  - abort: task->cancel()
+    //  - retry: task->continueWithFailedUpload(true)
+    //  - ignore: task->continueWithFailedUpload(false)
+    void continueWithFailedFile(bool retry);
+
+    // Accessors
     TaskType type() const { return Upload; }
     const QString& name() const { return name_; }
     bool useUpload() const { return use_upload_; }
 
+signals:
+    // This signal is meant to be listened by the file progress dialog.
+    void oneFileFailed(const QString& filename, bool is_last);
+
+protected slots:
+    // Here
+    virtual void onOneFileFailed(const QString& filename, bool is_last);
+
 protected:
+    virtual void startFileServerTask(const QString& link);
     void createFileServerTask(const QString& link);
     void createGetLinkRequest();
 
@@ -206,6 +224,7 @@ public:
                            bool use_upload);
 
     const QStringList& names() const { return names_; }
+    const QStringList& successfulNames();
 
 protected:
     void createFileServerTask(const QString& link);
@@ -255,6 +274,8 @@ public:
                    const QString& local_path);
     virtual ~FileServerTask();
 
+    virtual void continueWithFailedFile(bool retry) {};
+
     // accessors
     const FileNetworkTask::TaskError& error() const { return error_; }
     const QString& errorString() const { return error_string_; }
@@ -262,6 +283,7 @@ public:
     virtual const QString& oid() const { return oid_; }
     int retryCount() const { return retry_count_; }
     const QString& failedPath() const { return failed_path_; }
+    bool canceled() const { return canceled_; }
 
     static void resetQNAM();
 
@@ -269,6 +291,9 @@ signals:
     void progressUpdate(qint64 transferred, qint64 total);
     void finished(bool success);
     void retried(int retry_count);
+
+signals:
+    void oneFileFailed(const QString& filename, bool is_last);
 
 public slots:
     void start();
@@ -355,6 +380,10 @@ public:
     ~PostFilesTask();
     int currentNum();
 
+    const QStringList& successfulNames() const { return successful_names_; }
+
+    void continueWithFailedFile(bool retry);
+
 protected:
     void prepare();
     void sendRequest();
@@ -374,6 +403,7 @@ private:
     const QString name_;
     QList<qint64> file_sizes_;
     const QStringList names_;
+    QStringList successful_names_;
 
     QScopedPointer<ReliablePostFileTask, doDeleteLater<ReliablePostFileTask> > task_;
     int current_num_;

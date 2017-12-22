@@ -29,8 +29,8 @@ private slots:
     void onProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
     void onTaskFinished(bool success);
     void initTaskInfo();
-    void onOneFileUploadFailed(const QString& filename, bool is_last);
-    ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool is_last);
+    void onOneFileUploadFailed(const QString& filename, bool single_file);
+    ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:
 

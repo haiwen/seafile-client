@@ -143,7 +143,7 @@ void FileBrowserProgressDialog::cancel()
 }
 
 void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
-                                                      bool is_last)
+                                                      bool single_file)
 {
     if (task_->canceled()) {
         return;
@@ -153,7 +153,7 @@ void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
 
     QString msg =
         tr("Failed to upload file \"%1\", do you want to retry?").arg(filename);
-    ActionOnFailure choice = retryOrSkipOrAbort(msg, is_last);
+    ActionOnFailure choice = retryOrSkipOrAbort(msg, single_file);
 
     switch (choice) {
         case ActionRetry:
@@ -169,7 +169,7 @@ void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
 }
 
 FileBrowserProgressDialog::ActionOnFailure
-FileBrowserProgressDialog::retryOrSkipOrAbort(const QString& msg, bool is_last)
+FileBrowserProgressDialog::retryOrSkipOrAbort(const QString& msg, bool single_file)
 {
     QMessageBox box(this);
     box.setText(msg);
@@ -177,14 +177,14 @@ FileBrowserProgressDialog::retryOrSkipOrAbort(const QString& msg, bool is_last)
     box.setIcon(QMessageBox::Question);
 
     QPushButton *yes_btn = box.addButton(tr("Retry"), QMessageBox::YesRole);
-    QPushButton *no_btn = box.addButton(tr("Skip"), QMessageBox::NoRole);
+    QPushButton *no_btn = nullptr;
+    if (!single_file) {
+        // If this is single file upload/update, we only show "retry" and
+        // "abort".
+        no_btn = box.addButton(tr("Skip"), QMessageBox::NoRole);
+    }
     box.addButton(tr("Abort"), QMessageBox::RejectRole);
 
-    // if (!is_last) {
-    //     // If the failed file is the last one, there would only be two options:
-    //     // "Retry" or "Abort"
-    //     box.addButton(tr("Abort"), QMessageBox::RejectRole);
-    // }
 
     box.setDefaultButton(yes_btn);
     box.exec();

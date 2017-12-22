@@ -285,9 +285,9 @@ void FileUploadTask::startFileServerTask(const QString& link)
             this, SLOT(onOneFileFailed(const QString&, bool)));
 }
 
-void FileUploadTask::onOneFileFailed(const QString& filename, bool is_last)
+void FileUploadTask::onOneFileFailed(const QString& filename, bool single_file)
 {
-    emit oneFileFailed(filename, is_last);
+    emit oneFileFailed(filename, single_file);
 }
 
 void FileUploadTask::continueWithFailedFile(bool retry)
@@ -740,8 +740,7 @@ void PostFilesTask::onPostTaskFinished(bool success)
         QString file_name = QFileInfo(file_path).fileName();
         failed_path_ = file_name;
 
-        bool is_last = current_num_ == (names_.size() - 1);
-        emit oneFileFailed(failed_path_, is_last);
+        emit oneFileFailed(failed_path_, false);
         return;
     } else {
         error_ = FileNetworkTask::NoError;

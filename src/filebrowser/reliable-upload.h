@@ -40,7 +40,7 @@ public:
     ~ReliablePostFileTask();
 
     virtual const QString &oid() const;
-    virtual void continueWithFailedUpload();
+    virtual void continueWithFailedFile(bool retry);
 
 public slots:
     void cancel();

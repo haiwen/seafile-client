@@ -182,8 +182,8 @@ public:
     // do: retry/skip/abort.
     //
     //  - abort: task->cancel()
-    //  - retry: task->continueWithFailedUpload(true)
-    //  - skip: task->continueWithFailedUpload(false)
+    //  - retry: task->continueWithFailedFile(true)
+    //  - skip: task->continueWithFailedFile(false)
     void continueWithFailedFile(bool retry);
 
     // Accessors
@@ -193,11 +193,11 @@ public:
 
 signals:
     // This signal is meant to be listened by the file progress dialog.
-    void oneFileFailed(const QString& filename, bool is_last);
+    void oneFileFailed(const QString& filename, bool single_file);
 
 protected slots:
     // Here
-    virtual void onOneFileFailed(const QString& filename, bool is_last);
+    virtual void onOneFileFailed(const QString& filename, bool single_file);
 
 protected:
     virtual void startFileServerTask(const QString& link);
@@ -293,7 +293,7 @@ signals:
     void retried(int retry_count);
 
 signals:
-    void oneFileFailed(const QString& filename, bool is_last);
+    void oneFileFailed(const QString& filename, bool single_file);
 
 public slots:
     void start();

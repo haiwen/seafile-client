@@ -1,3 +1,5 @@
+#include <assert.h>
+
 #include <QBuffer>
 #include <QThread>
 #include <QNetworkAccessManager>
@@ -236,8 +238,10 @@ void ReliablePostFileTask::handlePostFileTaskFailure()
     }
 }
 
-void ReliablePostFileTask::continueWithFailedUpload()
+void ReliablePostFileTask::continueWithFailedFile(bool retry)
 {
+    // retry=false is only for PostFilesTask
+    assert(retry);
     start();
 }
 

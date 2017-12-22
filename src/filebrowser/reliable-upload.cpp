@@ -62,6 +62,7 @@ ReliablePostFileTask::ReliablePostFileTask(const Account &account,
     total_size_ = 0;
     // Chunked uploading is disabled for updating an existing file
     resumable_ = use_upload;
+    accept_user_confirmation_ = true;
 }
 
 ReliablePostFileTask::ReliablePostFileTask(const QUrl &url,
@@ -84,6 +85,8 @@ ReliablePostFileTask::ReliablePostFileTask(const QUrl &url,
     done_ = 0;
     total_size_ = 0;
     resumable_ = false;
+
+    accept_user_confirmation_ = false;
 }
 
 ReliablePostFileTask::~ReliablePostFileTask()
@@ -224,6 +227,20 @@ void ReliablePostFileTask::setupSignals()
             SLOT(onPostFileTaskProgressUpdate(qint64, qint64)));
 }
 
+void ReliablePostFileTask::handlePostFileTaskFailure()
+{
+    if (!canceled_ && accept_user_confirmation_) {
+        emit oneFileFailed(name_, true);
+    } else {
+        emit finished(false);
+    }
+}
+
+void ReliablePostFileTask::continueWithFailedUpload()
+{
+    start();
+}
+
 void ReliablePostFileTask::onPostFileTaskFinished(bool result)
 {
     // First check if we should retry on failure
@@ -239,7 +256,11 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
 
     if (!useResumableUpload()) {
         // Simple upload
-        emit finished(result);
+        if (result) {
+            emit finished(true);
+        } else {
+            handlePostFileTaskFailure();
+        }
         return;
     }
 
@@ -247,7 +268,7 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
 
     // Resumable upload
     if (!result) {
-        emit finished(false);
+        handlePostFileTaskFailure();
         return;
     }
 

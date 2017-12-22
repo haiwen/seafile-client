@@ -89,7 +89,7 @@ void FileBrowserProgressDialog::initTaskInfo()
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
 {
-    // Ignore the updates if the task has been cancelled, because we may already
+    // Skip the updates if the task has been cancelled, because we may already
     // have already rejected this dialog.
     if (task_->canceled()) {
         return;
@@ -153,13 +153,13 @@ void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
 
     QString msg =
         tr("Failed to upload file \"%1\", do you want to retry?").arg(filename);
-    ActionOnFailure choice = retryOrIgnoreOrAbort(msg, is_last);
+    ActionOnFailure choice = retryOrSkipOrAbort(msg, is_last);
 
     switch (choice) {
         case ActionRetry:
             upload_task->continueWithFailedFile(true);
             break;
-        case ActionIgnore:
+        case ActionSkip:
             upload_task->continueWithFailedFile(false);
             break;
         case ActionAbort:
@@ -169,7 +169,7 @@ void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
 }
 
 FileBrowserProgressDialog::ActionOnFailure
-FileBrowserProgressDialog::retryOrIgnoreOrAbort(const QString& msg, bool is_last)
+FileBrowserProgressDialog::retryOrSkipOrAbort(const QString& msg, bool is_last)
 {
     QMessageBox box(this);
     box.setText(msg);
@@ -177,7 +177,7 @@ FileBrowserProgressDialog::retryOrIgnoreOrAbort(const QString& msg, bool is_last
     box.setIcon(QMessageBox::Question);
 
     QPushButton *yes_btn = box.addButton(tr("Retry"), QMessageBox::YesRole);
-    QPushButton *no_btn = box.addButton(tr("Ignore"), QMessageBox::NoRole);
+    QPushButton *no_btn = box.addButton(tr("Skip"), QMessageBox::NoRole);
     box.addButton(tr("Abort"), QMessageBox::RejectRole);
 
     // if (!is_last) {
@@ -192,7 +192,7 @@ FileBrowserProgressDialog::retryOrIgnoreOrAbort(const QString& msg, bool is_last
     if (btn == yes_btn) {
         return ActionRetry;
     } else if (btn == no_btn) {
-        return ActionIgnore;
+        return ActionSkip;
     }
 
     return ActionAbort;

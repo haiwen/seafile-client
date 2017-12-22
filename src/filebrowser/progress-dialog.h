@@ -18,7 +18,7 @@ public:
 
     typedef enum {
         ActionRetry = 0,
-        ActionIgnore,
+        ActionSkip,
         ActionAbort,
     } ActionOnFailure;
 
@@ -30,7 +30,7 @@ private slots:
     void onTaskFinished(bool success);
     void initTaskInfo();
     void onOneFileUploadFailed(const QString& filename, bool is_last);
-    ActionOnFailure retryOrIgnoreOrAbort(const QString& msg, bool is_last);
+    ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool is_last);
 
 private:
 

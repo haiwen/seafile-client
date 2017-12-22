@@ -788,7 +788,7 @@ void PostFilesTask::continueWithFailedFile(bool retry)
     if (retry) {
         current_num_--;
     } else {
-        // The user chooses to ignore the failed file, but in order to keep the
+        // The user chooses to skip the failed file, but in order to keep the
         // progress consistent, we need to pretend the file is already uploaded
         // successfully.
         transferred_bytes_ += file_sizes_[current_num_];

@@ -179,11 +179,11 @@ public:
     FileUploadTask(const FileUploadTask& rhs);
 
     // When a file fails to upload, we ask the user to confirm what he wants to
-    // do: retry/ignore/abort.
+    // do: retry/skip/abort.
     //
     //  - abort: task->cancel()
     //  - retry: task->continueWithFailedUpload(true)
-    //  - ignore: task->continueWithFailedUpload(false)
+    //  - skip: task->continueWithFailedUpload(false)
     void continueWithFailedFile(bool retry);
 
     // Accessors

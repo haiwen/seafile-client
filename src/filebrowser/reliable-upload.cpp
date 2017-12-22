@@ -88,6 +88,8 @@ ReliablePostFileTask::ReliablePostFileTask(const QUrl &url,
     total_size_ = 0;
     resumable_ = false;
 
+    // This constructor is called by the PostFilesTask, which handles user
+    // confirmation and retry itself.
     accept_user_confirmation_ = false;
 }
 

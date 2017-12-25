@@ -6,6 +6,9 @@
 
 #include "account.h"
 #include "api/server-repo.h"
+//#include "../ui/tab-view.h"
+#include "file-browser-search-tab.h"
+#include "../ui/search-bar.h"
 
 class QToolBar;
 class QToolButton;
@@ -28,6 +31,13 @@ class FileBrowserCache;
 class DataManager;
 class FileNetworkTask;
 class FileBrowserManager;
+
+class SearchBar;
+class FileBrowserSearchItemDelegate;
+class FileBrowserSearchView;
+class FileBrowserSearchModel;
+struct FileSearchResult;
+class FileSearchRequest;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.
@@ -131,8 +141,19 @@ private slots:
 
     void onAccountInfoUpdated();
 
+    void doSearch(const QString& keyword);
+    void doRealSearch();
+    void onSearchSuccess(const std::vector<FileSearchResult>& results,
+                         bool is_loading_more,
+                         bool has_more);
+    void onSearchFailed(const ApiError& error);
+
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
+
+    QTimer *search_timer_;
+    qint64 last_modified_;
+    FileSearchRequest *request_;
 
     void done(int retval);
     bool hasFilesToBePasted();
@@ -187,6 +208,7 @@ private:
 
     // top toolbar
     QToolBar *toolbar_;
+    QToolBar *toolbar2_;
     QToolButton *backward_button_;
     QToolButton *forward_button_;
     QButtonGroup *path_navigator_;
@@ -212,6 +234,11 @@ private:
     QLabel *empty_view_;
     FileTableView *table_view_;
     FileTableModel *table_model_;
+
+    SearchBar *search_bar_;
+    FileBrowserSearchItemDelegate *search_delegate_;
+    FileBrowserSearchView *search_view_;
+    FileBrowserSearchModel *search_model_;
 
     DataManager *data_mgr_;
 };

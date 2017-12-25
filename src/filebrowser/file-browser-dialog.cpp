@@ -41,12 +41,15 @@ enum {
     INDEX_TABLE_VIEW,
     INDEX_LOADING_FAILED_VIEW,
     INDEX_EMPTY_VIEW,
-    INDEX_RELOGIN_VIEW
+    INDEX_RELOGIN_VIEW,
+    INDEX_SEARCH
 };
 
 const char *kLoadingFailedLabelName = "LoadingFailedText";
 const int kToolBarIconSize = 24;
 const int kStatusBarIconSize = 20;
+const int page = 1;
+const int perPage = 10000;
 //const int kStatusCodePasswordNeeded = 400;
 
 void openFile(const QString& path)
@@ -87,10 +90,11 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
       account_(account),
       repo_(repo),
       current_path_(path),
-      current_readonly_(repo_.readonly)
+      current_readonly_(repo_.readonly),
+      request_(NULL),
+      last_modified_(0)
 {
     current_lpath_ = current_path_.split('/');
-
     data_mgr_ = seafApplet->dataManager();
 
     // In German translation there is a "seafile" string, so need to use tr("..").arg(..) here
@@ -127,10 +131,28 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     setLayout(layout);
     layout->addWidget(widget);
 
+
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setContentsMargins(1, 0, 1, 0);
     vlayout->setSpacing(0);
     widget->setLayout(vlayout);
+
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->setContentsMargins(1, 0, 1, 0);
+    hlayout->setSpacing(0);
+    hlayout->addWidget(toolbar_);
+    hlayout->addWidget(toolbar2_);
+
+    search_view_ = new FileBrowserSearchView(this);
+    search_view_->setObjectName("searchResult");
+#ifdef Q_OS_MAC
+    search_view_->setAttribute(Qt::WA_MacShowFocusRect, 0);
+#endif
+    search_model_ = new FileBrowserSearchModel(this);
+    search_view_->setModel(search_model_);
+    search_delegate_ = new FileBrowserSearchItemDelegate(this);
+    delete search_view_->itemDelegate();
+    search_view_->setItemDelegate(search_delegate_);
 
     stack_ = new QStackedWidget;
     stack_->insertWidget(INDEX_LOADING_VIEW, loading_view_);
@@ -138,13 +160,19 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     stack_->insertWidget(INDEX_EMPTY_VIEW, empty_view_);
     stack_->insertWidget(INDEX_RELOGIN_VIEW, relogin_view_);
+    stack_->insertWidget(INDEX_SEARCH, search_view_);
     stack_->setContentsMargins(0, 0, 0, 0);
     stack_->installEventFilter(this);
     stack_->setAcceptDrops(true);
 
-    vlayout->addWidget(toolbar_);
+    vlayout->addLayout(hlayout);
     vlayout->addWidget(stack_);
     vlayout->addWidget(status_bar_);
+
+
+    search_timer_ = new QTimer(this);
+    connect(search_timer_, SIGNAL(timeout()), this, SLOT(doRealSearch()));
+    search_timer_->start(300);
 
     // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
@@ -298,6 +326,17 @@ void FileBrowserDialog::createToolBar()
     connect(path_navigator_, SIGNAL(buttonClicked(int)),
             this, SLOT(onNavigatorClick(int)));
 
+    toolbar2_ = new QToolBar;
+    toolbar2_->setObjectName("topBar");
+    toolbar2_->setIconSize(QSize(kToolBarIconSize, kToolBarIconSize));
+    toolbar2_->setFixedWidth(250);
+    toolbar2_->setStyleSheet("QToolbar { spacing: 0px; }");
+
+    search_bar_ = new SearchBar;
+    search_bar_->setPlaceholderText(tr("Search files"));
+    toolbar2_->addWidget(search_bar_);
+    connect(search_bar_, SIGNAL(textChanged(const QString&)),
+            this, SLOT(doSearch(const QString&)));
 }
 
 void FileBrowserDialog::createStatusBar()
@@ -1469,4 +1508,63 @@ void FileBrowserDialog::fixUploadButtonStyle(bool highlighted)
 void FileBrowserDialog::onAccountInfoUpdated()
 {
     forceRefresh();
+}
+
+void FileBrowserDialog::doSearch(const QString &keyword)
+{
+    // make it search utf-8 charcters
+    if (keyword.toUtf8().size() < 3) {
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+        return;
+    }
+
+    // save for doRealSearch
+    last_modified_ = QDateTime::currentMSecsSinceEpoch();
+}
+
+void FileBrowserDialog::doRealSearch()
+{
+    // not modified
+    if (last_modified_ == 0)
+        return;
+    // modified too fast
+    if (QDateTime::currentMSecsSinceEpoch() - last_modified_ <= 300)
+        return;
+
+    const Account& account = seafApplet->accountManager()->currentAccount();
+
+    if (!account.isValid())
+        return;
+
+    if (request_) {
+        // request_->abort();
+        request_->deleteLater();
+        request_ = NULL;
+    }
+
+    stack_->setCurrentIndex(INDEX_LOADING_VIEW);
+
+    request_ = new FileSearchRequest(account,repo_.id, search_bar_->text(), page, perPage);
+    connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool, bool)),
+            this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&, bool, bool)));
+    connect(request_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onSearchFailed(const ApiError&)));
+
+    request_->send();
+
+    // reset
+    last_modified_ = 0;
+}
+
+void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& results,
+                                bool is_loading_more,
+                                bool has_more)
+{
+    search_model_->setSearchResult(results);
+    stack_->setCurrentIndex(INDEX_SEARCH);
+}
+
+void FileBrowserDialog::onSearchFailed(const ApiError& error)
+{
+    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }

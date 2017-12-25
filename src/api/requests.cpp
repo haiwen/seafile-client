@@ -803,6 +803,7 @@ void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
 }
 
 FileSearchRequest::FileSearchRequest(const Account& account,
+                                     const QString& repo_id,
                                      const QString& keyword,
                                      int page,
                                      int per_page)
@@ -818,6 +819,7 @@ FileSearchRequest::FileSearchRequest(const Account& account,
     }
     // per_page = 2;
     setUrlParam("per_page", QString::number(per_page));
+    setUrlParam("search_repo", repo_id);
 }
 
 void FileSearchRequest::requestSuccess(QNetworkReply& reply)

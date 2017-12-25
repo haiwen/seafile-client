@@ -222,7 +222,7 @@ void SearchTab::doRealSearch(bool load_more)
         nth_page_++;
     }
 
-    request_ = new FileSearchRequest(account, line_edit_->text(), nth_page_);
+    request_ = new FileSearchRequest(account, "all", line_edit_->text(), nth_page_);
     connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool, bool)),
             this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&, bool, bool)));
     connect(request_, SIGNAL(failed(const ApiError&)),

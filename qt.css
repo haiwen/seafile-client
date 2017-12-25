@@ -546,6 +546,57 @@ FileTableView::item :last {
     padding-right: 13px;
 }
 
+FileBrowserSearchView {
+    border: 0;
+    margin: 0;
+    padding-left: 0px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: white;
+    qproperty-focusPolicy: NoFocus;
+}
+
+FileBrowserSearchView QHeaderView::section {
+    border: 0;
+    padding: 8px;
+    outline: 0px;
+    color: #b3b3b3;
+    background-color: white;
+    font-size: 12px;
+    padding-top: 20px;
+}
+
+FileBrowserSearchView QHeaderView::section:first {
+    padding-left: 40px;
+}
+
+FileBrowserSearchView QHeaderView::down-arrow {
+    width: 15px;
+    height: 5px;
+    padding-top: 15px;
+    subcontrol-position: center right;
+}
+
+FileBrowserSearchView QHeaderView::up-arrow {
+    padding-top: 15px;
+    subcontrol-position: center right;
+}
+
+FileBrowserSearchView QHeaderView::down-arrow {
+  image: url(:/images/filebrowser/down-arrow.png);
+}
+
+FileBrowserSearchView QHeaderView::up-arrow {
+  image: url(:/images/filebrowser/up-arrow.png);
+}
+
+FileBrowserSearchView::item {
+    border-top: 1px solid #e0e0e0;
+}
+
+FileBrowserSearchView::item :last {
+    padding-right: 13px;
+}
+
 FileBrowserDialog QWidget#statusBar {
     padding: 0px;
     margin: 0px;

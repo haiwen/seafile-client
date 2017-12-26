@@ -187,14 +187,30 @@ uploaded successfully.</source>
 a été envoyé avec succès.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Échec de l&apos;envoi</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Le fichier &quot;%1&quot;
 n&apos;a pu être envoyé.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Erreur de permission !</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>Autorisation expirée</translation>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation>Le fichier n&apos;existe pas</translation>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation>Le fichier est verrouiller par %1, veuillez réessayer plus tard</translation>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation>Échec de l&apos;envoi : %1</translation>
     </message>
 </context>
 <context>
@@ -735,10 +751,6 @@ n&apos;a pu être envoyé.</translation>
         <translation>Le fichier &quot;%1&quot; n&apos;a pas été synchronisé</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Fonctionnalité non supportée</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Le fichier %1 existe déjà.&lt;br/&gt;Voulez-vous le remplacer?&lt;br/&gt;&lt;small&gt;(Choisissez Non pour l&apos;enregistrer avec un autre nom).&lt;/small&gt;</translation>
     </message>
@@ -749,10 +761,6 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Impossible de télécharger le fichier : %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Impossible d&apos;envoyer le fichier : %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -814,6 +822,34 @@ n&apos;a pu être envoyé.</translation>
         <source>Create library failed!</source>
         <translation>Échec de création de la bibliothèque</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation>Vous n&apos;avez pas la permission d&apos;envoyer ce répertoire</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>Autorisation expirée</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Erreur de permission !</translation>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation>Bibliothèque/Répertoire on trouvé.</translation>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation>Échec de l&apos;envoi du fichier %1 : %2</translation>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation>Impossible de créer le dossier de cache</translation>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation>Impossible d&apos;ouvrir le dossier de cache</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -844,6 +880,22 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>%1 of %2</source>
         <translation>%1 sur %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -942,10 +994,6 @@ n&apos;a pu être envoyé.</translation>
         <translation>&amp;Synchroniser ce dossier</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>Vous n&apos;avez pas la permission d&apos;envoyer ce répertoire</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Cette fonctionnalité est  disponible uniquement dans la version professionnelle
@@ -978,6 +1026,22 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>Impossible de couper des fichiers en lecture seule</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation>Réessayer l&apos;envoie</translation>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation>Supprimer la version locale</translation>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation>Enregistrer la version locale sous ...</translation>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation>Ouvrir le dossier du cache local</translation>
     </message>
 </context>
 <context>
@@ -1923,10 +1987,6 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
         <translation>Synchroniser ce dossier avec :</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation>La bibliothèque contient des caractères invalides comme &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>Dossier</translation>
     </message>
@@ -2013,6 +2073,10 @@ L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</trans
     <message>
         <source>failed to open file cache database</source>
         <translation>Échec de l&apos;ouverture du fichier cache de la base de données</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation>La bibliothèque contient des caractères invalides comme &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
     </message>
 </context>
 <context>

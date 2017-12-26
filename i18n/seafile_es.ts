@@ -187,14 +187,30 @@ uploaded successfully.</source>
 subido con éxito.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Fallo al subir</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Archivo &quot;%1&quot;
 falló al subir.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Error de Permiso!</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>La autorización expiró</translation>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation>El archivo no existe</translation>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation>El archivo está bloqueado por %1, por favor intente más tarde</translation>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation>Fallo al subir: %1</translation>
     </message>
 </context>
 <context>
@@ -735,10 +751,6 @@ falló al subir.</translation>
         <translation>El archivo &quot;%1&quot; no ha sido sincronizado</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Función no soportada</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>El archivo %1 ya existe.&lt;br/&gt;¿Desea reemplazarlo?&lt;br/&gt;&lt;small&gt;(Elija No para subirlo con un nombre alternativo).&lt;/small&gt;</translation>
     </message>
@@ -749,10 +761,6 @@ falló al subir.</translation>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Fallo al descargar el archivo: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Fallo al subir el archivo: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -814,6 +822,34 @@ falló al subir.</translation>
         <source>Create library failed!</source>
         <translation>Crear biblioteca falló!</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation>No tiene permiso para subir archivos a esta carpeta</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>La autorización expiró</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Error de Permiso!</translation>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation>Biblioteca/Carpeta no encontrada.</translation>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation>Fallo al subir el archivo %1: %2</translation>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation>No se puede crear carpeta de caché</translation>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation>No se puede abrir carpeta de caché</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -844,6 +880,22 @@ falló al subir.</translation>
     <message>
         <source>%1 of %2</source>
         <translation>%1 de %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -942,10 +994,6 @@ falló al subir.</translation>
         <translation>&amp;Sincronizar esta carpeta</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>No tiene permiso para subir archivos a esta carpeta</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Esta función sólo está disponible en la versión pro
@@ -978,6 +1026,22 @@ falló al subir.</translation>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>No se pueden cortar archivos de sólo lectura</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation>Reintentar Subir</translation>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation>Eliminar versión local</translation>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation>Guardar versión local como...</translation>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation>Abrir carpeta de caché local</translation>
     </message>
 </context>
 <context>
@@ -1924,10 +1988,6 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
         <translation>Sincronizar esta carpeta con:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation>El nombre de la biblioteca contiene caracteres inválidos, como  &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>Carpeta</translation>
     </message>
@@ -2014,6 +2074,10 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <source>failed to open file cache database</source>
         <translation>fallo al abrir el caché de la base de datos de archivos</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation>El nombre de la biblioteca contiene caracteres inválidos, como  &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
     </message>
 </context>
 <context>

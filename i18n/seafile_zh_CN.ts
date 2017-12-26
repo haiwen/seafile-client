@@ -876,6 +876,22 @@ failed to upload.</source>
         <source>%1 of %2</source>
         <translation>%2 的 %1</translation>
     </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation>文件 “%1” 上传失败，您想要重试吗?</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation>重试</translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation>跳过</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation>中止</translation>
+    </message>
 </context>
 <context>
     <name>FileNetworkTask</name>

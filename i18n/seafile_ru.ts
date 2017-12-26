@@ -187,14 +187,30 @@ uploaded successfully.</source>
 успешно загружен.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Ошибка загрузки</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Файл &quot;%1&quot;
 не удалось загрузить.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Ошибка доступа!</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>Авторизация истекла</translation>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation>Файл не существует</translation>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation>Файл заблокирован %1, пожалуйста, попробуйте позже</translation>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation>Ошибка загрузки: %1</translation>
     </message>
 </context>
 <context>
@@ -735,10 +751,6 @@ failed to upload.</source>
         <translation>Файл &quot;%1&quot; не был синхронизирован</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Функция не поддерживается</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Файл %1 уже существует.&lt;br/&gt;Хотите перезаписать его?&lt;br/&gt;&lt;small&gt;(Выберите Нет, чтобы загрузить файл под другим именем).&lt;/small&gt;</translation>
     </message>
@@ -749,10 +761,6 @@ failed to upload.</source>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Не удалось скачать файл: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Не удалось загрузить файл: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -814,6 +822,34 @@ failed to upload.</source>
         <source>Create library failed!</source>
         <translation>Не удалось создать библиотеку!</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation>У вас нет доступа для загрузки в эту папку</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>Авторизация истекла</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Ошибка доступа!</translation>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation>Библиотека/Папка не найдена.</translation>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation>Не удалось загрузить файл %1: %2</translation>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation>Невозможно создать папку кэша</translation>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation>Невозможно открыть папку кэша</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -844,6 +880,22 @@ failed to upload.</source>
     <message>
         <source>%1 of %2</source>
         <translation>%1 из %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -942,10 +994,6 @@ failed to upload.</source>
         <translation>&amp;Синхронизировать эту папку</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>У вас нет доступа для загрузки в эту папку</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Эта функция доступна только в Pro версии
@@ -978,6 +1026,22 @@ failed to upload.</source>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>Невозможно вырезать файлы только для чтения</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation>Повторить загрузку</translation>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation>Удалить локальную версию</translation>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation>Сохранить локальную версию как...</translation>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation>Открыть локальную папку кэша</translation>
     </message>
 </context>
 <context>
@@ -1924,10 +1988,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Синхронизировать эту папку с:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation>Имя библиотеки содержит недопустимые символы, такие как &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>Папка</translation>
     </message>
@@ -2014,6 +2074,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>failed to open file cache database</source>
         <translation>Не удалось открыть базу данных кэша</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation>Имя библиотеки содержит недопустимые символы, такие как &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
     </message>
 </context>
 <context>
@@ -2259,7 +2323,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>&amp;Leave share</source>
-        <translation>&amp;Оставить общий доступ</translation>
+        <translation>&amp;Покинуть общий доступ</translation>
     </message>
     <message>
         <source>leave share</source>

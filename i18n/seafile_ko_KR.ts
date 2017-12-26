@@ -187,14 +187,30 @@ uploaded successfully.</source>
 업로드에 성공했습니다.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>업로드 실패</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>&quot;%1&quot; 파일
 업로드에 실패했습니다.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -736,10 +752,6 @@ failed to upload.</source>
         <translation>&quot;%1&quot; 파일은 동기화하지 않았습니다</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>이 기능을 지원하지 않습니다</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>%1 파일이 존재합니다.&lt;br/&gt;덮어쓸까요?&lt;br/&gt;&lt;small&gt;(다른 이름으로 업로드하려면 아니요를 선택하세요).&lt;/small&gt;</translation>
     </message>
@@ -750,10 +762,6 @@ failed to upload.</source>
     <message>
         <source>Failed to download file: %1</source>
         <translation>파일 다운로드에 실패했습니다: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>파일 업로드에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -815,6 +823,34 @@ failed to upload.</source>
         <source>Create library failed!</source>
         <translation>라이브러리 만들기에 실패했습니다!</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -845,6 +881,22 @@ failed to upload.</source>
     <message>
         <source>%1 of %2</source>
         <translation>%2 중 %1</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -943,10 +995,6 @@ failed to upload.</source>
         <translation>이 폴더 동기화(&amp;S)</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>이 폴더에 업로드할 권한이 없습니다</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>이 기능은 전문가 버전에서만 사용할 수 있습니다
@@ -979,6 +1027,22 @@ failed to upload.</source>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>읽기 전용 파일을 잘라낼 수 없습니다</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1923,10 +1987,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>이 폴더 동기화 대상:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation>라이브러리 이름에 &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos; 등의 잘못된 문자가 들어있습니다</translation>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>폴더</translation>
     </message>
@@ -2013,6 +2073,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>failed to open file cache database</source>
         <translation>파일 캐시 데이터베이스 열기에 실패했습니다</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

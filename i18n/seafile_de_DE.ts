@@ -187,14 +187,30 @@ uploaded successfully.</source>
 erfolgreich hochgeladen.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Hochladefehler</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Datei „%1“
 wurde nicht hochgeladen.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Keine ausreichenden Rechte!</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>Legitimierung abgelaufen</translation>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation>Datei ist nicht vorhanden</translation>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation>Die Datei ist von %1 gesperrt, bitte versuchen Sie es später noch einmal</translation>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation>Fehler beim Hochladen: %1</translation>
     </message>
 </context>
 <context>
@@ -734,10 +750,6 @@ Bitte %1</translation>
         <translation>Datei „%1“ ist nicht synchronisiert</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Funktion wird nicht unterstützt</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Die Datei %1 ist schon vorhanden.&lt;br/&gt;Möchten Sie die Datei wirklich überschreiben?&lt;br/&gt;&lt;small&gt;(Wählen Sie Nein, um die Datei mit einem anderen Namen hochzuladen).&lt;/small&gt;</translation>
     </message>
@@ -748,10 +760,6 @@ Bitte %1</translation>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Fehler beim Herunterladen der Datei: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Fehler beim Hochladen der Datei: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -813,6 +821,34 @@ Bitte %1</translation>
         <source>Create library failed!</source>
         <translation>Das Erstellen der Bibliothek ist fehlgeschlagen!</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation>Sie haben keine ausreichenden Rechte zum Hochladen in diesen Ordner</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>Legitimierung abgelaufen</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>Keine ausreichenden Rechte!</translation>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation>Bibliothek oder Ordner nicht gefunden</translation>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation>Fehler beim Hochladen der Datei %1: %2</translation>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation>Cache-Ordner konnte nicht erstellt werden</translation>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation>Cache-Ordner konnte nicht geöffnet werden</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -843,6 +879,22 @@ Bitte %1</translation>
     <message>
         <source>%1 of %2</source>
         <translation>%1 von %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -941,10 +993,6 @@ Bitte %1</translation>
         <translation>&amp;Diesen Ordner synchronisieren</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>Zum Hochladen in diesen Ordner fehlen Ihnen die Zugriffsrechte</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Dieses Feature ist nur in der Pro-Version verfügbar 
@@ -977,6 +1025,22 @@ Bitte %1</translation>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>Schreibgeschützte Dateien können nicht ausgeschnitten werden</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation>Hochladen wiederholen</translation>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation>Lokale Version löschen</translation>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation>Lokale Version speichern unter …</translation>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation>Lokalen Zwischenspeicher öffnen</translation>
     </message>
 </context>
 <context>
@@ -1923,10 +1987,6 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <translation>Ordner hier als neuen Unterordner erstellen:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation>Der Name der Bibliothek darf keine Zeichen wie „:“, „*“, „|“ oder „?“ enthalten</translation>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>Ordner</translation>
     </message>
@@ -2013,6 +2073,10 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <source>failed to open file cache database</source>
         <translation>Fehler beim Öffnen der Datei-Cache Datenbank</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation>Der Name der Bibliothek darf keine Zeichen wie „:“, „*“, „|“ oder „?“ enthalten</translation>
     </message>
 </context>
 <context>

@@ -187,12 +187,28 @@ uploaded successfully.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload Failure</source>
+        <source>File &quot;%1&quot;
+failed to upload.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>File &quot;%1&quot;
-failed to upload.</source>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -732,10 +748,6 @@ failed to upload.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -745,10 +757,6 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to download file: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -811,6 +819,34 @@ failed to upload.</source>
         <source>Create library failed!</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -840,6 +876,22 @@ failed to upload.</source>
     </message>
     <message>
         <source>%1 of %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -939,10 +991,6 @@ failed to upload.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation type="unfinished"/>
@@ -973,6 +1021,22 @@ failed to upload.</source>
     </message>
     <message>
         <source>Unable to cut readonly files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1909,10 +1973,6 @@ Perquè s&apos;ha superat el límit de capacitat al compte del propietari.</tran
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Folder</source>
         <translation type="unfinished"/>
     </message>
@@ -1998,6 +2058,10 @@ Perquè s&apos;ha superat el límit de capacitat al compte del propietari.</tran
     </message>
     <message>
         <source>failed to open file cache database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation type="unfinished"/>
     </message>
 </context>

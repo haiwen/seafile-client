@@ -187,14 +187,30 @@ uploaded successfully.</source>
 caricato con successo.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Errore di caricamento</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>File &quot;%1&quot;
 non caricato a causa di un errore.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -735,10 +751,6 @@ non caricato a causa di un errore.</translation>
         <translation>Il file &quot;%1&quot; non è stato sincronizzato</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Funzionalità non supportata</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Il file %1 esiste già.&lt;br/&gt;Vuoi sovrascriverlo?&lt;br/&gt;&lt;small&gt;(Scegli No per caricarlo usando un altro nome.)&lt;/small&gt;</translation>
     </message>
@@ -749,10 +761,6 @@ non caricato a causa di un errore.</translation>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Impossibile scaricare il file: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Impossibile caricare il file: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -814,6 +822,34 @@ non caricato a causa di un errore.</translation>
         <source>Create library failed!</source>
         <translation>Impossibile creare la libreria</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -844,6 +880,22 @@ non caricato a causa di un errore.</translation>
     <message>
         <source>%1 of %2</source>
         <translation>%1 di %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -942,10 +994,6 @@ non caricato a causa di un errore.</translation>
         <translation>&amp;Sincronizza questa cartella</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>Non hai il permesso di caricare dentro questa cartella</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Questa funzionalità è disponibile solo nella versione pro
@@ -978,6 +1026,22 @@ non caricato a causa di un errore.</translation>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>Impossibile tagliare file in sola lettura</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1918,10 +1982,6 @@ Lo spazio del proprietario della libreria è esaurito.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Folder</source>
         <translation type="unfinished"/>
     </message>
@@ -2007,6 +2067,10 @@ Lo spazio del proprietario della libreria è esaurito.</translation>
     </message>
     <message>
         <source>failed to open file cache database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation type="unfinished"/>
     </message>
 </context>

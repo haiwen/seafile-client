@@ -187,14 +187,30 @@ uploaded successfully.</source>
 przesyłanie udane.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Przesyłanie nieudane</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Plik &quot;%1&quot;
 nieudane przesyłanie.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -735,10 +751,6 @@ nieudane przesyłanie.</translation>
         <translation>Plik &quot;%1&quot; nie został zsynchronizowany</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Funkcja nieobsługiwana</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>Plik %1 już istnieje.&lt;br/&gt;Chcesz go nadpisać?&lt;br/&gt;&lt;small&gt;(Wybierz Nie, aby zapisać go pod inną nazwą).&lt;/small&gt;</translation>
     </message>
@@ -749,10 +761,6 @@ nieudane przesyłanie.</translation>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Nie udało się pobrać pliku: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Nie udało się przesłać pliku: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -814,6 +822,34 @@ nieudane przesyłanie.</translation>
         <source>Create library failed!</source>
         <translation>Nie udało się utworzyć biblioteki!</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -844,6 +880,22 @@ nieudane przesyłanie.</translation>
     <message>
         <source>%1 of %2</source>
         <translation>%1 z %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -942,10 +994,6 @@ nieudane przesyłanie.</translation>
         <translation>&amp;Synchronizuj ten folder</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation>Nie masz uprawnień do przesyłania plików do tego folderu</translation>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Ta funkcja jest dostępna wyłącznie w wersji pro
@@ -978,6 +1026,22 @@ nieudane przesyłanie.</translation>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>Nie można uciąć plików tylko do odczytu</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1924,10 +1988,6 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
         <translation>Synchronizuj ten folder z:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>Folder</translation>
     </message>
@@ -2014,6 +2074,10 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <source>failed to open file cache database</source>
         <translation>nie udało się otworzyć podręcznej bazy plików</translation>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

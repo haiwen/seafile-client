@@ -187,14 +187,30 @@ uploaded successfully.</source>
 enviado com sucesso.</translation>
     </message>
     <message>
-        <source>Upload Failure</source>
-        <translation>Falha ao enviar arquivo</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Arquivo &quot;%1&quot;
 falhou ao enviar.</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File does not exist</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file is locked by %1, please try again later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload Failure: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -734,10 +750,6 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <translation>Arquivo &quot;%1&quot; não foi  sincronizado</translation>
     </message>
     <message>
-        <source>Feature not supported</source>
-        <translation>Característica não suportada</translation>
-    </message>
-    <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
         <translation>O arquivo %1 já existe.&lt;br/&gt;Você gostaria de sobrescrever ele?&lt;br/&gt;&lt;small&gt;(Escolha Não para enviar utilizando um nome alternativo)</translation>
     </message>
@@ -748,10 +760,6 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <source>Failed to download file: %1</source>
         <translation>Falha ao descarregar o arquivo: %1</translation>
-    </message>
-    <message>
-        <source>Failed to upload file: %1</source>
-        <translation>Falha ao enviar o arquivo: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -813,6 +821,34 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <source>Create library failed!</source>
         <translation>Falha ao criar biblioteca!</translation>
     </message>
+    <message>
+        <source>You do not have permission to upload to this folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file %1: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to create cache folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to open cache folder</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -843,6 +879,22 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <source>%1 of %2</source>
         <translation>%1 de %2</translation>
+    </message>
+    <message>
+        <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -941,10 +993,6 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <translation>&amp;Sincronizar esta pasta</translation>
     </message>
     <message>
-        <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>This feature is available in pro version only
 </source>
         <translation>Esta característica está disponível somente na versão pro
@@ -977,6 +1025,22 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <source>Unable to cut readonly files</source>
         <translation>Não é possivel recortar arquivos somente leitura</translation>
+    </message>
+    <message>
+        <source>Retry Upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Local Version</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Version Save As...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1915,10 +1979,6 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
         <translation>Sincronizar esta pasta com:</translation>
     </message>
     <message>
-        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Folder</source>
         <translation>Pasta</translation>
     </message>
@@ -2004,6 +2064,10 @@ O espaço de armazenamento do dono da biblioteca acabou.</translation>
     </message>
     <message>
         <source>failed to open file cache database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation type="unfinished"/>
     </message>
 </context>

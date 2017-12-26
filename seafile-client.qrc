@@ -121,16 +121,29 @@
     <file>images/tabs/highlighted/history-orange.png</file>
     <file>images/tabs/highlighted/history-orange@2x.png</file>
     <file>images/files/file_audio.png</file>
-    <file>images/files/file_image.png</file>
-    <file>images/files/file_ms_excel.png</file>
-    <file>images/files/file_ms_ppt.png</file>
-    <file>images/files/file_ms_word.png</file>
-    <file>images/files/file_pdf.png</file>
-    <file>images/files/file_text.png</file>
-    <file>images/files/file_video.png</file>
+    <file>images/files/file_audio@2x.png</file>
     <file>images/files/file_folder.png</file>
-    <file>images/files/file_zip.png</file>
+    <file>images/files/file_folder@2x.png</file>
+    <file>images/files/file_folder_readonly.png</file>
+    <file>images/files/file_folder_readonly@2x.png</file>
+    <file>images/files/file_image.png</file>
+    <file>images/files/file_image@2x.png</file>
+    <file>images/files/file_ms_excel.png</file>
+    <file>images/files/file_ms_excel@2x.png</file>
+    <file>images/files/file_ms_ppt.png</file>
+    <file>images/files/file_ms_ppt@2x.png</file>
+    <file>images/files/file_ms_word.png</file>
+    <file>images/files/file_ms_word@2x.png</file>
+    <file>images/files/file_pdf.png</file>
+    <file>images/files/file_pdf@2x.png</file>
+    <file>images/files/file_text.png</file>
+    <file>images/files/file_text@2x.png</file>
     <file>images/files/file_unknown.png</file>
+    <file>images/files/file_unknown@2x.png</file>
+    <file>images/files/file_video.png</file>
+    <file>images/files/file_video@2x.png</file>
+    <file>images/files/file_zip.png</file>
+    <file>images/files/file_zip@2x.png</file>
     <file>images/files_v2/file_audio.png</file>
     <file>images/files_v2/file_audio@2x.png</file>
     <file>images/files_v2/file_folder_readonly.png</file>

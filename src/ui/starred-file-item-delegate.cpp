@@ -158,7 +158,7 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
 
 QPixmap StarredFileItemDelegate::getIconForFile(const QString& name) const
 {
-    return QPixmap(::getIconByFileName(name));
+    return QIcon(::getIconByFileName(name)).pixmap(QSize(kFileIconWidth, kFileIconHeight));
 }
 
 StarredFileItem* StarredFileItemDelegate::getItem(const QModelIndex &index) const

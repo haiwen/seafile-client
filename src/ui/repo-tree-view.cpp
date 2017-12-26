@@ -109,7 +109,7 @@ RepoTreeView::RepoTreeView(QWidget *parent)
     loadExpandedCategries();
     connect(qApp, SIGNAL(aboutToQuit()),
             this, SLOT(saveExpandedCategries()));
-    connect(seafApplet->accountManager(), SIGNAL(beforeAccountChanged()),
+    connect(seafApplet->accountManager(), SIGNAL(beforeAccountSwitched()),
             this, SLOT(saveExpandedCategries()));
     connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
             this, SLOT(loadExpandedCategries()));

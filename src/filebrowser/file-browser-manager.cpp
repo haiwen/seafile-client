@@ -23,6 +23,9 @@ FileBrowserManager::FileBrowserManager() : QObject()
             SIGNAL(accountAboutToRelogin(const Account&)),
             this,
             SLOT(closeAllDialogByAccount(const Account&)));
+
+    connect(seafApplet->accountManager(), SIGNAL(beforeAccountSwitched()),
+            this, SLOT(closeAllDialogs()));
 }
 
 
@@ -98,4 +101,18 @@ void FileBrowserManager::onAboutToClose()
     if (!dialog)
       return;
     dialogs_.removeOne(dialog);
+}
+
+void FileBrowserManager::closeAllDialogs()
+{
+    QList<FileBrowserDialog *> dialogs_for_account;
+    foreach (FileBrowserDialog *dialog, dialogs_)
+    {
+        dialogs_for_account.push_back(dialog);
+    }
+
+    foreach (FileBrowserDialog *dialog, dialogs_for_account)
+    {
+        dialog->close();
+    }
 }

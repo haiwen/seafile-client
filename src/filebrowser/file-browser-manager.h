@@ -27,6 +27,7 @@ public slots:
 
 private slots:
   void onAboutToClose();
+  void closeAllDialogs();
 
 private:
   FileBrowserManager(const FileBrowserManager*); // DELETED

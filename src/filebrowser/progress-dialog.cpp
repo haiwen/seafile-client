@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -9,6 +10,7 @@
 
 #include "utils/utils.h"
 #include "progress-dialog.h"
+
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
@@ -51,6 +53,12 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
     connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
     connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
+
+    if (task_->type() == FileNetworkTask::Upload) {
+        FileUploadTask *upload_task = (FileUploadTask *)task_;
+        connect(upload_task, SIGNAL(oneFileFailed(const QString&, bool)),
+                this, SLOT(onOneFileUploadFailed(const QString&, bool)));
+    }
 }
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()
@@ -81,7 +89,7 @@ void FileBrowserProgressDialog::initTaskInfo()
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
 {
-    // Ignore the updates if the task has been cancelled, because we may already
+    // Skip the updates if the task has been cancelled, because we may already
     // have already rejected this dialog.
     if (task_->canceled()) {
         return;
@@ -132,4 +140,60 @@ void FileBrowserProgressDialog::cancel()
     }
     task_->cancel();
     reject();
+}
+
+void FileBrowserProgressDialog::onOneFileUploadFailed(const QString &filename,
+                                                      bool single_file)
+{
+    if (task_->canceled()) {
+        return;
+    }
+
+    FileUploadTask *upload_task = (FileUploadTask *)task_;
+
+    QString msg =
+        tr("Failed to upload file \"%1\", do you want to retry?").arg(filename);
+    ActionOnFailure choice = retryOrSkipOrAbort(msg, single_file);
+
+    switch (choice) {
+        case ActionRetry:
+            upload_task->continueWithFailedFile(true);
+            break;
+        case ActionSkip:
+            upload_task->continueWithFailedFile(false);
+            break;
+        case ActionAbort:
+            cancel();
+            break;
+    }
+}
+
+FileBrowserProgressDialog::ActionOnFailure
+FileBrowserProgressDialog::retryOrSkipOrAbort(const QString& msg, bool single_file)
+{
+    QMessageBox box(this);
+    box.setText(msg);
+    box.setWindowTitle(getBrand());
+    box.setIcon(QMessageBox::Question);
+
+    QPushButton *yes_btn = box.addButton(tr("Retry"), QMessageBox::YesRole);
+    QPushButton *no_btn = nullptr;
+    if (!single_file) {
+        // If this is single file upload/update, we only show "retry" and
+        // "abort".
+        no_btn = box.addButton(tr("Skip"), QMessageBox::NoRole);
+    }
+    box.addButton(tr("Abort"), QMessageBox::RejectRole);
+
+
+    box.setDefaultButton(yes_btn);
+    box.exec();
+    QAbstractButton *btn = box.clickedButton();
+    if (btn == yes_btn) {
+        return ActionRetry;
+    } else if (btn == no_btn) {
+        return ActionSkip;
+    }
+
+    return ActionAbort;
 }

@@ -16,6 +16,12 @@ public:
     FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent=0);
     ~FileBrowserProgressDialog();
 
+    typedef enum {
+        ActionRetry = 0,
+        ActionSkip,
+        ActionAbort,
+    } ActionOnFailure;
+
 public slots:
     void cancel();
 
@@ -23,6 +29,8 @@ private slots:
     void onProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
     void onTaskFinished(bool success);
     void initTaskInfo();
+    void onOneFileUploadFailed(const QString& filename, bool single_file);
+    ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:
 

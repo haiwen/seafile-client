@@ -182,7 +182,7 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
     if (canceled_) {
         return;
     }
-    if (!success) {
+    if (!fileserver_task_->canceled() && !success) {
         error_ = fileserver_task_->error();
         error_string_ = fileserver_task_->errorString();
         http_error_code_ = fileserver_task_->httpErrorCode();
@@ -278,6 +278,23 @@ void FileUploadTask::createFileServerTask(const QString& link)
                                                  name_, use_upload_);
 }
 
+void FileUploadTask::startFileServerTask(const QString& link)
+{
+    FileNetworkTask::startFileServerTask(link);
+    connect(fileserver_task_, SIGNAL(oneFileFailed(const QString&, bool)),
+            this, SLOT(onOneFileFailed(const QString&, bool)));
+}
+
+void FileUploadTask::onOneFileFailed(const QString& filename, bool single_file)
+{
+    emit oneFileFailed(filename, single_file);
+}
+
+void FileUploadTask::continueWithFailedFile(bool retry)
+{
+    fileserver_task_->continueWithFailedFile(retry);
+}
+
 FileUploadMultipleTask::FileUploadMultipleTask(const Account& account,
                                                const QString& repo_id,
                                                const QString& path,
@@ -293,6 +310,12 @@ void FileUploadMultipleTask::createFileServerTask(const QString& link)
 {
     fileserver_task_ = new PostFilesTask(link, path_, local_path_, names_, false);
 }
+
+const QStringList& FileUploadMultipleTask::successfulNames()
+{
+    return ((PostFilesTask *)fileserver_task_)->successfulNames();
+}
+
 
 FileUploadDirectoryTask::FileUploadDirectoryTask(const Account& account,
                                                  const QString& repo_id,
@@ -716,8 +739,15 @@ void PostFilesTask::onPostTaskFinished(bool success)
         const QString& file_path = names_[current_num_];
         QString file_name = QFileInfo(file_path).fileName();
         failed_path_ = file_name;
-        emit finished(false);
+
+        emit oneFileFailed(failed_path_, false);
         return;
+    } else {
+        error_ = FileNetworkTask::NoError;
+        error_string_ = "";
+        http_error_code_ = 0;
+        progress_update_timer_->stop();
+        successful_names_ << names_[current_num_];
     }
 
     transferred_bytes_ += file_sizes_[current_num_];
@@ -750,6 +780,19 @@ void PostFilesTask::startNext()
     current_bytes_ = 0;
     progress_update_timer_->start(100);
     task_->start();
+}
+
+void PostFilesTask::continueWithFailedFile(bool retry)
+{
+    if (retry) {
+        current_num_--;
+    } else {
+        // The user chooses to skip the failed file, but in order to keep the
+        // progress consistent, we need to pretend the file is already uploaded
+        // successfully.
+        transferred_bytes_ += file_sizes_[current_num_];
+    }
+    startNext();
 }
 
 void FileServerTask::setError(FileNetworkTask::TaskError error,

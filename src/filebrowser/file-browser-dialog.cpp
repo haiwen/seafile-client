@@ -951,7 +951,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
       names.push_back(task->name());
       local_path = QFileInfo(local_path).absolutePath();
     } else {
-      names = multi_task->names();
+      names = multi_task->successfulNames();
       local_path = QFileInfo(local_path).absoluteFilePath();
     }
 

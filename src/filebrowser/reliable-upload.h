@@ -40,6 +40,7 @@ public:
     ~ReliablePostFileTask();
 
     virtual const QString &oid() const;
+    virtual void continueWithFailedFile(bool retry);
 
 public slots:
     void cancel();
@@ -63,6 +64,7 @@ private:
     void createPostFileTask();
     void startPostFileTask();
     bool useResumableUpload() const;
+    void handlePostFileTaskFailure();
 
     const Account account_;
     const QString repo_id_;
@@ -87,6 +89,8 @@ private:
     // The underlying task that sends the POST file request
     QScopedPointer<PostFileTask, doDeleteLater<PostFileTask> > task_;
     QScopedPointer<GetFileUploadedBytesRequest, doDeleteLater<GetFileUploadedBytesRequest> > file_uploaded_bytes_req_;
+
+    bool accept_user_confirmation_;
 };
 
 class PostFileTask : public FileServerTask {

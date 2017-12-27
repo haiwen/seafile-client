@@ -158,6 +158,7 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
 
 FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
     : QTableView(parent),
+      parent_(qobject_cast<FileBrowserDialog*>(parent)),
       search_model_(NULL),
       proxy_model_(NULL)
 {
@@ -180,6 +181,58 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
 
     setMouseTracking(true);
     setDragDropMode(QAbstractItemView::DropOnly);
+
+    setupContextMenu();
+}
+
+void FileBrowserSearchView::setupContextMenu()
+{
+    context_menu_ = new QMenu(this);
+    connect(parent_, SIGNAL(aboutToClose()),
+            context_menu_, SLOT(close()));
+    open_parent_dir_action_ = new QAction(tr("&Show in folder"), this);
+    open_parent_dir_action_->setIcon(QIcon(":/images/toolbar/file-gray.png"));
+    open_parent_dir_action_->setIconVisibleInMenu(true);
+    open_parent_dir_action_->setStatusTip(tr("Show in folder"));
+    connect(open_parent_dir_action_, SIGNAL(triggered()),
+            this, SLOT(openParentDir()));
+    context_menu_->addAction(open_parent_dir_action_);
+    this->addAction(open_parent_dir_action_);
+}
+
+void FileBrowserSearchView::contextMenuEvent(QContextMenuEvent *event)
+{
+    QPoint position = event->pos();
+    const QModelIndex proxy_index = indexAt(position);
+    position = viewport()->mapToGlobal(position);
+    if (!proxy_index.isValid()) {
+        return;
+    }
+
+    const QModelIndex index = proxy_model_->mapToSource(proxy_index);
+    const int row = index.row();
+    const FileSearchResult *result = search_model_->resultAt(row);
+    if (!result)
+        return;
+
+    QItemSelectionModel *selections = this->selectionModel();
+    QModelIndexList selected = selections->selectedRows();
+    if (selected.size() == 1) {
+        open_parent_dir_action_->setEnabled(true);
+        search_item_.reset(new FileSearchResult(*result));
+    } else {
+        open_parent_dir_action_->setEnabled(false);
+        return;
+    }
+
+    context_menu_->exec(position); // synchronously
+    search_item_.reset(NULL);
+}
+
+void FileBrowserSearchView::openParentDir()
+{
+    RepoService::instance()->openFolder(search_item_->repo_id,
+                                        ::getParentPath(search_item_->fullpath));
 }
 
 void FileBrowserSearchView::setModel(QAbstractItemModel *model)

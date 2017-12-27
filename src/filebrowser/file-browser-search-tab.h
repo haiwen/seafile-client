@@ -6,8 +6,9 @@
 #include <QStandardItem>
 #include <QAbstractTableModel>
 #include <QStyledItemDelegate>
-#include <api/requests.h>
 #include <QSortFilterProxyModel>
+
+#include "api/requests.h"
 
 class QAction;
 class QMenu;
@@ -29,17 +30,23 @@ public:
     void setModel(QAbstractItemModel *model);
 
     void resizeEvent(QResizeEvent *event);
+    void setupContextMenu();
 private slots:
     void onAboutToReset();
+    void openParentDir();
 private:
 
     Q_DISABLE_COPY(FileBrowserSearchView)
 
+    void contextMenuEvent(QContextMenuEvent *event);
+
     FileBrowserSearchModel *search_model_;
+    QSortFilterProxyModel *proxy_model_;
 
     QScopedPointer<const FileSearchResult> search_item_;
-
-    QSortFilterProxyModel *proxy_model_;
+    QMenu *context_menu_;
+    QAction *open_parent_dir_action_;
+    FileBrowserDialog *parent_;
 };
 
 

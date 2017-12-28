@@ -31,9 +31,12 @@ public:
 
     void resizeEvent(QResizeEvent *event);
     void setupContextMenu();
+signals:
+    void clearSearchBar();
 private slots:
     void onAboutToReset();
     void openParentDir();
+    void onItemDoubleClicked(const QModelIndex& index);
 private:
 
     Q_DISABLE_COPY(FileBrowserSearchView)
@@ -55,7 +58,7 @@ class FileBrowserSearchModel : public QAbstractTableModel {
 public:
     FileBrowserSearchModel(QObject *parent=0);
 
-    int rowCount(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent=QModelIndex()) const;
     int columnCount(const QModelIndex &index) const;
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

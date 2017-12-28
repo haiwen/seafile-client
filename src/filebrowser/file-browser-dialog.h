@@ -141,6 +141,7 @@ private slots:
 
     void onAccountInfoUpdated();
 
+    //search
     void doSearch(const QString& keyword);
     void doRealSearch();
     void onSearchSuccess(const std::vector<FileSearchResult>& results,

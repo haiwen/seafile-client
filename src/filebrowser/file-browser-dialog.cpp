@@ -42,7 +42,7 @@ enum {
     INDEX_LOADING_FAILED_VIEW,
     INDEX_EMPTY_VIEW,
     INDEX_RELOGIN_VIEW,
-    INDEX_SEARCH
+    INDEX_SEARCH_VIEW
 };
 
 const char *kLoadingFailedLabelName = "LoadingFailedText";
@@ -160,7 +160,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     stack_->insertWidget(INDEX_LOADING_FAILED_VIEW, loading_failed_view_);
     stack_->insertWidget(INDEX_EMPTY_VIEW, empty_view_);
     stack_->insertWidget(INDEX_RELOGIN_VIEW, relogin_view_);
-    stack_->insertWidget(INDEX_SEARCH, search_view_);
+    stack_->insertWidget(INDEX_SEARCH_VIEW, search_view_);
     stack_->setContentsMargins(0, 0, 0, 0);
     stack_->installEventFilter(this);
     stack_->setAcceptDrops(true);
@@ -205,6 +205,9 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDeleteLocalVersion(const SeafDirent&)));
     connect(table_view_, SIGNAL(localVersionSaveAs(const SeafDirent&)),
             this, SLOT(onLocalVersionSaveAs(const SeafDirent&)));
+
+    connect(search_view_, SIGNAL(clearSearchBar()),
+            search_bar_, SLOT(clear()));
 
 
     //dirents <--> data_mgr_
@@ -393,6 +396,7 @@ void FileBrowserDialog::createStatusBar()
     refresh_button_->setIconSize(QSize(kStatusBarIconSize, kStatusBarIconSize));
     refresh_button_->installEventFilter(this);
     connect(refresh_button_, SIGNAL(clicked()), this, SLOT(forceRefresh()));
+    connect(refresh_button_, SIGNAL(clicked()), search_bar_, SLOT(clear()));
     status_layout_->addWidget(refresh_button_);
 }
 
@@ -502,7 +506,13 @@ void FileBrowserDialog::fetchDirents()
 
 void FileBrowserDialog::updateFileCount()
 {
-    details_label_->setText(tr("%1 items").arg(table_model_->rowCount()));
+    int row_count;
+    if (stack_->currentIndex() == INDEX_TABLE_VIEW)
+        row_count = table_model_->rowCount();
+    if (stack_->currentIndex() == INDEX_SEARCH_VIEW)
+        row_count = search_model_->rowCount();
+
+    details_label_->setText(tr("%1 items").arg(row_count));
 }
 
 void FileBrowserDialog::fetchDirents(bool force_refresh)
@@ -1515,6 +1525,7 @@ void FileBrowserDialog::doSearch(const QString &keyword)
     // make it search utf-8 charcters
     if (keyword.toUtf8().size() < 3) {
         stack_->setCurrentIndex(INDEX_TABLE_VIEW);
+        updateFileCount();
         return;
     }
 
@@ -1561,7 +1572,8 @@ void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& res
                                 bool has_more)
 {
     search_model_->setSearchResult(results);
-    stack_->setCurrentIndex(INDEX_SEARCH);
+    stack_->setCurrentIndex(INDEX_SEARCH_VIEW);
+    updateFileCount();
 }
 
 void FileBrowserDialog::onSearchFailed(const ApiError& error)

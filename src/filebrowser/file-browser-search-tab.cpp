@@ -182,6 +182,9 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
     setMouseTracking(true);
     setDragDropMode(QAbstractItemView::DropOnly);
 
+    connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
+                this, SLOT(onItemDoubleClicked(const QModelIndex&)));
+
     setupContextMenu();
 }
 
@@ -233,6 +236,20 @@ void FileBrowserSearchView::openParentDir()
 {
     RepoService::instance()->openFolder(search_item_->repo_id,
                                         ::getParentPath(search_item_->fullpath));
+    emit clearSearchBar();
+}
+
+void FileBrowserSearchView::onItemDoubleClicked(const QModelIndex& index)
+{
+    const FileSearchResult *result =
+            search_model_->resultAt(proxy_model_->mapToSource(index).row());
+    if (result->name.isEmpty() || result->fullpath.isEmpty())
+        return;
+
+    if (result->fullpath.endsWith("/"))
+        emit clearSearchBar();
+
+    RepoService::instance()->openLocalFile(result->repo_id, result->fullpath);
 }
 
 void FileBrowserSearchView::setModel(QAbstractItemModel *model)
@@ -278,7 +295,7 @@ void FileBrowserSearchModel::setSearchResult(const std::vector<FileSearchResult>
     endResetModel();
 }
 
-int FileBrowserSearchModel::rowCount(const QModelIndex &index) const
+int FileBrowserSearchModel::rowCount(const QModelIndex &parent) const
 {
     return results_.size();
 }

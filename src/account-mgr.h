@@ -30,14 +30,18 @@ public:
     int saveAccount(const Account& account);
     int removeAccount(const Account& account);
 
+    void logoutDevice(const Account& account);
+    void logoutDeviceNonautoLogin();
+
     bool clearAccountToken(const Account& account);
+    bool removeAllSyncTokens();
 
     const std::vector<Account>& loadAccounts();
     bool accountExists(const QUrl& url, const QString& username);
 
     bool hasAccount() const { return !accounts_.empty(); }
 
-    Account currentAccount() const { return hasAccount() ? accounts_[0] : Account(); }
+    Account currentAccount() const { return hasAccount() ? current_account_ : Account(); }
 
     bool setCurrentAccount(const Account& account);
 
@@ -58,11 +62,15 @@ public:
 
     void updateAccountInfo(const Account& account, const AccountInfo& info);
 
+    bool validateAndUseAccount(const Account& account);
+
     // accessors
     const std::vector<Account>& accounts() const { return accounts_; }
 
     // invalidate current login and emit a re-login signal
     void invalidateCurrentLogin();
+
+    bool reloginAccount(const Account &account);
 
 signals:
     /**
@@ -82,6 +90,8 @@ private slots:
 
     void onAccountsChanged();
 
+    void onLogoutDeviceRequestSuccess();
+
 private:
     Q_DISABLE_COPY(AccountManager)
 
@@ -98,6 +108,8 @@ private:
 
     QMutex accounts_mutex_;
     QMutex accounts_cache_mutex_;
+
+    Account current_account_;
 };
 
 #endif  // _SEAF_ACCOUNT_MGR_H

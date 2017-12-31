@@ -34,7 +34,6 @@ private slots:
     void updateAvatar();
     void toggleAccount();
     void reloginAccount(const Account &account);
-    void onLogoutDeviceRequestSuccess();
     void onGetRepoTokensSuccess();
     void onGetRepoTokensFailed(const ApiError& error);
     void visitServerInBrowser(const QString& link);

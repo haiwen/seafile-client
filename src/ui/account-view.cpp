@@ -414,12 +414,7 @@ void AccountView::toggleAccount()
 
     // logout Account
     FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
-    LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
-    connect(req, SIGNAL(success()),
-            this, SLOT(onLogoutDeviceRequestSuccess()));
-    connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onLogoutDeviceRequestSuccess()));
-    req->send();
+    seafApplet->accountManager()->logoutDevice(account);
 }
 
 void AccountView::reloginAccount(const Account &account_in)
@@ -449,24 +444,6 @@ void AccountView::reloginAccount(const Account &account_in)
     if (accepted) {
         getRepoTokenWhenRelogin(account);
     }
-}
-
-void AccountView::onLogoutDeviceRequestSuccess()
-{
-    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
-    const Account& account = req->account();
-    QString error;
-    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
-                                                           account.username,
-                                                           &error)  < 0) {
-        seafApplet->warningBox(
-            tr("Failed to remove local repos sync token: %1").arg(error),
-            this);
-        return;
-    }
-    seafApplet->accountManager()->clearAccountToken(account);
-
-    req->deleteLater();
 }
 
 void AccountView::onGetRepoTokensSuccess()

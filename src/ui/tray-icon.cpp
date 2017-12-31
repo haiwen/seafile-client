@@ -31,6 +31,7 @@ extern "C" {
 #include "server-status-service.h"
 #include "api/commit-details.h"
 #include "sync-errors-dialog.h"
+#include "account-mgr.h"
 
 #include "tray-icon.h"
 #if defined(Q_OS_MAC)
@@ -568,6 +569,7 @@ void SeafileTrayIcon::enableAutoSync()
 void SeafileTrayIcon::quitSeafile()
 {
     QCoreApplication::exit(0);
+    seafApplet->accountManager()->logoutDeviceNonautoLogin();
 }
 
 void SeafileTrayIcon::refreshTrayIcon()

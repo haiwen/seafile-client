@@ -234,8 +234,7 @@ void FileBrowserSearchView::contextMenuEvent(QContextMenuEvent *event)
 
 void FileBrowserSearchView::openParentDir()
 {
-    RepoService::instance()->openFolder(search_item_->repo_id,
-                                        ::getParentPath(search_item_->fullpath));
+    parent_->enterPath(::getParentPath(search_item_->fullpath));
     emit clearSearchBar();
 }
 

@@ -57,11 +57,11 @@ void SearchBar::resizeEvent(QResizeEvent* event)
 {
     clear_button_->move(rect().right() - kMarginRightSearchBar
                         - kHMargin - clear_button_size_ - 2,
-                        (rect().bottom() - kMarginBottom - clear_button_size_) / 2);
+                        (rect().bottom() - clear_button_size_) / 2);
     int label_height = placeholder_label_->height();
     int label_width = placeholder_label_->width();
     placeholder_label_->move((rect().right() - label_width) / 2,
-                             (rect().bottom() - kMarginBottom - label_height) / 2);
+                             (rect().bottom()  -  label_height) / 2);
 }
 
 void SearchBar::onTextChanged(const QString& text)

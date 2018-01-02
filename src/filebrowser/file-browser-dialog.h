@@ -6,9 +6,8 @@
 
 #include "account.h"
 #include "api/server-repo.h"
-//#include "../ui/tab-view.h"
 #include "file-browser-search-tab.h"
-#include "../ui/search-bar.h"
+#include "ui/search-bar.h"
 
 class QToolBar;
 class QToolButton;
@@ -77,7 +76,7 @@ private slots:
     void fetchDirents();
     void onDirentClicked(const SeafDirent& dirent);
     void onDirentSaveAs(const QList<const SeafDirent*>& dirents);
-    void forceRefresh();
+    void onRefresh();
     void goForward();
     void goBackward();
     void goHome();
@@ -153,8 +152,8 @@ private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
     QTimer *search_timer_;
-    qint64 last_modified_;
-    FileSearchRequest *request_;
+    qint64 search_text_last_modified_;
+    FileSearchRequest *search_request_;
 
     void done(int retval);
     bool hasFilesToBePasted();
@@ -179,6 +178,8 @@ private:
     void fetchDirents(bool force_refresh);
 
     void updateFileCount();
+
+    void forceRefresh();
 
     bool setPasswordAndRetry(FileNetworkTask *task);
 
@@ -209,7 +210,7 @@ private:
 
     // top toolbar
     QToolBar *toolbar_;
-    QToolBar *toolbar2_;
+    QToolBar *search_toolbar_;
     QToolButton *backward_button_;
     QToolButton *forward_button_;
     QButtonGroup *path_navigator_;

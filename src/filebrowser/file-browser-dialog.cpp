@@ -48,8 +48,9 @@ enum {
 const char *kLoadingFailedLabelName = "LoadingFailedText";
 const int kToolBarIconSize = 24;
 const int kStatusBarIconSize = 20;
-const int page = 1;
-const int perPage = 10000;
+const int kAllPage = 1;
+const int kPerPageCount = 10000;
+const int kSearchBarWidth = 250;
 //const int kStatusCodePasswordNeeded = 400;
 
 void openFile(const QString& path)
@@ -91,10 +92,11 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
       repo_(repo),
       current_path_(path),
       current_readonly_(repo_.readonly),
-      request_(NULL),
-      last_modified_(0)
+      search_request_(NULL),
+      search_text_last_modified_(0)
 {
     current_lpath_ = current_path_.split('/');
+
     data_mgr_ = seafApplet->dataManager();
 
     // In German translation there is a "seafile" string, so need to use tr("..").arg(..) here
@@ -131,7 +133,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     setLayout(layout);
     layout->addWidget(widget);
 
-
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setContentsMargins(1, 0, 1, 0);
     vlayout->setSpacing(0);
@@ -141,7 +142,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     hlayout->setContentsMargins(1, 0, 1, 0);
     hlayout->setSpacing(0);
     hlayout->addWidget(toolbar_);
-    hlayout->addWidget(toolbar2_);
+    hlayout->addWidget(search_toolbar_);
 
     search_view_ = new FileBrowserSearchView(this);
     search_view_->setObjectName("searchResult");
@@ -168,7 +169,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     vlayout->addLayout(hlayout);
     vlayout->addWidget(stack_);
     vlayout->addWidget(status_bar_);
-
 
     search_timer_ = new QTimer(this);
     connect(search_timer_, SIGNAL(timeout()), this, SLOT(doRealSearch()));
@@ -282,6 +282,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
 FileBrowserDialog::~FileBrowserDialog()
 {
+    if (search_request_ != NULL)
+        search_request_->deleteLater();
 }
 
 void FileBrowserDialog::init()
@@ -329,15 +331,15 @@ void FileBrowserDialog::createToolBar()
     connect(path_navigator_, SIGNAL(buttonClicked(int)),
             this, SLOT(onNavigatorClick(int)));
 
-    toolbar2_ = new QToolBar;
-    toolbar2_->setObjectName("topBar");
-    toolbar2_->setIconSize(QSize(kToolBarIconSize, kToolBarIconSize));
-    toolbar2_->setFixedWidth(250);
-    toolbar2_->setStyleSheet("QToolbar { spacing: 0px; }");
+    search_toolbar_ = new QToolBar;
+    search_toolbar_->setObjectName("topBar");
+    search_toolbar_->setIconSize(QSize(kToolBarIconSize, kToolBarIconSize));
+    search_toolbar_->setFixedWidth(kSearchBarWidth);
+    search_toolbar_->setStyleSheet("QToolbar { spacing: 0px; }");
 
     search_bar_ = new SearchBar;
     search_bar_->setPlaceholderText(tr("Search files"));
-    toolbar2_->addWidget(search_bar_);
+    search_toolbar_->addWidget(search_bar_);
     connect(search_bar_, SIGNAL(textChanged(const QString&)),
             this, SLOT(doSearch(const QString&)));
 }
@@ -395,8 +397,7 @@ void FileBrowserDialog::createStatusBar()
     refresh_button_->setIcon(QIcon(":/images/filebrowser/refresh-gray.png"));
     refresh_button_->setIconSize(QSize(kStatusBarIconSize, kStatusBarIconSize));
     refresh_button_->installEventFilter(this);
-    connect(refresh_button_, SIGNAL(clicked()), this, SLOT(forceRefresh()));
-    connect(refresh_button_, SIGNAL(clicked()), search_bar_, SLOT(clear()));
+    connect(refresh_button_, SIGNAL(clicked()), this, SLOT(onRefresh()));
     status_layout_->addWidget(refresh_button_);
 }
 
@@ -494,6 +495,20 @@ bool FileBrowserDialog::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void FileBrowserDialog::onRefresh()
+{
+    if (!seafApplet->accountManager()->currentAccount().isValid()) {
+            stack_->setCurrentIndex(INDEX_RELOGIN_VIEW);
+            return;
+    }
+    if (!search_bar_->text().isEmpty()) {
+        search_text_last_modified_ = 1;
+        doRealSearch();
+    } else {
+        forceRefresh();
+    }
+}
+
 void FileBrowserDialog::forceRefresh()
 {
     fetchDirents(true);
@@ -506,7 +521,7 @@ void FileBrowserDialog::fetchDirents()
 
 void FileBrowserDialog::updateFileCount()
 {
-    int row_count;
+    int row_count = 0;
     if (stack_->currentIndex() == INDEX_TABLE_VIEW)
         row_count = table_model_->rowCount();
     if (stack_->currentIndex() == INDEX_SEARCH_VIEW)
@@ -589,7 +604,7 @@ void FileBrowserDialog::createLoadingFailedView()
     loading_failed_view_->setAlignment(Qt::AlignCenter);
 
     connect(loading_failed_view_, SIGNAL(linkActivated(const QString&)),
-            this, SLOT(forceRefresh()));
+            this, SLOT(onRefresh()));
 }
 
 void FileBrowserDialog::createEmptyView()
@@ -1530,41 +1545,39 @@ void FileBrowserDialog::doSearch(const QString &keyword)
     }
 
     // save for doRealSearch
-    last_modified_ = QDateTime::currentMSecsSinceEpoch();
+    search_text_last_modified_ = QDateTime::currentMSecsSinceEpoch();
 }
 
 void FileBrowserDialog::doRealSearch()
 {
     // not modified
-    if (last_modified_ == 0)
+    if (search_text_last_modified_ == 0)
         return;
     // modified too fast
-    if (QDateTime::currentMSecsSinceEpoch() - last_modified_ <= 300)
+    if (QDateTime::currentMSecsSinceEpoch() - search_text_last_modified_ <= 300)
         return;
 
-    const Account& account = seafApplet->accountManager()->currentAccount();
-
-    if (!account.isValid())
+    if (!account_.isValid())
         return;
 
-    if (request_) {
-        // request_->abort();
-        request_->deleteLater();
-        request_ = NULL;
+    if (search_request_) {
+        // search_request_->abort();
+        search_request_->deleteLater();
+        search_request_ = NULL;
     }
 
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
 
-    request_ = new FileSearchRequest(account,repo_.id, search_bar_->text(), page, perPage);
-    connect(request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool, bool)),
+    search_request_ = new FileSearchRequest(account_, search_bar_->text(), kAllPage, kPerPageCount, repo_.id);
+    connect(search_request_, SIGNAL(success(const std::vector<FileSearchResult>&, bool, bool)),
             this, SLOT(onSearchSuccess(const std::vector<FileSearchResult>&, bool, bool)));
-    connect(request_, SIGNAL(failed(const ApiError&)),
+    connect(search_request_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onSearchFailed(const ApiError&)));
 
-    request_->send();
+    search_request_->send();
 
     // reset
-    last_modified_ = 0;
+    search_text_last_modified_ = 0;
 }
 
 void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& results,

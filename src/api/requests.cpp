@@ -803,10 +803,10 @@ void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
 }
 
 FileSearchRequest::FileSearchRequest(const Account& account,
-                                     const QString& repo_id,
                                      const QString& keyword,
                                      int page,
-                                     int per_page)
+                                     int per_page,
+                                     const QString& repo_id)
     : SeafileApiRequest(account.getAbsoluteUrl(kFileSearchUrl),
                         SeafileApiRequest::METHOD_GET,
                         account.token),

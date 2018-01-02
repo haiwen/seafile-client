@@ -519,10 +519,10 @@ class FileSearchRequest : public SeafileApiRequest
     Q_OBJECT
 public:
     FileSearchRequest(const Account& account,
-                      const QString& repo_id,
                       const QString& keyword,
                       int page = 0,
-                      int per_page = 25);
+                      int per_page = 25,
+                      const QString& repo_id = QString());
     const QString& keyword() const
     {
         return keyword_;

@@ -569,7 +569,6 @@ void SeafileTrayIcon::enableAutoSync()
 void SeafileTrayIcon::quitSeafile()
 {
     QCoreApplication::exit(0);
-    seafApplet->accountManager()->logoutDeviceNonautoLogin();
 }
 
 void SeafileTrayIcon::refreshTrayIcon()

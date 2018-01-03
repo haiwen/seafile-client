@@ -106,12 +106,18 @@ inline void setServerInfoKeyValue(struct sqlite3 *db, const Account &account, co
 AccountManager::AccountManager()
 {
     db = NULL;
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
 }
 
 AccountManager::~AccountManager()
 {
     if (db)
         sqlite3_close(db);
+}
+
+void AccountManager::onAboutToQuit()
+{
+    logoutDeviceNonautoLogin();
 }
 
 int AccountManager::start()
@@ -346,10 +352,12 @@ void AccountManager::logoutDevice(const Account& account)
 void AccountManager::logoutDeviceNonautoLogin()
 {
     QMutexLocker lock(&accounts_mutex_);
-    for (size_t i = 0; i < accounts_.size(); i++) {
-        if (!accounts_[i].isAutomaticLogin) {
-            logoutDevice(accounts_[i]);
+    for (const Account& account : accounts_) {
+        if (account.isAutomaticLogin) {
+            continue;
         }
+        clearSyncToken(account);
+        clearAccountToken(account);
     }
 }
 
@@ -357,15 +365,8 @@ void AccountManager::onLogoutDeviceRequestSuccess()
 {
     LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
     const Account& account = req->account();
-    QString error;
-    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
-                                                           account.username,
-                                                           &error)  < 0)
-    {
-        seafApplet->warningBox(
-            tr("Failed to remove local repos sync token: %1").arg(error));
-        return;
-    }
+
+    clearSyncToken(account);
     clearAccountToken(account);
 
     req->deleteLater();
@@ -613,19 +614,31 @@ bool AccountManager::clearAccountToken(const Account& account)
     return true;
 }
 
-bool AccountManager::removeAllSyncTokens()
+bool AccountManager::clearSyncToken(const Account& account)
 {
     QString error;
-    for (const Account& account : accounts_) {
-        if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
-                                                               account.username,
-                                                               &error)  < 0) {
-            seafApplet->warningBox(
-                tr("Failed to remove local repos sync token: %1").arg(error));
-            return false;
-        }
+    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
+                                                           account.username,
+                                                           &error)  < 0) {
+        seafApplet->warningBox(
+            tr("Failed to remove local repos sync token: %1").arg(error));
+        return false;
+    } else {
+        return true;
     }
-    return true;
+}
+
+void AccountManager::removeNonautoLoginSyncTokens()
+{
+    QMutexLocker lock(&accounts_mutex_);
+    for (const Account& account : accounts_) {
+        if (account.isAutomaticLogin) {
+            continue;
+        }
+
+        clearSyncToken(account);
+    }
+    return;
 }
 
 Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClient *rpc)
@@ -677,12 +690,8 @@ void AccountManager::invalidateCurrentLogin()
         return;
 
     emit accountAboutToRelogin(account);
-    QString error;
-    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
-                                                           account.username,
-                                                           &error) < 0) {
-        qWarning("Failed to remove local repos sync token %s", error.toUtf8().data());
-    }
+
+    clearSyncToken(account);
     clearAccountToken(account);
     seafApplet->warningBox(tr("Authorization expired, please re-login"));
 

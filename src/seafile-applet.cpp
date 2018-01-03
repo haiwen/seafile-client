@@ -340,7 +340,7 @@ void SeafileApplet::onDaemonStarted()
         } while (0);
     } else if (!account_mgr_->accounts().empty()) {
         const Account &account = account_mgr_->accounts()[0];
-        account_mgr_->removeAllSyncTokens();
+        account_mgr_->removeNonautoLoginSyncTokens();
         account_mgr_->validateAndUseAccount(account);
     }
 
@@ -421,7 +421,6 @@ void SeafileApplet::errorAndExit(const QString& error)
     warningBox(error);
     // stop eventloop before exit and return to the main function
     QCoreApplication::exit(1);
-    seafApplet->accountManager()->logoutDeviceNonautoLogin();
 }
 
 void SeafileApplet::restartApp()

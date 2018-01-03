@@ -34,7 +34,8 @@ public:
     void logoutDeviceNonautoLogin();
 
     bool clearAccountToken(const Account& account);
-    bool removeAllSyncTokens();
+    bool clearSyncToken(const Account& account);
+    void removeNonautoLoginSyncTokens();
 
     const std::vector<Account>& loadAccounts();
     bool accountExists(const QUrl& url, const QString& username);
@@ -91,6 +92,7 @@ private slots:
     void onAccountsChanged();
 
     void onLogoutDeviceRequestSuccess();
+    void onAboutToQuit();
 
 private:
     Q_DISABLE_COPY(AccountManager)

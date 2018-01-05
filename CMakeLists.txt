@@ -276,6 +276,7 @@ SET(moc_headers
   src/filebrowser/file-browser-manager.h
   src/filebrowser/file-browser-dialog.h
   src/filebrowser/file-browser-requests.h
+  src/filebrowser/file-browser-search-tab.h
   src/filebrowser/file-table.h
   src/filebrowser/data-mgr.h
   src/filebrowser/tasks.h
@@ -463,6 +464,7 @@ SET(seafile_client_sources
   src/filebrowser/file-browser-manager.cpp
   src/filebrowser/file-browser-dialog.cpp
   src/filebrowser/file-browser-requests.cpp
+  src/filebrowser/file-browser-search-tab.cpp
   src/filebrowser/data-mgr.cpp
   src/filebrowser/data-cache.cpp
   src/filebrowser/file-table.cpp

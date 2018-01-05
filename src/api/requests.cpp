@@ -805,7 +805,8 @@ void GetLoginTokenRequest::requestSuccess(QNetworkReply& reply)
 FileSearchRequest::FileSearchRequest(const Account& account,
                                      const QString& keyword,
                                      int page,
-                                     int per_page)
+                                     int per_page,
+                                     const QString& repo_id)
     : SeafileApiRequest(account.getAbsoluteUrl(kFileSearchUrl),
                         SeafileApiRequest::METHOD_GET,
                         account.token),
@@ -818,6 +819,7 @@ FileSearchRequest::FileSearchRequest(const Account& account,
     }
     // per_page = 2;
     setUrlParam("per_page", QString::number(per_page));
+    setUrlParam("search_repo", repo_id);
 }
 
 void FileSearchRequest::requestSuccess(QNetworkReply& reply)

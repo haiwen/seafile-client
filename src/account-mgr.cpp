@@ -14,6 +14,7 @@
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "rpc/rpc-client.h"
+#include "rpc/local-repo.h"
 #include "account-info-service.h"
 #include "ui/login-dialog.h"
 #include "shib/shib-login-dialog.h"
@@ -101,23 +102,41 @@ inline void setServerInfoKeyValue(struct sqlite3 *db, const Account &account, co
     sqlite3_free(zql);
 }
 
+QStringList collectSyncedReposForAccount(const Account& account)
+{
+    std::vector<LocalRepo> repos;
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    rpc->listLocalRepos(&repos);
+    QStringList repo_ids;
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo repo = repos[i];
+        QString repo_server_url;
+        if (rpc->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
+            continue;
+        }
+        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        QString token;
+        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+            repo_ids.append(repo.id);
+        }
+    }
+
+    return repo_ids;
+}
+
 }
 
 AccountManager::AccountManager()
 {
     db = NULL;
-    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
 }
 
 AccountManager::~AccountManager()
 {
     if (db)
         sqlite3_close(db);
-}
-
-void AccountManager::onAboutToQuit()
-{
-    logoutDeviceNonautoLogin();
 }
 
 int AccountManager::start()
@@ -175,7 +194,15 @@ int AccountManager::start()
     loadAccounts();
 
     connect(this, SIGNAL(accountsChanged()), this, SLOT(onAccountsChanged()));
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+    connect(this, SIGNAL(accountRequireRelogin(const Account&)),
+            this, SLOT(reloginAccount(const Account &)));
     return 0;
+}
+
+void AccountManager::onAboutToQuit()
+{
+    logoutDeviceNonautoLogin();
 }
 
 bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
@@ -606,9 +633,6 @@ bool AccountManager::clearAccountToken(const Account& account)
     // TODO: notify daemon the account is logged out
     if (account == current_account_) {
         current_account_.token = "";
-        reloginAccount(current_account_);
-    } else {
-        emit accountsChanged();
     }
 
     return true;
@@ -698,9 +722,17 @@ void AccountManager::invalidateCurrentLogin()
     emit accountRequireRelogin(account);
 }
 
-bool AccountManager::reloginAccount(const Account &account)
+bool AccountManager::reloginAccount(const Account &account_in)
 {
     bool accepted;
+
+    // Make a copy of the account arugment because it may be released after the
+    // login succeeded.
+    //
+    // See: https://github.com/haiwen/seafile-client/blob/v6.1.3/src/account-mgr.cpp#L219
+    // See: https://gist.github.com/lins05/f952356ba8733d5aa19b54a6db19f69a
+    const Account account(account_in);
+
     do {
 #ifdef HAVE_SHIBBOLETH_SUPPORT
         if (account.isShibboleth) {
@@ -714,5 +746,62 @@ bool AccountManager::reloginAccount(const Account &account)
         dialog.initFromAccount(account);
         accepted = dialog.exec() == QDialog::Accepted;
     } while (0);
+
+    if (accepted) {
+        getSyncedReposToken(account);
+    }
+
     return accepted;
+}
+
+void AccountManager::getSyncedReposToken(const Account& account)
+{
+    QStringList repo_ids = collectSyncedReposForAccount(account);
+    if (repo_ids.empty()) {
+        return;
+    }
+
+    /* old account object don't contains the new token */
+    QString host = account.serverUrl.host();
+    QString username = account.username;
+    Account new_account = getAccountByHostAndUsername(host, username);
+    if (!new_account.isValid())
+        return;
+
+    // For debugging lots of repos problem.
+    // TODO: Comment this out before committing!!
+    //
+    // int targetNumberForDebug = 300;
+    // while (repo_ids.size() < targetNumberForDebug) {
+    //     repo_ids.append(repo_ids);
+    // }
+    // repo_ids = repo_ids.mid(0, 300);
+    // printf ("repo_ids.size() = %d\n", repo_ids.size());
+
+    GetRepoTokensRequest *req = new GetRepoTokensRequest(
+        new_account, repo_ids);
+
+    connect(req, SIGNAL(success()),
+            this, SLOT(onGetRepoTokensSuccess()));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetRepoTokensFailed(const ApiError&)));
+    req->send();
+}
+
+void AccountManager::onGetRepoTokensSuccess()
+{
+    GetRepoTokensRequest *req = (GetRepoTokensRequest *)(sender());
+    foreach (const QString& repo_id, req->repoTokens().keys()) {
+        seafApplet->rpcClient()->setRepoToken(
+            repo_id, req->repoTokens().value(repo_id));
+    }
+    req->deleteLater();
+}
+
+void AccountManager::onGetRepoTokensFailed(const ApiError& error)
+{
+    GetRepoTokensRequest *req = (GetRepoTokensRequest *)QObject::sender();
+    req->deleteLater();
+    seafApplet->warningBox(
+        tr("Failed to get repo sync information from server: %1").arg(error.toString()));
 }

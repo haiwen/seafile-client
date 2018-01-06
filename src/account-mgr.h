@@ -73,6 +73,8 @@ public:
 
     bool reloginAccount(const Account &account);
 
+    void getSyncedReposToken(const Account& account);
+
 signals:
     /**
      * Account added/removed/switched.
@@ -93,6 +95,9 @@ private slots:
 
     void onLogoutDeviceRequestSuccess();
     void onAboutToQuit();
+
+    void onGetRepoTokensSuccess();
+    void onGetRepoTokensFailed(const ApiError& error);
 
 private:
     Q_DISABLE_COPY(AccountManager)

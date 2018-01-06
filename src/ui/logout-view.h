@@ -13,9 +13,6 @@ public:
     LogoutView(QWidget *parent=0);
     void setQssStyleForTab();
 
-signals:
-    void accountRequireRelogin(const Account& account);
-
 private slots:
     void onAccountChanged();
     void reloginCurrentAccount();

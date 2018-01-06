@@ -31,6 +31,7 @@ extern "C" {
 #include "server-status-service.h"
 #include "api/commit-details.h"
 #include "sync-errors-dialog.h"
+#include "account-mgr.h"
 
 #include "tray-icon.h"
 #if defined(Q_OS_MAC)

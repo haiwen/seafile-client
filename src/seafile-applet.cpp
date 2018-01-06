@@ -328,8 +328,7 @@ void SeafileApplet::onDaemonStarted()
             if (!username.isEmpty() && !token.isEmpty() && !url.isEmpty()) {
                 Account account(url, username, token);
                 if (account_mgr_->saveAccount(account) < 0) {
-                    warningBox(tr("failed to add default account"));
-                    exit(1);
+                    errorAndExit(tr("failed to add default account"));
                 }
                 break;
             }
@@ -339,6 +338,10 @@ void SeafileApplet::onDaemonStarted()
             LoginDialog login_dialog;
             login_dialog.exec();
         } while (0);
+    } else if (!account_mgr_->accounts().empty()) {
+        const Account &account = account_mgr_->accounts()[0];
+        account_mgr_->removeNonautoLoginSyncTokens();
+        account_mgr_->validateAndUseAccount(account);
     }
 
     started_ = true;

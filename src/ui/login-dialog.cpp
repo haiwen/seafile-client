@@ -84,8 +84,9 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     }
     mServerAddr->setAutoCompletion(false);
 
-    QString computerName = seafApplet->settingsManager()->getComputerName();
+    mAutomaticLogin->setCheckState(Qt::Checked);
 
+    QString computerName = seafApplet->settingsManager()->getComputerName();
     mComputerName->setText(computerName);
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
@@ -282,6 +283,8 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
     // The user may use the username to login, but we need to store the email
     // to account database
     account.username = info.email;
+    account.isAutomaticLogin =
+        mAutomaticLogin->checkState() == Qt::Checked;
     if (seafApplet->accountManager()->saveAccount(account) < 0) {
         showWarning(tr("Failed to save current account"));
     }

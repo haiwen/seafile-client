@@ -20,7 +20,6 @@
 #endif // HAVE_SHIBBOLETH_SUPPORT
 #include "account-settings-dialog.h"
 #include "rpc/rpc-client.h"
-#include "rpc/local-repo.h"
 #include "main-window.h"
 #include "init-vdrive-dialog.h"
 #include "auto-login-service.h"
@@ -34,30 +33,6 @@
 
 #include "account-view.h"
 namespace {
-
-QStringList collectSyncedReposForAccount(const Account& account)
-{
-    std::vector<LocalRepo> repos;
-    SeafileRpcClient *rpc = seafApplet->rpcClient();
-    rpc->listLocalRepos(&repos);
-    QStringList repo_ids;
-    for (size_t i = 0; i < repos.size(); i++) {
-        LocalRepo repo = repos[i];
-        QString repo_server_url;
-        if (rpc->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
-            continue;
-        }
-        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
-            continue;
-        }
-        QString token;
-        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
-            repo_ids.append(repo.id);
-        }
-    }
-
-    return repo_ids;
-}
 
 } // namespace
 
@@ -81,8 +56,6 @@ AccountView::AccountView(QWidget *parent)
     mAccountBtn->installEventFilter(this);
     account_menu_->installEventFilter(this);
 
-    connect(seafApplet->accountManager(), SIGNAL(accountRequireRelogin(const Account&)),
-            this, SLOT(reloginAccount(const Account &)));
     connect(seafApplet->accountManager(), SIGNAL(requireAddAccount()),
             this, SLOT(showAddAccountDialog()));
     connect(mServerAddr, SIGNAL(linkActivated(const QString&)),
@@ -281,44 +254,10 @@ void AccountView::onAccountItemClicked()
     Account account = qvariant_cast<Account>(action->data());
 
     if (!account.isValid()) {
-        reloginAccount(account);
+        seafApplet->accountManager()->reloginAccount(account);
     } else {
         seafApplet->accountManager()->setCurrentAccount(account);
     }
-}
-
-void AccountView::getRepoTokenWhenRelogin(const Account& account)
-{
-    QStringList repo_ids = collectSyncedReposForAccount(account);
-    if (repo_ids.empty()) {
-        return;
-    }
-
-    /* old account object don't contains the new token */
-    QString host = account.serverUrl.host();
-    QString username = account.username;
-    Account new_account = seafApplet->accountManager()->getAccountByHostAndUsername(host, username);
-    if (!new_account.isValid())
-        return;
-
-    // For debugging lots of repos problem.
-    // TODO: Comment this out before committing!!
-    //
-    // int targetNumberForDebug = 300;
-    // while (repo_ids.size() < targetNumberForDebug) {
-    //     repo_ids.append(repo_ids);
-    // }
-    // repo_ids = repo_ids.mid(0, 300);
-    // printf ("repo_ids.size() = %d\n", repo_ids.size());
-
-    GetRepoTokensRequest *req = new GetRepoTokensRequest(
-        new_account, repo_ids);
-
-    connect(req, SIGNAL(success()),
-            this, SLOT(onGetRepoTokensSuccess()));
-    connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onGetRepoTokensFailed(const ApiError&)));
-    req->send();
 }
 
 void AccountView::updateAvatar()
@@ -406,7 +345,7 @@ void AccountView::toggleAccount()
         return;
     Account account = qvariant_cast<Account>(action->data());
     if (!account.isValid()) {
-        reloginAccount(account);
+        seafApplet->accountManager()->reloginAccount(account);
         return;
     }
 
@@ -414,77 +353,7 @@ void AccountView::toggleAccount()
 
     // logout Account
     FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
-    LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
-    connect(req, SIGNAL(success()),
-            this, SLOT(onLogoutDeviceRequestSuccess()));
-    connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onLogoutDeviceRequestSuccess()));
-    req->send();
-}
-
-void AccountView::reloginAccount(const Account &account_in)
-{
-    bool accepted;
-
-    // Make a copy of the account arugment because it may be released after the
-    // login succeeded.
-    //
-    // See: https://github.com/haiwen/seafile-client/blob/v6.1.3/src/account-mgr.cpp#L219
-    // See: https://gist.github.com/lins05/f952356ba8733d5aa19b54a6db19f69a
-    const Account account(account_in);
-
-    do {
-#ifdef HAVE_SHIBBOLETH_SUPPORT
-        if (account.isShibboleth) {
-            ShibLoginDialog shib_dialog(account.serverUrl, seafApplet->settingsManager()->getComputerName(), this);
-            accepted = shib_dialog.exec() == QDialog::Accepted;
-            break;
-        }
-#endif
-        LoginDialog dialog(this);
-        dialog.initFromAccount(account);
-        accepted = dialog.exec() == QDialog::Accepted;
-    } while (0);
-
-    if (accepted) {
-        getRepoTokenWhenRelogin(account);
-    }
-}
-
-void AccountView::onLogoutDeviceRequestSuccess()
-{
-    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
-    const Account& account = req->account();
-    QString error;
-    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
-                                                           account.username,
-                                                           &error)  < 0) {
-        seafApplet->warningBox(
-            tr("Failed to remove local repos sync token: %1").arg(error),
-            this);
-        return;
-    }
-    seafApplet->accountManager()->clearAccountToken(account);
-
-    req->deleteLater();
-}
-
-void AccountView::onGetRepoTokensSuccess()
-{
-    GetRepoTokensRequest *req = (GetRepoTokensRequest *)(sender());
-    foreach (const QString& repo_id, req->repoTokens().keys()) {
-        seafApplet->rpcClient()->setRepoToken(
-            repo_id, req->repoTokens().value(repo_id));
-    }
-    req->deleteLater();
-}
-
-void AccountView::onGetRepoTokensFailed(const ApiError& error)
-{
-    GetRepoTokensRequest *req = (GetRepoTokensRequest *)QObject::sender();
-    req->deleteLater();
-    seafApplet->warningBox(
-        tr("Failed to get repo sync information from server: %1").arg(error.toString()), this);
+    seafApplet->accountManager()->logoutDevice(account);
 }
 
 void AccountView::visitServerInBrowser(const QString& link)

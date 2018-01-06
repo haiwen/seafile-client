@@ -24,9 +24,6 @@ LogoutView::LogoutView(QWidget *parent)
     layout->addWidget(label_);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    connect(this, SIGNAL(accountRequireRelogin(const Account&)),
-            seafApplet->accountManager(), SIGNAL(accountRequireRelogin(const Account&)));
-
     connect(seafApplet->accountManager(), SIGNAL(accountsChanged()),
             this, SLOT(onAccountChanged()));
 
@@ -62,5 +59,6 @@ void LogoutView::onAccountChanged()
 
 void LogoutView::reloginCurrentAccount()
 {
-    emit accountRequireRelogin(seafApplet->accountManager()->accounts().front());
+    Account account = seafApplet->accountManager()->accounts().front();
+    seafApplet->accountManager()->reloginAccount(account);
 }

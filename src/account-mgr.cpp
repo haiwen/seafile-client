@@ -368,12 +368,8 @@ int AccountManager::removeAccount(const Account& account)
 
 void AccountManager::logoutDevice(const Account& account)
 {
-    LogoutDeviceRequest *req = new LogoutDeviceRequest(account);
-    connect(req, SIGNAL(success()),
-            this, SLOT(onLogoutDeviceRequestSuccess()));
-    connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onLogoutDeviceRequestSuccess()));
-    req->send();
+    clearSyncToken(account);
+    clearAccountToken(account);
 }
 
 void AccountManager::logoutDeviceNonautoLogin()
@@ -386,17 +382,6 @@ void AccountManager::logoutDeviceNonautoLogin()
         clearSyncToken(account);
         clearAccountToken(account);
     }
-}
-
-void AccountManager::onLogoutDeviceRequestSuccess()
-{
-    LogoutDeviceRequest *req = (LogoutDeviceRequest *)QObject::sender();
-    const Account& account = req->account();
-
-    clearSyncToken(account);
-    clearAccountToken(account);
-
-    req->deleteLater();
 }
 
 void AccountManager::updateAccountLastVisited(const Account& account)

@@ -93,7 +93,6 @@ private slots:
 
     void onAccountsChanged();
 
-    void onLogoutDeviceRequestSuccess();
     void onAboutToQuit();
 
     void onGetRepoTokensSuccess();

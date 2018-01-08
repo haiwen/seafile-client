@@ -50,6 +50,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
 
     connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SLOT(onProgressUpdate(qint64, qint64)));
+    connect(task_, SIGNAL(nameUpdate(QString)),
+            this, SLOT(onCurrentNameUpdate(QString)));
     connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
     connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
     connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
@@ -79,12 +81,18 @@ void FileBrowserProgressDialog::initTaskInfo()
         label = tr("Downloading %1");
     }
     setWindowTitle(title);
-    setLabelText(label.arg(task_->fileName()));
+    setLabelText(label.arg(QFileInfo(task_->localFilePath()).fileName()));
 
     more_details_label_->setText("");
 
     setMaximum(0);
     setValue(0);
+}
+
+void FileBrowserProgressDialog::onCurrentNameUpdate(QString current_name)
+{
+    QString label = tr("Uploading %1");
+    setLabelText(label.arg(current_name));
 }
 
 void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)

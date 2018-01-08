@@ -99,11 +99,13 @@ public slots:
 
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
+    void nameUpdate(QString current_name);
     void finished(bool success);
     void retried(int retry_count);
 
 protected slots:
     void onFileServerTaskProgressUpdate(qint64 transferred, qint64 total);
+    void onFileServerTaskNameUpdate(QString current_name);
     virtual void onLinkGet(const QString& link);
     virtual void onGetLinkFailed(const ApiError& error);
     virtual void startFileServerTask(const QString& link);
@@ -289,6 +291,7 @@ public:
 
 signals:
     void progressUpdate(qint64 transferred, qint64 total);
+    void nameUpdate(QString current_name);
     void finished(bool success);
     void retried(int retry_count);
 
@@ -404,6 +407,8 @@ private:
     QList<qint64> file_sizes_;
     const QStringList names_;
     QStringList successful_names_;
+
+    QString current_name_;
 
     QScopedPointer<ReliablePostFileTask, doDeleteLater<ReliablePostFileTask> > task_;
     int current_num_;

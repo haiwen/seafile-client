@@ -27,6 +27,7 @@ public slots:
 
 private slots:
     void onProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
+    void onCurrentNameUpdate(QString current_name);
     void onTaskFinished(bool success);
     void initTaskInfo();
     void onOneFileUploadFailed(const QString& filename, bool single_file);

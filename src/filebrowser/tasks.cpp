@@ -130,6 +130,11 @@ void FileNetworkTask::onFileServerTaskProgressUpdate(qint64 transferred, qint64 
     emit progressUpdate(transferred, total);
 }
 
+void FileNetworkTask::onFileServerTaskNameUpdate(QString current_name)
+{
+    emit nameUpdate(current_name);
+}
+
 void FileNetworkTask::onLinkGet(const QString& link)
 {
     startFileServerTask(link);
@@ -141,6 +146,8 @@ void FileNetworkTask::startFileServerTask(const QString& link)
 
     connect(fileserver_task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SLOT(onFileServerTaskProgressUpdate(qint64, qint64)));
+    connect(fileserver_task_, SIGNAL(nameUpdate(QString)),
+            this, SLOT(onFileServerTaskNameUpdate(QString)));
     connect(fileserver_task_, SIGNAL(finished(bool)),
             this, SLOT(onFileServerTaskFinished(bool)));
     connect(fileserver_task_, SIGNAL(retried(int)),
@@ -763,6 +770,8 @@ void PostFilesTask::startNext()
     }
     const QString& file_path = names_[current_num_];
     QString file_name = QFileInfo(file_path).fileName();
+    current_name_ = file_name;
+    emit nameUpdate(current_name_);
     QString relative_path;
     if (use_relative_)
         relative_path = ::pathJoin(QFileInfo(local_path_).fileName(), ::getParentPath(file_path));

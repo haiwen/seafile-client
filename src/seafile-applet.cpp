@@ -511,7 +511,7 @@ void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
     box.addButton(tr("OK"), QMessageBox::YesRole);
     box.exec();
 
-    if (!parent) {
+    if (!parent && main_win_) {
         main_win_->showWindow();
     }
     qWarning("%s", msg.toUtf8().data());

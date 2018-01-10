@@ -30,67 +30,34 @@ const char *kTotalStorage = "storage.total";
 const char *kUsedStorage = "storage.used";
 const char *kNickname = "name";
 
-bool getShibbolethColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
+struct ColumnCheckData {
+    QString name;
+    bool exists;
+};
+
+bool getColumnInfoCallback(sqlite3_stmt *stmt, void *data)
 {
-    bool *has_shibboleth_column = static_cast<bool*>(data);
+    ColumnCheckData *cdata = (ColumnCheckData *)data;
     const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
 
-    if (0 == strcmp("isShibboleth", column_name))
-        *has_shibboleth_column = true;
+    cdata->exists = cdata->name == QString(column_name);
 
     return true;
 }
 
-bool getAutomaticLoginColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
+void addNewColumnToAccountsTable(struct sqlite3* db, const QString& name, const QString& type)
 {
-    bool *has_automatic_login_column = static_cast<bool*>(data);
-    const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
-
-    if (0 == strcmp("AutomaticLogin", column_name))
-        *has_automatic_login_column = true;
-
-    return true;
-}
-
-bool getS2faTokenColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
-{
-    bool *has_s2fa_token_column = static_cast<bool*>(data);
-    const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
-
-    if (0 == strcmp("s2fa_token", column_name))
-        *has_s2fa_token_column = true;
-
-    return true;
-}
-
-void updateAccountDatabaseForColumnShibbolethUrl(struct sqlite3* db)
-{
-    bool has_shibboleth_column = false;
-    const char* sql = "PRAGMA table_info(Accounts);";
-    sqlite_foreach_selected_row (db, sql, getShibbolethColumnInfoCallBack, &has_shibboleth_column);
-    sql = "ALTER TABLE Accounts ADD COLUMN isShibboleth INTEGER";
-    if (!has_shibboleth_column && sqlite_query_exec (db, sql) < 0)
-        qCritical("unable to create isShibboleth column\n");
-}
-
-void updateAccountDatabaseForColumnAutomaticLogin(struct sqlite3* db)
-{
-    bool has_automatic_login_column = false;
-    const char* sql = "PRAGMA table_info(Accounts);";
-    sqlite_foreach_selected_row (db, sql, getAutomaticLoginColumnInfoCallBack, &has_automatic_login_column);
-    sql = "ALTER TABLE Accounts ADD COLUMN AutomaticLogin INTEGER default 1";
-    if (!has_automatic_login_column && sqlite_query_exec (db, sql) < 0)
-        qCritical("unable to create AutomaticLogin column\n");
-}
-
-void updateAccountDatabaseForColumnS2faToken(struct sqlite3* db)
-{
-    bool has_s2fa_token_column = false;
-    const char* sql = "PRAGMA table_info(Accounts);";
-    sqlite_foreach_selected_row (db, sql, getS2faTokenColumnInfoCallBack, &has_s2fa_token_column);
-    sql = "ALTER TABLE Accounts ADD COLUMN s2fa_token";
-    if (!has_s2fa_token_column && sqlite_query_exec (db, sql) < 0)
-        qCritical("unable to create s2fa_token column\n");
+    QString sql = "PRAGMA table_info(Accounts);";
+    ColumnCheckData cdata;
+    cdata.name = name;
+    cdata.exists = false;
+    sqlite_foreach_selected_row (db, toCStr(sql), getColumnInfoCallback, &cdata);
+    if (!cdata.exists) {
+        sql = QString("ALTER TABLE Accounts ADD COLUMN %1 %2").arg(name).arg(type);
+        if (sqlite_query_exec (db, toCStr(sql)) < 0) {
+            qCritical("unable to create column %s\n", toCStr(name));
+        }
+    }
 }
 
 bool compareAccount(const Account& a, const Account& b)
@@ -195,11 +162,12 @@ int AccountManager::start()
         return -1;
     }
 
-    updateAccountDatabaseForColumnShibbolethUrl(db);
-    updateAccountDatabaseForColumnAutomaticLogin(db);
-    updateAccountDatabaseForColumnS2faToken(db);
+    addNewColumnToAccountsTable(db, "isShibboleth", "INTEGER");
+    addNewColumnToAccountsTable(db, "AutomaticLogin", "INTEGER default 1");
+    addNewColumnToAccountsTable(db, "s2fa_token", "TEXT");
 
-    // create ServerInfo table
+    // ServerInfo table is used to store any (key, value) information for an
+    // account.
     sql = "CREATE TABLE IF NOT EXISTS ServerInfo ("
         "key TEXT NOT NULL, value TEXT, "
         "url VARCHAR(24), username VARCHAR(15), "

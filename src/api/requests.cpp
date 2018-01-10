@@ -96,6 +96,7 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
+    QString s2fa_token = reply.rawHeader("X-SEAFILE-S2FA");
     const char* token =
         json_string_value(json_object_get(json.data(), "token"));
     if (token == NULL) {
@@ -104,7 +105,7 @@ void LoginRequest::requestSuccess(QNetworkReply& reply)
         return;
     }
 
-    emit success(token);
+    emit success(token, s2fa_token);
 }
 
 

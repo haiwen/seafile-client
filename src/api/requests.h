@@ -51,7 +51,7 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 signals:
-    void success(const QString& token);
+    void success(const QString& token, const QString& s2fa_token);
 
 private:
     Q_DISABLE_COPY(LoginRequest)

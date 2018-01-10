@@ -8,6 +8,8 @@
 #include <QString>
 #include <QNetworkReply>
 
+#include "two-factor-dialog.h"
+
 class Account;
 class LoginRequest;
 class QNetworkReply;
@@ -26,7 +28,7 @@ public:
 
 private slots:
     void doLogin();
-    void loginSuccess(const QString& token);
+    void loginSuccess(const QString& token, const QString& s2fa_token);
     void loginFailed(const ApiError& error);
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     void loginWithShib();
@@ -59,6 +61,7 @@ private:
     QString username_;
     QString password_;
     QString computer_name_;
+    bool is_remember_device_;
     LoginRequest *request_;
     FetchAccountInfoRequest *account_info_req_;
 

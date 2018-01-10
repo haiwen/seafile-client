@@ -28,7 +28,9 @@ const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
 const char *const kPreconfigureShibbolethLoginUrl = "PreconfigureShibbolethLoginUrl";
 
-const char *const kSeafileOTPHeader = "X-Seafile-OTP";
+const char *const kSeafileOTPHeader = "X-SEAFILE-OTP";
+const char *const kRememberDeviceHeader = "X-SEAFILE-2FA-TRUST-DEVICE";
+const char *const kTwofactorHeader = "X-SEAFILE-S2FA";
 
 QStringList getUsedServerAddresses()
 {
@@ -69,6 +71,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     request_ = NULL;
     account_info_req_ = NULL;
+    is_remember_device_ = false;
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
@@ -140,12 +143,22 @@ void LoginDialog::doLogin()
     }
 
     request_ = new LoginRequest(url_, username_, password_, computer_name_);
+
     if (!two_factor_auth_token_.isEmpty()) {
         request_->setHeader(kSeafileOTPHeader, two_factor_auth_token_);
     }
 
-    connect(request_, SIGNAL(success(const QString&)),
-            this, SLOT(loginSuccess(const QString&)));
+    if (is_remember_device_) {
+        request_->setHeader(kRememberDeviceHeader, "1");
+    }
+
+    Account account =  seafApplet->accountManager()->getAccountByHostAndUsername(url_.host(), username_);
+    if (account.hasS2FAToken()) {
+        request_->setHeader(kTwofactorHeader, account.s2fa_token);
+    }
+
+    connect(request_, SIGNAL(success(const QString&, const QString&)),
+            this, SLOT(loginSuccess(const QString&, const QString&)));
 
     connect(request_, SIGNAL(failed(const ApiError&)),
             this, SLOT(loginFailed(const ApiError&)));
@@ -241,13 +254,13 @@ bool LoginDialog::validateInputs()
     return true;
 }
 
-void LoginDialog::loginSuccess(const QString& token)
+void LoginDialog::loginSuccess(const QString& token, const QString& s2fa_token)
 {
     if (account_info_req_) {
         account_info_req_->deleteLater();
     }
     account_info_req_ =
-        new FetchAccountInfoRequest(Account(url_, username_, token));
+        new FetchAccountInfoRequest(Account(url_, username_, token, 0, false, true, s2fa_token));
     connect(account_info_req_, SIGNAL(success(const AccountInfo&)), this,
             SLOT(onFetchAccountInfoSuccess(const AccountInfo&)));
     connect(account_info_req_, SIGNAL(failed(const ApiError&)), this,
@@ -299,12 +312,12 @@ void LoginDialog::onHttpError(int code)
     const QNetworkReply* reply = request_->reply();
     if (reply->hasRawHeader(kSeafileOTPHeader) &&
         QString(reply->rawHeader(kSeafileOTPHeader)) == "required") {
-        two_factor_auth_token_ = seafApplet->getText(
-            this,
-            tr("Two Factor Authentication"),
-            tr("Enter the two factor authentication token"),
-            QLineEdit::Normal,
-            "");
+        TwoFactorDialog two_factor_dialog;
+        if (two_factor_dialog.exec() == QDialog::Accepted) {
+            two_factor_auth_token_ = two_factor_dialog.getText();
+            is_remember_device_ = two_factor_dialog.rememberDeviceChecked();
+        }
+
         if (!two_factor_auth_token_.isEmpty()) {
             doLogin();
             return;

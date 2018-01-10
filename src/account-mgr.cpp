@@ -52,6 +52,17 @@ bool getAutomaticLoginColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
     return true;
 }
 
+bool getS2faTokenColumnInfoCallBack(sqlite3_stmt *stmt, void *data)
+{
+    bool *has_s2fa_token_column = static_cast<bool*>(data);
+    const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
+
+    if (0 == strcmp("s2fa_token", column_name))
+        *has_s2fa_token_column = true;
+
+    return true;
+}
+
 void updateAccountDatabaseForColumnShibbolethUrl(struct sqlite3* db)
 {
     bool has_shibboleth_column = false;
@@ -70,6 +81,16 @@ void updateAccountDatabaseForColumnAutomaticLogin(struct sqlite3* db)
     sql = "ALTER TABLE Accounts ADD COLUMN AutomaticLogin INTEGER default 1";
     if (!has_automatic_login_column && sqlite_query_exec (db, sql) < 0)
         qCritical("unable to create AutomaticLogin column\n");
+}
+
+void updateAccountDatabaseForColumnS2faToken(struct sqlite3* db)
+{
+    bool has_s2fa_token_column = false;
+    const char* sql = "PRAGMA table_info(Accounts);";
+    sqlite_foreach_selected_row (db, sql, getS2faTokenColumnInfoCallBack, &has_s2fa_token_column);
+    sql = "ALTER TABLE Accounts ADD COLUMN s2fa_token";
+    if (!has_s2fa_token_column && sqlite_query_exec (db, sql) < 0)
+        qCritical("unable to create s2fa_token column\n");
 }
 
 bool compareAccount(const Account& a, const Account& b)
@@ -176,6 +197,7 @@ int AccountManager::start()
 
     updateAccountDatabaseForColumnShibbolethUrl(db);
     updateAccountDatabaseForColumnAutomaticLogin(db);
+    updateAccountDatabaseForColumnS2faToken(db);
 
     // create ServerInfo table
     sql = "CREATE TABLE IF NOT EXISTS ServerInfo ("
@@ -214,14 +236,19 @@ bool AccountManager::loadAccountsCB(sqlite3_stmt *stmt, void *data)
     qint64 atime = (qint64)sqlite3_column_int64 (stmt, 3);
     int isShibboleth = sqlite3_column_int (stmt, 4);
     int isAutomaticLogin = sqlite3_column_int (stmt, 5);
+    const char *s2fa_token = (const char *)sqlite3_column_text (stmt,6);
 
     if (!token) {
         token = "";
     }
 
+    if (!s2fa_token) {
+        s2fa_token = "";
+    }
+
     Account account = Account(QUrl(QString(url)), QString(username),
                               QString(token), atime, isShibboleth != 0,
-                              isAutomaticLogin != 0);
+                              isAutomaticLogin != 0, QString(s2fa_token));
     char* zql = sqlite3_mprintf("SELECT key, value FROM ServerInfo WHERE url = %Q AND username = %Q", url, username);
     sqlite_foreach_selected_row (userdata->db, zql, loadServerInfoCB, &account);
     sqlite3_free(zql);
@@ -257,7 +284,7 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
 
 const std::vector<Account>& AccountManager::loadAccounts()
 {
-    const char *sql = "SELECT url, username, token, lastVisited, isShibboleth, AutomaticLogin "
+    const char *sql = "SELECT url, username, token, lastVisited, isShibboleth, AutomaticLogin, s2fa_token "
                       "FROM Accounts ORDER BY lastVisited DESC";
     accounts_.clear();
     UserData userdata;
@@ -292,7 +319,7 @@ int AccountManager::saveAccount(const Account& account)
     char *zql;
     if (account_exist) {
         zql = sqlite3_mprintf(
-            "UPDATE Accounts SET token = %Q, lastVisited = %Q, isShibboleth = %Q, AutomaticLogin = %Q"
+            "UPDATE Accounts SET token = %Q, lastVisited = %Q, isShibboleth = %Q, AutomaticLogin = %Q, s2fa_token = %Q"
             "WHERE url = %Q AND username = %Q",
             // token
             new_account.token.toUtf8().data(),
@@ -302,14 +329,16 @@ int AccountManager::saveAccount(const Account& account)
             QString::number(new_account.isShibboleth).toUtf8().data(),
             // isAutomaticLogin
             QString::number(new_account.isAutomaticLogin).toUtf8().data(),
+            //s2fa_token
+            new_account.s2fa_token.toUtf8().data(),
             // url
             new_account.serverUrl.toEncoded().data(),
             // username
             new_account.username.toUtf8().data());
     } else {
         zql = sqlite3_mprintf(
-            "INSERT INTO Accounts(url, username, token, lastVisited, isShibboleth, AutomaticLogin) "
-            "VALUES (%Q, %Q, %Q, %Q, %Q, %Q) ",
+            "INSERT INTO Accounts(url, username, token, lastVisited, isShibboleth, AutomaticLogin, s2fa_token) "
+            "VALUES (%Q, %Q, %Q, %Q, %Q, %Q, %Q) ",
             // url
             new_account.serverUrl.toEncoded().data(),
             // username
@@ -321,7 +350,9 @@ int AccountManager::saveAccount(const Account& account)
             // isShibboleth
             QString::number(new_account.isShibboleth).toUtf8().data(),
             // isAutomaticLogin
-            QString::number(new_account.isAutomaticLogin).toUtf8().data());
+            QString::number(new_account.isAutomaticLogin).toUtf8().data()),
+            //s2fa_token
+            new_account.s2fa_token.toUtf8().data();
     }
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);

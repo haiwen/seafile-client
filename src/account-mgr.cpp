@@ -40,7 +40,10 @@ bool getColumnInfoCallback(sqlite3_stmt *stmt, void *data)
     ColumnCheckData *cdata = (ColumnCheckData *)data;
     const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
 
-    cdata->exists = cdata->name == QString(column_name);
+    if (cdata->name == QString(column_name)) {
+        cdata->exists = true;
+        return false;
+    }
 
     return true;
 }

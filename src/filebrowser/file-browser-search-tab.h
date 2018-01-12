@@ -43,13 +43,13 @@ private:
 
     void contextMenuEvent(QContextMenuEvent *event);
 
+    FileBrowserDialog *parent_;
     FileBrowserSearchModel *search_model_;
     QSortFilterProxyModel *proxy_model_;
 
     QScopedPointer<const FileSearchResult> search_item_;
     QMenu *context_menu_;
     QAction *open_parent_dir_action_;
-    FileBrowserDialog *parent_;
 };
 
 

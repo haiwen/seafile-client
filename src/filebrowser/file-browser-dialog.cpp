@@ -93,7 +93,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
       current_path_(path),
       current_readonly_(repo_.readonly),
       search_request_(NULL),
-      search_text_last_modified_(0)
+      search_text_last_modified_(0),
+      has_password_dialog_(false)
 {
     current_lpath_ = current_path_.split('/');
 
@@ -532,12 +533,14 @@ void FileBrowserDialog::updateFileCount()
 
 void FileBrowserDialog::fetchDirents(bool force_refresh)
 {
-    if (repo_.encrypted && !data_mgr_->isRepoPasswordSet(repo_.id)) {
+    if (!has_password_dialog_ && repo_.encrypted && !data_mgr_->isRepoPasswordSet(repo_.id)) {
+        has_password_dialog_ = true;
         SetRepoPasswordDialog password_dialog(repo_, this);
         if (password_dialog.exec() != QDialog::Accepted) {
             reject();
             return;
         } else {
+            has_password_dialog_ = false;
             data_mgr_->setRepoPasswordSet(repo_.id, password_dialog.password());
         }
     }
@@ -1048,6 +1051,10 @@ void FileBrowserDialog::onUploadFinished(bool success)
 bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
 {
     if (task->httpErrorCode() == 400) {
+        if (has_password_dialog_) {
+            return true;
+        }
+        has_password_dialog_ = true;
         SetRepoPasswordDialog password_dialog(repo_, this);
         if (password_dialog.exec() == QDialog::Accepted) {
             if (task->type() == FileNetworkTask::Download)

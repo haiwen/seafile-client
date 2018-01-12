@@ -243,6 +243,9 @@ private:
     FileBrowserSearchModel *search_model_;
 
     DataManager *data_mgr_;
+
+    // Avoid showing multiple SetRepoPasswordDialog
+    bool has_password_dialog_;
 };
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H

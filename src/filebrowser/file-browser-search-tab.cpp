@@ -418,7 +418,8 @@ void FileBrowserSearchModel::onResize(const QSize &size)
 
 const FileSearchResult* FileBrowserSearchModel::resultAt(int row) const
 {
-    if (row >= results_.size())
+    int nSize = static_cast<int>(results_.size());
+    if (row >= nSize)
         return NULL;
 
     return &results_[row];

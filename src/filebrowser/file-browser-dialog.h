@@ -151,10 +151,6 @@ private slots:
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
-    QTimer *search_timer_;
-    qint64 search_text_last_modified_;
-    FileSearchRequest *search_request_;
-
     void done(int retval);
     bool hasFilesToBePasted();
     void setFilesToBePasted(bool is_copy, const QStringList &file_names);
@@ -195,6 +191,11 @@ private:
     bool current_readonly_;
     QStack<QString> forward_history_;
     QStack<QString> backward_history_;
+
+    //search
+    QTimer *search_timer_;
+    FileSearchRequest *search_request_;
+    qint64 search_text_last_modified_;
 
     // copy-paste related items between different instances of FileBrowserDialog
     static QStringList file_names_to_be_pasted_;

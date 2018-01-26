@@ -85,6 +85,7 @@ private:
     bool resumable_;
     quint64 current_offset_;
     quint32 current_chunk_size_;
+    bool need_idx_progress_;
 
     // The underlying task that sends the POST file request
     QScopedPointer<PostFileTask, doDeleteLater<PostFileTask> > task_;
@@ -115,7 +116,8 @@ private:
                  const bool use_upload,
                  quint64 total_size,
                  quint64 start_offset,
-                 quint32 chunk_size);
+                 quint32 chunk_size,
+                 const bool need_idx_progress);
 
     PostFileTask(const QUrl& url,
                  const QString& parent_dir,
@@ -138,6 +140,7 @@ private:
 
     quint64 start_offset_;
     qint32 chunk_size_;
+    bool need_idx_progress_;
 };
 
 #endif // SEAFILE_CLIETN_FILEBROWSER_TAKS_H

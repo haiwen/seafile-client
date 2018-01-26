@@ -11,6 +11,7 @@
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
+#include <QUrlQuery>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -206,6 +207,9 @@ void ReliablePostFileTask::createPostFileTask()
             url = QUrl(url_.toString(QUrl::PrettyDecoded).replace("/upload-api/", "/upload-aj/"));
             // printf ("old url: %s\n", url_.toEncoded().data());
             // printf ("new url: %s\n", url.toEncoded().data());
+            need_idx_progress_ = true;
+        } else {
+            need_idx_progress_ = false;
         }
         task_.reset(new PostFileTask(url,
                                      parent_dir_,
@@ -215,7 +219,8 @@ void ReliablePostFileTask::createPostFileTask()
                                      use_upload_,
                                      total_size_,
                                      current_offset_,
-                                     current_chunk_size_));
+                                     current_chunk_size_,
+                                     need_idx_progress_));
     }
     setupSignals();
     // printThread("reliable task is in thread");
@@ -323,7 +328,8 @@ PostFileTask::PostFileTask(const QUrl& url,
                            const bool use_upload,
                            quint64 total_size,
                            quint64 start_offset,
-                           quint32 chunk_size)
+                           quint32 chunk_size,
+                           const bool need_idx_progress)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
       file_(file),
@@ -331,7 +337,8 @@ PostFileTask::PostFileTask(const QUrl& url,
       use_upload_(use_upload),
       total_size_(total_size),
       start_offset_(start_offset),
-      chunk_size_(chunk_size)
+      chunk_size_(chunk_size),
+      need_idx_progress_(need_idx_progress)
 {
 }
 
@@ -403,6 +410,7 @@ void PostFileTask::sendRequest()
                         QString(kFileParamTemplate).arg(name_).toUtf8());
     file_part.setHeader(QNetworkRequest::ContentTypeHeader,
                         kContentTypeApplicationOctetStream);
+
     if (isChunked()) {
         // MMap the chunk to read the chunk content from the file
         uchar *buf = file_->map(start_offset_, chunk_size_);
@@ -423,7 +431,18 @@ void PostFileTask::sendRequest()
     }
     multipart->append(file_part);
 
-    QNetworkRequest request(url_);
+    // "need_idx_progress" param
+    QUrl need_idx_url = url_;
+    if (need_idx_progress_) {
+        QUrlQuery query;
+        QString key = "need_idx_progress";
+        QString value = "true";
+        query.addQueryItem(QUrl::toPercentEncoding(key),
+                           QUrl::toPercentEncoding(value));
+        need_idx_url.setQuery(query);
+    }
+
+    QNetworkRequest request(need_idx_url);
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
     if (isChunked()) {

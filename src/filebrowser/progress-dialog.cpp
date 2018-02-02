@@ -14,7 +14,8 @@
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
-          task_(task)
+          task_(task),
+          query_request_(NULL)
 {
     setWindowModality(Qt::NonModal);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -132,12 +133,46 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
     if (task_->canceled()) {
         return;
     }
+
+    oid_ = task_->oid();
+    url_ = QUrl(task_->url().toString(QUrl::PrettyDecoded).section("upload", 0, 0));
     if (success) {
         // printf ("progress dialog: task success\n");
-        accept();
+        if (oid_.contains("-")) {
+            onQueryUpdate();
+        } else {
+            accept();
+        }
     } else {
         // printf ("progress dialog: task failed\n");
         reject();
+    }
+}
+
+void FileBrowserProgressDialog::onQueryUpdate()
+{
+    if (query_request_) {
+        query_request_->deleteLater();
+        query_request_ = NULL;
+    }
+    query_request_ = new QueryIndexRequest(url_, oid_);
+    connect(query_request_, SIGNAL(success(const QueryIndexResult&)),
+            this, SLOT(onQuerySuccess(const QueryIndexResult&)));
+
+    query_request_->send();
+}
+
+void FileBrowserProgressDialog::onQuerySuccess(const QueryIndexResult &result)
+{
+    setLabelText(tr("Saving"));
+    query_status_ = result.status;
+    more_details_label_->setText(tr("%1 of %2")
+                            .arg(::readableFileSizeV2(result.indexed))
+                            .arg(::readableFileSizeV2(result.total)));
+    if (query_status_ == 0) {
+        accept();
+    } else {
+        onQueryUpdate();
     }
 }
 

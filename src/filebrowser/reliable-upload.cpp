@@ -432,17 +432,11 @@ void PostFileTask::sendRequest()
     multipart->append(file_part);
 
     // "need_idx_progress" param
-    QUrl need_idx_url = url_;
     if (need_idx_progress_) {
-        QUrlQuery query;
-        QString key = "need_idx_progress";
-        QString value = "true";
-        query.addQueryItem(QUrl::toPercentEncoding(key),
-                           QUrl::toPercentEncoding(value));
-        need_idx_url.setQuery(query);
+        url_ = ::includeQueryParams(url_, {{"need_idx_progress", "true"}});
     }
 
-    QNetworkRequest request(need_idx_url);
+    QNetworkRequest request(url_);
     request.setRawHeader("Content-Type",
                          "multipart/form-data; boundary=" + multipart->boundary());
     if (isChunked()) {

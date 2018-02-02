@@ -21,6 +21,7 @@ const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
 const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
+const char kQueryIndexUrl[] = "idx_progress";
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
@@ -391,4 +392,32 @@ void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
     quint64 uploaded_bytes = dict["uploadedBytes"].toLongLong();
     // printf ("uploadedBytes = %lld\n", uploaded_bytes);
     emit success(true, uploaded_bytes);
+}
+
+QueryIndexRequest::QueryIndexRequest(const QUrl &url, const QString &task_id)
+    : SeafileApiRequest(::urlJoin(url, kQueryIndexUrl),
+                        SeafileApiRequest::METHOD_GET)
+{
+    setUrlParam("task_id", task_id);
+}
+
+void QueryIndexRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qDebug("QueryIndexRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    QueryIndexResult result;
+
+    result.total = dict.value("total").toInt();
+    result.indexed = dict.value("indexed").toInt();
+    result.status = dict.value("status").toInt();
+    emit success(result);
 }

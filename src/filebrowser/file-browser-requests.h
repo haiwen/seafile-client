@@ -344,4 +344,24 @@ private:
     const QString file_name_;
 };
 
+struct QueryIndexResult {
+    qint64 total;
+    qint64 indexed;
+    qint64 status;
+};
+
+class QueryIndexRequest : public SeafileApiRequest {
+    Q_OBJECT
+public:
+    QueryIndexRequest(const QUrl &url, const QString &task_id);
+signals:
+    void success(const QueryIndexResult& result);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(QueryIndexRequest);
+};
+
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

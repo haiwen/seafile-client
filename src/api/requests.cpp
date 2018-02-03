@@ -46,8 +46,9 @@ const char* kFetchGroupsAndContactsUrl = "api2/groupandcontacts/";
 const char* kFetchGroupsUrl = "api2/groups/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
-
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
+const char* kGetUploadFileLink = "http://192.168.1.113:8000/api/v2.1/upload-links/dcfa5dd6645e4f38b823/upload/";
+const char* kCreateFileUploadLink = "api/v2.1/upload-links/";
 
 } // namespace
 
@@ -1263,4 +1264,79 @@ UnshareRepoRequest::UnshareRepoRequest(const Account& account,
 void UnshareRepoRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+CreateFileUploadLinkRequest::CreateFileUploadLinkRequest(const Account& account,
+                                                         const QString &repo_id,
+                                                         const QString &path,
+                                                         const QString &password)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kCreateFileUploadLink)),
+          SeafileApiRequest::METHOD_POST, account.token),
+      repo_id_(repo_id),
+      path_(path),
+      password_(password)
+{
+    setFormParam(QString("repo_id"), repo_id);
+    setFormParam(QString("path"), path);
+    if (!password.isNull()) {
+        setFormParam(QString("password"), password);
+    }
+}
+
+void CreateFileUploadLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    UploadLinkInfo link_info;
+    link_info.username = dict["username"].toString();
+    link_info.repo_id = dict["repo_id"].toString();
+    link_info.ctime = dict["ctime"].toString();
+    link_info.token = dict["token"].toString();
+    link_info.link = dict["link"].toString();
+    link_info.path = dict["path"].toString();
+
+    emit success(link_info);
+}
+
+GetUploadFileLinkRequest::GetUploadFileLinkRequest()
+    : SeafileApiRequest(
+          QString(kGetUploadFileLink),
+          SeafileApiRequest::METHOD_GET)
+{
+}
+
+void GetUploadFileLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    QString reply_content(dict["upload_link"].toString());
+
+    do {
+        if (reply_content.size() <= 2)
+            break;
+        QUrl new_url(reply_content);
+        if (!new_url.isValid())
+            break;
+
+        emit success(reply_content);
+        return;
+    } while (0);
+    emit failed(ApiError::fromHttpError(500));
 }

@@ -37,6 +37,7 @@ private slots:
     ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:
+    void initUI();
 
     FileNetworkTask* task_;
     QPushButton *cancel_button_;
@@ -48,7 +49,5 @@ private:
     GetIndexProgressRequest *progress_request_;
     QTimer *index_progress_timer_;
 };
-
-
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_PROGRESS_DIALOG_H

@@ -5,6 +5,8 @@
 #include <QHash>
 #include <QQueue>
 
+#include "account.h"
+
 class QAction;
 class QMenu;
 class QMenuBar;
@@ -14,6 +16,8 @@ class TrayNotificationManager;
 class AboutDialog;
 
 class SyncErrorsDialog;
+class ApiError;
+struct UploadLinkInfo;
 
 class SeafileTrayIcon : public QSystemTrayIcon {
     Q_OBJECT
@@ -63,8 +67,10 @@ private slots:
     void openHelp();
     void openSeafileFolder();
     void openLogDirectory();
+    void uploadLogDirectory();
     void about();
     void checkTrayIconMessageQueue();
+    void onUploadLogDirFinished(bool success);
 
     // only used on windows
     void onMessageClicked();
@@ -95,6 +101,7 @@ private:
     QAction *settings_action_;
     QAction *open_seafile_folder_action_;
     QAction *open_log_directory_action_;
+    QAction *upload_log_directory_action_;
     QAction *show_sync_errors_action_;
 
     QAction *about_action_;

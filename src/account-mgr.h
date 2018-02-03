@@ -42,7 +42,7 @@ public:
 
     bool hasAccount() const { return !accounts_.empty(); }
 
-    Account currentAccount() const { return hasAccount() ? current_account_ : Account(); }
+    Account currentAccount() const { return hasAccount() ? accounts_[0] : Account(); }
 
     bool setCurrentAccount(const Account& account);
 

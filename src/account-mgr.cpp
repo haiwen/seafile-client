@@ -430,7 +430,7 @@ bool AccountManager::setCurrentAccount(const Account& account)
 {
     Q_ASSERT(account.isValid());
 
-    if (account == current_account_) {
+    if (account == currentAccount()) {
         return false;
     }
 

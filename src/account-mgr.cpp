@@ -281,7 +281,6 @@ int AccountManager::saveAccount(const Account& account)
             }
         }
         accounts_.insert(accounts_.begin(), new_account);
-        current_account_ = new_account;
     }
     updateServerInfo(0);
 
@@ -344,7 +343,7 @@ int AccountManager::removeAccount(const Account& account)
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
-    bool need_switch_account = current_account_ == account;
+    bool need_switch_account = currentAccount() == account;
 
     {
         QMutexLocker lock(&accounts_mutex_);
@@ -354,7 +353,6 @@ int AccountManager::removeAccount(const Account& account)
     }
 
     if (need_switch_account) {
-        current_account_ = Account();
         if (!accounts_.empty()) {
             validateAndUseAccount(accounts_[0]);
         } else {
@@ -559,26 +557,28 @@ void AccountManager::updateAccountInfo(const Account& account,
 }
 
 
-void AccountManager::serverInfoSuccess(const Account &account, const ServerInfo &info)
+void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo &info)
 {
+    Account account = _account;
+    account.serverInfo = info;
+
     setServerInfoKeyValue(db, account, kVersionKeyName, info.getVersionString());
     setServerInfoKeyValue(db, account, kFeaturesKeyName, info.getFeatureStrings().join(","));
     setServerInfoKeyValue(db, account, kCustomLogoKeyName, info.customLogo);
     setServerInfoKeyValue(db, account, kCustomBrandKeyName, info.customBrand);
+
+    bool changed = _account.serverInfo != info;
+    if (!changed)
+        return;
 
     QUrl url(account.serverUrl);
     url.setPath("/");
     seafApplet->rpcClient()->setServerProperty(
         url.toString(), "is_pro", account.isPro() ? "true" : "false");
 
-    bool changed = account.serverInfo != info;
-    if (!changed)
-        return;
-
-
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {
-            if (i == 0)    // account == current_account_
+            if (i == 0)
                 emit beforeAccountSwitched();
             accounts_[i].serverInfo = info;
             if (i == 0)
@@ -616,11 +616,6 @@ bool AccountManager::clearAccountToken(const Account& account)
     sqlite3_free(zql);
 
     emit accountsChanged();
-
-    // TODO: notify daemon the account is logged out
-    if (account == current_account_) {
-        current_account_.token = "";
-    }
 
     return true;
 }

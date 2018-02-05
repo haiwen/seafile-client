@@ -37,6 +37,14 @@
         <source>Authorization expired, please re-login</source>
         <translation>账号验证信息已过期，请重新登录</translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation>删除本地资料库同步验证信息失败：%1</translation>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation>从服务器上获取资料库同步信息失败：%1</translation>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -134,14 +142,6 @@
     <message>
         <source>not logged in</source>
         <translation>没有登录</translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation>删除本地资料库同步验证信息失败：%1</translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
-        <translation>从服务器上获取资料库同步信息失败：%1</translation>
     </message>
     <message>
         <source>Form</source>
@@ -845,6 +845,10 @@ failed to upload.</source>
         <source>Unable to open cache folder</source>
         <translation>不能打开缓存目录</translation>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation>搜索文件</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -891,6 +895,36 @@ failed to upload.</source>
     <message>
         <source>Abort</source>
         <translation>中止</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation>文件名</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>大小</translation>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation>修改时间</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>类型</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation>打开所在文件夹(&amp;S)</translation>
+    </message>
+    <message>
+        <source>Show in folder</source>
+        <translation>打开所在文件夹</translation>
     </message>
 </context>
 <context>
@@ -1267,10 +1301,6 @@ Do you like to download your default library?</source>
         <translation>保存帐户失败</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation>两步验证</translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation>%1 云盘网址</translation>
     </message>
@@ -1285,10 +1315,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the password</source>
         <translation>请输入密码</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation>请输入两步验证的动态口令</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1357,6 +1383,10 @@ Do you like to download your default library?</source>
     <message>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation>自动登录</translation>
     </message>
 </context>
 <context>
@@ -2994,6 +3024,41 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Time</source>
         <translation>时间</translation>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation>请输入两步验证的动态口令</translation>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation>两步验证</translation>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation>请输入两步验证的动态口令</translation>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation>对话框</translation>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation>mText</translation>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation>记住该设备</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>确定</translation>
     </message>
 </context>
 <context>

@@ -38,6 +38,14 @@
         <source>Authorization expired, please re-login</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -134,14 +142,6 @@
     </message>
     <message>
         <source>not logged in</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -842,6 +842,10 @@ failed to upload.</source>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -887,6 +891,36 @@ failed to upload.</source>
     </message>
     <message>
         <source>Abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show in folder</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1256,10 +1290,6 @@ Do you like to download your default library?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1273,10 +1303,6 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Please enter the password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1345,6 +1371,10 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic Login</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2973,6 +3003,41 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

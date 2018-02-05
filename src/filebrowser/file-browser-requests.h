@@ -344,24 +344,24 @@ private:
     const QString file_name_;
 };
 
-struct QueryIndexResult {
+struct GetIndexProgressResult {
     qint64 total;
     qint64 indexed;
     qint64 status;
 };
 
-class QueryIndexRequest : public SeafileApiRequest {
+class GetIndexProgressRequest : public SeafileApiRequest {
     Q_OBJECT
 public:
-    QueryIndexRequest(const QUrl &url, const QString &task_id);
+    GetIndexProgressRequest(const QUrl &url, const QString &task_id);
 signals:
-    void success(const QueryIndexResult& result);
+    void success(const GetIndexProgressResult& result);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(QueryIndexRequest);
+    Q_DISABLE_COPY(GetIndexProgressRequest);
 };
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

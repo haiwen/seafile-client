@@ -3,6 +3,7 @@
 
 #include <QProgressDialog>
 #include <QObject>
+#include <QTimer>
 
 #include "tasks.h"
 
@@ -32,7 +33,7 @@ private slots:
     void initTaskInfo();
     void onOneFileUploadFailed(const QString& filename, bool single_file);
     void onQueryUpdate();
-    void onQuerySuccess(const QueryIndexResult& result);
+    void onQuerySuccess(const GetIndexProgressResult& result);
     ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:
@@ -41,10 +42,9 @@ private:
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
-    QString oid_;
-    QUrl url_;
-    QueryIndexRequest *query_request_;
-    qint64 query_status_;
+    QUrl progress_url_;
+    GetIndexProgressRequest *progress_request_;
+    QTimer *index_progress_timer_;
 };
 
 

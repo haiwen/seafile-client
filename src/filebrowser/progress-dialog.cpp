@@ -10,12 +10,13 @@
 
 #include "utils/utils.h"
 #include "progress-dialog.h"
+#include "seafile-applet.h"
 
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
           task_(task),
-          query_request_(NULL)
+          progress_request_(NULL)
 {
     setWindowModality(Qt::NonModal);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -129,17 +130,20 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 
 void FileBrowserProgressDialog::onTaskFinished(bool success)
 {
+    index_progress_timer_ = new QTimer(this);
+    connect(index_progress_timer_, SIGNAL(timeout()), this, SLOT(onQueryUpdate()));
     // printf ("FileBrowserProgressDialog: onTaskFinished\n");
     if (task_->canceled()) {
         return;
     }
 
-    oid_ = task_->oid();
-    url_ = QUrl(task_->url().toString(QUrl::PrettyDecoded).section("upload", 0, 0));
+    const char*kQueryIndexUrl = "idx_progress";
+    progress_url_ = ::urlJoin(QUrl(task_->url().toString(QUrl::PrettyDecoded).section("upload", 0, 0)), kQueryIndexUrl);
     if (success) {
         // printf ("progress dialog: task success\n");
-        if (oid_.contains("-")) {
+        if (task_->oid().contains("-")) {
             onQueryUpdate();
+            index_progress_timer_->start(3000);
         } else {
             accept();
         }
@@ -151,28 +155,30 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
 
 void FileBrowserProgressDialog::onQueryUpdate()
 {
-    if (query_request_) {
-        query_request_->deleteLater();
-        query_request_ = NULL;
+    if (progress_request_) {
+        progress_request_->deleteLater();
+        progress_request_ = NULL;
     }
-    query_request_ = new QueryIndexRequest(url_, oid_);
-    connect(query_request_, SIGNAL(success(const QueryIndexResult&)),
-            this, SLOT(onQuerySuccess(const QueryIndexResult&)));
+    progress_request_ = new GetIndexProgressRequest(progress_url_, task_->oid());
+    connect(progress_request_, SIGNAL(success(const GetIndexProgressResult&)),
+            this, SLOT(onQuerySuccess(const GetIndexProgressResult&)));
 
-    query_request_->send();
+    progress_request_->send();
 }
 
-void FileBrowserProgressDialog::onQuerySuccess(const QueryIndexResult &result)
+void FileBrowserProgressDialog::onQuerySuccess(const GetIndexProgressResult &result)
 {
     setLabelText(tr("Saving"));
-    query_status_ = result.status;
     more_details_label_->setText(tr("%1 of %2")
                             .arg(::readableFileSizeV2(result.indexed))
                             .arg(::readableFileSizeV2(result.total)));
-    if (query_status_ == 0) {
+    if (result.status == 0) {
+        index_progress_timer_->stop();
         accept();
-    } else {
-        onQueryUpdate();
+    } else if (result.status == -1) {
+        seafApplet->warningBox(tr("File save failed"));
+        index_progress_timer_->stop();
+        reject();
     }
 }
 

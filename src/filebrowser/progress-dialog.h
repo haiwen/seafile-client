@@ -43,6 +43,7 @@ private:
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
     QUrl progress_url_;
+    QString oid_;
     GetIndexProgressRequest *progress_request_;
     QTimer *index_progress_timer_;
 };

@@ -394,8 +394,7 @@ void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
 }
 
 GetIndexProgressRequest::GetIndexProgressRequest(const QUrl &url, const QString &task_id)
-    : SeafileApiRequest(url,
-                        SeafileApiRequest::METHOD_GET)
+    : SeafileApiRequest(url, SeafileApiRequest::METHOD_GET)
 {
     setUrlParam("task_id", task_id);
 }

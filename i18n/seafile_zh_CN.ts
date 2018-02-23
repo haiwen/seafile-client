@@ -1483,6 +1483,10 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 同步出错。
 该资料库所有者的空间限额已用完。</translation>
     </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation>文件夹权限设置导致文件 %1 无法被更新</translation>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2100,6 +2104,14 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation>资料库名称包含非法字符例如&quot;:&quot;，&quot;*&quot;，&quot;|&quot;，&quot;?&quot;</translation>
+    </message>
+    <message>
+        <source>File is locked by another user on server</source>
+        <translation>文件被服务器上的其他用户锁定</translation>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
+        <translation>文件夹权限设置导致文件无法被更新</translation>
     </message>
 </context>
 <context>

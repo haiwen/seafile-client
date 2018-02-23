@@ -292,6 +292,10 @@ void LocalRepo::translateSyncErrDetail(const QString &err_detail)
         sync_error_detail = QObject::tr("Library deleted on server");
     } else if (err_detail == "Library damaged on server") {
         sync_error_detail = QObject::tr("Library damaged on server");
+    } else if (err_detail == "File is locked by another user on server") {
+        sync_error_detail = QObject::tr("File is locked by another user on server");
+    } else {
+        sync_error_detail = err_detail;
     }
 
     // printf ("sync error detail set to '%s'\n", sync_error_detail.toUtf8().data());

@@ -32,6 +32,7 @@ const char *kAppletCommandsMQ = "applet.commands";
 #define SYNC_ERROR_ID_INDEX_ERROR 4
 #define SYNC_ERROR_ID_END_SPACE_PERIOD 5
 #define SYNC_ERROR_ID_INVALID_CHARACTER 6
+#define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
 
 #define IS_APP_MSG(msg,topic) (strcmp((msg)->app, (topic)) == 0)
 static int parse_seafile_notification (char *msg, char **type, char **body)
@@ -233,6 +234,9 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 break;
             case SYNC_ERROR_ID_INVALID_CHARACTER:
                 msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
+                break;
+            case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
+                msg = tr("Update to file %1 is denied by folder permission setting.").arg(path);
                 break;
             default:
                 qWarning("Unknown sync error id %d", err_id);

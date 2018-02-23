@@ -47,6 +47,7 @@ SyncError SyncError::fromGObject(GObject *obj)
 #define SYNC_ERROR_ID_INDEX_ERROR 4
 #define SYNC_ERROR_ID_PATH_END_SPACE_PERIOD 5
 #define SYNC_ERROR_ID_PATH_INVALID_CHARACTER 6
+#define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
 
 void SyncError::translateErrorStr()
 {
@@ -73,6 +74,9 @@ void SyncError::translateErrorStr()
         break;
     case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
         error_str = QObject::tr("Path contains invalid characters like '|' or ':'");
+        break;
+    case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
+        error_str = QObject::tr("Update to file denied by folder permission setting");
         break;
     default:
         // unreachable

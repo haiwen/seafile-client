@@ -221,7 +221,7 @@ void MessageListener::handleMessage(CcnetMessage *message)
                 msg = tr("Failed to sync folder %1\nSome file in this folder is locked by other application. This folder will be updated when you close the application.").arg(path);
                 break;
             case SYNC_ERROR_ID_FILE_LOCKED:
-                msg = tr("Failed to sync file %1\nFile is locked by other user on the server. Update to this file is not uploaded.").arg(path);
+                msg = tr("Failed to sync file %1\nFile is locked by another user. Update to this file is not uploaded.").arg(path);
                 break;
             // case SYNC_ERROR_ID_INVALID_PATH:
             //     msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);

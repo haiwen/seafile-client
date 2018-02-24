@@ -36,6 +36,14 @@
         <source>Authorization expired, please re-login</source>
         <translation>Авторизация истекла. Пожалуйста, войдите снова</translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation>Не удалось удалить токен синхронизации локального репозитория: %1</translation>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation>Не удалось получить информацию о синхронизации репозитория от сервера: %1</translation>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -133,14 +141,6 @@
     <message>
         <source>not logged in</source>
         <translation>Вход не выполнен</translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation>Не удалось удалить токен синхронизации локального репозитория: %1</translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
-        <translation>Не удалось получить информацию о синхронизации репозитория от сервера: %1</translation>
     </message>
     <message>
         <source>Form</source>
@@ -850,6 +850,10 @@ failed to upload.</source>
         <source>Unable to open cache folder</source>
         <translation>Невозможно открыть папку кэша</translation>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation>Поиск файлов</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -883,19 +887,49 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось загрузить файл &quot;%1&quot;, повторить попытку?</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Повторить</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Пропустить</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>Отменить</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Размер</translation>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation>Последнее изменение</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Вид</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation>&amp;Показать в папке</translation>
+    </message>
+    <message>
+        <source>Show in folder</source>
+        <translation>Показать в папке</translation>
     </message>
 </context>
 <context>
@@ -1275,10 +1309,6 @@ Do you like to download your default library?</source>
         <translation>Не удалось сохранить текущий аккаунт</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation>Двухфакторная аутентификация</translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation>%1 Адрес сервера</translation>
     </message>
@@ -1293,10 +1323,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the password</source>
         <translation>Введите пароль</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation>Введите ключ двухфакторной аутентификации</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1366,6 +1392,10 @@ Do you like to download your default library?</source>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation>Автоматический вход</translation>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1426,12 +1456,6 @@ Some file in this folder is locked by other application. This folder will be upd
 Какой-то файл в этот папке заблокирован другим приложением. Эта папка будет обновлена после закрытия приложения.</translation>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation>Не удалось синхронизировать файл  %1
-Файл заблокирован другим пользователем на сервере. Обновление этого файла не загружено.</translation>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>Не удалось синхронизировать %1
@@ -1460,6 +1484,15 @@ Access denied to service</source>
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; не удалось синхронизировать.
 Владельцем библиотеки израсходована выделенная квота.</translation>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation>Обновление файла %1 запрещено настройками разрешений папки.</translation>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2078,6 +2111,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation>Имя библиотеки содержит недопустимые символы, такие как &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
+        <translation>Обновление файла запрещено настройками разрешений папки</translation>
     </message>
 </context>
 <context>
@@ -3002,6 +3039,41 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Time</source>
         <translation>Время</translation>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation>Введите токен двухфакторной аутентификации</translation>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation>Двухфакторная аутентификация</translation>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation>Пожалуйста, введите токен двухфакторной аутентификации</translation>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation>Диалог</translation>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation>mText</translation>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation>Запомнить это устройство</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>

@@ -36,6 +36,14 @@
         <source>Authorization expired, please re-login</source>
         <translation>인증 유효시간이 지났습니다. 다시 로그인하세요</translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -133,14 +141,6 @@
     <message>
         <source>not logged in</source>
         <translation>로그인 안 함</translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation>로컬 저장소 동기화 토큰 제거에 실패했습니다: %1</translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
-        <translation>서버에서 저장소 동기화 정보 가져오기에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Form</source>
@@ -851,6 +851,10 @@ failed to upload.</source>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -896,6 +900,36 @@ failed to upload.</source>
     </message>
     <message>
         <source>Abort</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show in folder</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1276,10 +1310,6 @@ Do you like to download your default library?</source>
         <translation>현재 계정 저장에 실패했습니다</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation>이중 인증</translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation>%1 서버 주소</translation>
     </message>
@@ -1294,10 +1324,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the password</source>
         <translation>암호를 입력해주세요</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation>이중 인증 토큰을 입력하세요</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1367,6 +1393,10 @@ Do you like to download your default library?</source>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1426,12 +1456,6 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation>%1 폴더 동기화에 실패했습니다. 다른 프로그램에서 해당 폴더에 있는 파일을 잠궜습니다. 이 폴더는 프로그램을 닫으면 업데이트합니다.</translation>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation>%1 파일 동기화에 실패했습니다
-서버에서 다른 사용자가 잠궜습니다. 이 파일의 최신 내용을 업로드하지 않았습니다.</translation>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>%1 동기화에 실패했습니다
@@ -1459,6 +1483,15 @@ Access denied to service</source>
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 동기화에 실패했습니다. 
 라이브러리 소유자의 저장 공간이 다 찼습니다.</translation>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2076,6 +2109,10 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3004,6 +3041,41 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Time</source>
         <translation>시간</translation>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

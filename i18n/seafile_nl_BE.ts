@@ -36,6 +36,14 @@
         <source>Authorization expired, please re-login</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -132,14 +140,6 @@
     </message>
     <message>
         <source>not logged in</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -848,6 +848,10 @@ failed to upload.</source>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -893,6 +897,36 @@ failed to upload.</source>
     </message>
     <message>
         <source>Abort</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show in folder</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1270,10 +1304,6 @@ Do you like to download your default library?</source>
         <translation>Mislukt om de huidige account op te slaan</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation type="unfinished"/>
     </message>
@@ -1288,10 +1318,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the password</source>
         <translation>Gelieve het paswoord in te vullen</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1361,6 +1387,10 @@ Do you like to download your default library?</source>
         <source>Cancel</source>
         <translation>Annuleer</translation>
     </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1419,11 +1449,6 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"/>
@@ -1449,6 +1474,15 @@ Toegang geweigerd tot dienst</translation>
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1 mislukt om te synchroniseren.
 De opslagruimte van de eigenaar van de bibliotheek is opgebruikt.</translation>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2066,6 +2100,10 @@ De opslagruimte van de eigenaar van de bibliotheek is opgebruikt.</translation>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2992,6 +3030,41 @@ De opslagruimte van de eigenaar van de bibliotheek is opgebruikt.</translation>
     </message>
     <message>
         <source>Time</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"/>
     </message>
 </context>

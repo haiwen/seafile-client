@@ -36,6 +36,14 @@
         <source>Authorization expired, please re-login</source>
         <translation>La autorización expiró, por favor ingrese nuevamente</translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation>Fallo al eliminar identificador de sincronización de repositorio local: %1</translation>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation>Fallo al obtener información de sincronización de repositorio del servidor: %1</translation>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -133,14 +141,6 @@
     <message>
         <source>not logged in</source>
         <translation>no está conectado</translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation>Fallo al eliminar el identificador de sincronzación de los repositorios locales: %1</translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
-        <translation>Fallo al obtener información del servidor: %1</translation>
     </message>
     <message>
         <source>Form</source>
@@ -850,6 +850,10 @@ falló al subir.</translation>
         <source>Unable to open cache folder</source>
         <translation>No se puede abrir carpeta de caché</translation>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation>Buscar archivos</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -883,19 +887,49 @@ falló al subir.</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al subir el archivo &quot;%1&quot;, ¿desea reintentar?</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Reintentar</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Saltear</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>Abortar</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Tamaño</translation>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation>Última modifiación</translation>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation>Tipo</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation>&amp;Mostrar en carpeta</translation>
+    </message>
+    <message>
+        <source>Show in folder</source>
+        <translation>Mostrar en carpeta</translation>
     </message>
 </context>
 <context>
@@ -1275,10 +1309,6 @@ Do you like to download your default library?</source>
         <translation>Fallo al modificar la cuenta actual</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation>Auenticación de dos factores</translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation>Dirección del Servidor %1</translation>
     </message>
@@ -1293,10 +1323,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the password</source>
         <translation>Ingrese la contraseña</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation>Ingrese el identificador de autenticación de dos factores</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1366,6 +1392,10 @@ Do you like to download your default library?</source>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation>Ingreso automático</translation>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1426,12 +1456,6 @@ Some file in this folder is locked by other application. This folder will be upd
 Algún archivo en esta carpeta está bloqueado por otra aplicación. Será actualizada cuando cierre la aplicación.</translation>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation>Fallo al sincronizar el archivo %1
-El archivo está bloqueado por otro usuario en el servidor. La actualización de este archivo no es subida.</translation>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>Fallo al sincronizar %1
@@ -1460,6 +1484,15 @@ Access denied to service</source>
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; fallo al sincronizar.
 El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation>La actualización del archivo %1 fue denegada debido a la configuración de permisos de la carpeta</translation>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2078,6 +2111,10 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation>El nombre de la biblioteca contiene caracteres inválidos, como  &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
+        <translation>Actialización de archivo denegada debido a configuración de permisos de la carpeta</translation>
     </message>
 </context>
 <context>
@@ -3004,6 +3041,41 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <source>Time</source>
         <translation>Hora</translation>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation>Ingrese el identificador de autenticación de dos factores</translation>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation>Auenticación de dos factores</translation>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation>Por favor ingrese el identificador de autenticación de dos factores</translation>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation>Diálogo</translation>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation>mText</translation>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation>Recordar este dispositivo</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

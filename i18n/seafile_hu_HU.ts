@@ -36,6 +36,14 @@
         <source>Authorization expired, please re-login</source>
         <translation>Az autentikáció lejárt, jelentkezzen be újra</translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -133,14 +141,6 @@
     <message>
         <source>not logged in</source>
         <translation>nincs bejelentkezve</translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation>A helyi tároló szinkronizációs tokenjének törlése nem sikerült: %1</translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
-        <translation>A tároló-szinkronizációs adatok nem kérhetők le a szerverről: %1</translation>
     </message>
     <message>
         <source>Form</source>
@@ -850,6 +850,10 @@ feltöltése nem sikerült.</translation>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -895,6 +899,36 @@ feltöltése nem sikerült.</translation>
     </message>
     <message>
         <source>Abort</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show in folder</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1275,10 +1309,6 @@ Letölti az alapértelmezett kötetet?</translation>
         <translation>A fiók mentése nem sikerült.</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation>Kétlépcsős azonosítás</translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation>%1 szerver cím</translation>
     </message>
@@ -1293,10 +1323,6 @@ Letölti az alapértelmezett kötetet?</translation>
     <message>
         <source>Please enter the password</source>
         <translation>Kérem, adja meg a jelszavát</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation>A kétlépcsős azonosítási kulcs megadása</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1366,6 +1392,10 @@ Letölti az alapértelmezett kötetet?</translation>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1426,12 +1456,6 @@ Some file in this folder is locked by other application. This folder will be upd
 Néhány fájlt egy másik alkalmazás fog. A könyvtár akkor kerül frissítésre ha ezt a programot lezárja.</translation>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation>%1 fájl szinkronizálása nem sikerült
-A fájlt egy másik felhasználó zárolta a szerveren. A fájl frissítése nincs feltöltve.</translation>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>%1 szinkronizálás sikertelen
@@ -1460,6 +1484,15 @@ Hozzáférés megtagadva</translation>
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; nem szinkronizálható.
 A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2077,6 +2110,10 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3004,6 +3041,41 @@ A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
     <message>
         <source>Time</source>
         <translation>Idő</translation>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

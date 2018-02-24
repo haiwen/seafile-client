@@ -36,6 +36,14 @@
         <source>Authorization expired, please re-login</source>
         <translation>Přihlášení vypršelo, přihlašte se prosím</translation>
     </message>
+    <message>
+        <source>Failed to remove local repos sync token: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get repo sync information from server: %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
@@ -133,14 +141,6 @@
     <message>
         <source>not logged in</source>
         <translation>nepřihlášeno</translation>
-    </message>
-    <message>
-        <source>Failed to remove local repos sync token: %1</source>
-        <translation>Nepodařilo se odstranit token pro synchronizaci místních repozitářů: %1</translation>
-    </message>
-    <message>
-        <source>Failed to get repo sync information from server: %1</source>
-        <translation>Nepodařilo se stáhnout informace o synchronizaci repozitáře ze serveru: %1</translation>
     </message>
     <message>
         <source>Form</source>
@@ -851,6 +851,10 @@ Prosím %1</translation>
         <source>Unable to open cache folder</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Search files</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -896,6 +900,36 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Abort</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last Modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Kind</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FileBrowserSearchView</name>
+    <message>
+        <source>&amp;Show in folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show in folder</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1275,10 +1309,6 @@ Do you like to download your default library?</source>
         <translation>Chyba při ukládání informací o účtu</translation>
     </message>
     <message>
-        <source>Two Factor Authentication</source>
-        <translation>Dvoufaktorová autentizace</translation>
-    </message>
-    <message>
         <source>%1 Server Address</source>
         <translation>%1 adresa serveru</translation>
     </message>
@@ -1293,10 +1323,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the password</source>
         <translation>Vložte heslo</translation>
-    </message>
-    <message>
-        <source>Enter the two factor authentication token</source>
-        <translation>Vložte dvoufaktorový autentizační token</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
@@ -1366,6 +1392,10 @@ Do you like to download your default library?</source>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
+    <message>
+        <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1426,12 +1456,6 @@ Some file in this folder is locked by other application. This folder will be upd
 Soubor je uzamčen jiným programem. Tento adresář bude aktualizován, až tento program zavřete.</translation>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation>Nepodařilo se synchronizovat soubor %1
-Soubor je na serveru uzamčen jiným uživatelem. Změny v souboru nebyly nahrány na server.</translation>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"/>
@@ -1459,6 +1483,15 @@ Přístup ke službě byl odepřen.</translation>
 The library owner&apos;s storage space is used up.</source>
         <translation>Nezdařila se synchronizace &quot;%1&quot;.
 Majitel knihovny vyčerpal svůj datový limit.</translation>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2076,6 +2109,10 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update to file denied by folder permission setting</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3002,6 +3039,41 @@ Majitel knihovny vyčerpal svůj datový limit.</translation>
     </message>
     <message>
         <source>Time</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>TwoFactorDialog</name>
+    <message>
+        <source>Enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Two Factor Authentication</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please enter the two factor authentication token</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>mText</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remember this device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"/>
     </message>
 </context>

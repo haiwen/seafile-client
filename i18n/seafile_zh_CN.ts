@@ -1448,12 +1448,6 @@ Some file in this folder is locked by other application. This folder will be upd
 该文件夹中的某个文件被其他应用锁定。这个文件夹将在该应用退出时更新。</translation>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation>同步文件 %1 出错
-该文件被其他用户锁定，因此对它作的修改不会被上传。</translation>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>同步文件 %1 出错
@@ -1486,6 +1480,12 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation>文件夹权限设置导致文件 %1 无法被更新</translation>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation>同步文件 %1 出错
+该文件被其他用户锁定，因此对它作的修改不会被上传。</translation>
     </message>
 </context>
 <context>
@@ -2104,10 +2104,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
         <translation>资料库名称包含非法字符例如&quot;:&quot;，&quot;*&quot;，&quot;|&quot;，&quot;?&quot;</translation>
-    </message>
-    <message>
-        <source>File is locked by another user on server</source>
-        <translation>文件被服务器上的其他用户锁定</translation>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>

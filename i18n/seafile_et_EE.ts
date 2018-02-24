@@ -1432,11 +1432,6 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by other user on the server. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"/>
@@ -1463,6 +1458,11 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2081,10 +2081,6 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File is locked by another user on server</source>
         <translation type="unfinished"/>
     </message>
     <message>

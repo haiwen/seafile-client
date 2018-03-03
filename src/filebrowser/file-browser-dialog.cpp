@@ -343,6 +343,9 @@ void FileBrowserDialog::createToolBar()
     search_toolbar_->addWidget(search_bar_);
     connect(search_bar_, SIGNAL(textChanged(const QString&)),
             this, SLOT(doSearch(const QString&)));
+    if (!account_.isPro()) {
+        search_toolbar_->setVisible(false);
+    }
 }
 
 void FileBrowserDialog::createStatusBar()

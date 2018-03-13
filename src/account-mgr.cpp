@@ -320,9 +320,9 @@ int AccountManager::saveAccount(const Account& account)
             // isShibboleth
             QString::number(new_account.isShibboleth).toUtf8().data(),
             // isAutomaticLogin
-            QString::number(new_account.isAutomaticLogin).toUtf8().data()),
+            QString::number(new_account.isAutomaticLogin).toUtf8().data(),
             //s2fa_token
-            new_account.s2fa_token.toUtf8().data();
+            new_account.s2fa_token.toUtf8().data());
     }
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);

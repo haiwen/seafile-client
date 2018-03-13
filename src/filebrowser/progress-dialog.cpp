@@ -38,7 +38,7 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     QHBoxLayout *hlayout_ = new QHBoxLayout;
     more_details_label_ = new QLabel;
     more_details_label_->setText(tr("Pending"));
-    QPushButton *cancel_button_ = new QPushButton(tr("Cancel"));
+    cancel_button_ = new QPushButton(tr("Cancel"));
     QWidget *spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
@@ -142,14 +142,16 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
         return;
     }
 
-    oid_ = task_->oid();
+    cancel_button_->setVisible(false);
+
+    progerss_id_ = task_->oid();
     progress_url_ = ::urlJoin(QUrl(task_->url().toString(QUrl::PrettyDecoded).
                                    section("upload", 0, 0)), kQueryIndexUrl);
     if (success) {
         // printf ("progress dialog: task success\n");
 
         //Judge "-" as a task id or a file id
-        if (oid_.contains("-")) {
+        if (progerss_id_.contains("-")) {
             onQueryUpdate();
             index_progress_timer_->start(3000);
         } else {
@@ -168,7 +170,7 @@ void FileBrowserProgressDialog::onQueryUpdate()
         progress_request_ = NULL;
     }
 
-    progress_request_ = new GetIndexProgressRequest(progress_url_, oid_);
+    progress_request_ = new GetIndexProgressRequest(progress_url_, progerss_id_);
     connect(progress_request_, SIGNAL(success(const GetIndexProgressResult&)),
             this, SLOT(onQuerySuccess(const GetIndexProgressResult&)));
 

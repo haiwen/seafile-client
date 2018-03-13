@@ -39,11 +39,12 @@ private slots:
 private:
 
     FileNetworkTask* task_;
+    QPushButton *cancel_button_;
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
     QUrl progress_url_;
-    QString oid_;
+    QString progerss_id_;
     GetIndexProgressRequest *progress_request_;
     QTimer *index_progress_timer_;
 };

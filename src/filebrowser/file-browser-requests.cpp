@@ -404,7 +404,7 @@ void GetIndexProgressRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     json_t *root = parseJSON(reply, &error);
     if (!root) {
-        qDebug("GetIndexProgressRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetIndexProgressRequest: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }
@@ -412,7 +412,7 @@ void GetIndexProgressRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
-    GetIndexProgressResult result;
+    ServerIndexProgress result;
 
     result.total = dict.value("total").toInt();
     result.indexed = dict.value("indexed").toInt();

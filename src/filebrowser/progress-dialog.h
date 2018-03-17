@@ -33,7 +33,7 @@ private slots:
     void initTaskInfo();
     void onOneFileUploadFailed(const QString& filename, bool single_file);
     void onQueryUpdate();
-    void onQuerySuccess(const GetIndexProgressResult& result);
+    void onQuerySuccess(const ServerIndexProgress& result);
     ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:

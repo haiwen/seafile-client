@@ -74,6 +74,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()
 {
+    if (progress_request_ != NULL)
+        progress_request_->deleteLater();
 }
 
 void FileBrowserProgressDialog::initTaskInfo()
@@ -145,12 +147,16 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
     cancel_button_->setVisible(false);
 
     progerss_id_ = task_->oid();
+
+    //https://dev.seafile.com/seafhttp/upload-api/b7443978-42cf-4cc6-87bf-add0fc7ad6e3
+    //https://dev.seafile.com/seafhttp/idx_progress
     progress_url_ = ::urlJoin(QUrl(task_->url().toString(QUrl::PrettyDecoded).
                                    section("upload", 0, 0)), kQueryIndexUrl);
     if (success) {
         // printf ("progress dialog: task success\n");
 
         //Judge "-" as a task id or a file id
+        //Compatible with new and old server versions
         if (progerss_id_.contains("-")) {
             onQueryUpdate();
             index_progress_timer_->start(3000);
@@ -171,13 +177,13 @@ void FileBrowserProgressDialog::onQueryUpdate()
     }
 
     progress_request_ = new GetIndexProgressRequest(progress_url_, progerss_id_);
-    connect(progress_request_, SIGNAL(success(const GetIndexProgressResult&)),
-            this, SLOT(onQuerySuccess(const GetIndexProgressResult&)));
+    connect(progress_request_, SIGNAL(success(const ServerIndexProgress&)),
+            this, SLOT(onQuerySuccess(const ServerIndexProgress&)));
 
     progress_request_->send();
 }
 
-void FileBrowserProgressDialog::onQuerySuccess(const GetIndexProgressResult &result)
+void FileBrowserProgressDialog::onQuerySuccess(const ServerIndexProgress &result)
 {
     setLabelText(tr("Saving"));
     more_details_label_->setText(tr("%1 of %2")

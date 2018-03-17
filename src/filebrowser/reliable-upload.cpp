@@ -11,7 +11,6 @@
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
-#include <QUrlQuery>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"

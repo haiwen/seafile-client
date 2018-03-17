@@ -344,7 +344,7 @@ private:
     const QString file_name_;
 };
 
-struct GetIndexProgressResult {
+struct ServerIndexProgress {
     qint64 total;
     qint64 indexed;
     qint64 status;
@@ -355,7 +355,7 @@ class GetIndexProgressRequest : public SeafileApiRequest {
 public:
     GetIndexProgressRequest(const QUrl &url, const QString &task_id);
 signals:
-    void success(const GetIndexProgressResult& result);
+    void success(const ServerIndexProgress& result);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

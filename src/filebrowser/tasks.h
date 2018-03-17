@@ -80,6 +80,7 @@ public:
     QString failedPath() const { return failed_path_; }
     QString fileName() const;
     QString oid() const { return oid_; }
+    QUrl url() const { return url_; }
     Progress progress() const { return progress_; };
     bool canceled() const { return canceled_; }
 
@@ -125,6 +126,7 @@ protected:
     QString local_path_;
     QString failed_path_;
     QString oid_;
+    QUrl url_;
 
     TaskError error_;
     QString error_string_;
@@ -286,6 +288,7 @@ public:
     int retryCount() const { return retry_count_; }
     const QString& failedPath() const { return failed_path_; }
     bool canceled() const { return canceled_; }
+    QUrl url() const { return url_; }
 
     static void resetQNAM();
 

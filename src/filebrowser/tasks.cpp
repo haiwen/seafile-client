@@ -196,6 +196,7 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
         failed_path_ = fileserver_task_->failedPath();
     }
     oid_ = fileserver_task_->oid();
+    url_ = fileserver_task_->url();
     onFinished(success);
 }
 

@@ -10,11 +10,19 @@
 
 #include "utils/utils.h"
 #include "progress-dialog.h"
+#include "seafile-applet.h"
+
+namespace
+{
+const char* kQueryIndexUrl = "idx_progress";
+} // namespace
 
 
 FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWidget *parent)
         : QProgressDialog(parent),
-          task_(task)
+          task_(task),
+          progress_request_(NULL),
+          index_progress_timer_(new QTimer(this))
 {
     setWindowModality(Qt::NonModal);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -30,7 +38,7 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     QHBoxLayout *hlayout_ = new QHBoxLayout;
     more_details_label_ = new QLabel;
     more_details_label_->setText(tr("Pending"));
-    QPushButton *cancel_button_ = new QPushButton(tr("Cancel"));
+    cancel_button_ = new QPushButton(tr("Cancel"));
     QWidget *spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
@@ -55,6 +63,7 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
     connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
     connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
+    connect(index_progress_timer_, SIGNAL(timeout()), this, SLOT(onQueryUpdate()));
 
     if (task_->type() == FileNetworkTask::Upload) {
         FileUploadTask *upload_task = (FileUploadTask *)task_;
@@ -65,6 +74,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()
 {
+    if (progress_request_ != NULL)
+        progress_request_->deleteLater();
 }
 
 void FileBrowserProgressDialog::initTaskInfo()
@@ -132,11 +143,58 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
     if (task_->canceled()) {
         return;
     }
+
+    cancel_button_->setVisible(false);
+
+    progerss_id_ = task_->oid();
+
+    //https://dev.seafile.com/seafhttp/upload-api/b7443978-42cf-4cc6-87bf-add0fc7ad6e3
+    //https://dev.seafile.com/seafhttp/idx_progress
+    progress_url_ = ::urlJoin(QUrl(task_->url().toString(QUrl::PrettyDecoded).
+                                   section("upload", 0, 0)), kQueryIndexUrl);
     if (success) {
         // printf ("progress dialog: task success\n");
-        accept();
+
+        //Judge "-" as a task id or a file id
+        //Compatible with new and old server versions
+        if (progerss_id_.contains("-")) {
+            onQueryUpdate();
+            index_progress_timer_->start(3000);
+        } else {
+            accept();
+        }
     } else {
         // printf ("progress dialog: task failed\n");
+        reject();
+    }
+}
+
+void FileBrowserProgressDialog::onQueryUpdate()
+{
+    if (progress_request_) {
+        progress_request_->deleteLater();
+        progress_request_ = NULL;
+    }
+
+    progress_request_ = new GetIndexProgressRequest(progress_url_, progerss_id_);
+    connect(progress_request_, SIGNAL(success(const ServerIndexProgress&)),
+            this, SLOT(onQuerySuccess(const ServerIndexProgress&)));
+
+    progress_request_->send();
+}
+
+void FileBrowserProgressDialog::onQuerySuccess(const ServerIndexProgress &result)
+{
+    setLabelText(tr("Saving"));
+    more_details_label_->setText(tr("%1 of %2")
+                            .arg(::readableFileSizeV2(result.indexed))
+                            .arg(::readableFileSizeV2(result.total)));
+    if (result.status == 0) {
+        index_progress_timer_->stop();
+        accept();
+    } else if (result.status == -1) {
+        index_progress_timer_->stop();
+        seafApplet->warningBox(tr("File save failed"), this);
         reject();
     }
 }

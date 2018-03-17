@@ -3,6 +3,7 @@
 
 #include <QProgressDialog>
 #include <QObject>
+#include <QTimer>
 
 #include "tasks.h"
 
@@ -31,14 +32,21 @@ private slots:
     void onTaskFinished(bool success);
     void initTaskInfo();
     void onOneFileUploadFailed(const QString& filename, bool single_file);
+    void onQueryUpdate();
+    void onQuerySuccess(const ServerIndexProgress& result);
     ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:
 
     FileNetworkTask* task_;
+    QPushButton *cancel_button_;
     QLabel *description_label_;
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
+    QUrl progress_url_;
+    QString progerss_id_;
+    GetIndexProgressRequest *progress_request_;
+    QTimer *index_progress_timer_;
 };
 
 

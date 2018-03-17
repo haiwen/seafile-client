@@ -544,17 +544,15 @@ void SeafileTrayIcon::openLogDirectory()
 void SeafileTrayIcon::uploadLogDirectory()
 {
     if (!seafApplet->accountManager()->currentAccount().isValid()) {
-        seafApplet->warningBox(tr("please login first"));
+        seafApplet->warningBox(tr("Please login first"));
+        return;
     }
 
     LogDirUploader *uploader = new LogDirUploader;
     connect(uploader, SIGNAL(finished(bool)),
             this, SLOT(onUploadLogDirFinished(bool)));
-
-    QThread *uploader_thread = new QThread;
-    uploader_thread->start();
-    uploader->moveToThread(uploader_thread);
-    QMetaObject::invokeMethod(uploader, "run");
+    uploader->setAutoDelete(true);
+    QThreadPool::globalInstance()->start(uploader);
 }
 
 void SeafileTrayIcon::onUploadLogDirFinished(bool success)

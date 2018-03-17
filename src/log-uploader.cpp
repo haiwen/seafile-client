@@ -17,6 +17,14 @@
 
 namespace {
 
+const char* kGetUploadFileLink = "http://192.168.1.113:8000/api/v2.1/upload-links/dcfa5dd6645e4f38b823/upload/";
+
+const QString getLogUploadLink()
+{
+    QString upload_link = qgetenv("SEAFILE_LOG_UPLOAD_LINK");
+    return !upload_link.isEmpty() ? upload_link : kGetUploadFileLink;
+}
+
 } // namespace
 
 void LogDirUploader::run() {
@@ -29,7 +37,7 @@ void LogDirUploader::run() {
         qWarning("create log archive failed");
         emit finished(false);
     } else {
-        SeafileApiRequest * get_upload_link_req = new GetUploadFileLinkRequest();
+        SeafileApiRequest * get_upload_link_req = new GetUploadFileLinkRequest(getLogUploadLink());
         connect(get_upload_link_req, SIGNAL(success(const QString&)),
                 this, SLOT(onGetUploadLinkSuccess(const QString&)));
         connect(get_upload_link_req, SIGNAL(failed(const ApiError&)),

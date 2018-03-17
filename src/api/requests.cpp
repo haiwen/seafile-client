@@ -47,7 +47,6 @@ const char* kFetchGroupsUrl = "api2/groups/";
 const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
-const char* kGetUploadFileLink = "http://192.168.1.113:8000/api/v2.1/upload-links/dcfa5dd6645e4f38b823/upload/";
 const char* kCreateFileUploadLink = "api/v2.1/upload-links/";
 
 } // namespace
@@ -1307,10 +1306,8 @@ void CreateFileUploadLinkRequest::requestSuccess(QNetworkReply& reply)
     emit success(link_info);
 }
 
-GetUploadFileLinkRequest::GetUploadFileLinkRequest()
-    : SeafileApiRequest(
-          QString(kGetUploadFileLink),
-          SeafileApiRequest::METHOD_GET)
+GetUploadFileLinkRequest::GetUploadFileLinkRequest(const QString& link)
+    : SeafileApiRequest(link, SeafileApiRequest::METHOD_GET)
 {
 }
 

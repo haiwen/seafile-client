@@ -830,7 +830,7 @@ class GetUploadFileLinkRequest : public SeafileApiRequest
 {
     Q_OBJECT
 public:
-    GetUploadFileLinkRequest();
+    GetUploadFileLinkRequest(const QString& link);
 
 signals:
     void success(const QString& url);

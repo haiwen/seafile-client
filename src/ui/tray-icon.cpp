@@ -33,6 +33,9 @@ extern "C" {
 #include "sync-errors-dialog.h"
 #include "account-mgr.h"
 #include "filebrowser/progress-dialog.h"
+#include "api/requests.h"
+#include "filebrowser//progress-dialog.h"
+#include "filebrowser/reliable-upload.h"
 
 #include "tray-icon.h"
 #if defined(Q_OS_MAC)
@@ -57,6 +60,13 @@ namespace {
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 const int kMessageDisplayTimeMSecs = 5000;
+const char* kGetUploadFileLink = "https://dev.seafile.com/seahub/api/v2.1/upload-links/41b7942cfe3c4b718de9/upload/ ";
+
+const QString getLogUploadLink()
+{
+    QString upload_link = qgetenv("SEAFILE_LOG_UPLOAD_LINK");
+    return !upload_link.isEmpty() ? upload_link : kGetUploadFileLink;
+}
 
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {
@@ -118,7 +128,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       state_(STATE_DAEMON_UP),
       next_message_msec_(0),
       sync_errors_dialog_(nullptr),
-      about_dialog_(nullptr)
+      about_dialog_(nullptr),
+      task_(nullptr)
 {
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
@@ -547,20 +558,136 @@ void SeafileTrayIcon::uploadLogDirectory()
         seafApplet->warningBox(tr("Please login first"));
         return;
     }
+    progress_dlg_ = new QProgressDialog();
+    // set dialog attributes
+    progress_dlg_->setAttribute(Qt::WA_DeleteOnClose);
+    progress_dlg_->setWindowModality(Qt::NonModal);
+    progress_dlg_->setWindowTitle(tr("Compressing"));
+    progress_dlg_->setCancelButtonText(tr("Cancel"));
+    progress_dlg_->show();
+    progress_dlg_->raise();
+    progress_dlg_->activateWindow();
+    connect(progress_dlg_, SIGNAL(canceled()),
+            this, SLOT(onCanceled()));
+
 
     LogDirUploader *uploader = new LogDirUploader;
-    connect(uploader, SIGNAL(finished(bool)),
-            this, SLOT(onUploadLogDirFinished(bool)));
+    connect(uploader, SIGNAL(compressFinished(bool, const QString&)),
+            this, SLOT(onCompressFinished(bool, const QString&)));
     uploader->setAutoDelete(true);
     QThreadPool::globalInstance()->start(uploader);
 }
 
-void SeafileTrayIcon::onUploadLogDirFinished(bool success)
+void SeafileTrayIcon::onCanceled()
 {
+    if (task_) {
+        task_->cancel();
+    }
+    progress_dlg_ = nullptr;
+    if (QFile::exists(compressed_file_name_)) {
+        QFile::remove(compressed_file_name_);
+    }
+}
+
+void SeafileTrayIcon::onCompressFinished(bool success, const QString& compressed_file_name)
+{
+    compressed_file_name_ = compressed_file_name;
     if (success) {
-        seafApplet->messageBox(tr("Upload log files success"));
+        SeafileApiRequest * get_upload_link_req = new GetUploadFileLinkRequest(getLogUploadLink());
+        connect(get_upload_link_req, SIGNAL(success(const QString&)),
+                this, SLOT(onGetUploadLinkSuccess(const QString&)));
+        connect(get_upload_link_req, SIGNAL(failed(const ApiError&)),
+                this, SLOT(onGetUploadLinkFailed(const ApiError&)));
+        get_upload_link_req->send();
     } else {
         seafApplet->warningBox(tr("Upload log files failed"));
+    }
+}
+
+void SeafileTrayIcon::onGetUploadLinkSuccess(const QString& upload_link)
+{
+    if (progress_dlg_ == nullptr) {
+        if (QFile::exists(compressed_file_name_)) {
+            QFile::remove(compressed_file_name_);
+        }
+        return;
+    }
+    progress_dlg_->setWindowTitle(tr("Upload log files"));
+    QFile *file = new QFile(compressed_file_name_);
+    if (!file->exists()) {
+        qWarning("Upload %s failed. File does not exist.", toCStr(compressed_file_name_));
+        return;
+    }
+    if (!file->open(QIODevice::ReadOnly)) {
+        qWarning("Upload %s failed. Couldn't open file.", toCStr(compressed_file_name_));
+        return;
+    }
+    QString file_name = getBaseName(compressed_file_name_);
+    task_ = new PostFileTask(QUrl(upload_link), QString("/"),
+                                           compressed_file_name_, file, file_name, QString(), 0);
+    connect(task_, SIGNAL(finished(bool)), this, SLOT(onUploadLogDirFinished(bool)));
+
+    task_->start();
+
+    connect(task_->getReply(), SIGNAL(uploadProgress(qint64, qint64)),
+            this, SLOT(onProgressUpdate(qint64, qint64)));
+}
+
+void SeafileTrayIcon::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
+{
+    if (total_bytes == 0) {
+        return;
+    }
+    if (task_->canceled()) {
+        return;
+    }
+
+    if (total_bytes > INT_MAX) {
+        if (progress_dlg_->maximum() != INT_MAX) {
+            progress_dlg_->setMaximum(INT_MAX);
+        }
+
+        // Avoid overflow
+        double progress = double(processed_bytes) * INT_MAX / total_bytes;
+        progress_dlg_->setValue((int)progress);
+    } else {
+        if (progress_dlg_->maximum() != total_bytes) {
+            progress_dlg_->setMaximum(total_bytes);
+        }
+
+        progress_dlg_->setValue(processed_bytes);
+    }
+
+    progress_dlg_->setLabelText(tr("%1 of %2")
+        .arg(::readableFileSizeV2(processed_bytes))
+        .arg(::readableFileSizeV2(total_bytes)));
+}
+
+
+void SeafileTrayIcon::onGetUploadLinkFailed(const ApiError &)
+{
+    qWarning("Get upload link failed.");
+    seafApplet->warningBox(tr("Upload log files failed"));
+}
+
+void SeafileTrayIcon::onUploadLogDirFinished(bool success)
+{
+    if (task_->canceled()) {
+        return;
+    }
+
+    if (progress_dlg_) {
+        progress_dlg_ = nullptr;
+    }
+
+    if (!success) {
+        seafApplet->warningBox(tr("Please login first"));
+    } else {
+
+        if (QFile::exists(compressed_file_name_)) {
+            QFile::remove(compressed_file_name_);
+        }
+        seafApplet->messageBox(tr("Successfully uploaded log files"));
     }
 }
 

@@ -480,7 +480,6 @@ SET(seafile_client_sources
   src/filebrowser/file-table.cpp
   src/filebrowser/seaf-dirent.cpp
   src/filebrowser/reliable-upload.cpp
-  src/post-via-upload-link.cpp
   src/filebrowser/tasks.cpp
   src/filebrowser/progress-dialog.cpp
   src/filebrowser/sharedlink-dialog.cpp

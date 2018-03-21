@@ -98,16 +98,6 @@ class PostFileTask : public FileServerTask {
     Q_OBJECT
     friend class ReliablePostFileTask;
 public:
-    ~PostFileTask();
-
-protected:
-    void prepare();
-    void sendRequest();
-    void onHttpRequestFinished();
-
-private:
-    // Hide the constructors to ensure PostFileTask instance can only be created
-    // by ReliablePostFileTask.
     PostFileTask(const QUrl& url,
                  const QString& parent_dir,
                  const QString& local_path,
@@ -126,6 +116,17 @@ private:
                  const QString& name,
                  const QString& relative_path,
                  quint64 total_size);
+    ~PostFileTask();
+
+protected:
+    void prepare();
+    void sendRequest();
+    void onHttpRequestFinished();
+
+private:
+    // Hide the constructors to ensure PostFileTask instance can only be created
+    // by ReliablePostFileTask.
+
 
     bool isChunked() const;
     void setContentRangeHeader(QNetworkRequest *request);

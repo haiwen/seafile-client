@@ -4,8 +4,6 @@
 #include <QSystemTrayIcon>
 #include <QHash>
 #include <QQueue>
-#include <QProgressDialog>
-#include "../filebrowser/reliable-upload.h"
 
 #include "account.h"
 
@@ -18,7 +16,6 @@ class TrayNotificationManager;
 #endif
 class AboutDialog;
 class SyncErrorsDialog;
-
 class SeafileTrayIcon : public QSystemTrayIcon {
     Q_OBJECT
 
@@ -70,12 +67,6 @@ private slots:
     void uploadLogDirectory();
     void about();
     void checkTrayIconMessageQueue();
-    void onCompressFinished(bool success, const QString& compressed_file_name);
-    void onGetUploadLinkSuccess(const QString&);
-    void onGetUploadLinkFailed(const ApiError&);
-    void onUploadLogDirFinished(bool success);
-    void onProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
-    void onCanceled();
 
     // only used on windows
     void onMessageClicked();
@@ -146,9 +137,6 @@ private:
 
     SyncErrorsDialog *sync_errors_dialog_;
     AboutDialog *about_dialog_;
-    QString compressed_file_name_;
-    PostFileTask *task_;
-    QProgressDialog *progress_dlg_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

@@ -124,10 +124,6 @@ protected:
     void onHttpRequestFinished();
 
 private:
-    // Hide the constructors to ensure PostFileTask instance can only be created
-    // by ReliablePostFileTask.
-
-
     bool isChunked() const;
     void setContentRangeHeader(QNetworkRequest *request);
 

@@ -304,7 +304,6 @@ signals:
 public slots:
     void start();
     virtual void cancel();
-    QNetworkReply *getReply() const { return reply_; }
 
 protected slots:
     void onSslErrors(const QList<QSslError>& errors);

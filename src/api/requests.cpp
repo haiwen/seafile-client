@@ -820,7 +820,9 @@ FileSearchRequest::FileSearchRequest(const Account& account,
     }
     // per_page = 2;
     setUrlParam("per_page", QString::number(per_page));
-    setUrlParam("search_repo", repo_id);
+    if (!repo_id.isEmpty()) {
+        setUrlParam("search_repo", repo_id);
+    }
 }
 
 void FileSearchRequest::requestSuccess(QNetworkReply& reply)

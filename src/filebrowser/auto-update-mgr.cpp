@@ -100,7 +100,7 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
 
 void AutoUpdateManager::cleanCachedFile()
 {
-    qDebug("[AutoUpdateManager] cancel all download tasks");
+    qWarning("[AutoUpdateManager] cancel all download tasks");
     TransferManager::instance()->cancelAllDownloadTasks();
 
     const Account cur_account = seafApplet->accountManager()->currentAccount();
@@ -109,8 +109,10 @@ void AutoUpdateManager::cleanCachedFile()
             watch_infos_.remove(key);
     }
 
+    qWarning("[AutoUpdateManager] clean file caches db");
     FileCache::instance()->cleanCurrentAccountCache();
 
+    qWarning("[AutoUpdateManager] clean file caches");
     CachedFilesCleaner *cleaner = new CachedFilesCleaner();
     QThreadPool::globalInstance()->start(cleaner);
 }

@@ -8,7 +8,7 @@
 
 class AutoUpdateAdapter;
 
-// Auto update seafile client program. Only used on windows.
+// Auto update seafile client program. Only used on windows/mac.
 class AutoUpdateService : public QObject
 {
     SINGLETON_DEFINE(AutoUpdateService)

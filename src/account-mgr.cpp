@@ -706,6 +706,7 @@ void AccountManager::invalidateCurrentLogin()
 
 bool AccountManager::reloginAccount(const Account &account_in)
 {
+    qWarning("Relogin to account %s", account_in.username.toUtf8().data());
     bool accepted;
 
     // Make a copy of the account arugment because it may be released after the

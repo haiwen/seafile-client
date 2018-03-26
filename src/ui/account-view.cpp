@@ -349,6 +349,7 @@ void AccountView::toggleAccount()
         return;
     }
 
+    qWarning("Logging out current account %s", account.username.toUtf8().data());
     AutoUpdateManager::instance()->cleanCachedFile();
 
     // logout Account

@@ -900,6 +900,14 @@ Bitte %1</translation>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1491,7 +1499,8 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Datei %1 konnte nicht synchronisiert werden.
+Die Datei wurde von jemand anderem gesperrt. Ihre neue Version dieser Datei kann nicht hochgeladen werden.</translation>
     </message>
 </context>
 <context>

@@ -901,6 +901,14 @@ failed to upload.</source>
         <source>Abort</source>
         <translation>Отменить</translation>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1492,7 +1500,8 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось синхронизировать файл %1
+Файл заблокирован другим пользователем. Обновление для этого файла не загружено.</translation>
     </message>
 </context>
 <context>

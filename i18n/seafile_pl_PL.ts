@@ -38,11 +38,11 @@
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się usunąć tokena synchronizacji lokalnego repozytorium: %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się pobrać informacji synchronizacji z serwera: %1</translation>
     </message>
 </context>
 <context>
@@ -194,23 +194,23 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Brak dostępu!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autoryzacja wygasła</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Plik nie istnieje</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation type="unfinished"/>
+        <translation>Plik jest zablokowany przez %1, proszę spróbować później</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Niepowodzenie wgrywania: %1</translation>
     </message>
 </context>
 <context>
@@ -704,7 +704,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 elementów</translation>
     </message>
     <message>
         <source>Folder name</source>
@@ -756,7 +756,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Plik nie istnieje</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
@@ -824,35 +824,35 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Nie posiadasz uprawnień do wgrywania do tego folderu</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autoryzacja wygasła</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Brak dostępu!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Nie znaleziono biblioteki/folderu</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się wgrać pliku %1: %2</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation type="unfinished"/>
+        <translation>Nie można utworzyć folderu pamięci podręcznej</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation type="unfinished"/>
+        <translation>Nie można otworzyć folderu pamięci podręcznej</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Szukaj plików</translation>
     </message>
 </context>
 <context>
@@ -887,18 +887,26 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się wgrać pliku &quot;%1&quot;, czy chcesz spróbować ponownie?</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Ponów</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Pomiń</translation>
     </message>
     <message>
         <source>Abort</source>
+        <translation>Przerwij</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -906,30 +914,30 @@ nieudane przesyłanie.</translation>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Rozmiar</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>Ostatnia modyfikacja</translation>
     </message>
     <message>
         <source>Kind</source>
-        <translation type="unfinished"/>
+        <translation>Rodzaj</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż w folderze</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż w folderze</translation>
     </message>
 </context>
 <context>
@@ -1063,19 +1071,19 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>Ponów wysyłanie</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>Usuń wersję lokalną</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Zapisz lokalną wersję jako...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
-        <translation type="unfinished"/>
+        <translation>Otwórz lokalny folder pamięci podręcznej</translation>
     </message>
 </context>
 <context>
@@ -1268,7 +1276,7 @@ Czy chcesz pobrać swoją domyślną bibliotekę?</translation>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Pojedyncze logowanie</translation>
     </message>
     <message>
         <source>Re-login</source>
@@ -1394,7 +1402,7 @@ Czy chcesz pobrać swoją domyślną bibliotekę?</translation>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>Logowanie automatyczne</translation>
     </message>
 </context>
 <context>
@@ -1487,12 +1495,13 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacja pliku %1 jest niemożliwa z powodu aktualnej konfiguracji praw dostępu do katalogu.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zsynchronizować pliku %1
+Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są synchronizowane.</translation>
     </message>
 </context>
 <context>
@@ -2110,11 +2119,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa biblioteki zawiera nieprawidłowe znaki, takie jak &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacja pliku jest niemożliwa z powodu aktualnej konfiguracji praw dostępu do katalogu</translation>
     </message>
 </context>
 <context>
@@ -3047,35 +3056,35 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>Wpisz token uwierzytelniania dwuskładnikowego</translation>
     </message>
     <message>
         <source>Two Factor Authentication</source>
-        <translation type="unfinished"/>
+        <translation>Uwierzytelnianie dwuskładnikowe</translation>
     </message>
     <message>
         <source>Please enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>Proszę wpisać token uwierzytelniania dwuskładnikowego</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <source>mText</source>
-        <translation type="unfinished"/>
+        <translation>mText</translation>
     </message>
     <message>
         <source>Remember this device</source>
-        <translation type="unfinished"/>
+        <translation>Zapamiętaj to urządzenie</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

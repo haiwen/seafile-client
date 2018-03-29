@@ -900,6 +900,14 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <source>Abort</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>

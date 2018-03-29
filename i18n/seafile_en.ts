@@ -893,6 +893,14 @@ failed to upload.</source>
         <source>Abort</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>

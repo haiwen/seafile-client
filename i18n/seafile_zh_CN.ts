@@ -896,6 +896,14 @@ failed to upload.</source>
         <source>Abort</source>
         <translation>中止</translation>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation>保存中</translation>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation>文件保存失败</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>

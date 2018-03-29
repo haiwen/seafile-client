@@ -901,6 +901,14 @@ n&apos;a pu être envoyé.</translation>
         <source>Abort</source>
         <translation>Annuler</translation>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>

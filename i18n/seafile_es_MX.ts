@@ -901,6 +901,14 @@ falló al subir.</translation>
         <source>Abort</source>
         <translation>Abortar</translation>
     </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1492,7 +1500,8 @@ El usuario dueño de esta bibilioteca se quedó sin espacio.</translation>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al sincronizar el archivo %1
+El archivo está bloqueado por otro usuario en el servidor. La actualización de este archivo no es subida.</translation>
     </message>
 </context>
 <context>

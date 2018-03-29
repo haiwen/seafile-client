@@ -202,7 +202,7 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Il file non esiste</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
@@ -852,7 +852,7 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Cerca file</translation>
     </message>
 </context>
 <context>
@@ -891,14 +891,22 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Riprova</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Salta</translation>
     </message>
     <message>
         <source>Abort</source>
+        <translation>Annulla</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File save failed</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -906,15 +914,15 @@ non caricato a causa di un errore.</translation>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nome</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Dimensione</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>Ultima Modifica</translation>
     </message>
     <message>
         <source>Kind</source>
@@ -925,11 +933,11 @@ non caricato a causa di un errore.</translation>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Mostra nella cartella</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>Mostra nella cartella</translation>
     </message>
 </context>
 <context>
@@ -1354,15 +1362,15 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
     <message>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>Server:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Per esempio: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>o http://192.168.1.24:8000</translation>
     </message>
     <message>
         <source>Password:</source>
@@ -1378,7 +1386,7 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
     <message>
         <source>Email / Username:</source>
-        <translation type="unfinished"/>
+        <translation>Email / Nome Utente:</translation>
     </message>
     <message>
         <source>e.g. Jim&apos;s laptop</source>
@@ -1409,7 +1417,7 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
     <message>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>Aggiungi un account</translation>
     </message>
 </context>
 <context>
@@ -1558,7 +1566,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Share</source>
-        <translation type="unfinished"/>
+        <translation>Condividi</translation>
     </message>
     <message>
         <source>Permission:</source>
@@ -1566,15 +1574,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Read-Write</source>
-        <translation type="unfinished"/>
+        <translation>Lettura-Scrittura</translation>
     </message>
     <message>
         <source>Read-Only</source>
-        <translation type="unfinished"/>
+        <translation>In sola lettura</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -1701,7 +1709,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Cannot connect to server</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile connettersi al server</translation>
     </message>
     <message>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
@@ -1893,7 +1901,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Added</source>
-        <translation type="unfinished"/>
+        <translation>Aggiunto</translation>
     </message>
     <message>
         <source>Deleted</source>
@@ -1905,35 +1913,35 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Modified</source>
-        <translation type="unfinished"/>
+        <translation>Modificato</translation>
     </message>
     <message>
         <source>Renamed</source>
-        <translation type="unfinished"/>
+        <translation>Rinominato</translation>
     </message>
     <message>
         <source>Added or modified</source>
-        <translation type="unfinished"/>
+        <translation>Aggiunto o modificato</translation>
     </message>
     <message>
         <source>Moved</source>
-        <translation type="unfinished"/>
+        <translation>Spostato</translation>
     </message>
     <message>
         <source>Added directory</source>
-        <translation type="unfinished"/>
+        <translation>Cartella aggiunta</translation>
     </message>
     <message>
         <source>Removed directory</source>
-        <translation type="unfinished"/>
+        <translation>Cartella rimossa</translation>
     </message>
     <message>
         <source>Renamed directory</source>
-        <translation type="unfinished"/>
+        <translation>Cartella rinominata</translation>
     </message>
     <message>
         <source>Moved directory</source>
-        <translation type="unfinished"/>
+        <translation>Cartella spostata</translation>
     </message>
     <message>
         <source>files</source>
@@ -1973,27 +1981,27 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>1 day ago</source>
-        <translation type="unfinished"/>
+        <translation>1 giorno fa</translation>
     </message>
     <message>
         <source>%1 days ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 giorni fa</translation>
     </message>
     <message>
         <source>1 hour ago</source>
-        <translation type="unfinished"/>
+        <translation>1 ora fa</translation>
     </message>
     <message>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 ore fa</translation>
     </message>
     <message>
         <source>1 minute ago</source>
-        <translation type="unfinished"/>
+        <translation>1 minuto fa</translation>
     </message>
     <message>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 minuti fa</translation>
     </message>
     <message>
         <source>&lt;Not Part of Certificate&gt;</source>
@@ -2017,15 +2025,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Folder</source>
-        <translation type="unfinished"/>
+        <translation>Cartella</translation>
     </message>
     <message>
         <source>Readonly Folder</source>
-        <translation type="unfinished"/>
+        <translation>Cartella in sola lettura</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento</translation>
     </message>
     <message>
         <source>PDF Document</source>
@@ -2033,23 +2041,23 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Image File</source>
-        <translation type="unfinished"/>
+        <translation>Immagine</translation>
     </message>
     <message>
         <source>Text Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento di Testo</translation>
     </message>
     <message>
         <source>Audio File</source>
-        <translation type="unfinished"/>
+        <translation>File Audio</translation>
     </message>
     <message>
         <source>Video File</source>
-        <translation type="unfinished"/>
+        <translation>File Video</translation>
     </message>
     <message>
         <source>Word Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento Word</translation>
     </message>
     <message>
         <source>PowerPoint Document</source>
@@ -2116,7 +2124,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>ReliablePostFileTask</name>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Il file non esiste</translation>
     </message>
 </context>
 <context>
@@ -2236,19 +2244,19 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Shared with me</source>
-        <translation type="unfinished"/>
+        <translation>Condivise con me</translation>
     </message>
     <message>
         <source>Shared with all</source>
-        <translation type="unfinished"/>
+        <translation>Condivise con tutti</translation>
     </message>
     <message>
         <source>Shared with groups</source>
-        <translation type="unfinished"/>
+        <translation>Condivise con il gruppo</translation>
     </message>
     <message>
         <source>Synced Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Librerie Sincronizzate</translation>
     </message>
     <message>
         <source>sync initializing</source>
@@ -2259,15 +2267,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>RepoTreeView</name>
     <message>
         <source>Disable auto sync</source>
-        <translation>Disattiva auto sync</translation>
+        <translation>Disabilita sincronizzazione automatica</translation>
     </message>
     <message>
         <source>Enable auto sync</source>
-        <translation>Attiva auto sync</translation>
+        <translation>Abilita sincronizzazione automatica</translation>
     </message>
     <message>
         <source>Show &amp;details</source>
-        <translation type="unfinished"/>
+        <translation>Mostra &amp;dettagli</translation>
     </message>
     <message>
         <source>Show details of this library</source>
@@ -2287,7 +2295,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Sync &amp;now</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza &amp;adesso</translation>
     </message>
     <message>
         <source>Sync this library immediately</source>
@@ -2363,7 +2371,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sincronizza questa libreria</translation>
     </message>
     <message>
         <source>unsync and resync this library</source>
@@ -2442,7 +2450,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>ReposTab</name>
     <message>
         <source>Search libraries</source>
-        <translation type="unfinished"/>
+        <translation>Cerca librerie</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2472,19 +2480,19 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Si</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>No</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annulla</translation>
     </message>
 </context>
 <context>
@@ -2495,7 +2503,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Copia negli appunti</translation>
     </message>
     <message>
         <source>%1 Web Link:</source>
@@ -2507,7 +2515,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -2573,7 +2581,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>File</translation>
     </message>
     <message>
         <source>auto sync is disabled</source>
@@ -2581,11 +2589,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>Caricando</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Scaricando</translation>
     </message>
     <message>
         <source>open %1 log folder</source>
@@ -2615,11 +2623,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>SearchTab</name>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Cerca file</translation>
     </message>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>riprova</translation>
     </message>
     <message>
         <source>Failed to search&lt;br/&gt;Please %1</source>
@@ -2792,7 +2800,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
-        <translation type="unfinished"/>
+        <translation>Non verificare il certificato ssl del server</translation>
     </message>
     <message>
         <source>Enable syncing with an existing folder with a different name</source>
@@ -2804,35 +2812,35 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>Lingua (richiede riavvio)</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Lingua</translation>
     </message>
     <message>
         <source>Proxy Type:</source>
-        <translation type="unfinished"/>
+        <translation>Tipo di Proxy:</translation>
     </message>
     <message>
         <source>Host:</source>
-        <translation type="unfinished"/>
+        <translation>Host:</translation>
     </message>
     <message>
         <source>Port:</source>
-        <translation type="unfinished"/>
+        <translation>Porta:</translation>
     </message>
     <message>
         <source>0</source>
-        <translation type="unfinished"/>
+        <translation>0</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"/>
+        <translation>Nome Utente:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"/>
+        <translation>Password:</translation>
     </message>
     <message>
         <source>Proxy server requires a password</source>
@@ -2855,11 +2863,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>SharedItemDelegate</name>
     <message>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>Lettura-Scrittura</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>In sola lettura</translation>
     </message>
     <message>
         <source>Remove Share</source>
@@ -2878,19 +2886,19 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>Lettura-Scrittura</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>In sola lettura</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Gruppo</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Utente</translation>
     </message>
     <message>
         <source>Permission</source>
@@ -2917,11 +2925,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Copia negli appunti</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -3023,7 +3031,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Library</source>
-        <translation type="unfinished"/>
+        <translation>Libreria</translation>
     </message>
     <message>
         <source>Path</source>
@@ -3066,11 +3074,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

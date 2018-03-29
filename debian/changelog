@@ -1,13 +1,18 @@
+seafile-gui (6.1.7) unstable; urgency=low
+
+  * new upstream release
+
+ -- Jonathan Xu <jonathan.xu@seafile.com>  Thur, 29 Mar 2018 14:48:10 +0800
 seafile-gui (6.1.6) unstable; urgency=low
 
   * new upstream release
 
- -- Jonathan Xu <jonathan.xu@seafile.com>  Mar, 2 Tue 2017 12:20:10 +0800
+ -- Jonathan Xu <jonathan.xu@seafile.com>  Tue, 2 Mar 2018 12:20:10 +0800
 seafile-gui (6.1.5) unstable; urgency=low
 
   * new upstream release
 
- -- Jonathan Xu <jonathan.xu@seafile.com>  Fri, 2 Feb 2017 13:59:10 +0800
+ -- Jonathan Xu <jonathan.xu@seafile.com>  Fri, 2 Feb 2018 13:59:10 +0800
 seafile-gui (6.1.4) unstable; urgency=low
 
   * new upstream release

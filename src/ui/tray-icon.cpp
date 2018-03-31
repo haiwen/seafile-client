@@ -50,7 +50,6 @@ extern void qt_mac_set_dock_menu(QMenu *menu);
 #endif
 
 #include "src/ui/about-dialog.h"
-#include "log-uploader.h"
 
 namespace {
 
@@ -118,7 +117,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
       state_(STATE_DAEMON_UP),
       next_message_msec_(0),
       sync_errors_dialog_(nullptr),
-      about_dialog_(nullptr)
+      about_dialog_(nullptr),
+      log_dir_uploader_(nullptr)
 {
     setState(STATE_DAEMON_DOWN);
     rotate_timer_ = new QTimer(this);
@@ -547,8 +547,17 @@ void SeafileTrayIcon::uploadLogDirectory()
         seafApplet->warningBox(tr("Please login first"));
         return;
     }
-    LogDirUpload *uploader = new LogDirUpload();
-    uploader->start();
+
+    if (log_dir_uploader_ == nullptr) {
+        log_dir_uploader_ = new LogDirUploader();
+        connect(log_dir_uploader_, SIGNAL(finished()), this, SLOT(clearUploader()));
+        log_dir_uploader_->start();
+    }
+}
+
+void SeafileTrayIcon::clearUploader()
+{
+    log_dir_uploader_ = nullptr;
 }
 
 void SeafileTrayIcon::showSettingsWindow()

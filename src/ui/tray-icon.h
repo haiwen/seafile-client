@@ -6,6 +6,7 @@
 #include <QQueue>
 
 #include "account.h"
+#include "log-uploader.h"
 
 class ApiError;
 class QAction;
@@ -67,6 +68,7 @@ private slots:
     void uploadLogDirectory();
     void about();
     void checkTrayIconMessageQueue();
+    void clearUploader();
 
     // only used on windows
     void onMessageClicked();
@@ -137,6 +139,7 @@ private:
 
     SyncErrorsDialog *sync_errors_dialog_;
     AboutDialog *about_dialog_;
+    LogDirUploader *log_dir_uploader_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

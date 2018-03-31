@@ -26,12 +26,12 @@ const QString getLogUploadLink()
 } // namespace
 
 
-LogDirUpload::LogDirUpload()
+LogDirUploader::LogDirUploader()
     : task_(nullptr)
 {
 }
 
-LogDirUpload::~LogDirUpload()
+LogDirUploader::~LogDirUploader()
 {
     if (task_) {
         task_->deleteLater();
@@ -39,7 +39,7 @@ LogDirUpload::~LogDirUpload()
     }
 }
 
-void LogDirUpload::start()
+void LogDirUploader::start()
 {
     progress_dlg_ = new LogUploadProgressDialog();
     connect(progress_dlg_, SIGNAL(canceled()),
@@ -52,7 +52,16 @@ void LogDirUpload::start()
     QThreadPool::globalInstance()->start(uploader);
 }
 
-void LogDirUpload::onCanceled()
+void LogDirUploader::onFinished()
+{
+    deleteLater();
+    if (progress_dlg_) {
+        progress_dlg_->accept();
+        progress_dlg_ = nullptr;
+    }
+}
+
+void LogDirUploader::onCanceled()
 {
     if (task_) {
         task_->cancel();
@@ -61,9 +70,11 @@ void LogDirUpload::onCanceled()
     if (QFile::exists(compressed_file_name_)) {
         QFile::remove(compressed_file_name_);
     }
+    onFinished();
+    emit finished();
 }
 
-void LogDirUpload::onCompressFinished(bool success, const QString& compressed_file_name)
+void LogDirUploader::onCompressFinished(bool success, const QString& compressed_file_name)
 {
     compressed_file_name_ = compressed_file_name;
     if (success) {
@@ -75,10 +86,11 @@ void LogDirUpload::onCompressFinished(bool success, const QString& compressed_fi
         get_upload_link_req->send();
     } else {
         seafApplet->warningBox(tr("Upload log files failed"));
+        onFinished();
     }
 }
 
-void LogDirUpload::onGetUploadLinkSuccess(const QString& upload_link)
+void LogDirUploader::onGetUploadLinkSuccess(const QString& upload_link)
 {
     if (progress_dlg_ == nullptr) {
         if (QFile::exists(compressed_file_name_)) {
@@ -100,20 +112,20 @@ void LogDirUpload::onGetUploadLinkSuccess(const QString& upload_link)
     task_ = new PostFileTask(QUrl(upload_link), QString("/"),
                                            compressed_file_name_, file, file_name, QString(), 0);
     connect(task_, SIGNAL(finished(bool)), this, SLOT(onUploadLogDirFinished(bool)));
-
-    task_->start();
-
     connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SLOT(onProgressUpdate(qint64, qint64)));
+
+    task_->start();
 }
 
-void LogDirUpload::onGetUploadLinkFailed(const ApiError &)
+void LogDirUploader::onGetUploadLinkFailed(const ApiError &)
 {
     qWarning("Get upload link failed.");
     seafApplet->warningBox(tr("Upload log files failed"));
+    onFinished();
 }
 
-void LogDirUpload::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
+void LogDirUploader::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
 {
     if (total_bytes == 0) {
         return;
@@ -124,7 +136,7 @@ void LogDirUpload::onProgressUpdate(qint64 processed_bytes, qint64 total_bytes)
     progress_dlg_->updateData(processed_bytes, total_bytes);
 }
 
-void LogDirUpload::onUploadLogDirFinished(bool success)
+void LogDirUploader::onUploadLogDirFinished(bool success)
 {
     if (task_->canceled()) {
         return;
@@ -135,7 +147,18 @@ void LogDirUpload::onUploadLogDirFinished(bool success)
     }
 
     if (!success) {
-        seafApplet->warningBox(tr("Please login first"));
+        QString _error;
+        if (task_->httpErrorCode() == 403) {
+            _error = tr("Permission Error!");
+        } else if (task_->httpErrorCode() == 404) {
+            _error = tr("Library/Folder not found.");
+        } else if (task_->httpErrorCode() == 401) {
+            _error = tr("Authorization expired");
+        } else {
+            _error = task_->errorString();
+        }
+        QString msg = tr("Upload log files failed %2").arg(_error);
+        seafApplet->warningBox(msg);
     } else {
 
         if (QFile::exists(compressed_file_name_)) {
@@ -143,6 +166,8 @@ void LogDirUpload::onUploadLogDirFinished(bool success)
         }
         seafApplet->messageBox(tr("Successfully uploaded log files"));
     }
+    onFinished();
+    emit finished();
 }
 
 LogUploadProgressDialog::LogUploadProgressDialog(QWidget *parent)

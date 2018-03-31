@@ -8,11 +8,13 @@
 #include "filebrowser/reliable-upload.h"
 
 class LogUploadProgressDialog;
-class LogDirUpload : public QObject {
+class LogDirUploader : public QObject {
     Q_OBJECT
 public:
-    LogDirUpload();
-    ~LogDirUpload();
+    LogDirUploader();
+    ~LogDirUploader();
+signals:
+    void finished();
 public slots:
     virtual void start();
 private slots:
@@ -23,6 +25,7 @@ private slots:
     void onUploadLogDirFinished(bool success);
     void onProgressUpdate(qint64 processed_bytes, qint64 total_bytes);
 private:
+    void onFinished();
     QString compressed_file_name_;
     PostFileTask *task_;
     LogUploadProgressDialog *progress_dlg_;

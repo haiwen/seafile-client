@@ -206,6 +206,8 @@ if (APPLE)
     SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 endif()
 
+ADD_DEFINITIONS(-DQUAZIP_STATIC)
+
 # MOC FILES
 SET(moc_headers
   src/seafile-applet.h
@@ -226,6 +228,7 @@ SET(moc_headers
   src/settings-mgr.h
   src/traynotificationwidget.h
   src/traynotificationmanager.h
+  src/log-uploader.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/requests.h
@@ -289,6 +292,7 @@ SET(moc_headers
   src/filebrowser/transfer-mgr.h
   src/filebrowser/thumbnail-service.h
   third_party/QtAwesome/QtAwesome.h
+  third_party/quazip/quazipfile.h
   ${platform_specific_moc_headers}
 )
 
@@ -372,6 +376,8 @@ PKG_CHECK_MODULES(OPENSSL REQUIRED openssl>=0.98)
 PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 
 PKG_CHECK_MODULES(LIBEVENT REQUIRED libevent>=2.0)
+
+PKG_CHECK_MODULES(ZLIB REQUIRED zlib>=1.2)
 ####################
 ###### END: other libraries configuration
 ####################
@@ -403,6 +409,7 @@ SET(seafile_client_sources
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp
   src/certs-mgr.cpp
+  src/log-uploader.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/api-error.cpp
@@ -493,6 +500,7 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_CURRENT_SOURCE_DIR}/third_party/QtAwesome
+  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/quazip
   )
 
 FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
@@ -520,6 +528,7 @@ LINK_DIRECTORIES(
   ${LIBSEARPC_LIBRARY_DIRS}
   ${SQLITE3_LIBRARRY_DIRS}
   ${JANSSON_LIBRARRY_DIRS}
+  ${ZLIB_LIBRARRY_DIRS}
 )
 
 ####################
@@ -553,7 +562,7 @@ FUNCTION(ADD_SC_LIBRARY name)
 
     TARGET_LINK_LIBRARIES(${name} ${QT_LIBRARIES}
         ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
-        ${EXTRA_LIBS} -lglib-2.0 ${ARG_LINK_LIBS})
+        ${EXTRA_LIBS} -lglib-2.0 ${ARG_LINK_LIBS} ${ZLIB_LIBRARIES})
 ENDFUNCTION(ADD_SC_LIBRARY)
 
 # library utils
@@ -586,7 +595,27 @@ ENDIF()
 
 ADD_SC_LIBRARY(utils ${utils_sources})
 
-SET(SC_LIBS utils)
+# library quazip
+LIST(APPEND quazip_sources
+    third_party/quazip/JlCompress.cpp
+    third_party/quazip/quazip.cpp
+    third_party/quazip/quazipfile.cpp
+    third_party/quazip/quazipfileinfo.cpp
+    third_party/quazip/quaziodevice.cpp
+    third_party/quazip/quagzipfile.cpp
+    third_party/quazip/quazipnewinfo.cpp
+    third_party/quazip/quaadler32.cpp
+    third_party/quazip/quazipdir.cpp
+    third_party/quazip/quacrc32.cpp
+    third_party/quazip/qioapi.cpp
+    third_party/quazip/zip.c
+    third_party/quazip/unzip.c
+    )
+
+ADD_SC_LIBRARY(quazip ${quazip_sources})
+
+SET(SC_LIBS utils quazip)
+#SET(SC_LIBS utils)
 
 ####################
 ###### end: lib
@@ -766,6 +795,7 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${LIBSEARPC_LIBRARIES}
   ${LIBCCNET_LIBRARIES}
   ${LIBSEAFILE_LIBRARIES}
+  ${ZLIB_LIBRARIES}
   ${EXTRA_LIBS}
 )
 
@@ -822,7 +852,7 @@ IF (BUILD_TESTING)
 
         TARGET_LINK_LIBRARIES(${testname} ${QT_LIBRARIES}
                 ${QTESTLIB} ${SQLITE3_LIBRARIES} ${JANSSON_LIBRARIES}
-                ${EXTRA_LIBS} -lglib-2.0 ${SC_LIBS})
+                ${EXTRA_LIBS} -lglib-2.0 ${SC_LIBS} ${ZLIB_LIBRARIES})
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 

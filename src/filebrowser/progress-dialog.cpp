@@ -24,6 +24,26 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
           progress_request_(NULL),
           index_progress_timer_(new QTimer(this))
 {
+    initUI();
+    initTaskInfo();
+
+    connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
+            this, SLOT(onProgressUpdate(qint64, qint64)));
+    connect(task_, SIGNAL(nameUpdate(QString)),
+            this, SLOT(onCurrentNameUpdate(QString)));
+    connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
+    connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
+    connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
+
+    if (task_->type() == FileNetworkTask::Upload) {
+        FileUploadTask *upload_task = (FileUploadTask *)task_;
+        connect(upload_task, SIGNAL(oneFileFailed(const QString&, bool)),
+                this, SLOT(onOneFileUploadFailed(const QString&, bool)));
+    }
+}
+
+void FileBrowserProgressDialog::initUI()
+{
     setWindowModality(Qt::NonModal);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -53,23 +73,6 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     setLabel(description_label_);
     setBar(progress_bar_);
     setCancelButton(cancel_button_);
-
-    initTaskInfo();
-
-    connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
-            this, SLOT(onProgressUpdate(qint64, qint64)));
-    connect(task_, SIGNAL(nameUpdate(QString)),
-            this, SLOT(onCurrentNameUpdate(QString)));
-    connect(task_, SIGNAL(finished(bool)), this, SLOT(onTaskFinished(bool)));
-    connect(task_, SIGNAL(retried(int)), this, SLOT(initTaskInfo()));
-    connect(this, SIGNAL(canceled()), this, SLOT(cancel()));
-    connect(index_progress_timer_, SIGNAL(timeout()), this, SLOT(onQueryUpdate()));
-
-    if (task_->type() == FileNetworkTask::Upload) {
-        FileUploadTask *upload_task = (FileUploadTask *)task_;
-        connect(upload_task, SIGNAL(oneFileFailed(const QString&, bool)),
-                this, SLOT(onOneFileUploadFailed(const QString&, bool)));
-    }
 }
 
 FileBrowserProgressDialog::~FileBrowserProgressDialog()

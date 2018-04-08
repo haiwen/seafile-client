@@ -795,4 +795,51 @@ private:
     QString repo_id_;
 };
 
+struct UploadLinkInfo {
+    QString username;
+    QString repo_id;
+    QString ctime;
+    QString token;
+    QString link;
+    QString path;
+};
+
+class CreateFileUploadLinkRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    CreateFileUploadLinkRequest(const Account& account,
+                         const QString& repo_id,
+                         const QString& path,
+                         const QString& password = QString());
+
+signals:
+    void success(const UploadLinkInfo& link_info);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(CreateFileUploadLinkRequest);
+    QString repo_id_;
+    QString path_;
+    QString password_;
+};
+
+class GetUploadFileLinkRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetUploadFileLinkRequest(const QString& link);
+
+signals:
+    void success(const QString& url);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetUploadFileLinkRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

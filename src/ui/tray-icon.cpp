@@ -212,7 +212,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(open_seafile_folder_action_);
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
-    context_menu_->addAction(upload_log_directory_action_);
+    //context_menu_->addAction(upload_log_directory_action_);
     context_menu_->addAction(show_sync_errors_action_);
     // context_menu_->addMenu(help_menu_);
     context_menu_->addSeparator();
@@ -263,7 +263,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     global_menu_->addAction(open_seafile_folder_action_);
     global_menu_->addAction(settings_action_);
     global_menu_->addAction(open_log_directory_action_);
-    global_menu_->addAction(upload_log_directory_action_);
+    //global_menu_->addAction(upload_log_directory_action_);
     global_menu_->addAction(show_sync_errors_action_);
     global_menu_->addSeparator();
     global_menu_->addAction(enable_auto_sync_action_);

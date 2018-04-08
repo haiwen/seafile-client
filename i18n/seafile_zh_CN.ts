@@ -1261,6 +1261,52 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
+    <name>LogDirUploader</name>
+    <message>
+        <source>Upload log files failed</source>
+        <translation>上传日志文件失败</translation>
+    </message>
+    <message>
+        <source>Upload log files</source>
+        <translation>上传日志文件</translation>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation>权限错误！</translation>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation>资料库／文件夹没有发现</translation>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation>账号验证信息已过期</translation>
+    </message>
+    <message>
+        <source>Upload log files failed :%1</source>
+        <translation>上传日志文件失败 ：%1</translation>
+    </message>
+    <message>
+        <source>Successfully uploaded log files</source>
+        <translation>上传日志文件成功</translation>
+    </message>
+</context>
+<context>
+    <name>LogUploadProgressDialog</name>
+    <message>
+        <source>Compressing</source>
+        <translation>压缩中</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation>%1 的 %2</translation>
+    </message>
+</context>
+<context>
     <name>LoginDialog</name>
     <message>
         <source>Add an account</source>
@@ -2603,6 +2649,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>some servers not connected</source>
         <translation>一些服务器未连接</translation>
     </message>
+    <message>
+        <source>Upload log files</source>
+        <translation>上传日志文件</translation>
+    </message>
+    <message>
+        <source>upload %1 log files</source>
+        <translation>上传 %1 日志文件</translation>
+    </message>
+    <message>
+        <source>Please login first</source>
+        <translation>请先登录</translation>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>
@@ -2926,17 +2984,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <message>
         <source>OK</source>
         <translation>确认</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation>Shibboleth 方式登陆</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>保存帐户失败</translation>
     </message>
 </context>
 <context>

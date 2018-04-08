@@ -1269,6 +1269,52 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
+    <name>LogDirUploader</name>
+    <message>
+        <source>Upload log files failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files failed :%1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully uploaded log files</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>LogUploadProgressDialog</name>
+    <message>
+        <source>Compressing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>LoginDialog</name>
     <message>
         <source>Add an account</source>
@@ -2613,6 +2659,18 @@ El archivo está bloqueado por otro usuario en el servidor. La actualización de
         <source>some servers not connected</source>
         <translation>algunos servidores no contectados</translation>
     </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>upload %1 log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>
@@ -2936,17 +2994,6 @@ El archivo está bloqueado por otro usuario en el servidor. La actualización de
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation>Iniciar sesión con Shibboleth</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>Fallo al guardar la cuenta actual</translation>
     </message>
 </context>
 <context>

@@ -902,11 +902,11 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Speichern …</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Speichern der Datei fehlgeschlagen</translation>
     </message>
 </context>
 <context>
@@ -1265,6 +1265,52 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     <message>
         <source>load more</source>
         <translation>mehr laden</translation>
+    </message>
+</context>
+<context>
+    <name>LogDirUploader</name>
+    <message>
+        <source>Upload log files failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files failed :%1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully uploaded log files</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>LogUploadProgressDialog</name>
+    <message>
+        <source>Compressing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2612,6 +2658,18 @@ Die Datei wurde von jemand anderem gesperrt. Ihre neue Version dieser Datei kann
         <source>some servers not connected</source>
         <translation>Einige Server nicht verbunden</translation>
     </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>upload %1 log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>
@@ -2935,17 +2993,6 @@ Die Datei wurde von jemand anderem gesperrt. Ihre neue Version dieser Datei kann
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation>Mit Shibboleth einloggen</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>Konto konnte nicht gespeichert werden</translation>
     </message>
 </context>
 <context>

@@ -157,7 +157,7 @@ void LogDirUploader::onUploadLogDirFinished(bool success)
         } else {
             _error = task_->errorString();
         }
-        QString msg = tr("Upload log files failed %2").arg(_error);
+        QString msg = tr("Upload log files failed :%1").arg(_error);
         seafApplet->warningBox(msg);
     } else {
 

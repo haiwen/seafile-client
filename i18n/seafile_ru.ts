@@ -903,11 +903,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Сохранение</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось сохранить файл</translation>
     </message>
 </context>
 <context>
@@ -1266,6 +1266,52 @@ Do you like to download your default library?</source>
     <message>
         <source>load more</source>
         <translation>загрузить еще</translation>
+    </message>
+</context>
+<context>
+    <name>LogDirUploader</name>
+    <message>
+        <source>Upload log files failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files failed :%1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully uploaded log files</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>LogUploadProgressDialog</name>
+    <message>
+        <source>Compressing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2611,6 +2657,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>some servers not connected</source>
         <translation>Некоторые серверы не подключены</translation>
     </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>upload %1 log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>
@@ -2934,17 +2992,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <message>
         <source>OK</source>
         <translation>ОК</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation>Войти с Shibboleth</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>Не удалось сохранить текущий аккаунт</translation>
     </message>
 </context>
 <context>

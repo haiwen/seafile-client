@@ -1266,6 +1266,52 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
+    <name>LogDirUploader</name>
+    <message>
+        <source>Upload log files failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files failed :%1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully uploaded log files</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>LogUploadProgressDialog</name>
+    <message>
+        <source>Compressing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>LoginDialog</name>
     <message>
         <source>Add an account</source>
@@ -2605,6 +2651,18 @@ Abrir % 1 ajuda on-line</translation>
         <source>some servers not connected</source>
         <translation>Alguns servidores não estão conectados</translation>
     </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>upload %1 log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>
@@ -2928,17 +2986,6 @@ Abrir % 1 ajuda on-line</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -1269,6 +1269,52 @@ Czy chcesz pobrać swoją domyślną bibliotekę?</translation>
     </message>
 </context>
 <context>
+    <name>LogDirUploader</name>
+    <message>
+        <source>Upload log files failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission Error!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library/Folder not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authorization expired</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload log files failed :%1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully uploaded log files</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>LogUploadProgressDialog</name>
+    <message>
+        <source>Compressing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>LoginDialog</name>
     <message>
         <source>Add an account</source>
@@ -2613,6 +2659,18 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
         <source>some servers not connected</source>
         <translation>niektóre serwery nie zostały podłączone</translation>
     </message>
+    <message>
+        <source>Upload log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>upload %1 log files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>
@@ -2936,17 +2994,6 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation>Logowanie Shibboleth</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>Nie udało się zapisać aktualnego konta</translation>
     </message>
 </context>
 <context>

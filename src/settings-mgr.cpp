@@ -104,7 +104,6 @@ SettingsManager::SettingsManager()
     : auto_sync_(true),
       bubbleNotifycation_(true),
       autoStart_(false),
-      transferEncrypted_(true),
       allow_invalid_worktree_(false),
       allow_repo_not_found_on_server_(false),
       sync_extra_temp_file_(false),
@@ -124,9 +123,6 @@ void SettingsManager::loadSettings()
 
     if (seafApplet->rpcClient()->seafileGetConfig("notify_sync", &str) >= 0)
         bubbleNotifycation_ = (str == "off") ? false : true;
-
-    if (seafApplet->rpcClient()->ccnetGetConfig("encrypt_channel", &str) >= 0)
-        transferEncrypted_ = (str == "off") ? false : true;
 
     if (seafApplet->rpcClient()->seafileGetConfigInt("download_limit",
                                                      &value) >= 0)
@@ -267,18 +263,6 @@ void SettingsManager::setAutoStart(bool autoStart)
     if (autoStart_ != autoStart) {
         if (set_seafile_auto_start(autoStart) >= 0)
             autoStart_ = autoStart;
-    }
-}
-
-void SettingsManager::setEncryptTransfer(bool encrypted)
-{
-    if (transferEncrypted_ != encrypted) {
-        if (seafApplet->rpcClient()->ccnetSetConfig(
-                "encrypt_channel", encrypted ? "on" : "off") < 0) {
-            // Error
-            return;
-        }
-        transferEncrypted_ = encrypted;
     }
 }
 

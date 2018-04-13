@@ -25,7 +25,7 @@ getSeafileLoginParams(const QString& computer_name, const QString& prefix)
     QHash<QString, QString> params;
 
     QString client_version = STRINGIZE(SEAFILE_CLIENT_VERSION);
-    QString device_id = seafApplet->rpcClient()->getCcnetPeerId();
+    QString device_id = seafApplet->getUniqueClientId();
     QString computper = computer_name.isEmpty() ? QHostInfo::localHostName() 
         : computer_name;
 

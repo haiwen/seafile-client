@@ -243,6 +243,7 @@ void SeafileApplet::start()
 
     initLog();
 
+    qDebug("client id is %s", toCStr(getUniqueClientId()));
     account_mgr_->start();
 
     certs_mgr_->start();
@@ -353,6 +354,7 @@ void SeafileApplet::onDaemonStarted()
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
 
+
 #if defined(Q_OS_WIN32)
     QTimer::singleShot(kIntervalBeforeShowInitVirtualDialog, this, SLOT(checkInitVDrive()));
     configurator_->installCustomUrlHandler();
@@ -363,6 +365,14 @@ void SeafileApplet::onDaemonStarted()
         // We do this because clients before 6.0 don't set the "client_name" option.
         seafApplet->rpcClient()->seafileSetConfig(
         "client_name", settings_mgr_->getComputerName());
+    }
+
+    // Set the device id to the daemon so it can use it when generating commits.
+    // The "client_name" is not set here, but updated each time we call
+    // switch_account rpc.
+    if (rpc_client_->seafileGetConfig("client_id", &value) < 0 ||
+        value.isEmpty() || value != getUniqueClientId()) {
+        rpc_client_->seafileSetConfig("client_id", getUniqueClientId());
     }
 
     OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
@@ -688,4 +698,49 @@ QString SeafileApplet::getText(QWidget *parent,
                                  ok,
                                  flags,
                                  inputMethodHints);
+}
+
+QString SeafileApplet::getUniqueClientId()
+{
+    // Id file path is `~/Seafile/.seafile-data/id`
+    QFile id_file(QDir(seafApplet->configurator()->seafileDir())
+                  .absoluteFilePath("id"));
+    if (!id_file.exists()) {
+        srand(time(NULL));
+        QString id;
+        while (id.length() < 40) {
+            int r = rand() % 0xff;
+            id += QString("%1").arg(r, 0, 16);
+        }
+        id = id.mid(0, 40);
+
+        if (!id_file.open(QIODevice::WriteOnly)) {
+            errorAndExit(tr("failed to save client id"));
+            return "";
+        }
+
+        id_file.write(id.toUtf8().data());
+        return id;
+    }
+
+    if (!id_file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        errorAndExit(tr("failed to access %1").arg(id_file.fileName()));
+        return "";
+    }
+
+    QTextStream input(&id_file);
+    input.setCodec("UTF-8");
+
+    if (input.atEnd()) {
+        errorAndExit(tr("incorrect client id"));
+        return "";
+    }
+
+    QString id = input.readLine().trimmed();
+    if (id.length() != 40) {
+        errorAndExit(tr("failed to read %1").arg(id_file.fileName()));
+        return "";
+    }
+
+    return id;
 }

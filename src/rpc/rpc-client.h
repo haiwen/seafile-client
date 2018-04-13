@@ -9,7 +9,6 @@
 extern "C" {
 
 struct _GList;
-struct _CcnetClient;
 // Can't forward-declare type SearpcClient here because it is an anonymous typedef struct
 #include <searpc-client.h>
 
@@ -27,6 +26,7 @@ public:
     SeafileRpcClient();
     ~SeafileRpcClient();
     void connectDaemon();
+    bool isConnected() const { return connected_; }
 
     int listLocalRepos(std::vector<LocalRepo> *repos);
     int getLocalRepo(const QString& repo_id, LocalRepo *repo);
@@ -51,10 +51,8 @@ public:
                   const QString& more_info,
                   QString *error);
 
-    int ccnetGetConfig(const QString& key, QString *value);
     int seafileGetConfig(const QString& key, QString *value);
     int seafileGetConfigInt(const QString& key, int *value);
-    int ccnetSetConfig(const QString& key, const QString& value);
     int seafileSetConfig(const QString& key, const QString& value);
     int seafileSetConfigInt(const QString& key, int value);
 
@@ -144,18 +142,12 @@ private:
     };
     int setRateLimit(Direction, int limit);
 
+    bool connected_;
 
-    _CcnetClient *sync_client_;
-
-    // Since the threaded rpc calls are less common, it's better to use a
-    // dedicated ccnet client for them. Otherwise we need to do lock/unlock
-    // operation for every rpc call.
-    _CcnetClient *sync_client_for_threaded_rpc_;
     QMutex threaded_rpc_mutex_;
 
     SearpcClient *seafile_rpc_client_;
     SearpcClient *seafile_threaded_rpc_client_;
-    SearpcClient *ccnet_rpc_client_;
 };
 
 #endif

@@ -277,6 +277,23 @@ bool fixQtHDPINonIntegerScaling()
     return true;
 }
 
+std::string getLocalPipeName(const char *pipe_name)
+{
+    DWORD buf_char_count = 32767;
+    char user_name_buf[buf_char_count];
+
+    if (GetUserName(user_name_buf, &buf_char_count) == 0) {
+        qWarning ("Failed to get user name, GLE=%lu\n",
+                  GetLastError());
+        return pipe_name;
+    }
+    else {
+        std::string ret(pipe_name);
+        ret += user_name_buf;
+        return ret;
+    }
+}
+
 
 } // namespace win
 

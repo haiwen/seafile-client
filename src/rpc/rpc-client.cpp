@@ -1,8 +1,7 @@
 extern "C" {
 
 #include <searpc-client.h>
-#include <ccnet.h>
-#include <ccnet/ccnet-object.h>
+#include <searpc-named-pipe-transport.h>
 
 #include <searpc.h>
 #include <seafile/seafile.h>
@@ -27,68 +26,79 @@ extern "C" {
 
 namespace {
 
+#if defined(Q_OS_WIN32)
+const char *kSeafileSockName = "\\\\.\\pipe\\seafile_";
+#else
+const char *kSeafileSockName = "seafile.sock";
+#endif
 const char *kSeafileRpcService = "seafile-rpcserver";
 const char *kSeafileThreadedRpcService = "seafile-threaded-rpcserver";
-const char *kCcnetRpcService = "ccnet-rpcserver";
+
+SearpcClient *createSearpcClientWithPipeTransport(const char *rpc_service)
+{
+    SearpcNamedPipeClient *pipe_client;
+#if defined(Q_OS_WIN32)
+    pipe_client = searpc_create_named_pipe_client(
+        utils::win::getLocalPipeName(kSeafileSockName).c_str());
+#else
+    pipe_client = searpc_create_named_pipe_client(
+        toCStr(QDir(seafApplet->configurator()->seafileDir()).filePath(kSeafileSockName)));
+#endif
+    int ret = searpc_named_pipe_client_connect(pipe_client);
+    SearpcClient *c = searpc_client_with_named_pipe_transport(pipe_client, rpc_service);
+    if (ret < 0) {
+        searpc_free_client_with_pipe_transport(c);
+        return nullptr;
+    }
+    return c;
+}
 
 } // namespace
 
 SeafileRpcClient::SeafileRpcClient()
-      : sync_client_(0),
-        sync_client_for_threaded_rpc_(0),
-        seafile_rpc_client_(0),
-        seafile_threaded_rpc_client_(0),
-        ccnet_rpc_client_(0)
+    : connected_(false),
+      seafile_rpc_client_(nullptr),
+      seafile_threaded_rpc_client_(nullptr)
 {
 }
 
 SeafileRpcClient::~SeafileRpcClient()
 {
-    if (ccnet_rpc_client_) {
-        ccnet_rpc_client_free(ccnet_rpc_client_);
-        ccnet_rpc_client_ = 0;
-    }
     if (seafile_rpc_client_) {
-        ccnet_rpc_client_free(seafile_rpc_client_);
-        seafile_rpc_client_ = 0;
+        searpc_free_client_with_pipe_transport(seafile_rpc_client_);
+        seafile_rpc_client_ = nullptr;
     }
     if (seafile_threaded_rpc_client_) {
-        ccnet_rpc_client_free(seafile_threaded_rpc_client_);
-        seafile_threaded_rpc_client_ = 0;
-    }
-    if (sync_client_) {
-        g_object_unref(sync_client_);
-        sync_client_ = 0;
-    }
-    if (sync_client_for_threaded_rpc_) {
-        g_object_unref(sync_client_for_threaded_rpc_);
-        sync_client_for_threaded_rpc_ = 0;
+        searpc_free_client_with_pipe_transport(seafile_threaded_rpc_client_);
+        seafile_threaded_rpc_client_ = nullptr;
     }
 }
 
 void SeafileRpcClient::connectDaemon()
 {
-    sync_client_ = ccnet_client_new();
-    sync_client_for_threaded_rpc_ = ccnet_client_new();
-
-    const QString config_dir = seafApplet->configurator()->ccnetDir();
-    if (ccnet_client_load_confdir(sync_client_, NULL, toCStr(config_dir)) <  0) {
-        seafApplet->errorAndExit(tr("failed to load ccnet config dir %1").arg(config_dir));
+    int retry = 0;
+    while (true) {
+        seafile_rpc_client_ = createSearpcClientWithPipeTransport(kSeafileRpcService);
+        if (!seafile_rpc_client_) {
+            if (retry++ > 5) {
+                seafApplet->errorAndExit(tr("internal error: failed to connect to seafile daemon"));
+                return;
+            } else {
+                g_usleep(500000);
+            }
+        } else {
+            // Create the searpc client for threaded rpc calls
+            seafile_threaded_rpc_client_ = createSearpcClientWithPipeTransport(kSeafileThreadedRpcService);
+            if (!seafile_threaded_rpc_client_) {
+                searpc_free_client_with_pipe_transport(seafile_rpc_client_);
+                seafile_rpc_client_ = nullptr;
+                continue;
+            }
+            break;
+        }
     }
 
-    if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {
-        return;
-    }
-
-    ccnet_client_load_confdir(sync_client_for_threaded_rpc_, NULL, toCStr(config_dir));
-    ccnet_client_connect_daemon(sync_client_for_threaded_rpc_, CCNET_CLIENT_SYNC);
-
-    seafile_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kSeafileRpcService);
-    ccnet_rpc_client_ = ccnet_create_rpc_client(sync_client_, NULL, kCcnetRpcService);
-
-    seafile_threaded_rpc_client_ = ccnet_create_rpc_client(
-        sync_client_for_threaded_rpc_, NULL, kSeafileThreadedRpcService);
-
+    connected_ = true;
     qWarning("[Rpc Client] connected to daemon");
 }
 
@@ -246,22 +256,6 @@ int SeafileRpcClient::getLocalRepo(const QString& repo_id, LocalRepo *repo)
     return 0;
 }
 
-int SeafileRpcClient::ccnetGetConfig(const QString &key, QString *value)
-{
-    GError *error = NULL;
-    char *ret = searpc_client_call__string (ccnet_rpc_client_,
-                                            "get_config", &error,
-                                            1, "string", toCStr(key));
-    if (error) {
-        g_error_free(error);
-        return -1;
-    }
-    *value = QString::fromUtf8(ret);
-
-    g_free (ret);
-    return 0;
-}
-
 int SeafileRpcClient::seafileGetConfig(const QString &key,
                                        QString *value)
 {
@@ -286,20 +280,6 @@ int SeafileRpcClient::seafileGetConfigInt(const QString &key,
     *value = searpc_client_call__int (seafile_rpc_client_,
                                       "seafile_get_config_int", &error,
                                       1, "string", toCStr(key));
-    if (error) {
-        g_error_free(error);
-        return -1;
-    }
-    return 0;
-}
-
-int SeafileRpcClient::ccnetSetConfig(const QString &key, const QString &value)
-{
-    GError *error = NULL;
-    searpc_client_call__int (ccnet_rpc_client_,
-                             "set_config", &error,
-                             2, "string", toCStr(key),
-                             "string", toCStr(value));
     if (error) {
         g_error_free(error);
         return -1;
@@ -616,26 +596,6 @@ int SeafileRpcClient::getCloneTasksCount(int *count)
     return 0;
 }
 
-int SeafileRpcClient::getServers(GList** servers)
-{
-    GError *error = NULL;
-    GList *objlist = searpc_client_call__objlist(
-        ccnet_rpc_client_,
-        "get_peers_by_role",
-        CCNET_TYPE_PEER,
-        &error, 1,
-        "string", "MyRelay");
-
-    if (error) {
-        g_error_free(error);
-        return -1;
-    }
-
-    *servers = objlist;
-
-    return 0;
-}
-
 int SeafileRpcClient::unsyncReposByAccount(const QString& server_addr,
                                            const QString& email,
                                            QString *err)
@@ -795,7 +755,8 @@ int SeafileRpcClient::checkPathForClone(const QString& path, QString *err_msg)
 
 QString SeafileRpcClient::getCcnetPeerId()
 {
-    return sync_client_ ? sync_client_->base.id : "";
+    // TODO: Get the device id now that ccnet is removed.
+    return "";
 }
 
 int SeafileRpcClient::updateReposServerHost(const QString& old_host,

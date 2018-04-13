@@ -60,6 +60,9 @@ public:
     // ExpandedVars String
     QString readPreconfigureExpandedString(const QString& key, const QString& default_value = QString());
 
+    // Create a unique device id to replace obselete ccnet id
+    QString getUniqueClientId();
+
     // accessors
     AccountManager *accountManager() { return account_mgr_; }
 

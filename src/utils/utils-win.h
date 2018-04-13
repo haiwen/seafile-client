@@ -40,6 +40,8 @@ inline bool isWindows7OrGreater() { return false; }
 inline bool isWindows8OrGreater() { return false; }
 inline bool isWindows8Point1OrGreater() { return false; }
 inline bool isWindows10OrHigher() { return false; }
+
+std::string getLocalPipeName(const char *pipeName);
 } // namespace win
 } // namespace utils
 #endif

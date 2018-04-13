@@ -60,7 +60,6 @@ public:
 
     bool notify() { return bubbleNotifycation_; }
     bool autoStart() { return autoStart_; }
-    bool encryptTransfer() { return transferEncrypted_; }
     unsigned int maxDownloadRatio() { return maxDownloadRatio_; }
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
     bool allowInvalidWorktree() { return allow_invalid_worktree_; }
@@ -71,7 +70,6 @@ public:
 
     void setNotify(bool notify);
     void setAutoStart(bool autoStart);
-    void setEncryptTransfer(bool encrypted);
     void setMaxDownloadRatio(unsigned int ratio);
     void setMaxUploadRatio(unsigned int ratio);
     void setAllowInvalidWorktree(bool val);
@@ -141,7 +139,6 @@ private:
     bool auto_sync_;
     bool bubbleNotifycation_;
     bool autoStart_;
-    bool transferEncrypted_;
     bool allow_invalid_worktree_;
     bool allow_repo_not_found_on_server_;
     bool sync_extra_temp_file_;

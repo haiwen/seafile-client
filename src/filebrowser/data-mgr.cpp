@@ -77,10 +77,10 @@ void DataManager::getDirentsFromServer(const QString& repo_id,
                                        const QString& path)
 {
     get_dirents_req_.reset(new GetDirentsRequest(account_, repo_id, path));
-    connect(get_dirents_req_.data(), SIGNAL(success(bool, const QList<SeafDirent>&)),
-            this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&)));
-    connect(get_dirents_req_.data(), SIGNAL(failed(const ApiError&)),
-            this, SIGNAL(getDirentsFailed(const ApiError&)));
+    connect(get_dirents_req_.data(), SIGNAL(success(bool, const QList<SeafDirent>&, const QString&)),
+            this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&, const QString&)));
+    connect(get_dirents_req_.data(), SIGNAL(failed(const ApiError&, const QString&)),
+            this, SIGNAL(getDirentsFailed(const ApiError&, const QString&)));
     get_dirents_req_->send();
 }
 
@@ -88,8 +88,8 @@ void DataManager::createDirectory(const QString &repo_id,
                                   const QString &path)
 {
     CreateDirectoryRequest *req = new CreateDirectoryRequest(account_, repo_id, path);
-    connect(req, SIGNAL(success()),
-            SLOT(onCreateDirectorySuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onCreateDirectorySuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(createDirectoryFailed(const ApiError&)));
@@ -103,8 +103,8 @@ void DataManager::lockFile(const QString &repo_id,
                            bool lock)
 {
     LockFileRequest *req = new LockFileRequest(account_, repo_id, path, lock);
-    connect(req, SIGNAL(success()),
-            SLOT(onLockFileSuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onLockFileSuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(lockFileFailed(const ApiError&)));
@@ -120,8 +120,8 @@ void DataManager::renameDirent(const QString &repo_id,
 {
     RenameDirentRequest *req = new RenameDirentRequest(account_, repo_id, path,
                                                        new_path, is_file);
-    connect(req, SIGNAL(success()),
-            SLOT(onRenameDirentSuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onRenameDirentSuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(renameDirentFailed(const ApiError&)));
@@ -136,8 +136,8 @@ void DataManager::removeDirent(const QString &repo_id,
 {
     RemoveDirentRequest *req = new RemoveDirentRequest(account_, repo_id, path,
                                                        is_file);
-    connect(req, SIGNAL(success()),
-            SLOT(onRemoveDirentSuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onRemoveDirentSuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(removeDirentFailed(const ApiError&)));
@@ -151,8 +151,8 @@ void DataManager::removeDirents(const QString &repo_id,
 {
     RemoveDirentsRequest *req = new RemoveDirentsRequest(account_, repo_id, parent_path,
                                                          filenames);
-    connect(req, SIGNAL(success()),
-            SLOT(onRemoveDirentsSuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onRemoveDirentsSuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(removeDirentsFailed(const ApiError&)));
@@ -166,8 +166,8 @@ void DataManager::shareDirent(const QString &repo_id,
 {
     GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id,
                                                          path, is_file);
-    connect(req, SIGNAL(success(const QString&)),
-            SIGNAL(shareDirentSuccess(const QString&)));
+    connect(req, SIGNAL(success(const QString&, const QString&)),
+            SIGNAL(shareDirentSuccess(const QString&, const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(shareDirentFailed(const ApiError&)));
@@ -213,17 +213,17 @@ void DataManager::moveDirents(const QString &repo_id,
     req->send();
 }
 
-void DataManager::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents)
+void DataManager::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents, const QString& repo_id)
 {
     dirents_cache_->saveCachedDirents(get_dirents_req_->repoId(),
                                       get_dirents_req_->path(),
                                       current_readonly,
                                       dirents);
 
-    emit getDirentsSuccess(current_readonly, dirents);
+    emit getDirentsSuccess(current_readonly, dirents, repo_id);
 }
 
-void DataManager::onCreateDirectorySuccess()
+void DataManager::onCreateDirectorySuccess(const QString& repo_id)
 {
     CreateDirectoryRequest *req = qobject_cast<CreateDirectoryRequest*>(sender());
 
@@ -231,10 +231,10 @@ void DataManager::onCreateDirectorySuccess()
         return;
 
     removeDirentsCache(req->repoId(), req->path(), false);
-    emit createDirectorySuccess(req->path());
+    emit createDirectorySuccess(req->path(), repo_id);
 }
 
-void DataManager::onLockFileSuccess()
+void DataManager::onLockFileSuccess(const QString& repo_id)
 {
     LockFileRequest *req = qobject_cast<LockFileRequest *>(sender());
     if (!req)
@@ -242,10 +242,10 @@ void DataManager::onLockFileSuccess()
 
     removeDirentsCache(req->repoId(), req->path(), false);
     seafApplet->rpcClient()->markFileLockState(req->repoId(), req->path(), req->lock());
-    emit lockFileSuccess(req->path(), req->lock());
+    emit lockFileSuccess(req->path(), req->lock(), repo_id);
 }
 
-void DataManager::onRenameDirentSuccess()
+void DataManager::onRenameDirentSuccess(const QString& repo_id)
 {
     RenameDirentRequest *req = qobject_cast<RenameDirentRequest*>(sender());
 
@@ -253,10 +253,10 @@ void DataManager::onRenameDirentSuccess()
         return;
 
     removeDirentsCache(req->repoId(), req->path(), req->isFile());
-    emit renameDirentSuccess(req->path(), req->newName());
+    emit renameDirentSuccess(req->path(), req->newName(), repo_id);
 }
 
-void DataManager::onRemoveDirentSuccess()
+void DataManager::onRemoveDirentSuccess(const QString& repo_id)
 {
     RemoveDirentRequest *req = qobject_cast<RemoveDirentRequest*>(sender());
 
@@ -264,10 +264,10 @@ void DataManager::onRemoveDirentSuccess()
         return;
 
     removeDirentsCache(req->repoId(), req->path(), req->isFile());
-    emit removeDirentSuccess(req->path());
+    emit removeDirentSuccess(req->path(), repo_id);
 }
 
-void DataManager::onRemoveDirentsSuccess()
+void DataManager::onRemoveDirentsSuccess(const QString& repo_id)
 {
     RemoveDirentsRequest *req = qobject_cast<RemoveDirentsRequest*>(sender());
 
@@ -275,7 +275,7 @@ void DataManager::onRemoveDirentsSuccess()
         return;
 
     removeDirentsCache(req->repoId(), req->parentPath(), false);
-    emit removeDirentsSuccess(req->parentPath(), req->filenames());
+    emit removeDirentsSuccess(req->parentPath(), req->filenames(), repo_id);
 }
 
 void DataManager::onCopyDirentsSuccess()
@@ -483,6 +483,7 @@ QString DataManager::getRepoCacheFolder(const QString& repo_id) const
 
 void DataManager::createSubrepo(const QString &name, const QString& repo_id, const QString &path)
 {
+    old_repo_id_ = repo_id;
     const QString password = repoPassword(repo_id);
     const QString fixed_path = path.left(path.endsWith('/') && path.size() != 1 ? path.size() -1 : path.size());
     create_subrepo_req_.reset(new CreateSubrepoRequest(account_, name, repo_id, fixed_path, password));
@@ -507,7 +508,7 @@ void DataManager::onCreateSubrepoSuccess(const QString& new_repoid)
         ServerRepo fixed_repo = repo;
         fixed_repo.parent_path = create_subrepo_parent_path_;
         fixed_repo.parent_repo_id = create_subrepo_parent_repo_id_;
-        emit createSubrepoSuccess(fixed_repo);
+        emit createSubrepoSuccess(fixed_repo, old_repo_id_);
         return;
     }
 
@@ -530,7 +531,7 @@ void DataManager::onCreateSubrepoRefreshSuccess(const ServerRepo& repo)
         ServerRepo fixed_repo = repo;
         fixed_repo.parent_path = create_subrepo_parent_path_;
         fixed_repo.parent_repo_id = create_subrepo_parent_repo_id_;
-        emit createSubrepoSuccess(fixed_repo);
+        emit createSubrepoSuccess(fixed_repo, old_repo_id_);
         return;
     }
 

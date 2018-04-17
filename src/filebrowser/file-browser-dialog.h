@@ -28,6 +28,7 @@ class SeafDirent;
 class GetDirentsRequest;
 class FileBrowserCache;
 class DataManager;
+class DataManagerNotify;
 class FileNetworkTask;
 class FileBrowserManager;
 
@@ -244,9 +245,45 @@ private:
     FileBrowserSearchModel *search_model_;
 
     DataManager *data_mgr_;
+    DataManagerNotify *data_mgr_notify_;
 
     // Avoid showing multiple SetRepoPasswordDialog
     bool has_password_dialog_;
+};
+
+class DataManagerNotify : public QObject {
+    Q_OBJECT
+public:
+    DataManagerNotify(const QString& repo_id);
+    ~DataManagerNotify(){};
+signals:
+    void getDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
+    void getDirentsFailed(const ApiError& error);
+    void createDirectorySuccess(const QString& path);
+    void lockFileSuccess(const QString& path, bool lock);
+    void renameDirentSuccess(const QString& path, const QString& new_name);
+    void removeDirentSuccess(const QString& path);
+    void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames);
+    void shareDirentSuccess(const QString& link);
+    void createSubrepoSuccess(const ServerRepo &repo);
+
+private slots:
+    void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id);
+    void onGetDirentsFailed(const ApiError& error, const QString& repo_id);
+    void onDirectoryCreateSuccess(const QString& path, const QString& repo_id);
+    void onFileLockSuccess(const QString& path, bool lock, const QString& repo_id);
+    void onDirentRenameSuccess(const QString& path, const QString& new_name, const QString& repo_id);
+    void onDirentRemoveSuccess(const QString& path, const QString& repo_id);
+    void onDirentsRemoveSuccess(const QString& parent_path,
+                                const QStringList& filenames,
+                                const QString& repo_id);
+    void onDirentShareSuccess(const QString& link, const QString& repo_id);
+    void onCreateSubrepoSuccess(const ServerRepo &, const QString& repo_id);
+
+private:
+    DataManager *data_mgr_;
+    QString repo_id_;
+
 };
 
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_DIALOG_H

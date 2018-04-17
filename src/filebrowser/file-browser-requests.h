@@ -22,7 +22,8 @@ public:
     const QString& path() const { return path_; }
 
 signals:
-    void success(bool current_readonly, const QList<SeafDirent> &dirents);
+    void success(bool current_readonly, const QList<SeafDirent> &dirents, const QString& repo_id);
+    void failed(const ApiError& error, const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -66,7 +67,7 @@ public:
     const QString &path() { return path_; }
 
 signals:
-    void success();
+    void success(const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -91,7 +92,7 @@ public:
     const QString& newName() const { return new_name_; }
 
 signals:
-    void success();
+    void success(const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -116,7 +117,7 @@ public:
     const QString& path() const { return path_; }
 
 signals:
-    void success();
+    void success(const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -142,7 +143,7 @@ public:
     const QStringList& filenames() const { return filenames_; }
 
 signals:
-    void success();
+    void success(const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -163,13 +164,14 @@ public:
                              const QString &path, bool is_file);
 
 signals:
-    void success(const QString& url);
+    void success(const QString& url, const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
     Q_DISABLE_COPY(GetSharedLinkRequest)
+    const QString repo_id_;
 };
 
 class GetFileUploadLinkRequest : public SeafileApiRequest {
@@ -307,7 +309,7 @@ public:
     const QString & path() const { return path_; }
 
 signals:
-    void success();
+    void success(const QString& repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

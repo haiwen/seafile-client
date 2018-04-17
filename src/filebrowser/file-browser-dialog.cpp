@@ -212,42 +212,43 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
 
     //dirents <--> data_mgr_
-    connect(data_mgr_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&)),
+    data_mgr_notify_ = new DataManagerNotify(repo_.id);
+    connect(data_mgr_notify_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&)),
             this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&)));
-    connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
+    connect(data_mgr_notify_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed(const ApiError&)));
 
     //create <--> data_mgr_
-    connect(data_mgr_, SIGNAL(createDirectorySuccess(const QString&)),
+    connect(data_mgr_notify_, SIGNAL(createDirectorySuccess(const QString&)),
             this, SLOT(onDirectoryCreateSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(createDirectoryFailed(const ApiError&)),
             this, SLOT(onDirectoryCreateFailed(const ApiError&)));
 
     //lock <--> data_mgr_
-    connect(data_mgr_, SIGNAL(lockFileSuccess(const QString&, bool)),
+    connect(data_mgr_notify_, SIGNAL(lockFileSuccess(const QString&, bool)),
             this, SLOT(onFileLockSuccess(const QString&, bool)));
     connect(data_mgr_, SIGNAL(lockFileFailed(const ApiError&)),
             this, SLOT(onFileLockFailed(const ApiError&)));
 
     //rename <--> data_mgr_
-    connect(data_mgr_, SIGNAL(renameDirentSuccess(const QString&, const QString&)),
+    connect(data_mgr_notify_, SIGNAL(renameDirentSuccess(const QString&, const QString&)),
             this, SLOT(onDirentRenameSuccess(const QString&, const QString&)));
     connect(data_mgr_, SIGNAL(renameDirentFailed(const ApiError&)),
             this, SLOT(onDirentRenameFailed(const ApiError&)));
 
     //remove <--> data_mgr_
-    connect(data_mgr_, SIGNAL(removeDirentSuccess(const QString&)),
+    connect(data_mgr_notify_, SIGNAL(removeDirentSuccess(const QString&)),
             this, SLOT(onDirentRemoveSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(removeDirentFailed(const ApiError&)),
             this, SLOT(onDirentRemoveFailed(const ApiError&)));
 
-    connect(data_mgr_, SIGNAL(removeDirentsSuccess(const QString&, const QStringList&)),
+    connect(data_mgr_notify_, SIGNAL(removeDirentsSuccess(const QString&, const QStringList&)),
             this, SLOT(onDirentsRemoveSuccess(const QString&, const QStringList&)));
     connect(data_mgr_, SIGNAL(removeDirentsFailed(const ApiError&)),
             this, SLOT(onDirentsRemoveFailed(const ApiError&)));
 
     //share <--> data_mgr_
-    connect(data_mgr_, SIGNAL(shareDirentSuccess(const QString&)),
+    connect(data_mgr_notify_, SIGNAL(shareDirentSuccess(const QString&)),
             this, SLOT(onDirentShareSuccess(const QString&)));
     connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
             this, SLOT(onDirentShareFailed(const ApiError&)));
@@ -265,7 +266,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirentsMoveFailed(const ApiError&)));
 
     //subrepo <-->data_mgr_
-    connect(data_mgr_, SIGNAL(createSubrepoSuccess(const ServerRepo &)),
+    connect(data_mgr_notify_, SIGNAL(createSubrepoSuccess(const ServerRepo &)),
             this, SLOT(onCreateSubrepoSuccess(const ServerRepo &)));
     connect(data_mgr_, SIGNAL(createSubrepoFailed(const ApiError&)),
             this, SLOT(onCreateSubrepoFailed(const ApiError&)));
@@ -285,6 +286,7 @@ FileBrowserDialog::~FileBrowserDialog()
 {
     if (search_request_ != NULL)
         search_request_->deleteLater();
+    delete data_mgr_notify_;
 }
 
 void FileBrowserDialog::init()
@@ -1241,6 +1243,9 @@ void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)
     const SeafDirent dirent = SeafDirent::dir(name);
     // TODO insert to the pos where the drop event triggered
     table_model_->insertItem(0, dirent);
+    if (stack_->currentIndex() == INDEX_EMPTY_VIEW)
+        forceRefresh();
+
     updateFileCount();
 }
 
@@ -1437,8 +1442,9 @@ void FileBrowserDialog::onDirentsMoveSuccess()
     file_names_to_be_pasted_.clear();
     FileBrowserDialog *dialog =
         FileBrowserManager::getInstance()->getDialog(account_to_be_pasted_from_, repo_id_to_be_pasted_from_);
-    if (dialog != NULL && dialog->current_path_ == dir_path_to_be_pasted_from_)
+    if (dialog != NULL && dialog->current_path_ == dir_path_to_be_pasted_from_) {
         dialog->forceRefresh();
+    }
     forceRefresh();
 }
 
@@ -1602,4 +1608,92 @@ void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& res
 void FileBrowserDialog::onSearchFailed(const ApiError& error)
 {
     stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+}
+
+
+DataManagerNotify::DataManagerNotify(const QString &repo_id)
+    :repo_id_(repo_id)
+{
+    data_mgr_ = seafApplet->dataManager();
+    connect(data_mgr_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&, const QString&)),
+            this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&, const QString&)));
+    connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&, const QString&)),
+            this, SLOT(onGetDirentsFailed(const ApiError&, const QString&)));
+    connect(data_mgr_, SIGNAL(createDirectorySuccess(const QString&, const QString&)),
+            this, SLOT(onDirectoryCreateSuccess(const QString&, const QString&)));
+    connect(data_mgr_, SIGNAL(lockFileSuccess(const QString&, bool, const QString&)),
+            this, SLOT(onFileLockSuccess(const QString&, bool, const QString&)));
+    connect(data_mgr_, SIGNAL(renameDirentSuccess(const QString&, const QString&, const QString&)),
+            this, SLOT(onDirentRenameSuccess(const QString&, const QString&, const QString&)));
+    connect(data_mgr_, SIGNAL(removeDirentSuccess(const QString&, const QString&)),
+            this, SLOT(onDirentRemoveSuccess(const QString&, const QString&)));
+    connect(data_mgr_, SIGNAL(removeDirentsSuccess(const QString&, const QStringList&, const QString&)),
+            this, SLOT(onDirentsRemoveSuccess(const QString&, const QStringList&, const QString&)));
+    connect(data_mgr_, SIGNAL(shareDirentSuccess(const QString&, const QString&)),
+            this, SLOT(onDirentShareSuccess(const QString&, const QString&)));
+    connect(data_mgr_, SIGNAL(createSubrepoSuccess(const ServerRepo &, const QString&)),
+            this, SLOT(onCreateSubrepoSuccess(const ServerRepo &, const QString&)));
+}
+
+void DataManagerNotify::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit getDirentsSuccess(current_readonly, dirents);
+    }
+}
+
+void DataManagerNotify::onGetDirentsFailed(const ApiError &error, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit getDirentsFailed(error);
+    }
+}
+
+void DataManagerNotify::onDirectoryCreateSuccess(const QString &path, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit createDirectorySuccess(path);
+    }
+}
+
+void DataManagerNotify::onFileLockSuccess(const QString &path, bool lock, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit lockFileSuccess(path, lock);
+    }
+}
+
+void DataManagerNotify::onDirentRenameSuccess(const QString &path, const QString &new_name, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit renameDirentSuccess(path, new_name);
+    }
+}
+
+void DataManagerNotify::onDirentRemoveSuccess(const QString &path, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit removeDirentSuccess(path);
+    }
+}
+
+void DataManagerNotify::onDirentsRemoveSuccess(const QString &parent_path, const QStringList &filenames, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit removeDirentsSuccess(parent_path, filenames);
+    }
+}
+
+void DataManagerNotify::onDirentShareSuccess(const QString &link, const QString &repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit shareDirentSuccess(link);
+    }
+}
+
+void DataManagerNotify::onCreateSubrepoSuccess(const ServerRepo &repo, const QString& repo_id)
+{
+    if (repo_id == repo_id_) {
+        emit createSubrepoSuccess(repo);
+    }
 }

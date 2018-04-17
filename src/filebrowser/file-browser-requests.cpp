@@ -43,7 +43,7 @@ void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
     json_error_t error;
     QString dir_id = reply.rawHeader("oid");
     if (dir_id.length() != 40) {
-        emit failed(ApiError::fromHttpError(500));
+        emit failed(ApiError::fromHttpError(500), repo_id_);
         return;
     }
     // this extra header column only supported from v4.2 seahub
@@ -52,7 +52,7 @@ void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
     json_t *root = parseJSON(reply, &error);
     if (!root) {
         qDebug("GetDirentsRequest: failed to parse json:%s\n", error.text);
-        emit failed(ApiError::fromJsonError());
+        emit failed(ApiError::fromJsonError(), repo_id_);
         return;
     }
 
@@ -60,7 +60,7 @@ void GetDirentsRequest::requestSuccess(QNetworkReply& reply)
 
     QList<SeafDirent> dirents;
     dirents = SeafDirent::listFromJSON(json.data(), &error);
-    emit success(readonly_, dirents);
+    emit success(readonly_, dirents, repo_id_);
 }
 
 GetFileDownloadLinkRequest::GetFileDownloadLinkRequest(const Account &account,
@@ -104,7 +104,7 @@ GetSharedLinkRequest::GetSharedLinkRequest(const Account &account,
                                            bool is_file)
     : SeafileApiRequest(
           account.getAbsoluteUrl(QString(kGetFileSharedLinkUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_PUT, account.token)
+          SeafileApiRequest::METHOD_PUT, account.token), repo_id_(repo_id)
 {
     setFormParam("type", is_file ? "f" : "d");
     setFormParam("p", path);
@@ -114,7 +114,7 @@ void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
 {
     QString reply_content(reply.rawHeader("Location"));
 
-    emit success(reply_content);
+    emit success(reply_content, repo_id_);
 }
 
 CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,
@@ -134,7 +134,7 @@ CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,
 
 void CreateDirectoryRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(repo_id_);
 }
 
 GetFileUploadLinkRequest::GetFileUploadLinkRequest(const Account &account,
@@ -188,7 +188,7 @@ RenameDirentRequest::RenameDirentRequest(const Account &account,
 
 void RenameDirentRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(repo_id_);
 }
 
 RemoveDirentRequest::RemoveDirentRequest(const Account &account,
@@ -206,7 +206,7 @@ RemoveDirentRequest::RemoveDirentRequest(const Account &account,
 
 void RemoveDirentRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(repo_id_);
 }
 
 RemoveDirentsRequest::RemoveDirentsRequest(const Account &account,
@@ -225,7 +225,7 @@ RemoveDirentsRequest::RemoveDirentsRequest(const Account &account,
 
 void RemoveDirentsRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(repo_id_);
 }
 
 MoveFileRequest::MoveFileRequest(const Account &account,
@@ -345,7 +345,7 @@ LockFileRequest::LockFileRequest(const Account &account, const QString &repo_id,
 
 void LockFileRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(repo_id_);
 }
 
 GetFileUploadedBytesRequest::GetFileUploadedBytesRequest(

@@ -127,25 +127,25 @@ public:
 signals:
     void aboutToDestroy();
 
-    void getDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
-    void getDirentsFailed(const ApiError& error);
+    void getDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id);
+    void getDirentsFailed(const ApiError& error, const QString& repo_id);
 
-    void createDirectorySuccess(const QString& path);
+    void createDirectorySuccess(const QString& path, const QString& repo_id);
     void createDirectoryFailed(const ApiError& error);
 
-    void lockFileSuccess(const QString& path, bool lock);
+    void lockFileSuccess(const QString& path, bool lock, const QString& repo_id);
     void lockFileFailed(const ApiError& error);
 
-    void renameDirentSuccess(const QString& path, const QString& new_name);
+    void renameDirentSuccess(const QString& path, const QString& new_name, const QString& repo_id);
     void renameDirentFailed(const ApiError& error);
 
-    void removeDirentSuccess(const QString& path);
+    void removeDirentSuccess(const QString& path, const QString& repo_id);
     void removeDirentFailed(const ApiError& error);
 
-    void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames);
+    void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames, const QString& repo_id);
     void removeDirentsFailed(const ApiError& error);
 
-    void shareDirentSuccess(const QString& link);
+    void shareDirentSuccess(const QString& link, const QString& repo_id);
     void shareDirentFailed(const ApiError& error);
 
     void copyDirentsSuccess();
@@ -154,19 +154,19 @@ signals:
     void moveDirentsSuccess();
     void moveDirentsFailed(const ApiError& error);
 
-    void createSubrepoSuccess(const ServerRepo &repo);
+    void createSubrepoSuccess(const ServerRepo &repo, const QString& repo_id);
     void createSubrepoFailed(const ApiError& error);
 
 private slots:
-    void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents);
+    void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id);
     void onFileUploadFinished(bool success);
     void onFileDownloadFinished(bool success);
 
-    void onCreateDirectorySuccess();
-    void onLockFileSuccess();
-    void onRenameDirentSuccess();
-    void onRemoveDirentSuccess();
-    void onRemoveDirentsSuccess();
+    void onCreateDirectorySuccess(const QString& repo_id);
+    void onLockFileSuccess(const QString& repo_id);
+    void onRenameDirentSuccess(const QString& repo_id);
+    void onRemoveDirentSuccess(const QString& repo_id);
+    void onRemoveDirentsSuccess(const QString& repo_id);
     void onCopyDirentsSuccess();
     void onMoveDirentsSuccess();
 
@@ -194,6 +194,7 @@ private:
     FileCache *filecache_;
 
     DirentsCache *dirents_cache_;
+    QString old_repo_id_;
 
     static QHash<QString, std::pair<qint64, QString> > passwords_cache_;
 };

@@ -7,6 +7,7 @@
 
 #include "api/server-repo.h"
 #include "account.h"
+#include "filebrowser/file-browser-dialog.h"
 
 class ApiError;
 class DataManager;
@@ -51,6 +52,7 @@ private:
     QLabel *more_details_label_;
     QProgressBar *progress_bar_;
     DataManager *data_mgr_;
+    DataManagerNotify *data_mgr_notify_;
 };
 
 #endif // SEAFILE_CLIENT_CHECK_REPO_ROOT_PERM_DIALOG_H

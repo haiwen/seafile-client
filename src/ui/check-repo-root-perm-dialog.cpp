@@ -57,9 +57,10 @@ CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account &account,
     setBar(progress_bar_);
     setCancelButton(cancel_button_);
 
-    connect(data_mgr_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&)),
+    data_mgr_notify_ = new DataManagerNotify(repo_.id);
+    connect(data_mgr_notify_, SIGNAL(getDirentsSuccess(bool, const QList<SeafDirent>&)),
             this, SLOT(onGetDirentsSuccess(bool)));
-    connect(data_mgr_, SIGNAL(getDirentsFailed(const ApiError&)),
+    connect(data_mgr_notify_, SIGNAL(getDirentsFailed(const ApiError&)),
             this, SLOT(onGetDirentsFailed()));
 
     setValue(minimum());
@@ -69,6 +70,7 @@ CheckRepoRootDirPermDialog::CheckRepoRootDirPermDialog(const Account &account,
 CheckRepoRootDirPermDialog::~CheckRepoRootDirPermDialog()
 {
     // printf ("destructor called for CheckRepoRootDirPermDialog\n");
+    delete data_mgr_notify_;
 }
 
 void CheckRepoRootDirPermDialog::checkPerm()

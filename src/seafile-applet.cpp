@@ -20,7 +20,7 @@
 #include "account-mgr.h"
 #include "configurator.h"
 #include "daemon-mgr.h"
-#include "message-listener.h"
+#include "message-poller.h"
 #include "settings-mgr.h"
 #include "certs-mgr.h"
 #include "rpc/rpc-client.h"
@@ -192,7 +192,7 @@ SeafileApplet::SeafileApplet()
       daemon_mgr_(new DaemonManager),
       main_win_(NULL),
       rpc_client_(new SeafileRpcClient),
-      message_listener_(new MessageListener),
+      message_poller_(new MessagePoller),
       settings_dialog_(new SettingsDialog),
       settings_mgr_(new SettingsManager),
       certs_mgr_(new CertsManager),
@@ -216,7 +216,7 @@ SeafileApplet::~SeafileApplet()
     delete tray_icon_;
     delete certs_mgr_;
     delete settings_dialog_;
-    delete message_listener_;
+    delete message_poller_;
     delete rpc_client_;
     delete daemon_mgr_;
 
@@ -283,7 +283,6 @@ void SeafileApplet::onDaemonStarted()
     // start daemon-related services
     //
     rpc_client_->connectDaemon();
-    message_listener_->connectDaemon();
 
     // Sleep 500 millseconds to wait seafile registering services
 
@@ -353,6 +352,7 @@ void SeafileApplet::onDaemonStarted()
 
     tray_icon_->start();
     tray_icon_->setState(SeafileTrayIcon::STATE_DAEMON_UP);
+    message_poller_->start();
 
 
 #if defined(Q_OS_WIN32)

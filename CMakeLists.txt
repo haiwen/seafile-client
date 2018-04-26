@@ -223,7 +223,7 @@ SET(moc_headers
   src/server-status-service.h
   src/account-info-service.h
   src/customization-service.h
-  src/message-listener.h
+  src/message-poller.h
   src/network-mgr.h
   src/settings-mgr.h
   src/traynotificationwidget.h
@@ -394,7 +394,7 @@ SET(seafile_client_sources
   src/daemon-mgr.cpp
   src/configurator.cpp
   src/open-local-helper.cpp
-  src/message-listener.cpp
+  src/message-poller.cpp
   src/network-mgr.cpp
   src/auto-login-service.cpp
   src/repo-service.cpp
@@ -403,7 +403,6 @@ SET(seafile_client_sources
   src/server-status-service.cpp
   src/account-info-service.cpp
   src/customization-service.cpp
-  src/shared-application.cpp
   src/avatar-service.cpp
   src/settings-mgr.cpp
   src/traynotificationwidget.cpp

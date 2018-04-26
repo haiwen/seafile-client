@@ -14,6 +14,11 @@ struct _GList;
 
 }
 
+// Here we can't forward-declare type json_t because it is an anonymous typedef
+// struct, and unlike libsearpc we have no way to rewrite its definition to give
+// it a name.
+#include <jansson.h>
+
 class LocalRepo;
 class CloneTask;
 class SyncError;
@@ -129,6 +134,8 @@ public:
                        CommitDetails *details);
 
     bool getSyncErrors(std::vector<SyncError> *errors, int offset=0, int limit=10);
+
+    bool getSyncNotification(json_t **ret);
 
 private:
     Q_DISABLE_COPY(SeafileRpcClient)

@@ -13,7 +13,6 @@
 #include "utils/paint-utils.h"
 #include "utils/process.h"
 #include "utils/uninstall-helpers.h"
-#include "shared-application.h"
 #include "ui/proxy-style.h"
 #include "seafile-applet.h"
 #include "QtAwesome.h"
@@ -194,37 +193,10 @@ int main(int argc, char *argv[])
 
     // count if we have any instance running now. if more than one, exit
     if (count_process(APPNAME) > 1) {
-        // have we activated it ? exit
-        if (SharedApplication::activate())
-            return 0;
-        if (QMessageBox::No == QMessageBox::warning(NULL, getBrand(),
-                QObject::tr("Found another running process of %1, kill it and start a new one?").arg(getBrand()),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes)) {
-            return -1;
-        }
-
-        // sleep 9 * 100ms to await the os completing the operation
-        do_stop();
-        int n = 10;
-        while(--n >0 && count_process(APPNAME) > 1)
-            msleep(100);
-
-        // force shutdown it
-        if (count_process(APPNAME) > 1) {
-            shutdown_process(APPNAME);
-            msleep(100);
-        }
-
-        // count if we still have any instance running now. if more than one, exit
-        uint64_t pid = 0;
-        if (count_process(APPNAME, &pid) > 1) {
-            QString msg = QObject::tr("Unable to start %1 due to the failure of shutting down the previous process").arg(getBrand());
-            if (pid != 0) {
-                msg += QString(" (pid = %1)").arg(pid);
-            }
-            QMessageBox::critical(NULL, getBrand(), msg, QMessageBox::Ok);
-            return -1;
-        }
+        QMessageBox::warning(NULL, getBrand(),
+                             QObject::tr("%1 Client is already running").arg(getBrand()),
+                             QMessageBox::Ok);
+        return -1;
     }
 
     // init qtawesome component

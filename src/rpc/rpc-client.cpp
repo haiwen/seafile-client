@@ -1020,3 +1020,27 @@ bool SeafileRpcClient::getSyncErrors(std::vector<SyncError> *errors, int offset,
 
     return true;
 }
+
+bool SeafileRpcClient::getSyncNotification(json_t **ret_obj)
+{
+    GError *error = NULL;
+    json_t *ret = searpc_client_call__json (
+        seafile_rpc_client_,
+        "seafile_get_sync_notification",
+        &error, 0);
+    if (error) {
+        qWarning("failed to get sync notification: %s\n",
+                 error->message ? error->message : "");
+        g_error_free(error);
+        return false;
+    }
+
+    if (!ret) {
+        // No pending notifications.
+        return false;
+    }
+
+    *ret_obj = ret;
+
+    return true;
+}

@@ -11,7 +11,7 @@ class DaemonManager;
 class SeafileRpcClient;
 class AccountManager;
 class MainWindow;
-class MessageListener;
+class MessagePoller;
 class SeafileTrayIcon;
 class SettingsManager;
 class SettingsDialog;
@@ -110,7 +110,7 @@ private:
 
     SeafileRpcClient *rpc_client_;
 
-    MessageListener *message_listener_;
+    MessagePoller *message_poller_;
 
     SeafileTrayIcon *tray_icon_;
 

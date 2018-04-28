@@ -130,8 +130,9 @@ QLineEdit#mSearchBar {
 }
 
 QLineEdit#mSearchBar QLabel {
-    min-width: 80px;
-    max-width: 80px;
+    text-align: center;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 QLineEdit#mSearchBar:focus {

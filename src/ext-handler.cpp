@@ -201,7 +201,7 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
         GetSharedLinkRequest *req = new GetSharedLinkRequest(
             account, repo_id, path_in_repo, is_file);
 
-        connect(req, SIGNAL(success(const QString&)),
+        connect(req, SIGNAL(success(const QString&, const QString&)),
                 this, SLOT(onShareLinkGenerated(const QString&)));
 
         req->send();
@@ -221,7 +221,7 @@ void SeafileExtensionHandler::lockFile(const QString& repo_id,
     LockFileRequest *req = new LockFileRequest(
         account, repo_id, path_in_repo, lock);
 
-    connect(req, SIGNAL(success()),
+    connect(req, SIGNAL(success(const QString&)),
             this, SLOT(onLockFileSuccess()));
     connect(req, SIGNAL(failed(const ApiError&)),
             this, SLOT(onLockFileFailed(const ApiError&)));

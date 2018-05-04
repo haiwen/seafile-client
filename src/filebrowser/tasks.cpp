@@ -405,7 +405,7 @@ void FileUploadDirectoryTask::nextEmptyFolder()
     create_dir_req_.reset(new CreateDirectoryRequest(
                                 account_, repo_id_, ::pathJoin(path_, folder), create_parents));
 
-    connect(create_dir_req_.data(), SIGNAL(success()),
+    connect(create_dir_req_.data(), SIGNAL(success(const QString&)),
             this, SLOT(nextEmptyFolder()));
     connect(create_dir_req_.data(), SIGNAL(failed(const ApiError&)),
             this, SLOT(onCreateDirFailed(const ApiError&)));

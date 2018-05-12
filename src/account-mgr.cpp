@@ -16,8 +16,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
 #include "account-info-service.h"
-#include "ui/login-dialog.h"
-#include "shib/shib-login-dialog.h"
+#include "ui/sso-dialog.h"
 #include "settings-mgr.h"
 
 namespace {
@@ -356,7 +355,7 @@ int AccountManager::removeAccount(const Account& account)
         if (!accounts_.empty()) {
             validateAndUseAccount(accounts_[0]);
         } else {
-            LoginDialog login_dialog;
+            SSODialog login_dialog;
             login_dialog.exec();
         }
     }
@@ -716,19 +715,8 @@ bool AccountManager::reloginAccount(const Account &account_in)
     // See: https://gist.github.com/lins05/f952356ba8733d5aa19b54a6db19f69a
     const Account account(account_in);
 
-    do {
-#ifdef HAVE_SHIBBOLETH_SUPPORT
-        if (account.isShibboleth) {
-            ShibLoginDialog shib_dialog(
-                account.serverUrl, seafApplet->settingsManager()->getComputerName());
-            accepted = shib_dialog.exec() == QDialog::Accepted;
-            break;
-        }
-#endif // HAVE_SHIBBOLETH_SUPPORT
-        LoginDialog dialog;
-        dialog.initFromAccount(account);
-        accepted = dialog.exec() == QDialog::Accepted;
-    } while (0);
+    SSODialog dialog;
+    accepted = dialog.exec() == QDialog::Accepted;
 
     if (accepted) {
         getSyncedReposToken(account);

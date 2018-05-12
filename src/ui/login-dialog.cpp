@@ -465,8 +465,8 @@ void LoginDialog::startNewSSO()
 
     seafApplet->settingsManager()->setLastSSOUrl(url.toString());
 
-    SSODialog sso_dialog(url, mComputerName->text(), this);
-    if (sso_dialog.exec() == QDialog::Accepted) {
-        accept();
-    }
+    // SSODialog sso_dialog(url, mComputerName->text(), this);
+    // if (sso_dialog.exec() == QDialog::Accepted) {
+    //     accept();
+    // }
 }

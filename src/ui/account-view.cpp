@@ -13,7 +13,7 @@
 #include "account.h"
 #include "seafile-applet.h"
 #include "account-mgr.h"
-#include "login-dialog.h"
+#include "sso-dialog.h"
 #include "settings-mgr.h"
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 #include "shib/shib-login-dialog.h"
@@ -69,7 +69,7 @@ AccountView::AccountView(QWidget *parent)
 
 void AccountView::showAddAccountDialog()
 {
-    LoginDialog dialog(this);
+    SSODialog dialog(this);
     // Show InitVirtualDriveDialog for the first account added
     AccountManager *account_mgr = seafApplet->accountManager();
     if (dialog.exec() == QDialog::Accepted

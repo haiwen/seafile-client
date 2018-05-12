@@ -3,6 +3,7 @@
 #include <QtGui>
 
 #include "account-mgr.h"
+#include "settings-mgr.h"
 #include "api/api-error.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
@@ -14,6 +15,7 @@
 namespace
 {
 const char *kGetSSOStatusUrl = "api2/client-sso-link/%1/";
+const char *kPreconfigureSSOLoginUrl = "PreconfigureSSOLoginUrl";
 const int kSSOStatusCheckInterval = 3000;
 
 QString getUUIDFromLink(const QString &link)
@@ -28,12 +30,8 @@ QString getUUIDFromLink(const QString &link)
 
 } // anonymouse namespace
 
-SSODialog::SSODialog(const QUrl &server_addr,
-                     const QString &computer_name,
-                     QWidget *parent)
-    : QDialog(parent),
-      server_addr_(server_addr),
-      computer_name_(computer_name)
+SSODialog::SSODialog(QWidget *parent)
+    : QDialog(parent)
 {
     setupUi(this);
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
@@ -43,6 +41,8 @@ SSODialog::SSODialog(const QUrl &server_addr,
     setStatusText(tr("Starting Single Sign On ..."));
     setStatusIcon(":/images/account.png");
 
+    computer_name_ = seafApplet->settingsManager()->getComputerName();
+
     connect(mStatusText,
             SIGNAL(linkActivated(const QString &)),
             this,
@@ -50,7 +50,82 @@ SSODialog::SSODialog(const QUrl &server_addr,
 
     sso_check_timer_ = new QTimer(this);
     connect(sso_check_timer_, SIGNAL(timeout()), this, SLOT(ssoCheckTimerCB()));
-    QTimer::singleShot(0, this, SLOT(getSSOLink()));
+    QTimer::singleShot(0, this, SLOT(start()));
+}
+
+void SSODialog::start()
+{
+    QString server_addr =
+        seafApplet->readPreconfigureEntry(kPreconfigureSSOLoginUrl)
+            .toString()
+            .trimmed();
+    if (!server_addr.isEmpty()) {
+        if (QUrl(server_addr).isValid()) {
+            qWarning("Using preconfigured SSO login url: %s\n",
+                     toCStr(server_addr));
+        } else {
+            qWarning("Invalid preconfigured SSO login url: %s\n",
+                     toCStr(server_addr));
+            server_addr = "";
+        }
+    }
+
+    QUrl url = server_addr;
+    if (url.isEmpty()) {
+        // When we reach here, there is no preconfigured SSO login url,
+        // or the preconfigured url is invalid. So we ask the user for the url.
+        server_addr = seafApplet->settingsManager()->getLastSSOUrl();
+        if (!getSSOLoginUrl(server_addr, &url)) {
+            reject();
+            return;
+        }
+    }
+
+    seafApplet->settingsManager()->setLastSSOUrl(url.toString());
+    server_addr_ = url;
+    getSSOLink();
+}
+
+bool SSODialog::getSSOLoginUrl(const QString& last_url, QUrl *url_out)
+{
+    QString server_addr = last_url;
+    QUrl url;
+
+    while (true) {
+        bool ok;
+        server_addr =
+            seafApplet->getText(this,
+                                tr("Single Sign On"),
+                                tr("%1 Server Address").arg(getBrand()),
+                                QLineEdit::Normal,
+                                server_addr,
+                                &ok);
+        server_addr = server_addr.trimmed();
+
+        // exit when user hits cancel button
+        if (!ok) {
+            return false;
+        }
+
+        if (server_addr.isEmpty()) {
+            showWarning(tr("Server address must not be empty").arg(server_addr));
+            continue;
+        }
+
+        if (!server_addr.startsWith("https://")) {
+            showWarning(tr("%1 is not a valid server address. It has to start with 'https://'").arg(server_addr));
+            continue;
+        }
+
+        url = QUrl(server_addr, QUrl::StrictMode);
+        if (!url.isValid()) {
+            showWarning(tr("%1 is not a valid server address").arg(server_addr));
+            continue;
+        }
+
+        *url_out = url;
+        return true;
+    }
 }
 
 void SSODialog::setStatusText(const QString &status)
@@ -110,6 +185,7 @@ void SSODialog::onGetSSOLinkFailed(const ApiError &error)
 
 void SSODialog::fail(const QString &msg)
 {
+    ensureVisible();
     seafApplet->warningBox(msg, this);
     reject();
 }
@@ -194,6 +270,7 @@ void SSODialog::onFetchAccountInfoSuccess(const AccountInfo &info)
     }
 
     seafApplet->accountManager()->updateAccountInfo(account, info);
+    ensureVisible();
     QString buf = tr("Successfully logged in as %1").arg(info.name);
     seafApplet->trayIcon()->showMessage(getBrand(), buf);
     accept();
@@ -217,4 +294,9 @@ void SSODialog::closeEvent(QCloseEvent *event)
     } else {
         event->ignore();
     }
+}
+
+void SSODialog::showWarning(const QString& msg)
+{
+    seafApplet->warningBox(msg, this);
 }

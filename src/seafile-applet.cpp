@@ -28,7 +28,7 @@
 #include "ui/tray-icon.h"
 #include "ui/settings-dialog.h"
 #include "ui/init-vdrive-dialog.h"
-#include "ui/login-dialog.h"
+#include "ui/sso-dialog.h"
 #include "open-local-helper.h"
 #include "avatar-service.h"
 #include "filebrowser/thumbnail-service.h"
@@ -337,7 +337,7 @@ void SeafileApplet::onDaemonStarted()
 
             if (readPreconfigureEntry(kHideConfigurationWizard).toInt())
                 break;
-            LoginDialog login_dialog;
+            SSODialog login_dialog;
             login_dialog.exec();
         } while (0);
     } else if (!account_mgr_->accounts().empty()) {

@@ -29,11 +29,10 @@ class SSODialog : public QDialog, public Ui::SSODialog
 {
     Q_OBJECT
 public:
-    SSODialog(const QUrl &server_addr,
-              const QString &computer_name,
-              QWidget *parent = 0);
+    SSODialog(QWidget *parent = 0);
 
 private slots:
+    void start();
     void getSSOLink();
     void onGetSSOLinkSuccess(const QString &link);
     void onGetSSOLinkFailed(const ApiError &error);
@@ -50,12 +49,14 @@ private slots:
 private:
     Q_DISABLE_COPY(SSODialog);
     void fail(const QString &msg);
+    void showWarning(const QString& msg);
     void setStatusText(const QString &status);
     void setStatusIcon(const QString &path);
     void ensureVisible();
     void startSSOStatusCheck();
     void sendSSOStatusRequest();
     void getAccountInfo(const Account &account);
+    bool getSSOLoginUrl(const QString& last_url, QUrl *url_out);
 
     QUrl server_addr_;
     QString computer_name_;

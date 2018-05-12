@@ -19,6 +19,7 @@
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 #include "shib/shib-login-dialog.h"
 #endif // HAVE_SHIBBOLETH_SUPPORT
+#include "ui/sso-dialog.h"
 
 namespace {
 
@@ -27,6 +28,7 @@ const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
 const char *const kPreconfigureShibbolethLoginUrl = "PreconfigureShibbolethLoginUrl";
+const char *const kPreconfigureSSOLoginUrl = "PreconfigureSSOLoginUrl";
 
 const char *const kSeafileOTPHeader = "X-SEAFILE-OTP";
 const char *const kRememberDeviceHeader = "X-SEAFILE-2FA-TRUST-DEVICE";
@@ -109,8 +111,10 @@ void LoginDialog::setupShibLoginLink()
 {
     QString txt = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("Single Sign On"));
     mShibLoginLink->setText(txt);
+    // connect(mShibLoginLink, SIGNAL(linkActivated(const QString&)),
+    //         this, SLOT(loginWithShib()));
     connect(mShibLoginLink, SIGNAL(linkActivated(const QString&)),
-            this, SLOT(loginWithShib()));
+            this, SLOT(startNewSSO()));
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
@@ -351,11 +355,9 @@ void LoginDialog::showWarning(const QString& msg)
     seafApplet->warningBox(msg, this);
 }
 
-#ifdef HAVE_SHIBBOLETH_SUPPORT
-
-bool LoginDialog::getShibLoginUrl(const QString& last_shib_url, QUrl *url_out)
+bool LoginDialog::getSSOLoginUrl(const QString& last_url, QUrl *url_out)
 {
-    QString server_addr = last_shib_url;
+    QString server_addr = last_url;
     QUrl url;
 
     while (true) {
@@ -395,6 +397,8 @@ bool LoginDialog::getShibLoginUrl(const QString& last_shib_url, QUrl *url_out)
     }
 }
 
+#ifdef HAVE_SHIBBOLETH_SUPPORT
+
 void LoginDialog::loginWithShib()
 {
     QString server_addr =
@@ -417,7 +421,7 @@ void LoginDialog::loginWithShib()
         // When we reach here, there is no preconfigured shibboleth login url,
         // or the preconfigured url is invalid. So we ask the user for the url.
         server_addr = seafApplet->settingsManager()->getLastShibUrl();
-        if (!getShibLoginUrl(server_addr, &url)) {
+        if (!getSSOLoginUrl(server_addr, &url)) {
             return;
         }
     }
@@ -429,4 +433,40 @@ void LoginDialog::loginWithShib()
         accept();
     }
 }
+
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+void LoginDialog::startNewSSO()
+{
+    QString server_addr =
+        seafApplet->readPreconfigureEntry(kPreconfigureSSOLoginUrl)
+            .toString()
+            .trimmed();
+    if (!server_addr.isEmpty()) {
+        if (QUrl(server_addr).isValid()) {
+            qWarning("Using preconfigured SSO login url: %s\n",
+                     toCStr(server_addr));
+        } else {
+            qWarning("Invalid preconfigured SSO login url: %s\n",
+                     toCStr(server_addr));
+            server_addr = "";
+        }
+    }
+
+    QUrl url;
+    if (server_addr.isEmpty()) {
+        // When we reach here, there is no preconfigured SSO login url,
+        // or the preconfigured url is invalid. So we ask the user for the url.
+        server_addr = seafApplet->settingsManager()->getLastSSOUrl();
+        if (!getSSOLoginUrl(server_addr, &url)) {
+            return;
+        }
+    }
+
+    seafApplet->settingsManager()->setLastSSOUrl(url.toString());
+
+    SSODialog sso_dialog(url, mComputerName->text(), this);
+    if (sso_dialog.exec() == QDialog::Accepted) {
+        accept();
+    }
+}

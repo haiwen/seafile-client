@@ -277,6 +277,7 @@ SET(moc_headers
   src/ui/set-repo-password-dialog.h
   src/ui/sync-errors-dialog.h
   src/ui/search-bar.h
+  src/ui/sso-dialog.h
   src/ui/two-factor-dialog.h
   src/filebrowser/file-browser-manager.h
   src/filebrowser/file-browser-dialog.h
@@ -325,6 +326,7 @@ SET(ui_files
   ui/account-view.ui
   ui/two-factor-dialog.ui
   ui/set-repo-password-dialog.ui
+  ui/sso-dialog.ui
   ${platform_specific_ui_files}
 )
 
@@ -468,6 +470,7 @@ SET(seafile_client_sources
   src/ui/set-repo-password-dialog.cpp
   src/ui/sync-errors-dialog.cpp
   src/ui/search-bar.cpp
+  src/ui/sso-dialog.cpp
   src/ui/two-factor-dialog.cpp
   src/filebrowser/file-browser-manager.cpp
   src/filebrowser/file-browser-dialog.cpp

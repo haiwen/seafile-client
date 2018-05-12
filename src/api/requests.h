@@ -842,4 +842,36 @@ private:
     Q_DISABLE_COPY(GetUploadFileLinkRequest);
 };
 
+class GetSSOLinkRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetSSOLinkRequest(const QString& server_addr);
+
+signals:
+    void success(const QString& link);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetSSOLinkRequest);
+};
+
+class GetSSOStatusRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetSSOStatusRequest(const QUrl& link);
+
+signals:
+    void success(const QString& status, const QString& email, const QString& apikey);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetSSOStatusRequest);
+};
+
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

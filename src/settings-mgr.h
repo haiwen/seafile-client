@@ -102,6 +102,9 @@ public:
     void setLastShibUrl(const QString& url);
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
+    QString getLastSSOUrl();
+    void setLastSSOUrl(const QString& url);
+
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     bool getFinderSyncExtension() const;
     bool getFinderSyncExtensionAvailable() const;

@@ -43,6 +43,7 @@ const char *kFinderSync = "finderSync";
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
+const char *kLastSSOUrl = "lastSSOurl";
 
 const char *kUseProxy = "use_proxy";
 const char *kUseSystemProxy = "use_system_proxy";
@@ -614,6 +615,27 @@ void SettingsManager::setLastShibUrl(const QString &url)
     settings.endGroup();
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+
+QString SettingsManager::getLastSSOUrl()
+{
+    QSettings settings;
+    QString url;
+
+    settings.beginGroup(kSettingsGroup);
+    url = settings.value(kLastSSOUrl, "").toString();
+    settings.endGroup();
+
+    return url;
+}
+
+void SettingsManager::setLastSSOUrl(const QString &url)
+{
+    QSettings settings;
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kLastSSOUrl, url);
+    settings.endGroup();
+}
 
 #ifdef HAVE_FINDER_SYNC_SUPPORT
 bool SettingsManager::getFinderSyncExtension() const

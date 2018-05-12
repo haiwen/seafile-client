@@ -708,3 +708,18 @@ SeafileTabWidget QToolButton:hover {
     border: 0;
     border-radius: 0;
 }
+
+SSODialog {
+    min-width: 500px;
+    max-width: 500px;
+    min-height: 350px;
+    max-height: 350px;
+}
+
+SSODialog QLabel#mStatusText {
+    font-size: 16px;
+    font-family: Arial;
+    padding-right: 20px;
+    qproperty-wordWrap: true;
+    min-width: 350px;
+}

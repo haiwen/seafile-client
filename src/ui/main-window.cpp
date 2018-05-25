@@ -25,6 +25,7 @@
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
+#include "filebrowser/auto-update-mgr.h"
 
 #include "main-window.h"
 
@@ -194,6 +195,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_F5) {
         refreshQss();
+        return;
+    } else if (event->key() == Qt::Key_F6) {
+        AutoUpdateManager::instance()->dumpCacheStatus();
         return;
     }
 

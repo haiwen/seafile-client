@@ -74,6 +74,16 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
     if (!qnam_) {
         qnam_ = createQNAM();
     }
+    connect(qnam_, SIGNAL(destroyed(QObject *)),
+            this, SLOT(doAbort()));
+}
+
+void SeafileApiClient::doAbort()
+{
+    if (reply_ && reply_->isRunning()) {
+        qWarning("aborting request %s on network error", toCStr(reply_->url().toString()));
+        reply_->abort();
+    }
 }
 
 SeafileApiClient::~SeafileApiClient()

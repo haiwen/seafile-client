@@ -41,6 +41,7 @@ signals:
 private slots:
     void httpRequestFinished();
     void onSslErrors(const QList<QSslError>& errors);
+    void doAbort();
 
 private:
     Q_DISABLE_COPY(SeafileApiClient)

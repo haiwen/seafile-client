@@ -40,6 +40,7 @@ public:
         const QList<SeafDirent>& dirents);
     void cleanCachedFile();
     void uploadFile(const QString& local_path);
+    void dumpCacheStatus();
 
 signals:
     void fileUpdated(const QString& repo_id, const QString& path);

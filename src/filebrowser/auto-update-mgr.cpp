@@ -86,6 +86,11 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
         if (repo_id == info.repo_id && path == info.path_in_repo)
             return;
     }
+    Q_FOREACH(const WatchedFileInfo& info, watch_infos_)
+    {
+        if (repo_id == info.repo_id && path == info.path_in_repo)
+            return;
+    }
 
     addPath(&watcher_, local_path);
 
@@ -205,6 +210,8 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
 
     if (success) {
         qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
+        info.mtime = finfo.lastModified().toMSecsSinceEpoch();
+        info.fsize = finfo.size();
         seafApplet->trayIcon()->showMessage(tr("Upload Success"),
                                             tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
                                             task->repoId());
@@ -321,7 +328,7 @@ AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
         qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
         bool consistent = mtime == entry.seafile_mtime && finfo.size() == entry.seafile_size;
         if (consistent) {
-            ret[file] = SYNCED;
+            ret[file] = is_uploading ? UPLOADING: SYNCED;
         } else {
             ret[file] = is_uploading ? UPLOADING : NOT_SYNCED;
         }
@@ -374,4 +381,14 @@ void CachedFilesCleaner::run()
         QDir().rename(file_cache_dir, file_cache_tmp_dir);
         delete_dir_recursively(file_cache_tmp_dir);
     }
+}
+
+void AutoUpdateManager::dumpCacheStatus()
+{
+    printf ("---------------BEGIN CACHE INFO -------------\n");
+    foreach(const QString& key, watch_infos_.keys()) {
+        WatchedFileInfo& info = watch_infos_[key];
+        printf ("%s mtime = %lld, fsize = %lld, uploading = %s\n", toCStr(info.path_in_repo), info.mtime, info.fsize, info.uploading ? "true" : "false");
+    }
+    printf ("---------------END CACHE INFO -------------\n");
 }

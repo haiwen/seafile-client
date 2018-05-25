@@ -17,7 +17,7 @@
 
 namespace {
 
-const int kCheckNetworkStatusIntervalMSecs = 10; // 10s
+const int kCheckNetworkStatusIntervalMSecs = 10000; // 10s
 
 QNetworkProxy proxy_;
 

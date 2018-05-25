@@ -309,6 +309,7 @@ protected slots:
     void onSslErrors(const QList<QSslError>& errors);
     void httpRequestFinished();
     void retry();
+    void doAbort();
 
 protected:
     /**

@@ -81,7 +81,7 @@ SeafileApiClient::SeafileApiClient(QObject *parent)
 void SeafileApiClient::doAbort()
 {
     if (reply_ && reply_->isRunning()) {
-        qWarning("aborting request %s on network error", toCStr(reply_->url().toString()));
+        qWarning("aborting api request %s on network error", toCStr(reply_->url().toString()));
         reply_->abort();
     }
 }

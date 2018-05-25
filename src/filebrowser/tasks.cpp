@@ -442,7 +442,17 @@ void FileServerTask::resetQNAM()
 
 QNetworkAccessManager *FileServerTask::getQNAM()
 {
-    return qnam_wrapper_->getQNAM();
+    QNetworkAccessManager *qnam = qnam_wrapper_->getQNAM();
+    connect(qnam, SIGNAL(destroyed(QObject *)), this, SLOT(doAbort()));
+    return qnam;
+}
+
+void FileServerTask::doAbort()
+{
+    if (reply_ && reply_->isRunning()) {
+        qWarning("aborting FileServerTask %s on network error", toCStr(reply_->url().toString()));
+        reply_->abort();
+    }
 }
 
 void FileServerTask::onSslErrors(const QList<QSslError>& errors)

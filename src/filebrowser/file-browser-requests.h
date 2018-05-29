@@ -226,7 +226,7 @@ public:
     const QStringList& srcFileNames() { return src_file_names_; }
 
 signals:
-    void success();
+    void success(const QString& dst_repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -236,6 +236,7 @@ private:
     const QString repo_id_;
     const QString src_dir_path_;
     const QStringList src_file_names_;
+    const QString dst_repo_id_;
 };
 
 class MoveMultipleFilesRequest : public SeafileApiRequest {
@@ -252,7 +253,7 @@ public:
     const QStringList& srcFileNames() { return src_file_names_; }
 
 signals:
-    void success();
+    void success(const QString& dst_repo_id);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -262,6 +263,7 @@ private:
     const QString repo_id_;
     const QString src_dir_path_;
     const QStringList src_file_names_;
+    const QString dst_repo_id_;
 };
 
 class StarFileRequest : public SeafileApiRequest {

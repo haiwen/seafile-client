@@ -148,10 +148,10 @@ signals:
     void shareDirentSuccess(const QString& link, const QString& repo_id);
     void shareDirentFailed(const ApiError& error);
 
-    void copyDirentsSuccess();
+    void copyDirentsSuccess(const QString& dst_repo_id);
     void copyDirentsFailed(const ApiError& error);
 
-    void moveDirentsSuccess();
+    void moveDirentsSuccess(const QString& dst_repo_id);
     void moveDirentsFailed(const ApiError& error);
 
     void createSubrepoSuccess(const ServerRepo &repo, const QString& repo_id);
@@ -167,8 +167,8 @@ private slots:
     void onRenameDirentSuccess(const QString& repo_id);
     void onRemoveDirentSuccess(const QString& repo_id);
     void onRemoveDirentsSuccess(const QString& repo_id);
-    void onCopyDirentsSuccess();
-    void onMoveDirentsSuccess();
+    void onCopyDirentsSuccess(const QString& dst_repo_id);
+    void onMoveDirentsSuccess(const QString& dst_repo_id);
 
     void onCreateSubrepoSuccess(const QString& new_repoid);
     void onCreateSubrepoRefreshSuccess(const ServerRepo& new_repo);
@@ -181,8 +181,6 @@ private:
                             bool is_file);
     void setupTaskCleanup(FileNetworkTask *task);
     Account account_;
-
-    QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> get_dirents_req_;
 
     QScopedPointer<CreateSubrepoRequest, QScopedPointerDeleteLater> create_subrepo_req_;
     QString create_subrepo_parent_repo_id_;

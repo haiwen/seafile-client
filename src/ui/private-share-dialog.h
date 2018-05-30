@@ -12,6 +12,7 @@
 #include <QStringList>
 #include <QStyledItemDelegate>
 #include <QTableView>
+#include <QHeaderView>
 #include "ui_private-share-dialog.h"
 
 #include "account.h"

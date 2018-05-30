@@ -76,12 +76,13 @@ bool DataManager::getDirents(const QString& repo_id,
 void DataManager::getDirentsFromServer(const QString& repo_id,
                                        const QString& path)
 {
-    get_dirents_req_.reset(new GetDirentsRequest(account_, repo_id, path));
-    connect(get_dirents_req_.data(), SIGNAL(success(bool, const QList<SeafDirent>&, const QString&)),
+    GetDirentsRequest *get_dirents_req = new GetDirentsRequest(account_, repo_id, path);
+    connect(get_dirents_req, SIGNAL(success(bool, const QList<SeafDirent>&, const QString&)),
             this, SLOT(onGetDirentsSuccess(bool, const QList<SeafDirent>&, const QString&)));
-    connect(get_dirents_req_.data(), SIGNAL(failed(const ApiError&, const QString&)),
+    connect(get_dirents_req, SIGNAL(failed(const ApiError&, const QString&)),
             this, SIGNAL(getDirentsFailed(const ApiError&, const QString&)));
-    get_dirents_req_->send();
+    get_dirents_req->send();
+    reqs_.push_back(get_dirents_req);
 }
 
 void DataManager::createDirectory(const QString &repo_id,
@@ -185,8 +186,8 @@ void DataManager::copyDirents(const QString &repo_id,
       new CopyMultipleFilesRequest(account_, repo_id, dir_path, file_names,
                                    dst_repo_id,
                                    dst_dir_path);
-    connect(req, SIGNAL(success()),
-            SLOT(onCopyDirentsSuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onCopyDirentsSuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(copyDirentsFailed(const ApiError&)));
@@ -204,8 +205,8 @@ void DataManager::moveDirents(const QString &repo_id,
       new MoveMultipleFilesRequest(account_, repo_id, dir_path, file_names,
                                    dst_repo_id,
                                    dst_dir_path);
-    connect(req, SIGNAL(success()),
-            SLOT(onMoveDirentsSuccess()));
+    connect(req, SIGNAL(success(const QString&)),
+            SLOT(onMoveDirentsSuccess(const QString&)));
 
     connect(req, SIGNAL(failed(const ApiError&)),
             SIGNAL(moveDirentsFailed(const ApiError&)));
@@ -215,8 +216,9 @@ void DataManager::moveDirents(const QString &repo_id,
 
 void DataManager::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents, const QString& repo_id)
 {
-    dirents_cache_->saveCachedDirents(get_dirents_req_->repoId(),
-                                      get_dirents_req_->path(),
+    GetDirentsRequest *get_dirents_req =  qobject_cast<GetDirentsRequest *>(sender());
+    dirents_cache_->saveCachedDirents(get_dirents_req->repoId(),
+                                      get_dirents_req->path(),
                                       current_readonly,
                                       dirents);
 
@@ -278,17 +280,17 @@ void DataManager::onRemoveDirentsSuccess(const QString& repo_id)
     emit removeDirentsSuccess(req->parentPath(), req->filenames(), repo_id);
 }
 
-void DataManager::onCopyDirentsSuccess()
+void DataManager::onCopyDirentsSuccess(const QString& dst_repo_id)
 {
-    emit copyDirentsSuccess();
+    emit copyDirentsSuccess(dst_repo_id);
 }
 
-void DataManager::onMoveDirentsSuccess()
+void DataManager::onMoveDirentsSuccess(const QString& dst_repo_id)
 {
     MoveMultipleFilesRequest *req = qobject_cast<MoveMultipleFilesRequest*>(sender());
     dirents_cache_->expireCachedDirents(req->srcRepoId(), req->srcPath());
 
-    emit moveDirentsSuccess();
+    emit moveDirentsSuccess(dst_repo_id);
 }
 
 void DataManager::removeDirentsCache(const QString& repo_id,

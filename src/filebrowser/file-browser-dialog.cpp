@@ -254,13 +254,13 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirentShareFailed(const ApiError&)));
 
     //copy <--> data_mgr_
-    connect(data_mgr_, SIGNAL(copyDirentsSuccess()),
+    connect(data_mgr_notify_, SIGNAL(copyDirentsSuccess()),
             this, SLOT(onDirentsCopySuccess()));
     connect(data_mgr_, SIGNAL(copyDirentsFailed(const ApiError&)),
             this, SLOT(onDirentsCopyFailed(const ApiError&)));
 
     //move <--> data_mgr_
-    connect(data_mgr_, SIGNAL(moveDirentsSuccess()),
+    connect(data_mgr_notify_, SIGNAL(moveDirentsSuccess()),
             this, SLOT(onDirentsMoveSuccess()));
     connect(data_mgr_, SIGNAL(moveDirentsFailed(const ApiError&)),
             this, SLOT(onDirentsMoveFailed(const ApiError&)));
@@ -1445,6 +1445,8 @@ void FileBrowserDialog::onDirentsMoveSuccess()
     if (dialog != NULL && dialog->current_path_ == dir_path_to_be_pasted_from_) {
         dialog->forceRefresh();
     }
+
+    msleep(500);
     forceRefresh();
 }
 
@@ -1633,6 +1635,10 @@ DataManagerNotify::DataManagerNotify(const QString &repo_id)
             this, SLOT(onDirentShareSuccess(const QString&, const QString&)));
     connect(data_mgr_, SIGNAL(createSubrepoSuccess(const ServerRepo &, const QString&)),
             this, SLOT(onCreateSubrepoSuccess(const ServerRepo &, const QString&)));
+    connect(data_mgr_, SIGNAL(copyDirentsSuccess(const QString&)),
+            this, SLOT(onDirentsCopySuccess(const QString&)));
+    connect(data_mgr_, SIGNAL(moveDirentsSuccess(const QString&)),
+            this, SLOT(onDirentsMoveSuccess(const QString&)));
 }
 
 void DataManagerNotify::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id)
@@ -1695,5 +1701,19 @@ void DataManagerNotify::onCreateSubrepoSuccess(const ServerRepo &repo, const QSt
 {
     if (repo_id == repo_id_) {
         emit createSubrepoSuccess(repo);
+    }
+}
+
+void DataManagerNotify::onDirentsCopySuccess(const QString& dst_repo_id)
+{
+    if (dst_repo_id == repo_id_) {
+        emit copyDirentsSuccess();
+    }
+}
+
+void DataManagerNotify::onDirentsMoveSuccess(const QString& dst_repo_id)
+{
+    if (dst_repo_id == repo_id_) {
+        emit moveDirentsSuccess();
     }
 }

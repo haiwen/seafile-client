@@ -260,7 +260,8 @@ CopyMultipleFilesRequest::CopyMultipleFilesRequest(const Account &account,
     SeafileApiRequest::METHOD_POST, account.token),
     repo_id_(repo_id),
     src_dir_path_(src_dir_path),
-    src_file_names_(src_file_names)
+    src_file_names_(src_file_names),
+    dst_repo_id_(dst_repo_id)
 {
     setUrlParam("p", src_dir_path);
 
@@ -271,7 +272,7 @@ CopyMultipleFilesRequest::CopyMultipleFilesRequest(const Account &account,
 
 void CopyMultipleFilesRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(dst_repo_id_);
 }
 
 MoveMultipleFilesRequest::MoveMultipleFilesRequest(const Account &account,
@@ -285,7 +286,8 @@ MoveMultipleFilesRequest::MoveMultipleFilesRequest(const Account &account,
     SeafileApiRequest::METHOD_POST, account.token),
     repo_id_(repo_id),
     src_dir_path_(src_dir_path),
-    src_file_names_(src_file_names)
+    src_file_names_(src_file_names),
+    dst_repo_id_(dst_repo_id)
 {
     setUrlParam("p", src_dir_path);
 
@@ -296,7 +298,7 @@ MoveMultipleFilesRequest::MoveMultipleFilesRequest(const Account &account,
 
 void MoveMultipleFilesRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit success();
+    emit success(dst_repo_id_);
 }
 
 StarFileRequest::StarFileRequest(const Account &account,

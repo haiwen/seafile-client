@@ -266,6 +266,8 @@ signals:
     void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames);
     void shareDirentSuccess(const QString& link);
     void createSubrepoSuccess(const ServerRepo &repo);
+    void copyDirentsSuccess();
+    void moveDirentsSuccess();
 
 private slots:
     void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id);
@@ -278,7 +280,9 @@ private slots:
                                 const QStringList& filenames,
                                 const QString& repo_id);
     void onDirentShareSuccess(const QString& link, const QString& repo_id);
-    void onCreateSubrepoSuccess(const ServerRepo &, const QString& repo_id);
+    void onCreateSubrepoSuccess(const ServerRepo& repo, const QString& repo_id);
+    void onDirentsCopySuccess(const QString& dst_repo_id);
+    void onDirentsMoveSuccess(const QString& dst_repo_id);
 
 private:
     DataManager *data_mgr_;

@@ -799,17 +799,14 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
-QT5_USE_MODULES(seafile-applet Core Gui Widgets Network)
+target_link_libraries(seafile-applet Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network)
 IF (BUILD_SHIBBOLETH_SUPPORT)
-QT5_USE_MODULES(seafile-applet ${WEBKIT_NAME} ${WEBKIT_WIDGETS_NAME})
+target_link_libraries(seafile-applet Qt5::WebEngine Qt5::WebEngineWidgets)
 ENDIF()
 
 ## QtBus
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
-  TARGET_LINK_LIBRARIES(seafile-applet
-    ${QT_QTDBUS_LIBRARIES}
-  )
-  QT5_USE_MODULES(seafile-applet ${USE_QT_LIBRARIES})
+  target_link_libraries(seafile-applet Qt5::DBus)
 ENDIF()
 
 ### Xcode-related, build as a osx bundle

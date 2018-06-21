@@ -159,14 +159,14 @@ void LocalRepo::translateSyncError(const QString &error)
     } else if (error == "Failed to start upload.") {
         sync_error_str = QObject::tr("Failed to start upload");
 
-    } else if (error == "Error occured in upload.") {
-        sync_error_str = QObject::tr("Error occured in upload");
+    } else if (error == "Error occurred in upload.") {
+        sync_error_str = QObject::tr("Error occurred in upload");
 
     } else if (error == "Failed to start download.") {
         sync_error_str = QObject::tr("Failed to start download");
 
-    } else if (error == "Error occured in download.") {
-        sync_error_str = QObject::tr("Error occured in download");
+    } else if (error == "Error occurred in download.") {
+        sync_error_str = QObject::tr("Error occurred in download");
 
     } else if (error == "No such repo on relay.") {
         sync_error_str = QObject::tr("Library is deleted on server");

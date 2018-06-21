@@ -9,7 +9,6 @@
 
 extern "C" {
 #include <searpc-client.h>
-#include <ccnet.h>
 
 #include <searpc.h>
 #include <seafile/seafile.h>
@@ -21,6 +20,7 @@ extern "C" {
 #include "seafile-applet.h"
 #include "ui/main-window.h"
 #include "rpc/rpc-client.h"
+#include "rpc/rpc-server.h"
 #include "rpc/local-repo.h"
 
 #include "account.h"
@@ -29,8 +29,6 @@ extern "C" {
 
 namespace {
 
-const char *kAppletCommandsMQ = "applet.commands";
-const char *kOpenLocalFilePrefix = "open-local-file\t";
 const char *kSeafileProtocolScheme = "seafile";
 const char *kSeafileProtocolHostOpenFile = "openfile";
 
@@ -42,7 +40,6 @@ OpenLocalHelper* OpenLocalHelper::singleton_ = NULL;
 OpenLocalHelper::OpenLocalHelper()
 {
     url_ = NULL;
-    sync_client_ = NULL;
 
     QDesktopServices::setUrlHandler(kSeafileProtocolScheme, this, SLOT(openLocalFile(const QUrl&)));
 }
@@ -56,41 +53,6 @@ OpenLocalHelper::instance()
     }
 
     return singleton_;
-}
-
-bool OpenLocalHelper::connectToCcnetDaemon()
-{
-    sync_client_ = ccnet_client_new();
-    const QString ccnet_dir = defaultCcnetDir();
-    if (ccnet_client_load_confdir(sync_client_, NULL, toCStr(ccnet_dir)) <  0) {
-        g_object_unref (sync_client_);
-        sync_client_ = NULL;
-        return false;
-    }
-
-    if (ccnet_client_connect_daemon(sync_client_, CCNET_CLIENT_SYNC) < 0) {
-        g_object_unref (sync_client_);
-        sync_client_ = NULL;
-        return false;
-    }
-
-    return true;
-}
-
-void OpenLocalHelper::sendOpenLocalFileMessage(const char *url)
-{
-    QString content = kOpenLocalFilePrefix;
-    content += QString::fromUtf8(url);
-
-    CcnetMessage *open_local_msg;
-    open_local_msg = ccnet_message_new (sync_client_->base.id,
-                                      sync_client_->base.id,
-                                      kAppletCommandsMQ, content.toUtf8().data(), 0);
-
-    ccnet_client_send_message(sync_client_, open_local_msg);
-
-    ccnet_message_free(open_local_msg);
-    g_object_unref (sync_client_);
 }
 
 QUrl OpenLocalHelper::generateLocalFileSeafileUrl(const QString& repo_id, const Account& account, const QString& path)
@@ -155,9 +117,10 @@ void OpenLocalHelper::messageBox(const QString& msg)
 
 void OpenLocalHelper::handleOpenLocalFromCommandLine(const char *url)
 {
-    if (connectToCcnetDaemon()) {
+    SeafileAppletRpcServer::Client *client = SeafileAppletRpcServer::getClient();
+    if (client->connect()) {
         // An instance of seafile applet is running
-        sendOpenLocalFileMessage(url);
+        client->sendOpenSeafileUrlCommand(QUrl::fromEncoded(url));
         exit(0);
     } else {
         // No instance of seafile client running, we just record the url and
@@ -173,4 +136,10 @@ void OpenLocalHelper::checkPendingOpenLocalRequest()
         openLocalFile(QUrl::fromEncoded(url_));
         setUrl(NULL);
     }
+}
+
+bool OpenLocalHelper::activateRunningInstance()
+{
+    SeafileAppletRpcServer::Client *client = SeafileAppletRpcServer::getClient();
+    return client->connect() && client->sendActivateCommand();
 }

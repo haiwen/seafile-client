@@ -3,6 +3,7 @@
 
 #include <QString>
 
+void do_ping();
 /**
  * Stop running seafile client.
  */

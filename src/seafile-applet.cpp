@@ -36,6 +36,7 @@
 #include "filebrowser/auto-update-mgr.h"
 #include "filebrowser/data-mgr.h"
 #include "rpc/local-repo.h"
+#include "rpc/rpc-server.h"
 #include "network-mgr.h"
 #include "server-status-service.h"
 #include "account-info-service.h"
@@ -271,7 +272,7 @@ void SeafileApplet::start()
     //
     // start daemons
     //
-    daemon_mgr_->startCcnetDaemon();
+    daemon_mgr_->startSeafileDaemon();
 
     connect(daemon_mgr_, SIGNAL(daemonStarted()),
             this, SLOT(onDaemonStarted()));
@@ -305,6 +306,7 @@ void SeafileApplet::onDaemonStarted()
     ServerStatusService::instance()->start();
     CustomizationService::instance()->start();
     AccountInfoService::instance()->start();
+    SeafileAppletRpcServer::instance()->start();
 
     account_mgr_->updateServerInfo();
 

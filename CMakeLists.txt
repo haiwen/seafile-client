@@ -233,6 +233,7 @@ SET(moc_headers
   src/api/api-request.h
   src/api/requests.h
   src/rpc/rpc-client.h
+  src/rpc/rpc-server.h
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
@@ -367,8 +368,6 @@ PKG_CHECK_MODULES(SQLITE3 REQUIRED sqlite3>=3.0.0)
 
 PKG_CHECK_MODULES(JANSSON REQUIRED jansson>=2.0)
 
-PKG_CHECK_MODULES(LIBCCNET REQUIRED libccnet>=1.3)
-
 PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
 
 PKG_CHECK_MODULES(OPENSSL REQUIRED openssl>=0.98)
@@ -390,7 +389,6 @@ SET(seafile_client_sources
   src/seafile-applet.cpp
   src/account.cpp
   src/account-mgr.cpp
-  src/ccnet-init.cpp
   src/daemon-mgr.cpp
   src/configurator.cpp
   src/open-local-helper.cpp
@@ -419,6 +417,7 @@ SET(seafile_client_sources
   src/api/commit-details.cpp
   src/api/contact-share-info.cpp
   src/rpc/rpc-client.cpp
+  src/rpc/rpc-server.cpp
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
   src/rpc/sync-error.cpp
@@ -514,7 +513,6 @@ INCLUDE_DIRECTORIES(
   ${SQLITE3_INCLUDE_DIRS}
   ${JANSSON_INCLUDE_DIRS}
   ${LIBSEARPC_INCLUDE_DIRS}
-  ${LIBCCNET_INCLUDE_DIRS}
   ${LIBSEAFILE_INCLUDE_DIRS}
 )
 
@@ -522,7 +520,6 @@ LINK_DIRECTORIES(
   ${QT_LIBRARY_DIR}
   ${OPENSSL_LIBRARY_DIRS}
   ${LIBEVENT_LIBRARY_DIRS}
-  ${LIBCCNET_LIBRARY_DIRS}
   ${LIBSEAFILE_LIBRARY_DIRS}
   ${LIBSEARPC_LIBRARY_DIRS}
   ${SQLITE3_LIBRARRY_DIRS}
@@ -792,7 +789,6 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${SQLITE3_LIBRARIES}
   ${JANSSON_LIBRARIES}
   ${LIBSEARPC_LIBRARIES}
-  ${LIBCCNET_LIBRARIES}
   ${LIBSEAFILE_LIBRARIES}
   ${ZLIB_LIBRARIES}
   ${EXTRA_LIBS}
@@ -815,14 +811,12 @@ IF(CMAKE_GENERATOR STREQUAL Xcode)
     MACOSX_BUNDLE true
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
   )
-  FIND_PROGRAM(ccnet ccnet)
   FIND_PROGRAM(seaf-daemon seaf-daemon)
   SET(RESOURCES_DIR ${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/seafile-applet.app/Contents/Resources)
   ADD_CUSTOM_COMMAND(TARGET seafile-applet
       POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E make_directory ${RESOURCES_DIR}
       COMMAND ${CMAKE_COMMAND} -E copy seafile.icns ${RESOURCES_DIR}/.
-      COMMAND ${CMAKE_COMMAND} -E copy ${ccnet} ${RESOURCES_DIR}/.
       COMMAND ${CMAKE_COMMAND} -E copy ${seaf-daemon} ${RESOURCES_DIR}/.
   )
   SET(CMAKE_XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")

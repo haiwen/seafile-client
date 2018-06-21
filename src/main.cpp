@@ -91,7 +91,7 @@ void setupSettingDomain()
 void handleCommandLineOption(int argc, char *argv[])
 {
     int c;
-    static const char *short_options = "KDXc:d:f:";
+    static const char *short_options = "KDXPc:d:f:";
     static const struct option long_options[] = {
         { "config-dir", required_argument, NULL, 'c' },
         { "data-dir", required_argument, NULL, 'd' },
@@ -100,6 +100,7 @@ void handleCommandLineOption(int argc, char *argv[])
         { "remove-user-data", no_argument, NULL, 'X' },
         { "open-local-file", no_argument, NULL, 'f' },
         { "stdout", no_argument, NULL, 'l' },
+        { "ping", no_argument, NULL, 'P' },
         { NULL, 0, NULL, 0, },
     };
 
@@ -117,6 +118,9 @@ void handleCommandLineOption(int argc, char *argv[])
             break;
         case 'K':
             do_stop();
+            exit(0);
+        case 'P':
+            do_ping();
             exit(0);
         case 'D':
             msleep(1000);
@@ -188,11 +192,19 @@ int main(int argc, char *argv[])
     // initialize style settings
     app.setStyle(new SeafileProxyStyle());
 
+    // start applet
+    SeafileApplet mApplet;
+    seafApplet = &mApplet;
+
     // handle with the command arguments
     handleCommandLineOption(argc, argv);
 
     // count if we have any instance running now. if more than one, exit
     if (count_process(APPNAME) > 1) {
+        if (OpenLocalHelper::instance()->activateRunningInstance()) {
+            printf("Activated running instance of seafile client\n");
+            return 0;
+        }
         QMessageBox::warning(NULL, getBrand(),
                              QObject::tr("%1 Client is already running").arg(getBrand()),
                              QMessageBox::Ok);
@@ -203,9 +215,6 @@ int main(int argc, char *argv[])
     awesome = new QtAwesome(qApp);
     awesome->initFontAwesome();
 
-    // start applet
-    SeafileApplet mApplet;
-    seafApplet = &mApplet;
     seafApplet->start();
 
     // qWarning("globalDevicePixelRatio() = %f\n", globalDevicePixelRatio());

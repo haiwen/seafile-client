@@ -1,12 +1,25 @@
 extern "C" {
 #include <searpc-client.h>
-#include <ccnet.h>
 
 #include <searpc.h>
 #include <seafile/seafile.h>
 #include <seafile/seafile-object.h>
 
 }
+
+#include <QtGlobal>
+
+#if defined(Q_OS_WIN32)
+#include <windows.h>
+#include <shellapi.h>
+#else
+#include <memory>
+#include <fts.h>
+#include <errno.h>
+#include <unistd.h>
+#endif
+
+#include <glib.h>
 
 #include <QDir>
 #include <QFile>
@@ -16,18 +29,10 @@ extern "C" {
 #include <QIcon>
 #include <QMainWindow>
 
-#if defined(Q_OS_WIN32)
-#include <shellapi.h>
-#else
-#include <memory>
-#include <fts.h>
-#include <errno.h>
-#include <unistd.h>
-#endif
-
 #include "utils/utils.h"
 #include "settings-mgr.h"
 #include "ui/uninstall-helper-dialog.h"
+#include "rpc/rpc-server.h"
 
 #if defined(Q_OS_WIN32)
 #include "utils/registry.h"
@@ -37,7 +42,6 @@ extern "C" {
 
 namespace {
 
-const char *kAppletCommandsMQ = "applet.commands";
 #if defined(Q_OS_WIN32)
 const char *kPreconfigureKeepConfigWhenUninstall = "PreconfigureKeepConfigWhenUninstall";
 #endif
@@ -187,28 +191,33 @@ int get_seafile_data_dir(const QString& ccnet_dir, QString *ret)
     return 0;
 }
 
+void do_ping()
+{
+    SeafileAppletRpcServer::Client *client = SeafileAppletRpcServer::getClient();
+    if (!client->connect()) {
+        printf ("failed to connect to applet rpc server\n");
+        return;
+    }
+    QString resp;
+    if (client->sendPingCommand(&resp)) {
+        printf ("response: %s\n", toCStr(resp));
+    } else {
+        printf ("failed to send ping command\n");
+    }
+}
 
 void do_stop()
 {
-    CcnetClient *sync_client = ccnet_client_new();
-    const QString ccnet_dir = defaultCcnetDir();
-    if (ccnet_client_load_confdir(sync_client, NULL, toCStr(ccnet_dir)) <  0) {
+    SeafileAppletRpcServer::Client *client = SeafileAppletRpcServer::getClient();
+    if (!client->connect()) {
+        printf ("failed to connect to applet rpc server\n");
         return;
     }
-
-    if (ccnet_client_connect_daemon(sync_client, CCNET_CLIENT_SYNC) < 0) {
-        return;
+    if (client->sendExitCommand()) {
+        printf ("exit command: success\n");
+    } else {
+        printf ("exit command: failed\n");
     }
-
-    CcnetMessage *quit_message;
-    quit_message = ccnet_message_new (sync_client->base.id,
-                                      sync_client->base.id,
-                                      kAppletCommandsMQ, "quit", 0);
-
-    ccnet_client_send_message(sync_client, quit_message);
-
-    ccnet_message_free(quit_message);
-    g_object_unref (sync_client);
 }
 
 #if defined(Q_OS_WIN32)

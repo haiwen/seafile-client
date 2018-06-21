@@ -5,7 +5,7 @@
 #include <QString>
 
 /**
- * Handles ccnet/seafile configuration initialize
+ * Handles seafile configuration initialize
  */
 class Configurator : public QObject {
     Q_OBJECT

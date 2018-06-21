@@ -1,8 +1,8 @@
 #ifndef SEAFILE_CLIENT_UTILS_WIN_H_
 #define SEAFILE_CLIENT_UTILS_WIN_H_
 #include <QtGlobal>
-#ifdef Q_OS_WIN32
 
+#ifdef Q_OS_WIN32
 namespace utils {
 namespace win {
 // a list for windows versions https://msdn.microsoft.com/en-us/library/windows/desktop/ms724833%28v=vs.85%29.aspx
@@ -30,17 +30,6 @@ bool isWindows8OrGreater();
 bool isWindows8Point1OrGreater();
 bool isWindows10OrHigher();
 bool fixQtHDPINonIntegerScaling();
-} // namespace win
-} // namespace utils
-#else
-namespace utils {
-namespace win {
-inline bool isWindowsVistaOrGreater() { return false; }
-inline bool isWindows7OrGreater() { return false; }
-inline bool isWindows8OrGreater() { return false; }
-inline bool isWindows8Point1OrGreater() { return false; }
-inline bool isWindows10OrHigher() { return false; }
-
 std::string getLocalPipeName(const char *pipeName);
 } // namespace win
 } // namespace utils

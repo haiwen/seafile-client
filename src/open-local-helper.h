@@ -1,12 +1,6 @@
 #ifndef SEAFILE_CLIENT_OPEN_LOCAL_FILE_HELPER_H
 #define SEAFILE_CLIENT_OPEN_LOCAL_FILE_HELPER_H
 
-extern "C" {
-
-struct _CcnetClient;
-
-}
-
 #include <QObject>
 #include <QUrl>
 #include <QString>
@@ -32,18 +26,14 @@ public:
 
     void checkPendingOpenLocalRequest();
 
+    bool activateRunningInstance();
+
 private:
     static OpenLocalHelper* singleton_;
 
     OpenLocalHelper();
 
     void messageBox(const QString& msg);
-
-    bool connectToCcnetDaemon();
-
-    void sendOpenLocalFileMessage(const char *url);
-
-    _CcnetClient *sync_client_;
 
     QByteArray url_;
 };

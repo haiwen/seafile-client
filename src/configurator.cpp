@@ -12,7 +12,6 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seafile-applet.h"
-#include "ccnet-init.h"
 #include "ui/init-seafile-dialog.h"
 
 #if defined(Q_OS_WIN32)
@@ -70,18 +69,7 @@ bool Configurator::needInitConfig()
 
 void Configurator::initConfig()
 {
-    initCcnet();
     initSeafile();
-}
-
-void Configurator::initCcnet()
-{
-    QString path = QDir::toNativeSeparators(ccnet_dir_);
-    if (create_ccnet_config(path.toUtf8().data()) < 0) {
-        seafApplet->errorAndExit(tr("Error when creating ccnet configuration"));
-    }
-
-    first_use_ = true;
 }
 
 void Configurator::initSeafile()

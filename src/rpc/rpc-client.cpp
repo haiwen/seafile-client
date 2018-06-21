@@ -21,6 +21,11 @@ extern "C" {
 #include "clone-task.h"
 #include "sync-error.h"
 #include "api/commit-details.h"
+
+#if defined(Q_OS_WIN32)
+  #include "utils/utils-win.h"
+#endif
+
 #include "rpc-client.h"
 
 
@@ -34,16 +39,19 @@ const char *kSeafileSockName = "seafile.sock";
 const char *kSeafileRpcService = "seafile-rpcserver";
 const char *kSeafileThreadedRpcService = "seafile-threaded-rpcserver";
 
+QString getSeafileRpcPipePath()
+{
+#if defined(Q_OS_WIN32)
+    return utils::win::getLocalPipeName(kSeafileSockName).c_str();
+#else
+    return QDir(seafApplet->configurator()->seafileDir()).filePath(kSeafileSockName);
+#endif
+}
+
 SearpcClient *createSearpcClientWithPipeTransport(const char *rpc_service)
 {
     SearpcNamedPipeClient *pipe_client;
-#if defined(Q_OS_WIN32)
-    pipe_client = searpc_create_named_pipe_client(
-        utils::win::getLocalPipeName(kSeafileSockName).c_str());
-#else
-    pipe_client = searpc_create_named_pipe_client(
-        toCStr(QDir(seafApplet->configurator()->seafileDir()).filePath(kSeafileSockName)));
-#endif
+    pipe_client = searpc_create_named_pipe_client(toCStr(getSeafileRpcPipePath()));
     int ret = searpc_named_pipe_client_connect(pipe_client);
     SearpcClient *c = searpc_client_with_named_pipe_transport(pipe_client, rpc_service);
     if (ret < 0) {

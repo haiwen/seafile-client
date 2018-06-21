@@ -4,12 +4,10 @@
 #include <QObject>
 #include <QProcess>
 
-struct _CcnetClient;
-
 class QTimer;
 
 /**
- * Start/Monitor ccnet/seafile daemon
+ * Start/Monitor seafile daemon
  */
 class DaemonManager : public QObject {
     Q_OBJECT
@@ -17,31 +15,23 @@ class DaemonManager : public QObject {
 public:
     DaemonManager();
     ~DaemonManager();
-    void startCcnetDaemon();
+    void startSeafileDaemon();
 
 signals:
     void daemonStarted();
 
 private slots:
-    void tryConnCcnet();
-    void onCcnetDaemonStarted();
-    void onCcnetDaemonExited();
-    void onSeafDaemonStarted();
-    void onSeafDaemonExited();
+    void onDaemonStarted();
+    void onDaemonExited();
     void systemShutDown();
-    void checkSeafDaemonReady();
+    void checkDaemonReady();
 
 private:
     Q_DISABLE_COPY(DaemonManager)
 
-    void startSeafileDaemon();
-    void stopAllDaemon();
+    void stopDaemon();
 
-    QTimer *conn_daemon_timer_;
-    QProcess *ccnet_daemon_;
     QProcess *seaf_daemon_;
-    _CcnetClient *sync_client_;
-
     QTimer *check_seaf_daemon_ready_timer_;
 
     bool system_shut_down_;

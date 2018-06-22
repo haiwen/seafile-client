@@ -54,7 +54,7 @@ int
 handle_activate_command (GError **error)
 {
     qWarning("[rpc server] Got an activate command");
-    seafApplet->mainWindow()->showWindow();
+    RpcServerProxy::instance()->proxyActivateCommand();
     return 0;
 }
 
@@ -62,7 +62,7 @@ int
 handle_exit_command (GError **error)
 {
     qWarning("[rpc server] Got a quit command. Quit now.");
-    QCoreApplication::exit(0);
+    RpcServerProxy::instance()->proxyExitCommand();
     return 0;
 }
 
@@ -70,7 +70,7 @@ int
 handle_open_seafile_url_command (const char *url, GError **error)
 {
     qWarning("[rpc server] opening seafile url %s", url);
-    OpenLocalHelper::instance()->openLocalFile(QUrl::fromEncoded(url));
+    RpcServerProxy::instance()->proxyOpenSeafileUrlCommand(QUrl::fromEncoded(url));
     return 0;
 }
 
@@ -205,6 +205,15 @@ SeafileAppletRpcServer::SeafileAppletRpcServer()
 : priv_(new SeafileAppletRpcServerPriv)
 {
     priv_->pipe_server = searpc_create_named_pipe_server(toCStr(getAppletRpcPipePath()));
+
+    RpcServerProxy *proxy = RpcServerProxy::instance();
+    connect(
+        proxy, SIGNAL(activateCommand()), this, SLOT(handleActivateCommand()));
+    connect(proxy, SIGNAL(exitCommand()), this, SLOT(handleExitCommand()));
+    connect(proxy,
+            SIGNAL(openSeafileUrlCommand(const QUrl &)),
+            this,
+            SLOT(handleOpenSeafileUrlCommand(const QUrl &)));
 }
 
 SeafileAppletRpcServer::~SeafileAppletRpcServer()
@@ -226,4 +235,42 @@ void SeafileAppletRpcServer::start()
 SeafileAppletRpcServer::Client* SeafileAppletRpcServer::getClient()
 {
     return new AppletRpcClient();
+}
+
+void SeafileAppletRpcServer::handleActivateCommand()
+{
+    seafApplet->mainWindow()->showWindow();
+}
+
+void SeafileAppletRpcServer::handleExitCommand()
+{
+    qWarning("[Message Listener] Got a quit command. Quit now.");
+    QCoreApplication::exit(0);
+}
+
+void SeafileAppletRpcServer::handleOpenSeafileUrlCommand(const QUrl& url)
+{
+    OpenLocalHelper::instance()->openLocalFile(url);
+}
+
+
+SINGLETON_IMPL(RpcServerProxy)
+
+RpcServerProxy::RpcServerProxy()
+{
+}
+
+void RpcServerProxy::proxyActivateCommand()
+{
+    emit activateCommand();
+}
+
+void RpcServerProxy::proxyExitCommand()
+{
+    emit exitCommand();
+}
+
+void RpcServerProxy::proxyOpenSeafileUrlCommand(const QUrl& url)
+{
+    emit openSeafileUrlCommand(url);
 }

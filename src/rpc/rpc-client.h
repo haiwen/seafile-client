@@ -141,7 +141,6 @@ private:
     Q_DISABLE_COPY(SeafileRpcClient)
 
     void getTransferDetail(CloneTask* task);
-    void getCheckOutDetail(CloneTask* task);
 
     enum Direction {
         DOWNLOAD = 0,

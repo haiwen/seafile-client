@@ -438,8 +438,6 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
 
         if (task.state == "fetch") {
             getTransferDetail(&task);
-        } else if (task.state == "checkout") {
-            getCheckOutDetail(&task);
         } else if (task.state == "error") {
             if (!task.error_detail.isNull())
                 task.error_str = task.error_detail;
@@ -503,39 +501,6 @@ void SeafileRpcClient::getTransferDetail(CloneTask* task)
             task->fs_objects_total = fs_objects_total;
         }
     }
-
-    g_object_unref (obj);
-}
-
-void SeafileRpcClient::getCheckOutDetail(CloneTask *task)
-{
-    GError *error = NULL;
-    GObject *obj = searpc_client_call__object(
-        seafile_rpc_client_,
-        "seafile_get_checkout_task",
-        SEAFILE_TYPE_CHECKOUT_TASK,
-        &error, 1,
-        "string", toCStr(task->repo_id));
-
-    if (error != NULL) {
-        g_error_free(error);
-        return;
-    }
-
-    if (obj == NULL) {
-        return;
-    }
-
-    int checkout_done = 0;
-    int checkout_total = 0;
-
-    g_object_get (obj,
-                  "total_files", &checkout_total,
-                  "finished_files", &checkout_done,
-                  NULL);
-
-    task->checkout_done = checkout_done;
-    task->checkout_total = checkout_total;
 
     g_object_unref (obj);
 }

@@ -21,7 +21,6 @@ Build-Depends:
     qtchooser,
     qttools5-dev-tools,
     libsearpc-dev,
-    libccnet-dev,
     libseafile-dev
 Standards-Version: 3.9.5
 Homepage: http://seafile.com
@@ -31,7 +30,6 @@ Architecture: any
 Depends:
     ${shlibs:Depends},
     ${misc:Depends},
-    ccnet (>= 5.1.2),
     seafile-daemon (>= 5.1.2)
 Conflicts: seafile
 Description: Seafile desktop client.

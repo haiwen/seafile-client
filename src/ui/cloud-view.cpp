@@ -1,8 +1,3 @@
-extern "C" {
-
-#include <ccnet/peer.h>
-}
-
 #include <QtGlobal>
 #include <vector>
 

@@ -796,7 +796,7 @@ TARGET_LINK_LIBRARIES(seafile-applet
 
 target_link_libraries(seafile-applet Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network)
 IF (BUILD_SHIBBOLETH_SUPPORT)
-target_link_libraries(seafile-applet Qt5::WebEngine Qt5::WebEngineWidgets)
+target_link_libraries(seafile-applet Qt5::${WEBKIT_NAME} Qt5::${WEBKIT_WIDGETS_NAME})
 ENDIF()
 
 ## QtBus

@@ -244,7 +244,7 @@ void ReliablePostFileTask::handlePostFileTaskFailure()
     }
 }
 
-void ReliablePostFileTask::continueWithFailedFile(bool retry)
+void ReliablePostFileTask::continueWithFailedFile(bool retry, const QString& link)
 {
     // retry=false is only for PostFilesTask
     assert(retry);

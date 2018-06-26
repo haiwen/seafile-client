@@ -300,7 +300,18 @@ void FileUploadTask::onOneFileFailed(const QString& filename, bool single_file)
 
 void FileUploadTask::continueWithFailedFile(bool retry)
 {
-    fileserver_task_->continueWithFailedFile(retry);
+    retry_ = retry;
+    createGetLinkRequest();
+    connect(get_link_req_, SIGNAL(success(const QString&)),
+            this, SLOT(onLinkGetAgain(const QString&)));
+    connect(get_link_req_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetLinkFailed(const ApiError&)));
+    get_link_req_->send();
+}
+
+void FileUploadTask::onLinkGetAgain(const QString& link)
+{
+    fileserver_task_->continueWithFailedFile(retry_, link);
 }
 
 FileUploadMultipleTask::FileUploadMultipleTask(const Account& account,
@@ -772,7 +783,7 @@ void PostFilesTask::onPostTaskFinished(bool success)
     startNext();
 }
 
-void PostFilesTask::startNext()
+void PostFilesTask::startNext(const QString& link)
 {
     progress_update_timer_->stop();
     if (++current_num_ == names_.size()) {
@@ -788,6 +799,9 @@ void PostFilesTask::startNext()
         relative_path = ::pathJoin(QFileInfo(local_path_).fileName(), ::getParentPath(file_path));
 
     // relative_path might be empty, and should be safe to use as well
+    if (!link.isEmpty()) {
+        url_ = link;
+    }
     task_.reset(new ReliablePostFileTask(url_,
         parent_dir_,
         ::pathJoin(local_path_, file_path),
@@ -802,7 +816,7 @@ void PostFilesTask::startNext()
     task_->start();
 }
 
-void PostFilesTask::continueWithFailedFile(bool retry)
+void PostFilesTask::continueWithFailedFile(bool retry, const QString& link)
 {
     if (retry) {
         current_num_--;
@@ -812,7 +826,7 @@ void PostFilesTask::continueWithFailedFile(bool retry)
         // successfully.
         transferred_bytes_ += file_sizes_[current_num_];
     }
-    startNext();
+    startNext(link);
 }
 
 void FileServerTask::setError(FileNetworkTask::TaskError error,

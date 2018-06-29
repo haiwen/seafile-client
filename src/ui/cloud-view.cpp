@@ -545,7 +545,9 @@ void CloudView::onAccountChanged()
 
     repos_tab_->refresh();
     starred_files_tab_->refresh();
-    activities_tab_->refresh();
+    if (seafApplet->accountManager()->currentAccount().isPro()) {
+        activities_tab_->refresh();
+    }
     search_tab_->reset();
 
     account_view_->onAccountChanged();

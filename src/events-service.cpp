@@ -45,7 +45,9 @@ void EventsService::stop()
 
 void EventsService::refresh()
 {
-    sendRequest(false);
+    if (seafApplet->accountManager()->currentAccount().isPro()) {
+        sendRequest(false);
+    }
 }
 
 void EventsService::sendRequest(bool is_load_more)

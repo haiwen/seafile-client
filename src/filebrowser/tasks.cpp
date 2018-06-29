@@ -241,6 +241,9 @@ FileDownloadTask::FileDownloadTask(const Account& account,
 
 void FileDownloadTask::createGetLinkRequest()
 {
+    if (get_link_req_) {
+        get_link_req_->deleteLater();
+    }
     get_link_req_ = new GetFileDownloadLinkRequest(account_, repo_id_, path_);
 }
 

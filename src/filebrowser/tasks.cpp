@@ -546,7 +546,8 @@ void FileServerTask::httpRequestFinished()
     if ((code / 100) == 4 || (code / 100) == 5) {
         qWarning("request failed for %s: status code %d\n",
                toCStr(reply_->url().toString()), code);
-        if (!maybeRetry()) {
+        // Response code 400 means the link may have already expired.
+        if (code == 400 || !maybeRetry()) {
             setHttpError(code);
             emit finished(false);
             return;

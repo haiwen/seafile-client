@@ -54,6 +54,7 @@ ActivitiesTab::ActivitiesTab(QWidget *parent)
     mStack->insertWidget(INDEX_LOGOUT_VIEW, logout_view_);
     mStack->insertWidget(INDEX_EVENTS_VIEW, events_container_view_);
 
+
     connect(EventsService::instance(), SIGNAL(refreshSuccess(const std::vector<SeafEvent>&, bool, bool)),
             this, SLOT(refreshEvents(const std::vector<SeafEvent>&, bool, bool)));
     connect(EventsService::instance(), SIGNAL(refreshFailed(const ApiError&)),

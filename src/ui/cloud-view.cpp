@@ -25,6 +25,7 @@
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
 #include "utils/utils.h"
+#include "events-service.h"
 
 #include "cloud-view.h"
 
@@ -628,6 +629,7 @@ void CloudView::onTabChanged(int index)
                                             .front()
                                             .hasDisableSyncWithAnyFolder();
     bool drop_area_visible = index == 0;
+    bool start_events_refresh = index == 2;
     if (enable_sync_with_any_folder && drop_area_visible) {
         mDropArea->setVisible(true);
         mFooter->setStyleSheet("");
@@ -636,6 +638,11 @@ void CloudView::onTabChanged(int index)
         mDropArea->setVisible(false);
         mFooter->setStyleSheet(
             "QFrame#mFooter { border-top: 1px solid #DCDCDE; }");
+    }
+    if (start_events_refresh) {
+        EventsService::instance()->start();
+    } else {
+        EventsService::instance()->stop();
     }
 }
 

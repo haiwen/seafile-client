@@ -27,7 +27,8 @@ public:
                          const QString &parent_dir,
                          const QString &local_path,
                          const QString &name,
-                         const bool use_upload);
+                         const bool use_upload,
+                         const bool accept_user_confirmation);
 
     // Instance created using this constructor *would not* use chunked uploads.
     // This is used for uploading files in folder uploads.

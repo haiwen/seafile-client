@@ -130,6 +130,8 @@ void AutoUpdateManager::uploadFile(const QString& local_path)
         info.repo_id, ::getParentPath(info.path_in_repo),
         local_path, ::getBaseName(local_path), true);
 
+    ((FileUploadTask *)task)->setAcceptUserConfirmation(false);
+
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onUpdateTaskFinished(bool)));
 

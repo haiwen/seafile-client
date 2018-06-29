@@ -176,11 +176,14 @@ public:
                    const QString& path,
                    const QString& local_path,
                    const QString& name,
-                   const bool use_upload = true);
+                   const bool use_upload = true,
+                   const bool accept_user_confirmation = true);
 
     // this copy constructor
     // duplicate a task same with the old one, excluding its internal stage
     FileUploadTask(const FileUploadTask& rhs);
+
+    void setAcceptUserConfirmation(bool accept) { accept_user_confirmation_ = accept ;}
 
     // When a file fails to upload, we ask the user to confirm what he wants to
     // do: retry/skip/abort.
@@ -215,6 +218,7 @@ private:
     FileUploadTask &operator=(const FileUploadTask& rhs);
 
     const bool use_upload_;
+    bool accept_user_confirmation_;
 };
 
 class FileUploadMultipleTask : public FileUploadTask {

@@ -48,7 +48,8 @@ ReliablePostFileTask::ReliablePostFileTask(const Account &account,
                                            const QString &parent_dir,
                                            const QString &local_path,
                                            const QString &name,
-                                           const bool use_upload)
+                                           const bool use_upload,
+                                           const bool accept_user_confirmation)
     : FileServerTask(url, local_path),
       account_(account),
       repo_id_(repo_id),
@@ -64,7 +65,7 @@ ReliablePostFileTask::ReliablePostFileTask(const Account &account,
     total_size_ = 0;
     // Chunked uploading is disabled for updating an existing file
     resumable_ = use_upload;
-    accept_user_confirmation_ = true;
+    accept_user_confirmation_ = accept_user_confirmation;
 }
 
 ReliablePostFileTask::ReliablePostFileTask(const QUrl &url,
@@ -210,6 +211,8 @@ void ReliablePostFileTask::createPostFileTask()
         } else {
             need_idx_progress_ = false;
         }
+        // For emulating upload errors
+        // url = QUrl(url_.toString(QUrl::PrettyDecoded).replace("1", "x").replace("2", "x"));
         task_.reset(new PostFileTask(url,
                                      parent_dir_,
                                      local_path_,
@@ -246,7 +249,9 @@ void ReliablePostFileTask::handlePostFileTaskFailure()
 
 void ReliablePostFileTask::continueWithFailedFile(bool retry)
 {
-    // retry=false is only for PostFilesTask
+    // retry=false mean skip the current file and continue with the
+    // next one. It is only used in PostFilesTask which contains a
+    // list of files to be uploaded.
     assert(retry);
     start();
 }

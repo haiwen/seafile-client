@@ -261,17 +261,20 @@ FileUploadTask::FileUploadTask(const Account& account,
                                const QString& path,
                                const QString& local_path,
                                const QString& name,
-                               const bool use_upload)
+                               const bool use_upload,
+                               const bool accept_user_confirmation)
     : FileNetworkTask(account, repo_id, path, local_path),
       name_(name),
-      use_upload_(use_upload)
+      use_upload_(use_upload),
+      accept_user_confirmation_(accept_user_confirmation)
 {
 }
 
 FileUploadTask::FileUploadTask(const FileUploadTask& rhs)
     : FileNetworkTask(rhs.account_, rhs.repo_id_, rhs.path_, rhs.local_path_),
       name_(rhs.name_),
-      use_upload_(rhs.use_upload_)
+      use_upload_(rhs.use_upload_),
+      accept_user_confirmation_(rhs.accept_user_confirmation_)
 {
 }
 
@@ -283,7 +286,7 @@ void FileUploadTask::createGetLinkRequest()
 void FileUploadTask::createFileServerTask(const QString& link)
 {
     fileserver_task_ = new ReliablePostFileTask(account_, repo_id_, link, path_, local_path_,
-                                                 name_, use_upload_);
+                                                name_, use_upload_, accept_user_confirmation_);
 }
 
 void FileUploadTask::startFileServerTask(const QString& link)

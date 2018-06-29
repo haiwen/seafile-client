@@ -247,7 +247,7 @@ void ReliablePostFileTask::handlePostFileTaskFailure()
     }
 }
 
-void ReliablePostFileTask::continueWithFailedFile(bool retry)
+void ReliablePostFileTask::continueWithFailedFile(bool retry, const QString& link)
 {
     // retry=false mean skip the current file and continue with the
     // next one. It is only used in PostFilesTask which contains a

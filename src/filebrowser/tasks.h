@@ -205,6 +205,7 @@ signals:
 protected slots:
     // Here
     virtual void onOneFileFailed(const QString& filename, bool single_file);
+    void onLinkGetAgain(const QString& link);
 
 protected:
     virtual void startFileServerTask(const QString& link);
@@ -219,6 +220,7 @@ private:
 
     const bool use_upload_;
     bool accept_user_confirmation_;
+    bool retry_;
 };
 
 class FileUploadMultipleTask : public FileUploadTask {
@@ -282,7 +284,7 @@ public:
                    const QString& local_path);
     virtual ~FileServerTask();
 
-    virtual void continueWithFailedFile(bool retry) {};
+    virtual void continueWithFailedFile(bool retry, const QString& link) {};
 
     // accessors
     const FileNetworkTask::TaskError& error() const { return error_; }
@@ -393,12 +395,12 @@ public:
 
     const QStringList& successfulNames() const { return successful_names_; }
 
-    void continueWithFailedFile(bool retry);
+    void continueWithFailedFile(bool retry, const QString& link);
 
 protected:
     void prepare();
     void sendRequest();
-    void startNext();
+    void startNext(const QString& link = QString());
 
 private slots:
     void cancel();

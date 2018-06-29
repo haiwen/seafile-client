@@ -41,7 +41,7 @@ public:
     ~ReliablePostFileTask();
 
     virtual const QString &oid() const;
-    virtual void continueWithFailedFile(bool retry);
+    virtual void continueWithFailedFile(bool retry, const QString& link);
 
 public slots:
     void cancel();

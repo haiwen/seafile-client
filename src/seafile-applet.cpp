@@ -704,17 +704,40 @@ QString SeafileApplet::getText(QWidget *parent,
 
 QString SeafileApplet::getUniqueClientId()
 {
+    static QString id;
+    if (!id.isEmpty()) {
+        return id;
+    }
+
     // Id file path is `~/Seafile/.seafile-data/id`
     QFile id_file(QDir(seafApplet->configurator()->seafileDir())
                   .absoluteFilePath("id"));
     if (!id_file.exists()) {
-        srand(time(NULL));
-        QString id;
-        while (id.length() < 40) {
-            int r = rand() % 0xff;
-            id += QString("%1").arg(r, 0, 16);
+        qWarning("id file not found, creating it");
+        // First migrate existing id from ccnet.conf General.ID
+        QString ccnet_conf_file = QDir(configurator_->ccnetDir()).absoluteFilePath("ccnet.conf");
+        QString ccnet_id;
+        if (QFile(ccnet_conf_file).exists()) {
+            QSettings ccnet_conf(ccnet_conf_file, QSettings::IniFormat);
+            ccnet_id = ccnet_conf.value("ID").toString();
+            if (ccnet_id.isEmpty()) {
+                ccnet_conf.beginGroup("General");
+                ccnet_id = ccnet_conf.value("ID", "").toString();
+            }
         }
-        id = id.mid(0, 40);
+
+        if (!ccnet_id.isEmpty()) {
+            id = ccnet_id;
+            qWarning("use existing ccnet id %s", toCStr(id));
+        } else {
+            srand(time(NULL));
+            while (id.length() < 40) {
+                int r = rand() % 0xff;
+                id += QString("%1").arg(r, 0, 16);
+            }
+            id = id.mid(0, 40);
+            qWarning("generated new device id %s", toCStr(id));
+        }
 
         if (!id_file.open(QIODevice::WriteOnly)) {
             errorAndExit(tr("failed to save client id"));
@@ -738,11 +761,12 @@ QString SeafileApplet::getUniqueClientId()
         return "";
     }
 
-    QString id = input.readLine().trimmed();
+    id = input.readLine().trimmed();
     if (id.length() != 40) {
         errorAndExit(tr("failed to read %1").arg(id_file.fileName()));
         return "";
     }
 
+    qWarning("read id from id file");
     return id;
 }

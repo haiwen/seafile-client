@@ -176,7 +176,7 @@ void FinderSyncHost::doShareLink(const QString &path) {
         account, repo_id, QString("/").append(path_in_repo),
         QFileInfo(path).isFile()));
 
-    connect(get_shared_link_req_.get(), SIGNAL(success(const QString &)), this,
+    connect(get_shared_link_req_.get(), SIGNAL(success(const QString &, const QString&)), this,
             SLOT(onShareLinkGenerated(const QString &)));
 
     get_shared_link_req_->send();

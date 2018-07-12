@@ -69,6 +69,14 @@ bool Configurator::needInitConfig()
 
 void Configurator::initConfig()
 {
+    QString path = QDir::toNativeSeparators(ccnet_dir_);
+    QDir ccnet_dir(ccnet_dir_);
+    if (!ccnet_dir.mkpath(".")) {
+        seafApplet->errorAndExit(tr("Error when creating ccnet configuration"));
+        return;
+    }
+
+    first_use_ = true;
     initSeafile();
 }
 
@@ -160,8 +168,8 @@ void Configurator::setSeafileDirAttributes()
 
 void Configurator::validateExistingConfig()
 {
-    QFile ccnet_conf(QDir(ccnet_dir_).filePath("ccnet.conf"));
-    if (!ccnet_conf.exists()) {
+    QFile seafile_ini(QDir(ccnet_dir_).filePath("seafile.ini"));
+    if (!seafile_ini.exists()) {
         initConfig();
         return;
     }

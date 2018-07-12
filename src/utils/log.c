@@ -59,7 +59,12 @@ delete_large_log_file(const char* file)
 {
     GStatBuf log_file_stat_buf;
     if (g_stat(file, &log_file_stat_buf) != 0) {
-        g_warning ("Get log file %s stat failed errno=%d.", file, errno);
+        // Do not warn if errno=2 (file not exist), because during
+        // first run of the client the log files may not be created
+        // yet.
+        if (errno != 2) {
+            g_warning ("Get log file %s stat failed errno=%d.", file, errno);
+        }
         return;
     }
 

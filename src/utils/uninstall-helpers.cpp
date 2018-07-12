@@ -156,7 +156,7 @@ int get_ccnet_dir(QString *ret)
 {
     QString path = defaultCcnetDir();
 
-    if (!QFileInfo(QDir(path).filePath("ccnet.conf")).exists()) {
+    if (!QFileInfo(path).exists()) {
         return -1;
     }
 

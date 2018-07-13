@@ -30,7 +30,7 @@ class SeafileRpcClient : public QObject {
 public:
     SeafileRpcClient();
     ~SeafileRpcClient();
-    void connectDaemon();
+    bool connectDaemon(bool exit_on_error = true);
     bool isConnected() const { return connected_; }
 
     int listLocalRepos(std::vector<LocalRepo> *repos);

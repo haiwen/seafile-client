@@ -82,15 +82,17 @@ SeafileRpcClient::~SeafileRpcClient()
     }
 }
 
-void SeafileRpcClient::connectDaemon()
+bool SeafileRpcClient::connectDaemon(bool exit_on_error)
 {
     int retry = 0;
     while (true) {
         seafile_rpc_client_ = createSearpcClientWithPipeTransport(kSeafileRpcService);
         if (!seafile_rpc_client_) {
-            if (retry++ > 5) {
-                seafApplet->errorAndExit(tr("internal error: failed to connect to seafile daemon"));
-                return;
+            if (retry++ > 20) {
+                if (exit_on_error) {
+                    seafApplet->errorAndExit(tr("internal error: failed to connect to seafile daemon"));
+                }
+                return false;
             } else {
                 g_usleep(500000);
             }
@@ -108,6 +110,7 @@ void SeafileRpcClient::connectDaemon()
 
     connected_ = true;
     qWarning("[Rpc Client] connected to daemon");
+    return true;
 }
 
 int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)

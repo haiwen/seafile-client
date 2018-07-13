@@ -28,7 +28,9 @@ const char *kSeafileDaemonExecutable = "seaf-daemon";
 
 bool seafileRpcReady() {
     SeafileRpcClient rpc;
-    rpc.connectDaemon();
+    if (!rpc.connectDaemon(false)) {
+        return false;
+    }
 
     QString str;
     return rpc.seafileGetConfig("use_proxy", &str) == 0;

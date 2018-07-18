@@ -382,6 +382,8 @@ void FileTableView::setupContextMenu()
 
     if (parent_->repo_.encrypted) {
         share_action_->setEnabled(false);
+        share_to_user_action_->setEnabled(false);
+        share_to_group_action_->setEnabled(false);
     }
 
     update_action_ = new QAction(tr("&Update"), this);

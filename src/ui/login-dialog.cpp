@@ -412,7 +412,7 @@ void LoginDialog::loginWithShib()
         }
     }
 
-    QUrl url;
+    QUrl url = server_addr;
     if (server_addr.isEmpty()) {
         // When we reach here, there is no preconfigured shibboleth login url,
         // or the preconfigured url is invalid. So we ask the user for the url.

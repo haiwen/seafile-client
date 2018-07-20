@@ -72,10 +72,15 @@ FileDownloadTask* TransferManager::addDownloadTask(const Account& account,
 
 void TransferManager::onDownloadTaskFinished(bool success)
 {
-    current_download_ = nullptr;
-    if (!pending_downloads_.empty()) {
-        FileDownloadTask* task = pending_downloads_.dequeue();
-        startDownloadTask(task);
+    FileDownloadTask *task = (FileDownloadTask *)sender();
+    if (task == current_download_) {
+        current_download_ = nullptr;
+        if (!pending_downloads_.empty()) {
+            FileDownloadTask* task = pending_downloads_.dequeue();
+            startDownloadTask(task);
+        }
+    } else {
+        pending_downloads_.removeOne(task);
     }
 }
 
@@ -105,11 +110,9 @@ void TransferManager::cancelDownload(const QString& repo_id,
     FileDownloadTask* task = getDownloadTask(repo_id, path);
     if (!task)
         return;
-    if (task == current_download_) {
-        task->cancel();
-    } else {
-        pending_downloads_.removeOne(task);
-    }
+    // If the task is a pending one, it would be removed from queue in
+    // ::onDownloadTaskFinished slot.
+    task->cancel();
 }
 
 void TransferManager::cancelAllDownloadTasks()

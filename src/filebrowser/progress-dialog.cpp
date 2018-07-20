@@ -11,6 +11,7 @@
 #include "utils/utils.h"
 #include "progress-dialog.h"
 #include "seafile-applet.h"
+#include "transfer-mgr.h"
 
 namespace
 {
@@ -207,7 +208,12 @@ void FileBrowserProgressDialog::cancel()
     if (task_->canceled()) {
         return;
     }
-    task_->cancel();
+    if (task_->type() == FileNetworkTask::Upload) {
+        task_->cancel();
+    } else {
+        // For download tasks we need to go through the transfer manager
+        TransferManager::instance()->cancelDownload(task_->repoId(), task_->path());
+    }
     reject();
 }
 

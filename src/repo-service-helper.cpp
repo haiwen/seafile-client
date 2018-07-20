@@ -119,6 +119,7 @@ void FileDownloadHelper::downloadFile(const QString &id)
             // the user canceled the dialog? skip
             break;
         }
+        // printf ("error = %d\n", (int)task->error());
         QString msg =
             QObject::tr("Unable to download item \"%1\"").arg(path_);
         seafApplet->warningBox(msg);

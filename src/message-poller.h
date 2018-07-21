@@ -16,10 +16,9 @@ public:
 
     void start();
 
-signals:
-    void seadriveFSLoaded();
-
 private slots:
+    void onDaemonDead();
+    void onDaemonRestarted();
     void checkNotification();
 
 private:

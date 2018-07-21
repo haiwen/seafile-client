@@ -132,12 +132,15 @@ public:
                            bool isdir,
                            QString *status);
 
+private slots:
+    void onDaemonRestarted();
+
 private:
     quint64 cache_ts_;
     QList<LocalRepo> cached_info_;
 
-    SeafileRpcClient *rpc_;
-    QMutex rpc_mutex_;
+    SeafileRpcClient *rpc_client_;
+    QMutex rpc_client_mutex_;
 };
 
 #endif // SEAFILE_CLIENT_EXT_HANLDER_H

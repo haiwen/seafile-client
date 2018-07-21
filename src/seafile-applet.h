@@ -89,6 +89,7 @@ public:
 
 private slots:
     void onDaemonStarted();
+    void onDaemonRestarted();
     void checkInitVDrive();
     void updateReposPropertyForHttpSync();
     void onAboutToQuit();

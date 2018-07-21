@@ -13,6 +13,7 @@
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
 #include "rpc/local-repo.h"
+#include "rpc/clone-task.h"
 #include "account-mgr.h"
 #include "api/server-repo.h"
 #include "api/requests.h"
@@ -20,8 +21,6 @@
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "utils/uninstall-helpers.h"
-#include "rpc/rpc-client.h"
-#include "rpc/clone-task.h"
 
 #include "filebrowser/file-browser-manager.h"
 #include "filebrowser/data-cache.h"
@@ -115,8 +114,6 @@ SINGLETON_IMPL(RepoService)
 RepoService::RepoService(QObject *parent)
     : QObject(parent), synced_subfolder_db_(NULL)
 {
-    rpc_ = new SeafileRpcClient;
-    rpc_->connectDaemon();
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
     list_repo_req_ = NULL;
@@ -181,7 +178,7 @@ void RepoService::stop()
 
 void RepoService::refreshLocalRepoList() {
     // local_repos_.clear(); is called intenally
-    if (rpc_->listLocalRepos(&local_repos_) < 0) {
+    if (seafApplet->rpcClient()->listLocalRepos(&local_repos_) < 0) {
         qWarning("unable to refresh local repos\n");
     }
 }
@@ -558,20 +555,20 @@ void RepoService::wipeLocalFiles()
 
     // Collect repo worktrees
     std::vector<LocalRepo> repos_to_wipe;
-    rpc_->listLocalRepos(&local_repos_);
+    seafApplet->rpcClient()->listLocalRepos(&local_repos_);
     QStringList worktrees;
     for (size_t i = 0; i < local_repos_.size(); ++i) {
         const LocalRepo& repo = local_repos_[i];
 
         QString repo_server_url;
-        if (rpc_->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
+        if (seafApplet->rpcClient()->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
             continue;
         }
         if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
             continue;
         }
 
-        rpc_->unsync(repo.id);
+        seafApplet->rpcClient()->unsync(repo.id);
         repos_to_wipe.push_back(repo);
     }
 

@@ -14,7 +14,6 @@ class QTimer;
 class ApiError;
 class ListReposRequest;
 class GetRepoRequest;
-class SeafileRpcClient;
 
 struct sqlite3;
 
@@ -77,7 +76,6 @@ private:
     void wipeLocalFiles();
     void removeCloudFileBrowserCache();
 
-    SeafileRpcClient *rpc_;
     ListReposRequest *list_repo_req_;
     std::list<GetRepoRequest*> get_repo_reqs_;
     struct sqlite3 *synced_subfolder_db_;

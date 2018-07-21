@@ -20,21 +20,30 @@ public:
 signals:
     void daemonStarted();
 
+    void daemonDead();
+    void daemonRestarted();
+
 private slots:
     void onDaemonStarted();
-    void onDaemonExited();
+    void onDaemonFinished(int exit_code, QProcess::ExitStatus exit_status);
     void systemShutDown();
     void checkDaemonReady();
+    void restartSeafileDaemon();
 
 private:
     Q_DISABLE_COPY(DaemonManager)
 
     void stopDaemon();
+    void scheduleRestartDaemon();
+    void transitionState(int new_state);
 
     QProcess *seaf_daemon_;
-    QTimer *check_seaf_daemon_ready_timer_;
+    QTimer *conn_daemon_timer_;
 
-    bool system_shut_down_;
+    int current_state_;
+    // Used to decide whether to emit daemonStarted or daemonRestarted
+    bool first_start_;
+    int restart_retried_;
 };
 
 #endif // SEAFILE_CLIENT_DAEMON_MANAGER_H

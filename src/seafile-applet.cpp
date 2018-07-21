@@ -276,6 +276,8 @@ void SeafileApplet::start()
 
     connect(daemon_mgr_, SIGNAL(daemonStarted()),
             this, SLOT(onDaemonStarted()));
+    connect(daemon_mgr_, SIGNAL(daemonRestarted()),
+            this, SLOT(onDaemonRestarted()));
 }
 
 void SeafileApplet::onDaemonStarted()
@@ -769,4 +771,15 @@ QString SeafileApplet::getUniqueClientId()
 
     qWarning("read id from id file");
     return id;
+}
+
+void SeafileApplet::onDaemonRestarted()
+{
+    qDebug("reviving rpc client when daemon is restarted");
+    if (rpc_client_) {
+        delete rpc_client_;
+    }
+
+    rpc_client_ = new SeafileRpcClient();
+    rpc_client_->tryConnectDaemon();
 }

@@ -30,6 +30,7 @@ class SeafileRpcClient : public QObject {
 public:
     SeafileRpcClient();
     ~SeafileRpcClient();
+    bool tryConnectDaemon() { return connectDaemon(false); }
     bool connectDaemon(bool exit_on_error = true);
     bool isConnected() const { return connected_; }
 

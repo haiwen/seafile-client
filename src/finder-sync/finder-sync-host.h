@@ -21,6 +21,7 @@ public:
     // called from another thread
     uint32_t getFileStatus(const char* repo_id, const char* path);
 private slots:
+    void onDaemonRestarted();
     void updateWatchSet();
     void doLockFile(const QString &path, bool lock);
     void doShareLink(const QString &path);

@@ -52,7 +52,26 @@ MessagePoller::~MessagePoller()
 
 void MessagePoller::start()
 {
-    rpc_client_->connectDaemon();
+    rpc_client_->tryConnectDaemon();
+    check_notification_timer_->start(kCheckNotificationIntervalMSecs);
+    connect(seafApplet->daemonManager(), SIGNAL(daemonDead()), this, SLOT(onDaemonDead()));
+    connect(seafApplet->daemonManager(), SIGNAL(daemonRestarted()), this, SLOT(onDaemonRestarted()));
+}
+
+void MessagePoller::onDaemonDead()
+{
+    qDebug("pausing message poller when daemon is dead");
+    check_notification_timer_->stop();
+}
+
+void MessagePoller::onDaemonRestarted()
+{
+    qDebug("reviving message poller when daemon is restarted");
+    if (rpc_client_) {
+        delete rpc_client_;
+    }
+    rpc_client_ = new SeafileRpcClient();
+    rpc_client_->tryConnectDaemon();
     check_notification_timer_->start(kCheckNotificationIntervalMSecs);
 }
 

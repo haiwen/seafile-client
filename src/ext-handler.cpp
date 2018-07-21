@@ -25,6 +25,7 @@
 #include "repo-service.h"
 #include "api/api-error.h"
 #include "seafile-applet.h"
+#include "daemon-mgr.h"
 #include "account-mgr.h"
 #include "settings-mgr.h"
 #include "utils/utils.h"
@@ -585,17 +586,30 @@ ReposInfoCache::ReposInfoCache(QObject * parent)
     : QObject(parent)
 {
     cache_ts_ = 0;
-    rpc_ = new SeafileRpcClient();
+    rpc_client_ = new SeafileRpcClient();
+    connect(seafApplet->daemonManager(), SIGNAL(daemonRestarted()), this, SLOT(onDaemonRestarted()));
 }
 
 void ReposInfoCache::start()
 {
-    rpc_->connectDaemon();
+    rpc_client_->tryConnectDaemon();
 }
+
+void ReposInfoCache::onDaemonRestarted()
+{
+    QMutexLocker lock(&rpc_client_mutex_);
+    qDebug("reviving message poller when daemon is restarted");
+    if (rpc_client_) {
+        delete rpc_client_;
+    }
+    rpc_client_ = new SeafileRpcClient();
+    rpc_client_->tryConnectDaemon();
+}
+
 
 QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
 {
-    QMutexLocker lock(&rpc_mutex_);
+    QMutexLocker lock(&rpc_client_mutex_);
 
     // There are two levels of repos lists cache in the shell extension:
     // 1. The extension would cache the repos list in explorer side so it
@@ -614,12 +628,12 @@ QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
     // qDebug("ReposInfoCache: fetch from daemon");
 
     std::vector<LocalRepo> repos;
-    rpc_->listLocalRepos(&repos);
+    rpc_client_->listLocalRepos(&repos);
 
     for (size_t i = 0; i < repos.size(); i++) {
         LocalRepo& repo = repos[i];
-        rpc_->getSyncStatus(repo);
-        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id, rpc_);
+        rpc_client_->getSyncStatus(repo);
+        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id, rpc_client_);
     }
 
     cached_info_ = QVector<LocalRepo>::fromStdVector(repos).toList();
@@ -633,6 +647,6 @@ bool ReposInfoCache::getRepoFileStatus(const QString& repo_id,
                                        bool isdir,
                                        QString *status)
 {
-    QMutexLocker lock(&rpc_mutex_);
-    return rpc_->getRepoFileStatus(repo_id, path_in_repo, isdir, status) == 0;
+    QMutexLocker lock(&rpc_client_mutex_);
+    return rpc_client_->getRepoFileStatus(repo_id, path_in_repo, isdir, status) == 0;
 }

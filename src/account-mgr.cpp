@@ -761,8 +761,16 @@ void AccountManager::getSyncedReposToken(const Account& account)
     // repo_ids = repo_ids.mid(0, 300);
     // printf ("repo_ids.size() = %d\n", repo_ids.size());
 
+    sendGetRepoTokensRequet(new_account, repo_ids, 3);
+}
+
+
+void AccountManager::sendGetRepoTokensRequet(const Account& account,
+                                             const QStringList& repo_ids,
+                                             int max_retries)
+{
     GetRepoTokensRequest *req = new GetRepoTokensRequest(
-        new_account, repo_ids);
+        account, repo_ids, max_retries);
 
     connect(req, SIGNAL(success()),
             this, SLOT(onGetRepoTokensSuccess()));
@@ -784,7 +792,11 @@ void AccountManager::onGetRepoTokensSuccess()
 void AccountManager::onGetRepoTokensFailed(const ApiError& error)
 {
     GetRepoTokensRequest *req = (GetRepoTokensRequest *)QObject::sender();
-    req->deleteLater();
+    qWarning("retry get repo tokens request, error = %s", toCStr(error.toString()));
     seafApplet->warningBox(
         tr("Failed to get repo sync information from server: %1").arg(error.toString()));
+    if (req->maxRetries() > 0) {
+        sendGetRepoTokensRequet(req->account(), req->repoIds(), req->maxRetries() - 1);
+    }
+    req->deleteLater();
 }

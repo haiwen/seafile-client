@@ -439,13 +439,20 @@ class GetRepoTokensRequest : public SeafileApiRequest
 {
     Q_OBJECT
 public:
-    GetRepoTokensRequest(const Account& account, const QStringList& repo_ids, int batch_size=50);
+    GetRepoTokensRequest(const Account& account, const QStringList& repo_ids, int max_retry, int batch_size=50);
 
     virtual void send() Q_DECL_OVERRIDE;
 
     const QMap<QString, QString>& repoTokens() const
     {
         return repo_tokens_;
+    }
+
+    int maxRetries() const { return max_retries_; }
+    const QStringList& repoIds() const { return repo_ids_; }
+    const Account& account() const
+    {
+        return account_;
     }
 
 signals:
@@ -465,6 +472,7 @@ private:
     Account account_;
     QStringList repo_ids_;
     QMap<QString, QString> repo_tokens_;
+    int max_retries_;
 
     // The start position of the next batch
     int batch_offset_;

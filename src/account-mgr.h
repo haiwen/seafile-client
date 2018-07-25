@@ -71,8 +71,6 @@ public:
     // invalidate current login and emit a re-login signal
     void invalidateCurrentLogin();
 
-    void getSyncedReposToken(const Account& account);
-
 signals:
     /**
      * Account added/removed/switched.
@@ -107,6 +105,8 @@ private:
     static bool loadServerInfoCB(struct sqlite3_stmt *stmt, void *data);
 
     void updateAccountLastVisited(const Account& account);
+    void getSyncedReposToken(const Account& account);
+    void sendGetRepoTokensRequet(const Account& account, const QStringList& repo_ids, int max_retries);
 
     QHash<QString, Account> accounts_cache_;
 

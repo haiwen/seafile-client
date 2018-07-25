@@ -685,12 +685,14 @@ void LogoutDeviceRequest::requestSuccess(QNetworkReply& reply)
 
 GetRepoTokensRequest::GetRepoTokensRequest(const Account& account,
                                            const QStringList& repo_ids,
+                                           int max_retries,
                                            int batch_size)
     : SeafileApiRequest(account.getAbsoluteUrl(kGetRepoTokensUrl),
                         SeafileApiRequest::METHOD_GET,
                         account.token),
       account_(account),
       repo_ids_(repo_ids),
+      max_retries_(max_retries),
       batch_offset_(0),
       batch_size_(batch_size)
 {

@@ -469,7 +469,7 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
         QString file_lock = repo.account.isAtLeastProVersion(4, 3, 0)
                                 ? "file-lock-supported"
                                 : "file-lock-unsupported";
-        QString private_share = "private-share-supported";;
+        QString private_share = "private-share-supported";
         if (!repo.account.isPro()) {
             private_share = "private-share-unsupported";
         } else {
@@ -480,12 +480,16 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
                 private_share = "private-share-unsupported";
             }
         }
+        QString internal_link = repo.account.isAtLeastVersion(6, 3, 0)
+                                ? "internal-link-supported"
+                                : "internal-link-unsupported";
         fields << repo.id
                << repo.name
                << normalizedPath(repo.worktree)
                << repoStatus(repo)
                << file_lock
-               << private_share;
+               << private_share
+               << internal_link;
         infos << fields.join("\t");
     }
 

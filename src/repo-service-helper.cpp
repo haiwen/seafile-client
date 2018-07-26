@@ -1,3 +1,6 @@
+#include <QScopedPointer>
+#include <QDir>
+
 #include "repo-service-helper.h"
 
 #include "filebrowser/data-mgr.h"
@@ -5,10 +8,10 @@
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/tasks.h"
 #include "filebrowser/auto-update-mgr.h"
+#include "filebrowser/transfer-mgr.h"
 
 #include "ui/set-repo-password-dialog.h"
 
-#include <QDir>
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 #include "seafile-applet.h"
@@ -99,8 +102,12 @@ void FileDownloadHelper::downloadFile(const QString &id)
 
     // endless loop for setPasswordDialog
     while(true) {
-        FileDownloadTask *task = data_mgr->createDownloadTask(repo_.id, path_);
-        FileBrowserProgressDialog dialog(task, parent_);
+        if (TransferManager::instance()->getDownloadTask(repo_.id, path_) != nullptr) {
+            return;
+        }
+        QScopedPointer<FileDownloadTask> task(data_mgr->createDownloadTask(repo_.id, path_));
+        task->setAutoDelete(false);
+        FileBrowserProgressDialog dialog(task.data(), parent_);
         if (dialog.exec()) {
             QString full_path =
                 data_mgr->getLocalCachedFile(repo_.id, path_, task->fileId());

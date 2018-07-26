@@ -93,6 +93,7 @@ FileNetworkTask::FileNetworkTask(const Account& account,
     fileserver_task_ = NULL;
     get_link_req_ = NULL;
     http_error_code_ = 0;
+    auto_delete_ = true;
 }
 
 FileNetworkTask::~FileNetworkTask()
@@ -203,7 +204,9 @@ void FileNetworkTask::onFileServerTaskFinished(bool success)
 void FileNetworkTask::onFinished(bool success)
 {
     emit finished(success);
-    deleteLater();
+    if (auto_delete_) {
+        deleteLater();
+    }
 }
 
 void FileNetworkTask::onGetLinkFailed(const ApiError& error)

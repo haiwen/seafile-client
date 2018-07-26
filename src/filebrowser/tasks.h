@@ -71,6 +71,8 @@ public:
 
     virtual ~FileNetworkTask();
 
+    void setAutoDelete(bool auto_delete) { auto_delete_ = auto_delete; }
+
     // accessors
     virtual TaskType type() const = 0;
     const QString& repoId() const { return repo_id_; };
@@ -83,6 +85,7 @@ public:
     QUrl url() const { return url_; }
     Progress progress() const { return progress_; };
     bool canceled() const { return canceled_; }
+    bool autoDelete() const { return auto_delete_; }
 
     enum TaskError {
         NoError = 0,
@@ -134,6 +137,7 @@ protected:
     bool canceled_;
 
     Progress progress_;
+    bool auto_delete_;
 
     static QThread *worker_thread_;
 };

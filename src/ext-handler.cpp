@@ -494,7 +494,12 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
             QString internal_link_supported = repo.account.isAtLeastVersion(6, 3, 0)
                 ? "internal-link-supported"
                 : "internal-link-unsupported";
-            fields << internal_link_supported;
+
+            // Here we comment this out temporarily, and we would add
+            // it back when we release internal link in seafile
+            // community server 6.3.x.
+
+            // fields << internal_link_supported;
         }
         infos << fields.join("\t");
     }

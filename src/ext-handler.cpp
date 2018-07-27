@@ -454,7 +454,7 @@ void ExtCommandsHandler::handleGenShareLink(const QStringList& args, bool intern
 
 QString ExtCommandsHandler::handleListRepos(const QStringList& args)
 {
-    if (args.size() != 1) {
+    if (args.size() < 1) {
         return "";
     }
     bool ok;
@@ -463,6 +463,9 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
         return "";
     }
 
+    // In older versions of the shell ext it sends one argument (the
+    // cache timestamp) and expects to see exactly six fields.
+    bool new_version = args.size() > 1;
     QStringList infos;
     foreach (const LocalRepo& repo, listLocalRepos(ts)) {
         QStringList fields;
@@ -480,16 +483,19 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
                 private_share = "private-share-unsupported";
             }
         }
-        QString internal_link = repo.account.isAtLeastVersion(6, 3, 0)
-                                ? "internal-link-supported"
-                                : "internal-link-unsupported";
         fields << repo.id
                << repo.name
                << normalizedPath(repo.worktree)
                << repoStatus(repo)
                << file_lock
-               << private_share
-               << internal_link;
+               << private_share;
+
+        if (new_version) {
+            QString internal_link_supported = repo.account.isAtLeastVersion(6, 3, 0)
+                ? "internal-link-supported"
+                : "internal-link-unsupported";
+            fields << internal_link_supported;
+        }
         infos << fields.join("\t");
     }
 

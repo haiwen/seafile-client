@@ -138,6 +138,7 @@ void shutdown_process (const char *name)
         if (strcmp (proc->kp_proc.p_comm, name) == 0 &&
             proc->kp_proc.p_pid != current_pid &&
             proc->kp_eproc.e_pcred.p_ruid == getuid()) {
+            // printf ("seaf-daemon pid = %d\n", proc->kp_proc.p_pid);
             kill (proc->kp_proc.p_pid, SIGKILL);
         }
     }

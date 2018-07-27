@@ -80,6 +80,7 @@ DaemonManager::DaemonManager()
 
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(checkDaemonReady()));
+    shutdown_process (kSeafileDaemonExecutable);
 
     connect(qApp, SIGNAL(aboutToQuit()),
             this, SLOT(systemShutDown()));

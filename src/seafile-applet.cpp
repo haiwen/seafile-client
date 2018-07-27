@@ -379,8 +379,6 @@ void SeafileApplet::onDaemonStarted()
         rpc_client_->seafileSetConfig("client_id", getUniqueClientId());
     }
 
-    OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
-
     QTimer::singleShot(kIntervalForUpdateRepoProperty,
                        this, SLOT(updateReposPropertyForHttpSync()));
 

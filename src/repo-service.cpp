@@ -28,6 +28,7 @@
 
 #include "repo-service.h"
 #include "repo-service-helper.h"
+#include "open-local-helper.h"
 
 namespace {
 
@@ -260,6 +261,8 @@ void RepoService::onRefreshSuccess(const std::vector<ServerRepo>& repos)
     in_refresh_ = false;
 
     server_repos_ = repos;
+
+    OpenLocalHelper::instance()->checkPendingOpenLocalRequest();
 
     // if we have local repo missed in server_repos
     // start a GetRepoRequest for it

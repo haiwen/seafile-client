@@ -80,7 +80,6 @@ DaemonManager::DaemonManager()
 
     conn_daemon_timer_ = new QTimer(this);
     connect(conn_daemon_timer_, SIGNAL(timeout()), this, SLOT(checkDaemonReady()));
-    shutdown_process (kSeafileDaemonExecutable);
 
     connect(qApp, SIGNAL(aboutToQuit()),
             this, SLOT(systemShutDown()));
@@ -102,6 +101,10 @@ void DaemonManager::restartSeafileDaemon()
 
 void DaemonManager::startSeafileDaemon()
 {
+    if (first_start_) {
+        shutdown_process (kSeafileDaemonExecutable);
+    }
+
     seaf_daemon_ = new QProcess(this);
     connect(seaf_daemon_, SIGNAL(started()), this, SLOT(onDaemonStarted()));
     connect(seaf_daemon_, SIGNAL(finished(int, QProcess::ExitStatus)),

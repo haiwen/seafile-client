@@ -29,6 +29,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
     initUI();
     initTaskInfo();
 
+    connect(index_progress_timer_, SIGNAL(timeout()), this, SLOT(onQueryUpdate()));
+
     connect(task_, SIGNAL(progressUpdate(qint64, qint64)),
             this, SLOT(onProgressUpdate(qint64, qint64)));
     connect(task_, SIGNAL(nameUpdate(QString)),

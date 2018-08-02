@@ -48,6 +48,7 @@ private:
     QString progerss_id_;
     GetIndexProgressRequest *progress_request_;
     QTimer *index_progress_timer_;
+    bool task_finished_;
 };
 
 #endif // SEAFILE_CLIENT_FILE_BROWSER_PROGRESS_DIALOG_H

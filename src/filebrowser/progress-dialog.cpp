@@ -23,7 +23,8 @@ FileBrowserProgressDialog::FileBrowserProgressDialog(FileNetworkTask *task, QWid
         : QProgressDialog(parent),
           task_(task),
           progress_request_(NULL),
-          index_progress_timer_(new QTimer(this))
+          index_progress_timer_(new QTimer(this)),
+          task_finished_(false)
 {
     initUI();
     initTaskInfo();
@@ -84,6 +85,7 @@ FileBrowserProgressDialog::~FileBrowserProgressDialog()
 
 void FileBrowserProgressDialog::initTaskInfo()
 {
+    task_finished_ = false;
     if (task_->canceled()) {
         return;
     }
@@ -143,6 +145,7 @@ void FileBrowserProgressDialog::onProgressUpdate(qint64 processed_bytes, qint64 
 
 void FileBrowserProgressDialog::onTaskFinished(bool success)
 {
+    task_finished_ = true;
     // printf ("FileBrowserProgressDialog: onTaskFinished\n");
     if (task_->canceled()) {
         return;
@@ -205,7 +208,7 @@ void FileBrowserProgressDialog::onQuerySuccess(const ServerIndexProgress &result
 
 void FileBrowserProgressDialog::cancel()
 {
-    if (task_->canceled()) {
+    if (task_finished_ || task_->canceled()) {
         return;
     }
     if (task_->type() == FileNetworkTask::Upload) {

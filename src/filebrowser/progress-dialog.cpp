@@ -155,6 +155,14 @@ void FileBrowserProgressDialog::onTaskFinished(bool success)
 
     cancel_button_->setVisible(false);
 
+    // When this "onTaskFinished" slot is called, the task may NOT
+    // have really finished yet, i.e. if we configured "async save" on
+    // server, we need to query the async save progress and only close
+    // the dialog after the async save is done.
+    //
+    // TODO: Right now the async save progress query is implemented
+    // here, but ideally it should be implemented inside the
+    // ReliablePostFileTask class for better encapsulation.
     progerss_id_ = task_->oid();
 
     //https://dev.seafile.com/seafhttp/upload-api/b7443978-42cf-4cc6-87bf-add0fc7ad6e3

@@ -96,7 +96,7 @@ private slots:
     void onNavigatorClick(int id);
 
     void onGetDirentLock(const SeafDirent& dirent);
-    void onGetDirentRename(const SeafDirent& dirent, QString new_name = QString());
+    void onGetDirentRename(const SeafDirent& dirent);
     void onGetDirentRemove(const SeafDirent& dirent);
     void onGetDirentRemove(const QList<const SeafDirent*> &dirents);
     void onGetDirentShare(const SeafDirent& dirent);

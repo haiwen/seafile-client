@@ -1163,9 +1163,9 @@ void FileBrowserDialog::onGetDirentLock(const SeafDirent& dirent)
     data_mgr_->lockFile(repo_.id, ::pathJoin(current_path_, dirent.name), !dirent.is_locked);
 }
 
-void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
-                                          QString new_name)
+void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent)
 {
+    QString new_name = QString();
     if (new_name.isEmpty()) {
         new_name = seafApplet->getText(this, tr("Rename"),
                    QObject::tr("Rename %1 to").arg(dirent.name),

@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="mTabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="mBasicTab">
       <attribute name="title">
@@ -215,6 +215,9 @@
         <layout class="QHBoxLayout" name="languageLayout">
          <item>
           <widget class="QLabel" name="mLanguageLabel">
+           <property name="locale">
+            <locale language="Chinese" country="China"/>
+           </property>
            <property name="text">
             <string>Language (need restart)</string>
            </property>

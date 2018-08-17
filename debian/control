@@ -20,7 +20,7 @@ Build-Depends:
     cmake,
     qtchooser,
     qttools5-dev-tools,
-    libsearpc-dev,
+    libsearpc-dev (>= 3.1.0),
     libseafile-dev
 Standards-Version: 3.9.5
 Homepage: http://seafile.com

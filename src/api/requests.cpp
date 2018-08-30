@@ -569,7 +569,8 @@ void GetAvatarRequest::requestSuccess(QNetworkReply& reply)
     }
     else {
         qint64 new_mtime = json_integer_value(mtime);
-        if (new_mtime == mtime_) {
+        // When mtime_ < 0 it means there is no local cache yet
+        if (mtime_ >= 0 && new_mtime == mtime_) {
             emit success(QImage());
             return;
         }

@@ -243,7 +243,11 @@ void AvatarService::fetchImageFromServer(const QString& email)
     if (!seafApplet->accountManager()->hasAccount())
         return;
     const Account& account = seafApplet->accountManager()->accounts().front();
-    qint64 mtime = 0;
+    // Why we initialize mtime to -1 instead of 0? Because sometimes
+    // the mtime returned by the server is 0, so we must initialize it
+    // to -1 as a special value to indicate there is no local cache
+    // for this avatar yet.
+    qint64 mtime = -1;
 
     if (autoupdate_db_) {
         char *zql = sqlite3_mprintf("SELECT timestamp FROM Avatar "

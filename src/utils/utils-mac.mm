@@ -4,6 +4,12 @@
 #import <Cocoa/Cocoa.h>
 #import <Security/Security.h>
 
+#include <openssl/asn1.h>
+#include <openssl/conf.h>
+#include <openssl/err.h>
+#include <openssl/pem.h>
+#include <openssl/x509.h>
+
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
 #endif
@@ -420,6 +426,12 @@ static bool isCertificateDistrustedByUser(SecCertificateRef cert,
     return distrusted;
 }
 
+bool isCertExpired(const unsigned char **bytes, size_t len) {
+    using X509_ptr = std::unique_ptr<X509, decltype(&X509_free)>;
+    X509_ptr cert(d2i_X509(NULL, bytes, len), X509_free);
+    return X509_cmp_current_time (X509_get_notAfter(cert.get())) < 0;
+}
+
 static void
 appendCaCertificateFromSecurityStore(std::vector<QByteArray> *retval,
                                      SecTrustSettingsDomain domain) {
@@ -458,7 +470,10 @@ appendCaCertificateFromSecurityStore(std::vector<QByteArray> *retval,
             qWarning("error retrieving a CA certificate from the system store");
         } else {
             QByteArray raw_data((const char *)CFDataGetBytePtr(data), CFDataGetLength(data));
-            retval->push_back(raw_data);
+            const unsigned char *pdata = (const unsigned char *)CFDataGetBytePtr(data);
+            if (!isCertExpired(&pdata, raw_data.size())) {
+                retval->push_back(raw_data);
+            }
             CFRelease(data);
         }
     }

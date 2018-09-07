@@ -1022,7 +1022,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
     case FILE_COLUMN_MTIME:
         return dirent.mtime;
     case FILE_COLUMN_Modifier:
-        return dirent.isDir() ? "" : "Modifier";
+        return dirent.isDir() ? "" : dirent.modifier_name;
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:

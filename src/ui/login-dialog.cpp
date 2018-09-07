@@ -32,6 +32,8 @@ const char *const kSeafileOTPHeader = "X-SEAFILE-OTP";
 const char *const kRememberDeviceHeader = "X-SEAFILE-2FA-TRUST-DEVICE";
 const char *const kTwofactorHeader = "X-SEAFILE-S2FA";
 
+const char *const kSchemeHTTPS = "https";
+
 QStringList getUsedServerAddresses()
 {
     QSettings settings;
@@ -256,6 +258,14 @@ bool LoginDialog::validateInputs()
 
 void LoginDialog::loginSuccess(const QString& token, const QString& s2fa_token)
 {
+    // Some server configures mandatory http -> https redirect. In
+    // such cases, we must update the server url to use https,
+    // otherwise libcurl (used by the daemon) would be have trouble
+    // dealing with it.
+    if (url_.scheme() != kSchemeHTTPS && request_->reply()->url().scheme() == kSchemeHTTPS) {
+        qWarning("Detected server %s redirects to https", toCStr(url_.toString()));
+        url_.setScheme(kSchemeHTTPS);
+    }
     if (account_info_req_) {
         account_info_req_->deleteLater();
     }

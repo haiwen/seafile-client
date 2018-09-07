@@ -22,7 +22,7 @@ enum {
     FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
-    FILE_COLUMN_KIND,
+    FILE_COLUMN_Modifier,
     FILE_MAX_COLUMN
 };
 
@@ -136,10 +136,10 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
     case FILE_COLUMN_MTIME:
         if (index.column() == FILE_COLUMN_MTIME)
             text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
-    case FILE_COLUMN_KIND:
+    case FILE_COLUMN_Modifier:
     {
-        if (index.column() == FILE_COLUMN_KIND) {
-            text = model->data(index, Qt::UserRole).toString();
+        if (index.column() == FILE_COLUMN_Modifier) {
+            text = model->data(index, Qt::DisplayRole).toString();
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
@@ -164,7 +164,7 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(kDefaultColumnHeight);
-    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -333,15 +333,12 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
             break;
         case FILE_COLUMN_SIZE:
         case FILE_COLUMN_MTIME:
-        case FILE_COLUMN_KIND:
+            qsize.setWidth(name_column_width_);
+        case FILE_COLUMN_Modifier:
         default:
             break;
         }
         return qsize;
-    }
-
-    if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
-        return result.fullpath.endsWith("/") ? readableNameForFolder() : readableNameForFile(result.name);
     }
 
     //DisplayRole
@@ -355,7 +352,8 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
         return result.size;
     case FILE_COLUMN_MTIME:
         return result.last_modified;
-    case FILE_COLUMN_KIND:
+    case FILE_COLUMN_Modifier:
+        return result.is_dir ? "" : "Modifier";
     default:
         return QVariant();
     }
@@ -381,8 +379,8 @@ QVariant FileBrowserSearchModel::headerData(int section,
             return tr("Size");
         case FILE_COLUMN_MTIME:
             return tr("Last Modified");
-        case FILE_COLUMN_KIND:
-            return tr("Kind");
+        case FILE_COLUMN_Modifier:
+            return "Modifier";
         default:
             return QVariant();
         }

@@ -858,6 +858,7 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         tmp.last_modified = map["last_modified"].toLongLong();
         tmp.fullpath = map["fullpath"].toString();
         tmp.size = map["size"].toLongLong();
+        tmp.is_dir = map["is_dir"].toBool();
         retval.push_back(tmp);
     }
     bool has_more = dict["has_more"].toBool();

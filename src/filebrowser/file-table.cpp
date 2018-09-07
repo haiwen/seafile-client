@@ -22,7 +22,7 @@ enum {
     FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
-    FILE_COLUMN_KIND,
+    FILE_COLUMN_Modifier,
     FILE_COLUMN_PROGRESS,
     FILE_MAX_COLUMN
 };
@@ -206,7 +206,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
             // Customize style using style-sheet..
             QProgressBar progressBar;
-            progressBar.resize(QSize(size.width() - 10, size.height() / 2 - 4));
+            progressBar.resize(QSize(size.width() - 140, size.height() / 2 - 4));
             progressBar.setMinimum(0);
             progressBar.setMaximum(100);
             progressBar.setValue(progress);
@@ -228,10 +228,10 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         if (index.column() == FILE_COLUMN_MTIME)
             text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
     // no break, continue
-    case FILE_COLUMN_KIND:
+    case FILE_COLUMN_Modifier:
     {
-        if (index.column() == FILE_COLUMN_KIND) {
-            text = model->data(index, Qt::UserRole).toString();
+        if (index.column() == FILE_COLUMN_Modifier) {
+            text = model->data(index, Qt::DisplayRole).toString();
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
@@ -261,7 +261,7 @@ FileTableView::FileTableView(QWidget *parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(kDefaultColumnHeight);
-    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -975,15 +975,12 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         case FILE_COLUMN_PROGRESS:
         case FILE_COLUMN_SIZE:
         case FILE_COLUMN_MTIME:
-        case FILE_COLUMN_KIND:
+            qsize.setWidth(name_column_width_);
+        case FILE_COLUMN_Modifier:
         default:
             break;
         }
         return qsize;
-    }
-
-    if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
-        return dirent.isDir() ? readableNameForFolder() : readableNameForFile(dirent.name);
     }
 
     if (role == DirentLockStatusRole && column == FILE_COLUMN_NAME) {
@@ -1024,9 +1021,8 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return dirent.size;
     case FILE_COLUMN_MTIME:
         return dirent.mtime;
-    case FILE_COLUMN_KIND:
-        // workaround with sorting
-        return dirent.isDir() ? "" : iconPrefixFromFileName(dirent.name);
+    case FILE_COLUMN_Modifier:
+        return dirent.isDir() ? "" : "Modifier";
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
     default:
@@ -1059,8 +1055,8 @@ QVariant FileTableModel::headerData(int section,
             return tr("Size");
         case FILE_COLUMN_MTIME:
             return tr("Last Modified");
-        case FILE_COLUMN_KIND:
-            return tr("Kind");
+        case FILE_COLUMN_Modifier:
+            return tr("Modifier");
         default:
             return QVariant();
         }

@@ -471,6 +471,8 @@ appendCaCertificateFromSecurityStore(std::vector<QByteArray> *retval,
         } else {
             QByteArray raw_data((const char *)CFDataGetBytePtr(data), CFDataGetLength(data));
             const unsigned char *pdata = (const unsigned char *)CFDataGetBytePtr(data);
+            // If one of the certs is expired, curl would abort
+            // loading all the certs
             if (!isCertExpired(&pdata, raw_data.size())) {
                 retval->push_back(raw_data);
             }

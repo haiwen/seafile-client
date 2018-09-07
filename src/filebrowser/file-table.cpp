@@ -226,7 +226,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     // no break, continue
     case FILE_COLUMN_MTIME:
         if (index.column() == FILE_COLUMN_MTIME)
-            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>());
+            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
     // no break, continue
     case FILE_COLUMN_KIND:
     {

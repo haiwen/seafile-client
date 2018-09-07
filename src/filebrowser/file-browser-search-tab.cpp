@@ -135,7 +135,7 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
             text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
     case FILE_COLUMN_MTIME:
         if (index.column() == FILE_COLUMN_MTIME)
-            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>());
+            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
     case FILE_COLUMN_KIND:
     {
         if (index.column() == FILE_COLUMN_KIND) {

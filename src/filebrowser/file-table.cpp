@@ -22,7 +22,7 @@ enum {
     FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
-    FILE_COLUMN_Modifier,
+    FILE_COLUMN_MODIFIER,
     FILE_COLUMN_PROGRESS,
     FILE_MAX_COLUMN
 };
@@ -228,9 +228,9 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         if (index.column() == FILE_COLUMN_MTIME)
             text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
     // no break, continue
-    case FILE_COLUMN_Modifier:
+    case FILE_COLUMN_MODIFIER:
     {
-        if (index.column() == FILE_COLUMN_Modifier) {
+        if (index.column() == FILE_COLUMN_MODIFIER) {
             text = model->data(index, Qt::DisplayRole).toString();
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
@@ -976,7 +976,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         case FILE_COLUMN_SIZE:
         case FILE_COLUMN_MTIME:
             qsize.setWidth(name_column_width_);
-        case FILE_COLUMN_Modifier:
+        case FILE_COLUMN_MODIFIER:
         default:
             break;
         }
@@ -1021,7 +1021,7 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
         return dirent.size;
     case FILE_COLUMN_MTIME:
         return dirent.mtime;
-    case FILE_COLUMN_Modifier:
+    case FILE_COLUMN_MODIFIER:
         return dirent.isDir() ? "" : dirent.modifier_name;
     case FILE_COLUMN_PROGRESS:
         return getTransferProgress(dirent);
@@ -1055,7 +1055,7 @@ QVariant FileTableModel::headerData(int section,
             return tr("Size");
         case FILE_COLUMN_MTIME:
             return tr("Last Modified");
-        case FILE_COLUMN_Modifier:
+        case FILE_COLUMN_MODIFIER:
             return tr("Modifier");
         default:
             return QVariant();

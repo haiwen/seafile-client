@@ -467,6 +467,8 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
     // cache timestamp) and expects to see exactly six fields.
     bool new_version = args.size() > 1;
     QStringList infos;
+    // TODO: We should use json for the requests/responses between
+    // shell-ext <=> seafile client
     foreach (const LocalRepo& repo, listLocalRepos(ts)) {
         QStringList fields;
         QString file_lock = repo.account.isAtLeastProVersion(4, 3, 0)
@@ -495,11 +497,7 @@ QString ExtCommandsHandler::handleListRepos(const QStringList& args)
                 ? "internal-link-supported"
                 : "internal-link-unsupported";
 
-            // Here we comment this out temporarily, and we would add
-            // it back when we release internal link in seafile
-            // community server 6.3.x.
-
-            // fields << internal_link_supported;
+            fields << internal_link_supported;
         }
         infos << fields.join("\t");
     }

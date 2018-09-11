@@ -22,7 +22,6 @@ enum {
     FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
-    FILE_COLUMN_KIND,
     FILE_MAX_COLUMN
 };
 
@@ -134,12 +133,9 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
         if (!text.isEmpty())
             text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
     case FILE_COLUMN_MTIME:
-        if (index.column() == FILE_COLUMN_MTIME)
-            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>());
-    case FILE_COLUMN_KIND:
     {
-        if (index.column() == FILE_COLUMN_KIND) {
-            text = model->data(index, Qt::UserRole).toString();
+        if (index.column() == FILE_COLUMN_MTIME) {
+            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
@@ -149,7 +145,7 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
         painter->restore();
     }
-         break;
+        break;
     default:
         qWarning() << "invalid item (row)";
         break;
@@ -164,7 +160,7 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
 {
     verticalHeader()->hide();
     verticalHeader()->setDefaultSectionSize(kDefaultColumnHeight);
-    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
@@ -333,15 +329,11 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
             break;
         case FILE_COLUMN_SIZE:
         case FILE_COLUMN_MTIME:
-        case FILE_COLUMN_KIND:
+            qsize.setWidth(name_column_width_);
         default:
             break;
         }
         return qsize;
-    }
-
-    if (role == Qt::UserRole && column == FILE_COLUMN_KIND) {
-        return result.fullpath.endsWith("/") ? readableNameForFolder() : readableNameForFile(result.name);
     }
 
     //DisplayRole
@@ -355,7 +347,6 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
         return result.size;
     case FILE_COLUMN_MTIME:
         return result.last_modified;
-    case FILE_COLUMN_KIND:
     default:
         return QVariant();
     }
@@ -381,8 +372,6 @@ QVariant FileBrowserSearchModel::headerData(int section,
             return tr("Size");
         case FILE_COLUMN_MTIME:
             return tr("Last Modified");
-        case FILE_COLUMN_KIND:
-            return tr("Kind");
         default:
             return QVariant();
         }

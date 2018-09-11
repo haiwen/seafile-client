@@ -47,7 +47,7 @@ bool parse_key_value_pairs (char *string, KeyValueFunc func, void *data);
 
 QString getBrand();
 
-QString translateCommitTime(qint64 timestamp);
+QString translateCommitTime(qint64 timestamp, bool hours_and_minutes = false);
 
 QString readableFileSize(qint64 size);
 

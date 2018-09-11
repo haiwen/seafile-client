@@ -27,6 +27,7 @@ public:
     QString lock_owner;
     QString lock_owner_name;
     quint64 lock_time;
+    QString modifier_name;
 
     bool isDir() const { return type == DIR; }
     bool isFile() const { return type == FILE; }

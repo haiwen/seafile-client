@@ -518,6 +518,7 @@ struct FileSearchResult {
     qint64 last_modified;
     QString fullpath;
     qint64 size;
+    bool is_dir;
 };
 
 Q_DECLARE_METATYPE(FileSearchResult)

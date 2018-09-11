@@ -552,7 +552,7 @@ QString mapToJson(QMap<QString, QVariant> map)
     return ret;
 }
 
-QString translateCommitTime(qint64 timestamp) {
+QString translateCommitTime(qint64 timestamp, bool hours_and_minutes) {
     timestamp *= 1000;          // use milli seconds
     qint64 now = QDateTime::currentMSecsSinceEpoch();
     if (now <= timestamp) {
@@ -567,6 +567,10 @@ QString translateCommitTime(qint64 timestamp) {
     qint64 seconds = delta % secondsPerDay;
 
     QDateTime dt = QDateTime::fromMSecsSinceEpoch(timestamp);
+
+    if (hours_and_minutes) {
+        return dt.toString("yyyy-MM-dd HH:mm");
+    }
 
     if (days >= 14) {
         return dt.toString("yyyy-MM-dd");

@@ -39,6 +39,7 @@ SeafDirent SeafDirent::fromJSON(const json_t *root, json_error_t */* error */)
     dirent.lock_owner_name = json.getString("lock_owner_name");
     dirent.lock_time = json.getLong("lock_time");
     dirent.locked_by_me = json.getBool("locked_by_me");
+    dirent.modifier_name = json.getString("modifier_name");
 
     return dirent;
 }

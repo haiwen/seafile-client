@@ -152,6 +152,9 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 #endif
     search_model_ = new FileBrowserSearchModel(this);
     search_view_->setModel(search_model_);
+    search_view_->setColumnWidth(0,265);
+    search_view_->setColumnWidth(1,165);
+    search_view_->setColumnWidth(2,95);
     search_delegate_ = new FileBrowserSearchItemDelegate(this);
     delete search_view_->itemDelegate();
     search_view_->setItemDelegate(search_delegate_);
@@ -413,6 +416,9 @@ void FileBrowserDialog::createFileTable()
     table_view_ = new FileTableView(this);
     table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
+    table_view_->setColumnWidth(0,265);
+    table_view_->setColumnWidth(1,165);
+    table_view_->setColumnWidth(2,95);
 }
 
 bool FileBrowserDialog::handleDragDropEvent(QObject *obj, QEvent *event)

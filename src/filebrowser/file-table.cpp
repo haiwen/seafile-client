@@ -206,7 +206,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
             // Customize style using style-sheet..
             QProgressBar progressBar;
-            progressBar.resize(QSize(size.width() - 140, size.height() / 2 - 4));
+            progressBar.resize(QSize(size.width() - 155, size.height() / 2 - 4));
             progressBar.setMinimum(0);
             progressBar.setMaximum(100);
             progressBar.setValue(progress);

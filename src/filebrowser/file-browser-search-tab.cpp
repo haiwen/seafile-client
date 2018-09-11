@@ -22,7 +22,6 @@ enum {
     FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
-    FILE_COLUMN_Modifier,
     FILE_MAX_COLUMN
 };
 
@@ -134,12 +133,9 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
         if (!text.isEmpty())
             text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
     case FILE_COLUMN_MTIME:
-        if (index.column() == FILE_COLUMN_MTIME)
-            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
-    case FILE_COLUMN_Modifier:
     {
-        if (index.column() == FILE_COLUMN_Modifier) {
-            text = model->data(index, Qt::DisplayRole).toString();
+        if (index.column() == FILE_COLUMN_MTIME) {
+            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
@@ -149,7 +145,7 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
         painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
         painter->restore();
     }
-         break;
+        break;
     default:
         qWarning() << "invalid item (row)";
         break;
@@ -334,7 +330,6 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
         case FILE_COLUMN_SIZE:
         case FILE_COLUMN_MTIME:
             qsize.setWidth(name_column_width_);
-        case FILE_COLUMN_Modifier:
         default:
             break;
         }
@@ -352,8 +347,6 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
         return result.size;
     case FILE_COLUMN_MTIME:
         return result.last_modified;
-    case FILE_COLUMN_Modifier:
-        return result.is_dir ? "" : "Modifier";
     default:
         return QVariant();
     }
@@ -379,8 +372,6 @@ QVariant FileBrowserSearchModel::headerData(int section,
             return tr("Size");
         case FILE_COLUMN_MTIME:
             return tr("Last Modified");
-        case FILE_COLUMN_Modifier:
-            return "Modifier";
         default:
             return QVariant();
         }

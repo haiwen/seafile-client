@@ -506,11 +506,11 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
+        <source>%1 client failed to initialize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 client failed to initialize</source>
+        <source>%1 exited unexpectedly</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -916,10 +916,6 @@ failed to upload.</source>
         <source>Last Modified</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -977,7 +973,7 @@ failed to upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Kind</source>
+        <source>Modifier</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1455,11 +1451,7 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation type="unfinished"></translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
@@ -1488,6 +1480,16 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"></translation>
@@ -1498,8 +1500,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
+        <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1510,15 +1511,6 @@ Access denied to service</source>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1688,15 +1680,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2032,14 +2016,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2141,6 +2117,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2516,6 +2504,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2543,11 +2547,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
+        <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown error</source>
+        <source>internal error: failed to connect to seafile daemon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

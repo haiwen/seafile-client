@@ -508,12 +508,12 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>加载 ccnet 配置文件夹 %1 失败</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 客户端初始化时出错</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation>%1意外退出</translation>
     </message>
 </context>
 <context>
@@ -919,10 +919,6 @@ failed to upload.</source>
         <source>Last Modified</source>
         <translation>修改时间</translation>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation>类型</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -980,8 +976,8 @@ failed to upload.</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>类型</translation>
+        <source>Modifier</source>
+        <translation>修改者</translation>
     </message>
 </context>
 <context>
@@ -1466,20 +1462,16 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>加载 ccnet 配置失败 </translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>%1 已经被解除同步。
-原因：该资料库已经在服务器上被删除</translation>
+        <translation>“%1”未同步
+原因：在服务器上删除</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; 已同步</translation>
+        <translation>“%1”已同步</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1502,6 +1494,18 @@ Some file in this folder is locked by other application. This folder will be upd
 该文件夹中的某个文件被其他应用锁定。这个文件夹将在该应用退出时更新。</translation>
     </message>
     <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation>同步文件 %1 出错
+该文件被其他用户锁定，因此对它作的修改不会被上传。</translation>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation>读取 %1 内容出错
+请检查文件权限以及磁盘可用空间。</translation>
+    </message>
+    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>同步文件 %1 出错
@@ -1514,10 +1518,8 @@ File path contains invalid characters. It is not synced to this computer.</sourc
 该文件路径包含非法字符，因此它不会被同步到这台计算机。</translation>
     </message>
     <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
-        <translation>读取 %1 内容出错
-请检查文件权限以及磁盘可用空间。</translation>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation>文件夹权限设置导致文件 %1 无法被更新</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
@@ -1530,16 +1532,6 @@ Access denied to service</source>
 The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 同步出错。
 该资料库所有者的空间限额已用完。</translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation>文件夹权限设置导致文件 %1 无法被更新</translation>
-    </message>
-    <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
-        <translation>同步文件 %1 出错
-该文件被其他用户锁定，因此对它作的修改不会被上传。</translation>
     </message>
 </context>
 <context>
@@ -1708,16 +1700,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>启动上传失败</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>上传过程中出错</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>启动下载失败</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>下载过程中出错</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2052,14 +2036,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;不包含这部分信息&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>发现另外一个 %1 进程，杀死它并启动新进程？</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>无法启动 %1 因为无法关闭旧的进程</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>同步此资料库于:</translation>
     </message>
@@ -2162,6 +2138,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <message>
         <source>Update to file denied by folder permission setting</source>
         <translation>文件夹权限设置导致文件无法被更新</translation>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation>%1 已经在运行中</translation>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation>上传过程中出错</translation>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
+        <translation>下载过程中出错</translation>
     </message>
 </context>
 <context>
@@ -2536,6 +2524,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation>保存客户端 ID 失败</translation>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation>访问 %1 失败</translation>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation>错误的客户端 ID</translation>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation>读取文件 %1 失败</translation>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2563,12 +2567,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>加载 ccnet 配置文件夹 %1 失败</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>未知错误</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to seafile daemon</source>
+        <translation>内部错误：连接 daemon 失败</translation>
     </message>
 </context>
 <context>

@@ -512,12 +512,12 @@ nieudane przesyłanie.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>nie udało się wczytać folderu z konfiguracją ccnet %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>nie można zainicjować klienta %1</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -924,10 +924,6 @@ nieudane przesyłanie.</translation>
         <source>Last Modified</source>
         <translation>Ostatnia modyfikacja</translation>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation>Rodzaj</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -985,8 +981,8 @@ nieudane przesyłanie.</translation>
         <translation>Ostatnia zmiana</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Rodzaj</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1474,80 +1470,67 @@ Czy chcesz pobrać swoją domyślną bibliotekę?</translation>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>nie udało się wczytać folderu z konfiguracją ccnet</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; jest niezsynchronizowana.
-Powód: Usunięta na serwerze</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; jest zsynchronizowana</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation>Pliki przesłane do &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>Konflikt pliku %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>Nie udało się zsynchronizować pliku %1
-Plik jest zablokowany przez inną aplikację, będzie przesłany, gdy zostanie ona zamknięta.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>Nie udało się zsynchronizować folderu %1
-Jeden z plików wewnątrz tego folderu jest zablokowany przez inną aplikację. Folder zostanie zaktualizowany, gdy ją zamkniesz.</translation>
-    </message>
-    <message>
-        <source>Failed to sync %1
-File path is ended with space or period and cannot be created on Windows.</source>
-        <translation>Nie udało się zsynchronizować %1
-Ścieżka pliku jest zakończona spacją lub kropką i nie może być utworzona w systemie Windows</translation>
-    </message>
-    <message>
-        <source>Failed to sync %1
-File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>Nie udało się zsynchronizować %1
-Ścieżka do pliku zawiera nieprawidłowe znaki. Plik nie jest synchronizowany z tym komputerem.</translation>
-    </message>
-    <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
-        <translation>Nie udało się zindeksować pliku %1
-Proszę sprawdzić uprawnienia do pliku i dostępną przestrzeń dyskową.</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; nie udało się zsynchronizować. 
-Brak dostępu do usługi</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; nie udało się zsynchronizować.
-Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation>Aktualizacja pliku %1 jest niemożliwa z powodu aktualnej konfiguracji praw dostępu do katalogu.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation>Nie udało się zsynchronizować pliku %1
-Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są synchronizowane.</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync %1
+File path is ended with space or period and cannot be created on Windows.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync %1
+File path contains invalid characters. It is not synced to this computer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update to file %1 is denied by folder permission setting.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1716,16 +1699,8 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
         <translation>Nie udało się rozpocząć wysyłania</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Wystąpił błąd podczas wysyłania</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Nie udało się rozpocząć pobierania</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Wystąpił błąd podczas pobierania</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2060,14 +2035,6 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
         <translation>&lt;Nie jest częścią certyfikatu&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Znaleziono działający inny proces %1, zabić go i uruchomić nowy?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Nie można uruchomić %1 z powodu niepowodzenia podczas zatrzymywania poprzedniego procesu</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Synchronizuj tę bibliotekę z:</translation>
     </message>
@@ -2170,6 +2137,18 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
     <message>
         <source>Update to file denied by folder permission setting</source>
         <translation>Aktualizacja pliku jest niemożliwa z powodu aktualnej konfiguracji praw dostępu do katalogu</translation>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2546,6 +2525,22 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2573,12 +2568,12 @@ Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są sync
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>nie udało się wczytać folderu z konfiguracją ccnet %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Nieznany błąd</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -512,12 +512,12 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>αποτυχία φόρτωσης του φακέλου ρύθμισης ccnet %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 αποτυχία αρχικοποίησης πελάτη</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -852,7 +852,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Αναζήτηση αρχείων</translation>
     </message>
 </context>
 <context>
@@ -914,19 +914,15 @@ failed to upload.</source>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Όνομα</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Μέγεθος</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
+        <translation>Τελευταία τροποποίηση</translation>
     </message>
 </context>
 <context>
@@ -985,8 +981,8 @@ failed to upload.</source>
         <translation>Τελευταία τροποποίηση</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Είδος</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1305,11 +1301,11 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 από %2</translation>
     </message>
 </context>
 <context>
@@ -1446,7 +1442,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>Αυτόματη είσοδος</translation>
     </message>
 </context>
 <context>
@@ -1472,20 +1468,15 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>αποτυχία φόρτωσης του φακέλου ρύθμισης ccnet</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>Το &quot;%1&quot; είναι ασυγχρόνιστο.
-Λόγος: Διαγράφτηκε από τον διακομιστή</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; συγχρονίστηκε</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1506,6 +1497,16 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"/>
@@ -1516,29 +1517,17 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
+        <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation>Το &quot;%1&quot; απέτυχε στον συγχρονισμό.
-Αρνήθηκε η πρόσβαση στην υπηρεσία</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation>Το &quot;%1&quot; απέτυχε στον συγχρονισμό.
-Ο χώρος αποθηκεύσης του ιδιοκτήτη της βιβλιοθήκης έχει χρησιμοποιηθεί.</translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1610,7 +1599,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Share</source>
-        <translation type="unfinished"/>
+        <translation>Διαμοιρασμός</translation>
     </message>
     <message>
         <source>Permission:</source>
@@ -1708,16 +1697,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Αποτυχία έναρξης μεταφόρτωσης</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Συνέβη σφάλμα κατά τη μεταφόρτωση</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Αποτυχία έναρξης λήψης</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Συνέβη σφάλμα κατά τη λήψη</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2052,14 +2033,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Δεν είναι μέρος του πιστοποιητικού&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Βρέθηκε ακόμη μία διεργασία του %1, να διακοπεί και να ξεκινήσουμε μία καινούρια;</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Αποτυχία έναρξης %1 λόγω του ότι απέτυχε το κλείσιμο της προηγούμενης διεργασίας</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Συγχρονισμός αυτής της βιβλιοθήκης σε:</translation>
     </message>
@@ -2161,6 +2134,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2538,6 +2523,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Ακύρωση</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2565,12 +2566,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>αποτυχία φόρτωσης του φακέλου ρύθμισης ccnet %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Άγνωστο σφάλμα</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

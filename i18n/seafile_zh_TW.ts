@@ -512,11 +512,11 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>無法載入ccnet的配置目錄 %1</translation>
+        <source>%1 client failed to initialize</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>%1 client failed to initialize</source>
+        <source>%1 exited unexpectedly</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -926,10 +926,6 @@ failed to upload.</source>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -987,8 +983,8 @@ failed to upload.</source>
         <translation>最後修改日期</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>類型</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1473,20 +1469,15 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>無法載入ccnet的配置目錄</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>”%1” 沒有被同步。
-因為... 已被伺服器刪除</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>“%1&quot; 同步完成</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1507,6 +1498,16 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"/>
@@ -1517,29 +1518,17 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
+        <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation>&quot;%1&quot; 無法同步。
-因為... 被伺服器拒絕</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; 無法同步。
-因為... 用盡配額了= =</translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1709,16 +1698,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>無法開始上傳</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>上載時遭遇錯誤</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>無法開始下載</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>下載時遭遇錯誤</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2053,14 +2034,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;沒有包含在證書中&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>發現已運行進程 %1， 殺死它並啟動新的進程？</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>無法啟動 %1 因為無法關閉先前的進程</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>將此資料庫同步與：</translation>
     </message>
@@ -2162,6 +2135,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2540,6 +2525,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2567,12 +2568,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>無法載入ccnet的配置目錄 %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>遭遇未知錯誤</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

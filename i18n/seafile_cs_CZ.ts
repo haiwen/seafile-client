@@ -3,7 +3,7 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>O aplikaci %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
@@ -15,15 +15,15 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>O aplikaci</translation>
     </message>
     <message>
         <source>Check For Updates</source>
-        <translation type="unfinished"/>
+        <translation>Zkontrolovat aktualizace</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -194,15 +194,15 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Chyba oprávnění!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Přihlášení vypršelo</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Soubor neexistuje</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
@@ -210,7 +210,7 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Chyba nahrávání: %1</translation>
     </message>
 </context>
 <context>
@@ -224,11 +224,11 @@ nahrání selhalo.</translation>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
         <source>Checking Permission</source>
-        <translation type="unfinished"/>
+        <translation>Kontroluji oprávnění</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Zrušit</translation>
     </message>
 </context>
 <context>
@@ -512,12 +512,12 @@ nahrání selhalo.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>selhalo načtení konfiguračního adresáře ccnet %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 klient se nepodařilo spustit</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -704,7 +704,7 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 položek</translation>
     </message>
     <message>
         <source>Folder name</source>
@@ -729,7 +729,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>This folder is empty.</source>
-        <translation type="unfinished"/>
+        <translation>Složka je prázdná</translation>
     </message>
     <message>
         <source>Enter name of file to save to...</source>
@@ -757,7 +757,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Soubor neexistuje</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
@@ -809,7 +809,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Cannot paste the folder to its subfolder</source>
-        <translation type="unfinished"/>
+        <translation>Nelze vložit složku</translation>
     </message>
     <message>
         <source>Copy failed</source>
@@ -825,19 +825,19 @@ Prosím %1</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Nemáte práva nahrát tuto složku</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Přihlášení vypršelo</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Chyba oprávnění!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna/složka nenalezena.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
@@ -853,14 +853,14 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Vyhledat soubory</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
     <message>
         <source>Pending</source>
-        <translation type="unfinished"/>
+        <translation>Čekající</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -888,57 +888,53 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>Selhalo nahrání souboru: %1, opakovat?</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Opakovat</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Přeskočit</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>Přerušit</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Ukládám</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Uložení souboru selhalo</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Název</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Velikost</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
+        <translation>Poslední úprava</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zobrazit ve složce</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>Zobrazit ve složce</translation>
     </message>
 </context>
 <context>
@@ -956,7 +952,7 @@ Prosím %1</translation>
     <name>FileServerTask</name>
     <message>
         <source>task cancelled</source>
-        <translation type="unfinished"/>
+        <translation>úloha zrušena</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
@@ -964,7 +960,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"/>
+        <translation>Kvóta na severu je obsazená</translation>
     </message>
 </context>
 <context>
@@ -986,8 +982,8 @@ Prosím %1</translation>
         <translation>Poslední úprava</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Druh</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1072,11 +1068,11 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>Opakovat upload</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>Smazat místní verzi</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
@@ -1265,49 +1261,49 @@ Do you like to download your default library?</source>
     <name>LoadMoreButton</name>
     <message>
         <source>load more</source>
-        <translation type="unfinished"/>
+        <translation>nahrát další</translation>
     </message>
 </context>
 <context>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>Nahrání log souborů selhalo</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Nahrát log soubory</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Chyba oprávnění!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna/složka nenalezena.</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Přihlášení vypršelo</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>Nahrání log souborů selhalo :%1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>Úspěšně byly nahrány log soubory</translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>Komprimuji</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <source>%1 of %2</source>
@@ -1322,7 +1318,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Single Sign On - SSO</translation>
     </message>
     <message>
         <source>Re-login</source>
@@ -1368,7 +1364,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Server address must not be empty</source>
-        <translation type="unfinished"/>
+        <translation>Adresa serveru nesmí být prázdná</translation>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
@@ -1448,7 +1444,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>Automatické přihlášení</translation>
     </message>
 </context>
 <context>
@@ -1474,20 +1470,15 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>selhalo načtení konfiguračního adresáře ccnet</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; nelze synchronizovat. 
-Příčina: Smazáno na serveru</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; je synchronizováno</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1495,19 +1486,27 @@ Příčina: Smazáno na serveru</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>Konflikt souboru %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>Nepodařilo se synchronizovat soubor %1
-Soubor je uzamčen jiným programem. Tento soubor bude aktualizován, až tento program zavřete.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>Nepodařilo se synchronizovat adresář %1
-Soubor je uzamčen jiným programem. Tento adresář bude aktualizován, až tento program zavřete.</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync %1
@@ -1517,34 +1516,20 @@ File path is ended with space or period and cannot be created on Windows.</sourc
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>Nepodařilo se synchronizovat %1
-Cesta k souboru obsahuje neplatné znaky. Soubor není na tomto počítači synchronizován.</translation>
-    </message>
-    <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
-        <translation>Indexace souboru %1 se nezdařila. 
-Prosím zkontrolujte oprávnění souboru a volné místo.</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>Nezdařila se synchronizace &quot;%1&quot;.
-Přístup ke službě byl odepřen.</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>Nezdařila se synchronizace &quot;%1&quot;.
-Majitel knihovny vyčerpal svůj datový limit.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1560,7 +1545,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Enter user name or email address</source>
-        <translation type="unfinished"/>
+        <translation>Vložte uživatelské jméno nebo emailovou adresu</translation>
     </message>
     <message>
         <source>Updated successfully</source>
@@ -1714,16 +1699,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Problém při startu nahrávání</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Chyba během nahrávání</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Chyba při startu stahování</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Chyba během stahování</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -1747,7 +1724,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>Chyba připojení</translation>
     </message>
     <message>
         <source>Cannot resolve proxy address</source>
@@ -1759,11 +1736,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Cannot connect to server</source>
-        <translation type="unfinished"/>
+        <translation>Nemohu se připojit k serveru</translation>
     </message>
     <message>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Chyba při navazování zabezpečeného připojení. Zkontrolujte SSL certifikát serveru</translation>
     </message>
     <message>
         <source>Data transfer was interrupted. Please check network or firewall</source>
@@ -1779,11 +1756,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Server error</source>
-        <translation type="unfinished"/>
+        <translation>Chyba serveru</translation>
     </message>
     <message>
         <source>Bad request</source>
-        <translation type="unfinished"/>
+        <translation>Nesprávný požadavek</translation>
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try resync the library</source>
@@ -1791,7 +1768,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Not enough memory</source>
-        <translation type="unfinished"/>
+        <translation>Nedostatek paměti</translation>
     </message>
     <message>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
@@ -1803,11 +1780,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Library deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna je smazána na serveru</translation>
     </message>
     <message>
         <source>Library damaged on server</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna je poškozena na serveru</translation>
     </message>
     <message>
         <source>The storage quota has been used up</source>
@@ -1843,7 +1820,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Failed to index local files</source>
-        <translation type="unfinished"/>
+        <translation>Chyba během indexace lokálních souborů</translation>
     </message>
     <message>
         <source>Failed to check server information</source>
@@ -1851,19 +1828,19 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Failed to create local files</source>
-        <translation type="unfinished"/>
+        <translation>Chyba při vytváření lokálních souborů.</translation>
     </message>
     <message>
         <source>Failed to merge local file changes</source>
-        <translation type="unfinished"/>
+        <translation>Chyba při slučování změn lokálních souborů.</translation>
     </message>
     <message>
         <source>Incorrect password. Please download again</source>
-        <translation type="unfinished"/>
+        <translation>Nesprávné heslo. Stáhněte, prosím, znovu</translation>
     </message>
     <message>
         <source>Internal error</source>
-        <translation type="unfinished"/>
+        <translation>Vnitřní chyba</translation>
     </message>
     <message>
         <source>connecting server...</source>
@@ -2058,14 +2035,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Byl nalezen jiný proces %1, ukončit jej a spustit nový?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Nepodařilo se spustit %1 kvůli chybě při ukončení předchozího procesu</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Synchronizovat tuto knihovnu s:</translation>
     </message>
@@ -2127,27 +2096,27 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>uploading file list</source>
-        <translation type="unfinished"/>
+        <translation>nahrávám seznam souborů</translation>
     </message>
     <message>
         <source>File is locked by another application</source>
-        <translation type="unfinished"/>
+        <translation>Soubor je uzamčen jinou aplikací</translation>
     </message>
     <message>
         <source>Folder is locked by another application</source>
-        <translation type="unfinished"/>
+        <translation>Složka je uzamčena jinou aplikací</translation>
     </message>
     <message>
         <source>File is locked by another user</source>
-        <translation type="unfinished"/>
+        <translation>Soubor je uzamčen jiným uživatelem</translation>
     </message>
     <message>
         <source>Path is invalid</source>
-        <translation type="unfinished"/>
+        <translation>Nesprávná cesta</translation>
     </message>
     <message>
         <source>Error when indexing</source>
-        <translation type="unfinished"/>
+        <translation>Chyba indexace</translation>
     </message>
     <message>
         <source>Path ends with space or period character</source>
@@ -2169,12 +2138,24 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Update to file denied by folder permission setting</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Soubor neexistuje</translation>
     </message>
 </context>
 <context>
@@ -2369,7 +2350,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>&amp;Open local folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Otevřít místní adresář</translation>
     </message>
     <message>
         <source>&amp;Unsync</source>
@@ -2413,11 +2394,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>&amp;Leave share</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zrušit sdílení</translation>
     </message>
     <message>
         <source>leave share</source>
-        <translation type="unfinished"/>
+        <translation>zrušit sdílení</translation>
     </message>
     <message>
         <source>&amp;Resync this library</source>
@@ -2544,6 +2525,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2571,12 +2568,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>nepodařilo se načíst konfiguraci ccnet %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Neznámá chyba</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

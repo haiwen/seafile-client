@@ -512,12 +512,12 @@ n&apos;a pu être envoyé.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>impossible de charger le répertoire de configuration de ccnet %1 </translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>Le client %1 n&apos;a pas pu s&apos;initialiser</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -836,7 +836,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation>Bibliothèque/Répertoire on trouvé.</translation>
+        <translation>Bibliothèque/Répertoire non trouvé.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
@@ -903,11 +903,11 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Enregistrement</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Échec de l&apos;enregistrement du fichier</translation>
     </message>
 </context>
 <context>
@@ -923,10 +923,6 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Last Modified</source>
         <translation>Dernière modification</translation>
-    </message>
-    <message>
-        <source>Kind</source>
-        <translation>Type</translation>
     </message>
 </context>
 <context>
@@ -985,8 +981,8 @@ n&apos;a pu être envoyé.</translation>
         <translation>Dernière modification</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Type</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1272,46 +1268,46 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;envoi des fichiers log a échoué</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Envoi des fichiers log</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Erreur de permission !</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothèque/Répertoire non trouvé.</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorisation expirée</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;envoi des fichiers log a échoué : %1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>Envoi des fichiers log réussi</translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>Compression</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuler</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 sur %2</translation>
     </message>
 </context>
 <context>
@@ -1473,78 +1469,66 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>Impossible de charger la configuration de ccnet</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; est désynchronisé. 
-Raison : Supprimé sur le serveur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; est synchronisé</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation>Fichiers envoyé à &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>Fichier %1 en conflit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>Impossible de synchroniser le fichier %1
-Le fichier est verrouillé par une autre application. Ce fichier sera mis à jour quand vous fermerez l&apos;application.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>Impossible de synchroniser le dossier  %1
-des fichiers sont verrouillés par une autre application. Ce dossier sera mis à jour quand vous fermerez l&apos;application.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync %1
-File path is ended with space or period and cannot be created on Windows.</source>
-        <translation>Échec de synchronisation %1
-Le chemin d&apos;accès du fichier est terminé par un espace ou une durée et ne peut pas être créé sous Windows.</translation>
-    </message>
-    <message>
-        <source>Failed to sync %1
-File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>Impossible de synchroniser %1
-Le chemin contient des caractères non valides.  il n &apos;est pas synchronisé avec cet ordinateur.</translation>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation>Impossible d&apos;indexer le fichier fichier %1
-Vérifier les droits sur le fichier et l’espace disque disponible..</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; impossible de synchroniser. 
-Accès refusé au service.</translation>
+        <source>Failed to sync %1
+File path is ended with space or period and cannot be created on Windows.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; impossible de synchroniser.
-L&apos;espace de stockage du propriétaire de la bibliothèque est plein.</translation>
+        <source>Failed to sync %1
+File path contains invalid characters. It is not synced to this computer.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1714,16 +1698,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Erreur au démarrage de l&apos;envoi</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Erreur pendant l&apos;envoi</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Échec au démarrage du téléchargement</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Erreur pendant le téléchargement</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2058,14 +2034,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Un autre processus de %1 a été trouvé, l&apos;arrêter et en démarrer un nouveau ?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Impossible de démarrer %1 en raison d&apos;un problème lors de l&apos;arrêt du processus précédent</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Synchroniser cette bibliothèque avec :</translation>
     </message>
@@ -2167,6 +2135,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation>La mise à jour du fichier est impossible à cause des paramètres de permission du dossier.</translation>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2544,6 +2524,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2571,12 +2567,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>Impossible de charger le répertoire de configuration de ccnet %1 </translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Erreur Inconnue</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2659,15 +2655,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Envoi des fichiers log</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>Envoi %1 des fichier de log</translation>
     </message>
     <message>
         <source>Please login first</source>
-        <translation type="unfinished"/>
+        <translation>Veuillez vous connecter d&apos;abord</translation>
     </message>
 </context>
 <context>

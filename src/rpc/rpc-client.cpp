@@ -90,7 +90,7 @@ bool SeafileRpcClient::connectDaemon(bool exit_on_error)
         if (!seafile_rpc_client_) {
             if (retry++ > 20) {
                 if (exit_on_error) {
-                    seafApplet->errorAndExit(tr("internal error: failed to connect to seafile daemon"));
+                    seafApplet->errorAndExit(tr("internal error: failed to connect to daemon"));
                 }
                 return false;
             } else {

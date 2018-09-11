@@ -512,12 +512,12 @@ kon niet worden geüpload.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>kon ccnet-configuratiemap niet laden %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>Initialiseren van %1 client mislukt</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -923,10 +923,6 @@ kon niet worden geüpload.</translation>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -984,8 +980,8 @@ kon niet worden geüpload.</translation>
         <translation>Laatst gewijzigd</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Soort</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1471,20 +1467,15 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>kon ccnet-configuratiemap niet laden</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; is gedesynchroniseerd.
-Reden: verwijderd van de server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; is gesynchroniseerd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1492,19 +1483,27 @@ Reden: verwijderd van de server</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>Bestandsconflict %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>Kon het bestand %1 niet synchroniseren
-Bestand is door een andere applicatie vergrendeld. Het bestand zal worden bijgewerkt wanneer je de applicatie afsluit.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>Kon de map %1 niet synchroniseren
-Een bestand in deze map is vergrendeld door een andere applicatie. Deze folder zal worden bijgewerkt wanneer je de applicatie afsluit. </translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync %1
@@ -1514,34 +1513,20 @@ File path is ended with space or period and cannot be created on Windows.</sourc
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>Kon %1 niet synchroniseren
-Bestandspad bevat ongeldige tekens. Het is niet gesynchroniseerd naar deze computer.</translation>
-    </message>
-    <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
-        <translation>Kon het bestand %1 niet indexeren
-Controleer de bestandsrechten en vrije schijfruimte.</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; kon niet worden gesynchroniseerd.
-Toegang tot dienst geweigerd</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; kon niet worden gesynchroniseerd.
-De opslaglimiet van de eigenaar is bereikt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1711,16 +1696,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Kon upload niet starten</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Fout opgetreden tijdens upload</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Kon download niet starten</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Fout opgetreden tijdens download</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2055,14 +2032,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Geen onderdeel van certificaat&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Er is een bestaand proces van %1 gevonden. Deze afsluiten en een nieuw proces starten?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Kon %1 niet starten omdat het voorgaande proces niet afgesloten kon worden</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Synchroniseer deze bibliotheek naar:</translation>
     </message>
@@ -2164,6 +2133,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2541,6 +2522,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2568,12 +2565,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>kon ccnet-configuratiemap %1 niet laden</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Onbekende fout</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

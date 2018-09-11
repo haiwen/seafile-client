@@ -2551,7 +2551,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>internal error: failed to connect to seafile daemon</source>
+        <source>internal error: failed to connect to daemon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -512,12 +512,12 @@ failed to upload.</source>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>%1 ccnet 설정 디렉토리 불러오기에 실패했습니다</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 클라이언트 초기화에 실패했습니다</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -925,10 +925,6 @@ failed to upload.</source>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -986,8 +982,8 @@ failed to upload.</source>
         <translation>마지막 수정</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>종류</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1475,76 +1471,66 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>ccnet 설정 디렉토리 불러오기에 실패했습니다</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot;을(를) 동기화 해제했습니다.
-이유: 서버에서 삭제함</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot;을(를) 동기화했습니다</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation>&quot;%1&quot;에 파일을 업로드했습니다</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>%1 파일 충돌</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>%1 파일 동기화에 실패했습니다
-다른 프로그램에서 파일을 잠궜습니다. 이 파일은 프로그램을 닫으면 업데이트합니다.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>%1 폴더 동기화에 실패했습니다. 다른 프로그램에서 해당 폴더에 있는 파일을 잠궜습니다. 이 폴더는 프로그램을 닫으면 업데이트합니다.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync %1
-File path is ended with space or period and cannot be created on Windows.</source>
-        <translation>%1 동기화에 실패했습니다
-파일 경로가 공백, 마침표로 끝났으며 윈도우에서 만들 수 없습니다.</translation>
-    </message>
-    <message>
-        <source>Failed to sync %1
-File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>%1 동기화에 실패했습니다. 파일 경로에 잘못된 문자가 있습니다. 이 컴퓨터로 동기화하지 않았습니다.</translation>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation>%1 파일 색인에 실패했습니다.
-파일 권한과 디스크 공간을 확인하세요.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; 동기화에 실패했습니다. 
-서비스 접근이 거부되었습니다</translation>
+        <source>Failed to sync %1
+File path is ended with space or period and cannot be created on Windows.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; 동기화에 실패했습니다. 
-라이브러리 소유자의 저장 공간이 다 찼습니다.</translation>
+        <source>Failed to sync %1
+File path contains invalid characters. It is not synced to this computer.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1714,16 +1700,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>업로듯 시작에 실패했습니다</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>업로드 중 오류가 발생했습니다</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>다운로드 시작에 실패했습니다</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>다운로드 중 오류가 발생했습니다</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2058,14 +2036,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>다른 %1 실행 프로세스를 찾았습니다. 강제로 끝내고 새로 시작할까요?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>이전 프로세스를 끝내는데 실패하여 %1을(를) 시작할 수 없습니다</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>이 라이브러리 동기화 대상:</translation>
     </message>
@@ -2167,6 +2137,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2544,6 +2526,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2571,12 +2569,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>%1 ccnet 설정 디렉터리 불러오기에 실패했습니다</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>알 수 없는 오류</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

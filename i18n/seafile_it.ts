@@ -7,11 +7,11 @@
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h5&gt;REV %1&lt;/h5&gt;</translation>
     </message>
     <message>
         <source>About</source>
@@ -194,11 +194,11 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Errore di permessi!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorizzazione scaduta</translation>
     </message>
     <message>
         <source>File does not exist</source>
@@ -210,7 +210,7 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Errore di caricamento: %1</translation>
     </message>
 </context>
 <context>
@@ -512,12 +512,12 @@ non caricato a causa di un errore.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>Impossibile caricare la directory di configurazione ccnet %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>Impossibile inizializzare il client %1</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -824,31 +824,31 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Non hai i permessi per caricare in questa cartella</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorizzazione scaduta</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Errore di Permessi!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Libreria/Cartella non trovata.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile caricare il file %1: %2</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile creare la cartella della cache</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile aprire la cartella della cache</translation>
     </message>
     <message>
         <source>Search files</source>
@@ -887,7 +887,7 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile caricare il file: &quot;%1&quot;, vuoi riprovare?</translation>
     </message>
     <message>
         <source>Retry</source>
@@ -903,11 +903,11 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Sto salvando</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Salvataggio del file fallito</translation>
     </message>
 </context>
 <context>
@@ -923,10 +923,6 @@ non caricato a causa di un errore.</translation>
     <message>
         <source>Last Modified</source>
         <translation>Ultima Modifica</translation>
-    </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -985,8 +981,8 @@ non caricato a causa di un errore.</translation>
         <translation>Ultima modifica</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Tipo</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1071,19 +1067,19 @@ non caricato a causa di un errore.</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>Ritenta il caricamento</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>Cancella la versione locale </translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Salva la versione locale come...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
-        <translation type="unfinished"/>
+        <translation>Apri la cartella locale della Cache</translation>
     </message>
 </context>
 <context>
@@ -1265,53 +1261,53 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     <name>LoadMoreButton</name>
     <message>
         <source>load more</source>
-        <translation type="unfinished"/>
+        <translation>carica altro</translation>
     </message>
 </context>
 <context>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento dei file di log falliti</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento dei file di log</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Errore di permessi!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Libreria/Cartella non trovata.</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorizzazione scaduta</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>Fallito il caricamento del file di log: %1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento dei file di log riuscito </translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>In compressione</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 di%2</translation>
     </message>
 </context>
 <context>
@@ -1322,11 +1318,11 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Accesso singolo</translation>
     </message>
     <message>
         <source>Re-login</source>
-        <translation type="unfinished"/>
+        <translation>Nuovo login</translation>
     </message>
     <message>
         <source>Logging in...</source>
@@ -1364,15 +1360,15 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
     <message>
         <source>%1 Server Address</source>
-        <translation type="unfinished"/>
+        <translation>%1 Indirizzo del Server</translation>
     </message>
     <message>
         <source>Server address must not be empty</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;indirizzo del server non può essere vuoto</translation>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
-        <translation type="unfinished"/>
+        <translation>%1 non è un indirizzo valido. Deve iniziare con &quot;https://&quot;</translation>
     </message>
     <message>
         <source>Please enter the password</source>
@@ -1448,18 +1444,18 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>Login Automatico</translation>
     </message>
 </context>
 <context>
     <name>LogoutView</name>
     <message>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>Sei Uscito. Per favore</translation>
     </message>
     <message>
         <source>login</source>
-        <translation type="unfinished"/>
+        <translation>accedi</translation>
     </message>
     <message>
         <source>Add an account</source>
@@ -1474,20 +1470,15 @@ Vuoi scaricare la tua libreria predefinita?</translation>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>impossibile caricare la cartella di configurazione ccnet</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; è non sincronizzato.
-Motivo: Cancellato sul server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; è sincronizzato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1508,6 +1499,16 @@ Some file in this folder is locked by other application. This folder will be upd
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation type="unfinished"/>
@@ -1518,29 +1519,17 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
+        <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation>&quot;%1&quot; sincronizzazione fallita.
-Accesso rifiutato al servizio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; sincronizzazione fallita.
-Lo spazio del proprietario della libreria è esaurito.</translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1548,19 +1537,19 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>PrivateShareDialog</name>
     <message>
         <source>Share %1</source>
-        <translation type="unfinished"/>
+        <translation>Condividi %1</translation>
     </message>
     <message>
         <source>Enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>Inserisci il nome del gruppo</translation>
     </message>
     <message>
         <source>Enter user name or email address</source>
-        <translation type="unfinished"/>
+        <translation>Inserisci nome utente e password</translation>
     </message>
     <message>
         <source>Updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Aggiornato con successo </translation>
     </message>
     <message>
         <source>Share Operation Failed: %1</source>
@@ -1568,7 +1557,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Removed successfully</source>
-        <translation type="unfinished"/>
+        <translation>Rimosso con successo</translation>
     </message>
     <message>
         <source>Failed to get share information of the folder</source>
@@ -1580,35 +1569,35 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Please enter the username</source>
-        <translation type="unfinished"/>
+        <translation>Inserisci il nome utente</translation>
     </message>
     <message>
         <source>Please enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>Inserisci il nome del gruppo</translation>
     </message>
     <message>
         <source>No such group &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nessun gruppo &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Already shared to group %1</source>
-        <translation type="unfinished"/>
+        <translation>Già condiviso con %1</translation>
     </message>
     <message>
         <source>Already shared to user %1</source>
-        <translation type="unfinished"/>
+        <translation>Già condiviso con l&apos;utente %1</translation>
     </message>
     <message>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;operazione precedente è ancora in corso</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <source>Share To:</source>
-        <translation type="unfinished"/>
+        <translation>Condividi con:</translation>
     </message>
     <message>
         <source>Share</source>
@@ -1616,7 +1605,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Permission:</source>
-        <translation type="unfinished"/>
+        <translation>Permessi:</translation>
     </message>
     <message>
         <source>Read-Write</source>
@@ -1710,16 +1699,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Fallito avvio upload</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Errore durante l&apos;upload</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Fallito avvio download</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Errore durante il download</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -1739,19 +1720,19 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"/>
+        <translation>Permesso negato dal server. Prova a risincronizzare la libreria</translation>
     </message>
     <message>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>Errore di rete</translation>
     </message>
     <message>
         <source>Cannot resolve proxy address</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile risolvere l&apos;indirizzo del proxy</translation>
     </message>
     <message>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile risolvere l&apos;indirizzo del server</translation>
     </message>
     <message>
         <source>Cannot connect to server</source>
@@ -1775,11 +1756,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Server error</source>
-        <translation type="unfinished"/>
+        <translation>Errore del Server</translation>
     </message>
     <message>
         <source>Bad request</source>
-        <translation type="unfinished"/>
+        <translation>Richiesta errata</translation>
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try resync the library</source>
@@ -1787,7 +1768,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Not enough memory</source>
-        <translation type="unfinished"/>
+        <translation>Memoria insufficiente </translation>
     </message>
     <message>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
@@ -1795,15 +1776,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Storage quota full</source>
-        <translation type="unfinished"/>
+        <translation>Limite spazio disponibile raggiunto</translation>
     </message>
     <message>
         <source>Library deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>La liberia è stata cancellata sul server</translation>
     </message>
     <message>
         <source>Library damaged on server</source>
-        <translation type="unfinished"/>
+        <translation>Libreria danneggiata sul server</translation>
     </message>
     <message>
         <source>The storage quota has been used up</source>
@@ -1823,7 +1804,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Files are locked by other application</source>
-        <translation type="unfinished"/>
+        <translation>File bloccato da un altro programma </translation>
     </message>
     <message>
         <source>Library is deleted on server</source>
@@ -1839,27 +1820,27 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Failed to index local files</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile indicizzare i file locali</translation>
     </message>
     <message>
         <source>Failed to check server information</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile controllare le informazioni del server</translation>
     </message>
     <message>
         <source>Failed to create local files</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile creare i file in locale.</translation>
     </message>
     <message>
         <source>Failed to merge local file changes</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile unire le modifiche al file locale</translation>
     </message>
     <message>
         <source>Incorrect password. Please download again</source>
-        <translation type="unfinished"/>
+        <translation>Password incorretta. Per favore scaricarlo di nuovo</translation>
     </message>
     <message>
         <source>Internal error</source>
-        <translation type="unfinished"/>
+        <translation>Errore interno</translation>
     </message>
     <message>
         <source>connecting server...</source>
@@ -1871,11 +1852,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Downloading file list...</source>
-        <translation type="unfinished"/>
+        <translation>Scarico la lista dei file...</translation>
     </message>
     <message>
         <source>Downloading files...</source>
-        <translation type="unfinished"/>
+        <translation>Scaricamento dei file...</translation>
     </message>
     <message>
         <source>Creating folder...</source>
@@ -1891,7 +1872,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>checking server info...</source>
-        <translation type="unfinished"/>
+        <translation>Controllo informazioni del server...</translation>
     </message>
     <message>
         <source>Canceling</source>
@@ -1919,7 +1900,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>File &quot;%1&quot; doesn&apos;t exist in &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Il file &quot;%1&quot; non esiste all&apos;interno di &quot;%2&quot;</translation>
     </message>
     <message>
         <source>%1 couldn&apos;t find an application to open file %2</source>
@@ -1935,15 +1916,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Rename %1 to</source>
-        <translation type="unfinished"/>
+        <translation>Rinomina %1 come</translation>
     </message>
     <message>
         <source>Unable to download item &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile scaricare &quot;%1&quot;</translation>
     </message>
     <message>
         <source>copy failed</source>
-        <translation type="unfinished"/>
+        <translation>copia fallita</translation>
     </message>
     <message>
         <source>Added</source>
@@ -1951,11 +1932,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Deleted</source>
-        <translation type="unfinished"/>
+        <translation>Cancellato</translation>
     </message>
     <message>
         <source>Removed</source>
-        <translation type="unfinished"/>
+        <translation>Rimosso</translation>
     </message>
     <message>
         <source>Modified</source>
@@ -1991,31 +1972,31 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>files</source>
-        <translation type="unfinished"/>
+        <translation>file</translation>
     </message>
     <message>
         <source>directories</source>
-        <translation type="unfinished"/>
+        <translation>percorsi</translation>
     </message>
     <message>
         <source>and %1 more</source>
-        <translation type="unfinished"/>
+        <translation>e %1 di più</translation>
     </message>
     <message>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"/>
+        <translation>Riporta lo stato della libreria a</translation>
     </message>
     <message>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"/>
+        <translation>Riportato il file &quot;%1&quot; allo stato %2</translation>
     </message>
     <message>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"/>
+        <translation>Recuperata la directory cancellata</translation>
     </message>
     <message>
         <source>Changed library name or description</source>
-        <translation type="unfinished"/>
+        <translation>Modificato il nome della libreria o la descrizione</translation>
     </message>
     <message>
         <source>Auto merge by %1 system</source>
@@ -2023,7 +2004,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Just now</source>
-        <translation type="unfinished"/>
+        <translation>Un attimo fa</translation>
     </message>
     <message>
         <source>1 day ago</source>
@@ -2051,23 +2032,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation type="unfinished"/>
+        <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
         <source>Sync this library to:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza questa libreria in:</translation>
     </message>
     <message>
         <source>Sync this folder to:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizza questa cartella in:</translation>
     </message>
     <message>
         <source>Folder</source>
@@ -2083,7 +2056,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>PDF Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento PDF</translation>
     </message>
     <message>
         <source>Image File</source>
@@ -2107,11 +2080,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>PowerPoint Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento PowerPoint</translation>
     </message>
     <message>
         <source>Excel Document</source>
-        <translation type="unfinished"/>
+        <translation>Documento Excel</translation>
     </message>
     <message>
         <source>The path &quot;%1&quot; conflicts with system path</source>
@@ -2123,46 +2096,58 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>uploading file list</source>
-        <translation type="unfinished"/>
+        <translation>caricamento della lista file</translation>
     </message>
     <message>
         <source>File is locked by another application</source>
-        <translation type="unfinished"/>
+        <translation>File bloccato da un altro programma </translation>
     </message>
     <message>
         <source>Folder is locked by another application</source>
-        <translation type="unfinished"/>
+        <translation>Cartella bloccata da un altro programma </translation>
     </message>
     <message>
         <source>File is locked by another user</source>
-        <translation type="unfinished"/>
+        <translation>File bloccato da un altro utente</translation>
     </message>
     <message>
         <source>Path is invalid</source>
-        <translation type="unfinished"/>
+        <translation>Percorso non valido</translation>
     </message>
     <message>
         <source>Error when indexing</source>
-        <translation type="unfinished"/>
+        <translation>Errore durante l&apos;indicizzazione</translation>
     </message>
     <message>
         <source>Path ends with space or period character</source>
-        <translation type="unfinished"/>
+        <translation>Il percorso termina con uno spazio o una virgola</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;</source>
-        <translation type="unfinished"/>
+        <translation>il percorso contiene caratteri non validi come &apos;|&apos; o &apos;:&apos;</translation>
     </message>
     <message>
         <source>failed to open file cache database</source>
-        <translation type="unfinished"/>
+        <translation>Errore nell&apos;apertura del database della cache</translation>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
+        <translation>il percorso contiene caratteri non validi come &apos;|&apos; o &apos;:&apos;</translation>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2189,7 +2174,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>every %1 seconds</source>
-        <translation type="unfinished"/>
+        <translation>ogni %1 secondi</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -2245,7 +2230,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Sync Interval:</source>
-        <translation type="unfinished"/>
+        <translation>Intervallo di sincronizzazione:</translation>
     </message>
     <message>
         <source>Close</source>
@@ -2256,11 +2241,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>RepoItemDelegate</name>
     <message>
         <source>, %1%2</source>
-        <translation type="unfinished"/>
+        <translation>, %1%2</translation>
     </message>
     <message>
         <source>, %1</source>
-        <translation type="unfinished"/>
+        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2306,7 +2291,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>Avvio sincronizzazione</translation>
     </message>
 </context>
 <context>
@@ -2385,23 +2370,23 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Share to user</source>
-        <translation type="unfinished"/>
+        <translation>Condividi con l&apos;utente</translation>
     </message>
     <message>
         <source>Share this library to a user</source>
-        <translation type="unfinished"/>
+        <translation>Condividi questa libreria con un utente</translation>
     </message>
     <message>
         <source>Share to group</source>
-        <translation type="unfinished"/>
+        <translation>Condividi con un gruppo</translation>
     </message>
     <message>
         <source>Share this library to a group</source>
-        <translation type="unfinished"/>
+        <translation>Condividi questa libreria con un gruppo</translation>
     </message>
     <message>
         <source>&amp;Open cloud file browser</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Open vista file in cloud</translation>
     </message>
     <message>
         <source>open this library in embedded Cloud File Browser</source>
@@ -2409,11 +2394,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>&amp;Leave share</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Leave condivisione</translation>
     </message>
     <message>
         <source>leave share</source>
-        <translation type="unfinished"/>
+        <translation>lascia la condivisione</translation>
     </message>
     <message>
         <source>&amp;Resync this library</source>
@@ -2421,7 +2406,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>de-sincronizza e ri-sincronizza questa libreria</translation>
     </message>
     <message>
         <source>Set sync &amp;Interval</source>
@@ -2453,7 +2438,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Leaving share failed</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile lasciare la condivisione</translation>
     </message>
     <message>
         <source>Failed to cancel this task:
@@ -2469,27 +2454,27 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Non hai i permessi per caricare in questa cartella</translation>
     </message>
     <message>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile sovrascrivere il file &quot;%1&quot; con se stesso</translation>
     </message>
     <message>
         <source>Unable to delete file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile cancellare il file &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to upload file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile caricare il file: %1</translation>
     </message>
     <message>
         <source>Sync Interval (In seconds):</source>
-        <translation type="unfinished"/>
+        <translation>Intervallo di sincronizzazione (in secondi):</translation>
     </message>
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Imposta intervallo di sincronizzazione per la libreria &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -2518,11 +2503,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>SeafileApplet</name>
     <message>
         <source>failed to add default account</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile aggiungere l&apos;account predefinito</translation>
     </message>
     <message>
         <source>Failed to initialize log: %s</source>
-        <translation type="unfinished"/>
+        <translation>Fallita inizializzazione log: %s</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2540,12 +2525,28 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>%1 Link Interno</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
@@ -2553,11 +2554,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>%1 Web Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 Web Link:</translation>
     </message>
     <message>
         <source>%1 Protocol Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 Link del protocollo:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2567,12 +2568,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>fallita lettura cartella di configurazione ccnet %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Errore sconosciuto</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2599,11 +2600,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Open %1 &amp;folder</source>
-        <translation type="unfinished"/>
+        <translation>Apri %1 &amp;folder</translation>
     </message>
     <message>
         <source>open %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>apri la cartella %1</translation>
     </message>
     <message>
         <source>Open &amp;logs folder</source>
@@ -2611,7 +2612,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Show file sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Mostra errori sincronizzazione</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2643,11 +2644,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>open %1 log folder</source>
-        <translation type="unfinished"/>
+        <translation>apri la cartella log %1</translation>
     </message>
     <message>
         <source>open %1 online help</source>
-        <translation type="unfinished"/>
+        <translation>apri la guida in linea di %1</translation>
     </message>
     <message>
         <source>some servers not connected</source>
@@ -2655,26 +2656,26 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Carica file di log</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>carica il file di log %1</translation>
     </message>
     <message>
         <source>Please login first</source>
-        <translation type="unfinished"/>
+        <translation>Per favore prima effettua l&apos;accesso</translation>
     </message>
 </context>
 <context>
     <name>SearchResultListView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Show nella cartella</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>Mostra nella cartella</translation>
     </message>
 </context>
 <context>
@@ -2689,7 +2690,7 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Failed to search&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile cercare &lt;br/&gt; prego %1</translation>
     </message>
 </context>
 <context>
@@ -2758,47 +2759,47 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Auto start %1 after login</source>
-        <translation type="unfinished"/>
+        <translation>Avvia automatico %1 dopo il login</translation>
     </message>
     <message>
         <source>Hide %1 Icon from the dock</source>
-        <translation type="unfinished"/>
+        <translation>Nascondi l&apos;icona di %1 dal dock</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Nessuno</translation>
     </message>
     <message>
         <source>HTTP Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Proxy HTTP</translation>
     </message>
     <message>
         <source>Socks5 Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Proxy Socks5</translation>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Proxy di sistema</translation>
     </message>
     <message>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>Hai modificato la lingua. Vuoi riavviare per applicare?</translation>
     </message>
     <message>
         <source>The proxy host address can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;indirizzo del proxy non può essere vuoto</translation>
     </message>
     <message>
         <source>The proxy port is incorrect</source>
-        <translation type="unfinished"/>
+        <translation>La porta del proxy non è corretta</translation>
     </message>
     <message>
         <source>Proxy username can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;utente del proxy non può essere vuoto</translation>
     </message>
     <message>
         <source>Proxy password can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>La password del proxy non può essere vuota</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -2846,15 +2847,15 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Enable FinderSync Extension</source>
-        <translation type="unfinished"/>
+        <translation>Abilita l&apos;estensione FinderSync</translation>
     </message>
     <message>
         <source>Enable Explorer Extension</source>
-        <translation type="unfinished"/>
+        <translation>Abilita l&apos;estensione di Esplora Risorse</translation>
     </message>
     <message>
         <source>Check for updates automatically</source>
-        <translation type="unfinished"/>
+        <translation>controlla aggiornamenti automaticamente </translation>
     </message>
     <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
@@ -2902,11 +2903,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Proxy server requires a password</source>
-        <translation type="unfinished"/>
+        <translation>Il server proxy richiede una password </translation>
     </message>
     <message>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>Rete</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2929,18 +2930,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Remove Share</source>
-        <translation type="unfinished"/>
+        <translation>Rimuovi Condivisione</translation>
     </message>
 </context>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
         <source>Click to edit</source>
-        <translation type="unfinished"/>
+        <translation>Click per modificare</translation>
     </message>
     <message>
         <source>Created by %1</source>
-        <translation type="unfinished"/>
+        <translation>Creato da %1</translation>
     </message>
     <message>
         <source>Read Write</source>
@@ -2960,26 +2961,26 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Permission</source>
-        <translation type="unfinished"/>
+        <translation>Permessi</translation>
     </message>
     <message>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;operazione precedente è ancora in corso</translation>
     </message>
 </context>
 <context>
     <name>SharedLinkDialog</name>
     <message>
         <source>Share Link</source>
-        <translation type="unfinished"/>
+        <translation>Condividi Link</translation>
     </message>
     <message>
         <source>Share link:</source>
-        <translation type="unfinished"/>
+        <translation>Condividi Link:</translation>
     </message>
     <message>
         <source>Direct Download</source>
-        <translation type="unfinished"/>
+        <translation>Download Diretto</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
@@ -3063,18 +3064,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     <name>SyncErrorsDialog</name>
     <message>
         <source>File Sync Errors</source>
-        <translation type="unfinished"/>
+        <translation>Errore Sincronizzazione File</translation>
     </message>
     <message>
         <source>No sync errors.</source>
-        <translation type="unfinished"/>
+        <translation>Nessun errore di sincronizzazione. </translation>
     </message>
 </context>
 <context>
     <name>SyncErrorsTableModel</name>
     <message>
         <source>Double click to open the library</source>
-        <translation type="unfinished"/>
+        <translation>Doppio click per aprire la libreria</translation>
     </message>
     <message>
         <source>Library</source>
@@ -3082,30 +3083,30 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"/>
+        <translation>Percorso</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>Errore</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation type="unfinished"/>
+        <translation>Tempo</translation>
     </message>
 </context>
 <context>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>Inserire chiave per autenticazione a due fattori</translation>
     </message>
     <message>
         <source>Two Factor Authentication</source>
-        <translation type="unfinished"/>
+        <translation>Autenticazione a due fattori</translation>
     </message>
     <message>
         <source>Please enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>Inserire chiave per autenticazione a due fattori</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -3113,11 +3114,11 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>mText</source>
-        <translation type="unfinished"/>
+        <translation>mText</translation>
     </message>
     <message>
         <source>Remember this device</source>
-        <translation type="unfinished"/>
+        <translation>Ricorda questo dispositivo</translation>
     </message>
     <message>
         <source>Cancel</source>

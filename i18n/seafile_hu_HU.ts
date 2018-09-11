@@ -512,12 +512,12 @@ feltöltése nem sikerült.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>Nem sikerült betölteni a ccnet konfigurációs könyvtárát (%1)</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 kliens inicializálása sikertelen</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -924,10 +924,6 @@ feltöltése nem sikerült.</translation>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -985,8 +981,8 @@ feltöltése nem sikerült.</translation>
         <translation>Utoljára módosítva</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Típus</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1474,78 +1470,66 @@ Letölti az alapértelmezett kötetet?</translation>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>A ccnet konfigurációs könyvtár betöltése nem sikerült</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; nem szinkronizálható.
-Indok: a könyvtár törölve lett a szerverről</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; szinkronizált állapotban van</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation>Fájlok feltöltve ide: &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>%1 fájl ütközés</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>A(z) %1 fájl szinkronizálása nem sikerült
-A fájlt egy másik alkalmazás fogja. A fájl akkor kerül frissítésre ha ezt a programot lezárja.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>A(z) %1 könyvtár szinkronizálása nem sikerült
-Néhány fájlt egy másik alkalmazás fog. A könyvtár akkor kerül frissítésre ha ezt a programot lezárja.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync %1
-File path is ended with space or period and cannot be created on Windows.</source>
-        <translation>%1 szinkronizálás sikertelen
-Az útvonal szóközzel vagy ponttal végződik és Windows-on nem hozható létre.</translation>
-    </message>
-    <message>
-        <source>Failed to sync %1
-File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>%1 szinkronizálása sikertelen
-Az út érvénytelen karaktert tartalmaz. Nincs szinkronizálva a számítógépre.</translation>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation>%1 indexelése nem sikerült
-Ellenőrizze a fájl jogosultságait és a szabad területet.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; nem szinkronizálható.
-Hozzáférés megtagadva</translation>
+        <source>Failed to sync %1
+File path is ended with space or period and cannot be created on Windows.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; nem szinkronizálható.
-A kötet tulajdonosának kiosztott tárhely megtelt.</translation>
+        <source>Failed to sync %1
+File path contains invalid characters. It is not synced to this computer.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1715,16 +1699,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>A feltöltés elindítása sikertelen</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Hiba történt a feltöltés során</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Nem sikerült elindítani a letöltést</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Hiba történt a letöltés során</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2059,14 +2035,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Nem része a tanúsítványnak&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Fut már egy %1 folyamat, leállítja és elindít egy új folyamatot?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>A %1 nem indítható el, mert a korábbi futó folyamat leállítása nem sikerült.</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Szinkronizálja ezt a kötetet ide:</translation>
     </message>
@@ -2168,6 +2136,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2545,6 +2525,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2572,12 +2568,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>A ccnet konfigurációs könyvtára (%1) nem tölthető be</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Ismeretlen hiba</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

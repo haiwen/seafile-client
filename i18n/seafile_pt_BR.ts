@@ -510,12 +510,12 @@ falhou ao enviar.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>falha ao carregar o diretório de configuração ccnet %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 cliente falhou ao inicializar</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -923,10 +923,6 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -984,8 +980,8 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <translation>Última Alteração</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Espécie</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1471,20 +1467,15 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>falha ao carregar o diretório de configuração ccnet</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; está dessincronizada.
-Razão: Apagada do servidor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; está sincronizada</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1492,7 +1483,7 @@ Razão: Apagada do servidor</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>Conflito no arquivo %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
@@ -1502,6 +1493,16 @@ File is locked by other application. This file will be updated when you close th
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1515,29 +1516,17 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
+        <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation>&quot;%1&quot; falhou ao sincronizar.
-Acesso negado ao serviço</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; falha ao sincronizar.
-O espaço de armazenamento do dono da biblioteca acabou.</translation>
-    </message>
-    <message>
-        <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1707,16 +1696,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Falha ao iniciar o envio de arquivo</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Um erro ocorreu durante o envio de arquivo</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Falha ao iniciar o descarregamento</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Um erro ocorreu durante o descarregamento</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2051,14 +2032,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Não faz parte do certificado&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Encontrou outro processo de %1 executando, termina ele e inicia um novo?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Não foi possível iniciar %1 devido a uma falha ao terminar o processo anterior</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Sincronizar esta biblioteca com:</translation>
     </message>
@@ -2160,6 +2133,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2537,6 +2522,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2564,12 +2565,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>falha ao carregar o diretório de configuração ccnet %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Erro desconhecido</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

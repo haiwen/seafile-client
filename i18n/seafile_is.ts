@@ -512,12 +512,12 @@ mistókst að hlaða upp.</translation>
 <context>
     <name>DaemonManager</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>tókst ekki að sækja ccnet stillingarskráarsafn %1</translation>
-    </message>
-    <message>
         <source>%1 client failed to initialize</source>
         <translation>%1 biðlara mistókst að frumstilla</translation>
+    </message>
+    <message>
+        <source>%1 exited unexpectedly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -924,10 +924,6 @@ mistókst að hlaða upp.</translation>
         <source>Last Modified</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Kind</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
@@ -985,8 +981,8 @@ mistókst að hlaða upp.</translation>
         <translation>Síðast Breytt</translation>
     </message>
     <message>
-        <source>Kind</source>
-        <translation>Gerð</translation>
+        <source>Modifier</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1472,20 +1468,15 @@ Do you like to download your default library?</source>
     </message>
 </context>
 <context>
-    <name>MessageListener</name>
-    <message>
-        <source>failed to load ccnet config dir </source>
-        <translation>mistókst að sækja ccnet stillingarskráarsafn</translation>
-    </message>
+    <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; er ósamstillt. 
-Ástæða: Eytt út á þjóni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation>&quot;%1&quot; er samstillt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
@@ -1493,19 +1484,27 @@ Reason: Deleted on server</source>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation>Rekst á við skránna %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation>Mistókst að samstilla skrá %1
-Skránni er læst af öðru forriti. Þessi skrá verður uppfærð þegar þú lokar forritinu.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation>Mistókst að samstilla skráasafn %1
-Einhverjum skrám í þessu skráasafni er læst af öðrum forritum. Þetta skráasafn verður uppfært þegar þú lokar þeim forritum.</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to sync file %1
+File is locked by another user. Update to this file is not uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to index file %1
+Please check file permission and disk space.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to sync %1
@@ -1515,34 +1514,20 @@ File path is ended with space or period and cannot be created on Windows.</sourc
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation>Mistókst að samstilla %1
-Skráarslóð inniheldur ólöglega stafi. Henni er ekki samstillt við þessa tölvu.</translation>
-    </message>
-    <message>
-        <source>Failed to index file %1
-Please check file permission and disk space.</source>
-        <translation>Mistókst að skrá skránna %1
-Vinsamlegast athugaðu skráarleyfi og diskapláss.</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; tókst ekki að samstilla. 
-Aðgangur óheimill á þjóni</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; tókst ekki að samstilla.
-Geymslupláss eiganda safnsins er orðið fullt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to sync file %1
-File is locked by another user. Update to this file is not uploaded.</source>
+        <source>&quot;%1&quot; failed to sync. 
+Access denied to service</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&quot;%1&quot; failed to sync.
+The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1712,16 +1697,8 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>Upphleðsla mistókst</translation>
     </message>
     <message>
-        <source>Error occured in upload</source>
-        <translation>Villa í upphleðslu</translation>
-    </message>
-    <message>
         <source>Failed to start download</source>
         <translation>Mistókst að niðurhala</translation>
-    </message>
-    <message>
-        <source>Error occured in download</source>
-        <translation>Villa í niðurhali</translation>
     </message>
     <message>
         <source>Library is damaged on server</source>
@@ -2056,14 +2033,6 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <translation>&lt;Not Part of Certificate&gt;</translation>
     </message>
     <message>
-        <source>Found another running process of %1, kill it and start a new one?</source>
-        <translation>Fann aðra keyrslu í gangi af %1, slökkva á henni og ræsa nýja?</translation>
-    </message>
-    <message>
-        <source>Unable to start %1 due to the failure of shutting down the previous process</source>
-        <translation>Gat ekki ræst %1 vegna villu við að slökkva á fyrri keyrslum</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Samkeyra þessu safni með:</translation>
     </message>
@@ -2165,6 +2134,18 @@ File is locked by another user. Update to this file is not uploaded.</source>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Client is already running</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error occurred in download</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2542,6 +2523,22 @@ File is locked by another user. Update to this file is not uploaded.</source>
         <source>Cancel</source>
         <translation>Hætta við</translation>
     </message>
+    <message>
+        <source>failed to save client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to access %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>incorrect client id</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
@@ -2569,12 +2566,12 @@ File is locked by another user. Update to this file is not uploaded.</source>
 <context>
     <name>SeafileRpcClient</name>
     <message>
-        <source>failed to load ccnet config dir %1</source>
-        <translation>mistókst að bæta við ccnet styllingarskráarsafni %1</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Óþekkt villa</translation>
+    </message>
+    <message>
+        <source>internal error: failed to connect to daemon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

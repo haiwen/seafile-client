@@ -44,13 +44,12 @@ private slots:
                       bool to_group);
     void openUrlWithAutoLogin(const QUrl& url);
     void onGetSmartLinkSuccess(const QString& smart_link);
+    void onGetSmartLinkFailed(const ApiError& error);
 
 private:
     ExtConnectionListenerThread *listener_thread_;
 
     bool started_;
-    QString repo_id_;
-    QString path_;
 };
 
 /**

@@ -8,7 +8,7 @@ class SeafileLinkDialog : public QDialog
 {
     Q_OBJECT
 public:
-    SeafileLinkDialog(const QString& repo_id, const Account& account, const QString& path, const QString& smart_link, QWidget *parent = NULL);
+    SeafileLinkDialog(const QString& smart_link, QWidget *parent = NULL);
 
 private slots:
     void onCopyWebText();

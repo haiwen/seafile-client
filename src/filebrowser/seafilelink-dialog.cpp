@@ -7,7 +7,7 @@
 #include "utils/utils-mac.h"
 #include "open-local-helper.h"
 
-SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& account, const QString& path, const QString& smart_link, QWidget *parent)
+SeafileLinkDialog::SeafileLinkDialog(const QString& smart_link, QWidget *parent)
     :web_link_(smart_link)
 {
     setWindowTitle(tr("%1 Internal Link").arg(getBrand()));

@@ -251,10 +251,6 @@ private:
 
     // Avoid showing multiple SetRepoPasswordDialog
     bool has_password_dialog_;
-
-    //seafilelink
-    QString repo_id_;
-    QString path_;
 };
 
 class DataManagerNotify : public QObject {

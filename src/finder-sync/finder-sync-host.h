@@ -35,8 +35,6 @@ private slots:
 private:
     bool lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo);
     SeafileRpcClient *rpc_client_;
-    QString repo_id_;
-    QString path_in_repo_;
 };
 
 #endif // SEAFILE_CLIENT_FINDER_SYNC_HOST_H_

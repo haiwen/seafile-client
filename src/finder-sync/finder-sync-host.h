@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include "utils/stl.h"
+#include "api/api-error.h"
 
 const int kWatchDirMax = 100;
 const int kPathMaxSize = 1024;
@@ -29,9 +30,13 @@ private slots:
     void onShareLinkGenerated(const QString& link);
     void onLockFileSuccess();
     void doShowFileHistory(const QString& path);
+    void onGetSmartLinkSuccess(const QString& smart_link);
+    void onGetSmartLinkFailed(const ApiError& error);
 private:
     bool lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo);
     SeafileRpcClient *rpc_client_;
+    QString repo_id_;
+    QString path_in_repo_;
 };
 
 #endif // SEAFILE_CLIENT_FINDER_SYNC_HOST_H_

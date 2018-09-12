@@ -196,14 +196,35 @@ void FinderSyncHost::doShareLink(const QString &path) {
 
 void FinderSyncHost::doInternalLink(const QString &path)
 {
-    QString repo_id;
     Account account;
-    QString path_in_repo;
-    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
+    if (!lookUpFileInformation(path, &repo_id_, &account, &path_in_repo_)) {
         qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
         return;
     }
-    SeafileLinkDialog(repo_id, account, path_in_repo).exec();
+
+    GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id_, path_in_repo_, path_in_repo_.endsWith('/'));
+    connect(req, SIGNAL(success(const QString&)),
+            this, SLOT(onGetSmartLinkSuccess(const QString&)));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetSmartLinkFailed(const ApiError&)));
+
+    req->send();
+    //SeafileLinkDialog(repo_id, account, path_in_repo, smart_link).exec();
+}
+
+void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link)
+{
+    Account account;
+    SeafileLinkDialog *dialog = new SeafileLinkDialog(repo_id_, account, path_in_repo_, smart_link);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
+void FinderSyncHost::onGetSmartLinkFailed(const ApiError& error)
+{
+    qWarning("get smart_link failed %s\n", error.toString().toUtf8().data());
 }
 
 void FinderSyncHost::doLockFile(const QString &path, bool lock)

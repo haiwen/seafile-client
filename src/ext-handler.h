@@ -43,11 +43,14 @@ private slots:
                       const QString& path_in_repo,
                       bool to_group);
     void openUrlWithAutoLogin(const QUrl& url);
+    void onGetSmartLinkSuccess(const QString& smart_link);
 
 private:
     ExtConnectionListenerThread *listener_thread_;
 
     bool started_;
+    QString repo_id_;
+    QString path_;
 };
 
 /**

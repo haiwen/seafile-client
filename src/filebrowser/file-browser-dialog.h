@@ -149,6 +149,8 @@ private slots:
                          bool has_more);
     void onSearchFailed(const ApiError& error);
 
+    void onGetSmartLinkSuccess(const QString& smart_link);
+    void onGetSmartLinkFailed(const ApiError& error);
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 
@@ -249,6 +251,10 @@ private:
 
     // Avoid showing multiple SetRepoPasswordDialog
     bool has_password_dialog_;
+
+    //seafilelink
+    QString repo_id_;
+    QString path_;
 };
 
 class DataManagerNotify : public QObject {

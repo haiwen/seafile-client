@@ -7,9 +7,8 @@
 #include "utils/utils-mac.h"
 #include "open-local-helper.h"
 
-SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& account, const QString& path, QWidget *parent)
-    : web_link_(OpenLocalHelper::instance()->generateLocalFileWebUrl(repo_id, account, path).toEncoded())
-    , protocol_link_(OpenLocalHelper::instance()->generateLocalFileSeafileUrl(repo_id, account, path).toEncoded())
+SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& account, const QString& path, const QString& smart_link, QWidget *parent)
+    :web_link_(smart_link)
 {
     setWindowTitle(tr("%1 Internal Link").arg(getBrand()));
     setWindowIcon(QIcon(":/images/seafile.png"));
@@ -25,7 +24,7 @@ SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& acco
     //
     // create web link related
     //
-    QLabel *web_label = new QLabel(tr("%1 Web Link:").arg(getBrand()));
+    QLabel *web_label = new QLabel(tr("%1 Internal Link:").arg(getBrand()));
     layout->addWidget(web_label);
     QHBoxLayout *web_layout = new QHBoxLayout;
 
@@ -47,24 +46,24 @@ SeafileLinkDialog::SeafileLinkDialog(const QString& repo_id, const Account& acco
     //
     // create seafile-protocol link related
     //
-    QLabel *protocol_label = new QLabel(tr("%1 Protocol Link:").arg(getBrand()));
-    layout->addWidget(protocol_label);
-    QHBoxLayout *protocol_layout = new QHBoxLayout;
+//    QLabel *protocol_label = new QLabel(tr("%1 Protocol Link:").arg(getBrand()));
+//    layout->addWidget(protocol_label);
+//    QHBoxLayout *protocol_layout = new QHBoxLayout;
 
-    protocol_editor_ = new QLineEdit;
-    protocol_editor_->setText(protocol_link_);
-    protocol_editor_->selectAll();
-    protocol_editor_->setReadOnly(true);
-    protocol_editor_->setCursorPosition(0);
+//    protocol_editor_ = new QLineEdit;
+//    protocol_editor_->setText(protocol_link_);
+//    protocol_editor_->selectAll();
+//    protocol_editor_->setReadOnly(true);
+//    protocol_editor_->setCursorPosition(0);
 
-    protocol_layout->addWidget(protocol_editor_);
+//    protocol_layout->addWidget(protocol_editor_);
 
-    QPushButton *protocol_copy_to = new QPushButton;
-    protocol_copy_to->setIcon(copy_to_icon);
-    protocol_copy_to->setToolTip(copy_to_str);
-    protocol_layout->addWidget(protocol_copy_to);
-    connect(protocol_copy_to, SIGNAL(clicked()), this, SLOT(onCopyProtocolText()));
-    layout->addLayout(protocol_layout);
+//    QPushButton *protocol_copy_to = new QPushButton;
+//    protocol_copy_to->setIcon(copy_to_icon);
+//    protocol_copy_to->setToolTip(copy_to_str);
+//    protocol_layout->addWidget(protocol_copy_to);
+//    connect(protocol_copy_to, SIGNAL(clicked()), this, SLOT(onCopyProtocolText()));
+//    layout->addLayout(protocol_layout);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
 

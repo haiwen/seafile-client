@@ -188,16 +188,17 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
         return;
     }
 
+    repo_id_ = repo_id;
     if (internal) {
-        QString path = path_in_repo;
-        if (!is_file && !path.endsWith("/")) {
-            path += "/";
+        path_ = path_in_repo;
+        if (!is_file && !path_.endsWith("/")) {
+            path_ += "/";
         }
-        SeafileLinkDialog *dialog = new SeafileLinkDialog(repo_id, account, path, NULL);
-        dialog->setAttribute(Qt::WA_DeleteOnClose);
-        dialog->show();
-        dialog->raise();
-        dialog->activateWindow();
+        GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id_, path_, !is_file);
+        connect(req, SIGNAL(success(const QString&)),
+                this, SLOT(onGetSmartLinkSuccess(const QString&)));
+
+        req->send();
     } else {
         GetSharedLinkRequest *req = new GetSharedLinkRequest(
             account, repo_id, path_in_repo, is_file);
@@ -207,6 +208,16 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
 
         req->send();
     }
+}
+
+void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link)
+{
+    const Account account = seafApplet->accountManager()->getAccountByRepo(repo_id_);
+    SeafileLinkDialog *dialog = new SeafileLinkDialog(repo_id_, account, path_, smart_link, NULL);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
 }
 
 void SeafileExtensionHandler::lockFile(const QString& repo_id,

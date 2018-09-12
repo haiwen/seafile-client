@@ -368,4 +368,25 @@ private:
     Q_DISABLE_COPY(GetIndexProgressRequest);
 };
 
+class GetSmartLinkRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetSmartLinkRequest(const Account& account,
+                        const QString& repo_id,
+                        const QString& path,
+                        bool is_dir);
+
+signals:
+    void success(const QString& smart_link);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetSmartLinkRequest);
+    QString repo_id_;
+    QString path_;
+    bool is_dir_;
+};
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

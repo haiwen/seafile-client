@@ -203,7 +203,29 @@ void FinderSyncHost::doInternalLink(const QString &path)
         qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
         return;
     }
-    SeafileLinkDialog(repo_id, account, path_in_repo).exec();
+
+    GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id, path_in_repo, path_in_repo.endsWith('/'));
+    connect(req, SIGNAL(success(const QString&)),
+            this, SLOT(onGetSmartLinkSuccess(const QString&)));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetSmartLinkFailed(const ApiError&)));
+
+    req->send();
+    //SeafileLinkDialog(repo_id, account, path_in_repo, smart_link).exec();
+}
+
+void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link)
+{
+    SeafileLinkDialog *dialog = new SeafileLinkDialog(smart_link);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
+void FinderSyncHost::onGetSmartLinkFailed(const ApiError& error)
+{
+    qWarning("get smart_link failed %s\n", error.toString().toUtf8().data());
 }
 
 void FinderSyncHost::doLockFile(const QString &path, bool lock)

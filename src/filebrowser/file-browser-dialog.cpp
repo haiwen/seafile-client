@@ -1236,8 +1236,23 @@ void FileBrowserDialog::onGetDirentShareSeafile(const SeafDirent& dirent)
     QString path = ::pathJoin(current_path_, dirent.name);
     if (dirent.isDir())
         path += "/";
+    GetSmartLinkRequest *req = new GetSmartLinkRequest(account_, repo_id, path, dirent.isDir());
+    connect(req, SIGNAL(success(const QString&)),
+            this, SLOT(onGetSmartLinkSuccess(const QString&)));
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetSmartLinkFailed(const ApiError&)));
 
-    SeafileLinkDialog(repo_id, account_, path, this).exec();
+    req->send();
+}
+
+void FileBrowserDialog::onGetSmartLinkSuccess(const QString& smart_link)
+{
+    SeafileLinkDialog(smart_link, this).exec();
+}
+
+void FileBrowserDialog::onGetSmartLinkFailed(const ApiError& error)
+{
+    qWarning("get smart_link failed %s\n", error.toString().toUtf8().data());
 }
 
 void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)

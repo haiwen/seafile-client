@@ -149,6 +149,8 @@ private slots:
                          bool has_more);
     void onSearchFailed(const ApiError& error);
 
+    void onGetSmartLinkSuccess(const QString& smart_link);
+    void onGetSmartLinkFailed(const ApiError& error);
 private:
     Q_DISABLE_COPY(FileBrowserDialog)
 

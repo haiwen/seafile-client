@@ -516,7 +516,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 ist unerwartet abgebrochen</translation>
     </message>
 </context>
 <context>
@@ -853,6 +853,10 @@ Bitte %1</translation>
         <source>Search files</source>
         <translation>Datei suchen</translation>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -981,7 +985,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>Modifikator</translation>
     </message>
 </context>
 <context>
@@ -1079,6 +1083,13 @@ Bitte %1</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Lokalen Zwischenspeicher öffnen</translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1473,63 +1484,72 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>„%1“ ist nicht synchronisiert. 
+Grund: Auf Server gelöscht</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>„%1“ wurde synchronisiert</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Dateien hochgeladen in „%1“</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation type="unfinished"/>
+        <translation>Konflikt mit Datei %1</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Datei %1 konnte nicht synchronisiert werden.
+Die Datei wird von einem anderen Programm verwendet. Die Datei wird aktualisiert, sobald Sie das Programm beenden.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Ordner %1 konnte nicht synchronisiert werden.
+Der Ordner wird von einem anderen Programm verwendet. Der Ordner wird aktualisiert, sobald Sie das Programm beenden.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Datei %1 konnte nicht synchronisiert werden.
+Die Datei wurde von jemand anderem gesperrt. Ihre neue Version dieser Datei kann nicht hochgeladen werden.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>Datei %1 konnte nicht indiziert werden.
+Bitte überprüfen Sie die Dateirechte und den freien Speicherplatz.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>%1 konnte nicht synchronisiert werden.
+Der Dateipfad endet mit einem Leerschritt oder Punkt und kann auf Windows nicht erstellt werden.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>%1 konnte nicht synchronisiert werden.
+Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Computer ist nicht möglich.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei %1 kann wegen der Rechteeinstellungen des Ordners nicht aktualisiert werden.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation type="unfinished"/>
+        <translation>„%1“ konnte nicht synchronisiert werden. 
+Zugriff auf Dienst verweigert</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
+        <translation>„%1“ konnte nicht synchronisiert werden.
+Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist aufgebraucht.</translation>
     </message>
 </context>
 <context>
@@ -2139,15 +2159,15 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>%1 läuft bereits</translation>
     </message>
     <message>
         <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Hochladen</translation>
     </message>
     <message>
         <source>Error occurred in download</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Herunterladen</translation>
     </message>
 </context>
 <context>
@@ -2526,19 +2546,19 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Speichern der ID des Programms</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Zugriff auf %1</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>ID des Programms ist nicht richtig</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Lesen von %1</translation>
     </message>
 </context>
 <context>
@@ -2552,16 +2572,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>%1 Web-Link:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>%1 Protokoll-Link:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2572,7 +2588,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>Interner Fehler: Verbindung zum Daemon-Hintergrundprogramm nicht möglich</translation>
     </message>
 </context>
 <context>

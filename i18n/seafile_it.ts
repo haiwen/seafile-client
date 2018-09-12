@@ -854,6 +854,10 @@ non caricato a causa di un errore.</translation>
         <source>Search files</source>
         <translation>Cerca file</translation>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1080,6 +1084,13 @@ non caricato a causa di un errore.</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Apri la cartella locale della Cache</translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2553,16 +2564,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Copia negli appunti</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>%1 Web Link:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>%1 Link del protocollo:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

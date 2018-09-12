@@ -855,6 +855,10 @@ yüklenemedi.</translation>
         <source>Search files</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1079,6 +1083,13 @@ yüklenemedi.</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2551,16 +2562,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Panoya kopyala</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Tamam</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

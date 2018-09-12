@@ -849,6 +849,10 @@ failed to upload.</source>
         <source>Search files</source>
         <translation>搜索文件</translation>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation>获取链接失败</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1074,6 +1078,13 @@ failed to upload.</source>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>打开本地缓存目录</translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation>获取链接失败</translation>
     </message>
 </context>
 <context>
@@ -2552,16 +2563,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>复制至剪贴板</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>%1 Web链接:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>%1协议链接:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>确定</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation>%1 内部链接</translation>
     </message>
 </context>
 <context>

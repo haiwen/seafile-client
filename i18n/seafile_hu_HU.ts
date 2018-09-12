@@ -854,6 +854,10 @@ feltöltése nem sikerült.</translation>
         <source>Search files</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1079,6 +1083,13 @@ feltöltése nem sikerült.</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2553,16 +2564,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Vágólapra másol</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>%1 Web link:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>%1 protokoll link:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Rendben</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

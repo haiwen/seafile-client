@@ -855,6 +855,10 @@ Prosím %1</translation>
         <source>Search files</source>
         <translation>Vyhledat soubory</translation>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1080,6 +1084,13 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2553,16 +2564,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Zkopírovat do schránky</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>%1 webový odkaz:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>%1 protokolový odkaz:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

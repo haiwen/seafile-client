@@ -854,6 +854,10 @@ nieudane przesyłanie.</translation>
         <source>Search files</source>
         <translation>Szukaj plików</translation>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1080,6 +1084,13 @@ nieudane przesyłanie.</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Otwórz lokalny folder pamięci podręcznej</translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2553,16 +2564,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Kopiuj do schowka</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>Łącze Web %1:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>Łącze protokołu %1:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

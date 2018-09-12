@@ -854,6 +854,10 @@ falló al subir.</translation>
         <source>Search files</source>
         <translation>Buscar archivos</translation>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1080,6 +1084,13 @@ falló al subir.</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Abrir carpeta de caché local</translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2553,16 +2564,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Copiar al portapapeles</translation>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation>Enlace Web %1:</translation>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation>Enlace Protocolo %1:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

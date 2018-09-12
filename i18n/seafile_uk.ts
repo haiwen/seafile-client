@@ -850,6 +850,10 @@ failed to upload.</source>
         <source>Search files</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1074,6 +1078,13 @@ failed to upload.</source>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2543,15 +2554,11 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>%1 Web Link:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 Protocol Link:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>OK</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Internal Link:</source>
         <translation type="unfinished"/>
     </message>
 </context>

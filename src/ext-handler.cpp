@@ -224,7 +224,7 @@ void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link)
 
 void SeafileExtensionHandler::onGetSmartLinkFailed(const ApiError& error)
 {
-    qWarning("get smart_link failed %s\n", error.toString().toUtf8().data());
+    seafApplet->warningBox(tr("Failed to get link"));
 }
 
 void SeafileExtensionHandler::lockFile(const QString& repo_id,

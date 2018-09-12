@@ -211,7 +211,6 @@ void FinderSyncHost::doInternalLink(const QString &path)
             this, SLOT(onGetSmartLinkFailed(const ApiError&)));
 
     req->send();
-    //SeafileLinkDialog(repo_id, account, path_in_repo, smart_link).exec();
 }
 
 void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link)
@@ -225,7 +224,7 @@ void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link)
 
 void FinderSyncHost::onGetSmartLinkFailed(const ApiError& error)
 {
-    qWarning("get smart_link failed %s\n", error.toString().toUtf8().data());
+    seafApplet->warningBox(tr("Failed to get link"));
 }
 
 void FinderSyncHost::doLockFile(const QString &path, bool lock)

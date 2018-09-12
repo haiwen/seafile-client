@@ -1252,7 +1252,7 @@ void FileBrowserDialog::onGetSmartLinkSuccess(const QString& smart_link)
 
 void FileBrowserDialog::onGetSmartLinkFailed(const ApiError& error)
 {
-    qWarning("get smart_link failed %s\n", error.toString().toUtf8().data());
+    seafApplet->warningBox(tr("Failed to get link"));
 }
 
 void FileBrowserDialog::onDirectoryCreateSuccess(const QString &path)

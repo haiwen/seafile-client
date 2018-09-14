@@ -321,6 +321,12 @@ void SeafileApplet::onDaemonStarted()
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
 #endif
 
+#ifdef XCODE_APP
+    if (configurator_->firstUse()) {
+        settings_mgr_->setAutoStart(true);
+    }
+#endif
+
     if (configurator_->firstUse() || account_mgr_->accounts().size() == 0) {
         do {
             QString username = readPreconfigureExpandedString(kPreconfigureUsername);

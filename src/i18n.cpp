@@ -116,9 +116,7 @@ bool I18NHelper::setLanguage(int langIndex) {
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(4, 8, 0) && !defined(Q_OS_MAC)
     QString lang = QLocale::languageToString(locale.language());
-
     if (lang != "en") {
         bool success;
         success = my_translator_->load(locale,            // locale
@@ -131,12 +129,6 @@ bool I18NHelper::setLanguage(int langIndex) {
             my_translator_->load(QString(":/i18n/seafile_%1.qm").arg(langs[langIndex]));
         }
     }
-#else
-    // note:
-    //      locales[pos].name() != langs[pos]
-    //      e.g. "tr_TR" != "tr"
-    my_translator_->load(QString(":/i18n/seafile_%1.qm").arg(langs[langIndex]));
-#endif
 
     return true;
 }

@@ -416,7 +416,7 @@ void FileBrowserDialog::createFileTable()
     table_view_ = new FileTableView(this);
     table_model_ = new FileTableModel(this);
     table_view_->setModel(table_model_);
-    table_view_->setColumnWidth(0,265);
+    table_view_->setColumnWidth(0,260);
     table_view_->setColumnWidth(1,165);
     table_view_->setColumnWidth(2,95);
 }

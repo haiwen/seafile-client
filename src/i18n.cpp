@@ -117,16 +117,16 @@ bool I18NHelper::setLanguage(int langIndex) {
 #endif
 
     QString lang = QLocale::languageToString(locale.language());
-    if (lang != "en") {
-        bool success;
-        success = my_translator_->load(locale,            // locale
-                                       "",                // file name
-                                       "seafile_",        // prefix
-                                       ":/i18n/",         // folder
-                                       ".qm");            // suffix
-
-        if (!success) {
-            my_translator_->load(QString(":/i18n/seafile_%1.qm").arg(langs[langIndex]));
+    printf("lang = %s, translation = %s, locale.name() = %s\n",
+           lang.toUtf8().data(),
+           langs[langIndex],
+           locale.name().toUtf8().data()
+        );
+    if (lang != "English") {
+        if (!my_translator_->load(locale, ":/i18n/seafile_")) {
+            printf ("failed to load in the first way\n");
+            my_translator_->load(
+                QString(":/i18n/seafile_%1.qm").arg(locale.name()));
         }
     }
 

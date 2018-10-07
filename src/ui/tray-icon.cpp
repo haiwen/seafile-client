@@ -430,34 +430,32 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     }
     return getIcon(icon_name);
 #elif defined(Q_OS_MAC)
-    bool isDarkMode = utils::mac::is_darkmode();
-    // filename = icon_name + ?white + .png
     QString icon_name;
 
     switch (state) {
     case STATE_DAEMON_UP:
-        icon_name = ":/images/mac/daemon_up";
+        icon_name = ":/images/mac/daemon_upTemplate";
         break;
     case STATE_DAEMON_DOWN:
-        icon_name = ":/images/mac/daemon_down.png";
+        icon_name = ":/images/mac/daemon_downTemplate";
         break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
-        icon_name = ":/images/mac/seafile_auto_sync_disabled";
+        icon_name = ":/images/mac/seafile_auto_sync_disabledTemplate";
         break;
     case STATE_TRANSFER_1:
-        icon_name = ":/images/mac/seafile_transfer_1";
+        icon_name = ":/images/mac/seafile_transfer_1Template";
         break;
     case STATE_TRANSFER_2:
-        icon_name = ":/images/mac/seafile_transfer_2";
+        icon_name = ":/images/mac/seafile_transfer_2Template";
         break;
     case STATE_SERVERS_NOT_CONNECTED:
-        icon_name = ":/images/mac/seafile_warning";
+        icon_name = ":/images/mac/seafile_warningTemplate";
         break;
     case STATE_HAVE_UNREAD_MESSAGE:
-        icon_name = ":/images/mac/notification";
+        icon_name = ":/images/mac/notificationTemplate";
         break;
     }
-    return getIcon(icon_name + (isDarkMode ? "_white" : "") + ".png");
+    return getIcon(icon_name + ".png");
 #else
     QString icon_name;
     switch (state) {

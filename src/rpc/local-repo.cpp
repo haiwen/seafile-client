@@ -294,6 +294,10 @@ void LocalRepo::translateSyncErrDetail(const QString &err_detail)
         sync_error_detail = QObject::tr("Library damaged on server");
     } else if (err_detail == "File is locked by another user") {
         sync_error_detail = QObject::tr("File is locked by another user");
+    } else if (err_detail == "Do not have write permission to the library") {
+        sync_error_detail = QObject::tr("Do not have write permission to the library");
+    } else if (err_detail == "Do not have permission to sync the library") {
+        sync_error_detail = QObject::tr("Do not have permission to sync the library");
     } else {
         sync_error_detail = err_detail;
     }

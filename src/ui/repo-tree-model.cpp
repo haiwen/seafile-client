@@ -22,6 +22,7 @@ namespace {
 const int kRefreshLocalReposInterval = 1000;
 const int kMaxRecentUpdatedRepos = 10;
 const int kIndexOfVirtualReposCategory = 2;
+const char *kReadonlyPropertyName = "is-readonly";
 
 bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
 {
@@ -173,6 +174,33 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
     for (i = 0; i < n; i++) {
         RepoItem *item = new RepoItem(list[i]);
         recent_updated_category_->appendRow(item);
+    }
+    updateLocalReposPerm(list);
+}
+
+void RepoTreeModel::updateLocalReposPerm(const QList<ServerRepo> &repos)
+{
+    int n = repos.size();
+    for (int i = 0; i < n; i++) {
+        ServerRepo repo = repos[i];
+        if (seafApplet->rpcClient()->hasLocalRepo(repo.id)) {
+            QString readonly_prop;
+            if (seafApplet->rpcClient()->getRepoProperty(
+                    repo.id, kReadonlyPropertyName, &readonly_prop) < 0) {
+                continue;
+            }
+            bool readonly = readonly_prop == "true";
+            if (repo.readonly != readonly) {
+                seafApplet->rpcClient()->setRepoProperty(
+                    repo.id,
+                    kReadonlyPropertyName,
+                    repo.readonly ? "true" : "false");
+                qWarning("repo %s %s permission changed to %s",
+                         toCStr(repo.id),
+                         toCStr(repo.name.left(40)),
+                         toCStr(repo.permission));
+            }
+        }
     }
 }
 

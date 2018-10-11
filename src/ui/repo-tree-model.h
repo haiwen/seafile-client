@@ -73,6 +73,7 @@ private:
     void checkGroupRepo(const ServerRepo& repo);
     void checkSyncedRepo(const ServerRepo& repo);
     void initialize();
+    void updateLocalReposPerm(const QList<ServerRepo>& repos);
     void updateRepoItem(RepoItem *item, const ServerRepo& repo);
     void refreshRepoItem(RepoItem *item, void *data);
 

@@ -7,7 +7,6 @@
 #include "utils/stl.h"
 #include "api/api-error.h"
 
-const int kWatchDirMax = 100;
 const int kPathMaxSize = 1024;
 
 class Account;

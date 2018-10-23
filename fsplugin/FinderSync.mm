@@ -352,21 +352,28 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
                                                  @"Get Seafile Download Link")
                         action:@selector(shareLinkAction:)
                  keyEquivalent:@""];
-    NSMenuItem *internalLinkItem =
-        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Internal Link",
-                                                 @"Get Seafile Internal Link")
-                        action:@selector(internalLinkAction:)
-                 keyEquivalent:@""];
     NSImage *seafileImage = [NSImage imageNamed:@"seafile.icns"];
     [shareLinkItem setImage:seafileImage];
-    [internalLinkItem setImage:seafileImage];
 
-    // add a menu item for lockFile
     NSArray *items =
         [[FIFinderSyncController defaultController] selectedItemURLs];
     if (![items count])
         return nil;
     NSURL *item = items.firstObject;
+    std::string file_path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
+
+    auto repo = findRepoContainPath(watched_repos_, file_path);
+    if (repo != watched_repos_.end() && repo->internal_link_supported) {
+        NSMenuItem *internalLinkItem =
+            [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Internal Link",
+                                                     @"Get Seafile Internal Link")
+                            action:@selector(internalLinkAction:)
+                     keyEquivalent:@""];
+        [internalLinkItem setImage:seafileImage];
+    }
+
+    // add a menu item for lockFile
 
     NSNumber *isDirectory;
     bool is_dir = [item getResourceValue:&isDirectory
@@ -379,8 +386,6 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     if (is_dir)
         return menu;
 
-    std::string file_path =
-        item.path.precomposedStringWithCanonicalMapping.UTF8String;
     // find where we have it
     auto file = file_status_.find(is_dir ? file_path + "/" : file_path);
     if (file != file_status_.end()) {
@@ -406,7 +411,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
             [lockFileItem setEnabled:FALSE];
     }
 
-    NSString *showHistoryTitle;
+    // NSString *showHistoryTitle;
     NSMenuItem *showHistoryItem =
         [menu addItemWithTitle:NSLocalizedString(@"View File History",
                                                  @"View File History")

@@ -8,6 +8,9 @@
 
 #import "FinderSyncClient.h"
 #include <cstdint>
+#include <sstream>
+#include <iostream>
+#include <string>
 #include <servers/bootstrap.h>
 #include "../src/utils/stl.h"
 
@@ -18,11 +21,23 @@
 static NSString *const kFinderSyncMachPort =
     @"com.seafile.seafile-client.findersync.machport";
 
-static constexpr int kWatchDirMax = 100;
 static constexpr int kPathMaxSize = 1024;
 static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000004;
 static volatile int32_t message_id_ =
     100; // we start from 100, the number below than 100 is reserved
+
+typedef std::vector<std::string> stringlist;
+
+stringlist split_string(const std::string& v, char delim) {
+    using namespace std;
+    stringlist strings;
+    istringstream ss(v);
+    string s;
+    while (getline(ss, s, delim)) {
+        strings.push_back(s);
+    }
+    return strings;
+}
 
 //
 // MachPort Message
@@ -60,10 +75,20 @@ static std::vector<LocalRepo> *deserializeWatchSet(const char *buffer,
         if (status >= LocalRepo::MAX_SYNC_STATE) {
             status = LocalRepo::SYNC_STATE_UNSET;
         }
+        bool internal_link_supported = false;
+        std::string worktree = std::string(buffer, worktree_size);
+        // NSLog(@"full line = %s", worktree.c_str());
+        stringlist parts = split_string(worktree, '\t');
+        if (parts.size() > 1) {
+            worktree = parts[0];
+            // NSLog(@"worktree = %s", worktree.c_str());
+            internal_link_supported = parts[1] == "internal-link-supported";
+        }
 
         repos->emplace_back(std::string(repo_id, 36),
-                            std::string(buffer, worktree_size),
-                            static_cast<LocalRepo::SyncState>(status));
+                            worktree,
+                            static_cast<LocalRepo::SyncState>(status),
+                            internal_link_supported);
         buffer = ++pos;
     }
     return repos;

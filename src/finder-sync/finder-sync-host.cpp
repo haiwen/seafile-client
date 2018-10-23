@@ -102,7 +102,13 @@ utils::BufferArray FinderSyncHost::getWatchSet(size_t header_size,
                          ? max_size
                          : watch_set_.size();
     for (unsigned i = 0; i < count; ++i) {
-        array.emplace_back(watch_set_[i].worktree.toUtf8());
+        const LocalRepo& repo = watch_set_[i];
+        QString internal_link_supported = repo.account.isAtLeastVersion(6, 3, 0)
+            ? "internal-link-supported"
+            : "internal-link-unsupported";
+        QString content = repo.worktree;
+        content += "\t" + internal_link_supported;
+        array.emplace_back(content.toUtf8());
         byte_count += 36 + array.back().size() + 3;
     }
     // rount byte_count to longword-size
@@ -151,8 +157,10 @@ void FinderSyncHost::updateWatchSet() {
         watch_set_.clear();
         return;
     }
-    for (LocalRepo &repo : watch_set_)
+    for (LocalRepo &repo : watch_set_) {
         rpc_client_->getSyncStatus(repo);
+        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id, rpc_client_);
+    }
     lock.unlock();
 }
 

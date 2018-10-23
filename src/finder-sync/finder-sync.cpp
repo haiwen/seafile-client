@@ -84,6 +84,14 @@ bool FinderSyncExtensionHelper::isBundled() {
     return true;
 }
 
+// Developer notes:
+//  In Mac OSX Sierra and higher, to install a finder plugin (a .appex folder) ,
+//  two conditions must be satisfied:
+//    - the plugin must be signed
+//    - the plugin must be included as part of a .app
+//  So when seadrive-gui is not compiled with xcode, there is no way to install
+//  the plugin.
+#ifdef XCODE_APP
 bool FinderSyncExtensionHelper::reinstall(bool force) {
     if (!isBundled())
         return false;
@@ -113,6 +121,11 @@ bool FinderSyncExtensionHelper::reinstall(bool force) {
     qWarning("[FinderSync] reinstalled");
     return true;
 }
+#else
+bool FinderSyncExtensionHelper::reinstall(bool force) {
+    return false;
+}
+#endif
 
 bool FinderSyncExtensionHelper::setEnable(bool enable) {
     const char *election = enable ? "use" : "ignore";

@@ -45,13 +45,14 @@ struct LocalRepo {
         SYNC_STATE_UNSET = 7,
         MAX_SYNC_STATE,
     };
-    LocalRepo(std::string &&r, std::string &&w, SyncState s)
-        : repo_id(std::move(r)), worktree(std::move(w)), status(s) {}
-    LocalRepo(const std::string &r, const std::string &w, SyncState s)
-        : repo_id(r), worktree(w), status(s) {}
+    LocalRepo(std::string &&r, std::string &&w, SyncState s, bool _internal_link_supported)
+        : repo_id(std::move(r)), worktree(std::move(w)), status(s), internal_link_supported(_internal_link_supported) {}
+    LocalRepo(const std::string &r, const std::string &w, SyncState s, bool _internal_link_supported)
+        : repo_id(r), worktree(w), status(s), internal_link_supported(_internal_link_supported) {}
     std::string repo_id;
     std::string worktree;
     SyncState status;
+    bool internal_link_supported;
     friend bool operator==(const LocalRepo &lhs, const LocalRepo &rhs) {
         return lhs.repo_id == rhs.repo_id;
     }

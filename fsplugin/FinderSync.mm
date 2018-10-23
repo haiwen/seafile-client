@@ -407,7 +407,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
         [lockFileItem setImage:seafileImage];
 
-        if (file->second == PathStatus::SYNC_STATUS_LOCKED)
+        if (file->second == PathStatus::SYNC_STATUS_LOCKED || file->second == PathStatus::SYNC_STATUS_READONLY)
             [lockFileItem setEnabled:FALSE];
     }
 

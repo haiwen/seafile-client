@@ -48,6 +48,7 @@ SyncError SyncError::fromGObject(GObject *obj)
 #define SYNC_ERROR_ID_PATH_END_SPACE_PERIOD 5
 #define SYNC_ERROR_ID_PATH_INVALID_CHARACTER 6
 #define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
+#define SYNC_ERROR_ID_PERM_NOT_SYNCABLE 8
 
 void SyncError::translateErrorStr()
 {
@@ -78,6 +79,8 @@ void SyncError::translateErrorStr()
     case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
         error_str = QObject::tr("Update to file denied by folder permission setting");
         break;
+    case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
+        error_str = QObject::tr("No permission to sync this folder");
     default:
         // unreachable
         qWarning("unknown sync error id %d", error_id);

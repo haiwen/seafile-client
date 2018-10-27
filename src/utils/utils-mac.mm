@@ -10,6 +10,8 @@
 #include <openssl/pem.h>
 #include <openssl/x509.h>
 
+#include <QRegExp>
+
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
 #endif
@@ -54,6 +56,14 @@ inline void initializeSystemVersion() {
     if (array.count < 2) {
         osver_major = 10;
         osver_minor = 7;
+        osver_patch = 0;
+        return;
+    }
+
+    QRegExp version_re("^([0-9]+)\\.([0-9]+)$");
+    if (version_re.indexIn(QString::fromNSString([array objectAtIndex:1])) == 0) {
+        osver_major = version_re.cap(1).toInt();
+        osver_minor = version_re.cap(2).toInt();
         osver_patch = 0;
         return;
     }

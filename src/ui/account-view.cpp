@@ -166,7 +166,9 @@ void AccountView::onAccountChanged()
     if (!accounts.empty()) {
         for (size_t i = 0, n = accounts.size(); i < n; i++) {
             const Account &account = accounts[i];
-            QString text = account.username + "(" + account.serverUrl.host() + ")";
+            QString text_name = account.accountInfo.name.isEmpty() ?
+                        account.username : account.accountInfo.name;
+            QString text = text_name + "(" + account.serverUrl.host() + ")";
             if (!account.isValid()) {
                 text += ", " + tr("not logged in");
             }

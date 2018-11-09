@@ -158,21 +158,16 @@ SET(QT_VERSION_MAJOR 5)
 # have to keep using QtWebKit on windows because QtWebEngine can't be
 # compiled in msys2/mingw (QtWebEnigne is based on chrome, which has to be
 # compiled with MSVC.)
-FIND_PROGRAM(qmake_executable NAMES qmake qmake.exe)
-EXECUTE_PROCESS(COMMAND
-    bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
-    OUTPUT_VARIABLE DETECTED_QT_VERSION
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
-MESSAGE("qt5 version: ${DETECTED_QT_VERSION}")
-IF(WIN32 OR DETECTED_QT_VERSION VERSION_LESS 5.6.0)
-    ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
-    SET(WEBKIT_NAME "WebKit")
-    SET(WEBKIT_WIDGETS_NAME "WebKitWidgets")
-ELSE()
+FIND_PACKAGE(Qt5WebEngine)
+IF(Qt5WebEngine_FOUND)
     SET(WEBKIT_NAME "WebEngine")
     SET(WEBENGINE_CORE "WebEngineCore")
     SET(WEBKIT_WIDGETS_NAME "WebEngineWidgets")
     SET(SHIB_EXTRA_HEADER "src/shib/shib-helper.h")
+ELSE()
+    ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
+    SET(WEBKIT_NAME "WebKit")
+    SET(WEBKIT_WIDGETS_NAME "WebKitWidgets")
 ENDIF()
 
 SET(USE_QT_LIBRARIES

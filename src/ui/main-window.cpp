@@ -176,6 +176,7 @@ void MainWindow::showEvent(QShowEvent *event)
 // QTBUG-10899 OS X: Add support for ApplicationState capability
 void MainWindow::checkShowWindow()
 {
+    // printf ("app inactive = %s\n", (qApp->applicationState() & Qt::ApplicationInactive) ? "yes" : "no");
 #if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
     if (qApp->applicationState() & Qt::ApplicationActive) {
         if (qApp->activeModalWidget() || qApp->activePopupWidget() || qApp->activeWindow())

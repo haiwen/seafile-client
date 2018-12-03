@@ -132,42 +132,44 @@ void RepoService::start()
 {
     const char *errmsg;
 
-    do {
-        QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
-        if (sqlite3_open (db_path.toUtf8().data(), &synced_subfolder_db_)) {
-            errmsg = sqlite3_errmsg (synced_subfolder_db_);
-            qWarning("failed to open synced subfolder database %s: %s",
-                    db_path.toUtf8().data(), errmsg ? errmsg : "no error given");
+    if (!synced_subfolder_db_) {
+        do {
+            QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath("accounts.db");
+            if (sqlite3_open (db_path.toUtf8().data(), &synced_subfolder_db_)) {
+                errmsg = sqlite3_errmsg (synced_subfolder_db_);
+                qWarning("failed to open synced subfolder database %s: %s",
+                        db_path.toUtf8().data(), errmsg ? errmsg : "no error given");
 
-            sqlite3_close(synced_subfolder_db_);
-            synced_subfolder_db_ = NULL;
-            break;
-        }
+                sqlite3_close(synced_subfolder_db_);
+                synced_subfolder_db_ = NULL;
+                break;
+            }
 
-        // enabling foreign keys, it must be done manually from each connection
-        // and this feature is only supported from sqlite 3.6.19
-        const char *sql = "PRAGMA foreign_keys=ON;";
-        if (sqlite_query_exec (synced_subfolder_db_, sql) < 0) {
-            qWarning("sqlite version is too low to support foreign key feature\n");
-            qWarning("feature synced_sub_folder is disabled\n");
-            sqlite3_close(synced_subfolder_db_);
-            synced_subfolder_db_ = NULL;
-            break;
-        }
+            // enabling foreign keys, it must be done manually from each connection
+            // and this feature is only supported from sqlite 3.6.19
+            const char *sql = "PRAGMA foreign_keys=ON;";
+            if (sqlite_query_exec (synced_subfolder_db_, sql) < 0) {
+                qWarning("sqlite version is too low to support foreign key feature\n");
+                qWarning("feature synced_sub_folder is disabled\n");
+                sqlite3_close(synced_subfolder_db_);
+                synced_subfolder_db_ = NULL;
+                break;
+            }
 
-        // create SyncedSubfolder table
-        sql = "CREATE TABLE IF NOT EXISTS SyncedSubfolder ("
-            "repo_id TEXT PRIMARY KEY, parent_repo_id TEXT NOT NULL, "
-            "url VARCHAR(24), username VARCHAR(15), "
-            "parent_path TEXT NOT NULL, "
-            "FOREIGN KEY(url, username) REFERENCES Accounts(url, username) "
-            "ON DELETE CASCADE ON UPDATE CASCADE )";
-        if (sqlite_query_exec (synced_subfolder_db_, sql) < 0) {
-            qWarning("failed to create synced subfolder table\n");
-            sqlite3_close(synced_subfolder_db_);
-            synced_subfolder_db_ = NULL;
-        }
-    } while (0);
+            // create SyncedSubfolder table
+            sql = "CREATE TABLE IF NOT EXISTS SyncedSubfolder ("
+                "repo_id TEXT PRIMARY KEY, parent_repo_id TEXT NOT NULL, "
+                "url VARCHAR(24), username VARCHAR(15), "
+                "parent_path TEXT NOT NULL, "
+                "FOREIGN KEY(url, username) REFERENCES Accounts(url, username) "
+                "ON DELETE CASCADE ON UPDATE CASCADE )";
+            if (sqlite_query_exec (synced_subfolder_db_, sql) < 0) {
+                qWarning("failed to create synced subfolder table\n");
+                sqlite3_close(synced_subfolder_db_);
+                synced_subfolder_db_ = NULL;
+            }
+        } while (0);
+    }
 
     refresh_timer_->start(kRefreshReposInterval);
 }

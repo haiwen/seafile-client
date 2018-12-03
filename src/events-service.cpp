@@ -1,13 +1,9 @@
-#include <QTimer>
-
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "api/requests.h"
 #include "events-service.h"
 
 namespace {
-
-const int kRefreshEventsInterval = 1000 * 60 * 5; // 5 min
 
 } // namespace
 
@@ -26,8 +22,6 @@ EventsService* EventsService::instance()
 EventsService::EventsService(QObject *parent)
     : QObject(parent)
 {
-    refresh_timer_ = new QTimer(this);
-    connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
     get_events_req_ = NULL;
     in_refresh_ = false;
     more_offset_ = -1;
@@ -35,12 +29,10 @@ EventsService::EventsService(QObject *parent)
 
 void EventsService::start()
 {
-    refresh_timer_->start(kRefreshEventsInterval);
 }
 
 void EventsService::stop()
 {
-    refresh_timer_->stop();
 }
 
 void EventsService::refresh()
@@ -60,12 +52,6 @@ void EventsService::sendRequest(bool is_load_more)
     if (!account.isValid()) {
         in_refresh_ = false;
         return;
-    }
-
-    // Delay the next timer event if the user clicks the refresh button (or the
-    // "load more" button) manually.
-    if (refresh_timer_->isActive()) {
-        refresh_timer_->start(kRefreshEventsInterval);
     }
 
     in_refresh_ = true;

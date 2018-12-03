@@ -6,8 +6,6 @@
 
 #include "api/event.h"
 
-class QTimer;
-
 class ApiError;
 class GetEventsRequest;
 
@@ -54,7 +52,6 @@ private:
 
     std::vector<SeafEvent> events_;
 
-    QTimer *refresh_timer_;
     bool in_refresh_;
 
     int more_offset_;

@@ -64,7 +64,9 @@ void EventsService::sendRequest(bool is_load_more)
 
     // Delay the next timer event if the user clicks the refresh button (or the
     // "load more" button) manually.
-    refresh_timer_->start(kRefreshEventsInterval);
+    if (refresh_timer_->isActive()) {
+        refresh_timer_->start(kRefreshEventsInterval);
+    }
 
     in_refresh_ = true;
 

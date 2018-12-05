@@ -23,7 +23,7 @@ AccountInfoService::AccountInfoService(QObject* parent)
 
 void AccountInfoService::start()
 {
-    refresh_timer_->start(kRefreshInterval);
+    // refresh_timer_->start(kRefreshInterval);
 }
 
 void AccountInfoService::stop()

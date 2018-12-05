@@ -29,8 +29,8 @@ ServerStatusService::ServerStatusService(QObject *parent)
 
 void ServerStatusService::start()
 {
-    refresh_timer_->start(kRefreshInterval);
-    refresh_unconnected_timer_->start(kRefreshIntervalForUnconnected);
+    // refresh_timer_->start(kRefreshInterval);
+    // refresh_unconnected_timer_->start(kRefreshIntervalForUnconnected);
 }
 
 void ServerStatusService::stop()

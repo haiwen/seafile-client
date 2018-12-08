@@ -361,7 +361,8 @@ PostFileTask::PostFileTask(const QUrl& url,
       relative_path_(relative_path),
       total_size_(total_size),
       start_offset_(0),
-      chunk_size_(-1)
+      chunk_size_(-1),
+      need_idx_progress_(false)
 {
 }
 

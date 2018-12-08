@@ -81,6 +81,7 @@ void SyncError::translateErrorStr()
         break;
     case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
         error_str = QObject::tr("No permission to sync this folder");
+        break;
     default:
         // unreachable
         qWarning("unknown sync error id %d", error_id);

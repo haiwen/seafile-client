@@ -1738,7 +1738,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
+        <source>Permission denied on server. Please try and resync the library</source>
         <translation>Der Server hat den Zugang abgelehnt. Bitte versuchen Sie noch einmal, die Bibliothek zu synchronisieren</translation>
     </message>
     <message>
@@ -1782,7 +1782,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <translation>Fehlerhafte Anforderung</translation>
     </message>
     <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
+        <source>Internal data corrupt on the client. Please try and resync the library</source>
         <translation>Bitte versuchen Sie, die Bibliothek neu zu synchronisieren. Es gibt einen Fehler bei der internen Datenverwaltung des lokalen Programms.</translation>
     </message>
     <message>

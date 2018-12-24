@@ -22,7 +22,6 @@
 
 namespace {
 
-const char *kDefaultServerAddr1 = "https://seacloud.cc";
 const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
@@ -43,9 +42,6 @@ QStringList getUsedServerAddresses()
     QString preconfigure_addr = seafApplet->readPreconfigureExpandedString(kPreconfigureServerAddr);
     if (!preconfigure_addr.isEmpty() && !retval.contains(preconfigure_addr)) {
         retval.push_back(preconfigure_addr);
-    }
-    if (!retval.contains(kDefaultServerAddr1)) {
-        retval.push_back(kDefaultServerAddr1);
     }
     return retval;
 }

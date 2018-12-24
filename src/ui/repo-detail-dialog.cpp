@@ -37,7 +37,6 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setWindowIcon(QIcon(":/images/seafile.png"));
 
-    mDesc->setText(repo.description);
     mTimeLabel->setText(translateCommitTime(repo.mtime));
     mOwnerLabel->setText(repo.owner);
     mSizeLabel->setText(readableFileSize(repo.size));

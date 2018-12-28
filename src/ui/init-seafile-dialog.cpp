@@ -176,6 +176,15 @@ void InitSeafileDialog::onOkClicked()
     dir.mkpath(data_dir_name);
     QString seafile_dir = dir.filePath(data_dir_name);
 
+#if !defined(Q_OS_WIN32)
+    int chmod_return_code = chmod(
+        seafile_dir.toUtf8().data(), S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP);
+    if (chmod_return_code < 0) {
+        qWarning("Modify the file \"%s\" permission error.",
+            seafile_dir.toUtf8().data());
+    }
+#endif
+
     emit seafileDirSet(seafile_dir);
 
     accept();

@@ -1,6 +1,10 @@
 #ifndef SEAFILE_CLIENT_INIT_SEAFILE_DIALOG_H
 #define SEAFILE_CLIENT_INIT_SEAFILE_DIALOG_H
 
+#if !defined(Q_OS_WIN32)
+#include <sys/stat.h>
+#endif
+
 #include <QDialog>
 #include "ui_init-seafile-dialog.h"
 

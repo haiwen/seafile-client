@@ -184,12 +184,11 @@ void InitSeafileDialog::onOkClicked()
     // if this Directory is "stolen", an attacker can access all files 
     // which are not in an encrypted file containe.
 #if !defined(Q_OS_WIN32)
-    char* c_str_data_dir_name = toCStr(data_dir_name); 
     int chmod_return_code = chmod(
-        c_str_data_dir_name, S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP);
+        toCStr(data_dir_name), S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP);
     if (chmod_return_code < 0) {
         qWarning("Modify the file \"%s\" permission error.",
-            c_str_data_dir_name);
+            toCStr(data_dir_name));
     }
 #endif
 

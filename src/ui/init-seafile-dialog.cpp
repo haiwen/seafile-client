@@ -1,3 +1,7 @@
+#if !defined(Q_OS_WIN32)
+#include <sys/stat.h>
+#endif
+
 #include <QtGlobal>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -175,6 +179,18 @@ void InitSeafileDialog::onOkClicked()
 
     dir.mkpath(data_dir_name);
     QString seafile_dir = dir.filePath(data_dir_name);
+
+    // the .seafile-data Directory has set "read" rights for "others".
+    // if this Directory is "stolen", an attacker can access all files 
+    // which are not in an encrypted file containe.
+#if !defined(Q_OS_WIN32)
+    int chmod_return_code = chmod(
+        toCStr(data_dir_name), S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP);
+    if (chmod_return_code < 0) {
+        qWarning("Modify the file \"%s\" permission error.",
+            toCStr(data_dir_name));
+    }
+#endif
 
     emit seafileDirSet(seafile_dir);
 

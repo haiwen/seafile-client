@@ -116,7 +116,7 @@ void CloneTask::translateStateInfo()
         } else if (error_str == "internal") {
             error_str = QObject::tr("Internal error");
         } else if (error_str == "Permission denied on server") {
-            error_str = QObject::tr("Permission denied on server. Please try resync the library");
+            error_str = QObject::tr("Permission denied on server. Please try and resync the library");
         } else if (error_str == "Network error") {
             error_str = QObject::tr("Network error");
         } else if (error_str == "Cannot resolve proxy address") {
@@ -138,7 +138,7 @@ void CloneTask::translateStateInfo()
         } else if (error_str == "Bad request") {
             error_str = QObject::tr("Bad request");
         } else if (error_str == "Internal data corrupt on the client") {
-            error_str = QObject::tr("Internal data corrupt on the client. Please try resync the library");
+            error_str = QObject::tr("Internal data corrupt on the client. Please try and resync the library");
         } else if (error_str == "Not enough memory") {
             error_str = QObject::tr("Not enough memory");
         } else if (error_str == "Failed to write data on the client") {

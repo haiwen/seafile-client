@@ -1730,7 +1730,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Nieznany błąd</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
+        <source>Permission denied on server. Please try and resync the library</source>
         <translation>Brak uprawnień na serwerze. Proszę spróbować ponownie synchronizować bibliotekę</translation>
     </message>
     <message>
@@ -1774,7 +1774,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Złe żądanie</translation>
     </message>
     <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
+        <source>Internal data corrupt on the client. Please try and resync the library</source>
         <translation>Wewnętrzne uszkodzenie danych po stronie klienta. Proszę spróbować ponownie synchronizować bibliotekę</translation>
     </message>
     <message>

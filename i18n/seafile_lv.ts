@@ -1714,7 +1714,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Nezināma kļūda</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
+        <source>Permission denied on server. Please try and resync the library</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1758,7 +1758,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
+        <source>Internal data corrupt on the client. Please try and resync the library</source>
         <translation type="unfinished"/>
     </message>
     <message>

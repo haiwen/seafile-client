@@ -1739,7 +1739,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Неизвестная ошибка</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
+        <source>Permission denied on server. Please try and resync the library</source>
         <translation>Доступ запрещен на сервере. Пожалуйста, попробуйте ресинхронизировать библиотеку</translation>
     </message>
     <message>
@@ -1783,7 +1783,7 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Неверный запрос</translation>
     </message>
     <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
+        <source>Internal data corrupt on the client. Please try and resync the library</source>
         <translation>Внутренние данные повреждены на клиенте. Пожалуйста, попробуйте ресинхронизировать библиотеку</translation>
     </message>
     <message>

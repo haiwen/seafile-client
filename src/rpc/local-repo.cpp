@@ -257,7 +257,7 @@ void LocalRepo::translateSyncError(const QString &error)
 void LocalRepo::translateSyncErrDetail(const QString &err_detail)
 {
     if (err_detail == "Permission denied on server") {
-        sync_error_detail = QObject::tr("Permission denied on server. Please try resync the library");
+        sync_error_detail = QObject::tr("Permission denied on server. Please try to resync the library");
     } else if (err_detail == "Network error") {
         sync_error_detail = QObject::tr("Network error");
     } else if (err_detail == "Cannot resolve proxy address") {
@@ -279,7 +279,7 @@ void LocalRepo::translateSyncErrDetail(const QString &err_detail)
     } else if (err_detail == "Bad request") {
         sync_error_detail = QObject::tr("Bad request");
     } else if (err_detail == "Internal data corrupt on the client") {
-        sync_error_detail = QObject::tr("Internal data corrupt on the client. Please try resync the library");
+        sync_error_detail = QObject::tr("Internal data corrupt on the client. Please try to resync the library");
     } else if (err_detail == "Not enough memory") {
         sync_error_detail = QObject::tr("Not enough memory");
     } else if (err_detail == "Failed to write data on the client") {

@@ -1731,10 +1731,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>알 수 없는 오류</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation>서버에서 권한을 거부했습니다. 라이브러리 동기화를 다시 시도하세요</translation>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>네트워크 오류</translation>
     </message>
@@ -1773,10 +1769,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Bad request</source>
         <translation>잘못된 요청</translation>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation>클라이언트의 내부 데이터가 깨졌습니다. 라이브러리 동가화를 다시 시도하세요</translation>
     </message>
     <message>
         <source>Not enough memory</source>
@@ -2160,6 +2152,26 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Error occurred in download</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
         <translation type="unfinished"/>
     </message>
 </context>

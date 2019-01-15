@@ -517,7 +517,7 @@ falló al subir.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 terminó de forma inesperada</translation>
     </message>
 </context>
 <context>
@@ -856,7 +856,7 @@ falló al subir.</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener enlace</translation>
     </message>
 </context>
 <context>
@@ -986,7 +986,7 @@ falló al subir.</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>Modificador</translation>
     </message>
 </context>
 <context>
@@ -1090,7 +1090,7 @@ falló al subir.</translation>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener enlace</translation>
     </message>
 </context>
 <context>
@@ -1485,63 +1485,72 @@ Do you like to download your default library?</source>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; está desincronizada. 
+Motivo: Eliminada en el servidor</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; está sincronizada</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Archivos subidos a &quot;%1&quot;</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation type="unfinished"/>
+        <translation>Conflicto en archivo %1</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al sincronizar el archivo %1
+El archivo está bloqueado por otra aplicación. Será actualizado cuando cierre la aplicación.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al sincronizar la carpeta %1
+Algún archivo en esta carpeta está bloqueado por otra aplicación. Será actualizada cuando cierre la aplicación.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al sincronizar el archivo %1
+El archivo está bloqueado por otro usuario. Actualizaciones a este archivo no son subidas.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>Failo al indexar el archivo %1
+Por favor verifique los permisos del archivo y el espacio en disco.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al sincronizar %1
+La ruta al archivo termina con un espacio o un punto y no puede ser creada en Windows.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>Failo al sincronizar %1
+La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta computadora.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones al archivo %1 son denegadas debido a los permisos de la carpeta.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; falló al sincronizar. 
+Acceso denegado al servicio</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; falló al sincronizar
+El espacio de almacenamiento del propietario de la biblioteca está agotado.</translation>
     </message>
 </context>
 <context>
@@ -1730,10 +1739,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Error desconocido</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation>Permiso denegado en el servidor. Por favor intente resincronizar la biblioteca</translation>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>Error de red</translation>
     </message>
@@ -1772,10 +1777,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Bad request</source>
         <translation>Solicitud incorrecta</translation>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation>Datos internos corruptos en el cliente. Por favor intente resincronizar la biblioteca</translation>
     </message>
     <message>
         <source>Not enough memory</source>
@@ -2151,15 +2152,35 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>El cliente %1 ya se está ejecutando</translation>
     </message>
     <message>
         <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
+        <translation>Ocurrió un error en la subida</translation>
     </message>
     <message>
         <source>Error occurred in download</source>
-        <translation type="unfinished"/>
+        <translation>Ocurrió un error en la descarga</translation>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation>Permiso denegado en el servidor. Por favor intente resincronizar la biblioteca</translation>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation>Datos internos corruptos en el cliente. Por favor intente resincronizar la biblioteca</translation>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation>No tiene permiso de escritura en la biblioteca</translation>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation>No tiene permiso para sincronizar la biblioteca</translation>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
+        <translation>No tiene permiso para sincronizar esta carpeta</translation>
     </message>
 </context>
 <context>
@@ -2538,19 +2559,19 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>fallo al guardar el id del cliente</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>fallo al acceder a %1</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>Id del cliente incorrecto</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>fallo al leer %1</translation>
     </message>
 </context>
 <context>
@@ -2569,7 +2590,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Internal Link:</source>
-        <translation type="unfinished"/>
+        <translation>Enlace interno %1:</translation>
     </message>
 </context>
 <context>
@@ -2580,7 +2601,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>error interno: fallo al conectar con el servicio</translation>
     </message>
 </context>
 <context>

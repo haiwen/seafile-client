@@ -194,15 +194,15 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Machtigingen Fout!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorisatie verlopen</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Bestand bestaat niet</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
@@ -210,7 +210,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Upload Fout: %1</translation>
     </message>
 </context>
 <context>
@@ -224,11 +224,11 @@ kon niet worden geüpload.</translation>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
         <source>Checking Permission</source>
-        <translation type="unfinished"/>
+        <translation>Machtigingen Controleren</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -517,7 +517,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 onverwacht afgesloten</translation>
     </message>
 </context>
 <context>
@@ -727,7 +727,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>This folder is empty.</source>
-        <translation type="unfinished"/>
+        <translation>Deze map is leeg.</translation>
     </message>
     <message>
         <source>Enter name of file to save to...</source>
@@ -755,7 +755,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Bestand bestaat niet</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
@@ -807,7 +807,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Cannot paste the folder to its subfolder</source>
-        <translation type="unfinished"/>
+        <translation>Kan de map niet plakken in zijn onderliggende map</translation>
     </message>
     <message>
         <source>Copy failed</source>
@@ -823,19 +823,19 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Je hebt geen rechten om naar deze map te uploaden</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorisatie verlopen</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Machtigingen Fout!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Bibliotheek/Map niet gevonden.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
@@ -851,7 +851,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Zoek bestanden</translation>
     </message>
     <message>
         <source>Failed to get link</source>
@@ -894,49 +894,49 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Opnieuw</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Overslaan</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>Afbreken</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Bestand opslaan niet gelukt</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Naam</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Grootte</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>Laatst aangepast</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Laat zien in map</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>Laat zien in map</translation>
     </message>
 </context>
 <context>
@@ -954,7 +954,7 @@ kon niet worden geüpload.</translation>
     <name>FileServerTask</name>
     <message>
         <source>task cancelled</source>
-        <translation type="unfinished"/>
+        <translation>Opdracht afgebroken</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
@@ -1070,15 +1070,15 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>Opnieuw Uploaden</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>Lokale versie verwijderen</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Lokale versie opslaan als...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
@@ -1269,18 +1269,18 @@ Do you like to download your default library?</source>
     <name>LoadMoreButton</name>
     <message>
         <source>load more</source>
-        <translation type="unfinished"/>
+        <translation>Meer laden</translation>
     </message>
 </context>
 <context>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>Upload log bestanden mislukt</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Upload log bestanden</translation>
     </message>
     <message>
         <source>Permission Error!</source>
@@ -1307,15 +1307,15 @@ Do you like to download your default library?</source>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>Comprimeren</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 van de %2</translation>
     </message>
 </context>
 <context>
@@ -1372,11 +1372,11 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Server address must not be empty</source>
-        <translation type="unfinished"/>
+        <translation>Server adres kan niet leeg zijn</translation>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
-        <translation type="unfinished"/>
+        <translation>%1 is geen valide server adres. Het moet starten met &apos;https://&apos;</translation>
     </message>
     <message>
         <source>Please enter the password</source>
@@ -1452,7 +1452,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>Automatisch Inloggen</translation>
     </message>
 </context>
 <context>
@@ -1486,15 +1486,15 @@ Reason: Deleted on server</source>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot;is gesynchroniseerd</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Bestanden geupload naar &quot;%1&quot;</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation type="unfinished"/>
+        <translation>Bestand %1 conflict</translation>
     </message>
     <message>
         <source>Failed to sync file %1
@@ -1553,7 +1553,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Enter user name or email address</source>
-        <translation type="unfinished"/>
+        <translation>Voer gebruikersnaam of email adres in</translation>
     </message>
     <message>
         <source>Updated successfully</source>
@@ -1727,10 +1727,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Onbekende fout</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>Netwerkfout</translation>
     </message>
@@ -1740,7 +1736,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"/>
+        <translation>Kan het server adres niet vinden</translation>
     </message>
     <message>
         <source>Cannot connect to server</source>
@@ -1748,7 +1744,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Kan geen veilige verbinding opzetten. Controleer het SSL certificaat van de server.</translation>
     </message>
     <message>
         <source>Data transfer was interrupted. Please check network or firewall</source>
@@ -1769,10 +1765,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Bad request</source>
         <translation>Ongeldig verzoek</translation>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Not enough memory</source>
@@ -2104,7 +2096,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>uploading file list</source>
-        <translation type="unfinished"/>
+        <translation>uploaden van de bestandslijst</translation>
     </message>
     <message>
         <source>File is locked by another application</source>
@@ -2152,10 +2144,30 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
+        <translation>Fout tijdens het uploaden</translation>
     </message>
     <message>
         <source>Error occurred in download</source>
+        <translation>Fout tijdens het downloaden</translation>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2163,7 +2175,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>ReliablePostFileTask</name>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Bestand bestaat niet</translation>
     </message>
 </context>
 <context>
@@ -2489,7 +2501,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>ReposTab</name>
     <message>
         <source>Search libraries</source>
-        <translation type="unfinished"/>
+        <translation>Bibliotheken zoeken</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2616,7 +2628,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Show file sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisatie fouten laten zien.</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2660,15 +2672,15 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Upload log bestanden</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>upload %1 log bestanden</translation>
     </message>
     <message>
         <source>Please login first</source>
-        <translation type="unfinished"/>
+        <translation>Eerst inloggen A.U.B.</translation>
     </message>
 </context>
 <context>
@@ -2686,7 +2698,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>SearchTab</name>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Bestanden zoeken</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2942,7 +2954,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>SharedItemsTableModel</name>
     <message>
         <source>Click to edit</source>
-        <translation type="unfinished"/>
+        <translation>Klik om aan te passen</translation>
     </message>
     <message>
         <source>Created by %1</source>
@@ -3069,18 +3081,18 @@ The library owner&apos;s storage space is used up.</source>
     <name>SyncErrorsDialog</name>
     <message>
         <source>File Sync Errors</source>
-        <translation type="unfinished"/>
+        <translation>Bestands synchronisatie fouten</translation>
     </message>
     <message>
         <source>No sync errors.</source>
-        <translation type="unfinished"/>
+        <translation>Geen synchronisatie fouten.</translation>
     </message>
 </context>
 <context>
     <name>SyncErrorsTableModel</name>
     <message>
         <source>Double click to open the library</source>
-        <translation type="unfinished"/>
+        <translation>Dubbel klik om de bibliotheek te openen.</translation>
     </message>
     <message>
         <source>Library</source>
@@ -3115,23 +3127,23 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialoog</translation>
     </message>
     <message>
         <source>mText</source>
-        <translation type="unfinished"/>
+        <translation>mText</translation>
     </message>
     <message>
         <source>Remember this device</source>
-        <translation type="unfinished"/>
+        <translation>Dit apparaat onthouden</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>

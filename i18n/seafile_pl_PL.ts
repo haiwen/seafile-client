@@ -517,7 +517,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 zakończył się niespodziewanie</translation>
     </message>
 </context>
 <context>
@@ -856,7 +856,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się pobrać łącza</translation>
     </message>
 </context>
 <context>
@@ -907,11 +907,11 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Zapisywanie</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zapisać pliku</translation>
     </message>
 </context>
 <context>
@@ -986,7 +986,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>Modyfikujący</translation>
     </message>
 </context>
 <context>
@@ -1090,7 +1090,7 @@ nieudane przesyłanie.</translation>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się pobrać łącza</translation>
     </message>
 </context>
 <context>
@@ -1279,46 +1279,46 @@ Czy chcesz pobrać swoją domyślną bibliotekę?</translation>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się wysłać logów</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Wyślij logi</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Brak dostępu!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Nie znaleziono biblioteki/folderu</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autoryzacja wygasła</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się wysłać logów: %1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>Pomyślnie wysłano logi</translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>Kompresowanie</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 z %2</translation>
     </message>
 </context>
 <context>
@@ -1485,63 +1485,72 @@ Czy chcesz pobrać swoją domyślną bibliotekę?</translation>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; jest niezsynchronizowana.
+Powód: Usunięta na serwerze</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; jest zsynchronizowana</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Pliki przesłane do &quot;%1&quot;</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation type="unfinished"/>
+        <translation>Konflikt pliku %1</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zsynchronizować pliku %1
+Plik jest zablokowany przez inną aplikację, będzie przesłany, gdy zostanie ona zamknięta.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zsynchronizować folderu %1
+Jeden z plików wewnątrz tego folderu jest zablokowany przez inną aplikację. Folder zostanie zaktualizowany, gdy ją zamkniesz.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zsynchronizować pliku %1
+Plik jest zablokowany przez innego użytkownika. Zmiany w tym pliku nie są synchronizowane.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zindeksować pliku %1
+Proszę sprawdzić uprawnienia do pliku i dostępną przestrzeń dyskową.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zsynchronizować %1
+Ścieżka pliku jest zakończona spacją lub kropką i nie może być utworzona w systemie Windows</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>Nie udało się zsynchronizować %1
+Ścieżka do pliku zawiera nieprawidłowe znaki. Plik nie jest synchronizowany z tym komputerem.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacja pliku %1 jest niemożliwa z powodu aktualnej konfiguracji praw dostępu do katalogu.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; nie udało się zsynchronizować. 
+Brak dostępu do usługi</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; nie udało się zsynchronizować.
+Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     </message>
 </context>
 <context>
@@ -1730,10 +1739,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Nieznany błąd</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation>Brak uprawnień na serwerze. Proszę spróbować ponownie synchronizować bibliotekę</translation>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>Błąd sieci</translation>
     </message>
@@ -1772,10 +1777,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Bad request</source>
         <translation>Złe żądanie</translation>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation>Wewnętrzne uszkodzenie danych po stronie klienta. Proszę spróbować ponownie synchronizować bibliotekę</translation>
     </message>
     <message>
         <source>Not enough memory</source>
@@ -2151,15 +2152,35 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>%1 Client jest już uruchomiony</translation>
     </message>
     <message>
         <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
+        <translation>Wystąpił błąd podczas wysyłania.</translation>
     </message>
     <message>
         <source>Error occurred in download</source>
+        <translation>Wystąpił błąd podczas pobierania.</translation>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
+        <translation>Brak uprawnień do synchronizacji tego folderu</translation>
     </message>
 </context>
 <context>
@@ -2538,19 +2559,19 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>nie udało się zapisać id klienta</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>nie udało się uzyskać dostępu do %1</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>nieprawidłowe id klienta</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>nie udało się odczytać %1</translation>
     </message>
 </context>
 <context>
@@ -2569,7 +2590,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Internal Link:</source>
-        <translation type="unfinished"/>
+        <translation>Łącze wewnętrzne %1:</translation>
     </message>
 </context>
 <context>
@@ -2580,7 +2601,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>błąd wewnętrzny: nie udało się połączeń z demonem</translation>
     </message>
 </context>
 <context>
@@ -2663,15 +2684,15 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Wyślij pliki logów</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>wyślij %1 logów</translation>
     </message>
     <message>
         <source>Please login first</source>
-        <translation type="unfinished"/>
+        <translation>Proszę najpierw się zalogować</translation>
     </message>
 </context>
 <context>

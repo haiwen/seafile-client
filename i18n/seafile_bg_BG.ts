@@ -1709,10 +1709,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Network error</source>
         <translation type="unfinished"/>
     </message>
@@ -1750,10 +1746,6 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Bad request</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2138,6 +2130,26 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Error occurred in download</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
         <translation type="unfinished"/>
     </message>
 </context>

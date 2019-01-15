@@ -206,7 +206,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation>Le fichier est verrouiller par %1, veuillez réessayer plus tard</translation>
+        <translation>Le fichier est verrouillé par %1, veuillez réessayer plus tard</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
@@ -388,7 +388,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>downarrow</source>
-        <translation>flèchebas</translation>
+        <translation>flèche du bas</translation>
     </message>
     <message>
         <source>upload rate</source>
@@ -396,7 +396,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>uparrow</source>
-        <translation>flèchehaut</translation>
+        <translation>flèche du haut</translation>
     </message>
 </context>
 <context>
@@ -517,7 +517,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 a quitté de manière inattendue</translation>
     </message>
 </context>
 <context>
@@ -568,7 +568,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation>Votre organisation a désactivé l&apos;enregistrement d&apos;une bibliothèque en dehors du dossier %1.</translation>
+        <translation>Votre organisation a empêché l&apos;enregistrement d&apos;une bibliothèque en dehors du dossier %1.</translation>
     </message>
     <message>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
@@ -808,7 +808,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Cannot paste the folder to its subfolder</source>
-        <translation>Ce dossier ne peut pas être coller dans son sous-dossier</translation>
+        <translation>Ce dossier ne peut pas être collé dans son sous-dossier</translation>
     </message>
     <message>
         <source>Copy failed</source>
@@ -856,7 +856,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir le lien</translation>
     </message>
 </context>
 <context>
@@ -933,11 +933,11 @@ n&apos;a pu être envoyé.</translation>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation>&amp;Montrer dans le dossier</translation>
+        <translation>&amp;Afficher dans le dossier</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation>Montrer dans le dossier</translation>
+        <translation>Afficher dans le dossier</translation>
     </message>
 </context>
 <context>
@@ -986,7 +986,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>Modificateur</translation>
     </message>
 </context>
 <context>
@@ -1071,7 +1071,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation>Réessayer l&apos;envoie</translation>
+        <translation>Réessayer l&apos;envoi</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
@@ -1090,7 +1090,7 @@ n&apos;a pu être envoyé.</translation>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir le lien</translation>
     </message>
 </context>
 <context>
@@ -1287,7 +1287,7 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation>Erreur de permission !</translation>
+        <translation>Erreur de permissions !</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
@@ -1484,63 +1484,70 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; in&apos;est pas synchronisé. 
+Raison  : supprimé du serveur</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot;est synchronisé</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Fichiers chargés sur &quot;%1&quot;</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation type="unfinished"/>
+        <translation>Fichier %1 en conflit</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de synchroniser le fichier %1
+Le fichier est verrouillé par une autre application. Ce fichier sera mis à jour lorsque vous aurez fermé l&apos;application.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de synchroniser le dossier %1
+Le dossier est verrouillé par une autre application. Ce dossier sera mis à jour lorsque vous aurez fermé l&apos;application.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de synchroniser le fichier %1
+Le fichier est verrouillé par un autre utilisateur. La mise à jour de ce fichier n&apos;est pas chargée.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;indexer le fichier %1
+Veuillez vérifier les permissions sur le fichier et l&apos;espace disque.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de synchroniser %1
+Le fichier se termine par un espace ou un autre caractère invalide et ne peut pas être enregistré sus Windows</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de synchroniser %1
+Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchronisé sur cet appareil.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>La mise à jour de %1 est refusée par les paramètres de permissions du dossier.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation type="unfinished"/>
+        <translation>Échec de la synchronisation de %1. Accès refusé au service.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
+        <translation>Échec de la synchronisation de %1. L&apos;espace de stockage de l&apos;utilisateur est dépassé.</translation>
     </message>
 </context>
 <context>
@@ -1729,10 +1736,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Erreur inconnue</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation>Permission au serveur refusée. Veuillez essayer de resynchroniser la bibliothèque</translation>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>Erreur réseau</translation>
     </message>
@@ -1773,16 +1776,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Mauvaise requête</translation>
     </message>
     <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation>Données internes corrompues sur le client. Veuillez essayer de resynchroniser la bibliothèque</translation>
-    </message>
-    <message>
         <source>Not enough memory</source>
         <translation>Pas assez de mémoire</translation>
     </message>
     <message>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
-        <translation>Impassible d&apos;écrire les données sur le client. Veuillez vérifier l&apos;espace disque ou les permissions du dossier.</translation>
+        <translation>Impossible d&apos;écrire les données sur le client. Veuillez vérifier l&apos;espace disque ou les permissions du dossier.</translation>
     </message>
     <message>
         <source>Storage quota full</source>
@@ -1810,7 +1809,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Failed to sync this library</source>
-        <translation>Échec de synchronisation de cette librairie</translation>
+        <translation>Échec de synchronisation de cette bibliothèque</translation>
     </message>
     <message>
         <source>Files are locked by other application</source>
@@ -1846,7 +1845,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Incorrect password. Please download again</source>
-        <translation>Mot de passe incorrecte. Veuillez le télécharger à nouveau</translation>
+        <translation>Mot de passe incorrect. Veuillez le télécharger à nouveau</translation>
     </message>
     <message>
         <source>Internal error</source>
@@ -2106,7 +2105,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>uploading file list</source>
-        <translation>envoie de la liste des fichiers</translation>
+        <translation>envoi de la liste des fichiers</translation>
     </message>
     <message>
         <source>File is locked by another application</source>
@@ -2134,7 +2133,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;</source>
-        <translation>Le chemin contient des caractères non valide comme &apos;|&apos; ou &apos;:&apos; </translation>
+        <translation>Le chemin contient des caractères non valides comme &apos;|&apos; ou &apos;:&apos; </translation>
     </message>
     <message>
         <source>failed to open file cache database</source>
@@ -2150,15 +2149,35 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>Le client %1 est déjà démarré.</translation>
     </message>
     <message>
         <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
+        <translation>Une erreur est apparue au chargement</translation>
     </message>
     <message>
         <source>Error occurred in download</source>
+        <translation>Une erreur est apparue au téléchargement.</translation>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
+        <translation>Vous n&apos;avez pas la permission de synchroniser ce dossier.</translation>
     </message>
 </context>
 <context>
@@ -2404,7 +2423,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>&amp;Leave share</source>
-        <translation>&amp;Quitte le partage</translation>
+        <translation>&amp;Quitter le partage</translation>
     </message>
     <message>
         <source>leave share</source>
@@ -2491,7 +2510,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>ReposTab</name>
     <message>
         <source>Search libraries</source>
-        <translation>Recherche bibliohèques</translation>
+        <translation>Rechercher des bibliothèques</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2537,19 +2556,19 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de sauvegarder l&apos;id du client.</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;accéder à %1.</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>Id de client incorrect.</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de lire %1</translation>
     </message>
 </context>
 <context>
@@ -2568,7 +2587,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Internal Link:</source>
-        <translation type="unfinished"/>
+        <translation>Lien interne %1</translation>
     </message>
 </context>
 <context>
@@ -2579,7 +2598,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>Erreur interne : impossible de se connecter au processus.</translation>
     </message>
 </context>
 <context>
@@ -2769,7 +2788,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Hide %1 Icon from the dock</source>
-        <translation>Masquer %1 icône de la barre</translation>
+        <translation>Masquer l&apos;icône de %1 de la barre</translation>
     </message>
     <message>
         <source>None</source>
@@ -2928,7 +2947,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>SharedItemDelegate</name>
     <message>
         <source>Read Write</source>
-        <translation>Lecture Écriture</translation>
+        <translation>Lecture et Écriture</translation>
     </message>
     <message>
         <source>Read Only</source>
@@ -3104,15 +3123,15 @@ The library owner&apos;s storage space is used up.</source>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>
-        <translation>Entrer le jeton d&apos;authentification double facteurs</translation>
+        <translation>Entrer le jeton d&apos;authentification double facteur</translation>
     </message>
     <message>
         <source>Two Factor Authentication</source>
-        <translation>Authentification double facteurs</translation>
+        <translation>Authentification double facteur</translation>
     </message>
     <message>
         <source>Please enter the two factor authentication token</source>
-        <translation>Veuillez entrer le jeton d&apos;authentification double facteurs</translation>
+        <translation>Veuillez entrer le jeton d&apos;authentification double facteur</translation>
     </message>
     <message>
         <source>Dialog</source>

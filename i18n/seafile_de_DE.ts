@@ -691,7 +691,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>You don&apos;t have permission to upload files to this library</source>
-        <translation>Zum Hochladen von Dateien in diese Bibliothek fehlen Ihnen die Zugriffsrechte</translation>
+        <translation>Sie haben keine ausreichenden Rechte zum Hochladen in diese Bibliothek</translation>
     </message>
     <message>
         <source>Create a folder</source>
@@ -855,7 +855,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Ermitteln des Links</translation>
     </message>
 </context>
 <context>
@@ -1089,7 +1089,7 @@ Bitte %1</translation>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Ermitteln des Links</translation>
     </message>
 </context>
 <context>
@@ -1695,7 +1695,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     </message>
     <message>
         <source>You do not have permission to access this library</source>
-        <translation>Für diese Bibliothek fehlen Ihnen die Zugriffsrechte</translation>
+        <translation>Sie haben keine ausreichenden Rechte für den Zugriff auf diese Bibliothek</translation>
     </message>
     <message>
         <source>The storage space of the library owner has been used up</source>
@@ -1738,10 +1738,6 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation>Der Server hat den Zugang abgelehnt. Bitte versuchen Sie noch einmal, die Bibliothek zu synchronisieren</translation>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>Netzwerkfehler</translation>
     </message>
@@ -1780,10 +1776,6 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <source>Bad request</source>
         <translation>Fehlerhafte Anforderung</translation>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation>Bitte versuchen Sie, die Bibliothek neu zu synchronisieren. Es gibt einen Fehler bei der internen Datenverwaltung des lokalen Programms.</translation>
     </message>
     <message>
         <source>Not enough memory</source>
@@ -2169,6 +2161,26 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <source>Error occurred in download</source>
         <translation>Fehler beim Herunterladen</translation>
     </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation>Der Server hat den Zugang abgelehnt. Bitte versuchen Sie noch einmal, die Bibliothek zu synchronisieren</translation>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation>Bitte versuchen Sie, die Bibliothek neu zu synchronisieren. Es gibt einen Fehler bei der internen Datenverwaltung des lokalen Programms.</translation>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation>Keine Schreibrechte für die Bibliothek</translation>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation>Keine ausreichenden Rechte zum Synchronisieren der Bibliothek</translation>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
+        <translation>Sie haben keine ausreichenden Rechte, um diesen Ordner zu synchronisieren</translation>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2473,7 +2485,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation>Zum Hochladen in diesen Ordner fehlen Ihnen die Zugriffsrechte</translation>
+        <translation>Sie haben keine ausreichenden Rechte zum Hochladen in diesen Ordner</translation>
     </message>
     <message>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
@@ -2577,7 +2589,7 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     </message>
     <message>
         <source>%1 Internal Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1-interner Link:</translation>
     </message>
 </context>
 <context>

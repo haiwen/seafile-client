@@ -1731,10 +1731,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>未知错误</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation>权限错误。请尝试重新同步该资料库</translation>
-    </message>
-    <message>
         <source>Network error</source>
         <translation>网络错误</translation>
     </message>
@@ -1773,10 +1769,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Bad request</source>
         <translation>非法的请求</translation>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
-        <translation>客户端数据损坏。请尝试重新同步该资料库</translation>
     </message>
     <message>
         <source>Not enough memory</source>
@@ -2161,6 +2153,26 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Error occurred in download</source>
         <translation>下载过程中出错</translation>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation>权限错误。请尝试重新同步该资料库</translation>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation>客户端数据损坏。请尝试重新同步该资料库</translation>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation>对该库没有写权限</translation>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation>没有权限同步该资料库</translation>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
+        <translation>没有权限同步此文件夹</translation>
     </message>
 </context>
 <context>

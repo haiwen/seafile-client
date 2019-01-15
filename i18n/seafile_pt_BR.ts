@@ -3,27 +3,27 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>Sobre %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 Cliente %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h5&gt; REV %1 &lt;/h5&gt;</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>Sobre</translation>
     </message>
     <message>
         <source>Check For Updates</source>
-        <translation type="unfinished"/>
+        <translation>Verificar Atualizações</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao remover repositório local token de sincronização: %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
@@ -194,23 +194,23 @@ falhou ao enviar.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Erro de Permissão!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorização expirada</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Arquivo nãoexiste</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation type="unfinished"/>
+        <translation>O arquivo está bloquado por %1, favor tente mais tarde</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha no Upload: %1</translation>
     </message>
 </context>
 <context>
@@ -224,11 +224,11 @@ falhou ao enviar.</translation>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
         <source>Checking Permission</source>
-        <translation type="unfinished"/>
+        <translation>Verificando Permissão</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -515,7 +515,7 @@ falhou ao enviar.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 saiu inesperadamente</translation>
     </message>
 </context>
 <context>
@@ -703,7 +703,7 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 itens</translation>
     </message>
     <message>
         <source>Folder name</source>
@@ -727,7 +727,7 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     </message>
     <message>
         <source>This folder is empty.</source>
-        <translation type="unfinished"/>
+        <translation>Esta pasta está vazia.</translation>
     </message>
     <message>
         <source>Enter name of file to save to...</source>
@@ -755,7 +755,7 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Arquivo não existe</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
@@ -1727,10 +1727,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Erro desconhecido</translation>
     </message>
     <message>
-        <source>Permission denied on server. Please try resync the library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Network error</source>
         <translation type="unfinished"/>
     </message>
@@ -1768,10 +1764,6 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Bad request</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Internal data corrupt on the client. Please try resync the library</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2156,6 +2148,26 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Error occurred in download</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied on server. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Internal data corrupt on the client. Please try to resync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have write permission to the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not have permission to sync the library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permission to sync this folder</source>
         <translation type="unfinished"/>
     </message>
 </context>

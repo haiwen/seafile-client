@@ -12,6 +12,7 @@
 #include "ui/ssl-confirm-dialog.h"
 #include "utils/utils.h"
 #include "network-mgr.h"
+#include "server-status-service.h"
 
 #include "api-client.h"
 
@@ -246,6 +247,7 @@ void SeafileApiClient::httpRequestFinished()
             return;
         }
 
+        ServerStatusService::instance()->updateOnFailedRequest(reply_->url());
         NetworkStatusDetector::instance()->setNetworkFailure(reply_->error());
 
         if (!shouldIgnoreRequestError(reply_)) {
@@ -255,6 +257,8 @@ void SeafileApiClient::httpRequestFinished()
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
+
+    ServerStatusService::instance()->updateOnSuccessfullRequest(reply_->url());
     NetworkStatusDetector::instance()->setNetworkSuccess();
 
     if (handleHttpRedirect()) {

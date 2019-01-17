@@ -8,7 +8,7 @@
 
 namespace
 {
-const int kRefreshInterval = 3 * 60 * 1000; // 3 min
+// const int kRefreshInterval = 3 * 60 * 1000; // 3 min
 }
 
 SINGLETON_IMPL(AccountInfoService)

@@ -72,9 +72,6 @@ protected:
         }
     };
 
-private slots:
-    void updateServerStatus();
-
 private:
     Q_DISABLE_COPY(SeafileApiRequest)
 

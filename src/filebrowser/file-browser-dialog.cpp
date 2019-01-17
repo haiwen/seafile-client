@@ -1113,7 +1113,7 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 {
     if (dirents.isEmpty()) {
         table_model_->setDirents(QList<SeafDirent>());
-        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     } else {
         table_model_->setDirents(dirents);
         stack_->setCurrentIndex(INDEX_TABLE_VIEW);
@@ -1337,7 +1337,7 @@ void FileBrowserDialog::onDirentRemoveSuccess(const QString& path)
     updateFileCount();
 
     if (table_model_->rowCount() == 0) {
-        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     }
 }
 
@@ -1359,7 +1359,7 @@ void FileBrowserDialog::onDirentsRemoveSuccess(const QString& parent_path,
     updateFileCount();
 
     if (table_model_->rowCount() == 0) {
-        stack_->setCurrentIndex(INDEX_EMPTY_VIEW);
+        stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     }
 }
 

@@ -951,7 +951,11 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
             icon = dirent.readonly
                        ? QIcon(":/images/files_v2/file_folder_readonly.png")
                        : QIcon(":/images/files_v2/file_folder.png");
-        } else if (iconPrefixFromFileName(dirent.name) == "image") {
+        } else if (iconPrefixFromFileName(dirent.name) == "gif" ||
+                   iconPrefixFromFileName(dirent.name) == "jpeg" ||
+                   iconPrefixFromFileName(dirent.name) == "jpg" ||
+                   iconPrefixFromFileName(dirent.name) == "png" ||
+                   iconPrefixFromFileName(dirent.name) == "ico") {
             FileBrowserDialog *dialog =
                 (FileBrowserDialog *)(QObject::parent());
             ThumbnailService *service = ThumbnailService::instance();

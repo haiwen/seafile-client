@@ -17,7 +17,7 @@
 
 namespace {
 
-const int kCheckNetworkStatusIntervalMSecs = 10000; // 10s
+const int kCheckNetworkStatusIntervalMSecs = 10 * 1000; // 10s
 
 QNetworkProxy proxy_;
 
@@ -217,10 +217,28 @@ void NetworkStatusDetector::detect() {
     }
 }
 
-void NetworkStatusDetector::setNetworkFailure() {
+// Whether the given error may indicate a network reset, e.g. when the
+// computer wakes up after sleeping/hibernating
+bool NetworkStatusDetector::shouldTreatErrorAsNetworkReset(QNetworkReply::NetworkError error)
+{
+    switch (error) {
+    case QNetworkReply::ConnectionRefusedError:
+    case QNetworkReply::SslHandshakeFailedError:
+    case QNetworkReply::RemoteHostClosedError:
+        return false;
+    default:
+        return true;
+    }
+}
+
+void NetworkStatusDetector::setNetworkFailure(QNetworkReply::NetworkError error) {
+    if (!shouldTreatErrorAsNetworkReset(error)) {
+        return;
+    }
+
     QMutexLocker lock(&network_error_mutex_);
     if (!has_network_failure_) {
-        qWarning("[network detector] got a network failure");
+        qWarning("[network detector] got a network failure: %d", (int)error);
         has_network_failure_ = true;
     }
 }

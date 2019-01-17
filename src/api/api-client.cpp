@@ -246,7 +246,7 @@ void SeafileApiClient::httpRequestFinished()
             return;
         }
 
-        NetworkStatusDetector::instance()->setNetworkFailure();
+        NetworkStatusDetector::instance()->setNetworkFailure(reply_->error());
 
         if (!shouldIgnoreRequestError(reply_)) {
             qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),

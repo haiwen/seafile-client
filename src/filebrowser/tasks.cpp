@@ -545,7 +545,7 @@ void FileServerTask::httpRequestFinished()
     int code = reply_->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (code == 0 && reply_->error() != QNetworkReply::NoError) {
 
-        NetworkStatusDetector::instance()->setNetworkFailure();
+        NetworkStatusDetector::instance()->setNetworkFailure(reply_->error());
 
         qWarning("[file server task] network error: %s\n", toCStr(reply_->errorString()));
         if (!maybeRetry()) {

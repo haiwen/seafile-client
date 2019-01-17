@@ -66,7 +66,7 @@ public:
     ~NetworkStatusDetector();
     void start();
     void stop();
-    void setNetworkFailure();
+    void setNetworkFailure(QNetworkReply::NetworkError err);
     void setNetworkSuccess();
 
 public slots:
@@ -77,6 +77,7 @@ signals:
 
 private:
     NetworkStatusDetector();
+    bool shouldTreatErrorAsNetworkReset(QNetworkReply::NetworkError error);
     QMutex network_error_mutex_;
 
     QTimer *check_timer_;

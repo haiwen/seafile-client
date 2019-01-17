@@ -27,8 +27,15 @@ const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
 const char *const kPreconfigureShibbolethLoginUrl = "PreconfigureShibbolethLoginUrl";
 
+// 1. Returned by the server "X-Seafile-OTP: required" when login (if the user has 2FA enabled)
+// 2. The client would send this header, e.g. "X-Seafile-OTP: 123456" when login again
 const char *const kSeafileOTPHeader = "X-SEAFILE-OTP";
+// This header tells sever to remember this device and do not ask this
+// device for 2fa token in the next 90 days. The server would return a
+// "S2FA" token which should be saved by the device.
 const char *const kRememberDeviceHeader = "X-SEAFILE-2FA-TRUST-DEVICE";
+// 1. The "S2FA" token returned by the server when "X-SEAFILE-2FA-TRUST-DEVICE: 1" is used to login
+// 2. The client should send this device when login again so the server won't ask it for the 2FA token.
 const char *const kTwofactorHeader = "X-SEAFILE-S2FA";
 
 const char *const kSchemeHTTPS = "https";

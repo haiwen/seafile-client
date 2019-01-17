@@ -8,8 +8,8 @@
 
 namespace {
 
-const int kRefreshInterval = 3 * 60 * 1000; // 3 min
-const int kRefreshIntervalForUnconnected = 30 * 1000; // 30 sec
+// const int kRefreshInterval = 3 * 60 * 1000; // 3 min
+// const int kRefreshIntervalForUnconnected = 30 * 1000; // 30 sec
 
 }
 
@@ -44,6 +44,11 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
     for (size_t i = 0; i < accounts.size(); i++) {
         const QUrl& url = accounts[i].serverUrl;
+        if (!accounts[i].isValid()) {
+            // No need to ping the server if account has already logged out
+            statuses_.remove(url.host());
+            continue;
+        }
         if (requests_.contains(url.host())) {
             continue;
         }
@@ -100,6 +105,9 @@ bool ServerStatusService::allServersConnected() const
 
 bool ServerStatusService::allServersDisconnected() const
 {
+    if (statuses_.isEmpty()) {
+        return true;
+    }
     foreach (const ServerStatus& status, statuses()) {
         if (status.connected) {
             return false;
@@ -131,6 +139,11 @@ void ServerStatusService::updateOnRequestFinished(const QUrl& url, bool no_netwo
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
     for (size_t i = 0; i < accounts.size(); i++) {
         if (url.host() == accounts[i].serverUrl.host()) {
+            if (!accounts[i].isValid()) {
+                // No need to update the server status if account has already logged out
+                statuses_.remove(url.host());
+                continue;
+            }
             found = true;
             break;
         }

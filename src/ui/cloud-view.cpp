@@ -480,8 +480,6 @@ void CloudView::onRefreshClicked()
     else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
         search_tab_->refresh();
     }
-
-    ServerStatusService::instance()->refresh();
 }
 
 void CloudView::resizeEvent(QResizeEvent* event)
@@ -560,8 +558,10 @@ void CloudView::onAccountChanged()
 void CloudView::updateStorageUsage(const Account& account)
 {
     if (!account.isValid()) {
+        mStorageUsage->hide();
         return;
     }
+    mStorageUsage->show();
     const AccountInfo& info = account.accountInfo;
     if (info.totalStorage > 0) {
         mStorageUsage->setMaximum(info.totalStorage / 1000);

@@ -47,6 +47,7 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
         if (!accounts[i].isValid()) {
             // No need to ping the server if account has already logged out
             statuses_.remove(url.host());
+            emit serverStatusChanged();
             continue;
         }
         if (requests_.contains(url.host())) {
@@ -106,7 +107,7 @@ bool ServerStatusService::allServersConnected() const
 bool ServerStatusService::allServersDisconnected() const
 {
     if (statuses_.isEmpty()) {
-        return true;
+        return false;
     }
     foreach (const ServerStatus& status, statuses()) {
         if (status.connected) {
@@ -142,6 +143,7 @@ void ServerStatusService::updateOnRequestFinished(const QUrl& url, bool no_netwo
             if (!accounts[i].isValid()) {
                 // No need to update the server status if account has already logged out
                 statuses_.remove(url.host());
+                emit serverStatusChanged();
                 continue;
             }
             found = true;

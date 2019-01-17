@@ -61,7 +61,7 @@ void ServerStatusService::refresh(bool only_refresh_unconnected)
         if (only_refresh_unconnected && isServerConnected(url)) {
             continue;
         }
-        // pingServer(url);
+        pingServer(url);
     }
 }
 

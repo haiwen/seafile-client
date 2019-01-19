@@ -947,13 +947,14 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::DecorationRole && column == FILE_COLUMN_NAME) {
         QIcon icon;
+
+        // These are the thumnail types supported by the server (as of 2019.1)
         static QSet<QString> image_file_types = {"gif", "png", "jpg", "jpeg", "ico"};
         if (dirent.isDir()) {
             icon = dirent.readonly
                        ? QIcon(":/images/files_v2/file_folder_readonly.png")
                        : QIcon(":/images/files_v2/file_folder.png");
         } else if (image_file_types.contains(QFileInfo(dirent.name).suffix().toLower())) {
-            // these format only supported by server. 
             FileBrowserDialog *dialog =
                 (FileBrowserDialog *)(QObject::parent());
             ThumbnailService *service = ThumbnailService::instance();

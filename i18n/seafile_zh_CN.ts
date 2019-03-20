@@ -1321,7 +1321,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation>单点登录</translation>
+        <translation>单点登录或微信登录</translation>
     </message>
     <message>
         <source>Re-login</source>

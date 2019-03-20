@@ -128,6 +128,7 @@ void LoginDialog::initFromAccount(const Account& account)
     mServerAddr->setCurrentIndex(0);
     mServerAddr->setEditable(false);
 
+    mAutomaticLogin->setCheckState(account.isAutomaticLogin ? Qt::Checked : Qt::Unchecked);
     mUsername->setText(account.username);
     mPassword->setFocus(Qt::OtherFocusReason);
 }

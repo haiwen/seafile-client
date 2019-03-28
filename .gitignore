@@ -102,3 +102,7 @@ seafile-applet.rc
 
 *seafile-applet
 *.lib
+
+## registry clean
+.vscode/
+registry-clean/registrycleaner_autogen/

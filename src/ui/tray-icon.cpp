@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <QtGlobal>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -12,6 +14,7 @@
 #include <QMenuBar>
 #include <QRunnable>
 #include <QSysInfo>
+#include <QCoreApplication>
 
 #include "rpc/local-repo.h"
 #include "utils/utils.h"
@@ -51,7 +54,9 @@ namespace {
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 const int kMessageDisplayTimeMSecs = 5000;
-
+#if defined(Q_OS_WIN32)
+const QString kRegistryAPPName = "registrycleaner.exe";
+#endif
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {
     seafApplet->trayIcon()->reloadTrayIcon();
@@ -175,6 +180,10 @@ void SeafileTrayIcon::createActions()
     open_seafile_folder_action_->setStatusTip(tr("open %1 folder").arg(getBrand()));
     connect(open_seafile_folder_action_, SIGNAL(triggered()), this, SLOT(openSeafileFolder()));
 
+#if defined(Q_OS_WIN32)
+    clean_registry_item_ = new QAction(tr("Refresh windows extension"), this);
+    connect(clean_registry_item_, SIGNAL(triggered()), this, SLOT(cleanRegistryItem()));
+#endif
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
     open_log_directory_action_->setStatusTip(tr("open %1 log folder").arg(getBrand()));
     connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
@@ -205,6 +214,9 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_ = new QMenu(NULL);
     context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(open_seafile_folder_action_);
+ #if defined(Q_OS_WIN32)
+    context_menu_->addAction(clean_registry_item_);
+ #endif
     context_menu_->addAction(settings_action_);
     context_menu_->addAction(open_log_directory_action_);
     //context_menu_->addAction(upload_log_directory_action_);
@@ -528,6 +540,18 @@ void SeafileTrayIcon::openHelp()
 void SeafileTrayIcon::openSeafileFolder()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(seafApplet->configurator()->seafileDir()).path()));
+}
+
+void SeafileTrayIcon::cleanRegistryItem()
+{
+#if defined(Q_OS_WIN32)
+    QString application_dir = QCoreApplication::applicationDirPath();
+    QString registry_cleaner_path = pathJoin(application_dir, kRegistryAPPName);
+    registry_cleaner_path = QString("\"%1\"").arg(registry_cleaner_path);
+    int res = system(toCStr(registry_cleaner_path));
+    if(res !=0)
+        qWarning("invoke registry clean program faild");
+#endif
 }
 
 void SeafileTrayIcon::openLogDirectory()

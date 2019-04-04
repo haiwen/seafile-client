@@ -2207,10 +2207,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>RepoName</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Beschrijving:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
@@ -2678,6 +2674,10 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -2221,10 +2221,6 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>NombreRepositorio</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Descripción:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Etiqueta</translation>
     </message>
@@ -2693,6 +2689,10 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
     <message>
         <source>Please login first</source>
         <translation>Por favor, primero ingrese</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

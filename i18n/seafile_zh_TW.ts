@@ -2211,10 +2211,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>資料庫名稱</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>描述詞：</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>文本標簽：</translation>
     </message>
@@ -2683,6 +2679,10 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -2209,10 +2209,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Nome do Repositório</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Descrição</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Etiqueta</translation>
     </message>
@@ -2681,6 +2677,10 @@ Abrir % 1 ajuda on-line</translation>
     </message>
     <message>
         <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
         <translation type="unfinished"/>
     </message>
 </context>

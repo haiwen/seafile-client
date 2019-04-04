@@ -2220,10 +2220,6 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
         <translation>Bibliotheksname</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Beschreibung:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
@@ -2692,6 +2688,10 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <source>Please login first</source>
         <translation>Bitte melden Sie sich zuerst an</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

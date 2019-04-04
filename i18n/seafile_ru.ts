@@ -2221,10 +2221,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Имя репозитория</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Описание:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Метка</translation>
     </message>
@@ -2691,6 +2687,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Please login first</source>
         <translation>Пожалуйста, сначала войдите</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

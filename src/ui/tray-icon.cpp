@@ -55,7 +55,7 @@ const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 const int kMessageDisplayTimeMSecs = 5000;
 #if defined(Q_OS_WIN32)
-const QString kRegistryAPPName = "registrycleaner.exe";
+const QString kRegistryAPPName = "shellext-fix.exe";
 #endif
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {

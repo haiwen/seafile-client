@@ -1,2 +1,0 @@
-#include <winresrc.h>
-1                       RT_MANIFEST             "Application.manifest"

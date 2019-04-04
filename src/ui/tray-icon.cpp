@@ -181,7 +181,7 @@ void SeafileTrayIcon::createActions()
     connect(open_seafile_folder_action_, SIGNAL(triggered()), this, SLOT(openSeafileFolder()));
 
 #if defined(Q_OS_WIN32)
-    clean_registry_item_ = new QAction(tr("Refresh windows extension"), this);
+    clean_registry_item_ = new QAction(tr("Repair explorer extension"), this);
     connect(clean_registry_item_, SIGNAL(triggered()), this, SLOT(cleanRegistryItem()));
 #endif
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
@@ -214,11 +214,13 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_ = new QMenu(NULL);
     context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(open_seafile_folder_action_);
+    context_menu_->addAction(settings_action_);
+    context_menu_->addSeparator();
+    context_menu_->addAction(open_log_directory_action_);
  #if defined(Q_OS_WIN32)
     context_menu_->addAction(clean_registry_item_);
  #endif
-    context_menu_->addAction(settings_action_);
-    context_menu_->addAction(open_log_directory_action_);
+    context_menu_->addSeparator();
     //context_menu_->addAction(upload_log_directory_action_);
     context_menu_->addAction(show_sync_errors_action_);
     // context_menu_->addMenu(help_menu_);

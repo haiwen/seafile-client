@@ -48,6 +48,9 @@ extern void qt_mac_set_dock_menu(QMenu *menu);
 #endif
 
 #include "src/ui/about-dialog.h"
+#if defined(Q_OS_WIN32)
+#include "utils/utils-win.h"
+#endif
 
 namespace {
 
@@ -56,6 +59,7 @@ const int kRotateTrayIconIntervalMilli = 250;
 const int kMessageDisplayTimeMSecs = 5000;
 #if defined(Q_OS_WIN32)
 const QString kRegistryAPPName = "shellext-fix.exe";
+const QString kShellFixLogName = "shellext-fix.log";
 #endif
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {
@@ -550,9 +554,23 @@ void SeafileTrayIcon::cleanRegistryItem()
     QString application_dir = QCoreApplication::applicationDirPath();
     QString registry_cleaner_path = pathJoin(application_dir, kRegistryAPPName);
     registry_cleaner_path = QString("\"%1\"").arg(registry_cleaner_path);
-    int res = system(toCStr(registry_cleaner_path));
-    if(res !=0)
+
+    QString log_dir = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
+    QString log_path = pathJoin(log_dir, kShellFixLogName);
+
+    qWarning("will exec clean registry command is: %s, the log path is: %s",
+        toCStr(registry_cleaner_path),
+        toCStr(log_path));
+
+    DWORD res = utils::win::runShellUseAdministrator(toCStr(registry_cleaner_path), toCStr(log_path), SW_HIDE);
+    if (res == 0) {
+        seafApplet->warningBox(tr("Repair explorer success"));
+
+    } else {
+        seafApplet->warningBox(tr("Repair explorer failed"));
         qWarning("invoke registry clean program faild");
+    }
+
 #endif
 }
 

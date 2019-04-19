@@ -58,7 +58,7 @@ const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 const int kMessageDisplayTimeMSecs = 5000;
 #if defined(Q_OS_WIN32)
-const QString kRegistryAPPName = "shellext-fix.exe";
+const QString kShellExtFixExecutableName = "shellext-fix.exe";
 const QString kShellFixLogName = "shellext-fix.log";
 #endif
 #ifdef Q_OS_MAC
@@ -552,7 +552,7 @@ void SeafileTrayIcon::cleanRegistryItem()
 {
 #if defined(Q_OS_WIN32)
     QString application_dir = QCoreApplication::applicationDirPath();
-    QString registry_cleaner_path = pathJoin(application_dir, kRegistryAPPName);
+    QString registry_cleaner_path = pathJoin(application_dir, kShellExtFixExecutableName);
     registry_cleaner_path = QString("\"%1\"").arg(registry_cleaner_path);
 
     QString log_dir = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
@@ -564,10 +564,10 @@ void SeafileTrayIcon::cleanRegistryItem()
 
     DWORD res = utils::win::runShellUseAdministrator(toCStr(registry_cleaner_path), toCStr(log_path), SW_HIDE);
     if (res == 0) {
-        seafApplet->warningBox(tr("Repair explorer success"));
+        seafApplet->warningBox(tr("Successfully fixed sync status icons for Explorer"));
 
     } else {
-        seafApplet->warningBox(tr("Repair explorer failed"));
+        seafApplet->warningBox(tr("Faild fixed sync status icons for Explorer"));
         qWarning("invoke registry clean program faild");
     }
 

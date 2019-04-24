@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <QtGlobal>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
@@ -12,6 +14,7 @@
 #include <QMenuBar>
 #include <QRunnable>
 #include <QSysInfo>
+#include <QCoreApplication>
 
 #include "rpc/local-repo.h"
 #include "utils/utils.h"
@@ -45,13 +48,19 @@ extern void qt_mac_set_dock_menu(QMenu *menu);
 #endif
 
 #include "src/ui/about-dialog.h"
+#if defined(Q_OS_WIN32)
+#include "utils/utils-win.h"
+#endif
 
 namespace {
 
 const int kRefreshInterval = 1000;
 const int kRotateTrayIconIntervalMilli = 250;
 const int kMessageDisplayTimeMSecs = 5000;
-
+#if defined(Q_OS_WIN32)
+const QString kShellExtFixExecutableName = "shellext-fix.exe";
+const QString kShellFixLogName = "shellext-fix.log";
+#endif
 #ifdef Q_OS_MAC
 void darkmodeWatcher(bool /*new Value*/) {
     seafApplet->trayIcon()->reloadTrayIcon();
@@ -175,6 +184,10 @@ void SeafileTrayIcon::createActions()
     open_seafile_folder_action_->setStatusTip(tr("open %1 folder").arg(getBrand()));
     connect(open_seafile_folder_action_, SIGNAL(triggered()), this, SLOT(openSeafileFolder()));
 
+#if defined(Q_OS_WIN32)
+    shellext_fix_action_ = new QAction(tr("Repair explorer extension"), this);
+    connect(shellext_fix_action_, SIGNAL(triggered()), this, SLOT(shellExtFix()));
+#endif
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
     open_log_directory_action_->setStatusTip(tr("open %1 log folder").arg(getBrand()));
     connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
@@ -206,7 +219,12 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(show_main_window_action_);
     context_menu_->addAction(open_seafile_folder_action_);
     context_menu_->addAction(settings_action_);
+    context_menu_->addSeparator();
     context_menu_->addAction(open_log_directory_action_);
+ #if defined(Q_OS_WIN32)
+    context_menu_->addAction(shellext_fix_action_);
+ #endif
+    context_menu_->addSeparator();
     //context_menu_->addAction(upload_log_directory_action_);
     context_menu_->addAction(show_sync_errors_action_);
     // context_menu_->addMenu(help_menu_);
@@ -528,6 +546,32 @@ void SeafileTrayIcon::openHelp()
 void SeafileTrayIcon::openSeafileFolder()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(seafApplet->configurator()->seafileDir()).path()));
+}
+
+void SeafileTrayIcon::shellExtFix()
+{
+#if defined(Q_OS_WIN32)
+    QString application_dir = QCoreApplication::applicationDirPath();
+    QString shellext_fix_path = pathJoin(application_dir, kShellExtFixExecutableName);
+    shellext_fix_path = QString("\"%1\"").arg(shellext_fix_path);
+
+    QString log_dir = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
+    QString log_path = pathJoin(log_dir, kShellFixLogName);
+
+    qWarning("will exec shellext fix command is: %s, the log path is: %s",
+        toCStr(shellext_fix_path),
+        toCStr(log_path));
+
+    DWORD res = utils::win::runShellAsAdministrator(toCStr(shellext_fix_path), toCStr(log_path), SW_HIDE);
+    if (res == 0) {
+        seafApplet->warningBox(tr("Successfully fixed sync status icons for Explorer"));
+
+    } else {
+        seafApplet->warningBox(tr("Faild to fix sync status icons for Explorer"));
+        qWarning("faild to fix sync status icons for explorer");
+    }
+
+#endif
 }
 
 void SeafileTrayIcon::openLogDirectory()

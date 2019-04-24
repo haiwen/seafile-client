@@ -3,6 +3,10 @@
 #include <QtGlobal>
 
 #ifdef Q_OS_WIN32
+#include <windows.h>
+#endif
+
+#ifdef Q_OS_WIN32
 namespace utils {
 namespace win {
 // a list for windows versions https://msdn.microsoft.com/en-us/library/windows/desktop/ms724833%28v=vs.85%29.aspx
@@ -31,6 +35,7 @@ bool isWindows8Point1OrGreater();
 bool isWindows10OrHigher();
 bool fixQtHDPINonIntegerScaling();
 std::string getLocalPipeName(const char *pipeName);
+DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show);
 } // namespace win
 } // namespace utils
 #endif

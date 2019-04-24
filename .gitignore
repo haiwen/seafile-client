@@ -102,3 +102,6 @@ seafile-applet.rc
 
 *seafile-applet
 *.lib
+
+## vscode
+.vscode/

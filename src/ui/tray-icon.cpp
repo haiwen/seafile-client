@@ -185,8 +185,8 @@ void SeafileTrayIcon::createActions()
     connect(open_seafile_folder_action_, SIGNAL(triggered()), this, SLOT(openSeafileFolder()));
 
 #if defined(Q_OS_WIN32)
-    clean_registry_item_ = new QAction(tr("Repair explorer extension"), this);
-    connect(clean_registry_item_, SIGNAL(triggered()), this, SLOT(cleanRegistryItem()));
+    shellext_fix_action_ = new QAction(tr("Repair explorer extension"), this);
+    connect(shellext_fix_action_, SIGNAL(triggered()), this, SLOT(shellExtFix()));
 #endif
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
     open_log_directory_action_->setStatusTip(tr("open %1 log folder").arg(getBrand()));
@@ -222,7 +222,7 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addSeparator();
     context_menu_->addAction(open_log_directory_action_);
  #if defined(Q_OS_WIN32)
-    context_menu_->addAction(clean_registry_item_);
+    context_menu_->addAction(shellext_fix_action_);
  #endif
     context_menu_->addSeparator();
     //context_menu_->addAction(upload_log_directory_action_);
@@ -548,27 +548,27 @@ void SeafileTrayIcon::openSeafileFolder()
     QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(seafApplet->configurator()->seafileDir()).path()));
 }
 
-void SeafileTrayIcon::cleanRegistryItem()
+void SeafileTrayIcon::shellExtFix()
 {
 #if defined(Q_OS_WIN32)
     QString application_dir = QCoreApplication::applicationDirPath();
-    QString registry_cleaner_path = pathJoin(application_dir, kShellExtFixExecutableName);
-    registry_cleaner_path = QString("\"%1\"").arg(registry_cleaner_path);
+    QString shellext_fix_path = pathJoin(application_dir, kShellExtFixExecutableName);
+    shellext_fix_path = QString("\"%1\"").arg(shellext_fix_path);
 
     QString log_dir = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
     QString log_path = pathJoin(log_dir, kShellFixLogName);
 
-    qWarning("will exec clean registry command is: %s, the log path is: %s",
-        toCStr(registry_cleaner_path),
+    qWarning("will exec shellext fix command is: %s, the log path is: %s",
+        toCStr(shellext_fix_path),
         toCStr(log_path));
 
-    DWORD res = utils::win::runShellUseAdministrator(toCStr(registry_cleaner_path), toCStr(log_path), SW_HIDE);
+    DWORD res = utils::win::runShellAsAdministrator(toCStr(shellext_fix_path), toCStr(log_path), SW_HIDE);
     if (res == 0) {
         seafApplet->warningBox(tr("Successfully fixed sync status icons for Explorer"));
 
     } else {
-        seafApplet->warningBox(tr("Faild fixed sync status icons for Explorer"));
-        qWarning("invoke registry clean program faild");
+        seafApplet->warningBox(tr("Faild to fix sync status icons for Explorer"));
+        qWarning("faild to fix sync status icons for explorer");
     }
 
 #endif

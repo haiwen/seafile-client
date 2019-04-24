@@ -103,5 +103,5 @@ seafile-applet.rc
 *seafile-applet
 *.lib
 
-## registry clean
+## vscode
 .vscode/

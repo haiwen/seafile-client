@@ -308,14 +308,14 @@ std::string getLocalPipeName(const char *pipe_name)
 
 // Qt's QProcess function cannot invoke programs that require administrator privileges,
 // so we need windows api funtion to invoke the program that require adminstrator privileges.
-DWORD runShellUseAdministrator(LPCSTR processor_name, LPCSTR arg, int n_show)
+DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show)
 {
     SHELLEXECUTEINFO shell_exec_info = {0};
     shell_exec_info.cbSize = sizeof(SHELLEXECUTEINFO);
     shell_exec_info.fMask = SEE_MASK_NOCLOSEPROCESS;
     shell_exec_info.hwnd = NULL;
     shell_exec_info.lpVerb = "runas";
-    shell_exec_info.lpFile = processor_name;
+    shell_exec_info.lpFile = cmd;
     shell_exec_info.lpParameters = arg;
     shell_exec_info.lpDirectory = NULL;
     shell_exec_info.nShow = n_show;

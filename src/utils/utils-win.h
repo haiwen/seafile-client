@@ -35,7 +35,7 @@ bool isWindows8Point1OrGreater();
 bool isWindows10OrHigher();
 bool fixQtHDPINonIntegerScaling();
 std::string getLocalPipeName(const char *pipeName);
-DWORD runShellUseAdministrator(LPCSTR processor_name, LPCSTR arg, int n_show);
+DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show);
 } // namespace win
 } // namespace utils
 #endif

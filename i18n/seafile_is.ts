@@ -2210,10 +2210,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>SafnaNafn</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Lýsing:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>TextaMerki</translation>
     </message>
@@ -2681,6 +2677,18 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Please login first</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
         <translation type="unfinished"/>
     </message>
 </context>

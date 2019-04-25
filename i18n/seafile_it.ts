@@ -2212,10 +2212,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>RepoName</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Descrizione:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Etichetta di Testo</translation>
     </message>
@@ -2684,6 +2680,18 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Please login first</source>
         <translation>Per favore prima effettua l&apos;accesso</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -1321,7 +1321,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation>单点登录</translation>
+        <translation>单点登录或微信登录</translation>
     </message>
     <message>
         <source>Re-login</source>
@@ -2213,10 +2213,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>资料库名字</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>描述：</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>文本</translation>
     </message>
@@ -2683,6 +2679,18 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Please login first</source>
         <translation>请先登录</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation>修复文件管理器扩展</translation>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation>修复文件管理器扩展成功</translation>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
+        <translation>修复文件管理器扩展失败</translation>
     </message>
 </context>
 <context>

@@ -2209,10 +2209,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Bibliotheeknaam</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Beschrijving:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Tekstlabel</translation>
     </message>
@@ -2681,6 +2677,18 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Please login first</source>
         <translation>Eerst inloggen A.U.B.</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

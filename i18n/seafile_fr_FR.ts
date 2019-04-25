@@ -2161,19 +2161,19 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Permission denied on server. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation>Permission au serveur refusée. Veuillez essayer de resynchroniser la bibliothèque</translation>
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation>Données internes corrompues sur le client. Veuillez essayer de resynchroniser la bibliothèque</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
-        <translation type="unfinished"/>
+        <translation>Vous n&apos;avez pas les droits pour écrire dans cette bibliothèque</translation>
     </message>
     <message>
         <source>Do not have permission to sync the library</source>
-        <translation type="unfinished"/>
+        <translation>Vous n&apos;avez pas les droits pour synchroniser une bibliothèque</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
@@ -2216,10 +2216,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>RepoName</source>
         <translation>NomDépôt</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation>Description :</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -2690,6 +2686,18 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Please login first</source>
         <translation>Veuillez vous connecter d&apos;abord</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation>Réparer l&apos;extension de l&apos;explorateur</translation>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

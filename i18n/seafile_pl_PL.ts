@@ -2221,10 +2221,6 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
         <translation>Nazwa repozytorium</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Opis:</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Etykieta tekstowa</translation>
     </message>
@@ -2693,6 +2689,18 @@ Wolna przestrzeń właściciela biblioteka została wykorzystana.</translation>
     <message>
         <source>Please login first</source>
         <translation>Proszę najpierw się zalogować</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

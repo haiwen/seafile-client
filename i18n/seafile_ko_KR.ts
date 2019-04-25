@@ -38,11 +38,11 @@
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>로컬 저장소 동기화 토큰 제거에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>서버에서 저장소 동기화 정보 가져오기에 실패했습니다: %1</translation>
     </message>
 </context>
 <context>
@@ -194,23 +194,23 @@ failed to upload.</source>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>권한 오류!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>인증 유효 시간이 지났습니다.</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>파일이 없습니다</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation type="unfinished"/>
+        <translation>%1이(가) 파일을 잠궜습니다. 나중에 다시 시도하세요</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>업로드 실패: %1</translation>
     </message>
 </context>
 <context>
@@ -517,7 +517,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>예상치 못하게 %1(에)서 빠져나왔습니다</translation>
     </message>
 </context>
 <context>
@@ -825,39 +825,39 @@ failed to upload.</source>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>이 폴더에 업로드할 권한이 없습니다</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>인증 유효 시간이 지났습니다.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>권한 오류!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리/폴더가 없습니다.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 파일 업로드에 실패했습니다: %2</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation type="unfinished"/>
+        <translation>캐시 폴더를 만들 수 없습니다</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation type="unfinished"/>
+        <translation>캐시 폴더를 열 수 없습니다</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>파일 검색</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>링크 가져오기에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -892,53 +892,53 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 파일 업로드에 실패했습니다. 다시 시도해볼까요?</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>다시 시도</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>건너뛰기</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>중단</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>저장 중</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>파일 저장에 실패했습니다</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>크기</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>마지막 수정</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>폴더에 표시(&amp;S)</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>폴더에 표시</translation>
     </message>
 </context>
 <context>
@@ -987,7 +987,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>수정자</translation>
     </message>
 </context>
 <context>
@@ -1072,26 +1072,26 @@ failed to upload.</source>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>업로드 다시 시도</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>로컬 버전 삭제</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>로컬 버전을 다른 이름으로 저장...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
-        <translation type="unfinished"/>
+        <translation>로컬 캐시 폴더 열기</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>링크 가져오기에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -1153,7 +1153,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Please choose a folder. We will create a %1 subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation>폴더를 선택하십시오 %1 하위 폴더를 만들겠습니다. 라이브러리를 다운로드하면 기본으로 해당 위치에 저장합니다.</translation>
+        <translation>폴더를 선택하세요. %1 하위 폴더를 만들겠습니다. 라이브러리를 다운로드하면 기본으로 해당 위치에 저장합니다.</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1280,46 +1280,46 @@ Do you like to download your default library?</source>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>실패 로그 파일 업로드</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>로그 파일 업로드</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>권한 오류!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리/폴더가 없습니다.</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>인증 유효 시간이 지났습니다.</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>로그 파일 업로드 실패: %1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>로그 파일 업로드에 성공했습니다</translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>압축 중</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>취소</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%2 중 %1</translation>
     </message>
 </context>
 <context>
@@ -1456,7 +1456,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>자동 로그인</translation>
     </message>
 </context>
 <context>
@@ -1486,63 +1486,72 @@ Do you like to download your default library?</source>
     <message>
         <source>&quot;%1&quot; is unsynced. 
 Reason: Deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 동기화를 취소했습니다.
+이유: 서버에서 삭제함</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot;을(를) 동기화했습니다.</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot;에 파일을 업로드했습니다</translation>
     </message>
     <message>
         <source>File %1 conflict</source>
-        <translation type="unfinished"/>
+        <translation>%1 파일 중복</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>%1 파일 동기화에 실패했습니다
+다른 프로그램에서 파일을 잠궜습니다. 프로그램을 닫으면 이 파일을 업데이트합니다.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>%1 폴더 동기화에 실패했습니다
+폴더의 일부 파일을 다른 프로그램에서 잠궜습니다. 프로그램을 닫으면 이 폴더를 업데이트합니다.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>%1 파일 동기화에 실패했습니다
+다른 사용자가 파일을 잠궜습니다. 이 파일의 최신 버전을 업로드하지 않았습니다.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>%1 파일 인덱싱에 실패했습니다.
+파일 권한과 디스크 공간을 확인하세요.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>%1 동기화에 실패했습니다
+파일 경로끝에 공백 문자 또는 구두점이 있으며, 윈도우에서 만들 수 없습니다.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>%1 동기화에 실패했습니다
+파일 경로에 부적절한 문자가 있습니다. 이 컴퓨터에 동기화하지 않습니다.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>폴더 권한 설정에 따라 %1 파일 업데이트를 거부합니다.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync. 
 Access denied to service</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 동기화에 실패했습니다.
+서비스에 접근할 수 없습니다</translation>
     </message>
     <message>
         <source>&quot;%1&quot; failed to sync.
 The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 동기화에 실패했습니다.
+라이브러리 사용자 저장 공간이 다 찼습니다.</translation>
     </message>
 </context>
 <context>
@@ -1557,7 +1566,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Enter user name or email address</source>
-        <translation>사용자 이름 또는 전자메일 주소를 입력하십시오</translation>
+        <translation>사용자 이름 또는 전자메일 주소를 입력하세요</translation>
     </message>
     <message>
         <source>Updated successfully</source>
@@ -2136,43 +2145,43 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
+        <translation>&apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos; 같은 잘못된 문자가 라이브러리 이름에 있습니다</translation>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
-        <translation type="unfinished"/>
+        <translation>폴더 권한 설정에 따라 파일 업데이트를 거부합니다</translation>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>%1 클라이언트를 이미 실행 중입니다</translation>
     </message>
     <message>
         <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
+        <translation>업로드 오류 발생</translation>
     </message>
     <message>
         <source>Error occurred in download</source>
-        <translation type="unfinished"/>
+        <translation>다운로드 오류 발생</translation>
     </message>
     <message>
         <source>Permission denied on server. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation>서버에서 권한을 거부했습니다. 라이브러리를 다시 동기화해보세요</translation>
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation>클라이언트 내부 데이터가 깨졌습니다. 라이브러리를 다시 동기화해보세요</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리 기록 권한이 없습니다</translation>
     </message>
     <message>
         <source>Do not have permission to sync the library</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리 동기화 권한이 없습니다</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
-        <translation type="unfinished"/>
+        <translation>이 폴더를 동기화할 권한이 없습니다</translation>
     </message>
 </context>
 <context>
@@ -2211,10 +2220,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>RepoName</source>
         <translation>저장소 이름</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation>설명:</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -2551,19 +2556,19 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>클라이언트 ID 저장 실패</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 접근 실패</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>올바르지 않은 클라이언트 ID</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 읽기 실패</translation>
     </message>
 </context>
 <context>
@@ -2582,7 +2587,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Internal Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 내부 링크:</translation>
     </message>
 </context>
 <context>
@@ -2593,7 +2598,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>내부 오류: 데몬 연결 실패</translation>
     </message>
 </context>
 <context>
@@ -2676,14 +2681,26 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>로그 파일 업로드</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>로그 파일 %1개 업로드</translation>
     </message>
     <message>
         <source>Please login first</source>
+        <translation>먼저 로그인 해주세요</translation>
+    </message>
+    <message>
+        <source>Repair explorer extension</source>
+        <translation>탐색기 확장 기능 복원</translation>
+    </message>
+    <message>
+        <source>Successfully fixed sync status icons for Explorer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Faild to fix sync status icons for Explorer</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2872,7 +2889,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Enable Explorer Extension</source>
-        <translation>Explorer 확장 기능 활성화</translation>
+        <translation>탐색기 확장 기능 활성화</translation>
     </message>
     <message>
         <source>Check for updates automatically</source>
@@ -3119,35 +3136,35 @@ The library owner&apos;s storage space is used up.</source>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>이중 인증 토큰을 입력하세요</translation>
     </message>
     <message>
         <source>Two Factor Authentication</source>
-        <translation type="unfinished"/>
+        <translation>이중 인증</translation>
     </message>
     <message>
         <source>Please enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>이중 인증 토큰을 입력해주세요</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>대화상자</translation>
     </message>
     <message>
         <source>mText</source>
-        <translation type="unfinished"/>
+        <translation>mText</translation>
     </message>
     <message>
         <source>Remember this device</source>
-        <translation type="unfinished"/>
+        <translation>이 장치 기억</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>취소</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>확인</translation>
     </message>
 </context>
 <context>

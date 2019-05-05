@@ -8,6 +8,7 @@
 
 class ApiError;
 class GetEventsRequest;
+class GetFileActivitiesRequest;
 
 class EventsService : public QObject
 {
@@ -50,11 +51,15 @@ private:
 
     GetEventsRequest *get_events_req_;
 
+    GetFileActivitiesRequest *get_file_activities_req_;
+
     std::vector<SeafEvent> events_;
 
     bool in_refresh_;
 
     int more_offset_;
+
+    bool is_support_new_file_activities_api_;
 };
 
 

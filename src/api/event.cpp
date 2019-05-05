@@ -5,7 +5,10 @@
 #include "utils/translate-commit-desc.h"
 
 
+#include "seafile-applet.h"
+#include "account-mgr.h"
 #include "event.h"
+#include "utils/utils.h"
 
 namespace {
 
@@ -23,8 +26,19 @@ const char *kEventTypeRepoDelete = "repo-delete";
 SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
 {
     SeafEvent event;
+    const Account account = seafApplet->accountManager()->currentAccount();
+    // if server version is least version 7.0.0 enable new api
+    bool is_support_new_file_activities_api = false;
+    if (account.isValid()) {
+        is_support_new_file_activities_api = account.isAtLeastVersion(6, 3, 1);
+    }
 
-    event.author = getStringFromJson(json, "author");
+    if (!is_support_new_file_activities_api) {
+        event.author = getStringFromJson(json, "author");
+    } else {
+        event.author = getStringFromJson(json, "author_email");
+    }
+
     if (event.author.isEmpty()) {
         event.author = "anonymous";
         event.anonymous = true;
@@ -32,7 +46,12 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
         event.anonymous = false;
     }
 
-    event.nick = getStringFromJson(json, "nick");
+    if (!is_support_new_file_activities_api) {
+        event.nick = getStringFromJson(json, "nick");
+    } else {
+        event.nick = getStringFromJson(json, "author_name");
+    }
+
     if (event.nick.isEmpty()) {
         event.nick = "anonymous";
     }
@@ -41,18 +60,49 @@ SeafEvent SeafEvent::fromJSON(const json_t *json, json_error_t */* error */)
     event.repo_name = getStringFromJson(json, "repo_name");
 
     event.commit_id = getStringFromJson(json, "commit_id");
-    event.etype = getStringFromJson(json, "etype");
-    event.desc = getStringFromJson(json, "desc");
 
-    event.timestamp = json_integer_value(json_object_get(json, "time"));
-
-    if (event.etype == kEventTypeRepoCreate) {
-        event.desc = QObject::tr("Created library \"%1\"").arg(event.repo_name);
-    } else if (event.etype == kEventTypeRepoDelete) {
-        event.desc = QObject::tr("Deleted library \"%1\"").arg(event.repo_name);
+    if (!is_support_new_file_activities_api) {
+        event.etype = getStringFromJson(json, "etype");
+    } else {
+        event.etype = getStringFromJson(json, "op_type");
     }
 
-    event.desc = translateCommitDesc(event.desc);
+    if (!is_support_new_file_activities_api) {
+        event.desc = getStringFromJson(json, "desc");
+    } else {
+        event.desc = QString("");
+    }
+
+    if (!is_support_new_file_activities_api) {
+        event.timestamp = json_integer_value(json_object_get(json, "time"));
+    } else {
+        QString time = getStringFromJson(json, "time");
+        QString str_date = time.mid(0, 10).replace("-", "");
+        QString str_time = time.mid(11, 8).replace(":", "");
+        QString str_date_time = str_date + str_time;
+
+        event.timestamp = transferToTimestamp(str_date_time);
+
+    }
+
+    if (!is_support_new_file_activities_api) {
+        if (event.etype == kEventTypeRepoCreate) {
+            event.desc = QObject::tr("Created library \"%1\"").arg(event.repo_name);
+        } else if (event.etype == kEventTypeRepoDelete) {
+            event.desc = QObject::tr("Deleted library \"%1\"").arg(event.repo_name);
+        }
+        event.desc = translateCommitDesc(event.desc);
+    } else {
+        QString path = getStringFromJson(json, "path");
+        QString file_name = getStringFromJson(json, "name");
+        QString repo_name = event.repo_name;
+        QString obj_type = getStringFromJson(json, "obj_type");
+        QString op_type = event.etype;
+
+        event.desc = translateComitActivitiesDesc(path, file_name, repo_name, obj_type, op_type);
+
+    }
+
 
     // For testing long lines of event description.
     // event.desc += event.desc + event.desc;

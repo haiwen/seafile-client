@@ -49,6 +49,7 @@ const char* kSearchUsersUrl = "api2/search-user/";
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
 const char* kCreateFileUploadLink = "api/v2.1/upload-links/";
 
+const char* kGetFileActivitiesUrl = "api/v2.1/activities/";
 } // namespace
 
 
@@ -454,6 +455,38 @@ void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
     std::vector<StarredFile> files =
         StarredFile::listFromJSON(json.data(), &error);
     emit success(files);
+}
+
+// Seafile get file activities api v2.1
+// page default value is 1
+// perpage defult value is 25
+// avatar size defult value is 72, old api is 36
+GetFileActivitiesRequest::GetFileActivitiesRequest(const Account& account, int page, int perpage, int avatar_size)
+    : SeafileApiRequest(account.getAbsoluteUrl(kGetFileActivitiesUrl),
+                        SeafileApiRequest::METHOD_GET,
+                        account.token)
+{
+    page_ = page;
+    setUrlParam("page", QString::number(page));
+    setUrlParam("acatar_size", QString::number(avatar_size));
+}
+
+void GetFileActivitiesRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetFileActivitiesRequest: failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    json_t* array = json_object_get(json.data(), "events");
+    std::vector<SeafEvent> events = SeafEvent::listFromJSON(array, &error);
+
+    emit success(events, page_);
 }
 
 GetEventsRequest::GetEventsRequest(const Account& account, int start)

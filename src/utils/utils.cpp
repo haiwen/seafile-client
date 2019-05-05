@@ -13,6 +13,9 @@
 #include <QProcess>
 #include <QDesktopServices>
 #include <QHostInfo>
+#include <QDate>
+#include <QTime>
+#include <QDateTime>
 #include <jansson.h>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
@@ -35,6 +38,7 @@
 #include <QCryptographicHash>
 #include <QSslCipher>
 #include <QSslCertificate>
+#include <QRegExp>
 
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
@@ -861,4 +865,30 @@ bool shouldUseFramelessWindow()
     }
 
     return _shouldUseFramelessWindow > 0;
+}
+
+// the string format must be yyyyMMddhhmmss
+int transferToTimestamp(QString date_time)
+{
+    if (date_time.isEmpty()) {
+        return 1;
+    }
+    if (date_time.length() != 14) {
+        return 1;
+    }
+
+    QString pattern ("[0-9]{14}");
+    QRegExp rx(pattern);
+    if (rx.indexIn(date_time) == -1) {
+        return 1;
+    }
+    QString str_date = date_time.mid(0,8);
+    QString str_time = date_time.mid(9);
+    QDate date = QDate::fromString(str_date, "yyyyMMdd");
+    QTime time = QTime::fromString(str_time, "hhmmss");
+
+    QDateTime datetime = QDateTime(date, time, Qt::UTC);
+    // qWarning("datetime.toTime_t is %d", datetime.toTime_t());
+    // qWarning("qstring date_time.toTime_t is %s", date_time.toUtf8().data());
+    return datetime.toTime_t();
 }

@@ -111,3 +111,77 @@ translateCommitDesc(const QString& input)
 
     return out.join("\n");
 }
+
+QString
+translateComitActivitiesDesc(QString path, QString file_name, QString repo_name, QString obj_type, QString op_type)
+{
+    QString desc_detail = QString("op_type obj_name");
+    if (obj_type == "repo") {
+        if (op_type == "create") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Create libraray"));
+            desc_detail = desc_detail.replace("obj_name", repo_name);
+
+        } else if (op_type == "rename") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Rename libraray"));
+            desc_detail = desc_detail.replace("obj_name", repo_name);
+
+        } else if (op_type == "delete") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Delete libraray"));
+            desc_detail = desc_detail.replace("obj_name", repo_name);
+        } else if (op_type == "recover") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Recover libraray"));
+            desc_detail = desc_detail.replace("obj_name", repo_name);
+
+        } else if (op_type == "clean_up_trash") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Clean up trash"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        }
+    } else if (obj_type == "draft") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Publish draft"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+
+    } else if(obj_type == "file") {
+        if (op_type == "create") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Create file"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        } else if (op_type == "rename") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Rename file"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        } else if (op_type == "delete") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Delete file"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        } else if (op_type == "recover") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Recover delete file"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        } else if (op_type == "move") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Move file"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        } else if (op_type == "edit") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Edit file"));
+            desc_detail = desc_detail.replace("obj_name", file_name);
+        }
+
+    } else if(obj_type == "files") {
+        // TODO:
+
+    } else { //dir
+        if (op_type == "create") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Create dir"));
+            desc_detail = desc_detail.replace("obj_name", path);
+        } else if (op_type == "rename") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Rename dir"));
+            desc_detail = desc_detail.replace("obj_name", path);
+        } else if (op_type == "delete") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Delete dir"));
+            desc_detail = desc_detail.replace("obj_name", path);
+        } else if (op_type == "recover") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Recover delete dir"));
+            desc_detail = desc_detail.replace("obj_name", path);
+        } else if (op_type == "move") {
+            desc_detail = desc_detail.replace("op_type", QObject::tr("Move dir"));
+            desc_detail = desc_detail.replace("obj_name", path);
+        }
+    }
+
+    return desc_detail;
+}

@@ -22,9 +22,20 @@ EventsService* EventsService::instance()
 EventsService::EventsService(QObject *parent)
     : QObject(parent)
 {
-    get_events_req_ = NULL;
+    const Account account = seafApplet->accountManager()->currentAccount();
+    // if server version is least version 7.0.0 enable new api
+    if (account.isValid()){
+        is_support_new_file_activities_api_ = account.isAtLeastVersion(6, 3, 1);
+    }
+    if (!is_support_new_file_activities_api_) {
+        get_events_req_ = NULL;
+        more_offset_ = -1;
+    } else {
+        get_file_activities_req_ = NULL;
+        more_offset_ = 1;
+    }
     in_refresh_ = false;
-    more_offset_ = -1;
+
 }
 
 void EventsService::start()
@@ -56,24 +67,54 @@ void EventsService::sendRequest(bool is_load_more)
 
     in_refresh_ = true;
 
-    if (get_events_req_) {
-        get_events_req_->deleteLater();
+    if (!is_support_new_file_activities_api_) {
+        if (get_events_req_) {
+            get_events_req_->deleteLater();
+        }
+    } else {
+        if (get_file_activities_req_) {
+            get_file_activities_req_->deleteLater();
+        }
     }
 
-    if (!is_load_more) {
-        events_.clear();
-        more_offset_ = -1;
+    if (!is_support_new_file_activities_api_) {
+        if (!is_load_more) {
+            events_.clear();
+            more_offset_ = -1;
+        }
+    } else {
+        if (!is_load_more) {
+            events_.clear();
+            more_offset_ = 1;
+        } else {
+            ++more_offset_;
+        }
+
     }
 
-    get_events_req_ = new GetEventsRequest(account, more_offset_);
+    if (!is_support_new_file_activities_api_) {
+        get_events_req_ = new GetEventsRequest(account, more_offset_);
 
-    connect(get_events_req_, SIGNAL(success(const std::vector<SeafEvent>&, int)),
-            this, SLOT(onRefreshSuccess(const std::vector<SeafEvent>&, int)));
+        connect(get_events_req_, SIGNAL(success(const std::vector<SeafEvent>&, int)),
+                this, SLOT(onRefreshSuccess(const std::vector<SeafEvent>&, int)));
 
-    connect(get_events_req_, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onRefreshFailed(const ApiError&)));
+        connect(get_events_req_, SIGNAL(failed(const ApiError&)),
+                this, SLOT(onRefreshFailed(const ApiError&)));
 
-    get_events_req_->send();
+        get_events_req_->send();
+    } else {
+        get_file_activities_req_ = new GetFileActivitiesRequest(account, more_offset_);
+
+        connect(get_file_activities_req_, SIGNAL(success(const std::vector<SeafEvent>&, int)),
+                this, SLOT(onRefreshSuccess(const std::vector<SeafEvent>&, int)));
+
+        connect(get_file_activities_req_, SIGNAL(failed(const ApiError&)),
+                this, SLOT(onRefreshFailed(const ApiError&)));
+
+        get_file_activities_req_->send();
+
+    }
+
 }
 
 void EventsService::loadMore()
@@ -87,8 +128,21 @@ void EventsService::onRefreshSuccess(const std::vector<SeafEvent>& events, int n
 
     const std::vector<SeafEvent> new_events = handleEventsOffset(events);
 
-    bool is_loading_more = more_offset_ > 0;
-    bool has_more = new_offset > 0;
+    bool is_loading_more = false;
+    bool has_more = false;
+    if (!is_support_new_file_activities_api_) {
+        is_loading_more = more_offset_ > 0;
+        has_more = new_offset > 0;
+    } else {
+        if (events.size() != 25) {
+            is_loading_more = more_offset_ > 1;
+            has_more = false;
+        } else {
+            is_loading_more = more_offset_ > 1;
+            has_more = true;
+        }
+
+    }
     more_offset_ = new_offset;
 
     emit refreshSuccess(new_events, is_loading_more, has_more);

@@ -34,6 +34,7 @@ private slots:
     void onOneFileUploadFailed(const QString& filename, bool single_file);
     void onQueryUpdate();
     void onQuerySuccess(const ServerIndexProgress& result);
+    void onQueryFailed(const ApiError& error);
     ActionOnFailure retryOrSkipOrAbort(const QString& msg, bool single_file);
 
 private:

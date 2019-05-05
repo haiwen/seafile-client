@@ -196,6 +196,8 @@ void FileBrowserProgressDialog::onQueryUpdate()
     progress_request_ = new GetIndexProgressRequest(progress_url_, progerss_id_);
     connect(progress_request_, SIGNAL(success(const ServerIndexProgress&)),
             this, SLOT(onQuerySuccess(const ServerIndexProgress&)));
+    connect(progress_request_, SIGNAL(failed(const ApiError& error)),
+            this, SLOT(onQueryFailed(const ApiError& error)));
 
     progress_request_->send();
 }
@@ -213,6 +215,13 @@ void FileBrowserProgressDialog::onQuerySuccess(const ServerIndexProgress &result
         index_progress_timer_->stop();
         seafApplet->warningBox(tr("File save failed"), this);
         reject();
+    }
+}
+
+void FileBrowserProgressDialog::onQueryFailed(const ApiError& error)
+{
+    if(error.type_ == HTTP_ERROR) {
+        index_progress_timer_->stop();
     }
 }
 

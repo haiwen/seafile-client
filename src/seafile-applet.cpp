@@ -219,9 +219,9 @@ SeafileApplet::~SeafileApplet()
     delete settings_dialog_;
     delete message_poller_;
     delete rpc_client_;
-    delete daemon_mgr_;
-
     delete account_mgr_;
+
+    delete daemon_mgr_;
     delete configurator_;
     delete data_mgr_;
     if (main_win_)

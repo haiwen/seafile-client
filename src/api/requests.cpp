@@ -466,9 +466,8 @@ GetFileActivitiesRequest::GetFileActivitiesRequest(const Account& account, int p
                         SeafileApiRequest::METHOD_GET,
                         account.token)
 {
-    page_ = page;
     setUrlParam("page", QString::number(page));
-    setUrlParam("acatar_size", QString::number(avatar_size));
+    setUrlParam("avatar_size", QString::number(avatar_size));
 }
 
 void GetFileActivitiesRequest::requestSuccess(QNetworkReply& reply)
@@ -484,9 +483,9 @@ void GetFileActivitiesRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
     json_t* array = json_object_get(json.data(), "events");
-    std::vector<SeafEvent> events = SeafEvent::listFromJSON(array, &error);
+    std::vector<SeafEvent> events = SeafEvent::listFromJSON(array, &error, true);
 
-    emit success(events, page_);
+    emit success(events);
 }
 
 GetEventsRequest::GetEventsRequest(const Account& account, int start)

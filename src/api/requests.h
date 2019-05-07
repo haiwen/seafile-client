@@ -262,13 +262,12 @@ public:
     GetFileActivitiesRequest(const Account& account, int page = 1, int perpage = 25, int avatar_size = 36);
 
 signals:
-    void success(const std::vector<SeafEvent>& events, int more_offset);
+    void success(const std::vector<SeafEvent>& events);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    int page_;
     Q_DISABLE_COPY(GetFileActivitiesRequest);
 };
 

@@ -95,6 +95,4 @@ int digitalCompare(const QString &left, const QString &right);
 
 bool shouldUseFramelessWindow();
 
-int transferToTimestamp(QString timestamp);
-
 #endif

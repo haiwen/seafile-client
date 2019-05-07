@@ -33,6 +33,7 @@ public slots:
 
 private slots:
     void onRefreshSuccess(const std::vector<SeafEvent>& events, int more_offset);
+    void onNewFileActivitiesRefreshSuccess(const std::vector<SeafEvent>& events);
     void onRefreshFailed(const ApiError& error);
 
 signals:
@@ -58,8 +59,7 @@ private:
     bool in_refresh_;
 
     int more_offset_;
-
-    bool is_support_new_file_activities_api_;
+    int next_;
 };
 
 

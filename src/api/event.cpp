@@ -90,22 +90,20 @@ SeafEvent SeafEvent::fromJSONV2(const json_t *json, json_error_t */* error */)
 
     QString path = getStringFromJson(json, "path");
     QString file_name = getStringFromJson(json, "name");
-    QString repo_name = event.repo_name;
     QString obj_type = getStringFromJson(json, "obj_type");
-    QString op_type = event.etype;
 
-    event.desc = translateCommitDescV2(path, file_name, repo_name, obj_type, op_type);
+    event.desc = translateCommitDescV2(path, file_name, event.repo_name, obj_type, event.etype);
 
     return event;
 }
 
-std::vector<SeafEvent> SeafEvent::listFromJSON(const json_t *json, json_error_t *error, bool is_use_new_json_parsor)
+std::vector<SeafEvent> SeafEvent::listFromJSON(const json_t *json, json_error_t *error, bool is_use_new_json_parser)
 {
     std::vector<SeafEvent> events;
 
     for (size_t i = 0; i < json_array_size(json); i++) {
         SeafEvent event;
-        if (!is_use_new_json_parsor) {
+        if (!is_use_new_json_parser) {
             event = fromJSON(json_array_get(json, i), error);
         } else {
             event = fromJSONV2(json_array_get(json, i), error);

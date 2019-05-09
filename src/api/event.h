@@ -27,7 +27,7 @@ public:
     
     static SeafEvent fromJSON(const json_t*, json_error_t *error);
     static SeafEvent fromJSONV2(const json_t*, json_error_t *error);
-    static std::vector<SeafEvent> listFromJSON(const json_t*, json_error_t *json, bool is_use_new_json_parsor = false);
+    static std::vector<SeafEvent> listFromJSON(const json_t*, json_error_t *json, bool is_use_new_json_parser = false);
 
     QString toString() const;
 };

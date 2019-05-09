@@ -136,7 +136,7 @@ translateCommitDescV2(const QString& path, const QString& file_name, const QStri
     } else if (obj_type == "draft") {
             operation = QObject::tr("Published draft");
             subject = file_name;
-    } else if(obj_type == "file") {
+    } else if (obj_type == "file") {
         if (op_type == "create") {
             operation = QObject::tr("Created file");
         } else if (op_type == "rename") {
@@ -151,7 +151,7 @@ translateCommitDescV2(const QString& path, const QString& file_name, const QStri
             operation = QObject::tr("Edited file");
         }
         subject = file_name;
-    } else if(obj_type == "files") {
+    } else if (obj_type == "files") {
         // TODO:
 
     } else { //dir
@@ -169,8 +169,7 @@ translateCommitDescV2(const QString& path, const QString& file_name, const QStri
         subject = path;
     }
 
-    if (operation.isEmpty() && subject.isEmpty())
-    {
+    if (operation.isEmpty() && subject.isEmpty()) {
         return QString("");
     } else {
         return QString("%1 %2").arg(operation).arg(subject);

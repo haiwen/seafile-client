@@ -8,6 +8,7 @@ QString
 translateCommitDesc (const QString& input);
 
 QString
-translateComitActivitiesDesc(QString path, QString file_name, QString repo_name, QString obj_type, QString op_type);
+translateCommitDescV2(const QString& path, const QString& file_name, const QString& repo_name,
+                      const QString& obj_type, const QString& op_type);
 
 #endif  // SEAFILE_CELINT_TRANSLATE_COMMIT_DESC_H

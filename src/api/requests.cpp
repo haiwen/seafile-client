@@ -461,7 +461,7 @@ void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
 // page default value is 1
 // perpage defult value is 25
 // avatar size defult value is 72, old api is 36
-GetFileActivitiesRequest::GetFileActivitiesRequest(const Account& account, int page, int perpage, int avatar_size)
+GetEventsRequestV2::GetEventsRequestV2(const Account& account, int page, int perpage, int avatar_size)
     : SeafileApiRequest(account.getAbsoluteUrl(kGetFileActivitiesUrl),
                         SeafileApiRequest::METHOD_GET,
                         account.token)
@@ -470,12 +470,12 @@ GetFileActivitiesRequest::GetFileActivitiesRequest(const Account& account, int p
     setUrlParam("avatar_size", QString::number(avatar_size));
 }
 
-void GetFileActivitiesRequest::requestSuccess(QNetworkReply& reply)
+void GetEventsRequestV2::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
     json_t* root = parseJSON(reply, &error);
     if (!root) {
-        qWarning("GetFileActivitiesRequest: failed to parse json:%s\n", error.text);
+        qWarning("GetEventsRequestV2: failed to parse json:%s\n", error.text);
         emit failed(ApiError::fromJsonError());
         return;
     }

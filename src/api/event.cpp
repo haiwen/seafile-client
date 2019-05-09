@@ -5,8 +5,6 @@
 #include "utils/translate-commit-desc.h"
 
 
-#include "seafile-applet.h"
-#include "account-mgr.h"
 #include "event.h"
 
 #include <QDateTime>
@@ -87,9 +85,8 @@ SeafEvent SeafEvent::fromJSONV2(const json_t *json, json_error_t */* error */)
     event.commit_id = getStringFromJson(json, "commit_id");
     event.etype = getStringFromJson(json, "op_type");
 
-
     QString time = getStringFromJson(json, "time");
-    event.timestamp = QDateTime::fromString(time, Qt::ISODate).toTime_t();
+    event.timestamp = QDateTime::fromString(time, Qt::ISODate).toMSecsSinceEpoch()/1000;
 
     QString path = getStringFromJson(json, "path");
     QString file_name = getStringFromJson(json, "name");
@@ -97,8 +94,7 @@ SeafEvent SeafEvent::fromJSONV2(const json_t *json, json_error_t */* error */)
     QString obj_type = getStringFromJson(json, "obj_type");
     QString op_type = event.etype;
 
-    // event.desc = event.etype + event.obj_type
-    event.desc = translateComitActivitiesDesc(path, file_name, repo_name, obj_type, op_type);
+    event.desc = translateCommitDescV2(path, file_name, repo_name, obj_type, op_type);
 
     return event;
 }

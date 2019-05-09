@@ -5,7 +5,7 @@
 
 namespace {
 
-const int kPerPage = 25;
+const int kEventsPerPageForNewApi = 25;
 } // namespace
 
 EventsService* EventsService::singleton_;
@@ -23,22 +23,10 @@ EventsService* EventsService::instance()
 EventsService::EventsService(QObject *parent)
     : QObject(parent)
 {
-    bool is_support_new_file_activities_api = false;
-    const Account account = seafApplet->accountManager()->currentAccount();
-    // if server version is least version 7.0.0 enable new api
-    if (account.isValid()){
-        is_support_new_file_activities_api = account.isAtLeastVersion(6, 3, 1);
-    }
-
-    if (!is_support_new_file_activities_api) {
-        get_events_req_ = NULL;
-        more_offset_ = -1;
-    } else {
-        get_file_activities_req_ = NULL;
-        next_ = 1;
-    }
+    get_events_req_ = NULL;
+    get_file_activities_req_ = NULL;
+    next_ = -1;
     in_refresh_ = false;
-
 }
 
 void EventsService::start()
@@ -62,43 +50,27 @@ void EventsService::sendRequest(bool is_load_more)
         return;
     }
 
-    bool is_support_new_file_activities_api = false;
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (!account.isValid()) {
         in_refresh_ = false;
         return;
     }
-    is_support_new_file_activities_api = account.isAtLeastVersion(6, 3, 1);
 
+    // server version begin 7.0.0 support new api
+    bool is_support_new_file_activities_api = account.isAtLeastVersion(7, 0, 0);
     in_refresh_ = true;
 
     if (!is_support_new_file_activities_api) {
         if (get_events_req_) {
             get_events_req_->deleteLater();
         }
-    } else {
-        if (get_file_activities_req_) {
-            get_file_activities_req_->deleteLater();
-        }
-    }
 
-    if (!is_support_new_file_activities_api) {
         if (!is_load_more) {
             events_.clear();
-            more_offset_ = -1;
-        }
-    } else {
-        if (!is_load_more) {
-            events_.clear();
-            next_ = 1;
-        } else {
-            ++next_;
+            next_ = -1;
         }
 
-    }
-
-    if (!is_support_new_file_activities_api) {
-        get_events_req_ = new GetEventsRequest(account, more_offset_);
+        get_events_req_ = new GetEventsRequest(account, next_);
 
         connect(get_events_req_, SIGNAL(success(const std::vector<SeafEvent>&, int)),
                 this, SLOT(onRefreshSuccess(const std::vector<SeafEvent>&, int)));
@@ -108,16 +80,26 @@ void EventsService::sendRequest(bool is_load_more)
 
         get_events_req_->send();
     } else {
-        get_file_activities_req_ = new GetFileActivitiesRequest(account, next_);
+        if (get_file_activities_req_) {
+            get_file_activities_req_->deleteLater();
+        }
+
+        if (!is_load_more) {
+            events_.clear();
+            next_ = 1;
+        } else {
+            ++next_;
+        }
+
+        get_file_activities_req_ = new GetEventsRequestV2(account, next_);
 
         connect(get_file_activities_req_, SIGNAL(success(const std::vector<SeafEvent>&)),
-                this, SLOT(onNewFileActivitiesRefreshSuccess(const std::vector<SeafEvent>&)));
+                this, SLOT(onRefreshSuccessV2(const std::vector<SeafEvent>&)));
 
         connect(get_file_activities_req_, SIGNAL(failed(const ApiError&)),
                 this, SLOT(onRefreshFailed(const ApiError&)));
 
         get_file_activities_req_->send();
-
     }
 
 }
@@ -133,33 +115,26 @@ void EventsService::onRefreshSuccess(const std::vector<SeafEvent>& events, int n
 
     const std::vector<SeafEvent> new_events = handleEventsOffset(events);
 
-    bool is_loading_more = more_offset_ > 0;
+    bool is_loading_more = next_ > 0;
     bool has_more = new_offset > 0;
-    more_offset_ = new_offset;
-
+    next_ = new_offset;
     emit refreshSuccess(new_events, is_loading_more, has_more);
 }
 
-void EventsService::onNewFileActivitiesRefreshSuccess(const std::vector<SeafEvent>& events)
+void EventsService::onRefreshSuccessV2(const std::vector<SeafEvent>& events)
 {
     in_refresh_ = false;
 
     const std::vector<SeafEvent> new_events = handleEventsOffset(events);
 
-    bool is_loading_more = false;
     bool has_more = false;
     int event_size = events.size();
 
-    if (event_size < kPerPage) {
-        is_loading_more = next_ > 1;
-        has_more = false;
-    } else if (event_size == kPerPage) {
-        is_loading_more = next_ > 1;
+    if (event_size == kEventsPerPageForNewApi) {
         has_more = true;
-    } else {
-        qWarning("incorrect event numbers: %d received from server", event_size);
     }
 
+    bool is_loading_more = is_loading_more = next_ > 1;
     emit refreshSuccess(new_events, is_loading_more, has_more);
 }
 

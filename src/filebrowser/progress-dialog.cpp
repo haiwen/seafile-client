@@ -221,7 +221,7 @@ void FileBrowserProgressDialog::onQuerySuccess(const ServerIndexProgress &result
 void FileBrowserProgressDialog::onQueryFailed(const ApiError& error)
 {
     qWarning("get index progress request error: %s", error.toString().toUtf8().data());
-    // when occour http error stop index_progress_timer.
+    // when http error occur stop index_progress_timer.
     if (error.type() == ApiError::HTTP_ERROR) {
         index_progress_timer_->stop();
         seafApplet->warningBox(tr("Index progress request error %1").arg(error.httpErrorCode()));

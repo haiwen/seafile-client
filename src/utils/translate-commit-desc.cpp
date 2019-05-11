@@ -152,8 +152,8 @@ translateCommitDescV2(const QString& path, const QString& file_name, const QStri
         }
         subject = file_name;
     } else if (obj_type == "files") {
-        // TODO:
-
+        operation = QObject::tr("Operated multiple files in");
+        subject = path;
     } else { //dir
         if (op_type == "create") {
             operation = QObject::tr("Created dir");

@@ -136,7 +136,7 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     size = readableFileSize(file.size);
     mtime = translateCommitTime(file.mtime);
 
-    subtitle = size + "  " + mtime;
+    subtitle = size + "  " + mtime + "  " + file.repo_name + "  " + file.path;
 
     painter->save();
     QPoint file_desc_pos = file_name_rect.bottomLeft() + QPoint(0, 5);

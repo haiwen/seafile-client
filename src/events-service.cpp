@@ -128,11 +128,11 @@ void EventsService::onRefreshSuccessV2(const std::vector<SeafEvent>& events)
     const std::vector<SeafEvent> new_events = handleEventsOffset(events);
 
     bool has_more = events.size() == kEventsPerPageForNewApi;
+    bool is_loading_more = next_ > 1;
     if (!has_more) {
         next_ = -1;
     }
 
-    bool is_loading_more = next_ > 1;
     emit refreshSuccess(new_events, is_loading_more, has_more);
 }
 

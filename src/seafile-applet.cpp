@@ -219,9 +219,11 @@ SeafileApplet::~SeafileApplet()
     delete settings_dialog_;
     delete message_poller_;
     delete rpc_client_;
-    delete daemon_mgr_;
-
     delete account_mgr_;
+    // seafile-applet exit will inform seaf-daemon to clean sync token,
+    // so the class object deamon_mgr daemon_mgr_ dealloc after account_mgr_.
+
+    delete daemon_mgr_;
     delete configurator_;
     delete data_mgr_;
     if (main_win_)

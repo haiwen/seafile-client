@@ -15,11 +15,11 @@ class StarredFilesListModel : public QStandardItemModel {
 public:
     StarredFilesListModel(QObject *parent=0);
 
-    void setFiles(const std::vector<StarredFile>& files);
+    void setFiles(const std::vector<StarredItem>& files);
 
 private:
 
-    std::vector<StarredFile> files_;
+    std::vector<StarredItem> files_;
 };
 
 #endif // SEAFILE_CLIENT_STARRED_FILES_LIST_MODEL_H

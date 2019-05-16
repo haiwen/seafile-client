@@ -50,7 +50,7 @@ public:
     bool isSubfolder() const { return !parent_repo_id.isEmpty() && !parent_path.isEmpty(); }
 
     QIcon getIcon() const;
-    QPixmap getPixmap() const;
+    QPixmap getPixmap(int size = 24) const;
 
     static ServerRepo fromJSON(const json_t*, json_error_t *error);
     static std::vector<ServerRepo> listFromJSON(const json_t*, json_error_t *json);

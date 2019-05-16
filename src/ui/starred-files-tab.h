@@ -7,8 +7,9 @@ class QTimer;
 class QListWidget;
 
 class GetStarredFilesRequest;
+class GetStarredFilesRequestV2;
 class ApiError;
-class StarredFile;
+class StarredItem;
 class StarredFilesListView;
 class StarredFilesListModel;
 
@@ -28,7 +29,8 @@ protected:
     void stopRefresh();
 
 private slots:
-    void refreshStarredFiles(const std::vector<StarredFile>& files);
+    void refreshStarredFiles(const std::vector<StarredItem>& files);
+    void refreshStarredFilesV2(const std::vector<StarredItem>& files);
     void refreshStarredFilesFailed(const ApiError& error);
 
 private:
@@ -50,6 +52,7 @@ private:
     QWidget *empty_view_;
 
     GetStarredFilesRequest *get_starred_files_req_;
+    GetStarredFilesRequestV2 *get_starred_items_req_;
 };
 
 #endif // SEAFILE_CLIENT_UI_STARRED_FILES_TAB_H

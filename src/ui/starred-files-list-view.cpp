@@ -52,18 +52,29 @@ void StarredFilesListView::createActions()
 
 void StarredFilesListView::openLocalFile()
 {
-    StarredFile file = qvariant_cast<StarredFile>(view_file_on_web_action_->data());
+    StarredItem file = qvariant_cast<StarredItem>(view_file_on_web_action_->data());
 
-    openLocalFile(file);
+    if (!file.isFile()) {
+        openLocalDir(file);
+    } else {
+        openLocalFile(file);
+    }
 }
 
 void StarredFilesListView::viewFileOnWeb()
 {
-    StarredFile file = qvariant_cast<StarredFile>(view_file_on_web_action_->data());
+    StarredItem file = qvariant_cast<StarredItem>(view_file_on_web_action_->data());
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
-        QUrl url = account.getAbsoluteUrl("lib/" + file.repo_id + "/file" + file.path);
+        QUrl url;
+        if (file.type == StarredItem::REPO) {
+            url = account.getAbsoluteUrl("library/" + file.repo_id + "/" + file.obj_name);
+        } else if (file.type == StarredItem::DIR) {
+            url = account.getAbsoluteUrl("library/" + file.repo_id + file.path);
+        } else {
+            url = account.getAbsoluteUrl("lib/" + file.repo_id + "/file" + file.path);
+        }
         QDesktopServices::openUrl(url);
     }
 }
@@ -86,7 +97,7 @@ void StarredFilesListView::updateActions()
         return;
     }
 
-    const StarredFile& file = item->file();
+    const StarredItem& file = item->file();
 
     open_file_action_->setData(QVariant::fromValue(file));
     view_file_on_web_action_->setData(QVariant::fromValue(file));
@@ -169,12 +180,21 @@ void StarredFilesListView::onItemDoubleClicked(const QModelIndex& index)
         return;
     }
 
-    const StarredFile& file = ((StarredFileItem *)item)->file();
+    const StarredItem& file = ((StarredFileItem *)item)->file();
 
-    openLocalFile(file);
+    if (!file.isFile()) {
+        openLocalDir(file);
+    } else {
+        openLocalFile(file);
+    }
 }
 
-void StarredFilesListView::openLocalFile(const StarredFile& file)
+void StarredFilesListView::openLocalFile(const StarredItem& file)
 {
     RepoService::instance()->openLocalFile(file.repo_id, file.path.mid(1), this);
+}
+
+void StarredFilesListView::openLocalDir(const StarredItem& file)
+{
+    RepoService::instance()->openFolder(file.repo_id, file.path.mid(1));
 }

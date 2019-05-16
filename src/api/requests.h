@@ -17,7 +17,7 @@ class QStringList;
 
 class ServerRepo;
 class Account;
-class StarredFile;
+class StarredItem;
 class SeafEvent;
 class CommitDetails;
 
@@ -246,13 +246,30 @@ public:
     GetStarredFilesRequest(const Account& account);
 
 signals:
-    void success(const std::vector<StarredFile>& starred_files);
+    void success(const std::vector<StarredItem>& starred_files);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
     Q_DISABLE_COPY(GetStarredFilesRequest);
+};
+
+// get starred item api v2.1
+class GetStarredFilesRequestV2 : public SeafileApiRequest
+{
+Q_OBJECT
+public:
+    GetStarredFilesRequestV2(const Account& account);
+
+signals:
+    void success(const std::vector<StarredItem>& starred_files);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetStarredFilesRequestV2);
 };
 
 class GetEventsRequest : public SeafileApiRequest

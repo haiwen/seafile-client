@@ -13,7 +13,7 @@
 
 namespace {
 
-bool compareFileByTimestamp(const StarredFile& a, const StarredFile& b)
+bool compareFileByTimestamp(const StarredItem& a, const StarredItem& b)
 {
     return a.mtime > b.mtime;
 }
@@ -25,13 +25,13 @@ StarredFilesListModel::StarredFilesListModel(QObject *parent)
 {
 }
 
-void StarredFilesListModel::setFiles(const std::vector<StarredFile>& files)
+void StarredFilesListModel::setFiles(const std::vector<StarredItem>& files)
 {
     int i, n = files.size();
 
     clear();
 
-    std::vector<StarredFile> list = files;
+    std::vector<StarredItem> list = files;
 
     std::sort(list.begin(), list.end(), compareFileByTimestamp);
 

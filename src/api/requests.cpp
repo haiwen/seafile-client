@@ -30,6 +30,7 @@ const char* kCreateSubrepoUrl = "api2/repos/%1/dir/sub_repo/";
 const char* kUnseenMessagesUrl = "api2/unseen_messages/";
 const char* kDefaultRepoUrl = "api2/default-repo/";
 const char* kStarredFilesUrl = "api2/starredfiles/";
+const char* kStarredItemsUrl = "api/v2.1/starred-items/";
 const char* kGetEventsUrl = "api2/events/";
 const char* kCommitDetailsUrl = "api2/repo_history_changes/";
 const char* kAvatarUrl = "api2/avatars/user/";
@@ -451,8 +452,33 @@ void GetStarredFilesRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
 
-    std::vector<StarredFile> files =
-        StarredFile::listFromJSON(json.data(), &error);
+    std::vector<StarredItem> files =
+        StarredItem::listFromJSON(json.data(), &error);
+    emit success(files);
+}
+
+GetStarredFilesRequestV2::GetStarredFilesRequestV2(const Account& account)
+        : SeafileApiRequest(account.getAbsoluteUrl(kStarredItemsUrl),
+                            SeafileApiRequest::METHOD_GET,
+                            account.token)
+{
+}
+
+void GetStarredFilesRequestV2::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("GetStarredItemsRequest: failed to parse json:%s\n",
+                 error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    json_t* array = json_object_get(json.data(), "starred_item_list");
+    std::vector<StarredItem> files =
+            StarredItem::listFromJSON(array, &error, true);
     emit success(files);
 }
 

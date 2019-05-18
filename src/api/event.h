@@ -17,7 +17,9 @@ public:
     QString etype;
     QString commit_id;
     QString desc;
+    QString op_desc;
     qint64 timestamp;
+    bool is_use_new_activities_api;
 
     // true for events like a file upload by unregistered user from a
     // uploadable link

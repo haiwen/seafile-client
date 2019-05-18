@@ -84,15 +84,27 @@ SeafEvent SeafEvent::fromJSONV2(const json_t *json, json_error_t */* error */)
     event.repo_name = getStringFromJson(json, "repo_name");
     event.commit_id = getStringFromJson(json, "commit_id");
     event.etype = getStringFromJson(json, "op_type");
+    event.is_use_new_activities_api = true;
 
     QString time = getStringFromJson(json, "time");
-    event.timestamp = QDateTime::fromString(time, Qt::ISODate).toMSecsSinceEpoch()/1000;
+    event.timestamp = QDateTime::fromString(time, Qt::ISODate).toMSecsSinceEpoch() / 1000;
 
     QString path = getStringFromJson(json, "path");
     QString file_name = getStringFromJson(json, "name");
     QString obj_type = getStringFromJson(json, "obj_type");
+    QString old_name = getStringFromJson(json, "old_name");
+    QString old_path = getStringFromJson(json, "old_path");
+    QString old_repo_name = getStringFromJson(json, "old_repo_name");
+    bool ok;
+    int clean_lib_days = getStringFromJson(json, "days").toInt(&ok);
 
-    event.desc = translateCommitDescV2(path, file_name, event.repo_name, obj_type, event.etype);
+    QString out_obj_desc, out_op_desc;
+    translateCommitDescV2(path, file_name, event.repo_name, obj_type,
+                          event.etype, old_repo_name, old_path,
+                          old_name, clean_lib_days, out_obj_desc,
+                          out_op_desc);
+    event.desc = out_obj_desc;
+    event.op_desc = out_op_desc;
 
     return event;
 }

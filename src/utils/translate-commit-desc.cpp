@@ -8,6 +8,7 @@
 
 #include "utils/utils.h"
 #include "translate-commit-desc.h"
+#include "utils/file-utils.h"
 
 namespace {
 
@@ -112,67 +113,89 @@ translateCommitDesc(const QString& input)
     return out.join("\n");
 }
 
-QString
-translateCommitDescV2(const QString& path, const QString& file_name, const QString& repo_name,
-                      const QString& obj_type, const QString& op_type)
-{
-    QString operation;
-    QString subject;
 
+void
+translateCommitDescV2(const QString& path, const QString& file_name, const QString& repo_name,
+                      const QString& obj_type, const QString& op_type, const QString& old_repo_name,
+                      const QString& old_path, const QString& old_name, const int& days,
+                      QString& out_obj_desc, QString& out_op_desc)
+{
     if (obj_type == "repo") {
         if (op_type == "create") {
-            operation = QObject::tr("Created libraray");
+            out_op_desc = QObject::tr("Created libraray");
         } else if (op_type == "rename") {
-            operation = QObject::tr("Renamed libraray");
+            out_op_desc = QObject::tr("Renamed libraray");
         } else if (op_type == "delete") {
-            operation = QObject::tr("Deleted libraray");
-            subject = repo_name;
+            out_op_desc = QObject::tr("Deleted libraray");
+            out_obj_desc = repo_name;
         } else if (op_type == "recover") {
-            operation = QObject::tr("Recovered libraray");
+            out_op_desc = QObject::tr("Restored libraray");
         } else if (op_type == "clean_up_trash") {
-            operation = QObject::tr("Cleaned up trash");
+            if (days == 0) {
+                out_op_desc = QObject::tr("Removed all items from trash");
+            } else {
+                out_op_desc = QObject::tr("Removed items older than days \"%1\" from trash").arg(days);
+            }
         }
-        subject = repo_name;
+
+        if (op_type == "rename") {
+            out_obj_desc = old_repo_name + "=>" + repo_name;
+        } else {
+            out_obj_desc = repo_name;
+        }
+
     } else if (obj_type == "draft") {
-            operation = QObject::tr("Published draft");
-            subject = file_name;
+            out_op_desc = QObject::tr("Published draft");
+            out_obj_desc = file_name;
     } else if (obj_type == "file") {
         if (op_type == "create") {
-            operation = QObject::tr("Created file");
+            if (file_name.endsWith("(draft).md")) {
+                out_op_desc = QObject::tr("Created draft");
+            } else {
+                out_op_desc = QObject::tr("Created file");
+            }
+            out_op_desc = QObject::tr("Created file");
         } else if (op_type == "rename") {
-            operation = QObject::tr("Renamed file");
+            out_op_desc = QObject::tr("Renamed file");
         } else if (op_type == "delete") {
-            operation = QObject::tr("Deleted file");
+            if (file_name.endsWith("(draft).md")) {
+                out_op_desc = QObject::tr("Deleted draft");
+            } else {
+                out_op_desc = QObject::tr("Deleted file");
+            }
         } else if (op_type == "recover") {
-            operation = QObject::tr("Recovered delete file");
+            out_op_desc = QObject::tr("Restored file");
         } else if (op_type == "move") {
-            operation = QObject::tr("Moved file");
+            out_op_desc = QObject::tr("Moved file");
         } else if (op_type == "edit") {
-            operation = QObject::tr("Edited file");
+            out_op_desc = QObject::tr("Updated file");
         }
-        subject = file_name;
+
+        if (op_type == "rename") {
+            out_obj_desc = old_name + "=>" + file_name;
+        } else {
+            out_obj_desc = file_name;
+        }
     } else if (obj_type == "files") {
-        operation = QObject::tr("Operated multiple files in");
-        subject = path;
+        out_op_desc = QObject::tr("Operated multiple files in");
+        out_obj_desc = path;
     } else { //dir
         if (op_type == "create") {
-            operation = QObject::tr("Created dir");
+            out_op_desc = QObject::tr("Created folder");
          } else if (op_type == "rename") {
-            operation = QObject::tr("Renamed dir");
+            out_op_desc = QObject::tr("Renamed folder");
          } else if (op_type == "delete") {
-            operation = QObject::tr("Deleted dir");
+            out_op_desc = QObject::tr("Deleted folder");
          } else if (op_type == "recover") {
-            operation = QObject::tr("Recover deleled dir");
+            out_op_desc = QObject::tr("Restored folder");
          } else if (op_type == "move") {
-            operation = QObject::tr("Moved dir");
+            out_op_desc = QObject::tr("Moved folder");
         }
-        subject = path;
-    }
-
-    if (operation.isEmpty() && subject.isEmpty()) {
-        return QString("");
-    } else {
-        return QString("%1 %2").arg(operation).arg(subject);
+        if (op_type == "rename") {
+            out_obj_desc = old_path + "=>" + path;
+        } else {
+            out_obj_desc = path;
+        }
     }
 
 }

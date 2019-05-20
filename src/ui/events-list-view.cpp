@@ -46,7 +46,8 @@ const int kAvatarHeight = 40;
 const int kAvatarWidth = 40;
 //const int kNickWidth = 210;
 const int kNickHeight = 30;
-const int kOperNameHeight = 20;
+const int kOperNameHeight = 18;
+const qreal kRadius = 3;
 
 const int kMarginBetweenAvatarAndNick = 10;
 const int kMarginBetweenNickAndOperName = 10;
@@ -62,7 +63,7 @@ const char *kDescriptionColor = "#3F3F3F";
 const char *kDescriptionColorHighlighted = "#544D49";
 
 const int kNickFontSize = 16;
-const int kOperNameFontSize = 14;
+const int kOperNameFontSize = 13;
 const int kDescriptionFontSize = 13;
 const int kDescriptionHeight = 30;
 
@@ -203,10 +204,21 @@ void EventItemDelegate::paint(QPainter *painter,
 
     // Paint operation name
     if (event.is_use_new_activities_api) {
-        QPoint opera_pos = nick_pos + QPoint(nick_width + kMarginBetweenNickAndOperName, 1);
+        QPoint opera_pos = nick_pos + QPoint(nick_width + kMarginBetweenNickAndOperName, 3);
         QRect opera_rect(opera_pos, QSize(oper_name_width + 8, kOperNameHeight));
         painter->save();
-        painter->fillRect(opera_rect, QColor(kOperRectFillColor));
+        QPainterPath path;
+        path.moveTo(opera_rect.bottomRight() - QPointF(0, kRadius));
+        path.lineTo(opera_rect.topRight() + QPointF(0, kRadius));
+        path.arcTo(QRectF(QPointF(opera_rect.topRight() - QPointF(kRadius * 2, 0)), QSize(kRadius * 2, kRadius *2)), 0, 90);
+        path.lineTo(opera_rect.topLeft() + QPointF(kRadius, 0));
+        path.arcTo(QRectF(QPointF(opera_rect.topLeft()), QSize(kRadius * 2, kRadius * 2)), 90, 90);
+        path.lineTo(opera_rect.bottomLeft() - QPointF(0, kRadius));
+        path.arcTo(QRectF(QPointF(opera_rect.bottomLeft() - QPointF(0, kRadius * 2)), QSize(kRadius * 2, kRadius * 2)), 180, 90);
+        path.lineTo(opera_rect.bottomLeft() + QPointF(kRadius, 0));
+        path.arcTo(QRectF(QPointF(opera_rect.bottomRight() - QPointF(kRadius * 2, kRadius * 2)), QSize(kRadius * 2, kRadius * 2)), 270, 90);
+        painter->fillPath(path, QColor(kOperRectFillColor));
+
         painter->setPen(QColor(kOperNameColor));
         painter->setFont(oper_font);
         painter->drawText(opera_rect,

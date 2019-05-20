@@ -154,7 +154,6 @@ translateCommitDescV2(const QString& path, const QString& file_name, const QStri
             } else {
                 out_op_desc = QObject::tr("Created file");
             }
-            out_op_desc = QObject::tr("Created file");
         } else if (op_type == "rename") {
             out_op_desc = QObject::tr("Renamed file");
         } else if (op_type == "delete") {

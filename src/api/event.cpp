@@ -96,13 +96,13 @@ SeafEvent SeafEvent::fromJSONV2(const json_t *json, json_error_t */* error */)
     QString old_path = getStringFromJson(json, "old_path");
     QString old_repo_name = getStringFromJson(json, "old_repo_name");
     bool ok;
-    int clean_lib_days = getStringFromJson(json, "days").toInt(&ok);
+    int clean_trash_days = getStringFromJson(json, "days").toInt(&ok);
 
     QString out_obj_desc, out_op_desc;
     translateCommitDescV2(path, file_name, event.repo_name, obj_type,
                           event.etype, old_repo_name, old_path,
-                          old_name, clean_lib_days, out_obj_desc,
-                          out_op_desc);
+                          old_name, clean_trash_days, &out_obj_desc,
+                          &out_op_desc);
     event.desc = out_obj_desc;
     event.op_desc = out_op_desc;
 

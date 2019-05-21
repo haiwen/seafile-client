@@ -20,7 +20,7 @@ namespace {
 
 // new file activities ui
 /**
-         nick    operaname     date
+         nick    operation     date
    icon
          description  repo name
  */
@@ -46,16 +46,16 @@ const int kAvatarHeight = 40;
 const int kAvatarWidth = 40;
 //const int kNickWidth = 210;
 const int kNickHeight = 30;
-const int kOperNameHeight = 18;
+const int kOperationHeight = 18;
 const qreal kRadius = 3;
 
 const int kMarginBetweenAvatarAndNick = 10;
-const int kMarginBetweenNickAndOperName = 10;
+const int kMarginBetweenNickAndOperation = 10;
 const int kVerticalMarginBetweenNickAndDesc = 3;
 
 const char *kNickColor = "#D8AC8F";
 const char *kNickColorHighlighted = "#D8AC8F";
-const char *kOperNameColor = "white";
+const char *kOperationColor = "white";
 const char *kOperRectFillColor = "#D8AC8F";
 const char *kRepoNameColor = "#D8AC8F";
 const char *kRepoNameColorHighlighted = "#D8AC8F";
@@ -63,14 +63,13 @@ const char *kDescriptionColor = "#3F3F3F";
 const char *kDescriptionColorHighlighted = "#544D49";
 
 const int kNickFontSize = 16;
-const int kOperNameFontSize = 13;
+const int kOperationFontSize = 13;
 const int kDescriptionFontSize = 13;
 const int kDescriptionHeight = 30;
 
 const char *kEventItemBackgroundColor = "white";
 const char *kEventItemBackgroundColorHighlighted = "#F9E0C7";
 
-const int kOperNameWidth = 150;
 const int kTimeWidth = 100;
 const int kTimeHeight = 30;
 const int kTimeFontSize = 13;
@@ -81,7 +80,7 @@ const char *kTimeColor = "#959595";
 const char *kTimeColorHighlighted = "#9D9B9A";
 
 const int kMarginBetweenNickAndTime = 10;
-const int kMarginBetweenOperNameAndTime = 10;
+const int kMarginBetweenOperationAndTime = 10;
 
 const int kMarginBetweenRepoNameAndDesc = 10;
 
@@ -115,7 +114,7 @@ void EventItemDelegate::paint(QPainter *painter,
     }
 
     const SeafEvent& event = item->event();
-    QString op_name_text = event.op_desc;
+    QString operation_text = event.op_desc;
     QString time_text = translateCommitTime(event.timestamp);
 
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
@@ -171,17 +170,17 @@ void EventItemDelegate::paint(QPainter *painter,
 
     auto time_font = changeFontSize(painter->font(), kTimeFontSize);
     auto nick_font = changeFontSize(painter->font(), kNickFontSize);
-    auto oper_font = changeFontSize(painter->font(), kOperNameFontSize);
+    auto operation_font = changeFontSize(painter->font(), kOperationFontSize);
     auto desc_font = changeFontSize(painter->font(), kDescriptionFontSize);
     auto repo_name_font = time_font;
 
-    const int oper_name_width = ::textWidthInFont(op_name_text, oper_font);
+    const int operation_width = ::textWidthInFont(operation_text, operation_font);
     const int time_width = qMin(kTimeWidth, ::textWidthInFont(time_text, time_font));
 
     int nick_width;
     if (event.is_use_new_activities_api) {
         nick_width = option.rect.width() - kMarginLeft - kAvatarWidth - kMarginBetweenAvatarAndNick
-            - kMarginBetweenNickAndOperName - oper_name_width - kMarginBetweenOperNameAndTime
+            - kMarginBetweenNickAndOperation - operation_width - kMarginBetweenOperationAndTime
             - time_width - kPadding * 2 - kMarginRight;
     } else {
         nick_width = option.rect.width() - kMarginLeft - kAvatarWidth - kMarginBetweenAvatarAndNick
@@ -204,27 +203,19 @@ void EventItemDelegate::paint(QPainter *painter,
 
     // Paint operation name
     if (event.is_use_new_activities_api) {
-        QPoint opera_pos = nick_pos + QPoint(nick_width + kMarginBetweenNickAndOperName, 3);
-        QRect opera_rect(opera_pos, QSize(oper_name_width + 8, kOperNameHeight));
+        QPoint operation_pos = nick_pos + QPoint(nick_width + kMarginBetweenNickAndOperation, 3);
+        QRect operation_rect(operation_pos, QSize(operation_width + 8, kOperationHeight));
         painter->save();
         QPainterPath path;
-        path.moveTo(opera_rect.bottomRight() - QPointF(0, kRadius));
-        path.lineTo(opera_rect.topRight() + QPointF(0, kRadius));
-        path.arcTo(QRectF(QPointF(opera_rect.topRight() - QPointF(kRadius * 2, 0)), QSize(kRadius * 2, kRadius *2)), 0, 90);
-        path.lineTo(opera_rect.topLeft() + QPointF(kRadius, 0));
-        path.arcTo(QRectF(QPointF(opera_rect.topLeft()), QSize(kRadius * 2, kRadius * 2)), 90, 90);
-        path.lineTo(opera_rect.bottomLeft() - QPointF(0, kRadius));
-        path.arcTo(QRectF(QPointF(opera_rect.bottomLeft() - QPointF(0, kRadius * 2)), QSize(kRadius * 2, kRadius * 2)), 180, 90);
-        path.lineTo(opera_rect.bottomLeft() + QPointF(kRadius, 0));
-        path.arcTo(QRectF(QPointF(opera_rect.bottomRight() - QPointF(kRadius * 2, kRadius * 2)), QSize(kRadius * 2, kRadius * 2)), 270, 90);
+        path.addRoundedRect(operation_rect, kRadius, kRadius);
         painter->fillPath(path, QColor(kOperRectFillColor));
 
-        painter->setPen(QColor(kOperNameColor));
-        painter->setFont(oper_font);
-        painter->drawText(opera_rect,
+        painter->setPen(QColor(kOperationColor));
+        painter->setFont(operation_font);
+        painter->drawText(operation_rect,
                     Qt::AlignCenter,
-                    fitTextToWidth(op_name_text, option.font, oper_name_width),
-                    &opera_rect);
+                    fitTextToWidth(operation_text, option.font, operation_width),
+                    &operation_rect);
         painter->restore();
     }
 

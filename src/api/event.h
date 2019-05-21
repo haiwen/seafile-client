@@ -17,7 +17,9 @@ public:
     QString etype;
     QString commit_id;
     QString desc;
+    QString op_desc;
     qint64 timestamp;
+    bool is_use_new_activities_api;
 
     // true for events like a file upload by unregistered user from a
     // uploadable link
@@ -26,7 +28,8 @@ public:
     bool isDetailsDisplayable() const;
     
     static SeafEvent fromJSON(const json_t*, json_error_t *error);
-    static std::vector<SeafEvent> listFromJSON(const json_t*, json_error_t *json);
+    static SeafEvent fromJSONV2(const json_t*, json_error_t *error);
+    static std::vector<SeafEvent> listFromJSON(const json_t*, json_error_t *json, bool is_use_new_json_parser = false);
 
     QString toString() const;
 };

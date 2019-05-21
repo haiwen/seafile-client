@@ -8,6 +8,7 @@
 
 class ApiError;
 class GetEventsRequest;
+class GetEventsRequestV2;
 
 class EventsService : public QObject
 {
@@ -25,13 +26,14 @@ public:
     // accessors
     const std::vector<SeafEvent>& events() const { return events_; }
 
-    bool hasMore() const { return more_offset_ > 0; }
+    bool hasMore() const { return next_ > 0; }
 
 public slots:
     void refresh();
 
 private slots:
     void onRefreshSuccess(const std::vector<SeafEvent>& events, int more_offset);
+    void onRefreshSuccessV2(const std::vector<SeafEvent>& events);
     void onRefreshFailed(const ApiError& error);
 
 signals:
@@ -50,11 +52,15 @@ private:
 
     GetEventsRequest *get_events_req_;
 
+    GetEventsRequestV2 *get_file_activities_req_;
+
     std::vector<SeafEvent> events_;
 
     bool in_refresh_;
 
-    int more_offset_;
+    // for old api, it's an offset
+    // for new api, it's the next page number
+    int next_;
 };
 
 

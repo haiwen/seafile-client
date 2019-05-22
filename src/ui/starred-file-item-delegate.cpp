@@ -110,8 +110,7 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     // paint file icon
     QPixmap icon;
     ServerRepo server_repo;
-    switch (file.type)
-    {
+    switch (file.type) {
     case StarredItem::REPO:
         server_repo = RepoService::instance()->getRepo(file.repo_id);
         icon = server_repo.getPixmap(30);

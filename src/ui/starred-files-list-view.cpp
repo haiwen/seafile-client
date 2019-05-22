@@ -67,14 +67,15 @@ void StarredFilesListView::viewFileOnWeb()
 
     const Account& account = seafApplet->accountManager()->currentAccount();
     if (account.isValid()) {
-        QUrl url;
+        QString strurl;
         if (file.type == StarredItem::REPO) {
-            url = account.getAbsoluteUrl("library/" + file.repo_id + "/" + file.obj_name);
+            strurl = "library/" + file.repo_id + "/" + file.obj_name;
         } else if (file.type == StarredItem::DIR) {
-            url = account.getAbsoluteUrl("library/" + file.repo_id + file.path);
+            strurl = "library/" + file.repo_id + file.path;
         } else {
-            url = account.getAbsoluteUrl("lib/" + file.repo_id + "/file" + file.path);
+            strurl = "lib/" + file.repo_id + "/file" + file.path;
         }
+        QUrl url = account.getAbsoluteUrl(strurl);
         QDesktopServices::openUrl(url);
     }
 }

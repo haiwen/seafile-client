@@ -13,6 +13,11 @@ QString getStringFromJson(const json_t *json, const char* key)
     return QString::fromUtf8(json_string_value(json_object_get(json, key)));
 }
 
+bool getBoolFromJson(const json_t *json, const char* key)
+{
+    return json_is_true(json_object_get(json, key));
+}
+
 } // namespace
 
 
@@ -39,11 +44,14 @@ StarredItem StarredItem::fromJSONV2(const json_t *json, json_error_t */* error *
 
     file.repo_name = getStringFromJson(json, "repo_name");
     file.path = getStringFromJson(json, "path");
+    bool is_dir = getBoolFromJson(json, "is_dir");
     file.type = StarredItem::FILE;
-    if (file.path == "/") {
-        file.type = StarredItem::REPO;
-    } else if ((file.path.size() > 1) && (file.path.endsWith("/"))) {
-        file.type = StarredItem::DIR;
+    if (is_dir) {
+        if (file.path == "/") {
+            file.type = StarredItem::REPO;
+        } else {
+            file.type = StarredItem::DIR;
+        }
     }
 
     file.obj_name = getStringFromJson(json, "obj_name");

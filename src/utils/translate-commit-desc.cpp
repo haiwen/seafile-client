@@ -8,6 +8,7 @@
 
 #include "utils/utils.h"
 #include "translate-commit-desc.h"
+#include "utils/file-utils.h"
 
 namespace {
 
@@ -110,4 +111,98 @@ translateCommitDesc(const QString& input)
     }
 
     return out.join("\n");
+}
+
+// path: the path of activity file or folder
+// file_name: the name of activity file item
+// repo_name: the name of activity repository item
+// obj_type: the object of activity item include (file, path, repository)
+// op_type: the operation type of obj_name
+// old_repo_name: when rename repo the origin repo name
+// old_path: when rename path the origin  path name
+// old_name: when rename file the origin file name
+// clean_trash_days: the days since clean the trash
+// out_obj_desc: the description of obj_name
+// out out_op_desc: the description of opt_type
+void
+translateCommitDescV2(const QString& path, const QString& file_name, const QString& repo_name,
+                      const QString& obj_type, const QString& op_type, const QString& old_repo_name,
+                      const QString& old_path, const QString& old_name, int clean_trash_days,
+                      QString *out_obj_desc, QString *out_op_desc)
+{
+    if (obj_type == "repo") {
+        if (op_type == "create") {
+            *out_op_desc = QObject::tr("Created libraray");
+        } else if (op_type == "rename") {
+            *out_op_desc = QObject::tr("Renamed libraray");
+        } else if (op_type == "delete") {
+            *out_op_desc = QObject::tr("Deleted libraray");
+            *out_obj_desc = repo_name;
+        } else if (op_type == "recover") {
+            *out_op_desc = QObject::tr("Restored libraray");
+        } else if (op_type == "clean_up_trash") {
+            if (clean_trash_days == 0) {
+                *out_op_desc = QObject::tr("Removed all items from trash");
+            } else {
+                *out_op_desc = QObject::tr("Removed items older than days %1 from trash").arg(clean_trash_days);
+            }
+        }
+
+        if (op_type == "rename") {
+            *out_obj_desc = old_repo_name + " => " + repo_name;
+        } else {
+            *out_obj_desc = repo_name;
+        }
+
+    } else if (obj_type == "draft") {
+            *out_op_desc = QObject::tr("Published draft");
+            *out_obj_desc = file_name;
+    } else if (obj_type == "file") {
+        if (op_type == "create") {
+            if (file_name.endsWith("(draft).md")) {
+                *out_op_desc = QObject::tr("Created draft");
+            } else {
+                *out_op_desc = QObject::tr("Created file");
+            }
+        } else if (op_type == "rename") {
+            *out_op_desc = QObject::tr("Renamed file");
+        } else if (op_type == "delete") {
+            if (file_name.endsWith("(draft).md")) {
+                *out_op_desc = QObject::tr("Deleted draft");
+            } else {
+                *out_op_desc = QObject::tr("Deleted file");
+            }
+        } else if (op_type == "recover") {
+            *out_op_desc = QObject::tr("Restored file");
+        } else if (op_type == "move") {
+            *out_op_desc = QObject::tr("Moved file");
+        } else if (op_type == "edit") {
+            *out_op_desc = QObject::tr("Updated file");
+        }
+
+        if (op_type == "rename") {
+            *out_obj_desc = old_name + " => " + file_name;
+        } else {
+            *out_obj_desc = file_name;
+        }
+
+    } else { //dir
+        if (op_type == "create") {
+            *out_op_desc = QObject::tr("Created folder");
+         } else if (op_type == "rename") {
+            *out_op_desc = QObject::tr("Renamed folder");
+         } else if (op_type == "delete") {
+            *out_op_desc = QObject::tr("Deleted folder");
+         } else if (op_type == "recover") {
+            *out_op_desc = QObject::tr("Restored folder");
+         } else if (op_type == "move") {
+            *out_op_desc = QObject::tr("Moved folder");
+        }
+        if (op_type == "rename") {
+            *out_obj_desc = old_path + " => " + path;
+        } else {
+            *out_obj_desc = path;
+        }
+    }
+
 }

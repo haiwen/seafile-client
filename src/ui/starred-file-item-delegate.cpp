@@ -10,6 +10,8 @@
 #include "rpc/rpc-client.h"
 #include "starred-files-list-model.h"
 #include "starred-file-item.h"
+#include "api/server-repo.h"
+#include "repo-service.h"
 
 #include "starred-file-item-delegate.h"
 
@@ -91,7 +93,7 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
 {
     QBrush backBrush;
     bool selected = false;
-    const StarredFile& file = item->file();
+    const StarredItem& file = item->file();
 
     if (option.state & (QStyle::State_HasFocus | QStyle::State_Selected)) {
         backBrush = QColor(kFileItemBackgroundColorHighlighted);
@@ -106,7 +108,21 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     painter->restore();
 
     // paint file icon
-    QPixmap icon = getIconForFile(file.name());
+    QPixmap icon;
+    ServerRepo server_repo;
+    switch (file.type) {
+    case StarredItem::REPO:
+        server_repo = RepoService::instance()->getRepo(file.repo_id);
+        icon = server_repo.getPixmap(30);
+        break;
+    case StarredItem::DIR:
+        icon = QPixmap(getIconByFolder());
+        break;
+    default: // server version lower 7.0.0 will execute the statement
+        icon = getIconForFile(file.name());
+        break;
+    }
+
     QPoint file_icon_pos(kMarginLeft + kPadding, kMarginTop + kPadding);
     file_icon_pos += option.rect.topLeft();
     painter->save();
@@ -136,7 +152,11 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     size = readableFileSize(file.size);
     mtime = translateCommitTime(file.mtime);
 
-    subtitle = size + "  " + mtime;
+    if (file.from_new_api) {
+        subtitle = mtime;
+    } else {
+        subtitle = size + "  " + mtime;
+    }
 
     painter->save();
     QPoint file_desc_pos = file_name_rect.bottomLeft() + QPoint(0, 5);

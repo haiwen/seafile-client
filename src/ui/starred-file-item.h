@@ -9,9 +9,9 @@
  */
 class StarredFileItem : public QStandardItem {
 public:
-    explicit StarredFileItem(const StarredFile& repo);
+    explicit StarredFileItem(const StarredItem& repo);
 
-    const StarredFile& file() const { return file_; }
+    const StarredItem& file() const { return file_; }
 
     /**
      * Every time the item is painted, we record the metrics of each part of
@@ -29,7 +29,7 @@ public:
     const Metrics& metrics() const { return metrics_; }
 
 private:
-    StarredFile file_;
+    StarredItem file_;
 
     mutable Metrics metrics_;
 };

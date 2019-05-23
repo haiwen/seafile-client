@@ -70,7 +70,7 @@ QIcon ServerRepo::getIcon() const
     }
 }
 
-QPixmap ServerRepo::getPixmap() const
+QPixmap ServerRepo::getPixmap(int size) const
 {
-    return getIcon().pixmap(24);
+    return getIcon().pixmap(size);
 }

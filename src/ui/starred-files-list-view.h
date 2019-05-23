@@ -10,7 +10,7 @@ class QModelIndex;
 class QStandardItem;
 
 class StarredFileItem;
-class StarredFile;
+class StarredItem;
 
 class StarredFilesListView : public QListView {
     Q_OBJECT
@@ -33,7 +33,8 @@ private:
     QMenu *prepareContextMenu(const StarredFileItem *item);
     void updateActions();
     QStandardItem* getFileItem(const QModelIndex &index) const;
-    void openLocalFile(const StarredFile& file);
+    void openLocalFile(const StarredItem& file);
+    void openLocalDir(const StarredItem& file);
 
     QAction *open_file_action_;
     QAction *view_file_on_web_action_;

@@ -17,7 +17,7 @@ class QStringList;
 
 class ServerRepo;
 class Account;
-class StarredFile;
+class StarredItem;
 class SeafEvent;
 class CommitDetails;
 
@@ -246,7 +246,7 @@ public:
     GetStarredFilesRequest(const Account& account);
 
 signals:
-    void success(const std::vector<StarredFile>& starred_files);
+    void success(const std::vector<StarredItem>& starred_files);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -255,20 +255,21 @@ private:
     Q_DISABLE_COPY(GetStarredFilesRequest);
 };
 
-class GetEventsRequestV2 : public SeafileApiRequest
+// get starred item api v2.1
+class GetStarredFilesRequestV2 : public SeafileApiRequest
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    GetEventsRequestV2(const Account& account, int page = 1, int perpage = 25, int avatar_size = 36);
+    GetStarredFilesRequestV2(const Account& account);
 
 signals:
-    void success(const std::vector<SeafEvent>& events);
+    void success(const std::vector<StarredItem>& starred_files);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
 
 private:
-    Q_DISABLE_COPY(GetEventsRequestV2);
+    Q_DISABLE_COPY(GetStarredFilesRequestV2);
 };
 
 class GetEventsRequest : public SeafileApiRequest
@@ -285,6 +286,22 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(GetEventsRequest);
+};
+
+class GetEventsRequestV2 : public SeafileApiRequest
+{
+    Q_OBJECT
+public:
+    GetEventsRequestV2(const Account& account, int page = 1, int perpage = 25, int avatar_size = 36);
+
+signals:
+    void success(const std::vector<SeafEvent>& events);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetEventsRequestV2);
 };
 
 class GetCommitDetailsRequest : public SeafileApiRequest

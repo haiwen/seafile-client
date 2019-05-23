@@ -62,6 +62,7 @@ StarredFilesTab::StarredFilesTab(QWidget *parent)
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
 
     get_starred_files_req_ = NULL;
+    get_starred_items_req_ = NULL;
 
     refresh();
 }
@@ -136,29 +137,61 @@ void StarredFilesTab::refresh()
     //AccountManager *account_mgr = seafApplet->accountManager();
 
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
-    if (accounts.empty()) {
+    if (!seafApplet->accountManager()->hasAccount()) {
         in_refresh_ = false;
         return;
     }
+
+    // server version 7.0.0 begin to support starred file dir repo
+    bool is_use_get_starred_item_api = seafApplet->accountManager()->currentAccount().isAtLeastVersion(7, 0, 0);
 
     if (get_starred_files_req_) {
         get_starred_files_req_->deleteLater();
     }
 
-    get_starred_files_req_ = new GetStarredFilesRequest(accounts[0]);
-    connect(get_starred_files_req_, SIGNAL(success(const std::vector<StarredFile>&)),
-            this, SLOT(refreshStarredFiles(const std::vector<StarredFile>&)));
-    connect(get_starred_files_req_, SIGNAL(failed(const ApiError&)),
-            this, SLOT(refreshStarredFilesFailed(const ApiError&)));
-    get_starred_files_req_->send();
+    if (get_starred_items_req_) {
+        get_starred_items_req_->deleteLater();
+    }
+
+    if (!is_use_get_starred_item_api) {
+        get_starred_files_req_ = new GetStarredFilesRequest(accounts[0]);
+        connect(get_starred_files_req_, SIGNAL(success(const std::vector<StarredItem>&)),
+                this, SLOT(refreshStarredFiles(const std::vector<StarredItem>&)));
+        connect(get_starred_files_req_, SIGNAL(failed(const ApiError&)),
+                this, SLOT(refreshStarredFilesFailed(const ApiError&)));
+        get_starred_files_req_->send();
+    } else {
+        get_starred_items_req_ = new GetStarredFilesRequestV2(accounts[0]);
+        connect(get_starred_items_req_, SIGNAL(success(const std::vector<StarredItem>&)),
+                this, SLOT(refreshStarredFilesV2(const std::vector<StarredItem>&)));
+        connect(get_starred_items_req_, SIGNAL(failed(const ApiError&)),
+                this, SLOT(refreshStarredFilesFailed(const ApiError&)));
+        get_starred_items_req_->send();
+    }
+
 }
 
-void StarredFilesTab::refreshStarredFiles(const std::vector<StarredFile>& files)
+void StarredFilesTab::refreshStarredFiles(const std::vector<StarredItem>& files)
 {
     in_refresh_ = false;
 
     get_starred_files_req_->deleteLater();
     get_starred_files_req_ = NULL;
+
+    files_list_model_->setFiles(files);
+    if (files.empty()) {
+        mStack->setCurrentIndex(INDEX_EMPTY_VIEW);
+    } else {
+        mStack->setCurrentIndex(INDEX_FILES_VIEW);
+    }
+}
+
+void StarredFilesTab::refreshStarredFilesV2(const std::vector<StarredItem>& files)
+{
+    in_refresh_ = false;
+
+    get_starred_items_req_->deleteLater();
+    get_starred_items_req_ = NULL;
 
     files_list_model_->setFiles(files);
     if (files.empty()) {

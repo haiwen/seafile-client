@@ -122,8 +122,7 @@ public:
                                   const QString& passwd,
                                   QString *magic,
                                   QString *random_key,
-                                  QString *salt,
-                                  bool is_use_encrypted_v3 = false);
+                                  QString *salt);
 
     bool setServerProperty(const QString &url,
                            const QString &key,

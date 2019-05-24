@@ -158,6 +158,14 @@ public:
                       const QString& repo_id,
                       const QString& magic,
                       const QString& random_key);
+    CreateRepoRequest(const Account& account,
+                      const QString& name,
+                      const QString& desc,
+                      int enc_version,
+                      const QString& repo_id,
+                      const QString& magic,
+                      const QString& random_key,
+                      const QString& salt);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

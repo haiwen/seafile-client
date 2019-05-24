@@ -121,7 +121,9 @@ public:
                                   const QString& repo_id,
                                   const QString& passwd,
                                   QString *magic,
-                                  QString *random_key);
+                                  QString *random_key,
+                                  QString *salt,
+                                  bool is_use_encrypted_v3 = false);
 
     bool setServerProperty(const QString &url,
                            const QString &key,

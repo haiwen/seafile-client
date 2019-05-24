@@ -175,9 +175,11 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     url.setPath("/");
     info.relay_addr = url.host();
 
+    QString salt = dict.value("salt").toString();
     QMap<QString, QVariant> map;
     map.insert("is_readonly", read_only ? 1 : 0);
     map.insert("server_url", url.toString());
+    map.insert("repo_salt", salt);
 
     info.more_info = ::mapToJson(map);
 
@@ -267,6 +269,27 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
     setFormParam("repo_id", repo_id);
     setFormParam("magic", magic);
     setFormParam("random_key", random_key);
+}
+
+CreateRepoRequest::CreateRepoRequest(const Account& account,
+                                     const QString& name,
+                                     const QString& desc,
+                                     int enc_version,
+                                     const QString& repo_id,
+                                     const QString& magic,
+                                     const QString& random_key,
+                                     const QString& salt)
+    : SeafileApiRequest(account.getAbsoluteUrl(kCreateRepoUrl),
+                        SeafileApiRequest::METHOD_POST,
+                        account.token)
+{
+    setFormParam("name", name);
+    setFormParam("desc", desc);
+    setFormParam("enc_version", QString::number(enc_version));
+    setFormParam("repo_id", repo_id);
+    setFormParam("magic", magic);
+    setFormParam("random_key", random_key);
+    setFormParam("salt", salt);
 }
 
 void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
@@ -686,6 +709,10 @@ void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
 
     if (dict.contains("version")) {
         ret.parseVersionFromString(dict["version"].toString());
+    }
+
+    if (dict.contains("encrypted_library_version")) {
+        ret.parseEncryptedLibraryVersionFromString(dict["encrypted_library_version"].toString());
     }
 
     if (dict.contains("features")) {

@@ -8,6 +8,7 @@ public:
   unsigned majorVersion;
   unsigned minorVersion;
   unsigned patchVersion;
+  unsigned encryptedlibraryversion;
   bool proEdition;
   bool officePreview;
   bool fileSearch;
@@ -19,6 +20,7 @@ public:
       return majorVersion == rhs.majorVersion &&
           minorVersion == rhs.minorVersion &&
           patchVersion == rhs.patchVersion &&
+          encryptedlibraryversion == rhs.encryptedlibraryversion &&
           proEdition == rhs.proEdition &&
           officePreview == rhs.officePreview &&
           fileSearch == rhs.fileSearch &&
@@ -38,6 +40,13 @@ public:
       patchVersion = versions[2].toInt();
       return true;
   }
+
+  bool parseEncryptedLibraryVersionFromString(const QString &version) {
+      bool ok;
+      encryptedlibraryversion = version.toInt(&ok);
+      return ok;
+  }
+
   void parseFeatureFromStrings(const QStringList& input) {
       proEdition = false;
       officePreview = false;
@@ -68,6 +77,11 @@ public:
           .arg(QString::number(minorVersion))
           .arg(QString::number(patchVersion));
   }
+
+  int getEncriptedLibraryVersion() const {
+      return encryptedlibraryversion;
+  }
+
   QStringList getFeatureStrings() const {
       QStringList result;
       if (proEdition)

@@ -120,6 +120,9 @@ public:
                (majorVersion << 20) + (minorVersion << 10) + (patchVersion);
     }
 
+    int getEncryptedLibraryVersion() {
+        return serverInfo.encryptedlibraryversion;
+    }
     // require pro edtions and version at least at ...
     // excluding OSS Version
     bool isAtLeastProVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {

@@ -24,6 +24,7 @@ namespace {
 const char *kRepoRelayAddrProperty = "relay-address";
 const char *kVersionKeyName = "version";
 const char *kFeaturesKeyName = "features";
+const char *kEncryptedLibraryVersionName = "encrypted_library_version";
 const char *kCustomBrandKeyName = "custom-brand";
 const char *kCustomLogoKeyName = "custom-logo";
 const char *kTotalStorage = "storage.total";
@@ -563,6 +564,7 @@ void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo
     account.serverInfo = info;
 
     setServerInfoKeyValue(db, account, kVersionKeyName, info.getVersionString());
+    setServerInfoKeyValue(db, account, kEncryptedLibraryVersionName, QString::number(info.getEncriptedLibraryVersion()));
     setServerInfoKeyValue(db, account, kFeaturesKeyName, info.getFeatureStrings().join(","));
     setServerInfoKeyValue(db, account, kCustomLogoKeyName, info.customLogo);
     setServerInfoKeyValue(db, account, kCustomBrandKeyName, info.customBrand);

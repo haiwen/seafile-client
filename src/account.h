@@ -121,7 +121,7 @@ public:
     }
 
     int getEncryptedLibraryVersion() {
-        return serverInfo.encryptedlibraryversion;
+        return serverInfo.encryptedLibraryVersion;
     }
     // require pro edtions and version at least at ...
     // excluding OSS Version

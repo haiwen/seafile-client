@@ -103,12 +103,10 @@ void CreateRepoDialog::createAction()
 
     if (!passwd_.isEmpty() && account_.isAtLeastVersion(4, 4, 0)) {
         // TODO: check server version is at least 4.3.x ?
-        int enc_version = 2;
         QString repo_id = QUuid::createUuid().toString().mid(1, 36);
         QString magic, random_key, salt;
 
-        int encryptedlibraryversion = seafApplet->accountManager()->currentAccount().getEncryptedLibraryVersion();
-        enc_version = (encryptedlibraryversion == 3) ? 3 : 2;
+        int enc_version = seafApplet->accountManager()->currentAccount().getEncryptedLibraryVersion();
 
         if (seafApplet->rpcClient()->generateMagicAndRandomKey(
                 enc_version, repo_id, passwd_, &magic, &random_key, &salt) < 0) {
@@ -119,10 +117,10 @@ void CreateRepoDialog::createAction()
 
         if (enc_version == 3) {
             request_ = new CreateRepoRequest(
-            account_, name_, name_, enc_version, repo_id, magic, random_key, salt);
+                account_, name_, name_, enc_version, repo_id, magic, random_key, salt);
         } else {
             request_ = new CreateRepoRequest(
-            account_, name_, name_, enc_version, repo_id, magic, random_key);
+                account_, name_, name_, enc_version, repo_id, magic, random_key);
         }
     } else {
         request_ = new CreateRepoRequest(account_, name_, name_, passwd_);

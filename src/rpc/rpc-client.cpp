@@ -893,7 +893,8 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
                                                 const QString &repo_id,
                                                 const QString &passwd,
                                                 QString *magic,
-                                                QString *random_key)
+                                                QString *random_key,
+                                                QString *salt)
 {
     GError *error = NULL;
     GObject *obj = searpc_client_call__object (
@@ -912,10 +913,21 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
 
     char *c_magic = NULL;
     char *c_random_key = NULL;
-    g_object_get (obj,
-                  "magic", &c_magic,
-                  "random_key", &c_random_key,
-                  NULL);
+    char *c_salt = NULL;
+    if (enc_version == 3) {
+        g_object_get (obj,
+                    "magic", &c_magic,
+                    "random_key", &c_random_key,
+                    "salt", &c_salt,
+                    NULL);
+        *salt = QString(c_salt);
+        g_free(c_salt);
+    } else {
+        g_object_get (obj,
+            "magic", &c_magic,
+            "random_key", &c_random_key,
+            NULL);
+    }
 
     *magic = QString(c_magic);
     *random_key = QString(c_random_key);

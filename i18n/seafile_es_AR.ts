@@ -2187,22 +2187,6 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>No tiene permiso para sincronizar esta carpeta</translation>
     </message>
     <message>
-        <source>Created libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Renamed libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Deleted libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Restored libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation type="unfinished"/>
     </message>
@@ -2264,6 +2248,22 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
     </message>
     <message>
         <source>Moved folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored library</source>
         <translation type="unfinished"/>
     </message>
 </context>

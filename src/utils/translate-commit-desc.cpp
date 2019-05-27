@@ -132,14 +132,14 @@ translateCommitDescV2(const QString& path, const QString& file_name, const QStri
 {
     if (obj_type == "repo") {
         if (op_type == "create") {
-            *out_op_desc = QObject::tr("Created libraray");
+            *out_op_desc = QObject::tr("Created library");
         } else if (op_type == "rename") {
-            *out_op_desc = QObject::tr("Renamed libraray");
+            *out_op_desc = QObject::tr("Renamed library");
         } else if (op_type == "delete") {
-            *out_op_desc = QObject::tr("Deleted libraray");
+            *out_op_desc = QObject::tr("Deleted library");
             *out_obj_desc = repo_name;
         } else if (op_type == "recover") {
-            *out_op_desc = QObject::tr("Restored libraray");
+            *out_op_desc = QObject::tr("Restored library");
         } else if (op_type == "clean_up_trash") {
             if (clean_trash_days == 0) {
                 *out_op_desc = QObject::tr("Removed all items from trash");

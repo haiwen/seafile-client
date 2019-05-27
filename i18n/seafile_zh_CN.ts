@@ -2179,22 +2179,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>没有权限同步此文件夹</translation>
     </message>
     <message>
-        <source>Created libraray</source>
-        <translation>创建了资料库</translation>
-    </message>
-    <message>
-        <source>Renamed libraray</source>
-        <translation>重命名资料库</translation>
-    </message>
-    <message>
-        <source>Deleted libraray</source>
-        <translation>删除了资料库</translation>
-    </message>
-    <message>
-        <source>Restored libraray</source>
-        <translation>恢复资料库</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>删除了回收站中的所有条目</translation>
     </message>
@@ -2257,6 +2241,22 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Moved folder</source>
         <translation>移动文件夹</translation>
+    </message>
+    <message>
+        <source>Created library</source>
+        <translation>创建了资料库</translation>
+    </message>
+    <message>
+        <source>Renamed library</source>
+        <translation>重命名资料库</translation>
+    </message>
+    <message>
+        <source>Deleted library</source>
+        <translation>删除了资料库</translation>
+    </message>
+    <message>
+        <source>Restored library</source>
+        <translation>恢复资料库</translation>
     </message>
 </context>
 <context>

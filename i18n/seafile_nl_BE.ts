@@ -2173,22 +2173,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Created libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Renamed libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Deleted libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Restored libraray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation type="unfinished"/>
     </message>
@@ -2250,6 +2234,22 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Moved folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored library</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -238,6 +238,8 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
     QString value_string = value;
     if (key_string == kVersionKeyName) {
         account->serverInfo.parseVersionFromString(value_string);
+    } else if (key_string == kEncryptedLibraryVersionName) {
+        account->serverInfo.parseEncryptedLibraryVersionFromString(value_string);
     } else if (key_string == kFeaturesKeyName) {
         account->serverInfo.parseFeatureFromStrings(value_string.split(","));
     } else if (key_string == kCustomBrandKeyName) {

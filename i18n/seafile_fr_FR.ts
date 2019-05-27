@@ -30,7 +30,7 @@
     <name>AccountManager</name>
     <message>
         <source>failed to open account database</source>
-        <translation>Impossible d&apos;ouvrir la base de données du compte</translation>
+        <translation>Impossible d&apos;ouvrir la base de données des comptes</translation>
     </message>
     <message>
         <source>Authorization expired, please re-login</source>
@@ -116,7 +116,7 @@
     </message>
     <message>
         <source>Choose</source>
-        <translation>Choisir</translation>
+        <translation>Sélectionner</translation>
     </message>
     <message>
         <source>Account settings</source>
@@ -913,6 +913,10 @@ n&apos;a pu être envoyé.</translation>
         <source>File save failed</source>
         <translation>Échec de l&apos;enregistrement du fichier</translation>
     </message>
+    <message>
+        <source>Index progress request error %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1527,7 +1531,7 @@ Veuillez vérifier les permissions sur le fichier et l&apos;espace disque.</tran
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
         <translation>Impossible de synchroniser %1
-Le fichier se termine par un espace ou un autre caractère invalide et ne peut pas être enregistré sus Windows</translation>
+Le fichier se termine par un espace ou un autre caractère invalide et ne peut pas être enregistré sur Windows</translation>
     </message>
     <message>
         <source>Failed to sync %1
@@ -1997,7 +2001,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation>Retour du fichier % 1 à l&apos;état du %2</translation>
+        <translation>Retour du fichier %1 à l&apos;état du %2</translation>
     </message>
     <message>
         <source>Recovered deleted directory</source>
@@ -2179,6 +2183,86 @@ The library owner&apos;s storage space is used up.</source>
         <source>No permission to sync this folder</source>
         <translation>Vous n&apos;avez pas la permission de synchroniser ce dossier.</translation>
     </message>
+    <message>
+        <source>Created libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Removed all items from trash</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Removed items older than days %1 from trash</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Published draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Moved file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updated file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Moved folder</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2288,7 +2372,7 @@ The library owner&apos;s storage space is used up.</source>
     <name>RepoTreeModel</name>
     <message>
         <source>Recently Updated</source>
-        <translation>Mis à jour récemment</translation>
+        <translation>Bibliothèques mises à jour récemment</translation>
     </message>
     <message>
         <source>My Libraries</source>
@@ -2300,15 +2384,15 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Shared with me</source>
-        <translation>Partagées avec moi</translation>
+        <translation>Bibliothèques partagées avec moi</translation>
     </message>
     <message>
         <source>Shared with all</source>
-        <translation>Partagées avec tous</translation>
+        <translation>Bibliothèques partagées avec tous</translation>
     </message>
     <message>
         <source>Shared with groups</source>
-        <translation>Partagées avec des groupes</translation>
+        <translation>Bibliothèques partagées avec des groupes</translation>
     </message>
     <message>
         <source>Synced Libraries</source>
@@ -2613,7 +2697,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Show main window</source>
-        <translation>Voir la fenêtre principale</translation>
+        <translation>Ouvrir la fenêtre principale</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -2633,7 +2717,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Show file sync errors</source>
-        <translation>Montrer le fichier d&apos;erreurs de synchronisation</translation>
+        <translation>Ouvrir le log des erreurs de synchronisation</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2689,15 +2773,15 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Repair explorer extension</source>
-        <translation>Réparer l&apos;extension de l&apos;explorateur</translation>
+        <translation>Réparer l&apos;extension de l&apos;explorateur de fichiers</translation>
     </message>
     <message>
         <source>Successfully fixed sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Succès de la réparation des icônes de statut de synchronisation de l&apos;extension de l&apos;explorateur de fichier</translation>
     </message>
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Echec de réparation des icônes de statut de synchronisation de l&apos;extension de l&apos;explorateur de fichier</translation>
     </message>
 </context>
 <context>
@@ -2792,7 +2876,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Auto start %1 after login</source>
-        <translation>Démarrage automatique %1 après connexion</translation>
+        <translation>Démarrer automatiquement %1 à l&apos;ouverture de session utilisateur</translation>
     </message>
     <message>
         <source>Hide %1 Icon from the dock</source>
@@ -2812,7 +2896,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation>Système proxy</translation>
+        <translation>Utiliser les paramètres proxy du système</translation>
     </message>
     <message>
         <source>You have changed languange. Restart to apply it?</source>
@@ -2884,7 +2968,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Enable Explorer Extension</source>
-        <translation>Activer l&apos;extension Explorer</translation>
+        <translation>Activer l&apos;extension de l&apos;explorateur de fichiers</translation>
     </message>
     <message>
         <source>Check for updates automatically</source>
@@ -2892,7 +2976,7 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
-        <translation>Ne pas vérifier le certificat serveur lors de la synchronisation en HTTPS</translation>
+        <translation>Ne pas vérifier le certificat serveur lors de la connexion HTTPS</translation>
     </message>
     <message>
         <source>Enable syncing with an existing folder with a different name</source>

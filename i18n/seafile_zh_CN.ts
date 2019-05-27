@@ -908,6 +908,10 @@ failed to upload.</source>
         <source>File save failed</source>
         <translation>文件保存失败</translation>
     </message>
+    <message>
+        <source>Index progress request error %1</source>
+        <translation>索引处理请求错误 %1</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2173,6 +2177,86 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>No permission to sync this folder</source>
         <translation>没有权限同步此文件夹</translation>
+    </message>
+    <message>
+        <source>Created libraray</source>
+        <translation>创建了资料库</translation>
+    </message>
+    <message>
+        <source>Renamed libraray</source>
+        <translation>重命名资料库</translation>
+    </message>
+    <message>
+        <source>Deleted libraray</source>
+        <translation>删除了资料库</translation>
+    </message>
+    <message>
+        <source>Restored libraray</source>
+        <translation>恢复资料库</translation>
+    </message>
+    <message>
+        <source>Removed all items from trash</source>
+        <translation>删除了回收站中的所有条目</translation>
+    </message>
+    <message>
+        <source>Removed items older than days %1 from trash</source>
+        <translation>删除了回收站中 %1 天前的条目</translation>
+    </message>
+    <message>
+        <source>Published draft</source>
+        <translation>发布草稿</translation>
+    </message>
+    <message>
+        <source>Created draft</source>
+        <translation>创建草稿</translation>
+    </message>
+    <message>
+        <source>Created file</source>
+        <translation>创建文件</translation>
+    </message>
+    <message>
+        <source>Renamed file</source>
+        <translation>重命名文件</translation>
+    </message>
+    <message>
+        <source>Deleted draft</source>
+        <translation>删除草稿</translation>
+    </message>
+    <message>
+        <source>Deleted file</source>
+        <translation>删除文件</translation>
+    </message>
+    <message>
+        <source>Restored file</source>
+        <translation>恢复文件</translation>
+    </message>
+    <message>
+        <source>Moved file</source>
+        <translation>移动文件</translation>
+    </message>
+    <message>
+        <source>Updated file</source>
+        <translation>更新文件</translation>
+    </message>
+    <message>
+        <source>Created folder</source>
+        <translation>创建文件夹</translation>
+    </message>
+    <message>
+        <source>Renamed folder</source>
+        <translation>重命名文件夹</translation>
+    </message>
+    <message>
+        <source>Deleted folder</source>
+        <translation>删除文件夹</translation>
+    </message>
+    <message>
+        <source>Restored folder</source>
+        <translation>恢复文件夹</translation>
+    </message>
+    <message>
+        <source>Moved folder</source>
+        <translation>移动文件夹</translation>
     </message>
 </context>
 <context>

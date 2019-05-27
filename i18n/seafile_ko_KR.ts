@@ -914,6 +914,10 @@ failed to upload.</source>
         <source>File save failed</source>
         <translation>파일 저장에 실패했습니다</translation>
     </message>
+    <message>
+        <source>Index progress request error %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2182,6 +2186,86 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>No permission to sync this folder</source>
         <translation>이 폴더를 동기화할 권한이 없습니다</translation>
+    </message>
+    <message>
+        <source>Created libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored libraray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Removed all items from trash</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Removed items older than days %1 from trash</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Published draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Moved file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updated file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Moved folder</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

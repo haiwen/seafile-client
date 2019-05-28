@@ -1,6 +1,7 @@
 #include <QHash>
 #include <QFileInfo>
 #include <QDir>
+#include <QIcon>
 #include <QStringList>
 #include "stl.h"
 
@@ -704,6 +705,15 @@ QString getIconByFileName(const QString& fileName)
 QString getIconByFolder()
 {
     return QString(":/images/files/file_folder.png");
+}
+
+QPixmap getPixMapForActivity(bool islib, int size)
+{
+    if(islib) {
+        return QIcon(":/images/main-panel/library_starred.png").pixmap(size);
+    } else {
+        return QIcon(":/images/files/file_folder@2x.png").pixmap(size);
+    }
 }
 
 QString getIconByFileNameV2(const QString& fileName)

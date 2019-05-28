@@ -8,6 +8,7 @@ QString mimeTypeFromFileName(const QString& fileName);
 QString iconPrefixFromFileName(const QString& fileName);
 
 QString getIconByFolder();
+QPixmap  getPixMapForActivity(bool islib, int size);
 
 QString getIconByFileName(const QString& fileName);
 QString getIconByFileNameV2(const QString& fileName);

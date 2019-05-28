@@ -11,7 +11,6 @@
 #include "starred-files-list-model.h"
 #include "starred-file-item.h"
 #include "api/server-repo.h"
-#include "repo-service.h"
 
 #include "starred-file-item-delegate.h"
 
@@ -109,14 +108,12 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
 
     // paint file icon
     QPixmap icon;
-    ServerRepo server_repo;
     switch (file.type) {
     case StarredItem::REPO:
-        server_repo = RepoService::instance()->getRepo(file.repo_id);
-        icon = server_repo.getPixmap(30);
+        icon = getPixMapForActivity(true, 36);
         break;
     case StarredItem::DIR:
-        icon = QPixmap(getIconByFolder());
+        icon = getPixMapForActivity(false, 36);
         break;
     default: // server version lower 7.0.0 will execute the statement
         icon = getIconForFile(file.name());

@@ -913,6 +913,10 @@ falló al subir.</translation>
         <source>File save failed</source>
         <translation>Guardar archivo falló</translation>
     </message>
+    <message>
+        <source>Index progress request error %1</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2182,6 +2186,86 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <source>No permission to sync this folder</source>
         <translation>No tiene permiso para sincronizar esta carpeta</translation>
     </message>
+    <message>
+        <source>Removed all items from trash</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Removed items older than days %1 from trash</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Published draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted draft</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Moved file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updated file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Moved folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Renamed library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deleted library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restored library</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2696,11 +2780,11 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
     </message>
     <message>
         <source>Successfully fixed sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Iconos de estado de sincronización para Explorer reparados con éxito</translation>
     </message>
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al reparar iconos de estado de sincronización para Explorer</translation>
     </message>
 </context>
 <context>

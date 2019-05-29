@@ -110,10 +110,10 @@ void StarredFileItemDelegate::paintItem(QPainter *painter,
     QPixmap icon;
     switch (file.type) {
     case StarredItem::REPO:
-        icon = getPixMapForActivity(true, 36);
+        icon = QIcon(":/images/library-256.png").pixmap(36);
         break;
     case StarredItem::DIR:
-        icon = getPixMapForActivity(false, 36);
+        icon = QIcon(":/images/files/file_folder.png").pixmap(36);
         break;
     default: // server version lower 7.0.0 will execute the statement
         icon = getIconForFile(file.name());

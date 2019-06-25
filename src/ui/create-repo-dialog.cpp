@@ -68,10 +68,8 @@ void CreateRepoDialog::chooseDirAction()
     if (dir.isEmpty())
         return;
     mDirectory->setText(dir);
-    if (mName->text().isEmpty()) {
-        QDir d(dir);
-        mName->setText(d.dirName());
-    }
+    QDir d(dir);
+    mName->setText(d.dirName());
 }
 
 void CreateRepoDialog::setAllInputsEnabled(bool enabled)

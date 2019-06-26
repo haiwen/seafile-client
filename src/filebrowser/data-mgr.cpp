@@ -384,6 +384,8 @@ FileDownloadTask* DataManager::createSaveAsTask(const QString& repo_id,
 
 void DataManager::onFileDownloadFinished(bool success)
 {
+    qDebug("[onFileDownloadFinished function] invoked,is success %s",
+           success ? "true" : "false");
     FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());
     if (task == NULL)
         return;

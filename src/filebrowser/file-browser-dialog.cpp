@@ -796,6 +796,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         return;
     }
     QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
+    qDebug("cached_file is %s", cached_file.toUtf8().data());
     if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
         // double-checked the watch, since it might fails sometime
         AutoUpdateManager::instance()->watchCachedFile(account_, repo_.id, fpath);
@@ -818,6 +819,7 @@ void FileBrowserDialog::createDirectory(const QString &name)
 
 void FileBrowserDialog::downloadFile(const QString& path)
 {
+    qDebug("begin to downloadfile is %s", path.toUtf8().data());
     FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
 }

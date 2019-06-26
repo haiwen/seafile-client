@@ -93,6 +93,8 @@ void TransferManager::startDownloadTask(FileDownloadTask* task)
 FileDownloadTask* TransferManager::getDownloadTask(const QString& repo_id,
                                                    const QString& path)
 {
+    qDebug("get download task repo_id is %s, path is %s",
+           repo_id.toUtf8().data(), path.toUtf8().data());
     if (matchDownloadTask(current_download_, repo_id, path)) {
         return current_download_;
     }

@@ -187,6 +187,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             QRect status_icon_rect(status_icon_pos, QSize(kFileStatusIconSize, kFileStatusIconSize));
 
             QPixmap status_icon_pixmap = getFileStatusIcon(file_status).pixmap(status_icon_rect.size());
+            qDebug("file browser icon status is %d\n", (int)file_status);
 
             painter->save();
             painter->drawPixmap(status_icon_rect, status_icon_pixmap);

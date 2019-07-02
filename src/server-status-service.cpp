@@ -136,6 +136,9 @@ void ServerStatusService::updateOnFailedRequest(const QUrl& url)
 
 void ServerStatusService::updateOnRequestFinished(const QUrl& url, bool no_network_error)
 {
+    if (seafApplet->closingDown()) {
+        return;
+    }
     bool found = false;
     const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
     for (size_t i = 0; i < accounts.size(); i++) {

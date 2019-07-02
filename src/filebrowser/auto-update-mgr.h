@@ -63,7 +63,7 @@ private:
         qint64 mtime;
         qint64 fsize;
 
-        bool uploading;
+        bool uploading = false;
 
         WatchedFileInfo() {}
         WatchedFileInfo(const Account& account,

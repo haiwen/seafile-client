@@ -124,7 +124,7 @@ void AutoUpdateManager::cleanCachedFile()
 
 void AutoUpdateManager::uploadFile(const QString& local_path)
 {
-    qDebug("start upload file");
+    qDebug("start upload file %s", toCStr(local_path));
     WatchedFileInfo &info = watch_infos_[local_path];
 
     FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
@@ -160,7 +160,6 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     if (mtime == info.mtime) {
         qDebug("[AutoUpdateManager] Received a file %s upload notification, but the timestamp has not changed, "
                "it will not upload", local_path.toUtf8().data());
-        info.uploading = false;
         return;
     }
 
@@ -190,7 +189,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
 
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
 {
-    qDebug("on update task finished");
+    qDebug("on update task finished: %s", success ? "true" : "false");
     if (system_shut_down_) {
         return;
     }
@@ -337,7 +336,7 @@ AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
         } else {
             ret[file] = is_uploading ? UPLOADING : NOT_SYNCED;
         }
-        qDebug("is_uploading %s", is_uploading ? "true" : "false");
+        qDebug("is_uploading %s, local_file_path is %s", is_uploading ? "true" : "false", toCStr(local_file_path));
     }
     return ret;
 }

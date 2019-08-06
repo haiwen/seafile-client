@@ -107,7 +107,7 @@ void ShibLoginDialog::onNewCookieCreated(const QUrl& url, const QNetworkCookie& 
             return;
         }
         cookie_seen_ = true;
-        if (seafApplet->accountManager()->saveAccount(account) < 0) {
+        if (!seafApplet->accountManager()->setCurrentAccount(account)) {
             seafApplet->warningBox(tr("Failed to save current account"), this);
             reject();
         } else {

@@ -645,6 +645,6 @@ void CloudView::onAccountInfoUpdated(const Account& account)
 {
     if (account == seafApplet->accountManager()->currentAccount()) {
         updateStorageUsage(account);
-        account_view_->updateAccountInfoDisplay();
+        account_view_->onAccountChanged();
     }
 }

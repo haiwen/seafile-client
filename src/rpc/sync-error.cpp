@@ -49,6 +49,7 @@ SyncError SyncError::fromGObject(GObject *obj)
 #define SYNC_ERROR_ID_PATH_INVALID_CHARACTER 6
 #define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
 #define SYNC_ERROR_ID_PERM_NOT_SYNCABLE 8
+#define SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO 9
 
 void SyncError::translateErrorStr()
 {
@@ -81,6 +82,9 @@ void SyncError::translateErrorStr()
         break;
     case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
         error_str = QObject::tr("No permission to sync this folder");
+        break;
+    case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
+        error_str = QObject::tr("Updates in read-only library will not be uploaded");
         break;
     default:
         // unreachable

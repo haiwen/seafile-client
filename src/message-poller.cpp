@@ -28,6 +28,8 @@ const int kCheckNotificationIntervalMSecs = 1000;
 #define SYNC_ERROR_ID_END_SPACE_PERIOD 5
 #define SYNC_ERROR_ID_INVALID_CHARACTER 6
 #define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
+#define SYNC_ERROR_ID_PERM_NOT_SYNCABLE 8
+#define SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO 9
 
 struct SyncNotification {
     QString type;
@@ -186,6 +188,12 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             break;
         case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
             msg = tr("Update to file %1 is denied by folder permission setting.").arg(path);
+            break;
+        case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
+            msg = tr("No permission to sync folder %1.").arg(path);
+            break;
+        case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
+            msg = tr("Updates in read-only library will not be uploaded.");
             break;
         default:
             qWarning("Unknown sync error id %d", err_id);

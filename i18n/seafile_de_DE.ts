@@ -914,7 +914,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Indizieren des Fortschritts %1</translation>
     </message>
 </context>
 <context>
@@ -1555,6 +1555,14 @@ The library owner&apos;s storage space is used up.</source>
         <translation>„%1“ konnte nicht synchronisiert werden.
 Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist aufgebraucht.</translation>
     </message>
+    <message>
+        <source>No permission to sync folder %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2187,82 +2195,86 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation type="unfinished"/>
+        <translation>Alle Objekte aus dem Papierkorb entfernt</translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
-        <translation type="unfinished"/>
+        <translation>Objekte entfernt, die länger als %1 Tage im Papierkorb waren</translation>
     </message>
     <message>
         <source>Published draft</source>
-        <translation type="unfinished"/>
+        <translation>Entwurf veröffentlicht</translation>
     </message>
     <message>
         <source>Created draft</source>
-        <translation type="unfinished"/>
+        <translation>Entwurf erstellt</translation>
     </message>
     <message>
         <source>Created file</source>
-        <translation type="unfinished"/>
+        <translation>Datei erstellt</translation>
     </message>
     <message>
         <source>Renamed file</source>
-        <translation type="unfinished"/>
+        <translation>Datei umbenannt</translation>
     </message>
     <message>
         <source>Deleted draft</source>
-        <translation type="unfinished"/>
+        <translation>Entwurf gelöscht</translation>
     </message>
     <message>
         <source>Deleted file</source>
-        <translation type="unfinished"/>
+        <translation>Datei gelöscht</translation>
     </message>
     <message>
         <source>Restored file</source>
-        <translation type="unfinished"/>
+        <translation>Datei weiderhergestellt</translation>
     </message>
     <message>
         <source>Moved file</source>
-        <translation type="unfinished"/>
+        <translation>Datei verschoben</translation>
     </message>
     <message>
         <source>Updated file</source>
-        <translation type="unfinished"/>
+        <translation>Datei aktualisiert</translation>
     </message>
     <message>
         <source>Created folder</source>
-        <translation type="unfinished"/>
+        <translation>Ordner erstellt</translation>
     </message>
     <message>
         <source>Renamed folder</source>
-        <translation type="unfinished"/>
+        <translation>Ordner umbenannt</translation>
     </message>
     <message>
         <source>Deleted folder</source>
-        <translation type="unfinished"/>
+        <translation>Ordner gelöscht</translation>
     </message>
     <message>
         <source>Restored folder</source>
-        <translation type="unfinished"/>
+        <translation>Ordner wiederhergestellt</translation>
     </message>
     <message>
         <source>Moved folder</source>
-        <translation type="unfinished"/>
+        <translation>Ordner verschoben</translation>
     </message>
     <message>
         <source>Created library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothek erstellt</translation>
     </message>
     <message>
         <source>Renamed library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothek umbenannt</translation>
     </message>
     <message>
         <source>Deleted library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothek gelöscht</translation>
     </message>
     <message>
         <source>Restored library</source>
+        <translation>Bibliothek wiederhergestellt</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3108,6 +3120,17 @@ Der Speicherplatz der Eigentümerin oder des Eigentümers der Bibliothek ist auf
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to save current account</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

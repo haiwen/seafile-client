@@ -1548,6 +1548,14 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 同步出错。
 该资料库所有者的空间限额已用完。</translation>
     </message>
+    <message>
+        <source>No permission to sync folder %1.</source>
+        <translation>路径 %1 设置了不可同步的共享权限</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded.</source>
+        <translation>只读资料库下的文件改动不会被上传</translation>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2257,6 +2265,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>Restored library</source>
         <translation>恢复资料库</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded</source>
+        <translation>只读资料库下的文件改动不会被上传</translation>
     </message>
 </context>
 <context>
@@ -3099,6 +3111,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>OK</source>
         <translation>确认</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation>使用 Shibboleth 登录</translation>
+    </message>
+    <message>
+        <source>Failed to save current account</source>
+        <translation>保存当前账号失败</translation>
     </message>
 </context>
 <context>

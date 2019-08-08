@@ -1526,6 +1526,14 @@ Access denied to service</source>
 The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>No permission to sync folder %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2234,6 +2242,10 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Restored library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3076,6 +3088,17 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to save current account</source>
         <translation type="unfinished"/>
     </message>
 </context>

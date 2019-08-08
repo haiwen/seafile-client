@@ -915,7 +915,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
+        <translation>Erreur %1 de la requête de progression d&apos;index</translation>
     </message>
 </context>
 <context>
@@ -1553,6 +1553,14 @@ Access denied to service</source>
 The library owner&apos;s storage space is used up.</source>
         <translation>Échec de la synchronisation de %1. L&apos;espace de stockage de l&apos;utilisateur est dépassé.</translation>
     </message>
+    <message>
+        <source>No permission to sync folder %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2185,82 +2193,86 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation type="unfinished"/>
+        <translation>Suppression de tous les éléments de la corbeille</translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
-        <translation type="unfinished"/>
+        <translation>Suppression des éléments âgés de plus %1 jours de la corbeille</translation>
     </message>
     <message>
         <source>Published draft</source>
-        <translation type="unfinished"/>
+        <translation>Brouillon publié</translation>
     </message>
     <message>
         <source>Created draft</source>
-        <translation type="unfinished"/>
+        <translation>Brouillon créé</translation>
     </message>
     <message>
         <source>Created file</source>
-        <translation type="unfinished"/>
+        <translation>Fichier créé</translation>
     </message>
     <message>
         <source>Renamed file</source>
-        <translation type="unfinished"/>
+        <translation>Fichier renommé</translation>
     </message>
     <message>
         <source>Deleted draft</source>
-        <translation type="unfinished"/>
+        <translation>Brouillon supprimé</translation>
     </message>
     <message>
         <source>Deleted file</source>
-        <translation type="unfinished"/>
+        <translation>Fichier supprimé</translation>
     </message>
     <message>
         <source>Restored file</source>
-        <translation type="unfinished"/>
+        <translation>Fichier restauré</translation>
     </message>
     <message>
         <source>Moved file</source>
-        <translation type="unfinished"/>
+        <translation>Fichier déplacé</translation>
     </message>
     <message>
         <source>Updated file</source>
-        <translation type="unfinished"/>
+        <translation>Fichier mis à jour</translation>
     </message>
     <message>
         <source>Created folder</source>
-        <translation type="unfinished"/>
+        <translation>Dossier créé</translation>
     </message>
     <message>
         <source>Renamed folder</source>
-        <translation type="unfinished"/>
+        <translation>Dossier renommé</translation>
     </message>
     <message>
         <source>Deleted folder</source>
-        <translation type="unfinished"/>
+        <translation>Dossier supprimé</translation>
     </message>
     <message>
         <source>Restored folder</source>
-        <translation type="unfinished"/>
+        <translation>Dossier restauré</translation>
     </message>
     <message>
         <source>Moved folder</source>
-        <translation type="unfinished"/>
+        <translation>Dossier déplacé</translation>
     </message>
     <message>
         <source>Created library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothèque créée</translation>
     </message>
     <message>
         <source>Renamed library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothèque renommée</translation>
     </message>
     <message>
         <source>Deleted library</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothèque supprimée</translation>
     </message>
     <message>
         <source>Restored library</source>
+        <translation>Bibliothèque restaurée</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3106,6 +3118,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to save current account</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

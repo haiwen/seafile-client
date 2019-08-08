@@ -1557,6 +1557,14 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; 동기화에 실패했습니다.
 라이브러리 사용자 저장 공간이 다 찼습니다.</translation>
     </message>
+    <message>
+        <source>No permission to sync folder %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2265,6 +2273,10 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Restored library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3111,6 +3123,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>OK</source>
         <translation>확인</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to save current account</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -915,7 +915,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
+        <translation>Ошибка запроса прогресса индекса %1</translation>
     </message>
 </context>
 <context>
@@ -1556,6 +1556,14 @@ The library owner&apos;s storage space is used up.</source>
         <translation>&quot;%1&quot; не удалось синхронизировать.
 Квота объёма хранилища владельца библиотеки израсходована.</translation>
     </message>
+    <message>
+        <source>No permission to sync folder %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2188,82 +2196,86 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation type="unfinished"/>
+        <translation>Удалены все объекты из корзины</translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
-        <translation type="unfinished"/>
+        <translation>Удалены объекты старше %1 дней из корзины</translation>
     </message>
     <message>
         <source>Published draft</source>
-        <translation type="unfinished"/>
+        <translation>Черновик опубликован</translation>
     </message>
     <message>
         <source>Created draft</source>
-        <translation type="unfinished"/>
+        <translation>Черновик создан</translation>
     </message>
     <message>
         <source>Created file</source>
-        <translation type="unfinished"/>
+        <translation>Файл создан</translation>
     </message>
     <message>
         <source>Renamed file</source>
-        <translation type="unfinished"/>
+        <translation>Файл переименован</translation>
     </message>
     <message>
         <source>Deleted draft</source>
-        <translation type="unfinished"/>
+        <translation>Черновик удален</translation>
     </message>
     <message>
         <source>Deleted file</source>
-        <translation type="unfinished"/>
+        <translation>Файл удален</translation>
     </message>
     <message>
         <source>Restored file</source>
-        <translation type="unfinished"/>
+        <translation>Файл восстановлен</translation>
     </message>
     <message>
         <source>Moved file</source>
-        <translation type="unfinished"/>
+        <translation>Файл перемещен</translation>
     </message>
     <message>
         <source>Updated file</source>
-        <translation type="unfinished"/>
+        <translation>Файл обновлен</translation>
     </message>
     <message>
         <source>Created folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка создана</translation>
     </message>
     <message>
         <source>Renamed folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка переименована</translation>
     </message>
     <message>
         <source>Deleted folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка удалена</translation>
     </message>
     <message>
         <source>Restored folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка восстановлена</translation>
     </message>
     <message>
         <source>Moved folder</source>
-        <translation type="unfinished"/>
+        <translation>Папка перемещена</translation>
     </message>
     <message>
         <source>Created library</source>
-        <translation type="unfinished"/>
+        <translation>Библиотека создана</translation>
     </message>
     <message>
         <source>Renamed library</source>
-        <translation type="unfinished"/>
+        <translation>Библиотека переименована</translation>
     </message>
     <message>
         <source>Deleted library</source>
-        <translation type="unfinished"/>
+        <translation>Библиотека удалена</translation>
     </message>
     <message>
         <source>Restored library</source>
+        <translation>Библиотека восстановлена</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library will not be uploaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3107,6 +3119,17 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>OK</source>
         <translation>ОК</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to save current account</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

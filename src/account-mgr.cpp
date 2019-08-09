@@ -735,7 +735,9 @@ bool AccountManager::reloginAccount(const Account &account_in)
     } while (0);
 
     if (accepted) {
-        getSyncedReposToken(account);
+        // Accepted means the relogin has succeeded, which means the
+        // current account is the newly relogged in account.
+        getSyncedReposToken(currentAccount());
     }
 
     return accepted;
@@ -748,13 +750,6 @@ void AccountManager::getSyncedReposToken(const Account& account)
         return;
     }
 
-    /* old account object don't contains the new token */
-    QString host = account.serverUrl.host();
-    QString username = account.username;
-    Account new_account = getAccountByHostAndUsername(host, username);
-    if (!new_account.isValid())
-        return;
-
     // For debugging lots of repos problem.
     // TODO: Comment this out before committing!!
     //
@@ -765,7 +760,7 @@ void AccountManager::getSyncedReposToken(const Account& account)
     // repo_ids = repo_ids.mid(0, 300);
     // printf ("repo_ids.size() = %d\n", repo_ids.size());
 
-    sendGetRepoTokensRequet(new_account, repo_ids, 3);
+    sendGetRepoTokensRequet(account, repo_ids, 3);
 }
 
 

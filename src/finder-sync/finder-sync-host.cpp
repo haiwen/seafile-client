@@ -19,6 +19,7 @@
 #include "filebrowser/sharedlink-dialog.h"
 #include "filebrowser/seafilelink-dialog.h"
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 
 enum PathStatus {
     SYNC_STATUS_NONE = 0,
@@ -68,6 +69,7 @@ static std::mutex update_mutex_;
 static std::vector<LocalRepo> watch_set_;
 static std::unique_ptr<GetSharedLinkRequest, QtLaterDeleter> get_shared_link_req_;
 static std::unique_ptr<LockFileRequest, QtLaterDeleter> lock_file_req_;
+static std::unique_ptr<GetFileLockInfoRequest, QtLaterDeleter> get_lock_info_req_;
 
 FinderSyncHost::FinderSyncHost() : rpc_client_(new SeafileRpcClient) {
     rpc_client_->tryConnectDaemon();
@@ -314,4 +316,45 @@ void FinderSyncHost::doShowFileHistory(const QString &path)
     QUrl url = "/repo/file_revisions/" + repo_id + "/";
     url = ::includeQueryParams(url, {{"p", path_in_repo}});
     AutoLoginService::instance()->startAutoLogin(url.toString());
+}
+
+
+void FinderSyncHost::doShowFileLockedBy(const QString &path)
+{
+    QString repo_id;
+    Account account;
+    QString path_in_repo;
+    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
+        qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
+        return;
+    }
+
+    // printf ("getting lock info for %s\n", toCStr(path));
+    get_lock_info_req_.reset(new GetFileLockInfoRequest(
+        account, repo_id, QString("/").append(path_in_repo)));
+
+    connect(get_lock_info_req_.get(), SIGNAL(success(bool, const QString&)), this,
+            SLOT(onGetFileLockInfoSuccess(bool, const QString &)));
+    connect(get_lock_info_req_.get(), SIGNAL(failed(const ApiError&)), this,
+            SLOT(onGetFileLockInfoFailed(const ApiError&)));
+
+    get_lock_info_req_->send();
+}
+
+void FinderSyncHost::onGetFileLockInfoSuccess(bool found, const QString& lock_owner)
+{
+    // printf ("found: %s, lock_owner: %s\n", found ? "true" : "false", toCStr(lock_owner));
+    const QString file = ::getBaseName(get_lock_info_req_->path());
+
+    if (found) {
+        seafApplet->messageBox(tr("File \"%1\" is locked by %2").arg(file, lock_owner));
+    } else {
+        seafApplet->messageBox(tr("Failed to get lock information for file \"%1\"").arg(file));
+    }
+}
+
+void FinderSyncHost::onGetFileLockInfoFailed(const ApiError& error)
+{
+    const QString file = ::getBaseName(get_lock_info_req_->path());
+    seafApplet->messageBox(tr("Failed to get lock information for file \"%1\"").arg(file));
 }

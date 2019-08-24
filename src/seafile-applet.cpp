@@ -544,6 +544,9 @@ void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
     box.setWindowTitle(getBrand());
     box.setIcon(QMessageBox::Information);
     box.addButton(tr("OK"), QMessageBox::YesRole);
+    if (!parent) {
+        main_win_->showWindow();
+    }
     box.exec();
     qDebug("%s", msg.toUtf8().data());
 }

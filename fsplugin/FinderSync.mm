@@ -388,27 +388,38 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 
     // find where we have it
     auto file = file_status_.find(is_dir ? file_path + "/" : file_path);
+    bool shouldShowLockedByMenu = false;
     if (file != file_status_.end()) {
         NSString *lockFileTitle;
-        if (file->second != PathStatus::SYNC_STATUS_LOCKED) {
-            if (file->second == PathStatus::SYNC_STATUS_LOCKED_BY_ME) {
-                lockFileTitle =
-                    NSLocalizedString(@"Unlock This File", @"Unlock This File");
-            } else {
-                lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
-            }
-        } else {
+        switch (file->second) {
+        case PathStatus::SYNC_STATUS_READONLY:
+            break;
+        case PathStatus::SYNC_STATUS_LOCKED_BY_ME:
+            lockFileTitle =
+                NSLocalizedString(@"Unlock This File", @"Unlock This File");
+            break;
+        case PathStatus::SYNC_STATUS_LOCKED:
+            shouldShowLockedByMenu = true;
+            break;
+        default:
             lockFileTitle = NSLocalizedString(@"Lock This File", @"Lock This File");
         }
+        if (lockFileTitle) {
+            NSMenuItem *lockFileItem = [menu addItemWithTitle:lockFileTitle
+                                                       action:@selector(lockFileAction:)
+                                                keyEquivalent:@""];
 
-        NSMenuItem *lockFileItem = [menu addItemWithTitle:lockFileTitle
-                                                   action:@selector(lockFileAction:)
-                                            keyEquivalent:@""];
+            [lockFileItem setImage:seafileImage];
+        }
+    }
 
-        [lockFileItem setImage:seafileImage];
-
-        if (file->second == PathStatus::SYNC_STATUS_LOCKED || file->second == PathStatus::SYNC_STATUS_READONLY)
-            [lockFileItem setEnabled:FALSE];
+    if (shouldShowLockedByMenu) {
+        NSMenuItem *showLockedByMenuItem =
+            [menu addItemWithTitle:NSLocalizedString(@"Locked by ...",
+                                                     @"Locked by ...")
+                            action:@selector(showLockedByAction:)
+                     keyEquivalent:@""];
+        [showLockedByMenuItem setImage:seafileImage];
     }
 
     // NSString *showHistoryTitle;
@@ -592,6 +603,22 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     // always set up, avoid some bugs
     file->second = static_cast<PathStatus>(status);
     setBadgeIdentifierFor(absolute_path, static_cast<PathStatus>(status));
+}
+
+- (IBAction)showLockedByAction:(id)sender {
+    NSArray *items =
+        [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return;
+    NSURL *item = items.firstObject;
+
+    // do it in another thread
+    std::string path =
+        item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    dispatch_async(self.client_command_queue_, ^{
+      client_->doSendCommandWithPath(FinderSyncClient::DoShowFileLockedBy,
+                                     path.c_str());
+    });
 }
 
 @end

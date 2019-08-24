@@ -29,6 +29,7 @@
 #include "account-mgr.h"
 #include "settings-mgr.h"
 #include "utils/utils.h"
+#include "utils/file-utils.h"
 #include "utils/utils-win.h"
 #include "auto-login-service.h"
 #include "ext-handler.h"
@@ -160,6 +161,9 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 
     connect(listener_thread_, SIGNAL(openUrlWithAutoLogin(const QUrl&)),
             this, SLOT(openUrlWithAutoLogin(const QUrl&)));
+
+    connect(listener_thread_, SIGNAL(showLockedBy(const QString&, const QString&)),
+            this, SLOT(showLockedBy(const QString&, const QString&)));
 }
 
 void SeafileExtensionHandler::start()
@@ -304,6 +308,52 @@ void SeafileExtensionHandler::onLockFileFailed(const ApiError& error)
     seafApplet->warningBox(QString("%1: %2").arg(str, error.toString()));
 }
 
+void SeafileExtensionHandler::showLockedBy(const QString& repo_id, const QString& path_in_repo)
+{
+    // qWarning("SeafileExtensionHandler::showLockedBy is called for %s %s\n",
+    //          toCStr(repo_id),
+    //          toCStr(path_in_repo));
+    const Account account =
+        seafApplet->accountManager()->getAccountByRepo(repo_id);
+    if (!account.isValid()) {
+        return;
+    }
+
+    GetFileLockInfoRequest *req = new GetFileLockInfoRequest(
+        account, repo_id, QString("/").append(path_in_repo));
+
+    connect(req, SIGNAL(success(bool, const QString&)), this,
+            SLOT(onGetFileLockInfoSuccess(bool, const QString &)));
+
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetFileLockInfoFailed(const ApiError&)));
+
+    req->send();
+}
+
+void SeafileExtensionHandler::onGetFileLockInfoSuccess(bool found, const QString& lock_owner)
+{
+    // printf ("found: %s, lock_owner: %s\n", found ? "true" : "false", toCStr(lock_owner));
+    GetFileLockInfoRequest *req = qobject_cast<GetFileLockInfoRequest *>(sender());
+    const QString file = ::getBaseName(req->path());
+
+    if (found) {
+        seafApplet->messageBox(tr("File \"%1\" is locked by %2").arg(file, lock_owner));
+    } else {
+        seafApplet->messageBox(tr("Failed to get lock information for file \"%1\"").arg(file));
+    }
+    req->deleteLater();
+}
+
+void SeafileExtensionHandler::onGetFileLockInfoFailed(const ApiError& error)
+{
+    GetFileLockInfoRequest *req = qobject_cast<GetFileLockInfoRequest *>(sender());
+    const QString file = ::getBaseName(req->path());
+    seafApplet->messageBox(tr("Failed to get lock information for file \"%1\"").arg(file));
+    req->deleteLater();
+}
+
+
 
 void ExtConnectionListenerThread::run()
 {
@@ -359,6 +409,8 @@ void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
             this, SIGNAL(privateShare(const QString&, const QString&, bool)));
     connect(t, SIGNAL(openUrlWithAutoLogin(const QUrl&)),
             this, SIGNAL(openUrlWithAutoLogin(const QUrl&)));
+    connect(t, SIGNAL(showLockedBy(const QString&, const QString&)),
+            this, SIGNAL(showLockedBy(const QString&, const QString&)));
     t->start();
 }
 
@@ -397,6 +449,8 @@ void ExtCommandsHandler::run()
             handlePrivateShare(args, false);
         } else if (cmd == "show-history") {
             handleShowHistory(args);
+        } else if (cmd == "show-locked-by") {
+            handleShowLockedBy(args);
         } else {
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
@@ -609,6 +663,24 @@ void ExtCommandsHandler::handleShowHistory(const QStringList& args)
                 url = ::includeQueryParams(url, {{"p", path_in_repo}});
                 emit openUrlWithAutoLogin(url);
             }
+            break;
+        }
+    }
+}
+
+
+void ExtCommandsHandler::handleShowLockedBy(const QStringList& args)
+{
+    if (args.size() != 1) {
+        return;
+    }
+    QString path = normalizedPath(args[0]);
+    foreach (const LocalRepo& repo, listLocalRepos()) {
+        QString wt = normalizedPath(repo.worktree);
+        // qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
+        if (path.length() > wt.length() && path.startsWith(wt) && path.at(wt.length()) == '/') {
+            QString path_in_repo = path.mid(wt.size());
+            emit showLockedBy(repo.id, path_in_repo);
             break;
         }
     }

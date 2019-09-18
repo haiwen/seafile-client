@@ -53,7 +53,7 @@ public:
     }
 
 private:
-    QString calcProgress(int done, int total);
+    QString calcProgress(int64_t done, int64_t total);
 };
 
 #endif // SEAFILE_CLIENT_RPC_CLONE_TASK_H

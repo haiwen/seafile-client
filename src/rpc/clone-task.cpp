@@ -58,15 +58,15 @@ CloneTask CloneTask::fromGObject(GObject *obj)
     return task;
 }
 
-QString CloneTask::calcProgress(int done, int total)
+QString CloneTask::calcProgress(int64_t done, int64_t total)
 {
     if (total == 0) {
         return QString();
     }
 
-    int percentage = done * 100 / total;
+    int64_t percentage = done * 100 / total;
 
-    return QString().sprintf(" %d%%", percentage);
+    return QString().sprintf(" %lld%%", percentage);
 }
 
 void CloneTask::translateStateInfo()

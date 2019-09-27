@@ -1,4 +1,5 @@
 #include <glib-object.h>
+#include <src/ui/tray-icon.h>
 
 #include "utils/utils.h"
 #include "seafile-applet.h"
@@ -52,14 +53,12 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
-void LocalRepo::setSyncInfo(const QString &state, const QString &error, const QString &err_detail)
+void LocalRepo::setSyncInfo(const QString &state, const int error)
 {
     // qWarning("error: %s\n", toCStr(error));
     // qWarning("state: %s\n", toCStr(state));
-    if (error.length() > 0) {
+    if (error != SYNC_ERROR_ID_NO_ERROR) {
         translateSyncError(error);
-        if (err_detail.length() > 0)
-            translateSyncErrDetail(err_detail);
     } else {
         translateSyncState(state);
     }
@@ -128,184 +127,113 @@ void LocalRepo::translateSyncState(const QString &status)
     }
 }
 
-void LocalRepo::translateSyncError(const QString &error)
+void LocalRepo::translateSyncError(const int error)
 {
     sync_state = SYNC_STATE_ERROR;
+    // When sync error set trayIcon to warning status
+    seafApplet->trayIcon()->setState(SeafileTrayIcon::TrayState::STATE_SERVERS_NOT_CONNECTED);
 
-    if (error == "relay not connected") {
-        sync_error_str = QObject::tr("server not connected");
-
-    } else if (error == "Server has been removed") {
-        sync_error_str = QObject::tr("Server has been removed");
-
-    } else if (error == "You have not login to the server") {
-        sync_error_str = QObject::tr("You have not logged in to the server");
-
-    } else if (error == "You do not have permission to access this repo") {
-        sync_error_str = QObject::tr("You do not have permission to access this library");
-
-    } else if (error == "The storage space of the repo owner has been used up") {
-        sync_error_str = QObject::tr("The storage space of the library owner has been used up");
-
-    } else if (error == "Remote service is not available") {
-        sync_error_str = QObject::tr("Remote service is not available");
-
-    } else if (error == "Access denied to service. Please check your registration on relay.") {
-        sync_error_str = QObject::tr("Access denied to service");
-
-    } else if (error == "Internal data corrupted.") {
-        sync_error_str = QObject::tr("Internal data corrupted");
-
-    } else if (error == "Failed to start upload.") {
-        sync_error_str = QObject::tr("Failed to start upload");
-
-    } else if (error == "Error occurred in upload.") {
-        sync_error_str = QObject::tr("Error occurred in upload");
-
-    } else if (error == "Failed to start download.") {
-        sync_error_str = QObject::tr("Failed to start download");
-
-    } else if (error == "Error occurred in download.") {
-        sync_error_str = QObject::tr("Error occurred in download");
-
-    } else if (error == "No such repo on relay.") {
-        sync_error_str = QObject::tr("Library is deleted on server");
-
-    } else if (error == "Repo is damaged on relay.") {
-        sync_error_str = QObject::tr("Library is damaged on server");
-
-    } else if (error == "Conflict in merge.") {
-        sync_error_str = QObject::tr("Conflict in merge");
-
-    } else if (error == "Server version is too old.") {
-        sync_error_str = QObject::tr("Server version is too old");
-
-    } else if (error == "invalid worktree") {
-        sync_error_str = QObject::tr("Error when accessing the local folder");
-
-    } else if (error == "Unknown error." || error == "Unknown error") {
-        sync_error_str = QObject::tr("Unknown error");
-
-    } else if (error == "Storage quota full") {
-        sync_error_str = QObject::tr("The storage quota has been used up");
-
-    } else if (error == "Service on remote server is not available") {
-        sync_error_str = QObject::tr("Internal server error");
-
-    } else if (error == "Access denied to service. Please check your registration on server.") {
-        sync_error_str = QObject::tr("Access denied to service");
-
-    } else if (error == "Transfer protocol outdated. You need to upgrade seafile.") {
-        sync_error_str = QObject::tr("Your %1 client is too old").arg(getBrand());
-
-    } else if (error == "Internal error when preparing upload") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-
-    } else if (error == "Internal error when preparing download") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-
-    } else if (error == "No permission to access remote library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-
-    } else if (error == "Library doesn't exist on the remote end") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-
-    } else if (error == "Internal error when starting to send revision information") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Internal error when starting to get revision information") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to upload revision information to remote library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to get revision information from remote library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Internal error when starting to send file information") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Internal error when starting to get file information") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Incomplete file information in the local library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to upload file information to remote library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to get file information from remote library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Internal error when starting to update remote library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Others have concurrent updates to the remote library. You need to sync again.") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Server failed to check storage quota") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Incomplete revision information in the local library") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to compare data to server.") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to get block server list.") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to start block transfer client.") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to upload blocks.") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-    } else if (error == "Failed to download blocks.") {
-        sync_error_str = QObject::tr("Failed to sync this library");
-
-    } else if (error == "Files are locked by other application") {
-        sync_error_str = QObject::tr("Files are locked by other application");
-    } else {
-        sync_error_str = error;
+    switch (error) {
+    case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
+        sync_state_str = QObject::tr("File is locked by another application");
+        break;
+    case SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP:
+        sync_state_str = QObject::tr("Folder is locked by another application");
+        break;
+    case SYNC_ERROR_ID_FILE_LOCKED:
+        sync_state_str = QObject::tr("File is locked by another user");
+        break;
+    case SYNC_ERROR_ID_INVALID_PATH:
+        sync_state_str = QObject::tr("Path is invalid");
+        break;
+    case SYNC_ERROR_ID_INDEX_ERROR:
+        sync_state_str = QObject::tr("Error when indexing");
+        break;
+    case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
+        sync_state_str = QObject::tr("Path ends with space or period character");
+        break;
+    case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
+        sync_state_str = QObject::tr("Path contains invalid characters like '|' or ':'");
+        break;
+    case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
+        sync_state_str = QObject::tr("Update to file denied by folder permission setting");
+        break;
+    case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
+        sync_state_str = QObject::tr("No permission to sync this folder");
+        break;
+    case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
+        sync_state_str = QObject::tr("Created or updated a file in a non-writable library or folder");
+        break;
+    case SYNC_ERROR_ID_ACCESS_DENIED:
+        sync_state_str = QObject::tr("Permission denied on server");
+        break;
+    case SYNC_ERROR_ID_NO_WRITE_PERMISSION:
+        sync_state_str = QObject::tr("Do not have write permission to the library");
+        break;
+    case SYNC_ERROR_ID_QUOTA_FULL:
+        sync_state_str = QObject::tr("Storage quota full");
+        break;
+    case SYNC_ERROR_ID_NETWORK:
+        sync_state_str = QObject::tr("Network error");
+        break;
+    case SYNC_ERROR_ID_RESOLVE_PROXY:
+        sync_state_str = QObject::tr("Cannot resolve proxy address");
+        break;
+    case SYNC_ERROR_ID_RESOLVE_HOST:
+        sync_state_str = QObject::tr("Cannot resolve server address");
+        break;
+    case SYNC_ERROR_ID_CONNECT:
+        sync_state_str = QObject::tr("Cannot connect to server");
+        break;
+    case SYNC_ERROR_ID_SSL:
+        sync_state_str = QObject::tr("Failed to establish secure connection. Please check server SSL certificate");
+        break;
+    case SYNC_ERROR_ID_TX:
+        sync_state_str = QObject::tr("Data transfer was interrupted. Please check network or firewall");
+        break;
+    case SYNC_ERROR_ID_TX_TIMEOUT:
+        sync_state_str = QObject::tr("Data transfer timed out. Please check network or firewall");
+        break;
+    case SYNC_ERROR_ID_UNHANDLED_REDIRECT:
+        sync_state_str = QObject::tr("Unhandled http redirect from server. Please check server cofiguration");
+        break;
+    case SYNC_ERROR_ID_SERVER:
+        sync_state_str = QObject::tr("Server error");
+        break;
+    case SYNC_ERROR_ID_LOCAL_DATA_CORRUPT:
+        sync_state_str = QObject::tr("Internal data corrupt on the client. Please try to resync the library");
+        break;
+    case SYNC_ERROR_ID_WRITE_LOCAL_DATA:
+        sync_state_str = QObject::tr("Failed to write data on the client. Please check disk space or folder permissions");
+        break;
+    case SYNC_ERROR_ID_SERVER_REPO_DELETED:
+        sync_state_str = QObject::tr("Library deleted on server");
+        break;
+    case SYNC_ERROR_ID_SERVER_REPO_CORRUPT:
+        sync_state_str = QObject::tr("Library damaged on server");
+        break;
+    case SYNC_ERROR_ID_NOT_ENOUGH_MEMORY:
+        sync_state_str = QObject::tr("Not enough memory");
+        break;
+    case SYNC_ERROR_ID_CONFLICT:
+        sync_state_str = QObject::tr("Concurrent updates to file. File is saved as conflict file");
+        break;
+    case SYNC_ERROR_ID_GENERAL_ERROR:
+        sync_state_str = QObject::tr("Unknown error");
+        break;
+    case SYNC_ERROR_ID_NO_ERROR:
+        sync_state_str = QObject::tr("No error");
+        break;
+    case INVALID_WORKTREE:
+        sync_state_str = QObject::tr("Error when accessing the local folder");
+        break;
+    default:
+        qWarning("Unknown sync error");
     }
 }
 
-void LocalRepo::translateSyncErrDetail(const QString &err_detail)
-{
-    if (err_detail == "Permission denied on server") {
-        sync_error_detail = QObject::tr("Permission denied on server. Please try to resync the library");
-    } else if (err_detail == "Network error") {
-        sync_error_detail = QObject::tr("Network error");
-    } else if (err_detail == "Cannot resolve proxy address") {
-        sync_error_detail = QObject::tr("Cannot resolve proxy address");
-    } else if (err_detail == "Cannot resolve server address") {
-        sync_error_detail = QObject::tr("Cannot resolve server address");
-    } else if (err_detail == "Cannot connect to server") {
-        sync_error_detail = QObject::tr("Cannot connect to server");
-    } else if (err_detail == "Failed to establish secure connection") {
-        sync_error_detail = QObject::tr("Failed to establish secure connection. Please check server SSL certificate");
-    } else if (err_detail == "Data transfer was interrupted") {
-        sync_error_detail = QObject::tr("Data transfer was interrupted. Please check network or firewall");
-    } else if (err_detail == "Data transfer timed out") {
-        sync_error_detail = QObject::tr("Data transfer timed out. Please check network or firewall");
-    } else if (err_detail == "Unhandled http redirect from server") {
-        sync_error_detail = QObject::tr("Unhandled http redirect from server. Please check server cofiguration");
-    } else if (err_detail == "Server error") {
-        sync_error_detail = QObject::tr("Server error");
-    } else if (err_detail == "Bad request") {
-        sync_error_detail = QObject::tr("Bad request");
-    } else if (err_detail == "Internal data corrupt on the client") {
-        sync_error_detail = QObject::tr("Internal data corrupt on the client. Please try to resync the library");
-    } else if (err_detail == "Not enough memory") {
-        sync_error_detail = QObject::tr("Not enough memory");
-    } else if (err_detail == "Failed to write data on the client") {
-        sync_error_detail = QObject::tr("Failed to write data on the client. Please check disk space or folder permissions");
-    } else if (err_detail == "Storage quota full") {
-        sync_error_detail = QObject::tr("Storage quota full");
-    } else if (err_detail == "Files are locked by other application") {
-        sync_error_detail = QObject::tr("Files are locked by other application");
-    } else if (err_detail == "Library deleted on server") {
-        sync_error_detail = QObject::tr("Library deleted on server");
-    } else if (err_detail == "Library damaged on server") {
-        sync_error_detail = QObject::tr("Library damaged on server");
-    } else if (err_detail == "File is locked by another user") {
-        sync_error_detail = QObject::tr("File is locked by another user");
-    } else if (err_detail == "Do not have write permission to the library") {
-        sync_error_detail = QObject::tr("Do not have write permission to the library");
-    } else if (err_detail == "Do not have permission to sync the library") {
-        sync_error_detail = QObject::tr("Do not have permission to sync the library");
-    } else {
-        sync_error_detail = err_detail;
-    }
-
-    // printf ("sync error detail set to '%s'\n", sync_error_detail.toUtf8().data());
-}
 
 QString LocalRepo::getErrorString() const
 {
-    return sync_error_detail.isEmpty() ? sync_error_str : sync_error_detail;
+    return  sync_error_str;
 }

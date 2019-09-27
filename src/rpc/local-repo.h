@@ -6,6 +6,7 @@
 #include <QMetaType>
 
 #include "account.h"
+#include "utils/seafile-error.h"
 
 struct _GObject;
 
@@ -81,12 +82,11 @@ public:
 
     QString getErrorString() const;
 
-    void setSyncInfo(const QString &state, const QString &error = QString(), const QString &err_detail = QString());
+    void setSyncInfo(const QString &state, const int error = SYNC_ERROR_ID_NO_ERROR);
 
 private:
-    void translateSyncError(const QString &error);
+    void translateSyncError(const int error);
     void translateSyncState(const QString &state);
-    void translateSyncErrDetail(const QString &err_detail);
 };
 
 Q_DECLARE_METATYPE(LocalRepo)

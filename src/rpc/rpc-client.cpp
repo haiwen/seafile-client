@@ -27,7 +27,7 @@ extern "C" {
 #endif
 
 #include "rpc-client.h"
-
+#include "utils/seafile-error.h"
 
 namespace {
 
@@ -367,7 +367,7 @@ bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
 void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 {
     if (repo.worktree_invalid) {
-        repo.setSyncInfo("error", "invalid worktree");
+        repo.setSyncInfo("error", INVALID_WORKTREE);
         return;
     }
 
@@ -390,20 +390,17 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     }
 
     char *state = NULL;
-    char *err = NULL;
-    char *err_detail = NULL;
-    g_object_get(task, "state", &state, "error", &err, "err_detail", &err_detail, NULL);
+    int err = SYNC_ERROR_ID_NO_ERROR;
+    g_object_get(task, "state", &state, "error", &err, NULL);
 
     // seaf-daemon would retry three times for errors like quota/permission
     // before setting the "state" field to "error", but the GUI should display
     // the error from the beginning.
-    if (err != NULL && strlen(err) > 0 && strcmp(err, "Success") != 0) {
+    if (err != SYNC_ERROR_ID_NO_ERROR) {
         state = g_strdup("error");
     }
 
-    repo.setSyncInfo(state,
-                     g_strcmp0(state, "error") == 0 ? err : NULL,
-                     err_detail);
+    repo.setSyncInfo(state, g_strcmp0(state, "error") == 0 ? err : SYNC_ERROR_ID_NO_ERROR);
 
     if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
         getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage, &repo.rt_state);
@@ -417,8 +414,6 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     }
 
     g_free (state);
-    g_free (err);
-    g_free (err_detail);
     g_object_unref(task);
 }
 
@@ -442,8 +437,8 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
         if (task.state == "fetch") {
             getTransferDetail(&task);
         } else if (task.state == "error") {
-            if (!task.error_detail.isNull())
-                task.error_str = task.error_detail;
+//            if (!task.error_detail.isNull())
+//                task.error_str = task.error_detail;
         }
         task.translateStateInfo();
         tasks->push_back(task);

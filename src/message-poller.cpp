@@ -13,23 +13,13 @@
 #include "ui/tray-icon.h"
 
 #include "message-poller.h"
+#include "utils/seafile-error.h"
 
 namespace {
 
 const int kCheckNotificationIntervalMSecs = 1000;
 
 } // namespace
-
-#define SYNC_ERROR_ID_FILE_LOCKED_BY_APP 0
-#define SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP 1
-#define SYNC_ERROR_ID_FILE_LOCKED 2
-#define SYNC_ERROR_ID_INVALID_PATH 3
-#define SYNC_ERROR_ID_INDEX_ERROR 4
-#define SYNC_ERROR_ID_END_SPACE_PERIOD 5
-#define SYNC_ERROR_ID_INVALID_CHARACTER 6
-#define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
-#define SYNC_ERROR_ID_PERM_NOT_SYNCABLE 8
-#define SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO 9
 
 struct SyncNotification {
     QString type;
@@ -110,9 +100,6 @@ void MessagePoller::processNotification(const SyncNotification& notification)
     const QString& content = notification.content;
     if (type == "transfer") {
         // empty
-    } else if (type == "repo.deleted_on_relay") {
-        QString buf = tr("\"%1\" is unsynced. \nReason: Deleted on server").arg(content);
-        seafApplet->trayIcon()->showMessage(getBrand(), buf);
     } else if (type == "sync.done" ||
                type == "sync.multipart_upload") {
         /* format: a concatenation of (repo_name, repo_id, commmit_id,
@@ -135,22 +122,6 @@ void MessagePoller::processNotification(const SyncNotification& notification)
 
         seafApplet->trayIcon()->showMessage(title, translateCommitDesc(desc), repo_id, commit_id, previous_commit_id);
 
-    } else if (type == "sync.conflict") {
-        json_error_t error;
-        json_t *object = json_loads(toCStr(content), 0, &error);
-        if (!object) {
-            qWarning("Failed to parse json: %s", error.text);
-            return;
-        }
-
-        QString repo_id = QString::fromUtf8(json_string_value(json_object_get(object, "repo_id")));
-        QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
-        QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
-        QString msg = tr("File %1 conflict").arg(path);
-
-        seafApplet->trayIcon()->showMessage(title, msg, repo_id);
-
-        json_decref(object);
     } else if (type == "sync.error") {
         json_error_t error;
         json_t *object = json_loads(toCStr(content), 0, &error);
@@ -174,16 +145,16 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_FILE_LOCKED:
             msg = tr("Failed to sync file %1\nFile is locked by another user. Update to this file is not uploaded.").arg(path);
             break;
-            // case SYNC_ERROR_ID_INVALID_PATH:
-            //     msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
-            //     break;
+        case SYNC_ERROR_ID_INVALID_PATH:
+            msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
+            break;
         case SYNC_ERROR_ID_INDEX_ERROR:
             msg = tr("Failed to index file %1\nPlease check file permission and disk space.").arg(path);
             break;
-        case SYNC_ERROR_ID_END_SPACE_PERIOD:
+        case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
             msg = tr("Failed to sync %1\nFile path is ended with space or period and cannot be created on Windows.").arg(path);
             break;
-        case SYNC_ERROR_ID_INVALID_CHARACTER:
+        case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
             msg = tr("Failed to sync %1\nFile path contains invalid characters. It is not synced to this computer.").arg(path);
             break;
         case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
@@ -195,6 +166,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
             msg = tr("Updates in read-only library will not be uploaded.");
             break;
+        case SYNC_ERROR_ID_CONFLICT:
+            msg = tr("Concurrent updates to file. File is saved as conflict file");
+            break;
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);
@@ -204,25 +178,11 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         seafApplet->trayIcon()->showMessage(title, msg, repo_id);
 
         json_decref(object);
-    } else if (type == "sync.access_denied") {
-        /* format: <repo_name\trepo_id> */
-        QStringList slist = content.split("\t");
-        if (slist.count() != 2) {
-            qWarning("Bad sync.access_denied message format");
-            return;
-        }
-        QString buf = tr("\"%1\" failed to sync. \nAccess denied to service").arg(slist.at(0));
-        seafApplet->trayIcon()->showMessage(getBrand(), buf);
 
-    } else if (type == "sync.quota_full") {
-        /* format: <repo_name\trepo_id> */
-        QStringList slist = content.split("\t");
-        if (slist.count() != 2) {
-            qWarning("Bad sync.quota_full message format");
-            return;
-        }
-
-        QString buf = tr("\"%1\" failed to sync.\nThe library owner's storage space is used up.").arg(slist.at(0));
+    } else if (type == "repo.remove") {
+        /* format : <repo_name> */
+        QString repo_name = content;
+        QString buf = tr("Failed to move repository %1").arg(repo_name);
         seafApplet->trayIcon()->showMessage(getBrand(), buf);
     }
 }

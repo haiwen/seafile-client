@@ -88,25 +88,62 @@ void setupSettingDomain()
     QCoreApplication::setApplicationName(QString("%1 Client").arg(getBrand()));
 }
 
+void do_version() {
+	// from src/ui/about-dialog.cpp
+    QString version_text = QString("%1 Client %2")
+		.arg(getBrand())
+		.arg(STRINGIZE(SEAFILE_CLIENT_VERSION))
+#ifdef SEAFILE_CLIENT_REVISION
+		.append(" REV %1")
+		.arg(STRINGIZE(SEAFILE_CLIENT_REVISION))
+#endif
+    ;
+	printf("%s\n", toCStr(version_text));
+}
+
+void do_help(int argc, char *argv[]) {
+	printf("Usage: %s [options]\n", argv[0]);
+	printf("\n");
+	printf("Options:\n");
+	printf("  -V,--version\n");
+	printf("  -h,--help\n");
+	printf("  -c,--config-dir=<ccnet_conf_dir>\n\tSet configuration directory\n");
+	printf("  -d,--data-dir=<seafile_data_dir>\n\tSet data directory\n");
+	printf("  --stdout\n\tSend logging output to standard output instead of logfile\n");
+	printf("  -D,--delay\n\tWait one second before doing anything else\n");
+	printf("  -P,--ping\n\tSend Ping to running instance of the Seafile Client,\n\twhich should respond with Pong\n");
+	printf("  -K,--stop\n\tStop a running instance of the Seafile Client\n");
+	printf("  -X,--remove-user-data\n\tRemove all user configuration data\n");
+	printf("  -f,--open-local-file=<url>\n\tOpen a file from a Seafile library locally\n\t(used by \"Open via Client\" in Seahub)\n");
+}
+
 void handleCommandLineOption(int argc, char *argv[])
 {
     int c;
-    static const char *short_options = "KDXPc:d:f:";
+    static const char *short_options = "Vhc:d:DPKXf:";
     static const struct option long_options[] = {
+        { "version", no_argument, NULL, 'V' },
+        { "help", no_argument, NULL, 'h' },
         { "config-dir", required_argument, NULL, 'c' },
         { "data-dir", required_argument, NULL, 'd' },
-        { "stop", no_argument, NULL, 'K' },
-        { "delay", no_argument, NULL, 'D' },
-        { "remove-user-data", no_argument, NULL, 'X' },
-        { "open-local-file", no_argument, NULL, 'f' },
         { "stdout", no_argument, NULL, 'l' },
+        { "delay", no_argument, NULL, 'D' },
         { "ping", no_argument, NULL, 'P' },
+        { "stop", no_argument, NULL, 'K' },
+        { "remove-user-data", no_argument, NULL, 'X' },
+        { "open-local-file", required_argument, NULL, 'f' },
         { NULL, 0, NULL, 0, },
     };
 
     while ((c = getopt_long (argc, argv, short_options,
                              long_options, NULL)) != EOF) {
         switch (c) {
+        case 'V':
+            do_version();
+            exit(0);
+        case 'h':
+            do_help(argc, argv);
+            exit(0);
         case 'c':
             g_setenv ("CCNET_CONF_DIR", optarg, 1);
             break;
@@ -116,15 +153,15 @@ void handleCommandLineOption(int argc, char *argv[])
         case 'l':
             g_setenv ("LOG_STDOUT", "", 1);
             break;
-        case 'K':
-            do_stop();
-            exit(0);
-        case 'P':
-            do_ping();
-            exit(0);
         case 'D':
             msleep(1000);
             break;
+        case 'P':
+            do_ping();
+            exit(0);
+        case 'K':
+            do_stop();
+            exit(0);
         case 'X':
             do_remove_user_data();
             exit(0);
@@ -137,6 +174,7 @@ void handleCommandLineOption(int argc, char *argv[])
             break;
 #endif
         default:
+            do_help(argc, argv);
             exit(1);
         }
     }

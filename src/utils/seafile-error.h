@@ -1,7 +1,3 @@
-//
-// Created by sun on 2019/9/24.
-//
-
 #ifndef SEAFILE_CLIENT_SEAFILE_ERROR_H
 #define SEAFILE_CLIENT_SEAFILE_ERROR_H
 
@@ -35,8 +31,5 @@
 #define SYNC_ERROR_ID_CONFLICT                  27                  // SYNC_ERROR_LEVEL_FILE
 #define SYNC_ERROR_ID_GENERAL_ERROR             28                  // SYNC_ERROR_LEVEL_REPO
 #define SYNC_ERROR_ID_NO_ERROR                  29                  // SYNC_ERROR_LEVEL_REPO
-
-// customization error codes for seafile-applet
-#define INVALID_WORKTREE                        100
 
 #endif //SEAFILE_CLIENT_SEAFILE_ERROR_H

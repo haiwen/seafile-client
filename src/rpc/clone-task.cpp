@@ -29,8 +29,7 @@ CloneTask CloneTask::fromGObject(GObject *obj)
                   NULL);
 
     task.state = QString::fromUtf8(state);
-    task.error_str = QString::number(error_code);
-    task.error_detail = QString::fromUtf8("");
+    task.error_code = error_code;
     task.repo_id = QString::fromUtf8(repo_id);
     task.peer_id = QString::fromUtf8(peer_id);
     task.repo_name = QString::fromUtf8(repo_name);
@@ -97,9 +96,7 @@ void CloneTask::translateStateInfo()
         state_str = QObject::tr("Canceled");
 
     } else if (state == "error") {
-        bool ok;
-        int error = error_str.toInt(&ok);
-        switch (error) {
+        switch (error_code) {
         case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
             error_str = QObject::tr("File is locked by another application");
             break;
@@ -189,9 +186,6 @@ void CloneTask::translateStateInfo()
             break;
         case SYNC_ERROR_ID_NO_ERROR:
             error_str = QObject::tr("No error");
-            break;
-        case INVALID_WORKTREE:
-            error_str = QObject::tr("Error when accessing the local folder");
             break;
         default:
             qWarning("Unknown sync error");

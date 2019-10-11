@@ -367,7 +367,7 @@ bool SeafileRpcClient::hasLocalRepo(const QString& repo_id)
 void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
 {
     if (repo.worktree_invalid) {
-        repo.setSyncInfo("error", INVALID_WORKTREE);
+        qWarning("get a invalid worktree when getting sync status");
         return;
     }
 
@@ -396,11 +396,8 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     // seaf-daemon would retry three times for errors like quota/permission
     // before setting the "state" field to "error", but the GUI should display
     // the error from the beginning.
-    if (err != SYNC_ERROR_ID_NO_ERROR) {
-        state = g_strdup("error");
-    }
 
-    repo.setSyncInfo(state, g_strcmp0(state, "error") == 0 ? err : SYNC_ERROR_ID_NO_ERROR);
+    repo.setSyncInfo(state, err);
 
     if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
         getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage, &repo.rt_state);
@@ -436,9 +433,6 @@ int SeafileRpcClient::getCloneTasks(std::vector<CloneTask> *tasks)
 
         if (task.state == "fetch") {
             getTransferDetail(&task);
-        } else if (task.state == "error") {
-//            if (!task.error_detail.isNull())
-//                task.error_str = task.error_detail;
         }
         task.translateStateInfo();
         tasks->push_back(task);

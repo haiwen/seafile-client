@@ -164,10 +164,10 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             msg = tr("No permission to sync folder %1.").arg(path);
             break;
         case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
-            msg = tr("Updates in read-only library will not be uploaded.");
+            msg = tr("Updates in read-only library %1 will not be uploaded.").arg(path);
             break;
         case SYNC_ERROR_ID_CONFLICT:
-            msg = tr("Concurrent updates to file. File is saved as conflict file");
+            msg = tr("Concurrent updates to file. File %1 is saved as conflict file").arg(path);
             break;
         default:
             qWarning("Unknown sync error id %d", err_id);
@@ -182,7 +182,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
     } else if (type == "repo.remove") {
         /* format : <repo_name> */
         QString repo_name = content;
-        QString buf = tr("Failed to move repository %1").arg(repo_name);
+        QString buf = tr("Folder for library %1 is removed or moved. The library is unsynced.").arg(repo_name);
         seafApplet->trayIcon()->showMessage(getBrand(), buf);
     }
 }

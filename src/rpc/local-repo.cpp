@@ -224,9 +224,6 @@ void LocalRepo::translateSyncError(const int error)
     case SYNC_ERROR_ID_NO_ERROR:
         sync_state_str = QObject::tr("No error");
         break;
-    case INVALID_WORKTREE:
-        sync_state_str = QObject::tr("Error when accessing the local folder");
-        break;
     default:
         qWarning("Unknown sync error");
     }

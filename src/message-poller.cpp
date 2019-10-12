@@ -169,6 +169,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_CONFLICT:
             msg = tr("Concurrent updates to file. File %1 is saved as conflict file").arg(path);
             break;
+        case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
+            msg = tr("Failed to remove uncommited folder %1.").arg(path);
+            break;
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);

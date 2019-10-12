@@ -4,7 +4,7 @@
 
 #include "utils/utils.h"
 #include "sync-error.h"
-#include "utils/seafile-error.h"
+#include "seafile/seafile-error.h"
 
 SyncError SyncError::fromGObject(GObject *obj)
 {

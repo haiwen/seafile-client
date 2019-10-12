@@ -572,6 +572,7 @@ LIST(APPEND utils_sources
     src/utils/json-utils.cpp
     src/utils/log.c
     src/utils/stl.cpp
+    src/utils/seafile-error.cpp
     )
 IF (WIN32)
     LIST(APPEND utils_sources

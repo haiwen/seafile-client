@@ -13,7 +13,7 @@
 #include "ui/tray-icon.h"
 
 #include "message-poller.h"
-#include "utils/seafile-error.h"
+#include "seafile/seafile-error.h"
 
 namespace {
 

@@ -27,7 +27,7 @@ extern "C" {
 #endif
 
 #include "rpc-client.h"
-#include "utils/seafile-error.h"
+#include "seafile/seafile-error.h"
 
 namespace {
 
@@ -392,10 +392,6 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     char *state = NULL;
     int err = SYNC_ERROR_ID_NO_ERROR;
     g_object_get(task, "state", &state, "error", &err, NULL);
-
-    // seaf-daemon would retry three times for errors like quota/permission
-    // before setting the "state" field to "error", but the GUI should display
-    // the error from the beginning.
 
     repo.setSyncInfo(state, err);
 

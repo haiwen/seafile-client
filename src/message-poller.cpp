@@ -13,7 +13,7 @@
 #include "ui/tray-icon.h"
 
 #include "message-poller.h"
-#include "seafile/seafile-error.h"
+#include <seafile/seafile-error.h>
 
 namespace {
 
@@ -170,7 +170,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             msg = tr("Concurrent updates to file. File %1 is saved as conflict file").arg(path);
             break;
         case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
-            msg = tr("Failed to remove uncommited folder %1.").arg(path);
+            msg = tr("Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.").arg(path);
             break;
         default:
             qWarning("Unknown sync error id %d", err_id);

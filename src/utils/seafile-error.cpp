@@ -1,5 +1,5 @@
 #include "seafile-error.h"
-#include "seafile/seafile-error.h"
+#include <seafile/seafile-error.h>
 
 QString
 translateSyncErrorCode(const int error_code)
@@ -92,6 +92,9 @@ translateSyncErrorCode(const int error_code)
             break;
         case SYNC_ERROR_ID_GENERAL_ERROR:
             error_str = QObject::tr("Unknown error");
+            break;
+        case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
+            error_str = QObject::tr("A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.");
             break;
         default:
             qWarning("Unknown sync error");

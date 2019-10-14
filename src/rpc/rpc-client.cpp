@@ -27,7 +27,7 @@ extern "C" {
 #endif
 
 #include "rpc-client.h"
-#include "seafile/seafile-error.h"
+#include <seafile/seafile-error.h>
 
 namespace {
 

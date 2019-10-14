@@ -6,7 +6,7 @@
 #include <QMetaType>
 
 #include "account.h"
-#include "seafile/seafile-error.h"
+#include <seafile/seafile-error.h>
 
 struct _GObject;
 

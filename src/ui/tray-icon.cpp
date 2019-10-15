@@ -144,6 +144,8 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 #if !defined(Q_OS_LINUX)
     connect(this, SIGNAL(messageClicked()),
             this, SLOT(onMessageClicked()));
+    connect(this, SIGNAL(messageClicked()),
+            this, SLOT(showSyncErrorsDialog()));
 #endif
 
     hide();
@@ -722,6 +724,8 @@ void SeafileTrayIcon::checkTrayIconMessageQueue()
 
 void SeafileTrayIcon::showSyncErrorsDialog()
 {
+    // Change icon status to daemon up when show sync errors dialog
+    setState(STATE_DAEMON_UP);
     if (sync_errors_dialog_ == nullptr) {
         sync_errors_dialog_ = new SyncErrorsDialog;
     }

@@ -4,6 +4,7 @@
 
 #include "utils/utils.h"
 #include "sync-error.h"
+#include "utils/seafile-error.h"
 
 SyncError SyncError::fromGObject(GObject *obj)
 {
@@ -39,56 +40,10 @@ SyncError SyncError::fromGObject(GObject *obj)
     return error;
 }
 
-// Copied from seafile/daemon/repo-mgr.h
-#define SYNC_ERROR_ID_FILE_LOCKED_BY_APP 0
-#define SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP 1
-#define SYNC_ERROR_ID_FILE_LOCKED 2
-#define SYNC_ERROR_ID_INVALID_PATH 3
-#define SYNC_ERROR_ID_INDEX_ERROR 4
-#define SYNC_ERROR_ID_PATH_END_SPACE_PERIOD 5
-#define SYNC_ERROR_ID_PATH_INVALID_CHARACTER 6
-#define SYNC_ERROR_ID_FOLDER_PERM_DENIED 7
-#define SYNC_ERROR_ID_PERM_NOT_SYNCABLE 8
-#define SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO 9
-
+// SyncError only include file level and repository level
 void SyncError::translateErrorStr()
 {
     readable_time_stamp = translateCommitTime(timestamp);
 
-    switch (error_id) {
-    case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
-        error_str = QObject::tr("File is locked by another application");
-        break;
-    case SYNC_ERROR_ID_FOLDER_LOCKED_BY_APP:
-        error_str = QObject::tr("Folder is locked by another application");
-        break;
-    case SYNC_ERROR_ID_FILE_LOCKED:
-        error_str = QObject::tr("File is locked by another user");
-        break;
-    case SYNC_ERROR_ID_INVALID_PATH:
-        error_str = QObject::tr("Path is invalid");
-        break;
-    case SYNC_ERROR_ID_INDEX_ERROR:
-        error_str = QObject::tr("Error when indexing");
-        break;
-    case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
-        error_str = QObject::tr("Path ends with space or period character");
-        break;
-    case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
-        error_str = QObject::tr("Path contains invalid characters like '|' or ':'");
-        break;
-    case SYNC_ERROR_ID_FOLDER_PERM_DENIED:
-        error_str = QObject::tr("Update to file denied by folder permission setting");
-        break;
-    case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
-        error_str = QObject::tr("No permission to sync this folder");
-        break;
-    case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
-        error_str = QObject::tr("Updates in read-only library will not be uploaded");
-        break;
-    default:
-        // unreachable
-        qWarning("unknown sync error id %d", error_id);
-        error_str = "";
-    }
+    error_str = translateSyncErrorCode(error_id);
 }

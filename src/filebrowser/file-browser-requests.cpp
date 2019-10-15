@@ -9,6 +9,7 @@
 #include "seaf-dirent.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
+#include "src/open-local-helper.h"
 
 namespace {
 
@@ -433,7 +434,8 @@ GetSmartLinkRequest::GetSmartLinkRequest(const Account& account,
           SeafileApiRequest::METHOD_GET, account.token),
       repo_id_(repo_id),
       path_(path),
-      is_dir_(is_dir)
+      is_dir_(is_dir),
+      protocol_link_(OpenLocalHelper::instance()->generateLocalFileSeafileUrl(repo_id, account, path).toEncoded())
 {
     setUrlParam("repo_id", repo_id);
     setUrlParam("path", path);
@@ -454,7 +456,7 @@ void GetSmartLinkRequest::requestSuccess(QNetworkReply& reply)
     const char* smart_link =
         json_string_value(json_object_get(json.data(), "smart_link"));
 
-    emit success(smart_link);
+    emit success(smart_link, protocol_link_);
 }
 
 GetFileLockInfoRequest::GetFileLockInfoRequest(const Account& account,

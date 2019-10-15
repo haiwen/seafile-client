@@ -199,8 +199,8 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
             path += "/";
         }
         GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id, path, !is_file);
-        connect(req, SIGNAL(success(const QString&)),
-                this, SLOT(onGetSmartLinkSuccess(const QString&)));
+        connect(req, SIGNAL(success(const QString&, const QString&)),
+                this, SLOT(onGetSmartLinkSuccess(const QString&, const QString&)));
         connect(req, SIGNAL(failed(const ApiError&)),
                 this, SLOT(onGetSmartLinkFailed(const ApiError&)));
 
@@ -216,10 +216,10 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
     }
 }
 
-void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link)
+void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link, const QString& protocol_link)
 {
     GetSmartLinkRequest *req = (GetSmartLinkRequest *)(sender());
-    SeafileLinkDialog *dialog = new SeafileLinkDialog(smart_link, NULL);
+    SeafileLinkDialog *dialog = new SeafileLinkDialog(smart_link, protocol_link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();

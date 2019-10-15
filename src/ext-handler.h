@@ -43,7 +43,7 @@ private slots:
                       const QString& path_in_repo,
                       bool to_group);
     void openUrlWithAutoLogin(const QUrl& url);
-    void onGetSmartLinkSuccess(const QString& smart_link);
+    void onGetSmartLinkSuccess(const QString& smart_link, const QString& protocol_link);
     void onGetSmartLinkFailed(const ApiError& error);
     void showLockedBy(const QString& repo_id, const QString& path_in_repo);
     void onGetFileLockInfoSuccess(bool found, const QString &owner);

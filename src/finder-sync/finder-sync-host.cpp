@@ -215,17 +215,17 @@ void FinderSyncHost::doInternalLink(const QString &path)
     }
 
     GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id, path_in_repo, path_in_repo.endsWith('/'));
-    connect(req, SIGNAL(success(const QString&)),
-            this, SLOT(onGetSmartLinkSuccess(const QString&)));
+    connect(req, SIGNAL(success(const QString&, const QString&)),
+            this, SLOT(onGetSmartLinkSuccess(const QString&, const QString&)));
     connect(req, SIGNAL(failed(const ApiError&)),
             this, SLOT(onGetSmartLinkFailed(const ApiError&)));
 
     req->send();
 }
 
-void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link)
+void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link, const QString& protocol_link)
 {
-    SeafileLinkDialog *dialog = new SeafileLinkDialog(smart_link);
+    SeafileLinkDialog *dialog = new SeafileLinkDialog(smart_link, protocol_link, nullptr);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();

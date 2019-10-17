@@ -32,7 +32,7 @@ private slots:
     void doShowFileLockedBy(const QString& path);
     void onGetFileLockInfoSuccess(bool found, const QString& lock_owner);
     void onGetFileLockInfoFailed(const ApiError& error);
-    void onGetSmartLinkSuccess(const QString& smart_link);
+    void onGetSmartLinkSuccess(const QString& smart_link, const QString& protocol_link);
     void onGetSmartLinkFailed(const ApiError& error);
 private:
     bool lookUpFileInformation(const QString &path, QString *repo_id, Account *account, QString *path_in_repo);

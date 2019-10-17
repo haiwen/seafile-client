@@ -378,7 +378,7 @@ public:
                         bool is_dir);
 
 signals:
-    void success(const QString& smart_link);
+    void success(const QString &smart_link, const QString &protocol_link);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -387,6 +387,7 @@ private:
     Q_DISABLE_COPY(GetSmartLinkRequest);
     QString repo_id_;
     QString path_;
+    QString protocol_link_;
     bool is_dir_;
 };
 

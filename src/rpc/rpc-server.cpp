@@ -33,6 +33,7 @@ const char *kSeafileAppletSockName = "\\\\.\\pipe\\seafile_client_";
 const char *kSeafileAppletSockName = "seafile_client.sock";
 #endif
 const char *kSeafileAppletRpcService = "seafile-client-rpcserver";
+const int kNamedPipeServerThreadPoolSize = 1;
 
 QString getAppletRpcPipePath()
 {
@@ -204,7 +205,7 @@ SINGLETON_IMPL(SeafileAppletRpcServer)
 SeafileAppletRpcServer::SeafileAppletRpcServer()
 : priv_(new SeafileAppletRpcServerPriv)
 {
-    priv_->pipe_server = searpc_create_named_pipe_server(toCStr(getAppletRpcPipePath()));
+    priv_->pipe_server = searpc_create_named_pipe_server(toCStr(getAppletRpcPipePath()), kNamedPipeServerThreadPoolSize);
 
     RpcServerProxy *proxy = RpcServerProxy::instance();
     connect(

@@ -1096,6 +1096,14 @@ opplasting mislyktes</translation>
         <source>Failed to get link</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>GetFileTask</name>
@@ -1485,20 +1493,11 @@ Do you like to download your default library?</source>
 <context>
     <name>MessagePoller</name>
     <message>
-        <source>&quot;%1&quot; is unsynced. 
-Reason: Deleted on server</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&quot;%1&quot; is synchronized</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File %1 conflict</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1536,21 +1535,23 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>No permission to sync folder %1.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded.</source>
+        <source>Updates in read-only library %1 will not be uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Concurrent updates to file. File %1 is saved as conflict file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1688,54 +1689,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>ukjent</translation>
     </message>
     <message>
-        <source>Server has been removed</source>
-        <translation>Serveren er fjernet</translation>
-    </message>
-    <message>
-        <source>You have not logged in to the server</source>
-        <translation>Du har ikke logget på serveren</translation>
-    </message>
-    <message>
-        <source>You do not have permission to access this library</source>
-        <translation>Du har ikke tillatelse til å åpne dette biblioteket</translation>
-    </message>
-    <message>
-        <source>The storage space of the library owner has been used up</source>
-        <translation>Bibliotekets eier har bruk opp all sin tildelte lagringsplass</translation>
-    </message>
-    <message>
-        <source>Remote service is not available</source>
-        <translation>Tjenesten er ikke tilgjengelig</translation>
-    </message>
-    <message>
-        <source>Access denied to service</source>
-        <translation>Ingen tilgang til tjenesten</translation>
-    </message>
-    <message>
-        <source>Internal data corrupted</source>
-        <translation>Interne data er korrupte</translation>
-    </message>
-    <message>
-        <source>Failed to start upload</source>
-        <translation>Kunne ikke starte opplastingen</translation>
-    </message>
-    <message>
-        <source>Failed to start download</source>
-        <translation>Kunne ikke starte nedlastingen</translation>
-    </message>
-    <message>
-        <source>Library is damaged on server</source>
-        <translation>Biblioteket er skadd på serveren</translation>
-    </message>
-    <message>
-        <source>Conflict in merge</source>
-        <translation>Konflikt i samordningen</translation>
-    </message>
-    <message>
-        <source>Server version is too old</source>
-        <translation>Serverversjonen er for gammel</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Ukjent feil</translation>
     </message>
@@ -1776,10 +1729,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Bad request</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Not enough memory</source>
         <translation type="unfinished"/>
     </message>
@@ -1804,56 +1753,8 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Tildelt lagringsplass er oppbrukt</translation>
     </message>
     <message>
-        <source>Internal server error</source>
-        <translation>Intern serverfeil</translation>
-    </message>
-    <message>
-        <source>Your %1 client is too old</source>
-        <translation>Din %1 klient er for gammel</translation>
-    </message>
-    <message>
-        <source>Failed to sync this library</source>
-        <translation>Kunne ikke synkronisere dette biblioteket</translation>
-    </message>
-    <message>
-        <source>Files are locked by other application</source>
-        <translation>Filene er låste av en annen applikasjon</translation>
-    </message>
-    <message>
-        <source>Library is deleted on server</source>
-        <translation>Biblioteket er slettet på serveren</translation>
-    </message>
-    <message>
-        <source>Error when accessing the local folder</source>
-        <translation>Feil oppsto ved forsøk på å åpne den lokale mappen</translation>
-    </message>
-    <message>
         <source>initializing...</source>
         <translation>Initialiserer....</translation>
-    </message>
-    <message>
-        <source>Failed to index local files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to check server information</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to create local files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to merge local file changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Incorrect password. Please download again</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Internal error</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>connecting server...</source>
@@ -2156,27 +2057,11 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Error occurred in upload</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Error occurred in download</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Permission denied on server. Please try to resync the library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Do not have permission to sync the library</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2264,7 +2149,19 @@ The library owner&apos;s storage space is used up.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded</source>
+        <source>Created or updated a file in a non-writable library or folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied on server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Concurrent updates to file. File is saved as conflict file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2671,6 +2568,10 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>%1 Internal Link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 Desktop Access Link:</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3109,17 +3010,6 @@ The library owner&apos;s storage space is used up.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
         <translation type="unfinished"/>
     </message>
 </context>

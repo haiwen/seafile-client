@@ -1096,6 +1096,14 @@ failed to upload.</source>
         <source>Failed to get link</source>
         <translation>Не удалось получить ссылку</translation>
     </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>GetFileTask</name>
@@ -1487,22 +1495,12 @@ Do you like to download your default library?</source>
 <context>
     <name>MessagePoller</name>
     <message>
-        <source>&quot;%1&quot; is unsynced. 
-Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; не синхронизирован. 
-Причина: Удалено на сервере</translation>
-    </message>
-    <message>
         <source>&quot;%1&quot; is synchronized</source>
         <translation>%1 синхронизирован</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
         <translation>Файлы загружены в &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>File %1 conflict</source>
-        <translation>Файл %1 конфликтует</translation>
     </message>
     <message>
         <source>Failed to sync file %1
@@ -1545,23 +1543,23 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Обновление файла %1 запрещено настройками разрешений папки.</translation>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; не удалось синхронизировать. 
-Доступ к сервису запрещен</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; не удалось синхронизировать.
-Квота объёма хранилища владельца библиотеки израсходована.</translation>
-    </message>
-    <message>
         <source>No permission to sync folder %1.</source>
+        <translation>Нет разрешения на синхронизацию папки %1.</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded.</source>
+        <source>Concurrent updates to file. File %1 is saved as conflict file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1699,54 +1697,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Неизвестно</translation>
     </message>
     <message>
-        <source>Server has been removed</source>
-        <translation>Сервер был удален</translation>
-    </message>
-    <message>
-        <source>You have not logged in to the server</source>
-        <translation>Вы не авторизованы на сервере</translation>
-    </message>
-    <message>
-        <source>You do not have permission to access this library</source>
-        <translation>У вас нет доступа к этой библиотеке</translation>
-    </message>
-    <message>
-        <source>The storage space of the library owner has been used up</source>
-        <translation>Владельцем библиотеки израсходована выделенная квота</translation>
-    </message>
-    <message>
-        <source>Remote service is not available</source>
-        <translation>Удаленная служба не доступна</translation>
-    </message>
-    <message>
-        <source>Access denied to service</source>
-        <translation>Доступ запрещен</translation>
-    </message>
-    <message>
-        <source>Internal data corrupted</source>
-        <translation>Внутренние данные повреждены</translation>
-    </message>
-    <message>
-        <source>Failed to start upload</source>
-        <translation>Не удалось запустить загрузку</translation>
-    </message>
-    <message>
-        <source>Failed to start download</source>
-        <translation>Не удалось запустить скачивание</translation>
-    </message>
-    <message>
-        <source>Library is damaged on server</source>
-        <translation>Библиотека повреждена на сервере</translation>
-    </message>
-    <message>
-        <source>Conflict in merge</source>
-        <translation>Конфликт при слиянии</translation>
-    </message>
-    <message>
-        <source>Server version is too old</source>
-        <translation>Версия сервера устарела</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Неизвестная ошибка</translation>
     </message>
@@ -1787,10 +1737,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Ошибка сервера</translation>
     </message>
     <message>
-        <source>Bad request</source>
-        <translation>Неверный запрос</translation>
-    </message>
-    <message>
         <source>Not enough memory</source>
         <translation>Недостаточно памяти</translation>
     </message>
@@ -1815,56 +1761,8 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Квота хранения была израсходована</translation>
     </message>
     <message>
-        <source>Internal server error</source>
-        <translation>Внутренняя ошибка сервера</translation>
-    </message>
-    <message>
-        <source>Your %1 client is too old</source>
-        <translation>Ваш %1 клиент устарел</translation>
-    </message>
-    <message>
-        <source>Failed to sync this library</source>
-        <translation>Не удалось синхронизировать эту библиотеку</translation>
-    </message>
-    <message>
-        <source>Files are locked by other application</source>
-        <translation>Файлы заблокированы другим приложением</translation>
-    </message>
-    <message>
-        <source>Library is deleted on server</source>
-        <translation>Библиотека удалена на сервере</translation>
-    </message>
-    <message>
-        <source>Error when accessing the local folder</source>
-        <translation>Ошибка при доступе к локальной папке</translation>
-    </message>
-    <message>
         <source>initializing...</source>
         <translation>Инициализация...</translation>
-    </message>
-    <message>
-        <source>Failed to index local files</source>
-        <translation>Не удалось проиндексировать локальные файлы</translation>
-    </message>
-    <message>
-        <source>Failed to check server information</source>
-        <translation>Не удалось проверить информацию о сервере</translation>
-    </message>
-    <message>
-        <source>Failed to create local files</source>
-        <translation>Не удалось создать локальные файлы</translation>
-    </message>
-    <message>
-        <source>Failed to merge local file changes</source>
-        <translation>Не удалось объединить локальные изменения файлов</translation>
-    </message>
-    <message>
-        <source>Incorrect password. Please download again</source>
-        <translation>Неверный пароль. Пожалуйста, попробуйте снова</translation>
-    </message>
-    <message>
-        <source>Internal error</source>
-        <translation>Внутренняя ошибка</translation>
     </message>
     <message>
         <source>connecting server...</source>
@@ -2167,28 +2065,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 клиент уже запущен</translation>
     </message>
     <message>
-        <source>Error occurred in upload</source>
-        <translation>Ошибка при загрузке</translation>
-    </message>
-    <message>
-        <source>Error occurred in download</source>
-        <translation>Ошибка при скачивании</translation>
-    </message>
-    <message>
-        <source>Permission denied on server. Please try to resync the library</source>
-        <translation>Доступ запрещен на сервере. Пожалуйста, попробуйте повторно синхронизировать библиотеку</translation>
-    </message>
-    <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
         <translation>Внутренние данные повреждены на клиенте. Пожалуйста, попробуйте повторно синхронизировать библиотеку</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
         <translation>Нет разрешения на запись в библиотеку</translation>
-    </message>
-    <message>
-        <source>Do not have permission to sync the library</source>
-        <translation>Нет разрешения на синхронизацию библиотеки</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
@@ -2275,7 +2157,19 @@ The library owner&apos;s storage space is used up.</source>
         <translation>Библиотека восстановлена</translation>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded</source>
+        <source>Created or updated a file in a non-writable library or folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied on server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Concurrent updates to file. File is saved as conflict file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2681,6 +2575,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>%1 Internal Link:</source>
         <translation>%1 Внутренняя ссылка:</translation>
+    </message>
+    <message>
+        <source>%1 Desktop Access Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3119,17 +3017,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>OK</source>
         <translation>ОК</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

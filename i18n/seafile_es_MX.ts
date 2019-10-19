@@ -1096,6 +1096,14 @@ falló al subir.</translation>
         <source>Failed to get link</source>
         <translation>Fallo al obtener enlace</translation>
     </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>GetFileTask</name>
@@ -1487,22 +1495,12 @@ Do you like to download your default library?</source>
 <context>
     <name>MessagePoller</name>
     <message>
-        <source>&quot;%1&quot; is unsynced. 
-Reason: Deleted on server</source>
-        <translation>&quot;%1&quot; está desincronizada. 
-Motivo: Eliminada en el servidor</translation>
-    </message>
-    <message>
         <source>&quot;%1&quot; is synchronized</source>
         <translation>&quot;%1&quot; está sincronizada</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
         <translation>Archivos subidos a &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>File %1 conflict</source>
-        <translation>Conflicto en archivo %1</translation>
     </message>
     <message>
         <source>Failed to sync file %1
@@ -1545,23 +1543,23 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Actualizaciones al archivo %1 son denegadas debido a los permisos de la carpeta.</translation>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; falló al sincronizar. 
-Acceso denegado al servicio</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; falló al sincronizar
-El espacio de almacenamiento del propietario de la biblioteca está agotado.</translation>
-    </message>
-    <message>
         <source>No permission to sync folder %1.</source>
+        <translation>No tiene permiso para sincronizar la carpeta %1.</translation>
+    </message>
+    <message>
+        <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded.</source>
+        <source>Concurrent updates to file. File %1 is saved as conflict file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1699,54 +1697,6 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>desconocido</translation>
     </message>
     <message>
-        <source>Server has been removed</source>
-        <translation>El servidor fue removido</translation>
-    </message>
-    <message>
-        <source>You have not logged in to the server</source>
-        <translation>No ha iniciado sesión en el servidor</translation>
-    </message>
-    <message>
-        <source>You do not have permission to access this library</source>
-        <translation>No tiene permiso para acceder a esta biblioteca</translation>
-    </message>
-    <message>
-        <source>The storage space of the library owner has been used up</source>
-        <translation>El espacio del dueño de la biblioteca ha sido utilizado en su totalidad</translation>
-    </message>
-    <message>
-        <source>Remote service is not available</source>
-        <translation>Sevicio remoto no disponible</translation>
-    </message>
-    <message>
-        <source>Access denied to service</source>
-        <translation>Fallo al acceder al servicio</translation>
-    </message>
-    <message>
-        <source>Internal data corrupted</source>
-        <translation>Datos internos corruptos</translation>
-    </message>
-    <message>
-        <source>Failed to start upload</source>
-        <translation>Fallo al iniciar subida</translation>
-    </message>
-    <message>
-        <source>Failed to start download</source>
-        <translation>Fallo al iniciar descarga</translation>
-    </message>
-    <message>
-        <source>Library is damaged on server</source>
-        <translation>La biblioteca está dañada en el servidor</translation>
-    </message>
-    <message>
-        <source>Conflict in merge</source>
-        <translation>Conflicto al unir</translation>
-    </message>
-    <message>
-        <source>Server version is too old</source>
-        <translation>La versión del servidor es demasiado vieja</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Error desconocido</translation>
     </message>
@@ -1787,10 +1737,6 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>Error del servidor</translation>
     </message>
     <message>
-        <source>Bad request</source>
-        <translation>Solicitud incorrecta</translation>
-    </message>
-    <message>
         <source>Not enough memory</source>
         <translation>No hay suficiente memoria</translation>
     </message>
@@ -1815,56 +1761,8 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>El espacio de almacenamiento ha sido utilizado en su totalidad</translation>
     </message>
     <message>
-        <source>Internal server error</source>
-        <translation>Error interno del servidor</translation>
-    </message>
-    <message>
-        <source>Your %1 client is too old</source>
-        <translation>Su cliente %1 es demasiado viejo</translation>
-    </message>
-    <message>
-        <source>Failed to sync this library</source>
-        <translation>Fallo al sincronizar esta biblioteca</translation>
-    </message>
-    <message>
-        <source>Files are locked by other application</source>
-        <translation>Los archivos están bloqueados por otra aplicación</translation>
-    </message>
-    <message>
-        <source>Library is deleted on server</source>
-        <translation>La biblioteca fue eliminada del servidor</translation>
-    </message>
-    <message>
-        <source>Error when accessing the local folder</source>
-        <translation>Error al acceder a la carpeta local</translation>
-    </message>
-    <message>
         <source>initializing...</source>
         <translation>inicializando...</translation>
-    </message>
-    <message>
-        <source>Failed to index local files</source>
-        <translation>Fallo al indexar archivos locales</translation>
-    </message>
-    <message>
-        <source>Failed to check server information</source>
-        <translation>Fallo al verificar la información del servidor</translation>
-    </message>
-    <message>
-        <source>Failed to create local files</source>
-        <translation>Fallo al crear archivos locales</translation>
-    </message>
-    <message>
-        <source>Failed to merge local file changes</source>
-        <translation>Fallo agregar cambios en el archivo</translation>
-    </message>
-    <message>
-        <source>Incorrect password. Please download again</source>
-        <translation>Contraseña incorrecta. Descargue de nuevo</translation>
-    </message>
-    <message>
-        <source>Internal error</source>
-        <translation>Error interno</translation>
     </message>
     <message>
         <source>connecting server...</source>
@@ -2167,28 +2065,12 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>El cliente %1 ya se está ejecutando</translation>
     </message>
     <message>
-        <source>Error occurred in upload</source>
-        <translation>Ocurrió un error en la subida</translation>
-    </message>
-    <message>
-        <source>Error occurred in download</source>
-        <translation>Ocurrió un error en la descarga</translation>
-    </message>
-    <message>
-        <source>Permission denied on server. Please try to resync the library</source>
-        <translation>Permiso denegado en el servidor. Por favor intente resincronizar la biblioteca</translation>
-    </message>
-    <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
         <translation>Datos internos corruptos en el cliente. Por favor intente resincronizar la biblioteca</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
         <translation>No tiene permiso de escritura en la biblioteca</translation>
-    </message>
-    <message>
-        <source>Do not have permission to sync the library</source>
-        <translation>No tiene permiso para sincronizar la biblioteca</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
@@ -2275,7 +2157,19 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
         <translation>Biblioteca recuperada</translation>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded</source>
+        <source>Created or updated a file in a non-writable library or folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied on server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Concurrent updates to file. File is saved as conflict file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2683,6 +2577,10 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
     <message>
         <source>%1 Internal Link:</source>
         <translation>Enlace interno %1:</translation>
+    </message>
+    <message>
+        <source>%1 Desktop Access Link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3121,17 +3019,6 @@ El espacio de almacenamiento del propietario de la biblioteca está agotado.</tr
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

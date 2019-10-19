@@ -1090,6 +1090,14 @@ failed to upload.</source>
         <source>Failed to get link</source>
         <translation>获取链接失败</translation>
     </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation>文件 “%1” 被 %2 锁定</translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation>获取文件 “%1” 的锁定信息失败</translation>
+    </message>
 </context>
 <context>
     <name>GetFileTask</name>
@@ -1479,22 +1487,12 @@ Do you like to download your default library?</source>
 <context>
     <name>MessagePoller</name>
     <message>
-        <source>&quot;%1&quot; is unsynced. 
-Reason: Deleted on server</source>
-        <translation>“%1”未同步
-原因：在服务器上删除</translation>
-    </message>
-    <message>
         <source>&quot;%1&quot; is synchronized</source>
         <translation>“%1”已同步</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
         <translation>文件已经上传到 &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>File %1 conflict</source>
-        <translation>文件 %1 同步时发生冲突</translation>
     </message>
     <message>
         <source>Failed to sync file %1
@@ -1537,24 +1535,24 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>文件夹权限设置导致文件 %1 无法被更新</translation>
     </message>
     <message>
-        <source>&quot;%1&quot; failed to sync. 
-Access denied to service</source>
-        <translation>&quot;%1&quot; 同步出错。
-您没有权限访问该资料库</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; failed to sync.
-The library owner&apos;s storage space is used up.</source>
-        <translation>&quot;%1&quot; 同步出错。
-该资料库所有者的空间限额已用完。</translation>
-    </message>
-    <message>
         <source>No permission to sync folder %1.</source>
         <translation>路径 %1 设置了不可同步的共享权限</translation>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded.</source>
-        <translation>只读资料库下的文件改动不会被上传</translation>
+        <source>Updates in read-only library %1 will not be uploaded.</source>
+        <translation>只读仓库 %1 的更新不会被上传。</translation>
+    </message>
+    <message>
+        <source>Concurrent updates to file. File %1 is saved as conflict file</source>
+        <translation>对文件的并发更新。文件 %1 被保存为冲突文件</translation>
+    </message>
+    <message>
+        <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
+        <translation>文件夹 %1 被移动到 seafile-recycle-bin 文件夹，因为它包含未上传的文件。</translation>
+    </message>
+    <message>
+        <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
+        <translation>资料库 %1 的文件夹被移动或者删除。这个资料库未同步。</translation>
     </message>
 </context>
 <context>
@@ -1691,54 +1689,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>未知</translation>
     </message>
     <message>
-        <source>Server has been removed</source>
-        <translation>服务器已经被删除</translation>
-    </message>
-    <message>
-        <source>You have not logged in to the server</source>
-        <translation>您还没登录到服务器上</translation>
-    </message>
-    <message>
-        <source>You do not have permission to access this library</source>
-        <translation>您没有权限访问这个资料库</translation>
-    </message>
-    <message>
-        <source>The storage space of the library owner has been used up</source>
-        <translation>资料库所有者的空间限额已用完</translation>
-    </message>
-    <message>
-        <source>Remote service is not available</source>
-        <translation>与服务器通信失败</translation>
-    </message>
-    <message>
-        <source>Access denied to service</source>
-        <translation>没有访问权限</translation>
-    </message>
-    <message>
-        <source>Internal data corrupted</source>
-        <translation>内部数据损坏</translation>
-    </message>
-    <message>
-        <source>Failed to start upload</source>
-        <translation>启动上传失败</translation>
-    </message>
-    <message>
-        <source>Failed to start download</source>
-        <translation>启动下载失败</translation>
-    </message>
-    <message>
-        <source>Library is damaged on server</source>
-        <translation>该资料库在服务器上已损坏</translation>
-    </message>
-    <message>
-        <source>Conflict in merge</source>
-        <translation>合并文件更改时产生冲突</translation>
-    </message>
-    <message>
-        <source>Server version is too old</source>
-        <translation>服务器版本太低</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
@@ -1779,10 +1729,6 @@ The library owner&apos;s storage space is used up.</source>
         <translation>服务器内部错误</translation>
     </message>
     <message>
-        <source>Bad request</source>
-        <translation>非法的请求</translation>
-    </message>
-    <message>
         <source>Not enough memory</source>
         <translation>计算机内存不够</translation>
     </message>
@@ -1807,56 +1753,8 @@ The library owner&apos;s storage space is used up.</source>
         <translation>该用户的空间已经用完</translation>
     </message>
     <message>
-        <source>Internal server error</source>
-        <translation>服务器出错了</translation>
-    </message>
-    <message>
-        <source>Your %1 client is too old</source>
-        <translation>您的 %1 客户端版本太低</translation>
-    </message>
-    <message>
-        <source>Failed to sync this library</source>
-        <translation>同步该资料库时出错</translation>
-    </message>
-    <message>
-        <source>Files are locked by other application</source>
-        <translation>文件已经被其他应用程序锁住</translation>
-    </message>
-    <message>
-        <source>Library is deleted on server</source>
-        <translation>资料库在服务器上被删除</translation>
-    </message>
-    <message>
-        <source>Error when accessing the local folder</source>
-        <translation>访问本地文件夹时出错</translation>
-    </message>
-    <message>
         <source>initializing...</source>
         <translation>初始化...</translation>
-    </message>
-    <message>
-        <source>Failed to index local files</source>
-        <translation>索引本地文件失败</translation>
-    </message>
-    <message>
-        <source>Failed to check server information</source>
-        <translation>获取服务器信息失败</translation>
-    </message>
-    <message>
-        <source>Failed to create local files</source>
-        <translation>创建本地文件失败</translation>
-    </message>
-    <message>
-        <source>Failed to merge local file changes</source>
-        <translation>合并本地修改失败</translation>
-    </message>
-    <message>
-        <source>Incorrect password. Please download again</source>
-        <translation>密码错误。请重新下载</translation>
-    </message>
-    <message>
-        <source>Internal error</source>
-        <translation>内部错误</translation>
     </message>
     <message>
         <source>connecting server...</source>
@@ -2159,28 +2057,12 @@ The library owner&apos;s storage space is used up.</source>
         <translation>%1 已经在运行中</translation>
     </message>
     <message>
-        <source>Error occurred in upload</source>
-        <translation>上传过程中出错</translation>
-    </message>
-    <message>
-        <source>Error occurred in download</source>
-        <translation>下载过程中出错</translation>
-    </message>
-    <message>
-        <source>Permission denied on server. Please try to resync the library</source>
-        <translation>权限错误。请尝试重新同步该资料库</translation>
-    </message>
-    <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
         <translation>客户端数据损坏。请尝试重新同步该资料库</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
         <translation>对该库没有写权限</translation>
-    </message>
-    <message>
-        <source>Do not have permission to sync the library</source>
-        <translation>没有权限同步该资料库</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
@@ -2267,8 +2149,20 @@ The library owner&apos;s storage space is used up.</source>
         <translation>恢复资料库</translation>
     </message>
     <message>
-        <source>Updates in read-only library will not be uploaded</source>
-        <translation>只读资料库下的文件改动不会被上传</translation>
+        <source>Created or updated a file in a non-writable library or folder</source>
+        <translation>在不可写的资料库或者文件夹创建或更新一个文件</translation>
+    </message>
+    <message>
+        <source>Permission denied on server</source>
+        <translation>服务器权限拒绝</translation>
+    </message>
+    <message>
+        <source>Concurrent updates to file. File is saved as conflict file</source>
+        <translation>并发更新文件。文件被保存为冲突文件</translation>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
+        <translation>一个文件夹中包含未上传的文件，文件夹被移动到 seafile-recycle-bin 文件夹。</translation>
     </message>
 </context>
 <context>
@@ -2673,6 +2567,10 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>%1 Internal Link:</source>
         <translation>%1 内部链接</translation>
+    </message>
+    <message>
+        <source>%1 Desktop Access Link:</source>
+        <translation>%1 桌面访问链接</translation>
     </message>
 </context>
 <context>
@@ -3111,17 +3009,6 @@ The library owner&apos;s storage space is used up.</source>
     <message>
         <source>OK</source>
         <translation>确认</translation>
-    </message>
-</context>
-<context>
-    <name>ShibLoginDialog</name>
-    <message>
-        <source>Login with Shibboleth</source>
-        <translation>使用 Shibboleth 登录</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>保存当前账号失败</translation>
     </message>
 </context>
 <context>

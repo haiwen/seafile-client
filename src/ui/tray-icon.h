@@ -49,8 +49,15 @@ public:
                      MessageIcon icon = Information,
                      int millisecondsTimeoutHint = 10000);
 
+    void setSyncErrorStatus(bool have_sync_error) {
+        have_sync_errors_= have_sync_error;
+    }
+
+    bool haveSyncError() const { return have_sync_errors_; }
+
 public slots:
     void showSettingsWindow();
+    void slotSyncErrorUpdate();
 
 private slots:
     void disableAutoSync();
@@ -142,6 +149,7 @@ private:
     SyncErrorsDialog *sync_errors_dialog_;
     AboutDialog *about_dialog_;
     LogDirUploader *log_dir_uploader_;
+    bool have_sync_errors_;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

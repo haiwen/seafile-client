@@ -608,6 +608,10 @@ void SeafileTrayIcon::showSettingsWindow()
     seafApplet->settingsDialog()->activateWindow();
 }
 
+void SeafileTrayIcon::slotSyncErrorUpdate() {
+    setSyncErrorStatus(true);
+}
+
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
 #if !defined(Q_OS_MAC)
@@ -652,6 +656,11 @@ void SeafileTrayIcon::refreshTrayIcon()
 
     if (!ServerStatusService::instance()->allServersConnected()) {
         setState(STATE_SERVERS_NOT_CONNECTED, tr("some servers not connected"));
+        return;
+    }
+
+    if (haveSyncError()) {
+        setState(STATE_SERVERS_NOT_CONNECTED, tr("have some sync error"));
         return;
     }
 
@@ -726,6 +735,7 @@ void SeafileTrayIcon::showSyncErrorsDialog()
 {
     // Change icon status to daemon up when show sync errors dialog
     setState(STATE_DAEMON_UP);
+    setSyncErrorStatus(false);
     if (sync_errors_dialog_ == nullptr) {
         sync_errors_dialog_ = new SyncErrorsDialog;
     }

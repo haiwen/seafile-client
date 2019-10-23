@@ -87,6 +87,9 @@ public:
 
     void onResize(const QSize& size);
 
+signals:
+    void sigSyncErrorUpdated();
+
 public slots:
     void updateErrors();
 

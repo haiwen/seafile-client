@@ -1,5 +1,5 @@
 #include <glib-object.h>
-#include <src/ui/tray-icon.h>
+#include <ui/tray-icon.h>
 
 #include "utils/utils.h"
 #include "utils/seafile-error.h"
@@ -131,8 +131,6 @@ void LocalRepo::translateSyncState(const QString &status)
 void LocalRepo::translateSyncError(const int error)
 {
     sync_state = SYNC_STATE_ERROR;
-    // When sync error set trayIcon to warning status
-    seafApplet->trayIcon()->setState(SeafileTrayIcon::TrayState::STATE_SERVERS_NOT_CONNECTED);
     sync_error_str = translateSyncErrorCode(error);
 }
 

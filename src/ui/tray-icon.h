@@ -149,7 +149,7 @@ private:
     SyncErrorsDialog *sync_errors_dialog_;
     AboutDialog *about_dialog_;
     LogDirUploader *log_dir_uploader_;
-    bool have_sync_errors_;
+    bool have_sync_errors_  = false;
 };
 
 #endif // SEAFILE_CLIENT_TRAY_ICON_H

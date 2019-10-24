@@ -10,6 +10,7 @@ SyncError SyncError::fromGObject(GObject *obj)
 {
     SyncError error;
 
+    int id  = 0;
     char *repo_id = NULL;
     char *repo_name = NULL;
     char *path = NULL;
@@ -17,6 +18,7 @@ SyncError SyncError::fromGObject(GObject *obj)
     qint64 timestamp = 0;
 
     g_object_get (obj,
+                  "id", &id,
                   "repo_id", &repo_id,
                   "repo_name", &repo_name,
                   "path", &path,
@@ -24,6 +26,7 @@ SyncError SyncError::fromGObject(GObject *obj)
                   "timestamp", &timestamp,
                   NULL);
 
+    error.id = id;
     error.repo_id = repo_id;
     error.repo_name = QString::fromUtf8(repo_name);
     error.path = QString::fromUtf8(path);

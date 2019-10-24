@@ -163,6 +163,8 @@ void SeafileTrayIcon::start()
 #if defined(Q_OS_MAC)
     utils::mac::set_darkmode_watcher(&darkmodeWatcher);
 #endif
+    sync_errors_dialog_ = new SyncErrorsDialog;
+    sync_errors_dialog_->updateErrors();
 }
 
 void SeafileTrayIcon::createActions()
@@ -735,7 +737,6 @@ void SeafileTrayIcon::showSyncErrorsDialog()
 {
     // Change icon status to daemon up when show sync errors dialog
     setState(STATE_DAEMON_UP);
-    setSyncErrorStatus(false);
     if (sync_errors_dialog_ == nullptr) {
         sync_errors_dialog_ = new SyncErrorsDialog;
     }
@@ -744,4 +745,5 @@ void SeafileTrayIcon::showSyncErrorsDialog()
     sync_errors_dialog_->show();
     sync_errors_dialog_->raise();
     sync_errors_dialog_->activateWindow();
+    setSyncErrorStatus(false);
 }

@@ -229,6 +229,13 @@ void SyncErrorsTableModel::updateErrors()
         qDebug("failed to get sync errors");
         return;
     }
+    if (errors.size() > 0) {
+        if (current_id_ != errors[0].id) {
+            current_id_ = errors[0].id;
+            emit sigSyncErrorUpdated();
+        }
+    }
+
 
     // SyncError fake_error;
     // fake_error.repo_id = "xxx";
@@ -247,7 +254,6 @@ void SyncErrorsTableModel::updateErrors()
         beginResetModel();
         errors_ = errors;
         endResetModel();
-        emit sigSyncErrorUpdated();
         return;
     }
 

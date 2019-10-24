@@ -1091,21 +1091,6 @@ falló al subir.</translation>
     </message>
 </context>
 <context>
-    <name>FinderSyncHost</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation>Fallo al obtener enlace</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
@@ -1548,19 +1533,19 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Las actualizaciones en la biblioteca de sólo lectura %1 no serán subidas.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones concurrentes al archivo. El archivo %1 es salvado como archivo de conflicto</translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation>La carpeta %1 es movida a la carpeta seafile-recycle-bin ya que contiene archivos que todavía no han sido subidos.</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
-        <translation type="unfinished"/>
+        <translation>La carpeta para la biblioteca %1 fue movida o eliminada. La biblioteca está dessincronizada.</translation>
     </message>
 </context>
 <context>
@@ -2158,19 +2143,19 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation>Creado o actualizado un archivo en una biblioteca o carpeta sin permiso de escritura</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation>Permiso denegado en el servidor</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones concurrentes al archivo. El archivo es salvado como archivo de conflicto</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"/>
+        <translation>Una carpeta que podría contener archivos todavía no subidos es movida a la carpeta seafile-recycle-bin</translation>
     </message>
 </context>
 <context>
@@ -2561,6 +2546,29 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
 </context>
 <context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2580,7 +2588,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 Desktop Access Link:</translation>
     </message>
 </context>
 <context>
@@ -2695,6 +2703,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
         <translation>Fallo al reparar iconos de estado de sincronización para Explorer</translation>
+    </message>
+    <message>
+        <source>have some sync error</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

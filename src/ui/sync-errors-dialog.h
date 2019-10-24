@@ -100,6 +100,7 @@ private:
     int repo_name_column_width_;
     int path_column_width_;
     int error_column_width_;
+    int current_id_ = 0;
 };
 
 #endif // SEAFILE_CLIENT_SYNC_ERRORS_DIALOG_H

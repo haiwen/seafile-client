@@ -1091,21 +1091,6 @@ n&apos;a pu être envoyé.</translation>
     </message>
 </context>
 <context>
-    <name>FinderSyncHost</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation>Impossible d&apos;obtenir le lien</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
@@ -2560,6 +2545,29 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
 </context>
 <context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2694,6 +2702,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
         <translation>Echec de réparation des icônes de statut de synchronisation de l&apos;extension de l&apos;explorateur de fichier</translation>
+    </message>
+    <message>
+        <source>have some sync error</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

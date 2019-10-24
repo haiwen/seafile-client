@@ -1090,21 +1090,6 @@ Bitte %1</translation>
     </message>
 </context>
 <context>
-    <name>FinderSyncHost</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation>Fehler beim Ermitteln des Links</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
@@ -1547,19 +1532,19 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungen in der schreibgeschützten Bibliothek %1 werden nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei wurde parallel aktualisiert. Version %1 wurde als Konfliktdatei gespeichert </translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation>Ordner %1 wurde in den Papierkorb von Seafile verschoben, da er noch nicht hochgeladene Dateien enthält.</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
-        <translation type="unfinished"/>
+        <translation>Der Ordner in Bibliothek %1 ist gelöscht oder verschoben. Die Bibliothek wurde nicht synchronisiert.</translation>
     </message>
 </context>
 <context>
@@ -2157,19 +2142,19 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation>Datei hochgeladen oder erzeugt in einer Bibliothek oder einem Ordner ohne Schreibzugriff</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation>Der Server hat den Zugang abgelehnt.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei wurde parallel aktualisiert. Sie wurde als Konfliktdatei gespeichert </translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"/>
+        <translation>Ein Ordner, der noch nicht hochgeladene Dateien enthalten könnte, wurde in den Papierkorb von Seafile verschoben.</translation>
     </message>
 </context>
 <context>
@@ -2560,6 +2545,29 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
 </context>
 <context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2579,7 +2587,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation>Link für den Desktop-Zugang %1:</translation>
     </message>
 </context>
 <context>
@@ -2694,6 +2702,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
         <translation>Fehler beim Wiederherstellen der Icons im Explorer</translation>
+    </message>
+    <message>
+        <source>have some sync error</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

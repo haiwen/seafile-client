@@ -1091,21 +1091,6 @@ failed to upload.</source>
     </message>
 </context>
 <context>
-    <name>FinderSyncHost</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation>Не удалось получить ссылку</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
@@ -1548,19 +1533,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Обновления в библиотеке %1 только для чтения не будут загружены.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Одновременные обновления в файл. Файл %1 сохранен как файл конфликта</translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation>Папка %1 перемещена в папку seafile-recycle-bin, т.к. она содержит еще не загруженные файлы.</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
-        <translation type="unfinished"/>
+        <translation>Папка для библиотеки %1 удалена или перемещена. Библиотека не синхронизирована.</translation>
     </message>
 </context>
 <context>
@@ -2158,19 +2143,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation>Создан или обновлен файл в недоступной для записи библиотеке или папке</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation>Доступ запрещен на сервере</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Одновременные обновления в файл. Файл сохранен как файл конфликта</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"/>
+        <translation>Папка, которая может содержать еще не загруженные файлы, перемещена в папку seafile-recycle-bin.</translation>
     </message>
 </context>
 <context>
@@ -2559,6 +2544,29 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2578,7 +2586,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 ссылка для доступа к рабочему столу:</translation>
     </message>
 </context>
 <context>
@@ -2693,6 +2701,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
         <translation>Не удалось исправить значки состояния синхронизации для проводника</translation>
+    </message>
+    <message>
+        <source>have some sync error</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

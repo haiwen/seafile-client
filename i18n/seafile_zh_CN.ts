@@ -1085,21 +1085,6 @@ failed to upload.</source>
     </message>
 </context>
 <context>
-    <name>FinderSyncHost</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation>获取链接失败</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation>文件 “%1” 被 %2 锁定</translation>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation>获取文件 “%1” 的锁定信息失败</translation>
-    </message>
-</context>
-<context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
@@ -2551,6 +2536,29 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation>获取链接失败</translation>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation>锁定文件失败</translation>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation>解锁文件失败</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation>文件 %1 被 %2 锁定</translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation>获得文件 %1 的锁定信息失败</translation>
+    </message>
+</context>
+<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2685,6 +2693,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
         <translation>修复文件管理器扩展失败</translation>
+    </message>
+    <message>
+        <source>have some sync error</source>
+        <translation>存在一些同步错误</translation>
     </message>
 </context>
 <context>

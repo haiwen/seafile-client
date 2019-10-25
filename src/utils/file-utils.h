@@ -27,6 +27,6 @@ QString expandVars(const QString& origin);
 QString expandUser(const QString& origin);
 
 bool createDirIfNotExists(const QString& path);
-
+bool removeFileInDirExincluded(const QString& cached_dir, QList<QString>& excluded);
 
 #endif // SEAFILE_CLIENT_FILE_UTILS_H_

@@ -9,6 +9,7 @@
 #endif
 
 #include "file-utils.h"
+#include "src/utils/utils.h"
 
 namespace {
 
@@ -842,4 +843,50 @@ QString expandUser(const QString& origin)
         return pathJoin(homepath, origin.right(origin.size() - pos));
     }
     return origin;
+}
+
+bool removeFileInDirExincluded(const QString& cached_dir, QList<QString>& excluded)
+{
+   QFileInfo fileinfo(cached_dir);
+   if (!fileinfo.exists()) {
+       qWarning("not exists dir %s:", toCStr(cached_dir));
+       return false;
+   }
+
+   QDir dir(cached_dir);
+   QFileInfoList file_info_list = dir.entryInfoList(QDir::Files | QDir::Hidden | QDir::AllDirs | QDir::NoSymLinks);
+   QStringList file_name_list;
+   while (!file_info_list.isEmpty()) {
+
+       QFileInfo item= file_info_list.last();
+
+       if (!item.isDir()) {
+           file_name_list.append(item.absoluteFilePath());
+           file_info_list.removeLast();
+       } else if (item.isDir() && item.fileName() != "." && item.fileName() != "..") {
+           QDir a(item.filePath());
+           file_info_list.removeLast();
+           file_info_list.append(a.entryInfoList());
+       } else {
+           file_info_list.removeLast();
+       }
+
+   }
+
+   Q_FOREACH(const QString& file_name, excluded) {
+       if (file_name_list.contains(file_name)) {
+           file_name_list.removeOne(file_name);
+       }
+   }
+
+   Q_FOREACH(QString path, file_name_list) {
+       // Delete unmodified files
+       QString file_path = QDir::toNativeSeparators(path);
+       QDir dir(file_path);
+       if (!dir.remove(file_path)) {
+           qWarning("delete cached file %s failed", toCStr(file_path));
+           return false;
+       }
+   }
+   return true;
 }

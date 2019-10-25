@@ -93,6 +93,9 @@ public:
     };
 
     void start();
+    void initModifiedFileTable();
+    void saveModifiedFilePath(const QString &path);
+    QList<QString> getAllModifiedFiles();
 
     bool getCacheEntry(const QString& repo_id,
                        const QString& path,
@@ -109,14 +112,17 @@ public:
 
     QList<CacheEntry> getAllCachedFiles();
     void cleanCurrentAccountCache();
+    void cleanModifiedDatabase();
 
 private:
     FileCache();
     ~FileCache();
     static bool getCacheEntryCB(sqlite3_stmt *stmt, void *data);
     static bool collectCachedFile(sqlite3_stmt *stmt, void *data);
+    static bool collectModifiedFiles(sqlite3_stmt *stmt, void *data);
 
     sqlite3 *db_;
+    sqlite3 *modified_file_db_;
 };
 
 

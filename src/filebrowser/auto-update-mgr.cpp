@@ -19,6 +19,7 @@
 #include "transfer-mgr.h"
 
 #include "auto-update-mgr.h"
+#include "utils/file-utils.h"
 
 namespace {
 
@@ -185,6 +186,8 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     }
 
     uploadFile(local_path);
+    // Record it to sqlite database when file modified
+    FileCache::instance()->saveModifiedFilePath(local_path);
 }
 
 void AutoUpdateManager::onUpdateTaskFinished(bool success)
@@ -377,14 +380,20 @@ void CachedFilesCleaner::run()
                                kFileCacheTopDirName);
     QString file_cache_tmp_dir = pathJoin(seafApplet->configurator()->seafileDir(),
                                    kFileCacheTempTopDirName);
+   QList<QString> list = FileCache::instance()->getAllModifiedFiles();
 
     qDebug("[AutoUpdateManager] removing cached files");
     if (QDir(file_cache_tmp_dir).exists()) {
         delete_dir_recursively(file_cache_tmp_dir);
+
     }
     if (QDir(file_cache_dir).exists()) {
-        QDir().rename(file_cache_dir, file_cache_tmp_dir);
-        delete_dir_recursively(file_cache_tmp_dir);
+        // Delete the temporary directory in the old client.
+        if (QDir(file_cache_tmp_dir).exists()) {
+            delete_dir_recursively(file_cache_tmp_dir);
+        }
+        removeFileInDirExincluded(file_cache_dir, list);
+        FileCache::instance()->cleanModifiedDatabase();
     }
 }
 

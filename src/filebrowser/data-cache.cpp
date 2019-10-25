@@ -17,6 +17,7 @@
 namespace {
 
 const int kDirentsCacheExpireTime = 60 * 1000;
+const char* kModifiedFileDataBaseName = "modified_files.db";
 
 void filecache_entry_from_sqlite3_result(sqlite3_stmt *stmt, FileCache::CacheEntry* entry)
 {
@@ -26,6 +27,11 @@ void filecache_entry_from_sqlite3_result(sqlite3_stmt *stmt, FileCache::CacheEnt
     entry->file_id = (const char *)sqlite3_column_text (stmt, 3);
     entry->seafile_mtime = sqlite3_column_int64 (stmt, 4);
     entry->seafile_size = sqlite3_column_int64 (stmt, 5);
+}
+
+void modified_file_path_from_sqlite3_result(sqlite3_stmt *stmt, QString *file_path)
+{
+    *file_path = (const char *)sqlite3_column_text(stmt, 0);
 }
 
 } // namespace
@@ -179,6 +185,65 @@ void FileCache::start()
     sqlite_query_exec (db, sql);
 
     db_ = db;
+    initModifiedFileTable();
+}
+
+void FileCache::initModifiedFileTable() {
+    const char *errmsg;
+    const char *sql;
+    sqlite3 *db;
+    QString db_path = QDir(seafApplet->configurator()->seafileDir()).filePath(QString::fromUtf8(kModifiedFileDataBaseName));
+    if (sqlite3_open (toCStr(db_path), &db)) {
+        errmsg = sqlite3_errmsg(db);
+        qDebug("failed to open modified files database %s: %s",
+               toCStr(db_path), errmsg ? errmsg : "no error given");
+
+        seafApplet->errorAndExit(QObject::tr("failed to open file modified_files database"));
+        return;
+    }
+
+    sql = "CREATE TABLE IF NOT EXISTS ModifiedFiles ("
+         "    path VARCHAR(4096), "
+         "    account_sig VARCHAR(40) NOT NULL, "
+         "    PRIMARY KEY (path))";
+
+    sqlite_query_exec (db, sql);
+    modified_file_db_ = db;
+}
+
+void FileCache::saveModifiedFilePath(const QString &path) {
+
+    char *sql = sqlite3_mprintf("REPLACE INTO ModifiedFiles "
+                                "(path, account_sig) VALUES (%Q, %Q)",
+                                toCStr(path),
+                                toCStr(seafApplet->accountManager()->currentAccount().getSignature()));
+    sqlite_query_exec(modified_file_db_, sql);
+    sqlite3_free(sql);
+}
+
+QList<QString> FileCache::getAllModifiedFiles() {
+    const char *sql = sqlite3_mprintf("SELECT * FROM ModifiedFiles where account_sig = %Q",
+                                      toCStr(seafApplet->accountManager()->currentAccount().getSignature()));
+    QList<QString> list;
+    sqlite_foreach_selected_row(modified_file_db_, sql, collectModifiedFiles, &list);
+    return list;
+}
+
+bool FileCache::collectModifiedFiles(sqlite3_stmt *stmt, void *data)
+{
+    QList<QString> *list = (QList<QString> *)data;
+    QString path;
+    modified_file_path_from_sqlite3_result(stmt, &path);
+    list->append(path);
+    return true;
+}
+
+void FileCache::cleanModifiedDatabase() {
+
+    char *sql = sqlite3_mprintf("Delete  FROM ModifiedFiles where account_sig = %Q",
+                                toCStr(seafApplet->accountManager()->currentAccount().getSignature()));
+    sqlite_query_exec(modified_file_db_, sql);
+    sqlite3_free(sql);
 }
 
 bool FileCache::getCacheEntryCB(sqlite3_stmt *stmt, void *data)

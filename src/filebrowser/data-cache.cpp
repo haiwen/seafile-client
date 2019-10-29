@@ -243,17 +243,10 @@ QList<FileCache::CacheEntry> FileCache::getAllCachedFiles()
     return list;
 }
 
-void FileCache::cleanCurrentAccountCache()
-{
-    const Account account = seafApplet->accountManager()->currentAccount();
-    if (!account.isValid()) {
-        return;
-    }
-    char *zql = sqlite3_mprintf(
-        "DELETE FROM FileCacheV2 where account_sig = %Q",
-        toCStr(account.getSignature()));
-    sqlite_query_exec(db_, zql);
-    sqlite3_free(zql);
+void FileCache::cleanUnModifiedCacheItemInDatabase(const QString file_id) {
+    char* sql = sqlite3_mprintf("DELETE FROM FileCacheV2 WHERE file_id = %Q", toCStr(file_id));
+    sqlite_query_exec(db_, sql);
+    sqlite3_free(sql);
 }
 
 QList<FileCache::CacheEntry> FileCache::getCachedFilesForDirectory(const QString& account_sig,

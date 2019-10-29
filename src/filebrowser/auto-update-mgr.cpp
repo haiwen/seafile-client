@@ -19,6 +19,7 @@
 #include "transfer-mgr.h"
 
 #include "auto-update-mgr.h"
+#include "repo-service.h"
 
 namespace {
 
@@ -115,7 +116,7 @@ void AutoUpdateManager::cleanCachedFile()
     }
 
     qWarning("[AutoUpdateManager] clean file caches db");
-    FileCache::instance()->cleanCurrentAccountCache();
+    RepoService::instance()->removeCloudFileBrowserCache();
 
     qWarning("[AutoUpdateManager] clean file caches");
     CachedFilesCleaner *cleaner = new CachedFilesCleaner();
@@ -383,8 +384,10 @@ void CachedFilesCleaner::run()
         delete_dir_recursively(file_cache_tmp_dir);
     }
     if (QDir(file_cache_dir).exists()) {
-        QDir().rename(file_cache_dir, file_cache_tmp_dir);
-        delete_dir_recursively(file_cache_tmp_dir);
+        // Delete the temporary directory in the old client.
+        if (QDir(file_cache_tmp_dir).exists()) {
+            delete_dir_recursively(file_cache_tmp_dir);
+        }
     }
 }
 

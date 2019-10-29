@@ -46,6 +46,7 @@ public:
 
     void openFolder(const QString &repo_id,
                     const QString &path_in_repo);
+    void removeCloudFileBrowserCache();
 
 public slots:
     void refresh();
@@ -74,7 +75,6 @@ private:
 
     void startGetRequestFor(const QString &repo_id);
     void wipeLocalFiles();
-    void removeCloudFileBrowserCache();
 
     ListReposRequest *list_repo_req_;
     std::list<GetRepoRequest*> get_repo_reqs_;

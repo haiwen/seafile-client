@@ -108,7 +108,7 @@ public:
                                                  const QString& parent_dir);
 
     QList<CacheEntry> getAllCachedFiles();
-    void cleanCurrentAccountCache();
+    void cleanUnModifiedCacheItemInDatabase(const QString file_id);
 
 private:
     FileCache();

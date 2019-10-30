@@ -528,8 +528,12 @@ void RepoService::removeCloudFileBrowserCache()
     foreach (const FileCache::CacheEntry& entry, all_files) {
         if (account.getSignature() == entry.account_sig) {
             QString fullpath = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
-            printf ("removing cached file %s\n", toCStr(fullpath));
-            ::unlink((const char*)(toCStr(fullpath)));
+            QFileInfo fileinfo(fullpath);
+            if (entry.seafile_mtime == fileinfo.lastModified().toMSecsSinceEpoch() && entry.seafile_size == fileinfo.size()) {
+                ::unlink((const char*)(toCStr(fullpath)));
+                FileCache::instance()->cleanUnModifiedCacheItemInDatabase(entry.file_id);
+                printf ("removing unmodified cached file %s\n", toCStr(fullpath));
+            }
         }
     }
 }

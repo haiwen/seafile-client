@@ -13,28 +13,22 @@ CloneTask CloneTask::fromGObject(GObject *obj)
     char *state = NULL;
     int error_code = 0;
     char *repo_id = NULL;
-    char *peer_id = NULL;
     char *repo_name = NULL;
     char *worktree = NULL;
-    char *tx_id = NULL;
 
     g_object_get (obj,
                   "state", &state,
                   "error", &error_code,
                   "repo_id", &repo_id,
-                  "peer_id", &peer_id,
                   "repo_name", &repo_name,
                   "worktree", &worktree,
-                  "tx_id", &tx_id,
                   NULL);
 
     task.state = QString::fromUtf8(state);
     task.error_code = error_code;
     task.repo_id = QString::fromUtf8(repo_id);
-    task.peer_id = QString::fromUtf8(peer_id);
     task.repo_name = QString::fromUtf8(repo_name);
     task.worktree = QString::fromUtf8(worktree);
-    task.tx_id = QString::fromUtf8(tx_id);
 
     task.block_done = 0;
     task.block_total = 0;
@@ -44,10 +38,8 @@ CloneTask CloneTask::fromGObject(GObject *obj)
 
     g_free (state);
     g_free (repo_id);
-    g_free (peer_id);
     g_free (repo_name);
     g_free (worktree);
-    g_free (tx_id);
 
     // task.translateStateInfo();
 

@@ -15,8 +15,6 @@ public:
     QString rt_state;
     QString error_str;
     int error_code;
-    QString peer_id;
-    QString tx_id;
 
     QString state_str;
     qint64 block_done;

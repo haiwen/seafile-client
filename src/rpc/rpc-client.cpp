@@ -157,30 +157,25 @@ int SeafileRpcClient::setAutoSync(bool autoSync)
 }
 
 int SeafileRpcClient::downloadRepo(const QString& id,
-                                   int repo_version, const QString& relayId,
-                                   const QString& name, const QString& wt,
-                                   const QString& token, const QString& passwd,
-                                   const QString& magic, const QString& peerAddr,
-                                   const QString& port, const QString& email,
-                                   const QString& random_key, int enc_version,
-                                   const QString& more_info,
+                                   int repo_version, const QString& name,
+                                   const QString& wt, const QString& token,
+                                   const QString& passwd, const QString& magic,
+                                   const QString& email, const QString& random_key,
+                                   int enc_version, const QString& more_info,
                                    QString *error_ret)
 {
     GError *error = NULL;
     char *ret = searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_download",
-        &error, 14,
+        &error, 11,
         "string", toCStr(id),
         "int", repo_version,
-        "string", toCStr(relayId),
         "string", toCStr(name),
         "string", toCStr(wt),
         "string", toCStr(token),
         "string", toCStr(passwd),
         "string", toCStr(magic),
-        "string", toCStr(peerAddr),
-        "string", toCStr(port),
         "string", toCStr(email),
         "string", toCStr(random_key),
         "int", enc_version,
@@ -199,30 +194,25 @@ int SeafileRpcClient::downloadRepo(const QString& id,
 }
 
 int SeafileRpcClient::cloneRepo(const QString& id,
-                                int repo_version, const QString& relayId,
-                                const QString &name, const QString &wt,
-                                const QString &token, const QString &passwd,
-                                const QString &magic, const QString &peerAddr,
-                                const QString &port, const QString &email,
-                                const QString& random_key, int enc_version,
-                                const QString& more_info,
+                                int repo_version, const QString &name,
+                                const QString &wt, const QString &token,
+                                const QString &passwd, const QString &magic,
+                                const QString &email, const QString& random_key,
+                                int enc_version, const QString& more_info,
                                 QString *error_ret)
 {
     GError *error = NULL;
     char *ret = searpc_client_call__string(
         seafile_rpc_client_,
         "seafile_clone",
-        &error, 14,
+        &error, 11,
         "string", toCStr(id),
         "int", repo_version,
-        "string", toCStr(relayId),
         "string", toCStr(name),
         "string", toCStr(wt),
         "string", toCStr(token),
         "string", toCStr(passwd),
         "string", toCStr(magic),
-        "string", toCStr(peerAddr),
-        "string", toCStr(port),
         "string", toCStr(email),
         "string", toCStr(random_key),
         "int", enc_version,
@@ -557,7 +547,7 @@ int SeafileRpcClient::getCloneTasksCount(int *count)
     return 0;
 }
 
-int SeafileRpcClient::unsyncReposByAccount(const QString& server_addr,
+int SeafileRpcClient::unsyncReposByAccount(const QUrl& server_url,
                                            const QString& email,
                                            QString *err)
 {
@@ -565,7 +555,7 @@ int SeafileRpcClient::unsyncReposByAccount(const QString& server_addr,
     int ret =  searpc_client_call__int (seafile_rpc_client_,
                                         "seafile_unsync_repos_by_account",
                                         &error, 2,
-                                        "string", toCStr(server_addr),
+                                        "string", toCStr(server_url.toString()),
                                         "string", toCStr(email));
 
     if (ret < 0 && err) {
@@ -720,7 +710,7 @@ QString SeafileRpcClient::getCcnetPeerId()
     return "";
 }
 
-int SeafileRpcClient::updateReposServerHost(const QString& old_host,
+int SeafileRpcClient::updateReposServerHost(const QUrl& old_server_url,
                                             const QString& new_host,
                                             const QString& new_server_url,
                                             QString *err)
@@ -729,7 +719,7 @@ int SeafileRpcClient::updateReposServerHost(const QString& old_host,
     int ret =  searpc_client_call__int (seafile_rpc_client_,
                                         "seafile_update_repos_server_host",
                                         &error, 3,
-                                        "string", toCStr(old_host),
+                                        "string", toCStr(old_server_url.toString()),
                                         "string", toCStr(new_host),
                                         "string", toCStr(new_server_url));
 
@@ -787,7 +777,7 @@ int SeafileRpcClient::setRepoProperty(const QString &repo_id,
     return ret;
 }
 
-int SeafileRpcClient::removeSyncTokensByAccount(const QString& server_addr,
+int SeafileRpcClient::removeSyncTokensByAccount(const QUrl& server_url,
                                                 const QString& email,
                                                 QString *err)
 {
@@ -795,7 +785,7 @@ int SeafileRpcClient::removeSyncTokensByAccount(const QString& server_addr,
     int ret =  searpc_client_call__int (seafile_rpc_client_,
                                         "seafile_remove_repo_tokens_by_account",
                                         &error, 2,
-                                        "string", toCStr(server_addr),
+                                        "string", toCStr(server_url.toString()),
                                         "string", toCStr(email));
 
     if (ret < 0 && err) {

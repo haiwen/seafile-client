@@ -168,13 +168,11 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
     QString error;
 
     ret = seafApplet->rpcClient()->downloadRepo(info.repo_id,
-                                                info.repo_version, info.relay_id,
-                                                info.repo_name, worktree,
-                                                info.token, QString(),
-                                                info.magic, info.relay_addr,
-                                                info.relay_port, info.email,
-                                                info.random_key, info.enc_version,
-                                                info.more_info,
+                                                info.repo_version, info.repo_name,
+                                                worktree, info.token,
+                                                QString(), info.magic,
+                                                info.email, info.random_key,
+                                                info.enc_version, info.more_info,
                                                 &error);
 
     if (ret < 0) {

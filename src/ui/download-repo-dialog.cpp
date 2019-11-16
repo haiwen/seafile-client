@@ -346,21 +346,17 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
         else
             worktree = alternative_path_;
         ret = seafApplet->rpcClient()->cloneRepo(info.repo_id, info.repo_version,
-                                                 info.relay_id,
                                                  repo_.name, worktree,
                                                  info.token, password,
-                                                 info.magic, info.relay_addr,
-                                                 info.relay_port, info.email,
+                                                 info.magic, info.email,
                                                  info.random_key, info.enc_version,
                                                  info.more_info,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
-                                                    info.relay_id,
                                                     repo_.name, worktree,
                                                     info.token, password,
-                                                    info.magic, info.relay_addr,
-                                                    info.relay_port, info.email,
+                                                    info.magic, info.email,
                                                     info.random_key, info.enc_version,
                                                     info.more_info,
                                                     &error);

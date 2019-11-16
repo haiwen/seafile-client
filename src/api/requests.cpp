@@ -16,6 +16,7 @@
 #include "utils/api-utils.h"
 #include "utils/json-utils.h"
 #include "utils/utils.h"
+#include "account-mgr.h"
 
 #include "requests.h"
 
@@ -159,9 +160,6 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
 {
     RepoDownloadInfo info;
     info.repo_version = dict["repo_version"].toInt();
-    info.relay_id = dict["relay_id"].toString();
-    info.relay_addr = dict["relay_addr"].toString();
-    info.relay_port = dict["relay_port"].toString();
     info.email = dict["email"].toString();
     info.token = dict["token"].toString();
     info.repo_id = dict["repo_id"].toString();
@@ -174,7 +172,6 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
 
     QUrl url = url_in;
     url.setPath("/");
-    info.relay_addr = url.host();
 
     QString salt = dict.value("salt").toString();
     QMap<QString, QVariant> map;

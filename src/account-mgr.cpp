@@ -627,7 +627,9 @@ bool AccountManager::clearAccountToken(const Account& account)
 bool AccountManager::clearSyncToken(const Account& account)
 {
     QString error;
-    if (seafApplet->rpcClient()->removeSyncTokensByAccount(account.serverUrl.host(),
+    QUrl url = account.serverUrl;
+    url.setPath("/");
+    if (seafApplet->rpcClient()->removeSyncTokensByAccount(url,
                                                            account.username,
                                                            &error)  < 0) {
         seafApplet->warningBox(

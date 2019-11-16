@@ -407,6 +407,7 @@ SET(seafile_client_sources
   src/traynotificationmanager.cpp
   src/certs-mgr.cpp
   src/log-uploader.cpp
+  src/sync-error-service.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
   src/api/api-error.cpp

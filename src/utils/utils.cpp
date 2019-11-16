@@ -277,7 +277,7 @@ get_win_run_key (HKEY *pKey)
          * seaf-daemon to run with admin privilege. */
                                HKEY_CURRENT_USER,
                                key_run,
-                               0L,KEY_WRITE | KEY_READ,
+                               0L,KEY_WRITE | KEY_READ | KEY_WOW64_64KEY,
                                pKey);
     if (result != ERROR_SUCCESS) {
         qWarning("Failed to open Registry key %s\n", key_run);

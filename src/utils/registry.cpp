@@ -10,7 +10,7 @@
 
 namespace {
 
-LONG openKey(HKEY root, const QString& path, HKEY *p_key, REGSAM samDesired = KEY_ALL_ACCESS)
+LONG openKey(HKEY root, const QString& path, HKEY *p_key, REGSAM samDesired = KEY_ALL_ACCESS | KEY_WOW64_64KEY)
 {
     LONG result;
     result = RegOpenKeyExW(root,
@@ -112,7 +112,7 @@ int RegElement::removeRegKey(HKEY root, const QString& path, const QString& subk
     LONG result = RegOpenKeyExW(root,
                                 path.toStdWString().c_str(),
                                 0L,
-                                KEY_ALL_ACCESS,
+                                KEY_ALL_ACCESS | KEY_WOW64_64KEY,
                                 &hKey);
 
     if (result != ERROR_SUCCESS) {

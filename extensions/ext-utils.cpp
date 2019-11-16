@@ -484,7 +484,7 @@ bool isShellExtEnabled()
     LONG result = RegOpenKeyExW(root,
                                 software_seafile,
                                 0L,
-                                KEY_ALL_ACCESS,
+                                KEY_ALL_ACCESS | KEY_WOW64_64KEY,
                                 &parent_key);
     free(software_seafile);
     if (result != ERROR_SUCCESS) {

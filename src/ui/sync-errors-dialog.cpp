@@ -220,10 +220,7 @@ SyncErrorsTableModel::SyncErrorsTableModel(QObject *parent)
 
     connect(this, SIGNAL(sigSyncErrorUpdated()), seafApplet->trayIcon(), SLOT(slotSyncErrorUpdate()));
     LastSyncError::instance()->start();
-    QList<LastSyncError::SyncErrorInfo> list = LastSyncError::instance()->getAllSyncErrorsInfo();
-    if (list.size() >= 1) {
-        current_id_ = list[0].id.toInt();
-    }
+    current_id_ = LastSyncError::instance()->getLastSyncErrorID();
     updateErrors();
 }
 
@@ -238,7 +235,7 @@ void SyncErrorsTableModel::updateErrors()
     if (errors.size() > 0) {
         if (current_id_ != errors[0].id) {
             current_id_ = errors[0].id;
-            LastSyncError::instance()->saveLatestErrorID(QString::number(current_id_));
+            LastSyncError::instance()->saveLatestErrorID(current_id_);
             emit sigSyncErrorUpdated();
         }
     }

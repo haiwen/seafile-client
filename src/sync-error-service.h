@@ -17,12 +17,13 @@ class LastSyncError {
 SINGLETON_DEFINE(LastSyncError)
 public:
     struct SyncErrorInfo {
-        QString id;
+        int id;
     };
 
     void start();
 
-    void saveLatestErrorID(const QString& id);
+    void saveLatestErrorID(const int id);
+    int getLastSyncErrorID();
 
     QList<LastSyncError::SyncErrorInfo> getAllSyncErrorsInfo();
 

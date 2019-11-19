@@ -11,7 +11,7 @@ namespace {
 
     void sync_error_entry_from_sqlite3_result(sqlite3_stmt *stmt, LastSyncError::SyncErrorInfo* entry)
     {
-        entry->id = (const char *)sqlite3_column_text (stmt, 0);
+        entry->id = sqlite3_column_int(stmt, 0);
     }
 
 } // namespace
@@ -46,7 +46,7 @@ void LastSyncError::start()
     }
 
     sql = "CREATE TABLE IF NOT EXISTS SyncErrorID ("
-          "     id VARCHAR(36) NOT NULL, "
+          "     id integer NOT NULL, "
           "     accountsig VARCHAR(255) NOT NULL, "
           "     PRIMARY KEY (accountsig))";
     sqlite_query_exec (db, sql);
@@ -54,12 +54,12 @@ void LastSyncError::start()
     db_ = db;
 }
 
-void LastSyncError::saveLatestErrorID(const QString& id)
+void LastSyncError::saveLatestErrorID(const int id)
 {
     QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
     char *zql = sqlite3_mprintf("REPLACE INTO SyncErrorID(id, accountsig)"
-                                " VALUES (%Q, %Q)",
-                                id.toUtf8().data(),
+                                " VALUES (%d, %Q)",
+                                id,
                                 account_sig.toUtf8().data());
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
@@ -75,15 +75,17 @@ bool LastSyncError::collectSyncError(sqlite3_stmt *stmt, void *data)
     return true;
 }
 
-QList<LastSyncError::SyncErrorInfo> LastSyncError::getAllSyncErrorsInfo()
-{
+int LastSyncError::getLastSyncErrorID() {
     QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
     char *sql = sqlite3_mprintf("SELECT *"
                                 "  FROM SyncErrorID"
                                 "  WHERE accountsig = %Q",
-                                 toCStr(account_sig));
+                                toCStr(account_sig));
     QList<SyncErrorInfo> list;
     sqlite_foreach_selected_row(db_, sql, collectSyncError, &list);
-    return list;
+    if (list.size() >= 1) {
+        return list[0].id;
+    }
+    return 0;
 }
 

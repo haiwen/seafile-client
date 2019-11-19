@@ -15,6 +15,7 @@
 #include "rpc/local-repo.h"
 #include "sync-errors-dialog.h"
 #include "ui/tray-icon.h"
+#include "sync-error-service.h"
 
 class SeafileTrayIcon;
 
@@ -218,6 +219,8 @@ SyncErrorsTableModel::SyncErrorsTableModel(QObject *parent)
     update_timer_->start(kUpdateErrorsIntervalMSecs);
 
     connect(this, SIGNAL(sigSyncErrorUpdated()), seafApplet->trayIcon(), SLOT(slotSyncErrorUpdate()));
+    LastSyncError::instance()->start();
+    current_id_ = LastSyncError::instance()->getLastSyncErrorID();
     updateErrors();
 }
 
@@ -232,6 +235,7 @@ void SyncErrorsTableModel::updateErrors()
     if (errors.size() > 0) {
         if (current_id_ != errors[0].id) {
             current_id_ = errors[0].id;
+            LastSyncError::instance()->saveLatestErrorID(current_id_);
             emit sigSyncErrorUpdated();
         }
     }

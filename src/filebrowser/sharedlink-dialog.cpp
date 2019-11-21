@@ -4,15 +4,24 @@
 #include <QtWidgets>
 #include "utils/utils-mac.h"
 
-SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
+SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent, bool is_shared_link)
   : text_(text)
 {
-    setWindowTitle(tr("Share Link"));
+    if (is_shared_link) {
+        setWindowTitle(tr("Share Link"));
+    } else {
+        setWindowTitle(tr("Upload Link"));
+    }
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setWindowIcon(QIcon(":/images/seafile.png"));
     QVBoxLayout *layout = new QVBoxLayout;
 
-    QLabel *label = new QLabel(tr("Share link:"));
+    QLabel *label;
+    if (is_shared_link) {
+        label = new QLabel(tr("Share link:"));
+    } else {
+        label = new QLabel(tr("Upload link:"));
+    }
     layout->addWidget(label);
     layout->setSpacing(5);
     layout->setContentsMargins(9, 9, 9, 9);
@@ -26,6 +35,9 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent)
     QHBoxLayout *hlayout = new QHBoxLayout;
 
     QCheckBox *is_download_checked = new QCheckBox(tr("Direct Download"));
+    if (!is_shared_link) {
+       is_download_checked->hide();
+    }
     connect(is_download_checked, SIGNAL(stateChanged(int)),
             this, SLOT(onDownloadStateChanged(int)));
     hlayout->addWidget(is_download_checked);

@@ -417,4 +417,23 @@ private:
     QScopedPointer<GetDirentsRequest, QScopedPointerDeleteLater> dirents_req_;
 };
 
+class GetUploadLinkRequest : public SeafileApiRequest
+{
+Q_OBJECT
+public:
+    GetUploadLinkRequest(const Account& account,
+                         const QString& repo_id,
+                         const QString& path);
+    const QString& path() const { return path_; }
+signals:
+    void success(const QString& upload_link);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(GetUploadLinkRequest);
+    QString path_;
+};
+
 #endif  // SEAFILE_CLIENT_FILE_BROWSER_REQUESTS_H

@@ -164,6 +164,9 @@ SeafileExtensionHandler::SeafileExtensionHandler()
 
     connect(listener_thread_, SIGNAL(showLockedBy(const QString&, const QString&)),
             this, SLOT(showLockedBy(const QString&, const QString&)));
+
+    connect(listener_thread_, SIGNAL(getUploadLink(const QString&, const QString&)),
+            this, SLOT(getUploadLink(const QString&, const QString&)));
 }
 
 void SeafileExtensionHandler::start()
@@ -308,6 +311,41 @@ void SeafileExtensionHandler::onLockFileFailed(const ApiError& error)
     seafApplet->warningBox(QString("%1: %2").arg(str, error.toString()));
 }
 
+void SeafileExtensionHandler::getUploadLink(const QString& repo_id, const QString& path_in_repo)
+{
+    const Account account =
+            seafApplet->accountManager()->getAccountByRepo(repo_id);
+    if (!account.isValid()) {
+        return;
+    }
+
+    GetUploadLinkRequest *req = new GetUploadLinkRequest(
+            account, repo_id, QString("/").append(path_in_repo));
+    connect(req, SIGNAL(success(const QString&)), this,
+            SLOT(onGetUploadLinkSuccess(const QString)));
+    connect(req, SIGNAL(failed(const ApiError&)), this,
+            SLOT(onGetUploadLinkFailed(const ApiError&)));
+    req->send();
+
+}
+
+void SeafileExtensionHandler::onGetUploadLinkSuccess(const QString& upload_link)
+{
+    SharedLinkDialog *dialog = new SharedLinkDialog(upload_link, NULL, false);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
+void SeafileExtensionHandler::onGetUploadLinkFailed(const ApiError& error)
+{
+    GetUploadLinkRequest *req = qobject_cast<GetUploadLinkRequest *>(sender());
+    const QString file = ::getBaseName(req->path());
+    seafApplet->messageBox(tr("Failed to get upload link information for file \"%1\"").arg(file));
+    req->deleteLater();
+}
+
 void SeafileExtensionHandler::showLockedBy(const QString& repo_id, const QString& path_in_repo)
 {
     // qWarning("SeafileExtensionHandler::showLockedBy is called for %s %s\n",
@@ -411,6 +449,8 @@ void ExtConnectionListenerThread::servePipeInNewThread(HANDLE pipe)
             this, SIGNAL(openUrlWithAutoLogin(const QUrl&)));
     connect(t, SIGNAL(showLockedBy(const QString&, const QString&)),
             this, SIGNAL(showLockedBy(const QString&, const QString&)));
+    connect(t, SIGNAL(getUploadLink(const QString&, const QString&)),
+            this, SIGNAL(getUploadLink(const QString&, const QString&)));
     t->start();
 }
 
@@ -451,6 +491,8 @@ void ExtCommandsHandler::run()
             handleShowHistory(args);
         } else if (cmd == "show-locked-by") {
             handleShowLockedBy(args);
+        } else if (cmd == "get-upload-link") {
+            handleGetUploadLink(args);
         } else {
             qWarning ("[ext] unknown request command: %s", cmd.toUtf8().data());
         }
@@ -681,6 +723,23 @@ void ExtCommandsHandler::handleShowLockedBy(const QStringList& args)
         if (path.length() > wt.length() && path.startsWith(wt) && path.at(wt.length()) == '/') {
             QString path_in_repo = path.mid(wt.size());
             emit showLockedBy(repo.id, path_in_repo);
+            break;
+        }
+    }
+}
+
+void ExtCommandsHandler::handleGetUploadLink(const QStringList& args)
+{
+    if (args.size() != 1) {
+        return;
+    }
+    QString path = normalizedPath(args[0]);
+    foreach (const LocalRepo& repo, listLocalRepos()) {
+        QString wt = normalizedPath(repo.worktree);
+        // qDebug("path: %s, repo: %s", path.toUtf8().data(), wt.toUtf8().data());
+        if (path.length() > wt.length() && path.startsWith(wt) && path.at(wt.length()) == '/') {
+            QString path_in_repo = path.mid(wt.size());
+            emit getUploadLink(repo.id, path_in_repo);
             break;
         }
     }

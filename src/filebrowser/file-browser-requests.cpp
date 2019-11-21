@@ -24,6 +24,8 @@ const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
 const char kGetSmartLink[] = "api/v2.1/smart-link/";
+const char kGetUploadLinkUrl[] = "api/v2.1/upload-links/";
+
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
@@ -508,4 +510,31 @@ void GetFileLockInfoRequest::onGetDirentsSuccess(bool current_readonly, const QL
         }
     }
     emit success(false, "");
+}
+
+GetUploadLinkRequest::GetUploadLinkRequest(const Account& account,
+                                           const QString& repo_id,
+                                           const QString& path)
+        : SeafileApiRequest(
+        account.getAbsoluteUrl(QString(kGetUploadLinkUrl)),
+        SeafileApiRequest::METHOD_POST, account.token),
+        path_(path)
+{
+    setFormParam("repo_id", repo_id);
+    setFormParam("path", path);
+}
+
+void GetUploadLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    QString upload_link = dict["link"].toString();
+    emit success(upload_link);
 }

@@ -31,6 +31,7 @@ enum CommandType : uint32_t {
     DoUnlockFile = 5,
     DoShowFileHistory = 6,
     DoShowFileLockedBy = 7,
+    DoGetUploadLink = 8,
 };
 
 struct mach_msg_command_send_t {
@@ -255,6 +256,11 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
         break;
     case DoShowFileLockedBy:
         QMetaObject::invokeMethod(finder_sync_host_.get(), "doShowFileLockedBy",
+                                  Qt::QueuedConnection,
+                                  Q_ARG(QString, msg->body));
+        break;
+    case DoGetUploadLink:
+        QMetaObject::invokeMethod(finder_sync_host_.get(), "doGetUploadLink",
                                   Qt::QueuedConnection,
                                   Q_ARG(QString, msg->body));
         break;

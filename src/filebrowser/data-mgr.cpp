@@ -182,14 +182,16 @@ void DataManager::copyDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
-    CopyMultipleFilesRequest *req =
-      new CopyMultipleFilesRequest(account_, repo_id, dir_path, file_names,
-                                   dst_repo_id,
-                                   dst_dir_path);
+
+    // First to invoke async api if async api return 404 ,then invoke sync api
+    AsyncCopyMultipleItemsRequest *req =
+        new AsyncCopyMultipleItemsRequest(account_, repo_id, dir_path, file_names,
+                                         dst_repo_id,
+                                         dst_dir_path);
     connect(req, SIGNAL(success(const QString&)),
             SLOT(onCopyDirentsSuccess(const QString&)));
 
-    connect(req, SIGNAL(failed(const ApiError&)),
+    connect(req, SIGNAL(sigAsyncCopyMultipleItemsFailed(const ApiError&)),
             SIGNAL(copyDirentsFailed(const ApiError&)));
     reqs_.push_back(req);
     req->send();
@@ -201,14 +203,14 @@ void DataManager::moveDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
-    MoveMultipleFilesRequest *req =
-      new MoveMultipleFilesRequest(account_, repo_id, dir_path, file_names,
+    AsyncMoveMultipleItemsRequest *req =
+      new AsyncMoveMultipleItemsRequest(account_, repo_id, dir_path, file_names,
                                    dst_repo_id,
                                    dst_dir_path);
     connect(req, SIGNAL(success(const QString&)),
             SLOT(onMoveDirentsSuccess(const QString&)));
 
-    connect(req, SIGNAL(failed(const ApiError&)),
+    connect(req, SIGNAL(sigAsyncMoveMultipleItemsFailed(const ApiError&)),
             SIGNAL(moveDirentsFailed(const ApiError&)));
     reqs_.push_back(req);
     req->send();
@@ -287,8 +289,8 @@ void DataManager::onCopyDirentsSuccess(const QString& dst_repo_id)
 
 void DataManager::onMoveDirentsSuccess(const QString& dst_repo_id)
 {
-    MoveMultipleFilesRequest *req = qobject_cast<MoveMultipleFilesRequest*>(sender());
-    dirents_cache_->expireCachedDirents(req->srcRepoId(), req->srcPath());
+    AsyncMoveMultipleItemsRequest *req = qobject_cast<AsyncMoveMultipleItemsRequest*>(sender());
+    dirents_cache_->expireCachedDirents(req->getSrcRepoId(), req->getSrcPath());
 
     emit moveDirentsSuccess(dst_repo_id);
 }

@@ -266,6 +266,67 @@ private:
     const QString dst_repo_id_;
 };
 
+// Batch copy items asynchronously
+class AsyncCopyMultipleItemsRequest : public SeafileApiRequest {
+Q_OBJECT
+public:
+
+    AsyncCopyMultipleItemsRequest (const Account &account, const QString &repo_id,
+                                   const QString &src_dir_path,
+                                   const QStringList &src_file_names,
+                                   const QString &dst_repo_id,
+                                   const QString &dst_dir_path);
+signals:
+    void success(const QString& dst_repo_id);
+    void sigAsyncCopyMultipleItemsFailed(const ApiError&);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+    void slotInvokeSyncBatchCopyV2(const ApiError& api_error);
+
+private:
+    Q_DISABLE_COPY(AsyncCopyMultipleItemsRequest)
+    const Account& account_;
+    const QString repo_id_;
+    const QString src_dir_path_;
+    const QStringList src_file_names_;
+    const QString dst_repo_id_;
+    const QString dst_repo_path_;
+    CopyMultipleFilesRequest* req_;
+};
+
+// Batch move items asynchronously
+class AsyncMoveMultipleItemsRequest : public SeafileApiRequest {
+Q_OBJECT
+public:
+    AsyncMoveMultipleItemsRequest(const Account &account,
+                                  const QString &repo_id,
+                                  const QString &src_dir_path,
+                                  const QStringList &src_file_names,
+                                  const QString &dst_repo_id,
+                                  const QString &dst_dir_path);
+    const QString& getSrcRepoId() { return repo_id_; }
+    const QString& getSrcPath() { return src_dir_path_; }
+
+signals:
+    void success(const QString& dst_repo_id);
+    void sigAsyncMoveMultipleItemsFailed(const ApiError&);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+    void slotInvokeSyncBatchMoveV2(const ApiError& api_error);
+
+private:
+    Q_DISABLE_COPY(AsyncMoveMultipleItemsRequest)
+    const Account& account_;
+    const QString repo_id_;
+    const QString src_dir_path_;
+    const QStringList src_file_names_;
+    const QString dst_repo_id_;
+    const QString dst_repo_path_;
+    MoveMultipleFilesRequest* req_;
+};
+
 class StarFileRequest : public SeafileApiRequest {
     Q_OBJECT
 public:

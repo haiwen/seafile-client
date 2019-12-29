@@ -20,6 +20,8 @@ const char kGetFileUploadUrl[] = "api2/repos/%1/upload-link/";
 const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
 const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
+const char kAsyncCopyMultipleItems[] = "api/v2.1/repos/async-batch-copy-item/";
+const char kAsyncMoveMultipleItems[] = "api/v2.1/repos/async-batch-move-item/";
 const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
@@ -250,6 +252,124 @@ MoveFileRequest::MoveFileRequest(const Account &account,
 void MoveFileRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+AsyncCopyMultipleItemsRequest::AsyncCopyMultipleItemsRequest(const Account &account,
+                                                             const QString &repo_id,
+                                                             const QString &src_dir_path,
+                                                             const QStringList &src_file_names,
+                                                             const QString &dst_repo_id,
+                                                             const QString &dst_dir_path)
+     : SeafileApiRequest(
+             account.getAbsoluteUrl(QString(kAsyncCopyMultipleItems)),
+             SeafileApiRequest::METHOD_POST, account.token),
+       account_(account),
+       repo_id_(repo_id),
+       src_dir_path_(src_dir_path),
+       src_file_names_(src_file_names),
+       dst_repo_id_(dst_repo_id),
+       dst_repo_path_(dst_dir_path)
+
+{
+    setHeader("Content-Type","application/json; charset=utf-8; indent=4");
+    setHeader("Accept", "application/json; charset=utf-8; indent=4");
+
+    QJsonObject json_obj;
+    QJsonArray json_array;
+    json_obj.insert("src_repo_id", repo_id);
+    json_obj.insert("src_parent_dir", src_dir_path);
+    Q_FOREACH(const QString & src_file_name, src_file_names) {
+            json_array.append(src_file_name);
+        }
+    json_obj.insert("src_dirents", json_array);
+    json_obj.insert("dst_repo_id", dst_repo_id);
+    json_obj.insert("dst_parent_dir", dst_dir_path);
+
+    QJsonDocument json_document(json_obj);
+    QByteArray byte_array = json_document.toJson(QJsonDocument::Compact);
+    setRequestBody(byte_array);
+    connect(this, SIGNAL(failed(const ApiError&)), this, SLOT(slotInvokeSyncBatchCopyV2(const ApiError&)));
+}
+
+void AsyncCopyMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success(dst_repo_id_);
+}
+
+void AsyncCopyMultipleItemsRequest::slotInvokeSyncBatchCopyV2(const ApiError& api_error) {
+    if (api_error.httpErrorCode() == 404) {
+        qWarning("http error code 404, invoke old copy multiple files api");
+        req_ = new CopyMultipleFilesRequest(account_, repo_id_, src_dir_path_, src_file_names_,
+                                            dst_repo_id_,
+                                            dst_repo_path_);
+        connect(req_, SIGNAL(success(const QString&)),
+            SIGNAL(success(const QString&)));
+
+        connect(req_, SIGNAL(failed(const ApiError&)),
+            SIGNAL(failed(const ApiError&)));
+        req_->send();
+    } else {
+        emit sigAsyncCopyMultipleItemsFailed(api_error);
+    }
+}
+
+AsyncMoveMultipleItemsRequest::AsyncMoveMultipleItemsRequest(const Account &account,
+                                                             const QString &repo_id,
+                                                             const QString &src_dir_path,
+                                                             const QStringList &src_file_names,
+                                                             const QString &dst_repo_id,
+                                                             const QString &dst_dir_path)
+        : SeafileApiRequest(
+            account.getAbsoluteUrl(QString(kAsyncMoveMultipleItems)),
+            SeafileApiRequest::METHOD_POST, account.token),
+          account_(account),
+          repo_id_(repo_id),
+          src_dir_path_(src_dir_path),
+          src_file_names_(src_file_names),
+          dst_repo_id_(dst_repo_id),
+          dst_repo_path_(dst_dir_path)
+{
+    setHeader("Content-Type","application/json; charset=utf-8; indent=4");
+    setHeader("Accept", "application/json; charset=utf-8; indent=4");
+
+    QJsonObject json_obj;
+    QJsonArray json_array;
+    json_obj.insert("src_repo_id", repo_id);
+    json_obj.insert("src_parent_dir", src_dir_path);
+    Q_FOREACH(const QString & src_file_name, src_file_names) {
+        json_array.append(src_file_name);
+    }
+    json_obj.insert("src_dirents", json_array);
+    json_obj.insert("dst_repo_id", dst_repo_id);
+    json_obj.insert("dst_parent_dir", dst_dir_path);
+
+    QJsonDocument json_document(json_obj);
+    QByteArray byte_array = json_document.toJson(QJsonDocument::Compact);
+    setRequestBody(byte_array);
+    connect(this, SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotInvokeSyncBatchMoveV2(const ApiError&)));
+}
+
+void AsyncMoveMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success(dst_repo_id_);
+}
+
+void AsyncMoveMultipleItemsRequest::slotInvokeSyncBatchMoveV2(const ApiError& api_error) {
+    if (api_error.httpErrorCode() == 404) {
+        qWarning("http error code 404, invoke old move multiple files api");
+        req_ = new MoveMultipleFilesRequest(account_, repo_id_, src_dir_path_, src_file_names_,
+                                            dst_repo_id_,
+                                            dst_repo_path_);
+        connect(req_, SIGNAL(success(const QString&)),
+                SIGNAL(success(const QString&)));
+
+        connect(req_, SIGNAL(failed(const ApiError&)),
+                SIGNAL(failed(const ApiError&)));
+        req_->send();
+    } else {
+        emit sigAsyncMoveMultipleItemsFailed(api_error);
+    }
 }
 
 CopyMultipleFilesRequest::CopyMultipleFilesRequest(const Account &account,

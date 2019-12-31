@@ -368,6 +368,11 @@ void FileTableView::setupContextMenu()
             this, SLOT(onShare()));
     share_action_->setShortcut(Qt::ALT + Qt::Key_G);
 
+    upload_link_action_ = new QAction(tr("&Generate %1 Upload Link").arg(getBrand()), this);
+    connect(upload_link_action_, SIGNAL(triggered()),
+            this, SLOT(onGenUploadLink()));
+    upload_link_action_->setShortcut(Qt::ALT + Qt::Key_L);
+
     share_to_user_action_ = new QAction(tr("Share to User"), this);
     connect(share_to_user_action_, SIGNAL(triggered()),
             this, SLOT(onShareToUser()));
@@ -383,6 +388,7 @@ void FileTableView::setupContextMenu()
 
     if (parent_->repo_.encrypted) {
         share_action_->setEnabled(false);
+        upload_link_action_->setEnabled(false);
         share_to_user_action_->setEnabled(false);
         share_to_group_action_->setEnabled(false);
     }
@@ -432,6 +438,7 @@ void FileTableView::setupContextMenu()
     context_menu_->addSeparator();
     context_menu_->addAction(saveas_action_);
     context_menu_->addAction(share_action_);
+    context_menu_->addAction(upload_link_action_);
     context_menu_->addAction(share_seafile_action_);
     context_menu_->addAction(share_to_user_action_);
     context_menu_->addAction(share_to_group_action_);
@@ -550,6 +557,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         lock_action_->setVisible(false);
         rename_action_->setVisible(false);
         share_action_->setVisible(false);
+        upload_link_action_->setVisible(false);
         share_seafile_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
@@ -598,6 +606,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         sync_subdirectory_action_->setVisible(true);
         share_to_user_action_->setVisible(true);
         share_to_group_action_->setVisible(true);
+        upload_link_action_->setVisible(true);
     } else {
         if (item_->locked_by_me) {
             lock_action_->setText(tr("Un&lock"));
@@ -623,6 +632,7 @@ void FileTableView::contextMenuEvent(QContextMenuEvent *event)
         sync_subdirectory_action_->setVisible(false);
         share_to_user_action_->setVisible(false);
         share_to_group_action_->setVisible(false);
+        upload_link_action_->setVisible(false);
 
         if (TransferManager::instance()->getDownloadTask(parent_->repo_.id,
             ::pathJoin(parent_->current_path_, dirent->name))) {
@@ -773,6 +783,17 @@ void FileTableView::onShare()
         return;
     }
     emit direntShare(*item_);
+}
+
+void FileTableView::onGenUploadLink()
+{
+    if (item_ == NULL) {
+        const SeafDirent *selected_item = getSelectedItemFromSource();
+        if (selected_item && selected_item->isDir())
+                emit direntUploadLink(*selected_item);
+        return;
+    }
+    emit direntUploadLink(*item_);
 }
 
 void FileTableView::onShareToUser()

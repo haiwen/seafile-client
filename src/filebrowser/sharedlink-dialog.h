@@ -7,7 +7,7 @@ class SharedLinkDialog : public QDialog
 {
     Q_OBJECT
 public:
-    SharedLinkDialog(const QString &text, QWidget *parent);
+    SharedLinkDialog(const QString &text, QWidget *parent, bool is_shared_link = true);
 
 private slots:
     void onCopyText();

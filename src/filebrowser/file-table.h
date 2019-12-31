@@ -48,6 +48,7 @@ signals:
     void direntShare(const SeafDirent& dirent);
     void direntShareToUserOrGroup(const SeafDirent& dirent, bool to_group);
     void direntShareSeafile(const SeafDirent& dirent);
+    void direntUploadLink(const SeafDirent& dirent);
     void direntPaste();
 
     void cancelDownload(const SeafDirent& dirent);
@@ -64,6 +65,7 @@ private slots:
     void onRename();
     void onRemove();
     void onShare();
+    void onGenUploadLink();
     void onShareToUser();
     void onShareToGroup();
     void onShareSeafile();
@@ -105,6 +107,7 @@ private:
     QAction *rename_action_;
     QAction *remove_action_;
     QAction *share_action_;
+    QAction *upload_link_action_;
     QAction *share_to_user_action_;
     QAction *share_to_group_action_;
     QAction *share_seafile_action_;

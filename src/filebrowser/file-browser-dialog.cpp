@@ -197,6 +197,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onGetDirentShareToUserOrGroup(const SeafDirent&, bool)));
     connect(table_view_, SIGNAL(direntShareSeafile(const SeafDirent&)),
             this, SLOT(onGetDirentShareSeafile(const SeafDirent&)));
+    connect(table_view_, SIGNAL(direntUploadLink(const SeafDirent&)),
+            this, SLOT(onGetDirentUploadLink(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntUpdate(const SeafDirent&)),
             this, SLOT(onGetDirentUpdate(const SeafDirent&)));
     connect(table_view_, SIGNAL(direntPaste()),
@@ -1231,6 +1233,34 @@ void FileBrowserDialog::onGetDirentShareToUserOrGroup(const SeafDirent& dirent,
     dialog.exec();
 }
 
+void FileBrowserDialog::onGetDirentUploadLink(const SeafDirent& dirent) {
+    QString repo_id = repo_.id;
+    QString path = ::pathJoin(current_path_, dirent.name);
+    if (dirent.isDir())
+        path += "/";
+    GetUploadLinkRequest *req = new GetUploadLinkRequest(account_, repo_id, path);
+    connect(req, SIGNAL(success(const QString&)), this,
+            SLOT(onGetUploadLinkSuccess(const QString)));
+    connect(req, SIGNAL(failed(const ApiError&)), this,
+            SLOT(onGetUploadLinkFailed(const ApiError&)));
+
+    req->send();
+}
+
+void FileBrowserDialog::onGetUploadLinkSuccess(const QString& upload_link) {
+    SharedLinkDialog *dialog = new SharedLinkDialog(upload_link, NULL, false);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+}
+
+void FileBrowserDialog::onGetUploadLinkFailed(const ApiError&) {
+    GetUploadLinkRequest *req = qobject_cast<GetUploadLinkRequest *>(sender());
+    const QString file = ::getBaseName(req->path());
+    seafApplet->messageBox(tr("Failed to get upload link information for file \"%1\"").arg(file));
+    req->deleteLater();
+}
 void FileBrowserDialog::onGetDirentShareSeafile(const SeafDirent& dirent)
 {
     QString repo_id = repo_.id;

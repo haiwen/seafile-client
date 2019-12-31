@@ -102,6 +102,9 @@ private slots:
     void onGetDirentShare(const SeafDirent& dirent);
     void onGetDirentShareToUserOrGroup(const SeafDirent& dirent, bool to_group);
     void onGetDirentShareSeafile(const SeafDirent& dirent);
+    void onGetDirentUploadLink(const SeafDirent& dirent);
+    void onGetUploadLinkSuccess(const QString& upload_link);
+    void onGetUploadLinkFailed(const ApiError&);
     void onGetDirentUpdate(const SeafDirent& dirent);
     void onGetDirentsPaste();
     void onGetSyncSubdirectory(const QString &folder_name);

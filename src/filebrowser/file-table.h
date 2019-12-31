@@ -65,7 +65,7 @@ private slots:
     void onRename();
     void onRemove();
     void onShare();
-    void onUpload();
+    void onGenUploadLink();
     void onShareToUser();
     void onShareToGroup();
     void onShareSeafile();

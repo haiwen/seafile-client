@@ -387,7 +387,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         NSMenuItem *showUploadLinkByMenuItem =
                 [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Upload Link",
                                                          @"Get Seafile Upload Link")
-                                action:@selector(showUploadLinkByAction:)
+                                action:@selector(getUploadLinkAction:)
                          keyEquivalent:@""];
         [showUploadLinkByMenuItem setImage:seafileImage];
         return menu;
@@ -628,7 +628,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     });
 }
 
-- (IBAction)showUploadLinkByAction:(id)sender {
+- (IBAction)getUploadLinkAction:(id)sender {
     NSArray *items =
             [[FIFinderSyncController defaultController] selectedItemURLs];
     if (![items count])

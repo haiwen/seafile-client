@@ -320,7 +320,7 @@ void SeafileExtensionHandler::getUploadLink(const QString& repo_id, const QStrin
     }
 
     GetUploadLinkRequest *req = new GetUploadLinkRequest(
-            account, repo_id, QString("/").append(path_in_repo));
+            account, repo_id, "/" + path_in_repo);
     connect(req, SIGNAL(success(const QString&)), this,
             SLOT(onGetUploadLinkSuccess(const QString)));
     connect(req, SIGNAL(failed(const ApiError&)), this,

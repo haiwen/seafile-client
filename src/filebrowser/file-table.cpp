@@ -370,7 +370,7 @@ void FileTableView::setupContextMenu()
 
     upload_link_action_ = new QAction(tr("&Generate %1 Upload Link").arg(getBrand()), this);
     connect(upload_link_action_, SIGNAL(triggered()),
-            this, SLOT(onUpload()));
+            this, SLOT(onGenUploadLink()));
     upload_link_action_->setShortcut(Qt::ALT + Qt::Key_L);
 
     share_to_user_action_ = new QAction(tr("Share to User"), this);
@@ -785,7 +785,7 @@ void FileTableView::onShare()
     emit direntShare(*item_);
 }
 
-void FileTableView::onUpload()
+void FileTableView::onGenUploadLink()
 {
     if (item_ == NULL) {
         const SeafDirent *selected_item = getSelectedItemFromSource();

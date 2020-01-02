@@ -546,7 +546,7 @@ void RepoTreeView::viewRepoOnWeb()
         if (!account.isAtLeastVersion(4, 2, 0)) {
             QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
         } else {
-            AutoLoginService::instance()->startAutoLogin("/#common/lib/" + selected_repo_.id + "/");
+            AutoLoginService::instance()->startAutoLogin("/library/" + selected_repo_.id + "/" + selected_repo_.name + "/");
         }
     }
 }

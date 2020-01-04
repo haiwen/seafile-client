@@ -31,13 +31,9 @@ void AutoLoginService::startAutoLogin(const QString& next_url)
         return;
     }
 
-    QString next = absolute_url.path();
-    if (absolute_url.hasQuery()) {
-        next += "?" + absolute_url.query();
-    }
-    if (!absolute_url.fragment().isEmpty()) {
-        next += "#" + absolute_url.fragment();
-    }
+    absolute_url.setScheme("");
+    absolute_url.setHost("");
+    QString next = absolute_url.toString().mid(2);
     GetLoginTokenRequest *req = new GetLoginTokenRequest(account, next);
 
     connect(req, SIGNAL(success(const QString&)),

@@ -858,6 +858,10 @@ falló al subir.</translation>
         <source>Failed to get link</source>
         <translation>Fallo al obtener enlace</translation>
     </message>
+    <message>
+        <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1088,6 +1092,29 @@ falló al subir.</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Abrir carpeta de caché local</translation>
+    </message>
+    <message>
+        <source>&amp;Generate %1 Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2157,6 +2184,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation>Una carpeta que podría contener archivos todavía no subidos es movida a la carpeta seafile-recycle-bin</translation>
     </message>
+    <message>
+        <source>failed to open sync error id database</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2546,29 +2577,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
 </context>
 <context>
-    <name>SeafileExtensionHandler</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to lock file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to unlock file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2706,7 +2714,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"/>
+        <translation>tiene algún error de sincronización</translation>
     </message>
 </context>
 <context>
@@ -3031,6 +3039,14 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -858,6 +858,10 @@ n&apos;a pu être envoyé.</translation>
         <source>Failed to get link</source>
         <translation>Impossible d&apos;obtenir le lien</translation>
     </message>
+    <message>
+        <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1088,6 +1092,29 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Ouvrir le dossier du cache local</translation>
+    </message>
+    <message>
+        <source>&amp;Generate %1 Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1528,23 +1555,23 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>No permission to sync folder %1.</source>
-        <translation type="unfinished"/>
+        <translation>Pas de permission pour synchroniser le dossier %1.</translation>
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Les mises à jour dans la bibliothèque en lecture seule %1 ne seront pas envoyées.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Mises à jour simultanées du fichier. Le fichier %1 est enregistré en tant que fichier de conflit.</translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation>Le dossier %1 est déplacé dans le dossier seafile-recycle-bin car il contient des fichiers qui n&apos;ont pas encore été chargés.</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
-        <translation type="unfinished"/>
+        <translation>Le dossier de la bibliothèque %1 a été supprimé ou déplacé. La bibliothèque n&apos;est pas synchronisée.</translation>
     </message>
 </context>
 <context>
@@ -2142,18 +2169,22 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation>Fichier créé ou mis à jour dans une bibliothèque ou un dossier non inscriptible.</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation>Permission refusée sur le serveur</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Mises à jour simultanées du fichier. Le fichier est sauvegardé en tant que fichier de conflit.</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
+        <translation>Un dossier qui peut contenir des fichiers qui ne sont pas encore téléchargés est déplacé dans le dossier seafile-recycle-bin.</translation>
+    </message>
+    <message>
+        <source>failed to open sync error id database</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2545,29 +2576,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
 </context>
 <context>
-    <name>SeafileExtensionHandler</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to lock file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to unlock file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2587,7 +2595,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 Lien d&apos;accès au bureau :</translation>
     </message>
 </context>
 <context>
@@ -2705,7 +2713,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"/>
+        <translation>Il y a une erreur de synchromisation</translation>
     </message>
 </context>
 <context>
@@ -3030,6 +3038,14 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

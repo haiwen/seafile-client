@@ -850,6 +850,10 @@ failed to upload.</source>
         <source>Failed to get link</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1078,6 +1082,29 @@ failed to upload.</source>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Generate %1 Upload Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2132,6 +2159,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>failed to open sync error id database</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2515,29 +2546,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SeafileExtensionHandler</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to lock file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to unlock file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3003,6 +3011,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload link:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

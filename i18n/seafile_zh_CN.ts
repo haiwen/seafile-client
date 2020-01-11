@@ -853,6 +853,10 @@ failed to upload.</source>
         <source>Failed to get link</source>
         <translation>获取链接失败</translation>
     </message>
+    <message>
+        <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation>无法获取文件 &quot;%1&quot; 的上传链接</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1082,6 +1086,29 @@ failed to upload.</source>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>打开本地缓存目录</translation>
+    </message>
+    <message>
+        <source>&amp;Generate %1 Upload Link</source>
+        <translation>&amp;获取 %1 上传链接</translation>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation>获取链接失败</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation>文件 &quot;%1&quot; 被 %2 锁定</translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation>获取文件 &quot;%1&quot; 的锁定信息失败</translation>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <translation>获取文件 &quot;%1&quot; 的上传链接失败</translation>
     </message>
 </context>
 <context>
@@ -2149,6 +2176,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation>一个文件夹中包含未上传的文件，文件夹被移动到 seafile-recycle-bin 文件夹。</translation>
     </message>
+    <message>
+        <source>failed to open sync error id database</source>
+        <translation>获取同步错误标识数据库失败</translation>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2533,29 +2564,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to read %1</source>
         <translation>读取文件 %1 失败</translation>
-    </message>
-</context>
-<context>
-    <name>SeafileExtensionHandler</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation>获取链接失败</translation>
-    </message>
-    <message>
-        <source>Failed to lock file</source>
-        <translation>锁定文件失败</translation>
-    </message>
-    <message>
-        <source>Failed to unlock file</source>
-        <translation>解锁文件失败</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation>文件 %1 被 %2 锁定</translation>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation>获得文件 %1 的锁定信息失败</translation>
     </message>
 </context>
 <context>
@@ -3021,6 +3029,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>OK</source>
         <translation>确认</translation>
+    </message>
+    <message>
+        <source>Upload Link</source>
+        <translation>上传链接</translation>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation>上传链接：</translation>
     </message>
 </context>
 <context>

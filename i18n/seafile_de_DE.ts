@@ -857,6 +857,10 @@ Bitte %1</translation>
         <source>Failed to get link</source>
         <translation>Fehler beim Ermitteln des Links</translation>
     </message>
+    <message>
+        <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1087,6 +1091,29 @@ Bitte %1</translation>
     <message>
         <source>Open Local Cache Folder</source>
         <translation>Lokalen Zwischenspeicher öffnen</translation>
+    </message>
+    <message>
+        <source>&amp;Generate %1 Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>FinderSyncHost</name>
+    <message>
+        <source>Failed to get link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2156,6 +2183,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
         <translation>Ein Ordner, der noch nicht hochgeladene Dateien enthalten könnte, wurde in den Papierkorb von Seafile verschoben.</translation>
     </message>
+    <message>
+        <source>failed to open sync error id database</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2545,29 +2576,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
 </context>
 <context>
-    <name>SeafileExtensionHandler</name>
-    <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to lock file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to unlock file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2705,7 +2713,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Synchronisieren</translation>
     </message>
 </context>
 <context>
@@ -3030,6 +3038,14 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

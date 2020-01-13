@@ -180,7 +180,6 @@ const char *const kSeafilePreconfigureGroupName = "preconfigure";
 const int kIntervalForUpdateRepoProperty = 1000;
 
 const char *kRepoServerUrlProperty = "server-url";
-const char *kRepoRelayAddrProperty = "relay-address";
 
 } // namespace
 
@@ -639,19 +638,21 @@ void SeafileApplet::updateReposPropertyForHttpSync()
     for (size_t i = 0; i < repos.size(); i++) {
         const LocalRepo& repo = repos[i];
         QString repo_server_url;
-        QString relay_addr;
+        QString server_url;
         if (rpc_client_->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
             continue;
         }
         if (!repo_server_url.isEmpty()) {
             continue;
         }
-        if (rpc_client_->getRepoProperty(repo.id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+        if (rpc_client_->getRepoProperty(repo.id, kRepoServerUrlProperty, &server_url) < 0) {
             continue;
         }
+
+        QString server_host = QUrl(server_url).host();
         for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
-            if (account.serverUrl.host() == relay_addr) {
+            if (account.serverUrl.host() == server_host) {
                 QUrl url(account.serverUrl);
                 url.setPath("/");
                 rpc_client_->setRepoProperty(repo.id, kRepoServerUrlProperty, url.toString());

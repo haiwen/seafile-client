@@ -21,7 +21,7 @@
 #include "settings-mgr.h"
 
 namespace {
-const char *kRepoRelayAddrProperty = "relay-address";
+const char *kRepoServerUrlProperty = "server-url";
 const char *kVersionKeyName = "version";
 const char *kFeaturesKeyName = "features";
 const char *kEncryptedLibraryVersionName = "encrypted_library_version";
@@ -103,7 +103,7 @@ QStringList collectSyncedReposForAccount(const Account& account)
     for (size_t i = 0; i < repos.size(); i++) {
         LocalRepo repo = repos[i];
         QString repo_server_url;
-        if (rpc->getRepoProperty(repo.id, "server-url", &repo_server_url) < 0) {
+        if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
             continue;
         }
         if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
@@ -664,14 +664,14 @@ Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClien
     QMutexLocker cache_lock(&accounts_cache_mutex_);
 
     if (!accounts_cache_.contains(repo_id)) {
-        QString relay_addr;
-        if (rpc->getRepoProperty(repo_id, kRepoRelayAddrProperty, &relay_addr) < 0) {
+        QString server_url;
+        if (rpc->getRepoProperty(repo_id, kRepoServerUrlProperty, &server_url) < 0) {
             return Account();
         }
-
+        QString server_host = QUrl(server_url).host();
         for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
-            if (account.serverUrl.host() == relay_addr) {
+            if (account.serverUrl.host() == server_host) {
                 accounts_cache_[repo_id] = account;
                 break;
             }

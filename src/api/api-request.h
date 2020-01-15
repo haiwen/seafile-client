@@ -30,6 +30,8 @@ public:
     void setUrlParam(const QString& name, const QString& value);
     // set param k-v pair which appears in url-encoded form
     void setFormParam(const QString& name, const QString& value);
+    // set http request body directly
+    void setRequestBody(const QByteArray& content);
     // useful for static resources like images
     void setUseCache(bool use_cache);
 
@@ -80,6 +82,8 @@ private:
     QHash<QString, QString> form_params_;
     Method method_;
     QString token_;
+    QByteArray post_data_;
+
     SeafileApiClient* api_client_;
 };
 

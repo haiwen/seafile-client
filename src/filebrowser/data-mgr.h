@@ -76,13 +76,13 @@ public:
 
     void copyDirents(const QString &repo_id,
                      const QString &dir_path,
-                     const QStringList &file_names,
+                     const QMap<QString, int> &dict_file_names,
                      const QString &dst_repo_id,
                      const QString &dst_dir_path);
 
     void moveDirents(const QString &repo_id,
                      const QString &dir_path,
-                     const QStringList &file_names,
+                     const QMap<QString, int> &dict_file_names,
                      const QString &dst_repo_id,
                      const QString &dst_dir_path);
 
@@ -168,6 +168,7 @@ private slots:
     void onRemoveDirentSuccess(const QString& repo_id);
     void onRemoveDirentsSuccess(const QString& repo_id);
     void onCopyDirentsSuccess(const QString& dst_repo_id);
+    void onAsyncMoveDirentsSuccess(const QString& dst_repo_id);
     void onMoveDirentsSuccess(const QString& dst_repo_id);
 
     void onCreateSubrepoSuccess(const QString& new_repoid);

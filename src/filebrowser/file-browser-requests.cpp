@@ -3,6 +3,7 @@
 #include <jansson.h>
 #include <QtNetwork>
 #include <QScopedPointer>
+#include <QMapIterator>
 
 #include "account.h"
 #include "api/api-error.h"
@@ -19,7 +20,10 @@ const char kGetFileSharedLinkUrl[] = "api2/repos/%1/file/shared-link/";
 const char kGetFileUploadUrl[] = "api2/repos/%1/upload-link/";
 const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
+const char kCopyMoveSingleItemUrl[] = "api/v2.1/copy-move-task/";
 const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
+const char kAsyncCopyMultipleItems[] = "api/v2.1/repos/async-batch-copy-item/";
+const char kAsyncMoveMultipleItems[] = "api/v2.1/repos/async-batch-move-item/";
 const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
 const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
@@ -29,6 +33,24 @@ const char kGetUploadLinkUrl[] = "api/v2.1/upload-links/";
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
+
+QByteArray assembleJsonReq(const QString&  repo_id, const QString& src_dir_path,
+                           const QStringList& src_file_names, const QString& dst_repo_id,
+                           const QString& dst_dir_path) {
+    QJsonObject json_obj;
+    QJsonArray dirents_array;
+    json_obj.insert("src_repo_id", repo_id);
+    json_obj.insert("src_parent_dir", src_dir_path);
+    Q_FOREACH(const QString & src_file_name, src_file_names) {
+            dirents_array.append(src_file_name);
+    }
+    json_obj.insert("src_dirents", dirents_array);
+    json_obj.insert("dst_repo_id", dst_repo_id);
+    json_obj.insert("dst_parent_dir", dst_dir_path);
+
+    QJsonDocument json_document(json_obj);
+    return json_document.toJson(QJsonDocument::Compact);
+}
 
 } // namespace
 
@@ -233,6 +255,40 @@ void RemoveDirentsRequest::requestSuccess(QNetworkReply& reply)
     emit success(repo_id_);
 }
 
+AsyncCopyAndMoveOneItemRequest ::AsyncCopyAndMoveOneItemRequest(const Account &account,
+                                                                const QString &src_repo_id,
+                                                                const QString &src_parent_dir,
+                                                                const QString &src_dirent_name,
+                                                                const QString &dst_repo_id,
+                                                                const QString &dst_parent_dir,
+                                                                const QString &operation,
+                                                                const QString &dirent_type)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kCopyMoveSingleItemUrl)),
+          SeafileApiRequest::METHOD_POST, account.token),
+    account_(account),
+    repo_id_(src_repo_id),
+    src_dir_path_(src_parent_dir),
+    src_dirent_name_(src_dirent_name),
+    dst_repo_id_(dst_repo_id),
+    dst_repo_path_(dst_parent_dir),
+    operation_(operation),
+    dirent_type_(dirent_type)
+{
+    setFormParam("src_repo_id", src_repo_id);
+    setFormParam("src_parent_dir", src_parent_dir);
+    setFormParam("src_dirent_name", src_dirent_name);
+    setFormParam("dst_repo_id", dst_repo_id);
+    setFormParam("dst_parent_dir", dst_parent_dir);
+    setFormParam("operation", operation);
+    setFormParam("dirent_type", dirent_type);
+}
+
+void AsyncCopyAndMoveOneItemRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success(dst_repo_id_);
+}
+
 MoveFileRequest::MoveFileRequest(const Account &account,
                                  const QString &repo_id,
                                  const QString &path,
@@ -252,6 +308,156 @@ MoveFileRequest::MoveFileRequest(const Account &account,
 void MoveFileRequest::requestSuccess(QNetworkReply& reply)
 {
     emit success();
+}
+
+
+// Asynchronous copy multiple items
+AsyncCopyMultipleItemsRequest::AsyncCopyMultipleItemsRequest(const Account &account,
+                                                             const QString &repo_id,
+                                                             const QString &src_dir_path,
+                                                             const QMap<QString, int>&src_dirents,
+                                                             const QString &dst_repo_id,
+                                                             const QString &dst_dir_path)
+     : SeafileApiRequest(
+             account.getAbsoluteUrl(QString(kAsyncCopyMultipleItems)),
+             SeafileApiRequest::METHOD_POST, account.token),
+       account_(account),
+       repo_id_(repo_id),
+       src_dir_path_(src_dir_path),
+       src_dirents_(src_dirents),
+       dst_repo_id_(dst_repo_id),
+       dst_repo_path_(dst_dir_path)
+
+{
+    setHeader("Content-Type","application/json");
+    setHeader("Accept", "application/json");
+
+    QStringList file_names;
+    for ( const QString & file_name : src_dirents.keys()) {
+        file_names.push_back(file_name);
+    }
+    QByteArray byte_array = assembleJsonReq(repo_id, src_dir_path, file_names,
+                                            dst_repo_id, dst_dir_path);
+    setRequestBody(byte_array);
+    connect(this, SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotInvokeSyncBatchCopyV2(const ApiError&)));
+}
+
+void AsyncCopyMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success(dst_repo_id_);
+}
+
+void AsyncCopyMultipleItemsRequest::slotInvokeSyncBatchCopyV2(const ApiError& api_error) {
+    if (api_error.httpErrorCode() == 404) {
+        qDebug("http error code 404, invoke old aync copy or move single item api");
+        useOldAsyncMoveCopyTask();
+
+    } else {
+        emit sigAsyncCopyMultipleItemsFailed(api_error);
+    }
+}
+
+void AsyncCopyMultipleItemsRequest::useOldAsyncMoveCopyTask() {
+    if(src_dirents_.isEmpty()) {
+        return ;
+    }
+
+    const QString& filename = src_dirents_.firstKey();
+    req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
+                                                   repo_id_,
+                                                   src_dir_path_,
+                                                   filename,
+                                                   dst_repo_id_,
+                                                   dst_repo_path_,
+                                                   "copy",
+                                                   src_dirents_[filename] == 1 ? "DIR" : "FILE"));
+
+    connect(req_.data(), SIGNAL(success( const QString&)),
+            SIGNAL(success( const QString&)));
+
+    connect(req_.data(), SIGNAL(success( const QString&)),
+            this, SLOT(useOldAsyncMoveCopyTask()));
+
+    connect(req_.data(), SIGNAL(failed( const ApiError&)),
+            SIGNAL(failed( const ApiError&)));
+
+    req_->send();
+    src_dirents_.remove(filename);
+}
+
+
+// Asynchronous api for move multiple items
+AsyncMoveMultipleItemsRequest::AsyncMoveMultipleItemsRequest(const Account &account,
+                                                             const QString &repo_id,
+                                                             const QString &src_dir_path,
+                                                             const QMap<QString, int> &src_dirents,
+                                                             const QString &dst_repo_id,
+                                                             const QString &dst_dir_path)
+        : SeafileApiRequest(
+            account.getAbsoluteUrl(QString(kAsyncMoveMultipleItems)),
+            SeafileApiRequest::METHOD_POST, account.token),
+          account_(account),
+          repo_id_(repo_id),
+          src_dir_path_(src_dir_path),
+          src_dirents_(src_dirents),
+          dst_repo_id_(dst_repo_id),
+          dst_repo_path_(dst_dir_path)
+{
+    setHeader("Content-Type","application/json");
+    setHeader("Accept", "application/json");
+
+    QStringList file_names;
+    for ( const QString & file_name : src_dirents.keys()) {
+        file_names.push_back(file_name);
+    }
+
+    QByteArray byte_array = assembleJsonReq(repo_id, src_dir_path, file_names,
+                                            dst_repo_id, dst_dir_path);
+    setRequestBody(byte_array);
+    connect(this, SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotInvokeSyncBatchMoveV2(const ApiError&)));
+}
+
+void AsyncMoveMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success(dst_repo_id_);
+}
+
+void AsyncMoveMultipleItemsRequest::slotInvokeSyncBatchMoveV2(const ApiError& api_error) {
+    // If seerver response 404, then invoke old async api
+    if (api_error.httpErrorCode() == 404) {
+        useOldAsyncMoveCopyTask();
+    } else {
+        emit sigAsyncMoveMultipleItemsFailed(api_error);
+    }
+}
+
+void AsyncMoveMultipleItemsRequest::useOldAsyncMoveCopyTask() {
+    if(src_dirents_.isEmpty()) {
+        return ;
+    }
+
+    const QString& filename = src_dirents_.firstKey();
+    req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
+                                                  repo_id_,
+                                                  src_dir_path_,
+                                                  filename,
+                                                  dst_repo_id_,
+                                                  dst_repo_path_,
+                                                  "move",
+                                                  src_dirents_[filename] == 1 ? "DIR" : "FILE"));
+    connect(req_.data(), SIGNAL(success( const QString&)),
+            this, SIGNAL(success( const QString&)));
+
+    connect(req_.data(), SIGNAL(success(const QString&)),
+            this, SLOT(useOldAsyncMoveCopyTask()));
+
+    connect(req_.data(), SIGNAL(failed( const ApiError&)),
+           this, SIGNAL(failed( const ApiError&)));
+
+    req_->send();
+    src_dirents_.remove(filename);
 }
 
 CopyMultipleFilesRequest::CopyMultipleFilesRequest(const Account &account,

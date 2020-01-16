@@ -431,10 +431,6 @@ bool AccountManager::setCurrentAccount(const Account& account)
 {
     Q_ASSERT(account.isValid());
 
-    if (account == currentAccount()) {
-        return false;
-    }
-
     emit beforeAccountSwitched();
 
     // Would emit "accountsChanged" signal

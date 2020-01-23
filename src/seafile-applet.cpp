@@ -167,6 +167,7 @@ const char *const kPreconfigureUsername = "PreconfigureUsername";
 const char *const kPreconfigureUserToken = "PreconfigureUserToken";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureComputerName = "PreconfigureComputerName";
+const char* const kPreConfiguretionBlockSize = "PreconfigureBlockSize";
 const char* const kHideConfigurationWizard = "HideConfigurationWizard";
 #if defined(Q_OS_WIN32)
 const char *const kSeafileConfigureFileName = "seafile.ini";
@@ -386,6 +387,14 @@ void SeafileApplet::onDaemonStarted()
         rpc_client_->seafileSetConfig("client_id", getUniqueClientId());
     }
 
+    // pre-configure option to set the size of sync block.
+    QString block = readPreconfigureExpandedString(kPreConfiguretionBlockSize);
+    if (!block.isEmpty()) {
+        int block_size = block.toInt();
+        if (rpc_client_->seafileSetConfigInt("block_size", block_size) < 0) {
+            qDebug("setting sync block_size error");
+        }
+    }
     QTimer::singleShot(kIntervalForUpdateRepoProperty,
                        this, SLOT(updateReposPropertyForHttpSync()));
 

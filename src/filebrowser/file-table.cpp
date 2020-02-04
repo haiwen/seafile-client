@@ -844,7 +844,7 @@ void FileTableView::onUpdate()
 
 void FileTableView::onCopy()
 {
-      QMap<QString, int> file_names;
+    QMap<QString, int> file_names;
 
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();

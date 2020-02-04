@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QStringList>
+#include <QTimer>
 
 #include "api/api-request.h"
 #include "seaf-dirent.h"
@@ -192,6 +193,20 @@ private:
     Q_DISABLE_COPY(GetFileUploadLinkRequest)
 };
 
+// Query asynchronous operation progress
+class QueryAsyncOperationProgress : public SeafileApiRequest {
+Q_OBJECT
+public:
+    QueryAsyncOperationProgress(const Account &account,
+                                const QString &task_id);
+signals:
+    void success();
+
+private slots:
+    void requestSuccess(QNetworkReply& reply);
+
+};
+
 // Async copy and move a single item
 class AsyncCopyAndMoveOneItemRequest : public SeafileApiRequest {
 Q_OBJECT
@@ -207,6 +222,7 @@ public:
 
 signals:
     void success(const QString& dst_repo_id);
+    void sigRequestSuccess(QNetworkReply& reply);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -316,8 +332,15 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
     void slotInvokeSyncBatchCopyV2(const ApiError& api_error);
 
+public slots:
+    void queryAsyncCopyMoveOneItemProgressSuccess();
+    void slotAsyncCopyOneItemSuccess(QNetworkReply& reply);
+
 private slots:
-    void useOldAsyncMoveCopyTask();
+    void useAsyncCopyMoveOneItemApi();
+    void slotQueryAsyncOperationProgress();
+    void slotQueryAsyncBatchOperationProgress();
+    void slotQueryAsyncBatchOperationProgressResponseSuccess();
 
 private:
     Q_DISABLE_COPY(AsyncCopyMultipleItemsRequest)
@@ -327,7 +350,11 @@ private:
     QMap<QString, int> src_dirents_;
     const QString dst_repo_id_;
     const QString dst_repo_path_;
-    QScopedPointer<AsyncCopyAndMoveOneItemRequest, QScopedPointerDeleteLater>req_;
+    QString task_id_;
+    QTimer* query_async_batch_opera_progress_timer_;
+    QTimer* query_async_opera_progress_timer_;
+    QScopedPointer<AsyncCopyAndMoveOneItemRequest, QScopedPointerDeleteLater> async_copy_one_item_req_;
+    QScopedPointer<QueryAsyncOperationProgress, QScopedPointerDeleteLater> query_async_opera_progress_req_;
 };
 
 // Batch move items asynchronously
@@ -351,8 +378,15 @@ protected slots:
     void requestSuccess(QNetworkReply& reply);
     void slotInvokeSyncBatchMoveV2(const ApiError& api_error);
 
+public slots:
+    void queryAsyncCopyMoveOneItemProgressSuccess();
+    void slotAsyncMoveOneItemSuccess(QNetworkReply& reply);
+
 private slots:
-   void useOldAsyncMoveCopyTask();
+    void useAsyncCopyMoveOneItemApi();
+    void slotQueryAsyncOperationProgress();
+    void slotQueryAsyncBatchOperationProgress();
+    void slotQueryAsyncBatchOperationProgressResponseSuccess();
 
 private:
     Q_DISABLE_COPY(AsyncMoveMultipleItemsRequest)
@@ -362,7 +396,11 @@ private:
     QMap<QString, int> src_dirents_;
     const QString dst_repo_id_;
     const QString dst_repo_path_;
-    QScopedPointer<AsyncCopyAndMoveOneItemRequest, QScopedPointerDeleteLater> req_;
+    QString task_id_;
+    QTimer* query_async_opera_progress_timer_;
+    QTimer* query_async_batch_opera_progress_timer_;
+    QScopedPointer<AsyncCopyAndMoveOneItemRequest, QScopedPointerDeleteLater> async_move_one_item_req_;
+    QScopedPointer<QueryAsyncOperationProgress, QScopedPointerDeleteLater> query_async_opera_progress_req_;
 };
 
 class StarFileRequest : public SeafileApiRequest {

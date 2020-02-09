@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QDesktopServices>
 #include <QCloseEvent>
+#include <QAction>
 
 #include "QtAwesome.h"
 #include "utils/utils.h"
@@ -179,11 +180,23 @@ void SyncErrorsTableView::contextMenuEvent(QContextMenuEvent *event)
 
 void SyncErrorsTableView::prepareContextMenu(const SyncError& error)
 {
+    id_ = error.id;
+}
+
+void SyncErrorsTableView::onDeleteFileAsyncError()
+{
+    bool success = seafApplet->rpcClient()->deleteFileAsyncErrorById(id_);
+    if (!success) {
+        seafApplet->messageBox(tr("Delete file async error failed"));
+    }
 }
 
 void SyncErrorsTableView::createContextMenu()
 {
     context_menu_ = new QMenu(this);
+    delete_action_ = new QAction("delete", this);
+    context_menu_->addAction(delete_action_);
+    connect(delete_action_, SIGNAL(triggered()), this, SLOT(onDeleteFileAsyncError()));
 }
 
 void SyncErrorsTableView::resizeEvent(QResizeEvent *event)

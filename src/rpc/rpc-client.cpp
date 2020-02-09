@@ -1007,3 +1007,19 @@ bool SeafileRpcClient::getSyncNotification(json_t **ret_obj)
 
     return true;
 }
+
+bool SeafileRpcClient::deleteFileAsyncErrorById(int id)
+{
+    GError *error = NULL;
+    int ret = searpc_client_call__int (
+            seafile_rpc_client_,
+            "seafile_del_file_sync_error_by_id",
+            &error, 1,
+            "int", id
+    );
+    if (error) {
+        g_error_free(error);
+        return false;
+    }
+    return true;
+}

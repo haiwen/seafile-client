@@ -135,6 +135,8 @@ public:
 
     bool getSyncNotification(json_t **ret);
 
+    bool deleteFileAsyncErrorById(int id);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

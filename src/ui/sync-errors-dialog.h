@@ -58,6 +58,8 @@ public:
 
     void contextMenuEvent(QContextMenuEvent *event);
     void resizeEvent(QResizeEvent *event);
+signals:
+    void refreshModel();
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);

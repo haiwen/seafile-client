@@ -75,6 +75,8 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     model_ = new SyncErrorsTableModel(this);
     table_->setModel(model_);
 
+    connect(table_, SIGNAL(refreshModel()), model_, SLOT(updateErrors()));
+
     QWidget* widget = new QWidget;
     widget->setObjectName("mainWidget");
     QVBoxLayout* layout = new QVBoxLayout;
@@ -188,7 +190,9 @@ void SyncErrorsTableView::onDeleteFileAsyncError()
     bool success = seafApplet->rpcClient()->deleteFileAsyncErrorById(id_);
     if (!success) {
         seafApplet->messageBox(tr("Delete file async error failed"));
+        return;
     }
+    emit refreshModel();
 }
 
 void SyncErrorsTableView::createContextMenu()

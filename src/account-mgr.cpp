@@ -276,7 +276,8 @@ int AccountManager::saveAccount(const Account& account)
     bool account_exist = false;
     {
         QMutexLocker lock(&accounts_mutex_);
-        for (size_t i = 0; i < accounts_.size(); i++) {
+        size_t i;
+        for (i = 0; i < accounts_.size(); i++) {
             if (accounts_[i] == account) {
                 accounts_.erase(accounts_.begin() + i);
                 account_exist = true;
@@ -284,6 +285,10 @@ int AccountManager::saveAccount(const Account& account)
             }
         }
         accounts_.insert(accounts_.begin(), new_account);
+
+        if (account_exist && i == 0) {
+            AccountInfoService::instance()->refresh();
+        }
     }
     updateAccountServerInfo(new_account);
 

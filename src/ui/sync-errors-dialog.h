@@ -58,9 +58,12 @@ public:
 
     void contextMenuEvent(QContextMenuEvent *event);
     void resizeEvent(QResizeEvent *event);
+signals:
+    void refreshModel();
 
 private slots:
     void onItemDoubleClicked(const QModelIndex& index);
+    void onDeleteFileAsyncError();
 
 private:
     void createContextMenu();
@@ -68,6 +71,8 @@ private:
 
 private:
     QMenu *context_menu_;
+    QAction *delete_action_;
+    int id_;
 };
 
 

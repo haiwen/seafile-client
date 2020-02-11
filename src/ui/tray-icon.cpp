@@ -144,8 +144,6 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
 #if !defined(Q_OS_LINUX)
     connect(this, SIGNAL(messageClicked()),
             this, SLOT(onMessageClicked()));
-    connect(this, SIGNAL(messageClicked()),
-            this, SLOT(showSyncErrorsDialog()));
 #endif
 
     hide();
@@ -330,8 +328,10 @@ void SeafileTrayIcon::showMessage(const QString &title,
                                   const QString &commit_id,
                                   const QString &previous_commit_id,
                                   MessageIcon icon,
-                                  int millisecondsTimeoutHint)
+                                  int millisecondsTimeoutHint,
+                                  bool is_error_message)
 {
+    is_error_message_ = is_error_message;
 #ifdef Q_OS_MAC
     repo_id_ = repo_id;
     commit_id_ = commit_id;
@@ -703,6 +703,10 @@ void SeafileTrayIcon::refreshTrayIconToolTip()
 
 void SeafileTrayIcon::onMessageClicked()
 {
+    if (is_error_message_) {
+        showSyncErrorsDialog();
+        return;
+    }
     if (repo_id_.isEmpty())
         return;
     LocalRepo repo;

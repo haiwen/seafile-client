@@ -312,7 +312,7 @@ void SeafileApplet::onDaemonStarted()
     AccountInfoService::instance()->start();
     SeafileAppletRpcServer::instance()->start();
 
-    account_mgr_->updateServerInfo();
+    account_mgr_->updateServerInfoForAllAccounts();
 
     //
     // start ui part

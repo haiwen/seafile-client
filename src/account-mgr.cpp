@@ -285,7 +285,7 @@ int AccountManager::saveAccount(const Account& account)
         }
         accounts_.insert(accounts_.begin(), new_account);
     }
-    updateServerInfo(0);
+    updateAccountServerInfo(new_account);
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
@@ -402,7 +402,7 @@ void AccountManager::updateAccountLastVisited(const Account& account)
     sqlite3_free(zql);
 }
 
-bool AccountManager::accountExists(const QUrl& url, const QString& username)
+bool AccountManager::accountExists(const QUrl& url, const QString& username) const
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == url && accounts_[i].username == username) {
@@ -454,7 +454,7 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
                 // TODO copy new_account and old_account before this operation
                 // we might have invalid old_account or new_account after it
                 accounts_[i] = new_account;
-                updateServerInfo(i);
+                updateAccountServerInfo(new_account);
                 break;
             }
         }
@@ -522,17 +522,15 @@ Account AccountManager::getAccountBySignature(const QString& account_sig) const
     return Account();
 }
 
-void AccountManager::updateServerInfo()
+void AccountManager::updateServerInfoForAllAccounts()
 {
     for (size_t i = 0; i < accounts_.size(); i++)
-        updateServerInfo(i);
+        updateAccountServerInfo(accounts_[i]);
 }
 
-void AccountManager::updateServerInfo(unsigned index)
+void AccountManager::updateAccountServerInfo(const Account& account)
 {
-    ServerInfoRequest *request;
-    // request is taken owner by Account object
-    request = accounts_[index].createServerInfoRequest();
+    ServerInfoRequest *request = new ServerInfoRequest(account);
     connect(request, SIGNAL(success(const Account&, const ServerInfo &)),
             this, SLOT(serverInfoSuccess(const Account&, const ServerInfo &)));
     connect(request, SIGNAL(failed(const ApiError&)),
@@ -562,6 +560,9 @@ void AccountManager::updateAccountInfo(const Account& account,
 
 void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo &info)
 {
+    ServerInfoRequest *req = (ServerInfoRequest *)(sender());
+    req->deleteLater();
+
     Account account = _account;
     account.serverInfo = info;
 
@@ -594,6 +595,9 @@ void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo
 
 void AccountManager::serverInfoFailed(const ApiError &error)
 {
+    ServerInfoRequest *req = (ServerInfoRequest *)(sender());
+    req->deleteLater();
+
     qWarning("update server info failed %s\n", error.toString().toUtf8().data());
 }
 
@@ -800,4 +804,17 @@ void AccountManager::onGetRepoTokensFailed(const ApiError& error)
         sendGetRepoTokensRequet(req->account(), req->repoIds(), req->maxRetries() - 1);
     }
     req->deleteLater();
+}
+
+const std::vector<Account>& AccountManager::accounts() const
+{
+    return accounts_;
+}
+
+bool AccountManager::hasAccount() const {
+    return !accounts_.empty();
+}
+
+const Account AccountManager::currentAccount() const {
+    return hasAccount() ? accounts_[0] : Account();
 }

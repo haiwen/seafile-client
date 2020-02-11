@@ -7,8 +7,6 @@
 
 #include "api/server-info.h"
 
-class ServerInfoRequest;
-
 class AccountInfo {
 public:
     QString email;
@@ -19,8 +17,6 @@ public:
 
 class Account {
     friend class AccountManager;
-    ServerInfoRequest *serverInfoRequest;
-    ServerInfoRequest* createServerInfoRequest();
 public:
     ServerInfo serverInfo;
     AccountInfo accountInfo;
@@ -32,17 +28,14 @@ public:
     bool isAutomaticLogin;
     QString s2fa_token;
 
-    ~Account();
-    Account() : serverInfoRequest(NULL),
-                serverInfo(),
+    Account() : serverInfo(),
                 lastVisited(0),
                 isShibboleth(false),
                 isAutomaticLogin(true) {}
     Account(QUrl serverUrl, QString username, QString token,
             qint64 lastVisited=0, bool isShibboleth = false,
             bool isAutomaticLogin = true, QString s2fa_token = QString())
-        : serverInfoRequest(NULL),
-          serverInfo(),
+        : serverInfo(),
           accountInfo(),
           serverUrl(serverUrl),
           username(username),
@@ -53,8 +46,7 @@ public:
           s2fa_token(s2fa_token) {}
 
     Account(const Account &rhs)
-      : serverInfoRequest(NULL),
-        serverInfo(rhs.serverInfo),
+      : serverInfo(rhs.serverInfo),
         accountInfo(rhs.accountInfo),
         serverUrl(rhs.serverUrl),
         username(rhs.username),
@@ -67,7 +59,6 @@ public:
     }
 
     Account& operator=(const Account&rhs) {
-        serverInfoRequest = NULL;
         serverInfo = rhs.serverInfo;
         accountInfo = rhs.accountInfo;
         serverUrl = rhs.serverUrl;
@@ -120,7 +111,7 @@ public:
                (majorVersion << 20) + (minorVersion << 10) + (patchVersion);
     }
 
-    int getEncryptedLibraryVersion() {
+    int getEncryptedLibraryVersion() const {
         return serverInfo.encryptedLibraryVersion;
     }
     // require pro edtions and version at least at ...

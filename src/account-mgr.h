@@ -41,7 +41,7 @@ public:
 
     // Switch to the given account. Used when user tries to switch to
     // another account from the accounts menu.
-    bool setCurrentAccount(const Account& account);
+    void setCurrentAccount(const Account& account);
 
     // Update the account details. Currently it's only used to update
     // the server address in AccountSettingsDialog.
@@ -50,7 +50,7 @@ public:
                        const Account& new_account);
 
     // Use the account if it's valid, otherwise require a re-login.
-    bool validateAndUseAccount(const Account& account);
+    void validateAndUseAccount(const Account& account);
 
     // Called when API returns 401 and we need to re-login current
     // account.
@@ -109,7 +109,7 @@ signals:
     void accountInfoUpdated(const Account& account);
 
 public slots:
-    bool reloginAccount(const Account &account);
+    void reloginAccount(const Account &account);
 
 private slots:
     void serverInfoSuccess(const Account &account, const ServerInfo &info);
@@ -134,8 +134,8 @@ private:
     void sendGetRepoTokensRequet(const Account& account, const QStringList& repo_ids, int max_retries);
 
     void logoutDeviceNonautoLogin();
-    bool clearAccountToken(const Account& account);
-    bool clearSyncToken(const Account& account);
+    void clearAccountToken(const Account& account);
+    void clearSyncToken(const Account& account);
 
     QHash<QString, Account> accounts_cache_;
 

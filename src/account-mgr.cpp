@@ -416,26 +416,24 @@ bool AccountManager::accountExists(const QUrl& url, const QString& username) con
     return false;
 }
 
-bool AccountManager::validateAndUseAccount(const Account& account)
+void AccountManager::validateAndUseAccount(const Account& account)
 {
     if (!account.isAutomaticLogin) {
         clearAccountToken(account);
-        return reloginAccount(account);
-    }
-    else if (!account.isValid()) {
-        return reloginAccount(account);
-    }
-    else {
-        return setCurrentAccount(account);
+        reloginAccount(account);
+    } else if (!account.isValid()) {
+        reloginAccount(account);
+    } else {
+        setCurrentAccount(account);
     }
 }
 
-bool AccountManager::setCurrentAccount(const Account& account)
+void AccountManager::setCurrentAccount(const Account& account)
 {
     Q_ASSERT(account.isValid());
 
     if (account == currentAccount()) {
-        return false;
+        return;
     }
 
     emit beforeAccountSwitched();
@@ -444,8 +442,6 @@ bool AccountManager::setCurrentAccount(const Account& account)
     saveAccount(account);
 
     AccountInfoService::instance()->refresh();
-
-    return true;
 }
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
@@ -604,7 +600,7 @@ void AccountManager::serverInfoFailed(const ApiError &error)
     qWarning("update server info failed %s\n", error.toString().toUtf8().data());
 }
 
-bool AccountManager::clearAccountToken(const Account& account)
+void AccountManager::clearAccountToken(const Account& account)
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {
@@ -627,11 +623,9 @@ bool AccountManager::clearAccountToken(const Account& account)
     sqlite3_free(zql);
 
     emit accountsChanged();
-
-    return true;
 }
 
-bool AccountManager::clearSyncToken(const Account& account)
+void AccountManager::clearSyncToken(const Account& account)
 {
     QString error;
     QUrl url = account.serverUrl;
@@ -641,9 +635,6 @@ bool AccountManager::clearSyncToken(const Account& account)
                                                            &error)  < 0) {
         seafApplet->warningBox(
             tr("Failed to remove local repos sync token: %1").arg(error));
-        return false;
-    } else {
-        return true;
     }
 }
 
@@ -717,7 +708,7 @@ void AccountManager::invalidateCurrentLogin()
     emit accountRequireRelogin(account);
 }
 
-bool AccountManager::reloginAccount(const Account &account_in)
+void AccountManager::reloginAccount(const Account &account_in)
 {
     qWarning("Relogin to account %s", account_in.username.toUtf8().data());
     bool accepted;
@@ -748,8 +739,6 @@ bool AccountManager::reloginAccount(const Account &account_in)
         // current account is the newly relogged in account.
         getSyncedReposToken(currentAccount());
     }
-
-    return accepted;
 }
 
 void AccountManager::getSyncedReposToken(const Account& account)

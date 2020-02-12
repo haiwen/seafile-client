@@ -339,9 +339,7 @@ void SeafileApplet::onDaemonStarted()
                 settingsManager()->setComputerName(computer_name);
             if (!username.isEmpty() && !token.isEmpty() && !url.isEmpty()) {
                 Account account(url, username, token);
-                if (account_mgr_->saveAccount(account) < 0) {
-                    errorAndExit(tr("failed to add default account"));
-                }
+                account_mgr_->saveAccount(account);
                 break;
             }
 

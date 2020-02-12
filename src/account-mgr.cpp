@@ -270,7 +270,7 @@ const std::vector<Account>& AccountManager::loadAccounts()
     return accounts_;
 }
 
-int AccountManager::saveAccount(const Account& account)
+void AccountManager::saveAccount(const Account& account)
 {
     Account new_account = account;
     bool account_exist = false;
@@ -336,8 +336,6 @@ int AccountManager::saveAccount(const Account& account)
     sqlite3_free(zql);
 
     emit accountsChanged();
-
-    return 0;
 }
 
 int AccountManager::removeAccount(const Account& account)

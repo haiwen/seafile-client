@@ -33,7 +33,7 @@ public:
 
     // Add a new account. Used in login dialogs or read the
     // preconfigured account by system admin.
-    int saveAccount(const Account& account);
+    void saveAccount(const Account& account);
 
     // Remove the account. Used when user removes an account from the
     // account menu.

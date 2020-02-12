@@ -312,13 +312,9 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
     account.username = info.email;
     account.isAutomaticLogin =
         mAutomaticLogin->checkState() == Qt::Checked;
-    if (seafApplet->accountManager()->saveAccount(account) < 0) {
-        showWarning(tr("Failed to save current account"));
-    }
-    else {
-        seafApplet->accountManager()->updateAccountInfo(account, info);
-        done(QDialog::Accepted);
-    }
+    seafApplet->accountManager()->saveAccount(account);
+    seafApplet->accountManager()->updateAccountInfo(account, info);
+    done(QDialog::Accepted);
 }
 
 void LoginDialog::onHttpError(int code)

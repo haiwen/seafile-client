@@ -860,7 +860,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir les informations du lien d&apos;envoi du fichier &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1095,26 +1095,26 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Générer %1 un lien d&apos;envoi</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir le lien</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>Le fichier &quot;%1&quot; est verrouillé par %2</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir l&apos;information de verrouillage du fichier &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir le lien d&apos;envoi du fichier &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -3149,6 +3149,13 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Time</source>
         <translation>Temps</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -3143,6 +3143,13 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
+        <translation>删除同步错误失败</translation>
+    </message>
+</context>
+<context>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>

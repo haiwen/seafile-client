@@ -860,7 +860,7 @@ falló al subir.</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener información del enlace de subida para el archivo &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1095,26 +1095,26 @@ falló al subir.</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Generar Enlace %1 para Subir</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener enlace</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>El archivo &quot;%1&quot; está bloqueado por %2</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener información de bloqueo para el archivo &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al obtener el enlace de subida para el archivo &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -2186,7 +2186,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"/>
+        <translation>fallo al abrir la base de datos de id de errores de sincronización</translation>
     </message>
 </context>
 <context>
@@ -3042,11 +3042,11 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Enlace de Subida</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Enlace de subida:</translation>
     </message>
 </context>
 <context>
@@ -3150,6 +3150,13 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>Time</source>
         <translation>Hora</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

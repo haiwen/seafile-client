@@ -7,11 +7,11 @@
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 Klient %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h5&gt; REV %1 &lt;/h5&gt;</translation>
     </message>
     <message>
         <source>About</source>
@@ -38,11 +38,11 @@
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se odstranit token synchronizace lokálního úložiště: %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se získat  informace o synchronizaci ze server: %1</translation>
     </message>
 </context>
 <context>
@@ -96,7 +96,7 @@
     <name>AccountView</name>
     <message>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
-        <translation type="unfinished"/>
+        <translation>Opravdu chceš smazat účet %1?&lt;br&gt;&lt;br&gt;Účet bude lokálně odstraněn. Budou také odstraněna veškerá nastavení synchronizace. Účet na serveru nebude ovlivněn.</translation>
     </message>
     <message>
         <source>Failed to unsync libraries of this account: %1</source>
@@ -206,7 +206,7 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation type="unfinished"/>
+        <translation>Soubor je uzamčen uživatelem %1, zkus to prosím znovu poději</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
@@ -517,7 +517,7 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 byl neočekávaně ukončen</translation>
     </message>
 </context>
 <context>
@@ -841,15 +841,15 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se nahrát soubor %1: %2</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se vytvořit složku mezipaměti</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se otevřít složku mezipaměti</translation>
     </message>
     <message>
         <source>Search files</source>
@@ -857,11 +857,11 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se získat odkaz</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se získat odkaz pro nahrání souboru &quot;%1&quot; ze serveru</translation>
     </message>
 </context>
 <context>
@@ -1752,7 +1752,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Storage quota full</source>
-        <translation type="unfinished"/>
+        <translation>Limit úložiště vyčerpán</translation>
     </message>
     <message>
         <source>Library deleted on server</source>
@@ -1800,7 +1800,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>checking server info...</source>
-        <translation type="unfinished"/>
+        <translation>kontroluji informace ze serveru...</translation>
     </message>
     <message>
         <source>Canceling</source>
@@ -2048,139 +2048,139 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Path ends with space or period character</source>
-        <translation type="unfinished"/>
+        <translation>Cesta končí mezerou nebo znakem tečky</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Cesta obsahuje nepovolený znak jako &apos;|&apos; nebo &apos;:&apos;</translation>
     </message>
     <message>
         <source>failed to open file cache database</source>
-        <translation type="unfinished"/>
+        <translation>Nepovedlo se otevřít databázi dočasných souborů</translation>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna obsahuje nepovolené znaky, jako třeba &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</translation>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizace souboru odmítnuta nastavením oprávnění složky</translation>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>%1 klient již běží</translation>
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation>Interní data v klientovi jsou poškozená. Pokus se přesynchronizovat knihovnu prosím</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
-        <translation type="unfinished"/>
+        <translation>Nemáš oprávnění zapisovat do této knihovny</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
-        <translation type="unfinished"/>
+        <translation>Nemáš oprávnění synchronizovat tuto složku</translation>
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation type="unfinished"/>
+        <translation>Odstraněny všechny předměty z koše</translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
-        <translation type="unfinished"/>
+        <translation>Odstraněny předměty starší než %1 dní z koše</translation>
     </message>
     <message>
         <source>Published draft</source>
-        <translation type="unfinished"/>
+        <translation>Publikovaný koncept</translation>
     </message>
     <message>
         <source>Created draft</source>
-        <translation type="unfinished"/>
+        <translation>Vytvořený koncept</translation>
     </message>
     <message>
         <source>Created file</source>
-        <translation type="unfinished"/>
+        <translation>Vytvořený soubor</translation>
     </message>
     <message>
         <source>Renamed file</source>
-        <translation type="unfinished"/>
+        <translation>Přejmenovaný soubor</translation>
     </message>
     <message>
         <source>Deleted draft</source>
-        <translation type="unfinished"/>
+        <translation>Smazaný koncept</translation>
     </message>
     <message>
         <source>Deleted file</source>
-        <translation type="unfinished"/>
+        <translation>Smazaný soubor</translation>
     </message>
     <message>
         <source>Restored file</source>
-        <translation type="unfinished"/>
+        <translation>Obnovený soubor</translation>
     </message>
     <message>
         <source>Moved file</source>
-        <translation type="unfinished"/>
+        <translation>Přesunutý soubor</translation>
     </message>
     <message>
         <source>Updated file</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizovaný soubor</translation>
     </message>
     <message>
         <source>Created folder</source>
-        <translation type="unfinished"/>
+        <translation>Vytvořená složka</translation>
     </message>
     <message>
         <source>Renamed folder</source>
-        <translation type="unfinished"/>
+        <translation>Přejmenovaná složka</translation>
     </message>
     <message>
         <source>Deleted folder</source>
-        <translation type="unfinished"/>
+        <translation>Smazaná složka</translation>
     </message>
     <message>
         <source>Restored folder</source>
-        <translation type="unfinished"/>
+        <translation>Obnovená složka</translation>
     </message>
     <message>
         <source>Moved folder</source>
-        <translation type="unfinished"/>
+        <translation>Přesunutá složka</translation>
     </message>
     <message>
         <source>Created library</source>
-        <translation type="unfinished"/>
+        <translation>Vytvořená knihovna</translation>
     </message>
     <message>
         <source>Renamed library</source>
-        <translation type="unfinished"/>
+        <translation>Přejmenovaná knihovna</translation>
     </message>
     <message>
         <source>Deleted library</source>
-        <translation type="unfinished"/>
+        <translation>Smazaná knihovna</translation>
     </message>
     <message>
         <source>Restored library</source>
-        <translation type="unfinished"/>
+        <translation>Obnovená knihovna</translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation>Soubor byl vytvořen nebo upraven v nezapisovatelné knihovně, nebo složce</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation>Oprávnění na serveru nepřiděleno</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Souběžné aktualizace souboru. Soubor je uložen jako konfliktní</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"/>
+        <translation>Složka, která může obsahovat nedokončeně nahrané soubory byla přesunuta do složky seafile-recycle-bin.</translation>
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"/>
+        <translation>nepovedlo se otevřít id databáze chyby synchronizace</translation>
     </message>
 </context>
 <context>
@@ -2442,19 +2442,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>set sync interval for this library</source>
-        <translation type="unfinished"/>
+        <translation>nastavit interval synchronizace pro tuto knihovnu</translation>
     </message>
     <message>
         <source>Are you sure to unsync the library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Chceš opravdu zrušit synchronizaci knihovny &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Are you sure to resync the library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Chceš opravdu znovu zesynchronizovat knihovnu &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Are you sure to overwrite the file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Chceš opravdu přepsat soubor &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to unsync library &quot;%1&quot;</source>
@@ -2462,11 +2462,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Are you sure you want to leave the share &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Jsi si jistý, že chceš opustit sdílený disk &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Leaving share failed</source>
-        <translation type="unfinished"/>
+        <translation>Nepovedlo se opustit sdílený disk</translation>
     </message>
     <message>
         <source>Failed to cancel this task:
@@ -2482,7 +2482,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Nemáš oprávnění nahrávat do této složky</translation>
     </message>
     <message>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
@@ -2509,7 +2509,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>ReposTab</name>
     <message>
         <source>Search libraries</source>
-        <translation type="unfinished"/>
+        <translation>Prohledat knihovny</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2555,19 +2555,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>nepovedlo se uložit id klienta</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>nepovedlo se získat %1</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>nesprávné id klienta</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>nepovedlo se přečíst %1</translation>
     </message>
 </context>
 <context>
@@ -2590,7 +2590,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation>%1 Přístupový odkaz plochy</translation>
     </message>
 </context>
 <context>
@@ -2601,7 +2601,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>Interní chyba: nepovedlo se spojit s démonem</translation>
     </message>
 </context>
 <context>
@@ -2640,7 +2640,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Show file sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Zobrazit chyby synchronizace souborů</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2684,31 +2684,31 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>Nahrát soubory záznamu</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>nahrát %1 souborů záznamu</translation>
     </message>
     <message>
         <source>Please login first</source>
-        <translation type="unfinished"/>
+        <translation>Nejdřív se prosím přihlašte</translation>
     </message>
     <message>
         <source>Repair explorer extension</source>
-        <translation type="unfinished"/>
+        <translation>Opravit rozšíření Průzkumníku</translation>
     </message>
     <message>
         <source>Successfully fixed sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Ikony v Průzkumníku byli úspěšně opraveny.</translation>
     </message>
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Nepovedlo se opravit ikony synchronizace v Průzkumníku</translation>
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"/>
+        <translation>máš nějaké problémy se synchronizací</translation>
     </message>
 </context>
 <context>
@@ -2726,7 +2726,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SearchTab</name>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Hledat soubory</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2899,7 +2899,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Check for updates automatically</source>
-        <translation type="unfinished"/>
+        <translation>Automaticky kontrolovat aktualizace</translation>
     </message>
     <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
@@ -2981,7 +2981,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SharedItemsTableModel</name>
     <message>
         <source>Click to edit</source>
-        <translation type="unfinished"/>
+        <translation>Klikni pro úpravu</translation>
     </message>
     <message>
         <source>Created by %1</source>
@@ -3036,11 +3036,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Odkaz pro nahrání:</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Odkaz pro nahrání:</translation>
     </message>
 </context>
 <context>
@@ -3120,14 +3120,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>No sync errors.</source>
-        <translation type="unfinished"/>
+        <translation>Žádné chyby synchronizace.</translation>
     </message>
 </context>
 <context>
     <name>SyncErrorsTableModel</name>
     <message>
         <source>Double click to open the library</source>
-        <translation type="unfinished"/>
+        <translation>Dvakrát klikni pro otevření knihovny</translation>
     </message>
     <message>
         <source>Library</source>
@@ -3135,7 +3135,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"/>
+        <translation>Cesta</translation>
     </message>
     <message>
         <source>Error</source>
@@ -3143,6 +3143,13 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Time</source>
+        <translation>Čas</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3150,35 +3157,35 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>Zadej druhý dvoufaktorový token</translation>
     </message>
     <message>
         <source>Two Factor Authentication</source>
-        <translation type="unfinished"/>
+        <translation>Dvoufaktorové ověření</translation>
     </message>
     <message>
         <source>Please enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>Zadej prosím token pro dvoufaktorové ověření</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialog</translation>
     </message>
     <message>
         <source>mText</source>
-        <translation type="unfinished"/>
+        <translation>mText</translation>
     </message>
     <message>
         <source>Remember this device</source>
-        <translation type="unfinished"/>
+        <translation>Zapamatovat si toto zařízení</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

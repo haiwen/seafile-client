@@ -860,7 +860,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось получить информацию о ссылке для загрузки файла &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1095,26 +1095,26 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Создать %1 ссылку для загрузки</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось получить ссылку</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>Файл &quot;%1&quot; заблокирован %2</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось получить информацию о блокировке файла &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось получить ссылку для загрузки файла &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -2186,7 +2186,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"/>
+        <translation>не удалось открыть базу данных с кодом ошибки синхронизации</translation>
     </message>
 </context>
 <context>
@@ -3040,11 +3040,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Ссылка для загрузки</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Ссылка для загрузки:</translation>
     </message>
 </context>
 <context>
@@ -3148,6 +3148,13 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Time</source>
         <translation>Время</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

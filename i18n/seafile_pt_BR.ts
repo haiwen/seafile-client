@@ -3145,6 +3145,13 @@ Abrir % 1 ajuda on-line</translation>
     </message>
 </context>
 <context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>

@@ -859,7 +859,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Informationen zum Upload-Link von Datei „%1“ konnten nicht abgerufen werden.</translation>
     </message>
 </context>
 <context>
@@ -1094,26 +1094,26 @@ Bitte %1</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>%1 &amp;Upload-Link erstellen</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Ermitteln des Links</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei „%1“ ist von %2 gesperrt</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Datei „%1“ ist gesperrt. Nähere Informationen konnten nicht abgerufen werden.</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Upload-Link von Datei „%1“ konnte nicht abgerufen werden.</translation>
     </message>
 </context>
 <context>
@@ -2185,7 +2185,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Öffnen der Datenbank zu Problemen bei der Synchronisation</translation>
     </message>
 </context>
 <context>
@@ -3041,11 +3041,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Upload-Link</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Upload-Link:</translation>
     </message>
 </context>
 <context>
@@ -3149,6 +3149,13 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Time</source>
         <translation>Zeit</translation>
+    </message>
+</context>
+<context>
+    <name>SyncErrorsTableView</name>
+    <message>
+        <source>Delete file async error failed</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

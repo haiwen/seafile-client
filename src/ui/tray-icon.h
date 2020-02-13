@@ -47,7 +47,8 @@ public:
                      const QString& commit_id = QString(),
                      const QString& previous_commit_id = QString(),
                      MessageIcon icon = Information,
-                     int millisecondsTimeoutHint = 10000);
+                     int millisecondsTimeoutHint = 10000,
+                     bool is_error_message = false);
 
     void setSyncErrorStatus(bool have_sync_error) {
         have_sync_errors_= have_sync_error;
@@ -129,6 +130,7 @@ private:
     QString repo_id_;
     QString commit_id_;
     QString previous_commit_id_;
+    bool is_error_message_;
 
     QHash<QString, QIcon> icon_cache_;
 

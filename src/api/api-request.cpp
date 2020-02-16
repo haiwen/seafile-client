@@ -38,7 +38,8 @@ void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
     form_params_[name] = value;
 }
 
-void SeafileApiRequest::setRequestBody(const QByteArray& content) {
+void SeafileApiRequest::setRequestBody(const QByteArray& content)
+{
     if (method_ != METHOD_PUT && method_ != METHOD_POST) {
         qWarning("warning: calling setRequestBody on a request with method %d\n", method_);
     }

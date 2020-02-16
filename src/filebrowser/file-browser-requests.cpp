@@ -33,15 +33,14 @@ const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/"
 const char kGetSmartLink[] = "api/v2.1/smart-link/";
 const char kGetUploadLinkUrl[] = "api/v2.1/upload-links/";
 
-const int kQueryAsyncOperationProgressInterval = 1000;
-
 //const char kGetFileFromRevisionUrl[] = "api2/repos/%1/file/revision/";
 //const char kGetFileDetailUrl[] = "api2/repos/%1/file/detail/";
 //const char kGetFileHistoryUrl[] = "api2/repos/%1/file/history/";
 
 QByteArray assembleJsonReq(const QString&  repo_id, const QString& src_dir_path,
                            const QStringList& src_file_names, const QString& dst_repo_id,
-                           const QString& dst_dir_path) {
+                           const QString& dst_dir_path)
+{
     QJsonObject json_obj;
     QJsonArray dirents_array;
     json_obj.insert("src_repo_id", repo_id);
@@ -202,35 +201,6 @@ void GetFileUploadLinkRequest::requestSuccess(QNetworkReply& reply)
 }
 
 
-QueryAsyncOperationProgress::QueryAsyncOperationProgress(const Account &account,
-                                                         const QString& task_id)
-    : SeafileApiRequest(
-        account.getAbsoluteUrl(kQueryAsyncOperationProgressUrl),
-        SeafileApiRequest::METHOD_GET, account.token)
-{
-    setUrlParam("task_id", task_id);
-}
-
-void QueryAsyncOperationProgress::requestSuccess(QNetworkReply& reply) {
-    json_error_t error;
-    json_t* root = parseJSON(reply, &error);
-    if (!root) {
-        qWarning("failed to parse json:%s\n", error.text);
-        return;
-    }
-
-    Json json(root);
-    bool is_success = json.getBool("successful");
-    bool is_failed = json.getBool("failed");
-    if (is_success) {
-        emit success();
-    } else if (is_failed) {
-        seafApplet->messageBox(tr("Operation failed"));
-        emit success();
-    }
-}
-
-
 RenameDirentRequest::RenameDirentRequest(const Account &account,
                                          const QString &repo_id,
                                          const QString &path,
@@ -290,6 +260,58 @@ void RemoveDirentsRequest::requestSuccess(QNetworkReply& reply)
     emit success(repo_id_);
 }
 
+
+MoveFileRequest::MoveFileRequest(const Account &account,
+                                 const QString &repo_id,
+                                 const QString &path,
+                                 const QString &dst_repo_id,
+                                 const QString &dst_dir_path)
+    : SeafileApiRequest(
+          account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
+          SeafileApiRequest::METHOD_POST, account.token)
+{
+    setUrlParam("p", path);
+
+    setFormParam("operation", "move");
+    setFormParam("dst_repo", dst_repo_id);
+    setFormParam("dst_dir", dst_dir_path);
+}
+
+void MoveFileRequest::requestSuccess(QNetworkReply& reply)
+{
+    emit success();
+}
+
+
+QueryAsyncOperationProgress::QueryAsyncOperationProgress(const Account &account,
+                                                         const QString& task_id)
+        : SeafileApiRequest(
+        account.getAbsoluteUrl(kQueryAsyncOperationProgressUrl),
+        SeafileApiRequest::METHOD_GET, account.token)
+{
+    setUrlParam("task_id", task_id);
+}
+
+void QueryAsyncOperationProgress::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        return;
+    }
+
+    Json json(root);
+    bool is_success = json.getBool("successful");
+    bool is_failed = json.getBool("failed");
+    if (is_success) {
+        emit success();
+    } else if (is_failed) {
+        seafApplet->messageBox(tr("Operation failed"));
+    }
+}
+
+
 AsyncCopyAndMoveOneItemRequest::AsyncCopyAndMoveOneItemRequest(const Account &account,
                                                                const QString &src_repo_id,
                                                                const QString &src_parent_dir,
@@ -321,28 +343,16 @@ AsyncCopyAndMoveOneItemRequest::AsyncCopyAndMoveOneItemRequest(const Account &ac
 
 void AsyncCopyAndMoveOneItemRequest::requestSuccess(QNetworkReply& reply)
 {
-    emit sigRequestSuccess(reply);
-}
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        return;
+    }
 
-MoveFileRequest::MoveFileRequest(const Account &account,
-                                 const QString &repo_id,
-                                 const QString &path,
-                                 const QString &dst_repo_id,
-                                 const QString &dst_dir_path)
-    : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFilesUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_POST, account.token)
-{
-    setUrlParam("p", path);
-
-    setFormParam("operation", "move");
-    setFormParam("dst_repo", dst_repo_id);
-    setFormParam("dst_dir", dst_dir_path);
-}
-
-void MoveFileRequest::requestSuccess(QNetworkReply& reply)
-{
-    emit success();
+    Json json(root);
+    QString task_id= json.getString("task_id");
+    emit success(task_id);
 }
 
 
@@ -365,16 +375,6 @@ AsyncCopyMultipleItemsRequest::AsyncCopyMultipleItemsRequest(const Account &acco
 
 {
 
-    query_async_batch_opera_progress_timer_ = new QTimer(this);
-    query_async_batch_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
-    connect(query_async_batch_opera_progress_timer_, SIGNAL(timeout()),
-            this, SLOT(slotQueryAsyncBatchOperationProgress()));
-
-    query_async_opera_progress_timer_ = new QTimer(this);
-    query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
-    connect(query_async_opera_progress_timer_, SIGNAL(timeout()),
-            this, SLOT(slotQueryAsyncOperationProgress()));
-
     setHeader("Content-Type","application/json");
     setHeader("Accept", "application/json");
 
@@ -385,9 +385,6 @@ AsyncCopyMultipleItemsRequest::AsyncCopyMultipleItemsRequest(const Account &acco
     QByteArray byte_array = assembleJsonReq(repo_id, src_dir_path, file_names,
                                             dst_repo_id, dst_dir_path);
     setRequestBody(byte_array);
-    connect(this, SIGNAL(failed(const ApiError&)),
-            this, SLOT(slotInvokeSyncBatchCopyV2(const ApiError&)));
-    qWarning("source repo id %s destination repo_id_ is %s", toCStr(repo_id), toCStr(dst_repo_id));
 }
 
 void AsyncCopyMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
@@ -400,95 +397,10 @@ void AsyncCopyMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
     }
 
     Json json(root);
-    task_id_= json.getString("task_id");
-    query_async_batch_opera_progress_timer_ -> start();
+    QString task_id = json.getString("task_id");
+    emit success(task_id);
 }
 
-void AsyncCopyMultipleItemsRequest::slotQueryAsyncBatchOperationProgress() {
-    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
-            task_id_));
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
-           this, SLOT(slotQueryAsyncBatchOperationProgressResponseSuccess()));
-
-    connect(query_async_opera_progress_req_.data(), SIGNAL(failed( const ApiError&)),
-            this, SIGNAL(failed( const ApiError&)));
-
-    query_async_opera_progress_req_->send();
-}
-
-void AsyncCopyMultipleItemsRequest::slotQueryAsyncBatchOperationProgressResponseSuccess(){
-    query_async_batch_opera_progress_timer_-> stop();
-    emit success(dst_repo_id_);
-}
-
-void AsyncCopyMultipleItemsRequest::slotInvokeSyncBatchCopyV2(const ApiError& api_error) {
-    if (api_error.httpErrorCode() == 404) {
-        qDebug("http error code 404, invoke old aync copy or move single item api");
-        useAsyncCopyMoveOneItemApi();
-
-    } else {
-        emit sigAsyncCopyMultipleItemsFailed(api_error);
-    }
-}
-
-void AsyncCopyMultipleItemsRequest::useAsyncCopyMoveOneItemApi() {
-    qWarning(" use old sync copy task api");
-    if(src_dirents_.isEmpty()) {
-        return ;
-    }
-
-    const QString& filename = src_dirents_.firstKey();
-    async_copy_one_item_req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
-                                                                      repo_id_,
-                                                                      src_dir_path_,
-                                                                      filename,
-                                                                      dst_repo_id_,
-                                                                      dst_repo_path_,
-                                                                      "copy",
-                                                                      src_dirents_[filename] == 1 ? "DIR" : "FILE"));
-
-    connect(async_copy_one_item_req_.data(), SIGNAL(sigRequestSuccess(QNetworkReply &)),
-            this, SLOT(slotAsyncCopyOneItemSuccess(QNetworkReply&)));
-
-    connect(async_copy_one_item_req_.data(), SIGNAL(failed( const ApiError&)),
-            SIGNAL(failed( const ApiError&)));
-
-    async_copy_one_item_req_->send();
-    src_dirents_.remove(filename);
-}
-
-void AsyncCopyMultipleItemsRequest::slotAsyncCopyOneItemSuccess(QNetworkReply& reply) {
-    json_error_t error;
-    json_t* root = parseJSON(reply, &error);
-    if (!root) {
-        qWarning("failed to parse json:%s\n", error.text);
-        return;
-    }
-
-    Json json(root);
-    task_id_= json.getString("task_id");
-
-    query_async_opera_progress_timer_->start();
-}
-
-void AsyncCopyMultipleItemsRequest::slotQueryAsyncOperationProgress() {
-    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
-                                          task_id_));
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
-            this, SLOT(useAsyncCopyMoveOneItemApi()));
-
-    connect(query_async_opera_progress_req_.data(), SIGNAL(failed( const ApiError&)),
-            this, SIGNAL(failed( const ApiError&)));
-
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
-            this, SLOT(queryAsyncCopyMoveOneItemProgressSuccess()));
-    query_async_opera_progress_req_->send();
-}
-
-void AsyncCopyMultipleItemsRequest::queryAsyncCopyMoveOneItemProgressSuccess() {
-    query_async_opera_progress_timer_ -> stop();
-    emit success(dst_repo_id_);
-}
 
 // Asynchronous api for move multiple items
 AsyncMoveMultipleItemsRequest::AsyncMoveMultipleItemsRequest(const Account &account,
@@ -507,16 +419,6 @@ AsyncMoveMultipleItemsRequest::AsyncMoveMultipleItemsRequest(const Account &acco
           dst_repo_id_(dst_repo_id),
           dst_repo_path_(dst_dir_path)
 {
-    query_async_opera_progress_timer_ = new QTimer(this);
-    query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
-    connect(query_async_opera_progress_timer_, SIGNAL(timeout()),
-            this, SLOT(slotQueryAsyncOperationProgress()));
-
-    query_async_batch_opera_progress_timer_ = new QTimer(this);
-    query_async_batch_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
-    connect(query_async_batch_opera_progress_timer_, SIGNAL(timeout()),
-            this, SLOT(slotQueryAsyncBatchOperationProgress()));
-
     setHeader("Content-Type","application/json");
     setHeader("Accept", "application/json");
 
@@ -528,8 +430,6 @@ AsyncMoveMultipleItemsRequest::AsyncMoveMultipleItemsRequest(const Account &acco
     QByteArray byte_array = assembleJsonReq(repo_id, src_dir_path, file_names,
                                             dst_repo_id, dst_dir_path);
     setRequestBody(byte_array);
-    connect(this, SIGNAL(failed(const ApiError&)),
-            this, SLOT(slotInvokeSyncBatchMoveV2(const ApiError&)));
 }
 
 void AsyncMoveMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
@@ -542,95 +442,8 @@ void AsyncMoveMultipleItemsRequest::requestSuccess(QNetworkReply& reply)
     }
 
     Json json(root);
-    task_id_= json.getString("task_id");
-
-    query_async_batch_opera_progress_timer_ -> start();
-}
-
-void AsyncMoveMultipleItemsRequest::slotQueryAsyncBatchOperationProgress() {
-    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
-                                                                          task_id_));
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
-            this, SLOT(slotQueryAsyncBatchOperationProgressResponseSuccess()));
-
-    connect(query_async_opera_progress_req_.data(), SIGNAL(failed( const ApiError&)),
-            this, SIGNAL(failed( const ApiError&)));
-
-    query_async_opera_progress_req_->send();
-}
-
-void AsyncMoveMultipleItemsRequest::slotQueryAsyncBatchOperationProgressResponseSuccess(){
-    query_async_batch_opera_progress_timer_-> stop();
-    emit success(dst_repo_id_);
-}
-
-void AsyncMoveMultipleItemsRequest::slotInvokeSyncBatchMoveV2(const ApiError& api_error) {
-    // If seerver response 404, then invoke old async api
-    qDebug("http error code 404, invoke old aync move single item api");
-    if (api_error.httpErrorCode() == 404) {
-        useAsyncCopyMoveOneItemApi();
-    } else {
-        emit sigAsyncMoveMultipleItemsFailed(api_error);
-    }
-}
-
-void AsyncMoveMultipleItemsRequest::useAsyncCopyMoveOneItemApi() {
-    qWarning(" use old sync copy task api");
-    if(src_dirents_.isEmpty()) {
-        return ;
-    }
-
-    const QString& filename = src_dirents_.firstKey();
-    async_move_one_item_req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
-                                                                      repo_id_,
-                                                                      src_dir_path_,
-                                                                      filename,
-                                                                      dst_repo_id_,
-                                                                      dst_repo_path_,
-                                                                      "move",
-                                                                      src_dirents_[filename] == 1 ? "DIR" : "FILE"));
-
-    connect(async_move_one_item_req_.data(), SIGNAL(sigRequestSuccess(QNetworkReply&)),
-            this, SLOT(slotAsyncMoveOneItemSuccess(QNetworkReply&)));
-
-    connect(async_move_one_item_req_.data(), SIGNAL(failed( const ApiError&)),
-            SIGNAL(failed( const ApiError&)));
-
-    async_move_one_item_req_->send();
-    src_dirents_.remove(filename);
-}
-
-void AsyncMoveMultipleItemsRequest::slotAsyncMoveOneItemSuccess(QNetworkReply& reply) {
-    json_error_t error;
-    json_t* root = parseJSON(reply, &error);
-    if (!root) {
-        qWarning("failed to parse json:%s\n", error.text);
-        return;
-    }
-
-    Json json(root);
-    task_id_= json.getString("task_id");
-
-    query_async_opera_progress_timer_->start();
-}
-
-void AsyncMoveMultipleItemsRequest::slotQueryAsyncOperationProgress() {
-    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
-                                                                                 task_id_));
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
-            this, SLOT(useAsyncCopyMoveOneItemApi()));
-
-    connect(query_async_opera_progress_req_.data(), SIGNAL(failed( const ApiError&)),
-            this, SIGNAL(failed( const ApiError&)));
-
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
-            this, SLOT(queryAsyncCopyMoveOneItemProgressSuccess()));
-    query_async_opera_progress_req_->send();
-}
-
-void AsyncMoveMultipleItemsRequest::queryAsyncCopyMoveOneItemProgressSuccess() {
-    query_async_opera_progress_timer_ -> stop();
-    emit success(dst_repo_id_);
+    QString task_id = json.getString("task_id");
+    emit success(task_id);
 }
 
 

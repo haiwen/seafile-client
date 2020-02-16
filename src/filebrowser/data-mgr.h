@@ -24,6 +24,8 @@ class FileCache;
 class FileNetworkTask;
 class FileUploadTask;
 class FileDownloadTask;
+class QueryAsyncOperationProgress;
+class AsyncCopyAndMoveOneItemRequest;
 
 /**
  * DataManager is responsible for getting dirents/files from seahub, as well
@@ -168,13 +170,33 @@ private slots:
     void onRemoveDirentSuccess(const QString& repo_id);
     void onRemoveDirentsSuccess(const QString& repo_id);
     void onCopyDirentsSuccess(const QString& dst_repo_id);
-    void onAsyncMoveDirentsSuccess(const QString& dst_repo_id);
     void onMoveDirentsSuccess(const QString& dst_repo_id);
 
     void onCreateSubrepoSuccess(const QString& new_repoid);
     void onCreateSubrepoRefreshSuccess(const ServerRepo& new_repo);
 
     void onAccountChanged();
+
+public slots:
+    // async copy operation
+    void slotAsyncCopyMutipleItemsSuccess(const QString& task_id);
+    void slotAsyncCopyMutipleItemsFailed(const ApiError& error);
+    void slotAsyncCopyOneItemApi();
+    void slotAsyncCopyOneItemSuccess(const QString& task_id);
+    void slotAsyncCopyOneItemFailed(const ApiError& error);
+    void slotQueryAsyncCopyOperaProgress();
+    void slotQueryAsyncCopyOperationProgressSuccess();
+    void slotQueryAsyncCopyOperationProgressFailed(const ApiError& error);
+
+    // async move operations
+    void slotAsyncMoveMutipleItemsSuccess(const QString& task_id);
+    void slotAsyncMoveMutipleItemsFailed(const ApiError& error);
+    void slotAsyncMoveOneItemApi();
+    void slotAsyncMoveOneItemSuccess(const QString& task_id);
+    void slotAsyncMoveOneItemFailed(const ApiError& error);
+    void slotQueryAsyncMoveOperaProgress();
+    void slotQueryAsyncMoveOperationProgressSuccess();
+    void slotQueryAsyncMoveOperationProgressFailed(const ApiError& error);
 
 private:
     void removeDirentsCache(const QString& repo_id,
@@ -195,7 +217,19 @@ private:
     DirentsCache *dirents_cache_;
     QString old_repo_id_;
 
+    // copy and move struct
+    QMap<QString, int> src_dirents_;
+    QString repo_id_;
+    QString dir_path_;
+    QString dst_repo_id_;
+    QString dst_dir_path_;
+    bool is_batch_operation_;
+    QString task_id_;
+
     static QHash<QString, std::pair<qint64, QString> > passwords_cache_;
+    QTimer* query_async_opera_progress_timer_;
+    QScopedPointer<QueryAsyncOperationProgress, QScopedPointerDeleteLater> query_async_opera_progress_req_;
+    QScopedPointer<AsyncCopyAndMoveOneItemRequest, QScopedPointerDeleteLater> async_copy_one_item_req_;
 };
 
 

@@ -26,6 +26,7 @@ namespace {
 const char *kFileCacheTopDirName = "file-cache";
 const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
 
+const int kQueryAsyncOperationProgressInterval = 1000;
 } // namespace
 
 /**
@@ -183,6 +184,17 @@ void DataManager::copyDirents(const QString &repo_id,
                               const QString &dst_dir_path)
 {
 
+    repo_id_ = repo_id;
+    dir_path_ = dir_path;
+    dst_repo_id_ = dst_repo_id;
+    dst_dir_path_ = dst_dir_path;
+    src_dirents_ = dict_file_names;
+
+    query_async_opera_progress_timer_ = new QTimer(this);
+    query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
+    connect(query_async_opera_progress_timer_, SIGNAL(timeout()),
+            this, SLOT(slotQueryAsyncCopyOperaProgress()));
+
     if (repo_id == dst_repo_id) {
         QStringList file_names;
         for(const QString &file_name : dict_file_names.keys()) {
@@ -209,19 +221,103 @@ void DataManager::copyDirents(const QString &repo_id,
         // First to invoke ssync api v2.1 if async api return 404 ,then invoke v2.0 async api
         AsyncCopyMultipleItemsRequest *req =
                 new AsyncCopyMultipleItemsRequest(account_,
-                                                  repo_id, dir_path,
+                                                  repo_id,
+                                                  dir_path,
                                                   dict_file_names,
                                                   dst_repo_id,
                                                   dst_dir_path);
 
         connect(req, SIGNAL(success(const QString&)),
-                SLOT(onCopyDirentsSuccess(const QString&)));
-
-        connect(req, SIGNAL(sigAsyncCopyMultipleItemsFailed(const ApiError&)),
-                SIGNAL(copyDirentsFailed(const ApiError&)));
+                SLOT(slotAsyncCopyMutipleItemsSuccess(const QString&)));
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SLOT(slotAsyncCopyMutipleItemsFailed(const ApiError&)));
         reqs_.push_back(req);
         req->send();
     }
+}
+
+void DataManager::slotAsyncCopyMutipleItemsSuccess(const QString& task_id)
+{
+    task_id_ = task_id;
+    is_batch_operation_ = true;
+    query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncCopyMutipleItemsFailed(const ApiError& error)
+{
+    if (error.httpErrorCode() == 404) {
+        qWarning("new async copy API is not available on server, use old async copy single item API");
+        slotAsyncCopyOneItemApi();
+        is_batch_operation_ = false;
+    } else {
+        emit copyDirentsFailed(error);
+    }
+}
+
+void DataManager::slotAsyncCopyOneItemApi()
+{
+    qWarning("use old sync copy task api");
+    if(src_dirents_.isEmpty()) {
+        return ;
+    }
+
+    const QString& filename = src_dirents_.firstKey();
+    async_copy_one_item_req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
+                                                                      repo_id_,
+                                                                      dir_path_,
+                                                                      filename,
+                                                                      dst_repo_id_,
+                                                                      dst_dir_path_,
+                                                                      "copy",
+                                                                      src_dirents_[filename] == 1 ? "DIR" : "FILE"));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(success(const QString&)),
+            this, SLOT(slotAsyncCopyOneItemSuccess(const QString&)));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(failed( const ApiError&)),
+            SLOT(slotAsyncCopyOneItemFailed( const ApiError&)));
+
+    async_copy_one_item_req_->send();
+    src_dirents_.remove(filename);
+}
+void DataManager::slotAsyncCopyOneItemSuccess(const QString& task_id)
+{
+    task_id_ = task_id;
+    query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncCopyOneItemFailed(const ApiError& error)
+{
+    query_async_opera_progress_timer_->stop();
+    emit copyDirentsFailed(error);
+}
+
+void DataManager::slotQueryAsyncCopyOperaProgress()
+{
+    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
+                                          task_id_));
+    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
+            this, SLOT(slotQueryAsyncCopyOperationProgressSuccess()));
+
+    connect(query_async_opera_progress_req_.data(), SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotQueryAsyncCopyOperationProgressFailed(const ApiError&)));
+
+    query_async_opera_progress_req_->send();
+}
+
+void DataManager::slotQueryAsyncCopyOperationProgressSuccess()
+{
+    query_async_opera_progress_timer_->stop();
+    onCopyDirentsSuccess(dst_repo_id_);
+    if (!is_batch_operation_) {
+        slotAsyncCopyOneItemApi();
+    }
+}
+
+void DataManager::slotQueryAsyncCopyOperationProgressFailed(const ApiError& error)
+{
+    query_async_opera_progress_timer_->stop();
+    emit copyDirentsFailed(error);
 }
 
 void DataManager::moveDirents(const QString &repo_id,
@@ -230,16 +326,28 @@ void DataManager::moveDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
+    repo_id_ = repo_id;
+    dir_path_ = dir_path;
+    dst_repo_id_ = dst_repo_id;
+    dst_dir_path_ = dst_dir_path;
+    src_dirents_ = dict_file_names;
+
+    query_async_opera_progress_timer_ = new QTimer(this);
+    query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
+    connect(query_async_opera_progress_timer_, SIGNAL(timeout()),
+            this, SLOT(slotQueryAsyncMoveOperaProgress()));
+
     if (repo_id == dst_repo_id) {
         QStringList file_names;
         for(const QString &file_name : dict_file_names.keys()) {
             file_names.push_back(file_name);
         }
+
         MoveMultipleFilesRequest *req =
                 new MoveMultipleFilesRequest(account_,
-                                              repo_id, dir_path, file_names,
-                                              dst_repo_id,
-                                              dst_dir_path);
+                                             repo_id, dir_path, file_names,
+                                             dst_repo_id,
+                                             dst_dir_path);
 
         connect(req, SIGNAL(success(const QString&)),
                 SLOT(onMoveDirentsSuccess(const QString&)));
@@ -249,6 +357,7 @@ void DataManager::moveDirents(const QString &repo_id,
         reqs_.push_back(req);
         req->send();
     } else {
+        // First to invoke ssync api v2.1 if async api return 404 ,then invoke v2.0 async api
         AsyncMoveMultipleItemsRequest *req =
                 new AsyncMoveMultipleItemsRequest(account_,
                                                   repo_id,
@@ -258,14 +367,100 @@ void DataManager::moveDirents(const QString &repo_id,
                                                   dst_dir_path);
 
         connect(req, SIGNAL(success(const QString&)),
-                SLOT(onAsyncMoveDirentsSuccess(const QString&)));
-
-        connect(req, SIGNAL(sigAsyncMoveMultipleItemsFailed(const ApiError&)),
-                SIGNAL(moveDirentsFailed(const ApiError&)));
+                SLOT(slotAsyncMoveMutipleItemsSuccess(const QString&)));
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SLOT(slotAsyncMoveMutipleItemsFailed(const ApiError&)));
         reqs_.push_back(req);
         req->send();
     }
 }
+
+void DataManager::slotAsyncMoveMutipleItemsSuccess(const QString& task_id)
+{
+    task_id_ = task_id;
+    is_batch_operation_ = true;
+    query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncMoveMutipleItemsFailed(const ApiError& error)
+{
+    if (error.httpErrorCode() == 404) {
+        qWarning("new async move API is not available on server, use old async move single item API");
+        slotAsyncMoveOneItemApi();
+        is_batch_operation_ = false;
+    } else {
+        emit moveDirentsFailed(error);
+    }
+}
+
+void DataManager::slotAsyncMoveOneItemApi()
+{
+    qWarning("use async move one item API");
+    if(src_dirents_.isEmpty()) {
+        return ;
+    }
+
+    const QString& filename = src_dirents_.firstKey();
+    async_copy_one_item_req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
+                                                                      repo_id_,
+                                                                      dir_path_,
+                                                                      filename,
+                                                                      dst_repo_id_,
+                                                                      dst_dir_path_,
+                                                                      "move",
+                                                                      src_dirents_[filename] == 1 ? "DIR" : "FILE"));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(success(const QString&)),
+            this, SLOT(slotAsyncMoveOneItemSuccess(const QString&)));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(failed( const ApiError&)),
+            SLOT(slotAsyncMoveOneItemFailed( const ApiError&)));
+
+    async_copy_one_item_req_->send();
+    src_dirents_.remove(filename);
+}
+
+void DataManager::slotAsyncMoveOneItemSuccess(const QString& task_id)
+{
+   task_id_ = task_id;
+   query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncMoveOneItemFailed(const ApiError& error)
+{
+    query_async_opera_progress_timer_->stop();
+    emit moveDirentsFailed(error);
+}
+
+void DataManager::slotQueryAsyncMoveOperaProgress()
+{
+    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
+                                          task_id_));
+    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
+            this, SLOT(slotQueryAsyncMoveOperationProgressSuccess()));
+
+    connect(query_async_opera_progress_req_.data(), SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotQueryAsyncMoveOperationProgressFailed(const ApiError&)));
+
+    query_async_opera_progress_req_->send();
+}
+
+void DataManager::slotQueryAsyncMoveOperationProgressSuccess()
+{
+    query_async_opera_progress_timer_->stop();
+    dirents_cache_->expireCachedDirents(repo_id_, dir_path_);
+    moveDirentsSuccess(dst_repo_id_);
+    if (!is_batch_operation_) {
+        slotAsyncMoveOneItemApi();
+    }
+}
+
+void DataManager::slotQueryAsyncMoveOperationProgressFailed(const ApiError& error)
+{
+    query_async_opera_progress_timer_->stop();
+    emit moveDirentsFailed(error);
+}
+
 
 void DataManager::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents, const QString& repo_id)
 {
@@ -336,14 +531,6 @@ void DataManager::onRemoveDirentsSuccess(const QString& repo_id)
 void DataManager::onCopyDirentsSuccess(const QString& dst_repo_id)
 {
     emit copyDirentsSuccess(dst_repo_id);
-}
-
-void DataManager::onAsyncMoveDirentsSuccess(const QString& dst_repo_id)
-{
-    AsyncMoveMultipleItemsRequest *req = qobject_cast<AsyncMoveMultipleItemsRequest*>(sender());
-    dirents_cache_->expireCachedDirents(req->getSrcRepoId(), req->getSrcPath());
-
-    emit moveDirentsSuccess(dst_repo_id);
 }
 
 void DataManager::onMoveDirentsSuccess(const QString& dst_repo_id)

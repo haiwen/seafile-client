@@ -339,7 +339,7 @@ void SeafileApplet::onDaemonStarted()
                 settingsManager()->setComputerName(computer_name);
             if (!username.isEmpty() && !token.isEmpty() && !url.isEmpty()) {
                 Account account(url, username, token);
-                account_mgr_->saveAccount(account);
+                account_mgr_->setCurrentAccount(account);
                 break;
             }
 

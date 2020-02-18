@@ -312,7 +312,7 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
     account.username = info.email;
     account.isAutomaticLogin =
         mAutomaticLogin->checkState() == Qt::Checked;
-    seafApplet->accountManager()->saveAccount(account);
+    seafApplet->accountManager()->setCurrentAccount(account);
     seafApplet->accountManager()->updateAccountInfo(account, info);
     done(QDialog::Accepted);
 }

@@ -31,17 +31,13 @@ public:
      * Account operations
      */
 
-    // Add a new account. Used in login dialogs or read the
-    // preconfigured account by system admin.
-    void saveAccount(const Account& account);
+    // Use the given account. This account would also be persisted to
+    // the accounts db.
+    void setCurrentAccount(const Account& account);
 
     // Remove the account. Used when user removes an account from the
     // account menu.
     int removeAccount(const Account& account);
-
-    // Switch to the given account. Used when user tries to switch to
-    // another account from the accounts menu.
-    void setCurrentAccount(const Account& account);
 
     // Update the account details. Currently it's only used to update
     // the server address in AccountSettingsDialog.

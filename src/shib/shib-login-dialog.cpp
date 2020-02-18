@@ -107,7 +107,7 @@ void ShibLoginDialog::onNewCookieCreated(const QUrl& url, const QNetworkCookie& 
             return;
         }
         cookie_seen_ = true;
-        seafApplet->accountManager()->saveAccount(account);
+        seafApplet->accountManager()->setCurrentAccount(account);
         accept();
     }
 }

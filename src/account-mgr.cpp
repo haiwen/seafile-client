@@ -270,8 +270,12 @@ const std::vector<Account>& AccountManager::loadAccounts()
     return accounts_;
 }
 
-void AccountManager::saveAccount(const Account& account)
+void AccountManager::setCurrentAccount(const Account& account)
 {
+    Q_ASSERT(account.isValid());
+
+    emit beforeAccountSwitched();
+
     Account new_account = account;
     bool account_exist = false;
     {
@@ -285,11 +289,8 @@ void AccountManager::saveAccount(const Account& account)
             }
         }
         accounts_.insert(accounts_.begin(), new_account);
-
-        if (account_exist && i == 0) {
-            AccountInfoService::instance()->refresh();
-        }
     }
+    AccountInfoService::instance()->refresh();
     updateAccountServerInfo(new_account);
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
@@ -426,22 +427,6 @@ void AccountManager::validateAndUseAccount(const Account& account)
     } else {
         setCurrentAccount(account);
     }
-}
-
-void AccountManager::setCurrentAccount(const Account& account)
-{
-    Q_ASSERT(account.isValid());
-
-    if (account == currentAccount()) {
-        return;
-    }
-
-    emit beforeAccountSwitched();
-
-    // Would emit "accountsChanged" signal
-    saveAccount(account);
-
-    AccountInfoService::instance()->refresh();
 }
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)

@@ -181,7 +181,7 @@ public slots:
     // async copy operation
     void slotAsyncCopyMutipleItemsSuccess(const QString& task_id);
     void slotAsyncCopyMutipleItemsFailed(const ApiError& error);
-    void slotAsyncCopyOneItemApi();
+    void asyncCopyOneItemApi();
     void slotAsyncCopyOneItemSuccess(const QString& task_id);
     void slotAsyncCopyOneItemFailed(const ApiError& error);
     void slotQueryAsyncCopyOperaProgress();
@@ -191,7 +191,7 @@ public slots:
     // async move operations
     void slotAsyncMoveMutipleItemsSuccess(const QString& task_id);
     void slotAsyncMoveMutipleItemsFailed(const ApiError& error);
-    void slotAsyncMoveOneItemApi();
+    void asyncMoveOneItemApi();
     void slotAsyncMoveOneItemSuccess(const QString& task_id);
     void slotAsyncMoveOneItemFailed(const ApiError& error);
     void slotQueryAsyncMoveOperaProgress();

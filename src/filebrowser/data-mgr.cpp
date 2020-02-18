@@ -247,14 +247,14 @@ void DataManager::slotAsyncCopyMutipleItemsFailed(const ApiError& error)
 {
     if (error.httpErrorCode() == 404) {
         qWarning("new async copy API is not available on server, use old async copy single item API");
-        slotAsyncCopyOneItemApi();
+        asyncCopyOneItemApi();
         is_batch_operation_ = false;
     } else {
         emit copyDirentsFailed(error);
     }
 }
 
-void DataManager::slotAsyncCopyOneItemApi()
+void DataManager::asyncCopyOneItemApi()
 {
     qWarning("use old sync copy task api");
     if(src_dirents_.isEmpty()) {
@@ -310,7 +310,7 @@ void DataManager::slotQueryAsyncCopyOperationProgressSuccess()
     query_async_opera_progress_timer_->stop();
     onCopyDirentsSuccess(dst_repo_id_);
     if (!is_batch_operation_) {
-        slotAsyncCopyOneItemApi();
+        asyncCopyOneItemApi();
     }
 }
 
@@ -386,14 +386,14 @@ void DataManager::slotAsyncMoveMutipleItemsFailed(const ApiError& error)
 {
     if (error.httpErrorCode() == 404) {
         qWarning("new async move API is not available on server, use old async move single item API");
-        slotAsyncMoveOneItemApi();
+        asyncMoveOneItemApi();
         is_batch_operation_ = false;
     } else {
         emit moveDirentsFailed(error);
     }
 }
 
-void DataManager::slotAsyncMoveOneItemApi()
+void DataManager::asyncMoveOneItemApi()
 {
     qWarning("use async move one item API");
     if(src_dirents_.isEmpty()) {
@@ -451,7 +451,7 @@ void DataManager::slotQueryAsyncMoveOperationProgressSuccess()
     dirents_cache_->expireCachedDirents(repo_id_, dir_path_);
     moveDirentsSuccess(dst_repo_id_);
     if (!is_batch_operation_) {
-        slotAsyncMoveOneItemApi();
+        asyncMoveOneItemApi();
     }
 }
 

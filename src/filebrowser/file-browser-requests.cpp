@@ -307,7 +307,8 @@ void QueryAsyncOperationProgress::requestSuccess(QNetworkReply& reply)
     if (is_success) {
         emit success();
     } else if (is_failed) {
-        seafApplet->messageBox(tr("Operation failed"));
+        qWarning("operation failed");
+        emit failed(ApiError::fromHttpError(500));
     }
 }
 

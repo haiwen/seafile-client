@@ -183,6 +183,10 @@ void DataManager::copyDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
+    if(query_async_opera_progress_timer_ != nullptr && query_async_opera_progress_timer_->isActive()) {
+        seafApplet->warningBox(tr("Have some Operation not accomplished, please wait a moment"));
+        return;
+    }
 
     repo_id_ = repo_id;
     dir_path_ = dir_path;
@@ -294,19 +298,21 @@ void DataManager::slotAsyncCopyOneItemFailed(const ApiError& error)
 
 void DataManager::slotQueryAsyncCopyOperaProgress()
 {
-    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
-                                          task_id_));
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
+    QueryAsyncOperationProgress* query_async_opera_progress_req = new QueryAsyncOperationProgress(account_,
+                                          task_id_);
+    connect(query_async_opera_progress_req, SIGNAL(success()),
             this, SLOT(slotQueryAsyncCopyOperationProgressSuccess()));
 
-    connect(query_async_opera_progress_req_.data(), SIGNAL(failed(const ApiError&)),
+    connect(query_async_opera_progress_req, SIGNAL(failed(const ApiError&)),
             this, SLOT(slotQueryAsyncCopyOperationProgressFailed(const ApiError&)));
 
-    query_async_opera_progress_req_->send();
+    query_async_opera_progress_req->send();
 }
 
 void DataManager::slotQueryAsyncCopyOperationProgressSuccess()
 {
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
     query_async_opera_progress_timer_->stop();
     onCopyDirentsSuccess(dst_repo_id_);
     if (!is_batch_operation_) {
@@ -316,6 +322,8 @@ void DataManager::slotQueryAsyncCopyOperationProgressSuccess()
 
 void DataManager::slotQueryAsyncCopyOperationProgressFailed(const ApiError& error)
 {
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
     query_async_opera_progress_timer_->stop();
     emit copyDirentsFailed(error);
 }
@@ -326,11 +334,17 @@ void DataManager::moveDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
+    if(query_async_opera_progress_timer_ != nullptr && query_async_opera_progress_timer_->isActive()) {
+        seafApplet->warningBox(tr("Have some Operation not accomplished, please wait a moment"));
+        return;
+    }
+
     repo_id_ = repo_id;
     dir_path_ = dir_path;
     dst_repo_id_ = dst_repo_id;
     dst_dir_path_ = dst_dir_path;
     src_dirents_ = dict_file_names;
+
 
     query_async_opera_progress_timer_ = new QTimer(this);
     query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
@@ -434,19 +448,21 @@ void DataManager::slotAsyncMoveOneItemFailed(const ApiError& error)
 
 void DataManager::slotQueryAsyncMoveOperaProgress()
 {
-    query_async_opera_progress_req_.reset(new QueryAsyncOperationProgress(account_,
-                                          task_id_));
-    connect(query_async_opera_progress_req_.data(), SIGNAL(success()),
+    QueryAsyncOperationProgress* query_async_opera_progress_req = new QueryAsyncOperationProgress(account_,
+                                          task_id_);
+    connect(query_async_opera_progress_req, SIGNAL(success()),
             this, SLOT(slotQueryAsyncMoveOperationProgressSuccess()));
 
-    connect(query_async_opera_progress_req_.data(), SIGNAL(failed(const ApiError&)),
+    connect(query_async_opera_progress_req, SIGNAL(failed(const ApiError&)),
             this, SLOT(slotQueryAsyncMoveOperationProgressFailed(const ApiError&)));
 
-    query_async_opera_progress_req_->send();
+    query_async_opera_progress_req->send();
 }
 
 void DataManager::slotQueryAsyncMoveOperationProgressSuccess()
 {
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
     query_async_opera_progress_timer_->stop();
     dirents_cache_->expireCachedDirents(repo_id_, dir_path_);
     moveDirentsSuccess(dst_repo_id_);
@@ -457,6 +473,8 @@ void DataManager::slotQueryAsyncMoveOperationProgressSuccess()
 
 void DataManager::slotQueryAsyncMoveOperationProgressFailed(const ApiError& error)
 {
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
     query_async_opera_progress_timer_->stop();
     emit moveDirentsFailed(error);
 }

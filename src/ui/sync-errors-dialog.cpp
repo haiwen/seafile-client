@@ -189,7 +189,7 @@ void SyncErrorsTableView::onDeleteFileAsyncError()
 {
     bool success = seafApplet->rpcClient()->deleteFileAsyncErrorById(id_);
     if (!success) {
-        seafApplet->messageBox(tr("Delete file async error failed"));
+        seafApplet->messageBox(tr("Delete file sync error failed"));
         return;
     }
     emit refreshModel();

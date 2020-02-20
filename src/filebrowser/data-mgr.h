@@ -229,6 +229,7 @@ private:
     static QHash<QString, std::pair<qint64, QString> > passwords_cache_;
     QTimer* query_async_opera_progress_timer_;
     QScopedPointer<AsyncCopyAndMoveOneItemRequest, QScopedPointerDeleteLater> async_copy_one_item_req_;
+    bool have_some_operation_in_progress_;
 };
 
 

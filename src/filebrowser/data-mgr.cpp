@@ -183,10 +183,12 @@ void DataManager::copyDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
-    if(query_async_opera_progress_timer_ != nullptr && query_async_opera_progress_timer_->isActive()) {
-        seafApplet->warningBox(tr("Have some Operation not accomplished, please wait a moment"));
+    if(have_some_operation_in_progress_) {
+        seafApplet->warningBox(tr("Another copy or move operation is in progress. Please wait until it finishes."));
         return;
     }
+
+    have_some_operation_in_progress_ = true;
 
     repo_id_ = repo_id;
     dir_path_ = dir_path;
@@ -255,6 +257,7 @@ void DataManager::slotAsyncCopyMutipleItemsFailed(const ApiError& error)
         is_batch_operation_ = false;
     } else {
         emit copyDirentsFailed(error);
+        have_some_operation_in_progress_ = false;
     }
 }
 
@@ -262,6 +265,7 @@ void DataManager::asyncCopyOneItemApi()
 {
     qWarning("use old sync copy task api");
     if(src_dirents_.isEmpty()) {
+        have_some_operation_in_progress_ = false;
         return ;
     }
 
@@ -294,6 +298,7 @@ void DataManager::slotAsyncCopyOneItemFailed(const ApiError& error)
 {
     query_async_opera_progress_timer_->stop();
     emit copyDirentsFailed(error);
+    have_some_operation_in_progress_ = false;
 }
 
 void DataManager::slotQueryAsyncCopyOperaProgress()
@@ -317,6 +322,8 @@ void DataManager::slotQueryAsyncCopyOperationProgressSuccess()
     onCopyDirentsSuccess(dst_repo_id_);
     if (!is_batch_operation_) {
         asyncCopyOneItemApi();
+    } else {
+        have_some_operation_in_progress_ = false;
     }
 }
 
@@ -326,6 +333,7 @@ void DataManager::slotQueryAsyncCopyOperationProgressFailed(const ApiError& erro
     req->deleteLater();
     query_async_opera_progress_timer_->stop();
     emit copyDirentsFailed(error);
+    have_some_operation_in_progress_ = false;
 }
 
 void DataManager::moveDirents(const QString &repo_id,
@@ -334,10 +342,13 @@ void DataManager::moveDirents(const QString &repo_id,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
-    if(query_async_opera_progress_timer_ != nullptr && query_async_opera_progress_timer_->isActive()) {
-        seafApplet->warningBox(tr("Have some Operation not accomplished, please wait a moment"));
+
+    if(have_some_operation_in_progress_) {
+        seafApplet->warningBox(tr("Another copy or move operation is in progress. Please wait until it finishes."));
         return;
     }
+
+    have_some_operation_in_progress_ = true;
 
     repo_id_ = repo_id;
     dir_path_ = dir_path;
@@ -404,6 +415,7 @@ void DataManager::slotAsyncMoveMutipleItemsFailed(const ApiError& error)
         is_batch_operation_ = false;
     } else {
         emit moveDirentsFailed(error);
+        have_some_operation_in_progress_ = false;
     }
 }
 
@@ -411,6 +423,7 @@ void DataManager::asyncMoveOneItemApi()
 {
     qWarning("use async move one item API");
     if(src_dirents_.isEmpty()) {
+        have_some_operation_in_progress_ = false;
         return ;
     }
 
@@ -444,6 +457,7 @@ void DataManager::slotAsyncMoveOneItemFailed(const ApiError& error)
 {
     query_async_opera_progress_timer_->stop();
     emit moveDirentsFailed(error);
+    have_some_operation_in_progress_ = false;
 }
 
 void DataManager::slotQueryAsyncMoveOperaProgress()
@@ -468,6 +482,8 @@ void DataManager::slotQueryAsyncMoveOperationProgressSuccess()
     moveDirentsSuccess(dst_repo_id_);
     if (!is_batch_operation_) {
         asyncMoveOneItemApi();
+    } else {
+        have_some_operation_in_progress_ = false;
     }
 }
 
@@ -477,6 +493,7 @@ void DataManager::slotQueryAsyncMoveOperationProgressFailed(const ApiError& erro
     req->deleteLater();
     query_async_opera_progress_timer_->stop();
     emit moveDirentsFailed(error);
+    have_some_operation_in_progress_ = false;
 }
 
 

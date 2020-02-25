@@ -38,6 +38,14 @@ void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
     form_params_[name] = value;
 }
 
+void SeafileApiRequest::setRequestBody(const QByteArray& content)
+{
+    if (method_ != METHOD_PUT && method_ != METHOD_POST) {
+        qWarning("warning: calling setRequestBody on a request with method %d\n", method_);
+    }
+    post_data_ = content;
+}
+
 void SeafileApiRequest::setUseCache(bool use_cache)
 {
     api_client_->setUseCache(use_cache);
@@ -69,14 +77,19 @@ void SeafileApiRequest::send()
         break;
     case METHOD_POST:
     case METHOD_PUT:
-        post_data = ::buildFormData(form_params_);
-        api_client_->post(url_, post_data, method_ == METHOD_PUT);
+        if (!post_data_.isEmpty()) {
+            api_client_->post(url_, post_data_, method_ == METHOD_PUT);
+        } else {
+            post_data = ::buildFormData(form_params_);
+            api_client_->post(url_, post_data, method_ == METHOD_PUT);
+        }
         break;
     default:
         qWarning("unknown method %d\n", method_);
         return;
     }
 
+    post_data_.clear();
     connect(api_client_, SIGNAL(requestSuccess(QNetworkReply&)),
             this, SLOT(requestSuccess(QNetworkReply&)));
 

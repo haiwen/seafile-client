@@ -159,7 +159,7 @@ private:
 
     void done(int retval);
     bool hasFilesToBePasted();
-    void setFilesToBePasted(bool is_copy, const QStringList &file_names);
+    void setFilesToBePasted(bool is_copy, const QMap<QString ,int> &file_names);
 
     void createToolBar();
     void createStatusBar();
@@ -204,7 +204,7 @@ private:
     qint64 search_text_last_modified_;
 
     // copy-paste related items between different instances of FileBrowserDialog
-    static QStringList file_names_to_be_pasted_;
+    static QMap<QString, int> file_names_to_be_pasted_;
     static QString dir_path_to_be_pasted_from_;
     static QString repo_id_to_be_pasted_from_;
     static Account account_to_be_pasted_from_;

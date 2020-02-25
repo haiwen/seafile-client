@@ -80,7 +80,7 @@ QString appendTrailingSlash(const QString& input) {
 
 } // namespace
 
-QStringList FileBrowserDialog::file_names_to_be_pasted_;
+QMap<QString, int> FileBrowserDialog::file_names_to_be_pasted_;
 QString FileBrowserDialog::dir_path_to_be_pasted_from_;
 QString FileBrowserDialog::repo_id_to_be_pasted_from_;
 Account FileBrowserDialog::account_to_be_pasted_from_;
@@ -1434,7 +1434,7 @@ bool FileBrowserDialog::hasFilesToBePasted() {
     return !file_names_to_be_pasted_.empty();
 }
 
-void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QStringList &file_names)
+void FileBrowserDialog::setFilesToBePasted(bool is_copy, const QMap<QString, int> &file_names)
 {
     is_copyed_when_pasted_ = is_copy;
     dir_path_to_be_pasted_from_ = current_path_;
@@ -1456,7 +1456,7 @@ void FileBrowserDialog::onGetDirentsPaste()
         }
 
         // Paste /a/ into /a/b/ is not allowed
-        for (const QString& name : file_names_to_be_pasted_) {
+        for (const QString& name : file_names_to_be_pasted_.keys()) {
             const QString file_path_to_be_pasted =
                 appendTrailingSlash(::pathJoin(dir_path_to_be_pasted_from_, name));
             if (appendTrailingSlash(current_path_).startsWith(file_path_to_be_pasted)) {

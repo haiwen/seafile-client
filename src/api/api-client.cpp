@@ -139,7 +139,9 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
+    if (!headers_.contains("Content-Type")) {
+        request.setHeader(QNetworkRequest::ContentTypeHeader, kContentTypeForm);
+    }
 
     if (is_put)
         reply_ = qnam_->put(request, body_);

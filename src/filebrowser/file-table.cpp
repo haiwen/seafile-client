@@ -844,24 +844,23 @@ void FileTableView::onUpdate()
 
 void FileTableView::onCopy()
 {
-    QStringList file_names;
+    QMap<QString, int> file_names;
 
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
         for (int i = 0; i < dirents.size(); i++) {
-            file_names.push_back(dirents[i]->name);
+            file_names.insert(dirents[i]->name, dirents[i]->type == SeafDirent::DIR ? 1 : 0);
         }
     } else {
-        file_names.push_back(item_->name);
+        file_names.insert(item_->name, item_->type == SeafDirent::DIR ? 1 : 0);
     }
-
 
     parent_->setFilesToBePasted(true, file_names);
 }
 
 void FileTableView::onMove()
 {
-    QStringList file_names;
+    QMap<QString, int> file_names;
     bool has_readonly = false;
 
     if (item_ == NULL) {
@@ -872,13 +871,13 @@ void FileTableView::onMove()
                 has_readonly = true;
                 break;
             }
-            file_names.push_back(dirents[i]->name);
+            file_names.insert(dirents[i]->name, dirents[i]->type == SeafDirent::DIR ? 1 : 0);
         }
     } else {
         if (item_->readonly) {
             has_readonly = true;
         } else {
-            file_names.push_back(item_->name);
+            file_names.insert(item_->name, item_->type == SeafDirent::DIR ? 1 : 0);
         }
     }
 

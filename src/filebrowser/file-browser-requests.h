@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QStringList>
+#include <QTimer>
 
 #include "api/api-request.h"
 #include "seaf-dirent.h"
@@ -264,6 +265,105 @@ private:
     const QString src_dir_path_;
     const QStringList src_file_names_;
     const QString dst_repo_id_;
+};
+
+
+// Query asynchronous operation progress
+class QueryAsyncOperationProgress : public SeafileApiRequest {
+Q_OBJECT
+public:
+    QueryAsyncOperationProgress(const Account &account,
+                                const QString &task_id);
+signals:
+    void success();
+
+private slots:
+    void requestSuccess(QNetworkReply& reply);
+
+};
+
+// Async copy and move a single item
+class AsyncCopyAndMoveOneItemRequest : public SeafileApiRequest {
+Q_OBJECT
+public:
+    AsyncCopyAndMoveOneItemRequest(const Account &account,
+                                   const QString &src_repo_id,
+                                   const QString &src_parent_dir,
+                                   const QString &src_dirent_name,
+                                   const QString &dst_repo_id,
+                                   const QString &dst_parent_dir,
+                                   const QString &operation,
+                                   const QString &dirent_type);
+
+signals:
+    void success(const QString& task_id);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    const Account& account_;
+    const QString repo_id_;
+    const QString src_dir_path_;
+    const QString src_dirent_name_;
+    const QString dst_repo_id_;
+    const QString dst_repo_path_;
+    const QString operation_;
+    const QString dirent_type_;
+    Q_DISABLE_COPY(AsyncCopyAndMoveOneItemRequest)
+};
+
+
+// Batch copy items asynchronously
+class AsyncCopyMultipleItemsRequest : public SeafileApiRequest {
+Q_OBJECT
+public:
+
+    AsyncCopyMultipleItemsRequest (const Account &account, const QString &repo_id,
+                                   const QString &src_dir_path,
+                                   const QMap<QString, int>&src_dirents,
+                                   const QString &dst_repo_id,
+                                   const QString &dst_dir_path);
+signals:
+    void success(const QString& task_id);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    const Account& account_;
+    const QString repo_id_;
+    const QString src_dir_path_;
+    QMap<QString, int> src_dirents_;
+    const QString dst_repo_id_;
+    const QString dst_repo_path_;
+    Q_DISABLE_COPY(AsyncCopyMultipleItemsRequest)
+};
+
+// Batch move items asynchronously
+class AsyncMoveMultipleItemsRequest : public SeafileApiRequest {
+Q_OBJECT
+public:
+    AsyncMoveMultipleItemsRequest(const Account &account,
+                                  const QString &repo_id,
+                                  const QString &src_dir_path,
+                                  const QMap<QString, int> &src_dirents,
+                                  const QString &dst_repo_id,
+                                  const QString &dst_dir_path);
+signals:
+    void success(const QString& task_id);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    const Account& account_;
+    const QString repo_id_;
+    const QString src_dir_path_;
+    QMap<QString, int> src_dirents_;
+    const QString dst_repo_id_;
+    const QString dst_repo_path_;
+    Q_DISABLE_COPY(AsyncMoveMultipleItemsRequest)
 };
 
 class StarFileRequest : public SeafileApiRequest {

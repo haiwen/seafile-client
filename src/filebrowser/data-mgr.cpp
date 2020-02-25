@@ -26,6 +26,7 @@ namespace {
 const char *kFileCacheTopDirName = "file-cache";
 const int kPasswordCacheExpirationMSecs = 30 * 60 * 1000;
 
+const int kQueryAsyncOperationProgressInterval = 1000;
 } // namespace
 
 /**
@@ -178,41 +179,323 @@ void DataManager::shareDirent(const QString &repo_id,
 
 void DataManager::copyDirents(const QString &repo_id,
                               const QString &dir_path,
-                              const QStringList &file_names,
+                              const QMap<QString, int> &dict_file_names,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
-    CopyMultipleFilesRequest *req =
-      new CopyMultipleFilesRequest(account_, repo_id, dir_path, file_names,
-                                   dst_repo_id,
-                                   dst_dir_path);
-    connect(req, SIGNAL(success(const QString&)),
-            SLOT(onCopyDirentsSuccess(const QString&)));
+    if(copy_move_in_progress_) {
+        seafApplet->warningBox(tr("Another copy or move operation is in progress. Please wait until it finishes."));
+        return;
+    }
 
-    connect(req, SIGNAL(failed(const ApiError&)),
-            SIGNAL(copyDirentsFailed(const ApiError&)));
-    reqs_.push_back(req);
-    req->send();
+    copy_move_in_progress_ = true;
+
+    repo_id_ = repo_id;
+    dir_path_ = dir_path;
+    dst_repo_id_ = dst_repo_id;
+    dst_dir_path_ = dst_dir_path;
+    src_dirents_ = dict_file_names;
+
+    query_async_opera_progress_timer_ = new QTimer(this);
+    query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
+    connect(query_async_opera_progress_timer_, SIGNAL(timeout()),
+            this, SLOT(slotQueryAsyncCopyOperaProgress()));
+
+    if (repo_id == dst_repo_id) {
+        QStringList file_names;
+        for(const QString &file_name : dict_file_names.keys()) {
+            file_names.push_back(file_name);
+        }
+
+        CopyMultipleFilesRequest *req =
+                new CopyMultipleFilesRequest(account_,
+                                             repo_id,
+                                             dir_path,
+                                             file_names,
+                                             dst_repo_id,
+                                             dst_dir_path);
+
+        connect(req, SIGNAL(success(const QString&)),
+                SLOT(onCopyDirentsSuccess(const QString&)));
+
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SIGNAL(copyDirentsFailed(const ApiError&)));
+        reqs_.push_back(req);
+        req->send();
+
+    } else {
+        // First to invoke ssync api v2.1 if async api return 404 ,then invoke v2.0 async api
+        AsyncCopyMultipleItemsRequest *req =
+                new AsyncCopyMultipleItemsRequest(account_,
+                                                  repo_id,
+                                                  dir_path,
+                                                  dict_file_names,
+                                                  dst_repo_id,
+                                                  dst_dir_path);
+
+        connect(req, SIGNAL(success(const QString&)),
+                SLOT(slotAsyncCopyMutipleItemsSuccess(const QString&)));
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SLOT(slotAsyncCopyMutipleItemsFailed(const ApiError&)));
+        reqs_.push_back(req);
+        req->send();
+    }
+}
+
+void DataManager::slotAsyncCopyMutipleItemsSuccess(const QString& task_id)
+{
+    task_id_ = task_id;
+    is_batch_operation_ = true;
+    query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncCopyMutipleItemsFailed(const ApiError& error)
+{
+    if (error.httpErrorCode() == 404) {
+        qWarning("new async copy API is not available on server, use old async copy single item API");
+        asyncCopyOneItemApi();
+        is_batch_operation_ = false;
+    } else {
+        emit copyDirentsFailed(error);
+        copy_move_in_progress_ = false;
+    }
+}
+
+void DataManager::asyncCopyOneItemApi()
+{
+    qWarning("use old sync copy task api");
+    if(src_dirents_.isEmpty()) {
+        copy_move_in_progress_ = false;
+        return ;
+    }
+
+    const QString& filename = src_dirents_.firstKey();
+    async_copy_one_item_req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
+                                                                      repo_id_,
+                                                                      dir_path_,
+                                                                      filename,
+                                                                      dst_repo_id_,
+                                                                      dst_dir_path_,
+                                                                      "copy",
+                                                                      src_dirents_[filename] == 1 ? "DIR" : "FILE"));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(success(const QString&)),
+            this, SLOT(slotAsyncCopyOneItemSuccess(const QString&)));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(failed( const ApiError&)),
+            SLOT(slotAsyncCopyOneItemFailed( const ApiError&)));
+
+    async_copy_one_item_req_->send();
+    src_dirents_.remove(filename);
+}
+void DataManager::slotAsyncCopyOneItemSuccess(const QString& task_id)
+{
+    task_id_ = task_id;
+    query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncCopyOneItemFailed(const ApiError& error)
+{
+    query_async_opera_progress_timer_->stop();
+    emit copyDirentsFailed(error);
+    copy_move_in_progress_ = false;
+}
+
+void DataManager::slotQueryAsyncCopyOperaProgress()
+{
+    QueryAsyncOperationProgress* query_async_opera_progress_req = new QueryAsyncOperationProgress(account_,
+                                          task_id_);
+    connect(query_async_opera_progress_req, SIGNAL(success()),
+            this, SLOT(slotQueryAsyncCopyOperationProgressSuccess()));
+
+    connect(query_async_opera_progress_req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotQueryAsyncCopyOperationProgressFailed(const ApiError&)));
+
+    query_async_opera_progress_req->send();
+}
+
+void DataManager::slotQueryAsyncCopyOperationProgressSuccess()
+{
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
+    query_async_opera_progress_timer_->stop();
+    onCopyDirentsSuccess(dst_repo_id_);
+    if (!is_batch_operation_) {
+        asyncCopyOneItemApi();
+    } else {
+        copy_move_in_progress_ = false;
+    }
+}
+
+void DataManager::slotQueryAsyncCopyOperationProgressFailed(const ApiError& error)
+{
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
+    query_async_opera_progress_timer_->stop();
+    emit copyDirentsFailed(error);
+    copy_move_in_progress_ = false;
 }
 
 void DataManager::moveDirents(const QString &repo_id,
                               const QString &dir_path,
-                              const QStringList &file_names,
+                              const QMap<QString, int> &dict_file_names,
                               const QString &dst_repo_id,
                               const QString &dst_dir_path)
 {
-    MoveMultipleFilesRequest *req =
-      new MoveMultipleFilesRequest(account_, repo_id, dir_path, file_names,
-                                   dst_repo_id,
-                                   dst_dir_path);
-    connect(req, SIGNAL(success(const QString&)),
-            SLOT(onMoveDirentsSuccess(const QString&)));
 
-    connect(req, SIGNAL(failed(const ApiError&)),
-            SIGNAL(moveDirentsFailed(const ApiError&)));
-    reqs_.push_back(req);
-    req->send();
+    if(copy_move_in_progress_) {
+        seafApplet->warningBox(tr("Another copy or move operation is in progress. Please wait until it finishes."));
+        return;
+    }
+
+    copy_move_in_progress_ = true;
+
+    repo_id_ = repo_id;
+    dir_path_ = dir_path;
+    dst_repo_id_ = dst_repo_id;
+    dst_dir_path_ = dst_dir_path;
+    src_dirents_ = dict_file_names;
+
+
+    query_async_opera_progress_timer_ = new QTimer(this);
+    query_async_opera_progress_timer_->setInterval(kQueryAsyncOperationProgressInterval);
+    connect(query_async_opera_progress_timer_, SIGNAL(timeout()),
+            this, SLOT(slotQueryAsyncMoveOperaProgress()));
+
+    if (repo_id == dst_repo_id) {
+        QStringList file_names;
+        for(const QString &file_name : dict_file_names.keys()) {
+            file_names.push_back(file_name);
+        }
+
+        MoveMultipleFilesRequest *req =
+                new MoveMultipleFilesRequest(account_,
+                                             repo_id, dir_path, file_names,
+                                             dst_repo_id,
+                                             dst_dir_path);
+
+        connect(req, SIGNAL(success(const QString&)),
+                SLOT(onMoveDirentsSuccess(const QString&)));
+
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SIGNAL(moveDirentsFailed(const ApiError&)));
+        reqs_.push_back(req);
+        req->send();
+    } else {
+        // First to invoke ssync api v2.1 if async api return 404 ,then invoke v2.0 async api
+        AsyncMoveMultipleItemsRequest *req =
+                new AsyncMoveMultipleItemsRequest(account_,
+                                                  repo_id,
+                                                  dir_path,
+                                                  dict_file_names,
+                                                  dst_repo_id,
+                                                  dst_dir_path);
+
+        connect(req, SIGNAL(success(const QString&)),
+                SLOT(slotAsyncMoveMutipleItemsSuccess(const QString&)));
+        connect(req, SIGNAL(failed(const ApiError&)),
+                SLOT(slotAsyncMoveMutipleItemsFailed(const ApiError&)));
+        reqs_.push_back(req);
+        req->send();
+    }
 }
+
+void DataManager::slotAsyncMoveMutipleItemsSuccess(const QString& task_id)
+{
+    task_id_ = task_id;
+    is_batch_operation_ = true;
+    query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncMoveMutipleItemsFailed(const ApiError& error)
+{
+    if (error.httpErrorCode() == 404) {
+        qWarning("new async move API is not available on server, use old async move single item API");
+        asyncMoveOneItemApi();
+        is_batch_operation_ = false;
+    } else {
+        emit moveDirentsFailed(error);
+        copy_move_in_progress_ = false;
+    }
+}
+
+void DataManager::asyncMoveOneItemApi()
+{
+    qWarning("use async move one item API");
+    if(src_dirents_.isEmpty()) {
+        copy_move_in_progress_ = false;
+        return ;
+    }
+
+    const QString& filename = src_dirents_.firstKey();
+    async_copy_one_item_req_.reset(new AsyncCopyAndMoveOneItemRequest(account_,
+                                                                      repo_id_,
+                                                                      dir_path_,
+                                                                      filename,
+                                                                      dst_repo_id_,
+                                                                      dst_dir_path_,
+                                                                      "move",
+                                                                      src_dirents_[filename] == 1 ? "DIR" : "FILE"));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(success(const QString&)),
+            this, SLOT(slotAsyncMoveOneItemSuccess(const QString&)));
+
+    connect(async_copy_one_item_req_.data(), SIGNAL(failed( const ApiError&)),
+            SLOT(slotAsyncMoveOneItemFailed( const ApiError&)));
+
+    async_copy_one_item_req_->send();
+    src_dirents_.remove(filename);
+}
+
+void DataManager::slotAsyncMoveOneItemSuccess(const QString& task_id)
+{
+   task_id_ = task_id;
+   query_async_opera_progress_timer_->start();
+}
+
+void DataManager::slotAsyncMoveOneItemFailed(const ApiError& error)
+{
+    query_async_opera_progress_timer_->stop();
+    emit moveDirentsFailed(error);
+    copy_move_in_progress_ = false;
+}
+
+void DataManager::slotQueryAsyncMoveOperaProgress()
+{
+    QueryAsyncOperationProgress* query_async_opera_progress_req = new QueryAsyncOperationProgress(account_,
+                                          task_id_);
+    connect(query_async_opera_progress_req, SIGNAL(success()),
+            this, SLOT(slotQueryAsyncMoveOperationProgressSuccess()));
+
+    connect(query_async_opera_progress_req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(slotQueryAsyncMoveOperationProgressFailed(const ApiError&)));
+
+    query_async_opera_progress_req->send();
+}
+
+void DataManager::slotQueryAsyncMoveOperationProgressSuccess()
+{
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
+    query_async_opera_progress_timer_->stop();
+    dirents_cache_->expireCachedDirents(repo_id_, dir_path_);
+    moveDirentsSuccess(dst_repo_id_);
+    if (!is_batch_operation_) {
+        asyncMoveOneItemApi();
+    } else {
+        copy_move_in_progress_ = false;
+    }
+}
+
+void DataManager::slotQueryAsyncMoveOperationProgressFailed(const ApiError& error)
+{
+    QueryAsyncOperationProgress * req = qobject_cast<QueryAsyncOperationProgress *>(sender());
+    req->deleteLater();
+    query_async_opera_progress_timer_->stop();
+    emit moveDirentsFailed(error);
+    copy_move_in_progress_ = false;
+}
+
 
 void DataManager::onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent> &dirents, const QString& repo_id)
 {

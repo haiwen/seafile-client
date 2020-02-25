@@ -270,13 +270,18 @@ const std::vector<Account>& AccountManager::loadAccounts()
     return accounts_;
 }
 
-int AccountManager::saveAccount(const Account& account)
+void AccountManager::setCurrentAccount(const Account& account)
 {
+    Q_ASSERT(account.isValid());
+
+    emit beforeAccountSwitched();
+
     Account new_account = account;
     bool account_exist = false;
     {
         QMutexLocker lock(&accounts_mutex_);
-        for (size_t i = 0; i < accounts_.size(); i++) {
+        size_t i;
+        for (i = 0; i < accounts_.size(); i++) {
             if (accounts_[i] == account) {
                 accounts_.erase(accounts_.begin() + i);
                 account_exist = true;
@@ -285,7 +290,8 @@ int AccountManager::saveAccount(const Account& account)
         }
         accounts_.insert(accounts_.begin(), new_account);
     }
-    updateServerInfo(0);
+    AccountInfoService::instance()->refresh();
+    updateAccountServerInfo(new_account);
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
 
@@ -331,8 +337,6 @@ int AccountManager::saveAccount(const Account& account)
     sqlite3_free(zql);
 
     emit accountsChanged();
-
-    return 0;
 }
 
 int AccountManager::removeAccount(const Account& account)
@@ -402,7 +406,7 @@ void AccountManager::updateAccountLastVisited(const Account& account)
     sqlite3_free(zql);
 }
 
-bool AccountManager::accountExists(const QUrl& url, const QString& username)
+bool AccountManager::accountExists(const QUrl& url, const QString& username) const
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i].serverUrl == url && accounts_[i].username == username) {
@@ -413,36 +417,16 @@ bool AccountManager::accountExists(const QUrl& url, const QString& username)
     return false;
 }
 
-bool AccountManager::validateAndUseAccount(const Account& account)
+void AccountManager::validateAndUseAccount(const Account& account)
 {
     if (!account.isAutomaticLogin) {
         clearAccountToken(account);
-        return reloginAccount(account);
+        reloginAccount(account);
+    } else if (!account.isValid()) {
+        reloginAccount(account);
+    } else {
+        setCurrentAccount(account);
     }
-    else if (!account.isValid()) {
-        return reloginAccount(account);
-    }
-    else {
-        return setCurrentAccount(account);
-    }
-}
-
-bool AccountManager::setCurrentAccount(const Account& account)
-{
-    Q_ASSERT(account.isValid());
-
-    if (account == currentAccount()) {
-        return false;
-    }
-
-    emit beforeAccountSwitched();
-
-    // Would emit "accountsChanged" signal
-    saveAccount(account);
-
-    AccountInfoService::instance()->refresh();
-
-    return true;
 }
 
 int AccountManager::replaceAccount(const Account& old_account, const Account& new_account)
@@ -454,7 +438,7 @@ int AccountManager::replaceAccount(const Account& old_account, const Account& ne
                 // TODO copy new_account and old_account before this operation
                 // we might have invalid old_account or new_account after it
                 accounts_[i] = new_account;
-                updateServerInfo(i);
+                updateAccountServerInfo(new_account);
                 break;
             }
         }
@@ -522,17 +506,15 @@ Account AccountManager::getAccountBySignature(const QString& account_sig) const
     return Account();
 }
 
-void AccountManager::updateServerInfo()
+void AccountManager::updateServerInfoForAllAccounts()
 {
     for (size_t i = 0; i < accounts_.size(); i++)
-        updateServerInfo(i);
+        updateAccountServerInfo(accounts_[i]);
 }
 
-void AccountManager::updateServerInfo(unsigned index)
+void AccountManager::updateAccountServerInfo(const Account& account)
 {
-    ServerInfoRequest *request;
-    // request is taken owner by Account object
-    request = accounts_[index].createServerInfoRequest();
+    ServerInfoRequest *request = new ServerInfoRequest(account);
     connect(request, SIGNAL(success(const Account&, const ServerInfo &)),
             this, SLOT(serverInfoSuccess(const Account&, const ServerInfo &)));
     connect(request, SIGNAL(failed(const ApiError&)),
@@ -562,6 +544,9 @@ void AccountManager::updateAccountInfo(const Account& account,
 
 void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo &info)
 {
+    ServerInfoRequest *req = (ServerInfoRequest *)(sender());
+    req->deleteLater();
+
     Account account = _account;
     account.serverInfo = info;
 
@@ -594,10 +579,13 @@ void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo
 
 void AccountManager::serverInfoFailed(const ApiError &error)
 {
+    ServerInfoRequest *req = (ServerInfoRequest *)(sender());
+    req->deleteLater();
+
     qWarning("update server info failed %s\n", error.toString().toUtf8().data());
 }
 
-bool AccountManager::clearAccountToken(const Account& account)
+void AccountManager::clearAccountToken(const Account& account)
 {
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {
@@ -620,11 +608,9 @@ bool AccountManager::clearAccountToken(const Account& account)
     sqlite3_free(zql);
 
     emit accountsChanged();
-
-    return true;
 }
 
-bool AccountManager::clearSyncToken(const Account& account)
+void AccountManager::clearSyncToken(const Account& account)
 {
     QString error;
     QUrl url = account.serverUrl;
@@ -634,9 +620,6 @@ bool AccountManager::clearSyncToken(const Account& account)
                                                            &error)  < 0) {
         seafApplet->warningBox(
             tr("Failed to remove local repos sync token: %1").arg(error));
-        return false;
-    } else {
-        return true;
     }
 }
 
@@ -710,7 +693,7 @@ void AccountManager::invalidateCurrentLogin()
     emit accountRequireRelogin(account);
 }
 
-bool AccountManager::reloginAccount(const Account &account_in)
+void AccountManager::reloginAccount(const Account &account_in)
 {
     qWarning("Relogin to account %s", account_in.username.toUtf8().data());
     bool accepted;
@@ -741,8 +724,6 @@ bool AccountManager::reloginAccount(const Account &account_in)
         // current account is the newly relogged in account.
         getSyncedReposToken(currentAccount());
     }
-
-    return accepted;
 }
 
 void AccountManager::getSyncedReposToken(const Account& account)
@@ -800,4 +781,17 @@ void AccountManager::onGetRepoTokensFailed(const ApiError& error)
         sendGetRepoTokensRequet(req->account(), req->repoIds(), req->maxRetries() - 1);
     }
     req->deleteLater();
+}
+
+const std::vector<Account>& AccountManager::accounts() const
+{
+    return accounts_;
+}
+
+bool AccountManager::hasAccount() const {
+    return !accounts_.empty();
+}
+
+const Account AccountManager::currentAccount() const {
+    return hasAccount() ? accounts_[0] : Account();
 }

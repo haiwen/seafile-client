@@ -517,6 +517,13 @@ failed to upload.</source>
     </message>
 </context>
 <context>
+    <name>DataManager</name>
+    <message>
+        <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
+        <translation>另一个复制或移动操作正在进行中。请等待操作完成。</translation>
+    </message>
+</context>
+<context>
     <name>DownloadRepoDialog</name>
     <message>
         <source>Please enter the password</source>
@@ -1380,10 +1387,6 @@ Do you like to download your default library?</source>
     <message>
         <source>Please enter the computer name</source>
         <translation>请填写计算机名</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>保存帐户失败</translation>
     </message>
     <message>
         <source>%1 Server Address</source>
@@ -2526,10 +2529,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
 <context>
     <name>SeafileApplet</name>
     <message>
-        <source>failed to add default account</source>
-        <translation>添加默认帐户失败</translation>
-    </message>
-    <message>
         <source>Failed to initialize log: %s</source>
         <translation>初始化日志失败: %s</translation>
     </message>
@@ -3145,8 +3144,8 @@ File path contains invalid characters. It is not synced to this computer.</sourc
 <context>
     <name>SyncErrorsTableView</name>
     <message>
-        <source>Delete file async error failed</source>
-        <translation>删除同步错误失败</translation>
+        <source>Delete file sync error failed</source>
+        <translation>删除文件同步错误失败</translation>
     </message>
 </context>
 <context>

@@ -520,6 +520,13 @@ wurde nicht hochgeladen.</translation>
     </message>
 </context>
 <context>
+    <name>DataManager</name>
+    <message>
+        <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>DownloadRepoDialog</name>
     <message>
         <source>Please enter the password</source>
@@ -1387,10 +1394,6 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     <message>
         <source>Please enter the computer name</source>
         <translation>Bitte geben Sie den Rechnernamen ein</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>Aktuelles Konto konnte nicht gespeichert werden</translation>
     </message>
     <message>
         <source>%1 Server Address</source>
@@ -2535,10 +2538,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
 <context>
     <name>SeafileApplet</name>
     <message>
-        <source>failed to add default account</source>
-        <translation>Standardkonto konnte nicht hingefügt werden</translation>
-    </message>
-    <message>
         <source>Failed to initialize log: %s</source>
         <translation>Log konnte nicht initialisiert werden: %s</translation>
     </message>
@@ -3154,7 +3153,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
 <context>
     <name>SyncErrorsTableView</name>
     <message>
-        <source>Delete file async error failed</source>
+        <source>Delete file sync error failed</source>
         <translation type="unfinished"/>
     </message>
 </context>

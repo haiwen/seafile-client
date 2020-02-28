@@ -521,6 +521,13 @@ n&apos;a pu être envoyé.</translation>
     </message>
 </context>
 <context>
+    <name>DataManager</name>
+    <message>
+        <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>DownloadRepoDialog</name>
     <message>
         <source>Please enter the password</source>
@@ -1387,10 +1394,6 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     <message>
         <source>Please enter the computer name</source>
         <translation>Veuillez entrer le nom de l&apos;ordinateur</translation>
-    </message>
-    <message>
-        <source>Failed to save current account</source>
-        <translation>Impossible d&apos;enregistrer le compte actuel</translation>
     </message>
     <message>
         <source>%1 Server Address</source>
@@ -2535,10 +2538,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
 <context>
     <name>SeafileApplet</name>
     <message>
-        <source>failed to add default account</source>
-        <translation>Échec de l&apos;ajout du compte par défaut</translation>
-    </message>
-    <message>
         <source>Failed to initialize log: %s</source>
         <translation>Échec de l&apos;initialisation du log: %s</translation>
     </message>
@@ -3154,7 +3153,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
 <context>
     <name>SyncErrorsTableView</name>
     <message>
-        <source>Delete file async error failed</source>
+        <source>Delete file sync error failed</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -6,7 +6,7 @@
 
 override_dh_auto_configure:
 	export QT_SELECT=5
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DBUILD_SHIBBOLETH_SUPPORT=ON
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHIBBOLETH_SUPPORT=ON
 
 override_dh_auto_build:
 	dh_auto_build --parallel

@@ -73,6 +73,7 @@ private:
     QMenu *context_menu_;
     QAction *delete_action_;
     int id_;
+    QList<SyncError> selected_sync_errors_;
 };
 
 

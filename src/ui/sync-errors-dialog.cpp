@@ -176,9 +176,9 @@ void SyncErrorsTableView::contextMenuEvent(QContextMenuEvent *event)
     SyncError error = model->errorAt(row);
 
     QModelIndexList selected = selectionModel()->selectedRows();
-    sync_errors_.clear();
+    selected_sync_errors_.clear();
     foreach(const QModelIndex &index, selected) {
-        sync_errors_.append(model->errorAt(index.row()));
+        selected_sync_errors_.append(model->errorAt(index.row()));
     }
 
     prepareContextMenu(error);
@@ -193,7 +193,7 @@ void SyncErrorsTableView::prepareContextMenu(const SyncError& error)
 
 void SyncErrorsTableView::onDeleteFileAsyncError()
 {
-    foreach(const SyncError& error, sync_errors_) {
+    foreach(const SyncError& error, selected_sync_errors_) {
         bool success = seafApplet->rpcClient()->deleteFileAsyncErrorById(error.id);
         if (!success) {
             seafApplet->messageBox(tr("Delete file sync error failed"));

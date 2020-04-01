@@ -206,7 +206,7 @@ void SyncErrorsTableView::onDeleteFileAsyncError()
 void SyncErrorsTableView::createContextMenu()
 {
     context_menu_ = new QMenu(this);
-    delete_action_ = new QAction("delete", this);
+    delete_action_ = new QAction(tr("delete"), this);
     context_menu_->addAction(delete_action_);
     connect(delete_action_, SIGNAL(triggered()), this, SLOT(onDeleteFileAsyncError()));
 }

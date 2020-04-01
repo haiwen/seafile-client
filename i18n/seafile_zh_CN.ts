@@ -3147,6 +3147,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Delete file sync error failed</source>
         <translation>删除文件同步错误失败</translation>
     </message>
+    <message>
+        <source>delete</source>
+        <translation>删除</translation>
+    </message>
 </context>
 <context>
     <name>TwoFactorDialog</name>

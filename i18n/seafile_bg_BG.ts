@@ -3128,6 +3128,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Delete file sync error failed</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>delete</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TwoFactorDialog</name>

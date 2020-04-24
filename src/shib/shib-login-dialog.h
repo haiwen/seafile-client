@@ -13,6 +13,8 @@ template<typename T> class QList;
 class QWebView;
 #else
 class QWebEngineView;
+class QWebEngineProfile;
+class QWebEnginePage;
 #endif
 
 class QSslError;
@@ -32,6 +34,9 @@ public:
     ShibLoginDialog(const QUrl& url,
                     const QString& computer_name,
                     QWidget *parent=0);
+#if !defined(SEAFILE_USE_WEBKIT)
+~ShibLoginDialog();
+#endif
 
 private slots:
     void sslErrorHandler(QNetworkReply* reply, const QList<QSslError> & ssl_errors);
@@ -46,6 +51,8 @@ private:
     QWebView *webview_;
 #else
     QWebEngineView *webview_;
+    QWebEngineProfile *web_engine_profile_;
+    QWebEnginePage *web_engine_page_;
 #endif
     QUrl url_;
     QLineEdit *address_text_;

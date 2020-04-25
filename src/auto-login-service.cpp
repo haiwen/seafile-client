@@ -33,6 +33,7 @@ void AutoLoginService::startAutoLogin(const QString& next_url)
 
     absolute_url.setScheme("");
     absolute_url.setHost("");
+    absolute_url.setPort(-1);
     QString next = absolute_url.toString().mid(2);
     GetLoginTokenRequest *req = new GetLoginTokenRequest(account, next);
 

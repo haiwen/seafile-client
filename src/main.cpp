@@ -153,7 +153,9 @@ int main(int argc, char *argv[])
     initGlib();
 
     // initialize breakpad if enabled
+#if defined(Q_OS_WIN32)
     initBreakpad();
+#endif
 
     // Apply hidpi support
     setupHIDPIFix();

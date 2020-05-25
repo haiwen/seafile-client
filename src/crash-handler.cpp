@@ -4,11 +4,11 @@
 #include <cstdio>
 
 #if defined(Q_OS_LINUX)
-#include "client/linux/handler/exception_handler.h"
+#include "breakpad/client/linux/handler/exception_handler.h"
 #elif defined(Q_OS_WIN32)
-#include "client/windows/handler/exception_handler.h"
+#include "breakpad/client/windows/handler/exception_handler.h"
 #elif defined(Q_OS_MAC)
-#include "client/mac/handler/exception_handler.h"
+#include "breakpad/client/mac/handler/exception_handler.h"
 #endif
 
 namespace Breakpad {
@@ -24,24 +24,45 @@ public:
     void InitCrashHandler(const QString& dumpPath);
 
 #if defined(Q_OS_WIN32)
-    static bool DumpCallback(const wchar_t* _dump_dir, const wchar_t* _minidump_id, void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInfo* assertion, bool success);
+    static bool DumpCallback(const wchar_t* _dump_dir,
+                             const wchar_t* _minidump_id,
+                             void* context,
+                             EXCEPTION_POINTERS* exinfo,
+                             MDRawAssertionInfo* assertion,
+                             bool success);
 #elif defined(Q_OS_LINUX)
-    static bool DumpCallback(const google_breakpad::MinidumpDescriptor &md, void *context, bool success);
+    static bool DumpCallback(const google_breakpad::MinidumpDescriptor &md,
+                             void *context,
+                             bool success);
 #elif defined(Q_OS_MAC)
-    static bool DumpCallback(const char* _dump_dir,const char* _minidump_id,void *context, bool success);
+    static bool DumpCallback(const char* _dump_dir,
+                             const char* _minidump_id,
+                             void *context,
+                             bool success);
 #endif
 
     static google_breakpad::ExceptionHandler* handler;
 };
 
+
 google_breakpad::ExceptionHandler* CrashHandlerPrivate::handler = NULL;
 
 #if defined(Q_OS_WIN32)
-bool CrashHandlerPrivate::DumpCallback(const wchar_t* _dump_dir, const wchar_t* _minidump_id, void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInfo* assertion, bool success);
+bool CrashHandlerPrivate::DumpCallback(const wchar_t* _dump_dir,
+                                       const wchar_t* _minidump_id,
+                                       void* context,
+                                       EXCEPTION_POINTERS* exinfo,
+                                       MDRawAssertionInfo* assertion,
+                                       bool success)
 #elif defined(Q_OS_LINUX)
-bool CrashHandlerPrivate::DumpCallback(const google_breakpad::MinidumpDescriptor &md, void *context, bool success)
+bool CrashHandlerPrivate::DumpCallback(const google_breakpad::MinidumpDescriptor &md,
+                                       void *context,
+                                       bool success)
 #elif defined(Q_OS_MAC)
-bool CrashHandlerPrivate::DumpCallback(const char* _dump_dir,const char* _minidump_id,void *context, bool success)
+bool CrashHandlerPrivate::DumpCallback(const char* _dump_dir,
+                                       const char* _minidump_id,
+                                       void *context,
+                                       bool success)
 #endif
 {
     Q_UNUSED(context);
@@ -103,7 +124,7 @@ bool CrashHandlerPrivate::DumpCallback(const char* _dump_dir,const char* _minidu
             DumpCallback,
             /*context*/ this,
             true,
-            NULL
+            google_breakpad::ExceptionHandler::HANDLER_ALL
             );
 #endif
         fprintf(stderr, "[breakpad] initialized\n");
@@ -135,4 +156,3 @@ bool CrashHandlerPrivate::DumpCallback(const char* _dump_dir,const char* _minidu
         d->InitCrashHandler(reportPath);
     }
 }
-

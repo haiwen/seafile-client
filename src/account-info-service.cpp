@@ -18,7 +18,7 @@ AccountInfoService::AccountInfoService(QObject* parent)
 {
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
-    refresh();
+    // refresh();
 }
 
 void AccountInfoService::start()
@@ -39,6 +39,7 @@ void AccountInfoService::refresh()
     }
     if (request_) {
         request_->deleteLater();
+        request_ = NULL;
     }
 
     request_ = new FetchAccountInfoRequest(account);
@@ -52,6 +53,9 @@ void AccountInfoService::refresh()
 
 void AccountInfoService::onFetchAccountInfoSuccess(const AccountInfo& info)
 {
+    if(request_ == NULL) {
+        return;
+    }
     seafApplet->accountManager()->updateAccountInfo(request_->account(), info);
     request_->deleteLater();
     request_ = NULL;
@@ -59,6 +63,9 @@ void AccountInfoService::onFetchAccountInfoSuccess(const AccountInfo& info)
 
 void AccountInfoService::onFetchAccountInfoFailed()
 {
+    if(request_ == NULL) {
+        return;
+    }
     request_->deleteLater();
     request_ = NULL;
 }

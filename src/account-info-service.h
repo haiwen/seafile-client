@@ -36,7 +36,6 @@ private:
     AccountInfoService(QObject *parent=0);
 
     QTimer *refresh_timer_;
-    FetchAccountInfoRequest *request_;
 };
 
 

@@ -14,7 +14,7 @@ namespace
 SINGLETON_IMPL(AccountInfoService)
 
 AccountInfoService::AccountInfoService(QObject* parent)
-    : QObject(parent), request_(NULL)
+    : QObject(parent)
 {
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, SIGNAL(timeout()), this, SLOT(refresh()));
@@ -37,35 +37,27 @@ void AccountInfoService::refresh()
     if (!account.isValid()) {
         return;
     }
-    if (request_) {
-        request_->deleteLater();
-        request_ = NULL;
-    }
 
-    request_ = new FetchAccountInfoRequest(account);
-    connect(request_, SIGNAL(success(const AccountInfo&)), this,
+    FetchAccountInfoRequest* fetch_account_info_request = new FetchAccountInfoRequest(account);
+    connect(fetch_account_info_request, SIGNAL(success(const AccountInfo&)), this,
             SLOT(onFetchAccountInfoSuccess(const AccountInfo&)));
-    connect(request_, SIGNAL(failed(const ApiError&)), this,
+    connect(fetch_account_info_request, SIGNAL(failed(const ApiError&)), this,
             SLOT(onFetchAccountInfoFailed()));
-    request_->send();
+    fetch_account_info_request->send();
 }
 
 
 void AccountInfoService::onFetchAccountInfoSuccess(const AccountInfo& info)
 {
-    if(request_ == NULL) {
-        return;
-    }
-    seafApplet->accountManager()->updateAccountInfo(request_->account(), info);
-    request_->deleteLater();
-    request_ = NULL;
+    FetchAccountInfoRequest *req = (FetchAccountInfoRequest *)QObject::sender();
+    seafApplet->accountManager()->updateAccountInfo(req->account(), info);
+    req->deleteLater();
+    req = NULL;
 }
 
 void AccountInfoService::onFetchAccountInfoFailed()
 {
-    if(request_ == NULL) {
-        return;
-    }
-    request_->deleteLater();
-    request_ = NULL;
+    FetchAccountInfoRequest *req = (FetchAccountInfoRequest *)QObject::sender();
+    req->deleteLater();
+    req = NULL;
 }

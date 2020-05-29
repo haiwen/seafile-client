@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <QPainterPath>
 #include <QApplication>
 #include <QPixmap>
 #include <QToolTip>

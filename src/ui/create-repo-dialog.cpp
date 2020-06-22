@@ -49,6 +49,8 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
 
     const QRect screen = QApplication::desktop()->screenGeometry();
     move(screen.center() - this->rect().center());
+
+    mTipLabel->setText("(" + tr("end-to-end encryption") + ")");
 }
 
 CreateRepoDialog::~CreateRepoDialog()

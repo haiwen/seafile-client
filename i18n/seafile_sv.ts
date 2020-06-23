@@ -3,11 +3,11 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>Ungefär %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 Klient %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
@@ -15,11 +15,11 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>Ungefär</translation>
     </message>
     <message>
         <source>Check For Updates</source>
-        <translation type="unfinished"/>
+        <translation>Sök efter uppdateringar</translation>
     </message>
     <message>
         <source>OK</source>
@@ -499,6 +499,14 @@ failed to upload.</source>
     <message>
         <source>Cancel</source>
         <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3126,6 +3134,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>delete</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -508,6 +508,14 @@ failed to upload.</source>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation>сквозное шифрование</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>Метка</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -524,7 +532,8 @@ failed to upload.</source>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation> 
+Выполняется другая операция копирования или перемещения. Подождите, пока она не закончится.</translation>
     </message>
 </context>
 <context>
@@ -3153,7 +3162,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation>Ошибка синхронного удаления файла</translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation>удалить</translation>
     </message>
 </context>
 <context>

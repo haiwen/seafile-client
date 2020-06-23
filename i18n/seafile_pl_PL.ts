@@ -508,6 +508,14 @@ nieudane przesyłanie.</translation>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -3155,6 +3163,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>delete</source>
         <translation type="unfinished"/>
     </message>
 </context>

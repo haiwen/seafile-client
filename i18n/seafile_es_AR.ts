@@ -190,7 +190,7 @@ subido con éxito.</translation>
         <source>File &quot;%1&quot;
 failed to upload.</source>
         <translation>Archivo &quot;%1&quot;
-falló al subir.</translation>
+falló la subida.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
@@ -508,6 +508,14 @@ falló al subir.</translation>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation>cifrado punto a punto</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextLabel</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -524,7 +532,7 @@ falló al subir.</translation>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>Existe otra operación de copiar o mover en progreso. Por favor espere hasta que ésta termine.</translation>
     </message>
 </context>
 <context>
@@ -3155,7 +3163,11 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al eliminar error de sincronización de archivo</translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation>eliminar</translation>
     </message>
 </context>
 <context>

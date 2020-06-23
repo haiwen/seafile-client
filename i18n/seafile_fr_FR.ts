@@ -508,6 +508,14 @@ n&apos;a pu être envoyé.</translation>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -524,7 +532,7 @@ n&apos;a pu être envoyé.</translation>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>Une opération de copie ou de déplacement est en cours. Veuillez patienter.</translation>
     </message>
 </context>
 <context>
@@ -2188,7 +2196,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;ouvrir la base des ID d&apos;erreurs de synchronisation</translation>
     </message>
 </context>
 <context>
@@ -3040,11 +3048,11 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Lien de téléversement</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Lien de téléversement :</translation>
     </message>
 </context>
 <context>
@@ -3154,7 +3162,11 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation>Échec de synchronisation du fichier supprimé.</translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation>Supprimer</translation>
     </message>
 </context>
 <context>

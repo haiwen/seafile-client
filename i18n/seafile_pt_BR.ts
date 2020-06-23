@@ -506,6 +506,14 @@ falhou ao enviar.</translation>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -3147,6 +3155,10 @@ Abrir % 1 ajuda on-line</translation>
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>delete</source>
         <translation type="unfinished"/>
     </message>
 </context>

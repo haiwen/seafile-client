@@ -3,7 +3,7 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>關於 %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
@@ -15,7 +15,7 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>關於</translation>
     </message>
     <message>
         <source>Check For Updates</source>
@@ -228,7 +228,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -508,6 +508,14 @@ failed to upload.</source>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -708,7 +716,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"/>
+        <translation>重新整理</translation>
     </message>
     <message>
         <source>%1 items</source>
@@ -3149,6 +3157,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>delete</source>
         <translation type="unfinished"/>
     </message>
 </context>

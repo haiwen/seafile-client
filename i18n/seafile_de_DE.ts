@@ -507,6 +507,14 @@ wurde nicht hochgeladen.</translation>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation>Ende-zu-Ende-Verschlüsselung</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>Tag</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -523,7 +531,7 @@ wurde nicht hochgeladen.</translation>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>Eine andere Kopier- oder Verschiebeaktion ist noch nicht abgeschlossen. Bitte warten Sie bis dahin.</translation>
     </message>
 </context>
 <context>
@@ -1061,7 +1069,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Share to User</source>
-        <translation>Freigeben für Nutzer/in</translation>
+        <translation>Freigeben für Benutzer/in</translation>
     </message>
     <message>
         <source>G&amp;enerate %1 Internal Link</source>
@@ -1629,7 +1637,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Already shared to user %1</source>
-        <translation>Bereits freigegeben für Nutzer/in %1</translation>
+        <translation>Bereits freigegeben für %1</translation>
     </message>
     <message>
         <source>The previous operation is still in progres</source>
@@ -2406,11 +2414,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Share to user</source>
-        <translation>Freigeben für Nutzer/in</translation>
+        <translation>Freigeben für Benutzer/in</translation>
     </message>
     <message>
         <source>Share this library to a user</source>
-        <translation>Bibliothek für Nutzer/in freigeben</translation>
+        <translation>Bibliothek für Benutzer/in freigeben</translation>
     </message>
     <message>
         <source>Share to group</source>
@@ -3005,7 +3013,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>User</source>
-        <translation>Nutzer/in</translation>
+        <translation>Benutzer/in</translation>
     </message>
     <message>
         <source>Permission</source>
@@ -3154,7 +3162,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisierungs-Fehler konnten nicht gelöscht werden</translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>

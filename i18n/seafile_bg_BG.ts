@@ -500,6 +500,14 @@ failed to upload.</source>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>

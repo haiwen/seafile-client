@@ -504,6 +504,14 @@ failed to upload.</source>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation>端到端加密</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>文本标签</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>

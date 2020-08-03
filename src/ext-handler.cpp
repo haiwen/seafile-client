@@ -140,6 +140,26 @@ QString repoStatus(const LocalRepo& repo)
     return status;
 }
 
+QString translateHttpErrorCode(const ApiError& error, const QString& req_type) {
+    QString error_msg;
+    if ( error.httpErrorCode() == 400 ) {
+        error_msg = QObject::tr("path or repo_id invalid.");
+    } else if ( error.httpErrorCode() == 403 ) {
+        if (req_type == "shared link") {
+            error_msg = QObject::tr("no permissions to create a shared link");
+        } else if (req_type == "upload link") {
+            error_msg = QObject::tr("no permissions to create a upload link");
+        }
+    } else if ( error.httpErrorCode() == 404 ) {
+        error_msg = QObject::tr("the file or folder or library could not be found.");
+    } else if ( error.httpErrorCode() == 500 ) {
+        error_msg = QObject::tr("internal Server Error");
+    } else {
+        error_msg = QObject::tr("unknown error");
+    }
+    return error_msg;
+}
+
 } // namespace
 
 
@@ -214,6 +234,8 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
 
         connect(req, SIGNAL(success(const QString&, const QString&)),
                 this, SLOT(onShareLinkGenerated(const QString&)));
+        connect(req, SIGNAL(failed(const ApiError&)),
+                this, SLOT(onGetSharedLinkFailed(const ApiError&)));
 
         req->send();
     }
@@ -292,6 +314,11 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
     dialog->activateWindow();
 }
 
+void SeafileExtensionHandler::onGetSharedLinkFailed(const ApiError& error) {
+    QString error_msg = translateHttpErrorCode(error, "shared link");
+    seafApplet->warningBox(tr("failed to get share link: ") + error_msg);
+}
+
 void SeafileExtensionHandler::onLockFileSuccess()
 {
     LockFileRequest *req = qobject_cast<LockFileRequest *>(sender());
@@ -341,8 +368,8 @@ void SeafileExtensionHandler::onGetUploadLinkSuccess(const QString& upload_link)
 void SeafileExtensionHandler::onGetUploadLinkFailed(const ApiError& error)
 {
     GetUploadLinkRequest *req = qobject_cast<GetUploadLinkRequest *>(sender());
-    const QString file = ::getBaseName(req->path());
-    seafApplet->messageBox(tr("Failed to get upload link information for file \"%1\"").arg(file));
+    QString error_msg = translateHttpErrorCode(error, "upload link");
+    seafApplet->messageBox(tr("Failed to get upload link: ") + error_msg);
     req->deleteLater();
 }
 

@@ -2519,7 +2519,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>동기화 시간 간격(초 단위):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리 동기화 시간 간격을 설정합니다</translation>
     </message>
 </context>

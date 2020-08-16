@@ -2510,7 +2510,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Samstillinartíðni (í sekúndum):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Setja Samstillingartíðni Fyrir Safn &quot;%1&quot;</translation>
     </message>
 </context>

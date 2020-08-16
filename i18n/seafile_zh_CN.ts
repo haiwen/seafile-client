@@ -2508,7 +2508,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>同步间隔 (秒)</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>设置资料库 “%1” 的同步间隔</translation>
     </message>
 </context>

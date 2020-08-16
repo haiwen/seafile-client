@@ -2518,7 +2518,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Intervalo de Sincronización (en segundos):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Establecer Intervalo de Sincronización para la Biblioteca &quot;%1&quot;</translation>
     </message>
 </context>

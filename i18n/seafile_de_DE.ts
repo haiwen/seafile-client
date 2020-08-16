@@ -2517,7 +2517,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Sync-Intervall (in Sekunden):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Sync-Intervall für Bibliothek „%1“ festlegen</translation>
     </message>
 </context>

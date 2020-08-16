@@ -2517,7 +2517,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Intervalle de synchro (en secondes) :</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Paramétrer l&apos;intervalle de synchro pour la bibliothèque &quot;%1&quot;</translation>
     </message>
 </context>

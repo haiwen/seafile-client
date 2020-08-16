@@ -2518,7 +2518,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Interwał synchronizacji (w sekundach):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Ustaw interwał synchronizacji dla biblioteki &quot;%1&quot;</translation>
     </message>
 </context>

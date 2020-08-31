@@ -498,7 +498,7 @@ std::vector<QByteArray> getSystemCaCertificates() {
 
 void SystemProxyChangeCallBack(SCDynamicStoreRef store, CFArrayRef changedKeys,void *info)
 {
-    qWarning("global proxies status changed");
+    qWarning("IPv4 routing table has changed");
     SeafileApiClient::resetQNAM();
 }
 
@@ -511,7 +511,7 @@ void startWatchSystemStatus()
                                     SystemProxyChangeCallBack,
                                     &context);
 
-    const CFStringRef keys[3] = {CFSTR("State:/Network/Global/Proxies")};
+    const CFStringRef keys[3] = {CFSTR("State:/Network/Global/IPv4")};
 
     CFArrayRef watchedKeys = CFArrayCreate(kCFAllocatorDefault,
                                           (const void **)keys,

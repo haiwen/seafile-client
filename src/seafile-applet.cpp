@@ -15,6 +15,11 @@
 #include <glib.h>
 
 #include "utils/utils.h"
+
+#if defined(Q_OS_MAC)
+#include "utils/utils-mac.h"
+#endif
+
 #include "utils/file-utils.h"
 #include "utils/log.h"
 #include "account-mgr.h"
@@ -59,6 +64,11 @@
 #endif
 
 #include "seafile-applet.h"
+
+#if defined(Q_OS_WIN32)
+#include "utils/monitor-netstat.h"
+#include "api/api-client.h"
+#endif
 
 namespace {
 enum DEBUG_LEVEL {
@@ -280,6 +290,18 @@ void SeafileApplet::start()
             this, SLOT(onDaemonStarted()));
     connect(daemon_mgr_, SIGNAL(daemonRestarted()),
             this, SLOT(onDaemonRestarted()));
+
+#if defined(Q_OS_MAC)
+    utils::mac::startWatchSystemStatus();
+#elif defined(Q_OS_WIN32)
+    QThread* thread = new QThread;
+    MonitorNetStatWorker* worker = new MonitorNetStatWorker();
+    worker->moveToThread(thread);
+    connect(thread, SIGNAL (started()), worker, SLOT (process()));
+    connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
+    connect(worker, SIGNAL (routerTableChanged()), this, SLOT (slotResetQNAM()));
+    thread->start();
+#endif
 }
 
 void SeafileApplet::onDaemonStarted()
@@ -435,6 +457,13 @@ void SeafileApplet::onAboutToQuit()
         main_win_->writeSettings();
     }
 }
+
+void SeafileApplet::slotResetQNAM() {
+#if defined(Q_OS_WIN32)
+    SeafileApiClient::resetQNAM();
+#endif
+}
+
 // stop the main event loop and return to the main function
 void SeafileApplet::errorAndExit(const QString& error)
 {

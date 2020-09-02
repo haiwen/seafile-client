@@ -1,13 +1,16 @@
+#include <winsock2.h>
 #include <windows.h>
 #include <shellapi.h>
 #include <wincrypt.h>
 #include <glib.h>
+#include <netioapi.h>
 
 #include <QLibrary>
 #include <QPair>
 #include <QString>
 
 #include "utils/utils-win.h"
+#include "utils/monitor-netstat.h"
 
 namespace utils {
 namespace win {
@@ -328,6 +331,28 @@ DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show)
     GetExitCodeProcess(shell_exec_info.hProcess, &exit_code);
     CloseHandle(shell_exec_info.hProcess);
     return exit_code;
+}
+
+
+void WINAPI IfaceChangedCB(PVOID ctx, PMIB_IPINTERFACE_ROW row, MIB_NOTIFICATION_TYPE type)
+{
+    emit MonitorNetStatWorker::instance()->routerTableChanged();
+}
+
+void startMonitorNetStatus()
+{
+    HANDLE hAddrChange;
+    unsigned int ctx = 0;
+
+    DWORD res = NotifyIpInterfaceChange(AF_UNSPEC,
+                                        IfaceChangedCB,
+                                        &ctx,
+                                        TRUE,
+                                        &hAddrChange);
+    if (res != NO_ERROR) {
+        qWarning("Can't trace network interfaces, error %d", res);
+    }
+
 }
 
 

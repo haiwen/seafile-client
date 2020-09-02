@@ -36,6 +36,7 @@ bool isWindows10OrHigher();
 bool fixQtHDPINonIntegerScaling();
 std::string getLocalPipeName(const char *pipeName);
 DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show);
+void startMonitorNetStatus();
 } // namespace win
 } // namespace utils
 #endif

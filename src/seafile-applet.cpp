@@ -48,6 +48,9 @@
 #include "customization-service.h"
 
 #if defined(Q_OS_WIN32)
+    #include "utils/monitor-netstat.h"
+    #include "api/api-client.h"
+    #include "utils/utils-win.h"
     #include "ext-handler.h"
     #include "utils/registry.h"
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)
@@ -64,11 +67,6 @@
 #endif
 
 #include "seafile-applet.h"
-
-#if defined(Q_OS_WIN32)
-#include "utils/monitor-netstat.h"
-#include "api/api-client.h"
-#endif
 
 namespace {
 enum DEBUG_LEVEL {
@@ -294,13 +292,10 @@ void SeafileApplet::start()
 #if defined(Q_OS_MAC)
     utils::mac::startWatchSystemStatus();
 #elif defined(Q_OS_WIN32)
-    QThread* thread = new QThread;
-    MonitorNetStatWorker* worker = new MonitorNetStatWorker();
-    worker->moveToThread(thread);
-    connect(thread, SIGNAL (started()), worker, SLOT (process()));
-    connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
-    connect(worker, SIGNAL (routerTableChanged()), this, SLOT (slotResetQNAM()));
-    thread->start();
+    utils::win::startMonitorNetStatus();
+    MonitorNetStatWorker* worker = MonitorNetStatWorker::instance();
+    connect(worker, SIGNAL (routerTableChanged()),
+			this, SLOT (slotResetQNAM()));
 #endif
 }
 
@@ -460,6 +455,7 @@ void SeafileApplet::onAboutToQuit()
 
 void SeafileApplet::slotResetQNAM() {
 #if defined(Q_OS_WIN32)
+    qDebug("Ip routing tables has been changed");
     SeafileApiClient::resetQNAM();
 #endif
 }

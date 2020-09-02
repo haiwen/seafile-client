@@ -3,16 +3,24 @@
 #include <QtGlobal>
 #include <QObject>
 
+#include <windows.h>
+#include <winsock2.h>
+#include <netioapi.h>
+
+#include "utils/singleton.h"
+
 
 class MonitorNetStatWorker : public QObject {
-	Q_OBJECT
+    Q_OBJECT
+    SINGLETON_DEFINE(MonitorNetStatWorker)
 public:
-	MonitorNetStatWorker();
-	~MonitorNetStatWorker();
-public slots:
-	void process();
+    MonitorNetStatWorker();
+    ~MonitorNetStatWorker();
+
 signals:
-	void routerTableChanged();
+    void routerTableChanged();
+
+private:
 
 };
 

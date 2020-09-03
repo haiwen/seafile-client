@@ -347,7 +347,7 @@ void startMonitorNetStatus()
     DWORD res = NotifyIpInterfaceChange(AF_UNSPEC,
                                         IfaceChangedCB,
                                         &ctx,
-                                        TRUE,
+                                        FALSE,
                                         &hAddrChange);
     if (res != NO_ERROR) {
         qWarning("Can't trace network interfaces, error %d", res);

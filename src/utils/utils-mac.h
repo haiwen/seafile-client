@@ -38,7 +38,6 @@ QString mainBundlePath();
 
 // load the missing part of ca certificates
 std::vector<QByteArray> getSystemCaCertificates();
-void startWatchSystemStatus();
 
 } // namespace mac
 } // namespace utils

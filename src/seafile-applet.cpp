@@ -15,11 +15,6 @@
 #include <glib.h>
 
 #include "utils/utils.h"
-
-#if defined(Q_OS_MAC)
-#include "utils/utils-mac.h"
-#endif
-
 #include "utils/file-utils.h"
 #include "utils/log.h"
 #include "account-mgr.h"
@@ -48,9 +43,6 @@
 #include "customization-service.h"
 
 #if defined(Q_OS_WIN32)
-    #include "utils/monitor-netstat.h"
-    #include "api/api-client.h"
-    #include "utils/utils-win.h"
     #include "ext-handler.h"
     #include "utils/registry.h"
 #elif defined(HAVE_FINDER_SYNC_SUPPORT)
@@ -288,15 +280,6 @@ void SeafileApplet::start()
             this, SLOT(onDaemonStarted()));
     connect(daemon_mgr_, SIGNAL(daemonRestarted()),
             this, SLOT(onDaemonRestarted()));
-
-#if defined(Q_OS_MAC)
-    utils::mac::startWatchSystemStatus();
-#elif defined(Q_OS_WIN32)
-    utils::win::startMonitorNetStatus();
-    MonitorNetStatWorker* worker = MonitorNetStatWorker::instance();
-    connect(worker, SIGNAL (routerTableChanged()),
-			this, SLOT (slotResetQNAM()));
-#endif
 }
 
 void SeafileApplet::onDaemonStarted()
@@ -452,14 +435,6 @@ void SeafileApplet::onAboutToQuit()
         main_win_->writeSettings();
     }
 }
-
-void SeafileApplet::slotResetQNAM() {
-#if defined(Q_OS_WIN32)
-    qDebug("Ip routing tables has been changed");
-    SeafileApiClient::resetQNAM();
-#endif
-}
-
 // stop the main event loop and return to the main function
 void SeafileApplet::errorAndExit(const QString& error)
 {

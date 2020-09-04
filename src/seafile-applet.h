@@ -93,7 +93,6 @@ private slots:
     void checkInitVDrive();
     void updateReposPropertyForHttpSync();
     void onAboutToQuit();
-    void slotResetQNAM();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)

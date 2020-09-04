@@ -3,15 +3,12 @@
 #include <AvailabilityMacros.h>
 #import <Cocoa/Cocoa.h>
 #import <Security/Security.h>
-#import <SystemConfiguration/SystemConfiguration.h>
 
 #include <openssl/asn1.h>
 #include <openssl/conf.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
-
-#include "api/api-client.h"
 
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
@@ -494,40 +491,6 @@ std::vector<QByteArray> getSystemCaCertificates() {
     appendCaCertificateFromSecurityStore(&retval, kSecTrustSettingsDomainAdmin);
     appendCaCertificateFromSecurityStore(&retval, kSecTrustSettingsDomainUser);
     return retval;
-}
-
-void SystemProxyChangeCallBack(SCDynamicStoreRef store, CFArrayRef changedKeys,void *info)
-{
-    qDebug("IP routing table has changed");
-    SeafileApiClient::resetQNAM();
-}
-
-void startWatchSystemStatus()
-{
-    SCDynamicStoreRef dynStore;
-    SCDynamicStoreContext context = {0, NULL, NULL, NULL, NULL};
-    dynStore = SCDynamicStoreCreate(kCFAllocatorDefault,
-                                    CFBundleGetIdentifier(CFBundleGetMainBundle()),
-                                    SystemProxyChangeCallBack,
-                                    &context);
-
-    const CFStringRef keys[3] = {CFSTR("State:/Network/Global/IPv.")};
-
-    CFArrayRef watchedKeys = CFArrayCreate(kCFAllocatorDefault,
-                                          (const void **)keys,
-                                          1,
-                                          &kCFTypeArrayCallBacks);
-
-    if (SCDynamicStoreSetNotificationKeys(dynStore, NULL, watchedKeys)) {
-        CFRelease(watchedKeys);
-        CFRunLoopSourceRef rlSrc = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynStore, 0);
-        CFRunLoopAddSource(CFRunLoopGetCurrent(), rlSrc, kCFRunLoopDefaultMode);
-        CFRelease(rlSrc);
-    } else {
-        CFRelease(watchedKeys);
-        CFRelease(dynStore);
-        dynStore = NULL;
-    }
 }
 
 } // namespace mac

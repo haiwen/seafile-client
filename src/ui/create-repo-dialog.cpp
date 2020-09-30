@@ -115,7 +115,7 @@ void CreateRepoDialog::createAction()
         }
         // printf ("magic is %s, random_key is %s salt is %s\n", toCStr(magic), toCStr(random_key), toCStr(salt));
 
-        if (enc_version == 3) {
+        if (enc_version == 3 || enc_version == 4) {
             request_ = new CreateRepoRequest(
                 account_, name_, name_, enc_version, repo_id, magic, random_key, salt);
         } else {

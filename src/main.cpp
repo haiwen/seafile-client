@@ -37,6 +37,7 @@ void initGlib()
 #endif
 }
 
+#if defined(Q_OS_WIN32)
 void initBreakpad()
 {
 #ifdef SEAFILE_CLIENT_HAS_CRASH_REPORTER
@@ -45,6 +46,7 @@ void initBreakpad()
         QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
 #endif
 }
+#endif
 
 void setupFontFix()
 {

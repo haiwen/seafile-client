@@ -20,7 +20,7 @@ const int kTabIconSize = 24;
 const char *kTabsBackgroundColor = "white";
 const char *kSelectedTabBorderBottomColor = "#D58747";
 const char *kBorderColor = "#DCDCDE";
-const int kSelectedTabBorderBottomWidth = 3;
+//const int kSelectedTabBorderBottomWidth = 3;
 const int kSelectedTabBorderBottomHeightAlpha = 2;
 const int kSelectedTabBorderBottomWidthAlpha = 20;
 

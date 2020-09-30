@@ -30,22 +30,22 @@ namespace {
 
 const int kMarginLeft = 16;
 const int kMarginRight = 5;
-const int kMarginTop = 5;
-const int kMarginBottom = 5;
+//const int kMarginTop = 5;
+//const int kMarginBottom = 5;
 const int kPadding = 2;
 const int kRepoItemVerticalMargin = 13;
 const int kRepoCategoryVerticalMargin = 10;
 
-const int kRepoIconHeight = 36;
-const int kRepoIconWidth = 36;
+//const int kRepoIconHeight = 36;
+//const int kRepoIconWidth = 36;
 const int kRepoIconHeightAlpha = 24;
 const int kRepoIconWidthAlpha = 24;
 const int kRepoNameWidth = 175;
-const int kRepoNameHeight = 30;
-const int kRepoNameHeightAlpha = 20;
-const int kRepoDescriptionHeightAlpha = 14;
-const int kRepoStatusIconWidth = 24;
-const int kRepoStatusIconHeight = 24;
+//const int kRepoNameHeight = 30;
+//const int kRepoNameHeightAlpha = 20;
+//const int kRepoDescriptionHeightAlpha = 14;
+//const int kRepoStatusIconWidth = 24;
+//const int kRepoStatusIconHeight = 24;
 const int kRepoStatusIconWidthAlpha = 16;
 const int kRepoStatusIconHeightAlpha = 16;
 
@@ -63,12 +63,12 @@ const char *kRepoNameColorHighlighted = "#544D49";
 const char *kTimestampColor = "#AAAAAA";
 const char *kTimestampColorHighlighted = "#9D9B9A";
 const int kRepoNameFontSize = 14;
-const int kTimestampFontSize = 12;
+//const int kTimestampFontSize = 12;
 const int kRepoDescriptionFontSizeAlpha = 10;
 const int kRepoCategoryNameFontSize = 14;
-const int kRepoCategoryCountFontSize = 12;
+//const int kRepoCategoryCountFontSize = 12;
 const int kRepoCategoryCountFontSizeAlpha = 14;
-const int kOwnerFontSize = 12;
+//const int kOwnerFontSize = 12;
 const int kOwnerFontSizeAlpha = 10;
 
 const char *kRepoItemBackgroundColorHighlightedAlpha = "#EFEEEE";
@@ -79,7 +79,7 @@ const char *kRepoCategoryColor = "#747474";
 
 const char *kRepoCategoryBackgroundColor = "white";
 
-const int kRepoCategoryCountMarginRight = 10;
+//const int kRepoCategoryCountMarginRight = 10;
 const int kRepoCategoryCountMarginRightAlpha = 20;
 const char *kRepoCategoryCountColor = "#AAAAAA";
 

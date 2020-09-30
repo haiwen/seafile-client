@@ -630,8 +630,8 @@ GetSmartLinkRequest::GetSmartLinkRequest(const Account& account,
           SeafileApiRequest::METHOD_GET, account.token),
       repo_id_(repo_id),
       path_(path),
-      is_dir_(is_dir),
-      protocol_link_(OpenLocalHelper::instance()->generateLocalFileSeafileUrl(repo_id, account, path).toEncoded())
+      protocol_link_(OpenLocalHelper::instance()->generateLocalFileSeafileUrl(repo_id, account, path).toEncoded()),
+      is_dir_(is_dir)
 {
     setUrlParam("repo_id", repo_id);
     setUrlParam("path", path);

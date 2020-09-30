@@ -2,9 +2,11 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QScreen>
 
 #include "seafile-applet.h"
 #include "account-mgr.h"
+#include "utils/utils.h"
 
 #include "file-browser-dialog.h"
 
@@ -41,7 +43,8 @@ FileBrowserDialog *FileBrowserManager::openOrActivateDialog(const Account &accou
     }
     if (dialog == NULL) {
         dialog = new FileBrowserDialog(account, repo, fixed_path);
-        QRect screen = QApplication::desktop()->screenGeometry();
+        QRect screen = getScreenSize(0);
+
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);
         dialog->show();
         dialog->move(screen.center() - dialog->rect().center());

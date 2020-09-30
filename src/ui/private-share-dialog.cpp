@@ -7,6 +7,7 @@
 #include <QStringListModel>
 #include <QDateTime>
 #include <QScrollBar>
+#include <QPainterPath>
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "private-share-dialog.h"

@@ -510,7 +510,7 @@ private:
 
     Account account_;
     QStringList repo_ids_;
-    QMap<QString, QString> repo_tokens_;
+    QMultiMap<QString, QString> repo_tokens_;
     int max_retries_;
 
     // The start position of the next batch

@@ -83,7 +83,11 @@ bool isWeakCipher(const QString& cipher_name)
 void disableWeakCiphers()
 {
     QSslConfiguration configuration = QSslConfiguration::defaultConfiguration();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+    const QList<QSslCipher> ciphers = QSslConfiguration::supportedCiphers();
+#else
     const QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
+#endif
 
     QList<QSslCipher> new_ciphers;
     Q_FOREACH(const QSslCipher &cipher, ciphers)
@@ -124,9 +128,18 @@ void loadUserCaCertificate()
     }
 
     // remove duplicates
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    certificates = QSet<QSslCertificate>(certificates.begin(), certificates.end()).values();
+#else
     certificates = certificates.toSet().toList();
+#endif
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    QSslConfiguration configuration = QSslConfiguration::defaultConfiguration();
+    configuration.setCaCertificates(certificates);
+#else
     QSslSocket::setDefaultCaCertificates(certificates);
+#endif
 }
 #endif
 } // anonymous namespace

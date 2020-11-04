@@ -8,6 +8,7 @@
 #include <QHttpMultiPart>
 #include <QHttpPart>
 #include <QFile>
+#include <QUuid>
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
@@ -399,6 +400,8 @@ void PostFileTask::sendRequest()
                                  kTargetFileParam);
         parentdir_part.setBody(::pathJoin(parent_dir_, name_).toUtf8());
     }
+    QString str_boundary = "_.Seafile._" + QUuid::createUuid().toString();
+    multipart->setBoundary(str_boundary.toUtf8());
     multipart->append(parentdir_part);
 
     // "relative_path" param

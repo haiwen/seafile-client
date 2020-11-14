@@ -88,6 +88,7 @@ Doxyfile
 ## breakpad related
 third_party/gyp
 third_party/breakpad
+third_party/quazip/quazip.vcxproj.user
 
 /GPATH
 /GTAGS
@@ -105,3 +106,4 @@ seafile-applet.rc
 
 ## vscode
 .vscode/
+.vs

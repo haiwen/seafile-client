@@ -2,8 +2,13 @@ extern "C" {
 #include <searpc-client.h>
 
 #include <searpc.h>
+#if defined(_MSC_VER)
+#include "include/seafile.h"
+#include "lib/seafile-object.h"
+#else
 #include <seafile/seafile.h>
 #include <seafile/seafile-object.h>
+#endif
 
 }
 

@@ -4,8 +4,13 @@ extern "C" {
 #include <searpc-named-pipe-transport.h>
 
 #include <searpc.h>
+#if defined(_MSC_VER)
+#include <include/seafile.h>
+#include <lib/seafile-object.h>
+#else
 #include <seafile/seafile.h>
 #include <seafile/seafile-object.h>
+#endif
 
 }
 
@@ -27,7 +32,11 @@ extern "C" {
 #endif
 
 #include "rpc-client.h"
+#if defined(_MSC_VER)
+#include <include/seafile-error.h>
+#else
 #include <seafile/seafile-error.h>
+#endif
 
 namespace {
 

@@ -1,8 +1,11 @@
 #include "seafile-error.h"
+#if defined(_MSC_VER)
+#include "include/seafile-error.h"
+#else
 #include <seafile/seafile-error.h>
+#endif
 
-QString
-translateSyncErrorCode(const int error_code)
+QString translateSyncErrorCode(const int error_code)
 {
     QString error_str;
     switch (error_code) {

@@ -7,6 +7,9 @@
 #include <QIcon>
 #include <QPixmap>
 #include <jansson.h>
+#if defined(_MSC_VER)
+#include <ciso646>
+#endif
 
 /**
  * Repo information from seahub api

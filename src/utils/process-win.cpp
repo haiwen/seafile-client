@@ -6,7 +6,9 @@
 
 #include <assert.h>
 #include <errno.h>
+#if !defined(_MSC_VER)
 #include <dirent.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -65,12 +67,17 @@ get_process_handle (const char *process_name_in)
         length -= (basename - process_name);
 
         // if basename doesn't start with `\` or not mached
-        if (*basename != '\\' ||
-            strncasecmp(name, ++basename, length) != 0) {
+#if defined(_MSC_VER)
+        if (*basename != '\\' || strnicmp(name, ++basename, length) != 0) {
             CloseHandle(hProcess);
             continue;
         }
-
+#else
+        if (*basename != '\\' || strncasecmp(name, ++basename, length) != 0) {
+            CloseHandle(hProcess);
+            continue;
+        }
+#endif
         return hProcess;
     }
     /* Not found */
@@ -154,12 +161,17 @@ static int count_process_internal (const char *process_name_in, QList<uint64_t> 
         length -= (basename - process_name);
 
         // if basename doesn't start with `\` or not mached
-        if (*basename != '\\' ||
-            strncasecmp(name, ++basename, length) != 0) {
+#if defined(_MSC_VER)
+        if (*basename != '\\' || strnicmp(name, ++basename, length) != 0) {
             CloseHandle(hProcess);
             continue;
         }
-
+#else
+        if (*basename != '\\' || strncasecmp(name, ++basename, length) != 0) {
+            CloseHandle(hProcess);
+            continue;
+        }
+#endif
         if (pids && aProcesses[i] != hCurrentProcessId) {
             pids->append(aProcesses[i]);
         }

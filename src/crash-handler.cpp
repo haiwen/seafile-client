@@ -6,7 +6,11 @@
 #if defined(Q_OS_LINUX)
 #include "breakpad/client/linux/handler/exception_handler.h"
 #elif defined(Q_OS_WIN32)
+#if defined(_MSC_VER)
+#include "client/windows/handler/exception_handler.h"
+#else
 #include "breakpad/client/windows/handler/exception_handler.h"
+#endif
 #elif defined(Q_OS_MAC)
 #include "breakpad/client/mac/handler/exception_handler.h"
 #endif

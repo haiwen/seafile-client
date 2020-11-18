@@ -289,15 +289,22 @@ char *b64encode(const char *input)
 
 std::string getLocalPipeName(const char *pipe_name)
 {
+#if defined(_MSC_VER)
+    const DWORD buf_char_count = 32767;
+    DWORD buf_char_count_size = buf_char_count;
+#else
     DWORD buf_char_count = 32767;
+#endif
     char user_name_buf[buf_char_count];
 
+#if defined(_MSC_VER)
+    if (GetUserName(user_name_buf, &buf_char_count_size) == 0) {
+#else
     if (GetUserName(user_name_buf, &buf_char_count) == 0) {
-        qWarning ("Failed to get user name, GLE=%lu\n",
-                  GetLastError());
+#endif
+        qWarning("Failed to get user name, GLE=%lu\n", GetLastError());
         return pipe_name;
-    }
-    else {
+    } else {
         std::string ret(pipe_name);
         char *encoded = b64encode(user_name_buf);
         ret += encoded;

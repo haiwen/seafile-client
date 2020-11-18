@@ -1,7 +1,9 @@
 #include "application.h"
 
+#if !defined(_MSC_VER)
 #include <objc/objc.h>
 #include <objc/message.h>
+#endif
 
 #include <QFileOpenEvent>
 

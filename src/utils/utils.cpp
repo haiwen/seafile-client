@@ -1,9 +1,13 @@
 #include <cassert>
 #include <errno.h>
+#if !defined(_MSC_VER)
 #include <dirent.h>
+#endif
 #include <cstdio>
 #include <cstdlib>
+#if !defined(_MSC_VER)
 #include <unistd.h>
+#endif
 #include <sqlite3.h>
 #include <glib.h>
 #include <cstring>

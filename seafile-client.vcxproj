@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ui\about-dialog.ui" />
+    <QtUic Include="ui\account-settings-dialog.ui" />
+    <QtUic Include="ui\account-view.ui" />
+    <QtUic Include="ui\clone-tasks-dialog.ui" />
+    <QtUic Include="ui\cloud-view.ui" />
+    <QtUic Include="ui\create-repo-dialog.ui" />
+    <QtUic Include="ui\download-repo-dialog.ui" />
+    <QtUic Include="ui\init-seafile-dialog.ui" />
+    <QtUic Include="ui\init-vdrive-dialog.ui" />
+    <QtUic Include="ui\login-dialog.ui" />
+    <QtUic Include="ui\private-share-dialog.ui" />
+    <QtUic Include="ui\repo-detail-dialog.ui" />
+    <QtUic Include="ui\server-repo-item.ui" />
+    <QtUic Include="ui\server-repos-view.ui" />
+    <QtUic Include="ui\server-status-dialog.ui" />
+    <QtUic Include="ui\set-repo-password-dialog.ui" />
+    <QtUic Include="ui\settings-dialog.ui" />
+    <QtUic Include="ui\ssl-confirm-dialog.ui" />
+    <QtUic Include="ui\two-factor-dialog.ui" />
+    <QtUic Include="ui\uninstall-helper-dialog.ui" />
+    <QtUic Include="ui\welcome-dialog.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="i18n\seafile_bg_BG.ts" />
+    <None Include="i18n\seafile_ca.ts" />
+    <None Include="i18n\seafile_cs_CZ.ts" />
+    <None Include="i18n\seafile_de_DE.ts" />
+    <None Include="i18n\seafile_el_GR.ts" />
+    <None Include="i18n\seafile_en.ts" />
+    <None Include="i18n\seafile_es.ts" />
+    <None Include="i18n\seafile_es_AR.ts" />
+    <None Include="i18n\seafile_es_MX.ts" />
+    <None Include="i18n\seafile_et_EE.ts" />
+    <None Include="i18n\seafile_fr_FR.ts" />
+    <None Include="i18n\seafile_he_IL.ts" />
+    <None Include="i18n\seafile_hu_HU.ts" />
+    <None Include="i18n\seafile_is.ts" />
+    <None Include="i18n\seafile_it.ts" />
+    <None Include="i18n\seafile_ja.ts" />
+    <None Include="i18n\seafile_ko_KR.ts" />
+    <None Include="i18n\seafile_lv.ts" />
+    <None Include="i18n\seafile_nb_NO.ts" />
+    <None Include="i18n\seafile_nl_BE.ts" />
+    <None Include="i18n\seafile_nl_NL.ts" />
+    <None Include="i18n\seafile_pl_PL.ts" />
+    <None Include="i18n\seafile_pt_BR.ts" />
+    <None Include="i18n\seafile_pt_PT.ts" />
+    <None Include="i18n\seafile_ru.ts" />
+    <None Include="i18n\seafile_sk_SK.ts" />
+    <None Include="i18n\seafile_sv.ts" />
+    <None Include="i18n\seafile_tr.ts" />
+    <None Include="i18n\seafile_uk.ts" />
+    <None Include="i18n\seafile_zh_CN.ts" />
+    <None Include="i18n\seafile_zh_TW.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\api\api-client.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\account.h" />
+    <QtMoc Include="src\log-uploader.h" />
+    <ClInclude Include="third_party\quazip\crypt.h" />
+    <ClInclude Include="third_party\quazip\ioapi.h" />
+    <ClInclude Include="third_party\quazip\JlCompress.h" />
+    <ClInclude Include="third_party\quazip\quaadler32.h" />
+    <ClInclude Include="third_party\quazip\quachecksum32.h" />
+    <ClInclude Include="third_party\quazip\quacrc32.h" />
+    <ClInclude Include="third_party\quazip\quazip.h" />
+    <ClInclude Include="third_party\quazip\quazipdir.h" />
+    <ClInclude Include="third_party\quazip\unzip.h" />
+    <ClInclude Include="third_party\quazip\zip.h" />
+    <QtMoc Include="third_party\quazip\quazipfile.h" />
+    <ClInclude Include="third_party\quazip\quazipfileinfo.h" />
+    <ClInclude Include="third_party\quazip\quazipnewinfo.h" />
+    <ClInclude Include="third_party\quazip\quazip_global.h" />
+    <QtMoc Include="third_party\quazip\quaziodevice.h" />
+    <QtMoc Include="third_party\quazip\quagzipfile.h" />
+    <QtMoc Include="third_party\QtAwesome\QtAwesome.h" />
+    <QtMoc Include="src\account-info-service.h" />
+    <QtMoc Include="src\account-mgr.h" />
+    <ClInclude Include="src\api\api-error.h" />
+    <ClInclude Include="src\api\commit-details.h" />
+    <ClInclude Include="src\api\contact-share-info.h" />
+    <ClInclude Include="src\api\event.h" />
+    <ClInclude Include="src\api\server-info.h" />
+    <ClInclude Include="src\api\server-repo.h" />
+    <ClInclude Include="src\api\starred-file.h" />
+    <QtMoc Include="src\application.h" />
+    <QtMoc Include="src\auto-login-service.h" />
+    <QtMoc Include="src\auto-update-service.h" />
+    <QtMoc Include="src\avatar-service.h" />
+    <ClInclude Include="src\certs-mgr.h" />
+    <QtMoc Include="src\configurator.h" />
+    <ClInclude Include="src\crash-handler.h" />
+    <QtMoc Include="src\customization-service.h" />
+    <QtMoc Include="src\daemon-mgr.h" />
+    <QtMoc Include="src\events-service.h" />
+    <QtMoc Include="src\ext-handler.h" />
+    <QtMoc Include="src\filebrowser\auto-update-mgr.h" />
+    <ClInclude Include="src\filebrowser\data-cache.h" />
+    <QtMoc Include="src\filebrowser\data-mgr.h" />
+    <QtMoc Include="src\filebrowser\file-browser-dialog.h" />
+    <QtMoc Include="src\filebrowser\file-browser-manager.h" />
+    <QtMoc Include="src\filebrowser\file-browser-requests.h" />
+    <QtMoc Include="src\filebrowser\file-browser-search-tab.h" />
+    <QtMoc Include="src\filebrowser\file-table.h" />
+    <QtMoc Include="src\filebrowser\progress-dialog.h" />
+    <QtMoc Include="src\filebrowser\reliable-upload.h" />
+    <ClInclude Include="src\filebrowser\seaf-dirent.h" />
+    <QtMoc Include="src\filebrowser\seafilelink-dialog.h" />
+    <QtMoc Include="src\filebrowser\sharedlink-dialog.h" />
+    <QtMoc Include="src\filebrowser\tasks.h" />
+    <QtMoc Include="src\filebrowser\thumbnail-service.h" />
+    <QtMoc Include="src\filebrowser\transfer-mgr.h" />
+    <ClInclude Include="src\i18n.h" />
+    <ClInclude Include="src\mac-sparkle-support.h" />
+    <QtMoc Include="src\message-poller.h" />
+    <QtMoc Include="src\network-mgr.h" />
+    <QtMoc Include="src\open-local-helper.h" />
+    <QtMoc Include="src\repo-service.h" />
+    <QtMoc Include="src\repo-service-helper.h" />
+    <ClInclude Include="src\rpc\clone-task.h" />
+    <ClInclude Include="src\rpc\local-repo.h" />
+    <ClInclude Include="src\rpc\searpc-marshal.h" />
+    <ClInclude Include="src\rpc\searpc-signature.h" />
+    <ClInclude Include="src\rpc\sync-error.h" />
+    <QtMoc Include="src\seafile-applet.h" />
+    <QtMoc Include="src\seahub-notifications-monitor.h" />
+    <QtMoc Include="src\server-status-service.h" />
+    <QtMoc Include="src\settings-mgr.h" />
+    <ClInclude Include="src\sync-error-service.h" />
+    <QtMoc Include="src\traynotificationmanager.h" />
+    <QtMoc Include="src\traynotificationwidget.h" />
+    <QtMoc Include="src\rpc\rpc-server.h" />
+    <QtMoc Include="src\rpc\rpc-client.h" />
+    <QtMoc Include="src\shib\shib-login-dialog.h" />
+    <QtMoc Include="src\shib\shib-helper.h" />
+    <ClInclude Include="src\ui\proxy-style.h" />
+    <QtMoc Include="src\ui\user-name-completer.h" />
+    <QtMoc Include="src\ui\uninstall-helper-dialog.h" />
+    <QtMoc Include="src\ui\two-factor-dialog.h" />
+    <QtMoc Include="src\ui\tray-icon.h" />
+    <QtMoc Include="src\ui\tab-view.h" />
+    <QtMoc Include="src\ui\sync-errors-dialog.h" />
+    <QtMoc Include="src\ui\starred-files-tab.h" />
+    <QtMoc Include="src\ui\starred-files-list-view.h" />
+    <QtMoc Include="src\ui\starred-files-list-model.h" />
+    <QtMoc Include="src\ui\starred-file-item-delegate.h" />
+    <ClInclude Include="src\ui\starred-file-item.h" />
+    <QtMoc Include="src\ui\ssl-confirm-dialog.h" />
+    <QtMoc Include="src\ui\settings-dialog.h" />
+    <QtMoc Include="src\ui\set-repo-password-dialog.h" />
+    <QtMoc Include="src\ui\server-status-dialog.h" />
+    <QtMoc Include="src\ui\search-tab-items.h" />
+    <QtMoc Include="src\ui\search-tab.h" />
+    <QtMoc Include="src\ui\search-bar.h" />
+    <QtMoc Include="src\ui\seafile-tab-widget.h" />
+    <QtMoc Include="src\ui\repo-tree-view.h" />
+    <QtMoc Include="src\ui\repo-tree-model.h" />
+    <QtMoc Include="src\ui\repos-tab.h" />
+    <QtMoc Include="src\ui\repo-item-delegate.h" />
+    <ClInclude Include="src\ui\repo-item.h" />
+    <QtMoc Include="src\ui\repo-detail-dialog.h" />
+    <QtMoc Include="src\ui\private-share-dialog.h" />
+    <QtMoc Include="src\ui\main-window.h" />
+    <QtMoc Include="src\ui\logout-view.h" />
+    <QtMoc Include="src\ui\login-dialog.h" />
+    <QtMoc Include="src\ui\loading-view.h" />
+    <QtMoc Include="src\ui\init-vdrive-dialog.h" />
+    <QtMoc Include="src\ui\init-seafile-dialog.h" />
+    <QtMoc Include="src\ui\events-list-view.h" />
+    <QtMoc Include="src\ui\event-details-tree.h" />
+    <QtMoc Include="src\ui\event-details-dialog.h" />
+    <QtMoc Include="src\ui\download-repo-dialog.h" />
+    <QtMoc Include="src\ui\create-repo-dialog.h" />
+    <QtMoc Include="src\ui\cloud-view.h" />
+    <QtMoc Include="src\ui\clone-tasks-table-view.h" />
+    <QtMoc Include="src\ui\clone-tasks-table-model.h" />
+    <QtMoc Include="src\ui\clone-tasks-dialog.h" />
+    <QtMoc Include="src\ui\check-repo-root-perm-dialog.h" />
+    <QtMoc Include="src\ui\activities-tab.h" />
+    <QtMoc Include="src\ui\account-view.h" />
+    <QtMoc Include="src\ui\account-settings-dialog.h" />
+    <QtMoc Include="src\ui\about-dialog.h" />
+    <ClInclude Include="src\utils\api-utils.h" />
+    <ClInclude Include="src\utils\file-utils.h" />
+    <ClInclude Include="src\utils\json-utils.h" />
+    <ClInclude Include="src\utils\log.h" />
+    <ClInclude Include="src\utils\paint-utils.h" />
+    <ClInclude Include="src\utils\process.h" />
+    <ClInclude Include="src\utils\registry.h" />
+    <ClInclude Include="src\utils\rsa.h" />
+    <ClInclude Include="src\utils\seafile-error.h" />
+    <ClInclude Include="src\utils\singleton.h" />
+    <ClInclude Include="src\utils\stl.h" />
+    <ClInclude Include="src\utils\translate-commit-desc.h" />
+    <ClInclude Include="src\utils\uninstall-helpers.h" />
+    <ClInclude Include="src\utils\utils-win.h" />
+    <ClInclude Include="src\utils\utils.h" />
+    <QtMoc Include="src\api\requests.h" />
+    <QtMoc Include="src\api\api-request.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\seafile\lib\repo.c" />
+    <ClCompile Include="..\seafile\lib\seafile-rpc-wrapper.c" />
+    <ClCompile Include="..\seafile\lib\task.c" />
+    <ClCompile Include="src\account-info-service.cpp" />
+    <ClCompile Include="src\account-mgr.cpp" />
+    <ClCompile Include="src\account.cpp" />
+    <ClCompile Include="src\api\api-client.cpp" />
+    <ClCompile Include="src\api\api-error.cpp" />
+    <ClCompile Include="src\api\api-request.cpp" />
+    <ClCompile Include="src\api\commit-details.cpp" />
+    <ClCompile Include="src\api\contact-share-info.cpp" />
+    <ClCompile Include="src\api\event.cpp" />
+    <ClCompile Include="src\api\requests.cpp" />
+    <ClCompile Include="src\api\server-repo.cpp" />
+    <ClCompile Include="src\api\starred-file.cpp" />
+    <ClCompile Include="src\application.cpp" />
+    <ClCompile Include="src\auto-login-service.cpp" />
+    <ClCompile Include="src\auto-update-service.cpp" />
+    <ClCompile Include="src\avatar-service.cpp" />
+    <ClCompile Include="src\certs-mgr.cpp" />
+    <ClCompile Include="src\configurator.cpp" />
+    <ClCompile Include="src\crash-handler.cpp" />
+    <ClCompile Include="src\customization-service.cpp" />
+    <ClCompile Include="src\daemon-mgr.cpp" />
+    <ClCompile Include="src\events-service.cpp" />
+    <ClCompile Include="src\ext-handler.cpp" />
+    <ClCompile Include="src\filebrowser\auto-update-mgr.cpp" />
+    <ClCompile Include="src\filebrowser\data-cache.cpp" />
+    <ClCompile Include="src\filebrowser\data-mgr.cpp" />
+    <ClCompile Include="src\filebrowser\file-browser-dialog.cpp" />
+    <ClCompile Include="src\filebrowser\file-browser-manager.cpp" />
+    <ClCompile Include="src\filebrowser\file-browser-requests.cpp" />
+    <ClCompile Include="src\filebrowser\file-browser-search-tab.cpp" />
+    <ClCompile Include="src\filebrowser\file-table.cpp" />
+    <ClCompile Include="src\filebrowser\progress-dialog.cpp" />
+    <ClCompile Include="src\filebrowser\reliable-upload.cpp" />
+    <ClCompile Include="src\filebrowser\seaf-dirent.cpp" />
+    <ClCompile Include="src\filebrowser\seafilelink-dialog.cpp" />
+    <ClCompile Include="src\filebrowser\sharedlink-dialog.cpp" />
+    <ClCompile Include="src\filebrowser\tasks.cpp" />
+    <ClCompile Include="src\filebrowser\thumbnail-service.cpp" />
+    <ClCompile Include="src\filebrowser\transfer-mgr.cpp" />
+    <ClCompile Include="src\i18n.cpp" />
+    <ClCompile Include="src\log-uploader.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\message-poller.cpp" />
+    <ClCompile Include="src\network-mgr.cpp" />
+    <ClCompile Include="src\open-local-helper.cpp" />
+    <ClCompile Include="src\repo-service-helper.cpp" />
+    <ClCompile Include="src\repo-service.cpp" />
+    <ClCompile Include="src\rpc\clone-task.cpp" />
+    <ClCompile Include="src\rpc\local-repo.cpp" />
+    <ClCompile Include="src\rpc\rpc-client.cpp" />
+    <ClCompile Include="src\rpc\rpc-server.cpp" />
+    <ClCompile Include="src\rpc\sync-error.cpp" />
+    <ClCompile Include="src\seafile-applet.cpp" />
+    <ClCompile Include="src\seahub-notifications-monitor.cpp" />
+    <ClCompile Include="src\server-status-service.cpp" />
+    <ClCompile Include="src\settings-mgr.cpp" />
+    <ClCompile Include="src\shib\shib-login-dialog.cpp" />
+    <ClCompile Include="src\sync-error-service.cpp" />
+    <ClCompile Include="src\traynotificationmanager.cpp" />
+    <ClCompile Include="src\traynotificationwidget.cpp" />
+    <ClCompile Include="src\ui\about-dialog.cpp" />
+    <ClCompile Include="src\ui\account-settings-dialog.cpp" />
+    <ClCompile Include="src\ui\account-view.cpp" />
+    <ClCompile Include="src\ui\activities-tab.cpp" />
+    <ClCompile Include="src\ui\check-repo-root-perm-dialog.cpp" />
+    <ClCompile Include="src\ui\clone-tasks-dialog.cpp" />
+    <ClCompile Include="src\ui\clone-tasks-table-model.cpp" />
+    <ClCompile Include="src\ui\clone-tasks-table-view.cpp" />
+    <ClCompile Include="src\ui\cloud-view.cpp" />
+    <ClCompile Include="src\ui\create-repo-dialog.cpp" />
+    <ClCompile Include="src\ui\download-repo-dialog.cpp" />
+    <ClCompile Include="src\ui\event-details-dialog.cpp" />
+    <ClCompile Include="src\ui\event-details-tree.cpp" />
+    <ClCompile Include="src\ui\events-list-view.cpp" />
+    <ClCompile Include="src\ui\init-seafile-dialog.cpp" />
+    <ClCompile Include="src\ui\init-vdrive-dialog.cpp" />
+    <ClCompile Include="src\ui\loading-view.cpp" />
+    <ClCompile Include="src\ui\login-dialog.cpp" />
+    <ClCompile Include="src\ui\logout-view.cpp" />
+    <ClCompile Include="src\ui\main-window.cpp" />
+    <ClCompile Include="src\ui\private-share-dialog.cpp" />
+    <ClCompile Include="src\ui\proxy-style.cpp" />
+    <ClCompile Include="src\ui\repo-detail-dialog.cpp" />
+    <ClCompile Include="src\ui\repo-item-delegate.cpp" />
+    <ClCompile Include="src\ui\repo-item.cpp" />
+    <ClCompile Include="src\ui\repo-tree-model.cpp" />
+    <ClCompile Include="src\ui\repo-tree-view.cpp" />
+    <ClCompile Include="src\ui\repos-tab.cpp" />
+    <ClCompile Include="src\ui\seafile-tab-widget.cpp" />
+    <ClCompile Include="src\ui\search-bar.cpp" />
+    <ClCompile Include="src\ui\search-tab-items.cpp" />
+    <ClCompile Include="src\ui\search-tab.cpp" />
+    <ClCompile Include="src\ui\server-status-dialog.cpp" />
+    <ClCompile Include="src\ui\set-repo-password-dialog.cpp" />
+    <ClCompile Include="src\ui\settings-dialog.cpp" />
+    <ClCompile Include="src\ui\ssl-confirm-dialog.cpp" />
+    <ClCompile Include="src\ui\starred-file-item-delegate.cpp" />
+    <ClCompile Include="src\ui\starred-file-item.cpp" />
+    <ClCompile Include="src\ui\starred-files-list-model.cpp" />
+    <ClCompile Include="src\ui\starred-files-list-view.cpp" />
+    <ClCompile Include="src\ui\starred-files-tab.cpp" />
+    <ClCompile Include="src\ui\sync-errors-dialog.cpp" />
+    <ClCompile Include="src\ui\tab-view.cpp" />
+    <ClCompile Include="src\ui\tray-icon.cpp" />
+    <ClCompile Include="src\ui\two-factor-dialog.cpp" />
+    <ClCompile Include="src\ui\uninstall-helper-dialog.cpp" />
+    <ClCompile Include="src\ui\user-name-completer.cpp" />
+    <ClCompile Include="src\utils\api-utils.cpp" />
+    <ClCompile Include="src\utils\file-utils.cpp" />
+    <ClCompile Include="src\utils\json-utils.cpp" />
+    <ClCompile Include="src\utils\log.c" />
+    <ClCompile Include="src\utils\paint-utils.cpp" />
+    <ClCompile Include="src\utils\process-win.cpp" />
+    <ClCompile Include="src\utils\registry.cpp" />
+    <ClCompile Include="src\utils\rsa.cpp" />
+    <ClCompile Include="src\utils\seafile-error.cpp" />
+    <ClCompile Include="src\utils\stl.cpp" />
+    <ClCompile Include="src\utils\translate-commit-desc.cpp" />
+    <ClCompile Include="src\utils\uninstall-helpers.cpp" />
+    <ClCompile Include="src\utils\utils-win.cpp" />
+    <ClCompile Include="src\utils\utils.cpp" />
+    <ClCompile Include="third_party\QtAwesome\QtAwesome.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="seafile-client.qrc" />
+    <QtRcc Include="third_party\QtAwesome\QtAwesome.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="seafile-client.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="seafile.ico" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DB8A875C-9A9D-4A4F-B6BD-40E576A726FF}</ProjectGuid>
+    <Keyword>QtVS_v303</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.18362.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>seafile-applet</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>SEAFILE_CLIENT_VERSION=7.0.10;HAVE_SHIBBOLETH_SUPPORT;HAVE_SPARKLE_SUPPORT;SEAFILE_CLIENT_HAS_CRASH_REPORTER;WIN32_LEAN_AND_MEAN;QUAZIP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libsearpc\lib;$(ProjectDir)..\seafile;$(ProjectDir)..\breakpad\src;$(ProjectDir)third_party\quazip;$(ProjectDir)third_party\QtAwesome;$(ProjectDir)third_party\WinSparkle-0.5.3\include;$(ProjectDir)src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>wininet.lib;urlmon.lib;psapi.lib;ws2_32.lib;shlwapi.lib;mpr.lib;crypt32.lib;libsearpc.lib;quazip.lib;common.lib;crash_generation_client.lib;exception_handler.lib;rpcrt4.lib;onecoreuap.lib;onecore.lib;winspool.lib;cldapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)third_party\WinSparkle-0.5.3\x64\Release;$(ProjectDir)..\libsearpc\$(IntDir);$(ProjectDir)third_party\quazip\$(IntDir);$(ProjectDir)..\breakpad\src\client\windows\Release\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>set FolderName=$(ProjectDir)i18n\
+for /f "delims=. " %%a in ('dir /b /a-d /o-d "%FolderName%\*.ts"') do (
+   $(QtDllPath)\lrelease.exe   "$(ProjectDir)i18n\\"%%a".ts" -qm  "$(ProjectDir)i18n\\"%%a".qm"
+)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>Qt 5.13.1-64bit</QtInstall>
+    <QtModules>core;network;gui;widgets;webengine;webenginewidgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>Qt 5.13.1-64bit</QtInstall>
+    <QtModules>core;network;gui;widgets;webengine;webenginewidgets</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>true</QtDeploy>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

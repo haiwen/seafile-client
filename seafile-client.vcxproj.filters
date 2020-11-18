@@ -1,0 +1,1050 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{bc3e9ffc-8c3f-4f0d-bed6-3eea9995cbb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0b0229e7-ae1d-4292-8cf7-4d771f89b111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{aa58459b-23d5-4677-b1a0-49ee470a7d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{ba5eaa23-f046-4ba6-891c-fa074c0f755b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{19bd4567-217d-4dc8-8458-2e46e23bf2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{e5d98abf-21c0-4207-a655-2a6966a59847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\api">
+      <UniqueIdentifier>{53489472-b005-40cb-af07-3937f58a3e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rpc">
+      <UniqueIdentifier>{870662cb-2c9a-4f08-89d6-06b8d1dc5dca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shib">
+      <UniqueIdentifier>{3e4ce891-4d88-47ea-aa19-082878248b7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui">
+      <UniqueIdentifier>{ff36d404-6a42-4eb2-80bf-2e698445bb19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{a2cf7576-eec6-4862-8767-7f93400717ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\api">
+      <UniqueIdentifier>{e9ccb837-038f-457f-b991-d5fa5dbb180e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{1267f5cd-b87b-4174-85a3-4b99be20ef10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{ee2b8766-17b2-4889-84e7-2a855514db57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shib">
+      <UniqueIdentifier>{269f3cf7-6675-4c32-bd73-3e1ecc740c72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rpc">
+      <UniqueIdentifier>{1f99a2c6-febf-4725-b6bd-388a3812cef6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\filebrowser">
+      <UniqueIdentifier>{8b787fa7-a013-4330-a625-ec46cfc457a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\filebrowser">
+      <UniqueIdentifier>{f0249c78-bb10-4973-be84-796565086e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\QtAwesome">
+      <UniqueIdentifier>{d481370a-7dae-4a96-8a49-0c2539abd6b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\quazip">
+      <UniqueIdentifier>{399a2698-de64-48cf-90a3-ea19f3a4132d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ui\about-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\account-settings-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\account-view.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\clone-tasks-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\cloud-view.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\create-repo-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\download-repo-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\init-seafile-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\init-vdrive-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\login-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\private-share-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\repo-detail-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\server-repo-item.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\server-repos-view.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\server-status-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\set-repo-password-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\settings-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\ssl-confirm-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\two-factor-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\uninstall-helper-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\welcome-dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="i18n\seafile_bg_BG.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_ca.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_cs_CZ.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_de_DE.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_el_GR.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_es.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_es_AR.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_es_MX.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_et_EE.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_fr_FR.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_he_IL.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_hu_HU.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_is.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_it.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_ja.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_ko_KR.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_lv.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_nb_NO.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_nl_BE.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_nl_NL.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_pl_PL.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_pt_BR.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_pt_PT.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_ru.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_sk_SK.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_sv.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_tr.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_uk.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_zh_CN.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\seafile_zh_TW.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\api\api-client.h">
+      <Filter>Header Files\api</Filter>
+    </QtMoc>
+    <QtMoc Include="src\api\api-request.h">
+      <Filter>Header Files\api</Filter>
+    </QtMoc>
+    <QtMoc Include="src\api\requests.h">
+      <Filter>Header Files\api</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\about-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\account-settings-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\account-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\activities-tab.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\check-repo-root-perm-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\clone-tasks-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\clone-tasks-table-model.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\clone-tasks-table-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\cloud-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\create-repo-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\download-repo-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\event-details-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\event-details-tree.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\events-list-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\init-seafile-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\init-vdrive-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\loading-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\login-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\logout-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\main-window.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\private-share-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\repo-detail-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\repo-item-delegate.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\repos-tab.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\repo-tree-model.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\repo-tree-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\seafile-tab-widget.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\search-bar.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\search-tab.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\search-tab-items.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\server-status-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\set-repo-password-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\settings-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\ssl-confirm-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\starred-file-item-delegate.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\starred-files-list-model.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\starred-files-list-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\starred-files-tab.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\sync-errors-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\tab-view.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\tray-icon.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\two-factor-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\uninstall-helper-dialog.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ui\user-name-completer.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="src\shib\shib-helper.h">
+      <Filter>Header Files\shib</Filter>
+    </QtMoc>
+    <QtMoc Include="src\shib\shib-login-dialog.h">
+      <Filter>Header Files\shib</Filter>
+    </QtMoc>
+    <QtMoc Include="src\rpc\rpc-client.h">
+      <Filter>Header Files\rpc</Filter>
+    </QtMoc>
+    <QtMoc Include="src\rpc\rpc-server.h">
+      <Filter>Header Files\rpc</Filter>
+    </QtMoc>
+    <QtMoc Include="src\traynotificationwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\traynotificationmanager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\settings-mgr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\server-status-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\seahub-notifications-monitor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\seafile-applet.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\repo-service-helper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\repo-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\open-local-helper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\network-mgr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\message-poller.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\ext-handler.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\events-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\daemon-mgr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\customization-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\configurator.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\avatar-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\auto-update-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\auto-login-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\application.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\account-mgr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\account-info-service.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\auto-update-mgr.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\data-mgr.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\file-browser-dialog.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\file-browser-manager.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\file-browser-requests.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\file-browser-search-tab.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\file-table.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\progress-dialog.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\reliable-upload.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\seafilelink-dialog.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\sharedlink-dialog.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\tasks.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\thumbnail-service.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="src\filebrowser\transfer-mgr.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
+    <QtMoc Include="third_party\QtAwesome\QtAwesome.h">
+      <Filter>third_party\QtAwesome</Filter>
+    </QtMoc>
+    <QtMoc Include="src\log-uploader.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="third_party\quazip\quagzipfile.h">
+      <Filter>third_party\quazip</Filter>
+    </QtMoc>
+    <QtMoc Include="third_party\quazip\quaziodevice.h">
+      <Filter>third_party\quazip</Filter>
+    </QtMoc>
+    <QtMoc Include="third_party\quazip\quazipfile.h">
+      <Filter>third_party\quazip</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\api\api-error.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\api\commit-details.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\api\contact-share-info.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\api\event.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\api\server-info.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\api\server-repo.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\api\starred-file.h">
+      <Filter>Header Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\utils-win.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\uninstall-helpers.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\translate-commit-desc.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\stl.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\singleton.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\seafile-error.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\rsa.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\registry.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\process.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\paint-utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\log.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\json-utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\file-utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\api-utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\proxy-style.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\repo-item.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\starred-file-item.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\clone-task.h">
+      <Filter>Header Files\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\local-repo.h">
+      <Filter>Header Files\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\searpc-marshal.h">
+      <Filter>Header Files\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\searpc-signature.h">
+      <Filter>Header Files\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rpc\sync-error.h">
+      <Filter>Header Files\rpc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sync-error-service.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mac-sparkle-support.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\i18n.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\crash-handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\certs-mgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\account.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\filebrowser\data-cache.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\filebrowser\seaf-dirent.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\crypt.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\ioapi.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\JlCompress.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quaadler32.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quachecksum32.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quacrc32.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quazip.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quazip_global.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quazipdir.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quazipfileinfo.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\quazipnewinfo.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\unzip.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\quazip\zip.h">
+      <Filter>third_party\quazip</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\api\api-client.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\api-error.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\api-request.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\commit-details.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\contact-share-info.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\event.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\requests.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\server-repo.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\api\starred-file.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shib\shib-login-dialog.cpp">
+      <Filter>Source Files\shib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\user-name-completer.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\uninstall-helper-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\two-factor-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\tray-icon.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\tab-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\sync-errors-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\starred-files-tab.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\starred-files-list-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\starred-files-list-model.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\starred-file-item-delegate.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\starred-file-item.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\ssl-confirm-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\settings-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\set-repo-password-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\server-status-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\search-tab-items.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\search-tab.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\search-bar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\seafile-tab-widget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\repo-tree-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\repo-tree-model.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\repos-tab.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\repo-item-delegate.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\repo-item.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\repo-detail-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\proxy-style.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\private-share-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\main-window.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\logout-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\login-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\loading-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\init-vdrive-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\init-seafile-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\events-list-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\event-details-tree.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\event-details-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\download-repo-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\create-repo-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\cloud-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\clone-tasks-table-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\clone-tasks-table-model.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\clone-tasks-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\check-repo-root-perm-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\activities-tab.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\account-view.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\account-settings-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\about-dialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\clone-task.cpp">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\local-repo.cpp">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\rpc-client.cpp">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\rpc-server.cpp">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rpc\sync-error.cpp">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\api-utils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\file-utils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\json-utils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\paint-utils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\process-win.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\registry.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\rsa.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\seafile-error.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\stl.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\translate-commit-desc.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\uninstall-helpers.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\utils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\utils-win.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\traynotificationwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\traynotificationmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sync-error-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\settings-mgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server-status-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seahub-notifications-monitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seafile-applet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\repo-service-helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\repo-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\open-local-helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network-mgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\message-poller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\i18n.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ext-handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\events-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\daemon-mgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\customization-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\crash-handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\configurator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\certs-mgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\avatar-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\auto-update-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\auto-login-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\account-mgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\account-info-service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\account.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\auto-update-mgr.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\data-cache.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\data-mgr.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\file-browser-dialog.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\file-browser-manager.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\file-browser-requests.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\file-browser-search-tab.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\file-table.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\progress-dialog.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\reliable-upload.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\seaf-dirent.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\seafilelink-dialog.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\sharedlink-dialog.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\tasks.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\thumbnail-service.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\transfer-mgr.cpp">
+      <Filter>Source Files\filebrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\QtAwesome\QtAwesome.cpp">
+      <Filter>third_party\QtAwesome</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\log.c">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\seafile\lib\repo.c">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\seafile\lib\task.c">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\seafile\lib\seafile-rpc-wrapper.c">
+      <Filter>Source Files\rpc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log-uploader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="seafile-client.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="third_party\QtAwesome\QtAwesome.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="seafile-client.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="seafile.ico" />
+  </ItemGroup>
+</Project>

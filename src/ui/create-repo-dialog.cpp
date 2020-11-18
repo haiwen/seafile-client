@@ -47,7 +47,8 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
 
-    const QRect screen = QApplication::desktop()->screenGeometry();
+    const QRect screen = getScreenSize(0);
+
     move(screen.center() - this->rect().center());
 
     mTipLabel->setText("(" + tr("end-to-end encryption") + ")");
@@ -173,7 +174,7 @@ bool CreateRepoDialog::validateInputs()
         }
         passwd_ = passwd;
     } else {
-        passwd_ = QString::null;
+        passwd_ = QString();
     }
 
     QString error;

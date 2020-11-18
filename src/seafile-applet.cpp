@@ -419,7 +419,7 @@ void SeafileApplet::checkInitVDrive()
         InitVirtualDriveDialog *dialog = new InitVirtualDriveDialog(account);
         // Move the dialog to the left of the main window
         int x = main_win_->pos().x() - dialog->rect().width() - 30;
-        int y = (QApplication::desktop()->screenGeometry().center() - dialog->rect().center()).y();
+        int y = (getScreenSize(0).center() - dialog->rect().center()).y();
         dialog->move(qMax(0, x), y);
         dialog->show();
         dialog->raise();

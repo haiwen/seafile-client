@@ -44,8 +44,14 @@ const int kPreferredRightMargin = 150;
 
 QSize getReasonableWindowSize(const QSize &in)
 {
-    QSize size;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QRect screen;
+    if (!QGuiApplication::screens().isEmpty()) {
+         screen = QGuiApplication::screens().at(0)->availableGeometry();
+    }
+#else
     const QRect screen = QApplication::desktop()->availableGeometry();
+#endif
     return QSize(qMin(in.width(), screen.width() - kMinimumRightMargin),
                  qMin(in.height(), screen.height() - kMinimumTopMargin));
 }
@@ -239,7 +245,8 @@ void MainWindow::writeSettings()
 
 QPoint MainWindow::getDefaultPosition(const QSize& size)
 {
-    const QRect screen = QApplication::desktop()->availableGeometry();
+    QRect screen = getScreenSize(0);
+
     const QPoint top_right = screen.topRight();
 
     int extra_height = qMax(screen.height() - size.height(), kMinimumTopMargin) / 2;

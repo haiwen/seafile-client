@@ -4,6 +4,7 @@
 #include <QToolTip>
 #include <QLayout>
 #include <QDebug>
+#include <QPainterPath>
 
 #include "seafile-applet.h"
 #include "main-window.h"

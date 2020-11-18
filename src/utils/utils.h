@@ -95,4 +95,6 @@ int digitalCompare(const QString &left, const QString &right);
 
 bool shouldUseFramelessWindow();
 
+const QRect getScreenSize(int index);
+
 #endif

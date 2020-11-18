@@ -25,7 +25,10 @@ namespace {
 const char *kUsedServerAddresses = "UsedServerAddresses";
 const char *const kPreconfigureServerAddr = "PreconfigureServerAddr";
 const char *const kPreconfigureServerAddrOnly = "PreconfigureServerAddrOnly";
+
+#ifdef HAVE_SHIBBOLETH_SUPPORT
 const char *const kPreconfigureShibbolethLoginUrl = "PreconfigureShibbolethLoginUrl";
+#endif
 
 // 1. Returned by the server "X-Seafile-OTP: required" when login (if the user has 2FA enabled)
 // 2. The client would send this header, e.g. "X-Seafile-OTP: 123456" when login again
@@ -90,7 +93,11 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
         mServerAddr->addItems(getUsedServerAddresses());
         mServerAddr->clearEditText();
     }
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+    mServerAddr->setCompleter(nullptr);
+#else
     mServerAddr->setAutoCompletion(false);
+#endif
 
     mAutomaticLogin->setCheckState(Qt::Checked);
 
@@ -99,7 +106,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 
     connect(mSubmitBtn, SIGNAL(clicked()), this, SLOT(doLogin()));
 
-    const QRect screen = QApplication::desktop()->screenGeometry();
+    const QRect screen = getScreenSize(0);
     move(screen.center() - this->rect().center());
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT

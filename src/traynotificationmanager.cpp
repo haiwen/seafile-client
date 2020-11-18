@@ -1,10 +1,10 @@
+#include "utils/utils.h"
 #include "traynotificationmanager.h"
 
 TrayNotificationManager::TrayNotificationManager(QObject *parent)
-  : notificationWidgets(new QList<TrayNotificationWidget*>()), QObject(parent)
+  :  QObject(parent), notificationWidgets(new QList<TrayNotificationWidget*>())
 {
-    QDesktopWidget* desktopWidget = QApplication::desktop();
-    QRect clientRect = desktopWidget->availableGeometry();
+    QRect clientRect = getScreenSize(0);
     m_maxTrayNotificationWidgets = 4;
     m_width = 320;
     m_height = 150;

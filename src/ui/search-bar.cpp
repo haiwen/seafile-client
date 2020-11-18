@@ -6,7 +6,7 @@
 namespace {
 
 const int kMarginRightSearchBar = 16;
-const int kMarginBottom = 5;
+//const int kMarginBottom = 5;
 const int kHMargin = 10;
 
 } // namespace

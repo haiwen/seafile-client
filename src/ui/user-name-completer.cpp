@@ -200,7 +200,11 @@ void SeafileUserNameCompleter::autoSuggest()
             QDateTime::currentMSecsSinceEpoch()) {
         // printf("cached results for %s\n", pattern.toUtf8().data());
         showCompletion(
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+            cached_completion_users_by_pattern_[pattern].users.values(), pattern);
+#else
             cached_completion_users_by_pattern_[pattern].users.toList(), pattern);
+#endif
         return;
     }
 
@@ -242,7 +246,11 @@ void SeafileUserNameCompleter::onSearchUsersSuccess(
     //        req->pattern().toUtf8().data());
 
     cached_completion_users_by_pattern_[req->pattern()] = {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+        QSet<SeafileUser>(users.begin(), users.end()),
+#else
         QSet<SeafileUser>::fromList(users),
+#endif
         QDateTime::currentMSecsSinceEpoch()};
     showCompletion(users, req->pattern());
 }

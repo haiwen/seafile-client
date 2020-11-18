@@ -54,7 +54,7 @@ QString CloneTask::calcProgress(int64_t done, int64_t total)
 
     int64_t percentage = done * 100 / total;
 
-    return QString().sprintf(" %lld%%", percentage);
+    return QString("%1%").arg(percentage);
 }
 
 void CloneTask::translateStateInfo()

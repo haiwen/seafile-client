@@ -12,12 +12,16 @@
 #include <glib.h>
 #include <cstring>
 #include <QObject>
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QString>
 #include <QSettings>
 #include <QProcess>
 #include <QDesktopServices>
 #include <QHostInfo>
 #include <jansson.h>
+#include <QGuiApplication>
+#include <QScreen>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
 #endif
@@ -865,4 +869,19 @@ bool shouldUseFramelessWindow()
     }
 
     return _shouldUseFramelessWindow > 0;
+}
+
+const QRect getScreenSize(int index) {
+    QRect screen;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
+    if (!QGuiApplication::screens().empty()) {
+        screen = QGuiApplication::screens().at(index)->geometry();
+        return screen;
+    } else {
+        return QRect();
+    }
+#else
+    screen = QApplication::desktop()->screenGeometry();
+    return screen;
+#endif
 }

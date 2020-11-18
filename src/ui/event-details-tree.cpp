@@ -15,7 +15,7 @@
 #include "event-details-tree.h"
 namespace {
 const int kMarginLeft = 10;
-const int kMarginRight = 10;
+//const int kMarginRight = 10;
 const int kPadding = 5;
 const int kFileIconHeight = 12;
 const int kFileItemHeight = 30;

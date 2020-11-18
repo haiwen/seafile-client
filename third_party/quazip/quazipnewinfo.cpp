@@ -1,20 +1,20 @@
 /*
 Copyright (C) 2005-2014 Sergey A. Tachenov
 
-This file is part of QuaZIP.
+This file is part of QuaZip.
 
-QuaZIP is free software: you can redistribute it and/or modify
+QuaZip is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 2.1 of the License, or
 (at your option) any later version.
 
-QuaZIP is distributed in the hope that it will be useful,
+QuaZip is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with QuaZIP.  If not, see <http://www.gnu.org/licenses/>.
+along with QuaZip.  If not, see <http://www.gnu.org/licenses/>.
 
 See COPYING file for the full LGPL text.
 
@@ -22,7 +22,7 @@ Original ZIP package is copyrighted by Gilles Vollant and contributors,
 see quazip/(un)zip.h files for details. Basically it's the zlib license.
 */
 
-#include <QFileInfo>
+#include <QtCore/QFileInfo>
 
 #include "quazipnewinfo.h"
 
@@ -121,7 +121,7 @@ void QuaZipNewInfo::setFilePermissions(const QString &file)
 
 void QuaZipNewInfo::setPermissions(QFile::Permissions permissions)
 {
-    QuaZipNewInfo_setPermissions(this, permissions, name.endsWith('/'));
+    QuaZipNewInfo_setPermissions(this, permissions, name.endsWith(QLatin1String("/")));
 }
 
 void QuaZipNewInfo::setFileNTFSTimes(const QString &fileName)
@@ -134,7 +134,11 @@ void QuaZipNewInfo::setFileNTFSTimes(const QString &fileName)
     }
     setFileNTFSmTime(fi.lastModified());
     setFileNTFSaTime(fi.lastRead());
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
+    setFileNTFScTime(fi.birthTime());
+#else
     setFileNTFScTime(fi.created());
+#endif
 }
 
 static void setNTFSTime(QByteArray &extra, const QDateTime &time, int position,

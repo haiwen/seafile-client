@@ -32,7 +32,8 @@ UninstallHelperDialog::UninstallHelperDialog(QWidget *parent)
     loadQss("qt-mac.css") || loadQss(":/qt-mac.css");
 #endif
 
-    const QRect screen = QApplication::desktop()->screenGeometry();
+    const QRect screen = getScreenSize(0);
+
     move(screen.center() - this->rect().center());
 
     connect(mYesBtn, SIGNAL(clicked()),

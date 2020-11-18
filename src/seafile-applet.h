@@ -48,7 +48,7 @@ public:
                     QLineEdit::EchoMode mode = QLineEdit::Normal,
                     const QString &text = QString(),
                     bool *ok = 0,
-                    Qt::WindowFlags flags = 0,
+                    Qt::WindowFlags flags = Qt::Widget,
                     Qt::InputMethodHints inputMethodHints = Qt::ImhNone);
 
         // Show error in a messagebox and exit

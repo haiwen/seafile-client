@@ -137,7 +137,12 @@ void RepoTreeView::loadExpandedCategries()
     QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
     if (settings.contains(key)) {
         QString cats = settings.value(key, "").toString();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+        QStringList cats_list = cats.split("\t", Qt::SkipEmptyParts);
+        expanded_categroies_ = QSet<QString>(cats_list.begin(), cats_list.end());
+#else
         expanded_categroies_ = QSet<QString>::fromList(cats.split("\t", QString::SkipEmptyParts));
+#endif
     } else {
         // Expand "recent updated" on first use
         expanded_categroies_.insert(tr("Recently Updated"));
@@ -736,7 +741,11 @@ void RepoTreeView::saveExpandedCategries()
         return;
     }
     QSettings settings;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    QStringList cats = expanded_categroies_.values();
+#else
     QStringList cats = expanded_categroies_.toList();
+#endif
     settings.beginGroup(kRepoTreeViewSettingsGroup);
     QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
     settings.setValue(key, cats.join("\t"));

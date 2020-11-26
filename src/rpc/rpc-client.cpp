@@ -898,7 +898,7 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
     char *c_magic = NULL;
     char *c_random_key = NULL;
     char *c_salt = NULL;
-    if (enc_version == 3) {
+    if (enc_version == 3 || enc_version == 4) {
         g_object_get (obj,
                     "magic", &c_magic,
                     "random_key", &c_random_key,

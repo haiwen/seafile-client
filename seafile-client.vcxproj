@@ -414,7 +414,7 @@ for /f "delims=. " %%a in ('dir /b /a-d /o-d "%FolderName%\*.ts"') do (
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>Qt 5.13.1-64bit</QtInstall>
+    <QtInstall>Qt5.15.1-64bit</QtInstall>
     <QtModules>core;network;gui;widgets;webengine;webenginewidgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>

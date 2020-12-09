@@ -393,7 +393,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>SEAFILE_CLIENT_VERSION=8.0.0;HAVE_SHIBBOLETH_SUPPORT;HAVE_SPARKLE_SUPPORT;SEAFILE_CLIENT_HAS_CRASH_REPORTER;WIN32_LEAN_AND_MEAN;QUAZIP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SEAFILE_CLIENT_VERSION=8.0.1;HAVE_SHIBBOLETH_SUPPORT;HAVE_SPARKLE_SUPPORT;SEAFILE_CLIENT_HAS_CRASH_REPORTER;WIN32_LEAN_AND_MEAN;QUAZIP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\libsearpc\lib;$(ProjectDir)..\seafile;$(ProjectDir)..\breakpad\src;$(ProjectDir)third_party\quazip;$(ProjectDir)third_party\QtAwesome;$(ProjectDir)third_party\WinSparkle-0.5.3\include;$(ProjectDir)src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>

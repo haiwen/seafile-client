@@ -176,6 +176,11 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
             msg = tr("Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.").arg(path);
             break;
+#if !defined(Q_OS_WIN32)
+        case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
+            msg = tr("The file path %1 contains symbols that are not supported by the Windows system.").arg(path);
+            break;
+#endif
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);

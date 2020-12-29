@@ -88,12 +88,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName", "HaiWenHuZhi ltd."
-            VALUE "FileDescription", "Seafile"
+            VALUE "FileDescription", "Seafile Client"
             VALUE "FileVersion", "8.0.1.0"
             VALUE "InternalName", "seafile-applet.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "seafile-applet.exe"
-            VALUE "ProductName", "Seafile"
+            VALUE "ProductName", "Seafile Client"
             VALUE "ProductVersion", "8.0.1.0"
         END
     END

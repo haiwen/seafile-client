@@ -99,6 +99,11 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
             error_str = QObject::tr("A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.");
             break;
+#if !defined(Q_OS_WIN32)
+        case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
+            error_str = QObject::tr("The file path contains symbols that are not supported by the Windows system");
+            break;
+#endif
         default:
             qWarning("Unknown sync error");
     }

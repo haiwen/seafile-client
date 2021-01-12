@@ -18,6 +18,7 @@ namespace mac {
 // Lion           10    7     ?
 void getSystemVersion(unsigned *major, unsigned *minor, unsigned *patch);
 bool isAtLeastSystemVersion(unsigned major, unsigned minor, unsigned patch);
+bool isOSXBigSurOrGreater();
 bool isOSXYosemiteOrGreater();
 bool isOSXMavericksOrGreater();
 bool isOSXMountainLionOrGreater();

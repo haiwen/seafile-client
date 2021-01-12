@@ -9,6 +9,8 @@
 #include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
+#include <QPalette>
+#include <QOperatingSystemVersion>
 
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
@@ -43,34 +45,11 @@ inline bool isInitializedSystemVersion() { return osver_major != 0; }
 inline void initializeSystemVersion() {
     if (isInitializedSystemVersion())
         return;
-#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    osver_major = version.majorVersion;
-    osver_minor = version.minorVersion;
-    osver_patch = version.patchVersion;
-#else
-    NSString *versionString = [[NSProcessInfo processInfo] operatingSystemVersionString];
-    NSArray *array = [versionString componentsSeparatedByString:@" "];
-    if (array.count < 2) {
-        osver_major = 10;
-        osver_minor = 7;
-        osver_patch = 0;
-        return;
-    }
 
-    NSArray *versionArray = [[array objectAtIndex:1] componentsSeparatedByString:@"."];
-    if (versionArray.count < 2) {
-        osver_major = 10;
-        osver_minor = 7;
-        osver_patch = 0;
-        return;
-    }
-    osver_major = [[versionArray objectAtIndex:0] intValue];
-    osver_minor = [[versionArray objectAtIndex:1] intValue];
-    if (versionArray.count > 2) {
-        osver_patch = [[versionArray objectAtIndex:2] intValue];
-    }
-#endif
+    auto current_os_version = QOperatingSystemVersion::current();
+    osver_major = current_os_version.majorVersion();
+    osver_minor = current_os_version.minorVersion();
+    osver_patch = current_os_version.microVersion();
 }
 
 inline bool _isAtLeastSystemVersion(unsigned major, unsigned minor, unsigned patch)
@@ -103,6 +82,11 @@ void getSystemVersion(unsigned *major, unsigned *minor, unsigned *patch) {
 bool isAtLeastSystemVersion(unsigned major, unsigned minor, unsigned patch)
 {
     return _isAtLeastSystemVersion(major, minor, patch);
+}
+
+bool isOSXBigSurOrGreater()
+{
+    return isAtLeastSystemVersion<11, 0, 0>();
 }
 
 bool isOSXYosemiteOrGreater()
@@ -343,11 +327,15 @@ void set_auto_start(bool enabled)
 }
 
 bool is_darkmode() {
-    static DarkmodeHelper *helper = nil;
-    if (!helper) {
-        helper = [[DarkmodeHelper alloc] init];
+    if (isOSXBigSurOrGreater()) {
+        return QPalette().base().color().lightnessF() <= 0.5;
+    } else {
+        static DarkmodeHelper *helper = nil;
+        if (!helper) {
+            helper = [[DarkmodeHelper alloc] init];
+        }
+        return darkMode;
     }
-    return darkMode;
 }
 void set_darkmode_watcher(DarkModeChangedCallback *cb) {
     darkModeWatcher = cb;

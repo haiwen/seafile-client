@@ -21,6 +21,8 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
+    <key>NSRequiresAquaSystemAppearance</key>
+    <true/>
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>

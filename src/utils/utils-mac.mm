@@ -9,6 +9,7 @@
 #include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
+#include <QOperatingSystemVersion>
 
 #if !__has_feature(objc_arc)
 #error this file must be built with ARC support
@@ -43,34 +44,11 @@ inline bool isInitializedSystemVersion() { return osver_major != 0; }
 inline void initializeSystemVersion() {
     if (isInitializedSystemVersion())
         return;
-#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    osver_major = version.majorVersion;
-    osver_minor = version.minorVersion;
-    osver_patch = version.patchVersion;
-#else
-    NSString *versionString = [[NSProcessInfo processInfo] operatingSystemVersionString];
-    NSArray *array = [versionString componentsSeparatedByString:@" "];
-    if (array.count < 2) {
-        osver_major = 10;
-        osver_minor = 7;
-        osver_patch = 0;
-        return;
-    }
 
-    NSArray *versionArray = [[array objectAtIndex:1] componentsSeparatedByString:@"."];
-    if (versionArray.count < 2) {
-        osver_major = 10;
-        osver_minor = 7;
-        osver_patch = 0;
-        return;
-    }
-    osver_major = [[versionArray objectAtIndex:0] intValue];
-    osver_minor = [[versionArray objectAtIndex:1] intValue];
-    if (versionArray.count > 2) {
-        osver_patch = [[versionArray objectAtIndex:2] intValue];
-    }
-#endif
+    auto current_os_version = QOperatingSystemVersion::current();
+    osver_major = current_os_version.majorVersion();
+    osver_minor = current_os_version.minorVersion();
+    osver_patch = current_os_version.microVersion();
 }
 
 inline bool _isAtLeastSystemVersion(unsigned major, unsigned minor, unsigned patch)

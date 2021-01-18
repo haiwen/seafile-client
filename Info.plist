@@ -20,6 +20,8 @@
 	<string>8.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+    <key>NSRequiresAquaSystemAppearance</key>
+    <true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -89,7 +89,6 @@ public:
     QString getCcnetPeerId();
 
     int updateReposServerHost(const QUrl& old_server_url,
-                              const QString& new_host,
                               const QString& new_server_url,
                               QString *err);
 

@@ -91,7 +91,7 @@ void AccountSettingsDialog::onSubmitBtnClicked()
         url.setPath("/");
 
         if (seafApplet->rpcClient()->updateReposServerHost(url,
-            new_account.serverUrl.host(), new_server_url.toString(), &error) < 0) {
+            new_server_url.toString(), &error) < 0) {
             showWarning(tr("Failed to save the changes: %1").arg(error));
             return;
         }

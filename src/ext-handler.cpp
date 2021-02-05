@@ -20,6 +20,7 @@
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
 #include "filebrowser/seafilelink-dialog.h"
+#include "filebrowser/uploadlink-dialog.h"
 #include "ui/private-share-dialog.h"
 #include "rpc/rpc-client.h"
 #include "repo-service.h"
@@ -229,13 +230,14 @@ void SeafileExtensionHandler::generateShareLink(const QString& repo_id,
 
         req->send();
     } else {
+        QString encoded_path_in_repo = path_in_repo.toUtf8().toPercentEncoding();
         GetSharedLinkRequest *req = new GetSharedLinkRequest(
-            account, repo_id, path_in_repo, is_file);
+            account, repo_id, encoded_path_in_repo);
 
-        connect(req, SIGNAL(success(const QString&, const QString&)),
-                this, SLOT(onShareLinkGenerated(const QString&)));
-        connect(req, SIGNAL(failed(const ApiError&)),
-                this, SLOT(onGetSharedLinkFailed(const ApiError&)));
+        connect(req, &GetSharedLinkRequest::success,
+                this, &SeafileExtensionHandler::onShareLinkGenerated);
+        connect(req, &GetSharedLinkRequest::failed,
+                this, &SeafileExtensionHandler::onGetSharedLinkFailed);
 
         req->send();
     }
@@ -307,7 +309,14 @@ void SeafileExtensionHandler::openUrlWithAutoLogin(const QUrl& url)
 
 void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 {
-    SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
+    GetSharedLinkRequest *req = qobject_cast<GetSharedLinkRequest *>(sender());
+    const QString repo_id = req->getRepoId();
+    const QString repo_path = req->getRepoPath();
+
+    SharedLinkDialog *dialog = new SharedLinkDialog(link,
+                                                    repo_id,
+                                                    repo_path,
+                                                    NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();
@@ -358,7 +367,7 @@ void SeafileExtensionHandler::getUploadLink(const QString& repo_id, const QStrin
 
 void SeafileExtensionHandler::onGetUploadLinkSuccess(const QString& upload_link)
 {
-    SharedLinkDialog *dialog = new SharedLinkDialog(upload_link, NULL, false);
+    UploadLinkDialog *dialog = new UploadLinkDialog(upload_link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();

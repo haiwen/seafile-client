@@ -3,25 +3,49 @@
 #include <QtGlobal>
 #include <QtWidgets>
 #include "utils/utils-mac.h"
+#include "account.h"
+#include "account-mgr.h"
+#include "seafile-applet.h"
+#include "filebrowser/file-browser-requests.h"
 
-SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent, bool is_shared_link)
-  : text_(text)
+
+SharedLinkDialog::SharedLinkDialog(const QString& link, const QString &repo_id,
+                                   const QString &path_in_repo,
+                                   QWidget *parent)
+  : text_(link), repo_id_(repo_id),
+    path_in_repo_(path_in_repo)
 {
-    if (is_shared_link) {
-        setWindowTitle(tr("Share Link"));
-    } else {
-        setWindowTitle(tr("Upload Link"));
-    }
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowTitle(tr("Share Link"));
     setWindowIcon(QIcon(":/images/seafile.png"));
+    setWindowFlags((windowFlags() & ~Qt::WindowContextHelpButtonHint) |
+                   Qt::WindowStaysOnTopHint);
     QVBoxLayout *layout = new QVBoxLayout;
 
-    QLabel *label;
-    if (is_shared_link) {
-        label = new QLabel(tr("Share link:"));
-    } else {
-        label = new QLabel(tr("Upload link:"));
-    }
+    QLabel *password_label = new QLabel(tr("Password(At least 8 characters)"));
+    layout->addWidget(password_label);
+
+    QHBoxLayout *passwd_hlayout = new QHBoxLayout;
+    QCheckBox *show_password = new QCheckBox(tr("Show password"), this);
+    connect(show_password, &QCheckBox::stateChanged,
+            this, &SharedLinkDialog::slotShowPasswordCheckBoxClicked);
+    passwd_hlayout->addWidget(show_password);
+
+    password_editor_ = new QLineEdit;
+    passwd_hlayout->addWidget(password_editor_);
+    connect(password_editor_, &QLineEdit::textChanged, this,
+            &SharedLinkDialog::slotPasswordEditTextChanged);
+    password_editor_->setEchoMode(QLineEdit::Password);
+    layout->addLayout(passwd_hlayout);
+
+    QLabel *expire_days_label = new QLabel(tr("Expire days"));
+    layout->addWidget(expire_days_label);
+
+    expire_days_editor_ = new QLineEdit;
+    QIntValidator* intValidator = new QIntValidator;
+    expire_days_editor_->setValidator(intValidator);
+    layout->addWidget(expire_days_editor_);
+
+    QLabel *label = new QLabel(tr("Share link:"));
     layout->addWidget(label);
     layout->setSpacing(5);
     layout->setContentsMargins(9, 9, 9, 9);
@@ -35,9 +59,6 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent, bool is
     QHBoxLayout *hlayout = new QHBoxLayout;
 
     QCheckBox *is_download_checked = new QCheckBox(tr("Direct Download"));
-    if (!is_shared_link) {
-       is_download_checked->hide();
-    }
     connect(is_download_checked, SIGNAL(stateChanged(int)),
             this, SLOT(onDownloadStateChanged(int)));
     hlayout->addWidget(is_download_checked);
@@ -54,13 +75,24 @@ SharedLinkDialog::SharedLinkDialog(const QString &text, QWidget *parent, bool is
     hlayout->addWidget(copy_to);
     connect(copy_to, SIGNAL(clicked()), this, SLOT(onCopyText()));
 
-    QPushButton *ok = new QPushButton(tr("OK"));
-    hlayout->addWidget(ok);
-    connect(ok, SIGNAL(clicked()), this, SLOT(accept()));
+    generate_link_pushbutton_ = new QPushButton(tr("Generate link"));
+    hlayout->addWidget(generate_link_pushbutton_);
+    connect(generate_link_pushbutton_, SIGNAL(clicked()), this, SLOT(slotGenSharedLink()));
 
     layout->addLayout(hlayout);
 
     setLayout(layout);
+
+    if (!link.isEmpty()) {
+        show_password->hide();
+        password_label->hide();
+        password_editor_->hide();
+        expire_days_label->hide();
+        expire_days_editor_->hide();
+        generate_link_pushbutton_->hide();
+    } else {
+        is_download_checked->hide();
+    }
 
     setMinimumWidth(300);
     setMaximumWidth(400);
@@ -84,3 +116,47 @@ void SharedLinkDialog::onDownloadStateChanged(int state)
     else
         editor_->setText(text_);
 }
+
+void SharedLinkDialog::slotGenSharedLink()
+{
+    const Account account = seafApplet->accountManager()->currentAccount();
+    if (!account.isValid()) {
+        return;
+    }
+
+    QString password = password_editor_->text();
+    QString expire_days = expire_days_editor_->text();
+
+    CreateSharedLinkRequest *req = new CreateSharedLinkRequest(account, repo_id_, path_in_repo_, password, expire_days);
+
+    connect(req, &CreateSharedLinkRequest::success,
+            this, &SharedLinkDialog::slotGetSharedLink);
+    req->send();
+}
+
+void SharedLinkDialog::slotGetSharedLink(const QString& link)
+{
+   text_ = link;
+   editor_->setText(text_);
+}
+
+
+void SharedLinkDialog::slotPasswordEditTextChanged(const QString &text)
+{
+    if (text.size() > 0 && text.size() < 8) {
+        generate_link_pushbutton_->setDisabled(true);
+    } else {
+        generate_link_pushbutton_->setEnabled(true);
+    }
+
+}
+
+void SharedLinkDialog::slotShowPasswordCheckBoxClicked(int state)
+{
+    if (state == Qt::Checked) {
+        password_editor_ -> setEchoMode(QLineEdit::Normal);
+        return;
+    }
+    password_editor_ -> setEchoMode(QLineEdit::Password);
+}
+

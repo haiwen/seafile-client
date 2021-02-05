@@ -499,6 +499,9 @@
     <QtMoc Include="third_party\quazip\quazipfile.h">
       <Filter>third_party\quazip</Filter>
     </QtMoc>
+    <QtMoc Include="src\filebrowser\uploadlink-dialog.h">
+      <Filter>Header Files\filebrowser</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\api\api-error.h">
@@ -1031,6 +1034,9 @@
     </ClCompile>
     <ClCompile Include="src\log-uploader.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\filebrowser\uploadlink-dialog.cpp">
+      <Filter>Source Files\filebrowser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

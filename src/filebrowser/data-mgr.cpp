@@ -166,15 +166,28 @@ void DataManager::shareDirent(const QString &repo_id,
                               const QString &path,
                               bool is_file)
 {
-    GetSharedLinkRequest *req = new GetSharedLinkRequest(account_, repo_id,
-                                                         path, is_file);
-    connect(req, SIGNAL(success(const QString&, const QString&)),
-            SIGNAL(shareDirentSuccess(const QString&, const QString&)));
+    const Account& account = seafApplet->accountManager()->currentAccount();
+    QString encoded_path_in_repo = path.toUtf8().toPercentEncoding();
+    GetSharedLinkRequest *req = new GetSharedLinkRequest(account,
+                                                         repo_id,
+                                                         encoded_path_in_repo);
 
-    connect(req, SIGNAL(failed(const ApiError&)),
-            SIGNAL(shareDirentFailed(const ApiError&)));
+    connect(req, &GetSharedLinkRequest::success,
+            this, &DataManager::slotShareDirectSuccess);
+    connect(req, &GetSharedLinkRequest::failed,
+            this, &DataManager::shareDirentFailed);
     reqs_.push_back(req);
+
     req->send();
+}
+
+void DataManager::slotShareDirectSuccess(const QString& link)
+{
+   GetSharedLinkRequest *req = qobject_cast<GetSharedLinkRequest *>(sender());
+   QString repo_id = req->getRepoId();
+   QString repo_path = req->getRepoPath();
+
+   emit sigShareDirentSuccess(link, repo_id, repo_path);
 }
 
 void DataManager::copyDirents(const QString &repo_id,

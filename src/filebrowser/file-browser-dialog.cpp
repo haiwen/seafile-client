@@ -19,6 +19,7 @@
 #include "ui/set-repo-password-dialog.h"
 #include "sharedlink-dialog.h"
 #include "seafilelink-dialog.h"
+#include "uploadlink-dialog.h"
 #include "auto-update-mgr.h"
 #include "transfer-mgr.h"
 #include "repo-service.h"
@@ -253,8 +254,8 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
             this, SLOT(onDirentsRemoveFailed(const ApiError&)));
 
     //share <--> data_mgr_
-    connect(data_mgr_notify_, SIGNAL(shareDirentSuccess(const QString&)),
-            this, SLOT(onDirentShareSuccess(const QString&)));
+    connect(data_mgr_notify_, &DataManagerNotify::shareDirentSuccess,
+            this, &FileBrowserDialog::onDirentShareSuccess);
     connect(data_mgr_, SIGNAL(shareDirentFailed(const ApiError&)),
             this, SLOT(onDirentShareFailed(const ApiError&)));
 
@@ -1252,7 +1253,7 @@ void FileBrowserDialog::onGetDirentUploadLink(const SeafDirent& dirent) {
 }
 
 void FileBrowserDialog::onGetUploadLinkSuccess(const QString& upload_link) {
-    SharedLinkDialog *dialog = new SharedLinkDialog(upload_link, NULL, false);
+    UploadLinkDialog *dialog = new UploadLinkDialog(upload_link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();
@@ -1404,9 +1405,9 @@ void FileBrowserDialog::onDirentsRemoveFailed(const ApiError&error)
     seafApplet->warningBox(tr("Remove failed"), this);
 }
 
-void FileBrowserDialog::onDirentShareSuccess(const QString &link)
+void FileBrowserDialog::onDirentShareSuccess(const QString &link, const QString &repo_id, const QString &repo_in_path)
 {
-    SharedLinkDialog(link, this).exec();
+    SharedLinkDialog(link, repo_id, repo_in_path, this).exec();
 }
 
 void FileBrowserDialog::onDirentShareFailed(const ApiError&error)
@@ -1688,8 +1689,8 @@ DataManagerNotify::DataManagerNotify(const QString &repo_id)
             this, SLOT(onDirentRemoveSuccess(const QString&, const QString&)));
     connect(data_mgr_, SIGNAL(removeDirentsSuccess(const QString&, const QStringList&, const QString&)),
             this, SLOT(onDirentsRemoveSuccess(const QString&, const QStringList&, const QString&)));
-    connect(data_mgr_, SIGNAL(shareDirentSuccess(const QString&, const QString&)),
-            this, SLOT(onDirentShareSuccess(const QString&, const QString&)));
+    connect(data_mgr_, &DataManager::sigShareDirentSuccess,
+            this, &DataManagerNotify::onDirentShareSuccess);
     connect(data_mgr_, SIGNAL(createSubrepoSuccess(const ServerRepo &, const QString&)),
             this, SLOT(onCreateSubrepoSuccess(const ServerRepo &, const QString&)));
     connect(data_mgr_, SIGNAL(copyDirentsSuccess(const QString&)),
@@ -1747,10 +1748,10 @@ void DataManagerNotify::onDirentsRemoveSuccess(const QString &parent_path, const
     }
 }
 
-void DataManagerNotify::onDirentShareSuccess(const QString &link, const QString &repo_id)
+void DataManagerNotify::onDirentShareSuccess(const QString &link, const QString &repo_id, const QString &repo_in_path)
 {
     if (repo_id == repo_id_) {
-        emit shareDirentSuccess(link);
+        emit shareDirentSuccess(link, repo_id, repo_in_path);
     }
 }
 

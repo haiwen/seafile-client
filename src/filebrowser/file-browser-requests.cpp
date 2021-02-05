@@ -18,7 +18,8 @@ namespace {
 
 const char kGetDirentsUrl[] = "api2/repos/%1/dir/";
 const char kGetFilesUrl[] = "api2/repos/%1/file/";
-const char kGetFileSharedLinkUrl[] = "api2/repos/%1/file/shared-link/";
+const char kGetFileSharedLinkUrl[] = "api/v2.1/share-links/?repo_id=%1&path=%2";
+const char kCreateFileSharedLinkUrl[] = "api/v2.1/share-links/";
 const char kGetFileUploadUrl[] = "api2/repos/%1/upload-link/";
 const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
@@ -131,22 +132,71 @@ void GetFileDownloadLinkRequest::requestSuccess(QNetworkReply& reply)
 
 GetSharedLinkRequest::GetSharedLinkRequest(const Account &account,
                                            const QString &repo_id,
-                                           const QString &path,
-                                           bool is_file)
+                                           const QString &path)
     : SeafileApiRequest(
-          account.getAbsoluteUrl(QString(kGetFileSharedLinkUrl).arg(repo_id)),
-          SeafileApiRequest::METHOD_PUT, account.token), repo_id_(repo_id)
+          account.getAbsoluteUrl(QString(kGetFileSharedLinkUrl).arg(repo_id).arg(path)),
+          SeafileApiRequest::METHOD_GET, account.token), repo_id_(repo_id), repo_path_(path)
 {
-    setFormParam("type", is_file ? "f" : "d");
-    setFormParam("p", path);
 }
 
 void GetSharedLinkRequest::requestSuccess(QNetworkReply& reply)
 {
-    QString reply_content(reply.rawHeader("Location"));
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
 
-    emit success(reply_content, repo_id_);
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+
+    const char* share_link = json_string_value(json_object_get(json_array_get(json.data(),0), "link"));
+    emit success(share_link);
 }
+
+
+CreateSharedLinkRequest::CreateSharedLinkRequest(const Account &account,
+                                                 const QString &repo_id,
+                                                 const QString &path,
+                                                 const QString &password,
+                                                 const QString &expire_days)
+        : SeafileApiRequest(
+        account.getAbsoluteUrl(QString(kCreateFileSharedLinkUrl)),
+        SeafileApiRequest::METHOD_POST, account.token)
+{
+    QString repo_in_path = QByteArray::fromPercentEncoding(path.toUtf8());
+    setFormParam("repo_id", repo_id);
+    setFormParam("path", repo_in_path);
+    if (!password.isEmpty()) {
+        setFormParam("password", password);
+    }
+
+    QDateTime now = QDateTime::currentDateTime();
+    int offset = now.offsetFromUtc();
+    now.setOffsetFromUtc(offset);
+    QString target_time = now.addDays(expire_days.toInt()).toString(Qt::ISODate);
+    if (!expire_days.isEmpty()) {
+        setFormParam("expiration_time", target_time);
+    }
+}
+
+void CreateSharedLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t* root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning("failed to parse json:%s\n", error.text);
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    const char* share_link = json_string_value(json_object_get(json.data(), "link"));
+
+    emit success(share_link);
+}
+
 
 CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,
                                                const QString &repo_id,

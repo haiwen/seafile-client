@@ -125,7 +125,7 @@ private slots:
                                 const QStringList& filenames);
     void onDirentsRemoveFailed(const ApiError& error);
 
-    void onDirentShareSuccess(const QString& link);
+    void onDirentShareSuccess(const QString& link, const QString& repo_id, const QString& repo_in_path);
     void onDirentShareFailed(const ApiError& error);
 
     void onDirentsCopySuccess();
@@ -269,7 +269,7 @@ signals:
     void renameDirentSuccess(const QString& path, const QString& new_name);
     void removeDirentSuccess(const QString& path);
     void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames);
-    void shareDirentSuccess(const QString& link);
+    void shareDirentSuccess(const QString& link, const QString&repo_id, const QString& repo_in_path);
     void createSubrepoSuccess(const ServerRepo &repo);
     void copyDirentsSuccess();
     void moveDirentsSuccess();
@@ -284,7 +284,7 @@ private slots:
     void onDirentsRemoveSuccess(const QString& parent_path,
                                 const QStringList& filenames,
                                 const QString& repo_id);
-    void onDirentShareSuccess(const QString& link, const QString& repo_id);
+    void onDirentShareSuccess(const QString& link, const QString& repo_id, const QString& repo_in_path);
     void onCreateSubrepoSuccess(const ServerRepo& repo, const QString& repo_id);
     void onDirentsCopySuccess(const QString& dst_repo_id);
     void onDirentsMoveSuccess(const QString& dst_repo_id);

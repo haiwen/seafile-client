@@ -18,6 +18,7 @@
 #include "filebrowser/file-browser-requests.h"
 #include "filebrowser/sharedlink-dialog.h"
 #include "filebrowser/seafilelink-dialog.h"
+#include "filebrowser/uploadlink-dialog.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 
@@ -195,12 +196,13 @@ void FinderSyncHost::doShareLink(const QString &path) {
         return;
     }
 
-    get_shared_link_req_.reset(new GetSharedLinkRequest(
-        account, repo_id, QString("/").append(path_in_repo),
-        QFileInfo(path).isFile()));
+    QString encoded_path_in_repo = path_in_repo.toUtf8().toPercentEncoding();
+    get_shared_link_req_.reset(new GetSharedLinkRequest(account,
+                                                        repo_id,
+                                                        encoded_path_in_repo));
 
-    connect(get_shared_link_req_.get(), SIGNAL(success(const QString &, const QString&)), this,
-            SLOT(onShareLinkGenerated(const QString &)));
+    connect(get_shared_link_req_.get(), &GetSharedLinkRequest::success,
+            this, &FinderSyncHost::onShareLinkGenerated);
 
     get_shared_link_req_->send();
 }
@@ -256,7 +258,11 @@ void FinderSyncHost::doLockFile(const QString &path, bool lock)
 
 void FinderSyncHost::onShareLinkGenerated(const QString &link)
 {
-    SharedLinkDialog *dialog = new SharedLinkDialog(link, NULL);
+    GetSharedLinkRequest *req = qobject_cast<GetSharedLinkRequest *>(sender());
+    const QString repo_id = req->getRepoId();
+    const QString repo_path = req->getRepoPath();
+
+    SharedLinkDialog *dialog = new SharedLinkDialog(link, repo_id, repo_path, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();
@@ -385,7 +391,7 @@ void FinderSyncHost::doGetUploadLink(const QString &path)
 void FinderSyncHost::onGetUploadLinkSuccess(const QString& upload_link)
 {
     // printf ("get upload link is %s", toCStr(upload_link));
-    SharedLinkDialog *dialog = new SharedLinkDialog(upload_link, NULL, false);
+    UploadLinkDialog *dialog = new UploadLinkDialog(upload_link, NULL);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
     dialog->raise();

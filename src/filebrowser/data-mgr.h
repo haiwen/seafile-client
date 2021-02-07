@@ -147,7 +147,7 @@ signals:
     void removeDirentsSuccess(const QString& parent_path, const QStringList& filenames, const QString& repo_id);
     void removeDirentsFailed(const ApiError& error);
 
-    void shareDirentSuccess(const QString& link, const QString& repo_id);
+    void sigShareDirentSuccess(const QString& link, const QString& repo_id, const QString& repo_path);
     void shareDirentFailed(const ApiError& error);
 
     void copyDirentsSuccess(const QString& dst_repo_id);
@@ -176,6 +176,7 @@ private slots:
     void onCreateSubrepoRefreshSuccess(const ServerRepo& new_repo);
 
     void onAccountChanged();
+    void slotShareDirectSuccess(const QString& link);
 
 public slots:
     // async copy operation

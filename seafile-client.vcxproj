@@ -73,6 +73,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\account.h" />
     <QtMoc Include="src\log-uploader.h" />
+    <QtMoc Include="src\filebrowser\uploadlink-dialog.h" />
     <ClInclude Include="third_party\quazip\crypt.h" />
     <ClInclude Include="third_party\quazip\ioapi.h" />
     <ClInclude Include="third_party\quazip\JlCompress.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="src\filebrowser\tasks.cpp" />
     <ClCompile Include="src\filebrowser\thumbnail-service.cpp" />
     <ClCompile Include="src\filebrowser\transfer-mgr.cpp" />
+    <ClCompile Include="src\filebrowser\uploadlink-dialog.cpp" />
     <ClCompile Include="src\i18n.cpp" />
     <ClCompile Include="src\log-uploader.cpp" />
     <ClCompile Include="src\main.cpp" />

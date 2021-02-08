@@ -251,8 +251,8 @@ void FinderSyncHost::doLockFile(const QString &path, bool lock)
     }
     lock_file_req_.reset(new LockFileRequest(account, repo_id, path_in_repo, lock));
 
-    connect(lock_file_req_.get(), SIGNAL(success()),
-            this, SLOT(onLockFileSuccess()));
+    connect(lock_file_req_.get(), &LockFileRequest::success,
+            this, &FinderSyncHost::onLockFileSuccess);
     lock_file_req_->send();
 }
 

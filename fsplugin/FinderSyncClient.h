@@ -73,6 +73,8 @@ class FinderSyncClient {
         DoShowFileHistory = 6,
         DoShowFileLockedBy = 7,
         DoGetUploadLink = 8,
+        DoShareToUser = 9,
+        DoShareToGroup = 10,
     };
 
     FinderSyncClient(FinderSync *parent);

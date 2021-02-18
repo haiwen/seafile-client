@@ -384,6 +384,20 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     // we don't have a lock-file menuitem for folders
     // early return
     if (is_dir) {
+        NSMenuItem *shareToUserByMenuItem =
+                [menu addItemWithTitle:NSLocalizedString(@"Share to a user",
+                                                         @"Share to a user")
+                                action:@selector(shareToUserAction:)
+                         keyEquivalent:@""];
+        [shareToUserByMenuItem setImage:seafileImage];
+
+        NSMenuItem *shareToGroupByMenuItem =
+                [menu addItemWithTitle:NSLocalizedString(@"Share to a group",
+                                                         @"Share to a group")
+                                action:@selector(shareToGroupAction:)
+                         keyEquivalent:@""];
+        [shareToGroupByMenuItem setImage:seafileImage];
+
         NSMenuItem *showUploadLinkByMenuItem =
                 [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Upload Link",
                                                          @"Get Seafile Upload Link")
@@ -625,6 +639,38 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     dispatch_async(self.client_command_queue_, ^{
       client_->doSendCommandWithPath(FinderSyncClient::DoShowFileLockedBy,
                                      path.c_str());
+    });
+}
+
+- (IBAction)shareToUserAction:(id)sender {
+    NSArray *items =
+            [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return;
+    NSURL *item = items.firstObject;
+
+    // do it in another thread
+    std::string path =
+            item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    dispatch_async(self.client_command_queue_, ^{
+        client_->doSendCommandWithPath(FinderSyncClient::DoShareToUser,
+                                       path.c_str());
+    });
+}
+
+- (IBAction)shareToGroupAction:(id)sender {
+    NSArray *items =
+            [[FIFinderSyncController defaultController] selectedItemURLs];
+    if (![items count])
+        return;
+    NSURL *item = items.firstObject;
+
+    // do it in another thread
+    std::string path =
+            item.path.precomposedStringWithCanonicalMapping.UTF8String;
+    dispatch_async(self.client_command_queue_, ^{
+        client_->doSendCommandWithPath(FinderSyncClient::DoShareToGroup,
+                                       path.c_str());
     });
 }
 

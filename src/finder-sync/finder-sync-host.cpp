@@ -19,6 +19,7 @@
 #include "filebrowser/sharedlink-dialog.h"
 #include "filebrowser/seafilelink-dialog.h"
 #include "filebrowser/uploadlink-dialog.h"
+#include "ui/private-share-dialog.h"
 #include "utils/utils.h"
 #include "utils/file-utils.h"
 
@@ -65,6 +66,7 @@ inline static bool isContainsPrefix(const QString &path,
         return false;
     return true;
 }
+
 
 static std::mutex update_mutex_;
 static std::vector<LocalRepo> watch_set_;
@@ -251,8 +253,8 @@ void FinderSyncHost::doLockFile(const QString &path, bool lock)
     }
     lock_file_req_.reset(new LockFileRequest(account, repo_id, path_in_repo, lock));
 
-    connect(lock_file_req_.get(), SIGNAL(success()),
-            this, SLOT(onLockFileSuccess()));
+    connect(lock_file_req_.get(), &LockFileRequest::success,
+            this, &FinderSyncHost::onLockFileSuccess);
     lock_file_req_->send();
 }
 
@@ -366,6 +368,18 @@ void FinderSyncHost::onGetFileLockInfoFailed(const ApiError& error)
     seafApplet->messageBox(tr("Failed to get lock information for file \"%1\"").arg(file));
 }
 
+void FinderSyncHost::doShareToUser(const QString& path)
+{
+    privateShare(path, false);
+    return;
+}
+
+void FinderSyncHost::doShareToGroup(const QString& path)
+{
+    privateShare(path, true);
+    return;
+}
+
 void FinderSyncHost::doGetUploadLink(const QString &path)
 {
     QString repo_id;
@@ -402,4 +416,29 @@ void FinderSyncHost::onGetUploadLinkFailed(const ApiError& error)
 {
     const QString file = ::getBaseName(get_upload_link_req_->path());
     seafApplet->messageBox(tr("Failed to get upload link for file \"%1\"").arg(file));
+}
+
+void FinderSyncHost::privateShare(const QString& path, bool is_share_to_group) {
+    QString repo_id;
+    Account account;
+    QString path_in_repo;
+    if (!lookUpFileInformation(path, &repo_id, &account, &path_in_repo)) {
+        qWarning("[FinderSync] invalid path %s", path.toUtf8().data());
+        return;
+    }
+
+    LocalRepo repo;
+    seafApplet->rpcClient()->getLocalRepo(repo_id, &repo);
+
+    PrivateShareDialog *dialog = new PrivateShareDialog(account,
+                                                        repo_id,
+                                                        repo.name,
+                                                        path_in_repo,
+                                                        is_share_to_group,
+                                                        NULL);
+
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
 }

@@ -510,11 +510,11 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
+        <translation>end-to-end šifrování</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>Označení textu</translation>
     </message>
 </context>
 <context>
@@ -532,7 +532,7 @@ nahrání selhalo.</translation>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>Právě probíhá jiná operace kopírování nebo přesunu. Čekejte prosím, dokud se operace neukončí.</translation>
     </message>
 </context>
 <context>
@@ -935,7 +935,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
+        <translation>Chyba požadavku indexu %1</translation>
     </message>
 </context>
 <context>
@@ -1010,7 +1010,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>Modifikátor</translation>
     </message>
 </context>
 <context>
@@ -1103,34 +1103,34 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Uložit jako lokální verzi...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
-        <translation type="unfinished"/>
+        <translation>Otevřít složku lokální cache</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Generovat %1 odkaz pro nahrání</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se získat odkaz</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>Soubor &quot;%1&quot; je uzamčen od %2</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se získat informace uzamčení souboru &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se získat odkaz pro nahrání pro soubor &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -1212,7 +1212,8 @@ Prosím %1</translation>
     <message>
         <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
-        <translation type="unfinished"/>
+        <translation>%1 organizuje soubory dle knihoven.
+Chceš stáhnout svoji výchozí knihovnu ?</translation>
     </message>
     <message>
         <source>Checking your default library...</source>
@@ -1276,7 +1277,8 @@ Klikněte na tlačítko &quot;Otevřít&quot; pro zobrazení.</translation>
     <message>
         <source>%1 organizes files by libraries. 
 Do you like to download your default library?</source>
-        <translation type="unfinished"/>
+        <translation>%1 organizuje soubory dle knihoven.
+Chceš stáhnout svoji výchozí knihovnu ?</translation>
     </message>
     <message>
         <source>Skip</source>
@@ -1357,7 +1359,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 ze %2</translation>
     </message>
 </context>
 <context>
@@ -1414,7 +1416,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
-        <translation type="unfinished"/>
+        <translation>%1 není správná adresa serveru. Adresa musí začínat &apos;https://&apos;</translation>
     </message>
     <message>
         <source>Please enter the password</source>
@@ -1519,64 +1521,74 @@ Do you like to download your default library?</source>
     <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; je synchronizovaný</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Soubory nahrány do &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se nasynchronizovat soubor %1
+Soubor je uzamčen jinou aplikací. Tento soubor bude zaktualizován jakmile uzavřeš tuto aplikaci.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se nasynchronizovat složku %1
+Nějaký soubor v této složce je uzamčený jinou aplikací. Složka bude zaktualizována jakmile uzavřeš tuto aplikaci.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se nasynchronizovat soubor %1
+Soubor je uzamčen jiným uživatelem. Aktualizace tohoto souboru nebyla  nahraná.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se zaindexovat soubor %1
+Zkontrolujte prosím oprávnění k souboru a místo na disku.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se nasynchronizovat %1
+Cesta k souboru je zakončená mezerou, nebo tečkou a není možné ji vytvořit ve Windows</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se nasynchronizovat %1
+Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto počítače.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizace souboru %1 byla zablokována kvůli oprávnění na složce.</translation>
     </message>
     <message>
         <source>No permission to sync folder %1.</source>
-        <translation type="unfinished"/>
+        <translation>Nemáte oprávnění k synchronizaci složky %1.</translation>
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizace v knihovně %1 pouze-pro-čtení nebudou nahrány.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>Souběžné aktualizace souboru. Soubor %1 je uložen jako konfliktní</translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation>Složka %1 byla přesunuta do složky seafile-odpadkového-koše jelikož obsahuje ještě nenahrané soubory.</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
+        <translation>Složka pro knihovnu %1 byla odstraněna. Knihovna je nesynchronizovaná.</translation>
+    </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1723,11 +1735,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Cannot resolve proxy address</source>
-        <translation type="unfinished"/>
+        <translation>Nemohu přeložit proxy adresu</translation>
     </message>
     <message>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"/>
+        <translation>Nemohu přeložit adresu serveru</translation>
     </message>
     <message>
         <source>Cannot connect to server</source>
@@ -1739,15 +1751,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Data transfer was interrupted. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>Přenos dat byl přerušen. Zkontrolujte prosím síť nebo firewall</translation>
     </message>
     <message>
         <source>Data transfer timed out. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>Vypršel časový limit pro přenos dat. Zkontrolujte prosím síť nebo firewall</translation>
     </message>
     <message>
         <source>Unhandled http redirect from server. Please check server cofiguration</source>
-        <translation type="unfinished"/>
+        <translation>Neočekávaný http byl přesměrován ze serveru. Zkontrolujte prosím konfiguraci serveru</translation>
     </message>
     <message>
         <source>Server error</source>
@@ -1759,7 +1771,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se zapsat data do klienta. Zkontrolujte prosím místo na disku nebo oprávnění ke složce</translation>
     </message>
     <message>
         <source>Storage quota full</source>
@@ -2192,6 +2204,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to open sync error id database</source>
         <translation>nepovedlo se otevřít id databáze chyby synchronizace</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3038,16 +3054,20 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Zkopírovat do schránky</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Password(At least 8 characters)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload Link</source>
-        <translation>Odkaz pro nahrání:</translation>
+        <source>Show password</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload link:</source>
-        <translation>Odkaz pro nahrání:</translation>
+        <source>Expire days</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Generate link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3157,11 +3177,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation>Chyba smazání synchronizovaného souboru</translation>
     </message>
     <message>
         <source>delete</source>
-        <translation type="unfinished"/>
+        <translation>smazat</translation>
     </message>
 </context>
 <context>
@@ -3228,6 +3248,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>No</source>
         <translation>Ne</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

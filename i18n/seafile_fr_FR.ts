@@ -510,11 +510,11 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
+        <translation>Cryptage de bout en bout</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>LabelTexte</translation>
     </message>
 </context>
 <context>
@@ -1584,6 +1584,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>Le dossier de la bibliothèque %1 a été supprimé ou déplacé. La bibliothèque n&apos;est pas synchronisée.</translation>
     </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2197,6 +2201,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>failed to open sync error id database</source>
         <translation>Impossible d&apos;ouvrir la base des ID d&apos;erreurs de synchronisation</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3043,16 +3051,20 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Copier dans le presse-papiers</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Password(At least 8 characters)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload Link</source>
-        <translation>Lien de téléversement</translation>
+        <source>Show password</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload link:</source>
-        <translation>Lien de téléversement :</translation>
+        <source>Expire days</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Generate link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3233,6 +3245,25 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>No</source>
         <translation>Non</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
